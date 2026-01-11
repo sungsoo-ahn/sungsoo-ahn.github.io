@@ -133,8 +133,8 @@ def main():
     print(f"Reading papers from: {EXCEL_PATH}")
     df = pd.read_excel(EXCEL_PATH)
 
-    # Sort by year (descending) then by venue
-    df = df.sort_values(['Year', 'Conference/Journal/Workshop'], ascending=[False, True])
+    # Reverse order (last row in Excel appears first)
+    df = df.iloc[::-1]
 
     # Generate BibTeX entries
     seen_keys = {}
