@@ -71,6 +71,7 @@ def get_venue_full_name(venue, pub_type):
         "AISTATS": "International Conference on Artificial Intelligence and Statistics",
         "EMNLP": "Conference on Empirical Methods in Natural Language Processing",
         "ACL": "Annual Meeting of the Association for Computational Linguistics",
+        "TMLR": "Transactions on Machine Learning Research",
     }
     return venue_names.get(venue, venue)
 
@@ -102,7 +103,7 @@ def paper_to_bibtex(row, seen_keys):
     if entry_type == 'inproceedings':
         lines.append(f'  booktitle={{{get_venue_full_name(venue, row["Type"])}}},')
     elif entry_type == 'article':
-        lines.append(f'  journal={{{venue}}},')
+        lines.append(f'  journal={{{get_venue_full_name(venue, row["Type"])}}},')
 
     lines.append(f'  year={{{year}}},')
 
