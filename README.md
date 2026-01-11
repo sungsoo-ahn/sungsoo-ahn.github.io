@@ -32,6 +32,34 @@ And generates `_bibliography/papers.bib` with:
 - Links to arXiv, code, and project pages
 - "Selected" flag for spotlight/oral papers and recent top-venue papers
 
+## Updating Lab Members
+
+Lab members are synced from the SPML lab Excel file. To update:
+
+```bash
+# Activate the virtual environment
+source .venv/bin/activate
+
+# Run the update script
+python scripts/update_members.py
+
+# Commit and push
+git add -A
+git commit -m "Update lab members"
+git push
+```
+
+The script reads from:
+```
+~/Sungsahn0215 Dropbox/SPML/administration/members.xlsx
+```
+
+And generates `_pages/people.md` with:
+- Faculty, postdocs, PhD students, master's students
+- Incoming members (start date >= 2026)
+- Alumni (status = 졸업)
+- Homepage links where available
+
 ## Local Development
 
 To run the site locally:
@@ -79,7 +107,7 @@ Your news content here.
 ```
 
 ### Update lab members
-Edit `_pages/people.md`
+Run `python scripts/update_members.py` (reads from members.xlsx)
 
 ### Update social links
 Edit `_data/socials.yml`

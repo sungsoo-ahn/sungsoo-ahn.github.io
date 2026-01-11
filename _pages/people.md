@@ -31,8 +31,8 @@ nav_order: 3
 - [Minkyu Kim](https://scholar.google.com/citations?user=YS0xOOMAAAAJ&hl=ko)
 - [Dongyeop Woo](https://scholar.google.com/citations?user=jl91FPYAAAAJ&hl=ko)
 - [Nayoung Kim](https://nayoung10.github.io/)
-- [Hyunjin Seo](https://hyunjin72.github.io/)
 - [Taewon Kim](https://scholar.google.co.kr/citations?user=MzmAf_4AAAAJ&hl=ko)
+- [Hyunjin Seo](https://hyunjin72.github.io/)
 
 ---
 
