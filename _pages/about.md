@@ -2,7 +2,6 @@
 layout: about
 title: about
 permalink: /
-subtitle: Assistant Professor at <a href='https://gsai.kaist.ac.kr/'>KAIST Graduate School of AI</a>
 
 profile:
   align: right
