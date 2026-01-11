@@ -38,6 +38,7 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
+  text-decoration: underline;
 
   &:hover {
     color: var(--global-theme-color);
@@ -299,10 +300,12 @@ ul.task-list input[type="checkbox"] {
 
   .navbar-brand {
     color: var(--global-text-color);
+    text-decoration: none;
   }
 
   .navbar-nav .nav-item .nav-link {
     color: var(--global-text-color);
+    text-decoration: none;
 
     &:hover {
       color: var(--global-hover-color);
