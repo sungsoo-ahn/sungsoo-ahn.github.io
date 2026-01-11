@@ -15,34 +15,34 @@ nav_order: 3
 
 ## Postdoctoral Researchers
 
-- **Minsu Kim**
-- **Yinhua Park**
+- [Minsu Kim](https://minsuukim.github.io/)
+- [Yinhua Piao](https://qkrdmsghk.github.io/)
 
 ---
 
 ## PhD Students
 
-- **Yunhui Jang**
-- **Hyosoon Jang**
-- **Hyomin Kim**
-- **Seonghyun Park**
-- **Seongsu Kim**
-- **Kiyoung Seong**
-- **Minkyu Kim**
-- **Dongyeop Woo**
-- **Nayoung Kim**
-- **Hyunjin Seo**
-- **Taewon Kim**
+- [Yunhui Jang](https://yunhuijang.github.io/)
+- [Hyosoon Jang](https://hsjang0.github.io/hsjang/)
+- [Hyomin Kim](https://icecream126.github.io/)
+- [Seonghyun Park](https://seonghyun26.github.io/hyun/)
+- [Seongsu Kim](https://seongsukim-ml.github.io/)
+- [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/)
+- [Minkyu Kim](https://scholar.google.com/citations?user=YS0xOOMAAAAJ&hl=ko)
+- [Dongyeop Woo](https://scholar.google.com/citations?user=jl91FPYAAAAJ&hl=ko)
+- [Nayoung Kim](https://nayoung10.github.io/)
+- [Hyunjin Seo](https://hyunjin72.github.io/)
+- [Taewon Kim](https://scholar.google.co.kr/citations?user=MzmAf_4AAAAJ&hl=ko)
 
 ---
 
 ## Incoming
 
-- **Yoonho Kim**
+- Yoonho Kim
 
 ---
 
 ## Alumni
 
-- **Haeji Go**
-- **Juwon Hwang**
+- Haeji Ko
+- Juwon Hwang
