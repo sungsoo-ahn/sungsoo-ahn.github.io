@@ -2,16 +2,15 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: Assistant Professor at <a href='https://gsai.kaist.ac.kr/'>KAIST Graduate School of AI</a>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>KAIST Graduate School of AI</p>
+    <p>Daejeon, South Korea</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -22,13 +21,20 @@ announcements:
   limit: 5 # leave blank to include all the news in the `_news` folder
 
 latest_posts:
-  enabled: true
+  enabled: false
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am an Assistant Professor at [KAIST Graduate School of AI](https://gsai.kaist.ac.kr/), where I direct the **Structured and Probabilistic Machine Learning (SPML) Lab**.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My research focuses on **developing machine learning algorithms for molecules**, with applications to drug discovery and material design. Our work spans generative models, flow matching, diffusion models, graph neural networks, and language models applied to chemistry and molecular science.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+**Research Interests:**
+- Molecular generation and design
+- Generative models (diffusion, flow matching)
+- Graph neural networks
+- Large language models for chemistry
+- Drug discovery and material science
+
+If you are interested in joining the SPML Lab as a graduate student, postdoc, or research intern, please feel free to reach out via email.
