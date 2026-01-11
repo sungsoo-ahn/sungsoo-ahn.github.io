@@ -121,9 +121,9 @@ def paper_to_bibtex(row, seen_keys):
     if pd.notna(row.get('Project page link')) and row['Project page link'] and row['Project page link'] != '-':
         lines.append(f'  website={{{row["Project page link"]}}},')
 
-    # Mark selected papers (spotlight, oral, or recent top venues)
-    presentation = row.get('Presentation Type', '')
-    if presentation in ['Spotlight', 'Oral'] or (year >= 2024 and venue in ['NeurIPS', 'ICML', 'ICLR']):
+    # Mark selected papers (from "Selected" column in Excel)
+    selected = row.get('Selected', '')
+    if pd.notna(selected) and str(selected).strip().lower() in ['true', 'yes', '1', 'o']:
         lines.append('  selected={true},')
 
     lines.append('}')
