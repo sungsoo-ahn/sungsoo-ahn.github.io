@@ -123,8 +123,10 @@ def paper_to_bibtex(row, seen_keys):
 
     # Mark selected papers (from "Selected" column in Excel)
     selected = row.get('Selected', '')
-    if pd.notna(selected) and str(selected).strip().lower() in ['true', 'yes', '1', 'o']:
-        lines.append('  selected={true},')
+    if pd.notna(selected):
+        selected_str = str(selected).strip().lower()
+        if selected_str in ['true', 'yes', '1', '1.0', 'o'] or selected_str.startswith('1'):
+            lines.append('  selected={true},')
 
     lines.append('}')
     return '\n'.join(lines)
