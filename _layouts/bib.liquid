@@ -189,41 +189,7 @@
 
     <!-- Links -->
     <div class="links">
-      {%- assign link_items = "" | split: "" -%}
-      {% if entry.html %}
-        {% if entry.html contains '://' %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.html | append: '">paper</a>' %}
-        {% else %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.html | prepend: '/assets/html/' | relative_url | append: '">paper</a>' %}
-        {% endif %}
-      {% endif %}
-      {% if entry.arxiv %}
-        {% assign link_items = link_items | push: '<a href="http://arxiv.org/abs/' | append: entry.arxiv | append: '">arxiv</a>' %}
-      {% endif %}
-      {% if entry.pdf %}
-        {% if entry.pdf contains '://' %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.pdf | append: '">pdf</a>' %}
-        {% else %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.pdf | prepend: '/assets/pdf/' | relative_url | append: '">pdf</a>' %}
-        {% endif %}
-      {% endif %}
-      {% if entry.code %}
-        {% assign link_items = link_items | push: '<a href="' | append: entry.code | append: '">code</a>' %}
-      {% endif %}
-      {% if entry.website %}
-        {% assign link_items = link_items | push: '<a href="' | append: entry.website | append: '">project</a>' %}
-      {% endif %}
-      {% if entry.video %}
-        {% assign link_items = link_items | push: '<a href="' | append: entry.video | append: '">video</a>' %}
-      {% endif %}
-      {% if entry.slides %}
-        {% if entry.slides contains '://' %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.slides | append: '">slides</a>' %}
-        {% else %}
-          {% assign link_items = link_items | push: '<a href="' | append: entry.slides | prepend: '/assets/pdf/' | relative_url | append: '">slides</a>' %}
-        {% endif %}
-      {% endif %}
-      [{{ link_items | join: " / " }}]
+      [{% if entry.html %}<a href="{% if entry.html contains '://' %}{{ entry.html }}{% else %}{{ entry.html | prepend: '/assets/html/' | relative_url }}{% endif %}">paper</a>{% endif %}{% if entry.html and entry.arxiv %} / {% endif %}{% if entry.arxiv %}<a href="http://arxiv.org/abs/{{ entry.arxiv }}">arxiv</a>{% endif %}{% if entry.pdf %}{% if entry.html or entry.arxiv %} / {% endif %}<a href="{% if entry.pdf contains '://' %}{{ entry.pdf }}{% else %}{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}{% endif %}">pdf</a>{% endif %}{% if entry.code %}{% if entry.html or entry.arxiv or entry.pdf %} / {% endif %}<a href="{{ entry.code }}">code</a>{% endif %}{% if entry.website %}{% if entry.html or entry.arxiv or entry.pdf or entry.code %} / {% endif %}<a href="{{ entry.website }}">project</a>{% endif %}{% if entry.video %}{% if entry.html or entry.arxiv or entry.pdf or entry.code or entry.website %} / {% endif %}<a href="{{ entry.video }}">video</a>{% endif %}]
     </div>
     {% if entry.award %}
       <!-- Hidden Award block -->
