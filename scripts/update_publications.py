@@ -56,32 +56,23 @@ def get_entry_type(row):
     if pub_type == 'Journal':
         return 'article'
     elif pub_type == 'Preprint':
-        return 'misc'
+        return 'article'  # Use article type for preprints to display "arXiv, year"
     else:  # Conference, Workshop
         return 'inproceedings'
 
-def get_venue_full_name(venue, pub_type):
-    """Get full venue name for BibTeX."""
-    venue_names = {
-        "NeurIPS": "Advances in Neural Information Processing Systems",
-        "ICML": "International Conference on Machine Learning",
-        "ICLR": "International Conference on Learning Representations",
-        "CVPR": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
-        "IJCAI": "International Joint Conference on Artificial Intelligence",
-        "AISTATS": "International Conference on Artificial Intelligence and Statistics",
-        "EMNLP": "Conference on Empirical Methods in Natural Language Processing",
-        "ACL": "Annual Meeting of the Association for Computational Linguistics",
-        "TMLR": "Transactions on Machine Learning Research",
-    }
-    return venue_names.get(venue, venue)
+def get_venue_name(venue, pub_type):
+    """Get venue name for BibTeX (uses acronym)."""
+    return venue  # Use acronym directly (ICLR, NeurIPS, etc.)
 
 def paper_to_bibtex(row, seen_keys):
     """Convert a paper row to BibTeX entry."""
-    # Skip preprints and workshop papers for main bibliography
-    if row['Type'] == 'Preprint':
-        return None
+    # Skip workshop papers
     if row['Type'] == 'Workshop':
-        return None  # Skip workshop papers
+        return None
+    # Include preprints only if they have an arxiv link
+    if row['Type'] == 'Preprint':
+        if not (pd.notna(row.get('Arxiv link')) and row['Arxiv link']):
+            return None
 
     key = generate_bibtex_key(row)
     # Handle duplicate keys
@@ -101,9 +92,12 @@ def paper_to_bibtex(row, seen_keys):
     lines.append(f'  author={{{format_authors_bibtex(row["Authors"])}}},')
 
     if entry_type == 'inproceedings':
-        lines.append(f'  booktitle={{{get_venue_full_name(venue, row["Type"])}}},')
+        lines.append(f'  booktitle={{{get_venue_name(venue, row["Type"])}}},')
     elif entry_type == 'article':
-        lines.append(f'  journal={{{get_venue_full_name(venue, row["Type"])}}},')
+        if row['Type'] == 'Preprint':
+            lines.append('  journal={arXiv},')
+        else:
+            lines.append(f'  journal={{{get_venue_name(venue, row["Type"])}}},')
 
     lines.append(f'  year={{{year}}},')
 
