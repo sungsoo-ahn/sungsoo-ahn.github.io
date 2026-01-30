@@ -52,7 +52,7 @@ external_services:
 
 navbar_fixed: false
 footer_fixed: false
-search_enabled: true
+search_enabled: false
 socials_in_search: true
 posts_in_search: true
 bib_search: true
@@ -182,6 +182,7 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "_scripts"]
 exclude:
+  - assets/jupyter/
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
