@@ -3,7 +3,7 @@ layout: page
 permalink: /people/
 title: people
 description: Members of the SPML Lab
-nav: true
+nav: false
 nav_order: 3
 ---
 

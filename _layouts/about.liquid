@@ -44,12 +44,18 @@ layout: default
       {% include latest_posts.liquid %}
     {% endif %}
 
-    <!-- Selected papers -->
+    <!-- Members -->
+    {% if page.show_members %}
+      <h2>Members</h2>
+      {{ page.members_content | markdownify }}
+    {% endif %}
+
+    <!-- Publications (all) -->
     {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
+      <h2>Publications</h2>
+      <div class="publications">
+        {% bibliography --group_by none %}
+      </div>
     {% endif %}
 
     <!-- Social -->
