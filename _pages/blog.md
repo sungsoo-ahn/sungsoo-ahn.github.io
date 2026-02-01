@@ -2,18 +2,10 @@
 layout: default
 permalink: /blog/
 title: blog
-nav: false
+nav: true
 nav_order: 1
 pagination:
-  enabled: true
-  collection: posts
-  permalink: /page/:num/
-  per_page: 5
-  sort_field: date
-  sort_reverse: true
-  trail:
-    before: 1 # The number of links before the current page
-    after: 3 # The number of links after the current page
+  enabled: false
 ---
 
 <div class="post">
@@ -103,11 +95,7 @@ pagination:
 
   <ul class="post-list">
 
-    {% if page.pagination.enabled %}
-      {% assign postlist = paginator.posts %}
-    {% else %}
-      {% assign postlist = site.posts %}
-    {% endif %}
+    {% assign postlist = site.posts | sort: "order" %}
 
     {% for post in postlist %}
 
@@ -142,7 +130,11 @@ pagination:
       <p>{{ post.description }}</p>
       <p class="post-meta">
         {{ read_time }} min read &nbsp; &middot; &nbsp;
+        {% if post.last_updated %}
+        Last updated {{ post.last_updated | date: '%B %d, %Y' }}
+        {% else %}
         {{ post.date | date: '%B %d, %Y' }}
+        {% endif %}
         {% if post.external_source %}
         &nbsp; &middot; &nbsp; {{ post.external_source }}
         {% endif %}
@@ -189,8 +181,5 @@ pagination:
 
   </ul>
 
-{% if page.pagination.enabled %}
-{% include pagination.liquid %}
-{% endif %}
 
 </div>
