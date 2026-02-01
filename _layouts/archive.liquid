@@ -18,9 +18,10 @@ layout: default
   <article class="archive">
     <div class="table-responsive">
       <table class="table table-sm table-borderless">
-        {% for document in page.documents %}
+        {% assign sorted_documents = page.documents | sort: "order" %}
+        {% for document in sorted_documents %}
           <tr>
-            <th scope="row">{{ document.date | date: '%b %d, %Y' }}</th>
+            <th scope="row">{% if document.last_updated %}{{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}</th>
             <td>
               {% if document.redirect == blank %}
                 <a class="post-link" href="{{ document.url | relative_url }}">{{ document.title }}</a>
