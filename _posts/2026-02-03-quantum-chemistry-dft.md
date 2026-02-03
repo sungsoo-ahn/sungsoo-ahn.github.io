@@ -218,9 +218,9 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 
 - [**Skala** (Luise et al., 2025)](https://arxiv.org/abs/2506.14665): Learns the exchange-correlation functional itself from data, replacing the hand-designed functionals on Jacob's Ladder with a neural network trained on high-accuracy reference calculations.
 
-- [**QHNet** (Yu et al., 2023)](https://arxiv.org/abs/2306.04922) and [**QHFlow** (Kim et al., 2025)](https://arxiv.org/abs/2505.18817): Predict the DFT Hamiltonian matrix directly from atomic structure, bypassing the expensive self-consistent field iteration. QHFlow uses equivariant flow matching to capture the multi-solution structure of the Hamiltonian.
+- [**QHNet** (Yu et al., 2023)](https://arxiv.org/abs/2306.04922), [**QHFlow** (Kim et al., 2025)](https://arxiv.org/abs/2505.18817), and [**HelM** (Kaniselvan et al., 2025)](https://arxiv.org/abs/2510.00224): Predict the DFT Hamiltonian matrix directly from atomic structure, bypassing the SCF iteration. QHFlow uses equivariant flow matching to capture the multi-solution structure, while HelM demonstrates that learning from electronic structure data transfers to improved atomic property prediction across the periodic table.
 
-- [**DeepDFT** (Jørgensen & Bhowmik, 2022)](https://doi.org/10.1088/2632-2153/ac3149) and [**GPWNO** (Kim & Ahn, 2024)](https://arxiv.org/abs/2402.04278): Predict the electron density directly from atomic structure using graph neural networks and neural operators, enabling fast estimation of the 3D density field without solving the Kohn-Sham equations.
+- [**DeepDFT** (Jørgensen & Bhowmik, 2022)](https://doi.org/10.1088/2632-2153/ac3149), [**A Recipe for Charge Density Prediction** (Fu et al., 2024)](https://arxiv.org/abs/2405.19276), [**ELECTRA** (Elsborg et al., 2025)](https://arxiv.org/abs/2503.08305), and [**GPWNO** (Kim & Ahn, 2024)](https://arxiv.org/abs/2402.04278): Predict the electron density directly from atomic structure. These methods use graph neural networks, neural operators, and learnable basis sets (including floating orbitals) to estimate the 3D density field without solving the Kohn-Sham equations.
 
 These approaches share a common theme: using neural networks to approximate quantities that are either too expensive to compute exactly or that involve unknown functionals.
 
@@ -238,7 +238,7 @@ These approaches share a common theme: using neural networks to approximate quan
 
 5. **Kohn-Sham DFT**: Introduces a fictitious non-interacting system to make the density functional approach practical, concentrating all approximation error in the exchange-correlation functional.
 
-6. **Deep learning at every level**: Neural networks are being used to parameterize wavefunctions (FermiNet, PsiFormer), learn exchange-correlation functionals (Skala), predict Hamiltonians (QHNet, QHFlow), and estimate densities (DeepDFT, GPWNO).
+6. **Deep learning at every level**: Neural networks are being used to parameterize wavefunctions (FermiNet, PsiFormer), learn exchange-correlation functionals (Skala), predict Hamiltonians (QHNet, QHFlow, HelM), and estimate densities (DeepDFT, ELECTRA, GPWNO).
 
 ---
 
