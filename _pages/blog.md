@@ -11,7 +11,7 @@ pagination:
 <div class="post">
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>These posts are a collection of concepts I encountered throughout my research—ideas that were hard to understand at first, but brought real intellectual joy once they clicked. I wrote them to share that joy with more people! All posts are fully written with AI (Claude) through interactive editing and direction by the author, as an ongoing experiment in AI-assisted technical writing and figure generation.</em>
+<em>These posts are a collection of concepts I encountered throughout my research—ideas that were hard to understand at first, but brought real intellectual joy once they clicked. I wrote these posts to share that joy with more people! All posts are fully written with AI (Claude) through interactive editing and direction by the author, as an ongoing experiment in AI-assisted technical writing and figure generation.</em>
 </p>
 
 {% assign blog_name_size = site.blog_name | size %}
