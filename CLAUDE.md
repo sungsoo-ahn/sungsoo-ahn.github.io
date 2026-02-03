@@ -24,6 +24,8 @@ python scripts/update_members.py       # From members.xlsx
 
 **Note:** This project requires Bundler 4.x which is not compatible with macOS system Ruby. Use Homebrew Ruby (`/opt/homebrew/opt/ruby/bin/`) instead.
 
+**Important:** Do not kill and restart the Jekyll server on every file edit — this disconnects the user's browser. Leave the server running while editing. Only restart (kill + serve) when the user explicitly asks to open/preview the site.
+
 ## Data Sources
 
 Excel files synced from Dropbox:
@@ -64,12 +66,24 @@ Excel files synced from Dropbox:
 
 ### Jekyll/LaTeX Pitfalls
 - Use `$$...$$` (not `$...$`) for inline math containing multiple underscores — markdown interprets underscores as italics
+- In inline math, use `\lvert...\rvert` instead of `|...|` for absolute values/norms — markdown interprets `|` as table column delimiters. Same applies to bra-ket notation: use `\mid` instead of `|` (e.g., `$$\langle \Psi \mid \hat{O} \mid \Psi \rangle$$`). Display math on its own line is not affected.
 - Add `overflow-y: visible` and padding to `mjx-container` CSS to prevent equation clipping
 - Homebrew Ruby, not system Ruby, for bundler
 
 ### Writing Quality
 - Replace domain jargon with plain-language descriptions (readers likely don't know "quadrupole")
 - When referencing publications, add to a References section as you cite, not at the end
+
+### Prose Flow
+- **Lead with the point, then justify** — e.g., "The BO approximation separates electrons from nuclei" before "because nuclei are 1836× heavier." Don't make readers wait through the setup to learn the result.
+- **Show the destination before the derivation** — when presenting a key equation, state it upfront so readers know what the subsequent steps are building toward, then derive it.
+- **Cut throat-clearing openers** — delete filler like "The equation says:", "What does X look like?", "The fundamental challenge is clear:", "The methods described above form the backbone of...". Just state the content.
+- **Don't restate what was just shown** — if the math already demonstrated a property (e.g., determinant enforces antisymmetry), don't add a sentence restating it in words.
+- **Break up stacked parentheticals** — a sentence with three em-dash clauses (e.g., "Ψ is the unknown — ..., E is the energy — ..., H is the operator — ...") should be split into separate sentences.
+- **Merge redundant statements** — if two consecutive sentences say the same thing in different words (e.g., "exponentially large space" then "function from R^3N to C"), combine into one.
+- **Be specific in section intros** — "neural networks have been applied at several points" → name the specific targets (XC functional, Hamiltonian, density).
+- **Define terms next to first use** — if a symbol appears in an equation, define it immediately after, not "defined below." For symbols defined far earlier, add a brief reminder.
+- **Drop dramatic qualifiers** — "fundamental physical flaw", "radically different approach", "enormous complexity" → just state the facts. Let the reader judge significance.
 
 ### CSS for Academic Blogs
 - Distinct h2/h3 styling (border-bottom on h2, different font sizes) for visual hierarchy
