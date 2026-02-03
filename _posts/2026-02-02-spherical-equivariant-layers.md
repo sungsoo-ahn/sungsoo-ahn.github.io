@@ -320,7 +320,7 @@ Spherical tensors are sometimes called **steerable features** in the machine lea
 
 ### Efficient $SO(2)$ Convolutions
 
-[eSCN (Passaro & Zitnick, 2023)](https://arxiv.org/abs/2302.03655) addressed the computational bottleneck of CG tensor products by rotating features to align with each edge direction, reducing the full $SO(3)$ operation to a cheaper $SO(2)$ operation and lowering complexity from $O(L^6)$ to $O(L^3)$. This edge-aligned strategy has been widely adopted. [eSEN (Shui et al., 2025)](https://arxiv.org/abs/2502.12068) further scaled this approach with Euclidean normalization and systems-level engineering—memory-efficient operations, fused kernels, and balanced compute across degrees.
+[eSCN (Passaro & Zitnick, 2023)](https://arxiv.org/abs/2302.03655) addressed the computational bottleneck of CG tensor products by rotating features to align with each edge direction, reducing the full $SO(3)$ operation to a cheaper $SO(2)$ operation and lowering complexity from $O(L^6)$ to $O(L^3)$. This edge-aligned strategy has been widely adopted. [eSEN (Fu et al., 2025)](https://arxiv.org/abs/2502.12147) further scaled this approach with Euclidean normalization and systems-level engineering—memory-efficient operations, fused kernels, and balanced compute across degrees.
 
 ### Scaling to Production
 
@@ -357,9 +357,9 @@ This framework has enabled remarkable advances in molecular property prediction,
 - Passaro, S. & Zitnick, C. L. (2023). Reducing SO(3) Convolutions to SO(2) for Efficient Equivariant GNNs. [ICML 2023](https://arxiv.org/abs/2302.03655).
 - Liao, Y.-L., et al. (2024). EquiformerV2: Improved Equivariant Transformer for Scaling to Higher-Degree Representations. [ICLR 2024](https://arxiv.org/abs/2306.12059).
 - Neumann, M., et al. (2024). Orb: A Fast, Scalable Neural Network Potential. [arXiv:2410.22570](https://arxiv.org/abs/2410.22570).
-- Shui, Z., et al. (2025). eSEN: Efficient and Scalable Equivariant Network. [arXiv:2502.12068](https://arxiv.org/abs/2502.12068).
+- Fu, X., et al. (2025). Learning Smooth and Expressive Interatomic Potentials for Physical Property Prediction. [arXiv:2502.12147](https://arxiv.org/abs/2502.12147).
 - Wood, B. M., et al. (2025). UMA: A Family of Universal Models for Atoms. [arXiv:2506.23971](https://arxiv.org/abs/2506.23971).
-- Tang, S. (2025). An Illustrated Guide to Irreps-Based Equivariant Neural Networks. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927).
+- Tang, S. (2025). A Complete Guide to Spherical Equivariant Graph Transformers. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927).
 - Bekkers, E. (2024). Geometric Deep Learning Lecture Series. [UvA](https://uvagedl.github.io/).
 - Bronstein, M. M., et al. (2021). Geometric Deep Learning. [arXiv:2104.13478](https://arxiv.org/abs/2104.13478).
 - Duval, A., et al. (2023). A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems. [arXiv:2312.07511](https://arxiv.org/abs/2312.07511).
