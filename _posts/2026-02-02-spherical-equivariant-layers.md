@@ -16,7 +16,7 @@ related_posts: false
 
 ## Introduction
 
-Modern neural networks for 3D atomic systems—such as Tensor Field Networks, MACE, and eSCN—achieve state-of-the-art accuracy by building in rotational equivariance from the ground up. These architectures ensure that when a molecule is rotated in space, the network's internal representations rotate accordingly, and predicted vector quantities like forces transform correctly.
+Neural networks for 3D atomic systems—from early work like Tensor Field Networks to modern architectures like MACE and eSCN—achieve strong accuracy by building in rotational equivariance from the ground up. These architectures ensure that when a molecule is rotated in space, the network's internal representations rotate accordingly, and predicted vector quantities like forces transform correctly.
 
 This blog post offers a self-contained, concise introduction to the mathematical foundations of spherical equivariant layers—layers that use spherical harmonics and their associated algebra to maintain rotational equivariance. For readers who want to go deeper, I highly recommend [Sophia Tang's tutorial](https://arxiv.org/abs/2512.13927), [Erik Bekkers' lecture series](https://uvagedl.github.io/), and [Duval et al.'s Hitchhiker's Guide](https://arxiv.org/abs/2312.07511)—all three provide comprehensive treatments with beautiful figures. For a broader perspective on symmetry and deep learning beyond the molecular domain, see the [Geometric Deep Learning textbook](https://arxiv.org/abs/2104.13478) by Bronstein et al.
 
