@@ -24,14 +24,20 @@ hr {
 }
 
 table {
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+  border: 1px solid var(--global-divider-color);
+
   td,
   th {
     font-size: 1rem;
-    padding: 1px 1rem 1px 0;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--global-divider-color);
   }
 
   th {
     font-weight: bold;
+    background-color: var(--global-bg-color);
   }
 }
 
@@ -1496,6 +1502,28 @@ figure.cover {
   }
 }
 
+// Distinguish h2 sections from h3 subsections in blog posts
+article {
+  h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    margin-top: 1.8rem;
+  }
+}
+
 mjx-container[jax="CHTML"][display="true"] {
   overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  padding: 0.25em 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
