@@ -22,7 +22,7 @@ nav_order: 3
 - [Taewon Kim](https://holymollyhao.github.io)
 - [Hyunjin Seo](https://hyunjin72.github.io/)
 - [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/)
-- Yoonho Kim
+- [Yoonho Kim](https://yoonhokim0527.github.io/)
 
 ---
 
