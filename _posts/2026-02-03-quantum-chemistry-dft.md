@@ -20,11 +20,11 @@ related_posts: false
 
 The central computational problem of chemistry is this: given a collection of atoms — their types and positions — predict the system's properties. The total energy, the forces on each atom, the electron density, the vibrational frequencies. All of these are, in principle, determined by solving a single equation: the Schrödinger equation.
 
-The difficulty is that the solution — the **wavefunction** — maps $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$ for a system of $$N$$ electrons, an exponentially large space. It cannot be observed directly; we only see its consequences — energies, densities, spectra. In ML terms, it is a latent variable.
+The difficulty is that the solution — the **wavefunction** — is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. The domain grows exponentially with system size. The wavefunction cannot be observed directly; we only see its consequences — energies, densities, spectra. In ML terms, it is a latent variable.
 
 Two families of methods tackle this problem, differing in what they approximate:
 
-- **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured ansätze to make the exponential-dimensional problem tractable.
+- **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make the exponential-dimensional problem tractable.
 - **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
 
 More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. This post introduces these ideas from first principles.
@@ -35,7 +35,7 @@ More recently, **deep learning methods** have been applied to both families, par
 |---------|-----------------|
 | **The Schrödinger Equation** | Define the problem: an eigenvalue equation whose solution (the wavefunction) determines all properties |
 | **The Born-Oppenheimer Approximation** | Separate the nuclear and electronic problems — this is what gives us the potential energy surface |
-| **Wavefunction Theory** | Approximate the wavefunction directly using structured ansätze |
+| **Wavefunction Theory** | Approximate the wavefunction directly using structured functional forms |
 | **Density Functional Theory** | Replace the exponential-dimensional wavefunction with the 3D electron density |
 | **Deep Learning for Quantum Chemistry** | Modern neural network approaches to both the wavefunction and the density functional |
 
@@ -102,7 +102,7 @@ $$\Psi_{\text{Hartree}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \phi_1(\mathbf{r}_
 
 Each orbital $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ depends on only three coordinates, reducing the problem from one function on $$\mathbb{R}^{3N}$$ to $$N$$ functions on $$\mathbb{R}^3$$. The price is ignoring all correlations between electrons: each electron sees only the average field of the others. In ML terms, this is a mean-field factorization — replacing a joint distribution with a product of marginals.
 
-### Antisymmetry and Slater Determinants
+### Antisymmetry and the Slater Determinant Approximation
 
 The Hartree product violates a basic requirement: electrons are **fermions**, so the wavefunction must be **antisymmetric** under exchange of any two electrons:
 
@@ -118,9 +118,13 @@ The determinant automatically enforces antisymmetry: swapping two rows (two elec
 
 **Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. This leads to the **Hartree-Fock equations**, a set of coupled eigenvalue problems for the orbitals:
 
-$$\left[ -\frac{1}{2}\nabla^2 + v_{\text{ext}}(\mathbf{r}) + \int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}' - \hat{K}(\mathbf{r}) \right] \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
+$$\hat{f}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 
-The bracket is the **Fock operator** — an effective one-electron Hamiltonian containing the kinetic energy, the nuclear attraction $$v_{\text{ext}}$$, the classical Coulomb repulsion from the electron density, and the **exchange operator** $$\hat{K}$$ (a non-local operator arising from antisymmetry — unlike the other terms, its action on $$\phi_i$$ depends on $$\phi_i$$ at all points in space, not just at $$\mathbf{r}$$). Every term in the Fock operator is computable exactly from the orbitals — the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
+where $$\hat{f}$$ is the **Fock operator** — an effective one-electron Hamiltonian. It expands as:
+
+$$\hat{f}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} - \underbrace{\hat{K}(\mathbf{r})}_{\text{exchange}}$$
+
+The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local — its action on $$\phi_i$$ depends on $$\phi_i$$ at all points in space, not just at $$\mathbf{r}$$ — and arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
 
 Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved **self-consistently**: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This **self-consistent field (SCF)** procedure is analogous to coordinate descent or the EM algorithm.
 
@@ -130,7 +134,7 @@ Hartree-Fock captures roughly 99% of the total energy for most systems, but the 
 
 $$E_{\text{corr}} = E_{\text{exact}} - E_{\text{HF}}$$
 
-Because each electron sees only the average field of the others (as discussed above), instantaneous electron-electron correlations are missing. **Post-Hartree-Fock methods** — configuration interaction (CI), coupled cluster (CC), Møller-Plesset perturbation theory (MP2, MP3, ...) — recover this missing energy using richer ansätze built from multiple Slater determinants. They are systematically improvable but expensive, with the "gold standard" CCSD(T) scaling as $$O(N^7)$$.
+Because each electron sees only the average field of the others (as discussed above), instantaneous electron-electron correlations are missing. **Post-Hartree-Fock methods** — configuration interaction (CI), coupled cluster (CC), Møller-Plesset perturbation theory (MP2, MP3, ...) — recover this missing energy using richer ansätze built from multiple Slater determinants. These methods are systematically improvable but expensive, with the "gold standard" CCSD(T) scaling as $$O(N^7)$$.
 
 ---
 
@@ -144,7 +148,7 @@ $$\rho(\mathbf{r}) = N \int |\Psi(\mathbf{r}, \mathbf{r}_2, \ldots, \mathbf{r}_N
 
 This is a marginal: we integrate out all electron positions except one and multiply by $$N$$ (since any electron could be the one at $$\mathbf{r}$$). The density is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
 
-The rest of this section develops DFT in four steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham equations turn this into a practical computational scheme, (3) Jacob's Ladder organizes the approximations for the one unknown piece, and (4) the Roothaan-Hall equations discretize the problem into matrices.
+The rest of this section develops DFT in four steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham approximation decomposes the unknown functional into computable pieces plus one unknown, (3) Jacob's Ladder organizes the approximations for that unknown piece, and (4) the Roothaan-Hall equations discretize the problem into matrices.
 
 ### The Hohenberg-Kohn Theorems
 
@@ -158,23 +162,29 @@ $$E_0 = \min_{\rho} \; E[\rho] \quad \text{subject to} \quad \rho \geq 0, \;\; \
 
 The problem is that $$F[\rho]$$ is unknown — we know the sufficient statistic exists but not the function that maps it to the energy. The history of DFT is largely the history of approximating $$F[\rho]$$.
 
+### The Kohn-Sham Approximation
+
+In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to introduce a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ (the **Kohn-Sham orbitals**) that reproduce the true electron density: $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$.
+
+Why orbitals? The density alone does not tell us how fast the electrons are moving — the kinetic energy functional $$T[\rho]$$ has no known closed-form expression in terms of $$\rho$$, and naive approximations fail badly. But for a system of non-interacting electrons, the kinetic energy *can* be computed exactly from the orbitals: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock an exact expression for the dominant piece of $$F[\rho]$$, leaving only a small residual to be approximated:
+
+$$E[\rho] = \underbrace{T_s[\{\phi_i\}]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
+
+$$T_s$$, $$J$$, and the external potential term are all computed exactly. The sole unknown is $$E_{\text{xc}}[\rho]$$, the **exchange-correlation (XC) functional**, which absorbs the residual kinetic energy (the difference between the true $$T$$ and $$T_s$$), exchange from antisymmetry, and correlation beyond mean-field.
+
 ### The Kohn-Sham Equations
 
-In 1965, Kohn and Sham turned DFT into a practical method by introducing a **fictitious system of non-interacting electrons** whose orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ (the **Kohn-Sham orbitals**) reproduce the true electron density: $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$. These orbitals satisfy the **Kohn-Sham equations**:
+Minimizing this energy with respect to the orbitals yields single-particle eigenvalue equations — the **Kohn-Sham equations**[^ks-derivation]:
 
-$$\left[ -\frac{1}{2}\nabla^2 + v_{\text{eff}}(\mathbf{r}) \right] \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
+$$\hat{f}_{\text{KS}}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 
-where $$\varepsilon_i \in \mathbb{R}$$ are orbital energies and the effective potential is:
+where $$\hat{f}_{\text{KS}}$$ is the **Kohn-Sham operator** — the DFT counterpart of the Fock operator. It expands as:
 
-$$v_{\text{eff}}(\mathbf{r}) = \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} + \underbrace{\frac{\delta E_{\text{xc}}}{\delta \rho(\mathbf{r})}}_{\text{xc}}$$
+$$\hat{f}_{\text{KS}}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} + \underbrace{\frac{\delta E_{\text{xc}}}{\delta \rho(\mathbf{r})}}_{\text{xc}}$$
 
-The first two terms are the same as in Hartree-Fock — nuclear attraction and Coulomb repulsion, both computed exactly from the density. The third is the functional derivative of the **exchange-correlation (XC) functional** $$E_{\text{xc}}[\rho]$$, which is the sole unknown: it replaces the exchange operator $$\hat{K}$$ and additionally captures correlation effects that Hartree-Fock misses entirely. Although the equations look structurally similar, the energy functionals differ: Hartree-Fock computes all its terms exactly but is limited to a single-determinant ansatz (giving an upper bound), while KS-DFT with the exact $$E_{\text{xc}}$$ would yield the exact ground-state energy — the approximation enters through the functional, not the ansatz.
+The first three terms are identical to Hartree-Fock. The difference is in the last term: HF has the non-local exchange operator $$-\hat{K}$$, while KS-DFT has the functional derivative of $$E_{\text{xc}}[\rho]$$ — a local potential that replaces exchange and additionally captures correlation effects that Hartree-Fock misses entirely.
 
-To derive these equations, the trick is to decompose the unknown $$F[\rho]$$ from the Hohenberg-Kohn energy $$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$ into pieces we can compute exactly from these orbitals, plus one piece we cannot:
-
-$$E[\rho] = \underbrace{T_s[\rho]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
-
-$$T_s$$, $$J$$, and the external potential term are all computed exactly from the orbitals and density. The sole unknown is $$E_{\text{xc}}[\rho]$$, which absorbs the residual kinetic energy, exchange from antisymmetry, and correlation beyond mean-field. Minimizing this energy with respect to the orbitals yields the Kohn-Sham equations above.[^ks-derivation]
+Despite this structural similarity in the equations, the two methods minimize *different* energy functionals. Hartree-Fock minimizes the expectation value of the exact Hamiltonian over single-determinant wavefunctions — all terms are computed exactly, but the ansatz is restricted. KS-DFT minimizes an energy functional that includes the approximate $$E_{\text{xc}}[\rho]$$ — the ansatz is not the limitation, the functional is. With the exact $$E_{\text{xc}}$$, KS-DFT would yield the exact ground-state energy.
 
 ### Jacob's Ladder of Exchange-Correlation Functionals
 
@@ -188,7 +198,7 @@ $$\mathbf{F} \mathbf{C} = \mathbf{S} \mathbf{C} \boldsymbol{\varepsilon}$$
 
 $$\mathbf{C} \in \mathbb{R}^{K \times N}$$ contains the orbital expansion coefficients, and $$\boldsymbol{\varepsilon}$$ is a diagonal matrix of orbital energies. $$\mathbf{S} \in \mathbb{R}^{K \times K}$$ is the overlap matrix ($$S_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$), which is not the identity because the basis functions are not orthogonal. This comes from expanding each orbital as $$\phi_i(\mathbf{r}) = \sum_{\mu=1}^{K} C_{\mu i} \, \chi_\mu(\mathbf{r})$$, substituting into the KS equations, and projecting onto the basis. The approximation improves as $$K$$ grows.
 
-$$\mathbf{F} \in \mathbb{R}^{K \times K}$$ is the **Fock matrix** (or Kohn-Sham matrix, equivalently denoted $$\mathbf{H}$$). It is the matrix representation of the Kohn-Sham operator $$\hat{h}_{\text{KS}}$$ in the chosen basis: $$F_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \, \hat{h}_{\text{KS}} \, \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$, containing kinetic, nuclear, Coulomb, and exchange-correlation contributions. Just as the Kohn-Sham operator determines the orbitals in continuous space, the Fock matrix determines the coefficient vectors in the finite basis.
+$$\mathbf{F} \in \mathbb{R}^{K \times K}$$ is the **Fock matrix** (or Kohn-Sham matrix, equivalently denoted $$\mathbf{H}$$). It is the matrix representation of $$\hat{f}_{\text{KS}}$$ in the chosen basis: $$F_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \, \hat{f}_{\text{KS}} \, \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$, containing kinetic, nuclear, Coulomb, and exchange-correlation contributions. Just as $$\hat{f}_{\text{KS}}$$ determines the orbitals in continuous space, the Fock matrix determines the coefficient vectors in the finite basis.
 
 The **density matrix** $$\mathbf{P} \in \mathbb{R}^{K \times K}$$ is the finite-basis counterpart of the electron density. Its elements are $$P_{\mu\nu} = \sum_{i=1}^{N} C_{\mu i} C_{\nu i}$$, or equivalently $$\mathbf{P} = \mathbf{C} \mathbf{C}^\top$$. The continuous density is recovered as $$\rho(\mathbf{r}) = \sum_{\mu\nu} P_{\mu\nu} \, \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r})$$. Because the Fock matrix depends on the density (through the Coulomb and XC terms), and the density depends on the orbitals obtained from the Fock matrix, the equations must be solved iteratively.
 
@@ -200,7 +210,7 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-Deep learning has been applied to both the wavefunction and density functional approaches, either learning the objects themselves or bypassing expensive computation entirely.
+Deep learning has been applied to both the wavefunction and density functional approaches, either learning the wavefunction or the XC functional directly, or bypassing expensive computation entirely.
 
 ### Neural Network Wavefunctions
 
@@ -218,7 +228,7 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 
 - [**Skala** (Luise et al., 2025)](https://arxiv.org/abs/2506.14665): Learns the exchange-correlation functional itself from data, replacing the hand-designed functionals on Jacob's Ladder with a neural network trained on high-accuracy reference calculations.
 
-- [**QHNet** (Yu et al., 2023)](https://arxiv.org/abs/2306.04922), [**QHFlow** (Kim et al., 2025)](https://arxiv.org/abs/2505.18817), and [**HelM** (Kaniselvan et al., 2025)](https://arxiv.org/abs/2510.00224): Predict the DFT Hamiltonian matrix directly from atomic structure, bypassing the SCF iteration. QHFlow uses equivariant flow matching to capture the multi-solution structure, while HelM demonstrates that learning from electronic structure data transfers to improved atomic property prediction across the periodic table.
+- [**QHNet** (Yu et al., 2023)](https://arxiv.org/abs/2306.04922), [**QHFlow** (Kim et al., 2025)](https://arxiv.org/abs/2505.18817), and [**HelM** (Kaniselvan et al., 2025)](https://arxiv.org/abs/2510.00224): Predict the DFT Hamiltonian matrix directly from atomic structure, bypassing the SCF iteration. QHFlow uses equivariant flow matching to capture the multi-solution structure of the Hamiltonian, while HelM demonstrates that learning from electronic structure data transfers to improved atomic property prediction across the periodic table.
 
 - [**DeepDFT** (Jørgensen & Bhowmik, 2022)](https://doi.org/10.1088/2632-2153/ac3149), [**A Recipe for Charge Density Prediction** (Fu et al., 2024)](https://arxiv.org/abs/2405.19276), [**ELECTRA** (Elsborg et al., 2025)](https://arxiv.org/abs/2503.08305), and [**GPWNO** (Kim & Ahn, 2024)](https://arxiv.org/abs/2402.04278): Predict the electron density directly from atomic structure. These methods use graph neural networks, neural operators, and learnable basis sets (including floating orbitals) to estimate the 3D density field without solving the Kohn-Sham equations.
 
