@@ -293,18 +293,6 @@ This is the Fokker-Planck equation — the same result as the heuristic derivati
 
 ---
 
-## Summary
-
-1. **From particles to densities.** The Fokker-Planck equation converts a stochastic description (individual particles following an SDE) into a deterministic one (the density $$p_t$$ evolving under a PDE).
-
-2. **Two competing effects shape the density.** The divergence of the drift flux advects density (transport without spreading), while the Laplacian term smooths density (spreading without net transport). Their balance determines the density's evolution.
-
-3. **Two derivations, one equation.** The heuristic route (discretize → Chapman-Kolmogorov → Taylor expand → take limits) builds understanding of where each term comes from. The Itô calculus route (Itô's lemma → test functions → integration by parts) makes the argument rigorous without requiring the density to be classically differentiable. Both produce the same PDE.
-
-4. **Connection to diffusion models.** The Fokker-Planck equation characterizes how the data density evolves under the forward SDE. This is the starting point for deriving the probability flow ODE and reverse-time SDE used in score-based generative modeling.
-
----
-
 ## References
 
 - Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. [NeurIPS 2020](https://arxiv.org/abs/2006.11239).

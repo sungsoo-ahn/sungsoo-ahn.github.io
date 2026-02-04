@@ -348,24 +348,6 @@ Spherical tensors are sometimes called **steerable features** in the machine lea
 
 ---
 
-## Summary
-
-Spherical equivariant layers represent a synthesis of group theory, representation theory, and deep learning. The key ideas are:
-
-1. **Symmetry as a constraint**: By building networks that respect the rotational symmetry of 3D space, we obtain models that generalize across all orientations without data augmentation.
-
-2. **Spherical tensors**: Features are organized by degree (scalar, vector, higher-order), living in the carrier spaces of $SO(3)$ irreps defined by spherical harmonics.
-
-3. **Clebsch-Gordan tensor products**: These operations combine features of different types while maintaining equivariance, enabling deep networks with complex nonlinear transformations.
-
-4. **Separation of radial and angular**: Distance information is encoded through invariant radial functions, while directional information is encoded through equivariant spherical harmonics.
-
-5. **Message passing on graphs**: Local atomic environments are processed through neighbor aggregation, with the framework extending naturally to any point cloud or graph structure.
-
-This framework underlies modern molecular property prediction, force field development, and materials discovery.
-
----
-
 ## References
 
 - Thomas, N., et al. (2018). Tensor Field Networks. [arXiv:1802.08219](https://arxiv.org/abs/1802.08219).
