@@ -26,14 +26,13 @@ Most diffusion model tutorials state the Fokker-Planck equation without proof an
 
 | Section | Why It's Needed |
 |---------|-----------------|
-| **Setup: SDEs and Their Transition Kernels** | Define the forward SDE and its Gaussian transition kernel via Euler-Maruyama discretization |
-| **Reading the Equation: Drift vs. Diffusion** | State the Fokker-Planck equation and build intuition for each term before proving it |
+| **The Fokker-Planck Equation** | Define the forward SDE, state the Fokker-Planck equation, and build intuition for each term |
 | **Deriving the Fokker-Planck Equation** | Heuristic derivation: Chapman-Kolmogorov → change of variables → Taylor-Gaussian smoothing → take limits |
 | **Rigorous Derivation via Itô Calculus** | The same result, proved rigorously: Itô's lemma → test functions → integration by parts |
 
 ---
 
-## Setup: SDEs and Their Transition Kernels
+## The Fokker-Planck Equation
 
 Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R}^D$$ governed by the **forward SDE**:
 
@@ -44,13 +43,16 @@ Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R
 > where $$\mathbf{f}: \mathbb{R}^D \times [0,T] \to \mathbb{R}^D$$ is the **drift** (a deterministic force pushing the particle), $$g: [0,T] \to \mathbb{R}$$ is the **diffusion coefficient** (the intensity of random noise), and $$\mathbf{w}(t)$$ is a standard $$D$$-dimensional Wiener process (Brownian motion). The initial condition is $$\mathbf{x}(0) \sim p_0$$.
 {: .block-definition }
 
-The SDE describes how a single particle moves: at each instant, it drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is to determine the PDE governing the marginal density $$p_t(\mathbf{x})$$ — the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$.
+The SDE describes how a single particle moves: at each instant, it drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is to determine the PDE governing the marginal density $$p_t(\mathbf{x})$$ — the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$. The answer is the **Fokker-Planck equation**:
 
-**Euler-Maruyama discretization.** For a small time step $$\Delta t$$, the SDE is approximated by:
+> **Fokker-Planck Equation.** The density $$p_t(\mathbf{x})$$ evolves according to
+>
+> $$\displaystyle\frac{\partial p_t(\mathbf{x})}{\partial t} = \underbrace{-\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr]}_{\text{advection by drift}} + \underbrace{\frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})}_{\text{spreading by diffusion}}$$
+>
+> where $$\nabla_{\mathbf{x}} \cdot [\,\cdot\,]$$ is the divergence operator and $$\Delta_{\mathbf{x}} = \sum_{i=1}^{D} \frac{\partial^2}{\partial x_i^2}$$ is the Laplacian.
+{: .block-lemma }
 
-$$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$
-
-This means the **transition kernel** — the conditional distribution of the next state given the current one — is Gaussian:
+We build intuition for each term before deriving the equation. The derivation will also use the **transition kernel** — the Gaussian conditional distribution that arises from discretizing the SDE. For a small time step $$\Delta t$$, the Euler-Maruyama approximation gives $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}$$ with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
 
 > **Transition kernel.** The conditional distribution is Gaussian:
 >
@@ -58,23 +60,6 @@ This means the **transition kernel** — the conditional distribution of the nex
 >
 > The mean is the current position shifted by the drift, and the variance is $$g^2(t)\,\Delta t$$ in each coordinate.
 {: .block-definition }
-
-This Gaussian kernel is the building block of the derivation.
-
----
-
-## Reading the Equation: Drift vs. Diffusion
-
-The Fokker-Planck equation for the SDE above is:
-
-> **Fokker-Planck Equation.** The density $$p_t(\mathbf{x})$$ evolves according to
->
-> $$\displaystyle\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr] + \frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})$$
->
-> The first term is **advection by drift**; the second is **spreading by diffusion**. Here $$\nabla_{\mathbf{x}} \cdot [\,\cdot\,]$$ is the divergence operator and $$\Delta_{\mathbf{x}} = \sum_{i=1}^{D} \frac{\partial^2}{\partial x_i^2}$$ is the Laplacian.
-{: .block-lemma }
-
-We build intuition for each term before deriving the equation in the next section.
 
 ### Advection by Drift
 
@@ -152,7 +137,10 @@ $$p_t(\mathbf{y}) = p_t(\mathbf{u}) - \Delta t\;\mathbf{f}(\mathbf{u},t) \cdot \
 
 Combining with the Jacobian determinant produces two $$\Delta t$$ corrections with distinct origins: one from the Taylor expansion of $$p_t$$ (density varies across space) and one from the Jacobian (the change of variables distorts volume elements):
 
-$$p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\;\mathbf{u},\;g^2(t)\,\Delta t\;\mathbf{I}\right) \left[p_t(\mathbf{u}) - \Delta t\;\mathbf{f}(\mathbf{u},t) \cdot \nabla_{\mathbf{u}} p_t(\mathbf{u}) - \Delta t\;(\nabla_{\mathbf{u}} \cdot \mathbf{f})(\mathbf{u},t)\;p_t(\mathbf{u})\right] d\mathbf{u} + \mathcal{O}(\Delta t^2)$$
+$$\begin{aligned}
+p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\;\mathbf{u},\;g^2(t)\,\Delta t\;\mathbf{I}\right) \Big[&\, p_t(\mathbf{u}) - \Delta t\;\mathbf{f}(\mathbf{u},t) \cdot \nabla_{\mathbf{u}} p_t(\mathbf{u}) \\
+&- \Delta t\;(\nabla_{\mathbf{u}} \cdot \mathbf{f})(\mathbf{u},t)\;p_t(\mathbf{u})\Big] d\mathbf{u} + \mathcal{O}(\Delta t^2)
+\end{aligned}$$
 
 ### Step 3: Taylor-Gaussian Smoothing
 
@@ -177,7 +165,10 @@ $$\int \mathcal{N}(\mathbf{x};\;\mathbf{u},\;\sigma^2\mathbf{I})\;p_t(\mathbf{u}
 
 For the two terms already at order $$\Delta t$$ (the drift gradient and divergence terms), the Gaussian smoothing leaves them unchanged at leading order — the $$\sigma^2$$ correction would produce $$\mathcal{O}(\Delta t^2)$$ terms. Collecting everything:
 
-$$p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x}) = -\Delta t\;\mathbf{f}(\mathbf{x},t) \cdot \nabla_{\mathbf{x}} p_t(\mathbf{x}) - \Delta t\;(\nabla_{\mathbf{x}} \cdot \mathbf{f})(\mathbf{x},t)\;p_t(\mathbf{x}) + \frac{g^2(t)}{2}\,\Delta t\;\Delta_{\mathbf{x}}\,p_t(\mathbf{x}) + \mathcal{O}(\Delta t^2)$$
+$$\begin{aligned}
+p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x}) = \;&{-}\Delta t\;\mathbf{f}(\mathbf{x},t) \cdot \nabla_{\mathbf{x}} p_t(\mathbf{x}) - \Delta t\;(\nabla_{\mathbf{x}} \cdot \mathbf{f})(\mathbf{x},t)\;p_t(\mathbf{x}) \\
+&+ \frac{g^2(t)}{2}\,\Delta t\;\Delta_{\mathbf{x}}\,p_t(\mathbf{x}) + \mathcal{O}(\Delta t^2)
+\end{aligned}$$
 
 The first two terms combine via the product rule: $$\mathbf{f} \cdot \nabla p + (\nabla \cdot \mathbf{f})\,p = \nabla \cdot (\mathbf{f}\,p)$$. Dividing both sides by $$\Delta t$$ and taking $$\Delta t \to 0$$:
 
@@ -201,7 +192,7 @@ Ordinary calculus assumes smooth paths: differentiation and the chain rule requi
 >
 > $$\displaystyle\int_0^T H(t)\,d\mathbf{w}(t) = \lim_{n \to \infty} \sum_{k=0}^{n-1} H(t_k)\bigl[\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)\bigr]$$
 >
-> The integrand $$H(t_k)$$ is evaluated at the **left endpoint** of each subinterval — this ensures the integrand does not "look into the future" (it is **adapted** to the filtration).
+> The integrand $$H(t_k)$$ is evaluated at the **left endpoint** of each subinterval, so it depends only on information available at time $$t_k$$, before the increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is realized.
 {: .block-definition }
 
 This left-endpoint choice has two consequences that drive everything that follows:
@@ -212,7 +203,7 @@ This left-endpoint choice has two consequences that drive everything that follow
 
 These two facts — martingale property and non-vanishing quadratic variation — are the only tools we need. The following example shows both in action.
 
-> **Example: computing $$\int_0^T W_t\,dW_t$$.** Consider the simplest non-trivial Itô integral in one dimension. (The multi-dimensional case follows coordinate-by-coordinate.)
+> **Example: computing $$\int_0^T W_t\,dW_t$$.** Write $$W_t = w(t)$$ for a one-dimensional Brownian motion. Consider the simplest non-trivial Itô integral. (The multi-dimensional case follows coordinate-by-coordinate.)
 >
 > Write the Itô sum and use the algebraic identity $$a(b-a) = \frac{1}{2}(b^2 - a^2) - \frac{1}{2}(b-a)^2$$:
 >
@@ -261,7 +252,7 @@ The rule $$dw_i\,dw_j = \delta_{ij}\,dt$$ kills all off-diagonal Hessian entries
 
 ### Deriving FP from Itô's Lemma
 
-The strategy is the **test function method**: apply Itô's lemma to a smooth, compactly supported function $$\varphi(\mathbf{x})$$ (no explicit $$t$$-dependence), then transfer derivatives from $$\varphi$$ onto the density $$p_t$$ via integration by parts.
+The strategy is the **test function method**. We want a PDE for $$p_t$$, but Itô's lemma describes a single particle, not a density. The trick is to use a smooth "probe" function $$\varphi(\mathbf{x})$$ and track the weighted average $$\int \varphi\,p_t\,d\mathbf{x}$$. If we know how this average changes over time for *every* choice of $$\varphi$$, we know how $$p_t$$ itself changes — just as knowing all moments of a distribution determines the distribution. Concretely: Itô's lemma gives us $$d\varphi(\mathbf{x}(t))$$ in terms of derivatives of $$\varphi$$; taking expectations converts this to $$\frac{d}{dt}\int \varphi\,p_t\,d\mathbf{x}$$; integration by parts moves the derivatives from $$\varphi$$ onto $$p_t$$; and since the result holds for all $$\varphi$$, the integrands must match — giving the PDE.
 
 **Step 1: Apply Itô's lemma.** Since $$\varphi$$ does not depend on $$t$$, the $$\partial\varphi/\partial t$$ term vanishes:
 
@@ -277,9 +268,9 @@ $$\int \varphi(\mathbf{x})\,p_{t+\Delta t}(\mathbf{x})\,d\mathbf{x} - \int \varp
 
 **Step 4: Integration by parts.** Move derivatives from the test function $$\varphi$$ onto the density $$p_s$$. Since $$\varphi$$ is compactly supported, the boundary terms vanish:
 
-$$\int \mathbf{f} \cdot \nabla\varphi \;\cdot\; p_s\,d\mathbf{x} = -\int \varphi\;\nabla \cdot (\mathbf{f}\,p_s)\,d\mathbf{x}$$
+$$\int (\mathbf{f} \cdot \nabla\varphi)\,p_s\,d\mathbf{x} = -\int \varphi\;\nabla \cdot (\mathbf{f}\,p_s)\,d\mathbf{x}$$
 
-$$\int \Delta\varphi \;\cdot\; p_s\,d\mathbf{x} = \int \varphi\;\Delta p_s\,d\mathbf{x}$$
+$$\int (\Delta\varphi)\,p_s\,d\mathbf{x} = \int \varphi\;\Delta p_s\,d\mathbf{x}$$
 
 The first identity is the divergence theorem (one integration by parts); the second applies integration by parts twice, which returns the Laplacian without a sign change. Substituting back:
 
