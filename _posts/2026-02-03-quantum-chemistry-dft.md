@@ -275,22 +275,6 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 
 ---
 
-## Summary
-
-1. **The wavefunction** encodes everything about a quantum system but lives in an exponentially large space and cannot be observed directly — a latent variable that determines all measurable properties.
-
-2. **Born-Oppenheimer separation**: Fixing nuclei and solving for electrons gives the potential energy surface — the function that molecular dynamics and force fields operate on.
-
-3. **Wavefunction theory**: Hartree-Fock approximates the wavefunction as a single Slater determinant, capturing most of the energy but missing electron correlation. Post-HF methods systematically improve on this.
-
-4. **Density functional theory**: The Hohenberg-Kohn theorems show that the 3D electron density determines all ground-state properties, compressing $$3N$$ dimensions to 3.
-
-5. **Kohn-Sham DFT**: Introduces a fictitious non-interacting system to make the density functional approach practical, concentrating all approximation error in the exchange-correlation functional.
-
-6. **Deep learning at every level**: Neural networks are being used to parameterize wavefunctions (FermiNet, PsiFormer), learn exchange-correlation functionals (Skala), predict Hamiltonians (QHNet, QHFlow, HelM), and estimate densities (DeepDFT, ELECTRA, GPWNO).
-
----
-
 ## References
 
 - Hohenberg, P. & Kohn, W. (1964). Inhomogeneous electron gas. [Physical Review, 136(3B), B864](https://doi.org/10.1103/PhysRev.136.B864).
