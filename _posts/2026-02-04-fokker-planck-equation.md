@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Fokker-Planck Equation: How Densities Evolve Under SDEs"
+title: "The Fokker-Planck Equation"
 date: 2026-02-04
 last_updated: 2026-02-04
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
