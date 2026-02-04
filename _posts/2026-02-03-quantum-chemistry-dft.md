@@ -49,7 +49,7 @@ $$\hat{H} \, \Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mat
 
 This equation has three ingredients. The **Hamiltonian** $$\hat{H}$$ is what we know — an operator (denoted by the hat $$\hat{\phantom{x}}$$) encoding the physics: how particles move (kinetic energy) and how they interact (potential energy). Given a particular arrangement of atoms, the Hamiltonian is fully determined. The **wavefunction** $$\Psi: \mathbb{R}^{3(N+M)} \to \mathbb{C}$$ is the unknown — a complete description of the quantum state, encoding where every particle is likely to be found. The **energy** $$E \in \mathbb{R}$$ is what we want — the total energy of the system in that state.
 
-This is an eigenvalue problem: applying $$\hat{H}$$ to $$\Psi$$ returns the same function scaled by $$E$$. There are many solutions (many possible quantum states), but the one with the lowest energy — the **ground state** — is the primary target of most quantum chemistry calculations.
+The Schrödinger equation is an eigenvalue problem: applying $$\hat{H}$$ to $$\Psi$$ returns the same function scaled by $$E$$. There are many solutions (many possible quantum states), but the one with the lowest energy — the **ground state** — is the primary target of most quantum chemistry calculations.
 
 ### The Hamiltonian
 
@@ -64,7 +64,7 @@ where we use atomic units ($$\hbar = m_e = e = 1$$).[^atomic-units] The first tw
 
 ### The Wavefunction
 
-The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to this distribution.
+The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to $$\lvert\Psi\rvert^2$$.
 
 The computational challenge is the electronic part. Even on a modest grid of $$K$$ points per spatial dimension, representing the electronic wavefunction requires $$K^{3N}$$ numbers — for a single water molecule ($$N = 10$$), this is $$K^{30}$$. This exponential scaling is the curse of dimensionality of the quantum many-body problem, and it motivates every approximation that follows.
 
@@ -82,7 +82,7 @@ The electronic Hamiltonian, with nuclear positions fixed, is:
 
 $$\hat{H}_{\text{elec}} = -\sum_{i=1}^{N} \frac{1}{2}\nabla_i^2 + \sum_{i<j} \frac{1}{|\mathbf{r}_i - \mathbf{r}_j|} + \sum_{i=1}^{N} v_{\text{ext}}(\mathbf{r}_i)$$
 
-This separation is what makes molecular dynamics and force fields possible. The PES is the function that molecular dynamics simulates on, that geometry optimizations minimize, and that machine learning force fields approximate. Computing it requires solving the electronic problem — the subject of the rest of this post.
+The Born-Oppenheimer separation is what makes molecular dynamics and force fields possible. The PES is the function that molecular dynamics simulates on, that geometry optimizations minimize, and that machine learning force fields approximate. Computing the PES requires solving the electronic problem — the subject of the rest of this post.
 
 ---
 
@@ -92,11 +92,11 @@ We need to find the ground-state wavefunction $$\Psi$$ — the eigenfunction of 
 
 $$E_0 \leq \frac{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \hat{H} \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}$$
 
-So we can choose a parameterized family of trial wavefunctions and minimize the energy over the parameters.[^braket] This is directly analogous to minimizing a loss function: the energy is the loss, the wavefunction family is the model architecture, and a specific choice of parameterized family is called an **ansatz**[^ansatz] (plural: ansätze).
+So we can choose a parameterized family of trial wavefunctions and minimize the energy over the parameters.[^braket] The variational principle is directly analogous to minimizing a loss function: the energy is the loss, the wavefunction family is the model architecture, and a specific choice of parameterized family is called an **ansatz**[^ansatz] (plural: ansätze).
 
 ### The Hartree Product: A Mean-Field Approximation
 
-The simplest ansatz assumes the electrons are **independent** — the many-electron wavefunction factorizes into a product of one-electron functions called **orbitals**:
+The simplest ansatz assumes the electrons are **independent** — the many-electron wavefunction factorizes into a product of single-electron wavefunctions called **orbitals** (from "orbit" — the quantum analogue of a classical electron orbit around a nucleus):
 
 $$\Psi_{\text{Hartree}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \phi_1(\mathbf{r}_1) \cdot \phi_2(\mathbf{r}_2) \cdots \phi_N(\mathbf{r}_N)$$
 
@@ -108,7 +108,7 @@ The Hartree product violates a basic requirement: electrons are **fermions**, so
 
 $$\Psi(\ldots, \mathbf{r}_i, \ldots, \mathbf{r}_j, \ldots) = -\Psi(\ldots, \mathbf{r}_j, \ldots, \mathbf{r}_i, \ldots)$$
 
-This is the **Pauli exclusion principle**: no two electrons can occupy the same quantum state. The simplest antisymmetric wavefunction built from orbitals is the **Slater determinant**:
+The **Pauli exclusion principle** — no two electrons can occupy the same quantum state — is a direct consequence of this antisymmetry.[^pauli] The simplest antisymmetric wavefunction built from orbitals is the **Slater determinant**:
 
 $$\Psi_{\text{Slater}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \frac{1}{\sqrt{N!}} \begin{vmatrix} \phi_1(\mathbf{r}_1) & \phi_2(\mathbf{r}_1) & \cdots & \phi_N(\mathbf{r}_1) \\ \phi_1(\mathbf{r}_2) & \phi_2(\mathbf{r}_2) & \cdots & \phi_N(\mathbf{r}_2) \\ \vdots & \vdots & \ddots & \vdots \\ \phi_1(\mathbf{r}_N) & \phi_2(\mathbf{r}_N) & \cdots & \phi_N(\mathbf{r}_N) \end{vmatrix}$$
 
@@ -116,7 +116,7 @@ The determinant automatically enforces antisymmetry: swapping two rows (two elec
 
 ### Hartree-Fock: Self-Consistent Field Theory
 
-**Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. This leads to the **Hartree-Fock equations**, a set of coupled eigenvalue problems for the orbitals:
+**Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. The resulting optimality conditions are the **Hartree-Fock equations**, a set of coupled eigenvalue problems for the orbitals:
 
 $$\hat{f}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 
@@ -146,19 +146,19 @@ The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the pr
 
 $$\rho(\mathbf{r}) = N \int |\Psi(\mathbf{r}, \mathbf{r}_2, \ldots, \mathbf{r}_N)|^2 \, d\mathbf{r}_2 \cdots d\mathbf{r}_N$$
 
-This is a marginal: we integrate out all electron positions except one and multiply by $$N$$ (since any electron could be the one at $$\mathbf{r}$$). The density is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
+The density is a marginal: we integrate out all electron positions except one and multiply by $$N$$ (since any electron could be the one at $$\mathbf{r}$$). The density is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
 
 The rest of this section develops DFT in four steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham approximation decomposes the unknown functional into computable pieces plus one unknown, (3) Jacob's Ladder organizes the approximations for that unknown piece, and (4) the Roothaan-Hall equations discretize the problem into matrices.
 
 ### The Hohenberg-Kohn Theorems
 
-DFT rests on two theorems proved by Hohenberg and Kohn in 1964. The **first theorem** states that the ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties. The **second theorem** establishes a variational principle: there exists a universal functional $$F[\rho]$$ (a map from functions to scalars, denoted with square brackets) such that the ground-state energy is:
-
-$$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$
-
-and the true ground-state density minimizes this functional:
+DFT rests on two theorems proved by Hohenberg and Kohn in 1964. The **first theorem** states that the ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties.[^sufficient] The **second theorem** establishes a variational principle: there exists a universal functional $$F[\rho]$$ (a map from functions to scalars, denoted with square brackets) such that the true ground-state density minimizes:
 
 $$E_0 = \min_{\rho} \; E[\rho] \quad \text{subject to} \quad \rho \geq 0, \;\; \int \rho(\mathbf{r}) \, d\mathbf{r} = N$$
+
+where the energy functional is:
+
+$$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$
 
 The problem is that $$F[\rho]$$ is unknown — we know the sufficient statistic exists but not the function that maps it to the energy. The history of DFT is largely the history of approximating $$F[\rho]$$.
 
@@ -166,7 +166,7 @@ The problem is that $$F[\rho]$$ is unknown — we know the sufficient statistic 
 
 In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to introduce a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ (the **Kohn-Sham orbitals**) that reproduce the true electron density: $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$.
 
-Why orbitals? The density alone does not tell us how fast the electrons are moving — the kinetic energy functional $$T[\rho]$$ has no known closed-form expression in terms of $$\rho$$, and naive approximations fail badly. But for a system of non-interacting electrons, the kinetic energy *can* be computed exactly from the orbitals: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock an exact expression for the dominant piece of $$F[\rho]$$, leaving only a small residual to be approximated:
+Why orbitals? The density tells us *where* electrons are, but not *how fast they are moving* — and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy (via $$\nabla^2$$).[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards the curvature information, which is why no one knows how to compute kinetic energy from $$\rho$$ alone. From the orbitals, it is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock the dominant piece of $$F[\rho]$$, leaving only a small residual to approximate:
 
 $$E[\rho] = \underbrace{T_s[\{\phi_i\}]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
 
@@ -174,7 +174,7 @@ $$T_s$$, $$J$$, and the external potential term are all computed exactly. The so
 
 ### The Kohn-Sham Equations
 
-Minimizing this energy with respect to the orbitals yields single-particle eigenvalue equations — the **Kohn-Sham equations**[^ks-derivation]:
+Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations — the **Kohn-Sham equations**[^ks-derivation]:
 
 $$\hat{f}_{\text{KS}}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 
@@ -278,5 +278,11 @@ These approaches share a common theme: using neural networks to approximate quan
 [^braket]: In the quantum chemistry literature, these integrals are commonly written in Dirac bra-ket notation as $$\langle \tilde{\Psi} \mid \hat{H} \mid \tilde{\Psi} \rangle$$ and $$\langle \tilde{\Psi} \mid \tilde{\Psi} \rangle$$.
 
 [^ansatz]: German for "approach" or "starting point." In physics, an ansatz is a specific parameterized form assumed for the solution — essentially a choice of model architecture. For example, the Hartree product ansatz parameterizes the wavefunction as a product of single-electron orbitals; the Slater determinant ansatz uses a determinant of orbitals. Different ansätze trade off expressiveness against computational cost, just as different neural network architectures do.
+
+[^pauli]: If two electrons were in the same quantum state, swapping them would leave the wavefunction unchanged, yet antisymmetry demands a sign flip. The only function equal to its own negation is zero — so the probability of finding two electrons in the same state vanishes.
+
+[^sufficient]: In ML terms, the density plays the role of a sufficient statistic: just as a sufficient statistic compresses data without losing information relevant to a parameter, the 3D density compresses the exponentially large wavefunction without losing any information needed to compute ground-state observables.
+
+[^curvature]: The connection between curvature and kinetic energy comes from the de Broglie relation: a faster electron has a shorter wavelength, so its wavefunction oscillates more rapidly in space. More rapid oscillation means more curvature, and $$\nabla^2$$ measures exactly this. High curvature = short wavelength = high momentum = high kinetic energy.
 
 [^ks-derivation]: Derivation outline: minimize $$E[\{\phi_i\}]$$ subject to orthonormality $$\int \phi_i^* \phi_j \, d\mathbf{r} = \delta_{ij}$$ by introducing Lagrange multipliers $$\varepsilon_{ij}$$ and setting $$\delta \mathcal{L} / \delta \phi_i^* = 0$$. The chain rule $$\delta E[\rho]/\delta \phi_i^* = (\delta E/\delta \rho) \cdot \phi_i$$ (since $$\rho = \sum_i \lvert\phi_i\rvert^2$$) turns each term of the energy into a contribution to $$v_{\text{eff}}$$: $$T_s$$ gives $$-\frac{1}{2}\nabla^2 \phi_i$$, $$J[\rho]$$ gives $$(\int \rho(\mathbf{r}')/\lvert\mathbf{r}-\mathbf{r}'\rvert \, d\mathbf{r}') \, \phi_i$$, $$E_{\text{xc}}$$ gives $$v_{\text{xc}} \phi_i$$, and the external potential gives $$v_{\text{ext}} \phi_i$$. Collecting terms and noting that the Lagrange multiplier matrix can be diagonalized by a unitary rotation of the orbitals yields the KS eigenvalue equation.
