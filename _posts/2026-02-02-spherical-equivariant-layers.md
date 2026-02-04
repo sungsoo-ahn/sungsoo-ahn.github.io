@@ -34,11 +34,14 @@ The message-passing structure is straightforward (sum over neighbors, apply lear
 
 The key insight is that we can't just use arbitrary neural network operations on geometric features. If we have a feature that represents a direction (like a 3D vector), applying a standard MLP would destroy its geometric meaning—after the MLP, the feature would no longer rotate properly when the molecule rotates. We need specially structured operations that preserve equivariance.
 
-More precisely, a function $f$ is **equivariant** with respect to a group $G$ if transforming the input by any group element $g$ and then applying $f$ gives the same result as applying $f$ first and then transforming the output:
+> **Equivariance.** A function $f$ is **equivariant** with respect to a group $G$ if transforming the input by any group element $g$ and then applying $f$ gives the same result as applying $f$ first and then transforming the output:
+>
+> $$f(g \cdot \mathbf{x}) = g \cdot f(\mathbf{x}) \quad \text{for all } g \in G$$
+>
+> When the input and output live in different spaces, they may transform by different representations—we will make this precise shortly.
+{: .block-definition }
 
-$$f(g \cdot \mathbf{x}) = g \cdot f(\mathbf{x}) \quad \text{for all } g \in G$$
-
-When the input and output live in different spaces, they may transform by different representations—we will make this precise shortly. This is where the mathematical framework of *group representations* becomes essential. It tells us:
+This is where the mathematical framework of *group representations* becomes essential. It tells us:
 - How to organize features so their transformation under rotation is predictable
 - What operations we can apply without breaking equivariance
 - How to combine features in ways that respect rotational symmetry
@@ -70,21 +73,27 @@ A **group action** describes how a group transforms the elements of some space $
 
 Now that we know *what* symmetries to preserve (rotations), we need to understand *how* different types of features transform under these symmetries. A scalar like energy doesn't change when you rotate a molecule. A vector like force rotates along with the molecule. Higher-order quantities like quadrupole moments transform in more complex ways. *Group representations* formalize these different transformation behaviors, allowing us to categorize features by how they respond to rotations.
 
-A **representation** of a group $G$ is a way of realizing group elements as matrices acting on a vector space $V$. We write $D(g)$ for the matrix corresponding to group element $g$. The key requirement is that the matrices respect the group structure: $D(g_1 \cdot g_2) = D(g_1) D(g_2)$. That is, composing two group elements and then looking up the matrix gives the same result as multiplying the individual matrices.
-
-The vector space $V$ on which these matrices act is called the **carrier space**.[^carrier] A representation has two components:
-- The **carrier space** $V$: the vector space whose elements get transformed
-- The **representation matrices** $D(g)$: the linear transformations that act on $V$
+> **Group representation.** A **representation** of a group $G$ assigns to each group element $g$ a matrix $D(g)$ acting on a vector space $V$, such that the matrices respect the group structure: $D(g_1 \cdot g_2) = D(g_1) D(g_2)$.
+>
+> The vector space $V$ is called the **carrier space**.[^carrier] A representation has two components:
+> - The **carrier space** $V$: the vector space whose elements get transformed
+> - The **representation matrices** $D(g)$: the linear transformations that act on $V$
+{: .block-definition }
 
 For example, consider 3D vectors like position or velocity. The carrier space is $\mathbb{R}^3$, and for each rotation $R \in SO(3)$, the representation matrix is the $3 \times 3$ rotation matrix itself. When we rotate a vector $\mathbf{v}$, we compute $R\mathbf{v}$—the rotation matrix acts on elements of the carrier space.
 
 If we want our feature vectors to transform predictably when the input is rotated, we need to specify which representation governs that transformation. The simplest representation is the **trivial representation**, where every group element maps to the identity matrix—the carrier space is $\mathbb{R}^1$ (scalars), and rotations leave scalars unchanged. The **standard representation** of $SO(3)$ uses the $3 \times 3$ rotation matrices on the carrier space $\mathbb{R}^3$—this describes how ordinary 3D vectors transform.
 
-But these are just two examples from an infinite family of representations. A natural question is: can a given representation be broken down into simpler pieces? A representation $D$ is **reducible** if there exists a change-of-basis matrix $P$ such that:
+But these are just two examples from an infinite family of representations. A natural question is: can a given representation be broken down into simpler pieces?
 
-$$P\,D(g)\,P^{-1} = \begin{bmatrix} D_1(g) & 0 \\ 0 & D_2(g) \end{bmatrix} \quad \text{for all } g \in G$$
+> **Irreducible representation.** A representation $D$ is **reducible** if there exists a change-of-basis matrix $P$ such that:
+>
+> $$P\,D(g)\,P^{-1} = \begin{bmatrix} D_1(g) & 0 \\ 0 & D_2(g) \end{bmatrix} \quad \text{for all } g \in G$$
+>
+> In the new basis, the representation is a **direct sum** $$D_1 \oplus D_2$$, meaning the carrier space splits into independent subspaces that don't mix under the group action. A representation that *cannot* be decomposed this way is called **irreducible**.[^irreps]
+{: .block-definition }
 
-In the new basis, the representation is a **direct sum** $$D_1 \oplus D_2$$, meaning the carrier space splits into independent subspaces that don't mix under the group action—each block $$D_i(g)$$ is itself a smaller representation. A representation that *cannot* be decomposed this way is called **irreducible**.[^irreps] Irreducible representations (irreps) are the fundamental building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
+Irreducible representations (irreps) are the fundamental building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
 
 For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \ldots$. We write $D^{(\ell)}(R)$ for the representation matrix of the $\ell$-th irrep corresponding to rotation $R$. The $\ell$-th irrep has a carrier space of dimension $2\ell + 1$: the $\ell = 0$ irrep is the trivial representation (1D, scalars), the $\ell = 1$ irrep is the standard representation (3D, vectors), and higher $\ell$ correspond to increasingly complex transformation properties.
 
@@ -127,15 +136,14 @@ When only the type-0 coefficient is nonzero, $$r$$ is constant in every directio
 
 ### Wigner-D Matrices
 
-The crucial property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by a rotation $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to a matrix called the **Wigner-D matrix**:
+The crucial property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by a rotation $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to the **Wigner-D matrix** $$D^{(\ell)}: SO(3) \to \mathbb{R}^{(2\ell+1) \times (2\ell+1)}$$. For each degree $\ell$, the Wigner-D matrix takes a rotation $R$ and returns a $(2\ell+1) \times (2\ell+1)$ matrix. We write $$D^{(\ell)}_{mm'}(R)$$ for the $(m, m')$-th entry.[^indexing]
 
-$$D^{(\ell)}: SO(3) \to \mathbb{R}^{(2\ell+1) \times (2\ell+1)}$$
-
-For each degree $\ell$, the Wigner-D matrix takes a rotation $R$ and returns a $(2\ell+1) \times (2\ell+1)$ matrix. We write $$D^{(\ell)}_{mm'}(R)$$ for the $(m, m')$-th entry.[^indexing] Concretely, if $\hat{\mathbf{r}}$ denotes a unit direction vector (a point on the sphere), then evaluating a spherical harmonic at the rotated direction $R^{-1}\hat{\mathbf{r}}$ is equivalent to mixing the spherical harmonics evaluated at the original direction:
-
-$$Y_\ell^m(R^{-1}\hat{\mathbf{r}}) = \sum_{m'=-\ell}^{\ell} D^{(\ell)}_{mm'}(R) \, Y_\ell^{m'}(\hat{\mathbf{r}})$$
-
-This is the key equation: rotating a spherical harmonic of degree $\ell$ produces a linear combination of *same-degree* harmonics, and the Wigner-D matrix contains the mixing coefficients. Spherical harmonics of different degrees never mix — they transform independently.
+> **Spherical harmonic transformation.** If $\hat{\mathbf{r}}$ is a unit direction vector, evaluating a degree-$\ell$ spherical harmonic at the rotated direction $R^{-1}\hat{\mathbf{r}}$ is equivalent to mixing the spherical harmonics at the original direction:
+>
+> $$Y_\ell^m(R^{-1}\hat{\mathbf{r}}) = \sum_{m'=-\ell}^{\ell} D^{(\ell)}_{mm'}(R) \, Y_\ell^{m'}(\hat{\mathbf{r}})$$
+>
+> Rotating a spherical harmonic of degree $\ell$ produces a linear combination of *same-degree* harmonics. Spherical harmonics of different degrees never mix — they transform independently.
+{: .block-lemma }
 
 For each degree $\ell$, the $2\ell + 1$ spherical harmonics $\{Y_\ell^{-\ell}, Y_\ell^{-\ell+1}, \ldots, Y_\ell^{\ell}\}$ span a $(2\ell+1)$-dimensional vector space. This vector space is the **carrier space** for the $\ell$-th irreducible representation of $SO(3)$, and the Wigner-D matrix $D^{(\ell)}(R)$ is the representation matrix that acts on it. Any linear combination of degree-$\ell$ spherical harmonics can be written as a vector of $2\ell+1$ coefficients, and when we rotate the coordinate system, these coefficients transform by multiplication with the Wigner-D matrix.
 
@@ -145,11 +153,16 @@ In equivariant neural networks, spherical harmonics serve two purposes. First, t
 
 ### Spherical Tensors
 
-With spherical harmonics providing our basis, we can now define the feature vectors used in equivariant neural networks. A **spherical tensor**[^spherical-tensor] of degree $\ell$ is a $(2\ell+1)$-dimensional vector $\mathbf{f}^{(\ell)} \in \mathbb{R}^{2\ell+1}$ that transforms under rotation $R$ according to the Wigner-D matrix:
+With spherical harmonics providing our basis, we can now define the feature vectors used in equivariant neural networks.
 
-$$\mathbf{f}^{(\ell)} \mapsto D^{(\ell)}(R) \, \mathbf{f}^{(\ell)}$$
+> **Spherical tensor.** A **spherical tensor**[^spherical-tensor] of degree $\ell$ is a $(2\ell+1)$-dimensional vector $\mathbf{f}^{(\ell)} \in \mathbb{R}^{2\ell+1}$ that transforms under rotation $R$ according to the Wigner-D matrix:
+>
+> $$\mathbf{f}^{(\ell)} \mapsto D^{(\ell)}(R) \, \mathbf{f}^{(\ell)}$$
+>
+> The carrier space is $\mathbb{R}^{2\ell+1}$—the same space spanned by the degree-$\ell$ spherical harmonics. The components are indexed by order $m \in \{-\ell, \ldots, \ell\}$, mirroring the spherical harmonic indices.
+{: .block-definition }
 
-The carrier space is $\mathbb{R}^{2\ell+1}$—the same space spanned by the degree-$\ell$ spherical harmonics. The components of a spherical tensor are indexed by order $m \in \{-\ell, \ldots, \ell\}$, mirroring the spherical harmonic indices. In other words, spherical tensors live in the carrier spaces of $SO(3)$ irreps that we defined through spherical harmonics. This is why we call the layers that operate on these features **spherical equivariant layers**. A natural example of a spherical tensor is the vector of all degree-$\ell$ spherical harmonics evaluated at a direction $\hat{\mathbf{r}}$, which we write as $$Y^{(\ell)}(\hat{\mathbf{r}}) = (Y_\ell^{-\ell}(\hat{\mathbf{r}}), \ldots, Y_\ell^{\ell}(\hat{\mathbf{r}}))^T \in \mathbb{R}^{2\ell+1}$$.
+Spherical tensors live in the carrier spaces of $SO(3)$ irreps that we defined through spherical harmonics. This is why we call the layers that operate on these features **spherical equivariant layers**. A natural example of a spherical tensor is the vector of all degree-$\ell$ spherical harmonics evaluated at a direction $\hat{\mathbf{r}}$, which we write as $$Y^{(\ell)}(\hat{\mathbf{r}}) = (Y_\ell^{-\ell}(\hat{\mathbf{r}}), \ldots, Y_\ell^{\ell}(\hat{\mathbf{r}}))^T \in \mathbb{R}^{2\ell+1}$$.
 
 Modern equivariant networks maintain features as **direct sums** of spherical tensors of multiple degrees. A direct sum (denoted $\oplus$) simply means concatenating vectors that transform independently—each block has its own transformation rule:
 
@@ -227,14 +240,20 @@ $$\begin{aligned}
 &\quad= \begin{bmatrix} D^{(\ell'_1)}(R) & 0 & 0 & \cdots \\ 0 & D^{(\ell'_2)}(R) & 0 & \cdots \\ 0 & 0 & D^{(\ell'_3)}(R) & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{bmatrix} \operatorname{vec}(\mathbf{x}^{(\ell_1)} \otimes_{\text{cg}} \mathbf{y}^{(\ell_2)})
 \end{aligned}$$
 
-This is exactly the format we need: a direct sum of irreps where each block transforms independently. The entries of $$\mathbf{C}$$ are the **Clebsch-Gordan coefficients** $$C_{(\ell_1, m_1),(\ell_2, m_2)}^{(\ell, m)}$$. The subscript $$(\ell_1, m_1), (\ell_2, m_2)$$ specifies the two input components, and the superscript $$(\ell, m)$$ specifies the output component. In component form, the CG tensor product reads:
+This is exactly the format we need: a direct sum of irreps where each block transforms independently. The entries of $$\mathbf{C}$$ are the **Clebsch-Gordan coefficients** $$C_{(\ell_1, m_1),(\ell_2, m_2)}^{(\ell, m)}$$, where the subscript specifies the two input components and the superscript specifies the output component.
 
-$$(\mathbf{x}^{(\ell_1)} \otimes_{\text{cg}} \mathbf{y}^{(\ell_2)})^{(\ell)}_m = \sum_{m_1=-\ell_1}^{\ell_1} \sum_{m_2=-\ell_2}^{\ell_2} C_{(\ell_1, m_1),(\ell_2, m_2)}^{(\ell, m)} \, x^{(\ell_1)}_{m_1} \, y^{(\ell_2)}_{m_2}$$
+> **CG tensor product (component form).** The CG tensor product combines two spherical tensors into a direct sum of irreps:
+>
+> $$(\mathbf{x}^{(\ell_1)} \otimes_{\text{cg}} \mathbf{y}^{(\ell_2)})^{(\ell)}_m = \sum_{m_1=-\ell_1}^{\ell_1} \sum_{m_2=-\ell_2}^{\ell_2} C_{(\ell_1, m_1),(\ell_2, m_2)}^{(\ell, m)} \, x^{(\ell_1)}_{m_1} \, y^{(\ell_2)}_{m_2}$$
+>
+> The output degrees range from $$\lvert\ell_1 - \ell_2\rvert$$ to $$\ell_1 + \ell_2$$. Each output block is a spherical tensor that transforms by its own Wigner-D matrix.
+{: .block-definition }
 
-This weighted sum over all input component pairs produces outputs that are properly organized by irrep type. For two vectors ($\ell_1 = \ell_2 = 1$), the CG tensor product yields:
-- A **type-0** (1D scalar): corresponds to the dot product $\mathbf{x} \cdot \mathbf{y}$
-- A **type-1** (3D vector): corresponds to the cross product $\mathbf{x} \times \mathbf{y}$
-- A **type-2** (5D quadrupole): corresponds to the traceless symmetric outer product
+> **Example: $$\ell_1 = \ell_2 = 1$$.** For two vectors, the CG tensor product decomposes the $3 \times 3 = 9$ components into three irreps:
+> - A **type-0** (1D scalar): the dot product $\mathbf{x} \cdot \mathbf{y}$
+> - A **type-1** (3D vector): the cross product $\mathbf{x} \times \mathbf{y}$
+> - A **type-2** (5D): the traceless symmetric outer product
+{: .block-example }
 
 The CG tensor product is **equivariant by construction**: rotating both inputs causes each output component to rotate according to its own Wigner-D matrix. This is what allows us to stack multiple layers while maintaining equivariance throughout.
 
@@ -256,11 +275,14 @@ The network begins by embedding the atom types into type-0 (scalar) features—t
 
 The geometric information enters through the edges of the graph: for each pair of neighboring atoms $i$ and $j$, we compute the relative position vector, its length, and its direction. The direction is encoded using spherical harmonics, providing an equivariant representation of the edge geometry.
 
-The core of the network consists of **equivariant message passing layers**. In each layer, node features are updated by aggregating information from neighboring nodes. Let $$\mathbf{h}_j^{(\ell)}$$ denote the type-$$\ell$$ spherical tensor at node $$j$$. For each neighboring pair of atoms $$i$$ and $$j$$, we have the distance $$r_{ij} = \lVert \mathbf{r}_j - \mathbf{r}_i \rVert$$ and direction $$\hat{\mathbf{r}}_{ij} = (\mathbf{r}_j - \mathbf{r}_i) / r_{ij}$$. The message from node $$j$$ to node $$i$$ is:
+The core of the network consists of **equivariant message passing layers**. In each layer, node features are updated by aggregating information from neighboring nodes. Let $$\mathbf{h}_j^{(\ell)}$$ denote the type-$$\ell$$ spherical tensor at node $$j$$, with distance $$r_{ij} = \lVert \mathbf{r}_j - \mathbf{r}_i \rVert$$ and direction $$\hat{\mathbf{r}}_{ij} = (\mathbf{r}_j - \mathbf{r}_i) / r_{ij}$$ for each neighboring pair.
 
-$$\mathbf{m}_{ij}^{(\ell_{\text{out}})} = W(r_{ij}) \left( \mathbf{h}_j^{(\ell_{\text{in}})} \otimes_{\text{cg}} Y^{(\ell_f)}(\hat{\mathbf{r}}_{ij}) \right)^{(\ell_{\text{out}})}$$
-
-Here, $$Y^{(\ell_f)}(\hat{\mathbf{r}}_{ij})$$ encodes the edge direction as spherical harmonics of degree $$\ell_f$$, and $$\otimes_{\text{cg}}$$ is the CG tensor product that combines the neighbor features $$\mathbf{h}_j^{(\ell_{\text{in}})}$$ with this directional encoding. The superscript $$(\ell_{\text{out}})$$ selects which output irrep type to extract. $$W(r_{ij})$$ is a learnable **radial function** that takes the scalar distance and returns learned weights—because it depends only on distance (not direction), it is rotation-invariant.
+> **Equivariant message.** The message from node $$j$$ to node $$i$$ is:
+>
+> $$\mathbf{m}_{ij}^{(\ell_{\text{out}})} = W(r_{ij}) \left( \mathbf{h}_j^{(\ell_{\text{in}})} \otimes_{\text{cg}} Y^{(\ell_f)}(\hat{\mathbf{r}}_{ij}) \right)^{(\ell_{\text{out}})}$$
+>
+> $$Y^{(\ell_f)}(\hat{\mathbf{r}}_{ij})$$ encodes the edge direction as spherical harmonics, $$\otimes_{\text{cg}}$$ combines neighbor features with this directional encoding, and $$W(r_{ij})$$ is a learnable **radial function** — rotation-invariant because it depends only on distance, not direction.
+{: .block-definition }
 
 The messages are then summed over all neighbors $$\mathcal{N}(i)$$ to update the node features: $$\mathbf{h}_i^{(\ell)} \leftarrow \sum_{j \in \mathcal{N}(i)} \mathbf{m}_{ij}^{(\ell)}$$. Summation is a natural choice for aggregation because it commutes with rotation.
 

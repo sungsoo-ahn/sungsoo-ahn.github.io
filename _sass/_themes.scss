@@ -43,6 +43,19 @@
   --global-danger-block-text: #600;
   --global-danger-block-title: #c00;
 
+  --global-definition-block: #2176ae;
+  --global-definition-block-bg: #e3f0fa;
+  --global-definition-block-text: #14456e;
+  --global-definition-block-title: #1a5d8f;
+  --global-example-block: #42b983;
+  --global-example-block-bg: #e2f5ec;
+  --global-example-block-text: #215d42;
+  --global-example-block-title: #359469;
+  --global-lemma-block: #7c3aed;
+  --global-lemma-block-bg: #ede9fe;
+  --global-lemma-block-text: #4c1d95;
+  --global-lemma-block-title: #6d28d9;
+
   #light-toggle-system {
     padding-left: 10px;
     padding-top: 12px;
@@ -113,6 +126,19 @@ html[data-theme="dark"] {
   --global-danger-block-bg: #600;
   --global-danger-block-text: #ffb9b9;
   --global-danger-block-title: #ffe0e0;
+
+  --global-definition-block: #60a5fa;
+  --global-definition-block-bg: #1e3a5f;
+  --global-definition-block-text: #bfdbfe;
+  --global-definition-block-title: #e3f0fa;
+  --global-example-block: #42b983;
+  --global-example-block-bg: #215d42;
+  --global-example-block-text: #beffe2;
+  --global-example-block-title: #e2f5ec;
+  --global-lemma-block: #a78bfa;
+  --global-lemma-block-bg: #3b1f6e;
+  --global-lemma-block-text: #ddd6fe;
+  --global-lemma-block-title: #ede9fe;
 
   .only-light {
     display: none;
