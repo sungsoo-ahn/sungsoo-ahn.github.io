@@ -44,6 +44,11 @@ Excel files synced from Dropbox:
 | `_data/socials.yml` | Social links |
 | `assets/img/prof_pic.jpg` | Profile photo |
 
+## Blog Post Writing Guidelines
+
+- **Introduce concepts intuitively before formal notation.** When a concept (e.g., equivariance) first appears, explain it in plain language with a concrete example. Do not use formal symbols (e.g., group $G$, element $g$) until they have been properly defined in their own section.
+- **Motivate mathematical abstractions from concrete examples.** When introducing an abstraction like a group, start from the concrete transformations it describes (e.g., rotations) and show how the abstract definition captures their properties naturally.
+
 ## Architecture
 
 - **Framework:** Jekyll with al-folio theme
