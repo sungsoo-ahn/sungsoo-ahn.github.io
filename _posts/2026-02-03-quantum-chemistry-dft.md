@@ -72,7 +72,7 @@ The computational challenge is the electronic part. Even on a modest grid of $$G
 
 ## The Born-Oppenheimer Approximation
 
-The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. This is justified because even the lightest nucleus (the proton) is 1836 times heavier than an electron, and heavier nuclei are thousands of times heavier still — so nuclei move much more slowly — the electrons adjust instantaneously to any nuclear configuration.
+The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. Even the lightest nucleus (the proton) is 1836 times heavier than an electron, and heavier nuclei are thousands of times heavier still. Nuclei therefore move much more slowly, and the electrons adjust instantaneously to any nuclear configuration.
 
 1. **The electronic problem**: Fix the nuclear positions $$\{\mathbf{R}_A\}$$ and solve for the electronic wavefunction and energy. The nuclei appear only as an external potential $$v_{\text{ext}}(\mathbf{r}) = -\sum_A Z_A / \lvert\mathbf{r} - \mathbf{R}_A\rvert$$ that the electrons move in. The nuclear-nuclear repulsion $$\sum_{A<B} Z_A Z_B / \lvert\mathbf{R}_A - \mathbf{R}_B\rvert$$ adds a constant for each configuration.
 
@@ -124,9 +124,9 @@ where $$\hat{f}$$ is the **Fock operator** — an effective one-electron Hamilto
 
 $$\hat{f}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} - \underbrace{\hat{K}(\mathbf{r})}_{\text{exchange}}$$
 
-The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local — its action on an orbital involves integrating over the product of different orbitals across all of space, unlike the other terms which depend only on the local point $$\mathbf{r}$$ — and arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
+The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local: its action on an orbital involves integrating over the product of different orbitals across all of space, unlike the other terms which depend only on the local point $$\mathbf{r}$$. It arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
 
-Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved **self-consistently**: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This **self-consistent field (SCF)** procedure is a fixed-point iteration, analogous in spirit to the EM algorithm: the orbitals define the effective field, and the effective field determines the orbitals.
+Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved **self-consistently**: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This **self-consistent field (SCF)** procedure is a fixed-point iteration, analogous to the EM algorithm: the orbitals define the effective field, and the effective field determines the orbitals.
 
 ### Electron Correlation
 
@@ -140,7 +140,7 @@ Because each electron sees only the average field of the others (as discussed ab
 
 ## Density Functional Theory
 
-**Density functional theory (DFT)** sidesteps the exponential complexity of the wavefunction entirely by working with the **electron density** — a function of only three spatial variables instead of $$3N$$.
+**Density functional theory (DFT)** sidesteps the exponential complexity of the wavefunction by working with the **electron density** — a function of only three spatial variables instead of $$3N$$.
 
 The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
 
@@ -242,8 +242,6 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 
 - [**DeepDFT** (Jørgensen & Bhowmik, 2022)](https://doi.org/10.1088/2632-2153/ac3149), [**A Recipe for Charge Density Prediction** (Fu et al., 2024)](https://arxiv.org/abs/2405.19276), [**ELECTRA** (Elsborg et al., 2025)](https://arxiv.org/abs/2503.08305), and [**GPWNO** (Kim & Ahn, 2024)](https://arxiv.org/abs/2402.04278): Predict the electron density $$\rho(\mathbf{r})$$ directly from atomic structure. These methods use graph neural networks, neural operators, and learnable basis sets (including floating orbitals) to estimate the 3D density field without solving the Kohn-Sham equations. Once the density is known, the total energy and forces can be computed from the KS energy functional without solving the eigenvalue problem.
 
-These approaches share a common theme: using neural networks to approximate quantities that are either too expensive to compute exactly or that involve unknown functionals.
-
 ---
 
 ## Summary
@@ -254,7 +252,7 @@ These approaches share a common theme: using neural networks to approximate quan
 
 3. **Wavefunction theory**: Hartree-Fock approximates the wavefunction as a single Slater determinant, capturing most of the energy but missing electron correlation. Post-HF methods systematically improve on this.
 
-4. **Density functional theory**: The Hohenberg-Kohn theorems show that the 3D electron density determines all ground-state properties — an extraordinary compression from $$3N$$ dimensions.
+4. **Density functional theory**: The Hohenberg-Kohn theorems show that the 3D electron density determines all ground-state properties, compressing $$3N$$ dimensions to 3.
 
 5. **Kohn-Sham DFT**: Introduces a fictitious non-interacting system to make the density functional approach practical, concentrating all approximation error in the exchange-correlation functional.
 

@@ -30,7 +30,7 @@ These networks can be understood as having two interleaved components:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/architecture_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="High-level architecture of spherical equivariant networks. Message-passing layers aggregate information from neighboring atoms (structural), while spherical equivariant layers transform features using CG tensor products and nonlinearities (geometric). These two components are interleaved for $T$ layers." %}
 
-The message-passing structure is relatively straightforward (sum over neighbors, apply learned weights). The challenging part—and the focus of this blog post—is the spherical equivariant layers: **how do we build layers that transform features expressively while preserving their rotational behavior?**
+The message-passing structure is straightforward (sum over neighbors, apply learned weights). The challenging part—and the focus of this blog post—is the spherical equivariant layers: **how do we build layers that transform features expressively while preserving their rotational behavior?**
 
 The key insight is that we can't just use arbitrary neural network operations on geometric features. If we have a feature that represents a direction (like a 3D vector), applying a standard MLP would destroy its geometric meaning—after the MLP, the feature would no longer rotate properly when the molecule rotates. We need specially structured operations that preserve equivariance.
 
@@ -54,15 +54,13 @@ Building spherical equivariant layers requires several mathematical concepts, ea
 | **Clebsch-Gordan Tensor Products** | The core operation for combining spherical tensors to produce new spherical tensors |
 | **General Architectural Framework** | Putting it all together into neural network layers |
 
-By the end of this post, you will understand how spherical harmonics, irreducible representations, and Clebsch-Gordan tensor products come together to build layers that respect the rotational symmetry of 3D space.
-
 ---
 
 ## Mathematical Foundations
 
 ### Groups and Symmetries
 
-To build equivariant layers, we first need to precisely define what symmetries we want to preserve. For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. The mathematical language of *groups* gives us the tools to describe these symmetries precisely.
+For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. *Groups* provide the mathematical language to describe these symmetries.
 
 A **group** is a set equipped with a composition operation that lets us combine symmetry transformations—we can compose them, undo them, and there's always a "do nothing" transformation. The **special orthogonal group** $SO(3)$ consists of all 3D rotations, represented as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. (Extensions to include reflections or translations are straightforward but beyond our scope here.)
 
@@ -80,7 +78,7 @@ The vector space $V$ on which these matrices act is called the **carrier space**
 
 For example, consider 3D vectors like position or velocity. The carrier space is $\mathbb{R}^3$, and for each rotation $R \in SO(3)$, the representation matrix is the $3 \times 3$ rotation matrix itself. When we rotate a vector $\mathbf{v}$, we compute $R\mathbf{v}$—the rotation matrix acts on elements of the carrier space.
 
-Representations are the key to understanding how neural network features should transform under symmetry operations. If we want our feature vectors to transform in a predictable way when the input is rotated, we need to specify which representation governs that transformation. The simplest representation is the **trivial representation**, where every group element maps to the identity matrix—the carrier space is $\mathbb{R}^1$ (scalars), and rotations leave scalars unchanged. The **standard representation** of $SO(3)$ uses the $3 \times 3$ rotation matrices on the carrier space $\mathbb{R}^3$—this describes how ordinary 3D vectors transform.
+If we want our feature vectors to transform predictably when the input is rotated, we need to specify which representation governs that transformation. The simplest representation is the **trivial representation**, where every group element maps to the identity matrix—the carrier space is $\mathbb{R}^1$ (scalars), and rotations leave scalars unchanged. The **standard representation** of $SO(3)$ uses the $3 \times 3$ rotation matrices on the carrier space $\mathbb{R}^3$—this describes how ordinary 3D vectors transform.
 
 But these are just two examples from an infinite family of representations. A natural question is: can a given representation be broken down into simpler pieces? A representation $D$ is **reducible** if there exists a change-of-basis matrix $P$ such that:
 
@@ -96,7 +94,7 @@ For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \l
 
 ### Spherical Harmonics
 
-We now know that features can transform in different ways under rotation (different representations). But how do we actually *construct* features with these transformation properties? The key idea is simple: given two neighboring atoms, we need a way to encode the *direction* from one to the other. Spherical harmonics are special functions defined on the unit sphere that do exactly this — they take a direction and return a set of numbers that transform predictably under rotation. Evaluating spherical harmonics at the direction $$\hat{\mathbf{r}}_{ij}$$ between atoms $$i$$ and $$j$$ gives the network its first geometric features, and all subsequent layers build on them.
+We now know that features can transform in different ways under rotation (different representations). But how do we actually *construct* features with these transformation properties? Given two neighboring atoms, we need a way to encode the *direction* from one to the other. Spherical harmonics are special functions defined on the unit sphere that do exactly this — they take a direction and return a set of numbers that transform predictably under rotation. Evaluating spherical harmonics at the direction $$\hat{\mathbf{r}}_{ij}$$ between atoms $$i$$ and $$j$$ gives the network its first geometric features, and all subsequent layers build on them.
 
 To build intuition, consider the simpler case of the circle first. The **circular harmonics** $e^{im\phi} = \cos(m\phi) + i\sin(m\phi)$ form a basis for functions on the circle $S^1$. Any function on the circle can be written as a sum of these basis functions (this is the Fourier series). Crucially, each circular harmonic has a simple transformation property under 2D rotations: rotating by angle $\alpha$ multiplies $e^{im\phi}$ by $e^{im\alpha}$. Different values of $m$ transform independently. We write $Y_m(\phi)$ for the real part $\cos(m\phi)$ of each circular harmonic.
 
@@ -248,7 +246,7 @@ A significant challenge with CG tensor products is their computational cost. A n
 
 ## General Architectural Framework
 
-We now have all the mathematical ingredients: groups define our symmetries, representations tell us how features transform, spherical harmonics provide concrete basis functions, spherical tensors are our feature vectors, and CG tensor products let us combine them equivariantly. This section shows how these pieces fit together into a complete neural network layer.
+This section assembles the components from previous sections into a complete neural network layer.
 
 ### Building Blocks
 
@@ -302,7 +300,7 @@ The mathematical framework described above—spherical harmonics, irreps, CG ten
 
 ### Early Foundations
 
-[Tensor Field Networks (Thomas et al., 2018)](https://arxiv.org/abs/1802.08219) introduced the foundational framework: spherical tensor features, CG tensor products for combining neighbor features with spherical harmonic edge embeddings, and radial functions for distance weighting. The message-passing equation described in the previous section is essentially the TFN formulation.
+[Tensor Field Networks (Thomas et al., 2018)](https://arxiv.org/abs/1802.08219) introduced the foundational framework: spherical tensor features, CG tensor products for combining neighbor features with spherical harmonic edge embeddings, and radial functions for distance weighting. The message-passing equation described in the previous section is the TFN formulation.
 
 ### Attention-Based Architectures
 
@@ -312,7 +310,7 @@ The mathematical framework described above—spherical harmonics, irreps, CG ten
 
 Spherical tensors are sometimes called **steerable features** in the machine learning literature, because knowing the Wigner-D matrix lets us predict — or "steer" — exactly how a feature vector changes under any rotation, without recomputing anything from scratch. This steerability is what makes equivariant architectures so data-efficient: since the network already knows how features must transform under rotation, it does not need to learn rotational patterns from data, and every training example effectively teaches the model about all rotated versions of itself.
 
-[NequIP (Batzner et al., 2022)](https://doi.org/10.1038/s41467-022-29939-5) demonstrated this concretely. Using the TFN framework with learnable radial functions, gated nonlinearities, and residual connections, NequIP achieved state-of-the-art molecular dynamics accuracy with remarkably small training sets — as few as a few hundred structures. The [e3nn library](https://e3nn.org/) developed alongside NequIP provides a practical toolkit for working with irreps and CG tensor products. [SEGNN (Brandstetter et al., 2022)](https://arxiv.org/abs/2110.02905) generalized equivariant message passing by using steerable features for both node and edge attributes, enabling richer nonlinear operations through steerable MLPs.
+[NequIP (Batzner et al., 2022)](https://doi.org/10.1038/s41467-022-29939-5) demonstrated this concretely. Using the TFN framework with learnable radial functions, gated nonlinearities, and residual connections, NequIP achieved state-of-the-art molecular dynamics accuracy with small training sets — as few as a few hundred structures. The [e3nn library](https://e3nn.org/) developed alongside NequIP provides a practical toolkit for working with irreps and CG tensor products. [SEGNN (Brandstetter et al., 2022)](https://arxiv.org/abs/2110.02905) generalized equivariant message passing by using steerable features for both node and edge attributes, enabling richer nonlinear operations through steerable MLPs.
 
 ### Higher Body-Order Interactions
 
@@ -342,7 +340,7 @@ Spherical equivariant layers represent a synthesis of group theory, representati
 
 5. **Message passing on graphs**: Local atomic environments are processed through neighbor aggregation, with the framework extending naturally to any point cloud or graph structure.
 
-This framework has enabled remarkable advances in molecular property prediction, force field development, and materials discovery, and continues to be an active area of research as new architectures push the boundaries of accuracy and efficiency.
+This framework underlies modern molecular property prediction, force field development, and materials discovery.
 
 ---
 
