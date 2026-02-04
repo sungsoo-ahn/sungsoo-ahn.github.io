@@ -13,16 +13,14 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post presents the Fokker-Planck equation in three layers: physical intuition, a heuristic derivation via discretization (following <a href="https://arxiv.org/abs/2510.21890">this paper</a>), and a rigorous derivation via Itô calculus. The first two layers use only multivariate calculus; the third introduces stochastic calculus for readers who want the full proof.</em>
+<em>Note: This post presents the Fokker-Planck equation in three layers: physical intuition, a heuristic derivation via discretization (following <a href="https://arxiv.org/abs/2510.21890">Lai et al., 2025</a>), and a rigorous derivation via Itô calculus. The first two layers use only multivariate calculus; the third introduces stochastic calculus for readers who want the full proof.</em>
 </p>
 
 ## Introduction
 
-Drop a bead of ink into a glass of still water. Each ink particle jitters randomly — buffeted by thermal collisions with water molecules — yet the visible cloud of ink evolves smoothly: it spreads, shifts, and eventually fades into a uniform tint. Individual trajectories are stochastic; the density of particles is deterministic.
+Diffusion models — DDPM, score-based models, and their ODE counterparts like flow matching — are built on stochastic differential equations (SDEs) and their associated density dynamics. A forward SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** is the PDE that connects the two sides: given the SDE describing how individual samples move, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving the probability flow ODE, reverse-time SDEs, and score matching objectives.
 
-The **Fokker-Planck equation** is the PDE that governs this density evolution. Given a stochastic differential equation (SDE) describing how individual particles move, the Fokker-Planck equation tells us how the probability density $$p_t(\mathbf{x})$$ changes over time. It converts a stochastic description (random trajectories) into a deterministic one (density flow).
-
-This equation is central to diffusion models in generative AI: the forward SDE gradually corrupts data into noise, and the Fokker-Planck equation characterizes how the data density evolves during this process. Understanding this equation is a prerequisite for the probability flow ODE, reverse-time SDEs, and score-based generative modeling.
+Most diffusion model tutorials state the Fokker-Planck equation without proof and move on. Fully understanding where it comes from is surprisingly involved — the rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post aims to bridge that gap, building from physical intuition to a complete proof in three layers: (1) a visual explanation of what each term means, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
 
 ### Roadmap
 
@@ -39,7 +37,7 @@ This equation is central to diffusion models in generative AI: the forward SDE g
 
 Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R}^D$$ governed by the **forward SDE**:
 
-> **Forward SDE.**
+> **Forward SDE.** The process evolves according to
 >
 > $$d\mathbf{x}(t) = \mathbf{f}(\mathbf{x}(t), t)\,dt + g(t)\,d\mathbf{w}(t)$$
 >
@@ -54,7 +52,7 @@ $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t
 
 This means the **transition kernel** — the conditional distribution of the next state given the current one — is Gaussian:
 
-> **Transition kernel.**
+> **Transition kernel.** The conditional distribution is Gaussian:
 >
 > $$p(\mathbf{x}_{t+\Delta t} \mid \mathbf{x}_t) = \mathcal{N}\!\left(\mathbf{x}_{t+\Delta t};\; \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t,\; g^2(t)\,\Delta t\;\mathbf{I}\right)$$
 >
@@ -69,7 +67,7 @@ This Gaussian kernel is the building block of the derivation.
 
 The Fokker-Planck equation for the SDE above is:
 
-> **Fokker-Planck Equation.**
+> **Fokker-Planck Equation.** The density $$p_t(\mathbf{x})$$ evolves according to
 >
 > $$\displaystyle\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr] + \frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})$$
 >
@@ -108,7 +106,7 @@ Now take the expectation term by term:
 
 After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Rearranging:
 
-> **The diffusion PDE (1D).**
+> **The diffusion PDE (1D).** Pure diffusion in one dimension gives
 >
 > $$\displaystyle\frac{\partial p_t}{\partial t} = \frac{g^2}{2}\,\frac{\partial^2 p_t}{\partial x^2}$$
 >
@@ -127,7 +125,7 @@ The derivation proceeds from the Gaussian transition kernel in three steps.
 
 The marginal density at time $$t + \Delta t$$ is obtained by integrating the transition kernel against the current density:
 
-> **Chapman-Kolmogorov equation.**
+> **Chapman-Kolmogorov equation.** The marginal density at time $$t + \Delta t$$ is
 >
 > $$p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\; \mathbf{y} + \mathbf{f}(\mathbf{y},t)\,\Delta t,\; g^2(t)\,\Delta t\;\mathbf{I}\right) p_t(\mathbf{y})\,d\mathbf{y}$$
 >
@@ -199,7 +197,7 @@ Ordinary calculus assumes smooth paths: differentiation and the chain rule requi
 
 **Itô calculus** resolves this by redefining integration rather than differentiation:
 
-> **Itô integral.**
+> **Itô integral.** The stochastic integral is defined as the limit
 >
 > $$\displaystyle\int_0^T H(t)\,d\mathbf{w}(t) = \lim_{n \to \infty} \sum_{k=0}^{n-1} H(t_k)\bigl[\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)\bigr]$$
 >
@@ -304,3 +302,12 @@ This is the Fokker-Planck equation — the same result as the heuristic derivati
 3. **Two derivations, one equation.** The heuristic route (discretize → Chapman-Kolmogorov → Taylor expand → take limits) builds understanding of where each term comes from. The Itô calculus route (Itô's lemma → test functions → integration by parts) makes the argument rigorous without requiring the density to be classically differentiable. Both produce the same PDE.
 
 4. **Connection to diffusion models.** The Fokker-Planck equation characterizes how the data density evolves under the forward SDE. This is the starting point for deriving the probability flow ODE and reverse-time SDE used in score-based generative modeling.
+
+---
+
+## References
+
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. [NeurIPS 2020](https://arxiv.org/abs/2006.11239).
+- Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. [ICLR 2021](https://arxiv.org/abs/2011.13456).
+- Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). Flow Matching for Generative Modeling. [ICLR 2023](https://arxiv.org/abs/2210.02747).
+- Lai, C.-H., Song, Y., Kim, D., Mitsufuji, Y. & Ermon, S. (2025). The Principles of Diffusion Models. [arXiv:2510.21890](https://arxiv.org/abs/2510.21890).
