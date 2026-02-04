@@ -34,14 +34,14 @@ The message-passing structure is straightforward (sum over neighbors, apply lear
 
 The key insight is that we can't just use arbitrary neural network operations on geometric features. If we have a feature that represents a direction (like a 3D vector), applying a standard MLP would destroy its geometric meaning—after the MLP, the feature would no longer rotate properly when the molecule rotates. We need specially structured operations that preserve equivariance.
 
-> **Equivariance.** A function $f$ is **equivariant** with respect to a group $G$ if transforming the input by any group element $g$ and then applying $f$ gives the same result as applying $f$ first and then transforming the output:
+> **Equivariance.** A function $f$ is **equivariant** with respect to a symmetry (such as rotation) if transforming the input and then applying $f$ gives the same result as applying $f$ first and then transforming the output. For instance, if we rotate a molecule and then predict forces, we get the same answer as predicting forces first and then rotating them:
 >
-> $$f(g \cdot \mathbf{x}) = g \cdot f(\mathbf{x}) \quad \text{for all } g \in G$$
+> $$f(\text{rotate}(\mathbf{x})) = \text{rotate}(f(\mathbf{x})) \quad \text{for every rotation}$$
 >
-> When the input and output live in different spaces, they may transform by different representations—we will make this precise shortly.
+> We will formalize this using the language of *groups* and *representations* in the next section.
 {: .block-definition }
 
-This is where the mathematical framework of *group representations* becomes essential. It tells us:
+This is where a mathematical framework becomes essential. It tells us:
 - How to organize features so their transformation under rotation is predictable
 - What operations we can apply without breaking equivariance
 - How to combine features in ways that respect rotational symmetry
@@ -63,9 +63,9 @@ Building spherical equivariant layers requires several mathematical concepts, ea
 
 ### Groups and Symmetries
 
-For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. *Groups* provide the mathematical language to describe these symmetries.
+For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. We need a precise way to talk about the full collection of 3D rotations and how they combine.
 
-A **group** is a set equipped with a composition operation that lets us combine symmetry transformations—we can compose them, undo them, and there's always a "do nothing" transformation. The **special orthogonal group** $SO(3)$ consists of all 3D rotations, represented as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. (Extensions to include reflections or translations are straightforward but beyond our scope here.)
+A **group** is the natural mathematical structure for describing a set of transformations. Consider the set of all 3D rotations: we can compose any two rotations to get another rotation, every rotation has an inverse that undoes it, and there is an identity rotation ("do nothing"). These properties—closure under composition, existence of inverses, and an identity element—are exactly what define a group. The **special orthogonal group** $SO(3)$ is the group of all 3D rotations, represented concretely as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. (Extensions to include reflections or translations are straightforward but beyond our scope here.)
 
 A **group action** describes how a group transforms the elements of some space $X$. For each group element $g \in G$ and each point $x \in X$, the action produces a transformed point $g \cdot x \in X$, satisfying two properties: the identity element does nothing ($e \cdot x = x$), and composing group elements before acting is the same as acting sequentially ($(g_1 \cdot g_2) \cdot x = g_1 \cdot (g_2 \cdot x)$). For example, $SO(3)$ acts on 3D space by rotating vectors: $R \cdot \mathbf{v} = R\mathbf{v}$. Representations, which we define next, are a special case of group actions where the transformations are linear maps on a vector space.
 
