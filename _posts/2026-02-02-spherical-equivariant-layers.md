@@ -142,7 +142,7 @@ The crucial property of spherical harmonics is how they transform under rotation
 >
 > $$Y_\ell^m(R^{-1}\hat{\mathbf{r}}) = \sum_{m'=-\ell}^{\ell} D^{(\ell)}_{mm'}(R) \, Y_\ell^{m'}(\hat{\mathbf{r}})$$
 >
-> Rotating a spherical harmonic of degree $\ell$ produces a linear combination of *same-degree* harmonics. Spherical harmonics of different degrees never mix — they transform independently.
+> Rotating a spherical harmonic of degree $\ell$ produces a linear combination of *same-degree* harmonics. Spherical harmonics of different degrees never mix — they transform independently.[^physics-sh]
 {: .block-lemma }
 
 For each degree $\ell$, the $2\ell + 1$ spherical harmonics $\{Y_\ell^{-\ell}, Y_\ell^{-\ell+1}, \ldots, Y_\ell^{\ell}\}$ span a $(2\ell+1)$-dimensional vector space. This vector space is the **carrier space** for the $\ell$-th irreducible representation of $SO(3)$, and the Wigner-D matrix $D^{(\ell)}(R)$ is the representation matrix that acts on it. Any linear combination of degree-$\ell$ spherical harmonics can be written as a vector of $2\ell+1$ coefficients, and when we rotate the coordinate system, these coefficients transform by multiplication with the Wigner-D matrix.
@@ -377,3 +377,5 @@ Spherical tensors are sometimes called **steerable features** in the machine lea
 [^indexing]: Throughout this post, subscript indices on a matrix symbol denote its entries (e.g., $D^{(\ell)}_{mm'}(R)$ is the $(m, m')$-th entry of $D^{(\ell)}(R)$), and subscript indices on a vector symbol denote its components (e.g., $x^{(\ell)}_m$ is the $m$-th component of $\mathbf{x}^{(\ell)}$).
 
 [^spherical-tensor]: The term "spherical tensor" comes from physics, where it refers to a set of quantities that transform under rotations according to a Wigner-D matrix of a specific degree. In the equivariant neural network literature, these are also called "steerable features" (because we can predict—or "steer"—exactly how they change under any rotation) or simply "type-$\ell$ features."
+
+[^physics-sh]: From a physics standpoint, spherical harmonics are the eigenstates of angular momentum operators acting on the function space of the sphere. Angular momentum operators describe infinitesimal rotations, which is why the transformation of spherical harmonics under finite rotations is so well-behaved.
