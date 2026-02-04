@@ -43,11 +43,14 @@ More recently, **deep learning methods** have been applied to both families, par
 
 ## The Schrödinger Equation
 
-All of non-relativistic quantum chemistry begins with a single equation. Consider a system of $$N$$ electrons at positions $$\mathbf{r}_i \in \mathbb{R}^3$$ and $$M$$ nuclei at positions $$\mathbf{R}_A \in \mathbb{R}^3$$. The **time-independent Schrödinger equation** is:
+All of non-relativistic quantum chemistry begins with a single equation. Consider a system of $$N$$ electrons at positions $$\mathbf{r}_i \in \mathbb{R}^3$$ and $$M$$ nuclei at positions $$\mathbf{R}_A \in \mathbb{R}^3$$.
 
-$$\hat{H} \, \Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M) = E \, \Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$
-
-This equation has three ingredients. The **Hamiltonian** $$\hat{H}$$ is what we know — an operator (denoted by the hat $$\hat{\phantom{x}}$$) encoding the physics: how particles move (kinetic energy) and how they interact (potential energy). Given a particular arrangement of atoms, the Hamiltonian is fully determined. The **wavefunction** $$\Psi: \mathbb{R}^{3(N+M)} \to \mathbb{C}$$ is the unknown — a complete description of the quantum state, encoding where every particle is likely to be found. The **energy** $$E \in \mathbb{R}$$ is what we want — the total energy of the system in that state.
+> **The Schrödinger equation.** The **time-independent Schrödinger equation** is:
+>
+> $$\hat{H} \, \Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M) = E \, \Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$
+>
+> The **Hamiltonian** $$\hat{H}$$ is what we know — an operator encoding how particles move and interact. The **wavefunction** $$\Psi: \mathbb{R}^{3(N+M)} \to \mathbb{C}$$ is the unknown — a complete description of the quantum state. The **energy** $$E \in \mathbb{R}$$ is what we want — the total energy of the system in that state.
+{: .block-definition }
 
 The Schrödinger equation is an eigenvalue problem: applying $$\hat{H}$$ to $$\Psi$$ returns the same function scaled by $$E$$. There are many solutions (many possible quantum states), but the one with the lowest energy — the **ground state** — is the primary target of most quantum chemistry calculations.
 
@@ -88,9 +91,14 @@ The Born-Oppenheimer separation is what makes molecular dynamics and force field
 
 ## Wavefunction Theory
 
-The first approach to the electronic problem is to approximate the wavefunction directly. We need to find the ground-state wavefunction $$\Psi$$ — the eigenfunction of the electronic Hamiltonian with the lowest energy. The **variational principle** guarantees that any trial wavefunction $$\tilde{\Psi}$$ gives an upper bound on the true ground-state energy:
+The first approach to the electronic problem is to approximate the wavefunction directly. We need to find the ground-state wavefunction $$\Psi$$ — the eigenfunction of the electronic Hamiltonian with the lowest energy.
 
-$$E_0 \leq \frac{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \hat{H} \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}$$
+> **Variational principle.** Any trial wavefunction $$\tilde{\Psi}$$ gives an upper bound on the true ground-state energy:
+>
+> $$E_0 \leq \frac{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \hat{H} \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}{\int \tilde{\Psi}^*(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, \tilde{\Psi}(\mathbf{r}_1, \ldots, \mathbf{r}_N) \, d\mathbf{r}_1 \cdots d\mathbf{r}_N}$$
+>
+> The minimum is achieved by the true ground-state wavefunction.
+{: .block-lemma }
 
 So we can choose a parameterized family of trial wavefunctions and minimize the energy over the parameters.[^braket] The variational principle is directly analogous to minimizing a loss function: the energy is the loss, the wavefunction family is the model architecture, and a specific choice of parameterized family is called an **ansatz**[^ansatz] (plural: ansätze).
 
@@ -108,21 +116,27 @@ The Hartree product violates a basic requirement: electrons are **fermions**, so
 
 $$\Psi(\ldots, \mathbf{r}_i, \ldots, \mathbf{r}_j, \ldots) = -\Psi(\ldots, \mathbf{r}_j, \ldots, \mathbf{r}_i, \ldots)$$
 
-The **Pauli exclusion principle** — no two electrons can occupy the same quantum state — is a direct consequence of this antisymmetry.[^pauli] The simplest antisymmetric wavefunction built from orbitals is the **Slater determinant**:
+The **Pauli exclusion principle** — no two electrons can occupy the same quantum state — is a direct consequence of this antisymmetry.[^pauli] The simplest antisymmetric wavefunction built from orbitals is:
 
-$$\Psi_{\text{Slater}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \frac{1}{\sqrt{N!}} \begin{vmatrix} \phi_1(\mathbf{r}_1) & \phi_2(\mathbf{r}_1) & \cdots & \phi_N(\mathbf{r}_1) \\ \phi_1(\mathbf{r}_2) & \phi_2(\mathbf{r}_2) & \cdots & \phi_N(\mathbf{r}_2) \\ \vdots & \vdots & \ddots & \vdots \\ \phi_1(\mathbf{r}_N) & \phi_2(\mathbf{r}_N) & \cdots & \phi_N(\mathbf{r}_N) \end{vmatrix}$$
-
-The determinant automatically enforces antisymmetry: swapping two rows (two electrons) flips the sign, and if two orbitals are identical the determinant vanishes.
+> **Slater determinant.** The **Slater determinant** is an antisymmetric wavefunction built from $$N$$ orbitals:
+>
+> $$\Psi_{\text{Slater}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \frac{1}{\sqrt{N!}} \begin{vmatrix} \phi_1(\mathbf{r}_1) & \phi_2(\mathbf{r}_1) & \cdots & \phi_N(\mathbf{r}_1) \\ \phi_1(\mathbf{r}_2) & \phi_2(\mathbf{r}_2) & \cdots & \phi_N(\mathbf{r}_2) \\ \vdots & \vdots & \ddots & \vdots \\ \phi_1(\mathbf{r}_N) & \phi_2(\mathbf{r}_N) & \cdots & \phi_N(\mathbf{r}_N) \end{vmatrix}$$
+>
+> Swapping two rows (two electrons) flips the sign, and if two orbitals are identical the determinant vanishes — automatically enforcing antisymmetry and the Pauli exclusion principle.
+{: .block-definition }
 
 ### Hartree-Fock: Self-Consistent Field Theory
 
-**Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. The resulting optimality conditions are the **Hartree-Fock equations**, a set of coupled eigenvalue problems for the orbitals:
+**Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. The resulting optimality conditions are:
 
-$$\hat{f}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
-
-where $$\hat{f}$$ is the **Fock operator** — an effective one-electron Hamiltonian. It expands as:
-
-$$\hat{f}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} - \underbrace{\hat{K}(\mathbf{r})}_{\text{exchange}}$$
+> **Hartree-Fock equations.**
+>
+> $$\hat{f}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
+>
+> where $$\hat{f}$$ is the **Fock operator** — an effective one-electron Hamiltonian:
+>
+> $$\hat{f}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} - \underbrace{\hat{K}(\mathbf{r})}_{\text{exchange}}$$
+{: .block-definition }
 
 The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local: its action on an orbital involves integrating over the product of different orbitals across all of space, unlike the other terms which depend only on the local point $$\mathbf{r}$$. It arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
 
@@ -142,23 +156,27 @@ Because each electron sees only the average field of the others (as discussed ab
 
 **Density functional theory (DFT)** sidesteps the exponential complexity of the wavefunction by working with the **electron density** — a function of only three spatial variables instead of $$3N$$.
 
-The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
-
-$$\rho(\mathbf{r}) = N \int |\Psi(\mathbf{r}, \mathbf{r}_2, \ldots, \mathbf{r}_N)|^2 \, d\mathbf{r}_2 \cdots d\mathbf{r}_N$$
-
-The density is a marginal: we integrate out all electron positions except one and multiply by $$N$$ (since any electron could be the one at $$\mathbf{r}$$). The density is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
+> **Electron density.** The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
+>
+> $$\rho(\mathbf{r}) = N \int |\Psi(\mathbf{r}, \mathbf{r}_2, \ldots, \mathbf{r}_N)|^2 \, d\mathbf{r}_2 \cdots d\mathbf{r}_N$$
+>
+> The density is a marginal: integrate out all electron positions except one and multiply by $$N$$. It is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
+{: .block-definition }
 
 The rest of this section develops DFT in four steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham approximation decomposes the unknown functional into computable pieces plus one unknown, (3) Jacob's Ladder organizes the approximations for that unknown piece, and (4) the Roothaan-Hall equations discretize the problem into matrices.
 
 ### The Hohenberg-Kohn Theorems
 
-DFT rests on two theorems proved by Hohenberg and Kohn in 1964. The **first theorem** states that the ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties.[^sufficient] The **second theorem** establishes a variational principle: there exists a universal functional $$F[\rho]$$ (a map from functions to scalars, denoted with square brackets) such that the true ground-state density minimizes:
-
-$$E_0 = \min_{\rho} \; E[\rho] \quad \text{subject to} \quad \rho \geq 0, \;\; \int \rho(\mathbf{r}) \, d\mathbf{r} = N$$
-
-where the energy functional is:
-
-$$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$
+> **Hohenberg-Kohn theorems.** DFT rests on two theorems proved by Hohenberg and Kohn in 1964:
+>
+> **First theorem.** The ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties.[^sufficient]
+>
+> **Second theorem.** There exists a universal functional $$F[\rho]$$ such that the true ground-state density minimizes:
+>
+> $$E_0 = \min_{\rho} \; E[\rho] \quad \text{subject to} \quad \rho \geq 0, \;\; \int \rho(\mathbf{r}) \, d\mathbf{r} = N$$
+>
+> where $$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$.
+{: .block-lemma }
 
 The problem is that $$F[\rho]$$ is unknown — we know the sufficient statistic exists but not the function that maps it to the energy. The history of DFT is largely the history of approximating $$F[\rho]$$.
 
@@ -168,19 +186,27 @@ In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to in
 
 Why orbitals? The density tells us *where* electrons are, but not *how fast they are moving* — and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy (via $$\nabla^2$$).[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards the curvature information, which is why no one knows how to compute kinetic energy *exactly* from $$\rho$$ alone. From the orbitals, it is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock the dominant piece of $$F[\rho]$$, leaving only a small residual to approximate:
 
-$$E[\rho] = \underbrace{T_s[\{\phi_i\}]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
+> **Kohn-Sham energy decomposition.**
+>
+> $$E[\rho] = \underbrace{T_s[\{\phi_i\}]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
+>
+> $$T_s$$, the classical Coulomb energy $$J[\rho] = \frac{1}{2} \iint \frac{\rho(\mathbf{r})\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r} \, d\mathbf{r}'$$, and the external potential term are all computed exactly. The sole unknown is $$E_{\text{xc}}[\rho]$$, the **exchange-correlation (XC) functional**.
+{: .block-definition }
 
-$$T_s$$, the classical Coulomb energy $$J[\rho] = \frac{1}{2} \iint \frac{\rho(\mathbf{r})\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r} \, d\mathbf{r}'$$, and the external potential term are all computed exactly. The sole unknown is $$E_{\text{xc}}[\rho]$$, the **exchange-correlation (XC) functional**, which absorbs the residual kinetic energy (the difference between the true $$T$$ and $$T_s$$), exchange from antisymmetry, and correlation beyond mean-field.
+$$E_{\text{xc}}$$ absorbs the residual kinetic energy (the difference between the true $$T$$ and $$T_s$$), exchange from antisymmetry, and correlation beyond mean-field.
 
 ### The Kohn-Sham Equations
 
-Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations — the **Kohn-Sham equations**[^ks-derivation]:
+Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations:[^ks-derivation]
 
-$$\hat{f}_{\text{KS}}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
-
-where $$\hat{f}_{\text{KS}}$$ is the **Kohn-Sham operator** — the DFT counterpart of the Fock operator. It expands as:
-
-$$\hat{f}_{\text{KS}}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} + \underbrace{\frac{\delta E_{\text{xc}}}{\delta \rho(\mathbf{r})}}_{\text{xc}}$$
+> **Kohn-Sham equations.**
+>
+> $$\hat{f}_{\text{KS}}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
+>
+> where the **Kohn-Sham operator** $$\hat{f}_{\text{KS}}$$ — the DFT counterpart of the Fock operator — expands as:
+>
+> $$\hat{f}_{\text{KS}}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} + \underbrace{\frac{\delta E_{\text{xc}}}{\delta \rho(\mathbf{r})}}_{\text{xc}}$$
+{: .block-definition }
 
 The first three terms are identical to Hartree-Fock. The difference is in the last term: HF has the non-local exchange operator $$-\hat{K}$$, while KS-DFT has the functional derivative of $$E_{\text{xc}}[\rho]$$ — a potential (local in the simplest approximations) that replaces exchange and additionally captures correlation effects that Hartree-Fock misses entirely.
 
@@ -202,11 +228,16 @@ Higher rungs are generally more accurate but more expensive. The choice of funct
 
 ### From Differential Equations to Matrices: The Roothaan-Hall Equations
 
-The Kohn-Sham equations are differential eigenvalue problems in continuous space. To solve them on a computer, we expand each orbital in a finite set of $$K$$ known **basis functions** $$\chi_\mu : \mathbb{R}^3 \to \mathbb{R}$$ (typically Gaussian-type orbitals centered on atoms), turning the problem into a **matrix eigenvalue problem** — the **Roothaan-Hall equations**:
+The Kohn-Sham equations are differential eigenvalue problems in continuous space. To solve them on a computer, we expand each orbital in a finite set of $$K$$ known **basis functions** $$\chi_\mu : \mathbb{R}^3 \to \mathbb{R}$$ (typically Gaussian-type orbitals centered on atoms), turning the problem into a matrix eigenvalue problem.
 
-$$\mathbf{F} \mathbf{C} = \mathbf{S} \mathbf{C} \boldsymbol{\varepsilon}$$
+> **Roothaan-Hall equations.** Expanding each orbital as $$\phi_i(\mathbf{r}) = \sum_{\mu=1}^{K} C_{\mu i} \, \chi_\mu(\mathbf{r})$$, substituting into the KS equations, and projecting onto the basis yields:
+>
+> $$\mathbf{F} \mathbf{C} = \mathbf{S} \mathbf{C} \boldsymbol{\varepsilon}$$
+>
+> $$\mathbf{C} \in \mathbb{R}^{K \times N}$$ contains the expansion coefficients for the $$N$$ occupied orbitals, $$\boldsymbol{\varepsilon}$$ is a diagonal matrix of orbital energies, and $$\mathbf{S} \in \mathbb{R}^{K \times K}$$ is the overlap matrix ($$S_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$), which is not the identity because the basis functions are not orthogonal.
+{: .block-definition }
 
-Each orbital is expanded as $$\phi_i(\mathbf{r}) = \sum_{\mu=1}^{K} C_{\mu i} \, \chi_\mu(\mathbf{r})$$. Substituting into the KS equations and projecting onto the basis produces the Roothaan-Hall equations. $$\mathbf{C} \in \mathbb{R}^{K \times N}$$ contains the expansion coefficients for the $$N$$ occupied orbitals, and $$\boldsymbol{\varepsilon}$$ is a diagonal matrix of orbital energies. $$\mathbf{S} \in \mathbb{R}^{K \times K}$$ is the overlap matrix ($$S_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$), which is not the identity because the basis functions are not orthogonal. The approximation improves as $$K$$ grows.
+The approximation improves as $$K$$ grows.
 
 $$\mathbf{F} \in \mathbb{R}^{K \times K}$$ is the **Fock matrix** (also called the Kohn-Sham matrix). It is the matrix representation of $$\hat{f}_{\text{KS}}$$ in the chosen basis: $$F_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \, \hat{f}_{\text{KS}} \, \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$, containing kinetic, nuclear, Coulomb, and exchange-correlation contributions. Just as $$\hat{f}_{\text{KS}}$$ determines the orbitals in continuous space, the Fock matrix determines the coefficient vectors in the finite basis.
 
