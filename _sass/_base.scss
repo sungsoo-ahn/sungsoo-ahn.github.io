@@ -140,6 +140,85 @@ blockquote {
       color: var(--global-danger-block-title);
     }
   }
+
+  /* Math environment blocks: definition, example, lemma */
+  &.block-definition,
+  &.block-example,
+  &.block-lemma {
+    font-size: 1rem;
+  }
+
+  &.block-definition {
+    border-color: var(--global-definition-block);
+    background-color: var(--global-definition-block-bg);
+    color: var(--global-definition-block-text);
+
+    em,
+    li,
+    p,
+    strong,
+    mjx-container {
+      color: var(--global-definition-block-text);
+    }
+
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--global-definition-block-title);
+    }
+  }
+
+  &.block-example {
+    border-color: var(--global-example-block);
+    background-color: var(--global-example-block-bg);
+    color: var(--global-example-block-text);
+
+    em,
+    li,
+    p,
+    strong,
+    mjx-container {
+      color: var(--global-example-block-text);
+    }
+
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--global-example-block-title);
+    }
+  }
+
+  &.block-lemma {
+    border-color: var(--global-lemma-block);
+    background-color: var(--global-lemma-block-bg);
+    color: var(--global-lemma-block-text);
+
+    em,
+    li,
+    p,
+    strong,
+    mjx-container {
+      color: var(--global-lemma-block-text);
+    }
+
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--global-lemma-block-title);
+    }
+  }
 }
 
 // Checklist
