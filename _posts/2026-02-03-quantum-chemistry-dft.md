@@ -129,7 +129,7 @@ The **Pauli exclusion principle** — no two electrons can occupy the same quant
 
 **Hartree-Fock (HF) theory** finds the best single Slater determinant by optimizing the orbitals $$\{\phi_i\}$$ to minimize the total energy. The resulting optimality conditions are:
 
-> **Hartree-Fock equations.**
+> **Hartree-Fock equations.** The orbitals satisfy
 >
 > $$\hat{f}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 >
@@ -186,7 +186,7 @@ In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to in
 
 Why orbitals? The density tells us *where* electrons are, but not *how fast they are moving* — and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy (via $$\nabla^2$$).[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards the curvature information, which is why no one knows how to compute kinetic energy *exactly* from $$\rho$$ alone. From the orbitals, it is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock the dominant piece of $$F[\rho]$$, leaving only a small residual to approximate:
 
-> **Kohn-Sham energy decomposition.**
+> **Kohn-Sham energy decomposition.** The total energy splits into
 >
 > $$E[\rho] = \underbrace{T_s[\{\phi_i\}]}_{\text{non-int. kinetic}} + \underbrace{J[\rho]}_{\text{Coulomb}} + \underbrace{E_{\text{xc}}[\rho]}_{\text{xc}} + \underbrace{\int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}}_{\text{external potential}}$$
 >
@@ -199,7 +199,7 @@ $$E_{\text{xc}}$$ absorbs the residual kinetic energy (the difference between th
 
 Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations:[^ks-derivation]
 
-> **Kohn-Sham equations.**
+> **Kohn-Sham equations.** The orbitals satisfy
 >
 > $$\hat{f}_{\text{KS}}(\mathbf{r}) \, \phi_i(\mathbf{r}) = \varepsilon_i \, \phi_i(\mathbf{r})$$
 >
