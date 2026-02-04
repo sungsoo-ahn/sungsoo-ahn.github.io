@@ -13,7 +13,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: For readers who want to go deeper, I highly recommend <a href="https://arxiv.org/abs/2512.13927">Sophia Tang's tutorial</a>, <a href="https://uvagedl.github.io/">Erik Bekkers' lecture series</a>, and <a href="https://arxiv.org/abs/2312.07511">Duval et al.'s Hitchhiker's Guide</a>—all three provide comprehensive treatments with beautiful figures.</em>
+<em>Note: This post is the result of studying this material with <a href="https://seongsukim-ml.github.io/">Seongsu Kim</a>. For readers who want to go deeper, I highly recommend <a href="https://arxiv.org/abs/2512.13927">Sophia Tang's tutorial</a>, <a href="https://uvagedl.github.io/">Erik Bekkers' lecture series</a>, and <a href="https://arxiv.org/abs/2312.07511">Duval et al.'s Hitchhiker's Guide</a>—all three provide comprehensive treatments with beautiful figures.</em>
 </p>
 
 ## Introduction
