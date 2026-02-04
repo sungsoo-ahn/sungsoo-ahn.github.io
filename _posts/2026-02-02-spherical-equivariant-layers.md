@@ -368,10 +368,10 @@ This framework has enabled remarkable advances in molecular property prediction,
 
 [^carrier]: There does not seem to be a universally agreed-upon terminology for the vector space on which a group representation acts. Different authors use "carrier space," "representation space," or simply "the space $V$." I use "carrier space" throughout this post to emphasize that this is the space that "carries" the group action—i.e., the space whose elements get transformed by the representation matrices.
 
-[^real-sh]: We use real spherical harmonics here, which are real-valued linear combinations of the complex spherical harmonics. Most equivariant neural network libraries use real spherical harmonics because they avoid complex arithmetic while maintaining all the essential transformation properties.
-
 [^irreps]: The term "irreps" is short for "irreducible representations"—representations that cannot be decomposed into smaller independent blocks. They are the atomic building blocks from which all representations can be constructed. In some of the literature, features built from irreps are called "irreps features" and the corresponding layers "irreps-based equivariant layers."
 
-[^spherical-tensor]: The term "spherical tensor" comes from physics, where it refers to a set of quantities that transform under rotations according to a Wigner-D matrix of a specific degree. In the equivariant neural network literature, these are also called "steerable features" (because we can predict—or "steer"—exactly how they change under any rotation) or simply "type-$\ell$ features."
+[^real-sh]: We use real spherical harmonics here, which are real-valued linear combinations of the complex spherical harmonics. Most equivariant neural network libraries use real spherical harmonics because they avoid complex arithmetic while maintaining all the essential transformation properties.
 
 [^indexing]: Throughout this post, subscript indices on a matrix symbol denote its entries (e.g., $D^{(\ell)}_{mm'}(R)$ is the $(m, m')$-th entry of $D^{(\ell)}(R)$), and subscript indices on a vector symbol denote its components (e.g., $x^{(\ell)}_m$ is the $m$-th component of $\mathbf{x}^{(\ell)}$).
+
+[^spherical-tensor]: The term "spherical tensor" comes from physics, where it refers to a set of quantities that transform under rotations according to a Wigner-D matrix of a specific degree. In the equivariant neural network literature, these are also called "steerable features" (because we can predict—or "steer"—exactly how they change under any rotation) or simply "type-$\ell$ features."
