@@ -13,7 +13,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: My background is in machine learning, not quantum chemistry or physics. What follows is the result of studying this material over the past few years with <a href="https://seongsukim-ml.github.io/">Seongsu Kim</a> while working on ML methods for molecular systems. I wrote it as the introduction I wish I had—one that presents quantum chemistry and DFT in language familiar to ML researchers. Corrections are welcome.</em>
+<em>Note: My background is in machine learning, not quantum chemistry or physics. I studied this material over the past few years with <a href="https://seongsukim-ml.github.io/">Seongsu Kim</a> while working on ML methods for molecular systems, and wrote it as the introduction I wish I had—one that presents quantum chemistry and DFT in language familiar to ML researchers. Corrections are welcome.</em>
 </p>
 
 ## Introduction
