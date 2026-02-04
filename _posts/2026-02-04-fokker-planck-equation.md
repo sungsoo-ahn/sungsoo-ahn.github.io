@@ -13,7 +13,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post presents the Fokker-Planck equation in three layers: physical intuition, a heuristic derivation via discretization (following <a href="https://arxiv.org/abs/2510.21890">Lai et al., 2025</a>), and a rigorous derivation via Itô calculus. The first two layers use only multivariate calculus; the third introduces stochastic calculus for readers who want the full proof.</em>
+<em>Note: I studied this material with <a href="https://scholar.google.com/citations?user=YS0xOOMAAAAJ&hl=ko">Minkyu Kim</a>. This post presents the Fokker-Planck equation in three layers: physical intuition, a heuristic derivation via discretization (following <a href="https://arxiv.org/abs/2510.21890">Lai et al., 2025</a>), and a rigorous derivation via Itô calculus. The first two layers use only multivariate calculus; the third introduces stochastic calculus for readers who want the full proof.</em>
 </p>
 
 ## Introduction
