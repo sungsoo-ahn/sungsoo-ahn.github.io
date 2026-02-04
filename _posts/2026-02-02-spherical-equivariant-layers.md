@@ -378,4 +378,4 @@ Spherical tensors are sometimes called **steerable features** in the machine lea
 
 [^spherical-tensor]: The term "spherical tensor" comes from physics, where it refers to a set of quantities that transform under rotations according to a Wigner-D matrix of a specific degree. In the equivariant neural network literature, these are also called "steerable features" (because we can predict—or "steer"—exactly how they change under any rotation) or simply "type-$\ell$ features."
 
-[^physics-sh]: From a physics standpoint, spherical harmonics arise naturally when studying how functions on the sphere respond to infinitesimal rotations, described by angular momentum operators. This is why their transformation under finite rotations is so well-behaved.
+[^physics-sh]: From a physics standpoint, spherical harmonics are the eigenstates of angular momentum operators, which describe infinitesimal rotations. This is why their transformation under finite rotations is so well-behaved.
