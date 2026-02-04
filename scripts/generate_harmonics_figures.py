@@ -284,9 +284,9 @@ def generate_circular_harmonics_simple(output_path):
         ax.set_ylim(0, 1.2)
         ax.set_yticklabels([])
 
-        # Add angular labels for coordinate system
-        ax.set_xticks(np.linspace(0, 2*np.pi, 8, endpoint=False))
-        ax.set_xticklabels(['0', '', r'$\frac{\pi}{2}$', '', r'$\pi$', '', r'$\frac{3\pi}{2}$', ''], fontsize=9)
+        # Remove all angular tick labels to avoid overlapping with lobes
+        ax.set_xticks([])
+        ax.set_xticklabels([])
 
         ax.grid(True, alpha=0.4, color='gray', linestyle='-', linewidth=0.5)
         ax.set_title(f'$Y_{{{m}}}$', fontsize=14, pad=10)
@@ -702,8 +702,8 @@ def generate_cg_network_figure(output_path):
     ax.axis('off')
 
     cy = 1.9
-    layer_w = 0.45
-    layer_gap = 0.30
+    layer_w = 0.55
+    layer_gap = 0.25
 
     pair_w = box_w + layer_gap + layer_w + layer_gap
     total_a = pair_w * 2 + box_w
@@ -723,9 +723,9 @@ def generate_cg_network_figure(output_path):
     for i, x in enumerate(x_layers):
         y = cy - layer_h/2
         draw_box(ax, x, y, layer_w, layer_h, color_layer, edge_layer, zorder=1)
-        ax.text(x + layer_w/2, cy, f'Layer {i+1}',
-                ha='center', va='center', fontsize=8,
-                fontweight='bold', color='#00838f', rotation=90)
+        ax.text(x + layer_w/2, cy - layer_h/2 - 0.18, f'Layer {i+1}',
+                ha='center', va='top', fontsize=7.5,
+                fontweight='bold', color='#00838f')
 
     ax.text(x_stacks[0] - 0.2, cy + stack_h/2 + 0.30, '(a)',
             ha='left', va='center', fontsize=11,
