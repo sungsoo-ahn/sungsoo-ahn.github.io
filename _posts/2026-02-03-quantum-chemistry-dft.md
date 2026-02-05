@@ -67,7 +67,7 @@ where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomic-un
 
 ### The Wavefunction
 
-The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to $$\lvert\Psi\rvert^2$$.
+The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude, $$\lvert\Psi\rvert^2$$, gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to this probability density.
 
 The computational challenge is the electronic part. Even on a modest grid of $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers — for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality of the quantum many-body problem, and it motivates every approximation that follows.
 
@@ -86,6 +86,8 @@ The electronic Hamiltonian, with nuclear positions fixed, is:
 $$\hat{H}_{\text{elec}} = -\sum_{i=1}^{N} \frac{1}{2}\nabla_i^2 + \sum_{i<j} \frac{1}{|\mathbf{r}_i - \mathbf{r}_j|} + \sum_{i=1}^{N} v_{\text{ext}}(\mathbf{r}_i)$$
 
 The Born-Oppenheimer separation is what makes molecular dynamics and force fields possible. The PES is the function that molecular dynamics simulates on, that geometry optimizations minimize, and that machine learning force fields approximate. Computing the PES requires solving the electronic problem — the subject of the rest of this post.
+
+From here on, we write the electronic wavefunction as $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N)$$, omitting the nuclear positions $$\{\mathbf{R}_A\}$$ from the argument. This is standard notation under the Born-Oppenheimer approximation: the nuclear positions are fixed parameters, not variables the wavefunction depends on dynamically.
 
 ---
 
