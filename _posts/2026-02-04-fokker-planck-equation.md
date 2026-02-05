@@ -18,7 +18,7 @@ related_posts: false
 
 ## Introduction
 
-Diffusion models — DDPM, score-based models, and their ODE counterparts like flow matching — are built on stochastic differential equations (SDEs) and their associated density dynamics. A forward SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** is the PDE that connects the two sides: given the SDE describing how individual samples move, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving the probability flow ODE, reverse-time SDEs, and score matching objectives.
+Diffusion models — DDPM, score-based models, and their ODE counterparts like flow matching — are built on stochastic differential equations (SDEs) and their associated density dynamics. An SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** is the PDE that connects the two sides: given the SDE describing how individual samples move, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving the probability flow ODE, reverse-time SDEs, and score matching objectives.
 
 Most diffusion model tutorials state the Fokker-Planck equation without proof and move on. Fully understanding where it comes from is surprisingly involved — the rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post aims to bridge that gap, building from physical intuition to a complete proof in three layers: (1) a visual explanation of what each term means, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
 
@@ -26,7 +26,7 @@ Most diffusion model tutorials state the Fokker-Planck equation without proof an
 
 | Section | Why It's Needed |
 |---------|-----------------|
-| **The Fokker-Planck Equation** | Define the forward SDE, state the Fokker-Planck equation, and build intuition for each term |
+| **The Fokker-Planck Equation** | Define the SDE, state the Fokker-Planck equation, and build intuition for each term |
 | **Deriving the Fokker-Planck Equation** | Heuristic derivation: Chapman-Kolmogorov → change of variables → Taylor-Gaussian smoothing → take limits |
 | **Rigorous Derivation via Itô Calculus** | The same result, proved rigorously: Itô's lemma → test functions → integration by parts |
 
@@ -34,9 +34,9 @@ Most diffusion model tutorials state the Fokker-Planck equation without proof an
 
 ## The Fokker-Planck Equation
 
-Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R}^D$$ governed by the **forward SDE**:
+Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R}^D$$ governed by an **SDE**:
 
-> **Forward SDE.** The process evolves according to
+> **SDE.** The process evolves according to
 >
 > $$d\mathbf{x}(t) = \mathbf{f}(\mathbf{x}(t), t)\,dt + g(t)\,d\mathbf{w}(t)$$
 >
