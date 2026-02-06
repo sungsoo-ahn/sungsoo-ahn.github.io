@@ -22,6 +22,8 @@ related_posts: false
 ---
 ```
 
+**MANDATORY: Update `last_updated`** — Whenever you edit a blog post, update the `last_updated` field in the frontmatter to today's date. This is required for every edit, no matter how small.
+
 ## Author Note
 
 Posts begin with an author note immediately after the frontmatter:

@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-02-02
+last_updated: 2026-02-06
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 order: 2
 categories: [gnn]
@@ -52,7 +52,7 @@ Building spherical equivariant layers requires several mathematical concepts, ea
 
 | Section | Why It's Needed |
 |---------|-----------------|
-| **Mathematical Foundations** | Define rotations, groups, and representations — the different ways features can transform under symmetries |
+| **Mathematical Foundations** | Define rotations, groups, representations, and Wigner-D matrices — the framework for how features transform under symmetries |
 | **Spherical Harmonics and Spherical Tensors** | Provide concrete basis functions for encoding directions, and define feature vectors that transform predictably under rotation |
 | **Clebsch-Gordan Tensor Products** | The core operation for combining spherical tensors to produce new spherical tensors |
 | **General Architectural Framework** | Putting it all together into neural network layers |
@@ -95,7 +95,22 @@ But these are just two examples from an infinite family of representations. A na
 
 Irreducible representations (irreps) are the fundamental building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
 
-For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \ldots$. We write $D^{(\ell)}(R)$ for the representation matrix of the $\ell$-th irrep corresponding to rotation $R$. The $\ell$-th irrep has a carrier space of dimension $2\ell + 1$: the $\ell = 0$ irrep is the trivial representation (1D, scalars), the $\ell = 1$ irrep is the standard representation (3D, vectors), and higher $\ell$ correspond to increasingly complex transformation properties.
+For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \ldots$. The $\ell$-th irrep has a carrier space of dimension $2\ell + 1$: the $\ell = 0$ irrep is the trivial representation (1D, scalars), the $\ell = 1$ irrep is the standard representation (3D, vectors), and higher $\ell$ correspond to increasingly complex transformation properties.
+
+### Wigner-D Matrices
+
+What are the concrete representation matrices for these irreps? For each degree $\ell$, the **Wigner-D matrix** $$D^{(\ell)}: SO(3) \to \mathbb{R}^{(2\ell+1) \times (2\ell+1)}$$ provides the representation matrix that acts on the $(2\ell+1)$-dimensional carrier space. We write $$D^{(\ell)}_{mm'}(R)$$ for the $(m, m')$-th entry, where both indices range from $-\ell$ to $\ell$.[^indexing]
+
+The Wigner-D matrices satisfy the representation property: composing two rotations and then computing the representation matrix gives the same result as multiplying the individual representation matrices:
+
+$$D^{(\ell)}(R_1 R_2) = D^{(\ell)}(R_1) D^{(\ell)}(R_2)$$
+
+At each degree the Wigner-D matrix takes a specific form:
+- $D^{(0)}(R) = 1$ for all rotations (scalars are invariant)
+- $D^{(1)}(R)$ is equivalent to the ordinary $3 \times 3$ rotation matrix
+- $D^{(2)}(R)$ is a $5 \times 5$ matrix that transforms the independent components of a traceless symmetric tensor
+
+But what do these carrier spaces look like concretely? Spherical harmonics provide natural basis functions that span them.
 
 ---
 
@@ -134,9 +149,7 @@ When only the type-0 coefficient is nonzero, $$r$$ is constant in every directio
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ellipsoid_anisotropy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Surfaces whose radius is set by $r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0 + \sum_m f_m^{(2)} Y_2^m$. With only $f^{(0)}$ (left), the radius is constant — a sphere. Turning on different type-2 coefficients deforms the sphere into ellipsoids. Red = stretched outward, blue = compressed inward relative to the base sphere (gray wireframe)." %}
 
-### Wigner-D Matrices
-
-The crucial property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by a rotation $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to the **Wigner-D matrix** $$D^{(\ell)}: SO(3) \to \mathbb{R}^{(2\ell+1) \times (2\ell+1)}$$. For each degree $\ell$, the Wigner-D matrix takes a rotation $R$ and returns a $(2\ell+1) \times (2\ell+1)$ matrix. We write $$D^{(\ell)}_{mm'}(R)$$ for the $(m, m')$-th entry.[^indexing]
+The crucial property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to the Wigner-D matrix $D^{(\ell)}(R)$.
 
 > **Spherical harmonic transformation.** If $\hat{\mathbf{r}}$ is a unit direction vector, evaluating a degree-$\ell$ spherical harmonic at the rotated direction $R^{-1}\hat{\mathbf{r}}$ is equivalent to mixing the spherical harmonics at the original direction:
 >
@@ -145,11 +158,9 @@ The crucial property of spherical harmonics is how they transform under rotation
 > Rotating a spherical harmonic of degree $\ell$ produces a linear combination of *same-degree* harmonics. Spherical harmonics of different degrees never mix — they transform independently.[^physics-sh]
 {: .block-lemma }
 
-For each degree $\ell$, the $2\ell + 1$ spherical harmonics $\{Y_\ell^{-\ell}, Y_\ell^{-\ell+1}, \ldots, Y_\ell^{\ell}\}$ span a $(2\ell+1)$-dimensional vector space. This vector space is the **carrier space** for the $\ell$-th irreducible representation of $SO(3)$, and the Wigner-D matrix $D^{(\ell)}(R)$ is the representation matrix that acts on it. Any linear combination of degree-$\ell$ spherical harmonics can be written as a vector of $2\ell+1$ coefficients, and when we rotate the coordinate system, these coefficients transform by multiplication with the Wigner-D matrix.
+For each degree $\ell$, the $2\ell + 1$ spherical harmonics $\{Y_\ell^{-\ell}, Y_\ell^{-\ell+1}, \ldots, Y_\ell^{\ell}\}$ span the $(2\ell+1)$-dimensional carrier space of the $\ell$-th irrep. Any linear combination of degree-$\ell$ spherical harmonics can be written as a vector of $2\ell+1$ coefficients, and when we rotate the coordinate system, these coefficients transform by multiplication with the Wigner-D matrix.
 
-The Wigner-D matrices satisfy the representation property: composing two rotations and then finding the representation matrix gives the same result as multiplying the individual representation matrices. At each degree the Wigner-D matrix takes a specific form: $D^{(0)}(R) = 1$ for all rotations (scalars are invariant), $D^{(1)}(R)$ is equivalent to the ordinary $3 \times 3$ rotation matrix, and $D^{(2)}(R)$ is a $5 \times 5$ matrix that transforms the independent components of a traceless symmetric tensor.
-
-In equivariant neural networks, spherical harmonics serve two purposes. First, they provide a way to encode directional information about the relative positions of atoms—given a displacement vector between atoms $i$ and $j$, we can compute the spherical harmonics of the direction to obtain an equivariant encoding. Second, the Wigner-D matrices tell us exactly how to construct feature vectors that transform correctly under rotations.
+In equivariant neural networks, spherical harmonics encode directional information between atoms: evaluating them at the direction from atom $i$ to atom $j$ gives an equivariant geometric feature that the network can process.
 
 ### Spherical Tensors
 
@@ -162,7 +173,7 @@ With spherical harmonics providing our basis, we can now define the feature vect
 > The carrier space is $\mathbb{R}^{2\ell+1}$—the same space spanned by the degree-$\ell$ spherical harmonics. The components are indexed by order $m \in \{-\ell, \ldots, \ell\}$, mirroring the spherical harmonic indices.
 {: .block-definition }
 
-Spherical tensors live in the carrier spaces of $SO(3)$ irreps that we defined through spherical harmonics. This is why we call the layers that operate on these features **spherical equivariant layers**. A natural example of a spherical tensor is the vector of all degree-$\ell$ spherical harmonics evaluated at a direction $\hat{\mathbf{r}}$, which we write as $$Y^{(\ell)}(\hat{\mathbf{r}}) = (Y_\ell^{-\ell}(\hat{\mathbf{r}}), \ldots, Y_\ell^{\ell}(\hat{\mathbf{r}}))^T \in \mathbb{R}^{2\ell+1}$$.
+Spherical tensors live in the carrier spaces of $SO(3)$ irreps—the same spaces spanned by spherical harmonics of each degree. This is why we call the layers that operate on these features **spherical equivariant layers**. A natural example of a spherical tensor is the vector of all degree-$\ell$ spherical harmonics evaluated at a direction $\hat{\mathbf{r}}$, which we write as $$Y^{(\ell)}(\hat{\mathbf{r}}) = (Y_\ell^{-\ell}(\hat{\mathbf{r}}), \ldots, Y_\ell^{\ell}(\hat{\mathbf{r}}))^T \in \mathbb{R}^{2\ell+1}$$.
 
 Modern equivariant networks maintain features as **direct sums** of spherical tensors of multiple degrees. A direct sum (denoted $\oplus$) simply means concatenating vectors that transform independently—each block has its own transformation rule:
 
