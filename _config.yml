@@ -94,6 +94,7 @@ blog_name: SPML Lab # blog_name will be displayed in your blog page
 blog_description: Structured and Probabilistic Machine Learning Lab
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
+future: true # allow future-dated content (needed for teaching notes with upcoming lecture dates)
 
 # Pagination
 pagination:
@@ -150,6 +151,8 @@ collections:
       layout: post
     output: true
   projects:
+    output: true
+  teaching:
     output: true
 
 # -----------------------------------------------------------------------------
@@ -222,6 +225,12 @@ defaults:
       path: "assets"
     values:
       sitemap: false
+  - scope:
+      path: ""
+      type: "teaching"
+    values:
+      layout: post
+      related_posts: false
 
 sass:
   style: compressed
