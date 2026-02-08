@@ -16,10 +16,12 @@ Academic homepage for Sungsoo Ahn (KAIST Graduate School of AI), built with the 
 # If port 4000 is already in use:
 lsof -ti:4000 | xargs kill -9
 
+# Python package management (uses uv)
+uv sync                                # Install/update dependencies
+
 # Update content from Excel files
-source .venv/bin/activate
-python scripts/update_publications.py  # From papers.xlsx
-python scripts/update_members.py       # From members.xlsx
+uv run python scripts/update_publications.py  # From papers.xlsx
+uv run python scripts/update_members.py       # From members.xlsx
 ```
 
 **Note:** This project requires Bundler 4.x which is not compatible with macOS system Ruby. Use Homebrew Ruby (`/opt/homebrew/opt/ruby/bin/`) instead.
