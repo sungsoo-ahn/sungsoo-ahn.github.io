@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-02-04
+last_updated: 2026-02-08
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 order: 2
 categories: [generative_model]
@@ -89,14 +89,11 @@ Now take the expectation term by term:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick $+\epsilon$ raises the density by the same amount that $-\epsilon$ lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than $x$. The average of neighbors falls below $p_t(x)$, so the quadratic (curvature) term $\frac{\epsilon^2}{2}p_t'' < 0$ drives density down." %}
 
-After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Rearranging:
+After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Dividing by $$\Delta t$$ and taking the limit gives the **diffusion PDE** in one dimension:
 
-> **The diffusion PDE (1D).** Pure diffusion in one dimension gives
->
-> $$\displaystyle\frac{\partial p_t}{\partial t} = \frac{g^2}{2}\,\frac{\partial^2 p_t}{\partial x^2}$$
->
-> In $$D$$ dimensions, the noise components $$dw_1, \ldots, dw_D$$ are independent, so the same argument applies along each coordinate, giving $$\frac{g^2}{2}\,\Delta_{\mathbf{x}}\,p_t$$.
-{: .block-lemma }
+$$\displaystyle\frac{\partial p_t}{\partial t} = \frac{g^2}{2}\,\frac{\partial^2 p_t}{\partial x^2}$$
+
+In $$D$$ dimensions, the noise components $$dw_1, \ldots, dw_D$$ are independent, so the same argument applies along each coordinate, giving $$\frac{g^2}{2}\,\Delta_{\mathbf{x}}\,p_t$$.
 
 ---
 

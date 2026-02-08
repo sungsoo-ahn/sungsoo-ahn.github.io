@@ -174,11 +174,15 @@ def generate_drift_advection_figure(output_path):
     ax.axvline(slab_x + slab_dx, color=WARM_BORDER, linewidth=1.5,
                linestyle='--', ymin=0.02, ymax=0.78, zorder=2)
 
-    # Slab boundary labels
-    ax.text(slab_x, -0.04, r'$x$', ha='center', va='top',
-            fontsize=10.5, color=WARM_BORDER, fontweight='bold')
-    ax.text(slab_x + slab_dx, -0.04, r'$x\!+\!dx$', ha='center', va='top',
-            fontsize=10.5, color=WARM_BORDER, fontweight='bold')
+    # Slab boundary labels — offset from dashed lines with white backgrounds
+    _label_bbox = dict(boxstyle='round,pad=0.15', fc='white', alpha=0.9,
+                       ec='none')
+    ax.text(slab_x - 0.08, -0.04, r'$x$', ha='right', va='top',
+            fontsize=10.5, color=WARM_BORDER, fontweight='bold',
+            bbox=_label_bbox)
+    ax.text(slab_x + slab_dx + 0.08, -0.04, r'$x\!+\!dx$', ha='left',
+            va='top', fontsize=10.5, color=WARM_BORDER, fontweight='bold',
+            bbox=_label_bbox)
 
     # Incoming flux (left boundary) — thick
     flux_in = f_val * p_left
@@ -190,9 +194,11 @@ def generate_drift_advection_figure(output_path):
     lw_in = 1.5 + 3.0 * (flux_in / max_flux)
     _arrow(ax, (slab_x - in_len - 0.1, in_y), (slab_x - 0.05, in_y),
            lw=lw_in, ms=14, color=WARM_ARROW, zorder=4)
-    ax.text(slab_x - in_len / 2 - 0.15, in_y + 0.04,
+    ax.text(slab_x - in_len / 2 - 0.15, in_y + 0.06,
             r'$J(x)$', ha='center', va='bottom', fontsize=11,
-            color=WARM_ANNOT, fontweight='bold')
+            color=WARM_ANNOT, fontweight='bold',
+            bbox=dict(boxstyle='round,pad=0.15', fc='white', alpha=0.9,
+                      ec='none'))
 
     # Outgoing flux (right boundary) — thicker (density is higher at x+dx)
     out_y = p_right * 0.55
@@ -201,16 +207,22 @@ def generate_drift_advection_figure(output_path):
     _arrow(ax, (slab_x + slab_dx + 0.05, out_y),
            (slab_x + slab_dx + out_len + 0.1, out_y),
            lw=lw_out, ms=14, color=WARM_ARROW, zorder=4)
-    ax.text(slab_x + slab_dx + out_len / 2 + 0.15, out_y + 0.04,
-            r'$J(x\!+\!dx)$', ha='center', va='bottom', fontsize=11,
-            color=WARM_ANNOT, fontweight='bold')
+    # J(x+dx) label — use annotate with leader line to avoid overlap
+    ax.annotate(r'$J(x\!+\!dx)$',
+                xy=(slab_x + slab_dx + out_len / 2 + 0.1, out_y),
+                xytext=(slab_x + slab_dx + out_len + 0.9, out_y + 0.18),
+                fontsize=11, color=WARM_ANNOT, fontweight='bold',
+                ha='center', va='bottom',
+                arrowprops=dict(arrowstyle='->', color=WARM_ANNOT, lw=1.0),
+                bbox=dict(boxstyle='round,pad=0.15', fc='white', alpha=0.9,
+                          ec='none'))
 
     # Annotation: on ascending slope, J_in < J_out means flux diverges,
     # but since density is increasing rightward, more flux exits → net depletion
     # Actually: on ascending slope with constant f, J increases with p,
     # so J(x+dx) > J(x) → flux diverges → dp/dt < 0... unless we pick the other side.
     # Let's put the annotation explaining the general equation.
-    ax.text(4.8, -0.10,
+    ax.text(6.8, 0.48,
             r'$\frac{\partial p}{\partial t} = -\frac{J(x{+}dx) - J(x)}{dx}$',
             ha='center', va='top', fontsize=SUBLABEL_FS, color=WARM_ANNOT,
             fontweight='bold',
