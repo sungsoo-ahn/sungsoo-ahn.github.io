@@ -68,7 +68,25 @@ Instead, it encodes statistical regularities --- amino acid composition biases, 
 
 ### The Six Stages
 
-Every machine learning project follows a structured pipeline.
+Every machine learning project follows a structured pipeline, as illustrated below.
+
+```mermaid
+flowchart LR
+    A["📊 Data\nCollection"] --> B["🔧 Preprocessing"]
+    B --> C["🧬 Feature\nEngineering"]
+    C --> D["🧠 Model\nTraining"]
+    D --> E["📏 Evaluation"]
+    E --> F["🚀 Deployment"]
+
+    D -->|"Predictions vs Labels"| L["Loss\nFunction"]
+    L -->|"Gradients"| U["Parameter\nUpdate"]
+    U -->|"Iterate"| D
+
+    style A fill:#e8f4fd,stroke:#2196F3
+    style D fill:#fff3e0,stroke:#FF9800
+    style F fill:#e8f5e9,stroke:#4CAF50
+```
+
 Each stage presents challenges specific to protein data.
 
 **Stage 1: Data Collection.**
@@ -313,6 +331,11 @@ Learning means finding weight values that minimize the loss across all training 
 
 ### Gradients Point Downhill
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/gradient_descent.png' | relative_url }}" alt="Gradient descent on a 2D loss landscape">
+    <div class="caption mt-1">Gradient descent on a 2D loss landscape. Starting from an initial point (red dot), the optimizer follows the direction of steepest descent at each step, tracing a path (red line) toward the minimum (red star). The contours represent level sets of the loss function.</div>
+</div>
+
 How do we find good weight values?
 We use **gradients**.
 The gradient of the loss with respect to a weight tells us: "if I increase this weight by a tiny amount, how does the loss change?"
@@ -341,6 +364,28 @@ Applied recursively backward through the network --- from the loss, through each
 This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
 
 [^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
+
+The following diagram shows a simple computation graph and how gradients flow backward through it during backpropagation.
+
+```mermaid
+flowchart LR
+    subgraph Forward["Forward Pass →"]
+        x["x"] -->|"×W"| z["z = Wx + b"]
+        b["b"] -->|"+b"| z
+        z -->|"σ(·)"| a["a = σ(z)"]
+        a -->|"L(·)"| L["Loss L"]
+    end
+
+    subgraph Backward["← Backward Pass"]
+        dL["∂L/∂L = 1"] -->|"∂L/∂a"| da["∂L/∂a"]
+        da -->|"∂a/∂z = σ'(z)"| dz["∂L/∂z"]
+        dz -->|"∂z/∂W = x"| dW["∂L/∂W"]
+        dz -->|"∂z/∂b = 1"| db["∂L/∂b"]
+    end
+
+    style Forward fill:#e8f4fd,stroke:#2196F3
+    style Backward fill:#fce4ec,stroke:#e91e63
+```
 
 ### PyTorch Autograd in Action
 
@@ -465,6 +510,43 @@ where $$\mathbf{W}$$ is a weight matrix of shape `(64, n_inputs)`, $$\mathbf{x}$
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 
 ### Depth: Stacking Layers
+
+```mermaid
+flowchart LR
+    subgraph Input["Input Layer"]
+        I1["x₁\n(hydrophob.)"]
+        I2["x₂\n(charge)"]
+        I3["x₃\n(length)"]
+    end
+
+    subgraph Hidden1["Hidden Layer 1\n(64 neurons)"]
+        H1["h₁"]
+        H2["h₂"]
+        H3["..."]
+        H4["h₆₄"]
+    end
+
+    subgraph Hidden2["Hidden Layer 2\n(32 neurons)"]
+        G1["g₁"]
+        G2["g₂"]
+        G3["..."]
+        G4["g₃₂"]
+    end
+
+    subgraph Output["Output Layer"]
+        O1["ŷ₁\n(soluble)"]
+        O2["ŷ₂\n(insoluble)"]
+    end
+
+    I1 & I2 & I3 --> H1 & H2 & H3 & H4
+    H1 & H2 & H3 & H4 --> G1 & G2 & G3 & G4
+    G1 & G2 & G3 & G4 --> O1 & O2
+
+    style Input fill:#e8f4fd,stroke:#2196F3
+    style Hidden1 fill:#fff3e0,stroke:#FF9800
+    style Hidden2 fill:#fff3e0,stroke:#FF9800
+    style Output fill:#e8f5e9,stroke:#4CAF50
+```
 
 The power of neural networks comes from stacking multiple layers.
 The output of one layer becomes the input to the next.

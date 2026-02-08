@@ -77,6 +77,11 @@ Methods improved from roughly 20 GDT-TS (a score where 100 means perfect) in ear
 Then AlphaFold2 appeared at CASP14 in 2020 and scored a median GDT-TS above 90, crossing the threshold of experimental accuracy for most targets[^casp14].
 A problem that had resisted half a century of effort appeared to yield almost overnight to deep learning.
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/casp_progress.png' | relative_url }}" alt="CASP progress chart showing AlphaFold2 breakthrough">
+    <div class="caption mt-1"><strong>CASP competition progress.</strong> Median GDT-TS scores for the best-performing group in each CASP edition. For 25 years, progress was incremental (blue bars). AlphaFold2 at CASP14 (red bar) crossed the experimental accuracy threshold, effectively solving the structure prediction problem.</div>
+</div>
+
 [^casp14]: The GDT-TS (Global Distance Test - Total Score) metric measures the fraction of residues whose C$$_\alpha$$ atoms fall within various distance cutoffs of the true structure after optimal superposition. A score above 90 is generally considered comparable to experimental accuracy for medium-resolution crystal structures.
 
 ---
@@ -97,6 +102,32 @@ Examining an MSA reveals two kinds of signal:
 2. **Co-variation.** Some positions change *together*: when position 15 mutates, position 47 compensates. These correlated mutations indicate that the two positions are in physical contact in the folded structure.
 
 AlphaFold2 makes evolutionary information the central organizing principle of its architecture, not merely an input feature.
+
+### 2.2 AlphaFold2 Pipeline Overview
+
+The following diagram shows the overall architecture of AlphaFold2, from input sequences to 3D structure output.
+
+```mermaid
+flowchart TB
+    SEQ["Protein Sequence"] --> MSA_SEARCH["MSA Search\n(genetic databases)"]
+    SEQ --> TEMP["Template Search\n(PDB structures)"]
+
+    MSA_SEARCH --> MSA_EMB["MSA Embedding\n(N_seq × L × c_m)"]
+    TEMP --> PAIR_EMB["Pair Embedding\n(L × L × c_z)"]
+    SEQ --> PAIR_EMB
+
+    MSA_EMB --> EVO["Evoformer\n(48 blocks)"]
+    PAIR_EMB --> EVO
+
+    EVO -->|"MSA repr"| SM["Structure Module\n(8 recycling iterations)"]
+    EVO -->|"Pair repr"| SM
+
+    SM --> XYZ["3D Atomic\nCoordinates"]
+    SM --> CONF["Confidence\n(pLDDT)"]
+
+    style EVO fill:#fff3e0,stroke:#FF9800
+    style SM fill:#e8f5e9,stroke:#4CAF50
+```
 
 ### 2.2 Two Representations, One Structure
 
@@ -215,6 +246,30 @@ Keeping track of them helps when reading code or the original paper.
 
 The Evoformer is the heart of AlphaFold2.
 It is a stack of 48 nearly identical blocks, each of which refines both the MSA representation and the pair representation.
+
+```mermaid
+flowchart TB
+    subgraph EvoBlock["Single Evoformer Block"]
+        MSA_IN["MSA repr\n(N×L×c_m)"] --> ROW["Row Attention\n(+ pair bias)"]
+        ROW --> COL["Column Attention"]
+        COL --> MSA_FF["MSA Transition\n(FFN)"]
+        MSA_FF --> MSA_OUT["Updated MSA"]
+
+        PAIR_IN["Pair repr\n(L×L×c_z)"] --> TRI_OUT["Triangular\nMultiplicative\nUpdate (outgoing)"]
+        TRI_OUT --> TRI_IN["Triangular\nMultiplicative\nUpdate (incoming)"]
+        TRI_IN --> TRI_ATT_S["Triangular\nSelf-Attention\n(starting node)"]
+        TRI_ATT_S --> TRI_ATT_E["Triangular\nSelf-Attention\n(ending node)"]
+        TRI_ATT_E --> PAIR_FF["Pair Transition\n(FFN)"]
+        PAIR_FF --> PAIR_OUT["Updated Pair"]
+
+        MSA_FF -->|"Outer product\nmean"| TRI_OUT
+        PAIR_IN -->|"Bias"| ROW
+    end
+
+    style ROW fill:#fff3e0,stroke:#FF9800
+    style TRI_OUT fill:#e8f4fd,stroke:#2196F3
+    style TRI_IN fill:#e8f4fd,stroke:#2196F3
+```
 The name telegraphs its purpose: a transformer designed to process *evolutionary* information.
 
 What makes the Evoformer distinctive is not raw size but architectural specificity.
@@ -332,6 +387,26 @@ In principle, $$A$$ and $$C$$ could be anywhere within the sum of the two distan
 But proteins are densely packed, and real constraints are far tighter than the worst-case triangle inequality.
 
 The **triangular updates** pass messages around triangles in the pair representation, enforcing this kind of three-body consistency.
+
+```mermaid
+flowchart LR
+    subgraph Triangle["Triangle Inequality Constraint"]
+        A((A)) -->|"z_ij"| B((B))
+        B -->|"z_jk"| C((C))
+        A -->|"z_ik"| C
+    end
+
+    subgraph Update["Triangular Multiplicative Update"]
+        direction TB
+        ZIK["z(i,k)"] --> GATE_A["Gate a_ik"]
+        ZJK["z(j,k)"] --> GATE_B["Gate b_jk"]
+        GATE_A --> MULT["a_ik ⊙ b_jk"]
+        GATE_B --> MULT
+        MULT -->|"Sum over k"| ZIJ["Update z(i,j)"]
+    end
+
+    Triangle -->|"For each\nthird vertex k"| Update
+```
 There are four triangular operations in each Evoformer block---two multiplicative updates and two attention variants---each providing a different view of the geometric constraints.
 
 #### 4.3.1 Triangular Multiplicative Update (Outgoing Edges)
@@ -668,6 +743,26 @@ class Rigid:
 ```
 
 ### 5.3 Invariant Point Attention (IPA)
+
+```mermaid
+flowchart TB
+    subgraph IPA["Invariant Point Attention"]
+        S["Per-residue\nfeatures s_i"] --> Q_S["Scalar Q, K"]
+        S --> Q_P["Point Q, K\n(in local frame T_i)"]
+        PAIR["Pair repr\nz_ij"] --> BIAS["Pair Bias b_ij"]
+
+        Q_S --> ATTN["Attention Score a_ij"]
+        BIAS --> ATTN
+        Q_P -->|"T_i⁻¹ ∘ T_j\ntransform to\nlocal frame"| DIST["Point Distance\n−w_c/2 · ||...||²"]
+        DIST --> ATTN
+
+        ATTN --> SOFT["Softmax"]
+        SOFT --> OUT["Weighted sum\nof values"]
+    end
+
+    style DIST fill:#e8f4fd,stroke:#2196F3
+    style ATTN fill:#fff3e0,stroke:#FF9800
+```
 
 Invariant Point Attention is the mechanism that lets the network reason about three-dimensional geometry while remaining invariant to global rotations and translations.
 

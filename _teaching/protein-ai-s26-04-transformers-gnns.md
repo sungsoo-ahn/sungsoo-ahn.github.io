@@ -55,6 +55,31 @@ Suppose position 23 changes from alanine to valine in one lineage.  Position 87 
 
 This phenomenon is called **co-evolution**[^coevol], and for decades computational biologists built methods around it---from correlated-mutation analysis to direct coupling analysis (DCA).  All these methods ask the same question: *which positions in a protein sequence are paying attention to each other?*
 
+```mermaid
+graph TD
+    subgraph "Multiple Sequence Alignment (MSA)"
+        S1["Species 1: ...A...E..."]
+        S2["Species 2: ...V...D..."]
+        S3["Species 3: ...A...E..."]
+        S4["Species 4: ...V...D..."]
+        S5["Species 5: ...I...D..."]
+    end
+
+    S1 --> CO["Co-evolution Analysis"]
+    S2 --> CO
+    S3 --> CO
+    S4 --> CO
+    S5 --> CO
+
+    CO --> CM["Correlation Matrix\n(L × L)"]
+    CM --> CP["Contact Prediction:\nCorrelated positions\nare spatially close"]
+
+    style CO fill:#e74c3c,color:white
+    style CM fill:#f39c12,color:white
+    style CP fill:#2ecc71,color:white
+```
+<div class="caption mt-1"><strong>Co-evolution in MSAs.</strong> Correlated mutations across homologous sequences reveal residue pairs that are in spatial contact. Positions 23 and 87 tend to mutate together across species, signaling a structural or functional relationship.</div>
+
 [^coevol]: Co-evolution in this context refers to intramolecular co-evolution, where pairs of residues within a single protein co-vary across a family of homologous sequences.  This is distinct from the broader evolutionary biology concept of co-evolution between separate species.
 
 The attention mechanism in neural networks formalizes exactly this intuition.  Instead of computing statistical correlations from evolutionary data, we let the network *learn* which positions should attend to which---directly from data.  And just as co-evolution reveals hidden three-dimensional structure lurking within one-dimensional sequences, attention allows neural networks to discover long-range relationships that sequential processing would miss.
@@ -85,7 +110,28 @@ Perhaps there is another cysteine at position 127.  If these two cysteines form 
 
 Or perhaps position 50 participates in a catalytic triad with residues at positions 95 and 143.  Again, these distant positions are functionally coupled and deserve attention.
 
-The attention mechanism formalizes this reasoning through three learned projections: a **query**, a **key**, and a **value**[^qkv].
+The attention mechanism formalizes this reasoning through three learned projections: a **query**, a **key**, and a **value**[^qkv], as illustrated below.
+
+```mermaid
+flowchart LR
+    X["Input x_i\n(per-residue\nembedding)"] --> WQ["W^Q"]
+    X --> WK["W^K"]
+    X --> WV["W^V"]
+
+    WQ --> Q["Query q_i\n'What am I\nlooking for?'"]
+    WK --> K["Key k_j\n'What do I\nhave to offer?'"]
+    WV --> V["Value v_j\n'What info\ndo I carry?'"]
+
+    Q & K --> S["Score: q_i · k_j\n(dot product)"]
+    S --> SM["Softmax\nα_ij"]
+    SM --> AG["Weighted Sum\nΣ α_ij · v_j"]
+    V --> AG
+    AG --> O["Output\n(context-aware\nrepresentation)"]
+
+    style Q fill:#fff3e0,stroke:#FF9800
+    style K fill:#e8f4fd,stroke:#2196F3
+    style V fill:#e8f5e9,stroke:#4CAF50
+```
 
 [^qkv]: The names query, key, and value come from information retrieval.  Think of searching a database: you submit a query, it is matched against keys, and the corresponding values are returned.
 
@@ -277,6 +323,31 @@ class SelfAttention(nn.Module):
 ---
 
 ## 6. The Complete Transformer Architecture
+
+<div class="col-sm-5 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/transformer_architecture.png' | relative_url }}" alt="Transformer architecture diagram">
+    <div class="caption mt-1"><strong>The Transformer architecture.</strong> Input tokens are embedded and augmented with positional encodings, then processed by N repeated blocks of multi-head self-attention followed by feed-forward networks. Residual connections (dashed arrows) and layer normalization stabilize training. Architecture from Vaswani et al., 2017.</div>
+</div>
+
+```mermaid
+flowchart TB
+    X["Input x"] --> LN1["Layer Norm"]
+    LN1 --> MHA["Multi-Head\nSelf-Attention"]
+    MHA --> ADD1["+ (Residual)"]
+    X --> ADD1
+
+    ADD1 --> LN2["Layer Norm"]
+    LN2 --> FFN["Feed-Forward Network\n(Linear → GELU → Linear)"]
+    FFN --> ADD2["+ (Residual)"]
+    ADD1 --> ADD2
+
+    ADD2 --> OUT["Output x'"]
+
+    style MHA fill:#fff3e0,stroke:#FF9800
+    style FFN fill:#e8f4fd,stroke:#2196F3
+    style ADD1 fill:#e8f5e9,stroke:#4CAF50
+    style ADD2 fill:#e8f5e9,stroke:#4CAF50
+```
 
 A transformer is more than just attention.  It combines several components into a repeating building block called a **transformer block**.  Each block contains four elements:
 
@@ -532,6 +603,11 @@ Research has shown that ESM-2 embeddings capture:
 
 Most remarkably, the attention weights from ESM can predict protein **contact maps**---which pairs of residues are in spatial proximity---with surprising accuracy.  This connects directly to the co-evolution intuition we started with.
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/attention_vs_contacts.png' | relative_url }}" alt="Attention map vs true contact map comparison">
+    <div class="caption mt-1"><strong>Attention maps recapitulate structural contacts.</strong> Left: true contact map from a crystal structure (C&beta; &lt; 8&Aring;). Center: attention weights from a protein language model, averaged over heads. Right: overlay showing that high-attention residue pairs (red) coincide with true long-range structural contacts (blue squares).</div>
+</div>
+
 ---
 
 ## 9. Proteins as Graphs: A Natural Representation
@@ -608,6 +684,29 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
 ---
 
 ## 10. Message Passing: The Unifying Framework
+
+```mermaid
+flowchart LR
+    subgraph Before["Before Message Passing"]
+        A1((i)) --- B1((j₁))
+        A1 --- C1((j₂))
+        A1 --- D1((j₃))
+    end
+
+    Before -->|"1. Compute\nMessages"| MSG["ψ(h_i, h_j, e_ij)\nfor each neighbor j"]
+    MSG -->|"2. Aggregate\n⊕ (sum/mean)"| AGG["m_i = ⊕ messages"]
+    AGG -->|"3. Update\nφ(h_i, m_i)"| UPD["h_i' = φ(h_i, m_i)"]
+
+    subgraph After["After Message Passing"]
+        A2(("i'")):::updated --- B2((j₁))
+        A2 --- C2((j₂))
+        A2 --- D2((j₃))
+    end
+
+    UPD --> After
+
+    classDef updated fill:#fff3e0,stroke:#FF9800,stroke-width:3px
+```
 
 All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
 
