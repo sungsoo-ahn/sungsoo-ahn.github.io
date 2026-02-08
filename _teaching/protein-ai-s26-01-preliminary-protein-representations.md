@@ -55,6 +55,11 @@ The table below maps each section to the question it answers.
 
 ## Sequence Representations: From Letters to Numbers
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/amino_acid_properties.png' | relative_url }}" alt="The 20 standard amino acids grouped by chemical properties">
+    <div class="caption mt-1"><strong>The 20 standard amino acids.</strong> Amino acids are grouped by their side-chain chemistry: nonpolar/hydrophobic (red), polar uncharged (blue), positively charged (green), and negatively charged (orange). Bar heights show approximate molecular weights. These chemical differences determine how each amino acid contributes to protein folding and function.</div>
+</div>
+
 The amino acid sequence is the primary structure of a protein — the linear chain of residues encoded by the gene.
 Because sequencing is cheap and fast, sequence data is far more abundant than structure data: the UniProt database contains over 200 million sequences, while the Protein Data Bank has roughly 200,000 experimentally determined structures.
 Any representation that works on sequences alone has access to a thousand-fold more training data.
@@ -110,6 +115,14 @@ print(enc.shape)  # (5, 20)
 ```
 
 One-hot encoding is simple and fully interpretable.
+
+The figure below contrasts one-hot encoding (left) with the BLOSUM62 substitution matrix (right). While one-hot treats every amino acid as equally different (identity matrix), BLOSUM62 captures evolutionary similarity — biochemically similar residues have positive scores (warm colors), while dissimilar substitutions have negative scores (cool colors).
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/onehot_vs_blosum.png' | relative_url }}" alt="One-hot encoding vs BLOSUM62 substitution matrix">
+    <div class="caption mt-1">Comparison of one-hot encoding (left) and BLOSUM62 substitution matrix (right). One-hot encoding is a 20×20 identity matrix — every amino acid is equally different from every other. BLOSUM62 encodes evolutionary substitution patterns: high scores (red) indicate frequently interchangeable residues (e.g., I↔L, D↔E), while negative scores (blue) mark pairs rarely observed at aligned positions.</div>
+</div>
+
 Its limitation is that it treats every amino acid as equally different from every other.
 Alanine appears just as distant from Glycine (both small and hydrophobic) as from Tryptophan (large and aromatic).
 Biologically, this is wrong: some substitutions preserve function while others destroy it.
@@ -284,6 +297,11 @@ Structure tells us *where* they are in space.
 A protein's three-dimensional arrangement determines its function — how it binds substrates, catalyzes reactions, and interacts with partners.
 For structure-aware models, we need representations that faithfully capture spatial relationships.
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/protein_structure_levels.png' | relative_url }}" alt="Four levels of protein structure">
+    <div class="caption mt-1"><strong>Four levels of protein structure.</strong> Primary: the linear sequence of amino acids. Secondary: local folding motifs (alpha-helices, beta-sheets). Tertiary: the complete 3D arrangement of a single chain. Quaternary: assembly of multiple chains into a functional complex.</div>
+</div>
+
 ### Distance Matrices: Who Is Near Whom?
 
 The simplest structural representation is the **distance matrix**.
@@ -371,7 +389,27 @@ Distance matrices describe *pairwise* relationships between residues.
 Sometimes we need a *local* description of backbone geometry instead.
 
 The protein backbone consists of three bonds per residue: N--C$$\alpha$$, C$$\alpha$$--C, and C--N (the peptide bond to the next residue).
-Each bond has a **dihedral angle**[^torsion] describing the rotation around that bond:
+Each bond has a **dihedral angle**[^torsion] describing the rotation around that bond.
+The figure below shows the three backbone dihedral angles on a protein backbone.
+
+```mermaid
+graph LR
+    subgraph "Residue i"
+        Ni["N"] -->|"Cα bond"| CAi["Cα"] -->|"C bond"| Ci["C"]
+    end
+    subgraph "Residue i+1"
+        Ni1["N"] -->|"Cα bond"| CAi1["Cα"] -->|"C bond"| Ci1["C"]
+    end
+    Ci -->|"peptide bond"| Ni1
+
+    style Ni fill:#4a90d9,color:white
+    style CAi fill:#e74c3c,color:white
+    style Ci fill:#2ecc71,color:white
+    style Ni1 fill:#4a90d9,color:white
+    style CAi1 fill:#e74c3c,color:white
+    style Ci1 fill:#2ecc71,color:white
+```
+<div class="caption mt-1"><strong>Backbone dihedral angles.</strong> φ (phi) measures rotation around the N–Cα bond, ψ (psi) around the Cα–C bond, and ω (omega) around the C–N peptide bond connecting consecutive residues. The omega angle is nearly always ~180° due to the partial double-bond character of the peptide bond.</div>
 
 - **Phi ($$\phi$$)**: rotation around the N--C$$\alpha$$ bond
 - **Psi ($$\psi$$)**: rotation around the C$$\alpha$$--C bond
@@ -416,6 +454,13 @@ print(np.sin(angle_neg), np.cos(angle_neg))  # ~0, -1  (same!)
 
 Now $$+180°$$ and $$-180°$$ both map to $$(0, -1)$$, and the periodicity is handled gracefully.
 
+The classical **Ramachandran plot** shows the distribution of $$\phi$$ and $$\psi$$ angles observed in protein structures. Different secondary structure types cluster in distinct regions of this plot.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/ramachandran_plot.png' | relative_url }}" alt="Ramachandran plot">
+    <div class="caption mt-1">A Ramachandran plot showing the distribution of backbone dihedral angles (φ, ψ) across protein residues. α-helical residues cluster near (−60°, −45°), β-sheet residues near (−120°, +130°), and left-handed helices near (+60°, +45°). Coil residues are scattered throughout the allowed regions.</div>
+</div>
+
 Dihedral angles are especially important for **protein generation and design**.
 Models that generate backbone structures often work in dihedral space because producing angles directly guarantees valid bond lengths and bond angles.
 In contrast, generating raw $$(x, y, z)$$ coordinates can produce distorted, physically impossible geometries.
@@ -437,6 +482,19 @@ Together, these form a transformation:
 $$
 T_i = (\mathbf{R}_i, \mathbf{t}_i) \in \text{SE}(3)
 $$
+
+```mermaid
+flowchart LR
+    subgraph Frame["Local SE(3) Frame for Residue i"]
+        direction TB
+        N["N atom"] --- CA["Cα atom\n(origin t_i)"]
+        CA --- C["C atom"]
+        CA -.- X["x-axis:\nCα → C direction"]
+        CA -.- Y["y-axis:\n⊥ to x, in N-Cα-C plane"]
+        CA -.- Z["z-axis:\nx × y (right-hand rule)"]
+    end
+    Frame --> T["T_i = (R_i, t_i) ∈ SE(3)\nR_i = [x | y | z] (3×3 rotation)\nt_i = Cα position (translation)"]
+```
 
 The key insight is that each residue's backbone atoms (N, C$$\alpha$$, C) form a nearly rigid triangle.
 By treating each residue as a rigid body with its own coordinate frame, we can describe local geometry (the orientation of one residue relative to its neighbors) and global geometry (the overall fold) in a unified mathematical framework.
@@ -519,6 +577,19 @@ This framework can simultaneously encode sequence information (through edges con
 Graphs can also handle proteins of any length without the quadratic memory cost of full distance matrices.
 
 ### Building a K-Nearest Neighbor Graph
+
+The following diagram illustrates how a k-NN graph is constructed from 3D protein coordinates.
+
+```mermaid
+flowchart LR
+    A["3D Cα Coordinates\n(N × 3 array)"] --> B["Compute Pairwise\nDistances (N × N)"]
+    B --> C["For Each Residue:\nFind k Nearest\nNeighbors"]
+    C --> D["Create Directed\nEdges i → j"]
+    D --> E["Protein Graph\nN nodes, k·N edges"]
+
+    style A fill:#e8f4fd,stroke:#2196F3
+    style E fill:#e8f5e9,stroke:#4CAF50
+```
 
 A common construction connects each residue to its $$k$$ nearest neighbors in 3D space.
 The parameter $$k$$ (typically 10-30) controls the density of the graph.

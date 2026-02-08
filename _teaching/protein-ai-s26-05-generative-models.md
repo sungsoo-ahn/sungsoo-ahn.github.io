@@ -91,6 +91,29 @@ For generation, we need a way to make *every* region of latent space decode into
 
 ## 2. From Autoencoders to VAEs
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/vae_graphical_model.png' | relative_url }}" alt="VAE graphical model and architecture">
+    <div class="caption mt-1"><strong>Variational Autoencoder (VAE).</strong> Left: the generative model (solid arrow) maps latent variable z to data x through the decoder. The inference model (dashed arrow) approximates the posterior through the encoder. Right: the encoder produces distribution parameters (μ, σ), a latent code z is sampled, and the decoder reconstructs the input. The ELBO training objective balances reconstruction quality and latent space regularity.</div>
+</div>
+
+```mermaid
+flowchart LR
+    subgraph AE["Autoencoder"]
+        direction LR
+        X1["Input x"] --> E1["Encoder"] --> Z1["z\n(deterministic\npoint)"] --> D1["Decoder"] --> X1R["Reconstructed x̂"]
+    end
+
+    subgraph VAE["Variational Autoencoder"]
+        direction LR
+        X2["Input x"] --> E2["Encoder"] --> MU["μ, σ²\n(distribution\nparameters)"] --> S2["Sample\nz ~ N(μ, σ²)"] --> D2["Decoder"] --> X2R["Reconstructed x̂"]
+        MU -.- KL["KL divergence\npushes toward N(0,I)"]
+    end
+
+    style Z1 fill:#fce4ec,stroke:#e91e63
+    style S2 fill:#e8f5e9,stroke:#4CAF50
+    style KL fill:#fff3e0,stroke:#FF9800
+```
+
 Variational autoencoders, introduced by Kingma and Welling (2014), solve this problem by making the latent space **probabilistic**.
 Instead of mapping each protein $$x$$ to a single point $$z$$, the encoder outputs the parameters of a Gaussian distribution—a mean vector $$\mu_\phi(x)$$ and a variance vector $$\sigma^2_\phi(x)$$—from which we then *sample* a latent code:
 
@@ -100,6 +123,11 @@ Here $$\phi$$ denotes the learnable parameters of the encoder, $$\mathcal{N}$$ i
 The distribution $$q_\phi(z \mid x)$$ is called the **approximate posterior**[^posterior] because it approximates the true (intractable) posterior $$p(z \mid x)$$.
 
 [^posterior]: In Bayesian terminology, the *posterior* is the distribution over latent variables given observed data.  The word "approximate" reminds us that $$q_\phi$$ is a parametric family (here, diagonal Gaussians) that may not perfectly match the true posterior.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/vae_latent_space.png' | relative_url }}" alt="AE vs VAE latent space">
+    <div class="caption mt-1">Comparison of latent spaces learned by an autoencoder (left) vs a VAE (right). The autoencoder's latent space is disorganized — points from the same cluster are scattered. The VAE's latent space is well-structured: clusters are compact and separated, and the space between clusters is meaningful for generation because the KL regularizer ensures coverage of the latent space.</div>
+</div>
 
 The training procedure also adds a **regularizer** that pushes every encoded distribution toward a standard normal $$p(z) = \mathcal{N}(0, I)$$.
 This regularizer has a profound consequence: the entire latent space becomes populated.
@@ -376,6 +404,11 @@ Diffusion models take an entirely different approach: they learn generation by l
 
 The core idea is disarmingly simple.
 Take a clean protein structure (or embedding), corrupt it step by step with Gaussian noise until nothing recognizable remains, and then train a neural network to reverse each corruption step.
+
+<div class="col-sm-12 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_forward.png' | relative_url }}" alt="Diffusion forward process">
+    <div class="caption mt-1">The diffusion forward process: a clean signal (left, t=0) is progressively corrupted by adding Gaussian noise at each step. By t=1.0 (right), the original structure is completely destroyed — only noise remains. The reverse process (trained neural network) learns to undo each step, generating clean data from pure noise.</div>
+</div>
 Once trained, the network can start from pure noise and iteratively sculpt it into a realistic protein.
 
 The intuition is that **denoising is easier than generating from scratch**.
@@ -391,6 +424,11 @@ But if the network can reverse *each individual step*—going from "slightly mor
 
 ### The Forward Process: Adding Noise
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/ddpm_forward_reverse.png' | relative_url }}" alt="DDPM forward and reverse processes">
+    <div class="caption mt-1"><strong>Denoising Diffusion Probabilistic Model (DDPM).</strong> Top: the forward process gradually adds Gaussian noise to data until the structure is destroyed. Bottom: the learned reverse process iteratively denoises, recovering structured data from random noise. Adapted from Ho et al., 2020.</div>
+</div>
+
 Let $$x_0$$ denote a clean data point—say, the 3D coordinates of a protein backbone or a continuous embedding of a sequence.
 The **forward process** produces a sequence of increasingly noisy versions $$x_1, x_2, \ldots, x_T$$ by adding Gaussian noise at each step:
 
@@ -399,6 +437,11 @@ $$q(x_t \mid x_{t-1}) = \mathcal{N}\!\bigl(x_t;\; \sqrt{1 - \beta_t}\, x_{t-1},\
 Here $$\beta_t \in (0, 1)$$ is a scalar controlling how much noise is added at step $$t$$, and $$T$$ is the total number of steps (typically 1000).
 The collection $$\{\beta_1, \beta_2, \ldots, \beta_T\}$$ is called the **noise schedule**.
 It usually starts small (gentle corruption early on) and increases over time (aggressive corruption later).
+
+<div class="col-sm-9 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_noise_schedule.png' | relative_url }}" alt="Diffusion noise schedule">
+    <div class="caption mt-1">A linear noise schedule over 1000 timesteps. β_t (noise variance per step) increases linearly. √ᾱ_t (signal coefficient) decays from 1 to near 0 — the clean signal is gradually destroyed. √(1−ᾱ_t) (noise coefficient) grows from 0 to 1 — by t=T, the data is pure noise.</div>
+</div>
 
 A key mathematical property eliminates the need to apply noise sequentially.
 Define $$\alpha_t = 1 - \beta_t$$ and $$\bar{\alpha}_t = \prod_{s=1}^{t} \alpha_s$$ (the cumulative product).
@@ -528,6 +571,25 @@ This connection links diffusion models to the broader framework of score-based g
 ## 8. The Denoising Loop and Network Architecture
 
 ### Generation by Iterative Denoising
+
+```mermaid
+flowchart LR
+    XT["x_T\n(pure noise)"] --> D1["Denoise\nStep T"]
+    D1 --> XTM["x_{T-1}"] --> D2["Denoise\nStep T-1"]
+    D2 --> DOTS["..."]
+    DOTS --> D3["Denoise\nStep 1"]
+    D3 --> X0["x_0\n(generated\nprotein)"]
+
+    subgraph Step["Each Denoising Step"]
+        direction TB
+        IN["x_t, t"] --> NET["Neural Network\nε_θ(x_t, t)"]
+        NET --> PRED["Predicted noise ε̂"]
+        PRED --> SUB["x_{t-1} = f(x_t, ε̂, t)"]
+    end
+
+    style XT fill:#fce4ec,stroke:#e91e63
+    style X0 fill:#e8f5e9,stroke:#4CAF50
+```
 
 Once the noise prediction network is trained, generation proceeds by simulating the reverse process.
 Starting from pure noise $$x_T \sim \mathcal{N}(0, I)$$, we apply the learned denoising step $$T$$ times:

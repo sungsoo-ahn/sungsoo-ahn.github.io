@@ -152,12 +152,28 @@ By learning from this vast corpus, protein language models capture knowledge tha
 
 ## Masked Language Modeling
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mlm_protein_illustration.png' | relative_url }}" alt="Masked language modeling for protein sequences">
+    <div class="caption mt-1"><strong>Masked Language Modeling for proteins.</strong> Random amino acid positions are replaced with [MASK] tokens. The transformer encoder must predict the original identity at each masked position from the surrounding context. This self-supervised objective teaches the model evolutionary and structural constraints without any labels.</div>
+</div>
+
 The dominant training strategy for protein language models is **masked language modeling** (MLM)[^mlm-bert].
 The concept is a fill-in-the-blank exercise applied at massive scale.
 
 [^mlm-bert]: MLM was introduced by Devlin et al. (2019) as the training objective for BERT. Its application to proteins was pioneered by Rives et al. (2021) in the ESM family.
 
 ### The procedure
+
+```mermaid
+flowchart LR
+    SEQ["M V L S P A D K T N"] -->|"15% random\nmasking"| MASKED["M V ‹mask› S P ‹mask› D K T N"]
+    MASKED --> MODEL["Transformer\n(ESM-2)"]
+    MODEL --> PRED["M V **L** S P **A** D K T N"]
+    PRED -->|"Cross-entropy\nloss at masked\npositions"| LOSS["L_MLM"]
+
+    style MASKED fill:#fff3e0,stroke:#FF9800
+    style PRED fill:#e8f5e9,stroke:#4CAF50
+```
 
 1. Take a protein sequence $$x = (x_1, x_2, \ldots, x_L)$$, where $$L$$ is the sequence length and each $$x_i$$ is one of the 20 standard amino acids.
 2. Randomly select approximately 15% of positions to form the **mask set** $$\mathcal{M}$$.
@@ -261,6 +277,11 @@ Each position is influenced by context on *both* sides, not just the left.
 
 **ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models {% cite lin2023evolutionary %}.
 It combines the Transformer architecture with large-scale training on protein sequence databases, producing representations that capture evolutionary, structural, and functional information.
+
+<div class="col-sm-9 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/esm2_model_sizes.png' | relative_url }}" alt="ESM-2 model family sizes and performance">
+    <div class="caption mt-1">The ESM-2 model family spans four orders of magnitude in size, from 8M to 15B parameters. Performance on downstream tasks (here, long-range contact prediction precision) improves steadily with model scale, following a scaling law consistent with findings in natural language processing.</div>
+</div>
 
 ### Training data
 
@@ -624,6 +645,27 @@ Or, better yet, use LoRA.
 
 ## LoRA: Efficient Adaptation
 
+```mermaid
+flowchart LR
+    subgraph Standard["Standard Fine-Tuning"]
+        X1["x"] --> W1["W\n(d × d)\nAll params\nupdated"]
+        W1 --> Y1["Wx"]
+    end
+
+    subgraph LoRA["LoRA Fine-Tuning"]
+        X2["x"] --> W2["W (frozen)\n(d × d)"]
+        X2 --> A["A (trainable)\n(d × r)"]
+        A --> B["B (trainable)\n(r × d)"]
+        W2 --> ADD["+"]
+        B --> ADD
+        ADD --> Y2["(W + BA)x"]
+    end
+
+    style W2 fill:#e0e0e0,stroke:#9e9e9e
+    style A fill:#e8f5e9,stroke:#4CAF50
+    style B fill:#e8f5e9,stroke:#4CAF50
+```
+
 Full fine-tuning of a 650M-parameter model requires storing optimizer states and gradients for every parameter, which can demand 10--20 GB of GPU memory.
 For the 3B or 15B variants, full fine-tuning is out of reach for most research labs.
 
@@ -784,6 +826,19 @@ The ultimate test of whether a language model truly "understands" proteins is wh
 
 ### Architecture
 
+```mermaid
+flowchart LR
+    SEQ["Amino Acid\nSequence"] --> ESM["ESM-2\nEncoder\n(pretrained)"]
+    ESM --> EMB["Per-Residue\nEmbeddings\n(L × 1280)"]
+    EMB --> FOLD["Folding\nTrunk"]
+    FOLD --> SM["Structure\nModule\n(IPA)"]
+    SM --> XYZ["3D Atomic\nCoordinates"]
+
+    style SEQ fill:#e8f4fd,stroke:#2196F3
+    style ESM fill:#fff3e0,stroke:#FF9800
+    style XYZ fill:#e8f5e9,stroke:#4CAF50
+```
+
 ESMFold takes a protein sequence, passes it through the ESM-2 backbone to produce per-residue embeddings, and then feeds those embeddings into a structure prediction module that generates atomic coordinates.
 The structure module is similar to the one used in AlphaFold2, operating on pairwise representations and iteratively refining coordinates.
 
@@ -851,6 +906,16 @@ Research has shown that these attention patterns correlate with **residue-residu
 Positions that are close in space (within about 8 Angstroms) tend to attend strongly to each other, even when they are far apart in sequence.
 
 This means the model has discovered, purely from sequence statistics, the same principle that underlies evolutionary coupling analysis: co-evolving residues are in structural contact.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/attention_vs_contacts.png' | relative_url }}" alt="ESM attention map vs true contact map">
+    <div class="caption mt-1"><strong>Attention weights predict structural contacts.</strong> Left: true residue-residue contact map from a crystal structure. Center: attention weights from ESM-2, averaged across heads. Right: overlay showing that high-attention pairs correspond to true long-range contacts. The model discovers 3D proximity from sequence data alone.</div>
+</div>
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/esm_contact_prediction.png' | relative_url }}" alt="ESM-2 attention correlates with structural contacts">
+    <div class="caption mt-1"><strong>Attention as structure predictor.</strong> Left: ESM-2 attention map (averaged over heads and layers) for a 50-residue protein. Right: true structural contacts (8 Å threshold). The strong correspondence demonstrates that protein language models learn to encode 3D structural information purely from sequence statistics.</div>
+</div>
 
 ### Code: extracting and processing attention maps
 
