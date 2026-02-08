@@ -83,6 +83,27 @@ $$
 
 ### From Invariance to Equivariance
 
+```mermaid
+flowchart LR
+    subgraph Invariant["Invariance (scalar output)"]
+        direction TB
+        P1["Protein\n(original)"] --> F1["f(x)"] --> S1["Energy = −42.3"]
+        RP1["Rotated\nProtein"] --> RF1["f(Rx)"] --> RS1["Energy = −42.3"]
+        S1 -.- RS1
+    end
+
+    subgraph Equivariant["Equivariance (geometric output)"]
+        direction TB
+        P2["Protein\n(original)"] --> F2["f(x)"] --> S2["Structure\n(output)"]
+        RP2["Rotated\nProtein"] --> RF2["f(Rx)"] --> RS2["Rotated\nStructure\n= R · f(x)"]
+    end
+
+    style S1 fill:#e8f5e9,stroke:#4CAF50
+    style RS1 fill:#e8f5e9,stroke:#4CAF50
+    style S2 fill:#e8f4fd,stroke:#2196F3
+    style RS2 fill:#e8f4fd,stroke:#2196F3
+```
+
 Invariance tells us what properties should not change under transformations.
 But a generative model does not just compute scalar properties --- it outputs structures, which are geometric objects that *should* transform when the input transforms.
 
@@ -299,6 +320,43 @@ Two pieces of information fully specify the placement of this unit in space:
 [^rigid]: Strictly, the backbone is not perfectly rigid --- bond angles and the peptide bond dihedral ($$\omega$$) have some flexibility. But the deviation from planarity is small enough that the rigid-body approximation is excellent for backbone generation.
 
 Together, the pair $$(R_i, \vec{t}_i)$$ defines a **rigid-body frame** for residue $$i$$.
+
+```mermaid
+graph LR
+    subgraph "Residue Frame T_i = (R_i, t_i)"
+        direction TB
+        CA["Cα\n(origin = t_i)"]
+        N["N"]
+        C["C"]
+        X["x-axis"]
+        Y["y-axis"]
+        Z["z-axis"]
+
+        N --- CA --- C
+        CA -.->|"e₁"| X
+        CA -.->|"e₂"| Y
+        CA -.->|"e₃"| Z
+    end
+
+    subgraph "Protein Backbone"
+        F1["Frame T₁"] --> F2["Frame T₂"] --> F3["Frame T₃"] --> F4["..."] --> FL["Frame T_L"]
+    end
+
+    style CA fill:#e74c3c,color:white
+    style N fill:#4a90d9,color:white
+    style C fill:#2ecc71,color:white
+    style F1 fill:#9b59b6,color:white
+    style F2 fill:#9b59b6,color:white
+    style F3 fill:#9b59b6,color:white
+    style FL fill:#9b59b6,color:white
+```
+<div class="caption mt-1"><strong>Residue frame representation.</strong> Each residue defines a local coordinate frame from its three backbone atoms (N, Cα, C). The Cα position gives the translation t_i, and the orientation R_i is constructed from the N→Cα and Cα→C bond vectors. A protein backbone with L residues is a sequence of L such frames in SE(3).</div>
+
+<div class="col-sm-7 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/se3_frame_residue.png' | relative_url }}" alt="Local coordinate frame on a protein residue">
+    <div class="caption mt-1"><strong>Local coordinate frame on a residue.</strong> The three backbone atoms (N in blue, Cα in red, C in green) define a right-handed coordinate system. The x-axis (e₁) points from Cα toward C, the z-axis (e₃) is perpendicular to the N-Cα-C plane, and the y-axis (e₂) completes the frame. Neighboring residues are shown faded for context.</div>
+</div>
+
 The set of all such pairs forms the group $$SE(3)$$: a transformation $$T = (R, \vec{t})$$ acts on a point $$\vec{x}$$ by
 
 $$
@@ -430,6 +488,11 @@ A sample from IGSO(3) with parameter $$\sigma$$ rotates this pointer by a random
 - When $$\sigma$$ is small, the perturbation is small: the pointer stays near the north pole.
 - When $$\sigma$$ is large, the pointer can end up anywhere on the sphere.
 - In the limit $$\sigma \to \infty$$, the distribution becomes the uniform (Haar) measure over $$SO(3)$$: every orientation is equally likely.
+
+<div class="col-sm-9 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/igso3_distribution.png' | relative_url }}" alt="IGSO(3) distribution for different noise levels">
+    <div class="caption mt-1">IGSO(3) probability density as a function of rotation angle for different noise levels σ. At small σ (tight curves near 0°), the distribution is concentrated near the identity rotation. As σ increases, the density spreads across all rotation angles, approaching the uniform distribution on SO(3).</div>
+</div>
 
 Formally, the density of IGSO(3) with concentration parameter $$\sigma$$ at a rotation $$R$$ is
 
@@ -642,6 +705,33 @@ def diffuse_frames(frames, t, schedule):
     noise = {'trans': trans_noise, 'rot': rot_noise}
     return noisy_frames, noise
 ```
+
+```mermaid
+graph LR
+    subgraph "Forward Process (Adding Noise)"
+        T0["t=0\nClean Protein\n(folded backbone)"]
+        T1["t=0.3\nSlightly Noisy\n(positions jittered,\nframes tilted)"]
+        T2["t=0.7\nVery Noisy\n(structure dissolving)"]
+        T3["t=1.0\nPure Noise\n(random positions +\nuniform rotations)"]
+    end
+
+    T0 -->|"+Gaussian\n+IGSO(3)"| T1 -->|"+noise"| T2 -->|"+noise"| T3
+
+    subgraph "Reverse Process (Denoising)"
+        R3["t=1.0\nRandom Frames"]
+        R2["t=0.7\nPartially\nDenoised"]
+        R1["t=0.3\nMostly\nDenoised"]
+        R0["t=0\nGenerated\nProtein"]
+    end
+
+    R3 -->|"neural net\npredicts clean"| R2 -->|"denoise"| R1 -->|"denoise"| R0
+
+    style T0 fill:#2ecc71,color:white
+    style T3 fill:#e74c3c,color:white
+    style R3 fill:#e74c3c,color:white
+    style R0 fill:#2ecc71,color:white
+```
+<div class="caption mt-1"><strong>SE(3) diffusion process.</strong> Forward: clean protein frames are progressively corrupted by Gaussian noise (translations) and IGSO(3) noise (rotations) until the structure is destroyed. Reverse: a neural network learns to denoise, iteratively recovering protein-like structure from random frames.</div>
 
 At $$t = 0$$, the frames are clean.
 At $$t = 1$$, the positions are nearly pure Gaussian noise and the orientations are nearly uniformly random.
@@ -993,6 +1083,34 @@ Four conditioning strategies cover the most important use cases.
 A functional motif --- say, a set of catalytic residues arranged in a specific geometry --- must be presented by a supporting protein scaffold.
 RFDiffusion generates the scaffold while holding the motif residues fixed.
 
+```mermaid
+graph LR
+    subgraph "Input"
+        M["Functional Motif\n(fixed geometry,\ne.g. catalytic triad)"]
+    end
+
+    subgraph "Diffusion Process"
+        N["Random Scaffold\nFrames (noise)"]
+        D1["Denoise Step 1:\nClamp motif,\nupdate scaffold"]
+        D2["Denoise Step 2:\nClamp motif,\nupdate scaffold"]
+        DN["... N steps ..."]
+    end
+
+    subgraph "Output"
+        P["Complete Protein:\nMotif + Generated\nScaffold"]
+    end
+
+    M --> D1
+    N --> D1 --> D2 --> DN --> P
+
+    style M fill:#e74c3c,color:white
+    style N fill:#95a5a6,color:white
+    style P fill:#2ecc71,color:white
+    style D1 fill:#f39c12,color:white
+    style D2 fill:#f39c12,color:white
+```
+<div class="caption mt-1"><strong>Motif scaffolding.</strong> The functional motif (red) is held fixed at each denoising step, while the surrounding scaffold residues (initially random noise) are progressively denoised. The result is a novel protein that presents the motif in the correct geometry, supported by a computationally designed scaffold.</div>
+
 **Binder design.**
 Given a target protein (for example, a viral surface protein), design a new protein that binds to a specified surface region on the target.
 This is the key to computational vaccine and therapeutic design.
@@ -1277,6 +1395,11 @@ Each step involves three operations:
 1. The model predicts the clean structure from the current noisy state.
 2. The prediction is used to compute the denoised estimate at the next (less noisy) timestep.
 3. Any conditioning constraints are applied (e.g., fixing motif positions).
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_reverse_protein.png' | relative_url }}" alt="Reverse diffusion process generating a protein structure">
+    <div class="caption mt-1"><strong>Reverse diffusion on protein frames.</strong> Starting from pure noise (t=1.0), the denoising network iteratively recovers protein-like structure. Each step predicts and partially removes the noise, until a coherent backbone emerges at t=0. Points are colored by chain position (N-terminus to C-terminus).</div>
+</div>
 
 ```python
 @torch.no_grad()
