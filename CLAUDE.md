@@ -45,6 +45,8 @@ Excel files synced from Dropbox:
 | `_config.yml` | Site configuration |
 | `_data/socials.yml` | Social links |
 | `assets/img/prof_pic.jpg` | Profile photo |
+| `_pages/teaching.md` | Teaching page (lists courses) |
+| `_teaching/` | Lecture notes collection |
 
 ## Blog Post Writing Guidelines
 
