@@ -1,3 +1,9 @@
+---
+name: download-paper-figures
+description: Download figures from academic papers and add them to blog posts with proper citations. Use when incorporating paper figures into content.
+disable-model-invocation: true
+---
+
 # Download and Cite Paper Figures
 
 Workflow for incorporating figures from academic papers into blog posts.
