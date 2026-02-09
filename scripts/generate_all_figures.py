@@ -99,6 +99,66 @@ cb = fig.colorbar(im, ax=ax, shrink=0.82); cb.set_label(r'Distance ($\AA$)', fon
 fig.tight_layout(); fig.savefig(OUT_DIR/'distance_matrix_vis.png', dpi=150, bbox_inches='tight', facecolor='white'); plt.close(fig)
 print(f"  Saved distance_matrix_vis.png")
 
+# 0-5: Annotated 3D protein backbone + distance matrix
+import matplotlib.gridspec as gridspec
+n_res_small = 20
+coords_3d = []
+for i in range(10):  # alpha helix
+    angle = i * 100 * np.pi / 180
+    coords_3d.append([2.3*np.cos(angle), 2.3*np.sin(angle), i*1.5])
+last = np.array(coords_3d[-1])
+for i in range(3):  # turn
+    t_ = (i+1)/4.0
+    coords_3d.append(last + np.array([4.0*t_, -3.0*t_, 1.5*t_]) + np.random.randn(3)*0.3)
+last = np.array(coords_3d[-1])
+for i in range(7):  # beta strand
+    last = np.array([last[0]+0.8*((-1)**i), last[1]+3.3, last[2]-1.2])
+    coords_3d.append(last)
+coords_3d = np.array(coords_3d)
+diff_3d = coords_3d[:, np.newaxis, :] - coords_3d[np.newaxis, :, :]
+D_small = np.sqrt(np.sum(diff_3d**2, axis=-1))
+pair1, pair2 = (2, 17), (7, 13)
+
+fig = plt.figure(figsize=(13, 5), dpi=150, facecolor='white')
+gs = gridspec.GridSpec(1, 2, width_ratios=[1.1, 1], wspace=0.3)
+ax1 = fig.add_subplot(gs[0], projection='3d')
+ax1.plot(coords_3d[:,0], coords_3d[:,1], coords_3d[:,2], '-', color='#666666', linewidth=1.8, zorder=1)
+ax1.scatter(coords_3d[:,0], coords_3d[:,1], coords_3d[:,2], s=40, c='steelblue',
+            edgecolors='white', linewidths=0.6, zorder=3, depthshade=True)
+for idx in [0, pair1[0], pair2[0], pair2[1], pair1[1], n_res_small-1]:
+    ax1.text(coords_3d[idx,0], coords_3d[idx,1], coords_3d[idx,2]+0.8,
+             str(idx+1), fontsize=9, ha='center', fontweight='bold', color='#333333')
+for (i, j), color in [(pair1, '#e74c3c'), (pair2, '#2ecc71')]:
+    ax1.plot([coords_3d[i,0],coords_3d[j,0]], [coords_3d[i,1],coords_3d[j,1]],
+             [coords_3d[i,2],coords_3d[j,2]], '--', color=color, linewidth=2, zorder=2)
+    ax1.scatter([coords_3d[i,0],coords_3d[j,0]], [coords_3d[i,1],coords_3d[j,1]],
+                [coords_3d[i,2],coords_3d[j,2]], s=80, c=color, edgecolors='white',
+                linewidths=0.8, zorder=4, depthshade=False)
+    mx = (coords_3d[i]+coords_3d[j])/2
+    ax1.text(mx[0], mx[1], mx[2]+0.6, f'{D_small[i,j]:.1f}', fontsize=9, fontweight='bold',
+             color=color, ha='center', va='bottom',
+             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
+ax1.set_title(r'C$\alpha$ backbone (3D)', fontsize=12, fontweight='bold', pad=10)
+ax1.set_xlabel('x', fontsize=9, labelpad=2); ax1.set_ylabel('y', fontsize=9, labelpad=2)
+ax1.set_zlabel('z', fontsize=9, labelpad=2); ax1.tick_params(labelsize=7)
+ax1.view_init(elev=20, azim=-60)
+for pane in [ax1.xaxis.pane, ax1.yaxis.pane, ax1.zaxis.pane]:
+    pane.fill = False; pane.set_edgecolor('lightgray')
+
+ax2 = fig.add_subplot(gs[1])
+im = ax2.imshow(D_small, cmap='viridis', origin='upper', aspect='equal')
+for (i, j), color in [(pair1, '#e74c3c'), (pair2, '#2ecc71')]:
+    for (ri, rj) in [(i,j), (j,i)]:
+        ax2.add_patch(plt.Rectangle((rj-0.5, ri-0.5), 1, 1, linewidth=2.5, edgecolor=color, facecolor='none', zorder=5))
+    ax2.annotate(f'{D_small[i,j]:.1f}', (j, i), fontsize=8, fontweight='bold', color='white', ha='center', va='center', zorder=6)
+ax2.set_xlabel('Residue index $j$', fontsize=10); ax2.set_ylabel('Residue index $i$', fontsize=10)
+ax2.set_title(r'Distance matrix $D_{ij} = \| \mathbf{r}_i - \mathbf{r}_j \|_2$', fontsize=12, fontweight='bold')
+ax2.set_xticks(range(0, n_res_small, 4)); ax2.set_yticks(range(0, n_res_small, 4))
+ax2.set_xticklabels(range(1, n_res_small+1, 4), fontsize=8); ax2.set_yticklabels(range(1, n_res_small+1, 4), fontsize=8)
+cb = fig.colorbar(im, ax=ax2, shrink=0.82, pad=0.02); cb.set_label('Distance', fontsize=9)
+fig.savefig(OUT_DIR/'distance_matrix_annotated.png', dpi=150, bbox_inches='tight', facecolor='white'); plt.close(fig)
+print(f"  Saved distance_matrix_annotated.png")
+
 # ===========================================================================
 # LECTURE 1 FIGURES
 # ===========================================================================
@@ -187,37 +247,43 @@ print(f"  Saved ramachandran_plot.png")
 # ===========================================================================
 print("Generating Lecture 2 figures...")
 
-# 2-3: Gradient descent on 2D loss landscape
-from matplotlib.colors import LogNorm
+# 2-3: Gradient descent on 2D loss landscape (Rosenbrock-like surface)
 
-x = np.linspace(-3, 3, 200)
-y = np.linspace(-3, 3, 200)
+x = np.linspace(-2, 2, 300)
+y = np.linspace(-1, 3, 300)
 X, Y = np.meshgrid(x, y)
-# Rosenbrock-like surface
-Z = (1-X)**2 + 5*(Y-X**2)**2 + 0.5
+Z = (1 - X)**2 + 5 * (Y - X**2)**2 + 0.5
 
 fig, ax = plt.subplots(figsize=(6, 5), dpi=150, facecolor='white')
-ax.contour(X, Y, Z, levels=np.logspace(-0.5, 3, 30), cmap='viridis', alpha=0.7)
-ax.contourf(X, Y, Z, levels=np.logspace(-0.5, 3, 30), cmap='viridis', alpha=0.3)
+levels = np.logspace(-0.3, 2.5, 30)
+ax.contour(X, Y, Z, levels=levels, cmap='viridis', alpha=0.7)
+ax.contourf(X, Y, Z, levels=levels, cmap='viridis', alpha=0.3)
 
-# Simulate gradient descent trajectory
-lr = 0.002
-pos = np.array([-2.5, 2.5])
+# Gradient descent
+lr = 0.02
+pos = np.array([-1.5, 2.5])
 trajectory = [pos.copy()]
 for _ in range(500):
-    gx = -2*(1-pos[0]) + 5*2*(pos[1]-pos[0]**2)*(-2*pos[0])
-    gy = 5*2*(pos[1]-pos[0]**2)
-    pos = pos - lr * np.array([gx, gy])
+    gx = -2*(1 - pos[0]) + 5*2*(pos[1] - pos[0]**2)*(-2*pos[0])
+    gy = 5*2*(pos[1] - pos[0]**2)
+    grad = np.array([gx, gy])
+    if np.linalg.norm(grad) < 0.01: break
+    pos = pos - lr * grad
     trajectory.append(pos.copy())
-    if np.linalg.norm([gx, gy]) < 0.01: break
 traj = np.array(trajectory)
 
-ax.plot(traj[:,0], traj[:,1], 'r.-', markersize=3, linewidth=1, alpha=0.8, label='Gradient descent path')
-ax.plot(traj[0,0], traj[0,1], 'ro', markersize=8, label='Start')
-ax.plot(1, 1, 'r*', markersize=15, label='Minimum')
+# Subsample to ~22 waypoints for piecewise-linear look
+n_pts = min(22, len(traj))
+indices = np.linspace(0, len(traj)-1, n_pts).astype(int)
+traj_sub = traj[indices]
+
+ax.plot(traj_sub[:,0], traj_sub[:,1], 'r-o', markersize=4, linewidth=1.5, zorder=5)
+ax.plot(traj_sub[0,0], traj_sub[0,1], 'ro', markersize=9, zorder=6, label='Start')
+ax.plot(1, 1, 'r*', markersize=15, zorder=6, label='Minimum')
 ax.set_xlabel('$w_1$', fontsize=12); ax.set_ylabel('$w_2$', fontsize=12)
 ax.set_title('Gradient Descent on Loss Landscape', fontsize=13, fontweight='bold')
-ax.legend(fontsize=9)
+ax.set_xlim(-2, 2); ax.set_ylim(-1, 3)
+ax.legend(fontsize=9, loc='upper right')
 fig.tight_layout(); fig.savefig(OUT_DIR/'gradient_descent.png', dpi=150, bbox_inches='tight', facecolor='white'); plt.close(fig)
 print(f"  Saved gradient_descent.png")
 

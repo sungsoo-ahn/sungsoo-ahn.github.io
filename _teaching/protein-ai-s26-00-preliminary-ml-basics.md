@@ -11,6 +11,8 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
@@ -35,11 +37,10 @@ We cover three pillars --- NumPy for numerical computation, Pandas for tabular d
 
 | Section | Why It's Needed |
 |---------|-----------------|
-| **NumPy: Numerical Protein Data** | Proteins become arrays of coordinates and encodings; fast linear algebra enables structure alignment and distance computation |
+| **NumPy: Numerical Protein Data** | Proteins become arrays of coordinates and encodings; broadcasting enables fast distance computation |
 | **Pandas: Tabular Protein Data** | Real datasets mix sequences, labels, and metadata in CSV files; Pandas handles filtering, aggregation, and feature engineering |
 | **Protein File Formats** | Raw biological data lives in FASTA (sequences) and PDB (3D structures); parsing these correctly is the entry point to any protein ML pipeline |
-| **Preparing Data for ML** | Naive random splits cause data leakage in protein datasets; proper splitting by sequence similarity is essential for honest evaluation |
-| **Visualizing Protein Data** | Contact maps and 3D viewers reveal structural patterns and catch preprocessing errors before they reach the model |
+| **Visualizing Protein Data** | Contact maps reveal structural patterns and catch preprocessing errors before they reach the model |
 
 ### Learning Objectives
 
@@ -48,7 +49,6 @@ By the end of this note, you will be able to:
 1. Perform efficient numerical computations on protein data using NumPy arrays.
 2. Manipulate and analyze tabular protein datasets with Pandas.
 3. Load and parse FASTA (sequence) and PDB (structure) files using Biopython and Biotite.
-4. Prepare biological data for machine learning pipelines while avoiding common pitfalls like data leakage.
 
 ---
 
@@ -173,83 +173,15 @@ print(f"D[0, 1] = {D[0, 1]:.2f} Angstroms")
 ```
 
 This function will appear throughout the course.
-It is used for contact map prediction, structure validation, and as input to geometric deep learning models such as AlphaFold [7].
+It is used for contact map prediction, structure validation, and as input to geometric deep learning models such as AlphaFold [6].
 
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/distance_matrix_vis.png' | relative_url }}" alt="Cα distance matrix visualization">
-    <div class="caption mt-1">A Cα distance matrix for a 76-residue protein. The color scale (in Angstroms) reveals the protein's topology: nearby residues along the diagonal are close in space, while off-diagonal blue patches indicate residues brought together by tertiary contacts.</div>
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/distance_matrix_annotated.png' | relative_url }}" alt="Protein backbone with annotated distance matrix">
+    <div class="caption mt-1">Left: a 20-residue Cα backbone in 3D with two pairwise distances highlighted. Right: the corresponding distance matrix. Entry \(D_{3,18}\) (red) records the Euclidean distance between the Cα atoms of residues 3 and 18; entry \(D_{8,14}\) (green) records the distance between residues 8 and 14. The dark diagonal band reflects that sequential neighbors are always close in space.</div>
 </div>
 
-### 1.4 Linear Algebra: Structure Alignment with the Kabsch Algorithm
-
-Comparing two protein structures requires **superposition** --- finding the rotation that best aligns one structure onto the other.
-The standard method is the **Kabsch algorithm** [5], which finds the optimal rotation matrix $$R$$ minimizing the root-mean-square deviation (RMSD)[^rmsd] between two sets of corresponding points.
-
-[^rmsd]: RMSD (root-mean-square deviation) measures the average distance between corresponding atoms after optimal superposition. It is the standard metric for evaluating structure prediction accuracy, with units in Angstroms.
-
-The algorithm works in three steps.
-First, center both structures at the origin.
-Second, compute the cross-covariance matrix $$H = P^{\top} Q$$, where $$P$$ and $$Q$$ are the $$N \times 3$$ coordinate matrices of the two centered structures.
-Third, decompose $$H$$ using singular value decomposition (SVD) to extract the optimal rotation.
-
-```python
-def kabsch_rotation(mobile, target):
-    """
-    Find the optimal rotation matrix to align 'mobile' onto 'target'.
-
-    Both inputs must be centered (mean subtracted) and have shape (N, 3).
-
-    Args:
-        mobile: np.ndarray of shape (N, 3), structure to be rotated
-        target: np.ndarray of shape (N, 3), reference structure
-
-    Returns:
-        R: np.ndarray of shape (3, 3), optimal rotation matrix
-    """
-    # Cross-covariance matrix
-    H = mobile.T @ target                  # shape (3, 3)
-
-    # Singular value decomposition
-    U, S, Vt = np.linalg.svd(H)
-
-    # Optimal rotation
-    R = Vt.T @ U.T
-
-    # Correct for reflection: ensure a proper rotation (det = +1)
-    if np.linalg.det(R) < 0:
-        Vt[-1, :] *= -1
-        R = Vt.T @ U.T
-
-    return R
-
-
-def compute_rmsd(P, Q):
-    """
-    Compute RMSD between two structures after optimal superposition.
-
-    Args:
-        P, Q: np.ndarray of shape (N, 3), corresponding atom coordinates
-
-    Returns:
-        float, RMSD in the same units as the input coordinates (typically Angstroms)
-    """
-    # Center both structures
-    P_centered = P - P.mean(axis=0)
-    Q_centered = Q - Q.mean(axis=0)
-
-    # Align
-    R = kabsch_rotation(P_centered, Q_centered)
-    P_aligned = P_centered @ R
-
-    # RMSD = sqrt(mean of squared distances)
-    return np.sqrt(np.mean(np.sum((P_aligned - Q_centered) ** 2, axis=1)))
-```
-
-The reflection check (line `if np.linalg.det(R) < 0`) is essential.
-SVD can produce an improper rotation (a rotation combined with a mirror flip), which would be physically meaningless --- proteins are chiral molecules and their mirror images are different structures.
-
 **Summary.**
-NumPy provides the numerical foundation for protein AI: arrays represent sequences and structures; broadcasting enables fast vectorized operations; distance matrices and SVD-based alignment are the workhorses of structural analysis.
+NumPy provides the numerical foundation for protein AI: arrays represent sequences and structures; broadcasting enables fast vectorized operations; distance matrices are the workhorse of structural analysis.
 
 ---
 
@@ -566,160 +498,7 @@ Mastering these tools gives you access to the hundreds of thousands of experimen
 
 ---
 
-## 4. Preparing Data for Machine Learning
-
-You have loaded sequences, parsed structures, and computed features.
-Now comes the stage where many practitioners make subtle errors: preparing data for machine learning.
-
-### 4.1 Train / Validation / Test Splits
-
-The standard approach divides data into three disjoint sets.
-The following diagram illustrates two splitting strategies: naive random splitting (which risks data leakage) and the preferred sequence-identity-based clustering approach.
-
-```mermaid
-flowchart TD
-    D["Full Protein Dataset"] --> R["Random Split"]
-    D --> C["Cluster by Sequence Identity\n(e.g., CD-HIT at 30%)"]
-
-    R --> RT["Train (80%)"]
-    R --> RV["Val (10%)"]
-    R --> RE["Test (10%)"]
-
-    C --> CL["Protein Clusters"]
-    CL --> CT["Train Clusters"]
-    CL --> CV["Val Clusters"]
-    CL --> CE["Test Clusters"]
-
-    RE -.- W["⚠ Homologs may leak\nacross splits"]
-    CE -.- G["✓ No homolog\noverlap between splits"]
-
-    style W fill:#fee,stroke:#c00
-    style G fill:#efe,stroke:#0a0
-```
-
-
-- **Training set** (~80%): used to fit model parameters.
-- **Validation set** (~10%): used to tune hyperparameters and monitor for overfitting.
-- **Test set** (~10%): used once at the end to report final performance.
-
-```python
-from sklearn.model_selection import train_test_split
-
-# Standard 80/10/10 split with a fixed random seed for reproducibility
-train_df, temp_df = train_test_split(df, test_size=0.2, random_state=42)
-val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
-
-print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
-```
-
-The `random_state` parameter ensures reproducibility: you and your collaborators obtain the same split every time.
-
-### 4.2 The Data Leakage Problem in Protein ML
-
-Random splitting, while standard for images or text, is **dangerous for protein data**.
-The reason is sequence similarity.
-If your training set contains a protein that is 90% identical in sequence to a protein in your test set, the model can score well on the test example by memorizing the training example --- without learning anything generalizable.
-
-This is not a theoretical concern.
-Multiple published protein prediction methods have been later shown to overestimate performance due to such leakage.[^leakage]
-To build truly predictive models, you must split data in a way that prevents homologous[^homolog] proteins from appearing in both train and test sets.
-
-[^leakage]: See, e.g., Tsuboyama et al. (2023) for a systematic analysis of data leakage in protein stability prediction benchmarks.
-
-[^homolog]: Two proteins are **homologous** if they descend from a common ancestor. Homologous proteins typically share detectable sequence similarity (often >30% identity) and similar structures.
-
-Three strategies address this:
-
-1. **Sequence identity clustering.** Group proteins sharing more than a threshold (e.g., 30%) sequence identity using tools like CD-HIT or MMseqs2, then split at the cluster level.
-2. **Protein family splitting.** Use structural classification databases like CATH or SCOP to ensure different folds are separated across splits.
-3. **Temporal splitting.** Train on structures deposited before a cutoff date; test on newer ones. This mimics real deployment conditions.
-
-Here is an implementation of family-based splitting:
-
-```python
-def split_by_family(df, family_col='superfamily', test_frac=0.2):
-    """
-    Split a protein dataset so that no protein family appears in both splits.
-
-    Args:
-        df: pd.DataFrame with a column identifying protein families
-        family_col: str, name of the column containing family labels
-        test_frac: float, fraction of families to assign to the test set
-
-    Returns:
-        (train_df, test_df) tuple of DataFrames
-    """
-    families = df[family_col].unique()
-    np.random.shuffle(families)
-    n_test = int(len(families) * test_frac)
-
-    test_families = set(families[:n_test])
-    train_mask = ~df[family_col].isin(test_families)
-
-    return df[train_mask].copy(), df[~train_mask].copy()
-```
-
-This function ensures that entire protein families are assigned to one split or the other, preventing the model from exploiting homology between train and test examples.
-
-### 4.3 Handling Variable-Length Sequences
-
-Proteins have intrinsic, variable lengths.
-A 50-residue peptide and a 500-residue enzyme cannot be resized to a common dimension the way images can.
-Three strategies handle this:
-
-**Padding.**
-Append a special value (typically 0) to make all sequences the same length.
-The model must learn to ignore the padded positions.
-
-**Truncation.**
-Cut sequences to a maximum length, discarding the remainder.
-This is acceptable when the important information is concentrated near the N-terminus or when the maximum length is generous.
-
-**Bucketing.**
-Group sequences of similar length into the same batch, minimizing the amount of padding per batch.
-This reduces wasted computation.
-
-Padding is the most common approach for introductory models:
-
-```python
-def pad_sequences(encoded_seqs, max_len=None, pad_value=0):
-    """
-    Pad a list of encoded sequences to uniform length.
-
-    Args:
-        encoded_seqs: list of 1D numpy arrays (integer-encoded sequences)
-        max_len: int or None; if None, use the longest sequence's length
-        pad_value: int, value used for padding (typically 0)
-
-    Returns:
-        np.ndarray of shape (num_sequences, max_len)
-    """
-    if max_len is None:
-        max_len = max(len(s) for s in encoded_seqs)
-
-    padded = np.full((len(encoded_seqs), max_len), pad_value)
-    for i, seq in enumerate(encoded_seqs):
-        length = min(len(seq), max_len)
-        padded[i, :length] = seq[:length]
-
-    return padded
-```
-
-Modern deep learning frameworks (PyTorch, JAX) provide attention masks that tell the model which positions are real and which are padding.
-We will explore these mechanisms in later lectures on transformer architectures.
-
-**Summary.**
-Data preparation for protein ML demands careful attention to data leakage and variable-length handling.
-Splitting by sequence similarity or protein family is essential for realistic performance evaluation.
-
----
-
-## 5. Visualizing Protein Data
-
-Visualization is not a presentation afterthought --- it is a tool for understanding data and catching errors before they propagate to your models.
-For proteins, two visualizations are central: contact maps (2D summaries of 3D structure) and interactive 3D viewers.
-
-### 5.1 Contact Maps: A 2D View of 3D Structure
+## 4. Visualizing Protein Data: Contact Maps
 
 A **contact map** is a binary $$N \times N$$ matrix where entry $$(i, j)$$ is 1 if residues $$i$$ and $$j$$ are within a distance threshold (typically 8 Angstroms between $$\text{C}_\alpha$$ atoms) and 0 otherwise:
 
@@ -761,43 +540,7 @@ def plot_contact_map(coords, threshold=8.0):
 Contact maps reveal secondary structure patterns.
 **Alpha helices** appear as thick bands along the main diagonal, because consecutive residues in a helix are spatially close.
 **Beta sheets** create off-diagonal stripes, reflecting pairs of distant residues brought together by hydrogen bonding.
-Contact prediction from sequence alone was one of the first successful applications of deep learning to protein structure [9].
-
-### 5.2 Interactive 3D Structure Visualization
-
-For full structural insight, nothing replaces a 3D view.
-The `py3Dmol` library provides interactive molecular visualization inside Jupyter notebooks:
-
-```python
-import py3Dmol
-
-def view_structure(pdb_path):
-    """
-    Display an interactive 3D view of a protein structure.
-
-    Args:
-        pdb_path: str, path to PDB file
-
-    Returns:
-        py3Dmol.view object (renders in Jupyter)
-    """
-    with open(pdb_path) as f:
-        pdb_string = f.read()
-
-    viewer = py3Dmol.view(width=600, height=400)
-    viewer.addModel(pdb_string, 'pdb')
-    viewer.setStyle({'cartoon': {'color': 'spectrum'}})  # rainbow: blue (N) to red (C)
-    viewer.zoomTo()
-    return viewer
-```
-
-The `spectrum` coloring runs from blue at the N-terminus to red at the C-terminus, helping you trace the protein chain through the fold.
-You can rotate, zoom, and select individual residues interactively.
-
-**Summary.**
-Contact maps and 3D viewers are complementary tools.
-Contact maps provide a compact, quantitative summary suitable for algorithmic analysis.
-3D viewers provide qualitative structural insight and are invaluable for sanity-checking your data processing pipeline.
+Contact prediction from sequence alone was one of the first successful applications of deep learning to protein structure [7].
 
 ---
 
@@ -809,9 +552,7 @@ Contact maps provide a compact, quantitative summary suitable for algorithmic an
 
 3. **FASTA** stores sequences; **PDB** stores 3D structures. Biopython and Biotite parse these formats into Python objects and NumPy arrays.
 
-4. **Data splitting** in protein ML must account for sequence similarity. Random splits cause data leakage. Split by sequence clusters, protein families, or deposition date.
-
-5. **Visualization** with contact maps and 3D viewers helps you understand protein structure, validate preprocessing, and catch errors early.
+4. **Contact maps** provide a compact 2D summary of protein 3D structure, useful for validation and as input to deep learning models.
 
 These tools form the foundation for the rest of the course.
 In the next note, we will explore how to represent proteins for deep learning, moving from the hand-crafted features introduced here to learned embeddings.
@@ -834,19 +575,6 @@ Parse the structure, extract $$\text{C}_\alpha$$ coordinates, and compute the fu
 (b) For each residue, count the number of contacts it makes. What is the average number of contacts per residue?
 (c) Which residue has the most contacts? Look up its location in the 3D structure --- is it buried in the core or exposed on the surface?
 
-**Exercise 3: Family-aware data splitting.**
-The TAPE benchmark [8] provides protein datasets with CATH superfamily annotations.
-Download the fluorescence dataset and implement a train/test split where no CATH superfamily appears in both splits.
-(a) Compare the number of unique superfamilies in the train and test sets.
-(b) Train a simple linear model (using amino acid composition as features) on the random split and the family-aware split.
-Report test-set Spearman correlation for both.
-(c) Which split gives a more optimistic estimate of performance? Why?
-
-**Exercise 4: Variable-length sequence handling.**
-Write a function that takes a list of protein sequences (strings), encodes each using a simple integer mapping (A=1, C=2, ..., Y=20), and pads them to uniform length.
-Test it on three sequences of lengths 50, 120, and 300.
-Verify that the padded array has the correct shape and that non-padded positions match the original encoding.
-
 ---
 
 ## References
@@ -855,9 +583,7 @@ Verify that the padded array has the correct shape and that non-padded positions
 2. McKinney, W. (2010). Data structures for statistical computing in Python. *Proceedings of the 9th Python in Science Conference*, 56--61.
 3. Cock, P.J., Antao, T., Chang, J.T., et al. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. *Bioinformatics*, 25(11), 1422--1423.
 4. Kunzmann, P. and Hamacher, K. (2018). Biotite: a unifying open source computational biology framework in Python. *BMC Bioinformatics*, 19, 346.
-5. Kabsch, W. (1976). A solution for the best rotation to relate two sets of vectors. *Acta Crystallographica Section A*, 32(5), 922--923.
-6. Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
-7. Jumper, J., Evans, R., Pritzel, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
-8. Rao, R., Bhatt, N., Lu, A., et al. (2019). Evaluating protein transfer learning with TAPE. *Advances in Neural Information Processing Systems*, 32.
-9. Senior, A.W., Evans, R., Jumper, J., et al. (2020). Improved protein structure prediction using potentials from deep learning. *Nature*, 577, 706--710.
-10. Khurana, S., Rawi, R., Kuber, K., et al. (2018). DeepSol: a deep learning framework for sequence-based protein solubility prediction. *Bioinformatics*, 34(15), 2605--2613.
+5. Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
+6. Jumper, J., Evans, R., Pritzel, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
+7. Senior, A.W., Evans, R., Jumper, J., et al. (2020). Improved protein structure prediction using potentials from deep learning. *Nature*, 577, 706--710.
+8. Khurana, S., Rawi, R., Kuber, K., et al. (2018). DeepSol: a deep learning framework for sequence-based protein solubility prediction. *Bioinformatics*, 34(15), 2605--2613.
