@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph Input["Input (L×d)"]
+        direction TB
+        I1["M"] --- I2["V"] --- I3["L"] --- I4["S"] --- I5["P"] --- I6["A"] --- I7["D"]
+    end
+
+    subgraph Kernel["Kernel (k=5)"]
+        direction TB
+        K["W ∈ R^(C_out × d × 5)<br/>slides along L"]
+    end
+
+    subgraph Output["Output (L×C_out)"]
+        direction TB
+        O1["y₁"] --- O2["y₂"] --- O3["y₃"] --- O4["y₄"] --- O5["y₅"] --- O6["y₆"] --- O7["y₇"]
+    end
+
+    Input -->|"pad=2"| Kernel
+    Kernel -->|"stride=1"| Output
+
+    style Input fill:#e8f4f8,stroke:#2196F3
+    style Kernel fill:#fff3e0,stroke:#FF9800
+    style Output fill:#e8f5e9,stroke:#4CAF50
