@@ -11,8 +11,6 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 3 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues directly from Preliminary Notes 1 and 2. By the end of this note, you will understand every component of the training process and be ready for the case study in Preliminary Note 4.</em></p>
@@ -42,15 +40,19 @@ Preliminary Note 4 applies all of these components in a complete case study: pre
 
 ### Prerequisites
 
-This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Module`, activation functions, autograd, gradient descent, and protein data representations.
+This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Module`, activation functions, autograd, gradient descent, and protein features.
 
 ---
 
 ## 1. Loss Functions: Measuring Mistakes
 
-Before the model can learn, we need a way to quantify how wrong its predictions are.
-The **loss function** (also called a **cost function** or **objective function**) produces a single number: zero means perfect predictions, and larger values mean worse predictions.
-The choice of loss function depends on the type of prediction task.
+In Preliminary Note 2, we built a neural network that takes amino acid composition features as input and outputs scores for protein solubility classes.
+But the network's weights are random --- its output is meaningless noise.
+To make it learn, we need a way to quantify *how wrong* its predictions are for each training example, so that gradient descent can push the weights in the right direction.
+
+The **loss function** (also called a **cost function** or **objective function**) does exactly this: it produces a single number measuring prediction quality.
+Zero means perfect predictions; larger values mean worse predictions.
+The choice of loss function depends on the type of prediction task --- solubility classification needs a different loss than melting temperature regression.
 
 We introduced $$L_{\text{MSE}}$$ briefly in Preliminary Note 1 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
 
@@ -127,15 +129,17 @@ The loss function tells us how wrong we are.
 The **optimizer** tells us how to improve.
 But before we can discuss optimization algorithms, we need to address a more fundamental question: how much data should we use to compute each gradient update?
 
-### The SGD Update Rule
+### Gradient Descent
 
-The simplest optimizer is **gradient descent**: update each weight by taking a step in the direction that reduces the loss:
+The simplest optimizer is **(full-batch) gradient descent**: compute the loss over the *entire* training set, then update each weight by taking a step in the direction that reduces it:
 
 $$
 \theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
 $$
 
-Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$L(\theta_t)$$ is the loss function from Section 1 ($$L_{\text{MSE}}$$, $$L_{\text{CE}}$$, etc.) evaluated at the current parameters, and $$\nabla_\theta L(\theta_t)$$ is the gradient of the loss with respect to the parameters.
+Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$L(\theta_t)$$ is the loss function from Section 1 evaluated over *all* training examples, and $$\nabla_\theta L(\theta_t)$$ is its gradient with respect to the parameters.
+This is called "full-batch" because the gradient uses every example in the dataset.
+As we will see next, this is impractical for real datasets --- we need the *stochastic* variant.
 
 The learning rate is one of the most important hyperparameters[^hyperparameter] in training.
 Too small, and learning is painfully slow.
@@ -552,24 +556,9 @@ This recursive backward application of the chain rule is the **backpropagation**
 
 The following diagram shows a simple computation graph and how gradients flow backward through it during backpropagation.
 
-```mermaid
-flowchart TD
-    subgraph Forward["Forward Pass"]
-        x["x, W, b"] --> z["z = Wx + b"]
-        z --> a["a = σ(z)"]
-        a --> L["Loss L"]
-    end
-
-    subgraph Backward["Backward Pass"]
-        dL["∂L/∂L = 1"] --> da["∂L/∂a"]
-        da -->|"σ'(z)"| dz["∂L/∂z"]
-        dz --> dW["∂L/∂W = x"]
-        dz --> db["∂L/∂b = 1"]
-    end
-
-    style Forward fill:#e8f4fd,stroke:#2196F3
-    style Backward fill:#fce4ec,stroke:#e91e63
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-03-preliminary-training_diagram_0.png' | relative_url }}" alt="s26-03-preliminary-training_diagram_0">
+</div>
 
 ### PyTorch Autograd
 
@@ -619,41 +608,6 @@ PyTorch computed exactly these values --- automatically.
 6. **Backpropagation** uses the chain rule to compute gradients through multi-layer networks. PyTorch automates this entirely --- you only define the forward pass.
 
 7. **Next up**: Preliminary Note 4 applies all of these components in a complete case study --- predicting protein solubility --- including evaluation, sequence-identity splits, class imbalance, and debugging.
-
----
-
-## Exercises
-
-These exercises reinforce the concepts from this note.
-Each one can be completed in a single Python script or Jupyter notebook.
-
-### Exercise 1: Gradient Accumulation
-
-Implement **gradient accumulation** to simulate a batch size of 128 when your GPU can only fit 32 samples at a time.
-The idea: run four forward/backward passes (each with 32 samples), accumulate the gradients, and then call `optimizer.step()` once.
-
-*Key detail:* You should call `optimizer.zero_grad()` only once per effective batch (every 4 mini-batches), not at every step.
-
-### Exercise 2: Optimizer Comparison
-
-Train a simple `ProteinPropertyPredictor` (from Preliminary Note 2) three times, each with a different optimizer:
-- SGD with momentum 0.9
-- Adam with default settings
-- AdamW with weight decay 0.01
-
-Plot the training and validation loss curves for all three on the same graph.
-Which optimizer converges fastest?
-Which achieves the lowest final validation loss?
-
-### Exercise 3: Manual Gradient Computation
-
-Create a simple linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ with `requires_grad=True` on both $$\mathbf{W}$$ and $$b$$.
-Compute the MSE loss for a small batch of 10 data points.
-Call `.backward()` and inspect the gradients.
-
-Then manually compute $$\partial L / \partial \mathbf{W}$$ and $$\partial L / \partial b$$ using the chain rule and verify they match the PyTorch gradients.
-
-*Hint:* For MSE loss $$L = \frac{1}{n}\sum_i (\mathbf{W}\mathbf{x}_i + b - y_i)^2$$, the gradients are $$\frac{\partial L}{\partial \mathbf{W}} = \frac{2}{n}\sum_i \mathbf{x}_i(\mathbf{W}\mathbf{x}_i + b - y_i)$$ and $$\frac{\partial L}{\partial b} = \frac{2}{n}\sum_i (\mathbf{W}\mathbf{x}_i + b - y_i)$$.
 
 ---
 

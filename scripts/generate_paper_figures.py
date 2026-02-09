@@ -565,9 +565,9 @@ def amino_acid_properties():
     ax.set_xticklabels(all_labels, fontsize=10, fontweight='bold')
     ax.set_ylabel('Molecular Weight (Da)', fontsize=11)
 
-    # Group labels
+    # Group labels below x-axis
     for cx, name, color in group_centers:
-        ax.text(cx, -25, name, ha='center', va='top', fontsize=9, fontweight='bold',
+        ax.text(cx, -0.15, name, ha='center', va='top', fontsize=9, fontweight='bold',
                 color=color, transform=ax.get_xaxis_transform())
 
     ax.spines['top'].set_visible(False)

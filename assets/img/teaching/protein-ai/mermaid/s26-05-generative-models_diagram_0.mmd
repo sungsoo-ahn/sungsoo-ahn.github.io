@@ -1,0 +1,13 @@
+flowchart LR
+    subgraph AE["Autoencoder"]
+        X1["Input x"] --> E1["Encoder"] --> Z1["z (point)"] --> D1["Decoder"] --> X1R["x̂"]
+    end
+
+    subgraph VAE["Variational Autoencoder"]
+        X2["Input x"] --> E2["Encoder"] --> MU["μ, σ²"] --> S2["Sample z"] --> D2["Decoder"] --> X2R["x̂"]
+        MU -.- KL["KL → N(0,I)"]
+    end
+
+    style Z1 fill:#fce4ec,stroke:#e91e63
+    style S2 fill:#e8f5e9,stroke:#4CAF50
+    style KL fill:#fff3e0,stroke:#FF9800

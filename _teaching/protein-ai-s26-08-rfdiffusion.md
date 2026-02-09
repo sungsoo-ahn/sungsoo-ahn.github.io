@@ -11,8 +11,6 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 5 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The lecture builds on the diffusion model foundations introduced in Lecture 2 (Generative Models) and the structure prediction concepts from Lecture 4 (AlphaFold). Of all the lectures in this course, this one is the most mathematically intensive, requiring careful treatment of Lie groups, manifold-valued noise processes, and equivariant neural network design.</em></p>
@@ -56,7 +54,7 @@ The following table maps each section of this lecture to the question it answers
 | 10 | Training and loss functions | How the model learns to denoise on SE(3) |
 | 11 | Sampling and generation | The reverse process that produces novel protein backbones |
 | 12 | Experimental validation | Evidence that the designed proteins actually work |
-| 13 | Exercises | Practice problems spanning mathematics and implementation |
+| 13 | Key takeaways | Summary of the main ideas and design principles |
 
 ---
 
@@ -85,26 +83,9 @@ $$
 
 ### From Invariance to Equivariance
 
-```mermaid
-flowchart LR
-    subgraph Invariant["Invariance (scalar output)"]
-        direction TB
-        P1["Protein\n(original)"] --> F1["f(x)"] --> S1["Energy = −42.3"]
-        RP1["Rotated\nProtein"] --> RF1["f(Rx)"] --> RS1["Energy = −42.3"]
-        S1 -.- RS1
-    end
-
-    subgraph Equivariant["Equivariance (geometric output)"]
-        direction TB
-        P2["Protein\n(original)"] --> F2["f(x)"] --> S2["Structure\n(output)"]
-        RP2["Rotated\nProtein"] --> RF2["f(Rx)"] --> RS2["Rotated\nStructure\n= R · f(x)"]
-    end
-
-    style S1 fill:#e8f5e9,stroke:#4CAF50
-    style RS1 fill:#e8f5e9,stroke:#4CAF50
-    style S2 fill:#e8f4fd,stroke:#2196F3
-    style RS2 fill:#e8f4fd,stroke:#2196F3
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_0.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_0">
+</div>
 
 Invariance tells us what properties should not change under transformations.
 But a generative model does not just compute scalar properties --- it outputs structures, which are geometric objects that *should* transform when the input transforms.
@@ -323,35 +304,9 @@ Two pieces of information fully specify the placement of this unit in space:
 
 Together, the pair $$(R_i, \vec{t}_i)$$ defines a **rigid-body frame** for residue $$i$$.
 
-```mermaid
-graph LR
-    subgraph "Residue Frame T_i = (R_i, t_i)"
-        direction TB
-        CA["Cα\n(origin = t_i)"]
-        N["N"]
-        C["C"]
-        X["x-axis"]
-        Y["y-axis"]
-        Z["z-axis"]
-
-        N --- CA --- C
-        CA -.->|"e₁"| X
-        CA -.->|"e₂"| Y
-        CA -.->|"e₃"| Z
-    end
-
-    subgraph "Protein Backbone"
-        F1["Frame T₁"] --> F2["Frame T₂"] --> F3["Frame T₃"] --> F4["..."] --> FL["Frame T_L"]
-    end
-
-    style CA fill:#e74c3c,color:white
-    style N fill:#4a90d9,color:white
-    style C fill:#2ecc71,color:white
-    style F1 fill:#9b59b6,color:white
-    style F2 fill:#9b59b6,color:white
-    style F3 fill:#9b59b6,color:white
-    style FL fill:#9b59b6,color:white
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_1.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_1">
+</div>
 <div class="caption mt-1"><strong>Residue frame representation.</strong> Each residue defines a local coordinate frame from its three backbone atoms (N, Cα, C). The Cα position gives the translation t_i, and the orientation R_i is constructed from the N→Cα and Cα→C bond vectors. A protein backbone with L residues is a sequence of L such frames in SE(3).</div>
 
 <div class="col-sm-7 mt-3 mb-3 mx-auto">
@@ -708,31 +663,9 @@ def diffuse_frames(frames, t, schedule):
     return noisy_frames, noise
 ```
 
-```mermaid
-graph LR
-    subgraph "Forward Process (Adding Noise)"
-        T0["t=0\nClean Protein\n(folded backbone)"]
-        T1["t=0.3\nSlightly Noisy\n(positions jittered,\nframes tilted)"]
-        T2["t=0.7\nVery Noisy\n(structure dissolving)"]
-        T3["t=1.0\nPure Noise\n(random positions +\nuniform rotations)"]
-    end
-
-    T0 -->|"+Gaussian\n+IGSO(3)"| T1 -->|"+noise"| T2 -->|"+noise"| T3
-
-    subgraph "Reverse Process (Denoising)"
-        R3["t=1.0\nRandom Frames"]
-        R2["t=0.7\nPartially\nDenoised"]
-        R1["t=0.3\nMostly\nDenoised"]
-        R0["t=0\nGenerated\nProtein"]
-    end
-
-    R3 -->|"neural net\npredicts clean"| R2 -->|"denoise"| R1 -->|"denoise"| R0
-
-    style T0 fill:#2ecc71,color:white
-    style T3 fill:#e74c3c,color:white
-    style R3 fill:#e74c3c,color:white
-    style R0 fill:#2ecc71,color:white
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_2.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_2">
+</div>
 <div class="caption mt-1"><strong>SE(3) diffusion process.</strong> Forward: clean protein frames are progressively corrupted by Gaussian noise (translations) and IGSO(3) noise (rotations) until the structure is destroyed. Reverse: a neural network learns to denoise, iteratively recovering protein-like structure from random frames.</div>
 
 At $$t = 0$$, the frames are clean.
@@ -1085,32 +1018,9 @@ Four conditioning strategies cover the most important use cases.
 A functional motif --- say, a set of catalytic residues arranged in a specific geometry --- must be presented by a supporting protein scaffold.
 RFDiffusion generates the scaffold while holding the motif residues fixed.
 
-```mermaid
-graph LR
-    subgraph "Input"
-        M["Functional Motif\n(fixed geometry,\ne.g. catalytic triad)"]
-    end
-
-    subgraph "Diffusion Process"
-        N["Random Scaffold\nFrames (noise)"]
-        D1["Denoise Step 1:\nClamp motif,\nupdate scaffold"]
-        D2["Denoise Step 2:\nClamp motif,\nupdate scaffold"]
-        DN["... N steps ..."]
-    end
-
-    subgraph "Output"
-        P["Complete Protein:\nMotif + Generated\nScaffold"]
-    end
-
-    M --> D1
-    N --> D1 --> D2 --> DN --> P
-
-    style M fill:#e74c3c,color:white
-    style N fill:#95a5a6,color:white
-    style P fill:#2ecc71,color:white
-    style D1 fill:#f39c12,color:white
-    style D2 fill:#f39c12,color:white
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_3.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_3">
+</div>
 <div class="caption mt-1"><strong>Motif scaffolding.</strong> The functional motif (red) is held fixed at each denoising step, while the surrounding scaffold residues (initially random noise) are progressively denoised. The result is a novel protein that presents the motif in the correct geometry, supported by a computationally designed scaffold.</div>
 
 **Binder design.**
@@ -1585,70 +1495,6 @@ But RFDiffusion's experimental success has established SE(3) diffusion as a domi
 5. **Conditional generation enables practical design.** Motif scaffolding, binder design, and symmetric assembly generation all work by constraining the diffusion process during inference. Classifier-free guidance provides fine control over the conditioning strength.
 
 6. **Experimental validation confirms the approach.** RFDiffusion-designed proteins fold as predicted and perform intended functions, representing a qualitative advance in computational protein design.
-
----
-
-## 14. Exercises
-
-### Conceptual Questions
-
-**Exercise 1: Equivariance vs. Invariance.**
-Suppose you have a protein scoring function $$E(T_1, \ldots, T_L) \in \mathbb{R}$$ that assigns an energy to a protein backbone.
-Should this function be SE(3)-invariant or SE(3)-equivariant?
-What about a denoising function $$f(T_1, \ldots, T_L) = (T_1', \ldots, T_L')$$ that maps noisy frames to clean frames?
-Explain your reasoning.
-
-**Exercise 2: Degrees of Freedom.**
-A protein backbone with $$L$$ residues is represented by $$L$$ frames in $$SE(3)$$.
-How many total degrees of freedom does this representation have?
-Compare this to representing the same backbone as $$3L$$ atom positions (N, $$\text{C}_\alpha$$, C for each residue).
-Which representation has more parameters?
-Which has more intrinsic degrees of freedom?
-
-**Exercise 3: Why Quaternions?**
-RFDiffusion uses quaternions internally rather than rotation matrices or Euler angles.
-Give two concrete numerical scenarios where quaternions would outperform Euler angles (hint: think about gimbal lock and interpolation).
-
-### Mathematical Problems
-
-**Exercise 4: Rotation Composition.**
-Let $$R_1$$ be a rotation by $$90°$$ about the $$z$$-axis and $$R_2$$ be a rotation by $$90°$$ about the $$x$$-axis.
-Compute $$R_1 R_2$$ and $$R_2 R_1$$.
-Are they the same?
-What does this tell you about the group structure of $$SO(3)$$?
-
-**Exercise 5: Geodesic Distance.**
-The geodesic distance between two rotations $$R_1$$ and $$R_2$$ on $$SO(3)$$ is the angle $$\omega$$ of the relative rotation $$R_1^T R_2$$.
-Show that $$\omega = \arccos\!\left(\frac{\text{tr}(R_1^T R_2) - 1}{2}\right)$$.
-(Hint: use the fact that $$\text{tr}(R) = 1 + 2\cos\omega$$ for a rotation by angle $$\omega$$.)
-
-**Exercise 6: IGSO(3) Limiting Behavior.**
-Argue informally that as $$\sigma \to 0$$, samples from IGSO(3) with parameter $$\sigma$$ converge to the identity rotation.
-As $$\sigma \to \infty$$, what distribution do the samples approach?
-Why is this property essential for a diffusion process?
-
-### Implementation Challenges
-
-**Exercise 7: Rodrigues Formula.**
-Implement the function `axis_angle_to_rotation_matrix` and verify that it satisfies the following properties:
-(a) $$R(\hat{n}, 0) = I$$ for any axis $$\hat{n}$$.
-(b) $$R(\hat{n}, 2\pi) = I$$ for any axis $$\hat{n}$$.
-(c) $$R(\hat{n}, \omega)^T = R(\hat{n}, -\omega)$$.
-Write unit tests for each property.
-
-**Exercise 8: Frame Composition.**
-Using the `RigidTransform` class, verify that composition is associative: $$(T_1 \circ T_2) \circ T_3 = T_1 \circ (T_2 \circ T_3)$$ for random frames $$T_1, T_2, T_3$$.
-Also verify that composition with the inverse yields the identity: $$T \circ T^{-1} = I$$.
-
-**Exercise 9: Invariant Features.**
-The function `compute_invariant_edge_features` computes distances and relative rotation angles.
-Verify numerically that these features are indeed invariant: apply a random SE(3) transformation to all frames and confirm that the computed features do not change (up to floating-point tolerance).
-
-**Exercise 10: Mini Diffusion.**
-Implement a simplified one-dimensional diffusion process on $$SO(2)$$ (rotations in the plane, parameterized by a single angle $$\theta \in [0, 2\pi)$$).
-Define a forward process that adds wrapped Gaussian noise, a simple MLP denoiser, and a reverse process.
-Train on a dataset of angles drawn from a mixture of von Mises distributions.
-Does the model learn to generate samples from the training distribution?
 
 ---
 

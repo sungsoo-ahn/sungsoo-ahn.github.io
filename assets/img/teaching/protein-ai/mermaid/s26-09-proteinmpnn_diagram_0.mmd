@@ -1,0 +1,13 @@
+flowchart LR
+    subgraph Forward["Forward Folding"]
+        SEQ1["Amino Acid<br/>Sequence"] -->|"AlphaFold<br/>ESMFold"| STR1["3D Structure"]
+    end
+
+    subgraph Inverse["Inverse Folding"]
+        STR2["3D Structure"] -->|"ProteinMPNN"| SEQ2A["Sequence 1"]
+        STR2 -->|"ProteinMPNN"| SEQ2B["Sequence 2"]
+        STR2 -->|"ProteinMPNN"| SEQ2C["Sequence 3"]
+    end
+
+    style Forward fill:#e8f4fd,stroke:#2196F3
+    style Inverse fill:#e8f5e9,stroke:#4CAF50

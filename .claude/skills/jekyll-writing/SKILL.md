@@ -17,8 +17,32 @@ Rendering rules for writing content on Jekyll sites with MathJax/KaTeX. Apply th
 ## Mermaid Diagrams
 
 - Use fenced code blocks with `mermaid` language identifier
-- Keep node labels short — long labels break diagram layout
 - Use `style` directives for consistent coloring
+
+### Layout
+
+- Prefer `flowchart TD` (top-down) over `flowchart LR` (left-right) — LR diagrams often overflow the ~668px content column
+- For mixed layouts, use `flowchart TD` with `direction LR` inside individual subgraphs
+- Avoid dense cross-connections (e.g., `A & B & C --> D & E & F`) — these create wide diagrams. Use subgraph-level arrows or sequential chains instead
+- Remove self-loops (`A -.-> A`) — they extend far outside the viewBox and cause severe clipping
+
+### Node Labels
+
+- Keep labels to 1–2 lines. Three-line labels frequently get clipped at the bottom of the diagram
+- Shorten verbose labels: "30 edges per node" → "(L nodes, 30·L edges)"; "context-aware representation" → "(context-aware)"
+- When a subgraph is at the bottom of a diagram, keep its inner content minimal — Mermaid's viewBox calculation underestimates bottom extent
+
+### ViewBox Clipping (Known Mermaid Bug)
+
+- Mermaid's auto-generated SVG viewBox is consistently too tight, clipping content on all sides (especially bottom)
+- This site uses a post-render JS fix in `assets/js/mermaid-setup.js` that expands the viewBox by 80px padding on all sides
+- Do NOT set `overflow: visible` on `pre.mermaid` — it causes diagram content to overlap with text below
+- The CSS in `_sass/_base.scss` (`pre.mermaid`) must NOT use `!important` on SVG `max-width` — this overrides Mermaid's inline sizing and stretches small diagrams to full container width
+
+### Verification
+
+- Always verify diagram rendering visually — CSS/markdown preview cannot catch viewBox clipping
+- Use Playwright (Python) for headless screenshots: take full-page screenshots cropped around each `pre.mermaid` element to check for clipping on all sides
 
 ## General Rendering
 

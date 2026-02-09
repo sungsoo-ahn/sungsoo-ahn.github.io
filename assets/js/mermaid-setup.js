@@ -18,6 +18,23 @@ document.addEventListener("readystatechange", () => {
 
     mermaid.initialize({ theme: mermaidTheme });
 
+    /* Fix Mermaid viewBox clipping: expand viewBox with padding after render */
+    window.addEventListener("load", function () {
+      document.querySelectorAll("pre.mermaid svg").forEach(function (svg) {
+        var vb = svg.getAttribute("viewBox");
+        if (!vb) return;
+        var parts = vb.split(/[\s,]+/).map(Number);
+        if (parts.length !== 4) return;
+        var pad = 120;
+        parts[0] -= pad;
+        parts[1] -= pad;
+        parts[2] += pad * 2;
+        parts[3] += pad * 2;
+        svg.setAttribute("viewBox", parts.join(" "));
+        svg.style.maxWidth = "100%";
+      });
+    });
+
     /* Zoomable mermaid diagrams */
     if (typeof d3 !== "undefined") {
       window.addEventListener("load", function () {

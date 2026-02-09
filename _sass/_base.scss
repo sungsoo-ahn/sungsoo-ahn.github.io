@@ -1295,6 +1295,22 @@ nav[data-toggle="toc"] {
   display: none !important;
 }
 
+pre.mermaid {
+  text-align: center;
+  white-space: normal !important;
+  max-width: 100%;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
 .medium-zoom-overlay,
 .medium-zoom-image--opened {
   z-index: 999;

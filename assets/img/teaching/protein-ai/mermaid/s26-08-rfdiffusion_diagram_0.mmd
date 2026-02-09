@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph Invariant["Invariance (scalar output)"]
+        direction LR
+        P1["Protein"] --> F1["f(x)"] --> S1["E = −42.3"]
+        RP1["Rotated<br/>Protein"] --> RF1["f(Rx)"] --> RS1["E = −42.3"]
+    end
+
+    subgraph Equivariant["Equivariance (geometric output)"]
+        direction LR
+        P2["Protein"] --> F2["f(x)"] --> S2["Structure"]
+        RP2["Rotated<br/>Protein"] --> RF2["f(Rx)"] --> RS2["Rotated<br/>Structure"]
+    end
+
+    style S1 fill:#e8f5e9,stroke:#4CAF50
+    style RS1 fill:#e8f5e9,stroke:#4CAF50
+    style S2 fill:#e8f4fd,stroke:#2196F3
+    style RS2 fill:#e8f4fd,stroke:#2196F3

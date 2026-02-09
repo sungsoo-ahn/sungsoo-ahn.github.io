@@ -11,11 +11,9 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 1 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It assumes familiarity with the material covered in our preliminary notes on Python &amp; data basics, protein representations, AI fundamentals, and training &amp; optimization. If any concept feels unfamiliar, please review those notes first.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 1 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It assumes familiarity with the material covered in our preliminary notes on AI fundamentals, protein data and representations, training, and optimization. If any concept feels unfamiliar, please review those notes first.</em></p>
 
 ## Introduction
 
@@ -49,7 +47,7 @@ This lecture develops both families from first principles.  We begin with a biol
 
 ## 1. Co-Evolution: The Biological Root of Attention
 
-We introduced MSAs and co-evolution in Preliminary Note 1. Here we explore in greater depth how these biological signals motivate the attention mechanism.
+A **multiple sequence alignment** (MSA) arranges homologous sequences row by row, with columns corresponding to equivalent sites across species. Conserved columns indicate positions under evolutionary constraint. Here we explore how the patterns within MSAs motivate the attention mechanism.
 
 Consider a protein that has existed, in various forms, for billions of years.  Its relatives are scattered across every domain of life---from bacteria to whales to oak trees.  Each relative carries a slightly different version of the sequence, shaped by the survival challenges of its host organism.  By aligning these related sequences into a **multiple sequence alignment (MSA)**, biologists noticed something striking: certain pairs of positions tend to mutate together.
 
@@ -57,29 +55,9 @@ Suppose position 23 changes from alanine to valine in one lineage.  Position 87 
 
 This phenomenon is called **co-evolution**[^coevol], and for decades computational biologists built methods around it---from correlated-mutation analysis to direct coupling analysis (DCA).  All these methods ask the same question: *which positions in a protein sequence are paying attention to each other?*
 
-```mermaid
-graph TD
-    subgraph "Multiple Sequence Alignment (MSA)"
-        S1["Species 1: ...A...E..."]
-        S2["Species 2: ...V...D..."]
-        S3["Species 3: ...A...E..."]
-        S4["Species 4: ...V...D..."]
-        S5["Species 5: ...I...D..."]
-    end
-
-    S1 --> CO["Co-evolution Analysis"]
-    S2 --> CO
-    S3 --> CO
-    S4 --> CO
-    S5 --> CO
-
-    CO --> CM["Correlation Matrix\n(L × L)"]
-    CM --> CP["Contact Prediction:\nCorrelated positions\nare spatially close"]
-
-    style CO fill:#e74c3c,color:white
-    style CM fill:#f39c12,color:white
-    style CP fill:#2ecc71,color:white
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_0.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_0">
+</div>
 <div class="caption mt-1"><strong>Co-evolution in MSAs.</strong> Correlated mutations across homologous sequences reveal residue pairs that are in spatial contact. Positions 23 and 87 tend to mutate together across species, signaling a structural or functional relationship.</div>
 
 [^coevol]: Co-evolution in this context refers to intramolecular co-evolution, where pairs of residues within a single protein co-vary across a family of homologous sequences.  This is distinct from the broader evolutionary biology concept of co-evolution between separate species.
@@ -90,7 +68,7 @@ The attention mechanism in neural networks formalizes exactly this intuition.  I
 
 ## 2. The Limitations of Sequential Processing
 
-In our preliminary notes, we introduced recurrent neural networks (RNNs), which process sequences one element at a time, passing information forward through a hidden state.  This approach has an intuitive appeal for proteins: reading the chain from the N-terminus to the C-terminus, accumulating context as you go.
+**Recurrent neural networks (RNNs)** process sequences one element at a time, passing information forward through a hidden state.  This approach has an intuitive appeal for proteins: reading the chain from the N-terminus to the C-terminus, accumulating context as you go.
 
 But sequential processing creates three serious problems.
 
@@ -114,26 +92,9 @@ Or perhaps position 50 participates in a catalytic triad with residues at positi
 
 The attention mechanism formalizes this reasoning through three learned projections: a **query**, a **key**, and a **value**[^qkv], as illustrated below.
 
-```mermaid
-flowchart LR
-    X["Input x_i\n(per-residue\nembedding)"] --> WQ["W^Q"]
-    X --> WK["W^K"]
-    X --> WV["W^V"]
-
-    WQ --> Q["Query q_i\n'What am I\nlooking for?'"]
-    WK --> K["Key k_j\n'What do I\nhave to offer?'"]
-    WV --> V["Value v_j\n'What info\ndo I carry?'"]
-
-    Q & K --> S["Score: q_i · k_j\n(dot product)"]
-    S --> SM["Softmax\nα_ij"]
-    SM --> AG["Weighted Sum\nΣ α_ij · v_j"]
-    V --> AG
-    AG --> O["Output\n(context-aware\nrepresentation)"]
-
-    style Q fill:#fff3e0,stroke:#FF9800
-    style K fill:#e8f4fd,stroke:#2196F3
-    style V fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_1.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_1">
+</div>
 
 [^qkv]: The names query, key, and value come from information retrieval.  Think of searching a database: you submit a query, it is matched against keys, and the corresponding values are returned.
 
@@ -331,25 +292,9 @@ class SelfAttention(nn.Module):
     <div class="caption mt-1"><strong>The Transformer architecture.</strong> Input tokens are embedded and augmented with positional encodings, then processed by N repeated blocks of multi-head self-attention followed by feed-forward networks. Residual connections (dashed arrows) and layer normalization stabilize training. Architecture from Vaswani et al., 2017.</div>
 </div>
 
-```mermaid
-flowchart TB
-    X["Input x"] --> LN1["Layer Norm"]
-    LN1 --> MHA["Multi-Head\nSelf-Attention"]
-    MHA --> ADD1["+ (Residual)"]
-    X --> ADD1
-
-    ADD1 --> LN2["Layer Norm"]
-    LN2 --> FFN["Feed-Forward Network\n(Linear → GELU → Linear)"]
-    FFN --> ADD2["+ (Residual)"]
-    ADD1 --> ADD2
-
-    ADD2 --> OUT["Output x'"]
-
-    style MHA fill:#fff3e0,stroke:#FF9800
-    style FFN fill:#e8f4fd,stroke:#2196F3
-    style ADD1 fill:#e8f5e9,stroke:#4CAF50
-    style ADD2 fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_2.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_2">
+</div>
 
 A transformer is more than just attention.  It combines several components into a repeating building block called a **transformer block**.  Each block contains four elements:
 
@@ -687,28 +632,9 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
 
 ## 10. Message Passing: The Unifying Framework
 
-```mermaid
-flowchart LR
-    subgraph Before["Before Message Passing"]
-        A1((i)) --- B1((j₁))
-        A1 --- C1((j₂))
-        A1 --- D1((j₃))
-    end
-
-    Before -->|"1. Compute\nMessages"| MSG["ψ(h_i, h_j, e_ij)\nfor each neighbor j"]
-    MSG -->|"2. Aggregate\n⊕ (sum/mean)"| AGG["m_i = ⊕ messages"]
-    AGG -->|"3. Update\nφ(h_i, m_i)"| UPD["h_i' = φ(h_i, m_i)"]
-
-    subgraph After["After Message Passing"]
-        A2(("i'")):::updated --- B2((j₁))
-        A2 --- C2((j₂))
-        A2 --- D2((j₃))
-    end
-
-    UPD --> After
-
-    classDef updated fill:#fff3e0,stroke:#FF9800,stroke-width:3px
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_3.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_3">
+</div>
 
 All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
 
@@ -1103,25 +1029,6 @@ Given the variety of architectures covered in this lecture, how do you choose th
 9. **SE(3)-equivariant GNNs** respect the rotational and translational symmetry of physical space, providing better generalization on 3D structure tasks.
 
 10. **AlphaFold synthesizes transformers and equivariant GNNs**, demonstrating that these architectures are complementary and most powerful when combined.
-
----
-
-## Exercises
-
-**Exercise 1: Attention from scratch.**
-Implement scaled dot-product attention without using any library attention functions.  Apply it to a small protein sequence (e.g., the first 50 residues of ubiquitin, PDB: 1UBQ) using random embeddings.  Visualize the $$N \times N$$ attention weight matrix as a heatmap.  Does the pattern change when you initialize the projection matrices differently?
-
-**Exercise 2: Transformer vs. RNN for protein family classification.**
-Build a 4-layer transformer encoder and a bidirectional LSTM, both with comparable parameter counts.  Train both on the task of classifying protein sequences into Pfam families.  Compare (a) training wall-clock time per epoch, (b) final test accuracy, and (c) the ability to classify sequences longer than those seen during training.
-
-**Exercise 3: GCN vs. GAT on protein function prediction.**
-Use the `protein_to_graph` function from Section 9 to construct graphs for a set of protein structures.  Train a GCN and a GAT on the task of predicting Gene Ontology (GO) molecular-function labels from structure.  For the GAT model, extract and visualize the learned attention weights on a specific protein.  Do the high-attention edges correspond to known functional sites?
-
-**Exercise 4: MPNN with edge features for contact prediction.**
-Implement an MPNN where the edge features include (a) C$$\alpha$$ distance, (b) sequence separation, and (c) backbone dihedral angles.  Train it to predict whether pairs of residues within 8 Angstroms are in contact.  Compare the results with contact maps extracted from ESM attention weights.  Which approach performs better for long-range contacts (sequence separation > 24)?
-
-**Exercise 5: Equivariance verification.**
-Take the `ProteinStructureGNN` from Section 15 and verify that it is *not* SE(3)-equivariant by (a) running it on a protein, (b) rotating the coordinates by a random rotation matrix, (c) running the model again, and (d) comparing the outputs.  Then modify the model to use only invariant edge features (distances and angles, not raw coordinate differences) and repeat the experiment.  Does the model become invariant to rotation?
 
 ---
 
