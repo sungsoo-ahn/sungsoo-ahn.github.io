@@ -48,10 +48,17 @@ Excel files synced from Dropbox:
 | `_pages/teaching.md` | Teaching page (lists courses) |
 | `_teaching/` | Lecture notes collection |
 
-## Blog Post Writing Guidelines
+## Skills
 
-- **Introduce concepts intuitively before formal notation.** When a concept (e.g., equivariance) first appears, explain it in plain language with a concrete example. Do not use formal symbols (e.g., group $G$, element $g$) until they have been properly defined in their own section.
-- **Motivate mathematical abstractions from concrete examples.** When introducing an abstraction like a group, start from the concrete transformations it describes (e.g., rotations) and show how the abstract definition captures their properties naturally.
+Writing style and rendering rules are managed as skills:
+
+- `/blog-writing` — direct, opinionated prose style for blog posts
+- `/academic-writing` — top-down, rigorous style for papers and teaching notes
+- `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
+- `/generate-blog-figures` — matplotlib figure generation workflow
+- `/download-paper-figures` — incorporating figures from academic papers
+
+Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/CLAUDE.md` and `_teaching/CLAUDE.md`.
 
 ## Architecture
 
