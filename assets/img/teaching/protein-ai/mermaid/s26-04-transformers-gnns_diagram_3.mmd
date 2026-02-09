@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph Before["Before"]
+        A1((i)) --- B1((j₁))
+        A1 --- C1((j₂))
+        A1 --- D1((j₃))
+    end
+
+    Before -->|"1. Messages"| MSG["ψ(h_i, h_j, e_ij)"]
+    MSG -->|"2. Aggregate"| AGG["m_i = ⊕ messages"]
+    AGG -->|"3. Update"| UPD["h_i' = φ(h_i, m_i)"]
+
+    UPD --> A2(("i' (updated)")):::updated
+
+    classDef updated fill:#fff3e0,stroke:#FF9800,stroke-width:3px

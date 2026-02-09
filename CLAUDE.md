@@ -57,6 +57,7 @@ Writing style and rendering rules are managed as skills:
 - `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
 - `/generate-blog-figures` — matplotlib figure generation workflow
 - `/download-paper-figures` — incorporating figures from academic papers
+- `/refine-lecture-notes` — iterative consistency pass across a series of teaching notes
 
 Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/CLAUDE.md` and `_teaching/CLAUDE.md`.
 

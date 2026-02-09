@@ -11,8 +11,6 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 6 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. The lecture builds on concepts from Lecture 4 (AlphaFold) and Lecture 5 (RFDiffusion). Familiarity with graph neural networks (Lecture 1) and generative models (Lecture 2) is assumed throughout.</em></p>
@@ -30,7 +28,7 @@ You can then sample from this distribution to obtain diverse candidate sequences
 
 [^name]: The name stands for **Message Passing Neural Network for Proteins**. "Message passing" refers to the graph neural network mechanism at the heart of the model's structure encoder.
 
-This lecture covers the full ProteinMPNN system: how it represents protein structure as a graph, how it encodes that graph into rich per-residue features, how it generates sequences one amino acid at a time, and how it integrates into the RFDiffusion $$\to$$ ProteinMPNN $$\to$$ AlphaFold design pipeline that has become the standard workflow in computational protein design.
+This lecture covers the full ProteinMPNN system: how it represents protein structure as a graph, how it encodes that graph into rich per-residue representations, how it generates sequences one amino acid at a time, and how it integrates into the RFDiffusion $$\to$$ ProteinMPNN $$\to$$ AlphaFold design pipeline that has become the standard workflow in computational protein design.
 
 ### Roadmap
 
@@ -45,7 +43,6 @@ This lecture covers the full ProteinMPNN system: how it represents protein struc
 | 7 | Advanced Features | Handles practical constraints: fixed positions, symmetry, and tied sequences |
 | 8 | The Design Pipeline | Connects RFDiffusion, ProteinMPNN, and AlphaFold into an end-to-end workflow |
 | 9 | Design Principles and Alternatives | Summarizes what makes ProteinMPNN work and compares it with other inverse folding methods |
-| 10 | Exercises | Practice problems to consolidate understanding |
 
 ---
 
@@ -53,21 +50,9 @@ This lecture covers the full ProteinMPNN system: how it represents protein struc
 
 ### Forward Folding vs. Inverse Folding
 
-```mermaid
-flowchart LR
-    subgraph Forward["Forward Folding"]
-        SEQ1["Amino Acid\nSequence"] -->|"AlphaFold\nESMFold"| STR1["3D\nStructure"]
-    end
-
-    subgraph Inverse["Inverse Folding"]
-        STR2["3D\nStructure"] -->|"ProteinMPNN"| SEQ2A["Sequence 1"]
-        STR2 -->|"ProteinMPNN"| SEQ2B["Sequence 2"]
-        STR2 -->|"ProteinMPNN"| SEQ2C["Sequence 3"]
-    end
-
-    style Forward fill:#e8f4fd,stroke:#2196F3
-    style Inverse fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_0.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_0">
+</div>
 
 In Lecture 4, we studied **forward folding**: given a sequence of amino acids, predict the three-dimensional structure.
 AlphaFold solves this problem with near-experimental accuracy.
@@ -150,15 +135,9 @@ By analyzing which sequence features ProteinMPNN considers important for a given
 
 ## 2. Graph Construction: Proteins as k-Nearest Neighbor Graphs
 
-```mermaid
-flowchart LR
-    BACKBONE["Backbone\nCoordinates\n(N, Cα, C, O)"] --> DIST["Compute Cα\nDistances"]
-    DIST --> KNN["k-Nearest\nNeighbors\n(k = 30)"]
-    KNN --> GRAPH["Protein Graph\nL nodes\n30·L edges"]
-
-    style BACKBONE fill:#e8f4fd,stroke:#2196F3
-    style GRAPH fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_1.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_1">
+</div>
 
 The first step in ProteinMPNN's pipeline is converting a protein backbone into a graph.
 This is where the geometric nature of the problem gets translated into a form that a neural network can process.
@@ -419,42 +398,17 @@ class MPNNLayer(nn.Module):
 After three such layers, each residue's representation captures not just its own local geometry but the shape of nearby secondary structure elements, the positioning of core versus surface, and the presence of cavities or channels.
 This contextual encoding is the foundation on which the decoder builds.
 
-```mermaid
-flowchart TB
-    subgraph Encoder["3-Layer Message Passing Encoder"]
-        direction LR
-        L1["Layer 1\n(local geometry)"] --> L2["Layer 2\n(secondary structure\ncontext)"] --> L3["Layer 3\n(tertiary structure\ncontext)"]
-    end
-
-    IN["Node features\n(backbone angles,\npositions)"] --> Encoder
-    EDGE["Edge features\n(distances,\norientations)"] --> Encoder
-    Encoder --> OUT["Context-aware\nresidue embeddings\n(L × d)"]
-
-    style Encoder fill:#fff3e0,stroke:#FF9800
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_2.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_2">
+</div>
 
 ---
 
 ## 5. Autoregressive Decoding: One Amino Acid at a Time
 
-```mermaid
-flowchart LR
-    subgraph Decode["Autoregressive Decoding"]
-        direction LR
-        S1["Position 1:\nP(s₁|X)"] --> S2["Position 2:\nP(s₂|s₁, X)"]
-        S2 --> S3["Position 3:\nP(s₃|s₁,s₂, X)"]
-        S3 --> DOTS["..."]
-        DOTS --> SL["Position L:\nP(s_L|s₁...s_{L-1}, X)"]
-    end
-
-    ENC["Encoder\nembeddings"] --> Decode
-    Decode --> SEQ["Designed\nSequence"]
-
-    style S1 fill:#e8f5e9,stroke:#4CAF50
-    style S2 fill:#e8f5e9,stroke:#4CAF50
-    style S3 fill:#e8f5e9,stroke:#4CAF50
-    style SL fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_3.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_3">
+</div>
 
 Given the encoded structure, ProteinMPNN generates a sequence **autoregressively**: one amino acid at a time, where each prediction depends on all previous predictions.
 
@@ -836,22 +790,9 @@ This approach is efficient---the number of decoding steps equals the number of u
     <div class="caption mt-1"><strong>The computational protein design pipeline.</strong> A design specification is first converted to backbone coordinates by RFDiffusion, then to amino acid sequences by ProteinMPNN, then validated by AlphaFold2 structure prediction. Only sequences whose predicted structures match the design (TM-score > 0.8) proceed to experimental testing.</div>
 </div>
 
-```mermaid
-flowchart LR
-    SPEC["Design\nSpecification"] --> RFD["RFDiffusion\n(backbone\ngeneration)"]
-    RFD --> BB["Backbone\nStructures"]
-    BB --> MPNN["ProteinMPNN\n(inverse folding)"]
-    MPNN --> SEQS["Candidate\nSequences"]
-    SEQS --> AF["AlphaFold2\n(structure\nprediction)"]
-    AF --> VAL{"TM-score\n> 0.8?"}
-    VAL -->|"Yes"| EXP["Experimental\nValidation\n(express & test)"]
-    VAL -->|"No"| FILTER["Discard"]
-
-    style RFD fill:#fce4ec,stroke:#e91e63
-    style MPNN fill:#e8f5e9,stroke:#4CAF50
-    style AF fill:#e8f4fd,stroke:#2196F3
-    style EXP fill:#fff3e0,stroke:#FF9800
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_4.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_4">
+</div>
 
 ProteinMPNN's impact comes from its role in a larger pipeline.
 No single tool handles the full journey from design specification to experimentally validated protein.
@@ -969,46 +910,6 @@ Understanding the alternatives clarifies its design choices:
 
 ProteinMPNN's combination of accuracy, speed, and simplicity has made it the de facto standard.
 It runs in seconds per sequence on a single GPU, requires no MSA computation, and integrates seamlessly into the RFDiffusion pipeline.
-
----
-
-## 10. Exercises
-
-The following exercises range from conceptual questions to implementation tasks.
-They are designed to solidify your understanding of the concepts covered in this lecture.
-
-### Conceptual Questions
-
-**Exercise 1: Many-to-One Mapping.**
-Hemoglobin proteins across species share the same fold despite less than 50% sequence identity. Explain, in terms of the types of amino acid positions in a protein (core, surface, functional), why such large sequence variation is tolerated. How does ProteinMPNN exploit this redundancy?
-
-**Exercise 2: Decoding Order.**
-Suppose ProteinMPNN were trained with a fixed N-to-C decoding order instead of random order. Describe two specific failure modes you would expect at inference time. Would the model be more or less suitable for fixed-position conditioning? Explain your reasoning.
-
-**Exercise 3: Temperature Trade-offs.**
-You are designing a therapeutic protein binder using the RFDiffusion $$\to$$ ProteinMPNN $$\to$$ AlphaFold pipeline. You have budget for 10 experimental candidates. Would you generate all 10 at low temperature ($$T = 0.1$$), all 10 at high temperature ($$T = 1.0$$), or a mix? Justify your strategy.
-
-### Implementation Tasks
-
-**Exercise 4: Tied Sampling with Logit Averaging.**
-Extend the `design_with_symmetry` function so that, instead of using logits from only the representative position, it *averages* the logits across all positions in the symmetry group before sampling. This should produce amino acid choices that are optimal for the structural context of all symmetric copies, not just the representative.
-
-*Hint:* At each decoding step, run the decoder to get logits at all positions in the current symmetry group, then take their mean before applying softmax and sampling.
-
-**Exercise 5: Sequence Recovery Evaluation.**
-Write a function that takes a protein structure and its known native sequence, runs ProteinMPNN (or a simplified version) to generate a sequence, and computes the **sequence recovery rate**---the fraction of positions where the designed amino acid matches the native amino acid. Run this for 10 proteins and report the mean and standard deviation of recovery rates.
-
-**Exercise 6: Pipeline Integration.**
-Implement an end-to-end function that:
-1. Takes backbone coordinates as input.
-2. Generates 50 sequences with ProteinMPNN at $$T = 0.1$$ and 50 sequences at $$T = 0.5$$.
-3. Computes the mean log-probability for each sequence.
-4. Returns the top 10 sequences ranked by log-probability, along with their temperatures of origin.
-
-Does low-temperature sampling always produce higher log-probability sequences? Discuss.
-
-**Exercise 7: Secondary Structure Bias.**
-Modify the sampling function to bias certain positions toward helix-favoring amino acids (Ala, Glu, Leu, Met) or sheet-favoring amino acids (Val, Ile, Tyr, Phe) based on a provided secondary structure annotation. Implement this as an additive logit bias applied before temperature scaling.
 
 ---
 

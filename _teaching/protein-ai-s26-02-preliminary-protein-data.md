@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Protein Representations and Neural Network Architectures"
+title: "Protein Features and Neural Networks"
 date: 2026-03-01
-description: "How to get protein data into a neural network—file formats, sequence encodings, structural descriptors—and the neural network building blocks that process them."
+description: "How to turn protein data into numerical features—file formats, sequence encodings, PyTorch tensors—and the neural network architectures that learn representations from them."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -11,12 +11,10 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>This is Preliminary Note 2 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by <a href="https://sungsoo-ahn.github.io">Prof. Sungsoo Ahn</a> and Prof. Homin Kim at KAIST. It builds on Preliminary Note 1 (Introduction to Machine Learning with Linear Regression). Now that you know what tensors and gradients are, this note answers two questions: how do you get protein data into tensors, and what neural network architectures process them?</em>
+<em>This is Preliminary Note 2 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by <a href="https://sungsoo-ahn.github.io">Prof. Sungsoo Ahn</a> and Prof. Homin Kim at KAIST. It builds on Preliminary Note 1 (Introduction to Machine Learning with Linear Regression). Now that you know what tensors and gradients are, this note answers two questions: how do you turn protein data into numerical features that a neural network can process, and what neural network architectures learn useful representations from those features?</em>
 </p>
 
 ## Introduction
@@ -24,13 +22,17 @@ mermaid:
 You now know that machine learning models take tensors as input and produce tensors as output, and that learning adjusts the weights to reduce a loss function.
 But proteins are not tensors.
 They are amino acid sequences stored in text files and three-dimensional structures stored in coordinate files.
-Before any model can learn from protein data, you must solve a translation problem: convert biological data into numerical arrays that a neural network can process.
+Before any model can learn from protein data, you must solve a translation problem: convert biological data into numerical **features** that a neural network can process.
 
-This note covers that translation and the architectures that operate on the results.
+A note on terminology: throughout this course, we distinguish **features** from **representations**.
+Features are the numerical inputs you construct from raw data --- one-hot encodings, amino acid compositions, and the like.
+Representations are the internal vectors that a neural network learns in its hidden layers.
+Features are hand-crafted; representations are learned.
+
+This note covers both sides of that coin.
 First, we learn to read the two standard file formats --- FASTA for sequences and PDB for structures.
-Second, we encode sequences as numerical tensors using one-hot vectors and learned embeddings.
-Third, we encode structures using distance matrices, contact maps, and dihedral angles.
-Fourth, we introduce neural network architectures --- from single neurons to multi-layer networks --- that transform these representations into predictions.
+Second, we convert sequences into numerical features and package them as PyTorch tensors ready for training.
+Third, we introduce neural network architectures --- from single neurons to multi-layer networks --- using protein solubility prediction as a running example.
 Finally, we map different biological questions to their corresponding mathematical formulations.
 
 ### Roadmap
@@ -38,10 +40,9 @@ Finally, we map different biological questions to their corresponding mathematic
 | Section | What You Will Learn | Why It Is Needed |
 |---------|---------------------|------------------|
 | [Protein File Formats](#1-protein-file-formats) | FASTA and PDB parsing with Biopython and Biotite | Raw biological data must be loaded before it can be encoded |
-| [Sequence Representations](#2-sequence-representations) | One-hot encoding, learned embeddings | Every downstream model needs a numerical input for amino acid sequences |
-| [Structure Representations](#3-structure-representations) | Distance matrices, contact maps, dihedral angles | 3D arrangement determines protein function; structure-aware models need spatial inputs |
-| [Neural Network Architectures](#4-neural-network-architectures) | Neurons, activations, layers, depth, CNNs/transformers/GNNs preview, `nn.Module` | The function families that transform protein representations into predictions |
-| [Task Formulations](#5-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
+| [Protein Features](#2-protein-features) | One-hot encoding, amino acid composition, PyTorch tensors | Every downstream model needs numerical features as input |
+| [Neural Network Architectures](#3-neural-network-architectures) | Neurons, activations, layers, depth, learned representations, `nn.Module` | The function families that learn representations from features and produce predictions |
+| [Task Formulations](#4-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
 
 ### Prerequisites
 
@@ -164,7 +165,7 @@ ca_coords = structure.coord[ca_mask]
 print(f"Calpha coordinates shape: {ca_coords.shape}")  # (76, 3)
 ```
 
-After extraction, `ca_coords` is a standard NumPy array of shape `(76, 3)` --- ready to be converted into distance matrices, contact maps, or other structural representations (Section 3).
+After extraction, `ca_coords` is a standard NumPy array of shape `(76, 3)` --- ready to be converted into structural features like distance matrices and contact maps (see the case study in Preliminary Note 4).
 
 ### 1.5 Bridging Sequence and Structure
 
@@ -194,7 +195,7 @@ The fallback to `'X'` handles non-standard amino acids --- modified residues, se
 
 ---
 
-## 2. Sequence Representations
+## 2. Protein Features
 
 <div class="col-sm-10 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/amino_acid_properties.png' | relative_url }}" alt="The 20 standard amino acids grouped by chemical properties">
@@ -204,9 +205,12 @@ The fallback to `'X'` handles non-standard amino acids --- modified residues, se
 The amino acid sequence is the primary structure of a protein --- the linear chain of residues encoded by the gene.
 Because sequencing is cheap and fast, sequence data is far more abundant than structure data: UniProt contains over 200 million sequences, while the Protein Data Bank has roughly 200,000 experimentally determined structures.
 
+To feed a protein into a neural network, we must convert its sequence into numerical **features**.
+This section introduces two feature types and shows how to package them as PyTorch tensors.
+
 ### 2.1 One-Hot Encoding
 
-The most straightforward encoding is **one-hot encoding**[^onehot].
+The most straightforward feature is a **one-hot encoding**[^onehot].
 Each amino acid at position $$i$$ becomes a binary vector of length 20, with a single 1 indicating which residue is present:
 
 [^onehot]: One-hot encoding is also called "dummy encoding" or "indicator encoding" in the statistics literature.
@@ -215,7 +219,7 @@ $$
 \mathbf{x}_i \in \{0, 1\}^{20}, \quad \sum_{j=1}^{20} x_{ij} = 1
 $$
 
-A full protein of length $$L$$ becomes a tensor of shape $$(L, 20)$$.
+A full protein of length $$L$$ becomes a feature matrix of shape $$(L, 20)$$.
 
 ```python
 import torch
@@ -236,259 +240,106 @@ enc = one_hot_encode("MVLSP")
 print(enc.shape)  # torch.Size([5, 20])
 ```
 
-One-hot encoding is simple and fully interpretable.
+One-hot encoding preserves the full sequence --- every position and every residue identity.
 Its limitation is that it treats every amino acid as equally different from every other.
 Alanine appears just as distant from Glycine (both small and hydrophobic) as from Tryptophan (large and aromatic).
-Biologically, this is wrong: some substitutions preserve function while others destroy it.
+We will see in Section 3 that neural networks can learn to overcome this limitation by discovering their own internal representations.
 
-The figure below contrasts one-hot encoding with the BLOSUM62 substitution matrix, which captures evolutionary similarity --- biochemically similar residues have positive scores, while dissimilar substitutions have negative scores.
+### 2.2 Amino Acid Composition
 
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/onehot_vs_blosum.png' | relative_url }}" alt="One-hot encoding vs BLOSUM62 substitution matrix">
-    <div class="caption mt-1">Comparison of one-hot encoding (left) and BLOSUM62 substitution matrix (right). One-hot encoding is a 20×20 identity matrix — every amino acid is equally different from every other. BLOSUM62 encodes evolutionary substitution patterns: high scores (red) indicate frequently interchangeable residues (e.g., I↔L, D↔E), while negative scores (blue) mark pairs rarely observed at aligned positions.</div>
-</div>
+For some tasks, the **order** of amino acids matters less than their **proportions**.
+Protein solubility, for instance, correlates strongly with overall amino acid composition: proteins rich in charged residues (Asp, Glu, Lys, Arg) tend to be more soluble, while those dominated by hydrophobic residues (Ile, Leu, Val) tend to aggregate.
 
-The BLOSUM (BLOcks SUbstitution Matrix)[^blosum] quantifies evolutionary substitution patterns by counting how often each pair of amino acids appears at the same position in alignments of related proteins.
-While BLOSUM provides a richer encoding than one-hot, modern protein AI models typically use learned embeddings instead.
+The **amino acid composition** feature vector simply counts the fraction of each amino acid type in the sequence:
 
-[^blosum]: BLOSUM62, the most widely used variant, was built from conserved blocks of aligned protein sequences with at least 62% identity.
+$$
+\mathbf{c} \in \mathbb{R}^{20}, \quad c_j = \frac{1}{L} \sum_{i=1}^{L} \mathbf{1}[s_i = j]
+$$
 
-### 2.2 Learned Embeddings
-
-Rather than hand-crafting encodings, we can let the data determine the optimal representation.
-In **learned embeddings**, each amino acid starts as a random vector of dimension $$d$$.
-During training, the neural network adjusts these vectors through backpropagation so that they best serve the prediction task.
+where $$s_i$$ is the amino acid at position $$i$$ and $$L$$ is the sequence length.
 
 ```python
-import torch
-import torch.nn as nn
+def amino_acid_composition(sequence: str) -> torch.Tensor:
+    """Compute normalized amino acid composition (fraction of each type)."""
+    comp = torch.zeros(20)
+    for aa in sequence:
+        if aa in aa_to_idx:
+            comp[aa_to_idx[aa]] += 1
+    return comp / len(sequence)
 
-class AminoAcidEmbedding(nn.Module):
-    """Trainable embedding layer for protein sequences."""
-    def __init__(self, embed_dim: int = 64):
-        super().__init__()
-        # 21 entries: 20 amino acids + 1 for unknown residues
-        self.embedding = nn.Embedding(num_embeddings=21, embedding_dim=embed_dim)
-
-    def forward(self, sequence_indices: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            sequence_indices: (batch, L) tensor of integer-encoded residues
-        Returns:
-            (batch, L, embed_dim) tensor of embedding vectors
-        """
-        return self.embedding(sequence_indices)
+# Example: DnaK chaperone (first 30 residues)
+comp = amino_acid_composition("MGKIIGIDLGTTNSCVAIMDGTTPRVLENA")
+print(comp.shape)  # torch.Size([20])
+print(f"Glycine fraction: {comp[aa_to_idx['G']]:.2f}")  # G is common in this segment
 ```
 
-The `nn.Embedding` layer maintains a trainable lookup table of shape $$(21, d)$$.
-After training on many proteins, the embeddings often reveal biologically meaningful structure: hydrophobic residues cluster together, charged residues form their own group, and aromatic residues occupy a distinct region --- all without any explicit biochemical supervision.
+This collapses a variable-length sequence into a fixed-length vector of 20 numbers --- one per amino acid type.
+The trade-off is clear: we gain a simple, fixed-size feature but lose all positional information.
+For tasks like solubility prediction, this is often sufficient.
 
-This is the strategy behind **protein language models** such as ESM from Meta AI, which we cover in detail in Lecture 6.
+### 2.3 From Features to PyTorch Tensors
+
+A neural network does not process one protein at a time.
+Training requires **batches** --- groups of proteins processed together for computational efficiency.
+PyTorch provides `TensorDataset` and `DataLoader` to handle this.
+
+```python
+from torch.utils.data import TensorDataset, DataLoader
+
+# Suppose we have protein sequences and their solubility labels
+sequences = ["MGKIIGIDLG...", "MSKGEELFTG...", "MVLSPADKTN..."]
+labels = [1, 1, 0]  # 1 = soluble, 0 = insoluble
+
+# Convert each sequence to a feature vector
+features = torch.stack([amino_acid_composition(seq) for seq in sequences])
+labels = torch.tensor(labels, dtype=torch.long)
+
+print(features.shape)  # torch.Size([3, 20]) — 3 proteins, 20 features each
+print(labels.shape)     # torch.Size([3])
+
+# Wrap in a dataset and data loader
+dataset = TensorDataset(features, labels)
+loader = DataLoader(dataset, batch_size=32, shuffle=True)
+
+# Training loop iterates over batches
+for batch_features, batch_labels in loader:
+    # batch_features shape: (batch_size, 20)
+    # batch_labels shape:   (batch_size,)
+    pass  # feed to neural network (Section 3)
+```
+
+The `DataLoader` handles shuffling, batching, and iterating.
+Each call yields a batch of feature tensors and their corresponding labels, ready to be passed through a neural network.
 
 ---
 
-## 3. Structure Representations
+## 3. Neural Network Architectures
 
-Sequence tells us *what* amino acids are present.
-Structure tells us *where* they are in space.
-A protein's three-dimensional arrangement determines its function --- how it binds substrates, catalyzes reactions, and interacts with partners.
+We now have protein features --- 20-dimensional amino acid composition vectors --- packaged as PyTorch tensors.
+But a feature vector is not a prediction.
+To predict whether a protein is soluble from its composition, we need a function that maps a 20-dimensional input to an output.
+In Preliminary Note 1, we saw that a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ can do this, but it is limited to straight-line relationships.
+Neural networks overcome this limitation by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
 
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/protein_structure_levels.png' | relative_url }}" alt="Four levels of protein structure">
-    <div class="caption mt-1"><strong>Four levels of protein structure.</strong> Primary: the linear sequence of amino acids. Secondary: local folding motifs (alpha-helices, beta-sheets). Tertiary: the complete 3D arrangement of a single chain. Quaternary: assembly of multiple chains into a functional complex.</div>
-</div>
-
-### 3.1 Distance Matrices
-
-The simplest structural representation is the **distance matrix**.
-Given a protein with $$L$$ residues, the distance matrix $$D \in \mathbb{R}^{L \times L}$$ records the Euclidean distance between the C$$\alpha$$ atoms of every pair of residues:
-
-$$
-D_{ij} = \lVert \mathbf{r}_i - \mathbf{r}_j \rVert_2
-$$
-
-where $$\mathbf{r}_i \in \mathbb{R}^3$$ is the coordinate vector of the $$i$$-th C$$\alpha$$ atom.
-
-```python
-import numpy as np
-
-def compute_distance_matrix(coords: np.ndarray) -> np.ndarray:
-    """
-    Compute the pairwise C-alpha distance matrix.
-
-    Args:
-        coords: (L, 3) array of C-alpha coordinates
-
-    Returns:
-        (L, L) symmetric distance matrix in Angstroms
-    """
-    diff = coords[:, None, :] - coords[None, :, :]
-    return np.sqrt(np.sum(diff ** 2, axis=-1))
-```
-
-<div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/distance_matrix_annotated.png' | relative_url }}" alt="Protein backbone with annotated distance matrix">
-    <div class="caption mt-1">Left: a 20-residue Cα backbone in 3D with two pairwise distances highlighted. Right: the corresponding distance matrix. Entry \(D_{3,18}\) (red) records the distance between residues 3 and 18; entry \(D_{8,14}\) (green) records the distance between residues 8 and 14. The dark diagonal band reflects that sequential neighbors are always close in space.</div>
-</div>
-
-Distance matrices have three important properties:
-
-1. **Symmetry**: $$D_{ij} = D_{ji}$$.
-2. **Zero diagonal**: $$D_{ii} = 0$$.
-3. **Rotation and translation invariance**: rotating or shifting the protein in space leaves the distance matrix unchanged.
-
-The third property is critical.
-A protein's function depends on its internal geometry, not on where it sits in the laboratory coordinate system.
-If we used raw $$(x, y, z)$$ coordinates as input, a model might memorize arbitrary orientations.
-Distance matrices avoid this entirely.
-
-### 3.2 Contact Maps
-
-A **contact map** is a binarized distance matrix.
-Two residues are declared "in contact" if their C$$\alpha$$ distance falls below a threshold, typically 8 Angstroms[^angstrom]:
-
-$$
-C_{ij} = \begin{cases} 1 & \text{if } D_{ij} < d_{\text{threshold}} \\ 0 & \text{otherwise} \end{cases}
-$$
-
-[^angstrom]: One Angstrom (1 Å) equals $$10^{-10}$$ meters. A typical covalent bond is about 1.5 Å long, and the diameter of a small protein is 30--50 Å.
-
-```python
-def compute_contact_map(coords: np.ndarray, threshold: float = 8.0) -> np.ndarray:
-    """Compute the binary contact map from C-alpha coordinates."""
-    dist_matrix = compute_distance_matrix(coords)
-    return (dist_matrix < threshold).astype(np.float32)
-```
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/contact_map_heatmap.png' | relative_url }}" alt="Protein contact map heatmap">
-    <div class="caption mt-1">A contact map for a 76-residue protein. The diagonal band represents sequential neighbors. Off-diagonal features indicate residues brought into proximity by the 3D fold — the hallmark of tertiary structure.</div>
-</div>
-
-Contact maps reveal secondary structure patterns.
-**Alpha helices** appear as thick bands along the main diagonal, because consecutive residues in a helix are spatially close.
-**Beta sheets** create off-diagonal stripes, reflecting distant residues brought together by hydrogen bonding.
-
-Contacts are categorized by **sequence separation** $$\lvert i - j \rvert$$:
-
-- **Local** ($$\lvert i - j \rvert < 6$$): secondary structure (e.g., helical $$i \to i+4$$ contacts).
-- **Medium-range** ($$6 \leq \lvert i - j \rvert < 12$$): super-secondary motifs like helix-turn-helix.
-- **Long-range** ($$\lvert i - j \rvert \geq 12$$): tertiary structure. Predicting long-range contacts was a key breakthrough that enabled AlphaFold's success.
-
-### 3.3 Dihedral Angles
-
-Distance matrices describe *pairwise* relationships.
-Sometimes we need a *local* description of backbone geometry instead.
-
-The protein backbone consists of three bonds per residue: N--C$$\alpha$$, C$$\alpha$$--C, and C--N (the peptide bond to the next residue).
-The **dihedral angles**[^torsion] describe rotations around these bonds:
-
-[^torsion]: Dihedral angles are also called torsion angles. They measure the angle between two planes defined by four consecutive atoms.
-
-```mermaid
-flowchart TD
-    subgraph Ri["Residue i"]
-        direction LR
-        Ni["N"] --- CAi["Cα"] --- Ci["C"]
-    end
-    Ci -->|"peptide bond"| Ni1
-    subgraph Ri1["Residue i+1"]
-        direction LR
-        Ni1["N"] --- CAi1["Cα"] --- Ci1["C"]
-    end
-
-    style Ni fill:#4a90d9,color:white
-    style CAi fill:#e74c3c,color:white
-    style Ci fill:#2ecc71,color:white
-    style Ni1 fill:#4a90d9,color:white
-    style CAi1 fill:#e74c3c,color:white
-    style Ci1 fill:#2ecc71,color:white
-```
-<div class="caption mt-1"><strong>Backbone dihedral angles.</strong> φ (phi) measures rotation around the N–Cα bond, ψ (psi) around the Cα–C bond, and ω (omega) around the C–N peptide bond. The omega angle is nearly always ~180° due to the partial double-bond character of the peptide bond.</div>
-
-- **Phi ($$\phi$$)**: rotation around the N--C$$\alpha$$ bond
-- **Psi ($$\psi$$)**: rotation around the C$$\alpha$$--C bond
-- **Omega ($$\omega$$)**: rotation around the C--N peptide bond (nearly always ~180°)
-
-Bond lengths and bond angles are nearly constant across all proteins.
-Specifying the $$\phi$$ and $$\psi$$ values at every residue completely determines the backbone structure --- these are the true degrees of freedom.
-
-There is a technical subtlety: angles are **periodic**.
-An angle of $$+180°$$ and $$-180°$$ describe the same conformation, but their numerical values are far apart.
-The solution is to encode each angle using its sine and cosine:
-
-```python
-def encode_dihedrals(phi: np.ndarray, psi: np.ndarray) -> np.ndarray:
-    """
-    Encode backbone dihedral angles using sin/cos to handle periodicity.
-
-    Args:
-        phi: (L,) array of phi angles in radians
-        psi: (L,) array of psi angles in radians
-
-    Returns:
-        (L, 4) array with columns [sin(phi), cos(phi), sin(psi), cos(psi)]
-    """
-    return np.stack([
-        np.sin(phi), np.cos(phi),
-        np.sin(psi), np.cos(psi)
-    ], axis=-1)
-```
-
-Now $$+180°$$ and $$-180°$$ both map to $$(0, -1)$$, and the periodicity is handled gracefully.
-
-The classical **Ramachandran plot** shows the distribution of $$\phi$$ and $$\psi$$ angles observed in protein structures.
-Different secondary structure types cluster in distinct regions.
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/ramachandran_plot.png' | relative_url }}" alt="Ramachandran plot">
-    <div class="caption mt-1">A Ramachandran plot showing the distribution of backbone dihedral angles (φ, ψ) across protein residues. α-helical residues cluster near (−60°, −45°), β-sheet residues near (−120°, +130°), and left-handed helices near (+60°, +45°).</div>
-</div>
-
-Dihedral angles are especially important for **protein generation and design**.
-Models that generate backbone structures often work in dihedral space because producing angles directly guarantees valid bond lengths and angles.
-In contrast, generating raw $$(x, y, z)$$ coordinates can produce distorted, physically impossible geometries.
-
----
-
-## 4. Neural Network Architectures
-
-In Preliminary Note 1, we saw that a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ is limited --- it can only represent straight-line relationships.
-Neural networks overcome this limitation by composing simple operations into powerful function approximators.
-Let us build them from the ground up.
-
-### 4.1 The Single Neuron
+### 3.1 The Single Neuron
 
 The fundamental unit is the **artificial neuron**.
-It takes multiple inputs, computes a weighted sum, adds a bias, and applies a nonlinear function:
+It takes multiple input features, computes a weighted sum, adds a bias, and applies a nonlinear function:
 
 $$
 \text{output} = \sigma(w_1 x_1 + w_2 x_2 + \cdots + w_n x_n + b)
 $$
 
-Here $$x_1, x_2, \ldots, x_n$$ are the input values (for example, the hydrophobicity, charge, and length of a protein).
-The weights $$w_1, w_2, \ldots, w_n$$ determine how much each input contributes.
-The bias $$b$$ shifts the decision boundary.
-The function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
+Consider predicting protein solubility from amino acid composition.
+The input features $$x_1, x_2, \ldots, x_{20}$$ are the fractions of each amino acid type.
+The weights $$w_1, w_2, \ldots, w_{20}$$ determine how much each amino acid contributes to the solubility score --- a large positive weight on charged residues (Asp, Glu, Lys, Arg) would reflect that charge promotes solubility, while a negative weight on hydrophobic residues (Ile, Leu, Val) would capture their tendency to cause aggregation.
+The bias $$b$$ shifts the decision boundary, and the function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
 
-```mermaid
-flowchart TD
-    subgraph Inputs
-        direction LR
-        x1["x₁"] ~~~ x2["x₂"] ~~~ x3["x₃"]
-    end
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_0">
+</div>
 
-    Inputs --> WS["Σ wᵢxᵢ + b\n(weighted sum)"]
-    WS --> Act["σ(·)\n(activation)"]
-    Act --> Out["output"]
-
-    style Inputs fill:#e8f4fd,stroke:#2196F3
-    style WS fill:#fff3e0,stroke:#FF9800
-    style Act fill:#fce4ec,stroke:#e91e63
-    style Out fill:#e8f5e9,stroke:#4CAF50
-```
-
-### 4.2 Activation Functions: Why Nonlinearity Matters
+### 3.2 Activation Functions: Why Nonlinearity Matters
 
 Without activation functions, stacking layers would be pointless.
 A linear transformation followed by another linear transformation is just... a single linear transformation (their product is still a matrix).
@@ -519,51 +370,25 @@ Normalizes a vector into a probability distribution summing to 1; used at the ou
 | **Sigmoid** | Output layer for binary classification (probability) | Hidden layers of deep networks (vanishing gradients) |
 | **Softmax** | Output layer for multi-class classification | Hidden layers (it's a normalization, not an activation) |
 
-### 4.3 Layers: Many Neurons in Parallel
+### 3.3 Layers: Many Neurons in Parallel
 
 A single neuron is limited.
-But arrange many neurons in parallel --- each receiving the same inputs but with *different* weights --- and you get a **layer**.
-With 64 neurons, you get 64 different weighted combinations of the input features.
+But arrange many neurons in parallel --- each receiving the same input features but with *different* weights --- and you get a **layer**.
+With 64 neurons processing a 20-dimensional amino acid composition, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
 This can be written compactly as a matrix equation:
 
 $$
 \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})
 $$
 
-where $$\mathbf{W}$$ is a weight matrix of shape `(64, n_inputs)`, $$\mathbf{x}$$ is the input vector, $$\mathbf{b}$$ is a bias vector, and $$\mathbf{h}$$ is the output vector of 64 values.
+where $$\mathbf{W}$$ is a weight matrix of shape `(64, 20)`, $$\mathbf{x}$$ is the 20-dimensional feature vector, $$\mathbf{b}$$ is a bias vector, and $$\mathbf{h}$$ is the 64-dimensional representation.
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 
-### 4.4 Why Depth Matters: The Power of Composition
+### 3.4 Why Depth Matters: The Power of Composition
 
-```mermaid
-flowchart TD
-    subgraph Input["Input Layer (3 features)"]
-        direction LR
-        I1["x₁"] ~~~ I2["x₂"] ~~~ I3["x₃"]
-    end
-
-    subgraph Hidden1["Hidden Layer 1 (64 neurons)"]
-        direction LR
-        H1["h₁"] ~~~ H2["h₂"] ~~~ H3["···"] ~~~ H4["h₆₄"]
-    end
-
-    subgraph Hidden2["Hidden Layer 2 (32 neurons)"]
-        direction LR
-        G1["g₁"] ~~~ G2["g₂"] ~~~ G3["···"] ~~~ G4["g₃₂"]
-    end
-
-    subgraph Output["Output Layer"]
-        direction LR
-        O1["ŷ₁ (soluble)"] ~~~ O2["ŷ₂ (insol.)"]
-    end
-
-    Input --> Hidden1 --> Hidden2 --> Output
-
-    style Input fill:#e8f4fd,stroke:#2196F3
-    style Hidden1 fill:#fff3e0,stroke:#FF9800
-    style Hidden2 fill:#fff3e0,stroke:#FF9800
-    style Output fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_1">
+</div>
 
 The power of neural networks comes from stacking multiple layers, and this has a deep theoretical basis.
 
@@ -572,40 +397,54 @@ But there is a catch: a single wide layer may need an astronomically large numbe
 Deep networks --- those with many layers --- can represent the same functions far more efficiently.
 The reason is **compositionality**: complex functions are built from simpler sub-functions, and each layer learns one level of this hierarchy.
 
-For a protein property classifier, this compositional hierarchy might look like:
+For a protein solubility predictor, this compositional hierarchy might look like:
 
-- **Layer 1** detects individual amino acid properties (charge, size, hydrophobicity).
-- **Layer 2** recognizes local motifs (charge clusters, hydrophobic patches).
-- **Layer 3** identifies higher-order patterns (domain boundaries, structural elements).
-- **Output layer** combines these abstract representations into a final prediction.
+- **Layer 1** learns representations that capture individual amino acid properties (charge, size, hydrophobicity) from the raw composition features.
+- **Layer 2** combines these into higher-level representations: charge balance, hydrophobic fraction, amino acid diversity.
+- **Output layer** maps these abstract representations to a solubility prediction.
 
 In practice, deeper networks are not always better.
 Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
 Techniques like residual connections, normalization layers, and careful initialization have made training deep networks practical.
 
-### 4.5 Specialized Architectures: A Preview
+### 3.5 Beyond Flat Features: A Preview of Specialized Architectures
 
 The fully connected networks above treat the input as a flat vector of features --- every input element connects to every neuron.
-This is fine for global feature vectors (amino acid composition, molecular weight), but proteins have **structure** that a flat vector ignores: sequences have an ordering, and 3D structures have spatial relationships.
-Specialized architectures exploit this structure.
+This works for global features like amino acid composition, but proteins have **sequential structure** that a flat vector ignores.
 
-**Convolutional Neural Networks (CNNs)** slide a small filter (kernel) along the sequence, detecting local patterns like charge clusters or hydrophobic stretches.
-A kernel of size 5 looks at five consecutive amino acids at a time, and applying many such kernels in parallel lets the network learn a rich vocabulary of local motifs.
-We use a 1D-CNN for the solubility prediction case study in Preliminary Note 4.
+**Convolutional Neural Networks (CNNs)** exploit this structure by sliding a small filter along the sequence, detecting local patterns like charge clusters or hydrophobic stretches.
+We build a 1D-CNN for solubility prediction in the case study (Preliminary Note 4).
 
-**Transformers** use an **attention mechanism** that allows every position in a sequence to directly attend to every other position.
-This makes them especially powerful for capturing long-range dependencies --- for example, two residues that are far apart in the sequence but close together in the folded structure.
-Transformers are the backbone of protein language models like ESM and the core of AlphaFold2.
+**Transformers** and **Graph Neural Networks (GNNs)** are more powerful architectures that we cover in Lecture 1.
+Transformers use attention to let every position attend to every other position --- the backbone of protein language models (Lecture 3) and AlphaFold (Lecture 4).
+GNNs operate on graph structures where residues are nodes and edges connect spatial neighbors --- the basis of ProteinMPNN (Lecture 6).
 
-**Graph Neural Networks (GNNs)** represent a protein as a graph, where nodes are residues (or atoms) and edges connect spatially neighboring residues.
-Information flows along edges through **message passing**: each node aggregates information from its neighbors, updates its own representation, and sends new messages.
-GNNs are natural for structure-based tasks because they operate directly on the 3D geometry.
-ProteinMPNN, the state-of-the-art method for computational protein sequence design, is a GNN.
+The key takeaway: **the choice of architecture encodes an inductive bias** --- an assumption about the structure of the problem --- and matching the architecture to the data is one of the most important design decisions in protein AI.
 
-We cover transformers and GNNs in depth in Lecture 1, and protein language models (which are transformers trained on millions of sequences) in Lecture 3.
-For now, the key takeaway is that **the choice of architecture encodes an inductive bias** --- an assumption about the structure of the problem --- and matching the architecture to the data is one of the most important design decisions in protein AI.
+### 3.6 Learned Representations: Embeddings
 
-### 4.6 `nn.Module`: PyTorch's Building Block
+So far, our features are hand-crafted: one-hot encodings and amino acid compositions that we designed before training.
+But we can also let the neural network learn its own representations directly from the data.
+
+An **embedding layer** maps each amino acid index to a trainable vector of dimension $$d$$.
+These vectors start random and are adjusted during training so that amino acids with similar roles get similar representations --- all without any explicit biochemical supervision.
+
+```python
+import torch.nn as nn
+
+# 21 possible tokens (20 amino acids + 1 for unknown), each mapped to a 64-dim vector
+embedding = nn.Embedding(num_embeddings=21, embedding_dim=64)
+
+# Input: integer-encoded sequence (batch of 2 proteins, length 5)
+indices = torch.tensor([[0, 2, 3, 5, 10],
+                         [1, 4, 6, 8, 12]])
+representations = embedding(indices)  # Shape: (2, 5, 64)
+```
+
+After training, the learned representations often reveal biologically meaningful structure: hydrophobic residues cluster together, charged residues form their own group, and aromatic residues occupy a distinct region.
+This is the strategy behind **protein language models** such as ESM, which we cover in Lecture 3.
+
+### 3.7 `nn.Module`: PyTorch's Building Block
 
 In PyTorch, every neural network component inherits from `nn.Module`.
 This base class provides machinery for tracking parameters, moving to GPU, saving and loading models, and more.
@@ -618,10 +457,10 @@ Building a custom network means writing a class with two methods:
 import torch
 import torch.nn as nn
 
-class ProteinPropertyPredictor(nn.Module):
-    """A feedforward network for protein property prediction.
+class SolubilityPredictor(nn.Module):
+    """A feedforward network for protein solubility prediction.
 
-    Takes per-protein feature vectors and predicts a property class.
+    Takes amino acid composition features and predicts solubility class.
     """
 
     def __init__(self, input_dim, hidden_dim, output_dim):
@@ -635,24 +474,24 @@ class ProteinPropertyPredictor(nn.Module):
 
     def forward(self, x):
         # x shape: (batch_size, input_dim)
-        x = self.fc1(x)    # Linear transformation
-        x = self.relu(x)   # Nonlinear activation
-        x = self.fc2(x)    # Map to output
-        return x
+        h = self.fc1(x)    # Features → hidden representation
+        h = self.relu(h)   # Nonlinear activation
+        out = self.fc2(h)  # Representation → prediction
+        return out
 
-# Create the model: 20 amino acid features → 64 hidden units → 2 classes
-model = ProteinPropertyPredictor(input_dim=20, hidden_dim=64, output_dim=2)
+# 20 amino acid composition features → 64-dim hidden representation → 2 classes
+model = SolubilityPredictor(input_dim=20, hidden_dim=64, output_dim=2)
 
-# Use the model: pass a batch of 32 proteins, each with 20 features
-x = torch.randn(32, 20)
-output = model(x)         # Shape: (32, 2)
-print(output.shape)
+# Pass a batch of 32 proteins through the model
+features = torch.randn(32, 20)  # 32 proteins, 20 features each
+predictions = model(features)    # Shape: (32, 2) — scores for [soluble, insoluble]
+print(predictions.shape)
 ```
 
-PyTorch handles the backward pass automatically.
-You never write backpropagation code --- you only specify the forward computation.
+Note the distinction: `x` is the input **features** (amino acid composition), `h` is the hidden **representation** (what the network learns), and `out` is the prediction.
+PyTorch handles the backward pass automatically --- you only specify the forward computation.
 
-### 4.7 Common Layer Types
+### 3.8 Common Layer Types
 
 PyTorch provides a library of pre-built layers for common operations.
 Here are the ones you will encounter most often in protein AI.
@@ -683,7 +522,7 @@ nn.Dropout(p=0.1)  # Each neuron has a 10% chance of being turned off per forwar
 nn.Embedding(num_embeddings=21, embedding_dim=64)
 ```
 
-### 4.8 `nn.Sequential`: Quick Model Definition
+### 3.9 `nn.Sequential`: Quick Model Definition
 
 For simple architectures where data flows straight through one layer after another with no branching, `nn.Sequential` offers a compact shortcut:
 
@@ -702,7 +541,7 @@ model = nn.Sequential(
 This builds the same network as a custom `nn.Module` class but with less boilerplate.
 Use `nn.Sequential` for quick experiments; switch to a full class when you need branching, skip connections, or conditional logic.
 
-### 4.9 Managing Parameters
+### 3.10 Managing Parameters
 
 Neural networks can have millions of parameters.
 PyTorch provides tools to inspect and manage them.
@@ -727,7 +566,7 @@ model.load_state_dict(torch.load('protein_model.pt'))
 
 ---
 
-## 5. Task Formulations
+## 4. Task Formulations
 
 Different biological questions map to different mathematical formulations.
 Getting this mapping right is the first step in any project.
@@ -766,40 +605,15 @@ Secondary structure prediction assigns one of three states (helix, sheet, coil) 
 
 1. **FASTA** stores sequences; **PDB** stores 3D structures. Biopython handles sequence parsing; Biotite handles structure parsing. These are the entry points to any protein ML pipeline.
 
-2. **One-hot encoding** is simple and universal but treats all amino acids as equally different. **Learned embeddings** let the neural network discover its own representation, and protein language models produce state-of-the-art embeddings.
+2. **Features** are hand-crafted numerical inputs: one-hot encoding preserves the full sequence; amino acid composition gives a fixed-size summary. Both are converted to PyTorch tensors for training.
 
-3. **Distance matrices** capture pairwise spatial relationships with rotation invariance. **Contact maps** binarize these distances to highlight physically interacting residues. **Dihedral angles** compactly encode local backbone geometry using sin/cos to handle periodicity.
+3. **Representations** are what neural networks learn internally. Embedding layers learn amino acid representations from data; hidden layers learn task-specific representations. Protein language models (Lecture 3) produce powerful learned representations.
 
-4. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. The choice of activation function matters --- ReLU for general use, GELU for transformers, sigmoid only at the output for probabilities. Depth enables hierarchical feature learning.
+4. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. Depth enables hierarchical representation learning --- each layer builds more abstract representations from the previous layer's output.
 
 5. **Task formulations** map biological questions to mathematical outputs: regression for continuous values, classification for categories, sequence-to-sequence for per-residue predictions.
 
-6. **Next up**: Preliminary Note 3 puts these representations and architectures to work in a complete training pipeline --- loss functions, optimizers, data loading, and validation.
-
----
-
-## Exercises
-
-**Exercise 1: Distance matrix and contact analysis.**
-Obtain the PDB file for ubiquitin (1UBQ) from the RCSB Protein Data Bank.
-Parse the structure, extract $$\text{C}_\alpha$$ coordinates, and compute the full distance matrix.
-(a) Using a threshold of 8 Angstroms, compute the contact map and visualize it as a heatmap.
-(b) For each residue, count the number of contacts it makes. What is the average number of contacts per residue?
-(c) Which residue has the most contacts? Look up its location in the 3D structure --- is it buried in the core or exposed on the surface?
-
-**Exercise 2: Ramachandran plot.**
-Extract $$\phi$$ and $$\psi$$ angles from ubiquitin (1UBQ) using BioPython's `PDB.Polypeptide` module.
-Create a Ramachandran plot ($$\phi$$ on the x-axis, $$\psi$$ on the y-axis).
-Color each point by its secondary structure assignment (helix, sheet, or coil).
-Verify that helical residues cluster near $$(\phi, \psi) \approx (-60°, -45°)$$ and sheet residues near $$(-120°, +130°)$$.
-
-**Exercise 3: Building and inspecting a network.**
-Build a 4-layer feedforward network using `nn.Module` that takes 20-dimensional amino acid composition vectors as input and predicts one of 4 enzyme classes.
-The hidden dimensions should be 128 → 64 → 32.
-Use ReLU activations between layers.
-
-Count the total number of trainable parameters.
-Then replace all ReLU activations with GELU and verify that the parameter count does not change (why?).
+6. **Next up**: Preliminary Note 3 puts these features and architectures to work in a complete training pipeline --- loss functions, optimizers, and validation.
 
 ---
 
@@ -811,10 +625,6 @@ Then replace all ReLU activations with GELU and verify that the parameter count 
 
 3. Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
 
-4. Henikoff, S. and Henikoff, J.G. (1992). Amino acid substitution matrices from protein blocks. *Proceedings of the National Academy of Sciences*, 89(22), 10915--10919.
+4. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
 
-5. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
-
-6. Jumper, J., Evans, R., Pritzel, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
-
-7. Cybenko, G. (1989). "Approximation by Superpositions of a Sigmoidal Function." *Mathematics of Control, Signals and Systems*, 2(4), 303--314.
+5. Cybenko, G. (1989). "Approximation by Superpositions of a Sigmoidal Function." *Mathematics of Control, Signals and Systems*, 2(4), 303--314.

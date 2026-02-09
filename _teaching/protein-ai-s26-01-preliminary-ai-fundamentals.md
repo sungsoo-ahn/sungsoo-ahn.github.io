@@ -11,8 +11,6 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 1 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It is designed as a self-study resource: biology-background students should be able to work through it independently before the first in-class lecture. This note assumes basic Python fluency and comfort with linear algebra.</em></p>
@@ -85,18 +83,9 @@ We formalize this tension as the **bias-variance tradeoff** in Preliminary Note 
 
 Every machine learning project follows a structured pipeline.
 
-```mermaid
-flowchart TD
-    A["Data Collection"] --> B["Preprocessing"]
-    B --> C["Feature Engineering"]
-    C --> D["Model Training"]
-    D --> E["Evaluation"]
-    E --> F["Deployment"]
-
-    style A fill:#e8f4fd,stroke:#2196F3
-    style D fill:#fff3e0,stroke:#FF9800
-    style F fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_0.png' | relative_url }}" alt="s26-01-preliminary-ai-fundamentals_diagram_0">
+</div>
 
 Each stage presents challenges specific to protein data.
 
@@ -332,17 +321,9 @@ Here $$\mathbf{W}$$ is the weight vector reshaped as a (10 $$\times$$ 1) column,
 
 The following diagram illustrates this flow:
 
-```mermaid
-flowchart TD
-    X["Input Features\n(100 × 10)"] --> MM["Matrix Multiply\nX·W"]
-    W["Weights W\n(10 × 1)"] --> MM
-    MM --> Add["Add Bias\n+ b"]
-    Add --> Y["Predictions ŷ\n(100 × 1)"]
-
-    style X fill:#e8f4fd,stroke:#2196F3
-    style W fill:#fff3e0,stroke:#FF9800
-    style Y fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_1.png' | relative_url }}" alt="s26-01-preliminary-ai-fundamentals_diagram_1">
+</div>
 
 ```python
 import torch
@@ -500,29 +481,6 @@ with torch.no_grad():
 4. **The learning cycle is model → loss → gradients → update.** We define a model (even a simple linear one), measure its mistakes with a loss function, compute gradients via autograd, and update the weights. PyTorch automates the gradient computation.
 
 5. **Next up**: Preliminary Note 2 covers protein data representations and introduces neural network architectures --- the building blocks you need before we tackle the full training process in Preliminary Note 3.
-
----
-
-## Exercises
-
-These exercises reinforce the concepts from this note.
-Each one can be completed in a single Python script or Jupyter notebook.
-
-### Exercise 1: Protein Feature Tensors
-
-Encode a batch of 5 protein sequences of varying lengths as tensors suitable for neural network input.
-Start from raw amino acid strings, convert to integer indices, pad to the length of the longest sequence, and create the corresponding mask tensor.
-Print the shape at each step and verify that padding positions have mask value 0.
-
-*Extension:* Also compute 5 global features per protein (molecular weight, isoelectric point, GRAVY, instability index, sequence length) and store them as a separate `(5, 5)` tensor.
-
-### Exercise 2: Linear Regression with Gradient Descent
-
-Create a simple linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ with `requires_grad=True` on both $$\mathbf{W}$$ and $$b$$.
-Compute the MSE loss for a small batch of 10 data points.
-Run 100 steps of gradient descent (remember to zero the gradients and detach the graph between steps) and plot the loss curve.
-
-*Extension:* Manually compute $$\partial L / \partial \mathbf{W}$$ and $$\partial L / \partial b$$ using the formula $$\frac{\partial L}{\partial \mathbf{W}} = \frac{2}{n}\mathbf{X}^T(\mathbf{X}\mathbf{W} + b - \mathbf{y})$$ and verify they match the PyTorch gradients for the first step.
 
 ---
 
