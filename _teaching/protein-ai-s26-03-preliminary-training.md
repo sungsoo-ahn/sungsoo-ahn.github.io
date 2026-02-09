@@ -79,11 +79,26 @@ $$
 L_{\text{BCE}}(\theta) = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i(\theta)) + (1 - y_i)\log(1 - \hat{y}_i(\theta))\bigr]
 $$
 
-The intuition comes from probability theory.
-We are asking: "how surprised would we be by the true label, given our predicted probability?"
-When the true label is 1 and we predict $$\hat{y} = 0.99$$, the loss is $$-\log(0.99) \approx 0.01$$ --- we are barely surprised.
-When we predict $$\hat{y} = 0.01$$, the loss is $$-\log(0.01) \approx 4.6$$ --- we are very surprised.
-This logarithmic penalty grows without bound as the predicted probability approaches the wrong extreme, creating a strong signal to correct confident mistakes.
+Why this formula? It comes from **maximum likelihood estimation**.
+If our model predicts $$P(y_i = 1) = \hat{y}_i$$, then the probability it assigns to the true label is:
+
+$$
+P(y_i \mid \mathbf{x}_i; \theta) = \hat{y}_i^{y_i} (1 - \hat{y}_i)^{1 - y_i}
+$$
+
+Assuming training examples are independent, the likelihood of the entire dataset is the product $$\prod_i P(y_i \mid \mathbf{x}_i; \theta)$$.
+Taking the negative log turns this product into a sum (easier to optimize) and flips the sign (so we minimize):
+
+$$
+-\log \prod_i P(y_i \mid \mathbf{x}_i; \theta) = -\sum_i \bigl[y_i \log \hat{y}_i + (1 - y_i) \log(1 - \hat{y}_i)\bigr] = n \cdot L_{\text{BCE}}
+$$
+
+So **minimizing BCE is equivalent to maximizing the log-likelihood of the data** --- the model learns to assign high probability to the true labels.
+
+The logarithmic penalty grows without bound as the predicted probability approaches the wrong extreme.
+When the true label is 1 and we predict $$\hat{y} = 0.99$$, the loss is $$-\log(0.99) \approx 0.01$$.
+When we predict $$\hat{y} = 0.01$$, the loss is $$-\log(0.01) \approx 4.6$$.
+This creates a strong signal to correct confident mistakes.
 
 ### Cross-Entropy (CE) for Multi-Class Classification
 
@@ -186,14 +201,51 @@ After each epoch, the DataLoader reshuffles the dataset, so mini-batches are dif
 ### Beyond SGD: Momentum and Adaptive Methods
 
 Vanilla SGD can oscillate in loss landscapes where the surface curves much more steeply in one direction than another.
-Several extensions address this.
 
-**Momentum** adds a "velocity" term that accumulates a running average of recent gradients (with a decay factor $$\beta$$, typically 0.9).
-The intuition is physical: a ball rolling down the loss landscape builds speed in consistent directions and dampens oscillations where gradients flip sign.
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/momentum_comparison.png' | relative_url }}" alt="SGD vs SGD with momentum">
+    <div class="caption mt-1"><strong>SGD vs. SGD with momentum</strong> on an elongated loss landscape. Without momentum (left), the optimizer oscillates across the narrow valley. With momentum (right), the velocity accumulates along the valley floor, producing a smoother, faster path to the minimum.</div>
+</div>
 
-**Adam** [3] adapts the learning rate individually for each parameter by tracking both the mean and variance of recent gradients.
-Parameters with consistently large gradients take smaller steps; parameters with small or noisy gradients take larger steps.
-Adam works well out of the box for most problems and is the recommended starting point for protein AI projects.
+Several extensions address the oscillation problem.
+
+**Momentum** adds a "velocity" term that accumulates a running average of recent gradients.
+The update rules are:
+
+$$
+\mathbf{v}_t = \beta \mathbf{v}_{t-1} + \nabla_\theta L(\theta_t)
+$$
+
+$$
+\theta_{t+1} = \theta_t - \eta \mathbf{v}_t
+$$
+
+where $$\beta$$ (typically 0.9) controls how much past gradients contribute.
+The intuition is physical: a ball rolling down the loss landscape builds velocity in consistent directions and dampens oscillations where gradients flip sign.
+When the gradient consistently points the same way, $$\mathbf{v}_t$$ grows and the effective step size increases.
+When gradients oscillate (alternating sign), they cancel in the velocity term, smoothing out the path.
+
+**Adam** [3] adapts the learning rate individually for each parameter by tracking both the first moment (mean) and second moment (uncentered variance) of recent gradients:
+
+$$
+\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1) \nabla_\theta L, \qquad \mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2) (\nabla_\theta L)^2
+$$
+
+Because $$\mathbf{m}_0 = \mathbf{v}_0 = 0$$, both estimates are biased toward zero in early steps. Bias correction fixes this:
+
+$$
+\hat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}, \qquad \hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}
+$$
+
+The parameter update divides the corrected mean by the corrected root-variance:
+
+$$
+\theta_{t+1} = \theta_t - \eta \frac{\hat{\mathbf{m}}_t}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon}
+$$
+
+Parameters with consistently large gradients (large $$\hat{\mathbf{v}}_t$$) take smaller steps; parameters with small or noisy gradients take larger steps.
+The defaults $$\beta_1 = 0.9$$, $$\beta_2 = 0.999$$, $$\epsilon = 10^{-8}$$ work well for most problems.
+Adam is the recommended starting point for protein AI projects.
 
 **AdamW** [6] fixes a subtle issue where Adam's adaptive scaling interacts incorrectly with weight decay regularization.
 For most practical purposes, AdamW is the preferred optimizer.
@@ -307,47 +359,8 @@ You implement two methods:
 - `__len__`: returns the total number of examples.
 - `__getitem__`: returns one example by its index.
 
-Here is a dataset for protein sequences:
-
-```python
-from torch.utils.data import Dataset, DataLoader
-
-class ProteinDataset(Dataset):
-    """A dataset of protein sequences and their labels."""
-
-    def __init__(self, sequences, labels, max_len=512):
-        self.sequences = sequences
-        self.labels = labels
-        self.max_len = max_len
-
-        # Map each of the 20 standard amino acids to an integer (1–20)
-        # Index 0 is reserved for padding
-        self.aa_to_idx = {aa: i + 1 for i, aa in enumerate('ACDEFGHIKLMNPQRSTVWY')}
-
-    def __len__(self):
-        return len(self.sequences)
-
-    def __getitem__(self, idx):
-        seq = self.sequences[idx]
-        label = self.labels[idx]
-
-        # Convert amino acid characters to integers
-        # Truncate sequences longer than max_len
-        encoded = torch.zeros(self.max_len, dtype=torch.long)
-        for i, aa in enumerate(seq[:self.max_len]):
-            encoded[i] = self.aa_to_idx.get(aa, 0)  # Unknown amino acids → 0
-
-        # Create a mask: 1 for real positions, 0 for padding
-        seq_len = min(len(seq), self.max_len)
-        mask = torch.zeros(self.max_len, dtype=torch.float)
-        mask[:seq_len] = 1.0
-
-        return {
-            'sequence': encoded,        # Shape: (max_len,)
-            'mask': mask,               # Shape: (max_len,)
-            'label': torch.tensor(label, dtype=torch.long)
-        }
-```
+A `Dataset` subclass for protein sequences implements two methods: `__len__` returns the dataset size, and `__getitem__` returns one example (encoded sequence, padding mask, and label) by index.
+The encoding maps each amino acid to an integer (1--20, with 0 reserved for padding), and a binary mask distinguishes real residues from padding positions.
 
 ### The `DataLoader`: Batching and Shuffling
 
@@ -389,31 +402,9 @@ for batch in train_loader:
 
 Proteins range from tens to thousands of amino acids.
 Padding every sequence to the length of the longest protein in the entire dataset wastes computation and memory.
-A **custom collate function** can pad each batch only to its own maximum length:
-
-```python
-def collate_proteins(batch):
-    """Pad sequences in a batch to the length of the longest sequence in that batch."""
-    # Find the maximum length in this specific batch
-    max_len = max(len(item['sequence']) for item in batch)
-
-    sequences = torch.zeros(len(batch), max_len, dtype=torch.long)
-    masks = torch.zeros(len(batch), max_len)
-    labels = torch.zeros(len(batch), dtype=torch.long)
-
-    for i, item in enumerate(batch):
-        seq_len = len(item['sequence'])
-        sequences[i, :seq_len] = item['sequence']
-        masks[i, :seq_len] = 1.0
-        labels[i] = item['label']
-
-    return {'sequence': sequences, 'mask': masks, 'label': labels}
-
-# Pass the custom collate function to the DataLoader
-loader = DataLoader(dataset, batch_size=32, collate_fn=collate_proteins)
-```
-
-This reduces wasted computation when batches contain only short sequences.
+A **custom collate function** (passed as `collate_fn` to `DataLoader`) can pad each batch only to its own maximum length rather than the global maximum.
+The function receives a list of individual examples, finds the longest sequence in the batch, pads all others to that length, and stacks them into tensors.
+This reduces wasted computation when batches contain mostly short sequences.
 
 ---
 
@@ -421,10 +412,22 @@ This reduces wasted computation when batches contain only short sequences.
 
 ### The Bias-Variance Tradeoff
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/bias_variance_tradeoff.png' | relative_url }}" alt="Bias-variance tradeoff">
+    <div class="caption mt-1"><strong>The bias-variance tradeoff.</strong> As model complexity increases, bias decreases (the model can fit more complex patterns) but variance increases (the model becomes more sensitive to the specific training set). The optimal complexity minimizes total error.</div>
+</div>
+
 Before discussing how to detect overfitting in practice, let us formalize the tension introduced in Preliminary Note 1.
 Why not simply use the most powerful model available?
 
-The answer involves a fundamental tradeoff.
+The answer involves a fundamental decomposition of prediction error.
+For a given input $$\mathbf{x}$$, the expected prediction error (over random training sets) can be decomposed as:
+
+$$
+\underbrace{\mathbb{E}\bigl[(y - \hat{f}(\mathbf{x}))^2\bigr]}_{\text{Expected Error}} = \underbrace{\bigl(\mathbb{E}[\hat{f}(\mathbf{x})] - f^*(\mathbf{x})\bigr)^2}_{\text{Bias}^2} + \underbrace{\mathbb{E}\bigl[(\hat{f}(\mathbf{x}) - \mathbb{E}[\hat{f}(\mathbf{x})])^2\bigr]}_{\text{Variance}} + \underbrace{\sigma^2}_{\text{Irreducible Noise}}
+$$
+
+where $$\hat{f}$$ is the learned model, $$f^*$$ is the true function, and $$\sigma^2$$ is the noise inherent in the data.
 
 **Bias** refers to error caused by a model being too simple to capture the true patterns in the data.
 A linear model predicting solubility from just the protein's length has high bias: it systematically misses the real relationship because the true function is far more complex than a straight line.
@@ -476,32 +479,8 @@ This is **overfitting** --- the central failure mode of machine learning.
 The classic signature: training loss decreases steadily, but **validation loss starts increasing** after some point.
 The gap between training and validation performance grows over time.
 
-```python
-@torch.no_grad()   # No gradient computation needed during evaluation
-def evaluate(model, dataloader, criterion, device):
-    """Evaluate the model on a held-out dataset."""
-    model.eval()    # Disable dropout, use running statistics for batch norm
-    total_loss = 0
-    all_predictions = []
-    all_labels = []
-
-    for batch_x, batch_y in dataloader:
-        batch_x = batch_x.to(device)
-        batch_y = batch_y.to(device)
-
-        predictions = model(batch_x)
-        loss = criterion(predictions, batch_y)
-
-        total_loss += loss.item()
-        all_predictions.append(predictions.cpu())
-        all_labels.append(batch_y.cpu())
-
-    avg_loss = total_loss / len(dataloader)
-    all_predictions = torch.cat(all_predictions)
-    all_labels = torch.cat(all_labels)
-
-    return avg_loss, all_predictions, all_labels
-```
+Evaluation follows the same loop as training but with two differences: (1) wrap in `torch.no_grad()` to skip gradient computation (saving memory and time), and (2) call `model.eval()` to disable dropout and switch batch normalization to inference mode.
+After iterating over all batches, compute the average loss and collect predictions for metric computation.
 
 ### What Overfitting Looks Like
 
@@ -549,6 +528,19 @@ $$
 In words: to find how $$\theta_k$$ affects $$L$$, multiply how $$z$$ affects $$L$$ by how $$\theta_k$$ affects $$z$$.
 Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta L(\theta)$$.
 This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
+
+#### Worked Example: A Two-Layer Network
+
+Consider a network with two layers: $$\mathbf{h}^{(1)} = \sigma(\mathbf{W}^{(1)} \mathbf{x})$$, $$\mathbf{h}^{(2)} = \mathbf{W}^{(2)} \mathbf{h}^{(1)}$$, and loss $$L = \ell(\mathbf{h}^{(2)}, y)$$.
+To compute the gradient with respect to $$\mathbf{W}^{(1)}$$, we trace backward through the chain:
+
+$$
+\frac{\partial L}{\partial \mathbf{W}^{(1)}} = \underbrace{\frac{\partial L}{\partial \mathbf{h}^{(2)}}}_{\text{from loss}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}}_{ = \mathbf{W}^{(2)}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(1)}}{\partial \mathbf{W}^{(1)}}}_{\text{involves } \sigma'}
+$$
+
+Each factor is a local derivative that each layer can compute independently.
+The key insight: backpropagation never needs the full chain --- it passes $$\frac{\partial L}{\partial \mathbf{h}^{(2)}}$$ backward to the first layer, which multiplies by its own local derivatives.
+This is why deep networks with hundreds of layers remain tractable: the cost of backpropagation is proportional to the cost of the forward pass.
 
 [^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
 
