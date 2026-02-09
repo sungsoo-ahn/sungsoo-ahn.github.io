@@ -363,8 +363,10 @@ print(f"Loss: {loss.item():.2f}")  # A single number measuring total prediction 
 With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\theta$$ that minimize $$\mathcal{L}(\theta)$$.**
 But how?
 
-> **Note:** $$\mathcal{L}_{\text{MSE}}$$ is one of many possible loss functions.
-> Preliminary Note 3 covers other choices suited to classification tasks (binary cross-entropy, cross-entropy), and explains when to use which.
+$$\mathcal{L}_{\text{MSE}}$$ is one of many possible loss functions[^lossfns].
+Preliminary Note 3 covers others suited to classification tasks.
+
+[^lossfns]: For binary classification (e.g., soluble vs. insoluble), the standard choice is binary cross-entropy; for multi-class classification, cross-entropy. See Preliminary Note 3 for details.
 
 ### Learning from Mistakes: Gradients and Optimization
 
