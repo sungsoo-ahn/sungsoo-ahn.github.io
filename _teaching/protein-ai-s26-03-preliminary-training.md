@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Training Neural Networks for Protein Science"
-date: 2026-03-03
-description: "Loss functions, optimizers, the training loop, data loading, validation, and a complete protein solubility prediction case study."
+date: 2026-03-02
+description: "Loss functions, optimizers, the training loop, data loading, validation, overfitting, and backpropagation—everything you need to train a protein model."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -11,18 +11,23 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 3 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues directly from Preliminary Note 2 (Machine Learning and Neural Network Fundamentals). By the end of this note, you will be able to train a neural network end-to-end and evaluate it on a protein prediction task.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 3 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues directly from Preliminary Notes 1 and 2. By the end of this note, you will understand every component of the training process and be ready for the case study in Preliminary Note 4.</em></p>
 
 ## Introduction
 
-In Preliminary Note 2 you learned how to build neural networks: tensors for data, autograd for gradients, and `nn.Module` for architecture.
+In Preliminary Notes 1 and 2 you learned how to represent protein data as tensors and how neural networks transform those tensors into predictions.
 But a network fresh off the assembly line knows nothing --- its weights are random numbers, and its predictions are meaningless.
 This note is about taking that raw network and making it *learn*.
 
-We will cover every component of the training process: the loss functions that quantify mistakes, the optimizers that correct them, the training loop that orchestrates the process, and the data loading machinery that feeds proteins to the network efficiently.
-We end with a complete case study --- predicting protein solubility in *E. coli* --- that ties every piece together into a working system you can adapt for your own projects.
+We cover every component of the training process: the loss functions that quantify mistakes, the optimizers that correct them, the training loop that orchestrates the process, and the data loading machinery that feeds proteins to the network efficiently.
+We then discuss validation, overfitting, and the bias-variance tradeoff that governs model design.
+The note concludes with an advanced section on backpropagation for those who want to understand how gradients flow through multi-layer networks.
+
+Preliminary Note 4 applies all of these components in a complete case study: predicting protein solubility in *E. coli*.
 
 ### Roadmap
 
@@ -32,13 +37,12 @@ We end with a complete case study --- predicting protein solubility in *E. coli*
 | 2 | Mini-Batch Training and Optimizers | Why we train on batches, what "stochastic" means, and the algorithms that turn gradients into weight updates |
 | 3 | The Training Loop | The four-step cycle that turns data into knowledge |
 | 4 | Data Loading for Proteins | Efficient batching, shuffling, and handling of variable-length sequences |
-| 5 | Validation and Overfitting | How to detect when your model is memorizing rather than learning |
-| 6 | Case Study: Protein Solubility Prediction | A complete, end-to-end project integrating everything from this note |
-| 7 | Debugging and Reproducibility | Practical tips for when things go wrong |
+| 5 | Validation, Overfitting, and the Bias-Variance Tradeoff | How to detect when your model is memorizing rather than learning |
+| 6 | Backpropagation (Advanced) | How gradients flow through multi-layer networks via the chain rule |
 
 ### Prerequisites
 
-This note assumes familiarity with Preliminary Note 2: tensors, `nn.Module`, activation functions, autograd, and the basic idea of gradient descent.
+This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Module`, activation functions, autograd, gradient descent, and protein data representations.
 
 ---
 
@@ -48,7 +52,7 @@ Before the model can learn, we need a way to quantify how wrong its predictions 
 The **loss function** (also called a **cost function** or **objective function**) produces a single number: zero means perfect predictions, and larger values mean worse predictions.
 The choice of loss function depends on the type of prediction task.
 
-We introduced $$L_{\text{MSE}}$$ briefly in Preliminary Note 2 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
+We introduced $$L_{\text{MSE}}$$ briefly in Preliminary Note 1 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
 
 ### Mean Squared Error (MSE) for Regression
 
@@ -90,9 +94,6 @@ $$
 
 In practice, only one $$y_c$$ is 1 (the true class), so this simplifies to $$-\log(\hat{y}_{\text{true class}}(\theta))$$.
 The model is rewarded for assigning high probability to the correct class and penalized (logarithmically) for low probability.
-
-From an information-theoretic perspective, cross-entropy measures the number of extra "bits" of surprise when using the model's predicted distribution instead of the true distribution.
-A perfect model has zero cross-entropy with the data.
 
 ### Using Loss Functions in PyTorch
 
@@ -150,7 +151,6 @@ This is called **full-batch gradient descent**, and it has three problems.
 
 First, it is slow.
 You process the entire dataset for a single weight update.
-If training takes 1,000 updates to converge, you must scan the full dataset 1,000 times --- and each scan requires holding all intermediate activations in memory.
 
 Second, it is memory-intensive.
 For large protein datasets, storing the activations of all 50,000 proteins simultaneously exceeds the memory of any GPU.
@@ -159,10 +159,6 @@ Third, the gradient you compute is *too* accurate.
 This sounds paradoxical, but a perfect gradient points exactly toward the minimum of the training loss, which may not coincide with the minimum of the true (generalization) loss.
 Some noise in the gradient direction actually helps the optimizer explore the loss landscape and avoid sharp, narrow minima that generalize poorly.
 
-The opposite extreme --- computing the gradient from a **single random protein** --- solves the memory and speed problems but introduces too much noise.
-The gradient from one protein may point in a completely different direction than the gradient from another.
-It also wastes the GPU's parallelism: modern GPUs are designed to process many data points simultaneously, and feeding them one at a time leaves thousands of cores idle.
-
 **Mini-batch stochastic gradient descent** is the standard compromise.
 At each training step, we sample a random subset of $$B$$ proteins (the **mini-batch**) from the training set, compute the average loss over that subset, and update the weights using its gradient:
 
@@ -170,18 +166,14 @@ $$
 \nabla_\theta L \approx \frac{1}{B} \sum_{i=1}^{B} \nabla_\theta \ell(\mathbf{x}_i, y_i; \theta)
 $$
 
-This is an unbiased estimate of the full-batch gradient --- its expectation over all possible mini-batches equals the true gradient --- but each individual estimate is noisy.
-
 The word **stochastic** in "stochastic gradient descent" refers to this randomness: at each step, the mini-batch is a random sample, so the gradient is a random variable.
 The `shuffle=True` flag in PyTorch's DataLoader is what makes SGD stochastic --- it randomizes which proteins end up in which mini-batch at each epoch.
 
 **Batch size** controls the noise-accuracy tradeoff:
 
 - **Small batches (16--32)** produce noisier gradient estimates. This noise acts as implicit regularization, helping the model generalize. Small batches also use less GPU memory, allowing larger models or longer sequences.
-- **Large batches (256--512)** produce smoother, more accurate gradients that converge faster per step. However, each step requires more computation, and the smoother optimization path can lead the model into sharp minima that generalize worse[^sharp-minima].
+- **Large batches (256--512)** produce smoother, more accurate gradients that converge faster per step. However, each step requires more computation, and the smoother optimization path can lead the model into sharp minima that generalize worse.
 - **A common starting point** for protein tasks is a batch size of 32 or 64. If your GPU has memory to spare, try 128; if you are running out of memory, drop to 16.
-
-[^sharp-minima]: The relationship between batch size and generalization is an active area of research. The prevailing view is that small-batch training finds "flatter" minima in the loss landscape, which tend to generalize better. See Keskar et al. (2017), "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima."
 
 One **epoch** means one complete pass through the training set.
 If the dataset has 50,000 proteins and the batch size is 32, one epoch consists of $$\lceil 50{,}000 / 32 \rceil = 1{,}563$$ mini-batch updates.
@@ -286,7 +278,6 @@ Getting data from disk into the model efficiently is a surprisingly important en
 ### Why Data Loading Matters
 
 PyTorch separates data loading into two abstractions: the **Dataset**, which defines how to access a single example, and the **DataLoader**, which groups examples into mini-batches and manages shuffling, padding, and parallel loading.
-This separation is a deliberate design decision.
 
 Why not just load everything into a single tensor?
 Proteins make this impractical for three reasons.
@@ -301,14 +292,8 @@ Even a curated training set of 100,000 proteins may not fit in GPU memory simult
 The DataLoader streams batches from disk or CPU memory to the GPU on demand, so only one batch needs to reside on the GPU at any time.
 
 **GPU efficiency.**
-As we discussed in Section 2, mini-batch training requires data to arrive in consistent batches of a fixed size.
+Mini-batch training requires data to arrive in consistent batches of a fixed size.
 The DataLoader handles this automatically: it groups proteins into batches, shuffles the ordering each epoch (making SGD stochastic), and optionally loads data in parallel using background worker processes.
-
-The pipeline looks like this:
-
-```
-Raw data (CSV, FASTA)  →  Dataset (encode one protein)  →  DataLoader (batch, shuffle, pad)  →  Model
-```
 
 ### The `Dataset` Class
 
@@ -428,7 +413,28 @@ This reduces wasted computation when batches contain only short sequences.
 
 ---
 
-## 5. Validation and Overfitting
+## 5. Validation, Overfitting, and the Bias-Variance Tradeoff
+
+### The Bias-Variance Tradeoff
+
+Before discussing how to detect overfitting in practice, let us formalize the tension introduced in Preliminary Note 1.
+Why not simply use the most powerful model available?
+
+The answer involves a fundamental tradeoff.
+
+**Bias** refers to error caused by a model being too simple to capture the true patterns in the data.
+A linear model predicting solubility from just the protein's length has high bias: it systematically misses the real relationship because the true function is far more complex than a straight line.
+
+**Variance** refers to error caused by a model being too sensitive to the specific training data.
+A very complex model might fit the training data perfectly, including its noise and idiosyncrasies, but produce wildly different predictions when trained on a different random sample.
+
+The sweet spot lies between these extremes.
+We want a model complex enough to capture the true patterns (low bias) but constrained enough to avoid fitting noise (low variance).
+In practice, this means:
+
+- **Too simple** (high bias): the model underfits --- training performance is already poor.
+- **Too complex** (high variance): the model overfits --- training performance is excellent, but validation performance is much worse.
+- **Just right**: both training and validation performance are good, and they are close to each other.
 
 ### The Train/Validation/Test Split
 
@@ -495,17 +501,10 @@ def evaluate(model, dataloader, criterion, device):
 
 ### What Overfitting Looks Like
 
-The figure below shows a concrete example from our solubility predictor (Section 6).
-
 <div class="col-sm-9 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/overfitting_curves.png' | relative_url }}" alt="Training vs validation loss showing overfitting">
     <div class="caption mt-1"><strong>Training and validation loss curves illustrating overfitting.</strong> Training loss decreases steadily, but validation loss begins increasing after ~40 epochs --- the model is memorizing the training data rather than learning generalizable patterns.</div>
 </div>
-
-When we train the solubility classifier for 100 epochs, training loss decreases smoothly toward zero --- the model is classifying the training proteins with high confidence.
-But the validation loss tells a different story: it decreases initially, plateaus around epoch 30--40, and then starts *increasing*.
-Training accuracy reaches 98%, while validation accuracy stalls at 72%.
-The 26-percentage-point gap means the model is spending most of its capacity on memorization.
 
 In general, loss curves fall into four patterns:
 
@@ -519,318 +518,89 @@ In general, loss curves fall into four patterns:
 Protein datasets are typically small relative to model capacity.
 A dataset of 5,000 proteins with a model containing 500,000 parameters means there are 100 parameters per training example --- plenty of room for the model to memorize each protein individually instead of learning general patterns.
 
-Additionally, protein sequences have rich internal structure --- motifs, repeats, compositional biases --- that a model can latch onto as "shortcuts" for the training set without these shortcuts being predictive on new data.
-This mirrors the problem in image classification where models sometimes learn to recognize the background (grass behind cows, snow behind wolves) rather than the object itself.
-
 The moment when validation loss stops improving and starts rising is the point of best generalization.
-Saving the model at that point --- and discarding later, overfit versions --- is the idea behind **early stopping**, which we discuss in the optional Preliminary Note 4.
-
-### A Complete Training Script
-
-Here is a production-quality training script that combines all the pieces:
-
-```python
-def train_model(model, train_loader, val_loader, epochs=100, lr=1e-3):
-    """Full training pipeline with validation monitoring."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = model.to(device)
-
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-
-    best_val_loss = float('inf')
-
-    for epoch in range(epochs):
-        # --- Training phase ---
-        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
-
-        # --- Validation phase ---
-        val_loss, _, _ = evaluate(model, val_loader, criterion, device)
-
-        # --- Save best model ---
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            torch.save(model.state_dict(), 'best_model.pt')
-
-        # --- Logging ---
-        print(f"Epoch {epoch:3d} | train_loss={train_loss:.4f} | "
-              f"val_loss={val_loss:.4f}")
-
-    # Load the best model before returning
-    model.load_state_dict(torch.load('best_model.pt'))
-    return model
-```
-
-The optional Preliminary Note 4 extends this with learning rate scheduling, early stopping, regularization techniques, and other improvements that address overfitting systematically.
+Saving the model at that point --- and discarding later, overfit versions --- is the idea behind **early stopping**, which we discuss in Preliminary Note 4 alongside other practical techniques for addressing overfitting.
 
 ---
 
-## 6. Case Study: Predicting Protein Solubility
+## 6. Backpropagation (Advanced)
 
-Let us bring every concept together in a complete, end-to-end application: predicting whether a protein will be soluble when expressed in *E. coli*.
+*This section is optional for a first reading. It explains how PyTorch computes gradients through multi-layer networks. You can safely skip it and return later.*
 
-### Why Solubility Prediction Matters
+In Preliminary Note 1 we saw PyTorch compute gradients for a simple linear model.
+But what about deeper networks with many layers, where the output of one layer feeds into the next?
+To compute how a weight in an early layer affects the final loss, we need the **chain rule** from calculus.
 
-Expressing recombinant proteins is a core technique in structural biology, biotechnology, and therapeutic development.
-When a target protein aggregates into inclusion bodies instead of dissolving in the cytoplasm, downstream applications --- crystallography, assays, drug formulation --- become much harder or impossible.
-A computational model that predicts solubility from sequence alone can guide construct design and save weeks of experimental effort.
+### The Chain Rule
 
-What makes this problem amenable to machine learning?
-Solubility is influenced by sequence-level properties: amino acid composition, charge distribution, hydrophobicity patterns, and the presence of certain sequence motifs.
-These patterns are learnable from data.
+We need $$\nabla_\theta L(\theta)$$ --- the derivative of the loss with respect to every parameter in $$\theta$$.
+But a parameter in an early layer does not appear directly in the loss formula; it influences the loss through a chain of intermediate computations: $$\theta_k \to z \to a \to \cdots \to L$$.
+The chain rule lets us decompose this dependency.
+For a parameter $$\theta_k$$ that affects the loss through an intermediate variable $$z$$:
 
-### The Model Architecture
+$$
+\frac{\partial L}{\partial \theta_k} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial \theta_k}
+$$
 
-We build a **1D convolutional neural network** (CNN) that processes amino acid embeddings.
-The architecture reflects domain knowledge: convolutional layers with a kernel size of 5 can detect patterns spanning five consecutive amino acids, which is appropriate for capturing local sequence motifs like charge clusters or hydrophobic stretches.
+In words: to find how $$\theta_k$$ affects $$L$$, multiply how $$z$$ affects $$L$$ by how $$\theta_k$$ affects $$z$$.
+Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta L(\theta)$$.
+This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
 
-```python
-import torch.nn.functional as F
+[^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
 
-class ProteinSolubilityClassifier(nn.Module):
-    """
-    A 1D-CNN for predicting protein solubility from amino acid sequence.
+### The Computation Graph
 
-    Architecture:
-    1. Embedding: map each amino acid index to a learned 64-dim vector
-    2. Two Conv1d layers: detect local sequence motifs
-    3. Global average pooling: aggregate over the full sequence
-    4. Linear output: predict soluble (1) vs. insoluble (0)
-    """
+The following diagram shows a simple computation graph and how gradients flow backward through it during backpropagation.
 
-    def __init__(self, vocab_size=21, embed_dim=64, hidden_dim=128, num_classes=2):
-        super().__init__()
+```mermaid
+flowchart TD
+    subgraph Forward["Forward Pass"]
+        x["x, W, b"] --> z["z = Wx + b"]
+        z --> a["a = σ(z)"]
+        a --> L["Loss L"]
+    end
 
-        # Embedding layer: integers → continuous vectors
-        # padding_idx=0 ensures the padding token always maps to a zero vector
-        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
+    subgraph Backward["Backward Pass"]
+        dL["∂L/∂L = 1"] --> da["∂L/∂a"]
+        da -->|"σ'(z)"| dz["∂L/∂z"]
+        dz --> dW["∂L/∂W = x"]
+        dz --> db["∂L/∂b = 1"]
+    end
 
-        # 1D convolutions detect local patterns in the sequence
-        # kernel_size=5 means each filter looks at 5 consecutive amino acids
-        # padding=2 preserves the sequence length after convolution
-        self.conv1 = nn.Conv1d(embed_dim, hidden_dim, kernel_size=5, padding=2)
-        self.conv2 = nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2)
-
-        # Classification head
-        self.fc = nn.Linear(hidden_dim, num_classes)
-        self.dropout = nn.Dropout(0.3)
-
-    def forward(self, x, mask=None):
-        # x shape: (batch, seq_len) — integer-encoded amino acids
-
-        # Step 1: Embed amino acids → (batch, seq_len, embed_dim)
-        x = self.embedding(x)
-
-        # Step 2: Rearrange for Conv1d → (batch, embed_dim, seq_len)
-        x = x.transpose(1, 2)
-
-        # Step 3: Apply convolutions with ReLU activation
-        x = F.relu(self.conv1(x))    # → (batch, hidden_dim, seq_len)
-        x = self.dropout(x)
-        x = F.relu(self.conv2(x))    # → (batch, hidden_dim, seq_len)
-
-        # Step 4: Global average pooling over the sequence dimension
-        # Use the mask to ignore padding positions
-        if mask is not None:
-            mask = mask.unsqueeze(1)             # → (batch, 1, seq_len)
-            x = (x * mask).sum(dim=2) / mask.sum(dim=2).clamp(min=1)
-        else:
-            x = x.mean(dim=2)                   # → (batch, hidden_dim)
-
-        # Step 5: Classify → (batch, num_classes)
-        x = self.fc(x)
-        return x
+    style Forward fill:#e8f4fd,stroke:#2196F3
+    style Backward fill:#fce4ec,stroke:#e91e63
 ```
 
-### Preparing the Data
+### PyTorch Autograd
+
+The remarkable thing about PyTorch is that you never need to implement backpropagation yourself.
+You define only the forward computation, and PyTorch automatically builds a computational graph that tracks every operation.
+When you call `.backward()`, it traverses this graph in reverse, computing all gradients.
+
+Here is a simple example to see autograd at work:
 
 ```python
-from sklearn.model_selection import train_test_split
-import pandas as pd
+# Create a tensor and tell PyTorch to track operations on it
+x = torch.tensor([2.0, 3.0], requires_grad=True)
 
-# Load a solubility dataset (e.g., from the SOLpro or eSOL databases)
-df = pd.read_csv('solubility_data.csv')
-print(f"Dataset size: {len(df)} proteins")
-print(f"Class distribution:\n{df['label'].value_counts()}")
+# Forward computation: y_i = x_i^2 + 3*x_i
+y = x ** 2 + 3 * x
 
-# Split into train / validation / test sets
-# Stratify by label to maintain class balance in each split
-train_df, temp_df = train_test_split(df, test_size=0.2, stratify=df['label'],
-                                     random_state=42)
-val_df, test_df = train_test_split(temp_df, test_size=0.5, stratify=temp_df['label'],
-                                   random_state=42)
+# The loss must be a scalar (single number) for .backward()
+z = y.sum()
 
-print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
+# Backward pass: compute dz/dx for each element of x
+z.backward()
 
-# Create Dataset and DataLoader objects
-train_dataset = ProteinDataset(train_df['sequence'].tolist(),
-                               train_df['label'].tolist())
-val_dataset = ProteinDataset(val_df['sequence'].tolist(),
-                             val_df['label'].tolist())
-test_dataset = ProteinDataset(test_df['sequence'].tolist(),
-                              test_df['label'].tolist())
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+# Gradients are stored in the .grad attribute
+print(x.grad)  # tensor([7., 9.])
 ```
 
-### Training
-
-```python
-# Instantiate the model and inspect its size
-model = ProteinSolubilityClassifier()
-n_params = sum(p.numel() for p in model.parameters())
-print(f"Model parameters: {n_params:,}")
-
-# Train with validation monitoring
-trained_model = train_model(model, train_loader, val_loader, epochs=50)
-```
-
-### Evaluation: Beyond Accuracy
-
-A single accuracy number rarely tells the full story.
-For a solubility dataset where 70% of proteins are soluble, a model that *always* predicts "soluble" achieves 70% accuracy while being completely useless.
-We need a richer set of metrics.
-
-```python
-from sklearn.metrics import (accuracy_score, precision_recall_fscore_support,
-                             roc_auc_score)
-
-def evaluate_classifier(model, test_loader, device):
-    """Evaluate a binary classifier with multiple metrics."""
-    model.eval()
-    all_preds = []
-    all_labels = []
-    all_probs = []
-
-    with torch.no_grad():
-        for batch in test_loader:
-            x = batch['sequence'].to(device)
-            mask = batch['mask'].to(device)
-            y = batch['label']
-
-            logits = model(x, mask)                         # Raw scores
-            probs = F.softmax(logits, dim=-1)               # Probabilities
-            preds = logits.argmax(dim=-1)                   # Predicted class
-
-            all_preds.extend(preds.cpu().numpy())
-            all_labels.extend(y.numpy())
-            all_probs.extend(probs[:, 1].cpu().numpy())     # P(soluble)
-
-    # Compute metrics
-    accuracy = accuracy_score(all_labels, all_preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        all_labels, all_preds, average='binary'
-    )
-    auc = roc_auc_score(all_labels, all_probs)
-
-    print(f"Accuracy:  {accuracy:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall:    {recall:.4f}")
-    print(f"F1 Score:  {f1:.4f}")
-    print(f"AUC-ROC:   {auc:.4f}")
-
-    return accuracy, precision, recall, f1, auc
-```
-
-### Understanding the Metrics
-
-| Metric | Question It Answers | Protein Example | General Example |
-|---|---|---|---|
-| **Accuracy** | What fraction of all predictions are correct? | 85% of solubility predictions correct | 95% of spam classifications correct |
-| **Precision** | Of positive predictions, what fraction truly are? | Of proteins predicted soluble, how many truly are? | Of emails flagged spam, how many truly are? |
-| **Recall** | Of true positives, what fraction did we detect? | Of truly soluble proteins, how many did we find? | Of actual spam emails, how many did we catch? |
-| **F1 Score** | Harmonic mean of precision and recall | Balance between missing soluble proteins and wasting expression experiments | Balance between missing spam and annoying users with false flags |
-| **AUC-ROC** | How well does the model separate classes across all thresholds? | Overall ability to distinguish soluble from insoluble | Overall ability to distinguish spam from legitimate email |
-
-The precision-recall tradeoff deserves special attention.
-In a drug discovery setting, where expressing each candidate is expensive, a biologist might want **high precision**: "I only want to express proteins that are very likely to be soluble."
-By raising the classification threshold from 0.5 to, say, 0.8, we predict fewer proteins as soluble but are more confident in those predictions.
-The same logic applies in medical diagnosis: a doctor screening for a rare disease might want high precision to avoid unnecessary invasive follow-up procedures.
-
-Conversely, in a high-throughput screening setting with thousands of candidates, a biologist might prefer **high recall**: "I don't want to miss any potentially soluble protein."
-Lowering the threshold to 0.3 captures more true positives at the cost of more false positives.
-In the medical setting, a cancer screening program would prefer high recall: missing a true case is far worse than ordering extra tests.
-
-The AUC-ROC summarizes this tradeoff across all possible thresholds.
-An AUC of 1.0 means perfect separation; 0.5 means the model is no better than random.
-
----
-
-## 7. Debugging and Reproducibility
-
-### Debugging Neural Networks
-
-Neural networks can fail silently.
-The code runs, the loss decreases, but predictions are useless.
-Systematic debugging is essential.
-
-```python
-# 1. Check for NaN gradients (sign of numerical instability)
-for name, param in model.named_parameters():
-    if param.grad is not None and torch.isnan(param.grad).any():
-        print(f"WARNING: NaN gradient detected in {name}")
-
-# 2. Verify that outputs are in a sensible range
-with torch.no_grad():
-    sample_output = model(sample_input)
-    print(f"Output range: [{sample_output.min():.3f}, {sample_output.max():.3f}]")
-
-# 3. Confirm that input and output shapes match expectations
-print(f"Input shape:  {sample_input.shape}")
-print(f"Output shape: {model(sample_input).shape}")
-
-# 4. Sanity check: can the model overfit a single batch?
-# If it cannot, there is likely a bug in the architecture or loss
-small_batch_x, small_batch_y = next(iter(train_loader))
-for step in range(200):
-    pred = model(small_batch_x.to(device))
-    loss = criterion(pred, small_batch_y.to(device))
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-    if step % 50 == 0:
-        print(f"Step {step}: loss = {loss.item():.4f}")
-# Loss should approach 0. If it does not, debug your model.
-```
-
-### Reproducibility
-
-Science requires reproducibility.
-Set all random seeds at the start of every experiment:
-
-```python
-import random
-import numpy as np
-
-def set_seed(seed=42):
-    """Set random seeds for reproducibility across all libraries."""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    # For full determinism on GPU (may reduce performance slightly):
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-set_seed(42)
-```
-
-Full determinism on GPU can slow training by 10--20%.
-For exploratory experiments, setting the Python, NumPy, and PyTorch seeds is usually sufficient.
-Reserve full determinism for final reported results.
-
-### A Practical Checklist
-
-Before declaring a model "trained," verify the following:
-
-1. Training loss decreases steadily over epochs.
-2. Validation loss decreases initially, then plateaus (not increases --- that signals overfitting).
-3. The model can perfectly overfit a single batch (sanity check for bugs).
-4. Gradients are finite (no NaN or Inf values).
-5. Metrics on the test set are consistent with validation set metrics.
-6. Results are reproducible when the same seed is used.
+Let us verify this by hand.
+We have $$z = \sum_i (x_i^2 + 3x_i)$$, so the partial derivative is $$\frac{\partial z}{\partial x_i} = 2x_i + 3$$.
+For $$x_1 = 2$$: $$2(2) + 3 = 7$$.
+For $$x_2 = 3$$: $$2(3) + 3 = 9$$.
+PyTorch computed exactly these values --- automatically.
 
 ---
 
@@ -844,11 +614,11 @@ Before declaring a model "trained," verify the following:
 
 4. **Data loading** with `Dataset` and `DataLoader` handles batching, shuffling, and parallel processing. Custom collate functions manage variable-length protein sequences efficiently.
 
-5. **Validation** is essential for detecting overfitting. Always split data into train/validation/test sets. The test set should only be used for final evaluation --- never for making decisions during training.
+5. **The bias-variance tradeoff** governs model design: too simple models underfit (high bias), too complex models overfit (high variance). The train/validation/test split is essential for detecting overfitting.
 
-6. **Evaluation** must use multiple metrics. Accuracy alone is misleading for imbalanced datasets. Understand the precision-recall tradeoff in the context of your biological application.
+6. **Backpropagation** uses the chain rule to compute gradients through multi-layer networks. PyTorch automates this entirely --- you only define the forward pass.
 
-7. **Optional next step**: Preliminary Note 4 takes the solubility predictor from this note and systematically improves it using regularization, learning rate schedules, sequence-identity splits, and other techniques. It is recommended but not required before proceeding to Lecture 1.
+7. **Next up**: Preliminary Note 4 applies all of these components in a complete case study --- predicting protein solubility --- including evaluation, sequence-identity splits, class imbalance, and debugging.
 
 ---
 
@@ -866,7 +636,7 @@ The idea: run four forward/backward passes (each with 32 samples), accumulate th
 
 ### Exercise 2: Optimizer Comparison
 
-Train the `ProteinSolubilityClassifier` from Section 6 three times, each with a different optimizer:
+Train a simple `ProteinPropertyPredictor` (from Preliminary Note 2) three times, each with a different optimizer:
 - SGD with momentum 0.9
 - Adam with default settings
 - AdamW with weight decay 0.01
@@ -875,25 +645,15 @@ Plot the training and validation loss curves for all three on the same graph.
 Which optimizer converges fastest?
 Which achieves the lowest final validation loss?
 
-### Exercise 3: Custom Metric — Matthews Correlation Coefficient
+### Exercise 3: Manual Gradient Computation
 
-Implement **Matthews Correlation Coefficient** (MCC), a metric that is informative even when classes are severely imbalanced:
+Create a simple linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ with `requires_grad=True` on both $$\mathbf{W}$$ and $$b$$.
+Compute the MSE loss for a small batch of 10 data points.
+Call `.backward()` and inspect the gradients.
 
-$$
-\text{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}
-$$
+Then manually compute $$\partial L / \partial \mathbf{W}$$ and $$\partial L / \partial b$$ using the chain rule and verify they match the PyTorch gradients.
 
-where $$TP$$, $$TN$$, $$FP$$, and $$FN$$ are the counts of true positives, true negatives, false positives, and false negatives respectively.
-Add this metric to the `evaluate_classifier` function and compare it to accuracy on a dataset where 90% of proteins are soluble.
-
-### Exercise 4: Per-Residue Secondary Structure Prediction
-
-Build a 3-layer MLP that predicts secondary structure for each residue in a protein sequence.
-The model should take a one-hot encoded sequence of shape `(batch, length, 20)` and output three probabilities (helix, sheet, coil) for each position, giving output shape `(batch, length, 3)`.
-
-*Hints:*
-- Use `nn.CrossEntropyLoss()` with the input reshaped to `(batch * length, 3)`.
-- Think carefully about how to handle padding positions in the loss computation (see the variable-length sequences section).
+*Hint:* For MSE loss $$L = \frac{1}{n}\sum_i (\mathbf{W}\mathbf{x}_i + b - y_i)^2$$, the gradients are $$\frac{\partial L}{\partial \mathbf{W}} = \frac{2}{n}\sum_i \mathbf{x}_i(\mathbf{W}\mathbf{x}_i + b - y_i)$$ and $$\frac{\partial L}{\partial b} = \frac{2}{n}\sum_i (\mathbf{W}\mathbf{x}_i + b - y_i)$$.
 
 ---
 

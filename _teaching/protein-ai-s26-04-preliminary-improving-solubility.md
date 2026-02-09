@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Improving the Protein Solubility Predictor (Optional)"
-date: 2026-03-04
-description: "A hands-on walkthrough of diagnosing and fixing common training problems—overfitting, instability, data leakage, and class imbalance—using the solubility predictor from Preliminary Note 3."
+title: "Case Study: Predicting Protein Solubility"
+date: 2026-03-03
+description: "An end-to-end case study—building, training, and honestly evaluating a solubility predictor, including sequence-identity splits, class imbalance, early stopping, and debugging."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -15,478 +15,293 @@ mermaid:
   enabled: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is an optional Preliminary Note 4 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues the protein solubility case study from Preliminary Note 3 and is recommended for students who want to deepen their practical training skills before the main lectures. You may proceed directly to Lecture 1 without this note.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 4 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It applies everything from Preliminary Notes 1--3 in a complete case study. You should work through this note before the first in-class lecture.</em></p>
 
 ## Introduction
 
-In Preliminary Note 3 you trained a convolutional neural network to predict protein solubility.
-It works --- but not well enough.
-Preliminary Note 3 covered the core training concepts; this note goes further with practical techniques for improving real-world model performance.
-The training loss looks great, but the validation loss tells a different story: the model is memorizing the training data rather than learning general patterns.
-And even when we address that, we will discover that our evaluation is misleadingly optimistic because of hidden data leakage.
+In the previous three notes you learned what machine learning is, how to represent protein data as tensors, how neural networks transform those tensors into predictions, and how the training loop adjusts weights to reduce a loss function.
+Now we bring everything together in a single, end-to-end project: predicting whether a protein will be soluble when expressed in *E. coli*.
 
-This note walks through the process of **systematically improving** a model.
-Instead of presenting a catalog of techniques in the abstract, we start from the baseline solubility predictor and fix problems one at a time.
-Each section follows a narrative arc: *observe a problem → understand why it happens → introduce a technique that addresses it → show the improvement*.
+This note is structured as a narrative.
+We start by building and training a baseline model using the tools from Notes 1--3.
+Then, step by step, we discover problems --- misleading evaluation, class imbalance, overfitting --- and fix them.
+Each section follows the same arc: *observe a problem → understand why it happens → introduce a technique that addresses it → show the improvement*.
 
-By the end, you will have a toolkit for diagnosing and fixing the most common training problems in protein machine learning.
+By the end, you will have a working solubility predictor and a practical toolkit for diagnosing and fixing the most common training problems in protein machine learning.
 
 ### Roadmap
 
-| Section | Problem Observed | Technique Introduced |
+| Section | Topic | What You Will Learn |
 |---|---|---|
-| 1. Diagnosing the Baseline | Training loss good, validation loss bad | Loss curve analysis |
-| 2. Fighting Overfitting with Dropout | Model memorizes training data | Dropout |
-| 3. Weight Decay and Simpler Solutions | Still overfitting after dropout | Weight decay (L2 regularization) |
-| 4. Stabilizing Training with Normalization | Training is noisy and unstable | Layer Normalization |
-| 5. Learning Rate Schedules | Model plateaus before converging | Warmup + cosine decay |
-| 6. Knowing When to Stop | Validation loss starts rising again | Early stopping |
-| 7. Tuning Hyperparameters | Performance depends on specific settings | Random search |
-| 8. Evaluating Properly | Random split overestimates performance | Sequence-identity splits |
-| 9. Handling Class Imbalance | Poor performance on the minority class | Weighted loss |
+| 1 | The Solubility Prediction Problem | Why this problem matters and what makes it amenable to ML |
+| 2 | Model Architecture and Data Preparation | A 1D-CNN classifier, data splitting, Dataset/DataLoader setup |
+| 3 | Training and Evaluation | Training script, evaluation metrics beyond accuracy, precision-recall |
+| 4 | Evaluating Properly: Sequence-Identity Splits | Why random splits overestimate performance, and how to fix it |
+| 5 | Handling Class Imbalance | Weighted loss functions for imbalanced datasets |
+| 6 | Knowing When to Stop: Early Stopping | Detecting the overfitting point and saving the best model |
+| 7 | Debugging and Reproducibility | NaN detection, shape checks, single-batch overfit test, seed setting |
 
 ### Prerequisites
 
-This note assumes you have worked through Preliminary Notes 2 and 3: building neural networks, training loops, loss functions, optimizers, and the solubility predictor case study.
+This note assumes you have worked through Preliminary Notes 1--3: tensors, neural network architectures, loss functions, optimizers, the training loop, data loading, and validation.
 
 ---
 
-## 1. Diagnosing the Baseline
+## 1. The Solubility Prediction Problem
 
-Let us start by examining the training behavior of the solubility predictor from Preliminary Note 3.
+### Why Solubility Prediction Matters
 
-As we saw in Preliminary Note 3 (Section 5), the training loss decreases smoothly but the validation loss rises after approximately 40 epochs --- the hallmark of overfitting.
-Training accuracy reaches 98% while validation accuracy stalls at 72%, a 26-percentage-point gap.
-Preliminary Note 3 explains why protein datasets are especially prone to this problem (small datasets relative to model capacity, sequence motifs as memorization shortcuts).
+Expressing recombinant proteins is a core technique in structural biology, biotechnology, and therapeutic development.
+When a target protein aggregates into inclusion bodies instead of dissolving in the cytoplasm, downstream applications --- crystallography, assays, drug formulation --- become much harder or impossible.
+A computational model that predicts solubility from sequence alone can guide construct design and save weeks of experimental effort.
 
-This 26-percentage-point gap is our primary target for improvement.
-The rest of this note introduces techniques to close it, one at a time.
+### What Makes This Problem Amenable to Machine Learning?
 
----
+Solubility is influenced by sequence-level properties: amino acid composition, charge distribution, hydrophobicity patterns, and the presence of certain sequence motifs.
+These patterns are learnable from data.
 
-## 2. Fighting Overfitting with Dropout
-
-### The Idea
-
-```mermaid
-flowchart LR
-    subgraph Full["Standard Network"]
-        direction TB
-        FA["Input"] --> FB["h₁"] & FC["h₂"] & FD["h₃"] & FE["h₄"]
-        FB & FC & FD & FE --> FF["Output"]
-    end
-
-    subgraph Dropped["With Dropout (p=0.5)"]
-        direction TB
-        DA["Input"] --> DB["h₁"] & DD["h₃"]
-        DB & DD --> DF["Output"]
-        DC["h₂ ✗"] ~~~ DD
-        DE["h₄ ✗"] ~~~ DD
-    end
-
-    Full -->|"During Training"| Dropped
-
-    style DC fill:#fcc,stroke:#c00,stroke-dasharray: 5 5
-    style DE fill:#fcc,stroke:#c00,stroke-dasharray: 5 5
-```
-
-**Dropout** is one of the most widely used regularization techniques.[^dropout-origin]
-During training, we randomly "drop" (zero out) each neuron's output with probability $$p$$, where $$p$$ is typically between 0.1 and 0.5.
-This has two complementary effects.
-
-First, dropout prevents **co-adaptation**.
-Without dropout, neurons can develop fragile interdependencies: neuron A only fires when neuron B fires, which only happens when neuron C fires.
-These chains break down on new data.
-Dropout forces each neuron to be independently useful.
-
-Second, dropout implicitly trains an **exponential ensemble** of sub-networks.
-Each training step uses a different random subset of neurons, effectively training a different architecture.
-At test time, all neurons are active (with outputs scaled by $$1 - p$$ to compensate for the increased capacity), which approximates averaging predictions from all these sub-networks.
-
-[^dropout-origin]: Dropout was introduced by Srivastava et al. (2014). The name comes from the idea of "dropping out" units from the neural network during training.
-
-### Applying Dropout to Our Solubility Model
-
-Our `ProteinSolubilityClassifier` already includes `nn.Dropout(0.3)` between the convolutional layers, but let us examine its effect more carefully.
-
-A critical detail: dropout behaves differently during training and evaluation.
-During training, neurons are randomly zeroed.
-During evaluation, all neurons are active and outputs are scaled.
-PyTorch handles this automatically, but you must explicitly switch modes by calling `model.train()` before training and `model.eval()` before evaluation.
-Forgetting this switch is a common source of bugs where validation performance looks artificially poor.
-
-### Choosing a Dropout Rate
-
-For protein models, a dropout rate between 0.1 and 0.3 is a reasonable starting point.
-Higher rates (0.4--0.5) can help when working with very small datasets but risk **underfitting** if set too aggressively --- the model never sees enough of its own neurons to learn effectively.
-We will tune this as a hyperparameter in Section 7.
-
-### Effect on Our Model
-
-After adding dropout at rate 0.3, we observe: the training loss no longer decreases as rapidly (the model is intentionally handicapped during training), but the validation loss improves.
-The gap narrows from 26 percentage points to roughly 15.
-Better, but not yet satisfactory.
+This is a **binary classification** task: given a protein sequence, predict whether it will be soluble (1) or insoluble (0).
+We use the tools from Preliminary Note 3: binary cross-entropy loss, the `ProteinDataset` class, and the training loop.
 
 ---
 
-## 3. Weight Decay and Simpler Solutions
+## 2. Model Architecture and Data Preparation
 
-### The Idea
+### The Model Architecture
 
-Even with dropout, our model still overfits.
-The next line of defense is **weight decay**, which is L2 regularization applied to the model parameters.
-Instead of minimizing just the task loss $$L_{\text{task}}$$, we minimize a combined objective:
-
-$$
-L_{\text{total}} = L_{\text{task}} + \lambda \sum_{i} w_i^2
-$$
-
-Here $$w_i$$ denotes each learnable weight in the model, and $$\lambda$$ (a positive scalar called the **regularization strength**) controls how strongly we penalize large weights.
-Common values for $$\lambda$$ range from 0.001 to 0.1.
-
-The intuition: large weights often indicate the model is fitting noise rather than signal.
-A weight of magnitude 100 means the model is relying heavily on a single feature or feature combination, which is fragile.
-By penalizing large weights, we encourage the model to distribute its representation across many small contributions --- a simpler, more robust solution.
-
-### Applying Weight Decay with AdamW
-
-In PyTorch, weight decay is built into the optimizer:
+We build a **1D convolutional neural network** (CNN) that processes amino acid embeddings.
+The architecture reflects domain knowledge: convolutional layers with a kernel size of 5 can detect patterns spanning five consecutive amino acids, which is appropriate for capturing local sequence motifs like charge clusters or hydrophobic stretches.
 
 ```python
-# AdamW applies weight decay correctly (decoupled from the adaptive learning rate)
-optimizer = torch.optim.AdamW(
-    model.parameters(),
-    lr=1e-4,
-    weight_decay=0.01  # Regularization strength lambda
-)
-```
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
-A subtle but important point: **AdamW** handles weight decay correctly by decoupling it from the adaptive learning rate scaling.
-The older `Adam` optimizer with the `weight_decay` parameter implements L2 regularization in a way that couples the penalty with the per-parameter scaling, which changes its effective strength.
-For most purposes, prefer `AdamW`.
+class ProteinSolubilityClassifier(nn.Module):
+    """
+    A 1D-CNN for predicting protein solubility from amino acid sequence.
 
-### Effect on Our Model
+    Architecture:
+    1. Embedding: map each amino acid index to a learned 64-dim vector
+    2. Two Conv1d layers: detect local sequence motifs
+    3. Global average pooling: aggregate over the full sequence
+    4. Linear output: predict soluble (1) vs. insoluble (0)
+    """
 
-Adding weight decay of 0.01 to our optimizer further reduces the train-validation gap.
-The training accuracy drops slightly (the model is penalized for using large weights), but the validation accuracy improves.
-Combined with dropout, the gap narrows to about 8 percentage points.
-
-Weight decay is particularly valuable when fine-tuning a pre-trained protein language model (such as ESM[^esm]) on a small labeled dataset.
-Without weight decay, the model's parameters can drift far from their well-regularized pre-trained values, destroying the general knowledge learned during pre-training.
-
-[^esm]: ESM (Evolutionary Scale Modeling) is a family of protein language models developed by Meta AI. We cover protein language models in detail in a later lecture.
-
----
-
-## 4. Stabilizing Training with Normalization
-
-### The Problem
-
-Even with regularization, our training curves are noisy --- the loss oscillates from batch to batch instead of decreasing smoothly.
-This noise makes it harder for the optimizer to find good solutions, especially early in training when the model's activations can have wildly varying magnitudes.
-
-### Layer Normalization
-
-Normalization layers stabilize training by ensuring that layer inputs maintain reasonable distributions.
-Without normalization, small changes in early layers can cascade into large changes in later layers --- a phenomenon called **internal covariate shift** --- making optimization difficult.
-
-```mermaid
-flowchart TB
-    subgraph BN["Batch Normalization"]
-        direction TB
-        BN1["Sample 1: [f₁ f₂ f₃ f₄]"]
-        BN2["Sample 2: [f₁ f₂ f₃ f₄]"]
-        BN3["Sample 3: [f₁ f₂ f₃ f₄]"]
-        BN1 & BN2 & BN3 -.- BNS["Normalize ↓ across batch\nμ, σ per feature column"]
-    end
-
-    subgraph LN["Layer Normalization"]
-        direction TB
-        LN1["Sample 1: [f₁ f₂ f₃ f₄] → normalize →"]
-        LN2["Sample 2: [f₁ f₂ f₃ f₄] → normalize →"]
-        LN3["Sample 3: [f₁ f₂ f₃ f₄] → normalize →"]
-        LN1 & LN2 & LN3 -.- LNS["Normalize → across features\nμ, σ per sample row"]
-    end
-
-    style BN fill:#fff3e0,stroke:#FF9800
-    style LN fill:#e8f4fd,stroke:#2196F3
-```
-
-Two normalization approaches are common: **Batch Normalization** (BatchNorm), which normalizes across the batch dimension, and **Layer Normalization** (LayerNorm), which normalizes across the feature dimension.
-
-For protein sequence data, **Layer Normalization is almost always preferred**, for two reasons:
-
-1. With variable-length protein sequences, batches contain a mix of short and long proteins. BatchNorm's statistics become noisy because they average over proteins with very different lengths and padding amounts.
-
-2. BatchNorm behaves differently during training (uses mini-batch statistics) and evaluation (uses running-average statistics), which can cause unexpected behavior with small batch sizes.
-
-LayerNorm avoids both issues because it normalizes each sequence independently --- it never looks across the batch.
-
-### Adding Normalization to Our Model
-
-We can wrap our convolutional blocks with LayerNorm.
-The pattern below uses "pre-norm" placement (normalize before transformation) and a residual connection:
-
-```python
-class ProteinBlock(nn.Module):
-    """A single encoder block with pre-norm, feedforward, and residual connection."""
-    def __init__(self, hidden_dim):
+    def __init__(self, vocab_size=21, embed_dim=64, hidden_dim=128, num_classes=2):
         super().__init__()
-        self.linear1 = nn.Linear(hidden_dim, hidden_dim * 4)  # Expand
-        self.linear2 = nn.Linear(hidden_dim * 4, hidden_dim)  # Project back
-        self.layernorm = nn.LayerNorm(hidden_dim)
-        self.dropout = nn.Dropout(0.1)
 
-    def forward(self, x):
-        # x shape: (batch_size, seq_len, hidden_dim)
-        residual = x
-        x = self.layernorm(x)          # Normalize before transformation
-        x = self.linear1(x)
-        x = nn.functional.gelu(x)      # GELU activation (smooth variant of ReLU)
+        # Embedding layer: integers → continuous vectors
+        # padding_idx=0 ensures the padding token always maps to a zero vector
+        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
+
+        # 1D convolutions detect local patterns in the sequence
+        # kernel_size=5 means each filter looks at 5 consecutive amino acids
+        # padding=2 preserves the sequence length after convolution
+        self.conv1 = nn.Conv1d(embed_dim, hidden_dim, kernel_size=5, padding=2)
+        self.conv2 = nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2)
+
+        # Classification head
+        self.fc = nn.Linear(hidden_dim, num_classes)
+        self.dropout = nn.Dropout(0.3)
+
+    def forward(self, x, mask=None):
+        # x shape: (batch, seq_len) — integer-encoded amino acids
+
+        # Step 1: Embed amino acids → (batch, seq_len, embed_dim)
+        x = self.embedding(x)
+
+        # Step 2: Rearrange for Conv1d → (batch, embed_dim, seq_len)
+        x = x.transpose(1, 2)
+
+        # Step 3: Apply convolutions with ReLU activation
+        x = F.relu(self.conv1(x))    # → (batch, hidden_dim, seq_len)
         x = self.dropout(x)
-        x = self.linear2(x)
-        return residual + x            # Residual connection preserves gradient flow
+        x = F.relu(self.conv2(x))    # → (batch, hidden_dim, seq_len)
+
+        # Step 4: Global average pooling over the sequence dimension
+        # Use the mask to ignore padding positions
+        if mask is not None:
+            mask = mask.unsqueeze(1)             # → (batch, 1, seq_len)
+            x = (x * mask).sum(dim=2) / mask.sum(dim=2).clamp(min=1)
+        else:
+            x = x.mean(dim=2)                   # → (batch, hidden_dim)
+
+        # Step 5: Classify → (batch, num_classes)
+        x = self.fc(x)
+        return x
 ```
 
-The **residual connection** (`residual + x`) is equally important: it provides a shortcut path for gradients to flow backward through the network without being attenuated, making deeper networks trainable.
+### Preparing the Data
 
-### Effect on Our Model
+```python
+from sklearn.model_selection import train_test_split
+import pandas as pd
 
-After adding LayerNorm, the training curves become noticeably smoother.
-The loss decreases more consistently epoch-to-epoch, and the optimizer reaches a better solution in fewer epochs.
+# Load a solubility dataset (e.g., from the SOLpro or eSOL databases)
+df = pd.read_csv('solubility_data.csv')
+print(f"Dataset size: {len(df)} proteins")
+print(f"Class distribution:\n{df['label'].value_counts()}")
+
+# Split into train / validation / test sets
+# Stratify by label to maintain class balance in each split
+train_df, temp_df = train_test_split(df, test_size=0.2, stratify=df['label'],
+                                     random_state=42)
+val_df, test_df = train_test_split(temp_df, test_size=0.5, stratify=temp_df['label'],
+                                   random_state=42)
+
+print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
+
+# Create Dataset and DataLoader objects (ProteinDataset from Note 3)
+from torch.utils.data import DataLoader
+
+train_dataset = ProteinDataset(train_df['sequence'].tolist(),
+                               train_df['label'].tolist())
+val_dataset = ProteinDataset(val_df['sequence'].tolist(),
+                             val_df['label'].tolist())
+test_dataset = ProteinDataset(test_df['sequence'].tolist(),
+                              test_df['label'].tolist())
+
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+```
 
 ---
 
-## 5. Learning Rate Schedules
+## 3. Training and Evaluation
 
-### The Problem
+### The Training Script
 
-After applying regularization and normalization, our model trains stably but plateaus.
-The loss stops decreasing around epoch 30, and additional epochs produce no further improvement.
-The issue: a fixed learning rate that was appropriate early in training is too large for fine-tuning near a good solution.
+We combine the `train_one_epoch` and `evaluate` functions from Preliminary Note 3 into a complete training pipeline with validation monitoring.
 
-### Why the Learning Rate Matters So Much
+```python
+def train_model(model, train_loader, val_loader, epochs=100, lr=1e-3):
+    """Full training pipeline with validation monitoring."""
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+
+    best_val_loss = float('inf')
+
+    for epoch in range(epochs):
+        # --- Training phase ---
+        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
+
+        # --- Validation phase ---
+        val_loss, _, _ = evaluate(model, val_loader, criterion, device)
+
+        # --- Save best model ---
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            torch.save(model.state_dict(), 'best_model.pt')
+
+        # --- Logging ---
+        print(f"Epoch {epoch:3d} | train_loss={train_loss:.4f} | "
+              f"val_loss={val_loss:.4f}")
+
+    # Load the best model before returning
+    model.load_state_dict(torch.load('best_model.pt'))
+    return model
+
+# Instantiate the model and inspect its size
+model = ProteinSolubilityClassifier()
+n_params = sum(p.numel() for p in model.parameters())
+print(f"Model parameters: {n_params:,}")
+
+# Train with validation monitoring
+trained_model = train_model(model, train_loader, val_loader, epochs=50)
+```
+
+### Evaluation: Beyond Accuracy
+
+A single accuracy number rarely tells the full story.
+For a solubility dataset where 70% of proteins are soluble, a model that *always* predicts "soluble" achieves 70% accuracy while being completely useless.
+We need a richer set of metrics.
+
+```python
+from sklearn.metrics import (accuracy_score, precision_recall_fscore_support,
+                             roc_auc_score)
+
+def evaluate_classifier(model, test_loader, device):
+    """Evaluate a binary classifier with multiple metrics."""
+    model.eval()
+    all_preds = []
+    all_labels = []
+    all_probs = []
+
+    with torch.no_grad():
+        for batch in test_loader:
+            x = batch['sequence'].to(device)
+            mask = batch['mask'].to(device)
+            y = batch['label']
+
+            logits = model(x, mask)                         # Raw scores
+            probs = F.softmax(logits, dim=-1)               # Probabilities
+            preds = logits.argmax(dim=-1)                   # Predicted class
+
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(y.numpy())
+            all_probs.extend(probs[:, 1].cpu().numpy())     # P(soluble)
+
+    # Compute metrics
+    accuracy = accuracy_score(all_labels, all_preds)
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        all_labels, all_preds, average='binary'
+    )
+    auc = roc_auc_score(all_labels, all_probs)
+
+    print(f"Accuracy:  {accuracy:.4f}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall:    {recall:.4f}")
+    print(f"F1 Score:  {f1:.4f}")
+    print(f"AUC-ROC:   {auc:.4f}")
+
+    return accuracy, precision, recall, f1, auc
+```
+
+### Understanding the Metrics
+
+| Metric | Question It Answers | Protein Example |
+|---|---|---|
+| **Accuracy** | What fraction of all predictions are correct? | 85% of solubility predictions correct |
+| **Precision** | Of positive predictions, what fraction truly are? | Of proteins predicted soluble, how many truly are? |
+| **Recall** | Of true positives, what fraction did we detect? | Of truly soluble proteins, how many did we find? |
+| **F1 Score** | Harmonic mean of precision and recall | Balance between missing soluble proteins and wasting experiments |
+| **AUC-ROC** | How well does the model separate classes across all thresholds? | Overall ability to distinguish soluble from insoluble |
+
+The precision-recall tradeoff deserves special attention.
+In a drug discovery setting, where expressing each candidate is expensive, a biologist might want **high precision**: "I only want to express proteins that are very likely to be soluble."
+By raising the classification threshold from 0.5 to 0.8, we predict fewer proteins as soluble but are more confident in those predictions.
+
+Conversely, in a high-throughput screening setting with thousands of candidates, a biologist might prefer **high recall**: "I don't want to miss any potentially soluble protein."
+Lowering the threshold to 0.3 captures more true positives at the cost of more false positives.
+
+The AUC-ROC summarizes this tradeoff across all possible thresholds.
+An AUC of 1.0 means perfect separation; 0.5 means the model is no better than random.
+
+### Analyzing the Loss Curves
+
+After training for 50 epochs, examine the loss curves.
 
 <div class="col-sm-9 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/lr_schedules.png' | relative_url }}" alt="Learning rate schedules comparison">
-    <div class="caption mt-1">Three common learning rate schedules. Step decay makes abrupt reductions at fixed intervals. Cosine annealing provides smooth decay that gradually slows exploration. Warmup + cosine starts low to stabilize early training, ramps up, then decays — the default choice for transformer-based protein models.</div>
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/overfitting_curves.png' | relative_url }}" alt="Training vs validation loss showing overfitting">
+    <div class="caption mt-1"><strong>Training and validation loss curves.</strong> Training loss decreases steadily, but validation loss begins increasing after ~40 epochs --- the model is memorizing the training data rather than learning generalizable patterns.</div>
 </div>
 
-The learning rate $$\eta$$ controls the step size of each gradient descent update.
-If $$\eta$$ is too high, the optimizer overshoots good solutions and the loss oscillates.
-If $$\eta$$ is too low, training takes impractically long.
-
-The optimal learning rate is not constant throughout training.
-Early on, we can take large steps because we are far from any minimum.
-Later, we need smaller steps to fine-tune and avoid overshooting.
-This motivates **learning rate schedules**: functions that adjust $$\eta$$ over the course of training.
-
-### Warmup: Stabilizing Early Training
-
-At the start of training, the model's weights are random, so gradients can be unusually large or point in misleading directions.
-**Warmup** starts with a very small learning rate and gradually increases it over the first few hundred or thousand steps, giving the optimizer time to accumulate reliable gradient statistics.
-
-### Cosine Annealing: Smooth Decay
-
-After warmup, **cosine annealing** provides a smooth decay following a cosine curve:
-
-$$
-\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{t}{T}\pi\right)\right)
-$$
-
-The cosine shape starts slowly, accelerates through the middle of training, and slows again as it approaches the minimum learning rate.
-
-### The Standard Recipe: Warmup + Cosine Decay
-
-The most common schedule in modern deep learning combines both:
-
-```python
-import math
-
-def get_warmup_cosine_scheduler(optimizer, warmup_steps, total_steps, min_lr_ratio=0.01):
-    """Warmup followed by cosine decay — the standard modern schedule."""
-    def lr_lambda(current_step):
-        if current_step < warmup_steps:
-            # Linear warmup
-            return float(current_step) / float(max(1, warmup_steps))
-        else:
-            # Cosine decay from 1.0 down to min_lr_ratio
-            progress = float(current_step - warmup_steps) / float(
-                max(1, total_steps - warmup_steps)
-            )
-            return min_lr_ratio + (1 - min_lr_ratio) * 0.5 * (
-                1 + math.cos(math.pi * progress)
-            )
-
-    return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
-```
-
-A common rule of thumb: warm up for about 5--10% of total training steps.
-
-### Alternative: Reduce on Plateau
-
-When you do not know in advance how many training steps are needed, **reduce on plateau** monitors validation loss and reduces the learning rate when progress stalls:
-
-```python
-scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer,
-    mode='min',       # 'min' for loss (lower is better)
-    factor=0.5,       # Multiply LR by 0.5 when reducing
-    patience=5,       # Wait 5 epochs before reducing
-    min_lr=1e-6       # Do not reduce below this value
-)
-
-# In the training loop: pass the validation loss
-scheduler.step(val_loss)
-```
-
-### Effect on Our Model
-
-With warmup + cosine decay, the model breaks through its earlier plateau.
-The initial warmup prevents the unstable early training we sometimes saw, and the cosine decay allows the optimizer to make progressively finer adjustments.
-Validation loss improves by an additional 3--5%.
+If the training loss decreases smoothly but the validation loss rises after approximately 40 epochs, the model is overfitting.
+The gap between training accuracy (~98%) and validation accuracy (~72%) confirms this.
+Sections 5 and 6 address this problem with early stopping and other techniques.
 
 ---
 
-## 6. Knowing When to Stop
+## 4. Evaluating Properly: Sequence-Identity Splits
 
 ### The Problem
 
-Even with a good learning rate schedule, there comes a point when continued training hurts more than it helps.
-Validation loss may start rising again after reaching its best value, indicating that the model is beginning to overfit to the training data.
-
-### Early Stopping
-
-**Early stopping** is a form of regularization based on *time* rather than architecture.
-The idea: monitor validation performance during training and stop when it stops improving.
-
-Why does this work as regularization?
-In the early phases of training, the model learns general, transferable patterns.
-As training continues, it gradually begins to memorize training-specific noise.
-The point at which validation performance peaks is the sweet spot between underfitting and overfitting.
-
-```python
-class EarlyStopping:
-    """Stop training when validation loss stops improving."""
-    def __init__(self, patience=10, min_delta=1e-4):
-        self.patience = patience
-        self.min_delta = min_delta
-        self.best_loss = float('inf')
-        self.counter = 0
-        self.should_stop = False
-
-    def step(self, val_loss):
-        """Call once per epoch. Returns True if this is a new best model."""
-        if val_loss < self.best_loss - self.min_delta:
-            self.best_loss = val_loss
-            self.counter = 0
-            return True   # New best — save checkpoint
-        else:
-            self.counter += 1
-            if self.counter >= self.patience:
-                self.should_stop = True
-            return False  # No improvement
-```
-
-In the training loop:
-
-```python
-early_stopping = EarlyStopping(patience=15)
-
-for epoch in range(max_epochs):
-    train_loss = train_one_epoch(model, train_loader, optimizer)
-    val_loss = evaluate(model, val_loader)
-
-    if early_stopping.step(val_loss):
-        torch.save(model.state_dict(), 'best_model.pt')
-
-    if early_stopping.should_stop:
-        print(f"Early stopping at epoch {epoch}")
-        break
-
-# Load the best model for final evaluation
-model.load_state_dict(torch.load('best_model.pt'))
-```
-
-The **patience** parameter controls how long to wait for improvement.
-For protein models with small datasets (and therefore noisy validation estimates), a patience of 10 to 20 epochs is common.
-
----
-
-## 7. Tuning Hyperparameters
-
-### What to Tune
-
-Not all hyperparameters are equally important.
-Here is a rough hierarchy for protein deep learning:
-
-**Critical (always tune):**
-- **Learning rate:** Often the difference between success and failure.
-- **Batch size:** Affects both optimization dynamics and GPU memory usage.
-- **Model capacity:** Hidden dimensions and number of layers.
-
-**Important (tune for best results):**
-- Weight decay strength.
-- Dropout rate.
-- Learning rate schedule parameters (warmup steps, minimum LR).
-
-**Usually fine with defaults:**
-- Adam's $$\beta_1$$ (default 0.9) and $$\beta_2$$ (default 0.999).
-- LayerNorm's $$\epsilon$$ (default $$10^{-5}$$).
-
-### Random Search
-
-**Random search** is more efficient than grid search because it does not waste trials on unimportant hyperparameters.
-By sampling from continuous distributions, each trial explores a new value of every hyperparameter:
-
-```python
-import random
-
-def sample_hyperparameters():
-    """Sample a random hyperparameter configuration."""
-    return {
-        'lr': 10 ** random.uniform(-5, -3),             # Log-uniform: 1e-5 to 1e-3
-        'batch_size': random.choice([16, 32, 64, 128]),  # Discrete choices
-        'hidden_dim': random.choice([256, 384, 512]),
-        'dropout': random.uniform(0.1, 0.4),             # Uniform: 0.1 to 0.4
-        'weight_decay': 10 ** random.uniform(-4, -1),    # Log-uniform: 1e-4 to 0.1
-        'warmup_ratio': random.uniform(0.05, 0.15)       # Fraction of total steps
-    }
-
-# Run 30 random trials
-results = []
-for trial in range(30):
-    params = sample_hyperparameters()
-    val_loss = train_and_evaluate(**params)
-    results.append({'params': params, 'val_loss': val_loss})
-
-best_trial = min(results, key=lambda x: x['val_loss'])
-print(f"Best hyperparameters: {best_trial['params']}")
-```
-
-### A Practical Strategy
-
-**Step 1: Sanity check.**
-Can the model overfit a single batch?
-If not, fix the model or data pipeline first.
-
-**Step 2: Find a reasonable learning rate.**
-Try 5--10 different learning rates (e.g., 1e-5, 3e-5, 1e-4, 3e-4, 1e-3) with default settings for everything else.
-Pick the one that gives the best validation loss after 10 epochs.
-
-**Step 3: Tune critical parameters together.**
-Run 20--30 random search trials over learning rate, batch size, and model size jointly.
-
-**Step 4: Tune regularization.**
-With the best architecture and learning rate, sweep dropout and weight decay to control overfitting.
-
----
-
-## 8. Evaluating Properly: Sequence-Identity Splits
-
-### The Problem
-
-After all our improvements, the solubility predictor achieves 85% validation accuracy.
+After training, the solubility predictor achieves 85% validation accuracy.
 Impressive?
 Not necessarily.
 We need to examine *how* we split the data.
@@ -495,11 +310,6 @@ If we used a random train/validation/test split, there is a high probability tha
 These homologous proteins almost certainly share the same solubility status.
 The model can score well by memorizing similar sequences rather than learning true sequence-to-solubility patterns.
 This is **data leakage** --- the test set contains information that was effectively available during training.
-
-The same problem arises in other domains.
-In medical imaging, if multiple scans from the same patient appear in both training and test sets, the model can memorize patient-specific features rather than learning general diagnostic patterns.
-In speech recognition, if recordings from the same speaker are split across training and test, the model benefits from recognizing the speaker's voice rather than understanding speech in general.
-The principle is universal: test data must be genuinely independent of training data.
 
 ### The Solution: Sequence-Identity Splits
 
@@ -562,18 +372,13 @@ For the most rigorous evaluation, consider splitting at the fold or superfamily 
 
 ---
 
-## 9. Handling Class Imbalance
+## 5. Handling Class Imbalance
 
 ### The Problem
 
 After switching to sequence-identity splits, we notice another issue: the model's performance on **insoluble** proteins is much worse than on soluble ones.
 Looking at the data, we find that 70% of our dataset is soluble and only 30% is insoluble.
 The model has learned a shortcut: predicting "soluble" for everything gives 70% accuracy with no effort.
-
-This is a universal problem in machine learning.
-In fraud detection, legitimate transactions outnumber fraudulent ones by 100-to-1, so a model that always predicts "legitimate" achieves 99% accuracy while catching zero fraud.
-In medical diagnosis, rare diseases are vastly outnumbered by healthy cases, making accuracy a meaningless metric.
-The solution is the same in all domains: change the loss function so that misclassifying the minority class costs more.
 
 ### Weighted Loss Functions
 
@@ -595,52 +400,177 @@ criterion = nn.CrossEntropyLoss(weight=class_weights)
 With weighted loss, the model is penalized more heavily for misclassifying the minority class (insoluble proteins).
 This forces it to pay attention to features that distinguish insoluble proteins rather than defaulting to "soluble."
 
-### Effect on Our Model
+### Effect on the Model
 
 After applying class weights, the overall accuracy may drop slightly (the model can no longer cheat by always predicting the majority class), but the **F1 score and recall for the minority class improve substantially**.
 This is the metric that matters: a model that correctly identifies insoluble proteins is far more useful than one that achieves high accuracy by ignoring them.
 
 ---
 
+## 6. Knowing When to Stop: Early Stopping
+
+### The Problem
+
+Even with regularization (dropout in our model), there comes a point when continued training hurts more than it helps.
+Validation loss may start rising again after reaching its best value, indicating that the model is beginning to overfit to the training data.
+
+### Early Stopping
+
+**Early stopping** is a form of regularization based on *time* rather than architecture.
+The idea: monitor validation performance during training and stop when it stops improving.
+
+Why does this work as regularization?
+In the early phases of training, the model learns general, transferable patterns.
+As training continues, it gradually begins to memorize training-specific noise.
+The point at which validation performance peaks is the sweet spot between underfitting and overfitting.
+
+```python
+class EarlyStopping:
+    """Stop training when validation loss stops improving."""
+    def __init__(self, patience=10, min_delta=1e-4):
+        self.patience = patience
+        self.min_delta = min_delta
+        self.best_loss = float('inf')
+        self.counter = 0
+        self.should_stop = False
+
+    def step(self, val_loss):
+        """Call once per epoch. Returns True if this is a new best model."""
+        if val_loss < self.best_loss - self.min_delta:
+            self.best_loss = val_loss
+            self.counter = 0
+            return True   # New best — save checkpoint
+        else:
+            self.counter += 1
+            if self.counter >= self.patience:
+                self.should_stop = True
+            return False  # No improvement
+```
+
+Integrating early stopping into the training loop:
+
+```python
+early_stopping = EarlyStopping(patience=15)
+
+for epoch in range(max_epochs):
+    train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
+    val_loss, _, _ = evaluate(model, val_loader, criterion, device)
+
+    if early_stopping.step(val_loss):
+        torch.save(model.state_dict(), 'best_model.pt')
+
+    if early_stopping.should_stop:
+        print(f"Early stopping at epoch {epoch}")
+        break
+
+# Load the best model for final evaluation
+model.load_state_dict(torch.load('best_model.pt'))
+```
+
+The **patience** parameter controls how long to wait for improvement.
+For protein models with small datasets (and therefore noisy validation estimates), a patience of 10 to 20 epochs is common.
+
+---
+
+## 7. Debugging and Reproducibility
+
+### Debugging Neural Networks
+
+Neural networks can fail silently.
+The code runs, the loss decreases, but predictions are useless.
+Systematic debugging is essential.
+
+```python
+# 1. Check for NaN gradients (sign of numerical instability)
+for name, param in model.named_parameters():
+    if param.grad is not None and torch.isnan(param.grad).any():
+        print(f"WARNING: NaN gradient detected in {name}")
+
+# 2. Verify that outputs are in a sensible range
+with torch.no_grad():
+    sample_output = model(sample_input)
+    print(f"Output range: [{sample_output.min():.3f}, {sample_output.max():.3f}]")
+
+# 3. Confirm that input and output shapes match expectations
+print(f"Input shape:  {sample_input.shape}")
+print(f"Output shape: {model(sample_input).shape}")
+
+# 4. Sanity check: can the model overfit a single batch?
+# If it cannot, there is likely a bug in the architecture or loss
+small_batch_x, small_batch_y = next(iter(train_loader))
+for step in range(200):
+    pred = model(small_batch_x.to(device))
+    loss = criterion(pred, small_batch_y.to(device))
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    if step % 50 == 0:
+        print(f"Step {step}: loss = {loss.item():.4f}")
+# Loss should approach 0. If it does not, debug your model.
+```
+
+### Reproducibility
+
+Science requires reproducibility.
+Set all random seeds at the start of every experiment:
+
+```python
+import random
+import numpy as np
+
+def set_seed(seed=42):
+    """Set random seeds for reproducibility across all libraries."""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    # For full determinism on GPU (may reduce performance slightly):
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+set_seed(42)
+```
+
+Full determinism on GPU can slow training by 10--20%.
+For exploratory experiments, setting the Python, NumPy, and PyTorch seeds is usually sufficient.
+Reserve full determinism for final reported results.
+
+### A Practical Checklist
+
+Before declaring a model "trained," verify the following:
+
+1. Training loss decreases steadily over epochs.
+2. Validation loss decreases initially, then plateaus (not increases --- that signals overfitting).
+3. The model can perfectly overfit a single batch (sanity check for bugs).
+4. Gradients are finite (no NaN or Inf values).
+5. Metrics on the test set are consistent with validation set metrics.
+6. Results are reproducible when the same seed is used.
+
+---
+
 ## Key Takeaways
 
-1. **Diagnose before you fix.** Always plot training and validation loss curves. The gap between them tells you whether the problem is overfitting, underfitting, or something else entirely.
+1. **Solubility prediction** is a representative binary classification task that exercises every component of the ML pipeline: data preparation, model architecture, training, and evaluation.
 
-2. **Regularization prevents overfitting.** Use dropout, weight decay, and early stopping together. For proteins, where datasets are small, regularization is not optional.
+2. **Evaluation metrics** must go beyond accuracy. Precision, recall, F1, and AUC-ROC tell a more complete story, especially for imbalanced datasets.
 
-3. **Layer Normalization over Batch Normalization** for protein sequences, because LayerNorm avoids noisy batch statistics caused by variable-length padding.
+3. **Sequence-identity splits are mandatory** for honest evaluation of protein models. Random splits systematically overestimate performance due to data leakage from homologous sequences.
 
-4. **Learning rate is the most important hyperparameter.** Use warmup + cosine decay as the default schedule. Reduce on plateau is a good alternative when the total training duration is unknown.
+4. **Address class imbalance** with weighted losses. High accuracy on an imbalanced dataset is meaningless if the model ignores the minority class.
 
 5. **Early stopping** saves the best model and prevents wasted computation. Use a patience of 10--20 epochs for protein tasks.
 
-6. **Random search** is more efficient than grid search for hyperparameter tuning. Focus on the critical parameters (learning rate, model size, batch size) first.
+6. **Systematic debugging** catches silent failures. The single-batch overfit test is the most important sanity check.
 
-7. **Sequence-identity splits are mandatory** for honest evaluation of protein models. Random splits systematically overestimate performance due to data leakage from homologous sequences.
-
-8. **Address class imbalance** with weighted losses. High accuracy on an imbalanced dataset is meaningless if the model ignores the minority class.
-
-9. **Improvement is iterative.** Each technique provides incremental gains. The combination of all techniques together yields a model that is substantially better than the baseline.
+7. **Improvement is iterative.** Each technique provides incremental gains. The combination of sequence-identity splits, class weighting, and early stopping yields a model that is substantially more honest and more useful than the naive baseline.
 
 ---
 
 ## Exercises
 
-All exercises use the protein solubility predictor from Preliminary Note 3 as their starting point.
+All exercises use the protein solubility predictor from this note as their starting point.
 
-### Exercise 1: Regularization Ablation
-
-Train the solubility predictor under four conditions:
-- (a) No regularization (no dropout, no weight decay)
-- (b) Dropout only (rate 0.3)
-- (c) Weight decay only ($$\lambda = 0.01$$)
-- (d) Both dropout and weight decay
-
-For each condition, plot training and validation loss curves on the same axes.
-Answer: Which regularization technique has a larger effect?
-Does combining them help beyond using either alone?
-
-### Exercise 2: Data Leakage Experiment
+### Exercise 1: Data Leakage Experiment
 
 Create two sets of train/test splits for the solubility dataset:
 - (a) Random splits (proteins assigned uniformly at random)
@@ -649,7 +579,7 @@ Create two sets of train/test splits for the solubility dataset:
 Train the same model on both splits and compare test accuracy, F1, and AUC.
 By how many percentage points does the random split overestimate performance?
 
-### Exercise 3: Class Imbalance Experiment
+### Exercise 2: Class Imbalance Experiment
 
 Construct a version of the solubility dataset where 90% of examples are soluble and 10% are insoluble.
 Train the model with:
@@ -659,22 +589,25 @@ Train the model with:
 Compare not just accuracy but also precision, recall, and F1-score for the *insoluble* class.
 Why is accuracy a misleading metric for imbalanced tasks?
 
+### Exercise 3: Matthews Correlation Coefficient
+
+Implement **Matthews Correlation Coefficient** (MCC), a metric that is informative even when classes are severely imbalanced:
+
+$$
+\text{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}
+$$
+
+where $$TP$$, $$TN$$, $$FP$$, and $$FN$$ are the counts of true positives, true negatives, false positives, and false negatives respectively.
+Add this metric to the `evaluate_classifier` function and compare it to accuracy on a dataset where 90% of proteins are soluble.
+
 ---
 
 ## References
 
-- Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: A simple way to prevent neural networks from overfitting. *Journal of Machine Learning Research*, 15, 1929--1958.
+1. Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press. Chapters 6--8. Available at [https://www.deeplearningbook.org/](https://www.deeplearningbook.org/).
 
-- Ioffe, S. & Szegedy, C. (2015). Batch Normalization: Accelerating deep network training by reducing internal covariate shift. *Proceedings of ICML*.
+2. Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." *Advances in Neural Information Processing Systems*, 32.
 
-- Ba, J. L., Kiros, J. R., & Hinton, G. E. (2016). Layer Normalization. *arXiv preprint arXiv:1607.06450*.
+3. Rao, R., Bhatt, N., Lu, A., Johnson, J., Ott, M., Auli, M., Russ, C., & Sander, C. (2019). Evaluating protein transfer learning with TAPE. *Advances in NeurIPS*. (Best practices for protein ML evaluation, including sequence identity splits.)
 
-- Loshchilov, I. & Hutter, F. (2017). SGDR: Stochastic gradient descent with warm restarts. *Proceedings of ICLR*.
-
-- Loshchilov, I. & Hutter, F. (2019). Decoupled weight decay regularization. *Proceedings of ICLR*. (The paper introducing AdamW.)
-
-- Bergstra, J. & Bengio, Y. (2012). Random search for hyper-parameter optimization. *Journal of Machine Learning Research*, 13, 281--305.
-
-- Rao, R., Bhatt, N., Lu, A., Johnson, J., Ott, M., Auli, M., Russ, C., & Sander, C. (2019). Evaluating protein transfer learning with TAPE. *Advances in NeurIPS*. (Best practices for protein ML evaluation, including sequence identity splits.)
-
-- Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C. L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*, 118(15).
+4. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C. L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*, 118(15).
