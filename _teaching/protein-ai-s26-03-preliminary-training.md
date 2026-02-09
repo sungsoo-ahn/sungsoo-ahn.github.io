@@ -54,7 +54,7 @@ The **loss function** (also called a **cost function** or **objective function**
 Zero means perfect predictions; larger values mean worse predictions.
 The choice of loss function depends on the type of prediction task --- solubility classification needs a different loss than melting temperature regression.
 
-We introduced $$L_{\text{MSE}}$$ briefly in Preliminary Note 1 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
+We introduced $$\mathcal{L}_{\text{MSE}}$$ briefly in Preliminary Note 1 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
 
 ### Mean Squared Error (MSE) for Regression
 
@@ -63,12 +63,12 @@ In protein science, this means predicting binding affinity or melting temperatur
 Let $$y_i$$ be the true value and $$\hat{y}_i(\theta)$$ be the model's prediction for example $$i$$ (which depends on the current parameters $$\theta$$), with $$n$$ examples in total:
 
 $$
-L_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i(\theta))^2
+\mathcal{L}_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i(\theta))^2
 $$
 
 Squaring the error penalizes large mistakes heavily.
 A prediction that is off by 10 degrees contributes 100 to the sum, while one that is off by 1 degree contributes only 1.
-This makes $$L_{\text{MSE}}$$ sensitive to outliers --- a single wildly mispredicted protein can dominate the loss.
+This makes $$\mathcal{L}_{\text{MSE}}$$ sensitive to outliers --- a single wildly mispredicted protein can dominate the loss.
 
 ### Binary Cross-Entropy (BCE) for Binary Classification
 
@@ -76,7 +76,7 @@ BCE is designed for **binary classification** --- tasks with two categories, suc
 Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i(\theta) \in (0, 1)$$ be the predicted probability:
 
 $$
-L_{\text{BCE}}(\theta) = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i(\theta)) + (1 - y_i)\log(1 - \hat{y}_i(\theta))\bigr]
+\mathcal{L}_{\text{BCE}}(\theta) = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i(\theta)) + (1 - y_i)\log(1 - \hat{y}_i(\theta))\bigr]
 $$
 
 Why this formula? It comes from **maximum likelihood estimation**.
@@ -90,7 +90,7 @@ Assuming training examples are independent, the likelihood of the entire dataset
 Taking the negative log turns this product into a sum (easier to optimize) and flips the sign (so we minimize):
 
 $$
--\log \prod_i P(y_i \mid \mathbf{x}_i; \theta) = -\sum_i \bigl[y_i \log \hat{y}_i + (1 - y_i) \log(1 - \hat{y}_i)\bigr] = n \cdot L_{\text{BCE}}
+-\log \prod_i P(y_i \mid \mathbf{x}_i; \theta) = -\sum_i \bigl[y_i \log \hat{y}_i + (1 - y_i) \log(1 - \hat{y}_i)\bigr] = n \cdot \mathcal{L}_{\text{BCE}}
 $$
 
 So **minimizing BCE is equivalent to maximizing the log-likelihood of the data** --- the model learns to assign high probability to the true labels.
@@ -106,7 +106,7 @@ CE generalizes BCE to **multi-class classification** --- tasks with more than tw
 Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c(\theta)$$ be the predicted probability for class $$c$$:
 
 $$
-L_{\text{CE}}(\theta) = -\sum_{c=1}^{C} y_c \log(\hat{y}_c(\theta))
+\mathcal{L}_{\text{CE}}(\theta) = -\sum_{c=1}^{C} y_c \log(\hat{y}_c(\theta))
 $$
 
 In practice, only one $$y_c$$ is 1 (the true class), so this simplifies to $$-\log(\hat{y}_{\text{true class}}(\theta))$$.
@@ -149,10 +149,10 @@ But before we can discuss optimization algorithms, we need to address a more fun
 The simplest optimizer is **(full-batch) gradient descent**: compute the loss over the *entire* training set, then update each weight by taking a step in the direction that reduces it:
 
 $$
-\theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
+\theta_{t+1} = \theta_t - \eta \nabla_\theta \mathcal{L}(\theta_t)
 $$
 
-Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$L(\theta_t)$$ is the loss function from Section 1 evaluated over *all* training examples, and $$\nabla_\theta L(\theta_t)$$ is its gradient with respect to the parameters.
+Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$\mathcal{L}(\theta_t)$$ is the loss function from Section 1 evaluated over *all* training examples, and $$\nabla_\theta \mathcal{L}(\theta_t)$$ is its gradient with respect to the parameters.
 This is called "full-batch" because the gradient uses every example in the dataset.
 As we will see next, this is impractical for real datasets --- we need the *stochastic* variant.
 
@@ -182,8 +182,11 @@ Some noise in the gradient direction actually helps the optimizer explore the lo
 At each training step, we sample a random subset of $$B$$ proteins (the **mini-batch**) from the training set, compute the average loss over that subset, and update the weights using its gradient:
 
 $$
-\nabla_\theta L \approx \frac{1}{B} \sum_{i=1}^{B} \nabla_\theta \ell(\mathbf{x}_i, y_i; \theta)
+\nabla_\theta \mathcal{L} \approx \frac{1}{B} \sum_{i=1}^{B} \nabla_\theta \ell(\mathbf{x}_i, y_i; \theta)
 $$
+
+Here $$\ell(\mathbf{x}_i, y_i; \theta)$$ is the loss for a single example, and $$\mathcal{L}(\theta) = \frac{1}{n}\sum_{i=1}^{n} \ell(\mathbf{x}_i, y_i; \theta)$$ is the full-dataset loss.
+The mini-batch gradient approximates the full gradient using only $$B \ll n$$ examples.
 
 The word **stochastic** in "stochastic gradient descent" refers to this randomness: at each step, the mini-batch is a random sample, so the gradient is a random variable.
 The `shuffle=True` flag in PyTorch's DataLoader is what makes SGD stochastic --- it randomizes which proteins end up in which mini-batch at each epoch.
@@ -213,7 +216,7 @@ Several extensions address the oscillation problem.
 The update rules are:
 
 $$
-\mathbf{v}_t = \beta \mathbf{v}_{t-1} + \nabla_\theta L(\theta_t)
+\mathbf{v}_t = \beta \mathbf{v}_{t-1} + \nabla_\theta \mathcal{L}(\theta_t)
 $$
 
 $$
@@ -228,7 +231,7 @@ When gradients oscillate (alternating sign), they cancel in the velocity term, s
 **Adam** [3] adapts the learning rate individually for each parameter by tracking both the first moment (mean) and second moment (uncentered variance) of recent gradients:
 
 $$
-\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1) \nabla_\theta L, \qquad \mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2) (\nabla_\theta L)^2
+\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1) \nabla_\theta \mathcal{L}, \qquad \mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2) (\nabla_\theta \mathcal{L})^2
 $$
 
 Because $$\mathbf{m}_0 = \mathbf{v}_0 = 0$$, both estimates are biased toward zero in early steps. Bias correction fixes this:
@@ -516,30 +519,30 @@ To compute how a weight in an early layer affects the final loss, we need the **
 
 ### The Chain Rule
 
-We need $$\nabla_\theta L(\theta)$$ --- the derivative of the loss with respect to every parameter in $$\theta$$.
+We need $$\nabla_\theta \mathcal{L}(\theta)$$ --- the derivative of the loss with respect to every parameter in $$\theta$$.
 But a parameter in an early layer does not appear directly in the loss formula; it influences the loss through a chain of intermediate computations: $$\theta_k \to z \to a \to \cdots \to L$$.
 The chain rule lets us decompose this dependency.
 For a parameter $$\theta_k$$ that affects the loss through an intermediate variable $$z$$:
 
 $$
-\frac{\partial L}{\partial \theta_k} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial \theta_k}
+\frac{\partial \mathcal{L}}{\partial \theta_k} = \frac{\partial \mathcal{L}}{\partial z} \cdot \frac{\partial z}{\partial \theta_k}
 $$
 
-In words: to find how $$\theta_k$$ affects $$L$$, multiply how $$z$$ affects $$L$$ by how $$\theta_k$$ affects $$z$$.
-Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta L(\theta)$$.
+In words: to find how $$\theta_k$$ affects $$\mathcal{L}$$, multiply how $$z$$ affects $$\mathcal{L}$$ by how $$\theta_k$$ affects $$z$$.
+Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta \mathcal{L}(\theta)$$.
 This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
 
 #### Worked Example: A Two-Layer Network
 
-Consider a network with two layers: $$\mathbf{h}^{(1)} = \sigma(\mathbf{W}^{(1)} \mathbf{x})$$, $$\mathbf{h}^{(2)} = \mathbf{W}^{(2)} \mathbf{h}^{(1)}$$, and loss $$L = \ell(\mathbf{h}^{(2)}, y)$$.
+Consider a network with two layers: $$\mathbf{h}^{(1)} = \sigma(\mathbf{W}^{(1)} \mathbf{x})$$, $$\mathbf{h}^{(2)} = \mathbf{W}^{(2)} \mathbf{h}^{(1)}$$, and loss $$\mathcal{L} = \ell(\mathbf{h}^{(2)}, y)$$.
 To compute the gradient with respect to $$\mathbf{W}^{(1)}$$, we trace backward through the chain:
 
 $$
-\frac{\partial L}{\partial \mathbf{W}^{(1)}} = \underbrace{\frac{\partial L}{\partial \mathbf{h}^{(2)}}}_{\text{from loss}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}}_{ = \mathbf{W}^{(2)}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(1)}}{\partial \mathbf{W}^{(1)}}}_{\text{involves } \sigma'}
+\frac{\partial \mathcal{L}}{\partial \mathbf{W}^{(1)}} = \underbrace{\frac{\partial \mathcal{L}}{\partial \mathbf{h}^{(2)}}}_{\text{from loss}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}}_{ = \mathbf{W}^{(2)}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(1)}}{\partial \mathbf{W}^{(1)}}}_{\text{involves } \sigma'}
 $$
 
 Each factor is a local derivative that each layer can compute independently.
-The key insight: backpropagation never needs the full chain --- it passes $$\frac{\partial L}{\partial \mathbf{h}^{(2)}}$$ backward to the first layer, which multiplies by its own local derivatives.
+The key insight: backpropagation never needs the full chain --- it passes $$\frac{\partial \mathcal{L}}{\partial \mathbf{h}^{(2)}}$$ backward to the first layer, which multiplies by its own local derivatives.
 This is why deep networks with hundreds of layers remain tractable: the cost of backpropagation is proportional to the cost of the forward pass.
 
 [^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
