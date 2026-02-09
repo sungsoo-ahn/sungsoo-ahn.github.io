@@ -11,6 +11,8 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is a preliminary self-study note for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. Students with a biology background are encouraged to work through this material before the in-class lectures begin. The note is self-contained: no prior machine learning knowledge is assumed beyond basic Python and linear algebra.</em></p>

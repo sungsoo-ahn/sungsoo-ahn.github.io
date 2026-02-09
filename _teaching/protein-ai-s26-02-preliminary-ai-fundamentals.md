@@ -11,6 +11,8 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 2 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It is designed as a self-study resource: biology-background students should be able to work through it independently before the first in-class lecture. No prior machine learning experience is assumed beyond the material in Preliminary Notes 0 and 1.</em></p>
@@ -116,15 +118,15 @@ For now, keep it in mind as the reason why model design involves careful choices
 Every machine learning project follows a structured pipeline.
 
 ```mermaid
-flowchart LR
-    A["Data\nCollection"] --> B["Preprocessing"]
-    B --> C["Feature\nEngineering"]
-    C --> D["Model\nTraining"]
+flowchart TD
+    A["Data Collection"] --> B["Preprocessing"]
+    B --> C["Feature Engineering"]
+    C --> D["Model Training"]
     D --> E["Evaluation"]
     E --> F["Deployment"]
 
-    D -->|"Predictions vs Labels"| L["Loss\nFunction"]
-    L -->|"Gradients"| U["Parameter\nUpdate"]
+    D -->|"Predictions vs Labels"| L["Loss Function"]
+    L -->|"Gradients"| U["Parameter Update"]
     U -->|"Iterate"| D
 
     style A fill:#e8f4fd,stroke:#2196F3
@@ -456,9 +458,10 @@ We will call the true melting temperature $$y$$ and our prediction $$\hat{y}$$.
 The simplest model is a **weighted sum** of the features plus a bias:
 
 $$
-\hat{y} = w_1 \cdot \text{mol.\ weight} + w_2 \cdot \text{pI} + w_3 \cdot \text{GRAVY} + \cdots + w_{10} \cdot x_{10} + b
+\hat{y} = w_1 \cdot x_{\text{MW}} + w_2 \cdot x_{\text{pI}} + w_3 \cdot x_{\text{GRAVY}} + \cdots + w_{10} \cdot x_{10} + b
 $$
 
+Here $$x_{\text{MW}}$$ is the molecular weight, $$x_{\text{pI}}$$ is the isoelectric point, and $$x_{\text{GRAVY}}$$ is the hydrophobicity score.
 Each weight $$w_i$$ controls how much one feature contributes to the prediction.
 A large positive $$w_3$$ (the weight on GRAVY score) would mean more hydrophobic proteins are predicted to have higher melting temperatures.
 The bias $$b$$ shifts the overall prediction up or down.
@@ -499,8 +502,8 @@ y_pred = X @ W + b              # Shape: (100, 1) — one prediction per protein
 print(f"Predictions shape: {y_pred.shape}")  # torch.Size([100, 1])
 ```
 
-$$\mathbf{W}$$ and $$b$$ are the **learnable parameters**.
-Different values give different predictions --- and right now, with random weights, the predictions are terrible.
+$$\mathbf{W}$$ and $$b$$ are the **learnable parameters**, which we collectively denote as $$\theta = \{\mathbf{W}, b\}$$.
+Different values of $$\theta$$ give different predictions --- and right now, with random weights, the predictions are terrible.
 The question is: how do we find better values?
 
 The same model structure could predict house prices from features like square footage, location, and number of rooms, or predict a patient's blood pressure from clinical measurements.
@@ -516,10 +519,11 @@ This number is called a **loss function** (sometimes called a cost function or o
 For regression tasks like predicting melting temperature, a natural choice is the **mean squared error** (MSE):
 
 $$
-\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
+L_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i(\theta) - y_i)^2
 $$
 
-This computes the average squared difference between each prediction $$\hat{y}_i$$ and the true value $$y_i$$.
+The predictions $$\hat{y}_i(\theta)$$ depend on the current parameter values $$\theta$$, so the loss itself is a function of $$\theta$$.
+This computes the average squared difference between each prediction and the true value $$y_i$$.
 Squaring serves two purposes: it makes all errors positive (an overestimate of +5°C and an underestimate of −5°C are equally bad), and it penalizes large errors disproportionately (an error of 10°C contributes 100 to the sum, while an error of 1°C contributes only 1).
 
 ```python
@@ -530,10 +534,10 @@ print(f"Loss: {loss.item():.2f}")  # A single number measuring total prediction 
 
 If predicting house prices, an error of 100,000 dollars contributes 10,000 times more to the MSE than an error of 1,000 dollars --- the quadratic penalty strongly discourages large mistakes.
 
-With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\mathbf{W}$$ and $$b$$ that minimize the loss.**
+With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\theta$$ that minimize $$L(\theta)$$.**
 But how?
 
-> **Note:** MSE is one of many possible loss functions.
+> **Note:** $$L_{\text{MSE}}$$ is one of many possible loss functions.
 > Preliminary Note 3 covers other choices suited to classification tasks (binary cross-entropy, cross-entropy), and explains when to use which.
 
 ### Learning from Mistakes: Gradients and Optimization
@@ -555,10 +559,10 @@ This strategy --- adjusting each weight in the direction that reduces the loss -
 The update rule is:
 
 $$
-\theta_{t+1} = \theta_t - \eta \nabla_\theta L
+\theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
 $$
 
-where $$\theta$$ represents the parameters ($$\mathbf{W}$$ and $$b$$), $$\eta$$ is the **learning rate** (how big a step to take), and $$\nabla_\theta L$$ is the gradient of the loss with respect to the parameters.
+where $$\theta_t$$ are the current parameter values, $$\eta$$ is the **learning rate** (how big a step to take), and $$\nabla_\theta L(\theta_t)$$ is the gradient of the loss evaluated at $$\theta_t$$.
 Preliminary Note 3 covers optimization in much more detail, including adaptive learning rates and momentum.
 
 [^gd]: The term "stochastic gradient descent" (SGD) refers to gradient descent applied to a random subset (mini-batch) of the training data at each step, rather than the entire dataset. In practice, almost all gradient descent in deep learning is stochastic.
@@ -585,15 +589,17 @@ For our simple linear model, computing gradients is straightforward.
 But what about deeper networks with many layers, where the output of one layer feeds into the next?
 To compute how a weight in an early layer affects the final loss, we need the **chain rule** from calculus.
 
-Let $$x$$ be the input to some function that produces $$y$$, and let $$L$$ be the loss computed from $$y$$.
-The chain rule states:
+We need $$\nabla_\theta L(\theta)$$ --- the derivative of the loss with respect to every parameter in $$\theta$$.
+But a parameter in an early layer does not appear directly in the loss formula; it influences the loss through a chain of intermediate computations: $$\theta_k \to z \to a \to \cdots \to L$$.
+The chain rule lets us decompose this dependency.
+For a parameter $$\theta_k$$ that affects the loss through an intermediate variable $$z$$:
 
 $$
-\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x}
+\frac{\partial L}{\partial \theta_k} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial \theta_k}
 $$
 
-In words: to find how $$x$$ affects $$L$$, multiply how $$y$$ affects $$L$$ by how $$x$$ affects $$y$$.
-Applied recursively backward through the network --- from the loss, through each layer, all the way to the first weight --- this gives us gradients for every parameter.
+In words: to find how $$\theta_k$$ affects $$L$$, multiply how $$z$$ affects $$L$$ by how $$\theta_k$$ affects $$z$$.
+Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta L(\theta)$$.
 This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
 
 [^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
@@ -744,53 +750,25 @@ Without activation functions, stacking layers would be pointless.
 A linear transformation followed by another linear transformation is just... a single linear transformation (their product is still a matrix).
 Activation functions break this linearity, and the choice of activation function matters more than it might first appear.
 
-#### Sigmoid
+**Sigmoid:** $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
-$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+Squashes input to $$(0, 1)$$; used at the output layer for binary probabilities, but causes vanishing gradients in deep hidden layers.
 
-Sigmoid squashes any input into the range $$(0, 1)$$, making it natural for representing probabilities.
-It was the default activation in early neural networks, but it has a serious problem for deep networks.
+**ReLU:** $$\text{ReLU}(z) = \max(0, z)$$
 
-When $$z$$ is very large or very small, the sigmoid curve is nearly flat: its derivative is close to zero.
-During backpropagation, gradients must flow through every layer, multiplying by these near-zero derivatives at each step.
-After several layers, the gradient becomes vanishingly small --- a phenomenon called **vanishing gradients**.
-The early layers of the network receive almost no learning signal, so they effectively stop learning.
+Zero for negative inputs, identity for positive; the default activation for feedforward networks and CNNs.
 
-#### ReLU (Rectified Linear Unit)
+**GELU:** $$\text{GELU}(z) = z \cdot \Phi(z)$$
 
-$$\text{ReLU}(z) = \max(0, z)$$
+A smooth approximation of ReLU ($$\Phi$$ is the Gaussian CDF) used in transformer architectures, including protein language models like ESM-2.
 
-ReLU solved the vanishing gradient problem for positive inputs: its derivative is exactly 1 for $$z > 0$$, so gradients flow through unchanged.
-For negative inputs, the output (and gradient) is zero.
-ReLU is computationally cheap (just a comparison and a selection), and it became the default activation for deep networks.
+**Swish (SiLU):** $$\text{Swish}(z) = z \cdot \sigma(z)$$
 
-The downside: neurons can "die" during training.
-If a neuron's input becomes permanently negative (due to a large weight update), its output is always zero, its gradient is always zero, and it can never recover.
-This is called the **dying ReLU** problem.
+Similar smoothness properties to GELU; used in ESM-2 and other recent protein models.
 
-#### GELU (Gaussian Error Linear Unit)
+**Softmax:** $$\text{softmax}(z_i) = e^{z_i} / \sum_j e^{z_j}$$
 
-$$\text{GELU}(z) = z \cdot \Phi(z)$$
-
-where $$\Phi$$ is the standard Gaussian cumulative distribution function.
-GELU is a smooth approximation of ReLU that does not have a hard cutoff at zero.
-Instead, it allows small negative values to pass through with reduced magnitude.
-This smooth behavior leads to better optimization landscapes and has made GELU the preferred activation in transformer architectures, including protein language models like ESM-2.
-
-#### Swish (SiLU)
-
-$$\text{Swish}(z) = z \cdot \sigma(z)$$
-
-where $$\sigma$$ is the sigmoid function.
-Like GELU, Swish is smooth and non-monotonic.
-It was discovered through automated search over activation functions and is used in ESM-2 and other recent protein models.
-
-#### Softmax
-
-Given a vector $$\mathbf{z}$$: $$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$
-
-Softmax normalizes a vector of real numbers into a probability distribution that sums to 1.
-It is not used between layers but rather at the output for classification (choosing among classes) and inside attention mechanisms (computing how much each element should attend to every other).
+Normalizes a vector into a probability distribution summing to 1; used at the output for multi-class classification and inside attention mechanisms.
 
 #### When to Use Which?
 
@@ -882,7 +860,7 @@ In both domains, depth allows the network to mirror the hierarchical nature of t
 
 In practice, deeper networks are not always better.
 Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
-Techniques like residual connections, normalization layers, and careful initialization --- which we cover in Preliminary Note 4 --- have made training deep networks practical.
+Techniques like residual connections, normalization layers, and careful initialization --- covered in the optional Preliminary Note 4 --- have made training deep networks practical.
 
 ### `nn.Module`: PyTorch's Building Block
 

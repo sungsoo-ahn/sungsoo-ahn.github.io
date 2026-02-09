@@ -11,6 +11,8 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 1 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It assumes familiarity with the material covered in our preliminary notes on Python &amp; data basics, protein representations, AI fundamentals, and training &amp; optimization. If any concept feels unfamiliar, please review those notes first.</em></p>

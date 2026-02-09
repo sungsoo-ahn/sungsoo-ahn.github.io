@@ -29,7 +29,7 @@ We end with a complete case study --- predicting protein solubility in *E. coli*
 | Section | Topic | Why You Need It |
 |---|---|---|
 | 1 | Loss Functions | Different prediction tasks require different ways of measuring error |
-| 2 | Optimizers | The algorithms that use gradients to improve the model's weights |
+| 2 | Mini-Batch Training and Optimizers | Why we train on batches, what "stochastic" means, and the algorithms that turn gradients into weight updates |
 | 3 | The Training Loop | The four-step cycle that turns data into knowledge |
 | 4 | Data Loading for Proteins | Efficient batching, shuffling, and handling of variable-length sequences |
 | 5 | Validation and Overfitting | How to detect when your model is memorizing rather than learning |
@@ -48,29 +48,29 @@ Before the model can learn, we need a way to quantify how wrong its predictions 
 The **loss function** (also called a **cost function** or **objective function**) produces a single number: zero means perfect predictions, and larger values mean worse predictions.
 The choice of loss function depends on the type of prediction task.
 
-We introduced MSE briefly in Preliminary Note 2 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
+We introduced $$L_{\text{MSE}}$$ briefly in Preliminary Note 2 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
 
 ### Mean Squared Error (MSE) for Regression
 
 MSE is the standard loss for **regression** tasks --- predicting continuous values.
 In protein science, this means predicting binding affinity or melting temperature; in a general setting, it means predicting a house's sale price or a person's age from a photograph.
-Let $$y_i$$ be the true value and $$\hat{y}_i$$ be the predicted value for example $$i$$, with $$n$$ examples in total:
+Let $$y_i$$ be the true value and $$\hat{y}_i(\theta)$$ be the model's prediction for example $$i$$ (which depends on the current parameters $$\theta$$), with $$n$$ examples in total:
 
 $$
-\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+L_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i(\theta))^2
 $$
 
 Squaring the error penalizes large mistakes heavily.
 A prediction that is off by 10 degrees contributes 100 to the sum, while one that is off by 1 degree contributes only 1.
-This makes MSE sensitive to outliers --- a single wildly mispredicted protein can dominate the loss.
+This makes $$L_{\text{MSE}}$$ sensitive to outliers --- a single wildly mispredicted protein can dominate the loss.
 
 ### Binary Cross-Entropy (BCE) for Binary Classification
 
 BCE is designed for **binary classification** --- tasks with two categories, such as predicting whether a protein is soluble versus insoluble, or whether an email is spam versus not spam.
-Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i \in (0, 1)$$ be the predicted probability:
+Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i(\theta) \in (0, 1)$$ be the predicted probability:
 
 $$
-\text{BCE} = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i)\bigr]
+L_{\text{BCE}}(\theta) = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i(\theta)) + (1 - y_i)\log(1 - \hat{y}_i(\theta))\bigr]
 $$
 
 The intuition comes from probability theory.
@@ -82,13 +82,13 @@ This logarithmic penalty grows without bound as the predicted probability approa
 ### Cross-Entropy (CE) for Multi-Class Classification
 
 CE generalizes BCE to **multi-class classification** --- tasks with more than two categories, such as predicting which enzyme class a protein belongs to, or recognizing which of 10 digits appears in a handwritten image.
-Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c$$ be the predicted probability for class $$c$$:
+Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c(\theta)$$ be the predicted probability for class $$c$$:
 
 $$
-\text{CE} = -\sum_{c=1}^{C} y_c \log(\hat{y}_c)
+L_{\text{CE}}(\theta) = -\sum_{c=1}^{C} y_c \log(\hat{y}_c(\theta))
 $$
 
-In practice, only one $$y_c$$ is 1 (the true class), so this simplifies to $$-\log(\hat{y}_{\text{true class}})$$.
+In practice, only one $$y_c$$ is 1 (the true class), so this simplifies to $$-\log(\hat{y}_{\text{true class}}(\theta))$$.
 The model is rewarded for assigning high probability to the correct class and penalized (logarithmically) for low probability.
 
 From an information-theoretic perspective, cross-entropy measures the number of extra "bits" of surprise when using the model's predicted distribution instead of the true distribution.
@@ -120,22 +120,21 @@ This means your model's output layer should *not* include a final sigmoid or sof
 
 ---
 
-## 2. Optimizers: Choosing a Learning Strategy
+## 2. Mini-Batch Training and Optimizers
 
 The loss function tells us how wrong we are.
 The **optimizer** tells us how to improve.
-It takes the gradients computed by backpropagation and uses them to update the weights.
+But before we can discuss optimization algorithms, we need to address a more fundamental question: how much data should we use to compute each gradient update?
 
-### Stochastic Gradient Descent (SGD)
+### The SGD Update Rule
 
-SGD is the simplest optimizer.
-Update each weight by taking a step in the direction that reduces the loss:
+The simplest optimizer is **gradient descent**: update each weight by taking a step in the direction that reduces the loss:
 
 $$
-\theta_{t+1} = \theta_t - \eta \nabla_\theta L
+\theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
 $$
 
-Here $$\theta_t$$ represents the current weight values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), and $$\nabla_\theta L$$ is the gradient of the loss with respect to the weights.
+Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$L(\theta_t)$$ is the loss function from Section 1 ($$L_{\text{MSE}}$$, $$L_{\text{CE}}$$, etc.) evaluated at the current parameters, and $$\nabla_\theta L(\theta_t)$$ is the gradient of the loss with respect to the parameters.
 
 The learning rate is one of the most important hyperparameters[^hyperparameter] in training.
 Too small, and learning is painfully slow.
@@ -143,53 +142,64 @@ Too large, and training becomes unstable --- the loss oscillates wildly or diver
 
 [^hyperparameter]: A hyperparameter is a setting chosen by the practitioner before training begins (like learning rate, batch size, or number of layers), as opposed to a parameter learned during training (like the weights of a linear layer).
 
-### Momentum: Smoothing the Path
+### Mini-Batch Training: Why Not Use All the Data?
 
-Vanilla SGD can oscillate wildly, especially in loss landscapes where the surface curves much more steeply in one direction than another (imagine a long, narrow valley).
-The optimizer bounces back and forth across the narrow dimension while making slow progress along the long one.
+Suppose your training set contains 50,000 proteins.
+To compute the gradient of the loss over all 50,000 proteins, you would need to run every protein through the network, compute each individual loss, average them, and then backpropagate through the entire computation graph --- all before taking a single step to update the weights.
+This is called **full-batch gradient descent**, and it has three problems.
 
-**Momentum** fixes this by adding a "velocity" term.
-Instead of using only the current gradient to update the weights, we maintain a running average of recent gradients:
+First, it is slow.
+You process the entire dataset for a single weight update.
+If training takes 1,000 updates to converge, you must scan the full dataset 1,000 times --- and each scan requires holding all intermediate activations in memory.
 
-$$
-v_{t+1} = \beta v_t + \nabla_\theta L
-$$
+Second, it is memory-intensive.
+For large protein datasets, storing the activations of all 50,000 proteins simultaneously exceeds the memory of any GPU.
 
-$$
-\theta_{t+1} = \theta_t - \eta v_{t+1}
-$$
+Third, the gradient you compute is *too* accurate.
+This sounds paradoxical, but a perfect gradient points exactly toward the minimum of the training loss, which may not coincide with the minimum of the true (generalization) loss.
+Some noise in the gradient direction actually helps the optimizer explore the loss landscape and avoid sharp, narrow minima that generalize poorly.
 
-The parameter $$\beta$$ (typically 0.9) controls how much of the previous velocity to retain.
-The intuition is physical: imagine a ball rolling down the loss landscape.
-With momentum, the ball builds up speed in consistent directions (where gradients agree) and dampens oscillations in inconsistent directions (where gradients flip sign).
+The opposite extreme --- computing the gradient from a **single random protein** --- solves the memory and speed problems but introduces too much noise.
+The gradient from one protein may point in a completely different direction than the gradient from another.
+It also wastes the GPU's parallelism: modern GPUs are designed to process many data points simultaneously, and feeding them one at a time leaves thousands of cores idle.
 
-### Adam: Adaptive Moment Estimation
-
-Adam [3] is the most popular optimizer in practice.
-It maintains two running averages for each weight: the mean of recent gradients ($$m_t$$, the "first moment," like momentum) and the mean of recent *squared* gradients ($$v_t$$, the "second moment").
-These allow it to adapt the learning rate individually for each parameter:
+**Mini-batch stochastic gradient descent** is the standard compromise.
+At each training step, we sample a random subset of $$B$$ proteins (the **mini-batch**) from the training set, compute the average loss over that subset, and update the weights using its gradient:
 
 $$
-m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
+\nabla_\theta L \approx \frac{1}{B} \sum_{i=1}^{B} \nabla_\theta \ell(\mathbf{x}_i, y_i; \theta)
 $$
 
-$$
-v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
-$$
+This is an unbiased estimate of the full-batch gradient --- its expectation over all possible mini-batches equals the true gradient --- but each individual estimate is noisy.
 
-$$
-\theta_{t+1} = \theta_t - \eta \frac{m_t}{\sqrt{v_t} + \epsilon}
-$$
+The word **stochastic** in "stochastic gradient descent" refers to this randomness: at each step, the mini-batch is a random sample, so the gradient is a random variable.
+The `shuffle=True` flag in PyTorch's DataLoader is what makes SGD stochastic --- it randomizes which proteins end up in which mini-batch at each epoch.
 
-Here $$g_t$$ is the gradient at step $$t$$, $$\beta_1$$ and $$\beta_2$$ are decay rates (typically 0.9 and 0.999), and $$\epsilon$$ is a small constant for numerical stability (typically $$10^{-8}$$).
+**Batch size** controls the noise-accuracy tradeoff:
 
-The intuition: parameters with consistently large gradients take smaller steps (the denominator $$\sqrt{v_t}$$ is large), while parameters with small or noisy gradients take larger steps.
-This adaptive behavior makes Adam work well out of the box for most problems --- it is the recommended starting point for protein AI projects.
+- **Small batches (16--32)** produce noisier gradient estimates. This noise acts as implicit regularization, helping the model generalize. Small batches also use less GPU memory, allowing larger models or longer sequences.
+- **Large batches (256--512)** produce smoother, more accurate gradients that converge faster per step. However, each step requires more computation, and the smoother optimization path can lead the model into sharp minima that generalize worse[^sharp-minima].
+- **A common starting point** for protein tasks is a batch size of 32 or 64. If your GPU has memory to spare, try 128; if you are running out of memory, drop to 16.
 
-### AdamW: The Better Adam
+[^sharp-minima]: The relationship between batch size and generalization is an active area of research. The prevailing view is that small-batch training finds "flatter" minima in the loss landscape, which tend to generalize better. See Keskar et al. (2017), "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima."
 
-Standard Adam with weight decay has a subtle issue: the adaptive scaling interacts with the regularization penalty in unintended ways.
-**AdamW** [6] fixes this by decoupling weight decay from the gradient-based update.
+One **epoch** means one complete pass through the training set.
+If the dataset has 50,000 proteins and the batch size is 32, one epoch consists of $$\lceil 50{,}000 / 32 \rceil = 1{,}563$$ mini-batch updates.
+After each epoch, the DataLoader reshuffles the dataset, so mini-batches are different across epochs.
+
+### Beyond SGD: Momentum and Adaptive Methods
+
+Vanilla SGD can oscillate in loss landscapes where the surface curves much more steeply in one direction than another.
+Several extensions address this.
+
+**Momentum** adds a "velocity" term that accumulates a running average of recent gradients (with a decay factor $$\beta$$, typically 0.9).
+The intuition is physical: a ball rolling down the loss landscape builds speed in consistent directions and dampens oscillations where gradients flip sign.
+
+**Adam** [3] adapts the learning rate individually for each parameter by tracking both the mean and variance of recent gradients.
+Parameters with consistently large gradients take smaller steps; parameters with small or noisy gradients take larger steps.
+Adam works well out of the box for most problems and is the recommended starting point for protein AI projects.
+
+**AdamW** [6] fixes a subtle issue where Adam's adaptive scaling interacts incorrectly with weight decay regularization.
 For most practical purposes, AdamW is the preferred optimizer.
 
 ```python
@@ -271,7 +281,34 @@ Without zeroing, gradients from previous batches would contaminate the current u
 ## 4. Data Loading: Feeding Proteins to Neural Networks
 
 Training neural networks requires showing them thousands or millions of examples.
-Efficient data loading becomes crucial, especially when proteins have variable lengths and complex representations.
+Getting data from disk into the model efficiently is a surprisingly important engineering problem --- and proteins make it harder than usual.
+
+### Why Data Loading Matters
+
+PyTorch separates data loading into two abstractions: the **Dataset**, which defines how to access a single example, and the **DataLoader**, which groups examples into mini-batches and manages shuffling, padding, and parallel loading.
+This separation is a deliberate design decision.
+
+Why not just load everything into a single tensor?
+Proteins make this impractical for three reasons.
+
+**Variable lengths.**
+A 50-residue peptide and a 1,000-residue enzyme cannot be naively stacked into a single tensor.
+Each protein must be individually encoded and padded to a common length within each batch, and the padding length should change from batch to batch to avoid wasting computation.
+
+**Large datasets.**
+UniProt contains over 200 million protein sequences.
+Even a curated training set of 100,000 proteins may not fit in GPU memory simultaneously.
+The DataLoader streams batches from disk or CPU memory to the GPU on demand, so only one batch needs to reside on the GPU at any time.
+
+**GPU efficiency.**
+As we discussed in Section 2, mini-batch training requires data to arrive in consistent batches of a fixed size.
+The DataLoader handles this automatically: it groups proteins into batches, shuffles the ordering each epoch (making SGD stochastic), and optionally loads data in parallel using background worker processes.
+
+The pipeline looks like this:
+
+```
+Raw data (CSV, FASTA)  →  Dataset (encode one protein)  →  DataLoader (batch, shuffle, pad)  →  Model
+```
 
 ### The `Dataset` Class
 
@@ -458,15 +495,35 @@ def evaluate(model, dataloader, criterion, device):
 
 ### What Overfitting Looks Like
 
-Imagine plotting training and validation loss over epochs:
+The figure below shows a concrete example from our solubility predictor (Section 6).
+
+<div class="col-sm-9 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/overfitting_curves.png' | relative_url }}" alt="Training vs validation loss showing overfitting">
+    <div class="caption mt-1"><strong>Training and validation loss curves illustrating overfitting.</strong> Training loss decreases steadily, but validation loss begins increasing after ~40 epochs --- the model is memorizing the training data rather than learning generalizable patterns.</div>
+</div>
+
+When we train the solubility classifier for 100 epochs, training loss decreases smoothly toward zero --- the model is classifying the training proteins with high confidence.
+But the validation loss tells a different story: it decreases initially, plateaus around epoch 30--40, and then starts *increasing*.
+Training accuracy reaches 98%, while validation accuracy stalls at 72%.
+The 26-percentage-point gap means the model is spending most of its capacity on memorization.
+
+In general, loss curves fall into four patterns:
 
 - **Good**: both curves decrease and stay close together. The model is learning patterns that generalize.
 - **Mild overfitting**: training loss keeps decreasing, validation loss plateaus. The model has learned what it can but is starting to memorize noise.
 - **Severe overfitting**: training loss approaches zero, validation loss *increases*. The model is memorizing training data at the expense of generalization.
 - **Underfitting**: both curves are high and flat. The model is too simple to capture the patterns in the data.
 
+### Why Protein Models Are Especially Prone to Overfitting
+
+Protein datasets are typically small relative to model capacity.
+A dataset of 5,000 proteins with a model containing 500,000 parameters means there are 100 parameters per training example --- plenty of room for the model to memorize each protein individually instead of learning general patterns.
+
+Additionally, protein sequences have rich internal structure --- motifs, repeats, compositional biases --- that a model can latch onto as "shortcuts" for the training set without these shortcuts being predictive on new data.
+This mirrors the problem in image classification where models sometimes learn to recognize the background (grass behind cows, snow behind wolves) rather than the object itself.
+
 The moment when validation loss stops improving and starts rising is the point of best generalization.
-Saving the model at that point --- and discarding later, overfit versions --- is the idea behind **early stopping**, which we discuss in Preliminary Note 4.
+Saving the model at that point --- and discarding later, overfit versions --- is the idea behind **early stopping**, which we discuss in the optional Preliminary Note 4.
 
 ### A Complete Training Script
 
@@ -504,7 +561,7 @@ def train_model(model, train_loader, val_loader, epochs=100, lr=1e-3):
     return model
 ```
 
-Preliminary Note 4 extends this with learning rate scheduling, early stopping, regularization techniques, and other improvements that address overfitting systematically.
+The optional Preliminary Note 4 extends this with learning rate scheduling, early stopping, regularization techniques, and other improvements that address overfitting systematically.
 
 ---
 
@@ -791,7 +848,7 @@ Before declaring a model "trained," verify the following:
 
 6. **Evaluation** must use multiple metrics. Accuracy alone is misleading for imbalanced datasets. Understand the precision-recall tradeoff in the context of your biological application.
 
-7. **Next up**: Preliminary Note 4 takes the solubility predictor from this note and systematically improves it using regularization, learning rate schedules, sequence-identity splits, and other techniques.
+7. **Optional next step**: Preliminary Note 4 takes the solubility predictor from this note and systematically improves it using regularization, learning rate schedules, sequence-identity splits, and other techniques. It is recommended but not required before proceeding to Lecture 1.
 
 ---
 
