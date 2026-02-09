@@ -40,7 +40,7 @@ Finally, we map different biological questions to their corresponding mathematic
 | [Protein File Formats](#1-protein-file-formats) | FASTA and PDB parsing with Biopython and Biotite | Raw biological data must be loaded before it can be encoded |
 | [Sequence Representations](#2-sequence-representations) | One-hot encoding, learned embeddings | Every downstream model needs a numerical input for amino acid sequences |
 | [Structure Representations](#3-structure-representations) | Distance matrices, contact maps, dihedral angles | 3D arrangement determines protein function; structure-aware models need spatial inputs |
-| [Neural Network Architectures](#4-neural-network-architectures) | Neurons, activations, layers, depth, `nn.Module` | The function families that transform protein representations into predictions |
+| [Neural Network Architectures](#4-neural-network-architectures) | Neurons, activations, layers, depth, CNNs/transformers/GNNs preview, `nn.Module` | The function families that transform protein representations into predictions |
 | [Task Formulations](#5-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
 
 ### Prerequisites
@@ -583,7 +583,29 @@ In practice, deeper networks are not always better.
 Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
 Techniques like residual connections, normalization layers, and careful initialization have made training deep networks practical.
 
-### 4.5 `nn.Module`: PyTorch's Building Block
+### 4.5 Specialized Architectures: A Preview
+
+The fully connected networks above treat the input as a flat vector of features --- every input element connects to every neuron.
+This is fine for global feature vectors (amino acid composition, molecular weight), but proteins have **structure** that a flat vector ignores: sequences have an ordering, and 3D structures have spatial relationships.
+Specialized architectures exploit this structure.
+
+**Convolutional Neural Networks (CNNs)** slide a small filter (kernel) along the sequence, detecting local patterns like charge clusters or hydrophobic stretches.
+A kernel of size 5 looks at five consecutive amino acids at a time, and applying many such kernels in parallel lets the network learn a rich vocabulary of local motifs.
+We use a 1D-CNN for the solubility prediction case study in Preliminary Note 4.
+
+**Transformers** use an **attention mechanism** that allows every position in a sequence to directly attend to every other position.
+This makes them especially powerful for capturing long-range dependencies --- for example, two residues that are far apart in the sequence but close together in the folded structure.
+Transformers are the backbone of protein language models like ESM and the core of AlphaFold2.
+
+**Graph Neural Networks (GNNs)** represent a protein as a graph, where nodes are residues (or atoms) and edges connect spatially neighboring residues.
+Information flows along edges through **message passing**: each node aggregates information from its neighbors, updates its own representation, and sends new messages.
+GNNs are natural for structure-based tasks because they operate directly on the 3D geometry.
+ProteinMPNN, the state-of-the-art method for computational protein sequence design, is a GNN.
+
+We cover transformers and GNNs in depth in Lecture 1, and protein language models (which are transformers trained on millions of sequences) in Lecture 3.
+For now, the key takeaway is that **the choice of architecture encodes an inductive bias** --- an assumption about the structure of the problem --- and matching the architecture to the data is one of the most important design decisions in protein AI.
+
+### 4.6 `nn.Module`: PyTorch's Building Block
 
 In PyTorch, every neural network component inherits from `nn.Module`.
 This base class provides machinery for tracking parameters, moving to GPU, saving and loading models, and more.
@@ -630,7 +652,7 @@ print(output.shape)
 PyTorch handles the backward pass automatically.
 You never write backpropagation code --- you only specify the forward computation.
 
-### 4.6 Common Layer Types
+### 4.7 Common Layer Types
 
 PyTorch provides a library of pre-built layers for common operations.
 Here are the ones you will encounter most often in protein AI.
@@ -661,7 +683,7 @@ nn.Dropout(p=0.1)  # Each neuron has a 10% chance of being turned off per forwar
 nn.Embedding(num_embeddings=21, embedding_dim=64)
 ```
 
-### 4.7 `nn.Sequential`: Quick Model Definition
+### 4.8 `nn.Sequential`: Quick Model Definition
 
 For simple architectures where data flows straight through one layer after another with no branching, `nn.Sequential` offers a compact shortcut:
 
@@ -680,7 +702,7 @@ model = nn.Sequential(
 This builds the same network as a custom `nn.Module` class but with less boilerplate.
 Use `nn.Sequential` for quick experiments; switch to a full class when you need branching, skip connections, or conditional logic.
 
-### 4.8 Managing Parameters
+### 4.9 Managing Parameters
 
 Neural networks can have millions of parameters.
 PyTorch provides tools to inspect and manage them.
