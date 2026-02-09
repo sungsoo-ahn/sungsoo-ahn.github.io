@@ -1,0 +1,18 @@
+flowchart LR
+    X["Input x_i<br/>(per-residue<br/>embedding)"] --> WQ["W^Q"]
+    X --> WK["W^K"]
+    X --> WV["W^V"]
+
+    WQ --> Q["Query q_i<br/>'What am I<br/>looking for?'"]
+    WK --> K["Key k_j<br/>'What do I<br/>have to offer?'"]
+    WV --> V["Value v_j<br/>'What info<br/>do I carry?'"]
+
+    Q & K --> S["Score: q_i · k_j<br/>(dot product)"]
+    S --> SM["Softmax<br/>α_ij"]
+    SM --> AG["Weighted Sum<br/>Σ α_ij · v_j"]
+    V --> AG
+    AG --> O["Output<br/>(context-aware)"]
+
+    style Q fill:#fff3e0,stroke:#FF9800
+    style K fill:#e8f4fd,stroke:#2196F3
+    style V fill:#e8f5e9,stroke:#4CAF50

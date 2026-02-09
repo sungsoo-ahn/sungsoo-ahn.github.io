@@ -11,8 +11,6 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 2 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The course covers core machine learning techniques for protein science, from representation learning to generative design. In this lecture we shift from discriminative models—which predict properties of existing proteins—to generative models that can imagine entirely new ones.</em></p>
@@ -98,23 +96,9 @@ For generation, we need a way to make *every* region of latent space decode into
     <div class="caption mt-1"><strong>Variational Autoencoder (VAE).</strong> Left: the generative model (solid arrow) maps latent variable z to data x through the decoder. The inference model (dashed arrow) approximates the posterior through the encoder. Right: the encoder produces distribution parameters (μ, σ), a latent code z is sampled, and the decoder reconstructs the input. The ELBO training objective balances reconstruction quality and latent space regularity.</div>
 </div>
 
-```mermaid
-flowchart LR
-    subgraph AE["Autoencoder"]
-        direction LR
-        X1["Input x"] --> E1["Encoder"] --> Z1["z\n(deterministic\npoint)"] --> D1["Decoder"] --> X1R["Reconstructed x̂"]
-    end
-
-    subgraph VAE["Variational Autoencoder"]
-        direction LR
-        X2["Input x"] --> E2["Encoder"] --> MU["μ, σ²\n(distribution\nparameters)"] --> S2["Sample\nz ~ N(μ, σ²)"] --> D2["Decoder"] --> X2R["Reconstructed x̂"]
-        MU -.- KL["KL divergence\npushes toward N(0,I)"]
-    end
-
-    style Z1 fill:#fce4ec,stroke:#e91e63
-    style S2 fill:#e8f5e9,stroke:#4CAF50
-    style KL fill:#fff3e0,stroke:#FF9800
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_0.png' | relative_url }}" alt="s26-05-generative-models_diagram_0">
+</div>
 
 Variational autoencoders, introduced by Kingma and Welling (2014), solve this problem by making the latent space **probabilistic**.
 Instead of mapping each protein $$x$$ to a single point $$z$$, the encoder outputs the parameters of a Gaussian distribution—a mean vector $$\mu_\phi(x)$$ and a variance vector $$\sigma^2_\phi(x)$$—from which we then *sample* a latent code:
@@ -574,24 +558,9 @@ This connection links diffusion models to the broader framework of score-based g
 
 ### Generation by Iterative Denoising
 
-```mermaid
-flowchart LR
-    XT["x_T\n(pure noise)"] --> D1["Denoise\nStep T"]
-    D1 --> XTM["x_{T-1}"] --> D2["Denoise\nStep T-1"]
-    D2 --> DOTS["..."]
-    DOTS --> D3["Denoise\nStep 1"]
-    D3 --> X0["x_0\n(generated\nprotein)"]
-
-    subgraph Step["Each Denoising Step"]
-        direction TB
-        IN["x_t, t"] --> NET["Neural Network\nε_θ(x_t, t)"]
-        NET --> PRED["Predicted noise ε̂"]
-        PRED --> SUB["x_{t-1} = f(x_t, ε̂, t)"]
-    end
-
-    style XT fill:#fce4ec,stroke:#e91e63
-    style X0 fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_1.png' | relative_url }}" alt="s26-05-generative-models_diagram_1">
+</div>
 
 Once the noise prediction network is trained, generation proceeds by simulating the reverse process.
 Starting from pure noise $$x_T \sim \mathcal{N}(0, I)$$, we apply the learned denoising step $$T$$ times:
@@ -924,19 +893,3 @@ When you want both, consider latent diffusion, which applies diffusion in a VAE'
 9. Ho, J. and Salimans, T. (2022). "Classifier-Free Diffusion Guidance." *arXiv preprint arXiv:2207.12598*.
 10. Rombach, R. et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *Conference on Computer Vision and Pattern Recognition (CVPR)*.
 11. Dauparas, J. et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *Science*, 378(6615), 49--56.
-
----
-
-## Exercises
-
-1. **Implement and visualize a protein VAE.** Train a VAE on a family of homologous protein sequences (for example, from the Pfam database). Project the learned latent codes into 2D using t-SNE or UMAP and color them by subfamily. Do functionally similar sequences cluster together? What happens to the clusters as you increase $$\beta$$ from 0.1 to 10?
-
-2. **Explore the reconstruction--regularization trade-off.** For the VAE trained in Exercise 1, plot reconstruction accuracy (per-position amino-acid recovery rate) and KL divergence as a function of $$\beta$$. At what value of $$\beta$$ does the latent space become "smooth enough" for generation without destroying reconstruction?
-
-3. **Diffusion on a 1D signal.** Implement DDPM training and sampling for a simple 1D dataset: per-residue hydrophobicity profiles of real proteins. Visualize the denoising trajectory by plotting $$x_t$$ at timesteps $$t \in \{T, 0.75T, 0.5T, 0.25T, 0\}$$. How does the structure of the signal emerge over time?
-
-4. **Compare VAE and diffusion sample quality.** Generate 1000 sequences from a trained VAE and 1000 from a trained diffusion model (using the same training set of protein sequences). Evaluate the naturalness of each set using ESMFold's pLDDT score or ESM-2 pseudo-perplexity. Which method produces more "protein-like" sequences? How does generation time compare?
-
-5. **Conditional protein generation.** Extend the `ConditionalProteinVAE` above to condition on a three-element vector representing the target secondary-structure composition (fraction helix, fraction sheet, fraction coil). Train on a dataset where these labels are computed from known structures. Can the model generate sequences that, when folded by ESMFold, match the requested composition within 10 percentage points?
-
-6. **Discrete vs. continuous diffusion (conceptual).** Explain in your own words why adding Gaussian noise to a one-hot-encoded amino-acid sequence does not produce a meaningful corrupted sequence. Describe two strategies for resolving this mismatch and discuss one advantage and one disadvantage of each.

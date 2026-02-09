@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph Standard["Standard Fine-Tuning"]
+        X1["x"] --> W1["W (d×d)<br/>all params updated"]
+        W1 --> Y1["Wx"]
+    end
+
+    subgraph LoRA["LoRA Fine-Tuning"]
+        X2["x"] --> W2["W (frozen)"]
+        X2 --> A["A (d×r)"]
+        A --> B["B (r×d)"]
+        W2 --> ADD["+"]
+        B --> ADD
+        ADD --> Y2["(W+BA)x"]
+    end
+
+    style W2 fill:#e0e0e0,stroke:#9e9e9e
+    style A fill:#e8f5e9,stroke:#4CAF50
+    style B fill:#e8f5e9,stroke:#4CAF50

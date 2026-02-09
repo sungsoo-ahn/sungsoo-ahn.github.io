@@ -11,11 +11,9 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 4 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. It assumes familiarity with transformers and attention mechanisms (Lecture 2) as well as protein language models (Lecture 3). All code examples use PyTorch and are simplified for pedagogical clarity.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 4 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. It assumes familiarity with transformers and attention mechanisms (Lecture 1) as well as protein language models (Lecture 3). All code examples use PyTorch and are simplified for pedagogical clarity.</em></p>
 
 ## Introduction
 
@@ -40,7 +38,6 @@ Along the way we examine simplified PyTorch implementations of each piece, so th
 | 7 | Full pipeline | Assembles the pieces into one coherent system |
 | 8 | Design principles | Distills the recurring architectural ideas |
 | 9 | Computational considerations | Addresses memory, speed, and scaling |
-| 10 | Exercises | Practice problems for self-study |
 
 ---
 
@@ -109,29 +106,11 @@ AlphaFold2 makes evolutionary information the central organizing principle of it
 
 The following diagram shows the overall architecture of AlphaFold2, from input sequences to 3D structure output.
 
-```mermaid
-flowchart TB
-    SEQ["Protein Sequence"] --> MSA_SEARCH["MSA Search\n(genetic databases)"]
-    SEQ --> TEMP["Template Search\n(PDB structures)"]
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_0.png' | relative_url }}" alt="s26-07-alphafold_diagram_0">
+</div>
 
-    MSA_SEARCH --> MSA_EMB["MSA Embedding\n(N_seq × L × c_m)"]
-    TEMP --> PAIR_EMB["Pair Embedding\n(L × L × c_z)"]
-    SEQ --> PAIR_EMB
-
-    MSA_EMB --> EVO["Evoformer\n(48 blocks)"]
-    PAIR_EMB --> EVO
-
-    EVO -->|"MSA repr"| SM["Structure Module\n(8 recycling iterations)"]
-    EVO -->|"Pair repr"| SM
-
-    SM --> XYZ["3D Atomic\nCoordinates"]
-    SM --> CONF["Confidence\n(pLDDT)"]
-
-    style EVO fill:#fff3e0,stroke:#FF9800
-    style SM fill:#e8f5e9,stroke:#4CAF50
-```
-
-### 2.2 Two Representations, One Structure
+### 2.3 Two Representations, One Structure
 
 AlphaFold2 maintains two parallel data structures throughout most of its computation:
 
@@ -142,7 +121,7 @@ These two representations communicate throughout the network.
 Evolutionary signals from the MSA inform pairwise relationships, and pairwise constraints help interpret the MSA.
 By the end of this exchange, the pair representation contains a detailed predicted distance map.
 
-### 2.3 From Distances to Coordinates
+### 2.4 From Distances to Coordinates
 
 A distance map tells you *which* residues are close, but it does not directly specify *where* they are in three-dimensional space.
 The **Structure Module** takes the refined representations and converts them into atomic coordinates.
@@ -249,29 +228,9 @@ Keeping track of them helps when reading code or the original paper.
 The Evoformer is the heart of AlphaFold2.
 It is a stack of 48 nearly identical blocks, each of which refines both the MSA representation and the pair representation.
 
-```mermaid
-flowchart TB
-    subgraph EvoBlock["Single Evoformer Block"]
-        MSA_IN["MSA repr\n(N×L×c_m)"] --> ROW["Row Attention\n(+ pair bias)"]
-        ROW --> COL["Column Attention"]
-        COL --> MSA_FF["MSA Transition\n(FFN)"]
-        MSA_FF --> MSA_OUT["Updated MSA"]
-
-        PAIR_IN["Pair repr\n(L×L×c_z)"] --> TRI_OUT["Triangular\nMultiplicative\nUpdate (outgoing)"]
-        TRI_OUT --> TRI_IN["Triangular\nMultiplicative\nUpdate (incoming)"]
-        TRI_IN --> TRI_ATT_S["Triangular\nSelf-Attention\n(starting node)"]
-        TRI_ATT_S --> TRI_ATT_E["Triangular\nSelf-Attention\n(ending node)"]
-        TRI_ATT_E --> PAIR_FF["Pair Transition\n(FFN)"]
-        PAIR_FF --> PAIR_OUT["Updated Pair"]
-
-        MSA_FF -->|"Outer product\nmean"| TRI_OUT
-        PAIR_IN -->|"Bias"| ROW
-    end
-
-    style ROW fill:#fff3e0,stroke:#FF9800
-    style TRI_OUT fill:#e8f4fd,stroke:#2196F3
-    style TRI_IN fill:#e8f4fd,stroke:#2196F3
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_1.png' | relative_url }}" alt="s26-07-alphafold_diagram_1">
+</div>
 The name telegraphs its purpose: a transformer designed to process *evolutionary* information.
 
 What makes the Evoformer distinctive is not raw size but architectural specificity.
@@ -390,25 +349,9 @@ But proteins are densely packed, and real constraints are far tighter than the w
 
 The **triangular updates** pass messages around triangles in the pair representation, enforcing this kind of three-body consistency.
 
-```mermaid
-flowchart LR
-    subgraph Triangle["Triangle Inequality Constraint"]
-        A((A)) -->|"z_ij"| B((B))
-        B -->|"z_jk"| C((C))
-        A -->|"z_ik"| C
-    end
-
-    subgraph Update["Triangular Multiplicative Update"]
-        direction TB
-        ZIK["z(i,k)"] --> GATE_A["Gate a_ik"]
-        ZJK["z(j,k)"] --> GATE_B["Gate b_jk"]
-        GATE_A --> MULT["a_ik ⊙ b_jk"]
-        GATE_B --> MULT
-        MULT -->|"Sum over k"| ZIJ["Update z(i,j)"]
-    end
-
-    Triangle -->|"For each\nthird vertex k"| Update
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_2.png' | relative_url }}" alt="s26-07-alphafold_diagram_2">
+</div>
 There are four triangular operations in each Evoformer block---two multiplicative updates and two attention variants---each providing a different view of the geometric constraints.
 
 #### 4.3.1 Triangular Multiplicative Update (Outgoing Edges)
@@ -746,25 +689,9 @@ class Rigid:
 
 ### 5.3 Invariant Point Attention (IPA)
 
-```mermaid
-flowchart TB
-    subgraph IPA["Invariant Point Attention"]
-        S["Per-residue\nfeatures s_i"] --> Q_S["Scalar Q, K"]
-        S --> Q_P["Point Q, K\n(in local frame T_i)"]
-        PAIR["Pair repr\nz_ij"] --> BIAS["Pair Bias b_ij"]
-
-        Q_S --> ATTN["Attention Score a_ij"]
-        BIAS --> ATTN
-        Q_P -->|"T_i⁻¹ ∘ T_j\ntransform to\nlocal frame"| DIST["Point Distance\n−w_c/2 · ||...||²"]
-        DIST --> ATTN
-
-        ATTN --> SOFT["Softmax"]
-        SOFT --> OUT["Weighted sum\nof values"]
-    end
-
-    style DIST fill:#e8f4fd,stroke:#2196F3
-    style ATTN fill:#fff3e0,stroke:#FF9800
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_3.png' | relative_url }}" alt="s26-07-alphafold_diagram_3">
+</div>
 
 Invariant Point Attention is the mechanism that lets the network reason about three-dimensional geometry while remaining invariant to global rotations and translations.
 
@@ -1265,57 +1192,6 @@ Attention computations, gradient storage, and intermediate activations multiply 
 For reference, predicting the structure of a single ~400-residue protein takes approximately 5--10 minutes on a single GPU (V100 or A100) when using the full AlphaFold2 pipeline including MSA construction[^colabfold].
 
 [^colabfold]: ColabFold (Mirdita et al., 2022) accelerates AlphaFold2 by replacing the slow JackHMMER-based MSA search with a faster MMseqs2-based approach, reducing total prediction time significantly.
-
----
-
-## 10. Exercises
-
-These problems range from implementation exercises to conceptual questions.
-They are designed to deepen understanding of the material covered in this lecture.
-
-### Exercise 1: Implement MSA Column Attention
-
-Adapt the MSA row attention code to operate over sequences (columns) rather than positions (rows).
-Specifically:
-- The attention dimension changes from $$L$$ (positions) to $$N_{\text{seq}}$$ (sequences).
-- Each position $$j$$ independently attends across all sequences.
-- The pair bias is no longer applicable (column attention does not use pair bias in AlphaFold2).
-
-*Hint:* What changes in the einsum indices? Write out the shapes at each step.
-
-### Exercise 2: Quaternion-Based Rotation Updates
-
-The Structure Module code above uses a simplified identity rotation for frame updates.
-Implement a proper quaternion-based rotation:
-1. Write a function that converts a 4-vector $$(q_w, q_x, q_y, q_z)$$ to a $$3 \times 3$$ rotation matrix.
-2. Modify `backbone_update` to output 7 values (4 quaternion components + 3 translation) instead of 6.
-3. Ensure that the quaternion is normalized before conversion to a rotation matrix.
-
-### Exercise 3: Template Embedding
-
-AlphaFold2 can incorporate structural templates from homologous proteins.
-Design an embedding scheme that:
-- Takes template backbone coordinates $$[L, 3, 3]$$ (N, C$$_\alpha$$, C per residue) and a confidence mask $$[L]$$.
-- Computes pairwise distances and orientations.
-- Produces a template contribution to the pair representation $$[L, L, c_z]$$.
-
-*Consider:* What features are invariant to global rotation? How should you handle low-confidence or missing template regions?
-
-### Exercise 4: Confidence Prediction Head
-
-Implement a pLDDT prediction head:
-1. Take the single representation $$[L, c_s]$$ from the Structure Module.
-2. Predict per-residue confidence scores in $$[0, 100]$$.
-3. Compute the training target: the actual lDDT of predicted vs. true coordinates at distance cutoffs of 0.5, 1, 2, and 4 angstroms.
-
-*Bonus:* How does the pLDDT correlate with B-factors in crystal structures?
-
-### Exercise 5: Complexity Analysis
-
-For a protein of length $$L$$ with an MSA of $$N$$ sequences:
-1. What is the time complexity of MSA row attention? MSA column attention?
-2. What is the time and space complexity of the triangular multiplicative update?
-3. If you double $$L$$, how does the total Evoformer runtime change?
 
 ---
 

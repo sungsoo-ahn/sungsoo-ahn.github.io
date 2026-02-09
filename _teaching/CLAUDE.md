@@ -2,7 +2,7 @@
 
 Instructions for writing and editing lecture notes in `_teaching/`.
 
-**Skills:** `/academic-writing` for prose style, `/jekyll-writing` for rendering rules.
+**Skills:** `/academic-writing` for prose style, `/jekyll-writing` for rendering rules, `/refine-lecture-notes` for cross-note consistency passes.
 
 ## Note Frontmatter
 

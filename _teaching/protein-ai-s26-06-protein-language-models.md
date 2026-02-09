@@ -11,8 +11,6 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
-mermaid:
-  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 3 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The course covers computational methods at the intersection of machine learning and protein science. Lecture 1 introduced transformers and graph neural networks; Lecture 2 covered generative models (VAEs and diffusion). Here we turn to protein language models, the self-supervised approach that learns rich representations directly from raw protein sequences.</em></p>
@@ -53,11 +51,10 @@ This lecture develops the ideas behind protein language models from the ground u
 | [Attention Maps as Structure Windows](#attention-maps-as-structure-windows) | Interprets what the model has learned about contacts |
 | [The Broader pLM Landscape](#the-broader-plm-landscape) | Surveys alternative models and their niches |
 | [Practical Considerations](#practical-considerations) | Guides model selection, memory budgets, and batch processing |
-| [Exercises](#exercises) | Hands-on problems to consolidate understanding |
 
 ---
 
-## The Protein-Language Analogy
+## 1. The Protein-Language Analogy
 
 Before introducing any formulas, let us build intuition by placing proteins and natural language side by side.
 
@@ -120,7 +117,7 @@ As we will see, the results exceed what the analogy alone might lead us to expec
 
 ---
 
-## Learning from Billions of Evolutionary Experiments
+## 2. Learning from Billions of Evolutionary Experiments
 
 Why should a model trained to fill in missing amino acids learn anything useful about protein biology?
 
@@ -152,7 +149,7 @@ By learning from this vast corpus, protein language models capture knowledge tha
 
 ---
 
-## Masked Language Modeling
+## 3. Masked Language Modeling
 
 <div class="col-sm-10 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mlm_protein_illustration.png' | relative_url }}" alt="Masked language modeling for protein sequences">
@@ -166,16 +163,9 @@ The concept is a fill-in-the-blank exercise applied at massive scale.
 
 ### The procedure
 
-```mermaid
-flowchart LR
-    SEQ["M V L S P A D K T N"] -->|"15% random\nmasking"| MASKED["M V ‹mask› S P ‹mask› D K T N"]
-    MASKED --> MODEL["Transformer\n(ESM-2)"]
-    MODEL --> PRED["M V **L** S P **A** D K T N"]
-    PRED -->|"Cross-entropy\nloss at masked\npositions"| LOSS["L_MLM"]
-
-    style MASKED fill:#fff3e0,stroke:#FF9800
-    style PRED fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_0.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_0">
+</div>
 
 1. Take a protein sequence $$x = (x_1, x_2, \ldots, x_L)$$, where $$L$$ is the sequence length and each $$x_i$$ is one of the 20 standard amino acids.
 2. Randomly select approximately 15% of positions to form the **mask set** $$\mathcal{M}$$.
@@ -275,7 +265,7 @@ Each position is influenced by context on *both* sides, not just the left.
 
 ---
 
-## ESM-2 Architecture and Model Family
+## 4. ESM-2 Architecture and Model Family
 
 **ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models {% cite lin2023evolutionary %}.
 It combines the Transformer architecture with large-scale training on protein sequence databases, producing representations that capture evolutionary, structural, and functional information.
@@ -325,7 +315,7 @@ This simple change stabilizes training, especially for very deep models with doz
 
 **SwiGLU activation.**
 The feedforward sublayers use SwiGLU instead of the standard ReLU or GELU.
-SwiGLU combines the Swish activation[^swish] (introduced in Preliminary Note 2) with a linear gating mechanism, providing more expressive nonlinear transformations:
+SwiGLU combines the Swish activation[^swish] with a linear gating mechanism, providing more expressive nonlinear transformations:
 
 [^swish]: Swish, also known as SiLU (Sigmoid Linear Unit), is defined as $$\text{Swish}(x) = x \cdot \sigma(x)$$, where $$\sigma$$ is the sigmoid function.
 
@@ -381,7 +371,7 @@ The model is never told about structure, function, or conservation; it discovers
 
 ---
 
-## Extracting and Using Embeddings
+## 5. Extracting and Using Embeddings
 
 One of the most practical applications of ESM-2 is **embedding extraction**: passing a protein sequence through the model and collecting the internal representations for use in downstream tasks.
 
@@ -463,7 +453,7 @@ In many benchmarks, simply training a logistic regression on ESM-2 mean-pooled e
 
 ---
 
-## Zero-Shot Mutation Prediction
+## 6. Zero-Shot Mutation Prediction
 
 Perhaps the most striking capability of protein language models is **zero-shot prediction of mutational effects**.
 Without any fine-tuning or task-specific labels, ESM-2 can estimate whether a single amino acid substitution is likely to be beneficial, neutral, or deleterious.
@@ -561,7 +551,7 @@ Zero-shot pLM scoring provides an instant, free estimate that can:
 
 ---
 
-## Fine-Tuning for Specific Tasks
+## 7. Fine-Tuning for Specific Tasks
 
 While zero-shot capabilities are impressive, **fine-tuning** ESM-2 on task-specific labeled data can further improve performance.
 Fine-tuning adapts the pretrained representations to a particular problem, learning which aspects of the embeddings are most relevant for the task at hand.
@@ -645,28 +635,11 @@ Or, better yet, use LoRA.
 
 ---
 
-## LoRA: Efficient Adaptation
+## 8. LoRA: Efficient Adaptation
 
-```mermaid
-flowchart LR
-    subgraph Standard["Standard Fine-Tuning"]
-        X1["x"] --> W1["W\n(d × d)\nAll params\nupdated"]
-        W1 --> Y1["Wx"]
-    end
-
-    subgraph LoRA["LoRA Fine-Tuning"]
-        X2["x"] --> W2["W (frozen)\n(d × d)"]
-        X2 --> A["A (trainable)\n(d × r)"]
-        A --> B["B (trainable)\n(r × d)"]
-        W2 --> ADD["+"]
-        B --> ADD
-        ADD --> Y2["(W + BA)x"]
-    end
-
-    style W2 fill:#e0e0e0,stroke:#9e9e9e
-    style A fill:#e8f5e9,stroke:#4CAF50
-    style B fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_1.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_1">
+</div>
 
 Full fine-tuning of a 650M-parameter model requires storing optimizer states and gradients for every parameter, which can demand 10--20 GB of GPU memory.
 For the 3B or 15B variants, full fine-tuning is out of reach for most research labs.
@@ -821,32 +794,23 @@ Tasks that once required clusters of A100 GPUs can now be performed on a single 
 
 ---
 
-## ESMFold: From Embeddings to Structure
+## 9. ESMFold: From Embeddings to Structure
 
 The ultimate test of whether a language model truly "understands" proteins is whether its representations contain enough information to predict three-dimensional structure.
 **ESMFold** demonstrates that they do {% cite lin2023evolutionary %}.
 
 ### Architecture
 
-```mermaid
-flowchart LR
-    SEQ["Amino Acid\nSequence"] --> ESM["ESM-2\nEncoder\n(pretrained)"]
-    ESM --> EMB["Per-Residue\nEmbeddings\n(L × 1280)"]
-    EMB --> FOLD["Folding\nTrunk"]
-    FOLD --> SM["Structure\nModule\n(IPA)"]
-    SM --> XYZ["3D Atomic\nCoordinates"]
-
-    style SEQ fill:#e8f4fd,stroke:#2196F3
-    style ESM fill:#fff3e0,stroke:#FF9800
-    style XYZ fill:#e8f5e9,stroke:#4CAF50
-```
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_2.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_2">
+</div>
 
 ESMFold takes a protein sequence, passes it through the ESM-2 backbone to produce per-residue embeddings, and then feeds those embeddings into a structure prediction module that generates atomic coordinates.
 The structure module is similar to the one used in AlphaFold2, operating on pairwise representations and iteratively refining coordinates.
 
 ### The key difference from AlphaFold2
 
-AlphaFold2 requires a **multiple sequence alignment** (MSA) as input (introduced in Preliminary Note 1): a collection of evolutionary relatives of the query protein, aligned position by position.
+AlphaFold2 requires a **multiple sequence alignment** (MSA) as input (introduced in Lecture 1, Transformers &amp; GNNs): a collection of evolutionary relatives of the query protein, aligned position by position.
 Constructing this MSA is computationally expensive, often taking minutes to hours for a single protein.
 
 ESMFold requires only a **single sequence**.
@@ -897,7 +861,7 @@ The grammar of proteins is inseparable from their physics.
 
 ---
 
-## Attention Maps as Structure Windows
+## 10. Attention Maps as Structure Windows
 
 The attention mechanism in ESM-2 is not just a computational tool; it provides an **interpretable window** into what the model has learned.
 
@@ -993,7 +957,7 @@ No structural supervision is provided.
 
 ---
 
-## The Broader pLM Landscape
+## 11. The Broader pLM Landscape
 
 ESM-2 is the most widely used protein language model, but it is not the only one.
 Several alternatives exist, each with distinct strengths.
@@ -1024,7 +988,7 @@ For generation tasks, autoregressive models such as ProGen2 are more natural.
 
 ---
 
-## Practical Considerations
+## 12. Practical Considerations
 
 Deploying protein language models in a research workflow involves several practical choices.
 
@@ -1065,7 +1029,7 @@ This is especially important for fine-tuning experiments where small differences
 
 ---
 
-## Key Takeaways
+## 13. Key Takeaways
 
 1. **Proteins are a language** with amino acids as tokens, sequences as sentences, and evolutionary constraints as grammar. This structural parallel justifies applying NLP techniques to protein sequences.
 
@@ -1082,41 +1046,6 @@ This is especially important for fine-tuning experiments where small differences
 7. **ESMFold** demonstrates that language model embeddings contain sufficient information to predict three-dimensional protein structure from a single sequence.
 
 8. **Attention maps** correlate with structural contacts, revealing that the model has discovered the connection between co-evolution and spatial proximity.
-
----
-
-## Exercises
-
-**Exercise 1: Embedding Visualization.**
-Extract ESM-2 embeddings (mean-pooled) for at least 50 members of a protein family (e.g., kinases from Pfam PF00069, or proteases from PF00089).
-Use UMAP or t-SNE to project the 1280-dimensional embeddings into 2D.
-Do sequences with similar functions cluster together?
-Color the points by organism or subfamily and describe what you observe.
-
-**Exercise 2: Zero-Shot Mutation Benchmark.**
-Choose a protein with publicly available deep mutational scanning (DMS) data (e.g., GFP from Sarkisyan et al., 2016, or GB1 from Olson et al., 2014).
-Use ESM-2 to compute the log-likelihood ratio for every single-point mutation.
-Calculate the Spearman correlation between your predictions and the experimental fitness values.
-How does performance vary across different secondary structure regions (helix vs. sheet vs. loop)?
-
-**Exercise 3: LoRA vs. Full Fine-Tuning.**
-Take a small binary classification dataset (e.g., thermophilic vs. mesophilic proteins, or soluble vs. membrane proteins).
-Compare three approaches: (a) frozen ESM-2 650M backbone + linear head, (b) LoRA fine-tuning of ESM-2 650M (rank 8), and (c) full fine-tuning of ESM-2 35M.
-Report accuracy, training time, and peak GPU memory for each.
-Which approach gives the best accuracy per unit of compute?
-
-**Exercise 4: Layer-wise Information Content.**
-Extract embeddings from *every* layer of ESM-2 650M (layers 1 through 33) for a set of proteins with known secondary structure annotations.
-Train a simple linear classifier (logistic regression) on embeddings from each layer to predict secondary structure (H/E/C).
-Plot accuracy vs. layer number.
-At which layer does structural information peak?
-Does the last layer always give the best features?
-
-**Exercise 5: Attention-Derived Contacts.**
-For a protein with a known crystal structure (e.g., T4 lysozyme, PDB 2LZM), extract attention maps from ESM-2 and convert them to a predicted contact map using the APC-corrected procedure described in this lecture.
-Compare your predicted contacts to the true contact map derived from the crystal structure (define a contact as C-beta distance < 8 Angstroms).
-Report precision at $$L/5$$ (the fraction of your top $$L/5$$ predicted contacts that are true contacts, where $$L$$ is the sequence length).
-Which attention heads contribute most to contact prediction accuracy?
 
 ---
 

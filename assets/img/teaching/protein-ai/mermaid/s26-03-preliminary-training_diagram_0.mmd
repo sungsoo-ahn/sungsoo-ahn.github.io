@@ -1,0 +1,12 @@
+flowchart LR
+    x["x, W, b"] --> z["z = Wx + b"] --> a["a = σ(z)"] --> L["Loss L"]
+    L -.->|"∂L/∂a"| da["∂L/∂z"] -.->|"× σ'(z)"| dW["∂L/∂W = x"]
+    da -.-> db["∂L/∂b = 1"]
+
+    style x fill:#e8f4fd,stroke:#2196F3
+    style z fill:#e8f4fd,stroke:#2196F3
+    style a fill:#e8f4fd,stroke:#2196F3
+    style L fill:#fff3e0,stroke:#FF9800
+    style da fill:#fce4ec,stroke:#e91e63
+    style dW fill:#fce4ec,stroke:#e91e63
+    style db fill:#fce4ec,stroke:#e91e63
