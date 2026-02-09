@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Python & Data Basics for Protein AI"
-date: 2026-03-01
+date: 2026-02-28
 description: "NumPy arrays, Pandas DataFrames, and protein file formats—the essential toolkit for turning biological data into ML-ready inputs."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
@@ -173,7 +173,7 @@ print(f"D[0, 1] = {D[0, 1]:.2f} Angstroms")
 ```
 
 This function will appear throughout the course.
-It is used for contact map prediction, structure validation, and as input to geometric deep learning models such as AlphaFold {% cite jumper2021highly %}.
+It is used for contact map prediction, structure validation, and as input to geometric deep learning models such as AlphaFold [7].
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/distance_matrix_vis.png' | relative_url }}" alt="Cα distance matrix visualization">
@@ -183,7 +183,7 @@ It is used for contact map prediction, structure validation, and as input to geo
 ### 1.4 Linear Algebra: Structure Alignment with the Kabsch Algorithm
 
 Comparing two protein structures requires **superposition** --- finding the rotation that best aligns one structure onto the other.
-The standard method is the **Kabsch algorithm** {% cite kabsch1976solution %}, which finds the optimal rotation matrix $$R$$ minimizing the root-mean-square deviation (RMSD)[^rmsd] between two sets of corresponding points.
+The standard method is the **Kabsch algorithm** [5], which finds the optimal rotation matrix $$R$$ minimizing the root-mean-square deviation (RMSD)[^rmsd] between two sets of corresponding points.
 
 [^rmsd]: RMSD (root-mean-square deviation) measures the average distance between corresponding atoms after optimal superposition. It is the standard metric for evaluating structure prediction accuracy, with units in Angstroms.
 
@@ -761,7 +761,7 @@ def plot_contact_map(coords, threshold=8.0):
 Contact maps reveal secondary structure patterns.
 **Alpha helices** appear as thick bands along the main diagonal, because consecutive residues in a helix are spatially close.
 **Beta sheets** create off-diagonal stripes, reflecting pairs of distant residues brought together by hydrogen bonding.
-Contact prediction from sequence alone was one of the first successful applications of deep learning to protein structure {% cite senior2020improved %}.
+Contact prediction from sequence alone was one of the first successful applications of deep learning to protein structure [9].
 
 ### 5.2 Interactive 3D Structure Visualization
 
@@ -835,7 +835,7 @@ Parse the structure, extract $$\text{C}_\alpha$$ coordinates, and compute the fu
 (c) Which residue has the most contacts? Look up its location in the 3D structure --- is it buried in the core or exposed on the surface?
 
 **Exercise 3: Family-aware data splitting.**
-The TAPE benchmark {% cite rao2019evaluating %} provides protein datasets with CATH superfamily annotations.
+The TAPE benchmark [8] provides protein datasets with CATH superfamily annotations.
 Download the fluorescence dataset and implement a train/test split where no CATH superfamily appears in both splits.
 (a) Compare the number of unique superfamilies in the train and test sets.
 (b) Train a simple linear model (using amino acid composition as features) on the random split and the family-aware split.
@@ -851,13 +851,13 @@ Verify that the padded array has the correct shape and that non-padded positions
 
 ## References
 
-- Harris, C.R., Millman, K.J., van der Walt, S.J., et al. (2020). Array programming with NumPy. *Nature*, 585, 357--362.
-- McKinney, W. (2010). Data structures for statistical computing in Python. *Proceedings of the 9th Python in Science Conference*, 56--61.
-- Cock, P.J., Antao, T., Chang, J.T., et al. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. *Bioinformatics*, 25(11), 1422--1423.
-- Kunzmann, P. and Hamacher, K. (2018). Biotite: a unifying open source computational biology framework in Python. *BMC Bioinformatics*, 19, 346.
-- Kabsch, W. (1976). A solution for the best rotation to relate two sets of vectors. *Acta Crystallographica Section A*, 32(5), 922--923.
-- Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
-- Jumper, J., Evans, R., Pritzel, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
-- Rao, R., Bhatt, N., Lu, A., et al. (2019). Evaluating protein transfer learning with TAPE. *Advances in Neural Information Processing Systems*, 32.
-- Senior, A.W., Evans, R., Jumper, J., et al. (2020). Improved protein structure prediction using potentials from deep learning. *Nature*, 577, 706--710.
-- Khurana, S., Rawi, R., Kuber, K., et al. (2018). DeepSol: a deep learning framework for sequence-based protein solubility prediction. *Bioinformatics*, 34(15), 2605--2613.
+1. Harris, C.R., Millman, K.J., van der Walt, S.J., et al. (2020). Array programming with NumPy. *Nature*, 585, 357--362.
+2. McKinney, W. (2010). Data structures for statistical computing in Python. *Proceedings of the 9th Python in Science Conference*, 56--61.
+3. Cock, P.J., Antao, T., Chang, J.T., et al. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. *Bioinformatics*, 25(11), 1422--1423.
+4. Kunzmann, P. and Hamacher, K. (2018). Biotite: a unifying open source computational biology framework in Python. *BMC Bioinformatics*, 19, 346.
+5. Kabsch, W. (1976). A solution for the best rotation to relate two sets of vectors. *Acta Crystallographica Section A*, 32(5), 922--923.
+6. Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
+7. Jumper, J., Evans, R., Pritzel, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
+8. Rao, R., Bhatt, N., Lu, A., et al. (2019). Evaluating protein transfer learning with TAPE. *Advances in Neural Information Processing Systems*, 32.
+9. Senior, A.W., Evans, R., Jumper, J., et al. (2020). Improved protein structure prediction using potentials from deep learning. *Nature*, 577, 706--710.
+10. Khurana, S., Rawi, R., Kuber, K., et al. (2018). DeepSol: a deep learning framework for sequence-based protein solubility prediction. *Bioinformatics*, 34(15), 2605--2613.
