@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Case Study: Improving the Protein Solubility Predictor"
+title: "Improving the Protein Solubility Predictor (Optional)"
 date: 2026-03-04
 description: "A hands-on walkthrough of diagnosing and fixing common training problems—overfitting, instability, data leakage, and class imbalance—using the solubility predictor from Preliminary Note 3."
 course: "2026-spring-protein-ai"
@@ -11,14 +11,17 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 4 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues the protein solubility case study from Preliminary Note 3. Every technique is introduced in response to a specific problem observed during training, not as an abstract recipe.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is an optional Preliminary Note 4 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It continues the protein solubility case study from Preliminary Note 3 and is recommended for students who want to deepen their practical training skills before the main lectures. You may proceed directly to Lecture 1 without this note.</em></p>
 
 ## Introduction
 
 In Preliminary Note 3 you trained a convolutional neural network to predict protein solubility.
 It works --- but not well enough.
+Preliminary Note 3 covered the core training concepts; this note goes further with practical techniques for improving real-world model performance.
 The training loss looks great, but the validation loss tells a different story: the model is memorizing the training data rather than learning general patterns.
 And even when we address that, we will discover that our evaluation is misleadingly optimistic because of hidden data leakage.
 
@@ -50,37 +53,14 @@ This note assumes you have worked through Preliminary Notes 2 and 3: building ne
 
 ## 1. Diagnosing the Baseline
 
-Let us start by running the solubility predictor from Preliminary Note 3 and carefully examining its training behavior.
+Let us start by examining the training behavior of the solubility predictor from Preliminary Note 3.
 
-### What the Loss Curves Tell Us
+As we saw in Preliminary Note 3 (Section 5), the training loss decreases smoothly but the validation loss rises after approximately 40 epochs --- the hallmark of overfitting.
+Training accuracy reaches 98% while validation accuracy stalls at 72%, a 26-percentage-point gap.
+Preliminary Note 3 explains why protein datasets are especially prone to this problem (small datasets relative to model capacity, sequence motifs as memorization shortcuts).
 
-<div class="col-sm-9 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/overfitting_curves.png' | relative_url }}" alt="Training vs validation loss showing overfitting">
-    <div class="caption mt-1">Training and validation loss curves illustrating overfitting. Training loss decreases steadily, but validation loss begins increasing after ~40 epochs — the model is memorizing the training data rather than learning generalizable patterns. Early stopping (dashed line) would save the best model before overfitting begins.</div>
-</div>
-
-When we train the `ProteinSolubilityClassifier` for 100 epochs, a characteristic pattern emerges.
-The training loss decreases smoothly toward zero --- the model is learning to classify the training proteins with high confidence.
-But the validation loss tells a different story: it decreases initially (the model is learning general patterns), plateaus around epoch 30--40, and then starts *increasing*.
-
-This growing gap between training and validation performance is the hallmark of **overfitting**.
-The model has enough capacity (parameters) to memorize the specific training proteins rather than learning generalizable sequence-to-solubility patterns.
-After epoch 40, every additional training step makes the model *worse* on new proteins.
-
-How bad is the overfitting?
-We can quantify it: if the training accuracy is 98% but the validation accuracy is 72%, the model is spending most of its capacity on memorization.
-The 26-percentage-point gap is our primary target for improvement.
-
-### What Causes Overfitting in Protein Models?
-
-Protein datasets are typically small relative to model capacity.
-A dataset of 5,000 proteins with a model containing 500,000 parameters means there are 100 parameters per training example --- plenty of room for the model to memorize each protein individually instead of learning general patterns.
-The same phenomenon occurs in medical imaging, where a model trained on a few thousand X-rays can memorize patient-specific artifacts rather than learning general diagnostic patterns.
-
-Additionally, protein sequences have rich internal structure (motifs, repeats, compositional biases) that a model can latch onto as "shortcuts" for the training set without these shortcuts being predictive on new data.
-This mirrors the problem in image classification where models sometimes learn to recognize the background (e.g., grass behind cows, snow behind wolves) rather than the object itself.
-
-The next five sections introduce techniques to combat this problem.
+This 26-percentage-point gap is our primary target for improvement.
+The rest of this note introduces techniques to close it, one at a time.
 
 ---
 

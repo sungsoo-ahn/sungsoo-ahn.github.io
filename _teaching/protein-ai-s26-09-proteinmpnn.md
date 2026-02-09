@@ -11,6 +11,8 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 6 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. The lecture builds on concepts from Lecture 4 (AlphaFold) and Lecture 5 (RFDiffusion). Familiarity with graph neural networks (Lecture 1) and generative models (Lecture 2) is assumed throughout.</em></p>

@@ -11,6 +11,8 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+mermaid:
+  enabled: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 4 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. It assumes familiarity with transformers and attention mechanisms (Lecture 2) as well as protein language models (Lecture 3). All code examples use PyTorch and are simplified for pedagogical clarity.</em></p>

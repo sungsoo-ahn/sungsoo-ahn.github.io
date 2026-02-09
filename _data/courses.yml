@@ -14,7 +14,6 @@
   prerequisites: >-
     Python programming, linear algebra, basic probability.
     No prior deep learning experience required.
-  assessment: "Midterm project (50%), Final project (50%)"
   preliminary_description: "Self-study material for students with a biology background to prepare for in-class lectures."
   lectures_description: "In-class lectures covering advanced architectures and landmark protein AI models."
   references:
