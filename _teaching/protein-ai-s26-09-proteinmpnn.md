@@ -13,7 +13,7 @@ toc:
 related_posts: false
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 6 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. The lecture builds on concepts from Lecture 4 (AlphaFold) and Lecture 5 (RFDiffusion). Familiarity with graph neural networks (Preliminary Lecture 4) and generative models (Preliminary Lecture 5) is assumed throughout.</em></p>
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 6 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. The lecture builds on concepts from Lecture 4 (AlphaFold) and Lecture 5 (RFDiffusion). Familiarity with graph neural networks (Lecture 1) and generative models (Lecture 2) is assumed throughout.</em></p>
 
 ## Introduction
 
@@ -322,7 +322,7 @@ Rather than learning from scratch what an "alpha helix" or "beta sheet" looks li
 With the graph constructed and edge features computed, the **structure encoder** integrates information across the protein.
 Its mechanism is **message passing**---a paradigm from graph neural networks where each node iteratively gathers information from its neighbors[^gnn-ref].
 
-[^gnn-ref]: For a review of message passing neural networks, see Gilmer et al. (2017), "Neural Message Passing for Quantum Chemistry," *ICML*. We also covered the basics in Preliminary Lecture 4 (Transformers and GNNs).
+[^gnn-ref]: For a review of message passing neural networks, see Gilmer et al. (2017), "Neural Message Passing for Quantum Chemistry," *ICML*. We also covered the basics in Lecture 1 (Transformers and GNNs).
 
 ### How Message Passing Works
 
