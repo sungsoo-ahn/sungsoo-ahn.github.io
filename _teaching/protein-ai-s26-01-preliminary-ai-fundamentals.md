@@ -60,7 +60,16 @@ In both cases, we cannot write down $$f^*$$ explicitly because the relationship 
 Instead, we define a family of candidate functions $$f_\theta$$, parameterized by adjustable numbers $$\theta$$ (called **parameters** or **weights**), and we search for the particular values of $$\theta$$ that make $$f_\theta$$ approximate $$f^*$$ as closely as possible.
 
 This search is what "training" means.
-We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce the gap between the model's predictions and the true labels.
+We formalize it as an optimization problem.
+Given a training set $$\{(\mathbf{x}_i, y_i)\}_{i=1}^n$$ of $$n$$ input-output pairs, we define a **loss function** $$L(\theta)$$ that measures how poorly $$f_\theta$$ fits the data (Section 4 makes this concrete).
+Training then amounts to solving:
+
+$$
+\theta^* = \arg\min_\theta L(\theta)
+$$
+
+In words: find the parameter values $$\theta^*$$ that minimize the total prediction error over the training set.
+We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce $$L(\theta)$$.
 The result is a function that captures the statistical regularities in the data --- amino acid composition biases, charge distributions, hydrophobicity patterns --- as numerical weights.
 
 ### Generalization: The Real Goal
@@ -146,29 +155,21 @@ A list of numbers is a 1-dimensional tensor, called a **vector**.
 A table of numbers is a 2-dimensional tensor, called a **matrix**.
 Higher dimensions are common in practice: a batch of protein sequences might be stored as a 3-dimensional tensor with shape `(batch_size, sequence_length, features)`.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-tensor-dimensions.png' | relative_url }}" alt="Tensor dimensions from scalar to 3D tensor">
+    <div class="caption mt-1">Tensor dimensions in a protein context. Each amino acid's one-hot encoding is a vector of length 20. Stacking $$L$$ residues gives a matrix. Batching $$B$$ proteins gives a 3D tensor.</div>
+</div>
+
 ```python
 import torch
-
-# --- Creating tensors ---
-# A 3x4 matrix of zeros (e.g., placeholder for 3 proteins with 4 features)
-x = torch.zeros(3, 4)
-
-# Random values from a standard normal distribution (mean=0, std=1)
-x = torch.randn(3, 4)
 
 # From a Python list (e.g., hydrophobicity values for three amino acids)
 x = torch.tensor([1.8, -4.5, 2.5])
 
-# From a NumPy array (bridge between NumPy and PyTorch)
-import numpy as np
-np_array = np.array([[1.0, 2.0], [3.0, 4.0]])
-x = torch.from_numpy(np_array)
-
-# --- Inspecting tensor properties ---
-x = torch.randn(3, 4)
-print(x.shape)   # torch.Size([3, 4]) — the dimensions
-print(x.dtype)   # torch.float32 — the numerical precision
-print(x.device)  # cpu — where the tensor lives (cpu or cuda:0)
+# Random values from a standard normal distribution
+x = torch.randn(3, 4)         # 3×4 matrix
+print(x.shape)                 # torch.Size([3, 4])
+print(x.dtype)                 # torch.float32
 ```
 
 What makes tensors special compared to NumPy arrays?
@@ -247,26 +248,15 @@ Tensors support all the arithmetic you would expect, with the same broadcasting 
 [^broadcasting]: Broadcasting is a set of rules that allow operations between tensors of different shapes. When two tensors have different numbers of dimensions or different sizes along a dimension, the smaller tensor is "stretched" (conceptually, not in memory) to match the larger one. For example, adding a vector of shape `(4,)` to a matrix of shape `(3, 4)` adds the vector to each row.
 
 ```python
-a = torch.randn(3, 4)
-b = torch.randn(3, 4)
-
-# Element-wise operations (applied independently to each pair of elements)
-c = a + b          # Addition
-c = a * b          # Multiplication (element-wise, NOT matrix multiplication)
-
 # Matrix multiplication (the workhorse of neural networks)
-# A 3x4 matrix times a 4x3 matrix produces a 3x3 matrix
-c = a @ b.T                   # @ is the matrix multiplication operator
+a = torch.randn(3, 4)
+b = torch.randn(4, 5)
+c = a @ b                # 3×4 times 4×5 → 3×5
 
 # Broadcasting: a smaller tensor is "stretched" to match
-a = torch.randn(3, 4)   # Shape: (3, 4)
-b = torch.randn(4)      # Shape: (4,)
-c = a + b               # b is broadcast across all 3 rows → shape (3, 4)
-
-# Reductions: summarize a tensor along one or more dimensions
-x = torch.randn(3, 4)
-x.sum()           # Sum of all 12 elements → a scalar
-x.mean(dim=-1)    # Mean along the last dimension → shape (3,)
+a = torch.randn(3, 4)    # Shape: (3, 4)
+b = torch.randn(4)       # Shape: (4,)
+c = a + b                # b is added to each row → shape (3, 4)
 ```
 
 ---
@@ -384,12 +374,38 @@ But how?
 </div>
 
 We want to adjust $$\mathbf{W}$$ and $$b$$ to reduce the loss.
-The tool for this is the **gradient**.
+The tool for this is the **gradient** --- the vector of partial derivatives of the loss with respect to each parameter.
 
-The gradient of the loss with respect to a weight tells us: "if I increase this weight by a tiny amount, how does the loss change?"
+#### Deriving the Gradient for MSE
 
-- If increasing a weight would *increase* the loss, we should *decrease* that weight.
-- If increasing a weight would *decrease* the loss, we should *increase* it.
+Let us compute the gradient step by step for a single weight $$w_j$$.
+Recall that the prediction for one protein is $$\hat{y}_i = \sum_{k=1}^{10} x_{ik} w_k + b$$ and the MSE loss is $$L = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2$$.
+
+Applying the chain rule:
+
+$$
+\frac{\partial L}{\partial w_j}
+= \frac{1}{n}\sum_{i=1}^{n} 2(\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial w_j}
+= \frac{2}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i) \cdot x_{ij}
+$$
+
+The factor $$(\hat{y}_i - y_i)$$ is the prediction error for protein $$i$$, and $$x_{ij}$$ is protein $$i$$'s value of feature $$j$$.
+The gradient tells us: **the correction for weight $$w_j$$ is the average of each protein's error, scaled by how much feature $$j$$ contributed to that prediction.**
+If a feature has a large value and the error is positive (overestimate), the gradient is positive, so we should decrease $$w_j$$.
+
+Similarly, the gradient for the bias is:
+
+$$
+\frac{\partial L}{\partial b} = \frac{2}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i)
+$$
+
+#### Geometric Intuition
+
+The gradient $$\nabla_\theta L$$ points in the direction of **steepest ascent** of the loss --- the direction in which $$L$$ increases most rapidly.
+Consequently, the **negative** gradient $$-\nabla_\theta L$$ points in the direction of steepest descent.
+Why is this the best local direction?
+Among all unit-length directions $$\mathbf{d}$$, the directional derivative $$\nabla_\theta L \cdot \mathbf{d}$$ is most negative when $$\mathbf{d}$$ is aligned with $$-\nabla_\theta L$$.
+So a small step in the negative gradient direction achieves the largest possible local decrease in the loss.
 
 This strategy --- adjusting each weight in the direction that reduces the loss --- is called **gradient descent**[^gd].
 The update rule is:
@@ -413,12 +429,44 @@ Training means navigating this landscape to find a valley (a minimum of the loss
 In reality, neural networks have millions of weights, so the landscape exists in millions of dimensions.
 We cannot visualize it, but the intuition still holds: the loss defines a surface, and gradient descent navigates that surface by always stepping in the direction of steepest descent.
 
-### One Complete Learning Step
+### Computational Graphs and Automatic Differentiation
 
 The remarkable thing about PyTorch is that you never need to compute gradients by hand.
 You define only the forward computation --- how inputs become outputs.
 PyTorch automatically builds a **computational graph** that tracks every operation.
-When you call `.backward()`, it traverses this graph in reverse, computing all gradients.
+When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule.
+
+To see how this works, consider a minimal example with a single input, weight, bias, and target:
+
+$$
+L = (xw + b - y)^2
+$$
+
+The computational graph for this expression has five nodes:
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-computational-graph.png' | relative_url }}" alt="Computational graph for L = (xw + b - y)^2">
+    <div class="caption mt-1">Computational graph for $$L = (xw + b - y)^2$$. Forward pass (left to right) computes intermediate values. Backward pass (right to left) propagates gradients using the chain rule.</div>
+</div>
+
+**Forward pass** (left to right with concrete values $$x=2, w=3, b=1, y=5$$):
+- $$z_1 = xw = 6$$
+- $$z_2 = z_1 + b = 7$$
+- $$z_3 = z_2 - y = 2$$
+- $$L = z_3^2 = 4$$
+
+**Backward pass** (right to left, applying the chain rule at each node):
+- $$\frac{\partial L}{\partial z_3} = 2z_3 = 4$$
+- $$\frac{\partial L}{\partial z_2} = \frac{\partial L}{\partial z_3} \cdot 1 = 4$$
+- $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial z_2} \cdot 1 = 4$$
+- $$\frac{\partial L}{\partial z_1} = \frac{\partial L}{\partial z_2} \cdot 1 = 4$$
+- $$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial z_1} \cdot x = 4 \times 2 = 8$$
+
+PyTorch performs exactly this procedure automatically when you call `.backward()`.
+The key insight is that each node only needs to know (1) the local derivative of its own operation and (2) the gradient flowing in from downstream.
+This is why we never need to derive gradients for the whole expression at once --- the chain rule decomposes it into simple local steps.
+
+### One Complete Learning Step
 
 Let us put it all together: model, loss, gradients, and one update step.
 
