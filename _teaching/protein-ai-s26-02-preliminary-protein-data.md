@@ -248,7 +248,12 @@ Its limitation is that it treats every amino acid as equally different from ever
 
 A neural network does not process one protein at a time.
 Training requires **batches** --- groups of proteins processed together for computational efficiency.
-PyTorch provides `TensorDataset` and `DataLoader` to handle this.
+But proteins have different lengths, so we must **pad** every sequence to a common length before stacking them into a tensor.
+
+After one-hot encoding, each protein of length $$L$$ is a matrix of shape $$(L, 20)$$.
+We choose a fixed maximum length $$\text{max\_len}$$, pad shorter proteins with zero vectors, and truncate longer ones.
+Stacking $$B$$ proteins gives a 3D tensor of shape $$(B, \text{max\_len}, 20)$$.
+For an MLP, which expects a flat vector as input, we **flatten** each protein's matrix into a single vector of dimension $$\text{max\_len} \times 20$$.
 
 ```python
 from torch.utils.data import TensorDataset, DataLoader
@@ -257,36 +262,42 @@ from torch.utils.data import TensorDataset, DataLoader
 sequences = ["MGKIIGIDLG...", "MSKGEELFTG...", "MVLSPADKTN..."]
 labels = [1, 1, 0]  # 1 = soluble, 0 = insoluble
 
-# One-hot encode and pad to the same length
-max_len = max(len(s) for s in sequences)
+# One-hot encode and pad to a fixed maximum length
+max_len = 100  # Truncate longer proteins, pad shorter ones with zeros
 features = torch.zeros(len(sequences), max_len, 20)
 for i, seq in enumerate(sequences):
-    features[i, :len(seq)] = one_hot_encode(seq)
+    L = min(len(seq), max_len)
+    features[i, :L] = one_hot_encode(seq[:L])
 labels = torch.tensor(labels, dtype=torch.long)
 
-print(features.shape)  # torch.Size([3, max_len, 20]) — 3 proteins, padded
-print(labels.shape)     # torch.Size([3])
+print(features.shape)  # torch.Size([3, 100, 20]) — 3 proteins, padded
+
+# Flatten each protein's matrix into a single vector for the MLP
+features_flat = features.view(len(sequences), -1)
+print(features_flat.shape)  # torch.Size([3, 2000]) — ready for MLP input
 
 # Wrap in a dataset and data loader
-dataset = TensorDataset(features, labels)
+dataset = TensorDataset(features_flat, labels)
 loader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 # Training loop iterates over batches
 for batch_features, batch_labels in loader:
-    # batch_features shape: (batch_size, max_len, 20)
+    # batch_features shape: (batch_size, 2000)
     # batch_labels shape:   (batch_size,)
     pass  # feed to neural network (Section 3)
 ```
 
 The `DataLoader` handles shuffling, batching, and iterating.
-Each call yields a batch of feature tensors and their corresponding labels, ready to be passed through a neural network.
+Each call yields a batch of flattened feature vectors and their corresponding labels, ready to be passed through a neural network.
+Note that flattening discards the sequential structure --- the MLP treats position 1 and position 100 as unrelated inputs.
+Preliminary Note 4 introduces convolutional networks that exploit the sequential ordering.
 
 ---
 
 ## 3. Neural Network Architectures
 
-We now have protein features --- one-hot encoded sequences --- packaged as PyTorch tensors.
-But a feature tensor is not a prediction.
+We now have protein features --- one-hot encoded sequences, padded and flattened into fixed-length vectors --- packaged as PyTorch tensors.
+But a feature vector is not a prediction.
 To predict whether a protein is soluble from its sequence features, we need a function that maps the input to an output.
 In Preliminary Note 1, we saw that a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ can do this, but it is limited to straight-line relationships.
 Neural networks overcome this limitation by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
@@ -313,7 +324,7 @@ $$
 
 This is exactly **logistic regression** --- the classification analogue of the linear regression we saw in Preliminary Note 1.
 The neuron's output is a probability, and the **decision boundary** is the set of points where $$\mathbf{w}^T \mathbf{x} + b = 0$$ (i.e., where the output probability is exactly 0.5).
-In 2D feature space, this boundary is a line; in 20-dimensional feature space, it is a hyperplane.
+In 2D feature space, this boundary is a line; in the high-dimensional space of our flattened sequence features, it is a hyperplane.
 Points on one side are classified as soluble, points on the other as insoluble.
 
 A single neuron can only learn linear decision boundaries.
@@ -327,23 +338,24 @@ This is sufficient for linearly separable problems but fails when the boundary b
 
 A single neuron is limited.
 But arrange many neurons in parallel --- each receiving the same input features but with *different* weights --- and you get a **layer**.
-With 64 neurons processing a 20-dimensional input, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
+With 64 neurons processing a $$d$$-dimensional input, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
 This can be written compactly as a matrix equation:
 
 $$
 \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})
 $$
 
-Let us trace the dimensions explicitly. With a 20-dimensional input:
+Let us trace the dimensions explicitly:
 
 $$
-\underbrace{\mathbf{W}}_{64 \times 20} \underbrace{\mathbf{x}}_{20 \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
+\underbrace{\mathbf{W}}_{64 \times d} \underbrace{\mathbf{x}}_{d \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
 $$
 
 Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the dot product $$\mathbf{w}_k^T \mathbf{x} + b_k$$, producing one scalar. Stack 64 such scalars and you get the 64-dimensional pre-activation vector $$\mathbf{z}$$, which becomes $$\mathbf{h}$$ after applying $$\sigma$$ element-wise.
 
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
-The total number of parameters is $$64 \times 20 + 64 = 1{,}344$$ (weights plus biases).
+The total number of parameters is $$64d + 64$$ (weights plus biases).
+For our padded protein sequences with $$d = \text{max\_len} \times 20 = 2{,}000$$, that is already $$128{,}064$$ parameters in a single layer.
 
 The function $$\sigma$$ is called an **activation function** --- a nonlinear function applied element-wise after each linear transformation.
 Without it, stacking layers would be pointless: a linear transformation followed by another linear transformation is just a single linear transformation.
@@ -354,7 +366,7 @@ Other activations include **sigmoid** ($$\sigma(z) = 1/(1 + e^{-z})$$, used at t
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="A two-hidden-layer MLP for solubility prediction">
-    <div class="caption mt-1"><strong>A two-hidden-layer MLP for solubility prediction.</strong> The input (20-dim feature vector) is transformed through two hidden layers of decreasing width (64, 32), each applying a linear transformation followed by an activation function. The output layer produces two scores (soluble vs. insoluble).</div>
+    <div class="caption mt-1"><strong>A two-hidden-layer MLP for solubility prediction.</strong> The flattened padded sequence is transformed through two hidden layers of decreasing width (64, 32), each applying a linear transformation followed by an activation function. The output layer produces two scores (soluble vs. insoluble).</div>
 </div>
 
 The power of neural networks comes from stacking multiple layers.
@@ -378,8 +390,8 @@ Deeper networks can represent complex functions efficiently because each layer b
 
 For a protein solubility predictor, this compositional hierarchy might look like:
 
-- **Layer 1** learns representations that capture individual amino acid properties (charge, size, hydrophobicity) from the raw input features.
-- **Layer 2** combines these into higher-level representations: charge balance, hydrophobic fraction, amino acid diversity.
+- **Layer 1** detects which positions and amino acid identities are informative, extracting basic patterns from the flattened sequence.
+- **Layer 2** combines these into higher-level patterns: local composition trends, position-specific signals.
 - **Output layer** maps these abstract representations to a solubility prediction.
 
 In practice, deeper networks are not always better.
@@ -455,11 +467,11 @@ class SolubilityPredictor(nn.Module):
         out = self.fc2(h)  # Representation → prediction
         return out
 
-# 20 input features → 64-dim hidden representation → 2 classes
-model = SolubilityPredictor(input_dim=20, hidden_dim=64, output_dim=2)
+# Flattened padded sequences: max_len=100 × 20 amino acids = 2000-dim input
+model = SolubilityPredictor(input_dim=2000, hidden_dim=64, output_dim=2)
 
 # Pass a batch of 32 proteins through the model
-features = torch.randn(32, 20)  # 32 proteins, 20 features each
+features = torch.randn(32, 2000)  # 32 proteins, flattened padded sequences
 predictions = model(features)    # Shape: (32, 2) — scores for [soluble, insoluble]
 print(predictions.shape)
 ```
