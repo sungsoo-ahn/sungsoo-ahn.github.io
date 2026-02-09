@@ -242,8 +242,10 @@ print(enc.shape)  # torch.Size([5, 20])
 
 One-hot encoding preserves the full sequence --- every position and every residue identity.
 Its limitation is that it treats every amino acid as equally different from every other.
+Mathematically, the Euclidean distance between any two one-hot vectors is the same: $$\lVert \mathbf{e}_i - \mathbf{e}_j \rVert = \sqrt{2}$$ for all $$i \neq j$$.
 Alanine appears just as distant from Glycine (both small and hydrophobic) as from Tryptophan (large and aromatic).
-We will see in Section 3 that neural networks can learn to overcome this limitation by discovering their own internal representations.
+This is clearly wrong --- chemically similar amino acids should have similar representations.
+**Learned embeddings** (Section 3.6) address this directly: they replace each one-hot vector with a trainable continuous vector, allowing the network to discover that Ala and Gly are neighbors while Trp is far away.
 
 ### 2.2 Amino Acid Composition
 
@@ -335,6 +337,20 @@ The input features $$x_1, x_2, \ldots, x_{20}$$ are the fractions of each amino 
 The weights $$w_1, w_2, \ldots, w_{20}$$ determine how much each amino acid contributes to the solubility score --- a large positive weight on charged residues (Asp, Glu, Lys, Arg) would reflect that charge promotes solubility, while a negative weight on hydrophobic residues (Ile, Leu, Val) would capture their tendency to cause aggregation.
 The bias $$b$$ shifts the decision boundary, and the function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
 
+When $$\sigma$$ is the sigmoid function, the single neuron computes:
+
+$$
+P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}
+$$
+
+This is exactly **logistic regression** --- the classification analogue of the linear regression we saw in Preliminary Note 1.
+The neuron's output is a probability, and the **decision boundary** is the set of points where $$\mathbf{w}^T \mathbf{x} + b = 0$$ (i.e., where the output probability is exactly 0.5).
+In 2D feature space, this boundary is a line; in 20-dimensional amino acid composition space, it is a hyperplane.
+Points on one side are classified as soluble, points on the other as insoluble.
+
+A single neuron can only learn linear decision boundaries.
+This is sufficient for linearly separable problems but fails when the boundary between classes is curved or disconnected --- which is why we need multiple layers.
+
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_0">
 </div>
@@ -347,19 +363,31 @@ Activation functions break this linearity.
 
 **Sigmoid:** $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
-Squashes input to $$(0, 1)$$; used at the output layer for binary probabilities, but causes vanishing gradients in deep hidden layers.
+Squashes input to $$(0, 1)$$. Its derivative has a clean form: $$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$.
+The maximum value of $$\sigma'$$ is 0.25 (at $$z = 0$$), which means gradients are multiplied by at most 0.25 at each layer.
+In a network with 10 sigmoid layers, gradients shrink by a factor of roughly $$0.25^{10} \approx 10^{-6}$$ --- this is the **vanishing gradient problem**.
+The earliest layers barely learn because their gradients are negligible.
+For this reason, sigmoid is used at the output layer for binary probabilities but avoided in hidden layers of deep networks.
 
 **ReLU:** $$\text{ReLU}(z) = \max(0, z)$$
 
-Zero for negative inputs, identity for positive; the default activation for feedforward networks and CNNs.
+Zero for negative inputs, identity for positive. Its derivative is a step function: $$\text{ReLU}'(z) = 1$$ for $$z > 0$$ and $$0$$ for $$z < 0$$.
+When active ($$z > 0$$), gradients pass through without attenuation --- solving the vanishing gradient problem.
+ReLU is the default activation for feedforward networks and CNNs.
 
 **GELU:** $$\text{GELU}(z) = z \cdot \Phi(z)$$
 
 A smooth approximation of ReLU ($$\Phi$$ is the Gaussian CDF) used in transformer architectures.
+Unlike ReLU, GELU has a smooth derivative everywhere, which can improve optimization.
 
 **Softmax:** $$\text{softmax}(z_i) = e^{z_i} / \sum_j e^{z_j}$$
 
 Normalizes a vector into a probability distribution summing to 1; used at the output for multi-class classification and inside attention mechanisms.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/activation_functions.png' | relative_url }}" alt="Activation functions and their derivatives">
+    <div class="caption mt-1">Activation functions (solid blue) and their derivatives (dashed red). Sigmoid's derivative peaks at 0.25, causing vanishing gradients in deep networks. ReLU's derivative is 1 when active, preserving gradient flow. GELU is a smooth alternative used in transformers.</div>
+</div>
 
 #### When to Use Which?
 
@@ -381,8 +409,16 @@ $$
 \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})
 $$
 
-where $$\mathbf{W}$$ is a weight matrix of shape `(64, 20)`, $$\mathbf{x}$$ is the 20-dimensional feature vector, $$\mathbf{b}$$ is a bias vector, and $$\mathbf{h}$$ is the 64-dimensional representation.
+Let us trace the dimensions explicitly. With amino acid composition as input:
+
+$$
+\underbrace{\mathbf{W}}_{64 \times 20} \underbrace{\mathbf{x}}_{20 \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
+$$
+
+Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the dot product $$\mathbf{w}_k^T \mathbf{x} + b_k$$, producing one scalar. Stack 64 such scalars and you get the 64-dimensional pre-activation vector $$\mathbf{z}$$, which becomes $$\mathbf{h}$$ after applying $$\sigma$$ element-wise.
+
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
+The total number of parameters is $$64 \times 20 + 64 = 1{,}344$$ (weights plus biases).
 
 ### 3.4 Why Depth Matters: The Power of Composition
 
@@ -392,8 +428,12 @@ This is a **fully connected layer** (also called a **dense layer** or **linear l
 
 The power of neural networks comes from stacking multiple layers, and this has a deep theoretical basis.
 
-The **universal approximation theorem** states that a neural network with even a single hidden layer containing sufficiently many neurons can approximate *any* continuous function to arbitrary precision.
-But there is a catch: a single wide layer may need an astronomically large number of neurons.
+The **universal approximation theorem** (Cybenko, 1989 [5]) makes this precise:
+
+> For any continuous function $$f$$ on a compact subset of $$\mathbb{R}^n$$ and any $$\epsilon > 0$$, there exists a single-hidden-layer neural network $$g$$ such that $$\lvert f(\mathbf{x}) - g(\mathbf{x}) \rvert < \epsilon$$ for all $$\mathbf{x}$$ in the domain.
+
+In plain language: a wide enough single-layer network can approximate *any* continuous function to arbitrary precision.
+But there is a catch: the required width may be astronomically large.
 Deep networks --- those with many layers --- can represent the same functions far more efficiently.
 The reason is **compositionality**: complex functions are built from simpler sub-functions, and each layer learns one level of this hierarchy.
 
@@ -522,47 +562,11 @@ nn.Dropout(p=0.1)  # Each neuron has a 10% chance of being turned off per forwar
 nn.Embedding(num_embeddings=21, embedding_dim=64)
 ```
 
-### 3.9 `nn.Sequential`: Quick Model Definition
+### 3.9 Practical Notes
 
-For simple architectures where data flows straight through one layer after another with no branching, `nn.Sequential` offers a compact shortcut:
-
-```python
-model = nn.Sequential(
-    nn.Linear(20, 64),     # 20 input features → 64 hidden units
-    nn.ReLU(),
-    nn.Dropout(0.1),       # Regularization
-    nn.Linear(64, 64),     # Second hidden layer
-    nn.ReLU(),
-    nn.Dropout(0.1),
-    nn.Linear(64, 2)       # Output: 2 classes (soluble vs. insoluble)
-)
-```
-
-This builds the same network as a custom `nn.Module` class but with less boilerplate.
-Use `nn.Sequential` for quick experiments; switch to a full class when you need branching, skip connections, or conditional logic.
-
-### 3.10 Managing Parameters
-
-Neural networks can have millions of parameters.
-PyTorch provides tools to inspect and manage them.
-
-```python
-# List all named parameters and their shapes
-for name, param in model.named_parameters():
-    print(f"{name}: shape={param.shape}, requires_grad={param.requires_grad}")
-
-# Count total and trainable parameters
-total_params = sum(p.numel() for p in model.parameters())
-trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-print(f"Total parameters:     {total_params:,}")
-print(f"Trainable parameters: {trainable_params:,}")
-
-# Save a trained model's weights to disk
-torch.save(model.state_dict(), 'protein_model.pt')
-
-# Load weights back into a model (the architecture must match)
-model.load_state_dict(torch.load('protein_model.pt'))
-```
+For simple architectures with no branching, `nn.Sequential` provides a compact shorthand --- see the PyTorch documentation for details.
+To count parameters: `sum(p.numel() for p in model.parameters())`.
+To save/load weights: `torch.save(model.state_dict(), path)` and `model.load_state_dict(torch.load(path))`.
 
 ---
 
