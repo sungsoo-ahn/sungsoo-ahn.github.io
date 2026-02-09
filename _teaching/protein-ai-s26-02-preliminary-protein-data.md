@@ -40,7 +40,7 @@ Finally, we map different biological questions to their corresponding mathematic
 | Section | What You Will Learn | Why It Is Needed |
 |---------|---------------------|------------------|
 | [Protein File Formats](#1-protein-file-formats) | FASTA and PDB parsing with Biopython and Biotite | Raw biological data must be loaded before it can be encoded |
-| [Protein Features](#2-protein-features) | One-hot encoding, amino acid composition, PyTorch tensors | Every downstream model needs numerical features as input |
+| [Protein Features](#2-protein-features) | One-hot encoding, PyTorch tensors | Every downstream model needs numerical features as input |
 | [Neural Network Architectures](#3-neural-network-architectures) | Neurons, activations, layers, depth, learned representations, `nn.Module` | The function families that learn representations from features and produce predictions |
 | [Task Formulations](#4-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
 
@@ -206,7 +206,7 @@ The amino acid sequence is the primary structure of a protein --- the linear cha
 Because sequencing is cheap and fast, sequence data is far more abundant than structure data: UniProt contains over 200 million sequences, while the Protein Data Bank has roughly 200,000 experimentally determined structures.
 
 To feed a protein into a neural network, we must convert its sequence into numerical **features**.
-This section introduces two feature types and shows how to package them as PyTorch tensors.
+This section introduces one-hot encoding and shows how to package protein features as PyTorch tensors.
 
 ### 2.1 One-Hot Encoding
 
@@ -242,44 +242,9 @@ print(enc.shape)  # torch.Size([5, 20])
 
 One-hot encoding preserves the full sequence --- every position and every residue identity.
 Its limitation is that it treats every amino acid as equally different from every other.
-Mathematically, the Euclidean distance between any two one-hot vectors is the same: $$\lVert \mathbf{e}_i - \mathbf{e}_j \rVert = \sqrt{2}$$ for all $$i \neq j$$.
-Alanine appears just as distant from Glycine (both small and hydrophobic) as from Tryptophan (large and aromatic).
-This is clearly wrong --- chemically similar amino acids should have similar representations.
-**Learned embeddings** (Section 3.6) address this directly: they replace each one-hot vector with a trainable continuous vector, allowing the network to discover that Ala and Gly are neighbors while Trp is far away.
+**Learned embeddings** (Section 3.5) address this by replacing each one-hot vector with a trainable continuous vector.
 
-### 2.2 Amino Acid Composition
-
-For some tasks, the **order** of amino acids matters less than their **proportions**.
-Protein solubility, for instance, correlates strongly with overall amino acid composition: proteins rich in charged residues (Asp, Glu, Lys, Arg) tend to be more soluble, while those dominated by hydrophobic residues (Ile, Leu, Val) tend to aggregate.
-
-The **amino acid composition** feature vector simply counts the fraction of each amino acid type in the sequence:
-
-$$
-\mathbf{c} \in \mathbb{R}^{20}, \quad c_j = \frac{1}{L} \sum_{i=1}^{L} \mathbf{1}[s_i = j]
-$$
-
-where $$s_i$$ is the amino acid at position $$i$$ and $$L$$ is the sequence length.
-
-```python
-def amino_acid_composition(sequence: str) -> torch.Tensor:
-    """Compute normalized amino acid composition (fraction of each type)."""
-    comp = torch.zeros(20)
-    for aa in sequence:
-        if aa in aa_to_idx:
-            comp[aa_to_idx[aa]] += 1
-    return comp / len(sequence)
-
-# Example: DnaK chaperone (first 30 residues)
-comp = amino_acid_composition("MGKIIGIDLGTTNSCVAIMDGTTPRVLENA")
-print(comp.shape)  # torch.Size([20])
-print(f"Glycine fraction: {comp[aa_to_idx['G']]:.2f}")  # G is common in this segment
-```
-
-This collapses a variable-length sequence into a fixed-length vector of 20 numbers --- one per amino acid type.
-The trade-off is clear: we gain a simple, fixed-size feature but lose all positional information.
-For tasks like solubility prediction, this is often sufficient.
-
-### 2.3 From Features to PyTorch Tensors
+### 2.2 From Features to PyTorch Tensors
 
 A neural network does not process one protein at a time.
 Training requires **batches** --- groups of proteins processed together for computational efficiency.
@@ -292,11 +257,14 @@ from torch.utils.data import TensorDataset, DataLoader
 sequences = ["MGKIIGIDLG...", "MSKGEELFTG...", "MVLSPADKTN..."]
 labels = [1, 1, 0]  # 1 = soluble, 0 = insoluble
 
-# Convert each sequence to a feature vector
-features = torch.stack([amino_acid_composition(seq) for seq in sequences])
+# One-hot encode and pad to the same length
+max_len = max(len(s) for s in sequences)
+features = torch.zeros(len(sequences), max_len, 20)
+for i, seq in enumerate(sequences):
+    features[i, :len(seq)] = one_hot_encode(seq)
 labels = torch.tensor(labels, dtype=torch.long)
 
-print(features.shape)  # torch.Size([3, 20]) — 3 proteins, 20 features each
+print(features.shape)  # torch.Size([3, max_len, 20]) — 3 proteins, padded
 print(labels.shape)     # torch.Size([3])
 
 # Wrap in a dataset and data loader
@@ -305,7 +273,7 @@ loader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 # Training loop iterates over batches
 for batch_features, batch_labels in loader:
-    # batch_features shape: (batch_size, 20)
+    # batch_features shape: (batch_size, max_len, 20)
     # batch_labels shape:   (batch_size,)
     pass  # feed to neural network (Section 3)
 ```
@@ -317,9 +285,9 @@ Each call yields a batch of feature tensors and their corresponding labels, read
 
 ## 3. Neural Network Architectures
 
-We now have protein features --- 20-dimensional amino acid composition vectors --- packaged as PyTorch tensors.
-But a feature vector is not a prediction.
-To predict whether a protein is soluble from its composition, we need a function that maps a 20-dimensional input to an output.
+We now have protein features --- one-hot encoded sequences --- packaged as PyTorch tensors.
+But a feature tensor is not a prediction.
+To predict whether a protein is soluble from its sequence features, we need a function that maps the input to an output.
 In Preliminary Note 1, we saw that a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ can do this, but it is limited to straight-line relationships.
 Neural networks overcome this limitation by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
 
@@ -332,9 +300,9 @@ $$
 \text{output} = \sigma(w_1 x_1 + w_2 x_2 + \cdots + w_n x_n + b)
 $$
 
-Consider predicting protein solubility from amino acid composition.
-The input features $$x_1, x_2, \ldots, x_{20}$$ are the fractions of each amino acid type.
-The weights $$w_1, w_2, \ldots, w_{20}$$ determine how much each amino acid contributes to the solubility score --- a large positive weight on charged residues (Asp, Glu, Lys, Arg) would reflect that charge promotes solubility, while a negative weight on hydrophobic residues (Ile, Leu, Val) would capture their tendency to cause aggregation.
+Consider predicting protein solubility from sequence features.
+The input features $$x_1, x_2, \ldots, x_n$$ are numerical values derived from the protein sequence.
+The weights $$w_1, w_2, \ldots, w_n$$ determine how much each feature contributes to the solubility score.
 The bias $$b$$ shifts the decision boundary, and the function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
 
 When $$\sigma$$ is the sigmoid function, the single neuron computes:
@@ -345,7 +313,7 @@ $$
 
 This is exactly **logistic regression** --- the classification analogue of the linear regression we saw in Preliminary Note 1.
 The neuron's output is a probability, and the **decision boundary** is the set of points where $$\mathbf{w}^T \mathbf{x} + b = 0$$ (i.e., where the output probability is exactly 0.5).
-In 2D feature space, this boundary is a line; in 20-dimensional amino acid composition space, it is a hyperplane.
+In 2D feature space, this boundary is a line; in 20-dimensional feature space, it is a hyperplane.
 Points on one side are classified as soluble, points on the other as insoluble.
 
 A single neuron can only learn linear decision boundaries.
@@ -355,61 +323,18 @@ This is sufficient for linearly separable problems but fails when the boundary b
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_0">
 </div>
 
-### 3.2 Activation Functions: Why Nonlinearity Matters
-
-Without activation functions, stacking layers would be pointless.
-A linear transformation followed by another linear transformation is just... a single linear transformation (their product is still a matrix).
-Activation functions break this linearity.
-
-**Sigmoid:** $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
-
-Squashes input to $$(0, 1)$$. Its derivative has a clean form: $$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$.
-The maximum value of $$\sigma'$$ is 0.25 (at $$z = 0$$), which means gradients are multiplied by at most 0.25 at each layer.
-In a network with 10 sigmoid layers, gradients shrink by a factor of roughly $$0.25^{10} \approx 10^{-6}$$ --- this is the **vanishing gradient problem**.
-The earliest layers barely learn because their gradients are negligible.
-For this reason, sigmoid is used at the output layer for binary probabilities but avoided in hidden layers of deep networks.
-
-**ReLU:** $$\text{ReLU}(z) = \max(0, z)$$
-
-Zero for negative inputs, identity for positive. Its derivative is a step function: $$\text{ReLU}'(z) = 1$$ for $$z > 0$$ and $$0$$ for $$z < 0$$.
-When active ($$z > 0$$), gradients pass through without attenuation --- solving the vanishing gradient problem.
-ReLU is the default activation for feedforward networks and CNNs.
-
-**GELU:** $$\text{GELU}(z) = z \cdot \Phi(z)$$
-
-A smooth approximation of ReLU ($$\Phi$$ is the Gaussian CDF) used in transformer architectures.
-Unlike ReLU, GELU has a smooth derivative everywhere, which can improve optimization.
-
-**Softmax:** $$\text{softmax}(z_i) = e^{z_i} / \sum_j e^{z_j}$$
-
-Normalizes a vector into a probability distribution summing to 1; used at the output for multi-class classification and inside attention mechanisms.
-
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/activation_functions.png' | relative_url }}" alt="Activation functions and their derivatives">
-    <div class="caption mt-1">Activation functions (solid blue) and their derivatives (dashed red). Sigmoid's derivative peaks at 0.25, causing vanishing gradients in deep networks. ReLU's derivative is 1 when active, preserving gradient flow. GELU is a smooth alternative used in transformers.</div>
-</div>
-
-#### When to Use Which?
-
-| Activation | Best For | Avoid When |
-|---|---|---|
-| **ReLU** | Default for feedforward networks, CNNs | Very deep networks where dying neurons are a concern |
-| **GELU** | Transformers, protein language models | When computational cost matters (slightly more expensive than ReLU) |
-| **Sigmoid** | Output layer for binary classification (probability) | Hidden layers of deep networks (vanishing gradients) |
-| **Softmax** | Output layer for multi-class classification | Hidden layers (it's a normalization, not an activation) |
-
-### 3.3 Layers: Many Neurons in Parallel
+### 3.2 Layers: Many Neurons in Parallel
 
 A single neuron is limited.
 But arrange many neurons in parallel --- each receiving the same input features but with *different* weights --- and you get a **layer**.
-With 64 neurons processing a 20-dimensional amino acid composition, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
+With 64 neurons processing a 20-dimensional input, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
 This can be written compactly as a matrix equation:
 
 $$
 \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})
 $$
 
-Let us trace the dimensions explicitly. With amino acid composition as input:
+Let us trace the dimensions explicitly. With a 20-dimensional input:
 
 $$
 \underbrace{\mathbf{W}}_{64 \times 20} \underbrace{\mathbf{x}}_{20 \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
@@ -420,26 +345,40 @@ Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 The total number of parameters is $$64 \times 20 + 64 = 1{,}344$$ (weights plus biases).
 
-### 3.4 Why Depth Matters: The Power of Composition
+The function $$\sigma$$ is called an **activation function** --- a nonlinear function applied element-wise after each linear transformation.
+Without it, stacking layers would be pointless: a linear transformation followed by another linear transformation is just a single linear transformation.
+The most common choice is **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$, which simply zeros out negative values and passes positive values through unchanged.
+Other activations include **sigmoid** ($$\sigma(z) = 1/(1 + e^{-z})$$, used at the output for binary probabilities), **GELU** (a smooth variant of ReLU used in transformers), and **softmax** (normalizes a vector into a probability distribution, used for multi-class output).
 
-<div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_1">
+### 3.3 Why Depth Matters: The Power of Composition
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="A two-hidden-layer MLP for solubility prediction">
+    <div class="caption mt-1"><strong>A two-hidden-layer MLP for solubility prediction.</strong> The input (20-dim feature vector) is transformed through two hidden layers of decreasing width (64, 32), each applying a linear transformation followed by an activation function. The output layer produces two scores (soluble vs. insoluble).</div>
 </div>
 
-The power of neural networks comes from stacking multiple layers, and this has a deep theoretical basis.
+The power of neural networks comes from stacking multiple layers.
+An $$n$$-layer network, called a **multi-layer perceptron (MLP)**, composes $$n$$ transformations:
 
-The **universal approximation theorem** (Cybenko, 1989 [5]) makes this precise:
+$$
+\mathbf{h}_1 = \sigma(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)
+$$
 
-> For any continuous function $$f$$ on a compact subset of $$\mathbb{R}^n$$ and any $$\epsilon > 0$$, there exists a single-hidden-layer neural network $$g$$ such that $$\lvert f(\mathbf{x}) - g(\mathbf{x}) \rvert < \epsilon$$ for all $$\mathbf{x}$$ in the domain.
+$$
+\mathbf{h}_l = \sigma(\mathbf{W}_l \mathbf{h}_{l-1} + \mathbf{b}_l), \quad l = 2, \ldots, n
+$$
 
-In plain language: a wide enough single-layer network can approximate *any* continuous function to arbitrary precision.
-But there is a catch: the required width may be astronomically large.
-Deep networks --- those with many layers --- can represent the same functions far more efficiently.
-The reason is **compositionality**: complex functions are built from simpler sub-functions, and each layer learns one level of this hierarchy.
+$$
+\hat{y} = \mathbf{W}_{n+1} \mathbf{h}_n + \mathbf{b}_{n+1}
+$$
+
+Each hidden layer takes the previous layer's output $$\mathbf{h}_{l-1}$$ as input, applies a linear transformation followed by a nonlinear activation, and produces a new representation $$\mathbf{h}_l$$.
+The final layer typically has no activation (for regression) or a sigmoid/softmax (for classification).
+Deeper networks can represent complex functions efficiently because each layer builds more abstract features from the previous layer's output.
 
 For a protein solubility predictor, this compositional hierarchy might look like:
 
-- **Layer 1** learns representations that capture individual amino acid properties (charge, size, hydrophobicity) from the raw composition features.
+- **Layer 1** learns representations that capture individual amino acid properties (charge, size, hydrophobicity) from the raw input features.
 - **Layer 2** combines these into higher-level representations: charge balance, hydrophobic fraction, amino acid diversity.
 - **Output layer** maps these abstract representations to a solubility prediction.
 
@@ -447,10 +386,10 @@ In practice, deeper networks are not always better.
 Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
 Techniques like residual connections, normalization layers, and careful initialization have made training deep networks practical.
 
-### 3.5 Beyond Flat Features: A Preview of Specialized Architectures
+### 3.4 Beyond Flat Features: Specialized Architectures
 
 The fully connected networks above treat the input as a flat vector of features --- every input element connects to every neuron.
-This works for global features like amino acid composition, but proteins have **sequential structure** that a flat vector ignores.
+This works for fixed-size feature vectors, but proteins have **sequential structure** that a flat vector ignores.
 
 **Convolutional Neural Networks (CNNs)** exploit this structure by sliding a small filter along the sequence, detecting local patterns like charge clusters or hydrophobic stretches.
 We build a 1D-CNN for solubility prediction in the case study (Preliminary Note 4).
@@ -461,9 +400,9 @@ GNNs operate on graph structures where residues are nodes and edges connect spat
 
 The key takeaway: **the choice of architecture encodes an inductive bias** --- an assumption about the structure of the problem --- and matching the architecture to the data is one of the most important design decisions in protein AI.
 
-### 3.6 Learned Representations: Embeddings
+### 3.5 Learned Representations: Embeddings
 
-So far, our features are hand-crafted: one-hot encodings and amino acid compositions that we designed before training.
+So far, our features are hand-crafted: one-hot encodings that we designed before training.
 But we can also let the neural network learn its own representations directly from the data.
 
 An **embedding layer** maps each amino acid index to a trainable vector of dimension $$d$$.
@@ -484,7 +423,7 @@ representations = embedding(indices)  # Shape: (2, 5, 64)
 After training, the learned representations often reveal biologically meaningful structure: hydrophobic residues cluster together, charged residues form their own group, and aromatic residues occupy a distinct region.
 This is the strategy behind **protein language models** such as ESM, which we cover in Lecture 3.
 
-### 3.7 `nn.Module`: PyTorch's Building Block
+### 3.6 `nn.Module`: PyTorch's Building Block
 
 In PyTorch, every neural network component inherits from `nn.Module`.
 This base class provides machinery for tracking parameters, moving to GPU, saving and loading models, and more.
@@ -498,10 +437,7 @@ import torch
 import torch.nn as nn
 
 class SolubilityPredictor(nn.Module):
-    """A feedforward network for protein solubility prediction.
-
-    Takes amino acid composition features and predicts solubility class.
-    """
+    """A feedforward network for protein solubility prediction."""
 
     def __init__(self, input_dim, hidden_dim, output_dim):
         super().__init__()
@@ -519,7 +455,7 @@ class SolubilityPredictor(nn.Module):
         out = self.fc2(h)  # Representation → prediction
         return out
 
-# 20 amino acid composition features → 64-dim hidden representation → 2 classes
+# 20 input features → 64-dim hidden representation → 2 classes
 model = SolubilityPredictor(input_dim=20, hidden_dim=64, output_dim=2)
 
 # Pass a batch of 32 proteins through the model
@@ -528,10 +464,10 @@ predictions = model(features)    # Shape: (32, 2) — scores for [soluble, insol
 print(predictions.shape)
 ```
 
-Note the distinction: `x` is the input **features** (amino acid composition), `h` is the hidden **representation** (what the network learns), and `out` is the prediction.
+Note the distinction: `x` is the input **features**, `h` is the hidden **representation** (what the network learns), and `out` is the prediction.
 PyTorch handles the backward pass automatically --- you only specify the forward computation.
 
-### 3.8 Common Layer Types
+### 3.7 Common Layer Types
 
 PyTorch provides a library of pre-built layers for common operations.
 Here are the ones you will encounter most often in protein AI.
@@ -562,7 +498,7 @@ nn.Dropout(p=0.1)  # Each neuron has a 10% chance of being turned off per forwar
 nn.Embedding(num_embeddings=21, embedding_dim=64)
 ```
 
-### 3.9 Practical Notes
+### 3.8 Practical Notes
 
 For simple architectures with no branching, `nn.Sequential` provides a compact shorthand --- see the PyTorch documentation for details.
 To count parameters: `sum(p.numel() for p in model.parameters())`.
@@ -609,7 +545,7 @@ Secondary structure prediction assigns one of three states (helix, sheet, coil) 
 
 1. **FASTA** stores sequences; **PDB** stores 3D structures. Biopython handles sequence parsing; Biotite handles structure parsing. These are the entry points to any protein ML pipeline.
 
-2. **Features** are hand-crafted numerical inputs: one-hot encoding preserves the full sequence; amino acid composition gives a fixed-size summary. Both are converted to PyTorch tensors for training.
+2. **Features** are hand-crafted numerical inputs: one-hot encoding converts each amino acid into a binary vector, preserving the full sequence. Features are converted to PyTorch tensors for training.
 
 3. **Representations** are what neural networks learn internally. Embedding layers learn amino acid representations from data; hidden layers learn task-specific representations. Protein language models (Lecture 3) produce powerful learned representations.
 
@@ -631,4 +567,3 @@ Secondary structure prediction assigns one of three states (helix, sheet, coil) 
 
 4. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
 
-5. Cybenko, G. (1989). "Approximation by Superpositions of a Sigmoidal Function." *Mathematics of Control, Signals and Systems*, 2(4), 303--314.

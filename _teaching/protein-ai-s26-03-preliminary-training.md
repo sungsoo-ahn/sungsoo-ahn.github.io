@@ -46,7 +46,7 @@ This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Modul
 
 ## 1. Loss Functions: Measuring Mistakes
 
-In Preliminary Note 2, we built a neural network that takes amino acid composition features as input and outputs scores for protein solubility classes.
+In Preliminary Note 2, we built a neural network that takes protein sequence features as input and outputs scores for protein solubility classes.
 But the network's weights are random --- its output is meaningless noise.
 To make it learn, we need a way to quantify *how wrong* its predictions are for each training example, so that gradient descent can push the weights in the right direction.
 
@@ -174,10 +174,6 @@ You process the entire dataset for a single weight update.
 Second, it is memory-intensive.
 For large protein datasets, storing the activations of all 50,000 proteins simultaneously exceeds the memory of any GPU.
 
-Third, the gradient you compute is *too* accurate.
-This sounds paradoxical, but a perfect gradient points exactly toward the minimum of the training loss, which may not coincide with the minimum of the true (generalization) loss.
-Some noise in the gradient direction actually helps the optimizer explore the loss landscape and avoid sharp, narrow minima that generalize poorly.
-
 **Mini-batch stochastic gradient descent** is the standard compromise.
 At each training step, we sample a random subset of $$B$$ proteins (the **mini-batch**) from the training set, compute the average loss over that subset, and update the weights using its gradient:
 
@@ -203,64 +199,13 @@ After each epoch, the DataLoader reshuffles the dataset, so mini-batches are dif
 
 ### Beyond SGD: Momentum and Adaptive Methods
 
-Vanilla SGD can oscillate in loss landscapes where the surface curves much more steeply in one direction than another.
-
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/momentum_comparison.png' | relative_url }}" alt="SGD vs SGD with momentum">
-    <div class="caption mt-1"><strong>SGD vs. SGD with momentum</strong> on an elongated loss landscape. Without momentum (left), the optimizer oscillates across the narrow valley. With momentum (right), the velocity accumulates along the valley floor, producing a smoother, faster path to the minimum.</div>
-</div>
-
-Several extensions address the oscillation problem.
-
-**Momentum** adds a "velocity" term that accumulates a running average of recent gradients.
-The update rules are:
-
-$$
-\mathbf{v}_t = \beta \mathbf{v}_{t-1} + \nabla_\theta \mathcal{L}(\theta_t)
-$$
-
-$$
-\theta_{t+1} = \theta_t - \eta \mathbf{v}_t
-$$
-
-where $$\beta$$ (typically 0.9) controls how much past gradients contribute.
-The intuition is physical: a ball rolling down the loss landscape builds velocity in consistent directions and dampens oscillations where gradients flip sign.
-When the gradient consistently points the same way, $$\mathbf{v}_t$$ grows and the effective step size increases.
-When gradients oscillate (alternating sign), they cancel in the velocity term, smoothing out the path.
-
-**Adam** [3] adapts the learning rate individually for each parameter by tracking both the first moment (mean) and second moment (uncentered variance) of recent gradients:
-
-$$
-\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1) \nabla_\theta \mathcal{L}, \qquad \mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2) (\nabla_\theta \mathcal{L})^2
-$$
-
-Because $$\mathbf{m}_0 = \mathbf{v}_0 = 0$$, both estimates are biased toward zero in early steps. Bias correction fixes this:
-
-$$
-\hat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}, \qquad \hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}
-$$
-
-The parameter update divides the corrected mean by the corrected root-variance:
-
-$$
-\theta_{t+1} = \theta_t - \eta \frac{\hat{\mathbf{m}}_t}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon}
-$$
-
-Parameters with consistently large gradients (large $$\hat{\mathbf{v}}_t$$) take smaller steps; parameters with small or noisy gradients take larger steps.
-The defaults $$\beta_1 = 0.9$$, $$\beta_2 = 0.999$$, $$\epsilon = 10^{-8}$$ work well for most problems.
-Adam is the recommended starting point for protein AI projects.
-
-**AdamW** [6] fixes a subtle issue where Adam's adaptive scaling interacts incorrectly with weight decay regularization.
-For most practical purposes, AdamW is the preferred optimizer.
+Vanilla SGD can oscillate when the loss surface curves much more steeply in one direction than another.
+**Momentum** fixes this by accumulating a running average of recent gradients, so the optimizer builds speed in consistent directions and dampens oscillations.
+**Adam** [3] goes further by adapting the learning rate individually for each parameter based on its recent gradient history.
+**AdamW** [6] is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
 
 ```python
-# SGD with momentum — simple, interpretable, good for fine-tuning
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
-
-# Adam — good default, adaptive learning rates per parameter
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-
-# AdamW — Adam with correct weight decay (the recommended choice)
+# AdamW — the recommended default
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
 ```
 
@@ -415,31 +360,10 @@ This reduces wasted computation when batches contain mostly short sequences.
 
 ### The Bias-Variance Tradeoff
 
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/bias_variance_tradeoff.png' | relative_url }}" alt="Bias-variance tradeoff">
-    <div class="caption mt-1"><strong>The bias-variance tradeoff.</strong> As model complexity increases, bias decreases (the model can fit more complex patterns) but variance increases (the model becomes more sensitive to the specific training set). The optimal complexity minimizes total error.</div>
-</div>
-
-Before discussing how to detect overfitting in practice, let us formalize the tension introduced in Preliminary Note 1.
 Why not simply use the most powerful model available?
-
-The answer involves a fundamental decomposition of prediction error.
-For a given input $$\mathbf{x}$$, the expected prediction error (over random training sets) can be decomposed as:
-
-$$
-\underbrace{\mathbb{E}\bigl[(y - \hat{f}(\mathbf{x}))^2\bigr]}_{\text{Expected Error}} = \underbrace{\bigl(\mathbb{E}[\hat{f}(\mathbf{x})] - f^*(\mathbf{x})\bigr)^2}_{\text{Bias}^2} + \underbrace{\mathbb{E}\bigl[(\hat{f}(\mathbf{x}) - \mathbb{E}[\hat{f}(\mathbf{x})])^2\bigr]}_{\text{Variance}} + \underbrace{\sigma^2}_{\text{Irreducible Noise}}
-$$
-
-where $$\hat{f}$$ is the learned model, $$f^*$$ is the true function, and $$\sigma^2$$ is the noise inherent in the data.
-
-**Bias** refers to error caused by a model being too simple to capture the true patterns in the data.
-A linear model predicting solubility from just the protein's length has high bias: it systematically misses the real relationship because the true function is far more complex than a straight line.
-
-**Variance** refers to error caused by a model being too sensitive to the specific training data.
-A very complex model might fit the training data perfectly, including its noise and idiosyncrasies, but produce wildly different predictions when trained on a different random sample.
-
-The sweet spot lies between these extremes.
-We want a model complex enough to capture the true patterns (low bias) but constrained enough to avoid fitting noise (low variance).
+The answer is a tension between two sources of error.
+**Bias** is error from a model being too simple --- a linear model predicting solubility from just protein length will systematically miss the real relationship.
+**Variance** is error from a model being too sensitive to the specific training data --- a very complex model may fit the training set perfectly, including its noise, but produce wildly different predictions on new data.
 In practice, this means:
 
 - **Too simple** (high bias): the model underfits --- training performance is already poor.
