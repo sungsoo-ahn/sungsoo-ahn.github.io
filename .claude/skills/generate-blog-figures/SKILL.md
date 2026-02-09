@@ -1,3 +1,9 @@
+---
+name: generate-blog-figures
+description: Create matplotlib figure scripts for blog posts following the project's visual conventions. Use when generating diagrams, plots, or illustrations for posts.
+disable-model-invocation: true
+---
+
 # Generate Blog Figures
 
 Create matplotlib figure scripts for blog posts following the project's visual conventions.
