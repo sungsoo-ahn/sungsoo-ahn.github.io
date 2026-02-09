@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Introduction to AI and Deep Learning"
+title: "Machine Learning and Neural Network Fundamentals"
 date: 2026-03-03
-description: "From tensors and automatic differentiation to training neural networks—a self-contained guide to deep learning fundamentals for protein science."
+description: "What machine learning is, how neural networks work, and the PyTorch tools to build them—a self-contained guide for protein science."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -21,26 +21,21 @@ Imagine you have cloned a gene, designed a construct, and transformed *E. coli* 
 After overnight expression you lyse the cells, spin down the debris, and pipette off the soluble fraction --- only to find that your target protein is trapped in insoluble inclusion bodies.
 You have just wasted days of bench time.
 Now imagine a computer program that, given nothing but the amino acid sequence of your construct, predicts with high accuracy whether the protein will be soluble.
-Building that program is a machine learning problem, and understanding how to solve it is the goal of this note.
+Building that program is a machine learning problem, and understanding how to solve it is the goal of this note and the next.
 
-We will walk through every concept needed to go from a raw protein sequence to a trained neural network that makes useful predictions.
-The journey covers five main topics: the machine learning pipeline, the PyTorch tensor library, automatic differentiation, neural network construction, and the training process.
-We end with a complete case study --- predicting protein solubility --- that ties every piece together.
+This note focuses on the **conceptual foundations**: what machine learning is, how neural networks are structured, and the PyTorch tools you need to build them.
+The next note (Preliminary Note 3) picks up where we leave off and covers how to *train* these networks --- loss functions, optimizers, the training loop, and a complete solubility prediction case study.
 
 ### Roadmap
 
-The table below maps each section to the specific skill it provides and explains why that skill matters for protein AI.
-
 | Section | Topic | Why You Need It |
 |---|---|---|
-| 1 | The Machine Learning Pipeline | Provides the big picture: how raw protein data becomes a trained model |
-| 2 | PyTorch Tensors | Tensors are the data structure that stores every protein feature, every weight, and every gradient |
-| 3 | Automatic Differentiation | Enables neural networks to learn by computing gradients without manual calculus |
-| 4 | Building Neural Networks | Teaches you how to assemble layers into architectures suited to protein tasks |
-| 5 | Training Neural Networks | Covers loss functions, optimizers, and the training loop that turns data into knowledge |
-| 6 | Data Loading | Handles batching, shuffling, and variable-length protein sequences efficiently |
-| 7 | Case Study: Protein Solubility | Integrates all concepts into a realistic, end-to-end protein classification project |
-| 8 | Best Practices | Practical tips for debugging, reproducibility, and faster training |
+| 1 | What Is Machine Learning? | The foundational concepts: function approximation, generalization, and the tradeoffs every model faces |
+| 2 | The Machine Learning Pipeline | The big picture: how raw protein data becomes a trained model |
+| 3 | Flavors of ML and Task Types | Different biological questions call for different learning strategies and mathematical formulations |
+| 4 | PyTorch Tensors | Tensors are the data structure that stores every protein feature, every weight, and every gradient |
+| 5 | From Data to Learning | Building a first model, measuring its mistakes, and using gradients to improve it |
+| 6 | Building Neural Networks | How to assemble layers into architectures suited to protein tasks |
 
 ### Prerequisites
 
@@ -54,21 +49,71 @@ If the expression $$\mathbf{y} = \mathbf{W}\mathbf{x} + \mathbf{b}$$ looks unfam
 
 ---
 
-## 1. The Machine Learning Pipeline
+## 1. What Is Machine Learning?
 
-### What Does "Learning" Mean for a Computer?
+### Learning as Function Approximation
 
 When a biochemist gains experience, they develop intuitions --- perhaps that highly charged proteins tend to be soluble, or that long hydrophobic stretches spell trouble.
 These intuitions are patterns extracted from years of experimental observation.
 Machine learning does the same thing, but with numbers instead of intuition.
 
-A machine learning model "learns" when it discovers numerical patterns in data that allow it to make accurate predictions on examples it has never seen before.
-The model does not understand biology the way a scientist does.
-Instead, it encodes statistical regularities --- amino acid composition biases, charge distributions, hydrophobicity patterns --- as numerical weights that transform an input protein into a prediction.
+At its core, machine learning is about **function approximation**.
+There exists some unknown function $$f^*$$ that maps inputs to outputs.
+In protein science, this might mean mapping an amino acid sequence to a solubility label (soluble or insoluble).
+In a general setting, it might mean mapping a photograph of a person's face to their age, or mapping a house's features (square footage, location, number of rooms) to its sale price.
+In both cases, we cannot write down $$f^*$$ explicitly because the relationship is too complex for any simple formula.
+Instead, we define a family of candidate functions $$f_\theta$$, parameterized by adjustable numbers $$\theta$$ (called **parameters** or **weights**), and we search for the particular values of $$\theta$$ that make $$f_\theta$$ approximate $$f^*$$ as closely as possible.
 
-### The Six Stages
+This search is what "training" means.
+We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce the gap between the model's predictions and the true labels.
+The result is a function that captures the statistical regularities in the data --- amino acid composition biases, charge distributions, hydrophobicity patterns --- as numerical weights.
 
-Every machine learning project follows a structured pipeline, as illustrated below.
+### Generalization: The Real Goal
+
+A model that perfectly reproduces the answers for proteins it has already seen is not necessarily useful.
+What matters is **generalization**: the ability to make accurate predictions on *new* proteins that were not part of the training data.
+
+Consider an analogy.
+A student who memorizes every exam answer from past years may score perfectly on those specific exams, but fails when given a new question they have never seen.
+A student who understands the underlying principles can solve new problems.
+Machine learning models face the same tension: they must learn general patterns from specific examples, not just memorize the examples themselves.
+
+The gap between training performance and performance on new data is the central challenge of machine learning.
+Every technique we discuss in this course --- from choosing the right model size to regularization strategies --- is ultimately about improving generalization.
+
+### The Bias-Variance Tradeoff
+
+Why not simply use the most powerful model available?
+If a bigger model can represent more complex functions, should we always prefer it?
+
+The answer involves a fundamental tradeoff.
+
+**Bias** refers to error caused by a model being too simple to capture the true patterns in the data.
+A linear model predicting solubility from just the protein's length has high bias: it systematically misses the real relationship because the true function is far more complex than a straight line.
+Similarly, predicting a house's price from its square footage alone ignores location, condition, and market trends --- a systematic error that no amount of data can fix.
+
+**Variance** refers to error caused by a model being too sensitive to the specific training data.
+A very complex model might fit the training data perfectly, including its noise and idiosyncrasies, but produce wildly different predictions when trained on a different random sample.
+In protein science, this means a model trained on one random subset of proteins gives very different solubility predictions than the same architecture trained on another subset.
+In image recognition, this means a face-age model might memorize specific faces rather than learning general aging patterns like wrinkles and skin texture.
+This is the memorization problem.
+
+The sweet spot lies between these extremes.
+We want a model complex enough to capture the true patterns (low bias) but constrained enough to avoid fitting noise (low variance).
+In practice, this means:
+
+- **Too simple** (high bias): the model underfits --- training performance is already poor.
+- **Too complex** (high variance): the model overfits --- training performance is excellent, but validation performance is much worse.
+- **Just right**: both training and validation performance are good, and they are close to each other.
+
+We will return to this tradeoff repeatedly throughout the course.
+For now, keep it in mind as the reason why model design involves careful choices, not simply "use the biggest model."
+
+---
+
+## 2. The Machine Learning Pipeline
+
+Every machine learning project follows a structured pipeline.
 
 ```mermaid
 flowchart LR
@@ -109,6 +154,7 @@ The choice of representation profoundly affects what patterns a model can discov
 **Stage 4: Model Training.**
 The model sees thousands of proteins with known labels and gradually adjusts its internal parameters to minimize prediction errors.
 This stage involves critical choices about model architecture, optimization algorithm, and regularization strategy.
+We cover the tools for building models in this note (Sections 4--6) and the training process itself in Preliminary Note 3.
 
 **Stage 5: Evaluation.**
 Measure how well the model generalizes to new proteins.
@@ -122,7 +168,11 @@ Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure t
 Bring the model into production where it makes predictions on new proteins.
 Practical constraints around inference speed, memory usage, and integration with existing laboratory workflows become important here.
 
-### Flavors of Machine Learning
+---
+
+## 3. Flavors of Machine Learning and Task Types
+
+### Learning Strategies
 
 Different biological questions call for different learning strategies.
 
@@ -146,30 +196,52 @@ Models like ESM [4] and ProtTrans [5], trained on hundreds of millions of protei
 
 Different biological questions map to different mathematical formulations.
 Getting this mapping right is the first step in any project.
+The table below summarizes the main formulations with concrete protein examples.
 
-**Regression** problems have continuous outputs.
-Predicting a protein's melting temperature ($$T_m$$) or dissociation constant ($$K_d$$) are regression tasks.
+| Formulation | Output | Protein Example | General Example |
+|---|---|---|---|
+| **Regression** | A continuous number | Sequence → melting temperature (62.5 °C) | Photo → person's age (34 years) |
+| **Binary classification** | One of two categories | Sequence → soluble / insoluble | Email → spam / not spam |
+| **Multi-class classification** | One of $$C$$ categories | Sequence → enzyme class (oxidoreductase) | Handwritten digit → 0--9 |
+| **Multi-label classification** | Multiple labels per protein | Sequence → {kinase, membrane, signaling} | Photo → {outdoor, sunny, beach} |
+| **Sequence-to-sequence** | One output per position | Sequence → secondary structure (H/E/C) per residue | Sentence → part-of-speech tag per word |
+
+#### Regression
+
+Regression tasks have continuous outputs.
+Predicting a protein's melting temperature ($$T_m$$) or dissociation constant ($$K_d$$) are regression tasks; predicting a house's sale price from its features, or a person's age from a photograph, are general examples.
 The model outputs a real number, and we measure error as the difference between prediction and ground truth.
 
-**Binary classification** distinguishes two categories.
-Is this protein an enzyme or not?
-Will it be soluble when expressed in *E. coli*?
-The model outputs a probability between 0 and 1, and we apply a threshold to make a decision.
+#### Binary Classification
 
-**Multi-class classification** extends binary classification to more than two categories.
-Predicting which of several secondary structure states each residue adopts, or classifying proteins into major functional categories, are examples.
+Binary classification distinguishes two categories.
+In protein science: is this protein an enzyme or not? Will it be soluble when expressed in *E. coli*?
+In everyday applications: is this email spam or not? Does this medical image show a tumor or not?
+The model outputs a probability between 0 and 1, and we apply a threshold (typically 0.5) to make a decision.
 
-**Multi-label classification** handles cases where multiple labels can apply to the same protein simultaneously.
-A protein might be both an enzyme *and* membrane-bound.
-Each label is predicted independently.
+#### Multi-Class Classification
 
-**Sequence-to-sequence** tasks produce one output per input position.
-Secondary structure prediction assigns one of three states (helix, sheet, coil) to every residue.
-Disorder prediction identifies which residues lack fixed three-dimensional structure.
+Multi-class classification extends binary classification to more than two categories.
+In protein science, this includes predicting which of several secondary structure states each residue adopts, or classifying proteins into major functional categories.
+In computer vision, recognizing which of 10 digits appears in a handwritten image is a classic multi-class task.
+The model outputs a probability distribution over all classes.
+
+#### Multi-Label Classification
+
+Multi-label classification handles cases where multiple labels can apply to the same protein simultaneously.
+A protein might be both an enzyme *and* membrane-bound; a photograph might depict both "outdoor" *and* "sunny" *and* "beach."
+Each label is predicted independently --- the model outputs one probability per label, and each is thresholded separately.
+
+#### Sequence-to-Sequence
+
+Sequence-to-sequence tasks produce one output per input position.
+In protein science, secondary structure prediction assigns one of three states (helix, sheet, coil) to every residue, and disorder prediction identifies which residues lack fixed three-dimensional structure.
+In natural language processing, part-of-speech tagging assigns a grammatical label (noun, verb, adjective) to every word in a sentence.
+These tasks require models that can process entire sequences and produce position-wise outputs.
 
 ---
 
-## 2. PyTorch: Your Laboratory for Neural Networks
+## 4. PyTorch: Your Laboratory for Neural Networks
 
 If machine learning is the science, PyTorch is the laboratory equipment.
 Just as a biochemist needs pipettes, centrifuges, and spectrophotometers, a computational biologist needs tools for constructing and training neural networks.
@@ -221,11 +293,61 @@ print(x.device)  # cpu — where the tensor lives (cpu or cuda:0)
 What makes tensors special compared to NumPy arrays?
 Two things: **GPU acceleration** and **automatic differentiation**.
 
+### Worked Example: Encoding a Protein Sequence as a Tensor
+
+Let us trace the encoding of a short protein sequence through each stage, watching the tensor shape evolve.
+
+```python
+import torch
+
+# Our protein: the first 7 residues of human hemoglobin alpha chain
+sequence = "MVLSPAD"
+
+# Step 1: Map each amino acid to an integer index
+# 20 standard amino acids → indices 1-20; 0 is reserved for padding
+AA_TO_IDX = {aa: i + 1 for i, aa in enumerate("ACDEFGHIKLMNPQRSTVWY")}
+
+indices = [AA_TO_IDX[aa] for aa in sequence]
+print(f"Character sequence: {list(sequence)}")
+print(f"Integer indices:    {indices}")
+# Character sequence: ['M', 'V', 'L', 'S', 'P', 'A', 'D']
+# Integer indices:    [11, 19, 10, 16, 14, 1, 3]
+
+# As a tensor: shape (7,) — one integer per residue
+seq_tensor = torch.tensor(indices)
+print(f"Shape after integer encoding: {seq_tensor.shape}")  # torch.Size([7])
+
+# Step 2: One-hot encode — each integer becomes a 20-dimensional binary vector
+one_hot = torch.zeros(len(sequence), 20)
+for i, idx in enumerate(indices):
+    one_hot[i, idx - 1] = 1.0   # idx is 1-based, tensor indexing is 0-based
+
+print(f"Shape after one-hot encoding: {one_hot.shape}")  # torch.Size([7, 20])
+# Each row is all zeros except for a single 1 at the amino acid's position
+
+# Step 3: Add a batch dimension (neural networks process batches of proteins)
+batched = one_hot.unsqueeze(0)   # Add dim at position 0
+print(f"Shape with batch dimension:   {batched.shape}")  # torch.Size([1, 7, 20])
+# (batch_size=1, sequence_length=7, features=20)
+```
+
+The final shape `(1, 7, 20)` is the standard format for feeding protein sequences into neural networks: batch size, sequence length, and feature dimension.
+When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- and we will see later (Preliminary Note 3) how padding and masking handle the fact that different proteins have different lengths.
+
 ### The GPU Advantage
 
 Modern GPUs (Graphics Processing Units) contain thousands of simple processors that perform arithmetic operations in parallel.
 A single NVIDIA GPU can execute trillions of floating-point operations per second.
-This massive parallelism is well suited to the matrix multiplications at the heart of neural networks.
+But why are GPUs so effective for neural networks specifically?
+
+The answer lies in the nature of the computation.
+Neural networks are built from **matrix multiplications**: an input vector is multiplied by a weight matrix, then by another, and another.
+Each entry of the output matrix is an independent dot product --- it depends only on one row of the left matrix and one column of the right matrix, not on any other output entry.
+This means thousands of output entries can be computed *simultaneously*.
+
+A CPU has a handful of powerful cores (typically 8--16) optimized for complex sequential tasks.
+A GPU has thousands of simpler cores (an NVIDIA A100 has 6,912 CUDA cores) designed for exactly this kind of embarrassingly parallel arithmetic.
+The matrix multiplications that dominate neural network computation map perfectly onto GPU hardware.
 
 Moving computation to the GPU requires just one line in PyTorch:
 
@@ -244,6 +366,10 @@ y_gpu = x_gpu @ x_gpu.T
 
 For a 1000-by-1000 matrix multiplication, a GPU can be 50--100 times faster than a CPU.
 When training neural networks that involve millions of such operations per second, this speedup is the difference between experiments taking hours versus weeks.
+
+One critical rule: **all tensors involved in an operation must be on the same device.**
+Attempting to multiply a GPU tensor with a CPU tensor will raise an error.
+Always move both the model and the data to the same device before computation.
 
 ### Tensor Operations
 
@@ -308,48 +434,155 @@ A single `.transpose(1, 2)` fixes this mismatch.
 
 ---
 
-## 3. Automatic Differentiation: Teaching Computers Calculus
+## 5. From Data to Learning: Models, Losses, and Gradients
 
-How does a neural network learn?
-The answer involves calculus --- but not the tedious symbol manipulation you may recall from introductory courses.
-Neural networks learn through an algorithmic trick called **automatic differentiation** (often shortened to **autograd**).
+The previous sections introduced what machine learning is, the pipeline for building models, and the PyTorch tensors that store all our data.
+Now we tackle the central question: **how does a model actually learn from data?**
 
-### The Intuition Behind Learning
+The answer has four steps, and we will build them up one at a time using a concrete protein example:
 
-Suppose you are trying to predict protein solubility.
-Your model takes a protein sequence as input and outputs a number between 0 and 1, representing the predicted probability of being soluble.
-For a protein you know to be soluble (true label $$y = 1$$), if the model predicts $$\hat{y} = 0.3$$, it is wrong.
+1. Define a **model** that makes predictions.
+2. Measure how wrong the predictions are with a **loss function**.
+3. Compute **gradients** that tell us how to adjust the model's parameters to reduce the loss.
+4. **Update** the parameters and repeat.
 
-We quantify this "wrongness" with a **loss function** --- a single number that measures the gap between prediction and reality.
-A simple choice is squared error: $$(y - \hat{y})^2 = (1 - 0.3)^2 = 0.49$$.
+### A First Model: Linear Regression
 
-Now comes the key insight.
-Your model's prediction depends on its internal parameters, called **weights**.
-Different weight values produce different predictions.
-Some weight values would push the prediction closer to 1 (reducing the loss), while others would make it worse.
-Learning means finding weight values that minimize the loss across all training proteins.
+Let us start with something concrete.
+Suppose we have measured 10 physicochemical features for a single protein --- molecular weight, isoelectric point, GRAVY score, instability index, and so on (the kinds of features from Preliminary Note 1).
+We want to predict that protein's melting temperature.
+We will call the true melting temperature $$y$$ and our prediction $$\hat{y}$$.
 
-### Gradients Point Downhill
+The simplest model is a **weighted sum** of the features plus a bias:
+
+$$
+\hat{y} = w_1 \cdot \text{mol.\ weight} + w_2 \cdot \text{pI} + w_3 \cdot \text{GRAVY} + \cdots + w_{10} \cdot x_{10} + b
+$$
+
+Each weight $$w_i$$ controls how much one feature contributes to the prediction.
+A large positive $$w_3$$ (the weight on GRAVY score) would mean more hydrophobic proteins are predicted to have higher melting temperatures.
+The bias $$b$$ shifts the overall prediction up or down.
+
+Using vector notation, we can write this more compactly.
+Let $$\mathbf{x} = [x_1, x_2, \ldots, x_{10}]$$ be the feature vector for one protein, and $$\mathbf{w} = [w_1, w_2, \ldots, w_{10}]$$ be the weight vector.
+Then:
+
+$$
+\hat{y} = \mathbf{x} \cdot \mathbf{w} + b = \sum_{j=1}^{10} x_j w_j + b
+$$
+
+Now suppose we have not one protein but 100.
+We stack their feature vectors into a matrix $$\mathbf{X}$$ of shape (100 $$\times$$ 10), where each **row** is one protein's features.
+A single matrix multiplication $$\mathbf{X}\mathbf{W}$$ computes the weighted sum for all 100 proteins at once:
+
+$$
+\hat{\mathbf{y}} = \mathbf{X}\mathbf{W} + b
+$$
+
+Here $$\mathbf{W}$$ is the weight vector reshaped as a (10 $$\times$$ 1) column, and the result $$\hat{\mathbf{y}}$$ is a (100 $$\times$$ 1) column of predictions --- one per protein.
+
+```python
+import torch
+
+# Simulated data: 100 proteins, 10 physicochemical features each
+# Each row of X is one protein's features: [mol. weight, pI, GRAVY, ...]
+X = torch.randn(100, 10)   # 100 proteins × 10 features
+y = torch.randn(100, 1) * 10 + 60   # True melting temperatures (centered ~60°C)
+
+# Learnable parameters — requires_grad=True tells PyTorch to track gradients
+W = torch.randn(10, 1, requires_grad=True)   # One weight per feature
+b = torch.zeros(1, requires_grad=True)        # Bias term
+
+# Forward pass: predict melting temperature for ALL 100 proteins at once
+# X @ W computes the dot product of each protein's features with W
+y_pred = X @ W + b              # Shape: (100, 1) — one prediction per protein
+print(f"Predictions shape: {y_pred.shape}")  # torch.Size([100, 1])
+```
+
+$$\mathbf{W}$$ and $$b$$ are the **learnable parameters**.
+Different values give different predictions --- and right now, with random weights, the predictions are terrible.
+The question is: how do we find better values?
+
+The same model structure could predict house prices from features like square footage, location, and number of rooms, or predict a patient's blood pressure from clinical measurements.
+The math is identical; only the data changes.
+
+### Measuring Mistakes: The Loss Function
+
+Our model makes predictions.
+How do we know how wrong they are?
+
+We need a single number that summarizes the gap between predictions and reality.
+This number is called a **loss function** (sometimes called a cost function or objective function).
+For regression tasks like predicting melting temperature, a natural choice is the **mean squared error** (MSE):
+
+$$
+\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
+$$
+
+This computes the average squared difference between each prediction $$\hat{y}_i$$ and the true value $$y_i$$.
+Squaring serves two purposes: it makes all errors positive (an overestimate of +5°C and an underestimate of −5°C are equally bad), and it penalizes large errors disproportionately (an error of 10°C contributes 100 to the sum, while an error of 1°C contributes only 1).
+
+```python
+# Loss: mean squared error (in units of °C²)
+loss = ((y_pred - y) ** 2).mean()
+print(f"Loss: {loss.item():.2f}")  # A single number measuring total prediction error
+```
+
+If predicting house prices, an error of 100,000 dollars contributes 10,000 times more to the MSE than an error of 1,000 dollars --- the quadratic penalty strongly discourages large mistakes.
+
+With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\mathbf{W}$$ and $$b$$ that minimize the loss.**
+But how?
+
+> **Note:** MSE is one of many possible loss functions.
+> Preliminary Note 3 covers other choices suited to classification tasks (binary cross-entropy, cross-entropy), and explains when to use which.
+
+### Learning from Mistakes: Gradients and Optimization
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/gradient_descent.png' | relative_url }}" alt="Gradient descent on a 2D loss landscape">
     <div class="caption mt-1">Gradient descent on a 2D loss landscape. Starting from an initial point (red dot), the optimizer follows the direction of steepest descent at each step, tracing a path (red line) toward the minimum (red star). The contours represent level sets of the loss function.</div>
 </div>
 
-How do we find good weight values?
-We use **gradients**.
+We want to adjust $$\mathbf{W}$$ and $$b$$ to reduce the loss.
+The tool for this is the **gradient**.
+
 The gradient of the loss with respect to a weight tells us: "if I increase this weight by a tiny amount, how does the loss change?"
 
 - If increasing a weight would *increase* the loss, we should *decrease* that weight.
 - If increasing a weight would *decrease* the loss, we should *increase* it.
 
 This strategy --- adjusting each weight in the direction that reduces the loss --- is called **gradient descent**[^gd].
+The update rule is:
+
+$$
+\theta_{t+1} = \theta_t - \eta \nabla_\theta L
+$$
+
+where $$\theta$$ represents the parameters ($$\mathbf{W}$$ and $$b$$), $$\eta$$ is the **learning rate** (how big a step to take), and $$\nabla_\theta L$$ is the gradient of the loss with respect to the parameters.
+Preliminary Note 3 covers optimization in much more detail, including adaptive learning rates and momentum.
 
 [^gd]: The term "stochastic gradient descent" (SGD) refers to gradient descent applied to a random subset (mini-batch) of the training data at each step, rather than the entire dataset. In practice, almost all gradient descent in deep learning is stochastic.
 
-### The Chain Rule: Propagating Blame
+#### The Optimization Landscape
 
-A neural network composes many simple functions: the output of one layer feeds into the next, which feeds into the next.
+It helps to think geometrically.
+Imagine the loss as a surface over the space of all possible weight values.
+For a model with two weights, this surface is like a mountain landscape --- some regions are high (bad predictions, high loss) and some are low (good predictions, low loss).
+Training means navigating this landscape to find a valley (a minimum of the loss).
+
+In reality, neural networks have millions of weights, so the landscape exists in millions of dimensions.
+We cannot visualize it, but the intuition still holds: the loss defines a surface, and gradient descent navigates that surface by always stepping in the direction of steepest descent.
+
+This perspective explains several phenomena we will encounter later:
+
+- **Local minima**: the landscape may have many valleys, and the optimizer might settle into a shallow one instead of the deepest.
+- **Saddle points**: in high-dimensional spaces, flat regions where the gradient is near zero are common and can slow training.
+- **Learning rate sensitivity**: too large a step overshoots valleys; too small a step gets stuck on gentle slopes.
+
+### The Chain Rule and Backpropagation
+
+For our simple linear model, computing gradients is straightforward.
+But what about deeper networks with many layers, where the output of one layer feeds into the next?
 To compute how a weight in an early layer affects the final loss, we need the **chain rule** from calculus.
 
 Let $$x$$ be the input to some function that produces $$y$$, and let $$L$$ be the loss computed from $$y$$.
@@ -394,6 +627,8 @@ You define only the forward computation --- how inputs become outputs.
 PyTorch automatically builds a **computational graph** that tracks every operation.
 When you call `.backward()`, it traverses this graph in reverse, computing all gradients.
 
+Here is a simple example to see autograd at work:
+
 ```python
 # Create a tensor and tell PyTorch to track operations on it
 x = torch.tensor([2.0, 3.0], requires_grad=True)
@@ -417,23 +652,22 @@ For $$x_1 = 2$$: $$2(2) + 3 = 7$$.
 For $$x_2 = 3$$: $$2(3) + 3 = 9$$.
 PyTorch computed exactly these values --- automatically.
 
-### A More Realistic Example: Linear Regression
+#### Back to Our Protein Model
 
-Here is a scenario closer to real protein modeling.
-Suppose we have 100 proteins, each described by 10 physicochemical features, and we want to predict a continuous property (say, melting temperature).
-We model the relationship as a linear function: $$\hat{y} = \mathbf{X}\mathbf{W} + b$$, where $$\mathbf{X}$$ is the feature matrix, $$\mathbf{W}$$ is a weight vector, and $$b$$ is a bias term.
+Let us return to our melting temperature model and let PyTorch compute the gradients automatically.
+We repeat the model setup, compute the loss, and call `.backward()`:
 
 ```python
-# Simulated data: 100 proteins, 10 features each
-X = torch.randn(100, 10)   # Feature matrix
-y = torch.randn(100, 1)    # True melting temperatures (simulated)
+# Simulated data (same as before)
+X = torch.randn(100, 10)
+y = torch.randn(100, 1) * 10 + 60
 
-# Learnable parameters — requires_grad=True is crucial!
-W = torch.randn(10, 1, requires_grad=True)   # Weight vector
-b = torch.zeros(1, requires_grad=True)        # Bias term
+# Learnable parameters
+W = torch.randn(10, 1, requires_grad=True)
+b = torch.zeros(1, requires_grad=True)
 
-# Forward pass: compute predictions
-y_pred = X @ W + b                # Matrix multiply + broadcast bias
+# Forward pass: predict melting temperature
+y_pred = X @ W + b
 
 # Loss: mean squared error
 loss = ((y_pred - y) ** 2).mean()
@@ -446,8 +680,25 @@ print(f"Weight gradient shape: {W.grad.shape}")  # torch.Size([10, 1])
 print(f"Bias gradient shape:   {b.grad.shape}")   # torch.Size([1])
 ```
 
-The gradient `W.grad` tells us how to nudge each weight to reduce the loss.
-This is the foundation upon which all neural network training rests.
+The gradient `W.grad` tells us how to nudge each weight to reduce the prediction error.
+Now we can close the loop with one step of gradient descent:
+
+```python
+# One gradient descent step (learning rate = 0.01)
+lr = 0.01
+W.data -= lr * W.grad    # Adjust weights in the direction that reduces loss
+b.data -= lr * b.grad    # Adjust bias similarly
+
+# Verify: the loss should be lower with the updated parameters
+y_pred_new = X @ W + b
+loss_new = ((y_pred_new - y) ** 2).mean()
+print(f"Loss before update: {loss.item():.2f}")
+print(f"Loss after update:  {loss_new.item():.2f}")  # Should be lower!
+```
+
+This is the complete learning cycle: **model → loss → gradients → update**.
+Repeat this cycle thousands of times, and the model converges to good parameter values.
+In practice, PyTorch provides optimizers (like `torch.optim.SGD` and `torch.optim.Adam`) that handle the update step and more --- we cover these in Preliminary Note 3.
 
 ### Turning Off Gradient Tracking
 
@@ -457,7 +708,7 @@ During **inference** --- when you just want predictions, not training --- you sh
 ```python
 # Context manager: temporarily disable gradient tracking
 with torch.no_grad():
-    y_pred = model(x)
+    T_m_pred = model(x)
     # No computational graph is built — faster and more memory-efficient
 
 # Decorator: permanently disable gradients inside a function
@@ -468,7 +719,7 @@ def predict(model, x):
 
 ---
 
-## 4. Building Neural Networks: From Neurons to Architectures
+## 6. Building Neural Networks: From Neurons to Architectures
 
 With tensors for data and autograd for gradients, we can now build neural networks.
 Let us construct them from the ground up, using protein examples throughout.
@@ -487,13 +738,68 @@ The weights $$w_1, w_2, \ldots, w_n$$ determine how much each input contributes.
 The bias $$b$$ shifts the decision boundary.
 The function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
 
-Two widely used activation functions are:
+### Activation Functions: Why Nonlinearity Matters
 
-- **ReLU** (Rectified Linear Unit): $$\sigma(z) = \max(0, z)$$. Simple and effective. Sets negative values to zero and passes positive values unchanged.
-- **Sigmoid**: $$\sigma(z) = \frac{1}{1 + e^{-z}}$$. Squashes any input into the range $$(0, 1)$$, making it useful when the output should represent a probability.
-- **Softmax**: Given a vector $$\mathbf{z}$$, $$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$. Normalizes a vector of real numbers into a probability distribution that sums to 1. Used in classification (choosing among classes) and in attention mechanisms (computing how much each element should attend to every other).
-- **GELU** (Gaussian Error Linear Unit): $$\text{GELU}(z) = z \cdot \Phi(z)$$, where $$\Phi$$ is the standard Gaussian cumulative distribution function. A smooth approximation of ReLU that allows small negative values to pass through. Widely used in transformer architectures.
-- **Swish** (also called **SiLU**): $$\text{Swish}(z) = z \cdot \sigma(z)$$, where $$\sigma$$ is the sigmoid function. Like GELU, it is smooth and non-monotonic. Used in ESM-2 and other recent protein models.
+Without activation functions, stacking layers would be pointless.
+A linear transformation followed by another linear transformation is just... a single linear transformation (their product is still a matrix).
+Activation functions break this linearity, and the choice of activation function matters more than it might first appear.
+
+#### Sigmoid
+
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+
+Sigmoid squashes any input into the range $$(0, 1)$$, making it natural for representing probabilities.
+It was the default activation in early neural networks, but it has a serious problem for deep networks.
+
+When $$z$$ is very large or very small, the sigmoid curve is nearly flat: its derivative is close to zero.
+During backpropagation, gradients must flow through every layer, multiplying by these near-zero derivatives at each step.
+After several layers, the gradient becomes vanishingly small --- a phenomenon called **vanishing gradients**.
+The early layers of the network receive almost no learning signal, so they effectively stop learning.
+
+#### ReLU (Rectified Linear Unit)
+
+$$\text{ReLU}(z) = \max(0, z)$$
+
+ReLU solved the vanishing gradient problem for positive inputs: its derivative is exactly 1 for $$z > 0$$, so gradients flow through unchanged.
+For negative inputs, the output (and gradient) is zero.
+ReLU is computationally cheap (just a comparison and a selection), and it became the default activation for deep networks.
+
+The downside: neurons can "die" during training.
+If a neuron's input becomes permanently negative (due to a large weight update), its output is always zero, its gradient is always zero, and it can never recover.
+This is called the **dying ReLU** problem.
+
+#### GELU (Gaussian Error Linear Unit)
+
+$$\text{GELU}(z) = z \cdot \Phi(z)$$
+
+where $$\Phi$$ is the standard Gaussian cumulative distribution function.
+GELU is a smooth approximation of ReLU that does not have a hard cutoff at zero.
+Instead, it allows small negative values to pass through with reduced magnitude.
+This smooth behavior leads to better optimization landscapes and has made GELU the preferred activation in transformer architectures, including protein language models like ESM-2.
+
+#### Swish (SiLU)
+
+$$\text{Swish}(z) = z \cdot \sigma(z)$$
+
+where $$\sigma$$ is the sigmoid function.
+Like GELU, Swish is smooth and non-monotonic.
+It was discovered through automated search over activation functions and is used in ESM-2 and other recent protein models.
+
+#### Softmax
+
+Given a vector $$\mathbf{z}$$: $$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$
+
+Softmax normalizes a vector of real numbers into a probability distribution that sums to 1.
+It is not used between layers but rather at the output for classification (choosing among classes) and inside attention mechanisms (computing how much each element should attend to every other).
+
+#### When to Use Which?
+
+| Activation | Best For | Avoid When |
+|---|---|---|
+| **ReLU** | Default for feedforward networks, CNNs | Very deep networks where dying neurons are a concern |
+| **GELU** | Transformers, protein language models | When computational cost matters (slightly more expensive than ReLU) |
+| **Sigmoid** | Output layer for binary classification (probability) | Hidden layers of deep networks (vanishing gradients) |
+| **Softmax** | Output layer for multi-class classification | Hidden layers (it's a normalization, not an activation) |
 
 ### Layers: Many Neurons in Parallel
 
@@ -509,7 +815,7 @@ $$
 where $$\mathbf{W}$$ is a weight matrix of shape `(64, n_inputs)`, $$\mathbf{x}$$ is the input vector, $$\mathbf{b}$$ is a bias vector, and $$\mathbf{h}$$ is the output vector of 64 values.
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 
-### Depth: Stacking Layers
+### Why Depth Matters: The Power of Composition
 
 ```mermaid
 flowchart LR
@@ -548,19 +854,35 @@ flowchart LR
     style Output fill:#e8f5e9,stroke:#4CAF50
 ```
 
-The power of neural networks comes from stacking multiple layers.
-The output of one layer becomes the input to the next.
-Each successive layer can learn increasingly abstract representations of the input.
+The power of neural networks comes from stacking multiple layers, and this is not merely a practical observation --- it has a deep theoretical basis.
 
-For a protein property classifier, this hierarchy might look like:
+The **universal approximation theorem** states that a neural network with even a single hidden layer containing sufficiently many neurons can approximate *any* continuous function to arbitrary precision.
+This sounds like great news: a single wide layer can, in principle, learn any input-output mapping we care about.
+
+But there is a catch.
+While a single wide layer *can* represent any function, it may need an astronomically large number of neurons to do so.
+Deep networks --- those with many layers --- can represent the same functions far more efficiently.
+The reason is **compositionality**: complex functions are built from simpler sub-functions, and each layer learns one level of this hierarchy.
+
+For a protein property classifier, this compositional hierarchy might look like:
 
 - **Layer 1** detects individual amino acid properties (charge, size, hydrophobicity).
 - **Layer 2** recognizes local motifs (charge clusters, hydrophobic patches).
 - **Layer 3** identifies higher-order patterns (domain boundaries, structural elements).
 - **Output layer** combines these abstract representations into a final prediction.
 
-This hierarchical learning is what makes deep learning "deep."
-The depth allows the network to build complex features from simple ones, much like how protein structure emerges from local interactions at the residue level.
+An image recognition network learns a strikingly similar hierarchy:
+
+- **Layer 1** detects edges and color gradients.
+- **Layer 2** combines edges into textures and simple shapes.
+- **Layer 3** recognizes object parts (eyes, wheels, petals).
+- **Output layer** identifies the object (face, car, flower).
+
+In both domains, depth allows the network to mirror the hierarchical nature of the patterns it needs to learn --- primary sequence → secondary structure → tertiary fold for proteins, and edges → textures → parts → objects for images.
+
+In practice, deeper networks are not always better.
+Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
+Techniques like residual connections, normalization layers, and careful initialization --- which we cover in Preliminary Note 4 --- have made training deep networks practical.
 
 ### `nn.Module`: PyTorch's Building Block
 
@@ -574,8 +896,11 @@ Building a custom network means writing a class with two methods:
 ```python
 import torch.nn as nn
 
-class ProteinNet(nn.Module):
-    """A simple feedforward network for protein property prediction."""
+class ProteinPropertyPredictor(nn.Module):
+    """A feedforward network for protein property prediction.
+
+    Takes per-protein feature vectors and predicts a property class.
+    """
 
     def __init__(self, input_dim, hidden_dim, output_dim):
         super().__init__()
@@ -594,7 +919,7 @@ class ProteinNet(nn.Module):
         return x
 
 # Create the model: 20 amino acid features → 64 hidden units → 2 classes
-model = ProteinNet(input_dim=20, hidden_dim=64, output_dim=2)
+model = ProteinPropertyPredictor(input_dim=20, hidden_dim=64, output_dim=2)
 
 # Use the model: pass a batch of 32 proteins, each with 20 features
 x = torch.randn(32, 20)
@@ -604,6 +929,63 @@ print(output.shape)
 
 PyTorch handles the backward pass automatically.
 You never write backpropagation code --- you only specify the forward computation.
+
+### A Richer Example: Processing Sequence and Scalar Features Together
+
+Many protein prediction tasks benefit from combining per-residue sequence information with global scalar properties (molecular weight, isoelectric point, etc.).
+Here is a model that processes both:
+
+```python
+class DualInputProteinModel(nn.Module):
+    """A model that combines sequence-level and global protein features.
+
+    The sequence branch uses an embedding + 1D convolution to capture
+    local amino acid patterns. The global branch processes scalar features.
+    Both are concatenated before the final classification layer.
+    """
+
+    def __init__(self, vocab_size=21, embed_dim=64, num_global_features=5,
+                 hidden_dim=128, num_classes=2):
+        super().__init__()
+
+        # Sequence branch: embedding → Conv1D → global average pool
+        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
+        self.conv = nn.Conv1d(embed_dim, hidden_dim, kernel_size=5, padding=2)
+        self.relu = nn.ReLU()
+
+        # Global features branch: a small feedforward network
+        self.global_fc = nn.Linear(num_global_features, 32)
+
+        # Classification head: takes both branches as input
+        self.classifier = nn.Linear(hidden_dim + 32, num_classes)
+
+    def forward(self, sequence, global_features, mask=None):
+        # sequence shape:        (batch, seq_len) — integer-encoded amino acids
+        # global_features shape: (batch, num_global_features) — scalar properties
+        # mask shape:            (batch, seq_len) — 1 for real, 0 for padding
+
+        # --- Sequence branch ---
+        x = self.embedding(sequence)           # (batch, seq_len, embed_dim)
+        x = x.transpose(1, 2)                  # (batch, embed_dim, seq_len) for Conv1d
+        x = self.relu(self.conv(x))            # (batch, hidden_dim, seq_len)
+
+        # Masked global average pooling
+        if mask is not None:
+            mask_expanded = mask.unsqueeze(1)   # (batch, 1, seq_len)
+            x = (x * mask_expanded).sum(dim=2) / mask_expanded.sum(dim=2).clamp(min=1)
+        else:
+            x = x.mean(dim=2)                  # (batch, hidden_dim)
+
+        # --- Global features branch ---
+        g = self.relu(self.global_fc(global_features))  # (batch, 32)
+
+        # --- Combine and classify ---
+        combined = torch.cat([x, g], dim=1)    # (batch, hidden_dim + 32)
+        output = self.classifier(combined)      # (batch, num_classes)
+        return output
+```
+
+This architecture illustrates two important design patterns: **multi-input models** (combining different data modalities) and **masked pooling** (handling variable-length sequences by ignoring padding positions).
 
 ### Common Layer Types
 
@@ -680,709 +1062,21 @@ model.load_state_dict(torch.load('protein_model.pt'))
 
 ---
 
-## 5. Training Neural Networks: The Learning Loop
-
-Training a neural network is an iterative process.
-You show the model examples, measure its mistakes, compute the direction of improvement, and nudge the weights accordingly.
-This section covers each component of this process in detail.
-
-### Loss Functions: Measuring Mistakes
-
-Before the model can learn, we need a way to quantify how wrong its predictions are.
-The **loss function** (also called a **cost function** or **objective function**) produces a single number: zero means perfect predictions, and larger values mean worse predictions.
-
-Different problem types require different loss functions.
-
-#### Mean Squared Error (MSE)
-
-MSE is the standard loss for **regression** tasks --- predicting continuous values like binding affinity or melting temperature.
-Let $$y_i$$ be the true value and $$\hat{y}_i$$ be the predicted value for protein $$i$$, with $$n$$ proteins in total:
-
-$$
-\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
-$$
-
-Squaring the error penalizes large mistakes heavily.
-A prediction that is off by 10 degrees contributes 100 to the sum, while one that is off by 1 degree contributes only 1.
-
-#### Binary Cross-Entropy (BCE)
-
-BCE is designed for **binary classification** --- tasks with two categories, such as soluble versus insoluble.
-Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i \in (0, 1)$$ be the predicted probability:
-
-$$
-\text{BCE} = -\frac{1}{n}\sum_{i=1}^{n}\bigl[y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i)\bigr]
-$$
-
-The intuition: when the true label is 1, we want $$\hat{y}_i$$ close to 1, making $$\log(\hat{y}_i)$$ close to 0 (low loss).
-When the true label is 0, we want $$\hat{y}_i$$ close to 0, making $$\log(1 - \hat{y}_i)$$ close to 0.
-
-#### Cross-Entropy (CE)
-
-CE generalizes BCE to **multi-class classification** --- tasks with more than two categories.
-Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c$$ be the predicted probability for class $$c$$:
-
-$$
-\text{CE} = -\sum_{c=1}^{C} y_c \log(\hat{y}_c)
-$$
-
-In practice, only one $$y_c$$ is 1 (the true class), so this simplifies to $$-\log(\hat{y}_{\text{true class}})$$.
-
-In PyTorch:
-
-```python
-# Regression: predict melting temperature
-criterion = nn.MSELoss()
-
-# Binary classification: soluble vs. insoluble
-# BCEWithLogitsLoss combines sigmoid + BCE for numerical stability
-criterion = nn.BCEWithLogitsLoss()
-
-# Multi-class classification: predict secondary structure (H, E, C)
-# CrossEntropyLoss combines softmax + CE for numerical stability
-criterion = nn.CrossEntropyLoss()
-```
-
-### Optimizers: Choosing a Learning Strategy
-
-The loss function tells us how wrong we are.
-The **optimizer** tells us how to improve.
-It takes the gradients computed by backpropagation and uses them to update the weights.
-
-#### Stochastic Gradient Descent (SGD)
-
-SGD is the simplest optimizer.
-Update each weight by taking a step in the direction that reduces the loss:
-
-$$
-\theta_{t+1} = \theta_t - \eta \nabla_\theta L
-$$
-
-Here $$\theta_t$$ represents the current weight values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), and $$\nabla_\theta L$$ is the gradient of the loss with respect to the weights.
-
-The learning rate is one of the most important hyperparameters[^hyperparameter] in training.
-Too small, and learning is painfully slow.
-Too large, and training becomes unstable --- the loss oscillates wildly or diverges to infinity.
-
-[^hyperparameter]: A hyperparameter is a setting chosen by the practitioner before training begins (like learning rate, batch size, or number of layers), as opposed to a parameter learned during training (like the weights of a linear layer).
-
-#### Adam: Adaptive Moment Estimation
-
-Adam [3] is the most popular optimizer in practice.
-It maintains two running averages for each weight: the mean of recent gradients ($$m_t$$, the "first moment") and the mean of recent squared gradients ($$v_t$$, the "second moment").
-These allow it to adapt the learning rate individually for each parameter:
-
-$$
-m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
-$$
-
-$$
-v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
-$$
-
-$$
-\theta_{t+1} = \theta_t - \eta \frac{m_t}{\sqrt{v_t} + \epsilon}
-$$
-
-Here $$g_t$$ is the gradient at step $$t$$, $$\beta_1$$ and $$\beta_2$$ are decay rates (typically 0.9 and 0.999), and $$\epsilon$$ is a small constant for numerical stability (typically $$10^{-8}$$).
-
-The intuition: parameters with consistently large gradients take smaller steps (the denominator $$\sqrt{v_t}$$ is large), while parameters with small or noisy gradients take larger steps.
-This adaptive behavior makes Adam work well out of the box for most problems.
-
-```python
-# SGD with momentum (momentum helps smooth out noisy gradient estimates)
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
-
-# Adam — the default choice for most protein AI projects
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-
-# AdamW — Adam with decoupled weight decay (better regularization)
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
-```
-
-### The Training Loop: Four Steps, Repeated
-
-Training unfolds as a repeated cycle of four steps.
-Each iteration of this cycle processes one **batch** of training examples (a subset of the full dataset).
-One pass through the entire dataset is called an **epoch**.
-
-**Step 1: Forward pass.**
-Feed a batch of proteins through the model to produce predictions.
-Data flows forward through the network, layer by layer.
-
-**Step 2: Compute loss.**
-Compare predictions to true labels using the loss function.
-This produces a single scalar measuring how wrong we are on this batch.
-
-**Step 3: Backward pass.**
-Call `loss.backward()` to compute gradients for all parameters.
-Each gradient answers: "how should this weight change to reduce the loss?"
-
-**Step 4: Update weights.**
-The optimizer uses the gradients to adjust the weights.
-We have now learned from this batch.
-
-```python
-def train_one_epoch(model, dataloader, criterion, optimizer, device):
-    """Train the model for one pass through the dataset."""
-    model.train()   # Enable training mode (activates dropout, etc.)
-    total_loss = 0
-
-    for batch_x, batch_y in dataloader:
-        # Move data to the same device as the model (CPU or GPU)
-        batch_x = batch_x.to(device)
-        batch_y = batch_y.to(device)
-
-        # Step 1: Forward pass — compute predictions
-        predictions = model(batch_x)
-
-        # Step 2: Compute loss — measure prediction error
-        loss = criterion(predictions, batch_y)
-
-        # Step 3: Backward pass — compute gradients
-        optimizer.zero_grad()   # Clear gradients from the previous batch!
-        loss.backward()         # Compute new gradients
-
-        # Optional: clip gradients to prevent exploding values
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-
-        # Step 4: Update weights — apply gradient descent
-        optimizer.step()
-
-        total_loss += loss.item()   # .item() extracts a Python float
-
-    avg_loss = total_loss / len(dataloader)
-    return avg_loss
-```
-
-A critical detail: `optimizer.zero_grad()` must be called before each backward pass.
-By default, PyTorch *accumulates* gradients --- calling `.backward()` multiple times adds to the existing `.grad` values rather than replacing them.
-Without zeroing, gradients from previous batches would contaminate the current update[^accumulation].
-
-[^accumulation]: Gradient accumulation is sometimes used intentionally. When GPU memory is too small for a large batch, you can run several small forward/backward passes, accumulate their gradients, and then call `optimizer.step()` once. This simulates training with a larger effective batch size.
-
-### Validation: Detecting Overfitting
-
-Training loss alone can be misleading.
-A model might memorize the training examples perfectly (achieving near-zero training loss) without learning patterns that generalize to new proteins.
-This is called **overfitting**.
-
-To detect overfitting, we evaluate the model on a separate **validation set** that it never trains on:
-
-```python
-@torch.no_grad()   # No gradient computation needed during evaluation
-def evaluate(model, dataloader, criterion, device):
-    """Evaluate the model on a held-out dataset."""
-    model.eval()    # Disable dropout, use running statistics for batch norm
-    total_loss = 0
-    all_predictions = []
-    all_labels = []
-
-    for batch_x, batch_y in dataloader:
-        batch_x = batch_x.to(device)
-        batch_y = batch_y.to(device)
-
-        predictions = model(batch_x)
-        loss = criterion(predictions, batch_y)
-
-        total_loss += loss.item()
-        all_predictions.append(predictions.cpu())
-        all_labels.append(batch_y.cpu())
-
-    avg_loss = total_loss / len(dataloader)
-    all_predictions = torch.cat(all_predictions)
-    all_labels = torch.cat(all_labels)
-
-    return avg_loss, all_predictions, all_labels
-```
-
-The pattern is clear: if training loss decreases but validation loss increases, the model is overfitting.
-The best model is the one with the lowest *validation* loss, not the lowest training loss.
-
-### Putting It All Together: A Complete Training Script
-
-A production-quality training script adds two important techniques:
-
-- **Learning rate scheduling**: gradually reduce the learning rate as training progresses, allowing finer adjustments near a good solution.
-- **Early stopping**: halt training when validation loss stops improving, preventing wasted computation and overfitting.
-
-```python
-def train_model(model, train_loader, val_loader, epochs=100, patience=10):
-    """Full training pipeline with learning rate scheduling and early stopping."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = model.to(device)
-
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-
-    # Reduce learning rate by half when validation loss stops improving for 5 epochs
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='min', patience=5, factor=0.5
-    )
-
-    best_val_loss = float('inf')
-    patience_counter = 0
-
-    for epoch in range(epochs):
-        # --- Training phase ---
-        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
-
-        # --- Validation phase ---
-        val_loss, _, _ = evaluate(model, val_loader, criterion, device)
-
-        # --- Adjust learning rate ---
-        scheduler.step(val_loss)
-
-        # --- Early stopping ---
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            patience_counter = 0
-            torch.save(model.state_dict(), 'best_model.pt')  # Save the best model
-        else:
-            patience_counter += 1
-            if patience_counter >= patience:
-                print(f"Early stopping at epoch {epoch}")
-                break
-
-        # --- Logging ---
-        current_lr = optimizer.param_groups[0]['lr']
-        print(f"Epoch {epoch:3d} | train_loss={train_loss:.4f} | "
-              f"val_loss={val_loss:.4f} | lr={current_lr:.6f}")
-
-    # Load the best model before returning
-    model.load_state_dict(torch.load('best_model.pt'))
-    return model
-```
-
----
-
-## 6. Data Loading: Feeding Proteins to Neural Networks
-
-Training neural networks requires showing them thousands or millions of examples.
-Efficient data loading becomes crucial, especially when proteins have variable lengths and complex representations.
-
-### The `Dataset` Class
-
-PyTorch's `Dataset` class defines how to access individual examples.
-You implement two methods:
-
-- `__len__`: returns the total number of examples.
-- `__getitem__`: returns one example by its index.
-
-Here is a dataset for protein sequences:
-
-```python
-from torch.utils.data import Dataset, DataLoader
-
-class ProteinDataset(Dataset):
-    """A dataset of protein sequences and their labels."""
-
-    def __init__(self, sequences, labels, max_len=512):
-        self.sequences = sequences
-        self.labels = labels
-        self.max_len = max_len
-
-        # Map each of the 20 standard amino acids to an integer (1–20)
-        # Index 0 is reserved for padding
-        self.aa_to_idx = {aa: i + 1 for i, aa in enumerate('ACDEFGHIKLMNPQRSTVWY')}
-
-    def __len__(self):
-        return len(self.sequences)
-
-    def __getitem__(self, idx):
-        seq = self.sequences[idx]
-        label = self.labels[idx]
-
-        # Convert amino acid characters to integers
-        # Truncate sequences longer than max_len
-        encoded = torch.zeros(self.max_len, dtype=torch.long)
-        for i, aa in enumerate(seq[:self.max_len]):
-            encoded[i] = self.aa_to_idx.get(aa, 0)  # Unknown amino acids → 0
-
-        # Create a mask: 1 for real positions, 0 for padding
-        seq_len = min(len(seq), self.max_len)
-        mask = torch.zeros(self.max_len, dtype=torch.float)
-        mask[:seq_len] = 1.0
-
-        return {
-            'sequence': encoded,        # Shape: (max_len,)
-            'mask': mask,               # Shape: (max_len,)
-            'label': torch.tensor(label, dtype=torch.long)
-        }
-```
-
-### The `DataLoader`: Batching and Shuffling
-
-The `DataLoader` wraps a dataset and handles three important tasks:
-
-1. **Batching**: groups individual examples into batches for efficient GPU computation.
-2. **Shuffling**: randomizes the order of examples each epoch so the model does not learn spurious ordering patterns.
-3. **Parallel loading**: uses multiple worker processes to prepare the next batch while the GPU trains on the current one.
-
-```python
-# Create dataset objects
-train_dataset = ProteinDataset(train_sequences, train_labels)
-val_dataset = ProteinDataset(val_sequences, val_labels)
-
-# Wrap in DataLoaders
-train_loader = DataLoader(
-    train_dataset,
-    batch_size=32,        # Process 32 proteins at a time
-    shuffle=True,         # Randomize order each epoch (important for training)
-    num_workers=4,        # Use 4 parallel processes for data loading
-    pin_memory=True       # Faster CPU → GPU transfer
-)
-
-val_loader = DataLoader(
-    val_dataset,
-    batch_size=64,        # Larger batches are fine for evaluation (no gradients stored)
-    shuffle=False         # Keep a consistent order for reproducible evaluation
-)
-
-# Iterate through batches
-for batch in train_loader:
-    sequences = batch['sequence']   # Shape: (32, max_len)
-    masks = batch['mask']           # Shape: (32, max_len)
-    labels = batch['label']         # Shape: (32,)
-    # ... feed to model ...
-```
-
-### Handling Variable-Length Sequences
-
-Proteins range from tens to thousands of amino acids.
-Padding every sequence to the length of the longest protein in the entire dataset wastes computation and memory.
-A **custom collate function** can pad each batch only to its own maximum length:
-
-```python
-def collate_proteins(batch):
-    """Pad sequences in a batch to the length of the longest sequence in that batch."""
-    # Find the maximum length in this specific batch
-    max_len = max(len(item['sequence']) for item in batch)
-
-    sequences = torch.zeros(len(batch), max_len, dtype=torch.long)
-    masks = torch.zeros(len(batch), max_len)
-    labels = torch.zeros(len(batch), dtype=torch.long)
-
-    for i, item in enumerate(batch):
-        seq_len = len(item['sequence'])
-        sequences[i, :seq_len] = item['sequence']
-        masks[i, :seq_len] = 1.0
-        labels[i] = item['label']
-
-    return {'sequence': sequences, 'mask': masks, 'label': labels}
-
-# Pass the custom collate function to the DataLoader
-loader = DataLoader(dataset, batch_size=32, collate_fn=collate_proteins)
-```
-
-This reduces wasted computation when batches contain only short sequences.
-
----
-
-## 7. Case Study: Predicting Protein Solubility
-
-Let us bring every concept together in a complete, end-to-end application: predicting whether a protein will be soluble when expressed in *E. coli*.
-
-### Why Solubility Prediction Matters
-
-Expressing recombinant proteins is a core technique in structural biology, biotechnology, and therapeutic development.
-When a target protein aggregates into inclusion bodies instead of dissolving in the cytoplasm, downstream applications --- crystallography, assays, drug formulation --- become much harder or impossible.
-A computational model that predicts solubility from sequence alone can guide construct design and save weeks of experimental effort.
-
-What makes this problem amenable to machine learning?
-Solubility is influenced by sequence-level properties: amino acid composition, charge distribution, hydrophobicity patterns, and the presence of certain sequence motifs.
-These patterns are learnable from data.
-
-### The Model Architecture
-
-We build a **1D convolutional neural network** (CNN) that processes amino acid embeddings.
-The architecture reflects domain knowledge: convolutional layers with a kernel size of 5 can detect patterns spanning five consecutive amino acids, which is appropriate for capturing local sequence motifs like charge clusters or hydrophobic stretches.
-
-```python
-import torch.nn.functional as F
-
-class ProteinSolubilityClassifier(nn.Module):
-    """
-    A 1D-CNN for predicting protein solubility from amino acid sequence.
-
-    Architecture:
-    1. Embedding: map each amino acid index to a learned 64-dim vector
-    2. Two Conv1d layers: detect local sequence motifs
-    3. Global average pooling: aggregate over the full sequence
-    4. Linear output: predict soluble (1) vs. insoluble (0)
-    """
-
-    def __init__(self, vocab_size=21, embed_dim=64, hidden_dim=128, num_classes=2):
-        super().__init__()
-
-        # Embedding layer: integers → continuous vectors
-        # padding_idx=0 ensures the padding token always maps to a zero vector
-        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
-
-        # 1D convolutions detect local patterns in the sequence
-        # kernel_size=5 means each filter looks at 5 consecutive amino acids
-        # padding=2 preserves the sequence length after convolution
-        self.conv1 = nn.Conv1d(embed_dim, hidden_dim, kernel_size=5, padding=2)
-        self.conv2 = nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2)
-
-        # Classification head
-        self.fc = nn.Linear(hidden_dim, num_classes)
-        self.dropout = nn.Dropout(0.3)
-
-    def forward(self, x, mask=None):
-        # x shape: (batch, seq_len) — integer-encoded amino acids
-
-        # Step 1: Embed amino acids → (batch, seq_len, embed_dim)
-        x = self.embedding(x)
-
-        # Step 2: Rearrange for Conv1d → (batch, embed_dim, seq_len)
-        x = x.transpose(1, 2)
-
-        # Step 3: Apply convolutions with ReLU activation
-        x = F.relu(self.conv1(x))    # → (batch, hidden_dim, seq_len)
-        x = self.dropout(x)
-        x = F.relu(self.conv2(x))    # → (batch, hidden_dim, seq_len)
-
-        # Step 4: Global average pooling over the sequence dimension
-        # Use the mask to ignore padding positions
-        if mask is not None:
-            mask = mask.unsqueeze(1)             # → (batch, 1, seq_len)
-            x = (x * mask).sum(dim=2) / mask.sum(dim=2).clamp(min=1)
-        else:
-            x = x.mean(dim=2)                   # → (batch, hidden_dim)
-
-        # Step 5: Classify → (batch, num_classes)
-        x = self.fc(x)
-        return x
-```
-
-### Preparing the Data
-
-```python
-from sklearn.model_selection import train_test_split
-import pandas as pd
-
-# Load a solubility dataset (e.g., from the SOLpro or eSOL databases)
-df = pd.read_csv('solubility_data.csv')
-print(f"Dataset size: {len(df)} proteins")
-print(f"Class distribution:\n{df['label'].value_counts()}")
-
-# Split into train / validation / test sets
-# Stratify by label to maintain class balance in each split
-train_df, temp_df = train_test_split(df, test_size=0.2, stratify=df['label'],
-                                     random_state=42)
-val_df, test_df = train_test_split(temp_df, test_size=0.5, stratify=temp_df['label'],
-                                   random_state=42)
-
-print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
-
-# Create Dataset and DataLoader objects
-train_dataset = ProteinDataset(train_df['sequence'].tolist(),
-                               train_df['label'].tolist())
-val_dataset = ProteinDataset(val_df['sequence'].tolist(),
-                             val_df['label'].tolist())
-test_dataset = ProteinDataset(test_df['sequence'].tolist(),
-                              test_df['label'].tolist())
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
-```
-
-### Training
-
-```python
-# Instantiate the model and inspect its size
-model = ProteinSolubilityClassifier()
-n_params = sum(p.numel() for p in model.parameters())
-print(f"Model parameters: {n_params:,}")
-
-# Train with early stopping and learning rate scheduling
-trained_model = train_model(model, train_loader, val_loader, epochs=50, patience=10)
-```
-
-### Evaluation: Beyond Accuracy
-
-A single accuracy number rarely tells the full story.
-For a solubility dataset where 70% of proteins are soluble, a model that *always* predicts "soluble" achieves 70% accuracy while being completely useless.
-We need a richer set of metrics.
-
-```python
-from sklearn.metrics import (accuracy_score, precision_recall_fscore_support,
-                             roc_auc_score)
-
-def evaluate_classifier(model, test_loader, device):
-    """Evaluate a binary classifier with multiple metrics."""
-    model.eval()
-    all_preds = []
-    all_labels = []
-    all_probs = []
-
-    with torch.no_grad():
-        for batch in test_loader:
-            x = batch['sequence'].to(device)
-            mask = batch['mask'].to(device)
-            y = batch['label']
-
-            logits = model(x, mask)                         # Raw scores
-            probs = F.softmax(logits, dim=-1)               # Probabilities
-            preds = logits.argmax(dim=-1)                   # Predicted class
-
-            all_preds.extend(preds.cpu().numpy())
-            all_labels.extend(y.numpy())
-            all_probs.extend(probs[:, 1].cpu().numpy())     # P(soluble)
-
-    # Compute metrics
-    accuracy = accuracy_score(all_labels, all_preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        all_labels, all_preds, average='binary'
-    )
-    auc = roc_auc_score(all_labels, all_probs)
-
-    print(f"Accuracy:  {accuracy:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall:    {recall:.4f}")
-    print(f"F1 Score:  {f1:.4f}")
-    print(f"AUC-ROC:   {auc:.4f}")
-
-    return accuracy, precision, recall, f1, auc
-```
-
-Here is what each metric tells you:
-
-| Metric | Question It Answers | When It Matters |
-|---|---|---|
-| **Accuracy** | What fraction of all predictions are correct? | Balanced datasets only |
-| **Precision** | Of proteins *predicted* soluble, what fraction truly are? | When false positives are costly (wasting expression experiments) |
-| **Recall** | Of proteins that *are* soluble, what fraction did we detect? | When missing a soluble protein is costly (screening large libraries) |
-| **F1 Score** | Harmonic mean of precision and recall | When you care equally about false positives and false negatives |
-| **AUC-ROC** | How well does the model separate classes across all thresholds? | Threshold-independent assessment of overall discriminative power |
-
----
-
-## 8. Best Practices for Deep Learning
-
-Training neural networks involves many subtle decisions.
-The practices below, drawn from years of community experience, will help you avoid common pitfalls.
-
-### Debugging Neural Networks
-
-Neural networks can fail silently.
-The code runs, the loss decreases, but predictions are useless.
-Systematic debugging is essential.
-
-```python
-# 1. Check for NaN gradients (sign of numerical instability)
-for name, param in model.named_parameters():
-    if param.grad is not None and torch.isnan(param.grad).any():
-        print(f"WARNING: NaN gradient detected in {name}")
-
-# 2. Verify that outputs are in a sensible range
-with torch.no_grad():
-    sample_output = model(sample_input)
-    print(f"Output range: [{sample_output.min():.3f}, {sample_output.max():.3f}]")
-
-# 3. Confirm that input and output shapes match expectations
-print(f"Input shape:  {sample_input.shape}")
-print(f"Output shape: {model(sample_input).shape}")
-
-# 4. Sanity check: can the model overfit a single batch?
-# If it cannot, there is likely a bug in the architecture or loss
-small_batch_x, small_batch_y = next(iter(train_loader))
-for step in range(200):
-    pred = model(small_batch_x.to(device))
-    loss = criterion(pred, small_batch_y.to(device))
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-    if step % 50 == 0:
-        print(f"Step {step}: loss = {loss.item():.4f}")
-# Loss should approach 0. If it does not, debug your model.
-```
-
-### Reproducibility
-
-Science requires reproducibility.
-Set all random seeds at the start of every experiment:
-
-```python
-import random
-import numpy as np
-
-def set_seed(seed=42):
-    """Set random seeds for reproducibility across all libraries."""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    # For full determinism on GPU (may reduce performance slightly):
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-set_seed(42)
-```
-
-Full determinism on GPU can slow training by 10--20%.
-For exploratory experiments, setting the Python, NumPy, and PyTorch seeds is usually sufficient.
-Reserve full determinism for final reported results.
-
-### Mixed Precision Training
-
-Modern GPUs have specialized hardware for 16-bit floating-point (FP16) arithmetic that runs roughly twice as fast as 32-bit (FP32) operations.
-**Mixed precision training** uses FP16 where possible and FP32 where numerical precision is critical (e.g., loss accumulation and weight updates):
-
-```python
-from torch.cuda.amp import autocast, GradScaler
-
-scaler = GradScaler()
-
-for batch_x, batch_y in train_loader:
-    batch_x = batch_x.to(device)
-    batch_y = batch_y.to(device)
-    optimizer.zero_grad()
-
-    # Forward pass in FP16 (faster, less memory)
-    with autocast():
-        predictions = model(batch_x)
-        loss = criterion(predictions, batch_y)
-
-    # Backward pass with gradient scaling (prevents FP16 underflow)
-    scaler.scale(loss).backward()
-    scaler.step(optimizer)
-    scaler.update()
-```
-
-Mixed precision typically provides a 1.5--2x speedup with minimal impact on model accuracy.
-It also reduces GPU memory usage, allowing larger batch sizes.
-
-### A Practical Checklist
-
-Before declaring a model "trained," verify the following:
-
-1. Training loss decreases steadily over epochs.
-2. Validation loss decreases initially, then plateaus (not increases --- that signals overfitting).
-3. The model can perfectly overfit a single batch (sanity check for bugs).
-4. Gradients are finite (no NaN or Inf values).
-5. Metrics on the test set are consistent with validation set metrics.
-6. Results are reproducible when the same seed is used.
-
----
-
 ## Key Takeaways
 
-1. **Machine learning discovers patterns** in protein data automatically, encoding them as numerical weights that transform sequences into predictions.
+1. **Machine learning is function approximation.** We search for a function $$f_\theta$$ that maps protein inputs to property predictions. The challenge is finding parameters $$\theta$$ that generalize to proteins the model has never seen.
 
-2. **Tensors** are the universal data structure of deep learning. They combine NumPy-like operations with GPU acceleration and automatic differentiation.
+2. **Generalization is the real goal**, not training accuracy. The bias-variance tradeoff governs model design: too simple models underfit, too complex models overfit.
 
-3. **Autograd** implements the chain rule algorithmically, computing gradients for all model parameters from the forward computation alone. You never write backpropagation by hand.
+3. **Tensors** are the universal data structure of deep learning. They combine NumPy-like operations with GPU acceleration and automatic differentiation. Protein sequences are encoded as tensors of shape `(batch, length, features)`.
 
-4. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. The `nn.Module` class provides the framework for building and managing them.
+4. **The learning cycle is model → loss → gradients → update.** We define a model (even a simple linear one), measure its mistakes with a loss function, compute gradients via autograd, and update the weights. PyTorch automates the gradient computation through backpropagation.
 
-5. **Training** is a four-step loop --- forward pass, loss computation, backward pass, weight update --- repeated across many epochs. Early stopping and learning rate scheduling are essential for good results.
+5. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. The choice of activation function matters --- ReLU for general use, GELU for transformers, sigmoid only at the output for probabilities.
 
-6. **Data loading** with `Dataset` and `DataLoader` handles batching, shuffling, and parallel processing. Custom collate functions manage variable-length protein sequences efficiently.
+6. **Depth enables hierarchical learning.** The universal approximation theorem guarantees that neural networks *can* represent arbitrary functions, and depth makes this representation efficient by building complex features from simpler ones --- mirroring the hierarchical nature of protein structure.
 
-7. **Evaluation** must use held-out data and multiple metrics. For proteins, sequence-identity-aware splits prevent data leakage from homologous sequences.
+7. **Next up**: Preliminary Note 3 covers how to train these networks --- loss functions, optimizers, the training loop, data loading, and a complete solubility prediction case study.
 
 ---
 
@@ -1391,49 +1085,32 @@ Before declaring a model "trained," verify the following:
 These exercises reinforce the concepts from this note.
 Each one can be completed in a single Python script or Jupyter notebook.
 
-### Exercise 1: Per-Residue Secondary Structure Prediction
+### Exercise 1: Protein Feature Tensors
 
-Build a 3-layer MLP that predicts secondary structure for each residue in a protein sequence.
-The model should take a one-hot encoded sequence of shape `(batch, length, 20)` and output three probabilities (helix, sheet, coil) for each position, giving output shape `(batch, length, 3)`.
+Encode a batch of 5 protein sequences of varying lengths as tensors suitable for neural network input.
+Start from raw amino acid strings, convert to integer indices, pad to the length of the longest sequence, and create the corresponding mask tensor.
+Print the shape at each step and verify that padding positions have mask value 0.
 
-*Hints:*
-- Use `nn.CrossEntropyLoss()` with the input reshaped to `(batch * length, 3)`.
-- Think carefully about how to handle padding positions in the loss computation.
+*Extension:* Also compute 5 global features per protein (molecular weight, isoelectric point, GRAVY, instability index, sequence length) and store them as a separate `(5, 5)` tensor.
 
-### Exercise 2: Learning Rate Warmup
+### Exercise 2: Building and Inspecting a Network
 
-Modify the training loop to implement **linear warmup**: start with a very small learning rate (e.g., $$10^{-7}$$) and linearly increase it to the target learning rate (e.g., $$10^{-3}$$) over the first 1,000 training steps.
+Build a 4-layer feedforward network using `nn.Module` that takes 20-dimensional amino acid composition vectors as input and predicts one of 4 enzyme classes.
+The hidden dimensions should be 128 → 64 → 32.
+Use ReLU activations between layers.
 
-*Hint:* Use `torch.optim.lr_scheduler.LinearLR` or manually adjust `optimizer.param_groups[0]['lr']` at each step.
+Count the total number of trainable parameters.
+Then replace all ReLU activations with GELU and verify that the parameter count does not change (why?).
 
-### Exercise 3: Gradient Accumulation
+### Exercise 3: Autograd Exploration
 
-Implement **gradient accumulation** to simulate a batch size of 128 when your GPU can only fit 32 samples at a time.
-The idea: run four forward/backward passes (each with 32 samples), accumulate the gradients, and then call `optimizer.step()` once.
+Create a simple linear model $$y = Wx + b$$ with `requires_grad=True` on both $$W$$ and $$b$$.
+Compute the MSE loss for a small batch of 10 data points.
+Call `.backward()` and inspect the gradients.
 
-*Key detail:* You should call `optimizer.zero_grad()` only once per effective batch (every 4 mini-batches), not at every step.
+Then manually compute $$\partial L / \partial W$$ and $$\partial L / \partial b$$ using the chain rule and verify they match the PyTorch gradients.
 
-### Exercise 4: Optimizer Comparison
-
-Train the `ProteinSolubilityClassifier` from Section 7 three times, each with a different optimizer:
-- SGD with momentum 0.9
-- Adam with default settings
-- AdamW with weight decay 0.01
-
-Plot the training and validation loss curves for all three on the same graph.
-Which optimizer converges fastest?
-Which achieves the lowest final validation loss?
-
-### Exercise 5: Custom Metric
-
-Implement **Matthews Correlation Coefficient** (MCC), a metric that is informative even when classes are severely imbalanced:
-
-$$
-\text{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}
-$$
-
-where $$TP$$, $$TN$$, $$FP$$, and $$FN$$ are the counts of true positives, true negatives, false positives, and false negatives respectively.
-Add this metric to the `evaluate_classifier` function and compare it to accuracy on a dataset where 90% of proteins are soluble.
+*Hint:* For MSE loss $$L = \frac{1}{n}\sum_i (Wx_i + b - y_i)^2$$, the gradients are $$\frac{\partial L}{\partial W} = \frac{2}{n}\sum_i x_i(Wx_i + b - y_i)$$ and $$\frac{\partial L}{\partial b} = \frac{2}{n}\sum_i (Wx_i + b - y_i)$$.
 
 ---
 
@@ -1451,6 +1128,10 @@ Add this metric to the `evaluate_classifier` function and compare it to accuracy
 
 6. Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). "Learning Representations by Back-Propagating Errors." *Nature*, 323(6088), 533--536.
 
-7. PyTorch Documentation. [https://pytorch.org/docs/stable/](https://pytorch.org/docs/stable/).
+7. Cybenko, G. (1989). "Approximation by Superpositions of a Sigmoidal Function." *Mathematics of Control, Signals and Systems*, 2(4), 303--314.
 
-8. PyTorch Tutorials. [https://pytorch.org/tutorials/](https://pytorch.org/tutorials/).
+8. Hornik, K. (1991). "Approximation Capabilities of Multilayer Feedforward Networks." *Neural Networks*, 4(2), 251--257.
+
+9. PyTorch Documentation. [https://pytorch.org/docs/stable/](https://pytorch.org/docs/stable/).
+
+10. PyTorch Tutorials. [https://pytorch.org/tutorials/](https://pytorch.org/tutorials/).
