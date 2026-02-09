@@ -61,15 +61,15 @@ Instead, we define a family of candidate functions $$f_\theta$$, parameterized b
 
 This search is what "training" means.
 We formalize it as an optimization problem.
-Given a training set $$\{(\mathbf{x}_i, y_i)\}_{i=1}^n$$ of $$n$$ input-output pairs, we define a **loss function** $$L(\theta)$$ that measures how poorly $$f_\theta$$ fits the data (Section 4 makes this concrete).
+Given a training set $$\{(\mathbf{x}_i, y_i)\}_{i=1}^n$$ of $$n$$ input-output pairs, we define a **loss function** $$\mathcal{L}(\theta)$$ that measures how poorly $$f_\theta$$ fits the data (Section 4 makes this concrete).
 Training then amounts to solving:
 
 $$
-\theta^* = \arg\min_\theta L(\theta)
+\theta^* = \arg\min_\theta \mathcal{L}(\theta)
 $$
 
 In words: find the parameter values $$\theta^*$$ that minimize the total prediction error over the training set.
-We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce $$L(\theta)$$.
+We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce $$\mathcal{L}(\theta)$$.
 The result is a function that captures the statistical regularities in the data --- amino acid composition biases, charge distributions, hydrophobicity patterns --- as numerical weights.
 
 ### Generalization: The Real Goal
@@ -347,7 +347,7 @@ This number is called a **loss function** (sometimes called a cost function or o
 For regression tasks like predicting melting temperature, a natural choice is the **mean squared error** (MSE):
 
 $$
-L_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i(\theta) - y_i)^2
+\mathcal{L}_{\text{MSE}}(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i(\theta) - y_i)^2
 $$
 
 The predictions $$\hat{y}_i(\theta)$$ depend on the current parameter values $$\theta$$, so the loss itself is a function of $$\theta$$.
@@ -360,10 +360,10 @@ loss = ((y_pred - y) ** 2).mean()
 print(f"Loss: {loss.item():.2f}")  # A single number measuring total prediction error
 ```
 
-With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\theta$$ that minimize $$L(\theta)$$.**
+With a model and a loss function in hand, learning becomes an optimization problem: **find the values of $$\theta$$ that minimize $$\mathcal{L}(\theta)$$.**
 But how?
 
-> **Note:** $$L_{\text{MSE}}$$ is one of many possible loss functions.
+> **Note:** $$\mathcal{L}_{\text{MSE}}$$ is one of many possible loss functions.
 > Preliminary Note 3 covers other choices suited to classification tasks (binary cross-entropy, cross-entropy), and explains when to use which.
 
 ### Learning from Mistakes: Gradients and Optimization
@@ -379,12 +379,12 @@ The tool for this is the **gradient** --- the vector of partial derivatives of t
 #### Deriving the Gradient for MSE
 
 Let us compute the gradient step by step for a single weight $$w_j$$.
-Recall that the prediction for one protein is $$\hat{y}_i = \sum_{k=1}^{10} x_{ik} w_k + b$$ and the MSE loss is $$L = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2$$.
+Recall that the prediction for one protein is $$\hat{y}_i = \sum_{k=1}^{10} x_{ik} w_k + b$$ and the MSE loss is $$\mathcal{L} = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2$$.
 
 Applying the chain rule:
 
 $$
-\frac{\partial L}{\partial w_j}
+\frac{\partial \mathcal{L}}{\partial w_j}
 = \frac{1}{n}\sum_{i=1}^{n} 2(\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial w_j}
 = \frac{2}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i) \cdot x_{ij}
 $$
@@ -396,25 +396,25 @@ If a feature has a large value and the error is positive (overestimate), the gra
 Similarly, the gradient for the bias is:
 
 $$
-\frac{\partial L}{\partial b} = \frac{2}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i)
+\frac{\partial \mathcal{L}}{\partial b} = \frac{2}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i)
 $$
 
 #### Geometric Intuition
 
-The gradient $$\nabla_\theta L$$ points in the direction of **steepest ascent** of the loss --- the direction in which $$L$$ increases most rapidly.
-Consequently, the **negative** gradient $$-\nabla_\theta L$$ points in the direction of steepest descent.
+The gradient $$\nabla_\theta \mathcal{L}$$ points in the direction of **steepest ascent** of the loss --- the direction in which $$\mathcal{L}$$ increases most rapidly.
+Consequently, the **negative** gradient $$-\nabla_\theta \mathcal{L}$$ points in the direction of steepest descent.
 Why is this the best local direction?
-Among all unit-length directions $$\mathbf{d}$$, the directional derivative $$\nabla_\theta L \cdot \mathbf{d}$$ is most negative when $$\mathbf{d}$$ is aligned with $$-\nabla_\theta L$$.
+Among all unit-length directions $$\mathbf{d}$$, the directional derivative $$\nabla_\theta \mathcal{L} \cdot \mathbf{d}$$ is most negative when $$\mathbf{d}$$ is aligned with $$-\nabla_\theta \mathcal{L}$$.
 So a small step in the negative gradient direction achieves the largest possible local decrease in the loss.
 
 This strategy --- adjusting each weight in the direction that reduces the loss --- is called **gradient descent**[^gd].
 The update rule is:
 
 $$
-\theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
+\theta_{t+1} = \theta_t - \eta \nabla_\theta \mathcal{L}(\theta_t)
 $$
 
-where $$\theta_t$$ are the current parameter values, $$\eta$$ is the **learning rate** (how big a step to take), and $$\nabla_\theta L(\theta_t)$$ is the gradient of the loss evaluated at $$\theta_t$$.
+where $$\theta_t$$ are the current parameter values, $$\eta$$ is the **learning rate** (how big a step to take), and $$\nabla_\theta \mathcal{L}(\theta_t)$$ is the gradient of the loss evaluated at $$\theta_t$$.
 Preliminary Note 3 covers optimization in much more detail, including adaptive learning rates and momentum.
 
 [^gd]: The term "stochastic gradient descent" (SGD) refers to gradient descent applied to a random subset (mini-batch) of the training data at each step, rather than the entire dataset. In practice, almost all gradient descent in deep learning is stochastic.
@@ -439,28 +439,28 @@ When you call `.backward()`, it traverses this graph in reverse, computing all g
 To see how this works, consider a minimal example with a single input, weight, bias, and target:
 
 $$
-L = (xw + b - y)^2
+\mathcal{L} = (xw + b - y)^2
 $$
 
 The computational graph for this expression has five nodes:
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-computational-graph.png' | relative_url }}" alt="Computational graph for L = (xw + b - y)^2">
-    <div class="caption mt-1">Computational graph for $$L = (xw + b - y)^2$$. Forward pass (left to right) computes intermediate values. Backward pass (right to left) propagates gradients using the chain rule.</div>
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-computational-graph.png' | relative_url }}" alt="Computational graph for \mathcal{L} = (xw + b - y)^2">
+    <div class="caption mt-1">Computational graph for $$\mathcal{L} = (xw + b - y)^2$$. Forward pass (left to right) computes intermediate values. Backward pass (right to left) propagates gradients using the chain rule.</div>
 </div>
 
 **Forward pass** (left to right with concrete values $$x=2, w=3, b=1, y=5$$):
 - $$z_1 = xw = 6$$
 - $$z_2 = z_1 + b = 7$$
 - $$z_3 = z_2 - y = 2$$
-- $$L = z_3^2 = 4$$
+- $$\mathcal{L} = z_3^2 = 4$$
 
 **Backward pass** (right to left, applying the chain rule at each node):
-- $$\frac{\partial L}{\partial z_3} = 2z_3 = 4$$
-- $$\frac{\partial L}{\partial z_2} = \frac{\partial L}{\partial z_3} \cdot 1 = 4$$
-- $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial z_2} \cdot 1 = 4$$
-- $$\frac{\partial L}{\partial z_1} = \frac{\partial L}{\partial z_2} \cdot 1 = 4$$
-- $$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial z_1} \cdot x = 4 \times 2 = 8$$
+- $$\frac{\partial \mathcal{L}}{\partial z_3} = 2z_3 = 4$$
+- $$\frac{\partial \mathcal{L}}{\partial z_2} = \frac{\partial \mathcal{L}}{\partial z_3} \cdot 1 = 4$$
+- $$\frac{\partial \mathcal{L}}{\partial b} = \frac{\partial \mathcal{L}}{\partial z_2} \cdot 1 = 4$$
+- $$\frac{\partial \mathcal{L}}{\partial z_1} = \frac{\partial \mathcal{L}}{\partial z_2} \cdot 1 = 4$$
+- $$\frac{\partial \mathcal{L}}{\partial w} = \frac{\partial \mathcal{L}}{\partial z_1} \cdot x = 4 \times 2 = 8$$
 
 PyTorch performs exactly this procedure automatically when you call `.backward()`.
 The key insight is that each node only needs to know (1) the local derivative of its own operation and (2) the gradient flowing in from downstream.
