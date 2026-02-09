@@ -16,13 +16,14 @@ Rendering rules for writing content on Jekyll sites with MathJax/KaTeX. Apply th
 
 ## Mermaid Diagrams
 
-- Use fenced code blocks with `mermaid` language identifier
+- **Export as images:** Write `.mmd` file, render to PNG via `mmdc` CLI, and embed as `<img>` tags. Do NOT use fenced Mermaid code blocks in markdown.
+- Save `.mmd` source + `.png` output in `assets/img/teaching/protein-ai/mermaid/`
 - Use `style` directives for consistent coloring
 
 ### Layout
 
-- Prefer `flowchart TD` (top-down) over `flowchart LR` (left-right) — LR diagrams often overflow the ~668px content column
-- For mixed layouts, use `flowchart TD` with `direction LR` inside individual subgraphs
+- Prefer `flowchart LR` (left-right) for pipeline/flow diagrams. Use `flowchart TD` (top-down) when LR would be too wide (many parallel branches).
+- For mixed layouts, use the primary direction with `direction LR` or `direction TD` inside individual subgraphs
 - Avoid dense cross-connections (e.g., `A & B & C --> D & E & F`) — these create wide diagrams. Use subgraph-level arrows or sequential chains instead
 - Remove self-loops (`A -.-> A`) — they extend far outside the viewBox and cause severe clipping
 

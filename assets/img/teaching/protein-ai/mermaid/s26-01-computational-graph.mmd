@@ -1,0 +1,17 @@
+flowchart LR
+    X["x = 2"] --> MUL["z₁ = xw<br/>(= 6)"]
+    W["w = 3"] --> MUL
+    MUL --> ADD["z₂ = z₁ + b<br/>(= 7)"]
+    B["b = 1"] --> ADD
+    ADD --> SUB["z₃ = z₂ − y<br/>(= 2)"]
+    Y["y = 5"] --> SUB
+    SUB --> SQ["L = z₃²<br/>(= 4)"]
+
+    style X fill:#e8f4f8,stroke:#2196F3
+    style W fill:#fff3e0,stroke:#FF9800
+    style B fill:#fff3e0,stroke:#FF9800
+    style Y fill:#e8f4f8,stroke:#2196F3
+    style MUL fill:#f3e5f5,stroke:#9C27B0
+    style ADD fill:#f3e5f5,stroke:#9C27B0
+    style SUB fill:#f3e5f5,stroke:#9C27B0
+    style SQ fill:#ffebee,stroke:#f44336
