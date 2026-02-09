@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Machine Learning and Neural Network Fundamentals"
-date: 2026-03-03
+date: 2026-03-02
 description: "What machine learning is, how neural networks work, and the PyTorch tools to build them—a self-contained guide for protein science."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
@@ -117,11 +117,11 @@ Every machine learning project follows a structured pipeline.
 
 ```mermaid
 flowchart LR
-    A["📊 Data\nCollection"] --> B["🔧 Preprocessing"]
-    B --> C["🧬 Feature\nEngineering"]
-    C --> D["🧠 Model\nTraining"]
-    D --> E["📏 Evaluation"]
-    E --> F["🚀 Deployment"]
+    A["Data\nCollection"] --> B["Preprocessing"]
+    B --> C["Feature\nEngineering"]
+    C --> D["Model\nTraining"]
+    D --> E["Evaluation"]
+    E --> F["Deployment"]
 
     D -->|"Predictions vs Labels"| L["Loss\nFunction"]
     L -->|"Gradients"| U["Parameter\nUpdate"]

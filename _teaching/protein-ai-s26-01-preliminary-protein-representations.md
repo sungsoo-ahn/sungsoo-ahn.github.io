@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Protein Representations for Machine Learning"
-date: 2026-03-02
+date: 2026-03-01
 description: "From one-hot encodings to graph neural network inputs—how to represent protein sequences and structures numerically for deep learning."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
@@ -308,10 +308,10 @@ The simplest structural representation is the **distance matrix**.
 Given a protein with $$L$$ residues, the distance matrix $$D \in \mathbb{R}^{L \times L}$$ has entry $$(i, j)$$ equal to the Euclidean distance between the C$$\alpha$$ (alpha-carbon) atoms[^calpha] of residues $$i$$ and $$j$$:
 
 $$
-D_{ij} = \lvert\lvert \mathbf{r}_i - \mathbf{r}_j \rvert\rvert_2
+D_{ij} = \lVert \mathbf{r}_i - \mathbf{r}_j \rVert_2
 $$
 
-where $$\mathbf{r}_i \in \mathbb{R}^3$$ is the coordinate vector of the $$i$$-th C$$\alpha$$ atom and $$\lvert\lvert \cdot \rvert\rvert_2$$ denotes the Euclidean norm.
+where $$\mathbf{r}_i \in \mathbb{R}^3$$ is the coordinate vector of the $$i$$-th C$$\alpha$$ atom and $$\lVert \cdot \rVert_2$$ denotes the Euclidean norm.
 
 [^calpha]: The C$$\alpha$$ atom sits at the junction of the backbone and side chain. It provides a single representative coordinate per residue, reducing a protein with thousands of atoms to a manageable $$(L, 3)$$ array.
 
