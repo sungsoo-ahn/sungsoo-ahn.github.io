@@ -1,21 +1,21 @@
 flowchart LR
-    subgraph Input["Input Features (20-dim composition)"]
-        direction LR
-        I1["c₁"] ~~~ I2["c₂"] ~~~ I3["···"] ~~~ I4["c₂₀"]
+    subgraph Input["Input Features (20-dim)"]
+        direction TB
+        I1["x₁"] ~~~ I2["x₂"] ~~~ I3["⋮"] ~~~ I4["x₂₀"]
     end
 
-    subgraph Hidden1["Hidden Repr. 1 (64-dim)"]
-        direction LR
-        H1["h₁"] ~~~ H2["h₂"] ~~~ H3["···"] ~~~ H4["h₆₄"]
+    subgraph Hidden1["Hidden Layer 1 (64-dim)"]
+        direction TB
+        H1["h₁⁽¹⁾"] ~~~ H2["h₂⁽¹⁾"] ~~~ H3["⋮"] ~~~ H4["h₆₄⁽¹⁾"]
     end
 
-    subgraph Hidden2["Hidden Repr. 2 (32-dim)"]
-        direction LR
-        G1["g₁"] ~~~ G2["g₂"] ~~~ G3["···"] ~~~ G4["g₃₂"]
+    subgraph Hidden2["Hidden Layer 2 (32-dim)"]
+        direction TB
+        G1["h₁⁽²⁾"] ~~~ G2["h₂⁽²⁾"] ~~~ G3["⋮"] ~~~ G4["h₃₂⁽²⁾"]
     end
 
-    subgraph Output["Output Layer"]
-        direction LR
+    subgraph Output["Output"]
+        direction TB
         O1["ŷ₁ (soluble)"] ~~~ O2["ŷ₂ (insol.)"]
     end
 

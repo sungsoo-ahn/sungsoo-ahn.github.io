@@ -157,7 +157,7 @@ Higher dimensions are common in practice: a batch of protein sequences might be 
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-tensor-dimensions.png' | relative_url }}" alt="Tensor dimensions from scalar to 3D tensor">
-    <div class="caption mt-1">Tensor dimensions in a protein context. Each amino acid's one-hot encoding is a vector of length 20. Stacking $$L$$ residues gives a matrix. Batching $$B$$ proteins gives a 3D tensor.</div>
+    <div class="caption mt-1">Tensor dimensions in a protein context. Each amino acid's one-hot encoding is a vector of length 20. Stacking \(L\) residues gives a matrix. Batching \(B\) proteins gives a 3D tensor.</div>
 </div>
 
 ```python
@@ -429,42 +429,12 @@ Training means navigating this landscape to find a valley (a minimum of the loss
 In reality, neural networks have millions of weights, so the landscape exists in millions of dimensions.
 We cannot visualize it, but the intuition still holds: the loss defines a surface, and gradient descent navigates that surface by always stepping in the direction of steepest descent.
 
-### Computational Graphs and Automatic Differentiation
+### Automatic Differentiation in PyTorch
 
 The remarkable thing about PyTorch is that you never need to compute gradients by hand.
-You define only the forward computation --- how inputs become outputs.
-PyTorch automatically builds a **computational graph** that tracks every operation.
+You define only the forward computation --- how inputs become outputs --- and PyTorch automatically tracks every operation in a **computational graph**.
 When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule.
-
-To see how this works, consider a minimal example with a single input, weight, bias, and target:
-
-$$
-\mathcal{L} = (xw + b - y)^2
-$$
-
-The computational graph for this expression has five nodes:
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-computational-graph.png' | relative_url }}" alt="Computational graph for \mathcal{L} = (xw + b - y)^2">
-    <div class="caption mt-1">Computational graph for $$\mathcal{L} = (xw + b - y)^2$$. Forward pass (left to right) computes intermediate values. Backward pass (right to left) propagates gradients using the chain rule.</div>
-</div>
-
-**Forward pass** (left to right with concrete values $$x=2, w=3, b=1, y=5$$):
-- $$z_1 = xw = 6$$
-- $$z_2 = z_1 + b = 7$$
-- $$z_3 = z_2 - y = 2$$
-- $$\mathcal{L} = z_3^2 = 4$$
-
-**Backward pass** (right to left, applying the chain rule at each node):
-- $$\frac{\partial \mathcal{L}}{\partial z_3} = 2z_3 = 4$$
-- $$\frac{\partial \mathcal{L}}{\partial z_2} = \frac{\partial \mathcal{L}}{\partial z_3} \cdot 1 = 4$$
-- $$\frac{\partial \mathcal{L}}{\partial b} = \frac{\partial \mathcal{L}}{\partial z_2} \cdot 1 = 4$$
-- $$\frac{\partial \mathcal{L}}{\partial z_1} = \frac{\partial \mathcal{L}}{\partial z_2} \cdot 1 = 4$$
-- $$\frac{\partial \mathcal{L}}{\partial w} = \frac{\partial \mathcal{L}}{\partial z_1} \cdot x = 4 \times 2 = 8$$
-
-PyTorch performs exactly this procedure automatically when you call `.backward()`.
-The key insight is that each node only needs to know (1) the local derivative of its own operation and (2) the gradient flowing in from downstream.
-This is why we never need to derive gradients for the whole expression at once --- the chain rule decomposes it into simple local steps.
+We cover the details of how backpropagation works in Preliminary Note 3.
 
 ### One Complete Learning Step
 
@@ -501,20 +471,6 @@ print(f"Loss after update:  {loss_new.item():.2f}")  # Should be lower!
 This is the complete learning cycle: **model → loss → gradients → update**.
 Repeat this cycle thousands of times, and the model converges to good parameter values.
 In practice, PyTorch provides optimizers (like `torch.optim.SGD` and `torch.optim.Adam`) that handle the update step and more --- we cover these in Preliminary Note 3.
-
-How backpropagation computes gradients efficiently through multi-layer networks using the chain rule is covered as an advanced topic in Preliminary Note 3.
-
-### Turning Off Gradient Tracking
-
-Computing gradients consumes memory (to store the computational graph) and time.
-During **inference** --- when you just want predictions, not training --- you should disable gradient tracking:
-
-```python
-# Context manager: temporarily disable gradient tracking
-with torch.no_grad():
-    T_m_pred = X @ W + b
-    # No computational graph is built — faster and more memory-efficient
-```
 
 ---
 
