@@ -70,7 +70,7 @@ We use the tools from Preliminary Note 3: binary cross-entropy loss, the `Protei
 
 ## 2. Sequence-Based Approach: 1D-CNN
 
-In Preliminary Note 2, we built an MLP that predicts solubility from amino acid composition --- a 20-dimensional vector counting the fraction of each amino acid type.
+A simple approach to predicting solubility is to summarize the sequence as amino acid composition --- a 20-dimensional vector counting the fraction of each amino acid type --- and feed it to an MLP.
 That approach treats the sequence as a *bag of amino acids*: it knows how much alanine a protein contains, but not where that alanine is.
 Yet the *position* of amino acids matters.
 A cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
@@ -279,7 +279,7 @@ def compute_structural_features(ca_coords, sequence):
     centroid = ca_coords.mean(axis=0)
     rg = np.sqrt(np.mean(np.sum((ca_coords - centroid) ** 2, axis=-1)))
 
-    # Feature 4: Amino acid composition (from Note 2)
+    # Feature 4: Amino acid composition
     aa_types = 'ACDEFGHIKLMNPQRSTVWY'
     aa_comp = np.array([sequence.count(aa) / L for aa in aa_types])
 
