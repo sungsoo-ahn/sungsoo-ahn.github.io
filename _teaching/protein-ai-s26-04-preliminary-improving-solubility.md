@@ -79,17 +79,31 @@ To detect such **local patterns**, we need an architecture that looks at neighbo
 
 ### 2.1 How 1D Convolution Works
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-conv1d-sliding.png' | relative_url }}" alt="1D convolution sliding window">
+    <div class="caption mt-1">A 1D convolution with kernel size 5 and padding 2. The kernel slides along the input sequence, computing a weighted sum at each position. With appropriate padding, the output length equals the input length.</div>
+</div>
+
 A **1D convolution** slides a small window (called a **filter** or **kernel**) along the sequence, computing a weighted sum at each position.
 
 Consider a protein sequence of length $$L$$, where each position has been embedded into a $$d$$-dimensional vector (so the input is a matrix of shape $$L \times d$$).
-A convolutional filter of **kernel size** $$k = 5$$ looks at five consecutive positions at a time:
+A convolutional filter of **kernel size** $$k$$ and $$C_{\text{out}}$$ output channels computes:
 
 $$
-y_i = \text{ReLU}\!\left(\sum_{j=0}^{4} W \cdot x_{i+j} + b\right)
+y_i^{(c)} = \text{ReLU}\!\left(\sum_{c'=1}^{d} \sum_{j=0}^{k-1} W_{c,c',j} \cdot x_{i+j}^{(c')} + b_c\right)
 $$
 
-where $$W$$ is a learnable weight matrix, $$b$$ is a bias, and the ReLU activation introduces nonlinearity.
-The filter slides from position 1 to position $$L$$, producing one output value at each position.
+where $$c$$ indexes the output channel, $$c'$$ indexes the input channel (embedding dimension), and $$j$$ indexes the position within the kernel window.
+The filter slides from position 1 to position $$L$$, producing one output value per position per output channel.
+
+**Padding** controls whether the output length matches the input length.
+With `padding = (k-1)/2` (for odd $$k$$), the output length equals the input length:
+
+$$
+L_{\text{out}} = L_{\text{in}} + 2 \cdot \text{padding} - k + 1
+$$
+
+For example, `kernel_size=5` with `padding=2` gives $$L_{\text{out}} = L + 4 - 4 = L$$.
 
 The key properties of convolution are:
 
@@ -98,7 +112,15 @@ The key properties of convolution are:
 - **Multiple filters.** We use many filters in parallel (e.g., 128), each learning to detect a different pattern. One filter might activate for hydrophobic stretches; another for charged clusters.
 - **Stacking layers.** A second convolutional layer on top of the first sees combinations of first-layer patterns, detecting higher-level motifs spanning $$2k - 1 = 9$$ positions.
 
-After convolution, **global average pooling** aggregates over all positions into a single vector, which is then fed to a linear layer for classification.
+After convolution, **global average pooling** aggregates over all positions into a single vector.
+When sequences are padded, we use a masked average to ignore padding positions:
+
+$$
+\bar{\mathbf{h}}^{(c)} = \frac{1}{L_{\text{valid}}} \sum_{i=1}^{L} m_i \cdot h_i^{(c)}
+$$
+
+where $$m_i \in \{0, 1\}$$ is the padding mask and $$L_{\text{valid}} = \sum_i m_i$$ is the number of real residues.
+The resulting fixed-size vector is then fed to a linear layer for classification.
 This makes the model invariant to sequence length --- it works for 50-residue proteins and 500-residue proteins alike.
 
 ### 2.2 The 1D-CNN Model
@@ -207,6 +229,16 @@ From the distance matrix and contact map, we compute four summary statistics:
 | **Relative contact order** | Mean sequence separation of contacts, normalized by $$L$$ | Whether the fold involves mostly local or long-range contacts |
 | **Radius of gyration** | RMS distance of $$\text{C}_\alpha$$ atoms from the centroid | Overall compactness of the protein |
 | **Secondary structure fractions** | Fraction of helix / sheet / coil residues | Structural composition |
+
+Each feature has a biological rationale for its connection to solubility:
+
+- **Contact density:** Tightly packed proteins have more stabilizing intramolecular contacts, making them less likely to expose hydrophobic patches that cause aggregation. Higher contact density generally correlates with greater stability and solubility.
+
+- **Relative contact order (RCO):** Higher RCO means the native fold depends on long-range contacts (residues far apart in sequence coming together in space). Such proteins fold more slowly and are more prone to kinetic trapping in misfolded, aggregation-prone states.
+
+- **Radius of gyration ($$R_g$$):** $$R_g = \sqrt{\frac{1}{L}\sum_{i=1}^{L} \lVert \mathbf{r}_i - \bar{\mathbf{r}} \rVert^2}$$ measures overall compactness. Compact proteins (low $$R_g$$ relative to their length) expose less hydrophobic surface area to the solvent, reducing the driving force for aggregation.
+
+- **Secondary structure fractions:** Proteins dominated by beta-sheets (especially those with exposed edge strands) are more aggregation-prone than helical proteins, because edge strands can form intermolecular beta-sheet contacts.
 
 ```python
 import numpy as np
@@ -350,7 +382,14 @@ class CombinedModel(nn.Module):
 ```
 
 The key idea is **late fusion**: each branch first builds its own representation from its input modality, then the representations are concatenated before the final classification layer.
-This lets the classifier learn which information source to rely on for different types of proteins.
+Formally, if the sequence encoder produces $$\mathbf{h}_{\text{seq}} \in \mathbb{R}^{d_1}$$ and the structure encoder produces $$\mathbf{h}_{\text{struct}} \in \mathbb{R}^{d_2}$$, the combined representation is:
+
+$$
+\mathbf{h}_{\text{combined}} = [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{struct}}] \in \mathbb{R}^{d_1 + d_2}
+$$
+
+The classification layer $$\mathbf{W} \in \mathbb{R}^{C \times (d_1 + d_2)}$$ then learns to weight each modality appropriately.
+If structure features are uninformative for a particular protein, the classifier can assign near-zero weights to the $$\mathbf{h}_{\text{struct}}$$ dimensions and rely on sequence alone.
 
 ### 3.4 Comparing the Three Approaches
 
@@ -371,59 +410,10 @@ In the main lectures, we will see architectures (GNNs, transformers) that can pr
 ## 4. Data Preparation
 
 Both models need a training dataset split into train, validation, and test sets.
+The procedure follows Preliminary Note 3 exactly: use `train_test_split` with `stratify` to maintain class balance, wrap sequences in a `ProteinDataset`, and create `DataLoader` objects with `shuffle=True` for training and `shuffle=False` for evaluation.
 
-```python
-from sklearn.model_selection import train_test_split
-import pandas as pd
-
-# Load a solubility dataset (e.g., from the SOLpro or eSOL databases)
-df = pd.read_csv('solubility_data.csv')
-print(f"Dataset size: {len(df)} proteins")
-print(f"Class distribution:\n{df['label'].value_counts()}")
-
-# Split into train / validation / test sets
-# Stratify by label to maintain class balance in each split
-train_df, temp_df = train_test_split(df, test_size=0.2, stratify=df['label'],
-                                     random_state=42)
-val_df, test_df = train_test_split(temp_df, test_size=0.5, stratify=temp_df['label'],
-                                   random_state=42)
-
-print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
-
-# Create Dataset and DataLoader objects (ProteinDataset from Note 3)
-from torch.utils.data import DataLoader
-
-train_dataset = ProteinDataset(train_df['sequence'].tolist(),
-                               train_df['label'].tolist())
-val_dataset = ProteinDataset(val_df['sequence'].tolist(),
-                             val_df['label'].tolist())
-test_dataset = ProteinDataset(test_df['sequence'].tolist(),
-                              test_df['label'].tolist())
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
-```
-
-For the structure-based model, we precompute structural features for the entire dataset and store them as tensors:
-
-```python
-# Precompute structural features for each protein
-structural_features = []
-for _, row in df.iterrows():
-    ca_coords = load_ca_coords(row['pdb_file'])  # Using Biotite (Note 2)
-    feats = compute_structural_features(ca_coords, row['sequence'])
-    structural_features.append(feats)
-
-structural_features = torch.stack(structural_features)
-
-# Split into train/val/test using the same indices
-from torch.utils.data import TensorDataset
-
-struct_train = TensorDataset(structural_features[train_idx],
-                             torch.tensor(train_labels))
-struct_loader = DataLoader(struct_train, batch_size=32, shuffle=True)
-```
+For the structure-based model, precompute structural features for the entire dataset using `compute_structural_features` (Section 3.1), stack them into a tensor, and split using the same train/val/test indices.
+Precomputation avoids redundant coordinate parsing during training.
 
 ---
 
@@ -527,6 +517,21 @@ def evaluate_classifier(model, test_loader, device):
 
 ### Understanding the Metrics
 
+All classification metrics are defined in terms of four counts: true positives (TP), false positives (FP), true negatives (TN), and false negatives (FN).
+
+$$
+\text{Precision} = \frac{TP}{TP + FP}, \qquad \text{Recall} = \frac{TP}{TP + FN}
+$$
+
+$$
+F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+$$
+
+The $$F_1$$ score is the harmonic mean of precision and recall --- it is high only when *both* are high.
+
+**AUC-ROC** (Area Under the Receiver Operating Characteristic curve) plots the true positive rate (recall) against the false positive rate ($$FP / (FP + TN)$$) as the classification threshold varies from 0 to 1, and computes the area under this curve.
+An AUC of 1.0 means the model achieves perfect separation at some threshold; 0.5 means no better than random.
+
 | Metric | Question It Answers | Protein Example |
 |---|---|---|
 | **Accuracy** | What fraction of all predictions are correct? | 85% of solubility predictions correct |
@@ -534,6 +539,11 @@ def evaluate_classifier(model, test_loader, device):
 | **Recall** | Of true positives, what fraction did we detect? | Of truly soluble proteins, how many did we find? |
 | **F1 Score** | Harmonic mean of precision and recall | Balance between missing soluble proteins and wasting experiments |
 | **AUC-ROC** | How well does the model separate classes across all thresholds? | Overall ability to distinguish soluble from insoluble |
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/precision_recall_curves.png' | relative_url }}" alt="Precision-recall tradeoff">
+    <div class="caption mt-1">Precision-recall curves for two models and a random baseline. The tradeoff between precision and recall is controlled by the classification threshold.</div>
+</div>
 
 The precision-recall tradeoff deserves special attention.
 In a drug discovery setting, where expressing each candidate is expensive, a biologist might want **high precision**: "I only want to express proteins that are very likely to be soluble."
@@ -741,62 +751,20 @@ For protein models with small datasets (and therefore noisy validation estimates
 
 Neural networks can fail silently.
 The code runs, the loss decreases, but predictions are useless.
-Systematic debugging is essential.
+A systematic debugging checklist:
 
-```python
-# 1. Check for NaN gradients (sign of numerical instability)
-for name, param in model.named_parameters():
-    if param.grad is not None and torch.isnan(param.grad).any():
-        print(f"WARNING: NaN gradient detected in {name}")
+1. **Check for NaN gradients** — iterate over `model.named_parameters()` and check `torch.isnan(param.grad).any()`. NaN gradients indicate numerical instability (often from a learning rate that is too large).
 
-# 2. Verify that outputs are in a sensible range
-with torch.no_grad():
-    sample_output = model(sample_input)
-    print(f"Output range: [{sample_output.min():.3f}, {sample_output.max():.3f}]")
+2. **Verify output range** — run a forward pass with `torch.no_grad()` and print `output.min()` / `output.max()`. For logits, values should be in a reasonable range (roughly $$[-10, 10]$$).
 
-# 3. Confirm that input and output shapes match expectations
-print(f"Input shape:  {sample_input.shape}")
-print(f"Output shape: {model(sample_input).shape}")
+3. **Check shapes** — print input and output shapes at every stage. Shape mismatches (especially after `transpose` or `unsqueeze`) are the most common bug.
 
-# 4. Sanity check: can the model overfit a single batch?
-# If it cannot, there is likely a bug in the architecture or loss
-small_batch_x, small_batch_y = next(iter(train_loader))
-for step in range(200):
-    pred = model(small_batch_x.to(device))
-    loss = criterion(pred, small_batch_y.to(device))
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-    if step % 50 == 0:
-        print(f"Step {step}: loss = {loss.item():.4f}")
-# Loss should approach 0. If it does not, debug your model.
-```
+4. **Single-batch overfit test** — train on a single batch for 200 steps. If the loss does not approach zero, there is a bug in the architecture, loss function, or data pipeline. This is the single most important debugging technique.
 
 ### Reproducibility
 
-Science requires reproducibility.
-Set all random seeds at the start of every experiment:
-
-```python
-import random
-import numpy as np
-
-def set_seed(seed=42):
-    """Set random seeds for reproducibility across all libraries."""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    # For full determinism on GPU (may reduce performance slightly):
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-set_seed(42)
-```
-
-Full determinism on GPU can slow training by 10--20%.
-For exploratory experiments, setting the Python, NumPy, and PyTorch seeds is usually sufficient.
-Reserve full determinism for final reported results.
+Set all random seeds (`random.seed`, `np.random.seed`, `torch.manual_seed`, `torch.cuda.manual_seed_all`) at the start of every experiment.
+For full GPU determinism, additionally set `torch.backends.cudnn.deterministic = True` (may slow training by 10--20%).
 
 ### A Practical Checklist
 
