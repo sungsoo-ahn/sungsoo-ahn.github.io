@@ -1,7 +1,7 @@
 flowchart LR
-    subgraph Input["Input Features (20-dim)"]
+    subgraph Input["Flattened Sequence (d-dim)"]
         direction TB
-        I1["x₁"] ~~~ I2["x₂"] ~~~ I3["⋮"] ~~~ I4["x₂₀"]
+        I1["x₁"] ~~~ I2["x₂"] ~~~ I3["⋮"] ~~~ I4["x_d"]
     end
 
     subgraph Hidden1["Hidden Layer 1 (64-dim)"]

@@ -70,9 +70,9 @@ We use the tools from Preliminary Note 3: binary cross-entropy loss, the `Protei
 
 ## 2. Sequence-Based Approach: 1D-CNN
 
-A simple approach to predicting solubility is to summarize the sequence as amino acid composition --- a 20-dimensional vector counting the fraction of each amino acid type --- and feed it to an MLP.
-That approach treats the sequence as a *bag of amino acids*: it knows how much alanine a protein contains, but not where that alanine is.
-Yet the *position* of amino acids matters.
+In Preliminary Note 2, we built an MLP on flattened, padded one-hot sequences.
+While the MLP can see every amino acid at every position, it treats each input dimension independently --- it must learn that "hydrophobic at position 10" matters without sharing that knowledge with position 200.
+More critically, the MLP has no built-in notion of *locality*.
 A cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
 
 To detect such **local patterns**, we need an architecture that looks at neighboring positions together: the **convolutional neural network (CNN)**.
