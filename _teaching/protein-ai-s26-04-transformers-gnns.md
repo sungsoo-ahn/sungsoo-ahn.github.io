@@ -80,6 +80,11 @@ But sequential processing creates three serious problems.
 
 Attention offers a radical alternative.  Instead of routing information through a long chain of intermediate steps, we create direct connections between every pair of positions.  Residue 1 can communicate with residue 500.  Residue 237 can communicate with residue 238.  Every pairwise relationship is available, and the network learns which ones matter.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/cnn-rnn-self-attention.png' | relative_url }}" alt="CNN vs RNN vs Self-Attention">
+    <div class="caption mt-1"><strong>Three approaches to sequence processing.</strong> CNNs aggregate local windows. RNNs propagate information sequentially, creating a bottleneck for long-range dependencies. Self-attention connects every pair of positions directly, enabling any residue to attend to any other in a single step. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
+</div>
+
 ---
 
 ## 3. Building the Attention Mechanism from the Ground Up
@@ -97,6 +102,11 @@ The attention mechanism formalizes this reasoning through three learned projecti
 </div>
 
 [^qkv]: The names query, key, and value come from information retrieval.  Think of searching a database: you submit a query, it is matched against keys, and the corresponding values are returned.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/qkv.png' | relative_url }}" alt="Query, Key, Value mechanism">
+    <div class="caption mt-1"><strong>Queries, keys, and values.</strong> Each input token is projected into three separate vectors. The query asks "what am I looking for?", the key advertises "what do I have?", and the value carries the information transmitted when attention is paid. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
+</div>
 
 **The query** $$q_i$$ represents what position $$i$$ is looking for.  Think of it as the question: "What kind of interaction partners am I seeking?"  A cysteine's query might implicitly encode: "I am looking for another cysteine that could form a disulfide bond with me."
 
@@ -220,6 +230,11 @@ We concatenate the outputs of all heads and project back to the model dimension 
 $$
 \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)\, W^O
 $$
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/multi-head-attention.png' | relative_url }}" alt="Multi-head attention mechanism">
+    <div class="caption mt-1"><strong>Multi-head attention.</strong> Multiple attention heads run in parallel, each with independent query, key, and value projections. Their outputs are concatenated and projected back to the model dimension. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
+</div>
 
 Here is a complete self-attention module:
 
@@ -636,6 +651,11 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_3.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_3">
 </div>
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/papers/mlife_zhou2024_fig3.jpg' | relative_url }}" alt="GNN message passing on protein structures">
+    <div class="caption mt-1"><strong>Message passing on protein structures.</strong> Residues exchange information with their spatial neighbors through learned message functions. After several rounds of message passing, each residue's representation encodes its local structural environment. Source: Zhou et al. (2024), <em>mLife</em>, CC BY 4.0.</div>
+</div>
+
 All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
 
 Think of yourself as a residue in a folded protein.  You want to refine your representation based on your structural neighborhood.  You ask each neighbor to send you a *message* about its current state.  You aggregate all incoming messages, combine them with your own state, and produce an updated representation.
@@ -678,6 +698,11 @@ This formula looks dense, but it has a clear interpretation.  Let us unpack each
 - $$\sigma$$ is a nonlinear activation function (typically ReLU).
 
 In plain language, each GCN layer computes a normalized weighted average of each node's own features and its neighbors' features, then applies a linear transformation and a nonlinearity.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/GraphGCN.png' | relative_url }}" alt="Graph convolutional network layer">
+    <div class="caption mt-1"><strong>Graph convolution.</strong> Each node computes a weighted average of its own features and its neighbors' features, applies a linear transformation, and passes the result through a nonlinearity. The symmetric normalization ensures that high-degree nodes do not dominate. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
 
 ```python
 import torch_geometric.nn as gnn
@@ -1053,3 +1078,9 @@ Given the variety of architectures covered in this lecture, how do you choose th
 9. Dauparas, J., Anishchenko, I., Bennett, N., Baek, H., Jang, R. J., Baker, D., et al. (2022). Robust deep learning-based protein sequence design using ProteinMPNN. *Science*, 378(6615), 49--56.
 
 10. Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. *Proceedings of NAACL-HLT*, 4171--4186.
+
+11. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at https://d2l.ai. Licensed under CC BY-SA 4.0.
+
+12. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.
+
+13. Zhou, T., Bhatt, D., & Liu, J. (2024). Protein engineering in the deep learning era. *mLife*, 3(4), 463--479.

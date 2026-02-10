@@ -2,7 +2,7 @@
 layout: post
 title: "Case Study: Predicting Protein Solubility"
 date: 2026-03-03
-description: "An end-to-end case study—building sequence-based (1D-CNN) and structure-based (MLP) solubility predictors, combining both modalities, and learning to evaluate honestly with sequence-identity splits, class weighting, and early stopping."
+description: "An end-to-end case study—building an MLP solubility predictor from sequence features, and learning to evaluate honestly with sequence-identity splits, class weighting, and early stopping."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -21,27 +21,25 @@ collapse_code: true
 Time to build something real.
 This note is a single, end-to-end project: predicting whether a protein will be soluble when expressed in *E. coli*.
 
-We attack from two angles: a **sequence-based** 1D-CNN that scans amino acid patterns, and a **structure-based** MLP that reads 3D coordinate features.
-Comparing them reveals what each approach captures --- and what it misses.
-
-Along the way, we discover problems --- misleading evaluation, class imbalance, overfitting --- and fix them.
+The model is an MLP that takes flattened one-hot encoded sequences --- the same representation from Preliminary Note 2 --- and outputs a solubility prediction.
+The architecture is deliberately simple so we can focus on the problems that arise *around* the model: misleading evaluation, class imbalance, and overfitting.
 Each section follows the same arc: *observe a problem → understand why it happens → introduce a technique that addresses it → show the improvement*.
 
-By the end, you will have working solubility predictors from both sequence and structure, and a practical toolkit for diagnosing and fixing the most common training problems in protein machine learning.
+By the end, you will have a working solubility predictor and a practical toolkit for diagnosing and fixing the most common training problems in protein machine learning.
+The main lectures introduce more powerful architectures (CNNs, transformers, GNNs) and additional input modalities (3D structure, learned embeddings).
 
 ### Roadmap
 
 | Section | Topic | What You Will Learn |
 |---|---|---|
 | 1 | The Solubility Prediction Problem | Why this problem matters and what makes it amenable to ML |
-| 2 | Sequence-Based Approach: 1D-CNN | How convolutions detect local sequence patterns; a CNN solubility classifier |
-| 3 | Structure-Based Approach | Computing structural features from 3D coordinates; an MLP classifier; combining both modalities |
-| 4 | Data Preparation | Dataset/DataLoader setup, train/val/test splitting |
-| 5 | Training and Evaluation | Training script, evaluation metrics beyond accuracy, precision-recall |
-| 6 | Evaluating Properly: Sequence-Identity Splits | Why random splits overestimate performance, and how to fix it |
-| 7 | Handling Class Imbalance | Weighted loss functions for imbalanced datasets |
-| 8 | Knowing When to Stop: Early Stopping | Detecting the overfitting point and saving the best model |
-| 9 | Debugging and Reproducibility | NaN detection, shape checks, single-batch overfit test, seed setting |
+| 2 | The Model: An MLP on Sequence Features | Building a solubility predictor from flattened one-hot encodings |
+| 3 | Data Preparation | Dataset/DataLoader setup, train/val/test splitting |
+| 4 | Training and Evaluation | Training script, evaluation metrics beyond accuracy, precision-recall |
+| 5 | Evaluating Properly: Sequence-Identity Splits | Why random splits overestimate performance, and how to fix it |
+| 6 | Handling Class Imbalance | Weighted loss functions for imbalanced datasets |
+| 7 | Knowing When to Stop: Early Stopping | Detecting the overfitting point and saving the best model |
+| 8 | Debugging and Reproducibility | NaN detection, shape checks, single-batch overfit test, seed setting |
 
 ### Prerequisites
 
@@ -55,7 +53,7 @@ This note assumes you have worked through Preliminary Notes 1--3: tensors, neura
 
 Expressing recombinant proteins is a core technique in structural biology, biotechnology, and therapeutic development.
 When a target protein aggregates into inclusion bodies instead of dissolving in the cytoplasm, downstream applications --- crystallography, assays, drug formulation --- become much harder or impossible.
-A computational model that predicts solubility from sequence and structure can guide construct design and save weeks of experimental effort.
+A computational model that predicts solubility from sequence alone can guide construct design and save weeks of experimental effort.
 
 ### What Makes This Problem Amenable to Machine Learning?
 
@@ -63,249 +61,32 @@ Solubility is influenced by sequence-level properties: amino acid composition, c
 These patterns are learnable from data.
 
 This is a **binary classification** task: given a protein sequence, predict whether it will be soluble (1) or insoluble (0).
-We use the tools from Preliminary Note 3: binary cross-entropy loss, the `ProteinDataset` class, and the training loop.
+We use the tools from Preliminary Note 3: cross-entropy loss, data loading with `DataLoader`, and the training loop.
 
 ---
 
-## 2. Sequence-Based Approach: 1D-CNN
+## 2. The Model: An MLP on Sequence Features
 
-An MLP on flattened one-hot sequences treats each input dimension independently --- it must learn that "hydrophobic at position 10" matters without sharing that knowledge with position 200.
-It has no built-in notion of *locality*.
-A cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
+The input representation is the flattened one-hot encoding from Preliminary Note 2: each protein of length $$L$$ becomes a matrix of shape $$(L, 20)$$, padded to a fixed maximum length $$L_{\max}$$, then flattened to a single vector of dimension $$L_{\max} \times 20$$.
+This discards the sequential ordering --- the MLP treats position 1 and position 100 as unrelated inputs --- but it is enough to learn composition-level and position-level patterns that correlate with solubility.
 
-To detect such **local patterns**, we need an architecture that looks at neighboring positions together: the **convolutional neural network (CNN)**.
-
-### 2.1 How 1D Convolution Works
-
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-conv1d-sliding.png' | relative_url }}" alt="1D convolution sliding window">
-    <div class="caption mt-1">A 1D convolution with kernel size 5 and padding 2. The kernel slides along the input sequence, computing a weighted sum at each position. With appropriate padding, the output length equals the input length.</div>
-</div>
-
-A **1D convolution** slides a small window (called a **filter** or **kernel**) along the sequence, computing a weighted sum at each position.
-
-Consider a protein sequence of length $$L$$, where each position has been embedded into a $$d$$-dimensional vector (so the input is a matrix of shape $$L \times d$$).
-A convolutional filter of **kernel size** $$k$$ and $$C_{\text{out}}$$ output channels computes:
-
-$$
-y_i^{(c)} = \text{ReLU}\!\left(\sum_{c'=1}^{d} \sum_{j=0}^{k-1} W_{c,c',j} \cdot x_{i+j}^{(c')} + b_c\right)
-$$
-
-where $$c$$ indexes the output channel, $$c'$$ indexes the input channel (embedding dimension), and $$j$$ indexes the position within the kernel window.
-The filter slides from position 1 to position $$L$$, producing one output value per position per output channel.
-
-**Padding** controls whether the output length matches the input length.
-With `padding = (k-1)/2` (for odd $$k$$), the output length equals the input length:
-
-$$
-L_{\text{out}} = L_{\text{in}} + 2 \cdot \text{padding} - k + 1
-$$
-
-For example, `kernel_size=5` with `padding=2` gives $$L_{\text{out}} = L + 4 - 4 = L$$.
-
-The key properties of convolution are:
-
-- **Local receptive field.** Each output depends on only $$k$$ neighboring inputs. A kernel of size 5 captures motifs spanning five consecutive amino acids --- appropriate for charge clusters, hydrophobic stretches, and turn signals.
-- **Weight sharing.** The same filter weights are applied at every position. The network doesn't need to learn separately that "FFFFF at position 10" and "FFFFF at position 200" are the same hydrophobic stretch.
-- **Multiple filters.** We use many filters in parallel (e.g., 128), each learning to detect a different pattern. One filter might activate for hydrophobic stretches; another for charged clusters.
-- **Stacking layers.** A second convolutional layer on top of the first sees combinations of first-layer patterns, detecting higher-level motifs spanning $$2k - 1 = 9$$ positions.
-
-After convolution, **global average pooling** aggregates over all positions into a single vector.
-When sequences are padded, we use a masked average to ignore padding positions:
-
-$$
-\bar{\mathbf{h}}^{(c)} = \frac{1}{L_{\text{valid}}} \sum_{i=1}^{L} m_i \cdot h_i^{(c)}
-$$
-
-where $$m_i \in \{0, 1\}$$ is the padding mask and $$L_{\text{valid}} = \sum_i m_i$$ is the number of real residues.
-The resulting fixed-size vector is then fed to a linear layer for classification.
-This makes the model invariant to sequence length --- it works for 50-residue proteins and 500-residue proteins alike.
-
-### 2.2 The 1D-CNN Model
+The architecture mirrors the `SolubilityPredictor` from Preliminary Note 2, with an additional hidden layer and dropout for regularization:
 
 ```python
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
-class SequenceCNN(nn.Module):
+class SolubilityMLP(nn.Module):
     """
-    1D-CNN for predicting protein solubility from amino acid sequence.
+    MLP for predicting protein solubility from flattened one-hot sequences.
 
     Architecture:
-    1. Embedding: map each amino acid index to a learned 64-dim vector
-    2. Two Conv1d layers: detect local sequence motifs
-    3. Global average pooling: aggregate over the full sequence
-    4. Linear output: predict soluble (1) vs. insoluble (0)
-    """
-
-    def __init__(self, vocab_size=21, embed_dim=64, hidden_dim=128, num_classes=2):
-        super().__init__()
-
-        # Embedding layer: integers → continuous vectors
-        # padding_idx=0 ensures the padding token always maps to a zero vector
-        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
-
-        # 1D convolutions detect local patterns in the sequence
-        # kernel_size=5 means each filter looks at 5 consecutive amino acids
-        # padding=2 preserves the sequence length after convolution
-        self.conv1 = nn.Conv1d(embed_dim, hidden_dim, kernel_size=5, padding=2)
-        self.conv2 = nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2)
-
-        # Classification head
-        self.fc = nn.Linear(hidden_dim, num_classes)
-        self.dropout = nn.Dropout(0.3)
-
-    def forward(self, x, mask=None):
-        # x shape: (batch, seq_len) — integer-encoded amino acids
-
-        # Step 1: Embed amino acids → (batch, seq_len, embed_dim)
-        x = self.embedding(x)
-
-        # Step 2: Rearrange for Conv1d → (batch, embed_dim, seq_len)
-        # Conv1d expects channels before sequence length
-        x = x.transpose(1, 2)
-
-        # Step 3: Apply convolutions with ReLU activation
-        x = F.relu(self.conv1(x))    # → (batch, hidden_dim, seq_len)
-        x = self.dropout(x)
-        x = F.relu(self.conv2(x))    # → (batch, hidden_dim, seq_len)
-
-        # Step 4: Global average pooling over the sequence dimension
-        # Use the mask to ignore padding positions
-        if mask is not None:
-            mask = mask.unsqueeze(1)             # → (batch, 1, seq_len)
-            x = (x * mask).sum(dim=2) / mask.sum(dim=2).clamp(min=1)
-        else:
-            x = x.mean(dim=2)                   # → (batch, hidden_dim)
-
-        # Step 5: Classify → (batch, num_classes)
-        x = self.fc(x)
-        return x
-```
-<div class="caption mt-1">Note the <code>transpose(1, 2)</code> in step 2: PyTorch's <code>Conv1d</code> expects the input shape to be <code>(batch, channels, length)</code>, but the embedding produces <code>(batch, length, channels)</code>.</div>
-
----
-
-## 3. Structure-Based Approach: MLP on Structural Features
-
-Sequence tells you *what* amino acids are present and in what order.
-Structure tells you *how they are arranged in space*.
-A protein might have a perfectly benign amino acid composition yet be insoluble because its fold exposes a large hydrophobic surface, or because it has unusually few internal contacts and tends to unfold.
-
-For proteins with known or predicted structures[^predicted], we can extract numerical features from the 3D coordinates and feed them to an MLP.
-
-[^predicted]: In practice, you can use AlphaFold (Lecture 4) to predict the structure for any sequence. This means the structure-based approach is available even when no experimental structure exists.
-
-### 3.1 Structural Features from Coordinates
-
-From $$\text{C}_\alpha$$ coordinates (extracted as in Note 2), we can compute several features informative for solubility.
-
-**Distance matrix.**
-The $$\text{C}_\alpha$$ distance matrix is an $$L \times L$$ matrix where entry $$(i, j)$$ is the Euclidean distance between residues $$i$$ and $$j$$:
-
-$$
-D_{ij} = \|\mathbf{r}_i - \mathbf{r}_j\|_2
-$$
-
-**Contact map.**
-A contact map is a binary version of the distance matrix: two residues are "in contact" if their $$\text{C}_\alpha$$ atoms are within a threshold distance (typically 8 Å):
-
-$$
-C_{ij} = \begin{cases} 1 & \text{if } D_{ij} < 8\text{ Å and } |i - j| > 3 \\ 0 & \text{otherwise} \end{cases}
-$$
-
-The condition $$|i - j| > 3$$ excludes trivial contacts between neighbors along the chain.
-
-From the distance matrix and contact map, we compute four summary statistics:
-
-| Feature | Formula | What It Captures |
-|---|---|---|
-| **Contact density** | Mean contacts per residue | How tightly packed the structure is |
-| **Relative contact order** | Mean sequence separation of contacts, normalized by $$L$$ | Whether the fold involves mostly local or long-range contacts |
-| **Radius of gyration** | RMS distance of $$\text{C}_\alpha$$ atoms from the centroid | Overall compactness of the protein |
-| **Secondary structure fractions** | Fraction of helix / sheet / coil residues | Structural composition |
-
-Each feature has a biological rationale for its connection to solubility:
-
-- **Contact density:** Tightly packed proteins have more stabilizing intramolecular contacts, making them less likely to expose hydrophobic patches that cause aggregation. Higher contact density generally correlates with greater stability and solubility.
-
-- **Relative contact order (RCO):** Higher RCO means the native fold depends on long-range contacts (residues far apart in sequence coming together in space). Such proteins fold more slowly and are more prone to kinetic trapping in misfolded, aggregation-prone states.
-
-- **Radius of gyration ($$R_g$$):** $$R_g = \sqrt{\frac{1}{L}\sum_{i=1}^{L} \lVert \mathbf{r}_i - \bar{\mathbf{r}} \rVert^2}$$ measures overall compactness. Compact proteins (low $$R_g$$ relative to their length) expose less hydrophobic surface area to the solvent, reducing the driving force for aggregation.
-
-- **Secondary structure fractions:** Proteins dominated by beta-sheets (especially those with exposed edge strands) are more aggregation-prone than helical proteins, because edge strands can form intermolecular beta-sheet contacts.
-
-```python
-import numpy as np
-import torch
-
-def compute_structural_features(ca_coords, sequence):
-    """
-    Compute structural features from Calpha coordinates.
-
-    Args:
-        ca_coords: (L, 3) array of Calpha positions in Angstroms.
-        sequence: str, the amino acid sequence.
-
-    Returns:
-        features: (num_features,) tensor of structural features.
-    """
-    L = len(ca_coords)
-
-    # Distance matrix: (L, L)
-    diff = ca_coords[:, None, :] - ca_coords[None, :, :]  # (L, L, 3)
-    dist_matrix = np.sqrt((diff ** 2).sum(axis=-1))         # (L, L)
-
-    # Contact map: exclude trivial chain neighbors (|i-j| <= 3)
-    seq_sep = np.abs(np.arange(L)[:, None] - np.arange(L)[None, :])
-    contact_map = (dist_matrix < 8.0) & (seq_sep > 3)
-
-    # Feature 1: Contact density (mean contacts per residue)
-    contact_density = contact_map.sum() / L
-
-    # Feature 2: Relative contact order
-    contacts_i, contacts_j = np.where(contact_map)
-    if len(contacts_i) > 0:
-        contact_order = np.mean(np.abs(contacts_i - contacts_j)) / L
-    else:
-        contact_order = 0.0
-
-    # Feature 3: Radius of gyration
-    centroid = ca_coords.mean(axis=0)
-    rg = np.sqrt(np.mean(np.sum((ca_coords - centroid) ** 2, axis=-1)))
-
-    # Feature 4: Amino acid composition
-    aa_types = 'ACDEFGHIKLMNPQRSTVWY'
-    aa_comp = np.array([sequence.count(aa) / L for aa in aa_types])
-
-    # Combine all features
-    structural = np.array([contact_density, contact_order, rg, float(L)])
-    all_features = np.concatenate([structural, aa_comp])
-
-    return torch.tensor(all_features, dtype=torch.float32)
-```
-<div class="caption mt-1">This function produces a 24-dimensional feature vector: 4 structural statistics plus 20 amino acid composition values.</div>
-
-The resulting feature vector has 24 dimensions: 4 structural statistics (contact density, relative contact order, radius of gyration, chain length) plus 20 amino acid composition values.
-Including both sequence and structure features lets the model learn which information source is more predictive.
-
-### 3.2 The Structure-Based MLP
-
-Since the structural features are a fixed-size vector (regardless of protein length), we can use the same MLP architecture from Preliminary Note 2:
-
-```python
-class StructureMLP(nn.Module):
-    """
-    MLP for predicting protein solubility from structural features.
-
-    Architecture:
-    1. Input: 24-dim feature vector (4 structural + 20 composition)
-    2. Two hidden layers with ReLU activation
+    1. Input: flattened padded one-hot vector (max_len × 20)
+    2. Three hidden layers with ReLU activation and dropout
     3. Linear output: predict soluble (1) vs. insoluble (0)
     """
 
-    def __init__(self, input_dim=24, hidden_dim=64, num_classes=2):
+    def __init__(self, input_dim=2000, hidden_dim=128, num_classes=2):
         super().__init__()
         self.net = nn.Sequential(
             nn.Linear(input_dim, hidden_dim),
@@ -314,105 +95,34 @@ class StructureMLP(nn.Module):
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
             nn.Dropout(0.3),
-            nn.Linear(hidden_dim, num_classes),
+            nn.Linear(hidden_dim, 64),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(64, num_classes),
         )
 
     def forward(self, x):
-        # x shape: (batch, input_dim)
+        # x shape: (batch, input_dim) — flattened padded one-hot
         return self.net(x)
 ```
+<div class="caption mt-1">With <code>max_len=100</code> and 20 amino acids, <code>input_dim=2000</code>. The three hidden layers (128 → 128 → 64) progressively compress the representation before the final classification layer.</div>
 
-### 3.3 Combining Sequence and Structure
+With $$L_{\max} = 100$$ and 20 amino acids, the input dimension is 2,000.
+The model has roughly 290,000 parameters --- large relative to typical protein dataset sizes, which is why regularization (dropout) and early stopping (Section 7) matter.
 
-If both sequence and structure carry useful but different signals, why not use both?
-A **multimodal model** processes each input type with its own encoder and then combines the resulting representations for a joint prediction.
-
-```python
-class CombinedModel(nn.Module):
-    """
-    Multimodal model combining a sequence CNN and a structural MLP.
-
-    The two branches produce independent representations,
-    which are concatenated and fed to a shared classification head.
-    """
-
-    def __init__(self, vocab_size=21, embed_dim=64, cnn_dim=128,
-                 struct_dim=24, mlp_dim=64, num_classes=2):
-        super().__init__()
-
-        # Branch 1: Sequence CNN (produces cnn_dim-dimensional representation)
-        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
-        self.conv1 = nn.Conv1d(embed_dim, cnn_dim, kernel_size=5, padding=2)
-        self.conv2 = nn.Conv1d(cnn_dim, cnn_dim, kernel_size=5, padding=2)
-        self.dropout = nn.Dropout(0.3)
-
-        # Branch 2: Structure MLP (produces mlp_dim-dimensional representation)
-        self.struct_encoder = nn.Sequential(
-            nn.Linear(struct_dim, mlp_dim),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(mlp_dim, mlp_dim),
-            nn.ReLU(),
-        )
-
-        # Shared classification head on the concatenated representations
-        self.classifier = nn.Linear(cnn_dim + mlp_dim, num_classes)
-
-    def forward(self, sequence, struct_features, mask=None):
-        # Branch 1: encode the sequence
-        x = self.embedding(sequence).transpose(1, 2)
-        x = F.relu(self.conv1(x))
-        x = self.dropout(x)
-        x = F.relu(self.conv2(x))
-        if mask is not None:
-            m = mask.unsqueeze(1)
-            x = (x * m).sum(dim=2) / m.sum(dim=2).clamp(min=1)
-        else:
-            x = x.mean(dim=2)                   # → (batch, cnn_dim)
-
-        # Branch 2: encode the structural features
-        s = self.struct_encoder(struct_features)  # → (batch, mlp_dim)
-
-        # Combine and classify
-        combined = torch.cat([x, s], dim=1)       # → (batch, cnn_dim + mlp_dim)
-        return self.classifier(combined)
-```
-
-The key idea is **late fusion**: each branch first builds its own representation from its input modality, then the representations are concatenated before the final classification layer.
-Formally, if the sequence encoder produces $$\mathbf{h}_{\text{seq}} \in \mathbb{R}^{d_1}$$ and the structure encoder produces $$\mathbf{h}_{\text{struct}} \in \mathbb{R}^{d_2}$$, the combined representation is:
-
-$$
-\mathbf{h}_{\text{combined}} = [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{struct}}] \in \mathbb{R}^{d_1 + d_2}
-$$
-
-The classification layer $$\mathbf{W} \in \mathbb{R}^{C \times (d_1 + d_2)}$$ then learns to weight each modality appropriately.
-If structure features are uninformative for a particular protein, the classifier can assign near-zero weights to the $$\mathbf{h}_{\text{struct}}$$ dimensions and rely on sequence alone.
-
-### 3.4 Comparing the Three Approaches
-
-| | Sequence CNN | Structure MLP | Combined |
-|---|---|---|---|
-| **Input** | Raw amino acid sequence | $$\text{C}_\alpha$$ coordinates + composition | Both |
-| **What it captures** | Local sequence motifs | Global structural properties | Both signal types |
-| **Availability** | Any protein | Requires 3D structure | Requires 3D structure |
-| **Parameters** | ~100K | ~5K | ~105K |
-
-In practice, the combined model typically outperforms either individual approach because the two input modalities carry complementary information.
-Sequence motifs and structural compactness are correlated but not redundant --- a protein can have a "normal" amino acid composition yet be insoluble due to an unusual fold.
-
-The main lectures introduce architectures (GNNs, transformers) that process full 3D structures directly, without hand-crafted features.
+An MLP on flattened sequences has a clear limitation: it treats each input dimension independently, with no built-in notion of *locality*.
+A cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), but the MLP must learn this from data rather than having it built into the architecture.
+The main lectures introduce convolutional networks (which exploit sequential structure) and transformers (which learn long-range dependencies) to address this limitation.
 
 ---
 
-## 4. Data Preparation
+## 3. Data Preparation
 
-Split the dataset into train/validation/test with `stratify` to maintain class balance, wrap sequences in a `ProteinDataset`, and create `DataLoader` objects with `shuffle=True` for training and `shuffle=False` for evaluation.
-
-For the structure-based model, precompute all structural features (Section 3.1) and split using the same indices --- this avoids redundant coordinate parsing during training.
+Split the dataset into train/validation/test with `stratify` to maintain class balance, wrap the flattened feature tensors and labels in a `TensorDataset`, and create `DataLoader` objects with `shuffle=True` for training and `shuffle=False` for evaluation.
 
 ---
 
-## 5. Training and Evaluation
+## 4. Training and Evaluation
 
 ### The Training Script
 
@@ -449,18 +159,13 @@ def train_model(model, train_loader, val_loader, epochs=100, lr=1e-3):
     model.load_state_dict(torch.load('best_model.pt'))
     return model
 
-# Instantiate each model and inspect its size
-seq_model = SequenceCNN()
-struct_model = StructureMLP()
-combined_model = CombinedModel()
+# Instantiate the model and inspect its size
+model = SolubilityMLP(input_dim=2000, hidden_dim=128, num_classes=2)
+n_params = sum(p.numel() for p in model.parameters())
+print(f"SolubilityMLP: {n_params:,} parameters")
 
-for name, m in [("SequenceCNN", seq_model), ("StructureMLP", struct_model),
-                ("CombinedModel", combined_model)]:
-    n_params = sum(p.numel() for p in m.parameters())
-    print(f"{name}: {n_params:,} parameters")
-
-# Train with validation monitoring (example with the sequence model)
-trained_model = train_model(seq_model, train_loader, val_loader, epochs=50)
+# Train with validation monitoring
+trained_model = train_model(model, train_loader, val_loader, epochs=50)
 ```
 
 ### Evaluation: Beyond Accuracy
@@ -480,12 +185,11 @@ def evaluate_classifier(model, test_loader, device):
     all_probs = []
 
     with torch.no_grad():
-        for batch in test_loader:
-            x = batch['sequence'].to(device)
-            mask = batch['mask'].to(device)
-            y = batch['label']
+        for batch_x, batch_y in test_loader:
+            x = batch_x.to(device)
+            y = batch_y
 
-            logits = model(x, mask)                         # Raw scores
+            logits = model(x)                               # Raw scores
             probs = F.softmax(logits, dim=-1)               # Probabilities
             preds = logits.argmax(dim=-1)                   # Predicted class
 
@@ -560,11 +264,11 @@ After training for 50 epochs, examine the loss curves.
 
 If the training loss decreases smoothly but the validation loss rises after approximately 40 epochs, the model is overfitting.
 The gap between training accuracy (~98%) and validation accuracy (~72%) confirms this.
-Sections 7 and 8 address this problem with weighted losses and early stopping.
+Sections 6 and 7 address this problem with weighted losses and early stopping.
 
 ---
 
-## 6. Evaluating Properly: Sequence-Identity Splits
+## 5. Evaluating Properly: Sequence-Identity Splits
 
 ### The Problem
 
@@ -637,7 +341,7 @@ For the most rigorous evaluation, consider splitting at the fold or superfamily 
 
 ---
 
-## 7. Handling Class Imbalance
+## 6. Handling Class Imbalance
 
 ### The Problem
 
@@ -672,7 +376,7 @@ This is the metric that matters: a model that correctly identifies insoluble pro
 
 ---
 
-## 8. Knowing When to Stop: Early Stopping
+## 7. Knowing When to Stop: Early Stopping
 
 ### The Problem
 
@@ -738,7 +442,7 @@ For protein models with small datasets (and therefore noisy validation estimates
 
 ---
 
-## 9. Debugging and Reproducibility
+## 8. Debugging and Reproducibility
 
 ### Debugging Neural Networks
 
@@ -776,19 +480,17 @@ Before declaring a model "trained," verify the following:
 
 1. **Solubility prediction** is a representative binary classification task that exercises every component of the ML pipeline: data preparation, model architecture, training, and evaluation.
 
-2. **Sequence and structure provide complementary signals.** A 1D-CNN captures local sequence motifs; an MLP on structural features captures global 3D properties. A combined model leverages both.
+2. **An MLP on flattened one-hot sequences** is a simple but effective starting point. It treats each input dimension independently, which suffices for learning composition-level and position-level patterns. The main lectures introduce architectures (CNNs, transformers) that exploit sequential and structural information.
 
-3. **CNNs detect local patterns** by sliding learned filters along the sequence. Weight sharing makes them efficient, and stacking layers lets them capture progressively larger motifs.
+3. **Evaluation metrics** must go beyond accuracy. Precision, recall, F1, and AUC-ROC tell a more complete story, especially for imbalanced datasets.
 
-4. **Evaluation metrics** must go beyond accuracy. Precision, recall, F1, and AUC-ROC tell a more complete story, especially for imbalanced datasets.
+4. **Sequence-identity splits are mandatory** for honest evaluation of protein models. Random splits systematically overestimate performance due to data leakage from homologous sequences.
 
-5. **Sequence-identity splits are mandatory** for honest evaluation of protein models. Random splits systematically overestimate performance due to data leakage from homologous sequences.
+5. **Address class imbalance** with weighted losses. High accuracy on an imbalanced dataset is meaningless if the model ignores the minority class.
 
-6. **Address class imbalance** with weighted losses. High accuracy on an imbalanced dataset is meaningless if the model ignores the minority class.
+6. **Early stopping** saves the best model and prevents wasted computation. Use a patience of 10--20 epochs for protein tasks.
 
-7. **Early stopping** saves the best model and prevents wasted computation. Use a patience of 10--20 epochs for protein tasks.
-
-8. **Systematic debugging** catches silent failures. The single-batch overfit test is the most important sanity check.
+7. **Systematic debugging** catches silent failures. The single-batch overfit test is the most important sanity check.
 
 ---
 
@@ -801,3 +503,5 @@ Before declaring a model "trained," verify the following:
 3. Rao, R., Bhatt, N., Lu, A., Johnson, J., Ott, M., Auli, M., Russ, C., & Sander, C. (2019). Evaluating protein transfer learning with TAPE. *Advances in NeurIPS*. (Best practices for protein ML evaluation, including sequence identity splits.)
 
 4. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C. L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*, 118(15).
+
+5. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)

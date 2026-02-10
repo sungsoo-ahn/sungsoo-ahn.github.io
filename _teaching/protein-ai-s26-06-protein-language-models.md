@@ -156,6 +156,11 @@ By learning from this vast corpus, protein language models capture knowledge tha
     <div class="caption mt-1"><strong>Masked Language Modeling for proteins.</strong> Random amino acid positions are replaced with [MASK] tokens. The transformer encoder must predict the original identity at each masked position from the surrounding context. This self-supervised objective teaches the model evolutionary and structural constraints without any labels.</div>
 </div>
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/papers/mlife_zhou2024_fig2.jpg' | relative_url }}" alt="Three types of protein language models">
+    <div class="caption mt-1"><strong>Three paradigms for protein language models.</strong> Encoder-only models (like ESM-2) use masked language modeling to learn bidirectional representations. Decoder-only models generate sequences autoregressively. Encoder-decoder models combine both approaches. Source: Zhou et al. (2024), <em>mLife</em>, CC BY 4.0.</div>
+</div>
+
 The dominant training strategy for protein language models is **masked language modeling** (MLM)[^mlm-bert].
 The concept is a fill-in-the-blank exercise applied at massive scale.
 
@@ -1062,4 +1067,6 @@ This is especially important for fine-tuning experiments where small differences
 5. Meier, J., Rao, R., Verkuil, R., Liu, J., Sercu, T., & Rives, A. (2021). Language models enable zero-shot prediction of the effects of mutations on protein function. *Advances in Neural Information Processing Systems (NeurIPS)*, 34, 29287--29303.
 
 6. Devlin, J., Chang, M.W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. *Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics (NAACL)*.
+
+7. Zhou, T., Bhatt, D., & Liu, J. (2024). Protein engineering in the deep learning era. *mLife*, 3(4), 463--479.
 
