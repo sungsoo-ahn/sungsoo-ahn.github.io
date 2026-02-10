@@ -1142,6 +1142,39 @@ progress::-moz-progress-bar {
   }
 }
 
+/* Collapsed code blocks */
+details.code-collapse {
+  margin: 0 0 1rem;
+
+  > summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+    padding: 0.3rem 0;
+    list-style: none;
+
+    &::before {
+      content: "\25B6\00a0";
+      font-size: 0.7rem;
+      vertical-align: middle;
+    }
+  }
+
+  &[open] > summary::before {
+    content: "\25BC\00a0";
+  }
+
+  /* Remove default marker in Safari / Chrome */
+  > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .highlighter-rouge {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .btn-group.dropdown {
   .btn {
     box-shadow: none;

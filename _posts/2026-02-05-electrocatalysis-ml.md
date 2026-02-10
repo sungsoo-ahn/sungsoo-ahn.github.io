@@ -1,20 +1,20 @@
 ---
 layout: post
-title: "Electrocatalysis for ML Researchers"
+title: "Introduction to Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-02-08
-description: "An introduction to heterogeneous electrocatalysis — the energy storage problem, catalyst design, and why it's a compelling search problem for machine learning."
+last_updated: 2026-02-11
+description: "An introduction to heterogeneous electrocatalysis — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
 order: 1
 categories: [science]
 tags: [electrocatalysis, renewable-energy, machine-learning, density-functional-theory]
 toc:
   sidebar: left
 related_posts: false
-published: false
+published: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post introduces electrocatalysis from the perspective of an ML researcher. The primary reference is Zitnick et al. (2020), a tutorial paper from the Open Catalyst team that motivates the OC20 dataset and benchmark. I wrote this as a bridge between my previous posts on <a href="/blog/2026/quantum-chemistry-dft/">DFT</a> and <a href="/blog/2026/spherical-equivariant-layers/">equivariant GNNs</a>, and the application domain where these methods have the most impact. Figures are from Zitnick et al. (2020) unless otherwise noted. Corrections are welcome.</em>
+<em>Note: This post introduces heterogeneous electrocatalysis — the problem setting that motivates large-scale catalyst design efforts like the Open Catalyst project. The first half follows <a href="https://arxiv.org/abs/2010.09435">Zitnick et al. (2020)</a>, which covers the energy storage problem, the Sabatier principle, and the idealized metal-surface picture. The second half draws on <a href="https://arxiv.org/abs/2206.08917">Tran et al. (2023)</a> and <a href="https://arxiv.org/abs/2509.17862">Shuaibi et al. (2025)</a> to explain why real catalysts — oxides, disordered materials, surfaces in liquid — are far more complex. I wrote this as a bridge between my previous posts on <a href="/blog/2026/quantum-chemistry-dft/">DFT</a> and <a href="/blog/2026/spherical-equivariant-layers/">equivariant GNNs</a>, and the application domain where these methods have the most impact. Corrections are welcome.</em>
 </p>
 
 ## Introduction
@@ -36,6 +36,9 @@ This is a natural problem for ML: learn a surrogate that maps material structure
 | **Electrocatalysis** | How reactions happen on surfaces: adsorbates, intermediates, energy barriers |
 | **The Sabatier Principle** | Why optimal binding strength exists — and the volcano plot |
 | **Scaling Relations and the Search Space** | Why one adsorption energy suffices as a descriptor, and the structure of the design space |
+| **Why Oxides Matter** | The oxygen evolution reaction, the iridium problem, and why oxide catalysts are the frontier |
+| **Beyond Ideal Surfaces** | Oxide-specific complexity, the solid-liquid interface, compositional diversity, and where scaling relations fail |
+| **Machine Learning for Catalyst Discovery** | Surrogate models, generative design, and the progression from energy prediction to structure generation |
 
 ---
 
@@ -185,12 +188,140 @@ Combining all factors, there are on the order of **1,000 candidate configuration
 
 ---
 
+## Why Oxides Matter
+
+The previous sections focused on the fuel cell cathode (the ORR) and used pure metals — especially platinum — as running examples. The other half of the hydrogen energy cycle is water splitting, and there the bottleneck is a different reaction: the **oxygen evolution reaction (OER)**.[^oer]
+
+$$2\text{H}_2\text{O} \;\longrightarrow\; \text{O}_2 + 4\text{H}^+ + 4e^-$$
+
+The OER is kinetically sluggish — it requires forming an O–O bond through a sequence of four proton-coupled electron transfers, each with its own energy barrier. It is the primary source of efficiency loss in electrolyzers and the main target for catalyst improvement on the water-splitting side.
+
+Metal oxides are the dominant catalyst class for the OER. The reason is stability: water splitting typically operates under strongly acidic conditions to reduce gas solubility and improve proton conductivity. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is **iridium oxide (IrO$$_2$$)** — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oer_workflow.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The OER catalyst discovery workflow. (a) Select a bulk oxide structure. (b) Enumerate surface terminations and identify the most stable one via surface Pourbaix diagrams. (c) Place adsorbate intermediates. (d) Relax the structure and compute adsorption energy. Steps (a)–(b) are unique to oxides — on metals, the surface is determined by the facet alone. From Tran et al. (2023)." %}
+
+### Why Oxides Are Harder Than Metals
+
+Oxide electrocatalysts introduce at least five layers of complexity absent from pure metal surfaces (Tran et al., 2023):
+
+1. **Multiple polymorphs.** A given oxide composition (e.g., TiO$$_2$$) can crystallize in several distinct structures (rutile, anatase, brookite), each with different surface chemistry. All must be screened.
+2. **Surface terminations.** Cutting a crystal along a given plane can expose different atomic layers. A rutile (110) surface has at least three possible terminations,[^termination] each presenting different atoms to the adsorbate. On metals, the facet determines the surface; on oxides, the termination adds another degree of freedom.
+3. **Oxygen vacancies.** Surface oxygen atoms can be removed — by thermal treatment, electrochemical reduction, or solvent dissolution — leaving behind vacancy defects that serve as active sites. The number and arrangement of vacancies affects both activity and selectivity.
+4. **Active site ambiguity.** It is often unclear which surface site is catalytically active, and multiple competing reaction mechanisms may operate simultaneously.
+5. **Stronger electron correlation.** Standard DFT functionals (GGA) are less accurate for oxides because of strong electron–electron interactions in transition metal d-orbitals. Hubbard U corrections[^hubbard-u] or more expensive hybrid functionals are needed.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_terminations.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Surface terminations of rutile (110). (a) Three possible terminations (T1, T2, T3) obtained by cutting at different depths. The dashed blue box marks the surface unit cell. (b) Labeled surface oxygen sites — removing any subset of these creates vacancy defects, each configuration with different catalytic properties. From Tran et al. (2023)." %}
+
+### Adsorbate Binding on Oxides
+
+On a metal surface, adsorbates bind to metal atoms at well-defined sites (atop, bridge, hollow). Oxides add a second class of binding interactions: adsorbates can bind to **surface oxygen atoms** rather than to metal atoms. This enables reactions that have no analogue on metals.
+
+The **Mars-van Krevelen (MvK) mechanism**[^mvk] is the most important example. In MvK, an incoming adsorbate reacts with a lattice oxygen atom on the surface — forming a new intermediate that desorbs and leaves behind an oxygen vacancy. The vacancy is later replenished by oxygen from the next adsorbate. The catalyst surface itself participates as a reactant, cycling between oxidized and reduced states.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_adsorbates.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="Adsorbate placement strategies on oxide surfaces. Top row: adsorbates bind to undercoordinated surface metals at lattice oxygen positions (including vacancy sites). Bottom row: adsorbates bind to existing surface oxygen to form new intermediates — e.g., CO on surface O forms CO2, monatomic O on surface O forms a dimer. This second class of binding is unique to oxides. From Tran et al. (2023)." %}
+
+---
+
+## Beyond Ideal Surfaces
+
+The picture so far — volcano plots, scaling relations, well-defined crystal facets — applies to idealized single-crystal surfaces in vacuum. Real electrocatalysts operate under conditions that break these simplifications in several ways.
+
+### The Solid-Liquid Interface
+
+Real electrocatalysis happens in liquid, not vacuum. The catalyst surface is immersed in an electrolyte — typically water with dissolved ions. This changes the physics in ways that gas-phase models cannot capture (Shuaibi et al., 2025):
+
+- **Solvent stabilization.** Water molecules form hydrogen bonds with adsorbed intermediates, shifting their binding energies. An intermediate that binds too weakly in vacuum may be stabilized enough by the solvent to become catalytically relevant.
+- **The electrical double layer.** At an electrified interface, ions in the electrolyte rearrange to screen the surface charge, forming a structured layer whose properties govern charge transfer kinetics. The structure of this double layer depends on applied potential, ion concentration, and solvent identity.
+- **Specific ion adsorption.** Ions from the electrolyte can adsorb directly on the catalyst surface, blocking active sites or modifying the local electronic environment.
+
+The quantity that captures these effects is the **solvation energy**: the difference between a species' adsorption energy in the solvated environment and in vacuum. A catalyst that looks optimal in gas-phase DFT calculations may perform differently when solvent effects shift binding energies by tenths of an eV — comparable to the width of the volcano peak.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_solid_liquid_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The OC25 dataset models catalysis at solid-liquid interfaces: catalyst surfaces with explicit solvent molecules and ions, spanning 88 elements and multiple solvent types. From Shuaibi et al. (2025)." %}
+
+### Compositional Complexity
+
+The design space grows dramatically beyond pure metals and binary alloys.
+
+**Heteroatom doping.** Introducing foreign atoms — nitrogen, sulfur, phosphorus, boron — into a host material modifies the electronic structure of nearby active sites. Nitrogen-doped carbon catalysts are a well-known example. Dopant concentration, spatial distribution, and the specific coordination environment all affect activity. Even for a single host material, this creates a large combinatorial space.
+
+**High-entropy materials.** These contain five or more principal elements in near-equimolar ratios — high-entropy alloys (HEAs) or high-entropy oxides. The vast configurational space produces local electronic environments not achievable in simpler compositions. Properties emerge from collective interactions among elements (the "cocktail effect"), not from individual elemental contributions. This makes decomposition-based reasoning — "element A contributes property X" — unreliable.
+
+### Structural Disorder and Dynamic Surfaces
+
+Many high-performing electrocatalysts lack long-range crystalline order. Amorphous metal oxides and hydroxides used for oxygen evolution have no single repeating unit cell — they present a distribution of local coordination environments, each with potentially different catalytic activity. Standard DFT approaches assume periodic boundary conditions and a well-defined slab; modeling amorphous surfaces requires large supercells or ensemble sampling to capture the structural diversity.
+
+The problem is compounded by **surface reconstruction under operating conditions**. Atoms migrate, oxidation states change, and the electrochemically active phase may differ from the as-synthesized material. Oxide surfaces are particularly prone to this: partial dissolution by the solvent creates vacancy defects, and the surface can restructure in response to applied potential. The structure you model is not necessarily the structure that catalyzes.
+
+Oxides also exhibit **magnetic polymorphism** — the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties (Tran et al., 2023). In semiconducting oxides, a further complication arises from **charge self-compensation**: when vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. This means a vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
+
+### Scaling Relations on Complex Materials
+
+The linear scaling relations that simplify catalyst screening on metals (the $$\Delta G_{*\text{OOH}} \approx \Delta G_{*\text{OH}} + 3.2$$ eV relation from Section 5) were established on close-packed metal surfaces with uniform binding sites. On oxide surfaces with diverse site types, the picture is noisier.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_scaling.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Scaling relations on oxide surfaces. (A) OOH* vs OH* binding energies. (B) O* vs OH* binding energies. Red points: OC22 dataset (oxides). Blue points: literature values. The linear correlations still exist but with larger scatter (R² ≈ 0.6–0.8) and higher MAE compared to metals. On materials with diverse site types — high-entropy alloys, doped carbons, amorphous oxides — the correlations weaken further. From Tran et al. (2023)." %}
+
+Tran et al. (2023) find that the linear correlations persist on oxides — slopes are within 0.15 eV of literature values for metals — but with substantially more scatter (R$$^2$$ ≈ 0.6 for $$*$$OOH vs. $$*$$OH, compared to >0.9 on metals). The increased scatter means that the one-dimensional volcano picture becomes less predictive: two oxides with similar $$\Delta G_{*\text{OH}}$$ can have meaningfully different $$\Delta G_{*\text{OOH}}$$ values. On even more disordered materials — high-entropy alloys, amorphous oxides — the correlations are expected to weaken further, and screening based on a single descriptor becomes unreliable.
+
+When scaling relations break down, the full multi-dimensional binding-energy space re-emerges. Each intermediate must be evaluated independently, and the tractable one-dimensional search becomes a high-dimensional optimization problem — precisely the setting where learned surrogates have the most to contribute.
+
+---
+
+## Machine Learning for Catalyst Discovery
+
+The previous sections establish the problem: find a catalyst material whose adsorption energy sits at the volcano peak, from a search space of billions of candidates, where each evaluation costs hours of DFT compute. ML enters as a way to make this search tractable. The approaches fall into two generations — surrogate energy models that accelerate evaluation, and generative models that propose candidates directly.
+
+### Surrogate Energy Models
+
+The first generation of ML models for catalysis learns to predict DFT energies and forces from atomic structure, replacing the expensive quantum-mechanical calculation with a fast forward pass. These are **machine learning interatomic potentials (MLIPs)**[^mlip] — they take a configuration of atoms as input and predict the total energy and per-atom forces, enabling structure relaxation at a fraction of the DFT cost.
+
+The key architectural insight is that catalyst systems are inherently three-dimensional and obey physical symmetries: rotating or translating the entire system should not change the predicted energy. This motivates **equivariant graph neural networks** (covered in a [previous post](/blog/2026/spherical-equivariant-layers/)), which build these symmetries into the model architecture rather than learning them from data.
+
+The progression of models on the [OC20 benchmark](https://opencatalystproject.org/) illustrates how architectural advances translate to accuracy gains:
+
+- **SchNet** (Schütt et al., 2018) and **DimeNet++** (Gasteiger et al., 2020) established the invariant GNN baseline — message-passing networks that use interatomic distances (and angles, for DimeNet++) as features.
+- **GemNet-OC** (Gasteiger et al., 2022) introduced two-hop message passing with dihedral angle information, achieving strong performance on both energy and force prediction.
+- **EquiformerV2** (Liao & Smidt, 2024) combined equivariant Transformers with higher-order spherical harmonics representations, achieving state-of-the-art results on OC20 — energy MAE of 0.21 eV and force MAE of 0.013 eV/Å.
+
+### From Prediction to Screening: AdsorbML
+
+A trained MLIP does not directly solve the catalyst design problem — it accelerates a single energy evaluation. The **AdsorbML** pipeline (Lan et al., 2023) connects the surrogate model to the actual screening workflow:
+
+1. For a given (surface, adsorbate) pair, generate many candidate initial configurations by random placement.
+2. Relax each configuration using the ML surrogate instead of DFT.
+3. Rank by predicted energy and run DFT only on the top-$$k$$ lowest-energy candidates to validate.
+
+This reduces DFT cost by orders of magnitude while maintaining high success rates — EquiformerV2 within AdsorbML identifies the correct lowest-energy configuration ~84% of the time on OC20 (Lan et al., 2023). The pipeline has been applied to screen thousands of bimetallic alloy surfaces for the hydrogen evolution reaction, with a validated adsorption energy MAE of 0.12 eV across the screened space.
+
+### Generative Catalyst Design
+
+Surrogate models accelerate evaluation but still require someone to propose candidates. The search is enumerate-then-filter: list configurations, predict energies, pick the best. An alternative is to **generate** promising candidates directly — to learn a model that, given a target adsorption energy or reaction intermediate, outputs a catalyst structure likely to achieve it.
+
+This is a harder problem. A catalyst structure is a coupled system: the surface slab (a periodic crystal cut along a specific facet) and the adsorbate (a molecule at a specific position and orientation on that surface). The two are not independent — the adsorbate's preferred binding site depends on the surface geometry, and the surface may reconstruct in response to the adsorbate.
+
+**CatFlow** (Kim et al., 2026) addresses this coupling through a flow matching framework that co-generates the slab and adsorbate jointly. The key idea is a **factorized primitive-cell representation**: rather than generating the full slab (which may contain hundreds of atoms in a repeated pattern), CatFlow generates only the primitive cell and encodes the surface orientation explicitly. This reduces the number of learnable variables by ~9x on average while preserving the interface geometry that determines catalytic activity. Generated structures show accurate adsorption energy distributions and sit closer to DFT-relaxed local minima compared to autoregressive and sequential baselines.
+
+### Open Challenges
+
+Several gaps remain between current ML capabilities and practical catalyst discovery:
+
+- **Out-of-distribution generalization.** Models trained on OC20 (metals) transfer imperfectly to oxides (OC22) or solvated interfaces (OC25). Fine-tuning helps, but the chemical diversity of real catalyst spaces — high-entropy alloys, amorphous oxides, doped carbons — remains undersampled.
+- **Long-range interactions.** Local message-passing GNNs struggle with the long-range electrostatics and magnetic interactions that dominate in semiconducting oxides (Section 7). Extending effective interaction ranges without prohibitive cost is an active research direction.
+- **Beyond adsorption energy.** Current screening pipelines optimize a single thermodynamic descriptor. Real catalyst selection requires stability under operating conditions (Pourbaix analysis), synthesis feasibility, cost, and selectivity — none of which are captured by adsorption energy alone.
+
+---
+
 ## References
 
 - Zitnick, C. L., Chanussot, L., Das, A., Goyal, S., Heras-Domingo, J., Ho, C., ... & Ulissi, Z. W. (2020). An introduction to electrocatalyst design using machine learning for renewable energy storage. *arXiv preprint arXiv:2010.09435*.
 - Chanussot, L., Das, A., Goyal, S., Lavril, T., Shuaibi, M., Riviere, M., ... & Zitnick, C. L. (2021). Open Catalyst 2020 (OC20) dataset and community challenges. *ACS Catalysis*, 11(10), 6059-6072.
 - Nørskov, J. K., Rossmeisl, J., Logadottir, A., Lindqvist, L., Kitchin, J. R., Bligaard, T., & Jónsson, H. (2004). Origin of the overpotential for oxygen reduction at a fuel-cell cathode. *J. Phys. Chem. B*, 108(46), 17886-17892.
 - Nørskov, J. K., Bligaard, T., Rossmeisl, J., & Christensen, C. H. (2009). Towards the computational design of solid catalysts. *Nature Chemistry*, 1, 37-46.
+- Tran, R., Lan, J., Shuaibi, M., Wood, B. M., Goyal, S., Das, A., ... & Zitnick, C. L. (2023). The Open Catalyst 2022 (OC22) dataset and challenges for oxide electrocatalysts. *ACS Catalysis*, 13(5), 3066-3084.
+- Shuaibi, M., Choubisa, H., Engel, M., Wood, B. M., Musielewicz, J., Comer, B., ... & Zitnick, C. L. (2025). Open Catalyst 2025 (OC25): dataset and models for the solid-liquid interface. *arXiv preprint arXiv:2509.17862*.
+- Gasteiger, J., Becker, F., & Günnemann, S. (2022). GemNet-OC: developing graph neural networks for large and diverse molecular simulation datasets. *Transactions on Machine Learning Research*.
+- Liao, Y.-L., & Smidt, T. (2024). EquiformerV2: improved equivariant Transformer for scaling to higher-degree representations. *ICLR 2024*.
+- Lan, J., Palizhati, A., Shuaibi, M., Wood, B. M., Wander, B., Das, A., ... & Zitnick, C. L. (2023). AdsorbML: a leap in efficiency for adsorption energy calculations using generalizable machine learning potentials. *npj Computational Materials*, 9, 172.
+- Kim, M., Kim, N., Kim, H., & Ahn, S. (2026). CatFlow: co-generation of slab-adsorbate systems via flow matching. *arXiv preprint arXiv:2602.05372*.
 
 ---
 
@@ -243,6 +374,16 @@ Combining all factors, there are on the order of **1,000 candidate configuration
 [^bep]: The **BEP relation** is an empirical observation: across a family of related catalysts, activation energy is linearly related to reaction energy. Proposed independently by Brønsted (1928) and Evans & Polanyi (1938). The slope $$\alpha$$ is typically between 0 and 1.
 
 [^arrhenius]: The **Arrhenius equation** says that reaction rate increases exponentially as the activation energy decreases or temperature increases. $$k_B$$ is Boltzmann's constant. At room temperature ($$k_B T \approx 0.025$$ eV), even small changes in $$E_a$$ (tenths of an eV) cause large changes in rate.
+
+[^oer]: The **oxygen evolution reaction (OER)** is the anode half-reaction in water splitting: $$2\text{H}_2\text{O} \rightarrow \text{O}_2 + 4\text{H}^+ + 4e^-$$. It is the reverse of the ORR and is kinetically even more demanding — forming the O–O bond requires coordinating four electron transfers.
+
+[^termination]: A **surface termination** is the specific atomic layer exposed when a crystal is cut. On a binary oxide like TiO$$_2$$, cutting along the (110) plane can expose a Ti-rich, O-rich, or mixed layer depending on where the cut is made. Each termination has different catalytic properties.
+
+[^hubbard-u]: The **Hubbard U correction** adds an empirical on-site Coulomb repulsion to specific orbitals (usually transition metal d-orbitals) to compensate for the tendency of standard DFT functionals to over-delocalize electrons. Typical U values range from 3–6 eV depending on the metal.
+
+[^mvk]: The **Mars-van Krevelen (MvK) mechanism** is a catalytic cycle in which lattice atoms from the catalyst surface participate directly in the reaction. An adsorbate reacts with a surface oxygen, the product desorbs (creating a vacancy), and the vacancy is replenished by oxygen from a subsequent reactant. Common in oxide and carbide catalysts.
+
+[^mlip]: A **machine learning interatomic potential (MLIP)** is a model that predicts the potential energy surface of an atomic system — total energy as a function of atomic positions — learned from quantum-mechanical (typically DFT) training data. Once trained, it can compute energies and forces orders of magnitude faster than DFT, enabling rapid structure relaxation and molecular dynamics.
 
 <style>
 .footnote-tooltip {
