@@ -11,6 +11,7 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
@@ -19,21 +20,14 @@ related_posts: false
 
 ## Introduction
 
-You now know that machine learning models take tensors as input and produce tensors as output, and that learning adjusts the weights to reduce a loss function.
-But proteins are not tensors.
+Proteins are not tensors.
 They are amino acid sequences stored in text files and three-dimensional structures stored in coordinate files.
 Before any model can learn from protein data, you must solve a translation problem: convert biological data into numerical **features** that a neural network can process.
 
-A note on terminology: throughout this course, we distinguish **features** from **representations**.
-Features are the numerical inputs you construct from raw data --- one-hot encodings, amino acid compositions, and the like.
-Representations are the internal vectors that a neural network learns in its hidden layers.
+A note on terminology: **features** are the numerical inputs you construct from raw data --- one-hot encodings, amino acid compositions, and the like.
+**Representations** are the internal vectors that a neural network learns in its hidden layers.
 Features are hand-crafted; representations are learned.
-
-This note covers both sides of that coin.
-First, we learn to read the two standard file formats --- FASTA for sequences and PDB for structures.
-Second, we convert sequences into numerical features and package them as PyTorch tensors ready for training.
-Third, we introduce neural network architectures --- from single neurons to multi-layer networks --- using protein solubility prediction as a running example.
-Finally, we map different biological questions to their corresponding mathematical formulations.
+This note covers both sides: how to build features from protein files, and the neural network architectures that learn representations from them.
 
 ### Roadmap
 
@@ -52,8 +46,8 @@ This note assumes familiarity with Preliminary Note 1: tensors, gradient descent
 
 ## 1. Protein File Formats
 
-The computational biology community has developed standardized file formats for storing protein data.
-Understanding these formats is essential: they are the raw materials from which you build datasets.
+Two file formats dominate protein data: FASTA for sequences and PDB for 3D structures.
+These are the raw materials from which you build datasets.
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/pdb_ribbon_example.png' | relative_url }}" alt="Simplified ribbon representation of a protein structure">
@@ -82,7 +76,7 @@ Different databases use different header conventions, so always check the source
 ### 1.2 Parsing FASTA with Biopython
 
 Biopython is the standard library for biological file parsing in Python.
-Its `SeqIO` module provides a consistent interface across many sequence formats:
+A few lines of code are enough to load every sequence from a FASTA file into a dictionary keyed by accession:
 
 ```python
 from Bio import SeqIO
@@ -99,9 +93,10 @@ seqs = load_fasta("proteins.fasta")
 for name, seq in list(seqs.items())[:3]:
     print(f"{name}: {len(seq)} residues, starts with {seq[:10]}...")
 ```
+<div class="caption mt-1"><code>SeqIO.parse()</code> returns an iterator of <code>SeqRecord</code> objects, each containing the sequence and metadata. The iterator design reads one record at a time rather than loading the entire file into memory, which matters when processing databases with millions of entries.</div>
 
-`SeqIO.parse()` returns an iterator of `SeqRecord` objects, each containing the sequence and metadata.
-The iterator design is important: it reads one record at a time rather than loading the entire file into memory, which matters when processing databases with millions of entries.
+Good parsers read records lazily — one at a time — rather than loading the entire file into memory.
+This matters when processing databases with millions of entries.
 
 ### 1.3 PDB: The Format for 3D Structures
 
@@ -140,8 +135,7 @@ The $$\text{C}_\alpha$$ trace --- one point per residue --- provides a simplifie
 
 ### 1.4 Parsing PDB with Biotite
 
-Biotite[^biotite] is a modern Python library for structural biology.
-Here is how to load a PDB file and extract $$\text{C}_\alpha$$ coordinates:
+Biotite[^biotite] is a modern Python library for structural biology that makes it straightforward to load a PDB file and extract $$\text{C}_\alpha$$ coordinates.
 
 [^biotite]: Biotite is an alternative to Biopython's `Bio.PDB` module, offering a more Pythonic API and better integration with NumPy arrays.
 
@@ -164,8 +158,10 @@ ca_mask = structure.atom_name == "CA"
 ca_coords = structure.coord[ca_mask]
 print(f"Calpha coordinates shape: {ca_coords.shape}")  # (76, 3)
 ```
+<div class="caption mt-1">After extraction, <code>ca_coords</code> is a standard NumPy array of shape <code>(76, 3)</code> — one row per residue, three columns for x, y, z in Ångströms.</div>
 
-After extraction, `ca_coords` is a standard NumPy array of shape `(76, 3)` --- ready to be converted into structural features like distance matrices and contact maps (see the case study in Preliminary Note 4).
+The result is a coordinate array of shape $$(L, 3)$$ — one row per residue, three columns for $$x$$, $$y$$, $$z$$ in Ångströms.
+These coordinates are ready to be converted into structural features like distance matrices and contact maps (see the case study in Preliminary Note 4).
 
 ### 1.5 Bridging Sequence and Structure
 
@@ -190,8 +186,9 @@ def get_sequence_from_structure(structure):
 seq = get_sequence_from_structure(structure)
 print(f"Ubiquitin sequence ({len(seq)} residues): {seq[:20]}...")
 ```
+<div class="caption mt-1">The fallback to <code>'X'</code> handles non-standard amino acids — modified residues, selenomethionine (used in X-ray crystallography), and other variants that frequently appear in real-world PDB files.</div>
 
-The fallback to `'X'` handles non-standard amino acids --- modified residues, selenomethionine (used in X-ray crystallography), and other variants that frequently appear in real-world PDB files.
+Non-standard amino acids — modified residues, selenomethionine, and other variants common in experimental structures — are mapped to a single "unknown" token rather than being silently dropped.
 
 ---
 
@@ -251,9 +248,9 @@ Training requires **batches** --- groups of proteins processed together for comp
 But proteins have different lengths, so we must **pad** every sequence to a common length before stacking them into a tensor.
 
 After one-hot encoding, each protein of length $$L$$ is a matrix of shape $$(L, 20)$$.
-We choose a fixed maximum length $$\text{max\_len}$$, pad shorter proteins with zero vectors, and truncate longer ones.
-Stacking $$B$$ proteins gives a 3D tensor of shape $$(B, \text{max\_len}, 20)$$.
-For an MLP, which expects a flat vector as input, we **flatten** each protein's matrix into a single vector of dimension $$\text{max\_len} \times 20$$.
+We choose a fixed maximum length $$L_{\max}$$, pad shorter proteins with zero vectors, and truncate longer ones.
+Stacking $$B$$ proteins gives a 3D tensor of shape $$(B, L_{\max}, 20)$$.
+For an MLP, which expects a flat vector as input, we **flatten** each protein's matrix into a single vector of dimension $$L_{\max} \times 20$$.
 
 ```python
 from torch.utils.data import TensorDataset, DataLoader
@@ -287,8 +284,7 @@ for batch_features, batch_labels in loader:
     pass  # feed to neural network (Section 3)
 ```
 
-The `DataLoader` handles shuffling, batching, and iterating.
-Each call yields a batch of flattened feature vectors and their corresponding labels, ready to be passed through a neural network.
+A data loader handles shuffling, batching, and iterating: each iteration yields a batch of flattened feature vectors and their corresponding labels, ready to be passed through a neural network.
 Note that flattening discards the sequential structure --- the MLP treats position 1 and position 100 as unrelated inputs.
 Preliminary Note 4 introduces convolutional networks that exploit the sequential ordering.
 
@@ -296,11 +292,9 @@ Preliminary Note 4 introduces convolutional networks that exploit the sequential
 
 ## 3. Neural Network Architectures
 
-We now have protein features --- one-hot encoded sequences, padded and flattened into fixed-length vectors --- packaged as PyTorch tensors.
-But a feature vector is not a prediction.
-To predict whether a protein is soluble from its sequence features, we need a function that maps the input to an output.
-In Preliminary Note 1, we saw that a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ can do this, but it is limited to straight-line relationships.
-Neural networks overcome this limitation by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
+A feature vector is not a prediction.
+To go from a one-hot encoded sequence to a solubility score, we need a function --- and a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ is limited to straight-line relationships.
+Neural networks overcome this by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
 
 ### 3.1 The Single Neuron
 
@@ -345,7 +339,7 @@ $$
 \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})
 $$
 
-Let us trace the dimensions explicitly:
+Tracing the dimensions explicitly:
 
 $$
 \underbrace{\mathbf{W}}_{64 \times d} \underbrace{\mathbf{x}}_{d \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
@@ -355,7 +349,7 @@ Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the
 
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 The total number of parameters is $$64d + 64$$ (weights plus biases).
-For our padded protein sequences with $$d = \text{max\_len} \times 20 = 2{,}000$$, that is already $$128{,}064$$ parameters in a single layer.
+For our padded protein sequences with $$d = L_{\max} \times 20 = 2{,}000$$, that is already $$128{,}064$$ parameters in a single layer.
 
 The function $$\sigma$$ is called an **activation function** --- a nonlinear function applied element-wise after each linear transformation.
 Without it, stacking layers would be pointless: a linear transformation followed by another linear transformation is just a single linear transformation.
@@ -414,8 +408,8 @@ The key takeaway: **the choice of architecture encodes an inductive bias** --- a
 
 ### 3.5 Learned Representations: Embeddings
 
-So far, our features are hand-crafted: one-hot encodings that we designed before training.
-But we can also let the neural network learn its own representations directly from the data.
+One-hot encodings are hand-crafted --- we designed them before training.
+The alternative is to let the network learn its own representations directly from data.
 
 An **embedding layer** maps each amino acid index to a trainable vector of dimension $$d$$.
 These vectors start random and are adjusted during training so that amino acids with similar roles get similar representations --- all without any explicit biochemical supervision.
@@ -439,10 +433,7 @@ This is the strategy behind **protein language models** such as ESM, which we co
 
 In PyTorch, every neural network component inherits from `nn.Module`.
 This base class provides machinery for tracking parameters, moving to GPU, saving and loading models, and more.
-Building a custom network means writing a class with two methods:
-
-- `__init__`: define what layers exist.
-- `forward`: define how data flows through them.
+A custom network specifies two things: what layers exist, and how data flows through them.
 
 ```python
 import torch
@@ -475,14 +466,14 @@ features = torch.randn(32, 2000)  # 32 proteins, flattened padded sequences
 predictions = model(features)    # Shape: (32, 2) — scores for [soluble, insoluble]
 print(predictions.shape)
 ```
+<div class="caption mt-1">The <code>__init__</code> method defines what layers exist; <code>forward</code> defines how data flows through them. Note the distinction: <code>x</code> is the input <strong>features</strong>, <code>h</code> is the hidden <strong>representation</strong> (what the network learns), and <code>out</code> is the prediction. PyTorch handles the backward pass automatically — you only specify the forward computation.</div>
 
-Note the distinction: `x` is the input **features**, `h` is the hidden **representation** (what the network learns), and `out` is the prediction.
-PyTorch handles the backward pass automatically --- you only specify the forward computation.
+The data flow follows the pattern from Section 3.3: input features pass through a linear layer and activation to produce a hidden representation, then a second linear layer maps that representation to a prediction.
+PyTorch handles the backward pass (gradient computation) automatically — you only specify the forward computation.
 
 ### 3.7 Common Layer Types
 
-PyTorch provides a library of pre-built layers for common operations.
-Here are the ones you will encounter most often in protein AI.
+The most common layer types in protein AI are linear layers, activations, normalization, dropout, and embeddings.
 
 ```python
 # --- Linear layer ---
@@ -509,20 +500,14 @@ nn.Dropout(p=0.1)  # Each neuron has a 10% chance of being turned off per forwar
 # 21 possible tokens (20 amino acids + 1 padding), each mapped to a 64-dim vector
 nn.Embedding(num_embeddings=21, embedding_dim=64)
 ```
-
-### 3.8 Practical Notes
-
-For simple architectures with no branching, `nn.Sequential` provides a compact shorthand --- see the PyTorch documentation for details.
-To count parameters: `sum(p.numel() for p in model.parameters())`.
-To save/load weights: `torch.save(model.state_dict(), path)` and `model.load_state_dict(torch.load(path))`.
+<div class="caption mt-1">PyTorch provides pre-built implementations of all these layer types. For simple architectures with no branching, <code>nn.Sequential</code> provides a compact shorthand. To count parameters: <code>sum(p.numel() for p in model.parameters())</code>. To save/load weights: <code>torch.save(model.state_dict(), path)</code> and <code>model.load_state_dict(torch.load(path))</code>.</div>
 
 ---
 
 ## 4. Task Formulations
 
-Different biological questions map to different mathematical formulations.
-Getting this mapping right is the first step in any project.
-The table below summarizes the main formulations with concrete protein examples.
+Different biological questions require different mathematical formulations.
+Getting this mapping right is the first design decision in any project.
 
 | Formulation | Output | Protein Example | General Example |
 |---|---|---|---|
@@ -532,24 +517,11 @@ The table below summarizes the main formulations with concrete protein examples.
 | **Multi-label classification** | Multiple labels per protein | Sequence → {kinase, membrane, signaling} | Photo → {outdoor, sunny, beach} |
 | **Sequence-to-sequence** | One output per position | Sequence → secondary structure (H/E/C) per residue | Sentence → part-of-speech tag per word |
 
-**Regression** tasks have continuous outputs.
-Predicting a protein's melting temperature ($$T_m$$) or dissociation constant ($$K_d$$) are regression tasks.
-The model outputs a real number, and we measure error as the difference between prediction and ground truth.
-
-**Binary classification** distinguishes two categories.
-In protein science: is this protein an enzyme or not? Will it be soluble when expressed in *E. coli*?
-The model outputs a probability between 0 and 1, and we apply a threshold (typically 0.5) to make a decision.
-
-**Multi-class classification** extends binary classification to more than two categories.
-Predicting which of several secondary structure states each residue adopts, or classifying proteins into major functional categories.
-The model outputs a probability distribution over all classes.
-
-**Multi-label classification** handles cases where multiple labels can apply to the same protein simultaneously.
-A protein might be both an enzyme *and* membrane-bound.
-Each label is predicted independently --- the model outputs one probability per label, and each is thresholded separately.
-
-**Sequence-to-sequence** tasks produce one output per input position.
-Secondary structure prediction assigns one of three states (helix, sheet, coil) to every residue, and disorder prediction identifies which residues lack fixed three-dimensional structure.
+**Regression** predicts a continuous number --- melting temperature, binding affinity --- and measures error as the gap between prediction and ground truth.
+**Binary classification** (soluble vs. insoluble, enzyme vs. non-enzyme) outputs a probability between 0 and 1 and applies a threshold to decide.
+**Multi-class classification** extends this to $$C$$ categories, outputting a full probability distribution.
+**Multi-label classification** handles proteins with multiple simultaneous labels (e.g., both kinase *and* membrane-bound) by predicting each label independently.
+**Sequence-to-sequence** tasks produce one output per residue --- secondary structure (helix/sheet/coil) or disorder prediction.
 
 ---
 
