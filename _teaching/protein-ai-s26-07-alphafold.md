@@ -45,6 +45,11 @@ Along the way we examine simplified PyTorch implementations of each piece, so th
 
 ### 1.1 Anfinsen's Thermodynamic Hypothesis
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/wikimedia/protein_structure_levels.png' | relative_url }}" alt="Four levels of protein structure">
+    <div class="caption mt-1"><strong>The four levels of protein structure.</strong> Primary structure is the amino acid sequence. Secondary structure consists of local folding patterns (alpha helices and beta sheets). Tertiary structure is the complete 3D fold of a single chain. Quaternary structure describes the assembly of multiple chains. Source: Wikimedia Commons, CC BY-SA 4.0.</div>
+</div>
+
 In 1972, Christian Anfinsen received the Nobel Prize in Chemistry for demonstrating that a protein's amino acid sequence contains all the information necessary to determine its three-dimensional structure[^anfinsen].
 His experiments on ribonuclease A showed that a denatured (unfolded) protein could spontaneously refold into its functional form once the denaturing agent was removed.
 The implication was clear: the sequence dictates the fold.

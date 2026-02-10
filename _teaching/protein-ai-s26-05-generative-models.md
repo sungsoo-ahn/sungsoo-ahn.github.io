@@ -100,6 +100,11 @@ For generation, we need a way to make *every* region of latent space decode into
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_0.png' | relative_url }}" alt="s26-05-generative-models_diagram_0">
 </div>
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEArch.png' | relative_url }}" alt="VAE architecture">
+    <div class="caption mt-1"><strong>Variational autoencoder architecture.</strong> The encoder maps input data to parameters of a distribution in latent space. The decoder reconstructs the input from a sample drawn from this distribution. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
+
 Variational autoencoders, introduced by Kingma and Welling (2014), solve this problem by making the latent space **probabilistic**.
 Instead of mapping each protein $$x$$ to a single point $$z$$, the encoder outputs the parameters of a Gaussian distribution—a mean vector $$\mu_\phi(x)$$ and a variance vector $$\sigma^2_\phi(x)$$—from which we then *sample* a latent code:
 
@@ -207,6 +212,11 @@ $$\log p_\theta(x) \geq \text{ELBO}$$
 
 Maximizing the ELBO pushes up on the true log-likelihood from below.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEELBO.png' | relative_url }}" alt="The evidence lower bound (ELBO)">
+    <div class="caption mt-1"><strong>The evidence lower bound (ELBO).</strong> The ELBO decomposes into a reconstruction term (how well the decoder recovers the input) and a KL divergence term (how close the encoder's posterior is to the prior). Maximizing the ELBO simultaneously improves reconstruction quality and regularizes the latent space. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
+
 ### Interpreting the Two Terms
 
 **Reconstruction term** $$\mathbb{E}_{q_\phi(z \mid x)}[\log p_\theta(x \mid z)]$$: sample a latent code $$z$$ from the encoder, pass it through the decoder, and measure how well the original protein $$x$$ is recovered.
@@ -265,6 +275,11 @@ The mapping from $$\epsilon$$ to $$z$$ is a deterministic, differentiable functi
 
 Think of it this way: rather than asking "what is the gradient of a coin flip?", we ask "what is the gradient of a shift-and-scale operation?"
 The latter is elementary calculus.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEReparam.png' | relative_url }}" alt="The reparameterization trick">
+    <div class="caption mt-1"><strong>The reparameterization trick.</strong> Instead of sampling directly from the encoder distribution (which blocks gradient flow), we sample noise from a standard normal and transform it using the encoder's predicted mean and variance. This makes the sampling operation differentiable. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
 
 ```python
 def reparameterize(mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
@@ -424,6 +439,11 @@ Here $$\beta_t \in (0, 1)$$ is a scalar controlling how much noise is added at s
 The collection $$\{\beta_1, \beta_2, \ldots, \beta_T\}$$ is called the **noise schedule**.
 It usually starts small (gentle corruption early on) and increases over time (aggressive corruption later).
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/DiffusionForward2.png' | relative_url }}" alt="Forward diffusion process">
+    <div class="caption mt-1"><strong>Forward diffusion process.</strong> Gaussian noise is progressively added to the data over many timesteps, gradually transforming the data distribution into pure noise. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
+
 <div class="col-sm-9 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_noise_schedule.png' | relative_url }}" alt="Diffusion noise schedule">
     <div class="caption mt-1">A linear noise schedule over 1000 timesteps. β_t (noise variance per step) increases linearly. √ᾱ_t (signal coefficient) decays from 1 to near 0 — the clean signal is gradually destroyed. √(1−ᾱ_t) (noise coefficient) grows from 0 to 1 — by t=T, the data is pure noise.</div>
@@ -490,6 +510,11 @@ Each reverse step is modeled as:
 $$p_\theta(x_{t-1} \mid x_t) = \mathcal{N}\!\bigl(x_{t-1};\; \mu_\theta(x_t, t),\; \sigma_t^2 I\bigr)$$
 
 where $$\mu_\theta$$ is a neural network with parameters $$\theta$$ that predicts the denoised mean, and $$\sigma_t^2$$ is typically set to $$\beta_t$$ (or a related fixed quantity).
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/DiffusionReverse.png' | relative_url }}" alt="Reverse denoising process">
+    <div class="caption mt-1"><strong>Reverse denoising process.</strong> A neural network learns to reverse the noising process step by step, gradually recovering structure from noise. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
 
 ### Noise Prediction Parameterization
 
@@ -893,3 +918,4 @@ When you want both, consider latent diffusion, which applies diffusion in a VAE'
 9. Ho, J. and Salimans, T. (2022). "Classifier-Free Diffusion Guidance." *arXiv preprint arXiv:2207.12598*.
 10. Rombach, R. et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *Conference on Computer Vision and Pattern Recognition (CVPR)*.
 11. Dauparas, J. et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *Science*, 378(6615), 49--56.
+12. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.

@@ -302,6 +302,11 @@ Two pieces of information fully specify the placement of this unit in space:
 
 [^rigid]: Strictly, the backbone is not perfectly rigid --- bond angles and the peptide bond dihedral ($$\omega$$) have some flexibility. But the deviation from planarity is small enough that the rigid-body approximation is excellent for backbone generation.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/wikimedia/backbone_dihedral_angles.png' | relative_url }}" alt="Protein backbone dihedral angles">
+    <div class="caption mt-1"><strong>Backbone dihedral angles.</strong> The protein backbone is defined by repeating N-C&#945;-C units. The torsion angles &#966; (phi), &#968; (psi), and &#969; (omega) specify the conformation. The &#969; angle is typically fixed near 180&#176; (trans peptide bond), leaving &#966; and &#968; as the primary degrees of freedom. Source: Wikimedia Commons, CC BY 3.0.</div>
+</div>
+
 Together, the pair $$(R_i, \vec{t}_i)$$ defines a **rigid-body frame** for residue $$i$$.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
@@ -667,6 +672,11 @@ def diffuse_frames(frames, t, schedule):
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_2.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_2">
 </div>
 <div class="caption mt-1"><strong>SE(3) diffusion process.</strong> Forward: clean protein frames are progressively corrupted by Gaussian noise (translations) and IGSO(3) noise (rotations) until the structure is destroyed. Reverse: a neural network learns to denoise, iteratively recovering protein-like structure from random frames.</div>
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/DiffusionReverse.png' | relative_url }}" alt="Reverse diffusion process">
+    <div class="caption mt-1"><strong>The reverse diffusion process.</strong> Starting from noise, a trained neural network iteratively denoises the sample, gradually recovering structured data. In the protein context, this process generates realistic backbone frames from random orientations and positions. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
 
 At $$t = 0$$, the frames are clean.
 At $$t = 1$$, the positions are nearly pure Gaussian noise and the orientations are nearly uniformly random.
@@ -1519,3 +1529,5 @@ But RFDiffusion's experimental success has established SE(3) diffusion as a domi
 9. Nichol, A. Q., & Dhariwal, P. (2021). Improved denoising diffusion probabilistic models. *Proceedings of the 38th International Conference on Machine Learning (ICML)*.
 
 10. Shoemake, K. (1985). Animating rotation with quaternion curves. *ACM SIGGRAPH Computer Graphics*, 19(3), 245--254.
+
+11. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. [udlbook.github.io/udlbook](https://udlbook.github.io/udlbook/). CC BY-NC-ND.
