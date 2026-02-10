@@ -17,13 +17,8 @@ related_posts: false
 
 ## Introduction
 
-In Preliminary Notes 1 and 2 you learned how to represent protein data as tensors and how neural networks transform those tensors into predictions.
-But a network fresh off the assembly line knows nothing --- its weights are random numbers, and its predictions are meaningless.
-This note is about taking that raw network and making it *learn*.
-
-We cover every component of the training process: the loss functions that quantify mistakes, the optimizers that correct them, the training loop that orchestrates the process, and the data loading machinery that feeds proteins to the network efficiently.
-We then discuss validation, overfitting, and the bias-variance tradeoff that governs model design.
-The note concludes with an advanced section on backpropagation for those who want to understand how gradients flow through multi-layer networks.
+A network fresh off the assembly line knows nothing --- its weights are random numbers, and its predictions are meaningless.
+This note is about making it *learn*: the loss functions that quantify mistakes, the optimizers that correct them, the training loop that orchestrates the whole process, and the evaluation machinery that tells you whether you have actually learned anything generalizable.
 
 Preliminary Note 4 applies all of these components in a complete case study: predicting protein solubility in *E. coli*.
 
@@ -46,15 +41,12 @@ This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Modul
 
 ## 1. Loss Functions: Measuring Mistakes
 
-In Preliminary Note 2, we built a neural network that takes protein sequence features as input and outputs scores for protein solubility classes.
-But the network's weights are random --- its output is meaningless noise.
-To make it learn, we need a way to quantify *how wrong* its predictions are for each training example, so that gradient descent can push the weights in the right direction.
+A neural network with random weights outputs meaningless noise.
+To make it learn, we need a way to quantify *how wrong* its predictions are, so that gradient descent can push the weights in the right direction.
 
-The **loss function** (also called a **cost function** or **objective function**) does exactly this: it produces a single number measuring prediction quality.
-Zero means perfect predictions; larger values mean worse predictions.
-The choice of loss function depends on the type of prediction task --- solubility classification needs a different loss than melting temperature regression.
-
-We introduced $$\mathcal{L}_{\text{MSE}}$$ briefly in Preliminary Note 1 as our first loss function. Here we examine it alongside the classification losses in a systematic treatment.
+The **loss function** (also called a cost function or objective function) does exactly this: a single number measuring prediction quality.
+Zero means perfect; larger means worse.
+The choice depends on the task --- solubility classification needs a different loss than melting temperature regression.
 
 ### Mean Squared Error (MSE) for Regression
 
@@ -140,9 +132,8 @@ This means your model's output layer should *not* include a final sigmoid or sof
 
 ## 2. Mini-Batch Training and Optimizers
 
-The loss function tells us how wrong we are.
-The **optimizer** tells us how to improve.
-But before we can discuss optimization algorithms, we need to address a more fundamental question: how much data should we use to compute each gradient update?
+The loss function tells us how wrong we are; the **optimizer** tells us how to fix it.
+But first, a more fundamental question: how much data should we use to compute each gradient update?
 
 ### Gradient Descent
 
@@ -154,7 +145,7 @@ $$
 
 Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$\mathcal{L}(\theta_t)$$ is the loss function from Section 1 evaluated over *all* training examples, and $$\nabla_\theta \mathcal{L}(\theta_t)$$ is its gradient with respect to the parameters.
 This is called "full-batch" because the gradient uses every example in the dataset.
-As we will see next, this is impractical for real datasets --- we need the *stochastic* variant.
+This is impractical for real datasets --- we need the *stochastic* variant.
 
 The learning rate is one of the most important hyperparameters[^hyperparameter] in training.
 Too small, and learning is painfully slow.
@@ -165,14 +156,7 @@ Too large, and training becomes unstable --- the loss oscillates wildly or diver
 ### Mini-Batch Training: Why Not Use All the Data?
 
 Suppose your training set contains 50,000 proteins.
-To compute the gradient of the loss over all 50,000 proteins, you would need to run every protein through the network, compute each individual loss, average them, and then backpropagate through the entire computation graph --- all before taking a single step to update the weights.
-This is called **full-batch gradient descent**, and it has three problems.
-
-First, it is slow.
-You process the entire dataset for a single weight update.
-
-Second, it is memory-intensive.
-For large protein datasets, storing the activations of all 50,000 proteins simultaneously exceeds the memory of any GPU.
+Full-batch gradient descent processes all 50,000 before taking a single weight update --- slow, and the memory required to store all activations simultaneously exceeds any GPU.
 
 **Mini-batch stochastic gradient descent** is the standard compromise.
 At each training step, we sample a random subset of $$B$$ proteins (the **mini-batch**) from the training set, compute the average loss over that subset, and update the weights using its gradient:
@@ -213,8 +197,7 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
 
 ## 3. The Training Loop: Four Steps, Repeated
 
-Training unfolds as a repeated cycle of four steps.
-Each iteration of this cycle processes one **batch** of training examples (a subset of the full dataset).
+Training is a four-step cycle, repeated once per **batch** (a subset of examples).
 One pass through the entire dataset is called an **epoch**.
 
 **Step 1: Forward pass.**
@@ -276,15 +259,10 @@ Without zeroing, gradients from previous batches would contaminate the current u
 
 ## 4. Data Loading: Feeding Proteins to Neural Networks
 
-Training neural networks requires showing them thousands or millions of examples.
-Getting data from disk into the model efficiently is a surprisingly important engineering problem --- and proteins make it harder than usual.
+Getting data from disk into the model efficiently is a surprisingly important engineering problem --- and proteins make it harder than most domains.
 
-### Why Data Loading Matters
-
-PyTorch separates data loading into two abstractions: the **Dataset**, which defines how to access a single example, and the **DataLoader**, which groups examples into mini-batches and manages shuffling, padding, and parallel loading.
-
-Why not just load everything into a single tensor?
-Proteins make this impractical for three reasons.
+PyTorch separates this into two abstractions: the **Dataset** (how to access a single example) and the **DataLoader** (batching, shuffling, padding, parallel loading).
+Loading everything into a single tensor is impractical for three reasons.
 
 **Variable lengths.**
 A 50-residue peptide and a 1,000-residue enzyme cannot be naively stacked into a single tensor.
@@ -300,12 +278,6 @@ Mini-batch training requires data to arrive in consistent batches of a fixed siz
 The DataLoader handles this automatically: it groups proteins into batches, shuffles the ordering each epoch (making SGD stochastic), and optionally loads data in parallel using background worker processes.
 
 ### The `Dataset` Class
-
-PyTorch's `Dataset` class defines how to access individual examples.
-You implement two methods:
-
-- `__len__`: returns the total number of examples.
-- `__getitem__`: returns one example by its index.
 
 A `Dataset` subclass for protein sequences implements two methods: `__len__` returns the dataset size, and `__getitem__` returns one example (encoded sequence, padding mask, and label) by index.
 The encoding maps each amino acid to an integer (1--20, with 0 reserved for padding), and a binary mask distinguishes real residues from padding positions.
@@ -360,11 +332,11 @@ This reduces wasted computation when batches contain mostly short sequences.
 
 ### The Bias-Variance Tradeoff
 
-Why not simply use the most powerful model available?
-The answer is a tension between two sources of error.
+Why not just use the most powerful model available?
+Because model complexity is a double-edged sword.
 **Bias** is error from a model being too simple --- a linear model predicting solubility from just protein length will systematically miss the real relationship.
-**Variance** is error from a model being too sensitive to the specific training data --- a very complex model may fit the training set perfectly, including its noise, but produce wildly different predictions on new data.
-In practice, this means:
+**Variance** is error from a model being too sensitive to the specific training data --- a very complex model fits the training set perfectly, including its noise, but produces wildly different predictions on new data.
+The practical consequences:
 
 - **Too simple** (high bias): the model underfits --- training performance is already poor.
 - **Too complex** (high variance): the model overfits --- training performance is excellent, but validation performance is much worse.
@@ -437,9 +409,8 @@ Saving the model at that point --- and discarding later, overfit versions --- is
 
 *This section is optional for a first reading. It explains how PyTorch computes gradients through multi-layer networks. You can safely skip it and return later.*
 
-In Preliminary Note 1 we saw PyTorch compute gradients for a simple linear model.
-But what about deeper networks with many layers, where the output of one layer feeds into the next?
-To compute how a weight in an early layer affects the final loss, we need the **chain rule** from calculus.
+In a deep network, a weight in an early layer affects the final loss through a chain of intermediate computations.
+Computing its gradient requires the **chain rule** from calculus.
 
 ### The Chain Rule
 
@@ -481,11 +452,10 @@ The following diagram shows a simple computation graph and how gradients flow ba
 
 ### PyTorch Autograd
 
-The remarkable thing about PyTorch is that you never need to implement backpropagation yourself.
-You define only the forward computation, and PyTorch automatically builds a computational graph that tracks every operation.
-When you call `.backward()`, it traverses this graph in reverse, computing all gradients.
+In practice, you never implement backpropagation yourself.
+PyTorch automatically builds a computational graph during the forward pass and traverses it in reverse when you call `.backward()`.
 
-Here is a simple example to see autograd at work:
+A simple example:
 
 ```python
 # Create a tensor and tell PyTorch to track operations on it
@@ -504,7 +474,7 @@ z.backward()
 print(x.grad)  # tensor([7., 9.])
 ```
 
-Let us verify this by hand.
+Verify by hand.
 We have $$z = \sum_i (x_i^2 + 3x_i)$$, so the partial derivative is $$\frac{\partial z}{\partial x_i} = 2x_i + 3$$.
 For $$x_1 = 2$$: $$2(2) + 3 = 7$$.
 For $$x_2 = 3$$: $$2(3) + 3 = 9$$.
