@@ -23,10 +23,8 @@ You have just wasted days of bench time.
 Now imagine a computer program that, given nothing but the amino acid sequence of your construct, predicts with high accuracy whether the protein will be soluble.
 Building that program is a machine learning problem, and understanding how to solve it is the goal of this note and the next three.
 
-This note focuses on the **conceptual foundations**: what machine learning is, how PyTorch tensors work, and how a simple linear model learns from data through a single gradient step.
-Preliminary Note 2 covers protein data representations and introduces neural network architectures.
-Preliminary Note 3 covers training --- loss functions, optimizers, the training loop, and validation.
-Preliminary Note 4 ties everything together in a complete solubility prediction case study.
+By the end of these four notes, you will have a working solubility predictor --- a model that takes an amino acid sequence and outputs a probability.
+This first note builds the foundation: what machine learning actually is, how data becomes tensors, and how a model learns from a single gradient step.
 
 ### Roadmap
 
@@ -48,11 +46,8 @@ If the expression $$\mathbf{y} = \mathbf{W}\mathbf{x} + \mathbf{b}$$ looks unfam
 
 ### Learning as Function Approximation
 
-When a biochemist gains experience, they develop intuitions --- perhaps that highly charged proteins tend to be soluble, or that long hydrophobic stretches spell trouble.
-These intuitions are patterns extracted from years of experimental observation.
-Machine learning does the same thing, but with numbers instead of intuition.
-
-At its core, machine learning is about **function approximation**.
+Experienced biochemists develop intuitions --- highly charged proteins tend to be soluble, long hydrophobic stretches spell trouble --- but these intuitions are hard to articulate as rules.
+Machine learning is **function approximation**: the systematic version of this pattern recognition.
 There exists some unknown function $$f^*$$ that maps inputs to outputs.
 In protein science, this might mean mapping an amino acid sequence to a solubility label (soluble or insoluble).
 In a general setting, it might mean mapping a photograph of a person's face to their age, or mapping a house's features (square footage, location, number of rooms) to its sale price.
@@ -60,7 +55,7 @@ In both cases, we cannot write down $$f^*$$ explicitly because the relationship 
 Instead, we define a family of candidate functions $$f_\theta$$, parameterized by adjustable numbers $$\theta$$ (called **parameters** or **weights**), and we search for the particular values of $$\theta$$ that make $$f_\theta$$ approximate $$f^*$$ as closely as possible.
 
 This search is what "training" means.
-We formalize it as an optimization problem.
+More precisely, this is an optimization problem.
 Given a training set $$\{(\mathbf{x}_i, y_i)\}_{i=1}^n$$ of $$n$$ input-output pairs, we define a **loss function** $$\mathcal{L}(\theta)$$ that measures how poorly $$f_\theta$$ fits the data (Section 4 makes this concrete).
 Training then amounts to solving:
 
@@ -69,91 +64,57 @@ $$
 $$
 
 In words: find the parameter values $$\theta^*$$ that minimize the total prediction error over the training set.
-We show the model thousands of proteins with known properties, and an optimization algorithm gradually adjusts $$\theta$$ to reduce $$\mathcal{L}(\theta)$$.
+In practice, an optimization algorithm sees thousands of proteins with known properties and gradually adjusts $$\theta$$ to reduce $$\mathcal{L}(\theta)$$.
 The result is a function that captures the statistical regularities in the data --- amino acid composition biases, charge distributions, hydrophobicity patterns --- as numerical weights.
 
 ### Generalization: The Real Goal
 
-A model that perfectly reproduces the answers for proteins it has already seen is not necessarily useful.
-What matters is **generalization**: the ability to make accurate predictions on *new* proteins that were not part of the training data.
+Training performance is a mirage.
+A model can score perfectly on proteins it has already seen and still be useless --- the same way a student who memorizes past exam answers fails the moment a new question appears.
+What matters is **generalization**: accurate predictions on *new* proteins that were not part of the training data.
 
-Consider an analogy.
-A student who memorizes every exam answer from past years may score perfectly on those specific exams, but fails when given a new question they have never seen.
-A student who understands the underlying principles can solve new problems.
-Machine learning models face the same tension: they must learn general patterns from specific examples, not just memorize the examples themselves.
-
-The gap between training performance and performance on new data is the central challenge of machine learning.
-Every technique we discuss in this course --- from choosing the right model size to regularization strategies --- is ultimately about improving generalization.
-We formalize this tension as the **bias-variance tradeoff** in Preliminary Note 3.
+The gap between training performance and test performance is the central challenge of machine learning.
+Every technique in this course --- model size, regularization, data splitting --- exists to close that gap.
+We formalize this as the **bias-variance tradeoff** in Preliminary Note 3.
 
 ---
 
 ## 2. The Machine Learning Pipeline
 
-Every machine learning project follows a structured pipeline.
+Every project follows the same arc.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_0.png' | relative_url }}" alt="s26-01-preliminary-ai-fundamentals_diagram_0">
 </div>
 
-Each stage presents challenges specific to protein data.
-
-**Stage 1: Data Collection.**
-Gather proteins and their associated labels.
-For solubility prediction, this might mean mining databases like UniProt[^uniprot] for experimentally validated soluble proteins, or analyzing high-throughput expression studies.
-The quality of the data fundamentally limits what any model can learn.
+You start with data --- proteins and their labels, mined from databases like UniProt[^uniprot] or high-throughput expression studies.
+The data is messy: ambiguous amino acid codes (B for Asp or Asn, X for unknown), missing atoms in crystal structures, inconsistent formats.
+You clean it, encode it as numerical features --- one-hot vectors, physicochemical descriptors, learned embeddings (the subject of Note 2) --- and feed it to a model.
 
 [^uniprot]: UniProt (Universal Protein Resource) is the most comprehensive database of protein sequences and functional annotations, containing over 200 million entries as of 2025.
 
-**Stage 2: Preprocessing.**
-Transform raw data into a clean, consistent format.
-Protein sequences may contain ambiguous amino acid codes (B for Asp or Asn, X for unknown) or unusual characters that need removal.
-Structure data from the PDB requires validation for missing atoms, alternate conformations, and resolution quality.
-
-**Stage 3: Feature Engineering.**
-This is where domain knowledge meets machine learning.
-Proteins can be represented as one-hot encodings, physicochemical feature vectors, learned embeddings, or graphs --- we cover these in Preliminary Note 2.
-The choice of representation profoundly affects what patterns a model can discover.
-
-**Stage 4: Model Training.**
-The model sees thousands of proteins with known labels and gradually adjusts its internal parameters to minimize prediction errors.
-This stage involves critical choices about model architecture, optimization algorithm, and regularization strategy.
-We introduce the building blocks for models in this note (Section 4) and Preliminary Note 2, and the training process itself in Preliminary Note 3.
-
-**Stage 5: Evaluation.**
-Measure how well the model generalizes to new proteins.
-This is trickier than it sounds.
-Related sequences often have similar properties, so a naive random train/test split might let the model "cheat" by memorizing similar proteins.
-Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure the test set contains truly novel proteins.
+The model trains: it sees thousands of labeled proteins and adjusts its parameters to minimize prediction errors (Section 4 makes this concrete).
+Then you evaluate --- and evaluation is trickier than it sounds.
+Related sequences often share properties, so a naive random train/test split lets the model "cheat" by recognizing near-duplicates.
+Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure the test set contains truly novel proteins (Note 4 explains why this matters so much for solubility).
 
 [^seqid]: Sequence-identity-aware splitting clusters proteins by sequence similarity (e.g., using CD-HIT at 30% identity) and assigns entire clusters to either train or test, preventing information leakage from homologous sequences.
 
-**Stage 6: Deployment.**
-Bring the model into production where it makes predictions on new proteins.
-Practical constraints around inference speed, memory usage, and integration with existing laboratory workflows become important here.
+Finally, the model goes into production --- where inference speed, memory constraints, and integration with laboratory workflows all matter.
 
 ---
 
 ## 3. PyTorch: Your Laboratory for Neural Networks
 
-If machine learning is the science, PyTorch is the laboratory equipment.
-Just as a biochemist needs pipettes, centrifuges, and spectrophotometers, a computational biologist needs tools for constructing and training neural networks.
-PyTorch, developed by Meta AI Research [2], has become the dominant framework for deep learning research, including the models that have transformed protein science.
-
-Three properties make PyTorch the standard choice.
-First, its "eager execution" model means code runs line by line, making debugging straightforward.
-Second, its design closely mirrors how researchers think about computation, so translating mathematical ideas into working code is natural.
-Third, the entire ecosystem of protein AI --- from ESM to OpenFold --- builds on PyTorch.
+PyTorch [2] is the framework we use to build and train neural networks.
+It dominates deep learning research --- ESM, OpenFold, and every major protein AI model is built on it.
+Code runs line by line (no deferred compilation), so debugging feels like debugging normal Python.
 
 ### Tensors: The Atoms of Deep Learning
 
-At the heart of PyTorch lies the **tensor**, a multi-dimensional array of numbers.
-If you have used NumPy arrays, tensors will feel familiar.
-
-A single number is a 0-dimensional tensor, called a **scalar**.
-A list of numbers is a 1-dimensional tensor, called a **vector**.
-A table of numbers is a 2-dimensional tensor, called a **matrix**.
-Higher dimensions are common in practice: a batch of protein sequences might be stored as a 3-dimensional tensor with shape `(batch_size, sequence_length, features)`.
+The core data structure in PyTorch is the **tensor** --- a multi-dimensional array of numbers, like a NumPy array with superpowers.
+Tensors generalize scalars (0D), vectors (1D), and matrices (2D) to arbitrary dimensions.
+In practice, a batch of protein sequences lives in a 3D tensor of shape `(batch_size, sequence_length, features)`.
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-tensor-dimensions.png' | relative_url }}" alt="Tensor dimensions from scalar to 3D tensor">
@@ -172,12 +133,11 @@ print(x.shape)                 # torch.Size([3, 4])
 print(x.dtype)                 # torch.float32
 ```
 
-What makes tensors special compared to NumPy arrays?
-Two things: **GPU acceleration** and **automatic differentiation**.
+Tensors differ from NumPy arrays in two ways that matter: **GPU acceleration** and **automatic differentiation**.
 
 ### Worked Example: Encoding a Protein Sequence as a Tensor
 
-Let us trace the encoding of a short protein sequence through each stage, watching the tensor shape evolve.
+To make this concrete, trace the encoding of a short protein sequence through each stage, watching the tensor shape evolve.
 
 ```python
 import torch
@@ -214,7 +174,7 @@ print(f"Shape with batch dimension:   {batched.shape}")  # torch.Size([1, 7, 20]
 ```
 
 The final shape `(1, 7, 20)` is the standard format for feeding protein sequences into neural networks: batch size, sequence length, and feature dimension.
-When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- and we will see later (Preliminary Note 3) how padding and masking handle the fact that different proteins have different lengths.
+When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- Preliminary Note 3 covers how padding and masking handle the fact that different proteins have different lengths.
 
 ### The GPU Advantage
 
@@ -263,10 +223,8 @@ c = a + b                # b is added to each row → shape (3, 4)
 
 ## 4. From Data to Learning: A First Model
 
-The previous sections introduced what machine learning is, the pipeline for building models, and the PyTorch tensors that store all our data.
-Now we tackle the central question: **how does a model actually learn from data?**
-
-The answer has four steps, and we will build them up one at a time using a concrete protein example:
+How does a model actually learn from data?
+The answer has four steps, which we build up one at a time using a concrete protein example:
 
 1. Define a **model** that makes predictions.
 2. Measure how wrong the predictions are with a **loss function**.
@@ -275,10 +233,9 @@ The answer has four steps, and we will build them up one at a time using a concr
 
 ### A First Model: Linear Regression
 
-Let us start with something concrete.
-Suppose we have measured 10 physicochemical features for a single protein --- features such as molecular weight, isoelectric point, GRAVY score (hydrophobicity), and instability index.
-We want to predict that protein's melting temperature.
-We will call the true melting temperature $$y$$ and our prediction $$\hat{y}$$.
+Consider a concrete setup.
+We have measured 10 physicochemical features for a single protein --- molecular weight, isoelectric point, GRAVY score (hydrophobicity), instability index, and so on --- and we want to predict its melting temperature.
+Call the true melting temperature $$y$$ and our prediction $$\hat{y}$$.
 
 The simplest model is a **weighted sum** of the features plus a bias:
 
@@ -380,7 +337,7 @@ The tool for this is the **gradient** --- the vector of partial derivatives of t
 
 #### Deriving the Gradient for MSE
 
-Let us compute the gradient step by step for a single weight $$w_j$$.
+The gradient computation is straightforward. Consider a single weight $$w_j$$.
 Recall that the prediction for one protein is $$\hat{y}_i = \sum_{k=1}^{10} x_{ik} w_k + b$$ and the MSE loss is $$\mathcal{L} = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2$$.
 
 Applying the chain rule:
@@ -436,11 +393,11 @@ We cannot visualize it, but the intuition still holds: the loss defines a surfac
 The remarkable thing about PyTorch is that you never need to compute gradients by hand.
 You define only the forward computation --- how inputs become outputs --- and PyTorch automatically tracks every operation in a **computational graph**.
 When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule.
-We cover the details of how backpropagation works in Preliminary Note 3.
+Preliminary Note 3 covers the details of how backpropagation works.
 
 ### One Complete Learning Step
 
-Let us put it all together: model, loss, gradients, and one update step.
+Here is the complete picture: model, loss, gradients, and one update step.
 
 ```python
 import torch

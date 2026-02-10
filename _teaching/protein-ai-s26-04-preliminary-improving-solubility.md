@@ -11,19 +11,18 @@ preliminary: true
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Preliminary Note 4 for the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It applies everything from Preliminary Notes 1--3 in a complete case study. You should work through this note before the first in-class lecture.</em></p>
 
 ## Introduction
 
-In the previous three notes you learned what machine learning is, how to convert protein data into numerical features, how neural networks transform those features into predictions, and how the training loop adjusts weights to reduce a loss function.
-Now we bring everything together in a single, end-to-end project: predicting whether a protein will be soluble when expressed in *E. coli*.
+Time to build something real.
+This note is a single, end-to-end project: predicting whether a protein will be soluble when expressed in *E. coli*.
 
-We tackle this problem from two angles.
-First, we build a **sequence-based** model: a 1D convolutional neural network (CNN) that scans the amino acid sequence for local patterns predictive of solubility.
-Second, we build a **structure-based** model: an MLP that takes numerical features computed from the protein's 3D coordinates.
-Comparing the two reveals what kind of information each approach captures --- and what it misses.
+We attack from two angles: a **sequence-based** 1D-CNN that scans amino acid patterns, and a **structure-based** MLP that reads 3D coordinate features.
+Comparing them reveals what each approach captures --- and what it misses.
 
 Along the way, we discover problems --- misleading evaluation, class imbalance, overfitting --- and fix them.
 Each section follows the same arc: *observe a problem → understand why it happens → introduce a technique that addresses it → show the improvement*.
@@ -70,9 +69,8 @@ We use the tools from Preliminary Note 3: binary cross-entropy loss, the `Protei
 
 ## 2. Sequence-Based Approach: 1D-CNN
 
-In Preliminary Note 2, we built an MLP on flattened, padded one-hot sequences.
-While the MLP can see every amino acid at every position, it treats each input dimension independently --- it must learn that "hydrophobic at position 10" matters without sharing that knowledge with position 200.
-More critically, the MLP has no built-in notion of *locality*.
+An MLP on flattened one-hot sequences treats each input dimension independently --- it must learn that "hydrophobic at position 10" matters without sharing that knowledge with position 200.
+It has no built-in notion of *locality*.
 A cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
 
 To detect such **local patterns**, we need an architecture that looks at neighboring positions together: the **convolutional neural network (CNN)**.
@@ -185,8 +183,7 @@ class SequenceCNN(nn.Module):
         x = self.fc(x)
         return x
 ```
-
-Note the `transpose(1, 2)` in step 2: PyTorch's `Conv1d` expects the input shape to be `(batch, channels, length)`, but the embedding produces `(batch, length, channels)`.
+<div class="caption mt-1">Note the <code>transpose(1, 2)</code> in step 2: PyTorch's <code>Conv1d</code> expects the input shape to be <code>(batch, channels, length)</code>, but the embedding produces <code>(batch, length, channels)</code>.</div>
 
 ---
 
@@ -202,8 +199,7 @@ For proteins with known or predicted structures[^predicted], we can extract nume
 
 ### 3.1 Structural Features from Coordinates
 
-In Preliminary Note 2, you learned to extract $$\text{C}_\alpha$$ coordinates from PDB files.
-From these coordinates, we can compute several features that are informative for solubility.
+From $$\text{C}_\alpha$$ coordinates (extracted as in Note 2), we can compute several features informative for solubility.
 
 **Distance matrix.**
 The $$\text{C}_\alpha$$ distance matrix is an $$L \times L$$ matrix where entry $$(i, j)$$ is the Euclidean distance between residues $$i$$ and $$j$$:
@@ -289,8 +285,9 @@ def compute_structural_features(ca_coords, sequence):
 
     return torch.tensor(all_features, dtype=torch.float32)
 ```
+<div class="caption mt-1">This function produces a 24-dimensional feature vector: 4 structural statistics plus 20 amino acid composition values.</div>
 
-This function produces a 24-dimensional feature vector: 4 structural statistics plus 20 amino acid composition values.
+The resulting feature vector has 24 dimensions: 4 structural statistics (contact density, relative contact order, radius of gyration, chain length) plus 20 amino acid composition values.
 Including both sequence and structure features lets the model learn which information source is more predictive.
 
 ### 3.2 The Structure-Based MLP
@@ -403,17 +400,15 @@ If structure features are uninformative for a particular protein, the classifier
 In practice, the combined model typically outperforms either individual approach because the two input modalities carry complementary information.
 Sequence motifs and structural compactness are correlated but not redundant --- a protein can have a "normal" amino acid composition yet be insoluble due to an unusual fold.
 
-In the main lectures, we will see architectures (GNNs, transformers) that can process the full 3D structure directly, rather than relying on hand-crafted structural features.
+The main lectures introduce architectures (GNNs, transformers) that process full 3D structures directly, without hand-crafted features.
 
 ---
 
 ## 4. Data Preparation
 
-Both models need a training dataset split into train, validation, and test sets.
-The procedure follows Preliminary Note 3 exactly: use `train_test_split` with `stratify` to maintain class balance, wrap sequences in a `ProteinDataset`, and create `DataLoader` objects with `shuffle=True` for training and `shuffle=False` for evaluation.
+Split the dataset into train/validation/test with `stratify` to maintain class balance, wrap sequences in a `ProteinDataset`, and create `DataLoader` objects with `shuffle=True` for training and `shuffle=False` for evaluation.
 
-For the structure-based model, precompute structural features for the entire dataset using `compute_structural_features` (Section 3.1), stack them into a tensor, and split using the same train/val/test indices.
-Precomputation avoids redundant coordinate parsing during training.
+For the structure-based model, precompute all structural features (Section 3.1) and split using the same indices --- this avoids redundant coordinate parsing during training.
 
 ---
 
@@ -421,7 +416,7 @@ Precomputation avoids redundant coordinate parsing during training.
 
 ### The Training Script
 
-We combine the `train_one_epoch` and `evaluate` functions from Preliminary Note 3 into a complete training pipeline with validation monitoring.
+The training pipeline combines single-epoch training with validation monitoring: after each pass through the training data, the model is evaluated on the validation set, and the best-performing checkpoint is saved.
 
 ```python
 def train_model(model, train_loader, val_loader, epochs=100, lr=1e-3):
@@ -470,9 +465,8 @@ trained_model = train_model(seq_model, train_loader, val_loader, epochs=50)
 
 ### Evaluation: Beyond Accuracy
 
-A single accuracy number rarely tells the full story.
-For a solubility dataset where 70% of proteins are soluble, a model that *always* predicts "soluble" achieves 70% accuracy while being completely useless.
-We need a richer set of metrics.
+Accuracy alone is deceptive.
+If 70% of proteins are soluble, a model that *always* predicts "soluble" achieves 70% accuracy while being completely useless.
 
 ```python
 from sklearn.metrics import (accuracy_score, precision_recall_fscore_support,
@@ -574,10 +568,8 @@ Sections 7 and 8 address this problem with weighted losses and early stopping.
 
 ### The Problem
 
-After training, the solubility predictor achieves 85% validation accuracy.
-Impressive?
-Not necessarily.
-We need to examine *how* we split the data.
+The solubility predictor achieves 85% validation accuracy.
+Impressive? Not necessarily --- it depends on *how* we split the data.
 
 If we used a random train/validation/test split, there is a high probability that some test proteins are closely related (>90% sequence identity) to proteins in the training set.
 These homologous proteins almost certainly share the same solubility status.
@@ -586,8 +578,8 @@ This is **data leakage** --- the test set contains information that was effectiv
 
 ### The Solution: Sequence-Identity Splits
 
-The fix: cluster all proteins by sequence identity --- commonly at a 30% or 40% threshold --- and split the data at the **cluster** level, not the individual protein level.
-This ensures that no test protein is closely related to any training protein.
+The fix: cluster proteins by sequence identity (typically 30--40%) and split at the **cluster** level, not the individual protein level.
+No test protein should be closely related to any training protein.
 
 ```python
 import subprocess
@@ -720,7 +712,8 @@ class EarlyStopping:
             return False  # No improvement
 ```
 
-Integrating early stopping into the training loop:
+The training loop checks validation loss after every epoch and saves a checkpoint whenever validation improves.
+If no improvement occurs for a set number of epochs (the **patience**), training halts and the best checkpoint is restored.
 
 ```python
 early_stopping = EarlyStopping(patience=15)
@@ -739,9 +732,9 @@ for epoch in range(max_epochs):
 # Load the best model for final evaluation
 model.load_state_dict(torch.load('best_model.pt'))
 ```
+<div class="caption mt-1">Integrating the <code>EarlyStopping</code> class into the training loop. Each epoch, <code>step()</code> returns <code>True</code> when validation loss improves (save a checkpoint) and sets <code>should_stop = True</code> after <code>patience</code> epochs without improvement.</div>
 
-The **patience** parameter controls how long to wait for improvement.
-For protein models with small datasets (and therefore noisy validation estimates), a patience of 10 to 20 epochs is common.
+For protein models with small datasets (and therefore noisy validation estimates), a patience of 10 to 20 epochs is typical — long enough to ride out random fluctuations, short enough to avoid wasting computation on a model that has stopped improving.
 
 ---
 
