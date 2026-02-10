@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Features and Neural Networks"
 date: 2026-03-01
-description: "How to turn protein data into numerical features—file formats, sequence encodings, PyTorch tensors—and the neural network architectures that learn representations from them."
+description: "How to turn protein sequences into numerical features—one-hot encodings, PyTorch tensors—and the neural network architectures that learn representations from them."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -21,22 +21,21 @@ collapse_code: true
 ## Introduction
 
 Proteins are not tensors.
-They are amino acid sequences stored in text files and three-dimensional structures stored in coordinate files.
+They are amino acid sequences stored in text files.
 Before any model can learn from protein data, you must solve a translation problem: convert biological data into numerical **features** that a neural network can process.
 
 A note on terminology: **features** are the numerical inputs you construct from raw data --- one-hot encodings, amino acid compositions, and the like.
 **Representations** are the internal vectors that a neural network learns in its hidden layers.
 Features are hand-crafted; representations are learned.
-This note covers both sides: how to build features from protein files, and the neural network architectures that learn representations from them.
+This note covers both sides: how to build features from protein sequences, and the neural network architectures that learn representations from them.
 
 ### Roadmap
 
 | Section | What You Will Learn | Why It Is Needed |
 |---------|---------------------|------------------|
-| [Protein File Formats](#1-protein-file-formats) | FASTA and PDB parsing with Biopython and Biotite | Raw biological data must be loaded before it can be encoded |
-| [Protein Features](#2-protein-features) | One-hot encoding, PyTorch tensors | Every downstream model needs numerical features as input |
-| [Neural Network Architectures](#3-neural-network-architectures) | Neurons, activations, layers, depth, learned representations, `nn.Module` | The function families that learn representations from features and produce predictions |
-| [Task Formulations](#4-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
+| [Protein Sequences and FASTA](#1-protein-sequences-and-fasta) | Loading and parsing protein sequence files | Raw biological data must be loaded before it can be encoded |
+| [From Protein Features to Neural Networks](#2-from-protein-features-to-neural-networks) | One-hot encoding, tensors, neurons, layers, depth, activations, `nn.Module` | The pipeline from raw sequences to predictions |
+| [Task Formulations](#3-task-formulations) | Regression, classification, sequence-to-sequence | Different biological questions require different output formats |
 
 ### Prerequisites
 
@@ -44,15 +43,10 @@ This note assumes familiarity with Preliminary Note 1: tensors, gradient descent
 
 ---
 
-## 1. Protein File Formats
+## 1. Protein Sequences and FASTA
 
-Two file formats dominate protein data: FASTA for sequences and PDB for 3D structures.
-These are the raw materials from which you build datasets.
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/pdb_ribbon_example.png' | relative_url }}" alt="Simplified ribbon representation of a protein structure">
-    <div class="caption mt-1"><strong>Protein 3D structure.</strong> A simplified ribbon representation showing the three main secondary structure elements: alpha-helices (red), beta-strands (blue), and loops/coils (gray). Real structures from the Protein Data Bank encode the precise 3D coordinates of every atom.</div>
-</div>
+The FASTA format is the standard way to store protein sequences.
+This is the raw material from which you build datasets.
 
 ### 1.1 FASTA: The Universal Sequence Format
 
@@ -98,101 +92,9 @@ for name, seq in list(seqs.items())[:3]:
 Good parsers read records lazily — one at a time — rather than loading the entire file into memory.
 This matters when processing databases with millions of entries.
 
-### 1.3 PDB: The Format for 3D Structures
-
-While FASTA captures the *sequence* of a protein, the **PDB format** captures its *structure*: the three-dimensional positions of every atom.
-PDB files use a fixed-width text format[^pdb-history] with a specific column layout:
-
-[^pdb-history]: The PDB file format dates back to 1971, when data was stored on 80-column punch cards. The fixed-width layout reflects this heritage. A newer format, mmCIF, is gradually replacing PDB for large structures, but PDB remains the most widely used format for single-chain proteins.
-
-```
-PDB ATOM Record Format (80-column fixed-width):
-┌──────┬───────┬──────┬─────┬───┬─────┬────────────────────────────┬──────┬──────┬───┐
-│Record│ Atom# │ Name │ Res │Chn│Res# │     X        Y        Z    │ Occ. │B-fac │Elm│
-│ Type │       │      │     │ ID│     │                            │      │      │   │
-├──────┼───────┼──────┼─────┼───┼─────┼────────────────────────────┼──────┼──────┼───┤
-│ATOM  │     1 │  N   │ MET │ A │   1 │  27.340  24.430   2.614   │ 1.00 │ 9.67 │ N │
-│ATOM  │     2 │  CA  │ MET │ A │   1 │  26.266  25.413   2.842   │ 1.00 │10.38 │ C │
-│ATOM  │     3 │  C   │ MET │ A │   1 │  26.913  26.639   3.531   │ 1.00 │ 9.62 │ C │
-└──────┴───────┴──────┴─────┴───┴─────┴────────────────────────────┴──────┴──────┴───┘
- Col:  1-6    7-11   13-16  18-20  22  23-26       31-38  39-46  47-54  55-60 61-66 77-78
-```
-<div class="caption mt-1">The fixed-width column layout of a PDB ATOM record. Each line contains the atom serial number, atom name, residue name, chain identifier, residue sequence number, (x, y, z) Cartesian coordinates in Ångströms, occupancy, temperature factor, and element symbol.</div>
-
-The key columns are:
-
-| Columns | Content | Example |
-|---------|---------|---------|
-| 1--6 | Record type | `ATOM` |
-| 13--16 | Atom name | `N`, `CA`, `C`, `O` |
-| 18--20 | Residue name (3-letter code) | `MET`, `ALA`, `GLY` |
-| 22 | Chain identifier | `A` |
-| 31--54 | X, Y, Z coordinates (Angstroms) | `27.340  24.430   2.614` |
-
-The **$$\text{C}_\alpha$$** (alpha-carbon) atom is central to protein machine learning.
-Every standard amino acid has exactly one $$\text{C}_\alpha$$, located at the backbone's central carbon.
-The $$\text{C}_\alpha$$ trace --- one point per residue --- provides a simplified yet informative representation of protein structure.
-
-### 1.4 Parsing PDB with Biotite
-
-Biotite[^biotite] is a modern Python library for structural biology that makes it straightforward to load a PDB file and extract $$\text{C}_\alpha$$ coordinates.
-
-[^biotite]: Biotite is an alternative to Biopython's `Bio.PDB` module, offering a more Pythonic API and better integration with NumPy arrays.
-
-```python
-import biotite.structure.io.pdb as pdb
-import biotite.structure as struc
-
-def load_pdb(filepath, chain='A'):
-    """Load a protein structure from a PDB file."""
-    pdb_file = pdb.PDBFile.read(filepath)
-    structure = pdb_file.get_structure(model=1)
-    structure = structure[struc.filter_amino_acids(structure)]
-    if chain:
-        structure = structure[structure.chain_id == chain]
-    return structure
-
-# Load Ubiquitin (PDB ID: 1UBQ) and extract Calpha coordinates
-structure = load_pdb("1ubq.pdb")
-ca_mask = structure.atom_name == "CA"
-ca_coords = structure.coord[ca_mask]
-print(f"Calpha coordinates shape: {ca_coords.shape}")  # (76, 3)
-```
-<div class="caption mt-1">After extraction, <code>ca_coords</code> is a standard NumPy array of shape <code>(76, 3)</code> — one row per residue, three columns for x, y, z in Ångströms.</div>
-
-The result is a coordinate array of shape $$(L, 3)$$ — one row per residue, three columns for $$x$$, $$y$$, $$z$$ in Ångströms.
-These coordinates are ready to be converted into structural features like distance matrices and contact maps (see the case study in Preliminary Note 4).
-
-### 1.5 Bridging Sequence and Structure
-
-Sometimes you need to extract the amino acid sequence from a structure file --- to verify consistency or because only the PDB is available.
-This requires mapping three-letter residue codes (used in PDB files) to single-letter codes (used in FASTA files and sequence models):
-
-```python
-import biotite.structure as struc
-
-AA_3TO1 = {
-    'ALA': 'A', 'CYS': 'C', 'ASP': 'D', 'GLU': 'E', 'PHE': 'F',
-    'GLY': 'G', 'HIS': 'H', 'ILE': 'I', 'LYS': 'K', 'LEU': 'L',
-    'MET': 'M', 'ASN': 'N', 'PRO': 'P', 'GLN': 'Q', 'ARG': 'R',
-    'SER': 'S', 'THR': 'T', 'VAL': 'V', 'TRP': 'W', 'TYR': 'Y'
-}
-
-def get_sequence_from_structure(structure):
-    """Extract the amino acid sequence from a Biotite AtomArray."""
-    residue_ids, residue_names = struc.get_residues(structure)
-    return ''.join(AA_3TO1.get(name, 'X') for name in residue_names)
-
-seq = get_sequence_from_structure(structure)
-print(f"Ubiquitin sequence ({len(seq)} residues): {seq[:20]}...")
-```
-<div class="caption mt-1">The fallback to <code>'X'</code> handles non-standard amino acids — modified residues, selenomethionine (used in X-ray crystallography), and other variants that frequently appear in real-world PDB files.</div>
-
-Non-standard amino acids — modified residues, selenomethionine, and other variants common in experimental structures — are mapped to a single "unknown" token rather than being silently dropped.
-
 ---
 
-## 2. Protein Features
+## 2. From Protein Features to Neural Networks
 
 <div class="col-sm-10 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/amino_acid_properties.png' | relative_url }}" alt="The 20 standard amino acids grouped by chemical properties">
@@ -200,10 +102,7 @@ Non-standard amino acids — modified residues, selenomethionine, and other vari
 </div>
 
 The amino acid sequence is the primary structure of a protein --- the linear chain of residues encoded by the gene.
-Because sequencing is cheap and fast, sequence data is far more abundant than structure data: UniProt contains over 200 million sequences, while the Protein Data Bank has roughly 200,000 experimentally determined structures.
-
-To feed a protein into a neural network, we must convert its sequence into numerical **features**.
-This section introduces one-hot encoding and shows how to package protein features as PyTorch tensors.
+To feed a protein into a neural network, we must convert its sequence into numerical **features**, then build an architecture that can learn from those features.
 
 ### 2.1 One-Hot Encoding
 
@@ -239,7 +138,7 @@ print(enc.shape)  # torch.Size([5, 20])
 
 One-hot encoding preserves the full sequence --- every position and every residue identity.
 Its limitation is that it treats every amino acid as equally different from every other.
-**Learned embeddings** (Section 3.5) address this by replacing each one-hot vector with a trainable continuous vector.
+Learned embeddings (covered in the main lectures) address this by replacing each one-hot vector with a trainable continuous vector.
 
 ### 2.2 From Features to PyTorch Tensors
 
@@ -281,22 +180,44 @@ loader = DataLoader(dataset, batch_size=32, shuffle=True)
 for batch_features, batch_labels in loader:
     # batch_features shape: (batch_size, 2000)
     # batch_labels shape:   (batch_size,)
-    pass  # feed to neural network (Section 3)
+    pass  # feed to neural network
 ```
 
 A data loader handles shuffling, batching, and iterating: each iteration yields a batch of flattened feature vectors and their corresponding labels, ready to be passed through a neural network.
 Note that flattening discards the sequential structure --- the MLP treats position 1 and position 100 as unrelated inputs.
-Preliminary Note 4 introduces convolutional networks that exploit the sequential ordering.
+The main lectures introduce architectures (CNNs, transformers) that exploit this sequential ordering.
 
----
-
-## 3. Neural Network Architectures
+### 2.3 Why Linear Models Are Not Enough
 
 A feature vector is not a prediction.
 To go from a one-hot encoded sequence to a solubility score, we need a function --- and a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ is limited to straight-line relationships.
-Neural networks overcome this by composing simple operations into powerful function approximators that learn internal **representations** --- abstract, task-relevant encodings of the input --- in their hidden layers.
 
-### 3.1 The Single Neuron
+The linear model from Preliminary Note 1 can only draw straight-line decision boundaries.
+But solubility depends on nonlinear combinations of features --- a cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
+A linear model treats both cases identically.
+
+The mathematical reason is deeper than it first appears.
+Suppose we try to gain power by stacking two linear layers:
+
+$$
+\mathbf{h} = \mathbf{W}_2(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1) + \mathbf{b}_2 = (\mathbf{W}_2 \mathbf{W}_1)\mathbf{x} + (\mathbf{W}_2 \mathbf{b}_1 + \mathbf{b}_2) = \mathbf{W}'\mathbf{x} + \mathbf{b}'
+$$
+
+The composition of two linear transformations is still a single linear transformation.
+No matter how many linear layers we stack, the result collapses to one matrix multiplication --- we gain no expressive power.
+Breaking out of this collapse requires a **nonlinear activation function** between layers, which is exactly what a neural network provides.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_functions.png' | relative_url }}" alt="Functions computed by a shallow neural network">
+    <div class="caption mt-1"><strong>What a single hidden layer can compute.</strong> Three examples of piecewise-linear functions (input \(x\) → output \(y\)) produced by a shallow network with ReLU activations. Each panel uses different weights and biases, yielding a different nonlinear mapping — none of which a linear model could represent. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.3 (CC BY-NC-ND).</div>
+</div>
+
+### 2.4 The Single Neuron
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_net.png' | relative_url }}" alt="A shallow neural network with one hidden layer">
+    <div class="caption mt-1"><strong>Anatomy of a shallow neural network.</strong> (a) Full notation: input \(x\) is multiplied by input-to-hidden weights \(\theta_{ij}\) (our \(\mathbf{W}\)) and offset by biases \(\theta_{i0}\) (our \(\mathbf{b}\)), passed through hidden units \(h_1, h_2, h_3\) with ReLU activations (cyan diagonal lines), then combined with hidden-to-output weights \(\phi_i\) to produce output \(y\). The circled 1's represent bias inputs. (b) Simplified diagram omitting weight labels. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.1 (CC BY-NC-ND).</div>
+</div>
 
 The fundamental unit is the **artificial neuron**.
 It takes multiple input features, computes a weighted sum, adds a bias, and applies a nonlinear function:
@@ -328,7 +249,12 @@ This is sufficient for linearly separable problems but fails when the boundary b
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_0">
 </div>
 
-### 3.2 Layers: Many Neurons in Parallel
+### 2.5 Layers: Many Neurons in Parallel
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/mlp.png' | relative_url }}" alt="Multi-layer perceptron with one hidden layer">
+    <div class="caption mt-1"><strong>A fully connected network with one hidden layer.</strong> Four input features \(x_1, \ldots, x_4\) each connect to all five hidden units \(h_1, \ldots, h_5\) (every arrow is a learned weight). The hidden layer applies a nonlinear activation, then connects to three outputs \(o_1, o_2, o_3\). "Fully connected" means every unit in one layer connects to every unit in the next — this is the \(\mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})\) from the text. Source: Zhang et al., <em>Dive into Deep Learning</em>, Fig 5.1.1 (CC BY-SA 4.0).</div>
+</div>
 
 A single neuron is limited.
 But arrange many neurons in parallel --- each receiving the same input features but with *different* weights --- and you get a **layer**.
@@ -350,13 +276,10 @@ Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 The total number of parameters is $$64d + 64$$ (weights plus biases).
 For our padded protein sequences with $$d = L_{\max} \times 20 = 2{,}000$$, that is already $$128{,}064$$ parameters in a single layer.
+The nonlinear function $$\sigma$$ applied after each layer is the **activation function** --- Section 2.7 covers the main choices in detail.
+The most common default is **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$.
 
-The function $$\sigma$$ is called an **activation function** --- a nonlinear function applied element-wise after each linear transformation.
-Without it, stacking layers would be pointless: a linear transformation followed by another linear transformation is just a single linear transformation.
-The most common choice is **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$, which simply zeros out negative values and passes positive values through unchanged.
-Other activations include **sigmoid** ($$\sigma(z) = 1/(1 + e^{-z})$$, used at the output for binary probabilities), **GELU** (a smooth variant of ReLU used in transformers), and **softmax** (normalizes a vector into a probability distribution, used for multi-class output).
-
-### 3.3 Why Depth Matters: The Power of Composition
+### 2.6 Why Depth Matters: The Power of Composition
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="A two-hidden-layer MLP for solubility prediction">
@@ -388,48 +311,33 @@ For a protein solubility predictor, this compositional hierarchy might look like
 - **Layer 2** combines these into higher-level patterns: local composition trends, position-specific signals.
 - **Output layer** maps these abstract representations to a solubility prediction.
 
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/deep_fold.png' | relative_url }}" alt="How deep networks compose functions">
+    <div class="caption mt-1"><strong>Why depth is powerful: function composition.</strong> (a) The first layer computes a piecewise-linear function \(y = f_1(x)\) (black), folding the input space at each kink (cyan shows the fold lines). (b) The second layer computes another piecewise-linear function \(y' = f_2(y)\) in the transformed space. (c) The composition \(y' = f_2(f_1(x))\) produces a function with far more linear regions than either layer alone — each fold in (a) multiplies the complexity of (b). A shallow network of the same width could not produce this many distinct regions. Source: Prince, <em>Understanding Deep Learning</em>, Fig 4.4 (CC BY-NC-ND).</div>
+</div>
+
 In practice, deeper networks are not always better.
 Very deep networks can be harder to train (gradients may vanish or explode as they propagate through many layers).
 Techniques like residual connections, normalization layers, and careful initialization have made training deep networks practical.
 
-### 3.4 Beyond Flat Features: Specialized Architectures
+### 2.7 Activation Functions
 
-The fully connected networks above treat the input as a flat vector of features --- every input element connects to every neuron.
-This works for fixed-size feature vectors, but proteins have **sequential structure** that a flat vector ignores.
+The **activation function** $$\sigma$$ is applied element-wise after each linear transformation.
+As shown in Section 2.3, without it, stacking layers collapses to a single linear transformation --- activation functions are what give neural networks their expressive power.
 
-**Convolutional Neural Networks (CNNs)** exploit this structure by sliding a small filter along the sequence, detecting local patterns like charge clusters or hydrophobic stretches.
-We build a 1D-CNN for solubility prediction in the case study (Preliminary Note 4).
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_activations.png' | relative_url }}" alt="Common activation functions">
+    <div class="caption mt-1"><strong>Common activation functions.</strong> Each panel plots the activation \(\text{a}[z]\) (our \(\sigma(z)\)) as a function of its pre-activation input \(z\). (a) Sigmoid squashes to \((0, 1)\); tanh squashes to \((-1, 1)\). (b) Leaky ReLU and PReLU pass a small slope for negative inputs, avoiding "dead neurons." (c) Smooth variants used in modern architectures: softplus, GeLU (used in protein language models), SiLU. (d–f) More specialized activations including ELU, SELU, and Swish. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.13 (CC BY-NC-ND).</div>
+</div>
 
-**Transformers** and **Graph Neural Networks (GNNs)** are more powerful architectures that we cover in Lecture 1.
-Transformers use attention to let every position attend to every other position --- the backbone of protein language models (Lecture 3) and AlphaFold (Lecture 4).
-GNNs operate on graph structures where residues are nodes and edges connect spatial neighbors --- the basis of ProteinMPNN (Lecture 6).
+The most common choices:
 
-The key takeaway: **the choice of architecture encodes an inductive bias** --- an assumption about the structure of the problem --- and matching the architecture to the data is one of the most important design decisions in protein AI.
+- **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$ --- zeros out negative values, passes positive values unchanged. Simple, fast, and the default choice for hidden layers. Its main drawback: neurons that output zero for all inputs ("dead neurons") stop learning entirely.
+- **Sigmoid**: $$\sigma(z) = 1/(1 + e^{-z})$$ --- squashes output to $$(0, 1)$$. Used at the output layer for binary classification probabilities. Rarely used in hidden layers because gradients vanish for large or small inputs.
+- **GELU**: a smooth approximation of ReLU used in transformer models (including protein language models like ESM). Slightly more expensive to compute but often leads to better training dynamics.
+- **Softmax**: normalizes a vector into a probability distribution that sums to 1. Used at the output layer for multi-class classification.
 
-### 3.5 Learned Representations: Embeddings
-
-One-hot encodings are hand-crafted --- we designed them before training.
-The alternative is to let the network learn its own representations directly from data.
-
-An **embedding layer** maps each amino acid index to a trainable vector of dimension $$d$$.
-These vectors start random and are adjusted during training so that amino acids with similar roles get similar representations --- all without any explicit biochemical supervision.
-
-```python
-import torch.nn as nn
-
-# 21 possible tokens (20 amino acids + 1 for unknown), each mapped to a 64-dim vector
-embedding = nn.Embedding(num_embeddings=21, embedding_dim=64)
-
-# Input: integer-encoded sequence (batch of 2 proteins, length 5)
-indices = torch.tensor([[0, 2, 3, 5, 10],
-                         [1, 4, 6, 8, 12]])
-representations = embedding(indices)  # Shape: (2, 5, 64)
-```
-
-After training, the learned representations often reveal biologically meaningful structure: hydrophobic residues cluster together, charged residues form their own group, and aromatic residues occupy a distinct region.
-This is the strategy behind **protein language models** such as ESM, which we cover in Lecture 3.
-
-### 3.6 `nn.Module`: PyTorch's Building Block
+### 2.8 `nn.Module`: PyTorch's Building Block
 
 In PyTorch, every neural network component inherits from `nn.Module`.
 This base class provides machinery for tracking parameters, moving to GPU, saving and loading models, and more.
@@ -468,10 +376,10 @@ print(predictions.shape)
 ```
 <div class="caption mt-1">The <code>__init__</code> method defines what layers exist; <code>forward</code> defines how data flows through them. Note the distinction: <code>x</code> is the input <strong>features</strong>, <code>h</code> is the hidden <strong>representation</strong> (what the network learns), and <code>out</code> is the prediction. PyTorch handles the backward pass automatically — you only specify the forward computation.</div>
 
-The data flow follows the pattern from Section 3.3: input features pass through a linear layer and activation to produce a hidden representation, then a second linear layer maps that representation to a prediction.
+The data flow follows the pattern from Section 2.5: input features pass through a linear layer and activation to produce a hidden representation, then a second linear layer maps that representation to a prediction.
 PyTorch handles the backward pass (gradient computation) automatically — you only specify the forward computation.
 
-### 3.7 Common Layer Types
+### 2.9 Common Layer Types
 
 The most common layer types in protein AI are linear layers, activations, normalization, dropout, and embeddings.
 
@@ -504,7 +412,7 @@ nn.Embedding(num_embeddings=21, embedding_dim=64)
 
 ---
 
-## 4. Task Formulations
+## 3. Task Formulations
 
 Different biological questions require different mathematical formulations.
 Getting this mapping right is the first design decision in any project.
@@ -527,17 +435,15 @@ Getting this mapping right is the first design decision in any project.
 
 ## Key Takeaways
 
-1. **FASTA** stores sequences; **PDB** stores 3D structures. Biopython handles sequence parsing; Biotite handles structure parsing. These are the entry points to any protein ML pipeline.
+1. **FASTA** is the standard format for protein sequences. Biopython handles parsing. Loading and encoding sequences is the entry point to any protein ML pipeline.
 
-2. **Features** are hand-crafted numerical inputs: one-hot encoding converts each amino acid into a binary vector, preserving the full sequence. Features are converted to PyTorch tensors for training.
+2. **Features** are hand-crafted numerical inputs: one-hot encoding converts each amino acid into a binary vector, preserving the full sequence. Features are padded, flattened, and converted to PyTorch tensors for training.
 
-3. **Representations** are what neural networks learn internally. Embedding layers learn amino acid representations from data; hidden layers learn task-specific representations. Protein language models (Lecture 3) produce powerful learned representations.
+3. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. Depth enables hierarchical representation learning --- each layer builds more abstract representations from the previous layer's output.
 
-4. **Neural networks** are compositions of simple layers: linear transformations followed by nonlinear activations. Depth enables hierarchical representation learning --- each layer builds more abstract representations from the previous layer's output.
+4. **Task formulations** map biological questions to mathematical outputs: regression for continuous values, classification for categories, sequence-to-sequence for per-residue predictions.
 
-5. **Task formulations** map biological questions to mathematical outputs: regression for continuous values, classification for categories, sequence-to-sequence for per-residue predictions.
-
-6. **Next up**: Preliminary Note 3 puts these features and architectures to work in a complete training pipeline --- loss functions, optimizers, and validation.
+5. **Next up**: Preliminary Note 3 puts these features and architectures to work in a complete training pipeline --- loss functions, optimizers, and validation.
 
 ---
 
@@ -545,9 +451,8 @@ Getting this mapping right is the first design decision in any project.
 
 1. Cock, P.J., Antao, T., Chang, J.T., et al. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. *Bioinformatics*, 25(11), 1422--1423.
 
-2. Kunzmann, P. and Hamacher, K. (2018). Biotite: a unifying open source computational biology framework in Python. *BMC Bioinformatics*, 19, 346.
+2. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
 
-3. Berman, H.M., Westbrook, J., Feng, Z., et al. (2000). The Protein Data Bank. *Nucleic Acids Research*, 28(1), 235--242.
+3. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
 
-4. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
-
+4. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)

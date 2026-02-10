@@ -2,7 +2,7 @@
 layout: post
 title: "Training Neural Networks for Protein Science"
 date: 2026-03-02
-description: "Loss functions, optimizers, the training loop, data loading, validation, overfitting, and backpropagation—everything you need to train a protein model."
+description: "Loss functions, optimizers, the training loop, data loading, validation, and overfitting—everything you need to train a protein model."
 course: "2026-spring-protein-ai"
 course_title: "Protein & Artificial Intelligence"
 course_semester: "Spring 2026"
@@ -31,8 +31,6 @@ Preliminary Note 4 applies all of these components in a complete case study: pre
 | 3 | The Training Loop | The four-step cycle that turns data into knowledge |
 | 4 | Data Loading for Proteins | Efficient batching, shuffling, and handling of variable-length sequences |
 | 5 | Validation, Overfitting, and the Bias-Variance Tradeoff | How to detect when your model is memorizing rather than learning |
-| 6 | Backpropagation (Advanced) | How gradients flow through multi-layer networks via the chain rule |
-
 ### Prerequisites
 
 This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Module`, activation functions, autograd, gradient descent, and protein features.
@@ -43,6 +41,11 @@ This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Modul
 
 A neural network with random weights outputs meaningless noise.
 To make it learn, we need a way to quantify *how wrong* its predictions are, so that gradient descent can push the weights in the right direction.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/supervised_surface.png' | relative_url }}" alt="Loss surface for a linear regression model">
+    <div class="caption mt-1"><strong>The loss function as a surface over parameter space.</strong> A linear model with two parameters — intercept \(\phi_0\) (our bias \(b\)) and slope \(\phi_1\) (our weight \(w\)). (a) 3D view: the vertical axis shows the loss \(L[\phi]\) (our \(\mathcal{L}(\theta)\)). The bowl shape means gradient descent will converge to the unique minimum. (b) Top-down contour view of the same surface: darker regions have higher loss. The cyan and gray dots mark different parameter settings; training moves from high-loss regions toward the minimum. Source: Prince, <em>Understanding Deep Learning</em>, Fig 2.3 (CC BY-NC-ND).</div>
+</div>
 
 The **loss function** (also called a cost function or objective function) does exactly this: a single number measuring prediction quality.
 Zero means perfect; larger means worse.
@@ -155,6 +158,17 @@ Too large, and training becomes unstable --- the loss oscillates wildly or diver
 
 ### Mini-Batch Training: Why Not Use All the Data?
 
+There is a computational reason and a statistical reason for processing data in small batches rather than all at once.
+
+The **computational reason** is hardware efficiency.
+Modern GPUs achieve peak throughput on matrix operations of a specific size --- too small and the GPU cores sit idle; too large and the activation tensors overflow GPU memory.
+A batch of 32--128 proteins hits the sweet spot: large enough for efficient parallelism, small enough to fit in memory.
+On a typical GPU, a batch matrix multiplication runs hundreds of times faster than processing the same examples one by one in a Python loop[^gpuspeed].
+
+[^gpuspeed]: The speedup comes from GPU parallelism: a batch matrix multiplication dispatches all dot products simultaneously across thousands of GPU cores, while a Python loop processes them sequentially with additional interpreter overhead.
+
+The **statistical reason** is that small random batches provide a noisy but unbiased estimate of the full gradient --- and that noise turns out to help generalization (see batch size discussion below).
+
 Suppose your training set contains 50,000 proteins.
 Full-batch gradient descent processes all 50,000 before taking a single weight update --- slow, and the memory required to store all activations simultaneously exceeds any GPU.
 
@@ -167,6 +181,11 @@ $$
 
 Here $$\ell(\mathbf{x}_i, y_i; \theta)$$ is the loss for a single example, and $$\mathcal{L}(\theta) = \frac{1}{n}\sum_{i=1}^{n} \ell(\mathbf{x}_i, y_i; \theta)$$ is the full-dataset loss.
 The mini-batch gradient approximates the full gradient using only $$B \ll n$$ examples.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/sgd_trajectory.png' | relative_url }}" alt="Gradient descent vs stochastic gradient descent trajectories">
+    <div class="caption mt-1"><strong>Gradient descent vs. stochastic gradient descent.</strong> Both panels show the loss \(L[\phi]\) (our \(\mathcal{L}(\theta)\)) as a contour map over two parameters \(\phi_0, \phi_1\) (our \(\theta\)). Lighter regions are lower loss. (a) Full-batch gradient descent follows a smooth path from the starting point (top-left dot) to the minimum (numbered steps 1→3). (b) SGD takes a noisier, zigzagging path because each mini-batch gradient is a random approximation — but it still converges, and the noise can help escape shallow local minima. Source: Prince, <em>Understanding Deep Learning</em>, Fig 6.4 (CC BY-NC-ND).</div>
+</div>
 
 The word **stochastic** in "stochastic gradient descent" refers to this randomness: at each step, the mini-batch is a random sample, so the gradient is a random variable.
 The `shuffle=True` flag in PyTorch's DataLoader is what makes SGD stochastic --- it randomizes which proteins end up in which mini-batch at each epoch.
@@ -185,6 +204,12 @@ After each epoch, the DataLoader reshuffles the dataset, so mini-batches are dif
 
 Vanilla SGD can oscillate when the loss surface curves much more steeply in one direction than another.
 **Momentum** fixes this by accumulating a running average of recent gradients, so the optimizer builds speed in consistent directions and dampens oscillations.
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/momentum.png' | relative_url }}" alt="Momentum and Nesterov momentum trajectories">
+    <div class="caption mt-1"><strong>How momentum improves optimization.</strong> Both panels show the loss \(L[\phi]\) (our \(\mathcal{L}(\theta)\)) as a contour map over two parameters. Two independent optimization runs are shown (cyan and white paths) from different starting points. (a) Without momentum, both runs take erratic paths with sharp direction changes. (b) With momentum, the optimizer accumulates velocity from recent gradients, smoothing the paths and making faster progress toward the minimum. Source: Prince, <em>Understanding Deep Learning</em>, Fig 6.7 (CC BY-NC-ND).</div>
+</div>
+
 **Adam** [3] goes further by adapting the learning rate individually for each parameter based on its recent gradient history.
 **AdamW** [6] is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
 
@@ -259,41 +284,19 @@ Without zeroing, gradients from previous batches would contaminate the current u
 
 ## 4. Data Loading: Feeding Proteins to Neural Networks
 
-Getting data from disk into the model efficiently is a surprisingly important engineering problem --- and proteins make it harder than most domains.
+Getting data from disk into the model efficiently is a surprisingly important engineering problem.
 
-PyTorch separates this into two abstractions: the **Dataset** (how to access a single example) and the **DataLoader** (batching, shuffling, padding, parallel loading).
-Loading everything into a single tensor is impractical for three reasons.
+PyTorch separates this into two abstractions: the **Dataset** (how to access individual examples) and the **DataLoader** (batching, shuffling, parallel loading).
 
-**Variable lengths.**
-A 50-residue peptide and a 1,000-residue enzyme cannot be naively stacked into a single tensor.
-Each protein must be individually encoded and padded to a common length within each batch, and the padding length should change from batch to batch to avoid wasting computation.
-
-**Large datasets.**
-UniProt contains over 200 million protein sequences.
-Even a curated training set of 100,000 proteins may not fit in GPU memory simultaneously.
-The DataLoader streams batches from disk or CPU memory to the GPU on demand, so only one batch needs to reside on the GPU at any time.
-
-**GPU efficiency.**
-Mini-batch training requires data to arrive in consistent batches of a fixed size.
-The DataLoader handles this automatically: it groups proteins into batches, shuffles the ordering each epoch (making SGD stochastic), and optionally loads data in parallel using background worker processes.
-
-### The `Dataset` Class
-
-A `Dataset` subclass for protein sequences implements two methods: `__len__` returns the dataset size, and `__getitem__` returns one example (encoded sequence, padding mask, and label) by index.
-The encoding maps each amino acid to an integer (1--20, with 0 reserved for padding), and a binary mask distinguishes real residues from padding positions.
-
-### The `DataLoader`: Batching and Shuffling
-
-The `DataLoader` wraps a dataset and handles three important tasks:
-
-1. **Batching**: groups individual examples into batches for efficient GPU computation.
-2. **Shuffling**: randomizes the order of examples each epoch so the model does not learn spurious ordering patterns.
-3. **Parallel loading**: uses multiple worker processes to prepare the next batch while the GPU trains on the current one.
+For our MLP on flattened one-hot sequences, the simplest approach is `TensorDataset`: pre-encode and pad all sequences, flatten them into feature vectors, wrap the features and labels as tensors, and hand them to a `DataLoader`.
 
 ```python
-# Create dataset objects
-train_dataset = ProteinDataset(train_sequences, train_labels)
-val_dataset = ProteinDataset(val_sequences, val_labels)
+from torch.utils.data import TensorDataset, DataLoader
+
+# features_flat: shape (N, max_len * 20) — pre-encoded, padded, flattened
+# labels: shape (N,) — integer class labels
+train_dataset = TensorDataset(features_flat[train_idx], labels[train_idx])
+val_dataset = TensorDataset(features_flat[val_idx], labels[val_idx])
 
 # Wrap in DataLoaders
 train_loader = DataLoader(
@@ -311,26 +314,26 @@ val_loader = DataLoader(
 )
 
 # Iterate through batches
-for batch in train_loader:
-    sequences = batch['sequence']   # Shape: (32, max_len)
-    masks = batch['mask']           # Shape: (32, max_len)
-    labels = batch['label']         # Shape: (32,)
-    # ... feed to model ...
+for batch_x, batch_y in train_loader:
+    # batch_x shape: (32, 2000) — flattened one-hot features
+    # batch_y shape: (32,) — solubility labels
+    pass  # ... feed to model ...
 ```
 
-### Handling Variable-Length Sequences
+The `DataLoader` handles three tasks automatically: **batching** (grouping examples for efficient GPU computation), **shuffling** (randomizing order each epoch so the model does not learn spurious ordering patterns), and **parallel loading** (preparing the next batch while the GPU trains on the current one).
 
-Proteins range from tens to thousands of amino acids.
-Padding every sequence to the length of the longest protein in the entire dataset wastes computation and memory.
-A **custom collate function** (passed as `collate_fn` to `DataLoader`) can pad each batch only to its own maximum length rather than the global maximum.
-The function receives a list of individual examples, finds the longest sequence in the batch, pads all others to that length, and stacks them into tensors.
-This reduces wasted computation when batches contain mostly short sequences.
+The `shuffle=True` flag is critical --- it makes SGD stochastic by randomizing which proteins end up in which mini-batch at each epoch.
 
 ---
 
 ## 5. Validation, Overfitting, and the Bias-Variance Tradeoff
 
 ### The Bias-Variance Tradeoff
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/bias_variance_tradeoff.png' | relative_url }}" alt="Bias-variance tradeoff: U-shaped test error">
+    <div class="caption mt-1"><strong>The bias-variance tradeoff.</strong> As model capacity increases (x-axis), bias decreases (orange) but variance increases (cyan). The total error (dashed black) forms a U-shape --- too simple models underfit, too complex models overfit. The sweet spot minimizes total error. Source: Prince, <em>Understanding Deep Learning</em>, Fig 8.4 (CC BY-NC-ND).</div>
+</div>
 
 Why not just use the most powerful model available?
 Because model complexity is a double-edged sword.
@@ -405,83 +408,6 @@ Saving the model at that point --- and discarding later, overfit versions --- is
 
 ---
 
-## 6. Backpropagation (Advanced)
-
-*This section is optional for a first reading. It explains how PyTorch computes gradients through multi-layer networks. You can safely skip it and return later.*
-
-In a deep network, a weight in an early layer affects the final loss through a chain of intermediate computations.
-Computing its gradient requires the **chain rule** from calculus.
-
-### The Chain Rule
-
-We need $$\nabla_\theta \mathcal{L}(\theta)$$ --- the derivative of the loss with respect to every parameter in $$\theta$$.
-But a parameter in an early layer does not appear directly in the loss formula; it influences the loss through a chain of intermediate computations: $$\theta_k \to z \to a \to \cdots \to L$$.
-The chain rule lets us decompose this dependency.
-For a parameter $$\theta_k$$ that affects the loss through an intermediate variable $$z$$:
-
-$$
-\frac{\partial \mathcal{L}}{\partial \theta_k} = \frac{\partial \mathcal{L}}{\partial z} \cdot \frac{\partial z}{\partial \theta_k}
-$$
-
-In words: to find how $$\theta_k$$ affects $$\mathcal{L}$$, multiply how $$z$$ affects $$\mathcal{L}$$ by how $$\theta_k$$ affects $$z$$.
-Applied recursively backward through the network --- from the loss, through each layer, all the way to the first parameter --- this gives us $$\nabla_\theta \mathcal{L}(\theta)$$.
-This recursive backward application of the chain rule is the **backpropagation** algorithm[^backprop].
-
-#### Worked Example: A Two-Layer Network
-
-Consider a network with two layers: $$\mathbf{h}^{(1)} = \sigma(\mathbf{W}^{(1)} \mathbf{x})$$, $$\mathbf{h}^{(2)} = \mathbf{W}^{(2)} \mathbf{h}^{(1)}$$, and loss $$\mathcal{L} = \ell(\mathbf{h}^{(2)}, y)$$.
-To compute the gradient with respect to $$\mathbf{W}^{(1)}$$, we trace backward through the chain:
-
-$$
-\frac{\partial \mathcal{L}}{\partial \mathbf{W}^{(1)}} = \underbrace{\frac{\partial \mathcal{L}}{\partial \mathbf{h}^{(2)}}}_{\text{from loss}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}}_{ = \mathbf{W}^{(2)}} \cdot \underbrace{\frac{\partial \mathbf{h}^{(1)}}{\partial \mathbf{W}^{(1)}}}_{\text{involves } \sigma'}
-$$
-
-Each factor is a local derivative that each layer can compute independently.
-The key insight: backpropagation never needs the full chain --- it passes $$\frac{\partial \mathcal{L}}{\partial \mathbf{h}^{(2)}}$$ backward to the first layer, which multiplies by its own local derivatives.
-This is why deep networks with hundreds of layers remain tractable: the cost of backpropagation is proportional to the cost of the forward pass.
-
-[^backprop]: Backpropagation was popularized for neural network training by Rumelhart, Hinton, and Williams in 1986, though the mathematical idea of reverse-mode automatic differentiation predates it.
-
-### The Computation Graph
-
-The following diagram shows a simple computation graph and how gradients flow backward through it during backpropagation.
-
-<div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-03-preliminary-training_diagram_0.png' | relative_url }}" alt="s26-03-preliminary-training_diagram_0">
-</div>
-
-### PyTorch Autograd
-
-In practice, you never implement backpropagation yourself.
-PyTorch automatically builds a computational graph during the forward pass and traverses it in reverse when you call `.backward()`.
-
-A simple example:
-
-```python
-# Create a tensor and tell PyTorch to track operations on it
-x = torch.tensor([2.0, 3.0], requires_grad=True)
-
-# Forward computation: y_i = x_i^2 + 3*x_i
-y = x ** 2 + 3 * x
-
-# The loss must be a scalar (single number) for .backward()
-z = y.sum()
-
-# Backward pass: compute dz/dx for each element of x
-z.backward()
-
-# Gradients are stored in the .grad attribute
-print(x.grad)  # tensor([7., 9.])
-```
-
-Verify by hand.
-We have $$z = \sum_i (x_i^2 + 3x_i)$$, so the partial derivative is $$\frac{\partial z}{\partial x_i} = 2x_i + 3$$.
-For $$x_1 = 2$$: $$2(2) + 3 = 7$$.
-For $$x_2 = 3$$: $$2(3) + 3 = 9$$.
-PyTorch computed exactly these values --- automatically.
-
----
-
 ## Key Takeaways
 
 1. **Loss functions** quantify prediction errors. MSE for regression, BCE for binary classification, CE for multi-class. Always use PyTorch's numerically stable versions (`BCEWithLogitsLoss`, `CrossEntropyLoss`).
@@ -490,13 +416,11 @@ PyTorch computed exactly these values --- automatically.
 
 3. **Training** is a four-step loop --- forward pass, loss computation, backward pass, weight update --- repeated across many batches and epochs. Don't forget `optimizer.zero_grad()` before each backward pass.
 
-4. **Data loading** with `Dataset` and `DataLoader` handles batching, shuffling, and parallel processing. Custom collate functions manage variable-length protein sequences efficiently.
+4. **Data loading** with `TensorDataset` and `DataLoader` handles batching, shuffling, and parallel processing. Pre-encode and flatten protein features, then let the DataLoader stream batches to the GPU.
 
 5. **The bias-variance tradeoff** governs model design: too simple models underfit (high bias), too complex models overfit (high variance). The train/validation/test split is essential for detecting overfitting.
 
-6. **Backpropagation** uses the chain rule to compute gradients through multi-layer networks. PyTorch automates this entirely --- you only define the forward pass.
-
-7. **Next up**: Preliminary Note 4 applies all of these components in a complete case study --- predicting protein solubility --- including evaluation, sequence-identity splits, class imbalance, and debugging.
+6. **Next up**: Preliminary Note 4 applies all of these components in a complete case study --- predicting protein solubility --- including evaluation, sequence-identity splits, class imbalance, and debugging.
 
 ---
 
@@ -510,8 +434,10 @@ PyTorch computed exactly these values --- automatically.
 
 4. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., ... & Fergus, R. (2021). "Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences." *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
 
-5. Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). "Learning Representations by Back-Propagating Errors." *Nature*, 323(6088), 533--536.
+5. Loshchilov, I. & Hutter, F. (2019). "Decoupled Weight Decay Regularization." *Proceedings of ICLR*. (The paper introducing AdamW.)
 
-6. Loshchilov, I. & Hutter, F. (2019). "Decoupled Weight Decay Regularization." *Proceedings of ICLR*. (The paper introducing AdamW.)
+6. PyTorch Documentation. [https://pytorch.org/docs/stable/](https://pytorch.org/docs/stable/).
 
-7. PyTorch Documentation. [https://pytorch.org/docs/stable/](https://pytorch.org/docs/stable/).
+7. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
+
+8. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)

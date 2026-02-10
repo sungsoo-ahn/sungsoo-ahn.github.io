@@ -139,6 +139,11 @@ By analyzing which sequence features ProteinMPNN considers important for a given
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_1.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_1">
 </div>
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/papers/proteinmpnn_bioRxiv_fig1.jpg' | relative_url }}" alt="ProteinMPNN architecture and sequence recovery">
+    <div class="caption mt-1"><strong>ProteinMPNN overview.</strong> (a) A protein backbone is represented as a k-nearest-neighbor graph over residue positions. (b) The message-passing architecture encodes structural context and decodes amino acid sequences autoregressively. (c) Sequence recovery rates across different protein types. Source: Dauparas et al. (2022), bioRxiv, CC BY 4.0.</div>
+</div>
+
 The first step in ProteinMPNN's pipeline is converting a protein backbone into a graph.
 This is where the geometric nature of the problem gets translated into a form that a neural network can process.
 
@@ -928,3 +933,5 @@ It runs in seconds per sequence on a single GPU, requires no MSA computation, an
 6. Gilmer, J., Schoenholz, S. S., Riley, P. F., Vinyals, O., & Dahl, G. E. (2017). "Neural Message Passing for Quantum Chemistry." *Proceedings of the 34th International Conference on Machine Learning (ICML)*.
 
 7. Jumper, J., Evans, R., Pritzel, A., et al. (2021). "Highly accurate protein structure prediction with AlphaFold." *Nature*, 596, 583--589. [doi:10.1038/s41586-021-03819-2](https://doi.org/10.1038/s41586-021-03819-2)
+
+8. Dauparas, J., et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *bioRxiv*. [doi:10.1101/2022.06.03.494563](https://doi.org/10.1101/2022.06.03.494563). CC BY 4.0.

@@ -77,6 +77,10 @@ The gap between training performance and test performance is the central challen
 Every technique in this course --- model size, regularization, data splitting --- exists to close that gap.
 We formalize this as the **bias-variance tradeoff** in Preliminary Note 3.
 
+One more gap to flag now: the linear model we build in Section 4 can only learn straight-line relationships between features and predictions.
+Real protein properties depend on *nonlinear* combinations of features --- a cluster of five hydrophobic residues in a row matters far more than five scattered throughout the sequence, but a linear model treats both identically.
+Preliminary Note 2 introduces neural networks, which overcome this limitation by composing simple nonlinear transformations into powerful function approximators.
+
 ---
 
 ## 2. The Machine Learning Pipeline
@@ -88,7 +92,7 @@ Every project follows the same arc.
 </div>
 
 You start with data --- proteins and their labels, mined from databases like UniProt[^uniprot] or high-throughput expression studies.
-The data is messy: ambiguous amino acid codes (B for Asp or Asn, X for unknown), missing atoms in crystal structures, inconsistent formats.
+The data is messy: ambiguous amino acid codes (B for Asp or Asn, X for unknown), sequences of wildly different lengths, inconsistent formats.
 You clean it, encode it as numerical features --- one-hot vectors, physicochemical descriptors, learned embeddings (the subject of Note 2) --- and feed it to a model.
 
 [^uniprot]: UniProt (Universal Protein Resource) is the most comprehensive database of protein sequences and functional annotations, containing over 200 million entries as of 2025.
@@ -174,7 +178,7 @@ print(f"Shape with batch dimension:   {batched.shape}")  # torch.Size([1, 7, 20]
 ```
 
 The final shape `(1, 7, 20)` is the standard format for feeding protein sequences into neural networks: batch size, sequence length, and feature dimension.
-When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- Preliminary Note 3 covers how padding and masking handle the fact that different proteins have different lengths.
+When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- Preliminary Note 2 covers how padding and flattening handle the fact that different proteins have different lengths.
 
 ### The GPU Advantage
 
@@ -256,6 +260,11 @@ $$
 \hat{y} = \mathbf{x} \cdot \mathbf{w} + b = \sum_{j=1}^{10} x_j w_j + b
 $$
 
+<div class="col-sm-6 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/singleneuron.png' | relative_url }}" alt="Linear regression as a single neuron">
+    <div class="caption mt-1"><strong>Linear regression as a single neuron.</strong> Input features \(x_1, x_2, \ldots, x_d\) (our 10 physicochemical features) each connect to a single output \(o_1\) (our prediction \(\hat{y}\)) through learned weights. This is the simplest possible neural network — one neuron with no activation function. Preliminary Note 2 adds nonlinearities and stacking to build more powerful networks. Source: Zhang et al., <em>Dive into Deep Learning</em>, Fig 3.1.1 (CC BY-SA 4.0).</div>
+</div>
+
 Now suppose we have not one protein but 100.
 We stack their feature vectors into a matrix $$\mathbf{X}$$ of shape (100 $$\times$$ 10), where each **row** is one protein's features.
 A single matrix multiplication $$\mathbf{X}\mathbf{W}$$ computes the weighted sum for all 100 proteins at once:
@@ -327,9 +336,9 @@ Preliminary Note 3 covers others suited to classification tasks.
 
 ### Learning from Mistakes: Gradients and Optimization
 
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/gradient_descent.png' | relative_url }}" alt="Gradient descent on a 2D loss landscape">
-    <div class="caption mt-1">Gradient descent on a 2D loss landscape. Starting from an initial point (red dot), the optimizer follows the direction of steepest descent at each step, tracing a path (red line) toward the minimum (red star). The contours represent level sets of the loss function.</div>
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/supervised_learning.png' | relative_url }}" alt="Gradient descent on a loss surface and the resulting model fits">
+    <div class="caption mt-1"><strong>Gradient descent in action.</strong> (a) The loss surface over two parameters: intercept \(\phi_0\) and slope \(\phi_1\) (corresponding to bias \(b\) and a single weight \(w\) in our notation). Darker regions have higher loss. Gradient descent starts at a random point (step 0, light dot) and follows the steepest-descent direction, reaching a good fit by step 4 (dark dot). (b) The corresponding model predictions (lines) at each step. Early steps (light lines) fit poorly; later steps (dark lines) converge toward the data (orange dots). Source: Prince, <em>Understanding Deep Learning</em>, Fig 2.4 (CC BY-NC-ND).</div>
 </div>
 
 We want to adjust $$\mathbf{W}$$ and $$b$$ to reduce the loss.
@@ -393,7 +402,7 @@ We cannot visualize it, but the intuition still holds: the loss defines a surfac
 The remarkable thing about PyTorch is that you never need to compute gradients by hand.
 You define only the forward computation --- how inputs become outputs --- and PyTorch automatically tracks every operation in a **computational graph**.
 When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule.
-Preliminary Note 3 covers the details of how backpropagation works.
+PyTorch uses the chain rule (backpropagation) to compute all gradients automatically.
 
 ### One Complete Learning Step
 
@@ -454,3 +463,7 @@ In practice, PyTorch provides optimizers (like `torch.optim.SGD` and `torch.opti
 2. Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." *Advances in Neural Information Processing Systems*, 32.
 
 3. Kingma, D. P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization." *Proceedings of the 3rd International Conference on Learning Representations (ICLR)*.
+
+4. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
+
+5. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)
