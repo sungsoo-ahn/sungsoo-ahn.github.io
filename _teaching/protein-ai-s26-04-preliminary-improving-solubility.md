@@ -238,11 +238,6 @@ An AUC of 1.0 means the model achieves perfect separation at some threshold; 0.5
 | **F1 Score** | Harmonic mean of precision and recall | Balance between missing soluble proteins and wasting experiments |
 | **AUC-ROC** | How well does the model separate classes across all thresholds? | Overall ability to distinguish soluble from insoluble |
 
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/precision_recall_curves.png' | relative_url }}" alt="Precision-recall tradeoff">
-    <div class="caption mt-1">Precision-recall curves for two models and a random baseline. The tradeoff between precision and recall is controlled by the classification threshold.</div>
-</div>
-
 The precision-recall tradeoff deserves special attention.
 In a drug discovery setting, where expressing each candidate is expensive, a biologist might want **high precision**: "I only want to express proteins that are very likely to be soluble."
 By raising the classification threshold from 0.5 to 0.8, we predict fewer proteins as soluble but are more confident in those predictions.
@@ -282,8 +277,19 @@ This is **data leakage** --- the test set contains information that was effectiv
 
 ### The Solution: Sequence-Identity Splits
 
-The fix: cluster proteins by sequence identity (typically 30--40%) and split at the **cluster** level, not the individual protein level.
-No test protein should be closely related to any training protein.
+The fix relies on **sequence clustering**.
+The idea is to group proteins so that any two proteins in the same group are similar (above some sequence-identity threshold), while proteins in different groups are dissimilar.
+
+Concretely, a clustering tool like MMseqs2 compares every pair of proteins in the dataset and computes their **sequence identity** --- the fraction of aligned positions where the amino acids match.
+It then groups proteins into **clusters** using a threshold (say 30%): if protein A and protein B share $$\geq$$ 30% identity, they end up in the same cluster.
+Each cluster has a representative sequence, and every other member is reachable from the representative through a chain of pairwise alignments above the threshold.
+
+For example, with 10,000 proteins and a 30% identity threshold, you might get 3,000 clusters.
+Some clusters contain a single unique protein; others contain dozens of close homologs.
+The crucial property is that **proteins in different clusters share less than 30% identity**, so they are genuinely different from one another.
+
+We then split at the **cluster** level, not the individual protein level: all members of a cluster go into the same split (train, validation, or test).
+This ensures that no test protein is closely related to any training protein.
 
 ```python
 import subprocess

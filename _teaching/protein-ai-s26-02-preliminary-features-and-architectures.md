@@ -20,14 +20,18 @@ collapse_code: true
 
 ## Introduction
 
-Proteins are not tensors.
-They are amino acid sequences stored in text files.
-Before any model can learn from protein data, you must solve a translation problem: convert biological data into numerical **features** that a neural network can process.
+Preliminary Note 1 introduced the learning cycle: model, loss, gradients, update.
+But that note used toy numerical inputs.
+Real protein data comes as amino acid sequences stored in text files --- none of which a neural network can process directly.
+
+This note builds the bridge from raw biological data to trained predictors, in three steps.
+First, we learn to **read** the standard sequence file format (FASTA) so that protein data can enter a computational pipeline.
+Second, we **encode** sequences as numerical features (one-hot vectors), package them as PyTorch tensors, and introduce the **neural network architectures** --- from single neurons to multi-layer perceptrons --- that transform those features into predictions.
+Finally, we survey the **task formulations** (regression, classification, sequence-to-sequence) that map different biological questions to the right mathematical setup.
 
 A note on terminology: **features** are the numerical inputs you construct from raw data --- one-hot encodings, amino acid compositions, and the like.
 **Representations** are the internal vectors that a neural network learns in its hidden layers.
 Features are hand-crafted; representations are learned.
-This note covers both sides: how to build features from protein sequences, and the neural network architectures that learn representations from them.
 
 ### Roadmap
 
@@ -246,7 +250,7 @@ A single neuron can only learn linear decision boundaries.
 This is sufficient for linearly separable problems but fails when the boundary between classes is curved or disconnected --- which is why we need multiple layers.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-protein-data_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-features-and-architectures_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-features-and-architectures_diagram_0">
 </div>
 
 ### 2.5 Layers: Many Neurons in Parallel
@@ -282,7 +286,7 @@ The most common default is **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$.
 ### 2.6 Why Depth Matters: The Power of Composition
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-protein-data_diagram_1.png' | relative_url }}" alt="A two-hidden-layer MLP for solubility prediction">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-features-and-architectures_diagram_1.png' | relative_url }}" alt="A two-hidden-layer MLP for solubility prediction">
     <div class="caption mt-1"><strong>A two-hidden-layer MLP for solubility prediction.</strong> The flattened padded sequence is transformed through two hidden layers of decreasing width (64, 32), each applying a linear transformation followed by an activation function. The output layer produces two scores (soluble vs. insoluble).</div>
 </div>
 
