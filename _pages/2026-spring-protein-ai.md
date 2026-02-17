@@ -13,6 +13,10 @@ description: "Spring 2026 · KAIST"
 
 **Prerequisites:** {{ course.prerequisites }}
 
+**Textbooks:** Our lecture notes are self-contained, but students who want deeper explanations of the deep learning foundations may find these two open-access textbooks helpful:
+- Zhang et al., [*Dive into Deep Learning*](https://d2l.ai/) (CC BY-SA 4.0) — hands-on, code-first introduction to deep learning with PyTorch.
+- Prince, [*Understanding Deep Learning*](https://udlbook.github.io/udlbook/) (CC BY-NC-ND) — conceptual and mathematical treatment with excellent figures.
+
 {% assign notes = site.teaching | where: "course", course.id %}
 {% assign preliminary = notes | where: "preliminary", true | sort: "lecture_number" %}
 {% assign lectures = notes | where_exp: "item", "item.preliminary != true" | sort: "lecture_number" %}
