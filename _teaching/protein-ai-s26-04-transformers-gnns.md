@@ -21,14 +21,14 @@ Proteins are simultaneously one-dimensional and three-dimensional objects.  Thei
 
 Two families of architectures have risen to meet this challenge.  **Transformers** process protein sequences by letting every residue attend to every other residue, bypassing the information bottleneck of sequential models.  **Graph neural networks (GNNs)** operate directly on the three-dimensional contact graph of a protein structure, passing messages between spatially neighboring residues.  Together, they form the architectural backbone of nearly every state-of-the-art protein model, from ESM-2 to AlphaFold.
 
-This lecture develops both families from first principles.  We begin with a biological motivation---co-evolution in protein families---and show how it maps onto the attention mechanism.  We then build the full transformer architecture piece by piece.  In the second half, we represent proteins as graphs and derive the message-passing framework, instantiating it in three concrete architectures: GCN, GAT, and MPNN.  We close with SE(3)-equivariant GNNs and the connection to AlphaFold.
+This lecture develops both families from first principles.  We begin by asking how neural networks can handle proteins of vastly different lengths, and develop attention as an adaptive linear layer that builds its own weight matrix from the input.  We then build the full transformer architecture piece by piece.  In the second half, we represent proteins as graphs and derive the message-passing framework, instantiating it in three concrete architectures: GCN, GAT, and MPNN.  We close with SE(3)-equivariant GNNs and the connection to AlphaFold.
 
 ### Roadmap
 
 | Section | Topic | Why it is needed |
 |---------|-------|-----------------|
-| 1 | From co-evolution to attention | Biological grounding for pairwise interactions and the failures of RNNs that motivate attention |
-| 2 | The attention mechanism | Q/K/V intuition, scaled dot-product attention, and multi-head attention |
+| 1 | Why attention? | Variable-length inputs, the limits of sequential processing, and attention as an adaptive linear layer |
+| 2 | The attention mechanism | Attention as adaptive weights, the Q/K/V parameterization, scaling, and multi-head attention |
 | 3 | The transformer architecture | Attention + FFN + residual connections + normalization, and positional encoding |
 | 4 | Preview: protein language models | Why transformers + masked prediction = powerful protein representations (details in Lecture 3) |
 | 5 | Proteins as graphs | Representing 3D structure for neural processing |
@@ -38,30 +38,15 @@ This lecture develops both families from first principles.  We begin with a biol
 
 ---
 
-## 1. From Co-Evolution to Attention
+## 1. Why Attention?
 
-A **multiple sequence alignment** (MSA) arranges homologous sequences row by row, with columns corresponding to equivalent sites across species. Conserved columns indicate positions under evolutionary constraint. Here we explore how the patterns within MSAs motivate the attention mechanism.
+A protein can be 50 residues or 500.  A standard linear layer `nn.Linear(in_features, out_features)` has fixed input and output dimensions---it cannot accept inputs of varying length.  Any architecture for proteins must handle **variable-length inputs** as a first-class concern.
 
-Consider a protein that has existed, in various forms, for billions of years.  Its relatives are scattered across every domain of life---from bacteria to whales to oak trees.  Each relative carries a slightly different version of the sequence, shaped by the survival challenges of its host organism.  By aligning these related sequences into a **multiple sequence alignment (MSA)**, biologists noticed something striking: certain pairs of positions tend to mutate together.
-
-Suppose position 23 changes from alanine to valine in one lineage.  Position 87 often changes from glutamate to aspartate in the same lineage.  These **correlated mutations** are not coincidences.  They signal that residues 23 and 87 are physically close in the folded structure, or that they participate in the same functional interaction.  When one changes, the other must compensate to preserve the protein's function.
-
-This phenomenon is called **co-evolution**[^coevol], and for decades computational biologists built methods around it---from correlated-mutation analysis to direct coupling analysis (DCA).  All these methods ask the same question: *which positions in a protein sequence are paying attention to each other?*
-
-<div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_0.png' | relative_url }}" alt="Co-evolution in multiple sequence alignments: correlated mutations reveal spatial contacts between residue pairs">
-</div>
-<div class="caption mt-1"><strong>Co-evolution in MSAs.</strong> Correlated mutations across homologous sequences reveal residue pairs that are in spatial contact. Positions 23 and 87 tend to mutate together across species, signaling a structural or functional relationship.</div>
-
-[^coevol]: Co-evolution in this context refers to intramolecular co-evolution, where pairs of residues within a single protein co-vary across a family of homologous sequences.  This is distinct from the broader evolutionary biology concept of co-evolution between separate species.
-
-The attention mechanism in neural networks formalizes exactly this intuition.  Instead of computing statistical correlations from evolutionary data, we let the network *learn* which positions should attend to which---directly from data.  And just as co-evolution reveals hidden three-dimensional structure lurking within one-dimensional sequences, attention allows neural networks to discover long-range relationships that sequential processing would miss.
+Three broad strategies exist.  **Recurrent neural networks (RNNs)** process the sequence one token at a time, maintaining a hidden state that accumulates context.  **Convolutional neural networks (CNNs)** slide fixed-size windows over the sequence, aggregating local neighborhoods.  **Attention** computes direct pairwise interactions between all positions, regardless of their distance.  Each strategy accepts any length, but they differ dramatically in how information flows.
 
 ### The Limitations of Sequential Processing
 
-**Recurrent neural networks (RNNs)** process sequences one element at a time, passing information forward through a hidden state.  This approach has an intuitive appeal for proteins: reading the chain from the N-terminus to the C-terminus, accumulating context as you go.
-
-But sequential processing creates three serious problems.
+RNNs solve the variable-length problem by processing one residue at a time, but this creates three serious difficulties.
 
 **The parallelization bottleneck.**  To compute the hidden state at position 100, you must first compute the hidden states at positions 1 through 99.  This fundamentally sequential dependence means you cannot exploit the parallelism of modern GPUs, which excel when they can perform many independent operations simultaneously.
 
@@ -69,12 +54,12 @@ But sequential processing creates three serious problems.
 
 **The information bottleneck.**  The entire context of a long sequence must be compressed into a fixed-size hidden state vector.  For a 500-residue protein, all information about the first 400 residues must fit into a vector of perhaps 256 or 512 numbers before it can influence the representation of residue 401.  Important details inevitably get lost.
 
-Attention offers a radical alternative.  Instead of routing information through a long chain of intermediate steps, we create direct connections between every pair of positions.  Residue 1 can communicate with residue 500.  Residue 237 can communicate with residue 238.  Every pairwise relationship is available, and the network learns which ones matter.
-
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/cnn-rnn-self-attention.png' | relative_url }}" alt="CNN vs RNN vs Self-Attention">
     <div class="caption mt-1"><strong>Three approaches to sequence processing.</strong> CNNs aggregate local windows. RNNs propagate information sequentially, creating a bottleneck for long-range dependencies. Self-attention connects every pair of positions directly, enabling any residue to attend to any other in a single step. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
 </div>
+
+Attention offers a radical alternative.  Instead of routing information through a long chain of intermediate steps, it creates direct connections between every pair of positions.  The core idea: attention builds an **input-dependent weight matrix**---an adaptive linear layer where the same learned parameters produce different behavior for each input.  The next section develops this idea formally.
 
 ---
 
@@ -94,15 +79,23 @@ What changes is the *meaning* of each vector --- raw amino-acid identity in, con
 
 The following sections build each component.
 
-### The Query-Key-Value Intuition
+### Attention as Adaptive Weights
 
-Imagine you encounter a cysteine at position 50 in a protein sequence and want to understand its role in context.  Which other positions should you pay attention to?
+A standard linear layer applies a fixed weight matrix $$W$$ to an input $$X$$, producing $$XW$$.  The same $$W$$ is used regardless of the input.  Each position is processed independently---there is no cross-position interaction.
 
-Perhaps there is another cysteine at position 127.  If these two cysteines form a disulfide bond, they are critical to each other despite being 77 positions apart.  You should attend strongly to position 127.
+What if the weights depended on the input itself?  Attention does exactly this.  Given a sequence of $$L$$ input vectors $$x_1, \dots, x_L$$, compute pairwise compatibility scores between all positions, normalize them with softmax, and use the resulting weights to compute weighted averages:
 
-Or perhaps position 50 participates in a catalytic triad with residues at positions 95 and 143.  Again, these distant positions are functionally coupled and deserve attention.
+$$
+\alpha_{ij} = \frac{\exp(x_i^T x_j)}{\sum_k \exp(x_i^T x_k)}, \qquad \text{output}_i = \sum_j \alpha_{ij} \, x_j
+$$
 
-The attention mechanism formalizes this reasoning through three learned projections: a **query**, a **key**, and a **value**[^qkv], as illustrated below.
+The attention matrix $$(\alpha_{ij})$$ has shape $$(L, L)$$ and is computed entirely from the input.  A 50-residue protein produces a $$50 \times 50$$ attention matrix; a 500-residue protein produces a $$500 \times 500$$ matrix.  The same parameters handle both---the computation adapts to the input length.
+
+This is the key insight: attention is a **linear layer whose weight matrix is computed from the data**.  Fixed layers apply the same transformation to every input; attention builds a different transformation for each input, shaped by the pairwise relationships within it.
+
+### Query, Key, Value: Parameterizing Attention
+
+The simple formula $$x_i^T x_j$$ uses the same representation for two distinct roles: "what position $$i$$ is looking for" and "what position $$j$$ has to offer."  Separating these roles with learned linear projections gives the model more flexibility.  This is the **query-key-value (Q/K/V) decomposition**[^qkv].
 
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_1.png' | relative_url }}" alt="Query-Key-Value attention: each residue computes query, key, and value vectors to determine pairwise attention weights">
@@ -115,11 +108,7 @@ The attention mechanism formalizes this reasoning through three learned projecti
     <div class="caption mt-1"><strong>Queries, keys, and values.</strong> Each input token is projected into three separate vectors. The query asks "what am I looking for?", the key advertises "what do I have?", and the value carries the information transmitted when attention is paid. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
 </div>
 
-**The query** $$q_i$$ represents what position $$i$$ is looking for.  Think of it as the question: "What kind of interaction partners am I seeking?"  A cysteine's query might implicitly encode: "I am looking for another cysteine that could form a disulfide bond with me."
-
-**The key** $$k_j$$ represents what position $$j$$ has to offer.  It advertises: "Here is what I am and what I can provide."  The cysteine at position 127 has a key that signals: "I am a cysteine, potentially available for bonding."
-
-**The value** $$v_j$$ represents the actual information transmitted when attention is paid.  Once position 50 decides to attend to position 127, the value determines what content flows.
+Consider a cysteine at position 50 in a protein sequence.  Its **query** $$q_{50}$$ encodes what it is looking for---perhaps another cysteine that could form a disulfide bond.  The **key** $$k_{127}$$ of a cysteine at position 127 advertises what it has to offer.  The **value** $$v_{127}$$ carries the actual information transmitted when position 50 attends to position 127.
 
 Formally, let $$x_i \in \mathbb{R}^d$$ be the input representation of position $$i$$.  We compute the three vectors through learned linear transformations:
 
@@ -129,7 +118,7 @@ $$
 
 Here $$W^Q, W^K \in \mathbb{R}^{d_k \times d}$$ and $$W^V \in \mathbb{R}^{d_v \times d}$$ are learnable weight matrices, where $$d$$ is the input dimension, $$d_k$$ is the query/key dimension, and $$d_v$$ is the value dimension.
 
-Next, we compute how much position $$i$$ should attend to position $$j$$ by taking the dot product of the query from $$i$$ with the key from $$j$$:
+The attention score between positions $$i$$ and $$j$$ is now computed in the projected space:
 
 $$
 \text{score}_{ij} = q_i \cdot k_j = x_i^T (W^Q)^T W^K x_j
@@ -842,13 +831,13 @@ class ProteinStructureGNN(nn.Module):
 
 Everything we have discussed in this lecture converges in **AlphaFold** (Jumper et al., 2021), perhaps the most celebrated application of deep learning to biology.  AlphaFold combines three architectural ideas from this lecture.
 
-**Transformers over multiple sequence alignments.**  AlphaFold's Evoformer module processes evolutionary information using attention mechanisms that operate over both the residue dimension and the MSA sequence dimension.  The row-wise attention identifies co-evolving positions---exactly the intuition from Section 1.
+**Transformers over multiple sequence alignments.**  AlphaFold's Evoformer module processes evolutionary information using attention mechanisms that operate over both the residue dimension and the MSA sequence dimension.  The row-wise attention identifies co-evolving positions---pairs of residues that mutate together across species, signaling spatial contacts.
 
-**Transformers over the pair representation.**  AlphaFold maintains a $$N \times N$$ pair representation that encodes all pairwise relationships between residues.  This representation is updated through attention and outer-product operations, capturing the kind of contact-map information that co-evolution reveals.
+**Transformers over the pair representation.**  AlphaFold maintains a $$N \times N$$ pair representation that encodes all pairwise relationships between residues.  This representation is updated through attention and outer-product operations, capturing pairwise structural relationships between residues.
 
 **Equivariant GNNs for structure refinement.**  The structure module uses **Invariant Point Attention (IPA)**, a form of SE(3)-equivariant attention.  Each residue is assigned a local coordinate frame.  Attention is computed using both the residue embeddings (from the Evoformer) and the geometric relationships between residue frames.  Because IPA operates in local frames, the overall computation is equivariant: rotating the initial coordinate estimate rotates the output in the same way.
 
-The power of AlphaFold comes from the synergy between these components.  Transformers capture long-range dependencies in sequence and co-evolution.  Equivariant GNNs ensure that the predicted 3D coordinates respect the symmetries of physical space.  Neither component alone would suffice.
+The power of AlphaFold comes from the synergy between these components.  Transformers capture long-range dependencies in sequence and evolutionary patterns.  Equivariant GNNs ensure that the predicted 3D coordinates respect the symmetries of physical space.  Neither component alone would suffice.
 
 Similarly, **ESMFold** demonstrates that a pure transformer model trained on sequences alone can predict structure, showing that attention can discover 3D relationships without explicit structural input.  This underscores the remarkable capacity of the attention mechanism to learn spatial organization from evolutionary data.
 
