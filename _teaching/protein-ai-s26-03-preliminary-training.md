@@ -50,7 +50,10 @@ To make it learn, we need a way to quantify *how wrong* its predictions are, so 
 
 The **loss function** (also called a cost function or objective function) does exactly this: a single number measuring prediction quality.
 Zero means perfect; larger means worse.
-The choice depends on the task --- solubility classification needs a different loss than melting temperature regression.
+Every supervised learning task needs a way to measure mistakes.
+In image classification, the loss quantifies how far the predicted class probabilities are from the true label.
+In regression tasks like predicting house prices, the loss measures how far the predicted price is from the actual sale price.
+The same principle applies to proteins: solubility classification needs a different loss than melting temperature regression.
 
 ### Mean Squared Error (MSE) for Regression
 
@@ -68,6 +71,7 @@ This makes $$\mathcal{L}_{\text{MSE}}$$ sensitive to outliers --- a single wildl
 
 ### Binary Cross-Entropy (BCE) for Binary Classification
 
+Binary cross-entropy appears throughout machine learning: tumor vs. healthy tissue in medical imaging, positive vs. negative sentiment in product reviews, fraudulent vs. legitimate transactions in finance.
 BCE is designed for **binary classification** --- tasks with two categories, such as predicting whether a protein is soluble versus insoluble, or whether an email is spam versus not spam.
 Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i(\theta) \in (0, 1)$$ be the predicted probability:
 
@@ -99,7 +103,7 @@ This creates a strong signal to correct confident mistakes.
 ### Cross-Entropy (CE) for Multi-Class Classification
 
 CE generalizes BCE to **multi-class classification** --- tasks with more than two categories, such as predicting which enzyme class a protein belongs to, or recognizing which of 10 digits appears in a handwritten image.
-Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c(\theta)$$ be the predicted probability for class $$c$$:
+Let $$C$$ be the number of classes, $$y_c \in \{0, 1\}$$ be the indicator for class $$c$$, and $$\hat{y}_c(\theta) \in (0, 1)$$ be the predicted probability for class $$c$$:
 
 $$
 \mathcal{L}_{\text{CE}}(\theta) = -\sum_{c=1}^{C} y_c \log(\hat{y}_c(\theta))
@@ -159,7 +163,9 @@ Too large, and training becomes unstable --- the loss oscillates wildly or diver
 
 ### Mini-Batch Training: Why Not Use All the Data?
 
-There is a computational reason and a statistical reason for processing data in small batches rather than all at once.
+ImageNet contains 1.2 million training images --- computing the gradient over all of them in a single pass would require hundreds of gigabytes of GPU memory.
+Mini-batches of 32--256 images make training feasible while providing a noisy but useful gradient estimate.
+The same logic applies to protein datasets: there is a computational reason and a statistical reason for processing data in small batches rather than all at once.
 
 The **computational reason** is hardware efficiency.
 Modern GPUs achieve peak throughput on matrix operations of a specific size --- too small and the GPU cores sit idle; too large and the activation tensors overflow GPU memory.
@@ -287,7 +293,10 @@ Without zeroing, gradients from previous batches would contaminate the current u
 
 Getting data from disk into the model efficiently is a surprisingly important engineering problem.
 
-PyTorch separates this into two abstractions: the **Dataset** (how to access individual examples) and the **DataLoader** (batching, shuffling, parallel loading).
+The Dataset/DataLoader pattern is universal across deep learning.
+Image pipelines load JPEGs, resize them to a fixed resolution, and batch them into tensors of shape `(batch, C, H, W)`.
+NLP pipelines tokenize text, pad sequences to uniform length, and batch them as `(batch, seq_len)`.
+Protein pipelines follow the same structure: PyTorch separates this into two abstractions: the **Dataset** (how to access individual examples) and the **DataLoader** (batching, shuffling, parallel loading).
 
 For our MLP on flattened one-hot sequences, the simplest approach is `TensorDataset`: pre-encode and pad all sequences, flatten them into feature vectors, wrap the features and labels as tensors, and hand them to a `DataLoader`.
 
@@ -338,6 +347,9 @@ The `shuffle=True` flag is critical --- it makes SGD stochastic by randomizing w
 
 Why not just use the most powerful model available?
 Because model complexity is a double-edged sword.
+A linear classifier applied to raw pixels cannot separate cats from dogs --- it underfits because the decision boundary is too simple.
+A 100-million-parameter ResNet trained on only 500 images overfits --- it memorizes each training image.
+The sweet spot lies between these extremes.
 **Bias** is error from a model being too simple --- a linear model predicting solubility from just protein length will systematically miss the real relationship.
 **Variance** is error from a model being too sensitive to the specific training data --- a very complex model fits the training set perfectly, including its noise, but produces wildly different predictions on new data.
 The practical consequences:
@@ -401,6 +413,7 @@ In general, loss curves fall into four patterns:
 
 ### Why Protein Models Are Especially Prone to Overfitting
 
+Overfitting is visible in any domain: a medical imaging model achieves 99% training accuracy but only 60% on held-out scans because it memorized scanner-specific artifacts rather than learning disease patterns.
 Protein datasets are typically small relative to model capacity.
 A dataset of 5,000 proteins with a model containing 500,000 parameters means there are 100 parameters per training example --- plenty of room for the model to memorize each protein individually instead of learning general patterns.
 

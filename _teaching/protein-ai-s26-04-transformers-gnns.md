@@ -40,13 +40,13 @@ This lecture develops both families from first principles.  We begin by asking h
 
 ## 1. Why Attention?
 
-A protein can be 50 residues or 500.  A standard linear layer `nn.Linear(in_features, out_features)` has fixed input and output dimensions---it cannot accept inputs of varying length.  Any architecture for proteins must handle **variable-length inputs** as a first-class concern.
+Variable-length inputs are ubiquitous in machine learning.  Sentences range from 3 to 500 tokens; documents span a few paragraphs to hundreds of pages.  A standard linear layer with fixed input dimensions cannot handle this variation.  The same challenge arises in biology: a protein can be 50 residues or 500.  A standard `nn.Linear(in_features, out_features)` layer has fixed input and output dimensions---it cannot accept inputs of varying length.  Any architecture for proteins must handle **variable-length inputs** as a first-class concern.
 
 Three broad strategies exist.  **Recurrent neural networks (RNNs)** process the sequence one token at a time, maintaining a hidden state that accumulates context.  **Convolutional neural networks (CNNs)** slide fixed-size windows over the sequence, aggregating local neighborhoods.  **Attention** computes direct pairwise interactions between all positions, regardless of their distance.  Each strategy accepts any length, but they differ dramatically in how information flows.
 
 ### The Limitations of Sequential Processing
 
-RNNs solve the variable-length problem by processing one residue at a time, but this creates three serious difficulties.
+RNNs were the dominant sequence model in NLP through the mid-2010s---powering machine translation, speech recognition, and text generation.  Their limitations became painfully clear on long documents, where early sentences were forgotten by the time the model reached the end.  The same problems plague protein modeling: RNNs solve the variable-length problem by processing one residue at a time, but this creates three serious difficulties.
 
 **The parallelization bottleneck.**  To compute the hidden state at position 100, you must first compute the hidden states at positions 1 through 99.  This fundamentally sequential dependence means you cannot exploit the parallelism of modern GPUs, which excel when they can perform many independent operations simultaneously.
 
@@ -77,21 +77,28 @@ Stacking $$N$$ such blocks produces increasingly refined representations, still 
 In short: the transformer's input and output have the same shape $$(L, d)$$.
 What changes is the *meaning* of each vector --- raw amino-acid identity in, context-aware representation out.
 
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_4.png' | relative_url }}" alt="Transformer pipeline: L integer tokens through embedding, attention, and N transformer blocks, preserving (L, d) shape throughout">
+    <div class="caption mt-1"><strong>Tensor shapes through the transformer.</strong> Green nodes show the data shape at each stage; yellow nodes show computation steps. The shape \((L, d)\) is preserved throughout — only the meaning of each vector changes.</div>
+</div>
+
 The following sections build each component.
 
 ### Attention as Adaptive Weights
 
-A standard linear layer applies a fixed weight matrix $$W$$ to an input $$X$$, producing $$XW$$.  The same $$W$$ is used regardless of the input.  Each position is processed independently---there is no cross-position interaction.
+A standard linear layer applies a fixed weight matrix $$W \in \mathbb{R}^{d \times d'}$$ to an input $$X \in \mathbb{R}^{L \times d}$$, producing $$XW \in \mathbb{R}^{L \times d'}$$.  Each position is transformed independently---there is no cross-position interaction.
 
-What if the weights depended on the input itself?  Attention does exactly this.  Given a sequence of $$L$$ input vectors $$x_1, \dots, x_L$$, compute pairwise compatibility scores between all positions, normalize them with softmax, and use the resulting weights to compute weighted averages:
+To mix information across positions, we could left-multiply by a matrix $$A \in \mathbb{R}^{L \times L}$$, producing $$AX$$.  Each row of $$AX$$ is now a weighted combination of all input rows---exactly the cross-position interaction we want.  But building such an $$A$$ is hard: $$A$$ must be $$L \times L$$, and $$L$$ varies from protein to protein.  A fixed learned matrix cannot handle this.  Simpler alternatives---averaging all position vectors into one, or summing them---do mix information across positions, but they collapse the entire sequence into a single vector, discarding the per-position structure we need.
+
+Attention solves this by **computing $$A$$ from the input itself**.  Given a sequence of $$L$$ input vectors $$x_1, \dots, x_L \in \mathbb{R}^d$$, compute pairwise compatibility scores between all positions, normalize them with softmax, and use the resulting weights to compute weighted averages:
 
 $$
 \alpha_{ij} = \frac{\exp(x_i^T x_j)}{\sum_k \exp(x_i^T x_k)}, \qquad \text{output}_i = \sum_j \alpha_{ij} \, x_j
 $$
 
-The attention matrix $$(\alpha_{ij})$$ has shape $$(L, L)$$ and is computed entirely from the input.  A 50-residue protein produces a $$50 \times 50$$ attention matrix; a 500-residue protein produces a $$500 \times 500$$ matrix.  The same parameters handle both---the computation adapts to the input length.
+The attention matrix $$A \in \mathbb{R}^{L \times L}$$, with entries $$A_{ij} = \alpha_{ij}$$, plays the role of the fixed weight matrix $$W$$ from a standard linear layer --- but $$A$$ is computed entirely from the input.  A 50-residue protein produces a $$50 \times 50$$ attention matrix; a 500-residue protein produces a $$500 \times 500$$ matrix.  The same parameters handle both---the computation adapts to the input length.
 
-This is the key insight: attention is a **linear layer whose weight matrix is computed from the data**.  Fixed layers apply the same transformation to every input; attention builds a different transformation for each input, shaped by the pairwise relationships within it.
+In the sentence "The bank by the river flooded," the word "bank" should attend strongly to "river" and "flooded" to resolve its meaning---not to "money" or "loan."  A different sentence with the same word would produce entirely different attention weights.  The same adaptivity matters for proteins: this is the key insight.  Attention is a **linear layer whose weight matrix is computed from the data**.  Fixed layers apply the same transformation to every input; attention builds a different transformation for each input, shaped by the pairwise relationships within it.
 
 ### Query, Key, Value: Parameterizing Attention
 
@@ -108,7 +115,7 @@ The simple formula $$x_i^T x_j$$ uses the same representation for two distinct r
     <div class="caption mt-1"><strong>Queries, keys, and values.</strong> Each input token is projected into three separate vectors. The query asks "what am I looking for?", the key advertises "what do I have?", and the value carries the information transmitted when attention is paid. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
 </div>
 
-Consider a cysteine at position 50 in a protein sequence.  Its **query** $$q_{50}$$ encodes what it is looking for---perhaps another cysteine that could form a disulfide bond.  The **key** $$k_{127}$$ of a cysteine at position 127 advertises what it has to offer.  The **value** $$v_{127}$$ carries the actual information transmitted when position 50 attends to position 127.
+In machine translation, a French word's query asks "which English words are relevant to my meaning?", each English word's key advertises its semantic content, and the value carries the actual information to transfer.  In protein sequences, the same decomposition applies: consider a cysteine at position 50 in a protein sequence.  Its **query** $$q_{50}$$ encodes what it is looking for---perhaps another cysteine that could form a disulfide bond.  The **key** $$k_{127}$$ of a cysteine at position 127 advertises what it has to offer.  The **value** $$v_{127}$$ carries the actual information transmitted when position 50 attends to position 127.
 
 Formally, let $$x_i \in \mathbb{R}^d$$ be the input representation of position $$i$$.  We compute the three vectors through learned linear transformations:
 
@@ -116,7 +123,7 @@ $$
 q_i = W^Q x_i, \qquad k_i = W^K x_i, \qquad v_i = W^V x_i
 $$
 
-Here $$W^Q, W^K \in \mathbb{R}^{d_k \times d}$$ and $$W^V \in \mathbb{R}^{d_v \times d}$$ are learnable weight matrices, where $$d$$ is the input dimension, $$d_k$$ is the query/key dimension, and $$d_v$$ is the value dimension.
+Here $$W^Q, W^K \in \mathbb{R}^{d_k \times d}$$ and $$W^V \in \mathbb{R}^{d_v \times d}$$ are learnable weight matrices, where $$d$$ is the input dimension, $$d_k$$ is the query/key dimension, and $$d_v$$ is the value dimension.  The resulting vectors are $$q_i, k_i \in \mathbb{R}^{d_k}$$ and $$v_i \in \mathbb{R}^{d_v}$$.
 
 The attention score between positions $$i$$ and $$j$$ is now computed in the projected space:
 
@@ -200,7 +207,7 @@ def scaled_dot_product_attention(query, key, value, mask=None):
 
 ### Multi-Head Attention
 
-A single set of query, key, and value projections captures one type of pairwise relationship.  But proteins exhibit many types of relationships simultaneously.  A given residue might need to attend to:
+A single set of query, key, and value projections captures one type of pairwise relationship.  But real data exhibits many types of relationships simultaneously.  In NLP, different heads specialize in different linguistic relationships: one head tracks subject-verb agreement, another resolves pronoun coreference, a third captures semantic similarity between distant words.  Proteins are no different.  A given residue might need to attend to:
 
 - **Nearby positions** for local secondary-structure context.
 - **Distant cysteines** for potential disulfide bonds.
@@ -328,7 +335,9 @@ $$
 \text{FFN}(x) = W_2 \, \text{GELU}(W_1 x + b_1) + b_2
 $$
 
-A complete transformer stacks $$L$$ such blocks.  Information flows upward through the layers, with each layer refining the residue representations based on increasingly complex patterns.
+where $$W_1 \in \mathbb{R}^{4d \times d}$$, $$b_1 \in \mathbb{R}^{4d}$$, $$W_2 \in \mathbb{R}^{d \times 4d}$$, and $$b_2 \in \mathbb{R}^{d}$$.
+
+A complete transformer stacks $$N$$ such blocks.  Information flows upward through the layers, with each layer refining the residue representations based on increasingly complex patterns.
 
 ```python
 class TransformerBlock(nn.Module):
@@ -419,7 +428,7 @@ class TransformerEncoder(nn.Module):
 
 There is a subtle but important property of the attention mechanism as we have described it: it is **permutation-equivariant**.  If you shuffle the input positions randomly, the outputs are shuffled in the same way.  The attention weights depend only on the *content* of each position, not on *where* that position sits in the sequence.
 
-This is clearly problematic for proteins.  Position matters.  Two glycines at positions 3 and 4 (consecutive in the backbone) have a very different structural implication than glycines at positions 3 and 300.  The backbone connectivity of the chain imposes constraints that depend on sequence position.
+"Dog bites man" and "man bites dog" contain identical tokens but have opposite meanings---position determines semantics.  This is clearly problematic for proteins as well.  Position matters.  Two glycines at positions 3 and 4 (consecutive in the backbone) have a very different structural implication than glycines at positions 3 and 300.  The backbone connectivity of the chain imposes constraints that depend on sequence position.
 
 The solution is **positional encoding**: we inject information about each position directly into the input representations.
 
@@ -573,7 +582,7 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
     <div class="caption mt-1"><strong>Message passing on protein structures.</strong> Residues exchange information with their spatial neighbors through learned message functions. After several rounds of message passing, each residue's representation encodes its local structural environment. Source: Zhou et al. (2024), <em>mLife</em>, CC BY 4.0.</div>
 </div>
 
-All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
+Message passing generalizes beyond proteins.  In social networks, a user's interests can be predicted from their friends' profiles.  In citation networks, a paper's topic is inferred from the papers it cites and the papers that cite it.  All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
 
 Think of yourself as a residue in a folded protein.  You want to refine your representation based on your structural neighborhood.  You ask each neighbor to send you a *message* about its current state.  You aggregate all incoming messages, combine them with your own state, and produce an updated representation.
 
@@ -587,7 +596,7 @@ The symbols in this equation deserve careful definition:
 
 - $$h_i^{(\ell)} \in \mathbb{R}^{d}$$ is the representation (feature vector) of node $$i$$ at layer $$\ell$$.
 - $$\mathcal{N}(i)$$ is the set of neighbors of node $$i$$ in the graph.
-- $$e_{ij}$$ is the edge feature between nodes $$i$$ and $$j$$ (e.g., inter-residue distance).
+- $$e_{ij} \in \mathbb{R}^{d_e}$$ is the edge feature between nodes $$i$$ and $$j$$ (e.g., inter-residue distance).
 - $$\psi$$ is the **message function**: given the states of two connected nodes and their edge feature, it computes the message to send.
 - $$\bigoplus$$ is the **aggregation function**: it combines messages from all neighbors into a single vector.  Common choices are sum, mean, and max.
 - $$\phi$$ is the **update function**: it combines the node's current state with the aggregated messages to produce the updated state.
@@ -631,11 +640,11 @@ $$
 \alpha_{ij} = \frac{\exp\!\left(\text{LeakyReLU}\!\left(\mathbf{a}^T [W \mathbf{h}_i \,\|\, W \mathbf{h}_j]\right)\right)}{\sum_{k \in \mathcal{N}(i)} \exp\!\left(\text{LeakyReLU}\!\left(\mathbf{a}^T [W \mathbf{h}_i \,\|\, W \mathbf{h}_k]\right)\right)}
 $$
 
-Here $$W \in \mathbb{R}^{d' \times d}$$ is a shared linear transformation, $$\mathbf{a} \in \mathbb{R}^{2d'}$$ is a learnable attention vector, and $$\|$$ denotes concatenation[^gat_concat].  The LeakyReLU activation prevents dead neurons.
+Here $$\mathbf{h}_i \in \mathbb{R}^d$$ is the current node representation, $$W \in \mathbb{R}^{d' \times d}$$ is a shared linear transformation, $$\mathbf{a} \in \mathbb{R}^{2d'}$$ is a learnable attention vector, and $$\|$$ denotes concatenation[^gat_concat].  The LeakyReLU activation prevents dead neurons.
 
 [^gat_concat]: In the original GAT paper, the attention mechanism concatenates the transformed features of both the source and target nodes.  Later variants, such as GATv2, compute attention differently to increase expressive power.
 
-The updated representation is a weighted sum:
+The updated representation $$\mathbf{h}_i' \in \mathbb{R}^{d'}$$ is a weighted sum:
 
 $$
 \mathbf{h}_i' = \sigma\!\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij}\, W \mathbf{h}_j\right)
@@ -649,7 +658,7 @@ GAT also supports multi-head attention, just like the transformer.  Each head le
 
 The **Message Passing Neural Network (MPNN)** framework, introduced by Gilmer et al. (2017), provides maximum flexibility.  Instead of using fixed message and aggregation rules (as in GCN) or a specific attention mechanism (as in GAT), MPNN defines both the message function and the update function as arbitrary neural networks.
 
-**Message function.**  Given the representations of two connected nodes and the edge between them, an MLP computes the message:
+**Message function.**  Given the representations of two connected nodes and the edge between them, an MLP computes the message $$m_{ij} \in \mathbb{R}^{d_m}$$:
 
 $$
 m_{ij} = M_\theta\!\left(h_i^{(\ell)},\, h_j^{(\ell)},\, e_{ij}\right)
@@ -661,13 +670,13 @@ $$
 m_i = \sum_{j \in \mathcal{N}(i)} m_{ij}
 $$
 
-**Update function.**  A second MLP combines the node's current state with the aggregated messages:
+**Update function.**  A second MLP combines the node's current state with the aggregated message $$m_i \in \mathbb{R}^{d_m}$$:
 
 $$
 h_i^{(\ell+1)} = U_\theta\!\left(h_i^{(\ell)},\, m_i\right)
 $$
 
-Here $$M_\theta$$ and $$U_\theta$$ are learned neural networks (typically MLPs).  This generality allows MPNNs to learn complex, task-specific communication patterns.
+Here $$M_\theta: \mathbb{R}^{d} \times \mathbb{R}^{d} \times \mathbb{R}^{d_e} \to \mathbb{R}^{d_m}$$ and $$U_\theta: \mathbb{R}^{d} \times \mathbb{R}^{d_m} \to \mathbb{R}^{d}$$ are learned neural networks (typically MLPs).  This generality allows MPNNs to learn complex, task-specific communication patterns.
 
 ```python
 class MPNNLayer(nn.Module):
@@ -727,7 +736,7 @@ When we work with 3D protein structures, there is a fundamental physical princip
 
 This symmetry principle is formalized by the group **SE(3)**---the group of all rigid-body transformations in three dimensions, comprising rotations and translations[^se3].
 
-[^se3]: SE(3) stands for "Special Euclidean group in 3 dimensions."  It is the set of all transformations of the form $$x \mapsto Rx + t$$, where $$R$$ is a $$3 \times 3$$ rotation matrix ($$R^T R = I$$, $$\det R = 1$$) and $$t$$ is a translation vector.
+[^se3]: SE(3) stands for "Special Euclidean group in 3 dimensions."  It is the set of all transformations of the form $$x \mapsto Rx + t$$, where $$R \in \mathbb{R}^{3 \times 3}$$ is a rotation matrix ($$R^T R = I$$, $$\det R = 1$$) and $$t \in \mathbb{R}^{3}$$ is a translation vector.
 
 An **SE(3)-equivariant** model produces outputs that transform consistently under coordinate changes:
 
@@ -738,7 +747,7 @@ Standard GNNs that operate on raw coordinates are not equivariant.  If you rotat
 
 SE(3)-equivariant GNNs solve this by designing the message-passing operations to respect 3D symmetry.  The key strategies include:
 
-1. **Operating on invariant quantities** such as pairwise distances $$\lvert\mathbf{r}_i - \mathbf{r}_j\rvert$$ and angles, which do not change under rotation.
+1. **Operating on invariant quantities** such as pairwise distances $$\lvert\mathbf{r}_i - \mathbf{r}_j\rvert$$ (where $$\mathbf{r}_i \in \mathbb{R}^3$$ is the coordinate of node $$i$$) and angles, which do not change under rotation.
 2. **Processing equivariant quantities** such as direction vectors $$\mathbf{r}_i - \mathbf{r}_j$$ using operations that commute with rotation.
 3. **Decomposing features by transformation behavior.** Some architectures use tools from group representation theory to decompose features into components that transform predictably under rotation --- scalars that do not change, vectors that rotate, and higher-order objects that transform according to specific rules.
 

@@ -46,7 +46,8 @@ If the expression $$\mathbf{y} = \mathbf{W}\mathbf{x} + \mathbf{b}$$ looks unfam
 
 ### Learning as Function Approximation
 
-Experienced biochemists develop intuitions --- highly charged proteins tend to be soluble, long hydrophobic stretches spell trouble --- but these intuitions are hard to articulate as rules.
+Radiologists develop intuitions about which shadow on a CT scan signals a tumor; experienced editors can tell within a sentence whether a text was machine-generated.  These intuitions are real but hard to articulate as explicit rules.  The same is true in biochemistry: experienced biochemists know that highly charged proteins tend to be soluble and long hydrophobic stretches spell trouble, yet translating that knowledge into a precise algorithm is remarkably difficult.
+
 Machine learning is **function approximation**: the systematic version of this pattern recognition.
 There exists some unknown function $$f^*$$ that maps inputs to outputs.
 In protein science, this might mean mapping an amino acid sequence to a solubility label (soluble or insoluble).
@@ -77,7 +78,8 @@ The gap between training performance and test performance is the central challen
 Every technique in this course --- model size, regularization, data splitting --- exists to close that gap.
 We formalize this as the **bias-variance tradeoff** in Preliminary Note 3.
 
-One more gap to flag now: the linear model we build in Section 4 can only learn straight-line relationships between features and predictions.
+An image classifier trained on 1,000 cat photos might memorize fur patterns in the training set and fail on cats in unusual poses.
+The same trap applies to proteins: the linear model we build in Section 4 can only learn straight-line relationships between features and predictions.
 Real protein properties depend on *nonlinear* combinations of features --- a cluster of five hydrophobic residues in a row matters far more than five scattered throughout the sequence, but a linear model treats both identically.
 Preliminary Note 2 introduces neural networks, which overcome this limitation by composing simple nonlinear transformations into powerful function approximators.
 
@@ -99,7 +101,9 @@ You clean it, encode it as numerical features --- one-hot vectors, physicochemic
 
 The model trains: it sees thousands of labeled proteins and adjusts its parameters to minimize prediction errors (Section 4 makes this concrete).
 Then you evaluate --- and evaluation is trickier than it sounds.
-Related sequences often share properties, so a naive random train/test split lets the model "cheat" by recognizing near-duplicates.
+In computer vision, training and test images are typically split randomly --- but even there, duplicate or near-duplicate images must be removed to prevent leakage.
+In NLP, temporal splits ensure the model never trains on future text.
+Protein data demands an even stricter protocol: related sequences often share properties, so a naive random train/test split lets the model "cheat" by recognizing near-duplicates.
 Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure the test set contains truly novel proteins (Note 4 explains why this matters so much for solubility).
 
 [^seqid]: Sequence-identity-aware splitting clusters proteins by sequence similarity (e.g., using CD-HIT at 30% identity) and assigns entire clusters to either train or test, preventing information leakage from homologous sequences.
@@ -118,7 +122,9 @@ Code runs line by line (no deferred compilation), so debugging feels like debugg
 
 The core data structure in PyTorch is the **tensor** --- a multi-dimensional array of numbers, like a NumPy array with superpowers.
 Tensors generalize scalars (0D), vectors (1D), and matrices (2D) to arbitrary dimensions.
-In practice, a batch of protein sequences lives in a 3D tensor of shape `(batch_size, sequence_length, features)`.
+Images are stored as 4D tensors of shape `(batch, channels, height, width)` --- a batch of 32 RGB images of size 224×224 has shape `(32, 3, 224, 224)`.
+Text sequences become 3D tensors `(batch, seq_len, embed_dim)`.
+Protein sequences follow the same pattern: a batch of protein sequences lives in a 3D tensor of shape `(batch_size, sequence_length, features)`.
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-tensor-dimensions.png' | relative_url }}" alt="Tensor dimensions from scalar to 3D tensor">
@@ -141,7 +147,9 @@ Tensors differ from NumPy arrays in two ways that matter: **GPU acceleration** a
 
 ### Worked Example: Encoding a Protein Sequence as a Tensor
 
-To make this concrete, trace the encoding of a short protein sequence through each stage, watching the tensor shape evolve.
+The pipeline mirrors NLP tokenization: a sentence like "The cat sat" is mapped to integer indices `[2, 45, 91]`, then to dense vectors.
+For proteins, the vocabulary is the 20 standard amino acids.
+Trace the encoding of a short protein sequence through each stage, watching the tensor shape evolve.
 
 ```python
 import torch
@@ -238,7 +246,8 @@ The answer has four steps, which we build up one at a time using a concrete prot
 ### A First Model: Linear Regression
 
 Consider a concrete setup.
-We have measured 10 physicochemical features for a single protein --- molecular weight, isoelectric point, GRAVY score (hydrophobicity), instability index, and so on --- and we want to predict its melting temperature.
+In a classic regression problem, a model might predict house prices from features like square footage, number of rooms, and neighborhood --- each feature gets a weight, the weighted sum plus a bias gives the prediction.
+The same structure applies to proteins: we have measured 10 physicochemical features for a single protein --- molecular weight, isoelectric point, GRAVY score (hydrophobicity), instability index, and so on --- and we want to predict its melting temperature.
 Call the true melting temperature $$y$$ and our prediction $$\hat{y}$$.
 
 The simplest model is a **weighted sum** of the features plus a bias:
@@ -253,7 +262,7 @@ A large positive $$w_3$$ (the weight on GRAVY score) would mean more hydrophobic
 The bias $$b$$ shifts the overall prediction up or down.
 
 Using vector notation, we can write this more compactly.
-Let $$\mathbf{x} = [x_1, x_2, \ldots, x_{10}]$$ be the feature vector for one protein, and $$\mathbf{w} = [w_1, w_2, \ldots, w_{10}]$$ be the weight vector.
+Let $$\mathbf{x} = [x_1, x_2, \ldots, x_{10}] \in \mathbb{R}^{10}$$ be the feature vector for one protein, and $$\mathbf{w} = [w_1, w_2, \ldots, w_{10}] \in \mathbb{R}^{10}$$ the weight vector.
 Then:
 
 $$
@@ -266,14 +275,14 @@ $$
 </div>
 
 Now suppose we have not one protein but 100.
-We stack their feature vectors into a matrix $$\mathbf{X}$$ of shape (100 $$\times$$ 10), where each **row** is one protein's features.
+We stack their feature vectors into a matrix $$\mathbf{X} \in \mathbb{R}^{100 \times 10}$$, where each **row** is one protein's features.
 A single matrix multiplication $$\mathbf{X}\mathbf{W}$$ computes the weighted sum for all 100 proteins at once:
 
 $$
 \hat{\mathbf{y}} = \mathbf{X}\mathbf{W} + b
 $$
 
-Here $$\mathbf{W}$$ is the weight vector reshaped as a (10 $$\times$$ 1) column, and the result $$\hat{\mathbf{y}}$$ is a (100 $$\times$$ 1) column of predictions --- one per protein.
+Here $$\mathbf{W} \in \mathbb{R}^{10 \times 1}$$ is the weight vector reshaped as a column, and the result $$\hat{\mathbf{y}} \in \mathbb{R}^{100 \times 1}$$ is a column of predictions --- one per protein.
 
 The following diagram illustrates this flow:
 
@@ -358,7 +367,8 @@ $$
 $$
 
 The factor $$(\hat{y}_i - y_i)$$ is the prediction error for protein $$i$$, and $$x_{ij}$$ is protein $$i$$'s value of feature $$j$$.
-The gradient tells us: **the correction for weight $$w_j$$ is the average of each protein's error, scaled by how much feature $$j$$ contributed to that prediction.**
+In image classification, the gradient of the loss with respect to a pixel weight tells us: if this pixel were brighter, would the prediction improve or worsen?
+The same logic applies to protein features: **the correction for weight $$w_j$$ is the average of each protein's error, scaled by how much feature $$j$$ contributed to that prediction.**
 If a feature has a large value and the error is positive (overestimate), the gradient is positive, so we should decrease $$w_j$$.
 
 Similarly, the gradient for the bias is:
