@@ -15,7 +15,7 @@ related_posts: false
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 5 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The lecture builds on the diffusion model foundations introduced in Lecture 2 (Generative Models) and the structure prediction concepts from Lecture 4 (AlphaFold). Of all the lectures in this course, this one is the most mathematically intensive, requiring careful treatment of Lie groups, manifold-valued noise processes, and equivariant neural network design.</em></p>
 
-## 1. Introduction: The Dream of De Novo Protein Design
+## Introduction: The Dream of De Novo Protein Design
 
 For decades, protein engineers have faced a fundamental asymmetry.
 Predicting how a known sequence folds into a three-dimensional structure is now largely solved, thanks to AlphaFold and related methods (Lecture 4).
@@ -84,7 +84,7 @@ $$
 ### From Invariance to Equivariance
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_0.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_0.png' | relative_url }}" alt="Invariance versus equivariance: an invariant function produces the same scalar output regardless of protein orientation, while an equivariant function produces a rotated output when the input is rotated">
 </div>
 
 Invariance tells us what properties should not change under transformations.
@@ -310,7 +310,7 @@ Two pieces of information fully specify the placement of this unit in space:
 Together, the pair $$(R_i, \vec{t}_i)$$ defines a **rigid-body frame** for residue $$i$$.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_1.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_1.png' | relative_url }}" alt="Residue frame construction: backbone atoms N, Cα, and C define a local coordinate system with three orthonormal axes, forming a rigid-body frame for each residue in the protein chain">
 </div>
 <div class="caption mt-1"><strong>Residue frame representation.</strong> Each residue defines a local coordinate frame from its three backbone atoms (N, Cα, C). The Cα position gives the translation t_i, and the orientation R_i is constructed from the N→Cα and Cα→C bond vectors. A protein backbone with L residues is a sequence of L such frames in SE(3).</div>
 
@@ -669,7 +669,7 @@ def diffuse_frames(frames, t, schedule):
 ```
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_2.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_2">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_2.png' | relative_url }}" alt="SE(3) diffusion forward and reverse processes: the forward process progressively adds noise to clean protein frames until they become random, while the reverse process iteratively denoises random frames to generate protein structure">
 </div>
 <div class="caption mt-1"><strong>SE(3) diffusion process.</strong> Forward: clean protein frames are progressively corrupted by Gaussian noise (translations) and IGSO(3) noise (rotations) until the structure is destroyed. Reverse: a neural network learns to denoise, iteratively recovering protein-like structure from random frames.</div>
 
@@ -1029,7 +1029,7 @@ A functional motif --- say, a set of catalytic residues arranged in a specific g
 RFDiffusion generates the scaffold while holding the motif residues fixed.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_3.png' | relative_url }}" alt="s26-08-rfdiffusion_diagram_3">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-08-rfdiffusion_diagram_3.png' | relative_url }}" alt="Motif scaffolding: a fixed functional motif and random scaffold noise are iteratively denoised over N steps, with the motif clamped at each step, producing a complete protein with the motif embedded in a designed scaffold">
 </div>
 <div class="caption mt-1"><strong>Motif scaffolding.</strong> The functional motif (red) is held fixed at each denoising step, while the surrounding scaffold residues (initially random noise) are progressively denoised. The result is a novel protein that presents the motif in the correct geometry, supported by a computationally designed scaffold.</div>
 
@@ -1492,7 +1492,7 @@ But RFDiffusion's experimental success has established SE(3) diffusion as a domi
 
 ---
 
-## 13. Key Takeaways
+## Key Takeaways
 
 1. **Proteins are geometric objects.** Their biological properties depend on three-dimensional shape, not on how that shape is oriented in a coordinate system. This makes SE(3) equivariance a natural requirement for protein generative models.
 

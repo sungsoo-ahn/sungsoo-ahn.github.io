@@ -56,7 +56,7 @@ This lecture develops the ideas behind protein language models from the ground u
 
 ## 1. The Protein-Language Analogy
 
-Before introducing any formulas, let us build intuition by placing proteins and natural language side by side.
+Before introducing any formulas, consider proteins and natural language side by side.
 
 In English, words combine into sentences according to grammatical rules.
 Some word combinations are meaningful; most are not.
@@ -169,7 +169,7 @@ The concept is a fill-in-the-blank exercise applied at massive scale.
 ### The procedure
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_0.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_0.png' | relative_url }}" alt="Masked language modeling procedure: a protein sequence is partially masked, processed by a transformer, and trained to reconstruct the original amino acids at masked positions">
 </div>
 
 1. Take a protein sequence $$x = (x_1, x_2, \ldots, x_L)$$, where $$L$$ is the sequence length and each $$x_i$$ is one of the 20 standard amino acids.
@@ -643,7 +643,7 @@ Or, better yet, use LoRA.
 ## 8. LoRA: Efficient Adaptation
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_1.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_1.png' | relative_url }}" alt="LoRA versus standard fine-tuning: standard updates all parameters of weight matrix W, while LoRA freezes W and adds a low-rank decomposition BA">
 </div>
 
 Full fine-tuning of a 650M-parameter model requires storing optimizer states and gradients for every parameter, which can demand 10--20 GB of GPU memory.
@@ -807,7 +807,7 @@ The ultimate test of whether a language model truly "understands" proteins is wh
 ### Architecture
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_2.png' | relative_url }}" alt="s26-06-protein-language-models_diagram_2">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-06-protein-language-models_diagram_2.png' | relative_url }}" alt="ESMFold architecture: amino acid sequence passes through pretrained ESM-2 encoder to produce per-residue embeddings, then through a folding trunk and structure module to predict 3D coordinates">
 </div>
 
 ESMFold takes a protein sequence, passes it through the ESM-2 backbone to produce per-residue embeddings, and then feeds those embeddings into a structure prediction module that generates atomic coordinates.
@@ -1034,7 +1034,7 @@ This is especially important for fine-tuning experiments where small differences
 
 ---
 
-## 13. Key Takeaways
+## Key Takeaways
 
 1. **Proteins are a language** with amino acids as tokens, sequences as sentences, and evolutionary constraints as grammar. This structural parallel justifies applying NLP techniques to protein sequences.
 

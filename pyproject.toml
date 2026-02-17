@@ -13,4 +13,5 @@ dependencies = [
     "pyyaml",
     "requests>=2.32.5",
     "scholarly",
+    "scipy>=1.17.0",
 ]
