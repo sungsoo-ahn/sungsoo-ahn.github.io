@@ -112,7 +112,7 @@ AlphaFold2 makes evolutionary information the central organizing principle of it
 The following diagram shows the overall architecture of AlphaFold2, from input sequences to 3D structure output.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_0.png' | relative_url }}" alt="s26-07-alphafold_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_0.png' | relative_url }}" alt="AlphaFold2 pipeline overview: protein sequence is embedded into MSA and pair representations, refined by 48 Evoformer blocks, then decoded by the structure module into 3D coordinates with confidence scores">
 </div>
 
 ### 2.3 Two Representations, One Structure
@@ -234,7 +234,7 @@ The Evoformer is the heart of AlphaFold2.
 It is a stack of 48 nearly identical blocks, each of which refines both the MSA representation and the pair representation.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_1.png' | relative_url }}" alt="s26-07-alphafold_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_1.png' | relative_url }}" alt="Evoformer block data flow: MSA representation passes through row attention with pair bias, column attention, and transition, while pair representation passes through triangular updates, triangular attention, and pair transition">
 </div>
 The name telegraphs its purpose: a transformer designed to process *evolutionary* information.
 
@@ -355,7 +355,7 @@ But proteins are densely packed, and real constraints are far tighter than the w
 The **triangular updates** pass messages around triangles in the pair representation, enforcing this kind of three-body consistency.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_2.png' | relative_url }}" alt="s26-07-alphafold_diagram_2">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_2.png' | relative_url }}" alt="Triangular multiplicative update: for each residue pair i-j, information from all intermediate residues k is gated and aggregated to enforce geometric consistency">
 </div>
 There are four triangular operations in each Evoformer block---two multiplicative updates and two attention variants---each providing a different view of the geometric constraints.
 
@@ -695,7 +695,7 @@ class Rigid:
 ### 5.3 Invariant Point Attention (IPA)
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_3.png' | relative_url }}" alt="s26-07-alphafold_diagram_3">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_3.png' | relative_url }}" alt="Invariant Point Attention: scalar queries and keys from per-residue features combine with point queries and keys in local frames and pair bias to compute SE(3)-invariant attention scores">
 </div>
 
 Invariant Point Attention is the mechanism that lets the network reason about three-dimensional geometry while remaining invariant to global rotations and translations.
@@ -1072,7 +1072,7 @@ def alphafold_loss(predictions, targets, config):
 
 ## 7. Putting It All Together
 
-Let us step back and see how the pieces assemble into the complete AlphaFold2 pipeline.
+Stepping back, the pieces assemble into the complete AlphaFold2 pipeline as follows.
 
 ```
 +------------------------------------------------------------------+
@@ -1197,6 +1197,22 @@ Attention computations, gradient storage, and intermediate activations multiply 
 For reference, predicting the structure of a single ~400-residue protein takes approximately 5--10 minutes on a single GPU (V100 or A100) when using the full AlphaFold2 pipeline including MSA construction[^colabfold].
 
 [^colabfold]: ColabFold (Mirdita et al., 2022) accelerates AlphaFold2 by replacing the slow JackHMMER-based MSA search with a faster MMseqs2-based approach, reducing total prediction time significantly.
+
+---
+
+## Key Takeaways
+
+1. **AlphaFold2 solved a 50-year grand challenge** by predicting protein structures at experimental accuracy, reaching median GDT > 90 in CASP14. The key insight was combining evolutionary information (MSAs) with learned geometric reasoning in a single end-to-end differentiable architecture.
+
+2. **Two parallel representations carry complementary information.** The MSA representation (per-sequence, per-residue) captures evolutionary variation, while the pair representation (residue-by-residue) encodes spatial relationships. The Evoformer's 48 blocks iteratively refine both.
+
+3. **Triangular updates enforce geometric consistency.** Because pairwise distances satisfy triangle inequalities, the Evoformer propagates information around residue triplets---ensuring that predictions for pairs $$(i,j)$$, $$(j,k)$$, and $$(i,k)$$ remain mutually consistent.
+
+4. **Invariant Point Attention (IPA) reasons in 3D while respecting SE(3) symmetry.** By combining scalar features with point features expressed in local residue frames, IPA computes attention scores that are invariant to global rotations and translations---a hard physical constraint that the network satisfies by construction.
+
+5. **Recycling and iterative refinement** are central to AlphaFold2's accuracy. The structure module refines coordinates over 8 iterations, and the entire Evoformer-to-structure pipeline is recycled 3 times, with each pass starting from the previous prediction.
+
+6. **Computational cost scales quadratically** with sequence length due to the pair representation. Practical deployment relies on MSA subsampling, mixed precision, gradient checkpointing, and optimized attention kernels.
 
 ---
 

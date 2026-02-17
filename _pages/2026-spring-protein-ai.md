@@ -13,8 +13,6 @@ description: "Spring 2026 · KAIST"
 
 **Prerequisites:** {{ course.prerequisites }}
 
-**Assessment:** {{ course.assessment }}
-
 {% assign notes = site.teaching | where: "course", course.id %}
 {% assign preliminary = notes | where: "preliminary", true | sort: "lecture_number" %}
 {% assign lectures = notes | where_exp: "item", "item.preliminary != true" | sort: "lecture_number" %}
