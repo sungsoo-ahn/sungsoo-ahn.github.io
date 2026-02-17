@@ -272,7 +272,7 @@ Each position is influenced by context on *both* sides, not just the left.
 
 ## 4. ESM-2 Architecture and Model Family
 
-**ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models {% cite lin2023evolutionary %}.
+**ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models [2].
 It combines the Transformer architecture with large-scale training on protein sequence databases, producing representations that capture evolutionary, structural, and functional information.
 
 <div class="col-sm-9 mt-3 mb-3 mx-auto">
@@ -541,7 +541,7 @@ Mutations to amino acids that never appear at a position in any natural sequence
 Mutations to amino acids that are common at that position receive high probability and scores near zero or positive.
 
 This captures the essence of evolutionary constraint.
-Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning (DMS) experiments {% cite meier2021language %}.
+Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning (DMS) experiments [5].
 In many cases, the zero-shot predictor matches or exceeds the performance of supervised methods trained directly on experimental data.
 
 ### Practical significance
@@ -649,7 +649,7 @@ Or, better yet, use LoRA.
 Full fine-tuning of a 650M-parameter model requires storing optimizer states and gradients for every parameter, which can demand 10--20 GB of GPU memory.
 For the 3B or 15B variants, full fine-tuning is out of reach for most research labs.
 
-**Low-Rank Adaptation (LoRA)** offers an elegant solution {% cite hu2022lora %}.
+**Low-Rank Adaptation (LoRA)** offers an elegant solution [3].
 
 ### The key insight
 
@@ -802,7 +802,7 @@ Tasks that once required clusters of A100 GPUs can now be performed on a single 
 ## 9. ESMFold: From Embeddings to Structure
 
 The ultimate test of whether a language model truly "understands" proteins is whether its representations contain enough information to predict three-dimensional structure.
-**ESMFold** demonstrates that they do {% cite lin2023evolutionary %}.
+**ESMFold** demonstrates that they do [2].
 
 ### Architecture
 
@@ -873,7 +873,7 @@ The attention mechanism in ESM-2 is not just a computational tool; it provides a
 ### Attention correlates with structural contacts
 
 Each attention head computes a matrix of attention weights, one weight for every pair of positions in the sequence.
-Research has shown that these attention patterns correlate with **residue-residue contacts** in the three-dimensional structure {% cite rives2021biological %}.
+Research has shown that these attention patterns correlate with **residue-residue contacts** in the three-dimensional structure [1].
 Positions that are close in space (within about 8 Angstroms) tend to attend strongly to each other, even when they are far apart in sequence.
 
 This means the model has discovered, purely from sequence statistics, the same principle that underlies evolutionary coupling analysis: co-evolving residues are in structural contact.
@@ -967,7 +967,7 @@ No structural supervision is provided.
 ESM-2 is the most widely used protein language model, but it is not the only one.
 Several alternatives exist, each with distinct strengths.
 
-**ProtTrans** {% cite elnaggar2022prottrans %}, developed at the Technical University of Munich, offers models based on multiple Transformer architectures---BERT, ALBERT, XLNet, and T5.
+**ProtTrans** [4], developed at the Technical University of Munich, offers models based on multiple Transformer architectures---BERT, ALBERT, XLNet, and T5.
 The **ProtT5-XL** variant has been particularly popular for per-residue prediction tasks, offering a good balance of performance and efficiency with its encoder-decoder architecture.
 
 **ProGen** and **ProGen2**, developed at Salesforce, use **autoregressive** modeling (left-to-right generation, like GPT).
