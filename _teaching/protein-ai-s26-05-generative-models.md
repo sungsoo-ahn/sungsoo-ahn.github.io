@@ -46,13 +46,11 @@ We will study two foundational frameworks for generative modeling—**variationa
 | 2 | The Variational Autoencoder | Introduces encoder, decoder, and KL regularization as one coherent idea |
 | 3 | The ELBO: Formalizing the Training Objective | Derives the principled training objective from maximum likelihood |
 | 4 | The Reparameterization Trick | Solves the practical problem of backpropagating through sampling |
-| 5 | Complete Protein VAE | Assembles a working implementation |
-| 6 | Diffusion Models: Controlled Destruction | Introduces the forward noising process |
-| 7 | The Reverse Process and Training Objective | Shows how the network learns to denoise |
-| 8 | The Denoising Loop and Architecture | Covers generation and timestep conditioning |
-| 9 | Handling Discrete Protein Data | Addresses the mismatch between Gaussian noise and discrete sequences |
-| 10 | VAEs vs. Diffusion | Compares strengths, weaknesses, and computational trade-offs |
-| 11 | Real-World Impact | Surveys RFDiffusion, EvoDiff, and conditional generation |
+| 5 | Diffusion Models: Controlled Destruction | Introduces the forward noising process |
+| 6 | The Reverse Process and Training Objective | Shows how the network learns to denoise |
+| 7 | The Denoising Loop and Architecture | Covers generation and timestep conditioning |
+| 8 | VAEs vs. Diffusion | Compares strengths, weaknesses, and computational trade-offs |
+| 9 | Conditional Generation | Classifier guidance and classifier-free guidance for steering generation |
 
 ---
 
@@ -305,109 +303,7 @@ def reparameterize(mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
 
 ---
 
-## 5. Putting It Together: A Complete Protein VAE
-
-We now have all the pieces.
-The full model takes a protein sequence (as integer-encoded amino acids), one-hot encodes it, compresses it through the encoder, samples a latent code via reparameterization, and reconstructs amino-acid logits through the decoder.
-
-```python
-class ProteinVAE(nn.Module):
-    """Variational autoencoder for fixed-length protein sequences.
-
-    The encoder maps one-hot-encoded sequences to Gaussian parameters.
-    The decoder maps sampled latent codes back to amino-acid logits.
-    """
-
-    def __init__(self, seq_len: int, vocab_size: int = 21,
-                 hidden_dim: int = 256, latent_dim: int = 32):
-        super().__init__()
-        self.seq_len = seq_len
-        self.vocab_size = vocab_size     # 20 amino acids + 1 gap/unknown
-        input_dim = seq_len * vocab_size
-
-        # Encoder: sequence -> (mu, logvar)
-        self.encoder = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU()
-        )
-        self.fc_mu = nn.Linear(hidden_dim, latent_dim)
-        self.fc_logvar = nn.Linear(hidden_dim, latent_dim)
-
-        # Decoder: z -> amino-acid logits
-        self.decoder = nn.Sequential(
-            nn.Linear(latent_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, input_dim)
-        )
-
-    def encode(self, x: torch.Tensor):
-        """Encode integer-coded sequences to Gaussian parameters."""
-        x_onehot = nn.functional.one_hot(x, self.vocab_size).float()
-        x_flat = x_onehot.view(x.size(0), -1)  # [batch, seq_len * vocab_size]
-        h = self.encoder(x_flat)
-        return self.fc_mu(h), self.fc_logvar(h)
-
-    def decode(self, z: torch.Tensor):
-        """Decode latent codes to per-position amino-acid logits."""
-        h = self.decoder(z)
-        return h.view(-1, self.seq_len, self.vocab_size)
-
-    def forward(self, x: torch.Tensor):
-        mu, logvar = self.encode(x)
-        z = reparameterize(mu, logvar)
-        recon_logits = self.decode(z)
-        return recon_logits, mu, logvar
-
-    @torch.no_grad()
-    def sample(self, n_samples: int, device: str = "cpu"):
-        """Generate novel sequences by sampling z ~ N(0, I) and decoding."""
-        z = torch.randn(n_samples, self.fc_mu.out_features, device=device)
-        logits = self.decode(z)
-        return torch.argmax(logits, dim=-1)  # greedy decode
-```
-
-### The Loss Function
-
-The loss is the negative ELBO, averaged over the batch.
-An optional scaling factor $$\beta$$ on the KL term (known as $$\beta$$-VAE when $$\beta \neq 1$$) trades reconstruction fidelity for a more structured latent space.
-
-```python
-def vae_loss(recon_logits: torch.Tensor, x: torch.Tensor,
-             mu: torch.Tensor, logvar: torch.Tensor,
-             beta: float = 1.0):
-    """Negative ELBO = reconstruction loss + beta * KL divergence.
-
-    Args:
-        recon_logits: decoder output, shape [batch, seq_len, vocab_size]
-        x: ground-truth sequences, shape [batch, seq_len]
-        mu, logvar: encoder outputs
-        beta: weight on the KL term (beta=1 is standard VAE)
-
-    Returns:
-        total_loss, reconstruction_loss, kl_loss (all scalar tensors)
-    """
-    # Cross-entropy measures how well we reconstruct each amino acid
-    recon_loss = nn.functional.cross_entropy(
-        recon_logits.reshape(-1, recon_logits.size(-1)),
-        x.reshape(-1),
-        reduction="mean"
-    )
-
-    kl_loss = kl_divergence(mu, logvar).mean()
-    total_loss = recon_loss + beta * kl_loss
-
-    return total_loss, recon_loss, kl_loss
-```
-
-Increasing $$\beta$$ above 1 pushes the encoder distributions closer to $$\mathcal{N}(0, I)$$, smoothing the latent space at the expense of reconstruction accuracy.
-
----
-
-## 6. Diffusion Models: Controlled Destruction
+## 5. Diffusion Models: Controlled Destruction
 
 ### A Different Philosophy
 
@@ -416,15 +312,25 @@ Diffusion models take an entirely different approach: they learn generation by l
 
 Despite the different intuition, the two frameworks are mathematically closer than they appear.
 A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent layers $$x_1, x_2, \ldots, x_T$$, where the "encoder" (forward process) is fixed rather than learned, and each layer has the same dimensionality as the data.
-The training objective—which we will derive in Section 7—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
+The training objective—which we will derive in Section 6—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
 This connection is not just a curiosity: it is what makes the training objective principled and the generation process provably convergent.
 
 Sharpening a blurry photograph is far easier than painting a photorealistic image from a blank canvas.  Diffusion models exploit this asymmetry: instead of generating from scratch, they decompose generation into many small denoising steps.
 
-Concretely, imagine taking the 3D coordinates of a protein backbone and jittering every atom by a tiny random displacement.
-The resulting structure is still recognizable, and a neural network that has seen many proteins could plausibly predict the original atom positions from this lightly perturbed version.
-Now repeat the corruption many times, adding more noise at each stage, until the coordinates become indistinguishable from random points in space.
-If the network can reverse *each individual step*—going from "slightly more noisy" to "slightly less noisy"—then chaining all the reverse steps together recovers a clean protein from pure noise.
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_image_noising.png' | relative_url }}" alt="An image progressively corrupted by Gaussian noise (forward process) and recovered by denoising (reverse process)">
+    <div class="caption mt-1"><strong>Diffusion on an image.</strong> The forward process \(q\) progressively adds Gaussian noise until the image becomes indistinguishable from random noise.  The reverse process \(p_\theta\) learns to undo each step, recovering the clean image from pure noise.</div>
+</div>
+
+The same idea applies to any continuous data.  Imagine taking the 3D coordinates of a protein backbone and jittering every atom by a tiny random displacement.
+The resulting structure is still recognizable, and a neural network could plausibly predict the original positions from this lightly perturbed version.
+Repeat the corruption many times until the coordinates become indistinguishable from random points in space.
+If the network can reverse *each individual step*, chaining all the reverse steps together recovers a clean structure from pure noise.
+
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/diffusion_pointcloud_noising.png' | relative_url }}" alt="A 2D point cloud progressively corrupted by Gaussian noise and recovered by denoising">
+    <div class="caption mt-1"><strong>Diffusion on a point cloud.</strong> Structured coordinates (left) are progressively corrupted until they resemble a random Gaussian scatter (right).  The reverse process learns to recover the original structure step by step.  For proteins, the points represent residue positions in 3D space.</div>
+</div>
 
 ### The Forward Process: Adding Noise
 
@@ -497,7 +403,7 @@ class DiffusionSchedule:
 
 ---
 
-## 7. The Reverse Process and Training Objective
+## 6. The Reverse Process and Training Objective
 
 ### Learning to Denoise
 
@@ -584,7 +490,7 @@ This connection links diffusion models to the broader framework of score-based g
 
 ---
 
-## 8. The Denoising Loop and Network Architecture
+## 7. The Denoising Loop and Network Architecture
 
 ### Generation by Iterative Denoising
 
@@ -676,42 +582,15 @@ The choice of denoising network architecture depends on the data representation.
 
 U-Nets dominate image generation (Stable Diffusion) and medical image segmentation thanks to their multi-scale skip connections.  Transformers dominate text generation thanks to their ability to capture long-range dependencies.  For proteins, the choice depends on the data representation:
 
-For **coordinate-based representations** (3D backbone atoms), U-Net architectures with skip connections are common.
+For **spatial data** (images, 3D point clouds, protein backbone coordinates), U-Net architectures with skip connections are common.
 The encoder half progressively reduces spatial resolution, capturing long-range context, while the decoder half restores resolution.
-Skip connections from encoder to decoder preserve fine-grained spatial details that would otherwise be lost during downsampling.
+Skip connections preserve fine-grained spatial details that would otherwise be lost during downsampling.
 
-For **sequence-based representations**, transformer architectures work well because attention allows every position to interact with every other position, capturing the long-range dependencies that characterize protein sequences (as discussed in Lecture 1).
-
-In **RFDiffusion** (Watson et al., 2023), the denoising network is derived from RoseTTAFold, a protein structure prediction model.
-This is a powerful design choice: the network begins with a deep prior over what realistic protein structures look like, learned from hundreds of thousands of experimentally determined structures.
-Rather than learning protein physics from scratch, it learns only to denoise—a much easier task when the network already understands structural plausibility.
+For **sequential data** (text, protein sequences), transformer architectures work well because attention allows every position to interact with every other position, capturing long-range dependencies (as discussed in Lecture 1).
 
 ---
 
-## 9. Handling Discrete Protein Data
-
-Diffusion models were designed for continuous data—Gaussian noise added to real-valued vectors.
-But protein sequences are **discrete**: each position is one of 20 amino acids (plus possible gap or special tokens).
-This creates a fundamental mismatch.
-
-Standard diffusion adds Gaussian noise to continuous data — but language tokens and amino acids are discrete.  Recent NLP work (D3PM, masked diffusion) addresses this for text by defining transition matrices over token vocabularies.  Proteins face the same challenge:
-
-Three strategies have emerged to address it.
-
-**Continuous relaxation.** Embed each discrete token into a continuous vector (for instance, using a learned embedding table), apply standard Gaussian diffusion in embedding space, and project back to the nearest discrete token at the end of generation.
-This is simple to implement but the projection step can introduce artifacts, since the denoised continuous vector may not lie cleanly near any token embedding.
-
-**Discrete diffusion (D3PM).** Austin et al. (2021) defined corruption processes directly over discrete tokens, where each token transitions to other tokens according to a learned transition matrix rather than Gaussian noise.
-
-**Structure-based diffusion.** When the goal is to generate protein *structures* rather than sequences, we can work directly with 3D backbone coordinates, which are naturally continuous.
-The sequence can then be designed from the generated structure using an inverse folding model such as ProteinMPNN[^mpnn].
-This is the strategy used by RFDiffusion.
-
-[^mpnn]: ProteinMPNN (Dauparas et al., 2022) is a message-passing neural network that predicts amino-acid sequences conditioned on a given protein backbone structure.  It is covered in detail in Lecture 6 of this course.
-
----
-
-## 10. VAEs vs. Diffusion: Choosing the Right Tool
+## 8. VAEs vs. Diffusion: Choosing the Right Tool
 
 Both VAEs and diffusion models are principled approaches to learning the distribution over proteins.
 They differ in architecture, training, generation speed, and sample quality.
@@ -732,152 +611,26 @@ Latent diffusion models (Rombach et al., 2022) bridge the gap by running diffusi
 
 ---
 
-## 11. Real-World Impact: From Theory to Therapeutics
+## 9. Conditional Generation
 
-### RFDiffusion: Designing Protein Structures from Scratch
+Both VAEs and diffusion models can be extended to **conditional generation**—steering the model toward data with specific desired properties.  Text-to-image models like DALL-E and Stable Diffusion generate images conditioned on text prompts; class-conditional ImageNet models generate images of specific object categories.  Two general strategies have emerged for diffusion models.
 
-RFDiffusion (Watson et al., 2023) is arguably the most impactful application of diffusion to protein science.
-Developed by the Baker laboratory at the University of Washington, it generates entirely new protein backbone structures conditioned on diverse design constraints.
-
-The model operates in **structure space**, diffusing over the 3D coordinates and orientations (rigid-body frames) of protein backbone residues.
-Starting from random coordinates, it iteratively denoises to produce physically plausible structures.
-The denoising network is built on **RoseTTAFold**, a structure prediction architecture, so it carries a deep prior over what realistic protein structures look like.
-
-RFDiffusion has been used to design:
-- Novel protein binders for therapeutic targets, including viral surface proteins
-- Symmetric protein assemblies—rings, cages, and icosahedral shells
-- Proteins with specified topologies and fold geometries
-- Enzyme scaffolds with precisely positioned active-site residues
-
-We will study RFDiffusion in depth in Lecture 5, focusing on its SE(3)-equivariant diffusion formulation and its rigid-body frame representation.
-
-### EvoDiff: Generating Sequences with Evolutionary Awareness
-
-While RFDiffusion works on structures, **EvoDiff** (Alamdari et al., 2023) applies diffusion directly to protein sequences using a discrete diffusion framework.
-Developed at Microsoft Research, it generates sequences that respect the evolutionary patterns learned from millions of natural proteins.
-
-EvoDiff supports several generation modes:
-- **Unconditional generation**: sampling entirely new sequences from the learned distribution
-- **Family-conditional generation**: generating sequences belonging to a specified protein family
-- **Inpainting**: filling in missing or masked regions of a partial sequence
-
-Experimentally, EvoDiff-generated sequences fold into stable structures (as predicted by AlphaFold) and exhibit evolutionary-like conservation patterns, suggesting the model has captured deep structural and functional constraints from sequence data alone.
-
-### Conditional Generation: Designing with Intent
-
-The true power of generative models for protein engineering lies in **conditional generation**—steering the model toward proteins with specific desired properties.
-
-Conditional generation is a solved problem in computer vision: text-to-image models like DALL-E and Stable Diffusion generate images conditioned on text prompts, and class-conditional ImageNet models generate images of specific object categories.  The protein equivalent conditions on desired biophysical properties:
-
-**Conditional VAE.** The simplest approach conditions the decoder on a property vector (for example, desired thermostability, catalytic activity, or secondary-structure content).
-The latent code captures sequence variation that is *orthogonal* to the conditioning signal, enabling diverse generation within a property-defined subspace.
-
-```python
-class ConditionalProteinVAE(ProteinVAE):
-    """Protein VAE conditioned on a property vector (e.g., stability, function).
-
-    The decoder receives both the latent code z and a learned embedding
-    of the condition, enabling property-guided sequence generation.
-    """
-
-    def __init__(self, seq_len: int, vocab_size: int = 21,
-                 hidden_dim: int = 256, latent_dim: int = 32,
-                 condition_dim: int = 10):
-        super().__init__(seq_len, vocab_size, hidden_dim, latent_dim)
-
-        # Embed the condition into hidden_dim for concatenation with z
-        self.cond_embed = nn.Linear(condition_dim, hidden_dim)
-
-        # Rebuild decoder to accept z + condition embedding
-        self.decoder = nn.Sequential(
-            nn.Linear(latent_dim + hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, seq_len * vocab_size)
-        )
-
-    def decode(self, z: torch.Tensor, condition: torch.Tensor):
-        """Decode z into amino-acid logits, conditioned on a property vector."""
-        cond_emb = self.cond_embed(condition)
-        z_cond = torch.cat([z, cond_emb], dim=-1)
-        h = self.decoder(z_cond)
-        return h.view(-1, self.seq_len, self.vocab_size)
-```
-
-**Classifier guidance for diffusion.** Dhariwal and Nichol (2021) introduced **classifier guidance**, where a separately trained classifier steers the denoising process toward a target class.
-At each denoising step, the gradient of the classifier's log-probability with respect to the noisy input is added to the predicted denoising direction, pushing the sample toward regions that the classifier associates with the desired property.
-
-```python
-@torch.no_grad()
-def classifier_guided_sample(
-    model: nn.Module,
-    classifier: nn.Module,
-    schedule: DiffusionSchedule,
-    shape: tuple,
-    target_class: int,
-    guidance_scale: float = 1.0,
-    device: str = "cpu"
-) -> torch.Tensor:
-    """Generate samples steered toward a target class using classifier guidance.
-
-    Args:
-        model: trained noise prediction network
-        classifier: trained classifier that maps (x_t, t) -> class logits
-        schedule: DiffusionSchedule
-        shape: desired output shape
-        target_class: index of the desired property class
-        guidance_scale: strength of guidance (higher = stronger steering)
-        device: torch device
-    """
-    x = torch.randn(shape, device=device)
-
-    for t in reversed(range(schedule.T)):
-        t_batch = torch.full((shape[0],), t, device=device, dtype=torch.long)
-
-        # Compute classifier gradient toward target class
-        with torch.enable_grad():
-            x_grad = x.detach().requires_grad_(True)
-            logits = classifier(x_grad, t_batch)
-            log_prob = torch.log_softmax(logits, dim=-1)[:, target_class]
-            grad = torch.autograd.grad(log_prob.sum(), x_grad)[0]
-
-        # Predict noise, shifted by classifier gradient
-        noise_pred = model(x, t_batch)
-        noise_pred = noise_pred - guidance_scale * torch.sqrt(
-            1.0 - schedule.alpha_bars[t]
-        ) * grad
-
-        # Standard DDPM update with the guided noise prediction
-        alpha = schedule.alphas[t]
-        alpha_bar = schedule.alpha_bars[t]
-        beta = schedule.betas[t]
-
-        mean = (1.0 / torch.sqrt(alpha)) * (
-            x - (beta / torch.sqrt(1.0 - alpha_bar)) * noise_pred
-        )
-
-        if t > 0:
-            x = mean + torch.sqrt(beta) * torch.randn_like(x)
-        else:
-            x = mean
-
-    return x
-```
+**Classifier guidance.** Dhariwal and Nichol (2021) train a separate classifier that operates on noisy inputs.  At each denoising step, the gradient of the classifier's log-probability with respect to the noisy input is added to the predicted denoising direction, pushing the sample toward regions associated with the desired class.
 
 **Classifier-free guidance** (Ho and Salimans, 2022) eliminates the need for a separate classifier.
-Classifier-free guidance, introduced for image generation, blends a conditional and unconditional prediction to control the strength of conditioning.  Stable Diffusion uses a guidance scale to trade off prompt adherence against visual diversity.  The same mechanism applies to protein generation:
-During training, the conditioning signal is randomly dropped with some probability, and the model learns both conditional and unconditional generation.
-At inference time, the conditional and unconditional predictions are blended:
+During training, the conditioning signal is randomly dropped with some probability, so the model learns both conditional and unconditional generation.
+At inference time, the two predictions are blended:
 
 $$\hat{\epsilon} = \epsilon_\theta(x_t, t, \varnothing) + s \cdot \bigl(\epsilon_\theta(x_t, t, c) - \epsilon_\theta(x_t, t, \varnothing)\bigr)$$
 
 where $$c$$ is the condition, $$\varnothing$$ denotes the null condition, and $$s > 1$$ amplifies the effect of conditioning.
-This approach is simpler and often more effective than classifier guidance.
+This approach is simpler and often more effective than classifier guidance.  Stable Diffusion uses the guidance scale $$s$$ to trade prompt adherence against visual diversity.
 
 ---
 
 ## Key Takeaways
 
-This lecture covered two foundational frameworks for generative modeling, each with distinct strengths for protein design.
+This lecture covered two foundational frameworks for generative modeling.
 
 **Variational autoencoders** learn a probabilistic, low-dimensional latent space.
 The ELBO training objective balances reconstruction fidelity against latent-space regularity (via the KL divergence).
@@ -889,15 +642,9 @@ The forward process has a closed-form expression for any timestep, enabling effi
 The reverse process is learned by predicting the noise added at each step.
 Generation requires many sequential denoising steps but produces state-of-the-art sample quality.
 
-For protein science, both frameworks have demonstrated real-world impact.
-RFDiffusion generates novel protein backbones by diffusing over 3D coordinates.
-EvoDiff generates evolutionarily plausible sequences via discrete diffusion.
-Conditional generation—through latent-space conditioning, classifier guidance, or classifier-free guidance—enables designing proteins with targeted properties.
+**Conditional generation** steers either framework toward desired properties via classifier guidance or classifier-free guidance.
 
-The choice between VAEs and diffusion depends on the application.
-When you need a fast, interpretable generative model with a structured latent space, choose a VAE.
-When you need the highest possible sample quality and can tolerate slower generation, choose diffusion.
-When you want both, consider latent diffusion, which applies diffusion in a VAE's latent space.
+The choice between VAEs and diffusion depends on the application: VAEs for speed and interpretability, diffusion for sample quality, latent diffusion for a middle ground.
 
 ---
 
@@ -905,13 +652,9 @@ When you want both, consider latent diffusion, which applies diffusion in a VAE'
 
 1. Kingma, D. P. and Welling, M. (2014). "Auto-Encoding Variational Bayes." *International Conference on Learning Representations (ICLR)*.
 2. Ho, J., Jain, A., and Abbeel, P. (2020). "Denoising Diffusion Probabilistic Models." *Advances in Neural Information Processing Systems (NeurIPS)*.
-3. Watson, J. L. et al. (2023). "De novo design of protein structure and function with RFdiffusion." *Nature*, 620, 1089--1100.
-4. Alamdari, S. et al. (2023). "Protein generation with evolutionary diffusion: sequence is all you need." *Nature Machine Intelligence*.
-5. Austin, J. et al. (2021). "Structured Denoising Diffusion Models in Discrete State-Spaces." *Advances in Neural Information Processing Systems (NeurIPS)*.
-6. Higgins, I. et al. (2017). "beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework." *International Conference on Learning Representations (ICLR)*.
-7. Song, Y. and Ermon, S. (2019). "Generative Modeling by Estimating Gradients of the Data Distribution." *Advances in Neural Information Processing Systems (NeurIPS)*.
-8. Dhariwal, P. and Nichol, A. (2021). "Diffusion Models Beat GANs on Image Synthesis." *Advances in Neural Information Processing Systems (NeurIPS)*.
-9. Ho, J. and Salimans, T. (2022). "Classifier-Free Diffusion Guidance." *arXiv preprint arXiv:2207.12598*.
-10. Rombach, R. et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *Conference on Computer Vision and Pattern Recognition (CVPR)*.
-11. Dauparas, J. et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *Science*, 378(6615), 49--56.
-12. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.
+3. Higgins, I. et al. (2017). "beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework." *International Conference on Learning Representations (ICLR)*.
+4. Song, Y. and Ermon, S. (2019). "Generative Modeling by Estimating Gradients of the Data Distribution." *Advances in Neural Information Processing Systems (NeurIPS)*.
+5. Dhariwal, P. and Nichol, A. (2021). "Diffusion Models Beat GANs on Image Synthesis." *Advances in Neural Information Processing Systems (NeurIPS)*.
+6. Ho, J. and Salimans, T. (2022). "Classifier-Free Diffusion Guidance." *arXiv preprint arXiv:2207.12598*.
+7. Rombach, R. et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *Conference on Computer Vision and Pattern Recognition (CVPR)*.
+8. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.
