@@ -111,6 +111,8 @@ To feed a protein into a neural network, we must convert its sequence into numer
 ### 2.1 One-Hot Encoding
 
 The most straightforward feature is a **one-hot encoding**[^onehot].
+In NLP, a vocabulary of 50,000 words maps each word to a one-hot vector of length 50,000 --- enormously sparse, which is why language models compress these into dense embeddings.
+Protein sequences face the same encoding problem on a smaller scale: 20 amino acids rather than 50,000 words.
 Each amino acid at position $$i$$ becomes a binary vector of length 20, with a single 1 indicating which residue is present:
 
 [^onehot]: One-hot encoding is also called "dummy encoding" or "indicator encoding" in the statistics literature.
@@ -119,7 +121,7 @@ $$
 \mathbf{x}_i \in \{0, 1\}^{20}, \quad \sum_{j=1}^{20} x_{ij} = 1
 $$
 
-A full protein of length $$L$$ becomes a feature matrix of shape $$(L, 20)$$.
+A full protein of length $$L$$ becomes a feature matrix $$\mathbf{X} \in \mathbb{R}^{L \times 20}$$.
 
 ```python
 import torch
@@ -149,6 +151,8 @@ Learned embeddings (covered in the main lectures) address this by replacing each
 A neural network does not process one protein at a time.
 Training requires **batches** --- groups of proteins processed together for computational efficiency.
 But proteins have different lengths, so we must **pad** every sequence to a common length before stacking them into a tensor.
+NLP pipelines face the same challenge: sentences in a batch range from 3 to 50 tokens, so shorter sentences are padded with a special `[PAD]` token to match the longest.
+Protein sequences require identical treatment.
 
 After one-hot encoding, each protein of length $$L$$ is a matrix of shape $$(L, 20)$$.
 We choose a fixed maximum length $$L_{\max}$$, pad shorter proteins with zero vectors, and truncate longer ones.
@@ -197,7 +201,8 @@ A feature vector is not a prediction.
 To go from a one-hot encoded sequence to a solubility score, we need a function --- and a linear model $$\hat{y} = \mathbf{W}\mathbf{x} + b$$ is limited to straight-line relationships.
 
 The linear model from Preliminary Note 1 can only draw straight-line decision boundaries.
-But solubility depends on nonlinear combinations of features --- a cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
+A linear classifier in image space can only draw flat decision boundaries through pixel values --- it cannot learn that a cluster of dark pixels in the center of an image means "pupil" while scattered dark pixels mean nothing.
+The same limitation appears in proteins: solubility depends on nonlinear combinations of features --- a cluster of five hydrophobic residues in a row is a strong signal for a transmembrane helix (likely insoluble), while the same five residues scattered throughout the sequence may have no effect.
 A linear model treats both cases identically.
 
 The mathematical reason is deeper than it first appears.
@@ -225,7 +230,7 @@ The input features $$x_1, x_2, \ldots, x_n$$ are numerical values derived from t
 The weights $$w_1, w_2, \ldots, w_n$$ determine how much each feature contributes to the solubility score.
 The bias $$b$$ shifts the decision boundary, and the function $$\sigma$$ is called an **activation function**; it introduces nonlinearity, allowing the neuron to model relationships that are not straight lines.
 
-When $$\sigma$$ is the sigmoid function, the single neuron computes:
+In vector notation, writing $$\mathbf{x} \in \mathbb{R}^n$$ for the input and $$\mathbf{w} \in \mathbb{R}^n$$ for the weight vector, and choosing $$\sigma$$ as the sigmoid function, the single neuron computes:
 
 $$
 P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}
@@ -257,6 +262,8 @@ This is sufficient for linearly separable problems but fails when the boundary b
 
 A single neuron is limited.
 But arrange many neurons in parallel --- each receiving the same input features but with *different* weights --- and you get a **layer**.
+In computer vision, a fully connected layer might take a flattened 224x224x3 image (150,528 dimensions) and compress it to 512 hidden units.
+For protein sequences, the dimensions are smaller but the architecture is identical.
 With 64 neurons processing a $$d$$-dimensional input, you get a 64-dimensional **representation** --- 64 different weighted combinations of the input features.
 This can be written compactly as a matrix equation:
 
@@ -305,10 +312,15 @@ $$
 \hat{y} = \mathbf{W}_{n+1} \mathbf{h}_n + \mathbf{b}_{n+1}
 $$
 
+Here $$\mathbf{W}_l \in \mathbb{R}^{d_l \times d_{l-1}}$$ maps from the $$(l{-}1)$$-th layer's width $$d_{l-1}$$ to the $$l$$-th layer's width $$d_l$$, with $$\mathbf{b}_l \in \mathbb{R}^{d_l}$$ and $$\mathbf{h}_l \in \mathbb{R}^{d_l}$$ (taking $$d_0$$ as the input dimension and $$\mathbf{h}_0 = \mathbf{x}$$).
 Each hidden layer takes the previous layer's output $$\mathbf{h}_{l-1}$$ as input, applies a linear transformation followed by a nonlinear activation, and produces a new representation $$\mathbf{h}_l$$.
 The final layer typically has no activation (for regression) or a sigmoid/softmax (for classification).
 Deeper networks can represent complex functions efficiently because each layer builds more abstract features from the previous layer's output.
 
+Deep networks build hierarchical representations.
+In image recognition, early layers detect edges, middle layers combine edges into textures and shapes, and final layers recognize objects.
+In NLP, early layers capture character patterns, middle layers capture word meanings, and final layers capture sentence-level semantics.
+Protein networks follow the same principle.
 For a protein solubility predictor, this compositional hierarchy might look like:
 
 - **Layer 1** detects which positions and amino acid identities are informative, extracting basic patterns from the flattened sequence.

@@ -17,6 +17,8 @@ related_posts: false
 
 ## Introduction: Dreaming Up New Proteins
 
+Generative models have transformed machine learning.  In computer vision, they synthesize photorealistic faces, fill in missing image regions, and transfer artistic styles.  In NLP, large language models generate coherent text, translate between languages, and write code.  The same generative paradigm is now reshaping protein science.
+
 Evolution has spent roughly four billion years crafting the proteins we observe today.
 These molecules are the result of relentless natural selection—optimized for the particular environments and challenges their host organisms faced.
 Yet the proteins that exist in nature represent only a vanishing sliver of what is possible.
@@ -40,9 +42,9 @@ We will study two foundational frameworks for generative modeling—**variationa
 
 | Section | Topic | Why It Is Needed |
 |---------|-------|------------------|
-| 1 | The Compression Perspective | Builds intuition for latent-variable models before any math |
-| 2 | From Autoencoders to VAEs | Explains why a probabilistic latent space enables generation |
-| 3 | The ELBO and Its Derivation | Provides the training objective for VAEs |
+| 1 | The Generation Problem | Sets up the core challenge: training a noise-to-protein decoder |
+| 2 | The Variational Autoencoder | Introduces encoder, decoder, and KL regularization as one coherent idea |
+| 3 | The ELBO: Formalizing the Training Objective | Derives the principled training objective from maximum likelihood |
 | 4 | The Reparameterization Trick | Solves the practical problem of backpropagating through sampling |
 | 5 | Complete Protein VAE | Assembles a working implementation |
 | 6 | Diffusion Models: Controlled Destruction | Introduces the forward noising process |
@@ -54,57 +56,68 @@ We will study two foundational frameworks for generative modeling—**variationa
 
 ---
 
-## 1. The Compression Perspective
+## 1. The Generation Problem
 
-Before any equations, consider a thought experiment.
+The goal is concrete: build a machine that takes random noise as input and outputs a novel, realistic protein sequence.
 
 Suppose you have a database of 50,000 serine protease sequences.
 Despite their diversity—some share less than 30% sequence identity—they all fold into similar structures, catalyze the same reaction, and place a conserved catalytic triad (Ser, His, Asp) in nearly identical spatial positions.
-Listing every residue of every sequence is clearly redundant.
-There must be a more compact description that captures the *essence* of what makes a serine protease a serine protease.
+You want a neural network that can generate *new* serine proteases—sequences not in the database, but statistically indistinguishable from those that are.
 
-An **autoencoder** is a neural network that discovers such compact descriptions automatically.
-It consists of two halves:
+The architecture is simple: a **decoder** network $$f_\theta$$ that maps a random vector $$z$$ to a protein sequence $$x$$.
+At inference time, we sample $$z \sim \mathcal{N}(0, I)$$, feed it through the decoder, and read off the generated sequence.
+Different draws of $$z$$ produce different proteins; the distribution of outputs should match the distribution of real proteins.
 
-1. An **encoder** that compresses the input $$x$$ (a protein sequence) into a low-dimensional vector $$z$$, called the **latent code**[^latent].
-2. A **decoder** that reconstructs the protein from $$z$$.
+The problem is training.
+We have 50,000 real serine proteases, but we do not know which noise vector $$z$$ should map to which protein.
+The decoder expects an input $$z$$ and must produce the corresponding protein $$x$$—but the "corresponding" noise for each training protein is unknown.
+We cannot simply pair random noise vectors with training sequences, because there is no reason a random $$z$$ should have anything to do with a particular protein.
 
-If the network can reliably reconstruct proteins from their latent codes, those codes must contain the essential information about the input.
-The latent dimension is deliberately chosen to be much smaller than the input dimension, forcing the network to learn an efficient internal representation.
+This is the central challenge: **how do you train a noise-to-data decoder when you only have data and no corresponding noise inputs?**
 
 [^latent]: The latent code is also called the *latent representation*, *latent variable*, or *embedding*, depending on the community.
 
-But standard autoencoders have a critical limitation for generation.
-Each input maps to a single, deterministic point in latent space.
-If we pick a random point and decode it, there is no guarantee it lies near any training example.
-The latent space may be riddled with gaps and dead zones—regions that decode into sequences with no physical meaning.
-
-To see why, consider a simple analogy.
-Imagine plotting every serine protease as a dot in a two-dimensional space.
-A standard autoencoder might scatter these dots across the plane with irregular spacing.
-Between two clusters of dots lies empty territory.
-Decoding a point from that empty territory yields gibberish—a sequence that folds improperly or not at all.
-For generation, we need a way to make *every* region of latent space decode into something sensible, with smooth transitions between neighboring points.
-
 ---
 
-## 2. From Autoencoders to VAEs
+## 2. The Variational Autoencoder
 
-Variational autoencoders, introduced by Kingma and Welling (2014), solve this problem by making the latent space **probabilistic**.
-Instead of mapping each protein $$x$$ to a single point $$z$$, the encoder outputs the parameters of a Gaussian distribution—a mean vector $$\mu_\phi(x)$$ and a variance vector $$\sigma^2_\phi(x)$$—from which we then *sample* a latent code:
+The **variational autoencoder** (VAE), introduced by Kingma and Welling (2014), solves the training problem from Section 1 with three interlocking ideas.
+
+### Idea 1: The Decoder
+
+The decoder $$p_\theta(x \mid z)$$ is the generator we ultimately want.
+It is a neural network with parameters $$\theta$$ that takes a latent[^latent] vector $$z \in \mathbb{R}^J$$ and outputs a probability distribution over protein sequences.
+At inference time, we sample $$z \sim \mathcal{N}(0, I)$$ and decode it into a protein.
+
+```python
+class ProteinDecoder(nn.Module):
+    """Decodes a latent vector into amino-acid logits for each position."""
+
+    def __init__(self, latent_dim: int, hidden_dim: int, output_dim: int):
+        super().__init__()
+        self.fc1 = nn.Linear(latent_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, output_dim)
+
+    def forward(self, z: torch.Tensor):
+        h = torch.relu(self.fc1(z))
+        return self.fc2(h)  # raw logits; softmax is applied in the loss
+```
+
+### Idea 2: The Encoder as a Training Trick
+
+In supervised learning, training data comes as (input, label) pairs — the pairing is given.  Generative models face a harder problem: there are no pre-assigned latent codes for each training example.  The encoder manufactures these pairings.
+
+To train the decoder, we need noise inputs paired with real proteins.
+The **encoder** $$q_\phi(z \mid x)$$ provides them.
+Given a training protein $$x$$, the encoder infers a distribution over latent vectors that could plausibly map to $$x$$:
 
 $$z \sim q_\phi(z \mid x) = \mathcal{N}\!\bigl(\mu_\phi(x),\; \sigma^2_\phi(x) I\bigr)$$
 
-Here $$\phi$$ denotes the learnable parameters of the encoder, $$\mathcal{N}$$ is a multivariate Gaussian, and $$I$$ is the identity matrix.
+Here $$\phi$$ denotes the learnable parameters of the encoder, $$\mu_\phi(x) \in \mathbb{R}^J$$ and $$\sigma^2_\phi(x) \in \mathbb{R}^J$$ are the per-dimension mean and variance, and $$I$$ is the $$J \times J$$ identity matrix.
 The distribution $$q_\phi(z \mid x)$$ is called the **approximate posterior**[^posterior] because it approximates the true (intractable) posterior $$p(z \mid x)$$.
 
-[^posterior]: In Bayesian terminology, the *posterior* is the distribution over latent variables given observed data.  The word "approximate" reminds us that $$q_\phi$$ is a parametric family (here, diagonal Gaussians) that may not perfectly match the true posterior.
-
-The training procedure also adds a **regularizer** that pushes every encoded distribution toward a standard normal $$p(z) = \mathcal{N}(0, I)$$.
-This regularizer has a profound consequence: the entire latent space becomes populated.
-If we sample $$z \sim \mathcal{N}(0, I)$$ and decode it, we are likely to obtain a valid protein, because the encoder has been trained to place real proteins near these regions, and the decoder has been trained to reconstruct them.
-
-The encoder in code looks like this:
+Training works as follows: for each training protein $$x$$, the encoder proposes a distribution over noise inputs $$z$$; we sample a $$z$$ from that distribution and ask the decoder to reconstruct $$x$$ from it.
+The reconstruction loss trains both networks jointly—the encoder to propose useful noise inputs, the decoder to recover proteins from them.
 
 ```python
 import torch
@@ -129,38 +142,55 @@ class ProteinEncoder(nn.Module):
 We output $$\log \sigma^2$$ rather than $$\sigma^2$$ directly.
 Exponentiating a real number always yields a positive result, so this parameterization guarantees positive variance without needing explicit constraints.
 
-The decoder takes a sampled latent code $$z$$ and predicts a probability distribution over amino acids at each sequence position:
+[^posterior]: In Bayesian terminology, the *posterior* is the distribution over latent variables given observed data.  The word "approximate" reminds us that $$q_\phi$$ is a parametric family (here, diagonal Gaussians) that may not perfectly match the true posterior.
 
-```python
-class ProteinDecoder(nn.Module):
-    """Decodes a latent vector into amino-acid logits for each position."""
+### Idea 3: KL Regularization
 
-    def __init__(self, latent_dim: int, hidden_dim: int, output_dim: int):
-        super().__init__()
-        self.fc1 = nn.Linear(latent_dim, hidden_dim)
-        self.fc2 = nn.Linear(hidden_dim, output_dim)
+Without regularization, a face VAE might memorize each training face in a unique corner of latent space — moving between corners produces garbage rather than smooth interpolation.  The KL term prevents this collapse by keeping the latent distribution close to a standard Gaussian.
 
-    def forward(self, z: torch.Tensor):
-        h = torch.relu(self.fc1(z))
-        return self.fc2(h)  # raw logits; softmax is applied in the loss
-```
+Reconstruction alone is not enough.
+If we only minimize reconstruction error, the encoder can map each protein to a tiny, isolated region of latent space—some arbitrary corner far from the origin.
+Reconstruction would be perfect: the decoder memorizes which corner corresponds to which protein.
+But at inference we sample $$z \sim \mathcal{N}(0, I)$$, and those arbitrary corners are nowhere near the standard normal.
+The decoder has never seen noise drawn from the regions it will encounter at test time.
+
+The **KL divergence** term fixes this mismatch:
+
+$$D_{\mathrm{KL}}\!\bigl(q_\phi(z \mid x) \,\|\, \mathcal{N}(0, I)\bigr)$$
+
+This penalty forces the encoder's output distribution for each training protein to stay close to the standard normal.
+The latent vectors the decoder sees during training then overlap with the distribution it will sample from at inference.
+The entire latent space becomes populated: sampling $$z \sim \mathcal{N}(0, I)$$ and decoding it produces a valid protein, because the decoder has been trained on noise drawn from exactly this region.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEArch.png' | relative_url }}" alt="VAE architecture">
+    <div class="caption mt-1"><strong>Variational autoencoder architecture.</strong> The encoder \(\mathbf{g}[\mathbf{x}, \boldsymbol{\theta}]\) maps input data \(\mathbf{x}\) to the mean \(\boldsymbol{\mu}\) and covariance \(\boldsymbol{\Sigma}\) of a variational distribution \(q(\mathbf{z}|\mathbf{x}, \boldsymbol{\theta})\). A latent code \(\mathbf{z}^*\) is sampled from this distribution and passed to the decoder \(\mathbf{f}[\mathbf{z}^*, \boldsymbol{\phi}]\), which outputs the reconstruction probability \(Pr(\mathbf{x}|\mathbf{z}^*, \boldsymbol{\phi})\). The ELBO loss (top) combines two terms: the reconstruction log-probability \(\log Pr(\mathbf{x}|\mathbf{z}^*, \boldsymbol{\phi})\) (data should have high probability) and the KL divergence \(D_{KL}[q(\mathbf{z}|\mathbf{x}, \boldsymbol{\theta}) \| Pr(\mathbf{z})]\) (variational distribution should be close to the prior). <em>Note: this figure uses \(\boldsymbol{\theta}\) for the encoder and \(\boldsymbol{\phi}\) for the decoder; our text uses the opposite convention (\(\phi\) for encoder, \(\theta\) for decoder).</em> Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+</div>
+
+To summarize the two loss terms intuitively:
+- **Reconstruction loss**: the decoder should recover $$x$$ from the proposed $$z$$.
+- **KL loss**: the proposed $$z$$ should look like standard normal noise.
 
 ---
 
-## 3. The ELBO: Deriving the Training Objective
+## 3. The ELBO: Formalizing the Training Objective
 
 ### Motivation
 
-We want to find encoder parameters $$\phi$$ and decoder parameters $$\theta$$ that make our training data as probable as possible under the model.
-Formally, we want to maximize the **marginal log-likelihood**[^marginal]:
+Section 2 motivated the two loss terms intuitively: reconstruct the data, and keep the encoder's output close to the prior.
+Here we derive these terms from a single principled objective.
 
-$$\log p_\theta(x) = \log \int p_\theta(x \mid z)\, p(z)\, dz$$
+Our generative model defines the probability of a protein $$x$$ by integrating over all possible noise inputs:
+
+$$p_\theta(x) = \int p_\theta(x \mid z)\, p(z)\, dz$$
+
+We want to maximize this **marginal likelihood**[^marginal]—the probability that our decoder, fed with random noise from the prior, produces the training proteins.
+This is exactly the right objective for a generative model: if $$p_\theta(x)$$ is high for all training proteins, then sampling $$z \sim \mathcal{N}(0, I)$$ and decoding is likely to produce realistic outputs.
 
 [^marginal]: This is called *marginal* because we integrate (marginalize) over the latent variable $$z$$.
 
-This integral sums the contributions of every possible latent code $$z$$.
-For each $$z$$, the prior $$p(z) = \mathcal{N}(0, I)$$ tells us how likely that code is, and the decoder $$p_\theta(x \mid z)$$ tells us how likely the protein $$x$$ is given that code.
-Unfortunately, this integral has no closed-form solution—evaluating it would require running the decoder for every conceivable $$z$$.
+The integral is intractable—it sums the decoder's output over every conceivable $$z$$.
+The encoder $$q_\phi(z \mid x)$$ from Section 2 provides the way forward: rather than integrating over all $$z$$, we focus on the values of $$z$$ that the encoder considers plausible for each $$x$$.
 
 ### Deriving the Evidence Lower Bound
 
@@ -193,24 +223,20 @@ $$\log p_\theta(x) \geq \text{ELBO}$$
 Maximizing the ELBO pushes up on the true log-likelihood from below.
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEArch.png' | relative_url }}" alt="VAE architecture">
-    <div class="caption mt-1"><strong>Variational autoencoder architecture.</strong> The encoder \(\mathbf{g}[\mathbf{x}, \boldsymbol{\theta}]\) maps input data \(\mathbf{x}\) to the mean \(\boldsymbol{\mu}\) and covariance \(\boldsymbol{\Sigma}\) of a variational distribution \(q(\mathbf{z}|\mathbf{x}, \boldsymbol{\theta})\). A latent code \(\mathbf{z}^*\) is sampled from this distribution and passed to the decoder \(\mathbf{f}[\mathbf{z}^*, \boldsymbol{\phi}]\), which outputs the reconstruction probability \(Pr(\mathbf{x}|\mathbf{z}^*, \boldsymbol{\phi})\). The ELBO loss (top) combines two terms: the reconstruction log-probability \(\log Pr(\mathbf{x}|\mathbf{z}^*, \boldsymbol{\phi})\) (data should have high probability) and the KL divergence \(D_{KL}[q(\mathbf{z}|\mathbf{x}, \boldsymbol{\theta}) \| Pr(\mathbf{z})]\) (variational distribution should be close to the prior). <em>Note: this figure uses \(\boldsymbol{\theta}\) for the encoder and \(\boldsymbol{\phi}\) for the decoder; our text uses the opposite convention (\(\phi\) for encoder, \(\theta\) for decoder).</em> Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
-</div>
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/VAEELBO.png' | relative_url }}" alt="The evidence lower bound (ELBO)">
     <div class="caption mt-1"><strong>The evidence lower bound (ELBO).</strong> The dark curve is the log marginal likelihood \(\log Pr(\mathbf{x}|\boldsymbol{\phi})\); the light curve is the ELBO, which is always below it. (a) Fixing the decoder parameters at \(\boldsymbol{\phi}^{[0]}\) and optimizing the encoder from \(\boldsymbol{\theta}^{[0]}\) to \(\boldsymbol{\theta}^{[1]}\) raises the ELBO (tightens the bound). (b) Then optimizing the decoder from \(\boldsymbol{\phi}^{[0]}\) to \(\boldsymbol{\phi}^{[1]}\) raises both the ELBO and the true log-likelihood. Training alternates between these two steps. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
 </div>
 
 ### Interpreting the Two Terms
 
+The two terms of the ELBO correspond exactly to the two intuitions from Section 2.
+
 **Reconstruction term** $$\mathbb{E}_{q_\phi(z \mid x)}[\log p_\theta(x \mid z)]$$: sample a latent code $$z$$ from the encoder, pass it through the decoder, and measure how well the original protein $$x$$ is recovered.
 Maximizing this term encourages faithful reconstruction.
 In practice, this is implemented as the negative cross-entropy between the decoder's output distribution and the true amino-acid sequence.
 
 **KL term** $$D_{\mathrm{KL}}(q_\phi(z \mid x) \,\|\, p(z))$$: this penalizes the encoder for producing distributions that stray too far from the prior $$\mathcal{N}(0, I)$$.
-Without this term, the encoder could assign each protein to a tiny, isolated region of latent space—perfect for reconstruction, useless for generation.
-The KL term forces overlapping, smooth coverage of the latent space.
+This is the formal version of the inference-time mismatch argument: without this term, the encoder's proposed noise values would not overlap with the standard normal we sample from at generation time.
 
 ### Closed-Form KL for Gaussians
 
@@ -250,7 +276,7 @@ Gradient-based optimizers cannot backpropagate through a random number generator
 ### The Solution
 
 Kingma and Welling's reparameterization trick rewrites the sampling step as a deterministic transformation of a fixed noise source.
-Instead of drawing $$z \sim \mathcal{N}(\mu, \sigma^2 I)$$ directly, we draw auxiliary noise $$\epsilon \sim \mathcal{N}(0, I)$$ and compute:
+Instead of drawing $$z \sim \mathcal{N}(\mu, \sigma^2 I)$$ directly, we draw auxiliary noise $$\epsilon \sim \mathcal{N}(0, I)$$, where $$\epsilon \in \mathbb{R}^J$$, and compute:
 
 $$z = \mu + \sigma \odot \epsilon$$
 
@@ -393,6 +419,8 @@ A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent laye
 The training objective—which we will derive in Section 7—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
 This connection is not just a curiosity: it is what makes the training objective principled and the generation process provably convergent.
 
+Sharpening a blurry photograph is far easier than painting a photorealistic image from a blank canvas.  Diffusion models exploit this asymmetry: they learn to reverse a gradual corruption process rather than generate from scratch.
+
 The core idea is disarmingly simple.
 Take a clean protein structure (or embedding), corrupt it step by step with Gaussian noise until nothing recognizable remains, and then train a neural network to reverse each corruption step.
 
@@ -411,7 +439,7 @@ But if the network can reverse *each individual step*—going from "slightly mor
 
 ### The Forward Process: Adding Noise
 
-Let $$x_0$$ denote a clean data point—say, the 3D coordinates of a protein backbone or a continuous embedding of a sequence.
+Let $$x_0 \in \mathbb{R}^D$$ denote a clean data point—say, the 3D coordinates of a protein backbone or a continuous embedding of a sequence.
 The **forward process** produces a sequence of increasingly noisy versions $$x_1, x_2, \ldots, x_T$$ by adding Gaussian noise at each step:
 
 $$q(x_t \mid x_{t-1}) = \mathcal{N}\!\bigl(x_t;\; \sqrt{1 - \beta_t}\, x_{t-1},\; \beta_t I\bigr)$$
@@ -504,7 +532,7 @@ Three equivalent parameterizations exist: the network can predict the clean data
 Ho et al. (2020) found that predicting the noise leads to the simplest and most stable training.
 
 Rather than predicting the mean $$\mu_\theta$$ directly, we train the network to predict the *noise* $$\epsilon$$ that was added to obtain $$x_t$$ from $$x_0$$.
-Once the network predicts $$\epsilon_\theta(x_t, t)$$, we can recover the mean via:
+Once the network predicts $$\epsilon_\theta(x_t, t) \in \mathbb{R}^D$$, we can recover the mean via:
 
 $$\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}}\, \epsilon_\theta(x_t, t) \right)$$
 
@@ -657,6 +685,8 @@ This embedding is then injected into the denoising network—for example, by add
 
 The choice of denoising network architecture depends on the data representation.
 
+U-Nets dominate image generation (Stable Diffusion) and medical image segmentation thanks to their multi-scale skip connections.  Transformers dominate text generation thanks to their ability to capture long-range dependencies.  For proteins, the choice depends on the data representation:
+
 For **coordinate-based representations** (3D backbone atoms), U-Net architectures with skip connections are common.
 The encoder half progressively reduces spatial resolution, capturing long-range context, while the decoder half restores resolution.
 Skip connections from encoder to decoder preserve fine-grained spatial details that would otherwise be lost during downsampling.
@@ -674,6 +704,9 @@ Rather than learning protein physics from scratch, it learns only to denoise—a
 Diffusion models were designed for continuous data—Gaussian noise added to real-valued vectors.
 But protein sequences are **discrete**: each position is one of 20 amino acids (plus possible gap or special tokens).
 This creates a fundamental mismatch.
+
+Standard diffusion adds Gaussian noise to continuous data — but language tokens and amino acids are discrete.  Recent NLP work (D3PM, masked diffusion) addresses this for text by defining transition matrices over token vocabularies.  Proteins face the same challenge:
+
 Three strategies have emerged to address it.
 
 **Continuous relaxation.** Embed each discrete token into a continuous vector (for instance, using a learned embedding table), apply standard Gaussian diffusion in embedding space, and project back to the nearest discrete token at the end of generation.
@@ -761,6 +794,8 @@ Experimentally, EvoDiff-generated sequences fold into stable structures (as pred
 ### Conditional Generation: Designing with Intent
 
 The true power of generative models for protein engineering lies in **conditional generation**—steering the model toward proteins with specific desired properties.
+
+Conditional generation is a solved problem in computer vision: text-to-image models like DALL-E and Stable Diffusion generate images conditioned on text prompts, and class-conditional ImageNet models generate images of specific object categories.  The protein equivalent conditions on desired biophysical properties:
 
 **Conditional VAE.** The simplest approach conditions the decoder on a property vector (for example, desired thermostability, catalytic activity, or secondary-structure content).
 The latent code captures sequence variation that is *orthogonal* to the conditioning signal, enabling diverse generation within a property-defined subspace.
@@ -857,6 +892,7 @@ def classifier_guided_sample(
 ```
 
 **Classifier-free guidance** (Ho and Salimans, 2022) eliminates the need for a separate classifier.
+Classifier-free guidance, introduced for image generation, blends a conditional and unconditional prediction to control the strength of conditioning.  Stable Diffusion uses a guidance scale to trade off prompt adherence against visual diversity.  The same mechanism applies to protein generation:
 During training, the conditioning signal is randomly dropped with some probability, and the model learns both conditional and unconditional generation.
 At inference time, the conditional and unconditional predictions are blended:
 
