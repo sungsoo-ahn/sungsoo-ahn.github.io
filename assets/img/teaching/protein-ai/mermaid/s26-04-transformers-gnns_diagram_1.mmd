@@ -1,15 +1,15 @@
 flowchart LR
-    X["Input x_i<br/>(per-residue<br/>embedding)"] --> WQ["W^Q"]
-    X --> WK["W^K"]
-    X --> WV["W^V"]
+    X["Input x<sub>i</sub><br/>(per-residue<br/>embedding)"] --> WQ["W<sup>Q</sup>"]
+    X --> WK["W<sup>K</sup>"]
+    X --> WV["W<sup>V</sup>"]
 
-    WQ --> Q["Query q_i<br/>'What am I<br/>looking for?'"]
-    WK --> K["Key k_j<br/>'What do I<br/>have to offer?'"]
-    WV --> V["Value v_j<br/>'What info<br/>do I carry?'"]
+    WQ --> Q["Query q<sub>i</sub><br/>'What am I<br/>looking for?'"]
+    WK --> K["Key k<sub>j</sub><br/>'What do I<br/>have to offer?'"]
+    WV --> V["Value v<sub>j</sub><br/>'What info<br/>do I carry?'"]
 
-    Q & K --> S["Score: q_i · k_j<br/>(dot product)"]
-    S --> SM["Softmax<br/>α_ij"]
-    SM --> AG["Weighted Sum<br/>Σ α_ij · v_j"]
+    Q & K --> S["Score: q<sub>i</sub> · k<sub>j</sub><br/>(dot product)"]
+    S --> SM["Softmax<br/>α<sub>ij</sub>"]
+    SM --> AG["Weighted Sum<br/>Σ α<sub>ij</sub> · v<sub>j</sub>"]
     V --> AG
     AG --> O["Output<br/>(context-aware)"]
 

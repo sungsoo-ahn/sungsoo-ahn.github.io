@@ -419,23 +419,12 @@ A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent laye
 The training objective—which we will derive in Section 7—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
 This connection is not just a curiosity: it is what makes the training objective principled and the generation process provably convergent.
 
-Sharpening a blurry photograph is far easier than painting a photorealistic image from a blank canvas.  Diffusion models exploit this asymmetry: they learn to reverse a gradual corruption process rather than generate from scratch.
+Sharpening a blurry photograph is far easier than painting a photorealistic image from a blank canvas.  Diffusion models exploit this asymmetry: instead of generating from scratch, they decompose generation into many small denoising steps.
 
-The core idea is disarmingly simple.
-Take a clean protein structure (or embedding), corrupt it step by step with Gaussian noise until nothing recognizable remains, and then train a neural network to reverse each corruption step.
-
-Once trained, the network can start from pure noise and iteratively sculpt it into a realistic protein.
-
-The intuition is that **denoising is easier than generating from scratch**.
-If someone shows you a slightly blurry photograph and asks you to sharpen it, that task is far easier than painting a photorealistic image from a blank canvas.
-Diffusion models decompose the hard problem of generation into many small, manageable denoising steps.
-
-To ground this in protein science: imagine taking the 3D coordinates of a protein backbone and jittering every atom by a tiny random displacement.
-The resulting structure is still recognizable.
-A neural network that has seen many proteins could plausibly predict the original atom positions from this lightly perturbed version.
-Now repeat the corruption many times, adding more noise at each stage.
-Eventually the coordinates become indistinguishable from random points in space.
-But if the network can reverse *each individual step*—going from "slightly more noisy" to "slightly less noisy"—then chaining all the reverse steps together recovers a clean protein from pure noise.
+Concretely, imagine taking the 3D coordinates of a protein backbone and jittering every atom by a tiny random displacement.
+The resulting structure is still recognizable, and a neural network that has seen many proteins could plausibly predict the original atom positions from this lightly perturbed version.
+Now repeat the corruption many times, adding more noise at each stage, until the coordinates become indistinguishable from random points in space.
+If the network can reverse *each individual step*—going from "slightly more noisy" to "slightly less noisy"—then chaining all the reverse steps together recovers a clean protein from pure noise.
 
 ### The Forward Process: Adding Noise
 
@@ -738,25 +727,8 @@ The table below summarizes the key trade-offs.
 | **Controllability** | Latent-space manipulation, conditional decoding | Classifier guidance, classifier-free guidance |
 | **Interpretability** | Latent dimensions can align with meaningful properties | Less interpretable |
 
-**When to prefer a VAE.**
-VAEs are the natural choice when you need a *structured latent space* for downstream tasks: interpolating between protein families, clustering sequences by function, or optimizing latent vectors with respect to a predicted property.
-Sampling is cheap (a single decoder forward pass), which matters when screening millions of candidates.
-
-**When to prefer diffusion.**
-Diffusion models produce the highest-quality samples available today.
-When you need physically plausible protein backbones—correct bond lengths, realistic torsion angles, proper secondary-structure packing—diffusion's iterative refinement outperforms single-shot decoding.
-The cost is generation time: producing one sample may require 50 to 1000 sequential network evaluations.
-
-**Practical hybrid approaches** are also common.
-Latent diffusion models (Rombach et al., 2022) first train a VAE to learn a compressed representation, then apply a diffusion model in the latent space.
-This combines the structured compression of VAEs with the high sample quality of diffusion, while reducing the computational cost of generation (since diffusion operates in the lower-dimensional latent space rather than the full data space).
-
-**A note on computational cost.**
-Generating one protein backbone with RFDiffusion requires roughly 50 denoising steps, each involving a forward pass through a large transformer.
-On a modern GPU, this takes seconds to minutes depending on protein length.
-By contrast, a VAE decoder produces a sequence in a single forward pass—milliseconds.
-For large-scale virtual screening campaigns where millions of candidates must be evaluated, the VAE's speed advantage is decisive.
-For targeted design where a few hundred high-quality candidates suffice, diffusion's superior sample quality justifies the extra compute.
+The practical upshot: VAEs win on speed (milliseconds per sample) and latent-space interpretability, making them the default for large-scale screening; diffusion wins on sample quality, making it the default for targeted design of physically plausible backbones.
+Latent diffusion models (Rombach et al., 2022) bridge the gap by running diffusion in a VAE's compressed latent space, trading some quality for much faster generation.
 
 ---
 

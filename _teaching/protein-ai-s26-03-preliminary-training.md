@@ -197,11 +197,7 @@ The mini-batch gradient approximates the full gradient using only $$B \ll n$$ ex
 The word **stochastic** in "stochastic gradient descent" refers to this randomness: at each step, the mini-batch is a random sample, so the gradient is a random variable.
 The `shuffle=True` flag in PyTorch's DataLoader is what makes SGD stochastic --- it randomizes which proteins end up in which mini-batch at each epoch.
 
-**Batch size** controls the noise-accuracy tradeoff:
-
-- **Small batches (16--32)** produce noisier gradient estimates. This noise acts as implicit regularization, helping the model generalize. Small batches also use less GPU memory, allowing larger models or longer sequences.
-- **Large batches (256--512)** produce smoother, more accurate gradients that converge faster per step. However, each step requires more computation, and the smoother optimization path can lead the model into sharp minima that generalize worse.
-- **A common starting point** for protein tasks is a batch size of 32 or 64. If your GPU has memory to spare, try 128; if you are running out of memory, drop to 16.
+**Batch size** controls the noise-accuracy tradeoff. Small batches (16--32) produce noisier gradient estimates, but that noise acts as implicit regularization that helps generalization; they also use less GPU memory. Large batches (256--512) give smoother, more accurate gradients that converge faster per step, but the smoother optimization path can settle into sharp minima that generalize worse. A batch size of 32 or 64 is a reasonable starting point for protein tasks --- scale up if GPU memory allows, or drop to 16 if memory is tight.
 
 One **epoch** means one complete pass through the training set.
 If the dataset has 50,000 proteins and the batch size is 32, one epoch consists of $$\lceil 50{,}000 / 32 \rceil = 1{,}563$$ mini-batch updates.
@@ -352,11 +348,7 @@ A 100-million-parameter ResNet trained on only 500 images overfits --- it memori
 The sweet spot lies between these extremes.
 **Bias** is error from a model being too simple --- a linear model predicting solubility from just protein length will systematically miss the real relationship.
 **Variance** is error from a model being too sensitive to the specific training data --- a very complex model fits the training set perfectly, including its noise, but produces wildly different predictions on new data.
-The practical consequences:
-
-- **Too simple** (high bias): the model underfits --- training performance is already poor.
-- **Too complex** (high variance): the model overfits --- training performance is excellent, but validation performance is much worse.
-- **Just right**: both training and validation performance are good, and they are close to each other.
+High bias shows up as poor training performance (underfitting); high variance shows up as a large gap between good training performance and poor validation performance (overfitting). The sweet spot is where both metrics are low and close to each other.
 
 ### The Train/Validation/Test Split
 

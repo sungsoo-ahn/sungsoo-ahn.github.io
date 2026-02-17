@@ -30,11 +30,9 @@ This lecture develops both families from first principles.  We begin by asking h
 | 1 | Why attention? | Variable-length inputs, the limits of sequential processing, and attention as an adaptive linear layer |
 | 2 | The attention mechanism | Attention as adaptive weights, the Q/K/V parameterization, scaling, and multi-head attention |
 | 3 | The transformer architecture | Attention + FFN + residual connections + normalization, and positional encoding |
-| 4 | Preview: protein language models | Why transformers + masked prediction = powerful protein representations (details in Lecture 3) |
-| 5 | Proteins as graphs | Representing 3D structure for neural processing |
-| 6 | The message-passing framework | The general GNN computation and three instantiations: GCN, GAT, MPNN |
-| 7 | SE(3)-equivariant GNNs | Respecting rotational and translational symmetry of physical structures |
-| 8 | From GNNs to AlphaFold | A complete protein GNN, the AlphaFold synthesis, and practical architecture guidance |
+| 4 | Proteins as graphs | Representing 3D structure for neural processing |
+| 5 | The message-passing framework | The general GNN computation and three instantiations: GCN, GAT, MPNN |
+| 6 | SE(3)-equivariant GNNs | Respecting rotational and translational symmetry of physical structures |
 
 ---
 
@@ -106,14 +104,10 @@ The simple formula $$x_i^T x_j$$ uses the same representation for two distinct r
 
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_1.png' | relative_url }}" alt="Query-Key-Value attention: each residue computes query, key, and value vectors to determine pairwise attention weights">
+    <div class="caption mt-1"><strong>The Q/K/V decomposition.</strong> Each input embedding \(x_i\) is projected into a query, key, and value. The query-key dot product determines attention weights; the weighted sum of values produces the context-aware output.</div>
 </div>
 
 [^qkv]: The names query, key, and value come from information retrieval.  Think of searching a database: you submit a query, it is matched against keys, and the corresponding values are returned.
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/qkv.png' | relative_url }}" alt="Query, Key, Value mechanism">
-    <div class="caption mt-1"><strong>Queries, keys, and values.</strong> Each input token is projected into three separate vectors. The query asks "what am I looking for?", the key advertises "what do I have?", and the value carries the information transmitted when attention is paid. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
-</div>
 
 In machine translation, a French word's query asks "which English words are relevant to my meaning?", each English word's key advertises its semantic content, and the value carries the actual information to transfer.  In protein sequences, the same decomposition applies: consider a cysteine at position 50 in a protein sequence.  Its **query** $$q_{50}$$ encodes what it is looking for---perhaps another cysteine that could form a disulfide bond.  The **key** $$k_{127}$$ of a cysteine at position 127 advertises what it has to offer.  The **value** $$v_{127}$$ carries the actual information transmitted when position 50 attends to position 127.
 
@@ -301,13 +295,9 @@ class SelfAttention(nn.Module):
 
 ## 3. The Transformer Architecture
 
-<div class="col-sm-5 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/transformer_architecture.png' | relative_url }}" alt="Transformer architecture diagram">
-    <div class="caption mt-1"><strong>The Transformer architecture.</strong> Input tokens are embedded and augmented with positional encodings, then processed by N repeated blocks of multi-head self-attention followed by feed-forward networks. Residual connections (dashed arrows) and layer normalization stabilize training. Architecture from Vaswani et al., 2017.</div>
-</div>
-
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_2.png' | relative_url }}" alt="Transformer block: self-attention followed by feed-forward network, with residual connections and layer normalization">
+    <div class="caption mt-1"><strong>One transformer block.</strong> Input \(x\) passes through layer normalization, multi-head self-attention, and a residual connection, then through a second layer normalization, a feed-forward network, and another residual connection, producing output \(x'\) with the same shape.</div>
 </div>
 
 A transformer is more than just attention.  It combines several components into a repeating building block called a **transformer block**.  Each block contains four elements:
@@ -478,10 +468,6 @@ class SinusoidalPositionalEncoding(nn.Module):
         return x + self.pe[:, :x.size(1)]
 ```
 
-### Learned positional embeddings
-
-A simpler alternative treats positions like a vocabulary and learns an embedding vector for each position index.  This is more flexible but cannot generalize to sequence lengths beyond the training maximum.
-
 ### Rotary Position Embedding (RoPE)
 
 Modern protein language models such as ESM-2 use **Rotary Position Embedding (RoPE)**[^rope].  Instead of adding positional information to the embeddings, RoPE encodes position through *rotations* of the query and key vectors.  The angle of rotation depends on position, so the dot product between a query at position $$i$$ and a key at position $$j$$ naturally becomes a function of their relative offset $$i - j$$.  This elegant approach handles relative positions without the need for explicit relative-position biases.
@@ -490,15 +476,7 @@ Modern protein language models such as ESM-2 use **Rotary Position Embedding (Ro
 
 ---
 
-## 4. Preview: Protein Language Models
-
-The transformer architecture reaches its full potential for proteins when trained at massive scale on evolutionary data.  The key idea: take millions of protein sequences, randomly mask some amino acids, and train the transformer to predict the masked residues from context.  This **masked language modeling** objective forces the model to learn biochemistry, structural constraints, and evolutionary relationships --- all from sequences alone.
-
-The flagship example is the **ESM (Evolutionary Scale Modeling)** family from Meta AI.  Lecture 3 covers protein language models in detail: the training objective, how to extract and use the learned representations, and what biological knowledge these models capture.  For now, the important takeaway is that the transformer architecture we just built is the same backbone that powers state-of-the-art protein representation learning.
-
----
-
-## 5. Proteins as Graphs: A Natural Representation
+## 4. Proteins as Graphs: A Natural Representation
 
 We now shift perspective.  So far, we have treated proteins as sequences---linear chains of amino acids.  But proteins are not truly linear objects.  They fold into intricate three-dimensional structures where residues distant in sequence come into close spatial contact.
 
@@ -571,15 +549,11 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
 
 ---
 
-## 6. The Message-Passing Framework
+## 5. The Message-Passing Framework
 
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_3.png' | relative_url }}" alt="GNN message passing: each node gathers messages from neighbors, aggregates them, and updates its representation">
-</div>
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/papers/mlife_zhou2024_fig3.jpg' | relative_url }}" alt="GNN message passing on protein structures">
-    <div class="caption mt-1"><strong>Message passing on protein structures.</strong> Residues exchange information with their spatial neighbors through learned message functions. After several rounds of message passing, each residue's representation encodes its local structural environment. Source: Zhou et al. (2024), <em>mLife</em>, CC BY 4.0.</div>
+    <div class="caption mt-1"><strong>One round of message passing for node \(i\).</strong> Each neighbor \(j\) sends a message \(m_{ij}\) computed by the message function \(\psi\) from the two node states and the edge feature.  All messages are combined by the aggregation function \(\oplus\) (e.g., sum or mean).  The update function \(\varphi\) then produces the new representation \(h_i^{(\ell+1)}\) from the current state and the aggregated message.</div>
 </div>
 
 Message passing generalizes beyond proteins.  In social networks, a user's interests can be predicted from their friends' profiles.  In citation networks, a paper's topic is inferred from the papers it cites and the papers that cite it.  All graph neural networks share a common computational pattern called **message passing**.  The intuition is straightforward: each node gathers information from its neighbors, combines it, and updates its own representation.
@@ -605,132 +579,43 @@ Different GNN architectures correspond to different choices of $$\psi$$, $$\bigo
 
 ### Graph Convolutional Networks (GCN)
 
-The **Graph Convolutional Network (GCN)**, introduced by Kipf and Welling (2017), is the simplest and most widely used GNN.  Its layer rule is:
+The **GCN** (Kipf and Welling, 2017) is the simplest GNN.  Each node averages its own features and its neighbors' features, applies a shared linear transformation $$W^{(\ell)} \in \mathbb{R}^{d \times d'}$$, and passes the result through a nonlinearity:
 
 $$
-H^{(\ell+1)} = \sigma\!\left(\tilde{D}^{-1/2}\, \tilde{A}\, \tilde{D}^{-1/2}\, H^{(\ell)}\, W^{(\ell)}\right)
+h_i^{(\ell+1)} = \sigma\!\left(\frac{1}{|\mathcal{N}(i)|}\sum_{j \in \mathcal{N}(i)} W^{(\ell)}\, h_j^{(\ell)}\right)
 $$
 
-This formula looks dense, but each term has a clear interpretation:
-
-- $$A \in \mathbb{R}^{N \times N}$$ is the adjacency matrix of the graph, where $$A_{ij} = 1$$ if residues $$i$$ and $$j$$ are connected.
-- $$\tilde{A} = A + I$$ adds self-loops so that each node also considers its own features.
-- $$\tilde{D}$$ is the diagonal degree matrix of $$\tilde{A}$$, where $$\tilde{D}_{ii} = \sum_j \tilde{A}_{ij}$$.
-- The symmetric normalization $$\tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2}$$ scales contributions so that high-degree nodes do not dominate.
-- $$H^{(\ell)} \in \mathbb{R}^{N \times d}$$ is the matrix of node features at layer $$\ell$$.
-- $$W^{(\ell)} \in \mathbb{R}^{d \times d'}$$ is a learnable weight matrix.
-- $$\sigma$$ is a nonlinear activation function (typically ReLU).
-
-In plain language, each GCN layer computes a normalized weighted average of each node's own features and its neighbors' features, then applies a linear transformation and a nonlinearity.
+where $$\mathcal{N}(i)$$ includes node $$i$$ itself (self-loop).  The limitation: GCN treats all neighbors equally---it cannot learn that some matter more than others.
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/GraphGCN.png' | relative_url }}" alt="Graph convolutional network layer">
-    <div class="caption mt-1"><strong>Graph convolution.</strong> Each node computes a weighted average of its own features and its neighbors' features, applies a linear transformation, and passes the result through a nonlinearity. The symmetric normalization ensures that high-degree nodes do not dominate. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
+    <div class="caption mt-1"><strong>Graph convolution.</strong> Each node averages its own and its neighbors' features, applies a linear transformation, then a nonlinearity. Source: Prince, <em>Understanding Deep Learning</em>, CC BY-NC-ND. Used without modification.</div>
 </div>
-
-The GCN treats all neighbors equally (up to the degree-based normalization).  This is both its strength---simplicity and computational efficiency---and its limitation: it cannot learn that some neighbors matter more than others for a given task.
 
 ### Graph Attention Networks (GAT)
 
-Just as attention improved sequence modeling, it can improve graph neural networks.  The **Graph Attention Network (GAT)**, introduced by Velickovic et al. (2018), computes learned attention coefficients between each node and its neighbors.
-
-The attention coefficient between node $$i$$ and neighbor $$j$$ is:
+The **GAT** (Veličković et al., 2018) addresses this limitation by computing learned attention coefficients $$\alpha_{ij}$$ between each node and its neighbors, then taking a weighted sum instead of a uniform average:
 
 $$
-\alpha_{ij} = \frac{\exp\!\left(\text{LeakyReLU}\!\left(\mathbf{a}^T [W \mathbf{h}_i \,\|\, W \mathbf{h}_j]\right)\right)}{\sum_{k \in \mathcal{N}(i)} \exp\!\left(\text{LeakyReLU}\!\left(\mathbf{a}^T [W \mathbf{h}_i \,\|\, W \mathbf{h}_k]\right)\right)}
+h_i^{(\ell+1)} = \sigma\!\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij}\, W^{(\ell)} h_j^{(\ell)}\right)
 $$
 
-Here $$\mathbf{h}_i \in \mathbb{R}^d$$ is the current node representation, $$W \in \mathbb{R}^{d' \times d}$$ is a shared linear transformation, $$\mathbf{a} \in \mathbb{R}^{2d'}$$ is a learnable attention vector, and $$\|$$ denotes concatenation[^gat_concat].  The LeakyReLU activation prevents dead neurons.
-
-[^gat_concat]: In the original GAT paper, the attention mechanism concatenates the transformed features of both the source and target nodes.  Later variants, such as GATv2, compute attention differently to increase expressive power.
-
-The updated representation $$\mathbf{h}_i' \in \mathbb{R}^{d'}$$ is a weighted sum:
-
-$$
-\mathbf{h}_i' = \sigma\!\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij}\, W \mathbf{h}_j\right)
-$$
-
-For proteins, learned attention over the structure graph is valuable because not all spatial neighbors are equally important.  A catalytic residue should attend strongly to other members of the active site.  A residue in the hydrophobic core should focus on neighbors that contribute to core stability.  GAT learns these patterns from data.
-
-GAT also supports multi-head attention, just like the transformer.  Each head learns different attention patterns, and their outputs are concatenated (in intermediate layers) or averaged (in the final layer).
+The coefficients $$\alpha_{ij}$$ are computed by a small neural network (a learnable vector $$\mathbf{a} \in \mathbb{R}^{2d'}$$ applied to the concatenation of transformed node features), then normalized with softmax over the neighborhood.  Like the transformer, GAT supports multi-head attention---each head learns different interaction patterns.
 
 ### Message Passing Neural Networks (MPNN)
 
-The **Message Passing Neural Network (MPNN)** framework, introduced by Gilmer et al. (2017), provides maximum flexibility.  Instead of using fixed message and aggregation rules (as in GCN) or a specific attention mechanism (as in GAT), MPNN defines both the message function and the update function as arbitrary neural networks.
-
-**Message function.**  Given the representations of two connected nodes and the edge between them, an MLP computes the message $$m_{ij} \in \mathbb{R}^{d_m}$$:
+The **MPNN** framework (Gilmer et al., 2017) provides maximum flexibility by replacing the fixed message rules of GCN and the specific attention mechanism of GAT with arbitrary learned networks:
 
 $$
-m_{ij} = M_\theta\!\left(h_i^{(\ell)},\, h_j^{(\ell)},\, e_{ij}\right)
+m_{ij} = M_\theta\!\left(h_i^{(\ell)},\, h_j^{(\ell)},\, e_{ij}\right), \qquad
+h_i^{(\ell+1)} = U_\theta\!\left(h_i^{(\ell)},\, \sum_{j \in \mathcal{N}(i)} m_{ij}\right)
 $$
 
-**Aggregation.**  Messages from all neighbors are summed:
-
-$$
-m_i = \sum_{j \in \mathcal{N}(i)} m_{ij}
-$$
-
-**Update function.**  A second MLP combines the node's current state with the aggregated message $$m_i \in \mathbb{R}^{d_m}$$:
-
-$$
-h_i^{(\ell+1)} = U_\theta\!\left(h_i^{(\ell)},\, m_i\right)
-$$
-
-Here $$M_\theta: \mathbb{R}^{d} \times \mathbb{R}^{d} \times \mathbb{R}^{d_e} \to \mathbb{R}^{d_m}$$ and $$U_\theta: \mathbb{R}^{d} \times \mathbb{R}^{d_m} \to \mathbb{R}^{d}$$ are learned neural networks (typically MLPs).  This generality allows MPNNs to learn complex, task-specific communication patterns.
-
-```python
-class MPNNLayer(nn.Module):
-    """
-    A single message-passing layer.
-
-    Messages are computed by an MLP that takes the features of
-    both endpoint nodes and the edge features as input.  Node
-    representations are updated by a second MLP.
-    """
-
-    def __init__(self, node_dim, edge_dim, hidden_dim):
-        super().__init__()
-
-        # Message network: (sender features, receiver features, edge features) -> message
-        self.message_mlp = nn.Sequential(
-            nn.Linear(2 * node_dim + edge_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim)
-        )
-
-        # Update network: (current node features, aggregated messages) -> new features
-        self.update_mlp = nn.Sequential(
-            nn.Linear(node_dim + hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, node_dim)
-        )
-
-    def forward(self, x, edge_index, edge_attr):
-        row, col = edge_index  # row[e] -> col[e] for each edge e
-        N = x.size(0)
-
-        # Compute a message for each edge
-        message_input = torch.cat([x[row], x[col], edge_attr], dim=-1)
-        messages = self.message_mlp(message_input)  # (E, hidden_dim)
-
-        # Aggregate messages at each receiving node (sum)
-        aggregated = torch.zeros(N, messages.size(-1), device=x.device)
-        aggregated.scatter_add_(
-            0, col.unsqueeze(-1).expand_as(messages), messages
-        )
-
-        # Update each node
-        update_input = torch.cat([x, aggregated], dim=-1)
-        x = self.update_mlp(update_input)
-
-        return x
-```
-
-For proteins, the key advantage of MPNN over GCN and GAT is the ability to incorporate rich **edge features**: inter-residue distances, backbone dihedral angles, sequence separation, and bond types.  This makes MPNN the architecture of choice for structure-based protein design, as exemplified by **ProteinMPNN** (Dauparas et al., 2022), which we will study in a later lecture.
+Here $$M_\theta$$ and $$U_\theta$$ are learned MLPs.  The key advantage for proteins is that $$M_\theta$$ can incorporate rich **edge features** $$e_{ij}$$---inter-residue distances, backbone angles, sequence separation---which GCN and GAT cannot naturally handle.  This makes MPNN the architecture of choice for structure-based protein design, as exemplified by **ProteinMPNN** (Dauparas et al., 2022).
 
 ---
 
-## 7. SE(3)-Equivariant GNNs: Respecting Physical Symmetry
+## 6. SE(3)-Equivariant GNNs: Respecting Physical Symmetry
 
 When we work with 3D protein structures, there is a fundamental physical principle we should respect: the laws of physics do not depend on how we orient the coordinate system.  A protein's energy, its stability, and its function are the same whether we describe its coordinates in one frame or another.
 
@@ -738,12 +623,21 @@ This symmetry principle is formalized by the group **SE(3)**---the group of all 
 
 [^se3]: SE(3) stands for "Special Euclidean group in 3 dimensions."  It is the set of all transformations of the form $$x \mapsto Rx + t$$, where $$R \in \mathbb{R}^{3 \times 3}$$ is a rotation matrix ($$R^T R = I$$, $$\det R = 1$$) and $$t \in \mathbb{R}^{3}$$ is a translation vector.
 
-An **SE(3)-equivariant** model produces outputs that transform consistently under coordinate changes:
+An **SE(3)-equivariant** model produces outputs that transform consistently under coordinate changes.  Let $$R \in \mathbb{R}^{3 \times 3}$$ be a rotation matrix and $$t \in \mathbb{R}^3$$ a translation vector.  If we apply this rigid-body transformation to every atom coordinate $$\mathbf{r}_i \mapsto R\mathbf{r}_i + t$$, then:
 
-- **Invariant outputs** (such as energy or binding affinity) should not change at all when we rotate or translate the protein.
-- **Equivariant outputs** (such as force vectors or coordinate updates) should rotate along with the protein.
+- **Invariant outputs** (scalars such as energy or binding affinity) should not change at all:
 
-Standard GNNs that operate on raw coordinates are not equivariant.  If you rotate the input coordinates, the outputs do not transform in a predictable way.  The model must therefore waste capacity learning the same function for every possible orientation, and it may generalize poorly to orientations not seen during training.
+$$
+f(R\mathbf{r}_1 + t,\;\ldots,\;R\mathbf{r}_N + t) = f(\mathbf{r}_1,\;\ldots,\;\mathbf{r}_N)
+$$
+
+- **Equivariant outputs** (vectors such as forces or coordinate updates) should rotate along with the input:
+
+$$
+f(R\mathbf{r}_1 + t,\;\ldots,\;R\mathbf{r}_N + t) = R\,f(\mathbf{r}_1,\;\ldots,\;\mathbf{r}_N)
+$$
+
+Standard GNNs that operate on raw coordinates satisfy neither property.  If you rotate the input coordinates, the outputs change unpredictably.  The model must therefore waste capacity learning the same function for every possible orientation, and it may generalize poorly to orientations not seen during training.
 
 SE(3)-equivariant GNNs solve this by designing the message-passing operations to respect 3D symmetry.  The key strategies include:
 
@@ -761,120 +655,6 @@ The core insight is practical: by building the right symmetries into our models,
 
 ---
 
-## 8. From GNNs to AlphaFold
-
-A complete GNN for per-residue predictions combines all of these components.  The following model takes a protein structure as input, constructs edge features from 3D geometry, applies multiple rounds of message passing, and produces a prediction for each residue:
-
-```python
-class ProteinStructureGNN(nn.Module):
-    """
-    GNN for per-residue predictions from protein structure.
-
-    Takes amino acid identities and 3D coordinates as input.
-    Computes edge features from geometry (distances, sequence
-    separation), applies message passing, and classifies
-    each residue (e.g., secondary structure: helix/sheet/coil).
-    """
-
-    def __init__(self, node_dim=20, edge_dim=32,
-                 hidden_dim=128, num_layers=5, num_classes=3):
-        super().__init__()
-
-        # Embed one-hot amino acid features into hidden dimension
-        self.node_embed = nn.Linear(node_dim, hidden_dim)
-
-        # Embed geometric edge features (distance + sequence separation)
-        self.edge_embed = nn.Sequential(
-            nn.Linear(2, edge_dim),
-            nn.ReLU(),
-            nn.Linear(edge_dim, edge_dim)
-        )
-
-        # Stack of MPNN layers with residual connections
-        self.layers = nn.ModuleList([
-            MPNNLayer(hidden_dim, edge_dim, hidden_dim)
-            for _ in range(num_layers)
-        ])
-
-        self.norms = nn.ModuleList([
-            nn.LayerNorm(hidden_dim)
-            for _ in range(num_layers)
-        ])
-
-        # Per-residue classifier (e.g., 3 classes for helix/sheet/coil)
-        self.classifier = nn.Linear(hidden_dim, num_classes)
-
-    def forward(self, x, edge_index, pos):
-        """
-        Args:
-            x:          (N, 20) one-hot amino acid features
-            edge_index: (2, E) graph connectivity
-            pos:        (N, 3) C-alpha coordinates
-
-        Returns:
-            logits: (N, num_classes) per-residue predictions
-        """
-        row, col = edge_index
-
-        # Compute geometric edge features
-        distances = (pos[row] - pos[col]).norm(dim=-1, keepdim=True)
-        seq_sep = torch.abs(row - col).float().unsqueeze(-1)
-        edge_attr = self.edge_embed(
-            torch.cat([distances, seq_sep / 100.0], dim=-1)
-        )
-
-        # Embed node features
-        x = self.node_embed(x)
-
-        # Message passing with residual connections and normalization
-        for layer, norm in zip(self.layers, self.norms):
-            x = x + layer(x, edge_index, edge_attr)  # residual
-            x = norm(x)
-
-        # Per-residue classification
-        logits = self.classifier(x)
-        return logits
-```
-
-### The Connection to AlphaFold
-
-Everything we have discussed in this lecture converges in **AlphaFold** (Jumper et al., 2021), perhaps the most celebrated application of deep learning to biology.  AlphaFold combines three architectural ideas from this lecture.
-
-**Transformers over multiple sequence alignments.**  AlphaFold's Evoformer module processes evolutionary information using attention mechanisms that operate over both the residue dimension and the MSA sequence dimension.  The row-wise attention identifies co-evolving positions---pairs of residues that mutate together across species, signaling spatial contacts.
-
-**Transformers over the pair representation.**  AlphaFold maintains a $$N \times N$$ pair representation that encodes all pairwise relationships between residues.  This representation is updated through attention and outer-product operations, capturing pairwise structural relationships between residues.
-
-**Equivariant GNNs for structure refinement.**  The structure module uses **Invariant Point Attention (IPA)**, a form of SE(3)-equivariant attention.  Each residue is assigned a local coordinate frame.  Attention is computed using both the residue embeddings (from the Evoformer) and the geometric relationships between residue frames.  Because IPA operates in local frames, the overall computation is equivariant: rotating the initial coordinate estimate rotates the output in the same way.
-
-The power of AlphaFold comes from the synergy between these components.  Transformers capture long-range dependencies in sequence and evolutionary patterns.  Equivariant GNNs ensure that the predicted 3D coordinates respect the symmetries of physical space.  Neither component alone would suffice.
-
-Similarly, **ESMFold** demonstrates that a pure transformer model trained on sequences alone can predict structure, showing that attention can discover 3D relationships without explicit structural input.  This underscores the remarkable capacity of the attention mechanism to learn spatial organization from evolutionary data.
-
-### Choosing the Right Architecture
-
-Given the variety of architectures covered in this lecture, how do you choose the right one for a specific protein modeling task?
-
-**For sequence-only tasks** (function prediction, subcellular localization, signal peptide detection):
-- Start with pre-trained protein language models such as ESM-2.
-- Fine-tune with task-specific heads.
-- Transformers excel at capturing long-range sequence patterns.
-
-**For structure-based tasks** (binding site prediction, stability prediction, function from structure):
-- Use GNNs that take 3D coordinates as input.
-- Consider SE(3)-equivariant architectures when the task requires predicting vectors or coordinate changes.
-- MPNNs with rich edge features capture the local geometric environment.
-
-**For joint sequence-structure modeling** (structure prediction, structure-conditioned design):
-- Combine transformers for sequence processing with GNNs for structure reasoning.
-- This is the AlphaFold paradigm.
-
-**For very long proteins** (more than ~1,000 residues):
-- Standard transformer self-attention has $$O(L^2)$$ time and memory complexity, which becomes prohibitive for long sequences.
-- Use sparse attention, windowed attention, or efficient transformer variants.
-- GNNs scale more naturally because each node only communicates with its local neighbors.
-
----
-
 ## Key Takeaways
 
 1. **Attention enables direct pairwise interactions** between all positions in a sequence, overcoming the sequential bottleneck of RNNs and enabling models to capture long-range dependencies in proteins.
@@ -887,15 +667,13 @@ Given the variety of architectures covered in this lecture, how do you choose th
 
 5. **Positional encoding** is necessary because attention alone has no notion of sequence order.
 
-6. **Protein language models** (Lecture 3) apply the transformer architecture at evolutionary scale, learning rich representations by predicting masked amino acids.
+6. **Graph neural networks** represent proteins as graphs, naturally encoding 3D structural relationships through the message-passing framework.
 
-7. **Graph neural networks** represent proteins as graphs, naturally encoding 3D structural relationships through the message-passing framework.
+7. **GCN, GAT, and MPNN** are three instantiations of the message-passing framework with increasing flexibility: GCN uses fixed neighbor averaging, GAT learns attention weights over neighbors, and MPNN uses fully learnable message and update functions.
 
-8. **GCN, GAT, and MPNN** are three instantiations of the message-passing framework with increasing flexibility: GCN uses fixed neighbor averaging, GAT learns attention weights over neighbors, and MPNN uses fully learnable message and update functions.
+8. **SE(3)-equivariant GNNs** respect the rotational and translational symmetry of physical space, providing better generalization on 3D structure tasks.
 
-9. **SE(3)-equivariant GNNs** respect the rotational and translational symmetry of physical space, providing better generalization on 3D structure tasks.
-
-10. **AlphaFold synthesizes transformers and equivariant GNNs**, demonstrating that these architectures are complementary and most powerful when combined.
+9. **Transformers and equivariant GNNs are complementary**: transformers capture long-range sequence dependencies while equivariant GNNs respect the symmetries of 3D structure.  Their combination powers models like AlphaFold.
 
 ---
 

@@ -70,17 +70,10 @@ The result is a function that captures the statistical regularities in the data 
 
 ### Generalization: The Real Goal
 
-Training performance is a mirage.
-A model can score perfectly on proteins it has already seen and still be useless --- the same way a student who memorizes past exam answers fails the moment a new question appears.
-What matters is **generalization**: accurate predictions on *new* proteins that were not part of the training data.
-
-The gap between training performance and test performance is the central challenge of machine learning.
-Every technique in this course --- model size, regularization, data splitting --- exists to close that gap.
-We formalize this as the **bias-variance tradeoff** in Preliminary Note 3.
-
-An image classifier trained on 1,000 cat photos might memorize fur patterns in the training set and fail on cats in unusual poses.
-The same trap applies to proteins: the linear model we build in Section 4 can only learn straight-line relationships between features and predictions.
-Real protein properties depend on *nonlinear* combinations of features --- a cluster of five hydrophobic residues in a row matters far more than five scattered throughout the sequence, but a linear model treats both identically.
+What matters is not training performance but **generalization**: accurate predictions on *new* proteins that were not part of the training data.
+An image classifier trained on 1,000 cat photos can memorize fur patterns and fail on cats in unusual poses; a protein model can memorize its training set and fail the moment it sees a novel sequence.
+Every technique in this course --- model size, regularization, data splitting --- exists to close the gap between training and test performance (formalized as the **bias-variance tradeoff** in Preliminary Note 3).
+The linear model we build in Section 4 illustrates one source of that gap: it can only learn straight-line relationships, yet real protein properties depend on *nonlinear* combinations of features --- a cluster of five hydrophobic residues in a row matters far more than five scattered throughout the sequence.
 Preliminary Note 2 introduces neural networks, which overcome this limitation by composing simple nonlinear transformations into powerful function approximators.
 
 ---
@@ -190,28 +183,9 @@ When processing 32 proteins at once, the shape becomes `(32, max_len, 20)` --- P
 
 ### The GPU Advantage
 
-Modern GPUs (Graphics Processing Units) contain thousands of simple processors that perform arithmetic operations in parallel.
-Neural networks are built from **matrix multiplications**, and each entry of the output matrix is an independent dot product --- meaning thousands of output entries can be computed *simultaneously*.
-
-A CPU has a handful of powerful cores (typically 8--16) optimized for complex sequential tasks.
-A GPU has thousands of simpler cores designed for exactly this kind of embarrassingly parallel arithmetic.
-Moving computation to the GPU requires just one line in PyTorch:
-
-```python
-# Check whether a GPU is available on this machine
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-# Create a tensor on the CPU, then move it to the GPU
-x = torch.randn(1000, 1000)
-x_gpu = x.to(device)
-
-# Matrix multiplication now runs on the GPU
-y_gpu = x_gpu @ x_gpu.T
-```
-
-One critical rule: **all tensors involved in an operation must be on the same device.**
-Attempting to multiply a GPU tensor with a CPU tensor will raise an error.
-Always move both the model and the data to the same device before computation.
+Neural networks are built from matrix multiplications, and GPUs accelerate these by computing thousands of independent dot products in parallel.
+In PyTorch, moving a tensor to the GPU is a single call (`x.to('cuda')`), and all tensors in an operation must live on the same device.
+Preliminary Note 3 covers the practical details when we write the training loop.
 
 ### Tensor Operations
 
