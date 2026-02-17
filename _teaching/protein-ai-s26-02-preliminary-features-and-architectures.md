@@ -321,11 +321,7 @@ Deep networks build hierarchical representations.
 In image recognition, early layers detect edges, middle layers combine edges into textures and shapes, and final layers recognize objects.
 In NLP, early layers capture character patterns, middle layers capture word meanings, and final layers capture sentence-level semantics.
 Protein networks follow the same principle.
-For a protein solubility predictor, this compositional hierarchy might look like:
-
-- **Layer 1** detects which positions and amino acid identities are informative, extracting basic patterns from the flattened sequence.
-- **Layer 2** combines these into higher-level patterns: local composition trends, position-specific signals.
-- **Output layer** maps these abstract representations to a solubility prediction.
+For a protein solubility predictor, the first layer detects which positions and amino acid identities are informative, extracting basic patterns from the flattened sequence. The second layer combines these into higher-level patterns --- local composition trends, position-specific signals --- and the output layer maps those abstract representations to a solubility prediction.
 
 <div class="col-sm-10 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/deep_fold.png' | relative_url }}" alt="How deep networks compose functions">
@@ -346,12 +342,7 @@ As shown in Section 2.3, without it, stacking layers collapses to a single linea
     <div class="caption mt-1"><strong>Common activation functions.</strong> Each panel plots the activation \(\text{a}[z]\) (our \(\sigma(z)\)) as a function of its pre-activation input \(z\). (a) Sigmoid squashes to \((0, 1)\); tanh squashes to \((-1, 1)\). (b) Leaky ReLU and PReLU pass a small slope for negative inputs, avoiding "dead neurons." (c) Smooth variants used in modern architectures: softplus, GeLU (used in protein language models), SiLU. (d–f) More specialized activations including ELU, SELU, and Swish. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.13 (CC BY-NC-ND).</div>
 </div>
 
-The most common choices:
-
-- **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$ --- zeros out negative values, passes positive values unchanged. Simple, fast, and the default choice for hidden layers. Its main drawback: neurons that output zero for all inputs ("dead neurons") stop learning entirely.
-- **Sigmoid**: $$\sigma(z) = 1/(1 + e^{-z})$$ --- squashes output to $$(0, 1)$$. Used at the output layer for binary classification probabilities. Rarely used in hidden layers because gradients vanish for large or small inputs.
-- **GELU**: a smooth approximation of ReLU used in transformer models (including protein language models like ESM). Slightly more expensive to compute but often leads to better training dynamics.
-- **Softmax**: normalizes a vector into a probability distribution that sums to 1. Used at the output layer for multi-class classification.
+**ReLU** ($$\text{ReLU}(z) = \max(0, z)$$) is the default for hidden layers: it zeros out negative values, passes positive values unchanged, and is fast to compute, though neurons stuck at zero ("dead neurons") stop learning entirely. **GELU** is a smooth variant of ReLU used in transformer models including protein language models like ESM, offering slightly better training dynamics. For output layers, **sigmoid** ($$\sigma(z) = 1/(1 + e^{-z})$$) squashes a scalar to $$(0, 1)$$ for binary classification, while **softmax** normalizes a vector into a probability distribution for multi-class classification.
 
 ### 2.8 `nn.Module`: PyTorch's Building Block
 
