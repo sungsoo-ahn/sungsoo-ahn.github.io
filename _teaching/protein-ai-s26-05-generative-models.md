@@ -388,6 +388,11 @@ Increasing $$\beta$$ above 1 pushes the encoder distributions closer to $$\mathc
 VAEs learn generation by compressing data into a structured latent space.
 Diffusion models take an entirely different approach: they learn generation by learning to *undo corruption*.
 
+Despite the different intuition, the two frameworks are mathematically closer than they appear.
+A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent layers $$x_1, x_2, \ldots, x_T$$, where the "encoder" (forward process) is fixed rather than learned, and each layer has the same dimensionality as the data.
+The training objective—which we will derive in Section 7—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
+This connection is not just a curiosity: it is what makes the training objective principled and the generation process provably convergent.
+
 The core idea is disarmingly simple.
 Take a clean protein structure (or embedding), corrupt it step by step with Gaussian noise until nothing recognizable remains, and then train a neural network to reverse each corruption step.
 
@@ -508,6 +513,13 @@ $$\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sq
 The training loss is the mean squared error between the true noise and the predicted noise, averaged over random timesteps and random noise draws:
 
 $$\mathcal{L}_{\text{simple}} = \mathbb{E}_{t,\, x_0,\, \epsilon}\!\left[\lVert \epsilon - \epsilon_\theta(x_t, t) \rVert^2\right]$$
+
+This simple objective is a reweighted version of the full ELBO for the diffusion model viewed as a hierarchical VAE.
+The ELBO decomposes into $$T$$ per-timestep KL divergence terms, one for each denoising step; because both the forward posterior $$q(x_{t-1} \mid x_t, x_0)$$ and the reverse model $$p_\theta(x_{t-1} \mid x_t)$$ are Gaussian, each KL term reduces to an MSE between their means.
+Ho et al. [2] showed that dropping the per-timestep weighting coefficients yields $$\mathcal{L}_{\text{simple}}$$, which works better in practice.
+For the full derivation, see Luo (2022) [^elbo-derivation].
+
+[^elbo-derivation]: Luo, C. (2022). "Understanding Diffusion Models: A Unified Perspective." *arXiv preprint arXiv:2208.11970*. Sections 3–4 derive the diffusion ELBO from the hierarchical VAE perspective.
 
 The training procedure for a single batch is:
 
