@@ -212,7 +212,7 @@ Vanilla SGD can oscillate when the loss surface curves much more steeply in one 
 </div>
 
 **Adam** [3] goes further by adapting the learning rate individually for each parameter based on its recent gradient history.
-**AdamW** [6] is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
+**AdamW** [5] is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
 
 ```python
 # AdamW — the recommended default

@@ -26,7 +26,7 @@ A civil engineer does not begin by finding a bridge in nature and copying it.
 She specifies the span, the load, and the material constraints, then designs a structure that meets those requirements.
 De novo protein design aspires to the same workflow: specify what you want the protein to do, then compute a structure that accomplishes it.
 
-In July 2023, a team led by David Baker at the University of Washington published **RFDiffusion**, a method that brought this aspiration within reach {% cite watson2023novo %}.
+In July 2023, a team led by David Baker at the University of Washington published **RFDiffusion**, a method that brought this aspiration within reach [1].
 RFDiffusion generates novel protein backbones by learning to reverse a noise process --- the same core idea behind image generation models like DALL-E and Stable Diffusion, but adapted for the unique geometric constraints of molecular structures.
 The designed proteins were not theoretical curiosities: when synthesized in the laboratory, they folded into the predicted structures and performed their intended functions.
 
@@ -873,7 +873,7 @@ This is exactly the equivariance condition.
 ### From Structure Prediction to Structure Generation
 
 RFDiffusion does not build its neural network from scratch.
-Instead, it adapts the architecture of **RoseTTAFold** {% cite baek2021accurate %}, a protein structure prediction model, for the generative task.
+Instead, it adapts the architecture of **RoseTTAFold** [4], a protein structure prediction model, for the generative task.
 This strategy has two advantages: the pretrained weights provide a strong initialization, and the architecture is already designed to process protein geometry.
 
 The high-level flow is:
@@ -1093,7 +1093,7 @@ Clamping the motif constrains the solution space to scaffolds that are compatibl
 
 ### Self-Conditioning
 
-**Self-conditioning** feeds the model's own previous prediction back as additional input {% cite watson2023novo %}.
+**Self-conditioning** feeds the model's own previous prediction back as additional input [1].
 During training, with probability 0.5, the model first makes a prediction without self-conditioning, then makes a second prediction that also receives the first prediction as input.
 Only the second prediction is used to compute the loss.
 
@@ -1127,7 +1127,7 @@ Without self-conditioning, each denoising step must independently infer global s
 
 ### Classifier-Free Guidance
 
-**Classifier-free guidance** {% cite ho2022classifier %} provides a continuous knob to control the strength of conditioning.
+**Classifier-free guidance** [7] provides a continuous knob to control the strength of conditioning.
 During training, the conditioning signal is randomly dropped (replaced with zeros) with some probability.
 At inference time, the model is run twice --- once with conditioning and once without --- and the predictions are combined:
 
@@ -1451,11 +1451,11 @@ The interpolation factor is determined by the ratio of noise levels: at each ste
 ### Proteins That Actually Work
 
 The ultimate test of any protein design method is experimental validation.
-RFDiffusion has been validated extensively, with several categories of results reported in the original Nature paper {% cite watson2023novo %}:
+RFDiffusion has been validated extensively, with several categories of results reported in the original Nature paper [1]:
 
 **Novel folds.**
 RFDiffusion generates backbone topologies never observed in nature.
-When the corresponding amino acid sequences were designed (using ProteinMPNN {% cite dauparas2022robust %}), synthesized, and expressed in *E. coli*, the proteins folded into the predicted structures.
+When the corresponding amino acid sequences were designed (using ProteinMPNN [5]), synthesized, and expressed in *E. coli*, the proteins folded into the predicted structures.
 Small-angle X-ray scattering (SAXS) and circular dichroism (CD) measurements confirmed the expected size, shape, and secondary structure content.
 
 **Symmetric assemblies.**
