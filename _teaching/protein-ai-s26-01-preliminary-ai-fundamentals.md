@@ -88,7 +88,7 @@ Preliminary Note 2 introduces neural networks, which overcome this limitation by
 Every project follows the same arc.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_0.png' | relative_url }}" alt="s26-01-preliminary-ai-fundamentals_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_0.png' | relative_url }}" alt="The machine learning pipeline: data collection, cleaning, feature encoding, model training, evaluation, and deployment">
 </div>
 
 You start with data --- proteins and their labels, mined from databases like UniProt[^uniprot] or high-throughput expression studies.
@@ -278,7 +278,7 @@ Here $$\mathbf{W}$$ is the weight vector reshaped as a (10 $$\times$$ 1) column,
 The following diagram illustrates this flow:
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_1.png' | relative_url }}" alt="s26-01-preliminary-ai-fundamentals_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-01-preliminary-ai-fundamentals_diagram_1.png' | relative_url }}" alt="Linear regression data flow: feature matrix X times weight vector W plus bias produces predictions for all proteins at once">
 </div>
 
 ```python

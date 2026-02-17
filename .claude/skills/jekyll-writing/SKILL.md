@@ -10,6 +10,7 @@ Rendering rules for writing content on Jekyll sites with MathJax/KaTeX. Apply th
 ## Math & LaTeX
 
 - Use `$$...$$` (not `$...$`) for inline math with multiple underscores — markdown interprets underscores as italics
+- **Inside raw HTML elements** (`<div>`, `<span>`, figure captions), use `\(...\)` instead of `$$...$$` for inline math — MathJax treats `$$...$$` as display math inside HTML blocks, causing line breaks
 - In inline math, use `\lvert...\rvert` instead of `|...|` for absolute values/norms — markdown interprets `|` as table column delimiters. Same for bra-ket notation: use `\mid` instead of `|` (e.g., `$$\langle \Psi \mid \hat{O} \mid \Psi \rangle$$`). Display math on its own line is not affected.
 - **Do not use `\$` for dollar signs** — MathJax/KaTeX interprets `\$` as a math delimiter, breaking rendering. Write "dollars" or "USD" in prose instead.
 - Notation consistency: vectors as lowercase bold ($$\mathbf{x}$$), matrices as uppercase bold ($$\mathbf{X}$$), don't reuse symbols for different meanings
