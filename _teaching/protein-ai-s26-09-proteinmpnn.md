@@ -51,7 +51,7 @@ This lecture covers the full ProteinMPNN system: how it represents protein struc
 ### Forward Folding vs. Inverse Folding
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_0.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_0.png' | relative_url }}" alt="Forward folding versus inverse folding: forward folding maps one sequence to one structure via AlphaFold, while inverse folding maps one structure to multiple candidate sequences via ProteinMPNN">
 </div>
 
 In Lecture 4, we studied **forward folding**: given a sequence of amino acids, predict the three-dimensional structure.
@@ -136,7 +136,7 @@ By analyzing which sequence features ProteinMPNN considers important for a given
 ## 2. Graph Construction: Proteins as k-Nearest Neighbor Graphs
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_1.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_1.png' | relative_url }}" alt="Graph construction pipeline: backbone coordinates are converted to Cα distances, then a k-nearest neighbor graph with 30 neighbors per residue is built">
 </div>
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
@@ -404,7 +404,7 @@ After three such layers, each residue's representation captures not just its own
 This contextual encoding is the foundation on which the decoder builds.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_2.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_2">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_2.png' | relative_url }}" alt="Three-layer message passing encoder: node and edge features pass through three successive layers capturing local geometry, secondary structure, and tertiary context to produce context-aware embeddings">
 </div>
 
 ---
@@ -412,7 +412,7 @@ This contextual encoding is the foundation on which the decoder builds.
 ## 5. Autoregressive Decoding: One Amino Acid at a Time
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_3.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_3">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_3.png' | relative_url }}" alt="Autoregressive decoding: encoder embeddings feed into a sequential decoder that generates amino acid probabilities one position at a time, each conditioned on previously decoded positions and the structure">
 </div>
 
 Given the encoded structure, ProteinMPNN generates a sequence **autoregressively**: one amino acid at a time, where each prediction depends on all previous predictions.
@@ -796,7 +796,7 @@ This approach is efficient---the number of decoding steps equals the number of u
 </div>
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_4.png' | relative_url }}" alt="s26-09-proteinmpnn_diagram_4">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-09-proteinmpnn_diagram_4.png' | relative_url }}" alt="Computational protein design pipeline: design specification flows through RFDiffusion for backbone generation, ProteinMPNN for sequence design, AlphaFold2 for structure validation, and finally experimental testing">
 </div>
 
 ProteinMPNN's impact comes from its role in a larger pipeline.
@@ -915,6 +915,22 @@ Understanding the alternatives clarifies its design choices:
 
 ProteinMPNN's combination of accuracy, speed, and simplicity has made it the de facto standard.
 It runs in seconds per sequence on a single GPU, requires no MSA computation, and integrates seamlessly into the RFDiffusion pipeline.
+
+---
+
+## Key Takeaways
+
+1. **Inverse folding converts structure to sequence.** Given a target backbone, ProteinMPNN outputs a probability distribution over amino acid sequences. The many-to-one mapping between sequences and structures makes the problem tractable: many different sequences can fold into the same backbone.
+
+2. **Proteins are represented as k-nearest neighbor graphs** built from $$\text{C}_\alpha$$ distances, with rich edge features (RBF-encoded distances, local frame orientations, sequence separation) that encode the geometric vocabulary of protein structure.
+
+3. **Message passing propagates structural context.** Three layers of graph neural network message passing give each residue a representation that captures its local geometry, secondary structure environment, and broader tertiary context.
+
+4. **Autoregressive decoding with random order** generates amino acids one at a time, capturing inter-residue dependencies while avoiding directional bias. Random training permutations ensure the model can predict any position given any subset of context.
+
+5. **ProteinMPNN is the bridge in the design pipeline.** The RFDiffusion $$\to$$ ProteinMPNN $$\to$$ AlphaFold workflow converts design specifications into experimentally testable sequences, with over 50% of designed sequences folding as intended.
+
+6. **Practical design uses constraints and diversity.** Fixed positions preserve functional residues, tied positions enforce symmetry, and temperature-controlled sampling balances confidence against sequence diversity.
 
 ---
 

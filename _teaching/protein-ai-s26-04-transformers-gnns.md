@@ -49,7 +49,7 @@ Suppose position 23 changes from alanine to valine in one lineage.  Position 87 
 This phenomenon is called **co-evolution**[^coevol], and for decades computational biologists built methods around it---from correlated-mutation analysis to direct coupling analysis (DCA).  All these methods ask the same question: *which positions in a protein sequence are paying attention to each other?*
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_0.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_0.png' | relative_url }}" alt="Co-evolution in multiple sequence alignments: correlated mutations reveal spatial contacts between residue pairs">
 </div>
 <div class="caption mt-1"><strong>Co-evolution in MSAs.</strong> Correlated mutations across homologous sequences reveal residue pairs that are in spatial contact. Positions 23 and 87 tend to mutate together across species, signaling a structural or functional relationship.</div>
 
@@ -92,7 +92,7 @@ Stacking $$N$$ such blocks produces increasingly refined representations, still 
 In short: the transformer's input and output have the same shape $$(L, d)$$.
 What changes is the *meaning* of each vector --- raw amino-acid identity in, context-aware representation out.
 
-With this roadmap in mind, let us build each component.
+The following sections build each component.
 
 ### The Query-Key-Value Intuition
 
@@ -105,7 +105,7 @@ Or perhaps position 50 participates in a catalytic triad with residues at positi
 The attention mechanism formalizes this reasoning through three learned projections: a **query**, a **key**, and a **value**[^qkv], as illustrated below.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_1.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_1.png' | relative_url }}" alt="Query-Key-Value attention: each residue computes query, key, and value vectors to determine pairwise attention weights">
 </div>
 
 [^qkv]: The names query, key, and value come from information retrieval.  Think of searching a database: you submit a query, it is matched against keys, and the corresponding values are returned.
@@ -311,7 +311,7 @@ class SelfAttention(nn.Module):
 </div>
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_2.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_2">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_2.png' | relative_url }}" alt="Transformer block: self-attention followed by feed-forward network, with residual connections and layer normalization">
 </div>
 
 A transformer is more than just attention.  It combines several components into a repeating building block called a **transformer block**.  Each block contains four elements:
@@ -576,7 +576,7 @@ def protein_to_graph(coords, sequence, k=10, threshold=10.0):
 ## 6. The Message-Passing Framework
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_3.png' | relative_url }}" alt="s26-04-transformers-gnns_diagram_3">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_3.png' | relative_url }}" alt="GNN message passing: each node gathers messages from neighbors, aggregates them, and updates its representation">
 </div>
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
@@ -613,7 +613,7 @@ $$
 H^{(\ell+1)} = \sigma\!\left(\tilde{D}^{-1/2}\, \tilde{A}\, \tilde{D}^{-1/2}\, H^{(\ell)}\, W^{(\ell)}\right)
 $$
 
-This formula looks dense, but it has a clear interpretation.  Let us unpack each term:
+This formula looks dense, but each term has a clear interpretation:
 
 - $$A \in \mathbb{R}^{N \times N}$$ is the adjacency matrix of the graph, where $$A_{ij} = 1$$ if residues $$i$$ and $$j$$ are connected.
 - $$\tilde{A} = A + I$$ adds self-loops so that each node also considers its own features.
@@ -765,7 +765,7 @@ The core insight is practical: by building the right symmetries into our models,
 
 ## 8. From GNNs to AlphaFold
 
-Let us assemble a complete GNN for making per-residue predictions from protein structures.  This model takes a protein structure as input, constructs edge features from 3D geometry, applies multiple rounds of message passing, and produces a prediction for each residue:
+A complete GNN for per-residue predictions combines all of these components.  The following model takes a protein structure as input, constructs edge features from 3D geometry, applies multiple rounds of message passing, and produces a prediction for each residue:
 
 ```python
 class ProteinStructureGNN(nn.Module):

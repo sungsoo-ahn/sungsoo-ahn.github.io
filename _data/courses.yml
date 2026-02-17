@@ -13,7 +13,8 @@
     new to machine learning.
   prerequisites: >-
     Python programming, linear algebra, basic probability.
-    No prior deep learning experience required.
+    Prior deep learning experience is not required, but students without it
+    are expected to study the preliminary notes.
   preliminary_description: "Self-study material for students with a biology background to prepare for in-class lectures."
   lectures_description: "In-class lectures covering advanced architectures and landmark protein AI models."
   references:

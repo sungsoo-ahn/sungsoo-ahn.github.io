@@ -57,7 +57,7 @@ We will study two foundational frameworks for generative modeling—**variationa
 
 ## 1. The Compression Perspective
 
-Before we write any equations, let us build intuition with a thought experiment.
+Before any equations, consider a thought experiment.
 
 Suppose you have a database of 50,000 serine protease sequences.
 Despite their diversity—some share less than 30% sequence identity—they all fold into similar structures, catalyze the same reaction, and place a conserved catalytic triad (Ser, His, Asp) in nearly identical spatial positions.
@@ -97,7 +97,7 @@ For generation, we need a way to make *every* region of latent space decode into
 </div>
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_0.png' | relative_url }}" alt="s26-05-generative-models_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_0.png' | relative_url }}" alt="VAE data flow: encoder compresses protein to mean and variance, reparameterization samples latent code, decoder reconstructs sequence">
 </div>
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
@@ -584,7 +584,7 @@ This connection links diffusion models to the broader framework of score-based g
 ### Generation by Iterative Denoising
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_1.png' | relative_url }}" alt="s26-05-generative-models_diagram_1">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-05-generative-models_diagram_1.png' | relative_url }}" alt="Diffusion reverse process: iterative denoising from pure noise to clean protein structure over T timesteps">
 </div>
 
 Once the noise prediction network is trained, generation proceeds by simulating the reverse process.
@@ -879,7 +879,7 @@ This approach is simpler and often more effective than classifier guidance.
 
 ---
 
-## Summary
+## Key Takeaways
 
 This lecture covered two foundational frameworks for generative modeling, each with distinct strengths for protein design.
 
