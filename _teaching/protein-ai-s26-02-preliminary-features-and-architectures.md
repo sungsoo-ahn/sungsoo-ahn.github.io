@@ -211,17 +211,7 @@ The composition of two linear transformations is still a single linear transform
 No matter how many linear layers we stack, the result collapses to one matrix multiplication --- we gain no expressive power.
 Breaking out of this collapse requires a **nonlinear activation function** between layers, which is exactly what a neural network provides.
 
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_functions.png' | relative_url }}" alt="Functions computed by a shallow neural network">
-    <div class="caption mt-1"><strong>What a single hidden layer can compute.</strong> Three examples of piecewise-linear functions (input \(x\) → output \(y\)) produced by a shallow network with ReLU activations. Each panel uses different weights and biases, yielding a different nonlinear mapping — none of which a linear model could represent. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.3 (CC BY-NC-ND).</div>
-</div>
-
 ### 2.4 The Single Neuron
-
-<div class="col-sm-10 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_net.png' | relative_url }}" alt="A shallow neural network with one hidden layer">
-    <div class="caption mt-1"><strong>Anatomy of a shallow neural network.</strong> (a) Full notation: input \(x\) is multiplied by input-to-hidden weights \(\theta_{ij}\) (our \(\mathbf{W}\)) and offset by biases \(\theta_{i0}\) (our \(\mathbf{b}\)), passed through hidden units \(h_1, h_2, h_3\) with ReLU activations (cyan diagonal lines), then combined with hidden-to-output weights \(\phi_i\) to produce output \(y\). The circled 1's represent bias inputs. (b) Simplified diagram omitting weight labels. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.1 (CC BY-NC-ND).</div>
-</div>
 
 The fundamental unit is the **artificial neuron**.
 It takes multiple input features, computes a weighted sum, adds a bias, and applies a nonlinear function:
@@ -250,10 +240,15 @@ A single neuron can only learn linear decision boundaries.
 This is sufficient for linearly separable problems but fails when the boundary between classes is curved or disconnected --- which is why we need multiple layers.
 
 <div class="col-sm mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-features-and-architectures_diagram_0.png' | relative_url }}" alt="s26-02-preliminary-features-and-architectures_diagram_0">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-02-preliminary-features-and-architectures_diagram_0.png' | relative_url }}" alt="Single neuron computation: input features are weighted, summed with bias, and passed through an activation function to produce a prediction">
 </div>
 
 ### 2.5 Layers: Many Neurons in Parallel
+
+<div class="col-sm-10 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_net.png' | relative_url }}" alt="A shallow neural network with one hidden layer">
+    <div class="caption mt-1"><strong>Anatomy of a shallow neural network.</strong> (a) Full notation: input \(x\) is multiplied by input-to-hidden weights \(\theta_{ij}\) (our \(\mathbf{W}\)) and offset by biases \(\theta_{i0}\) (our \(\mathbf{b}\)), passed through hidden units \(h_1, h_2, h_3\) with ReLU activations (cyan diagonal lines), then combined with hidden-to-output weights \(\phi_i\) to produce output \(y\). The circled 1's represent bias inputs. (b) Simplified diagram omitting weight labels. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.1 (CC BY-NC-ND).</div>
+</div>
 
 <div class="col-sm-8 mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/mlp.png' | relative_url }}" alt="Multi-layer perceptron with one hidden layer">
@@ -282,6 +277,11 @@ The total number of parameters is $$64d + 64$$ (weights plus biases).
 For our padded protein sequences with $$d = L_{\max} \times 20 = 2{,}000$$, that is already $$128{,}064$$ parameters in a single layer.
 The nonlinear function $$\sigma$$ applied after each layer is the **activation function** --- Section 2.7 covers the main choices in detail.
 The most common default is **ReLU**: $$\text{ReLU}(z) = \max(0, z)$$.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/udl/shallow_functions.png' | relative_url }}" alt="Functions computed by a shallow neural network">
+    <div class="caption mt-1"><strong>What a single hidden layer can compute.</strong> Three examples of piecewise-linear functions (input \(x\) → output \(y\)) produced by a shallow network with ReLU activations. Each panel uses different weights and biases, yielding a different nonlinear mapping — none of which a linear model could represent. Source: Prince, <em>Understanding Deep Learning</em>, Fig 3.3 (CC BY-NC-ND).</div>
+</div>
 
 ### 2.6 Why Depth Matters: The Power of Composition
 

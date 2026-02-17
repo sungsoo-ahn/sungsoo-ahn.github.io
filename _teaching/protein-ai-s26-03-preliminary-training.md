@@ -31,6 +31,7 @@ Preliminary Note 4 applies all of these components in a complete case study: pre
 | 3 | The Training Loop | The four-step cycle that turns data into knowledge |
 | 4 | Data Loading for Proteins | Efficient batching, shuffling, and handling of variable-length sequences |
 | 5 | Validation, Overfitting, and the Bias-Variance Tradeoff | How to detect when your model is memorizing rather than learning |
+
 ### Prerequisites
 
 This note assumes familiarity with Preliminary Notes 1 and 2: tensors, `nn.Module`, activation functions, autograd, gradient descent, and protein features.
