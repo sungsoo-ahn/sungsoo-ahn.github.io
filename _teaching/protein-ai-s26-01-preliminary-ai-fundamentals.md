@@ -401,8 +401,7 @@ We cannot visualize it, but the intuition still holds: the loss defines a surfac
 
 The remarkable thing about PyTorch is that you never need to compute gradients by hand.
 You define only the forward computation --- how inputs become outputs --- and PyTorch automatically tracks every operation in a **computational graph**.
-When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule.
-PyTorch uses the chain rule (backpropagation) to compute all gradients automatically.
+When you call `.backward()`, it traverses this graph in reverse, computing all gradients via the chain rule (**backpropagation**).
 
 ### One Complete Learning Step
 

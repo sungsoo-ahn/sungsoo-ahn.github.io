@@ -51,7 +51,6 @@ We will study two foundational frameworks for generative modeling—**variationa
 | 9 | Handling Discrete Protein Data | Addresses the mismatch between Gaussian noise and discrete sequences |
 | 10 | VAEs vs. Diffusion | Compares strengths, weaknesses, and computational trade-offs |
 | 11 | Real-World Impact | Surveys RFDiffusion, EvoDiff, and conditional generation |
-| 12 | Exercises | Hands-on practice problems |
 
 ---
 

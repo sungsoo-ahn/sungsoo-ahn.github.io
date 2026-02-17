@@ -950,4 +950,4 @@ It runs in seconds per sequence on a single GPU, requires no MSA computation, an
 
 7. Jumper, J., Evans, R., Pritzel, A., et al. (2021). "Highly accurate protein structure prediction with AlphaFold." *Nature*, 596, 583--589. [doi:10.1038/s41586-021-03819-2](https://doi.org/10.1038/s41586-021-03819-2)
 
-8. Dauparas, J., et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *bioRxiv*. [doi:10.1101/2022.06.03.494563](https://doi.org/10.1101/2022.06.03.494563). CC BY 4.0.
+8. Dauparas, J., et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *bioRxiv* preprint (figures used under CC BY 4.0). [doi:10.1101/2022.06.03.494563](https://doi.org/10.1101/2022.06.03.494563)
