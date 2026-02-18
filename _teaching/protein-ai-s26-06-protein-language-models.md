@@ -821,7 +821,7 @@ The structure module is similar to the one used in AlphaFold2, operating on pair
 
 ### The key difference from AlphaFold2
 
-AlphaFold2 requires a **multiple sequence alignment** (MSA) as input (introduced in Lecture 1, Transformers &amp; GNNs): a collection of evolutionary relatives of the query protein, aligned position by position.
+AlphaFold2 requires a **multiple sequence alignment** (MSA) as input: a collection of evolutionary relatives of the query protein, aligned position by position (covered in detail in Lecture 4, AlphaFold).
 Constructing this MSA is computationally expensive, often taking minutes to hours for a single protein.
 
 ESMFold requires only a **single sequence**.
