@@ -355,6 +355,11 @@ But proteins are densely packed, and real constraints are far tighter than the w
 
 The **triangular updates** pass messages around triangles in the pair representation, enforcing this kind of three-body consistency.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/illustratedaf_triangle_paths.png' | relative_url }}" alt="Triangle paths in the pair representation: residue triplets (i,j,k) enforce geometric consistency">
+    <div class="caption mt-1"><strong>Triangle paths.</strong> The pair representation can be viewed as a directed graph where each edge encodes the relationship between two residues. For any triplet \((i, j, k)\), the edges \((i,j)\), \((j,k)\), and \((i,k)\) form a triangle. Triangular updates propagate information along these paths, enforcing geometric consistency. Source: Simon & Silberg, <em>The Illustrated AlphaFold</em> (2024).</div>
+</div>
+
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-07-alphafold_diagram_2.png' | relative_url }}" alt="Triangular multiplicative update: for each residue pair i-j, information from all intermediate residues k is gated and aggregated to enforce geometric consistency">
 </div>
@@ -369,6 +374,11 @@ $$z_{ij} \leftarrow z_{ij} + \sum_k a_{ik} \odot b_{jk}$$
 Here $$a_{ik}$$ and $$b_{jk}$$ are gated linear projections of the pair representation, and $$\odot$$ denotes element-wise multiplication.
 The sum over $$k$$ accumulates evidence from every possible third vertex.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/illustratedaf_triangle_outgoing.png' | relative_url }}" alt="Triangular update for outgoing edges: row-wise weighted updates using the third element in triangle paths">
+    <div class="caption mt-1"><strong>Triangular multiplicative update (outgoing).</strong> For each pair \((i,j)\), the update aggregates information from all pairs \((i,k)\) and \((j,k)\) sharing a third node \(k\). Gated projections are element-wise multiplied and summed over \(k\). Source: Simon & Silberg, <em>The Illustrated AlphaFold</em> (2024).</div>
+</div>
+
 #### 4.3.2 Triangular Multiplicative Update (Incoming Edges)
 
 The same idea, but the summation runs over the *other* index:
@@ -377,6 +387,11 @@ $$z_{ij} \leftarrow z_{ij} + \sum_k a_{ki} \odot b_{kj}$$
 
 The outgoing variant asks "which residues do $$i$$ and $$j$$ *both point to*?"
 The incoming variant asks "which residues *both point to* $$i$$ and $$j$$?"
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/illustratedaf_triangle_incoming.png' | relative_url }}" alt="Triangular update for incoming edges: column-wise weighted updates (transposed version of outgoing)">
+    <div class="caption mt-1"><strong>Triangular multiplicative update (incoming).</strong> The transposed variant: the summation runs over \(k\) with edges \((k,i)\) and \((k,j)\), providing a complementary view of the geometric constraints. Source: Simon & Silberg, <em>The Illustrated AlphaFold</em> (2024).</div>
+</div>
 
 ```python
 class TriangularMultiplicativeUpdate(nn.Module):
@@ -523,6 +538,11 @@ $$z_{ij} \leftarrow z_{ij} + \frac{1}{N_{\text{seq}}} \sum_{s=1}^{N_{\text{seq}}
 
 where $$m_{si}$$ is the MSA feature vector for sequence $$s$$ at position $$i$$, and $$\otimes$$ denotes the outer product.
 For each pair $$(i, j)$$, we compute the outer product of the projected MSA features at positions $$i$$ and $$j$$, then average over all sequences.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/illustratedaf_outer_product_mean.png' | relative_url }}" alt="Outer product mean: computing pairwise evolutionary correlations from MSA columns">
+    <div class="caption mt-1"><strong>Outer product mean.</strong> For each pair of positions \((i, j)\), the MSA features at those positions are projected, their outer products are computed across all sequences, and the results are averaged. This captures co-evolutionary correlations: positions that covary across the MSA are likely in structural contact. Source: Simon & Silberg, <em>The Illustrated AlphaFold</em> (2024).</div>
+</div>
 
 ```python
 class OuterProductMean(nn.Module):
