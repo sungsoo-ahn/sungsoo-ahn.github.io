@@ -938,3 +938,5 @@ It runs in seconds per sequence on a single GPU, requires no MSA computation, an
 ## Further Reading
 
 - 310.ai, ["ProteinMPNN: Message Passing on Protein Structures"](https://310.ai/blog/proteinmpnn-message-passing-on-protein-structures) — walkthrough of ProteinMPNN's backbone encoding, edge/node message passing, and order-agnostic autoregressive decoding.
+
+---

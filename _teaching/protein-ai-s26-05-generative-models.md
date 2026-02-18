@@ -178,17 +178,19 @@ To summarize the two loss terms intuitively:
 
 ### Motivation
 
-Section 2 motivated the two loss terms intuitively: reconstruct the data, and keep the encoder's output close to the prior.
+Section 2 motivated the two loss terms intuitively: reconstruct the data, and keep the encoder's output close to the prior[^prior].
 Here we derive these terms from a single principled objective.
 
 Our generative model defines the probability of a protein $$x$$ by integrating over all possible noise inputs:
 
 $$p_\theta(x) = \int p_\theta(x \mid z)\, p(z)\, dz$$
 
-We want to maximize this **marginal likelihood**[^marginal]—the probability that our decoder, fed with random noise from the prior, produces the training proteins.
+We want to maximize this **marginal likelihood**[^likelihood]—the probability that our decoder, fed with random noise from the prior, produces the training proteins.
 This is exactly the right objective for a generative model: if $$p_\theta(x)$$ is high for all training proteins, then sampling $$z \sim \mathcal{N}(0, I)$$ and decoding is likely to produce realistic outputs.
 
-[^marginal]: This is called *marginal* because we integrate (marginalize) over the latent variable $$z$$.
+[^prior]: In probability, the **prior** $$p(z)$$ is the distribution we assume over latent variables *before* observing any data.  Here the prior is $$\mathcal{N}(0, I)$$—we assume latent codes are standard-normal random vectors.  The three Bayesian terms form a chain: the **prior** $$p(z)$$ encodes our initial belief, the **likelihood** $$p(x \mid z)$$ says how probable the data is given a particular $$z$$, and the **posterior** $$p(z \mid x)$$ updates the belief after observing data.
+
+[^likelihood]: The **likelihood** $$p_\theta(x)$$ measures the probability the model assigns to observed data.  It is called *marginal* likelihood because we integrate (marginalize) over the latent variable $$z$$: $$p_\theta(x) = \int p_\theta(x \mid z)\, p(z)\, dz$$.  Maximizing it trains the model to consider the training data plausible.
 
 The integral is intractable—it sums the decoder's output over every conceivable $$z$$.
 The encoder $$q_\phi(z \mid x)$$ from Section 2 provides the way forward: rather than integrating over all $$z$$, we focus on the values of $$z$$ that the encoder considers plausible for each $$x$$.
@@ -660,3 +662,5 @@ The choice between VAEs and diffusion depends on the application: VAEs for speed
 ## References
 
 <p id="ref-a"><a href="#cite-a">[a]</a> Ho, J., Jain, A., and Abbeel, P. (2020). "Denoising Diffusion Probabilistic Models." <em>Advances in Neural Information Processing Systems (NeurIPS)</em>.</p>
+
+---

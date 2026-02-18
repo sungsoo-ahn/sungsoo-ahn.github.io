@@ -1528,3 +1528,5 @@ But RFDiffusion's experimental success has established SE(3) diffusion as a domi
 <p id="ref-c"><a href="#cite-c">[c]</a> Dauparas, J., Anishchenko, I., Bennett, N., Bai, H., Ragotte, R. J., Milles, L. F., ... & Baker, D. (2022). Robust deep learning–based protein sequence design using ProteinMPNN. <em>Science</em>, 378(6615), 49–56.</p>
 
 <p id="ref-d"><a href="#cite-d">[d]</a> Ho, J., & Salimans, T. (2022). Classifier-free diffusion guidance. <em>NeurIPS 2021 Workshop on Deep Generative Models and Downstream Applications</em>.</p>
+
+---
