@@ -45,8 +45,8 @@ Excel files synced from Dropbox:
 | `_config.yml` | Site configuration |
 | `_data/socials.yml` | Social links |
 | `assets/img/prof_pic.jpg` | Profile photo |
-| `_pages/teaching.md` | Teaching page (lists courses) |
-| `_teaching/` | Lecture notes collection |
+| `_pages/teaching.md` | Teaching page (links to course sites) |
+| `_data/courses.yml` | Course metadata (links to standalone sites) |
 
 ## Skills
 
@@ -57,9 +57,9 @@ Writing style and rendering rules are managed as skills:
 - `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
 - `/generate-blog-figures` — matplotlib figure generation workflow
 - `/download-paper-figures` — incorporating figures from academic papers
-- `/refine-lecture-notes` — iterative consistency pass across a series of teaching notes
+Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/CLAUDE.md`.
 
-Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/CLAUDE.md` and `_teaching/CLAUDE.md`.
+Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each with their own CLAUDE.md and skills.
 
 ## Architecture
 
