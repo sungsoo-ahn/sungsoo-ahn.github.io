@@ -294,8 +294,10 @@ def rotation_matrix_to_quaternion(R):
 
 ### The Frame Representation
 
-A protein backbone consists of a chain of amino acid residues.
+A protein backbone[^backbone] consists of a chain of amino acid residues.
 Each residue contains three backbone atoms --- nitrogen (N), alpha carbon ($$\text{C}_\alpha$$), and carbonyl carbon (C) --- that form a relatively rigid unit[^rigid].
+
+[^backbone]: The **backbone** (or main chain) is the repeating N--C$$_\alpha$$--C--N--C$$_\alpha$$--C... chain that forms the "spine" of a protein. Each C--N junction is a **peptide bond**, a partial double bond that keeps the six atoms around it nearly planar. The chemically diverse **side chains** (one per residue) branch off the C$$_\alpha$$ atoms but are not part of the backbone.
 Two pieces of information fully specify the placement of this unit in space:
 
 1. **Position**: the location of the $$\text{C}_\alpha$$ atom, a vector $$\vec{t}_i \in \mathbb{R}^3$$.
@@ -307,6 +309,10 @@ Two pieces of information fully specify the placement of this unit in space:
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/wikimedia/backbone_dihedral_angles.png' | relative_url }}" alt="Protein backbone dihedral angles">
     <div class="caption mt-1"><strong>Backbone dihedral angles.</strong> The protein backbone is defined by repeating N-C&#945;-C units. The torsion angles &#966; (phi), &#968; (psi), and &#969; (omega) specify the conformation. The &#969; angle is typically fixed near 180&#176; (trans peptide bond), leaving &#966; and &#968; as the primary degrees of freedom. Source: Wikimedia Commons, CC BY 3.0.</div>
 </div>
+
+The three **dihedral angles**[^dihedral] $$\phi$$, $$\psi$$, and $$\omega$$ specify the backbone conformation at each residue.
+
+[^dihedral]: A **dihedral angle** (or torsion angle) measures the rotation around a bond between two planes defined by four consecutive atoms. In the protein backbone: $$\phi$$ (phi) rotates around the N--C$$_\alpha$$ bond, $$\psi$$ (psi) rotates around the C$$_\alpha$$--C bond, and $$\omega$$ (omega) rotates around the peptide bond C--N. Because the peptide bond has partial double-bond character, $$\omega \approx 180°$$ (trans) in almost all cases, leaving only two degrees of freedom ($$\phi$$ and $$\psi$$) per residue.
 
 Together, the pair $$(R_i, \vec{t}_i)$$ defines a **rigid-body frame** for residue $$i$$.
 
