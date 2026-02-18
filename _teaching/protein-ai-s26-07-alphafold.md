@@ -1224,3 +1224,5 @@ For reference, predicting the structure of a single ~400-residue protein takes a
 - Elana Simon & Jake Silberg, ["The Illustrated AlphaFold"](https://elanapearl.github.io/blog/2024/the-illustrated-alphafold/) — Jay-Alammar-style visual walkthrough of AlphaFold 3's full architecture with step-by-step diagrams.
 - Oxford Protein Informatics Group, ["AlphaFold 2: What's Behind the Structure Prediction Miracle"](https://www.blopig.com/blog/2021/07/alphafold-2-is-here-whats-behind-the-structure-prediction-miracle/) — technical breakdown of Evoformer, IPA, and the structure module.
 - Fabian Fuchs, ["AlphaFold 2 & Equivariance"](https://fabianfuchsml.github.io/alphafold2/) — how AlphaFold 2's structure module achieves SE(3) equivariance through iterative refinement.
+
+---

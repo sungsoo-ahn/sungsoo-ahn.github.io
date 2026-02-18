@@ -669,3 +669,5 @@ The core insight is practical: by building the right symmetries into our models,
 - Daigavane et al., ["Understanding Convolutions on Graphs"](https://distill.pub/2021/understanding-gnns/) — companion piece on spectral and spatial graph convolutions.
 - Fabian Fuchs, ["SE(3)-Transformers"](https://fabianfuchsml.github.io/se3transformer/) — equivariant self-attention on 3D point clouds and roto-translation equivariance.
 - Andrew White, ["Equivariant Neural Networks"](https://dmol.pub/dl/Equivariant.html) — textbook chapter deriving E(3)-equivariant GNNs from group theory, with code examples.
+
+---

@@ -444,3 +444,5 @@ In practice, PyTorch provides optimizers (like `torch.optim.SGD` and `torch.opti
 <p id="ref-a"><a href="#cite-a">[a]</a> Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning</em>. MIT Press. Chapters 6–8. Available at <a href="https://www.deeplearningbook.org/">deeplearningbook.org</a>.</p>
 
 <p id="ref-b"><a href="#cite-b">[b]</a> Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." <em>Advances in Neural Information Processing Systems</em>, 32.</p>
+
+---
