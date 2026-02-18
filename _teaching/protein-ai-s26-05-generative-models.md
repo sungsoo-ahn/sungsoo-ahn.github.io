@@ -446,6 +446,16 @@ Because both the forward posterior $$q(x_{t-1} \mid x_t, x_0)$$ and the reverse 
 Ho et al. <sup id="cite-a"><a href="#ref-a">[a]</a></sup> showed that dropping the per-timestep weighting coefficients yields $$\mathcal{L}_{\text{simple}}$$, which works better in practice.
 For the full derivation, see Luo (2022) [^elbo-derivation].
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/luo_hvae.png' | relative_url }}" alt="Hierarchical VAE graphical model with T latent layers forming a Markov chain">
+    <div class="caption mt-1"><strong>Diffusion as a hierarchical VAE.</strong> A Markovian Hierarchical VAE with \(T\) latent layers. The generative (reverse) process \(p_\theta\) flows top-down along the chain; the inference (forward) process \(q\) flows bottom-up. A diffusion model is this structure with the forward process fixed to Gaussian noise addition and all latent layers sharing the data dimensionality. Source: Luo, <em>Understanding Diffusion Models: A Unified Perspective</em> (2022).</div>
+</div>
+
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/luo_elbo_denoising.png' | relative_url }}" alt="ELBO decomposition: each timestep matches the learned denoising step to a tractable ground-truth posterior">
+    <div class="caption mt-1"><strong>Per-timestep ELBO decomposition.</strong> At each step, the learned reverse distribution \(p_\theta(x_{t-1}|x_t)\) (green) is trained to match the tractable ground-truth denoising posterior \(q(x_{t-1}|x_t, x_0)\) (pink). Because both are Gaussians with matched variance, the KL divergence between them reduces to an MSE between means --- which further simplifies to the noise-prediction loss. Source: Luo, <em>Understanding Diffusion Models: A Unified Perspective</em> (2022).</div>
+</div>
+
 [^elbo-derivation]: Luo, C. (2022). "Understanding Diffusion Models: A Unified Perspective." *arXiv preprint arXiv:2208.11970*. Sections 3–4 derive the diffusion ELBO from the hierarchical VAE perspective.
 
 The training procedure for a single batch is:
@@ -491,6 +501,11 @@ Predicting the noise $$\epsilon$$ is mathematically equivalent to estimating the
 This connection links diffusion models to the broader framework of score-based generative modeling (Song and Ermon, 2019).
 
 [^score]: The *score* of a distribution $$p(x)$$ is the gradient of its log-density, $$\nabla_x \log p(x)$$.  Score matching trains a network to approximate this gradient without knowing the normalizing constant of $$p$$.
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/yangsong_score_contour.jpg' | relative_url }}" alt="Score function visualized as a vector field over a mixture of two Gaussians">
+    <div class="caption mt-1"><strong>The score function as a vector field.</strong> Contour plot of a mixture of two Gaussians, overlaid with the score \(\nabla_x \log p(x)\) at each point. Arrows point toward the modes (high-density regions). The denoising network implicitly estimates this vector field at each noise level. Source: Song, <em>Generative Modeling by Estimating Gradients of the Data Distribution</em> (2021).</div>
+</div>
 
 ---
 

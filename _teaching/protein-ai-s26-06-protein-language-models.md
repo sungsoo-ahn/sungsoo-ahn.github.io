@@ -379,6 +379,11 @@ The model is never told about structure, function, or conservation; it discovers
 
 ## 5. Extracting and Using Embeddings
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/malina_prottrans_pipeline.png' | relative_url }}" alt="Pretrained protein language models used as feature extractors for per-residue and per-protein tasks">
+    <div class="caption mt-1"><strong>Protein LMs as feature extractors.</strong> A pretrained model (trained with MLM, autoregressive, or seq2seq objectives) produces embeddings that are fed to lightweight task heads for per-residue predictions (secondary structure, binding sites) or per-protein predictions (localization, function). Source: Elnaggar et al., ProtTrans (2022).</div>
+</div>
+
 One of the most practical applications of ESM-2 is **embedding extraction**: passing a protein sequence through the model and collecting the internal representations for use in downstream tasks.
 
 ### Per-residue embeddings

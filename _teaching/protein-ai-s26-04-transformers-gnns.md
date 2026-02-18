@@ -84,6 +84,11 @@ The attention matrix $$A \in \mathbb{R}^{L \times L}$$, with entries $$A_{ij} = 
 
 In the sentence "The bank by the river flooded," the word "bank" should attend strongly to "river" and "flooded" to resolve its meaning---not to "money" or "loan."  A different sentence with the same word would produce entirely different attention weights.  The same adaptivity matters for proteins: this is the key insight.  Attention is a **linear layer whose weight matrix is computed from the data**.  Fixed layers apply the same transformation to every input; attention builds a different transformation for each input, shaped by the pairwise relationships within it.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/jalammar_attention_visualization.png' | relative_url }}" alt="Attention visualization: the word 'it' attends most strongly to 'The' and 'Animal'">
+    <div class="caption mt-1"><strong>Attention in action.</strong> A trained encoder processes the sentence "The animal didn't cross the street because it was too tired." Colored lines show the attention weights from "it" --- the model correctly attends most strongly to "The Animal," resolving the coreference. Source: Alammar, <em>The Illustrated Transformer</em> (2018). CC BY-NC-SA 4.0.</div>
+</div>
+
 ### Query, Key, Value: Parameterizing Attention
 
 The simple formula $$x_i^T x_j$$ uses the same representation for two distinct roles: "what position $$i$$ is looking for" and "what position $$j$$ has to offer."  Separating these roles with learned linear projections gives the model more flexibility.  This is the **query-key-value (Q/K/V) decomposition**[^qkv].
@@ -142,6 +147,23 @@ $$
 $$
 
 Here $$Q \in \mathbb{R}^{N \times d_k}$$, $$K \in \mathbb{R}^{N \times d_k}$$, and $$V \in \mathbb{R}^{N \times d_v}$$ are matrices whose rows are the query, key, and value vectors for all $$N$$ positions.  The scaling factor $$\sqrt{d_k}$$ ensures that the variance of the dot products remains approximately 1 regardless of $$d_k$$, keeping the softmax in a well-behaved regime.
+
+The following walkthrough traces a single query through all three stages with concrete numbers.
+
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/jalammar_attention_score.png' | relative_url }}" alt="Step 1: dot-product scores between query and key vectors">
+    <div class="caption mt-1"><strong>Step 1 — Dot-product scores.</strong> The query vector \(q_1\) is dotted with every key vector to produce raw attention scores.</div>
+</div>
+
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/jalammar_attention_softmax.png' | relative_url }}" alt="Step 2: scale by sqrt(d_k) and apply softmax to get attention weights">
+    <div class="caption mt-1"><strong>Step 2 — Scale and softmax.</strong> Scores are divided by \(\sqrt{d_k}\), then softmax converts them into a probability distribution over positions.</div>
+</div>
+
+<div class="col-sm mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/jalammar_attention_output.png' | relative_url }}" alt="Step 3: weighted sum of value vectors produces the attention output">
+    <div class="caption mt-1"><strong>Step 3 — Weighted sum of values.</strong> Each value vector is weighted by its attention score and summed to produce the context-aware output for position 1. Source: Alammar, <em>The Illustrated Transformer</em> (2018). CC BY-NC-SA 4.0.</div>
+</div>
 
 Here is a self-contained implementation:
 
@@ -586,6 +608,11 @@ $$
 
 The coefficients $$\alpha_{ij}$$ are computed by a small neural network (a learnable vector $$\mathbf{a} \in \mathbb{R}^{2d'}$$ applied to the concatenation of transformed node features), then normalized with softmax over the neighborhood.  Like the transformer, GAT supports multi-head attention---each head learns different interaction patterns.
 
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/distill_gat_attention.png' | relative_url }}" alt="GAT attention: a node computes interaction scores with each neighbor, normalizes via softmax, and takes a weighted sum">
+    <div class="caption mt-1"><strong>Graph attention.</strong> For each edge, an interaction score is computed between the node and its neighbor, normalized with softmax, and used to weight the neighbor's embedding before aggregation. Source: Sanchez-Lengeling et al., <em>A Gentle Introduction to Graph Neural Networks</em>, Distill (2021). CC BY 4.0.</div>
+</div>
+
 ### Message Passing Neural Networks (MPNN)
 
 The **MPNN** framework (Gilmer et al., 2017) provides maximum flexibility by replacing the fixed message rules of GCN and the specific attention mechanism of GAT with arbitrary learned networks:
@@ -596,6 +623,11 @@ h_i^{(\ell+1)} = U_\theta\!\left(h_i^{(\ell)},\, \sum_{j \in \mathcal{N}(i)} m_{
 $$
 
 Here $$M_\theta$$ and $$U_\theta$$ are learned MLPs.  The key advantage for proteins is that $$M_\theta$$ can incorporate rich **edge features** $$e_{ij}$$---inter-residue distances, backbone angles, sequence separation---which GCN and GAT cannot naturally handle.  This makes MPNN the architecture of choice for structure-based protein design, as exemplified by **ProteinMPNN** (Dauparas et al., 2022).
+
+<div class="col-sm-8 mt-3 mb-3 mx-auto">
+    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/blog/distill_mpnn_arch.png' | relative_url }}" alt="MPNN architecture: messages are prepared from edge and node features, then passed to update node representations">
+    <div class="caption mt-1"><strong>MPNN layer.</strong> A message is prepared from an edge and its two connected nodes, then aggregated at the target node. Edge features (distances, angles) enter directly into the message function --- the key advantage over GCN and GAT for structure-based tasks. Source: Sanchez-Lengeling et al., <em>A Gentle Introduction to Graph Neural Networks</em>, Distill (2021). CC BY 4.0.</div>
+</div>
 
 ---
 
