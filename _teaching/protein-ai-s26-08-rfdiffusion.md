@@ -27,7 +27,7 @@ A civil engineer does not begin by finding a bridge in nature and copying it.
 She specifies the span, the load, and the material constraints, then designs a structure that meets those requirements.
 De novo protein design aspires to the same workflow: specify what you want the protein to do, then compute a structure that accomplishes it.
 
-In July 2023, a team led by David Baker at the University of Washington published **RFDiffusion**, a method that brought this aspiration within reach [1].
+In July 2023, a team led by David Baker at the University of Washington published **RFDiffusion**, a method that brought this aspiration within reach <sup id="cite-a1"><a href="#ref-a">[a]</a></sup>.
 RFDiffusion generates novel protein backbones by learning to reverse a noise process --- the same core idea behind image generation models like DALL-E and Stable Diffusion, but adapted for the unique geometric constraints of molecular structures.
 The designed proteins were not theoretical curiosities: when synthesized in the laboratory, they folded into the predicted structures and performed their intended functions.
 
@@ -878,7 +878,7 @@ This is exactly the equivariance condition.
 ### From Structure Prediction to Structure Generation
 
 RFDiffusion does not build its neural network from scratch.
-Instead, it adapts the architecture of **RoseTTAFold** [4], a protein structure prediction model, for the generative task.
+Instead, it adapts the architecture of **RoseTTAFold** <sup id="cite-b"><a href="#ref-b">[b]</a></sup>, a protein structure prediction model, for the generative task.
 This strategy has two advantages: the pretrained weights provide a strong initialization, and the architecture is already designed to process protein geometry.
 
 The high-level flow is:
@@ -1098,7 +1098,7 @@ Clamping the motif constrains the solution space to scaffolds that are compatibl
 
 ### Self-Conditioning
 
-**Self-conditioning** feeds the model's own previous prediction back as additional input [1].
+**Self-conditioning** feeds the model's own previous prediction back as additional input <sup id="cite-a2"><a href="#ref-a">[a]</a></sup>.
 During training, with probability 0.5, the model first makes a prediction without self-conditioning, then makes a second prediction that also receives the first prediction as input.
 Only the second prediction is used to compute the loss.
 
@@ -1132,7 +1132,7 @@ Without self-conditioning, each denoising step must independently infer global s
 
 ### Classifier-Free Guidance
 
-**Classifier-free guidance** [7] provides a continuous knob to control the strength of conditioning.
+**Classifier-free guidance** <sup id="cite-d"><a href="#ref-d">[d]</a></sup> provides a continuous knob to control the strength of conditioning.
 During training, the conditioning signal is randomly dropped (replaced with zeros) with some probability.
 At inference time, the model is run twice --- once with conditioning and once without --- and the predictions are combined:
 
@@ -1456,11 +1456,11 @@ The interpolation factor is determined by the ratio of noise levels: at each ste
 ### Proteins That Actually Work
 
 The ultimate test of any protein design method is experimental validation.
-RFDiffusion has been validated extensively, with several categories of results reported in the original Nature paper [1]:
+RFDiffusion has been validated extensively, with several categories of results reported in the original Nature paper <sup id="cite-a3"><a href="#ref-a">[a]</a></sup>:
 
 **Novel folds.**
 RFDiffusion generates backbone topologies never observed in nature.
-When the corresponding amino acid sequences were designed (using ProteinMPNN [5]), synthesized, and expressed in *E. coli*, the proteins folded into the predicted structures.
+When the corresponding amino acid sequences were designed (using ProteinMPNN <sup id="cite-c"><a href="#ref-c">[c]</a></sup>), synthesized, and expressed in *E. coli*, the proteins folded into the predicted structures.
 Small-angle X-ray scattering (SAXS) and circular dichroism (CD) measurements confirmed the expected size, shape, and secondary structure content.
 
 **Symmetric assemblies.**
@@ -1513,26 +1513,18 @@ But RFDiffusion's experimental success has established SE(3) diffusion as a domi
 
 ---
 
+## Further Reading
+
+- Lilian Weng, ["What are Diffusion Models?"](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/) — covers the foundational diffusion framework that RFdiffusion builds upon, including DDPM, score matching, and classifier guidance.
+- Stephan Heijl, ["A New Protein Design Era with Protein Diffusion"](https://stephanheijl.com/rfdiffusion.html) — detailed technical walkthrough of RFDiffusion's denoising process, RoseTTAFold fine-tuning, and motif scaffolding.
+- Baker Lab, ["A Diffusion Model for Protein Design"](https://www.bakerlab.org/2023/07/11/diffusion-model-for-protein-design/) — official blog on RFDiffusion's capabilities including binder design and symmetric oligomer generation.
+
 ## References
 
-1. Watson, J. L., Juergens, D., Bennett, N. R., Trippe, B. L., Yim, J., Eisenach, H. E., ... & Baker, D. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*, 620(7976), 1089--1100.
+<p id="ref-a"><a href="#cite-a1">[a]</a> Watson, J. L., Juergens, D., Bennett, N. R., Trippe, B. L., Yim, J., Eisenach, H. E., ... & Baker, D. (2023). De novo design of protein structure and function with RFdiffusion. <em>Nature</em>, 620(7976), 1089–1100.</p>
 
-2. Yim, J., Trippe, B. L., De Bortoli, V., Mathieu, E., Doucet, A., Barzilay, R., & Jaakkola, T. (2023). SE(3) diffusion model with application to protein backbone generation. *Proceedings of the 40th International Conference on Machine Learning (ICML)*.
+<p id="ref-b"><a href="#cite-b">[b]</a> Baek, M., DiMaio, F., Anishchenko, I., Dauparas, J., Ovchinnikov, S., Lee, G. R., ... & Baker, D. (2021). Accurate prediction of protein structures and interactions using a three-track neural network. <em>Science</em>, 373(6557), 871–876.</p>
 
-3. Leach, A., Schmon, S. M., Sherrill-Mix, S., & Wood, F. (2022). Denoising diffusion probabilistic models on SO(3) for rotational alignment. *ICLR 2022 Workshop on Geometrical and Topological Representation Learning*.
+<p id="ref-c"><a href="#cite-c">[c]</a> Dauparas, J., Anishchenko, I., Bennett, N., Bai, H., Ragotte, R. J., Milles, L. F., ... & Baker, D. (2022). Robust deep learning–based protein sequence design using ProteinMPNN. <em>Science</em>, 378(6615), 49–56.</p>
 
-4. Baek, M., DiMaio, F., Anishchenko, I., Dauparas, J., Ovchinnikov, S., Lee, G. R., ... & Baker, D. (2021). Accurate prediction of protein structures and interactions using a three-track neural network. *Science*, 373(6557), 871--876.
-
-5. Dauparas, J., Anishchenko, I., Bennett, N., Bai, H., Ragotte, R. J., Milles, L. F., ... & Baker, D. (2022). Robust deep learning--based protein sequence design using ProteinMPNN. *Science*, 378(6615), 49--56.
-
-6. Ho, J., Jain, A., & Abbeel, P. (2020). Denoising diffusion probabilistic models. *Advances in Neural Information Processing Systems (NeurIPS)*, 33, 6840--6851.
-
-7. Ho, J., & Salimans, T. (2022). Classifier-free diffusion guidance. *NeurIPS 2021 Workshop on Deep Generative Models and Downstream Applications*.
-
-8. Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., ... & Hassabis, D. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596(7873), 583--589.
-
-9. Nichol, A. Q., & Dhariwal, P. (2021). Improved denoising diffusion probabilistic models. *Proceedings of the 38th International Conference on Machine Learning (ICML)*.
-
-10. Shoemake, K. (1985). Animating rotation with quaternion curves. *ACM SIGGRAPH Computer Graphics*, 19(3), 245--254.
-
-11. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. [udlbook.github.io/udlbook](https://udlbook.github.io/udlbook/). CC BY-NC-ND.
+<p id="ref-d"><a href="#cite-d">[d]</a> Ho, J., & Salimans, T. (2022). Classifier-free diffusion guidance. <em>NeurIPS 2021 Workshop on Deep Generative Models and Downstream Applications</em>.</p>
