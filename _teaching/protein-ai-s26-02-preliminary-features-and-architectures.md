@@ -277,7 +277,9 @@ $$
 \underbrace{\mathbf{W}}_{64 \times d} \underbrace{\mathbf{x}}_{d \times 1} + \underbrace{\mathbf{b}}_{64 \times 1} = \underbrace{\mathbf{z}}_{64 \times 1} \xrightarrow{\sigma} \underbrace{\mathbf{h}}_{64 \times 1}
 $$
 
-Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the dot product $$\mathbf{w}_k^T \mathbf{x} + b_k$$, producing one scalar. Stack 64 such scalars and you get the 64-dimensional pre-activation vector $$\mathbf{z}$$, which becomes $$\mathbf{h}$$ after applying $$\sigma$$ element-wise.
+Each row of $$\mathbf{W}$$ is one neuron's weight vector. Row $$k$$ computes the dot product[^dotproduct] $$\mathbf{w}_k^T \mathbf{x} + b_k$$, producing one scalar.
+
+[^dotproduct]: The **dot product** of two vectors $$\mathbf{a}, \mathbf{b} \in \mathbb{R}^d$$ is the scalar $$\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^d a_i b_i$$.  It measures how much two vectors point in the same direction: positive when they are aligned, zero when perpendicular, negative when opposing. Stack 64 such scalars and you get the 64-dimensional pre-activation vector $$\mathbf{z}$$, which becomes $$\mathbf{h}$$ after applying $$\sigma$$ element-wise.
 
 This is a **fully connected layer** (also called a **dense layer** or **linear layer**).
 The total number of parameters is $$64d + 64$$ (weights plus biases).

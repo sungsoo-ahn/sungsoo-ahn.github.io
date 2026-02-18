@@ -11,6 +11,7 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 2 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The course covers core machine learning techniques for protein science, from representation learning to generative design. In this lecture we shift from discriminative models—which predict properties of existing proteins—to generative models that can imagine entirely new ones.</em></p>
@@ -112,7 +113,9 @@ Given a training protein $$x$$, the encoder infers a distribution over latent ve
 $$z \sim q_\phi(z \mid x) = \mathcal{N}\!\bigl(\mu_\phi(x),\; \sigma^2_\phi(x) I\bigr)$$
 
 Here $$\phi$$ denotes the learnable parameters of the encoder, $$\mu_\phi(x) \in \mathbb{R}^J$$ and $$\sigma^2_\phi(x) \in \mathbb{R}^J$$ are the per-dimension mean and variance, and $$I$$ is the $$J \times J$$ identity matrix.
-The distribution $$q_\phi(z \mid x)$$ is called the **approximate posterior**[^posterior] because it approximates the true (intractable) posterior $$p(z \mid x)$$.
+The distribution $$q_\phi(z \mid x)$$ is called the **approximate posterior**[^posterior] because it approximates the true (intractable[^intractable]) posterior $$p(z \mid x)$$.
+
+[^intractable]: A computation is **intractable** when it is mathematically well-defined but too expensive to carry out exactly --- typically because it requires summing or integrating over an astronomically large space.  **Tractable** is the opposite: the computation has a closed-form solution or an efficient algorithm.
 
 Training works as follows: for each training protein $$x$$, the encoder proposes a distribution over noise inputs $$z$$; we sample a $$z$$ from that distribution and ask the decoder to reconstruct $$x$$ from it.
 The reconstruction loss trains both networks jointly—the encoder to propose useful noise inputs, the decoder to recover proteins from them.
@@ -197,8 +200,12 @@ We introduce the encoder distribution $$q_\phi(z \mid x)$$ by multiplying and di
 
 $$\log p_\theta(x) = \log \int \frac{p_\theta(x \mid z)\, p(z)}{q_\phi(z \mid x)}\; q_\phi(z \mid x)\, dz$$
 
-Recognizing the right-hand side as an expectation under $$q_\phi(z \mid x)$$, we apply **Jensen's inequality**[^jensen].
-Because $$\log$$ is a concave function, we have $$\log \mathbb{E}[Y] \geq \mathbb{E}[\log Y]$$ for any random variable $$Y > 0$$:
+Recognizing the right-hand side as an expectation[^expectation] under $$q_\phi(z \mid x)$$, we apply **Jensen's inequality**[^jensen].
+Because $$\log$$ is a concave function[^concave], we have $$\log \mathbb{E}[Y] \geq \mathbb{E}[\log Y]$$ for any random variable $$Y > 0$$:
+
+[^expectation]: The **expectation** $$\mathbb{E}[Y]$$ of a random variable $$Y$$ is its average value, weighted by probability.  For a continuous variable with density $$p$$, it is $$\mathbb{E}[Y] = \int y \, p(y)\, dy$$.  Think of it as the "center of mass" of the distribution.
+
+[^concave]: A function $$f$$ is **concave** if its graph curves downward --- formally, $$f(\lambda a + (1-\lambda) b) \geq \lambda f(a) + (1-\lambda) f(b)$$ for any $$\lambda \in [0, 1]$$.  **Convex** is the opposite (curves upward, inequality flipped).  The logarithm is concave because its slope decreases as its input grows.
 
 $$\log p_\theta(x) \geq \int q_\phi(z \mid x) \log \frac{p_\theta(x \mid z)\, p(z)}{q_\phi(z \mid x)}\, dz$$
 

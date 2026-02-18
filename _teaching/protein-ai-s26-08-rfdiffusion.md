@@ -11,6 +11,7 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 5 of the Protein & Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. The lecture builds on the diffusion model foundations introduced in Lecture 2 (Generative Models) and the structure prediction concepts from Lecture 4 (AlphaFold). Of all the lectures in this course, this one is the most mathematically intensive, requiring careful treatment of Lie groups, manifold-valued noise processes, and equivariant neural network design.</em></p>
@@ -430,7 +431,9 @@ where $$\bar{\alpha}_t$$ is a noise schedule parameter that decreases from 1 (cl
 
 This works perfectly for the translational component of protein frames --- positions $$\vec{t}_i$$ live in $$\mathbb{R}^3$$, and Gaussian noise in $$\mathbb{R}^3$$ is well defined.
 
-But rotations live on a *manifold* --- a space that is locally flat (like a small patch of a sphere looks flat) but globally curved. Specifically, rotations live on the manifold $$SO(3)$$, which is **not** a Euclidean space.
+But rotations live on a *manifold*[^manifold] --- a space that is locally flat (like a small patch of a sphere looks flat) but globally curved.
+
+[^manifold]: A **manifold** is a space that looks like ordinary Euclidean space in small neighborhoods but has a different global shape.  The surface of a globe is a 2D manifold: any small patch looks flat, but the whole surface wraps around and has no edges.  The set of all 3D rotations forms a manifold for similar reasons --- locally you can parameterize small rotations with three numbers, but the global structure is curved and periodic. Specifically, rotations live on the manifold $$SO(3)$$, which is **not** a Euclidean space.
 You cannot "add" Gaussian noise to a rotation matrix and expect the result to remain a valid rotation.
 The matrix $$R + \epsilon$$ (with $$\epsilon$$ drawn from a matrix-valued Gaussian) is not orthogonal, does not have determinant one, and does not represent a rotation at all.
 
@@ -439,7 +442,9 @@ We need a noise distribution that is native to the rotation manifold.
 ### The Isotropic Gaussian on SO(3)
 
 The solution is the **Isotropic Gaussian distribution on SO(3)**, abbreviated IGSO(3)[^igso3name].
-This distribution plays the same role for rotations that the standard Gaussian plays for Euclidean data: it provides a way to add controlled, isotropic noise that smoothly interpolates between the identity (no noise) and the uniform distribution (maximum noise).
+This distribution plays the same role for rotations that the standard Gaussian plays for Euclidean data: it provides a way to add controlled, isotropic[^isotropic] noise
+
+[^isotropic]: **Isotropic** means "the same in all directions."  Isotropic noise has no preferred direction of perturbation --- it is equally likely to push in any direction.  Standard Gaussian noise in $$\mathbb{R}^3$$ is isotropic because it treats the x, y, and z axes symmetrically. that smoothly interpolates between the identity (no noise) and the uniform distribution (maximum noise).
 
 [^igso3name]: Some authors call this the "isotropic Gaussian on the rotation group" or the "angular central Gaussian." The term IGSO(3) is standard in the protein diffusion literature following Leach et al. (2022) and Yim et al. (2023).
 
