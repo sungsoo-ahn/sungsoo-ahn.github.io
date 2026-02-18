@@ -71,7 +71,9 @@ This makes $$\mathcal{L}_{\text{MSE}}$$ sensitive to outliers --- a single wildl
 
 ### Binary Cross-Entropy (BCE) for Binary Classification
 
-Binary cross-entropy appears throughout machine learning: tumor vs. healthy tissue in medical imaging, positive vs. negative sentiment in product reviews, fraudulent vs. legitimate transactions in finance.
+Binary cross-entropy[^crossentropy] appears throughout machine learning: tumor vs. healthy tissue in medical imaging, positive vs. negative sentiment in product reviews, fraudulent vs. legitimate transactions in finance.
+
+[^crossentropy]: **Entropy** measures the average surprise of a random variable --- the more unpredictable the outcome, the higher the entropy.  **Cross-entropy** between a true distribution and a predicted distribution measures how surprised the predicted distribution is by the actual outcomes.  A perfect predictor has cross-entropy equal to the entropy of the true distribution; any mismatch adds extra cost.
 BCE is designed for **binary classification** --- tasks with two categories, such as predicting whether a protein is soluble versus insoluble, or whether an email is spam versus not spam.
 Let $$y_i \in \{0, 1\}$$ be the true label and $$\hat{y}_i(\theta) \in (0, 1)$$ be the predicted probability:
 
@@ -86,7 +88,9 @@ $$
 P(y_i \mid \mathbf{x}_i; \theta) = \hat{y}_i^{y_i} (1 - \hat{y}_i)^{1 - y_i}
 $$
 
-Assuming training examples are independent, the likelihood of the entire dataset is the product $$\prod_i P(y_i \mid \mathbf{x}_i; \theta)$$.
+Assuming training examples are independent, the likelihood[^likelihood] of the entire dataset is the product $$\prod_i P(y_i \mid \mathbf{x}_i; \theta)$$.
+
+[^likelihood]: The **likelihood** of a model is the probability it assigns to the observed data.  High likelihood means the model considers the data plausible; low likelihood means the model is surprised by it.  The **log-likelihood** is just its logarithm, which turns products into sums and is easier to work with numerically.
 Taking the negative log turns this product into a sum (easier to optimize) and flips the sign (so we minimize):
 
 $$
@@ -153,7 +157,9 @@ $$
 
 Here $$\theta_t$$ represents the current parameter values, $$\eta$$ is the **learning rate** (a small positive number controlling step size), $$\mathcal{L}(\theta_t)$$ is the loss function from Section 1 evaluated over *all* training examples, and $$\nabla_\theta \mathcal{L}(\theta_t)$$ is its gradient with respect to the parameters.
 This is called "full-batch" because the gradient uses every example in the dataset.
-This is impractical for real datasets --- we need the *stochastic* variant.
+This is impractical for real datasets --- we need the *stochastic*[^stochastic] variant.
+
+[^stochastic]: **Stochastic** means involving randomness.  In stochastic gradient descent, the randomness comes from using a random subset of the data (a mini-batch) to estimate the gradient, rather than computing it exactly over the full dataset.
 
 The learning rate is one of the most important hyperparameters[^hyperparameter] in training.
 Too small, and learning is painfully slow.
@@ -346,8 +352,8 @@ Because model complexity is a double-edged sword.
 A linear classifier applied to raw pixels cannot separate cats from dogs --- it underfits because the decision boundary is too simple.
 A 100-million-parameter ResNet trained on only 500 images overfits --- it memorizes each training image.
 The sweet spot lies between these extremes.
-**Bias** is error from a model being too simple --- a linear model predicting solubility from just protein length will systematically miss the real relationship.
-**Variance** is error from a model being too sensitive to the specific training data --- a very complex model fits the training set perfectly, including its noise, but produces wildly different predictions on new data.
+**Bias** is the deviation of the model's average prediction from the true value --- averaged over every possible training set we could draw. A linear model predicting solubility from just protein length will systematically miss the real relationship no matter which training proteins it sees.
+**Variance** is the spread of the model's predictions across different training sets drawn from the same distribution. A very complex model fits each training set perfectly, including its noise, so its predictions swing wildly depending on which particular proteins happened to be in the training data.
 High bias shows up as poor training performance (underfitting); high variance shows up as a large gap between good training performance and poor validation performance (overfitting). The sweet spot is where both metrics are low and close to each other.
 
 ### The Train/Validation/Test Split
@@ -424,7 +430,7 @@ Saving the model at that point --- and discarding later, overfit versions --- is
 
 4. **Data loading** with `TensorDataset` and `DataLoader` handles batching, shuffling, and parallel processing. Pre-encode and flatten protein features, then let the DataLoader stream batches to the GPU.
 
-5. **The bias-variance tradeoff** governs model design: too simple models underfit (high bias), too complex models overfit (high variance). The train/validation/test split is essential for detecting overfitting.
+5. **The bias-variance tradeoff** governs model design: too simple models systematically deviate from the truth (high bias), too complex models swing with the training data (high variance). The train/validation/test split is essential for detecting overfitting.
 
 6. **Next up**: Preliminary Note 4 applies all of these components in a complete case study --- predicting protein solubility --- including evaluation, sequence-identity splits, class imbalance, and debugging.
 

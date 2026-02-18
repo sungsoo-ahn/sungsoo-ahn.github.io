@@ -11,6 +11,7 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 1 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST. It assumes familiarity with the material covered in our preliminary notes on AI fundamentals, protein data and representations, training, and optimization. If any concept feels unfamiliar, please review those notes first.</em></p>
@@ -27,7 +28,7 @@ This lecture develops both families from first principles.  We begin by asking h
 
 | Section | Topic | Why it is needed |
 |---------|-------|-----------------|
-| 1 | Why attention? | Variable-length inputs, the limits of sequential processing, and attention as an adaptive linear layer |
+| 1 | Why attention? | Variable-length inputs and attention as an adaptive linear layer |
 | 2 | The attention mechanism | Attention as adaptive weights, the Q/K/V parameterization, scaling, and multi-head attention |
 | 3 | The transformer architecture | Attention + FFN + residual connections + normalization, and positional encoding |
 | 4 | Proteins as graphs | Representing 3D structure for neural processing |
@@ -38,26 +39,9 @@ This lecture develops both families from first principles.  We begin by asking h
 
 ## 1. Why Attention?
 
-Variable-length inputs are ubiquitous in machine learning.  Sentences range from 3 to 500 tokens; documents span a few paragraphs to hundreds of pages.  A standard linear layer with fixed input dimensions cannot handle this variation.  The same challenge arises in biology: a protein can be 50 residues or 500.  A standard `nn.Linear(in_features, out_features)` layer has fixed input and output dimensions---it cannot accept inputs of varying length.  Any architecture for proteins must handle **variable-length inputs** as a first-class concern.
+A protein can be 50 residues or 500.  A standard `nn.Linear(in_features, out_features)` layer has fixed input and output dimensions---it cannot accept inputs of varying length.  Any architecture for proteins must handle **variable-length inputs** as a first-class concern.
 
-Three broad strategies exist.  **Recurrent neural networks (RNNs)** process the sequence one token at a time, maintaining a hidden state that accumulates context.  **Convolutional neural networks (CNNs)** slide fixed-size windows over the sequence, aggregating local neighborhoods.  **Attention** computes direct pairwise interactions between all positions, regardless of their distance.  Each strategy accepts any length, but they differ dramatically in how information flows.
-
-### The Limitations of Sequential Processing
-
-RNNs were the dominant sequence model in NLP through the mid-2010s---powering machine translation, speech recognition, and text generation.  Their limitations became painfully clear on long documents, where early sentences were forgotten by the time the model reached the end.  The same problems plague protein modeling: RNNs solve the variable-length problem by processing one residue at a time, but this creates three serious difficulties.
-
-**The parallelization bottleneck.**  To compute the hidden state at position 100, you must first compute the hidden states at positions 1 through 99.  This fundamentally sequential dependence means you cannot exploit the parallelism of modern GPUs, which excel when they can perform many independent operations simultaneously.
-
-**The long-range dependency problem.**  Information from the beginning of a sequence must pass through dozens or hundreds of intermediate steps before it can influence positions near the end.  Each step is an opportunity for information to be diluted or lost.  Even sophisticated gating mechanisms like LSTMs and GRUs struggle to maintain signals across very long spans.
-
-**The information bottleneck.**  The entire context of a long sequence must be compressed into a fixed-size hidden state vector.  For a 500-residue protein, all information about the first 400 residues must fit into a vector of perhaps 256 or 512 numbers before it can influence the representation of residue 401.  Important details inevitably get lost.
-
-<div class="col-sm-8 mt-3 mb-3 mx-auto">
-    <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/d2l/cnn-rnn-self-attention.png' | relative_url }}" alt="CNN vs RNN vs Self-Attention">
-    <div class="caption mt-1"><strong>Three approaches to sequence processing.</strong> CNNs aggregate local windows. RNNs propagate information sequentially, creating a bottleneck for long-range dependencies. Self-attention connects every pair of positions directly, enabling any residue to attend to any other in a single step. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
-</div>
-
-Attention offers a radical alternative.  Instead of routing information through a long chain of intermediate steps, it creates direct connections between every pair of positions.  The core idea: attention builds an **input-dependent weight matrix**---an adaptive linear layer where the same learned parameters produce different behavior for each input.  The next section develops this idea formally.
+Attention solves this by creating direct connections between every pair of positions.  The core idea: attention builds an **input-dependent weight matrix**---an adaptive linear layer where the same learned parameters produce different behavior for each input.  A 50-residue protein produces a $$50 \times 50$$ weight matrix; a 500-residue protein produces a $$500 \times 500$$ matrix.  The same parameters handle both.
 
 ---
 
@@ -67,8 +51,8 @@ Before diving into the details, here is the big picture of what a transformer do
 
 A protein of $$L$$ residues starts as a sequence of $$L$$ integer tokens.
 An **embedding layer** maps each token to a $$d$$-dimensional vector, producing a matrix of shape $$(L, d)$$ --- one row per residue.
-The **attention mechanism** computes an $$(L, L)$$ attention matrix that scores every residue-pair relationship, then uses those scores to mix information across positions.
-The output is again $$(L, d)$$: one $$d$$-dimensional vector per residue, but now each vector is **context-aware** --- it encodes not just the identity of that residue, but its relationships to all other residues.
+The **attention mechanism** computes an $$(L, L)$$ attention matrix $$A$$ that scores every residue-pair relationship, then left-multiplies the embedding: $$AX$$ is again $$(L, d)$$, but now row $$i$$ is a weighted combination of all rows of $$X$$, with weights determined by $$A_{i,:}$$.
+Each output vector is therefore **context-aware** --- it encodes not just the identity of that residue, but its relationships to all other residues.
 A **transformer block** wraps attention with a feed-forward network, residual connections, and normalization, all preserving the $$(L, d)$$ shape.
 Stacking $$N$$ such blocks produces increasingly refined representations, still $$(L, d)$$.
 
@@ -77,16 +61,18 @@ What changes is the *meaning* of each vector --- raw amino-acid identity in, con
 
 <div class="col-sm mt-3 mb-3 mx-auto">
     <img class="img-fluid rounded" src="{{ '/assets/img/teaching/protein-ai/mermaid/s26-04-transformers-gnns_diagram_4.png' | relative_url }}" alt="Transformer pipeline: L integer tokens through embedding, attention, and N transformer blocks, preserving (L, d) shape throughout">
-    <div class="caption mt-1"><strong>Tensor shapes through the transformer.</strong> Green nodes show the data shape at each stage; yellow nodes show computation steps. The shape \((L, d)\) is preserved throughout — only the meaning of each vector changes.</div>
+    <div class="caption mt-1"><strong>Tensor shapes through attention.</strong> Green nodes show the data shape at each stage; yellow nodes show computation steps. The \((L, L)\) attention matrix left-multiplies the \((L, d)\) embedding, producing a context-aware \((L, d)\) output.</div>
 </div>
 
-The following sections build each component.
+The following sections develop attention from first principles, then assemble it with feed-forward layers, residual connections, and positional encodings into a full transformer.
 
 ### Attention as Adaptive Weights
 
-A standard linear layer applies a fixed weight matrix $$W \in \mathbb{R}^{d \times d'}$$ to an input $$X \in \mathbb{R}^{L \times d}$$, producing $$XW \in \mathbb{R}^{L \times d'}$$.  Each position is transformed independently---there is no cross-position interaction.
+A standard linear layer transforms each position independently.  Attention's key insight is to build a weight matrix *from the input itself* that mixes information across positions.  To see why this is necessary, notice the change in how we arrange data compared to the preliminary notes.  There, a dataset of $$N$$ samples with $$d$$ features was stored as $$X \in \mathbb{R}^{N \times d}$$, and a linear layer right-multiplied: $$XW$$.  The rows were independent samples---no interaction between them was needed or desired.
 
-To mix information across positions, we could left-multiply by a matrix $$A \in \mathbb{R}^{L \times L}$$, producing $$AX$$.  Each row of $$AX$$ is now a weighted combination of all input rows---exactly the cross-position interaction we want.  But building such an $$A$$ is hard: $$A$$ must be $$L \times L$$, and $$L$$ varies from protein to protein.  A fixed learned matrix cannot handle this.  Simpler alternatives---averaging all position vectors into one, or summing them---do mix information across positions, but they collapse the entire sequence into a single vector, discarding the per-position structure we need.
+Now the rows of $$X \in \mathbb{R}^{L \times d}$$ are positions in a *single* sequence.  To handle a batch of $$N$$ sequences simultaneously, we would need a 3-dimensional tensor $$X \in \mathbb{R}^{N \times L \times d}$$ and corresponding tensor products in place of matrix multiplications.  We ignore the batch dimension throughout this note for notational simplicity---PyTorch handles it automatically.  Right-multiplying by $$W \in \mathbb{R}^{d \times d'}$$ still gives $$XW \in \mathbb{R}^{L \times d'}$$, but each row is transformed independently---there is no cross-position interaction.  This is a **position-wise** linear layer: it can change what each residue's vector means, but it cannot let residue 50 learn about residue 127.
+
+To mix information across positions, we need to multiply on the other side: left-multiply by a matrix $$A \in \mathbb{R}^{L \times L}$$, producing $$AX$$.  Each row of $$AX$$ is now a weighted combination of all input rows---exactly the cross-position interaction we want.  But building such an $$A$$ is hard: $$A$$ must be $$L \times L$$, and $$L$$ varies from protein to protein.  A fixed learned matrix cannot handle this.  Simpler alternatives---averaging all position vectors into one, or summing them---do mix information across positions, but they collapse the entire sequence into a single vector, discarding the per-position structure we need.
 
 Attention solves this by **computing $$A$$ from the input itself**.  Given a sequence of $$L$$ input vectors $$x_1, \dots, x_L \in \mathbb{R}^d$$, compute pairwise compatibility scores between all positions, normalize them with softmax, and use the resulting weights to compute weighted averages:
 
@@ -94,7 +80,7 @@ $$
 \alpha_{ij} = \frac{\exp(x_i^T x_j)}{\sum_k \exp(x_i^T x_k)}, \qquad \text{output}_i = \sum_j \alpha_{ij} \, x_j
 $$
 
-The attention matrix $$A \in \mathbb{R}^{L \times L}$$, with entries $$A_{ij} = \alpha_{ij}$$, plays the role of the fixed weight matrix $$W$$ from a standard linear layer --- but $$A$$ is computed entirely from the input.  A 50-residue protein produces a $$50 \times 50$$ attention matrix; a 500-residue protein produces a $$500 \times 500$$ matrix.  The same parameters handle both---the computation adapts to the input length.
+The attention matrix $$A \in \mathbb{R}^{L \times L}$$, with entries $$A_{ij} = \alpha_{ij}$$, plays the role of the fixed weight matrix $$W$$ from a standard linear layer --- but $$A$$ is computed entirely from the input.
 
 In the sentence "The bank by the river flooded," the word "bank" should attend strongly to "river" and "flooded" to resolve its meaning---not to "money" or "loan."  A different sentence with the same word would produce entirely different attention weights.  The same adaptivity matters for proteins: this is the key insight.  Attention is a **linear layer whose weight matrix is computed from the data**.  Fixed layers apply the same transformation to every input; attention builds a different transformation for each input, shaped by the pairwise relationships within it.
 
@@ -657,7 +643,7 @@ The core insight is practical: by building the right symmetries into our models,
 
 ## Key Takeaways
 
-1. **Attention enables direct pairwise interactions** between all positions in a sequence, overcoming the sequential bottleneck of RNNs and enabling models to capture long-range dependencies in proteins.
+1. **Attention enables direct pairwise interactions** between all positions in a sequence, handling variable-length inputs through an adaptive weight matrix computed from the input itself.
 
 2. **Queries, keys, and values** have clear roles: queries ask "what am I looking for?", keys advertise "what do I have?", and values carry the information that gets transmitted.
 

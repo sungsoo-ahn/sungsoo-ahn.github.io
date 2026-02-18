@@ -11,6 +11,7 @@ preliminary: false
 toc:
   sidebar: left
 related_posts: false
+collapse_code: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;"><em>This is Lecture 4 of the Protein &amp; Artificial Intelligence course (Spring 2026), co-taught by Prof. Sungsoo Ahn and Prof. Homin Kim at KAIST Graduate School of AI. It assumes familiarity with transformers and attention mechanisms (Lecture 1) as well as protein language models (Lecture 3). All code examples use PyTorch and are simplified for pedagogical clarity.</em></p>
@@ -943,7 +944,9 @@ This requires a loss function that captures what it means for a predicted struct
 The standard metric for comparing protein structures is **root-mean-square deviation** (RMSD): optimally superimpose the predicted and true structures, then compute the average squared displacement of corresponding atoms.
 RMSD has been the workhorse of structural biology for decades, but it has several problems as a *training loss*:
 
-1. **Optimal superposition is not cleanly differentiable.** Finding the rotation that minimizes the error involves an eigenvalue decomposition (the Kabsch algorithm), which complicates gradient computation.
+1. **Optimal superposition is not cleanly differentiable.** Finding the rotation that minimizes the error involves an eigenvalue decomposition[^eigenvalue] (the Kabsch algorithm), which complicates gradient computation.
+
+[^eigenvalue]: An **eigenvalue decomposition** breaks a square matrix into special directions (eigenvectors) along which the matrix acts as simple scaling (by the corresponding eigenvalues).  It appears here because finding the best-fit rotation between two sets of 3D points reduces to finding the eigenvectors of a $$3 \times 3$$ matrix built from the coordinates.
 2. **RMSD treats all errors equally.** A 2-angstrom error in a floppy loop is penalized the same as a 2-angstrom error in a rigid beta sheet, even though the loop error might be physically reasonable.
 3. **Global sensitivity.** A single badly predicted domain can dominate the RMSD, masking accurate predictions elsewhere.
 
