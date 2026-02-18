@@ -280,7 +280,9 @@ This is **data leakage** --- the test set contains information that was effectiv
 The fix relies on **sequence clustering**.
 The idea is to group proteins so that any two proteins in the same group are similar (above some sequence-identity threshold), while proteins in different groups are dissimilar.
 
-Concretely, a clustering tool like MMseqs2 compares every pair of proteins in the dataset and computes their **sequence identity** --- the fraction of aligned positions where the amino acids match.
+Concretely, a clustering tool like MMseqs2 compares every pair of proteins in the dataset and computes their **sequence identity**[^seqid] --- the fraction of aligned positions where the amino acids match.
+
+[^seqid]: Sequence identity is reported as a percentage. Rough rules of thumb: above 90% identity, two proteins almost certainly share the same structure and function; above 30--50%, they likely share the same fold; below 20%, the relationship is ambiguous (the "twilight zone" of sequence alignment).
 It then groups proteins into **clusters** using a threshold (say 30%): if protein A and protein B share $$\geq$$ 30% identity, they end up in the same cluster.
 Each cluster has a representative sequence, and every other member is reachable from the representative through a chain of pairwise alignments above the threshold.
 

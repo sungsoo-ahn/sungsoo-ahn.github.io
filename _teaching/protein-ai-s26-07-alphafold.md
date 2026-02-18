@@ -52,7 +52,10 @@ Along the way we examine simplified PyTorch implementations of each piece, so th
 </div>
 
 In 1972, Christian Anfinsen received the Nobel Prize in Chemistry for demonstrating that a protein's amino acid sequence contains all the information necessary to determine its three-dimensional structure[^anfinsen].
-His experiments on ribonuclease A showed that a denatured (unfolded) protein could spontaneously refold into its functional form once the denaturing agent was removed.
+His experiments on ribonuclease A showed that a denatured[^denatured] (unfolded) protein could spontaneously refold into its functional form once the denaturing agent was removed.
+
+[^denatured]: **Denaturation** is the loss of a protein's three-dimensional structure. Heat, extreme pH, or chemical agents (like urea) disrupt the non-covalent interactions --- hydrogen bonds, hydrophobic packing, salt bridges --- that hold the fold together, leaving the chain as a floppy, unstructured polymer.
+
 The implication was clear: the sequence dictates the fold.
 
 [^anfinsen]: Anfinsen's thermodynamic hypothesis is sometimes called the "thermodynamic control" model of folding, as opposed to kinetic control, where folding intermediates might trap the protein in a non-native state.
@@ -100,7 +103,9 @@ Before diving into equations and code, it helps to understand AlphaFold2's overa
 When predicting a protein's structure, one might think the only available information is the sequence itself---a string of amino acid letters.
 But every protein has evolutionary relatives: sequences that diverged from a common ancestor and have been independently shaped by natural selection.
 
-These relatives are collected into a **multiple sequence alignment** (MSA), where homologous sequences are arranged so that evolutionarily equivalent positions line up in columns.
+These relatives are collected into a **multiple sequence alignment**[^msa] (MSA), where homologous (introduced in Lecture 3) sequences are arranged so that evolutionarily equivalent positions line up in columns.
+
+[^msa]: A **multiple sequence alignment** (MSA) is a matrix where each row is a related protein sequence and each column aligns evolutionarily corresponding positions. MSAs are built by search tools like JackHMMER or HHBlits, which scan large sequence databases to find homologs of the query protein. A typical MSA for AlphaFold2 may contain thousands of sequences.
 Examining an MSA reveals two kinds of signal:
 
 1. **Conservation.** Some positions rarely change because mutations there would break the protein.
@@ -151,8 +156,10 @@ A sequence like `MVLSPADKTN...` is converted to numerical indices (methionine $$
 **Multiple sequence alignment.** Thousands of related sequences, each aligned to the target.
 Each position in each sequence is encoded with features indicating amino acid identity, insertion counts, and deletion states---49 features per position in total.
 
-**Template structures (optional).** Experimentally determined structures of related proteins.
+**Template structures[^template] (optional).** Experimentally determined structures of related proteins.
 If the database contains a homolog with, say, 40% sequence identity, its backbone coordinates provide geometric clues.
+
+[^template]: A **template structure** is a previously solved 3D structure of a protein related to the target. Traditional homology modeling copies and adjusts the template's coordinates; AlphaFold2 uses templates as soft geometric hints rather than rigid scaffolds.
 
 ### 3.2 Creating the Initial Representations
 
@@ -1041,7 +1048,9 @@ Several auxiliary losses provide additional training signal:
 **Distogram loss.** For each pair of residues, the network predicts a probability distribution over discretized distance bins (e.g., 64 bins from 2 to 22 angstroms).
 This is a classification loss (cross-entropy) that provides dense pairwise supervision throughout training.
 
-**pLDDT loss.** A confidence head predicts the per-residue **predicted Local Distance Difference Test** (pLDDT), a score between 0 and 100 indicating how confident the network is about each residue's placement.
+**pLDDT loss.** A confidence head predicts the per-residue **predicted Local Distance Difference Test**[^plddt] (pLDDT), a score between 0 and 100 indicating how confident the network is about each residue's placement.
+
+[^plddt]: **pLDDT** scores are widely used to interpret AlphaFold2 predictions: above 90 indicates high confidence (backbone and side chains are reliable), 70--90 indicates a generally correct backbone, 50--70 is low confidence, and below 50 usually corresponds to disordered or flexible regions with no single well-defined structure.
 The network is trained to match this prediction to the actual local accuracy, using mean squared error.
 This teaches the network to "know what it does not know."
 

@@ -90,11 +90,11 @@ Human hemoglobin and fish hemoglobin perform the same oxygen-carrying function a
 Or consider the immunoglobulin fold---this basic structural motif appears in thousands of different antibody sequences across the immune system, each with unique binding specificity encoded in variable loops but sharing the same underlying architecture.
 
 This sequence tolerance exists because not every amino acid position contributes equally to structural stability.
-Some positions sit in the hydrophobic core, where the main requirement is "something nonpolar"---valine, leucine, or isoleucine might all work equally well.
+Some positions sit in the hydrophobic core (see Lecture 3), where the main requirement is "something nonpolar"---valine, leucine, or isoleucine might all work equally well.
 Other positions face the solvent and can tolerate almost any hydrophilic residue.
 Only a subset of positions---those involved in specific hydrogen bonds, salt bridges, or tight packing interactions---are tightly constrained.
 
-Structural biologists quantify this tolerance with **sequence identity thresholds**.
+Structural biologists quantify this tolerance with **sequence identity thresholds** (introduced in Preliminary Note 4).
 Proteins with as little as 20--30% sequence identity often share the same fold.
 This means roughly 70--80% of positions can vary without disrupting the overall architecture.
 For inverse folding, this redundancy is a blessing: there is a vast space of valid sequences for any given structure, making the search problem tractable.

@@ -105,7 +105,9 @@ This matters when processing databases with millions of entries.
     <div class="caption mt-1"><strong>The 20 standard amino acids.</strong> Amino acids are grouped by their side-chain chemistry: nonpolar/hydrophobic (red), polar uncharged (blue), positively charged (green), and negatively charged (orange). Bar heights show approximate molecular weights. These chemical differences determine how each amino acid contributes to protein folding and function.</div>
 </div>
 
-The amino acid sequence is the primary structure of a protein --- the linear chain of residues encoded by the gene.
+The amino acid sequence is the primary structure of a protein --- the linear chain of residues[^residue] encoded by the gene.
+
+[^residue]: A **residue** is the unit left after one amino acid is incorporated into the protein chain. During polymerization, a water molecule is lost at each peptide bond, so the building block in the chain is technically a "residue" of the original amino acid. In practice, "residue" and "amino acid" are used interchangeably when referring to a position in a protein sequence.
 To feed a protein into a neural network, we must convert its sequence into numerical **features**, then build an architecture that can learn from those features.
 
 ### 2.1 One-Hot Encoding

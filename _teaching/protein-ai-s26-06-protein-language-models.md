@@ -84,9 +84,15 @@ This is analogous to the observation that most random strings of English letters
 
 **Context determines meaning.**
 The same amino acid plays different roles depending on its neighbors.
-A hydrophobic residue buried in the protein core contributes to thermodynamic stability.
-The same residue on the protein surface might create a binding interface for a partner protein.
-Histidine can act as a catalytic acid-base in an enzyme active site, coordinate a metal ion, or play a purely structural role---all depending on its sequence context.
+A hydrophobic[^hydrophobic] residue buried in the protein core contributes to thermodynamic stability.
+The same residue on the protein surface might create a binding interface[^bindinginterface] for a partner protein.
+Histidine can act as a catalytic acid-base in an enzyme active site[^activesite], coordinate a metal ion, or play a purely structural role---all depending on its sequence context.
+
+[^hydrophobic]: **Hydrophobic** (literally "water-fearing") amino acids have nonpolar side chains that avoid contact with water. When a protein folds, these residues cluster together in the interior, forming a **hydrophobic core** --- the dominant driving force of protein folding.
+
+[^bindinginterface]: A **binding interface** is the surface region where two molecules make physical contact. The amino acids at this interface determine binding specificity and strength through complementary shape, charge, and hydrophobic interactions.
+
+[^activesite]: An **active site** is the small region of an enzyme where the chemical reaction takes place. It typically consists of a handful of precisely positioned residues (called catalytic residues) that stabilize the transition state of the reaction.
 
 **Conservative substitutions are synonyms.**
 Leucine and isoleucine are both large, branched, hydrophobic amino acids.
@@ -130,7 +136,9 @@ The sequences that failed these tests are absent from our databases because thei
 When a model sees thousands of sequences from a single protein family, it observes statistical regularities that reflect genuine biological constraints:
 
 - **Absolute conservation.** Some positions never change across the entire family.
-  These are almost always critical for structure or function---active-site residues, disulfide-bonding cysteines, glycine residues in tight turns.
+  These are almost always critical for structure or function---active-site residues, disulfide-bonding cysteines[^disulfide], glycine residues in tight turns.
+
+[^disulfide]: A **disulfide bond** is a covalent link (S--S) between the sulfur atoms of two cysteine residues. These bonds act like molecular staples, locking parts of the protein together and stabilizing the folded structure, especially in extracellular proteins exposed to harsh environments.
 - **Constrained variation.** Some positions vary, but only within a restricted class of amino acids.
   A position that accepts leucine, isoleucine, and valine---but never aspartate---is almost certainly in the hydrophobic core of the protein.
 - **Correlated variation.** Some positions change *together*.
@@ -366,7 +374,9 @@ It runs comfortably on a single NVIDIA A100 or even a consumer RTX 3090, and its
 
 Without any supervision beyond the MLM objective, ESM-2 representations encode:
 
-- **Secondary structure.** Residues in alpha-helices, beta-sheets, and loops occupy distinct regions of embedding space.
+- **Secondary structure.**[^secstruct] Residues in alpha-helices, beta-sheets, and loops occupy distinct regions of embedding space.
+
+[^secstruct]: **Secondary structure** refers to the local folding patterns within a protein: **alpha helices** (rod-like coils stabilized by backbone hydrogen bonds), **beta sheets** (flat structures formed by side-by-side strands), and **loops/coils** (irregular connecting regions). These are the building blocks that pack together to form the overall 3D shape.
 - **Solvent accessibility.** Buried (hydrophobic core) and exposed (surface) residues are readily distinguishable.
 - **Functional sites.** Active-site residues, metal-binding sites, and other functional motifs have characteristic embedding signatures.
 - **Evolutionary conservation.** Highly conserved positions produce embeddings distinct from variable ones.
@@ -542,12 +552,16 @@ def predict_mutation_effect(sequence, position, original_aa, mutant_aa,
 ### Why does this work?
 
 The model has absorbed the outcomes of hundreds of millions of evolutionary experiments.
-At any given position, it has seen which amino acids appear across all known homologs and which are absent.
+At any given position, it has seen which amino acids appear across all known homologs[^homolog] and which are absent.
+
+[^homolog]: **Homologs** are proteins (or genes) that share a common evolutionary ancestor. They typically have detectable sequence similarity and often share the same overall fold, even if their sequences have diverged substantially over millions of years.
 Mutations to amino acids that never appear at a position in any natural sequence receive low probability and negative scores.
 Mutations to amino acids that are common at that position receive high probability and scores near zero or positive.
 
 This captures the essence of evolutionary constraint.
-Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning (DMS) experiments <sup id="cite-e"><a href="#ref-e">[e]</a></sup>.
+Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning[^dms] (DMS) experiments <sup id="cite-e"><a href="#ref-e">[e]</a></sup>.
+
+[^dms]: **Deep mutational scanning** (DMS) is an experimental technique that systematically measures the effect of every possible single amino acid substitution at every position in a protein. The result is a comprehensive "fitness landscape" --- a matrix showing how each mutation affects function, stability, or some other measurable property.
 In many cases, the zero-shot predictor matches or exceeds the performance of supervised methods trained directly on experimental data.
 
 ### Practical significance
