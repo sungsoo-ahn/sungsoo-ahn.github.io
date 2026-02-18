@@ -215,8 +215,6 @@ $$
     <div class="caption mt-1"><strong>Multi-head attention.</strong> Multiple attention heads run in parallel, each with independent query, key, and value projections. Their outputs are concatenated and projected back to the model dimension. Source: Zhang et al., <em>Dive into Deep Learning</em>, CC BY-SA 4.0.</div>
 </div>
 
-Here is a complete self-attention module:
-
 ```python
 class SelfAttention(nn.Module):
     """
@@ -663,30 +661,11 @@ The core insight is practical: by building the right symmetries into our models,
 
 ---
 
-## References
+## Further Reading
 
-1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention Is All You Need. *Advances in Neural Information Processing Systems*, 30.
-
-2. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C. L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
-
-3. Lin, Z., Akin, H., Rao, R., Hie, B., Zhu, Z., Lu, W., Smestad, N., Costa, A., Fazel-Zarandi, M., Sercu, T., Candido, S., & Rives, A. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science*, 379(6637), 1123--1130.
-
-4. Kipf, T. N., & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. *International Conference on Learning Representations (ICLR)*.
-
-5. Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P., & Bengio, Y. (2018). Graph Attention Networks. *International Conference on Learning Representations (ICLR)*.
-
-6. Gilmer, J., Schoenholz, S. S., Riley, P. F., Vinyals, O., & Dahl, G. E. (2017). Neural Message Passing for Quantum Chemistry. *International Conference on Machine Learning (ICML)*.
-
-7. Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., Tunyasuvunakool, K., Bates, R., Zidek, A., Potapenko, A., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583--589.
-
-8. Su, J., Lu, Y., Pan, S., Murtadha, A., Wen, B., & Liu, Y. (2021). RoFormer: Enhanced Transformer with Rotary Position Embedding. *arXiv preprint arXiv:2104.09864*.
-
-9. Dauparas, J., Anishchenko, I., Bennett, N., Baek, H., Jang, R. J., Baker, D., et al. (2022). Robust deep learning-based protein sequence design using ProteinMPNN. *Science*, 378(6615), 49--56.
-
-10. Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. *Proceedings of NAACL-HLT*, 4171--4186.
-
-11. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at https://d2l.ai. Licensed under CC BY-SA 4.0.
-
-12. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.
-
-13. Zhou, T., Bhatt, D., & Liu, J. (2024). Protein engineering in the deep learning era. *mLife*, 3(4), 463--479.
+- Lilian Weng, ["Attention? Attention!"](https://lilianweng.github.io/posts/2018-06-24-attention/) — a comprehensive overview of attention mechanisms, from early sequence-to-sequence models to transformers.
+- Jay Alammar, ["The Illustrated Transformer"](https://jalammar.github.io/illustrated-transformer/) — visual step-by-step walkthrough of the Transformer architecture with diagrams.
+- Sanchez-Lengeling et al., ["A Gentle Introduction to Graph Neural Networks"](https://distill.pub/2021/gnn-intro/) — interactive introduction to GNNs covering graph representations and message passing.
+- Daigavane et al., ["Understanding Convolutions on Graphs"](https://distill.pub/2021/understanding-gnns/) — companion piece on spectral and spatial graph convolutions.
+- Fabian Fuchs, ["SE(3)-Transformers"](https://fabianfuchsml.github.io/se3transformer/) — equivariant self-attention on 3D point clouds and roto-translation equivariance.
+- Andrew White, ["Equivariant Neural Networks"](https://dmol.pub/dl/Equivariant.html) — textbook chapter deriving E(3)-equivariant GNNs from group theory, with code examples.

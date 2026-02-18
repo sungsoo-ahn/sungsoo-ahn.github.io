@@ -455,13 +455,3 @@ Getting this mapping right is the first design decision in any project.
 5. **Next up**: Preliminary Note 3 puts these features and architectures to work in a complete training pipeline --- loss functions, optimizers, and validation.
 
 ---
-
-## References
-
-1. Cock, P.J., Antao, T., Chang, J.T., et al. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. *Bioinformatics*, 25(11), 1422--1423.
-
-2. Rives, A., Meier, J., Sercu, T., et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
-
-3. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
-
-4. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)

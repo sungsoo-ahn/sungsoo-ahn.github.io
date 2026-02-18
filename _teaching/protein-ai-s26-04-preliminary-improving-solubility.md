@@ -499,15 +499,3 @@ Before declaring a model "trained," verify the following:
 7. **Systematic debugging** catches silent failures. The single-batch overfit test is the most important sanity check.
 
 ---
-
-## References
-
-1. Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press. Chapters 6--8. Available at [https://www.deeplearningbook.org/](https://www.deeplearningbook.org/).
-
-2. Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." *Advances in Neural Information Processing Systems*, 32.
-
-3. Rao, R., Bhatt, N., Lu, A., Johnson, J., Ott, M., Auli, M., Russ, C., & Sander, C. (2019). Evaluating protein transfer learning with TAPE. *Advances in NeurIPS*. (Best practices for protein ML evaluation, including sequence identity splits.)
-
-4. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C. L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*, 118(15).
-
-5. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)

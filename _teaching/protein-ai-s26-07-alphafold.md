@@ -1219,20 +1219,8 @@ For reference, predicting the structure of a single ~400-residue protein takes a
 
 ---
 
-## References
+## Further Reading
 
-1. Jumper, J., Evans, R., Pritzel, A., et al. (2021). "Highly accurate protein structure prediction with AlphaFold." *Nature*, 596, 583--589.
-
-2. Anfinsen, C. B. (1973). "Principles that govern the folding of protein chains." *Science*, 181(4096), 223--230.
-
-3. Levinthal, C. (1968). "Are there pathways for protein folding?" *Journal de Chimie Physique*, 65, 44--45.
-
-4. Baek, M., DiMaio, F., Anishchenko, I., et al. (2021). "Accurate prediction of protein structures and interactions using a three-track neural network." *Science*, 373(6557), 871--876.
-
-5. Lin, Z., Akin, H., Rao, R., et al. (2023). "Evolutionary-scale prediction of atomic-level protein structure with a language model." *Science*, 379(6637), 1123--1130.
-
-6. Ahdritz, G., Bouatta, N., Kadyan, S., et al. (2022). "OpenFold: Retraining AlphaFold2 yields new insights into its learning mechanisms and capacity for generalization." *bioRxiv*.
-
-7. Mirdita, M., Schutze, K., Moriwaki, Y., et al. (2022). "ColabFold: Making protein folding accessible to all." *Nature Methods*, 19, 679--682.
-
-8. Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). "BERT: Pre-training of deep bidirectional transformers for language understanding." *Proceedings of NAACL-HLT*, 4171--4186.
+- Elana Simon & Jake Silberg, ["The Illustrated AlphaFold"](https://elanapearl.github.io/blog/2024/the-illustrated-alphafold/) — Jay-Alammar-style visual walkthrough of AlphaFold 3's full architecture with step-by-step diagrams.
+- Oxford Protein Informatics Group, ["AlphaFold 2: What's Behind the Structure Prediction Miracle"](https://www.blopig.com/blog/2021/07/alphafold-2-is-here-whats-behind-the-structure-prediction-miracle/) — technical breakdown of Evoformer, IPA, and the structure module.
+- Fabian Fuchs, ["AlphaFold 2 & Equivariance"](https://fabianfuchsml.github.io/alphafold2/) — how AlphaFold 2's structure module achieves SE(3) equivariance through iterative refinement.

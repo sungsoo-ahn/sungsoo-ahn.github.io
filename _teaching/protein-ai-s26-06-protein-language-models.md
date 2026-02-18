@@ -273,7 +273,7 @@ Each position is influenced by context on *both* sides, not just the left.
 
 ## 4. ESM-2 Architecture and Model Family
 
-**ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models [2].
+**ESM-2** (Evolutionary Scale Modeling 2), developed by researchers at Meta AI, is the current state of the art among protein language models <sup id="cite-b1"><a href="#ref-b">[b]</a></sup>.
 It combines the Transformer architecture with large-scale training on protein sequence databases, producing representations that capture evolutionary, structural, and functional information.
 
 <div class="col-sm-9 mt-3 mb-3 mx-auto">
@@ -542,7 +542,7 @@ Mutations to amino acids that never appear at a position in any natural sequence
 Mutations to amino acids that are common at that position receive high probability and scores near zero or positive.
 
 This captures the essence of evolutionary constraint.
-Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning (DMS) experiments [5].
+Studies have shown that ESM-2 zero-shot scores correlate well with experimentally measured mutational fitness values from deep mutational scanning (DMS) experiments <sup id="cite-e"><a href="#ref-e">[e]</a></sup>.
 In many cases, the zero-shot predictor matches or exceeds the performance of supervised methods trained directly on experimental data.
 
 ### Practical significance
@@ -650,7 +650,7 @@ Or, better yet, use LoRA.
 Full fine-tuning of a 650M-parameter model requires storing optimizer states and gradients for every parameter, which can demand 10--20 GB of GPU memory.
 For the 3B or 15B variants, full fine-tuning is out of reach for most research labs.
 
-**Low-Rank Adaptation (LoRA)** offers an elegant solution [3].
+**Low-Rank Adaptation (LoRA)** offers an elegant solution <sup id="cite-c"><a href="#ref-c">[c]</a></sup>.
 
 ### The key insight
 
@@ -803,7 +803,7 @@ Tasks that once required clusters of A100 GPUs can now be performed on a single 
 ## 9. ESMFold: From Embeddings to Structure
 
 The ultimate test of whether a language model truly "understands" proteins is whether its representations contain enough information to predict three-dimensional structure.
-**ESMFold** demonstrates that they do [2].
+**ESMFold** demonstrates that they do <sup id="cite-b2"><a href="#ref-b">[b]</a></sup>.
 
 ### Architecture
 
@@ -874,7 +874,7 @@ The attention mechanism in ESM-2 is not just a computational tool; it provides a
 ### Attention correlates with structural contacts
 
 Each attention head computes a matrix of attention weights, one weight for every pair of positions in the sequence.
-Research has shown that these attention patterns correlate with **residue-residue contacts** in the three-dimensional structure [1].
+Research has shown that these attention patterns correlate with **residue-residue contacts** in the three-dimensional structure <sup id="cite-a"><a href="#ref-a">[a]</a></sup>.
 Positions that are close in space (within about 8 Angstroms) tend to attend strongly to each other, even when they are far apart in sequence.
 
 This means the model has discovered, purely from sequence statistics, the same principle that underlies evolutionary coupling analysis: co-evolving residues are in structural contact.
@@ -968,7 +968,7 @@ No structural supervision is provided.
 ESM-2 is the most widely used protein language model, but it is not the only one.
 Several alternatives exist, each with distinct strengths.
 
-**ProtTrans** [4], developed at the Technical University of Munich, offers models based on multiple Transformer architectures---BERT, ALBERT, XLNet, and T5.
+**ProtTrans** <sup id="cite-d"><a href="#ref-d">[d]</a></sup>, developed at the Technical University of Munich, offers models based on multiple Transformer architectures---BERT, ALBERT, XLNet, and T5.
 The **ProtT5-XL** variant has been particularly popular for per-residue prediction tasks, offering a good balance of performance and efficiency with its encoder-decoder architecture.
 
 **ProGen** and **ProGen2**, developed at Salesforce, use **autoregressive** modeling (left-to-right generation, like GPT).
@@ -1055,19 +1055,21 @@ This is especially important for fine-tuning experiments where small differences
 
 ---
 
+## Further Reading
+
+- Stephen Malina, ["Protein Language Models (Part 1)"](https://stephenmalina.com/post/2023-07-22-protein-language-models-part-1/) and ["Part 2"](https://stephenmalina.com/post/2023-08-05-protein-language-models-part-2/) — comprehensive review of PLM architectures (ESM-1b, ESM-2, UniRep, CARP) and their scaling behavior.
+- Evolutionary Scale, ["ESM Cambrian"](https://www.evolutionaryscale.ai/blog/esm-cambrian) — official blog on unsupervised protein representation learning at evolutionary scale.
+- Evolutionary Scale, ["ESM3: Simulating 500 Million Years of Evolution"](https://www.evolutionaryscale.ai/blog/esm3-release) — multimodal protein language modeling across sequence, structure, and function.
+
 ## References
 
-1. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C.L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
+<p id="ref-a"><a href="#cite-a">[a]</a> Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C.L., Ma, J., & Fergus, R. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. <em>Proceedings of the National Academy of Sciences</em>, 118(15), e2016239118.</p>
 
-2. Lin, Z., Akin, H., Rao, R., Hie, B., Zhu, Z., Lu, W., Smetanin, N., Verkuil, R., Kabeli, O., Shmueli, Y., dos Santos Costa, A., Fazel-Zarandi, M., Sercu, T., Candido, S., & Rives, A. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science*, 379(6637), 1123--1130.
+<p id="ref-b"><a href="#cite-b1">[b]</a> Lin, Z., Akin, H., Rao, R., Hie, B., Zhu, Z., Lu, W., Smetanin, N., Verkuil, R., Kabeli, O., Shmueli, Y., dos Santos Costa, A., Fazel-Zarandi, M., Sercu, T., Candido, S., & Rives, A. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. <em>Science</em>, 379(6637), 1123–1130.</p>
 
-3. Hu, E.J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2022). LoRA: Low-Rank Adaptation of Large Language Models. *Proceedings of the International Conference on Learning Representations (ICLR)*.
+<p id="ref-c"><a href="#cite-c">[c]</a> Hu, E.J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2022). LoRA: Low-Rank Adaptation of Large Language Models. <em>Proceedings of the International Conference on Learning Representations (ICLR)</em>.</p>
 
-4. Elnaggar, A., Heinzinger, M., Dallago, C., Rehawi, G., Wang, Y., Jones, L., Gibbs, T., Feher, T., Angerer, C., Steinegger, M., Bhowmik, D., & Rost, B. (2022). ProtTrans: Toward understanding the language of life through self-supervised learning. *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 44(10), 7112--7127.
+<p id="ref-d"><a href="#cite-d">[d]</a> Elnaggar, A., Heinzinger, M., Dallago, C., Rehawi, G., Wang, Y., Jones, L., Gibbs, T., Feher, T., Angerer, C., Steinegger, M., Bhowmik, D., & Rost, B. (2022). ProtTrans: Toward understanding the language of life through self-supervised learning. <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 44(10), 7112–7127.</p>
 
-5. Meier, J., Rao, R., Verkuil, R., Liu, J., Sercu, T., & Rives, A. (2021). Language models enable zero-shot prediction of the effects of mutations on protein function. *Advances in Neural Information Processing Systems (NeurIPS)*, 34, 29287--29303.
-
-6. Devlin, J., Chang, M.W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. *Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics (NAACL)*.
-
-7. Zhou, T., Bhatt, D., & Liu, J. (2024). Protein engineering in the deep learning era. *mLife*, 3(4), 463--479.
+<p id="ref-e"><a href="#cite-e">[e]</a> Meier, J., Rao, R., Verkuil, R., Liu, J., Sercu, T., & Rives, A. (2021). Language models enable zero-shot prediction of the effects of mutations on protein function. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 34, 29287–29303.</p>
 
