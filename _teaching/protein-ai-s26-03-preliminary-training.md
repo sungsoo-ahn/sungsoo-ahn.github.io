@@ -441,3 +441,5 @@ Saving the model at that point --- and discarding later, overfit versions --- is
 <p id="ref-a"><a href="#cite-a">[a]</a> Kingma, D. P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization." <em>Proceedings of the 3rd International Conference on Learning Representations (ICLR)</em>.</p>
 
 <p id="ref-b"><a href="#cite-b">[b]</a> Loshchilov, I. & Hutter, F. (2019). "Decoupled Weight Decay Regularization." <em>Proceedings of ICLR</em>.</p>
+
+---
