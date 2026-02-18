@@ -38,7 +38,7 @@ This first note builds the foundation: what machine learning actually is, how da
 ### Prerequisites
 
 This note assumes basic Python fluency and comfort with linear algebra: vectors, matrices, and matrix multiplication.
-If the expression $$\mathbf{y} = \mathbf{W}\mathbf{x} + \mathbf{b}$$ looks unfamiliar, review the linear algebra appendix in Goodfellow et al. [1] before continuing.
+If the expression $$\mathbf{y} = \mathbf{W}\mathbf{x} + \mathbf{b}$$ looks unfamiliar, review the linear algebra appendix in Goodfellow et al. <sup id="cite-a"><a href="#ref-a">[a]</a></sup> before continuing.
 
 ---
 
@@ -107,7 +107,7 @@ Finally, the model goes into production --- where inference speed, memory constr
 
 ## 3. PyTorch: Your Laboratory for Neural Networks
 
-PyTorch [2] is the framework we use to build and train neural networks.
+PyTorch <sup id="cite-b"><a href="#ref-b">[b]</a></sup> is the framework we use to build and train neural networks.
 It dominates deep learning research --- ESM, OpenFold, and every major protein AI model is built on it.
 Code runs line by line (no deferred compilation), so debugging feels like debugging normal Python.
 
@@ -441,12 +441,6 @@ In practice, PyTorch provides optimizers (like `torch.optim.SGD` and `torch.opti
 
 ## References
 
-1. Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press. Chapters 6--8. Available at [https://www.deeplearningbook.org/](https://www.deeplearningbook.org/).
+<p id="ref-a"><a href="#cite-a">[a]</a> Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning</em>. MIT Press. Chapters 6–8. Available at <a href="https://www.deeplearningbook.org/">deeplearningbook.org</a>.</p>
 
-2. Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." *Advances in Neural Information Processing Systems*, 32.
-
-3. Kingma, D. P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization." *Proceedings of the 3rd International Conference on Learning Representations (ICLR)*.
-
-4. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
-
-5. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)
+<p id="ref-b"><a href="#cite-b">[b]</a> Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." <em>Advances in Neural Information Processing Systems</em>, 32.</p>

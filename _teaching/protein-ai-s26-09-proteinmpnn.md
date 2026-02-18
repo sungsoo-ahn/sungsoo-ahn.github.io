@@ -935,20 +935,6 @@ It runs in seconds per sequence on a single GPU, requires no MSA computation, an
 
 ---
 
-## References
+## Further Reading
 
-1. Dauparas, J., Anishchenko, I., Bennett, N., Baek, M., et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *Science*, 378(6615), 49--56. [doi:10.1126/science.add2187](https://doi.org/10.1126/science.add2187)
-
-2. Watson, J. L., Juergens, D., Bennett, N. R., Trippe, B. L., et al. (2023). "De novo design of protein structure and function with RFdiffusion." *Nature*, 620, 1089--1100. [doi:10.1038/s41586-023-06415-8](https://doi.org/10.1038/s41586-023-06415-8)
-
-3. Hsu, C., Verkuil, R., Liu, J., Lin, Z., Rives, A., et al. (2022). "Learning inverse folding from millions of predicted structures." *Proceedings of the 39th International Conference on Machine Learning (ICML)*.
-
-4. Ingraham, J., Garg, V., Barzilay, R., & Jaakkola, T. (2019). "Generative models for graph-based protein design." *Advances in Neural Information Processing Systems (NeurIPS)*, 32.
-
-5. Jing, B., Eismann, S., Suriana, P., Townshend, R. K. L., & Dror, R. (2021). "Learning from Protein Structure with Geometric Vector Perceptrons." *International Conference on Learning Representations (ICLR)*.
-
-6. Gilmer, J., Schoenholz, S. S., Riley, P. F., Vinyals, O., & Dahl, G. E. (2017). "Neural Message Passing for Quantum Chemistry." *Proceedings of the 34th International Conference on Machine Learning (ICML)*.
-
-7. Jumper, J., Evans, R., Pritzel, A., et al. (2021). "Highly accurate protein structure prediction with AlphaFold." *Nature*, 596, 583--589. [doi:10.1038/s41586-021-03819-2](https://doi.org/10.1038/s41586-021-03819-2)
-
-8. Dauparas, J., et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *bioRxiv* preprint (figures used under CC BY 4.0). [doi:10.1101/2022.06.03.494563](https://doi.org/10.1101/2022.06.03.494563)
+- 310.ai, ["ProteinMPNN: Message Passing on Protein Structures"](https://310.ai/blog/proteinmpnn-message-passing-on-protein-structures) — walkthrough of ProteinMPNN's backbone encoding, edge/node message passing, and order-agnostic autoregressive decoding.

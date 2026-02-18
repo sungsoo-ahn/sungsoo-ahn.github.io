@@ -219,8 +219,8 @@ Vanilla SGD can oscillate when the loss surface curves much more steeply in one 
     <div class="caption mt-1"><strong>How momentum improves optimization.</strong> Both panels show the loss \(L[\phi]\) (our \(\mathcal{L}(\theta)\)) as a contour map over two parameters. Two independent optimization runs are shown (cyan and white paths) from different starting points. (a) Without momentum, both runs take erratic paths with sharp direction changes. (b) With momentum, the optimizer accumulates velocity from recent gradients, smoothing the paths and making faster progress toward the minimum. Source: Prince, <em>Understanding Deep Learning</em>, Fig 6.7 (CC BY-NC-ND).</div>
 </div>
 
-**Adam** [3] goes further by adapting the learning rate individually for each parameter based on its recent gradient history.
-**AdamW** [5] is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
+**Adam** <sup id="cite-a"><a href="#ref-a">[a]</a></sup> goes further by adapting the learning rate individually for each parameter based on its recent gradient history.
+**AdamW** <sup id="cite-b"><a href="#ref-b">[b]</a></sup> is a corrected variant of Adam that handles weight decay properly; it is the recommended default for most protein AI projects.
 
 ```python
 # AdamW — the recommended default
@@ -438,18 +438,6 @@ Saving the model at that point --- and discarding later, overfit versions --- is
 
 ## References
 
-1. Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press. Chapters 6--8. Available at [https://www.deeplearningbook.org/](https://www.deeplearningbook.org/).
+<p id="ref-a"><a href="#cite-a">[a]</a> Kingma, D. P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization." <em>Proceedings of the 3rd International Conference on Learning Representations (ICLR)</em>.</p>
 
-2. Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library." *Advances in Neural Information Processing Systems*, 32.
-
-3. Kingma, D. P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization." *Proceedings of the 3rd International Conference on Learning Representations (ICLR)*.
-
-4. Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., ... & Fergus, R. (2021). "Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences." *Proceedings of the National Academy of Sciences*, 118(15), e2016239118.
-
-5. Loshchilov, I. & Hutter, F. (2019). "Decoupled Weight Decay Regularization." *Proceedings of ICLR*. (The paper introducing AdamW.)
-
-6. PyTorch Documentation. [https://pytorch.org/docs/stable/](https://pytorch.org/docs/stable/).
-
-7. Zhang, A., Lipton, Z. C., Li, M., & Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press. Available at [https://d2l.ai/](https://d2l.ai/). (CC BY-SA 4.0)
-
-8. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Available at [https://udlbook.github.io/udlbook/](https://udlbook.github.io/udlbook/). (CC BY-NC-ND)
+<p id="ref-b"><a href="#cite-b">[b]</a> Loshchilov, I. & Hutter, F. (2019). "Decoupled Weight Decay Regularization." <em>Proceedings of ICLR</em>.</p>

@@ -251,8 +251,6 @@ Then:
 
 $$D_{\mathrm{KL}} = -\frac{1}{2} \sum_{j=1}^{J} \bigl(1 + \log \sigma_j^2 - \mu_j^2 - \sigma_j^2\bigr)$$
 
-In code:
-
 ```python
 def kl_divergence(mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
     """Closed-form KL divergence: KL(N(mu, sigma^2) || N(0, I)).
@@ -316,11 +314,6 @@ def reparameterize(mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
 
 VAEs learn generation by compressing data into a structured latent space.
 Diffusion models take an entirely different approach: they learn generation by learning to *undo corruption*.
-
-Despite the different intuition, the two frameworks are mathematically closer than they appear.
-A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent layers $$x_1, x_2, \ldots, x_T$$, where the "encoder" (forward process) is fixed rather than learned, and each layer has the same dimensionality as the data.
-The training objective—which we will derive in Section 6—is in fact an ELBO, decomposed into $$T$$ per-timestep KL terms instead of the single KL term in a standard VAE.
-This connection is not just a curiosity: it is what makes the training objective principled and the generation process provably convergent.
 
 Sharpening a blurry photograph is far easier than painting a photorealistic image from a blank canvas.  Diffusion models exploit this asymmetry: instead of generating from scratch, they decompose generation into many small denoising steps.
 
@@ -444,9 +437,11 @@ The training loss is the mean squared error between the true noise and the predi
 
 $$\mathcal{L}_{\text{simple}} = \mathbb{E}_{t,\, x_0,\, \epsilon}\!\left[\lVert \epsilon - \epsilon_\theta(x_t, t) \rVert^2\right]$$
 
-This simple objective is a reweighted version of the full ELBO for the diffusion model viewed as a hierarchical VAE.
-The ELBO decomposes into $$T$$ per-timestep KL divergence terms, one for each denoising step; because both the forward posterior $$q(x_{t-1} \mid x_t, x_0)$$ and the reverse model $$p_\theta(x_{t-1} \mid x_t)$$ are Gaussian, each KL term reduces to an MSE between their means.
-Ho et al. [2] showed that dropping the per-timestep weighting coefficients yields $$\mathcal{L}_{\text{simple}}$$, which works better in practice.
+Despite their different intuitions, diffusion models and VAEs are mathematically closer than they appear.
+A diffusion model can be viewed as a **hierarchical VAE** with $$T$$ latent layers $$x_1, x_2, \ldots, x_T$$, where the "encoder" (forward process) is fixed rather than learned, and each layer has the same dimensionality as the data.
+The training objective is in fact an ELBO, decomposed into $$T$$ per-timestep KL divergence terms instead of the single KL term in a standard VAE.
+Because both the forward posterior $$q(x_{t-1} \mid x_t, x_0)$$ and the reverse model $$p_\theta(x_{t-1} \mid x_t)$$ are Gaussian, each KL term reduces to an MSE between their means.
+Ho et al. <sup id="cite-a"><a href="#ref-a">[a]</a></sup> showed that dropping the per-timestep weighting coefficients yields $$\mathcal{L}_{\text{simple}}$$, which works better in practice.
 For the full derivation, see Luo (2022) [^elbo-derivation].
 
 [^elbo-derivation]: Luo, C. (2022). "Understanding Diffusion Models: A Unified Perspective." *arXiv preprint arXiv:2208.11970*. Sections 3–4 derive the diffusion ELBO from the hierarchical VAE perspective.
@@ -655,13 +650,13 @@ The choice between VAEs and diffusion depends on the application: VAEs for speed
 
 ---
 
+## Further Reading
+
+- Lilian Weng, ["From Autoencoder to Beta-VAE"](https://lilianweng.github.io/posts/2018-08-12-vae/) — an accessible walkthrough of variational autoencoders, from vanilla AE to disentangled representations.
+- Lilian Weng, ["What are Diffusion Models?"](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/) — a thorough introduction to diffusion models covering the forward process, reverse denoising, and connections to score matching.
+- Yang Song, ["Generative Modeling by Estimating Gradients of the Data Distribution"](https://yang-song.net/blog/2021/score/) — score functions, noise-perturbed distributions, Langevin sampling, and SDEs for diffusion, by the score-matching pioneer.
+- Calvin Luo, ["Understanding Diffusion Models: A Unified Perspective"](https://calvinyluo.com/2022/08/26/diffusion-tutorial.html) — derives diffusion from hierarchical VAEs and connects the ELBO to the score-based view via Tweedie's formula.
+
 ## References
 
-1. Kingma, D. P. and Welling, M. (2014). "Auto-Encoding Variational Bayes." *International Conference on Learning Representations (ICLR)*.
-2. Ho, J., Jain, A., and Abbeel, P. (2020). "Denoising Diffusion Probabilistic Models." *Advances in Neural Information Processing Systems (NeurIPS)*.
-3. Higgins, I. et al. (2017). "beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework." *International Conference on Learning Representations (ICLR)*.
-4. Song, Y. and Ermon, S. (2019). "Generative Modeling by Estimating Gradients of the Data Distribution." *Advances in Neural Information Processing Systems (NeurIPS)*.
-5. Dhariwal, P. and Nichol, A. (2021). "Diffusion Models Beat GANs on Image Synthesis." *Advances in Neural Information Processing Systems (NeurIPS)*.
-6. Ho, J. and Salimans, T. (2022). "Classifier-Free Diffusion Guidance." *arXiv preprint arXiv:2207.12598*.
-7. Rombach, R. et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *Conference on Computer Vision and Pattern Recognition (CVPR)*.
-8. Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press. Licensed under CC BY-NC-ND. Figures available at https://github.com/udlbook/udlbook.
+<p id="ref-a"><a href="#cite-a">[a]</a> Ho, J., Jain, A., and Abbeel, P. (2020). "Denoising Diffusion Probabilistic Models." <em>Advances in Neural Information Processing Systems (NeurIPS)</em>.</p>
