@@ -88,7 +88,7 @@ Every project follows the same arc.
 
 You start with data --- proteins and their labels, mined from databases like UniProt[^uniprot] or high-throughput expression studies.
 The data is messy: ambiguous amino acid codes (B for Asp or Asn, X for unknown), sequences of wildly different lengths, inconsistent formats.
-You clean it, encode it as numerical features --- one-hot vectors, physicochemical descriptors, learned embeddings (the subject of Note 2) --- and feed it to a model.
+You clean it, encode it as numerical features --- one-hot vectors, physicochemical descriptors, learned embeddings (the subject of Preliminary Note 2) --- and feed it to a model.
 
 [^uniprot]: UniProt (Universal Protein Resource) is the most comprehensive database of protein sequences and functional annotations, containing over 200 million entries as of 2025.
 
@@ -97,7 +97,7 @@ Then you evaluate --- and evaluation is trickier than it sounds.
 In computer vision, training and test images are typically split randomly --- but even there, duplicate or near-duplicate images must be removed to prevent leakage.
 In NLP, temporal splits ensure the model never trains on future text.
 Protein data demands an even stricter protocol: related sequences often share properties, so a naive random train/test split lets the model "cheat" by recognizing near-duplicates.
-Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure the test set contains truly novel proteins (Note 4 explains why this matters so much for solubility).
+Proper evaluation requires sequence-identity-aware splitting[^seqid] to ensure the test set contains truly novel proteins (Preliminary Note 4 explains why this matters so much for solubility).
 
 [^seqid]: Sequence-identity-aware splitting clusters proteins by sequence similarity (e.g., using CD-HIT at 30% identity) and assigns entire clusters to either train or test, preventing information leakage from homologous sequences.
 
