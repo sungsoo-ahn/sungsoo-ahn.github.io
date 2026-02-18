@@ -8,7 +8,7 @@ nav_order: 2
 ---
 
 {% for course in site.data.courses %}
-### [{{ course.title }}]({{ course.permalink | relative_url }})
+{% if course.external_url %}### [{{ course.title }}]({{ course.external_url }}){% else %}### [{{ course.title }}]({{ course.permalink | relative_url }}){% endif %}
 
 **{{ course.semester }}** · {{ course.institution }}{% if course.co_instructors %} · Co-taught with {{ course.co_instructors | join: " and " }}{% endif %}
 
