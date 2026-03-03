@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Introduction to Heterogeneous Electrocatalysis"
+title: "Heterogeneous Electrocatalysis for ML Researchers"
 date: 2026-02-05
 last_updated: 2026-02-11
-description: "An introduction to heterogeneous electrocatalysis — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
+description: "Heterogeneous electrocatalysis for ML researchers — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
 order: 1
 categories: [science]
 tags: [electrocatalysis, renewable-energy, machine-learning, density-functional-theory]
