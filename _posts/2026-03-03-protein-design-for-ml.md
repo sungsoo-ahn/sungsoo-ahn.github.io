@@ -285,8 +285,6 @@ A reference table for interpreting computational metrics:
 | K$$_d$$ | < 100 nM | Tight binding (experimental measurement) |
 | Rosetta energy | Negative, comparable to natural proteins | Physically reasonable packing and interactions |
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_binder_example.png" class="img-fluid rounded z-depth-1" zoomable=true caption="De novo protein binder design with RFDiffusion. (a) The generation process conditioned on interface hotspots. (b) Experimental success rates vs. Rosetta baselines. (c) Designed binders for IL-7Ra, InsR, PD-L1, and TrkA with binding kinetics. (d) Influenza HA binder validated by cryo-EM. Figure from Watson et al. (2023)." %}
-
 ---
 
 ## The Design Workflow
@@ -361,4 +359,3 @@ The gap between computational output (millions of candidates) and experimental t
 - AlphaFold overview: Figure 1 from Jumper et al. (2021), via [PMC8371605](https://pmc.ncbi.nlm.nih.gov/articles/PMC8371605/).
 - ProteinMPNN overview: Figure 1 from Dauparas et al. (2022), via [PMC9997061](https://pmc.ncbi.nlm.nih.gov/articles/PMC9997061/).
 - RFDiffusion overview: Figure 1 from Watson et al. (2023), via [PMC10468394](https://pmc.ncbi.nlm.nih.gov/articles/PMC10468394/).
-- Binder design examples: Figure 6 from Watson et al. (2023), via [PMC10468394](https://pmc.ncbi.nlm.nih.gov/articles/PMC10468394/).
