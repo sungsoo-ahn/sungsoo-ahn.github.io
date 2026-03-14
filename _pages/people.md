@@ -16,7 +16,7 @@ nav_order: 3
 - [Seongsu Kim](https://seongsukim-ml.github.io/)
 - [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/)
 - [Minkyu Kim](https://minkyu1022.github.io/mkkim/)
-- [Dongyeop Woo](https://scholar.google.com/citations?user=jl91FPYAAAAJ&hl=ko)
+- [Dongyeop Woo](https://dongyeop3813.github.io/)
 - [Nayoung Kim](https://nayoung10.github.io/)
 - [Minsu Kim (Postdoc)](https://minsuukim.github.io/)
 - [Taewon Kim](https://holymollyhao.github.io)
