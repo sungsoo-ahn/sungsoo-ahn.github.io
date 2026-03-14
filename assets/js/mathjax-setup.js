@@ -5,6 +5,10 @@ window.MathJax = {
       ["$", "$"],
       ["\\(", "\\)"],
     ],
+    macros: {
+      fwd: ["\\overset{\\scriptscriptstyle\\rightharpoonup}{#1}", 1],
+      bwd: ["\\overset{\\scriptscriptstyle\\leftharpoondown}{#1}", 1],
+    },
   },
   options: {
     renderActions: {
