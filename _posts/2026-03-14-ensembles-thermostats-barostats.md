@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Ensembles, Thermostats, and Barostats: What ML Researchers Need to Know about Molecular Simulation"
+title: "Ensembles, Thermostats, and Barostats for ML Researchers"
 date: 2026-03-14
 last_updated: 2026-03-14
-description: "Statistical mechanics for ML researchers — from Newton's equations to ensembles, thermostats, barostats, and Monte Carlo."
+description: "Statistical mechanics for ML researchers — from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 order: 1
 categories: [science]
 tags: [statistical-mechanics, molecular-dynamics, monte-carlo]
@@ -13,7 +13,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post introduces statistical mechanics and molecular simulation for ML researchers who encounter terms like NVT, NPT, and GCMC in scientific papers but find textbooks starting from Carnot cycles unhelpful. I build bottom-up from Newton's equations using probability language that ML people already know, with connections to generative modeling throughout. This complements my earlier posts on <a href="/blog/2026/fokker-planck-equation/">the Fokker-Planck equation</a> and <a href="/blog/2026/electrocatalysis-ml/">electrocatalysis</a>. Corrections are welcome.</em>
+<em>Note: This post introduces statistical mechanics and molecular simulation for ML researchers who encounter terms like NVT, NPT, and GCMC in scientific papers but find textbooks starting from Carnot cycles unhelpful. I build bottom-up from Newton's equations using probability language that ML people already know, and close with connections to generative modeling. This complements my earlier posts on <a href="/blog/2026/fokker-planck-equation/">the Fokker-Planck equation</a> and <a href="/blog/2026/electrocatalysis-ml/">electrocatalysis</a>. Corrections are welcome.</em>
 </p>
 
 ## Introduction
@@ -35,6 +35,7 @@ This post takes that approach. We start from atoms and forces, define macroscopi
 | **Thermostats** | Velocity rescaling, Nosé-Hoover, Langevin — controlling temperature |
 | **Barostats** | Berendsen, Parrinello-Rahman — controlling pressure |
 | **Monte Carlo** | Skip dynamics entirely, sample directly from the target distribution |
+| **Connections to Generative Modeling** | EBMs, Langevin sampling, HMC, annealing, free energy estimation |
 
 ---
 
@@ -283,6 +284,20 @@ This post covered two layers of molecular simulation:
 2. **Simulation algorithms** are the tools that sample from these distributions — thermostats and barostats modify the equations of motion; Monte Carlo bypasses dynamics entirely and samples directly.
 
 A third layer — **thermodynamics** — tells you *what* happens at equilibrium (which phase is stable, whether a reaction is spontaneous) without reference to microscopic details. We did not cover it here, but the quantities it works with (free energy, entropy, chemical potential) are the same ones that appeared throughout this post.
+
+### Connections to Generative Modeling
+
+Many ideas in this post have direct counterparts in modern generative models — the intellectual traffic goes both ways.
+
+**The Boltzmann distribution is an energy-based model.** The canonical distribution $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is exactly the form of an energy-based model (EBM) in ML. The potential energy $$U$$ is the learned energy function, and $$\beta$$ controls the sharpness of the distribution. The intractable partition function $$Z$$ is the same normalization problem that makes EBM training difficult.
+
+**Langevin dynamics is score-based sampling.** The Langevin thermostat $$d\mathbf{x} = -\nabla U(\mathbf{x})\,dt + \sqrt{2k_BT}\,d\mathbf{W}$$ is the same Langevin MCMC used to sample from unnormalized densities in ML. Score-based diffusion models (Song & Ermon, 2019) use this connection explicitly: the score $$\nabla_\mathbf{x} \log p(\mathbf{x}) = -\beta \nabla U(\mathbf{x})$$ is the force field, and sampling is a Langevin simulation at the learned energy landscape.
+
+**Metropolis-Hastings is the backbone of MCMC in ML.** The accept/reject mechanism from Monte Carlo is the same algorithm used for posterior sampling in Bayesian inference. Hamiltonian Monte Carlo (HMC) — widely used in probabilistic programming (Stan, PyMC) — borrows directly from molecular dynamics: it runs short NVE trajectories as proposals, using the Hamiltonian structure to make large, low-rejection moves through parameter space.
+
+**Simulated annealing is temperature scheduling.** Varying $$\beta$$ during sampling — starting at high temperature (flat distribution, broad exploration) and cooling toward low temperature (sharp distribution, concentrated on modes) — is simulated annealing. The same idea appears in diffusion models, where the noise schedule interpolates between a broad prior and the data distribution.
+
+**Free energy estimation connects to variational inference.** The identity $$F = -k_BT \ln Z$$ means estimating free energy differences is equivalent to estimating ratios of partition functions — the same problem as computing marginal likelihoods in Bayesian model comparison. Techniques like thermodynamic integration and free energy perturbation have ML counterparts in annealed importance sampling and variational bounds.
 
 ---
 
