@@ -296,7 +296,7 @@ Note that Girsanov compares two *forward* processes. Part III uses it as an inte
 
 ### Forward-Backward SDEs
 
-We adopt the notation from Vargas et al. (2024). Consider a pair of forward and backward Itô SDEs:
+Girsanov's theorem (Part II) compares two processes running in the *same* direction — two forward SDEs with different drifts. But we need to compare processes running in *opposite* directions: the forward protocol (A $$\to$$ B) against the reverse protocol (B $$\to$$ A). This requires pairing a forward Itô SDE with a backward Itô SDE, which introduces a new notational distinction (forward vs. backward integration). We adopt the notation from Vargas et al. (2024):
 
 > **Forward-backward SDEs.**
 >
@@ -367,7 +367,15 @@ $$\ln \frac{P(\mathbf{x}_{k+1} \mid \mathbf{x}_k)}{P_R(\mathbf{x}_k \mid \mathbf
 
 Expanding the squares, the $$\lvert \Delta\mathbf{x}_k \rvert^2$$ and $$\lvert \nabla U_k \rvert^2 \Delta t^2$$ terms cancel — same noise, same cancellation as in Part II's discrete Girsanov derivation. What remains is the cross term $$-\beta \nabla U_k \cdot \Delta\mathbf{x}_k$$, which sums to $$-\beta \int_0^T \nabla U \cdot d\mathbf{x}$$ in the continuous limit.
 
-Decompose $$\nabla U_k \cdot \Delta\mathbf{x}_k$$ using the discrete total difference $$\Delta U_k = \nabla U_k \cdot \Delta\mathbf{x}_k + (\partial U / \partial \lambda)_k \Delta\lambda_k$$, and add the boundary term $$\ln p_A(\mathbf{x}_0) - \ln p_B(\mathbf{x}_N) = \beta(U_B(\mathbf{x}_N) - U_A(\mathbf{x}_0)) - \beta \Delta F$$. All potential energy terms cancel, leaving:
+Now comes the key step — the telescoping cancellation that makes everything work. Decompose $$\nabla U_k \cdot \Delta\mathbf{x}_k$$ using the discrete total difference of $$U$$ along the trajectory:
+
+$$U(\mathbf{x}_{k+1}, \lambda_{k+1}) - U(\mathbf{x}_k, \lambda_k) \approx \nabla U_k \cdot \Delta\mathbf{x}_k + \frac{\partial U}{\partial \lambda}\bigg\rvert_k \Delta\lambda_k$$
+
+Rearranging: $$\nabla U_k \cdot \Delta\mathbf{x}_k = [U(\mathbf{x}_{k+1}, \lambda_{k+1}) - U(\mathbf{x}_k, \lambda_k)] - (\partial U / \partial \lambda)_k \Delta\lambda_k$$. Summing over all steps, the first term telescopes:
+
+$$\sum_k \nabla U_k \cdot \Delta\mathbf{x}_k = [U(\mathbf{x}_N, \lambda_N) - U(\mathbf{x}_0, \lambda_0)] - \sum_k \frac{\partial U}{\partial \lambda}\bigg\rvert_k \Delta\lambda_k$$
+
+The second sum is the discrete work $$W_N$$. Adding the boundary term from the initial distributions $$\ln p_A(\mathbf{x}_0) - \ln p_B(\mathbf{x}_N) = -\beta U_A(\mathbf{x}_0) + \beta U_B(\mathbf{x}_N) - \beta \Delta F$$, the potential energy values $$U(\mathbf{x}_0, \lambda_0) = U_A(\mathbf{x}_0)$$ and $$U(\mathbf{x}_N, \lambda_N) = U_B(\mathbf{x}_N)$$ cancel exactly against the boundary terms, leaving:
 
 > **Path measure ratio (discrete).**
 >
@@ -431,7 +439,7 @@ $$\ln \frac{\mathcal{P}_F}{\mathcal{P}_R}(X) = \ln \frac{\pi_0(X_0)}{\pi_T(X_T)}
 
 <p>The Stratonovich form arises from combining the forward and backward Itô integrals. This step requires Girsanov's theorem to rigorously define the change of measure from the reference process to each SDE.</p>
 
-<p><strong>Step 2: Apply the Stratonovich chain rule to \(U(X_t, \lambda(t))\).</strong> The Stratonovich chain rule (which takes the same form as the ordinary chain rule, unlike the Itô formula) gives:</p>
+<p><strong>Step 2: Apply the Stratonovich chain rule to \(U(X_t, \lambda(t))\).</strong> The Stratonovich integral \(\circ dX_t\) preserves the ordinary chain rule from calculus — \(df(X_t) = f'(X_t) \circ dX_t\) — which is why the following telescoping works. (The Itô integral does not preserve the chain rule; it would add a correction term \(\frac{1}{2}\sigma^2 \Delta U\), which must then be tracked separately.) Applying the Stratonovich chain rule:</p>
 
 $$dU(X_t, \lambda(t)) = \nabla U \circ dX_t + \frac{\partial U}{\partial \lambda} \dot{\lambda} \, dt$$
 
