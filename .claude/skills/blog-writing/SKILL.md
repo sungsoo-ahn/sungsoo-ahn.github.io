@@ -25,3 +25,21 @@ Rules for writing and editing blog posts. Blog prose is direct and opinionated �
 - Avoid passive voice when the actor matters: "The model was trained" → "We trained the model"
 - Fix undefined pronouns: "We applied it. It improved." → "We applied Algorithm 1. Accuracy improved by 5%."
 - Follow every equation with an explanation of its terms
+
+## Structure and Readability
+
+- **No wall-of-text paragraphs.** If a paragraph exceeds ~8 lines or contains multiple distinct ideas, split it.
+- **Sentences under ~40 words.** Split chains of em-dashes or nested parentheticals into separate sentences.
+- **Don't bury key points.** Important results belong at the start of a paragraph or in a boxed definition, not mid-paragraph.
+- **Signpost transitions.** Before a derivation or definition, add a setup sentence explaining what's coming and why.
+- **Don't repeat yourself.** If a point (e.g., "the variance problem") appears in multiple places, state it fully once and back-reference elsewhere.
+- **Figures near their discussion.** Place figures immediately after the text that introduces them, not paragraphs later.
+- **Notation introductions need breathing room.** Don't introduce 3+ new symbols in one paragraph with no prose between equations.
+
+## Coherence Checklist (apply when reviewing)
+
+- Every forward reference ("Part 3 defines this") — verify the target actually contains what you claim
+- Every backward reference ("from Part 2") — verify the source
+- Every cited paper — verify it appears in the References section
+- Every figure file referenced — verify it exists in `assets/img/blog/`
+- Notation consistent throughout: same symbol = same meaning, same formatting convention

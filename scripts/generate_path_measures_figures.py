@@ -141,6 +141,245 @@ def fig_double_well_protocol():
 
 
 # ──────────────────────────────────────────────
+# Figure 2b: Alternating steps (work + MCMC)
+# ──────────────────────────────────────────────
+def fig_alternating_steps():
+    """Alternating potential shifts (work) and particle moves (MCMC) — the mechanism of AIS."""
+    rng = np.random.RandomState(42)
+    n_particles = 30
+    beta = 5.0
+    tilt_strength = 3.0
+    dt_lang = 0.005
+    n_mcmc = 300
+
+    def U(x, lam):
+        return (x**2 - 1)**2 - tilt_strength * lam * x
+
+    def dU_dx(x, lam):
+        return 4 * x * (x**2 - 1) - tilt_strength * lam
+
+    # Equilibrate particles at λ=0
+    particles = -1.0 + 0.3 * rng.randn(n_particles)
+    for _ in range(2000):
+        f = -dU_dx(particles, 0.0)
+        particles = particles + f * dt_lang + np.sqrt(2 * dt_lang / beta) * rng.randn(n_particles)
+
+    # Pick 3 highlighted particles: one near left min, one near barrier, one outlier
+    sorted_idx = np.argsort(particles)
+    hi_indices = [sorted_idx[5], sorted_idx[n_particles // 2], sorted_idx[-5]]
+    hi_colors = [RED, '#7b1fa2', TEAL]  # red, purple, teal
+    hi_markers = ['o', 's', 'D']  # circle, square, diamond
+
+    # Build sequence: (λ, particles, title, step_type)
+    # Store particle snapshots for highlighted tracking
+    states = []
+    snapshots = []  # list of particle arrays at each state
+
+    states.append((0.0, 'initial'))
+    snapshots.append(particles.copy())
+
+    for lam_new, lam_label in [(0.5, '0.5'), (1.0, '1.0')]:
+        # Work step: shift λ, particles unchanged
+        states.append((lam_new, 'work'))
+        snapshots.append(particles.copy())
+        # MCMC step: particles move under new λ
+        for _ in range(n_mcmc):
+            f = -dU_dx(particles, lam_new)
+            particles = particles + f * dt_lang + np.sqrt(2 * dt_lang / beta) * rng.randn(n_particles)
+        states.append((lam_new, 'mcmc'))
+        snapshots.append(particles.copy())
+
+    titles = [
+        r'$\lambda=0$' + '\n(equilibrium)',
+        r'$\lambda \to 0.5$' + '\n(potential shifts)',
+        r'$\lambda=0.5$' + '\n(particles relax)',
+        r'$\lambda \to 1.0$' + '\n(potential shifts)',
+        r'$\lambda=1.0$' + '\n(particles relax)',
+    ]
+
+    # ── Plot ──
+    n_states = len(states)
+    fig, axes = plt.subplots(1, n_states, figsize=(2.7 * n_states, 3.8),
+                              gridspec_kw={'wspace': 0.35})
+    x_plot = np.linspace(-1.8, 1.8, 300)
+
+    all_u = [U(x_plot, lam) for lam, _ in states]
+    y_min = min(u.min() for u in all_u) - 0.5
+    y_max = 4.0
+
+    step_colors = {'initial': BLUE, 'work': AMBER, 'mcmc': TEAL}
+
+    for i, ((lam, stype), pts, title) in enumerate(zip(states, snapshots, titles)):
+        ax = axes[i]
+        col = step_colors[stype]
+
+        # Potential curve
+        u = U(x_plot, lam)
+        ax.plot(x_plot, u, color=col, linewidth=2.5)
+        ax.fill_between(x_plot, u, y_min, alpha=0.06, color=col)
+
+        # Highlighted particles on the curve
+        pt_u = U(pts, lam)
+        for j, (hi_idx, hi_col, hi_mk) in enumerate(zip(hi_indices, hi_colors, hi_markers)):
+            ax.scatter(pts[hi_idx], pt_u[hi_idx], s=70, color='white',
+                       edgecolors=hi_col, linewidths=2, zorder=6, marker=hi_mk)
+
+        # In MCMC panels, draw arrows from previous position to current for highlighted
+        if stype == 'mcmc' and i >= 1:
+            prev_pts = snapshots[i - 1]
+            prev_lam = states[i - 1][0]
+            for hi_idx, hi_col in zip(hi_indices, hi_colors):
+                x_old = prev_pts[hi_idx]
+                x_new = pts[hi_idx]
+                # Arrow at the bottom of the panel
+                y_arrow = y_min + 0.35
+                if abs(x_new - x_old) > 0.05:
+                    ax.annotate('', xy=(x_new, y_arrow), xytext=(x_old, y_arrow),
+                                arrowprops=dict(arrowstyle='->', color=hi_col,
+                                                lw=1.8, shrinkA=2, shrinkB=2),
+                                zorder=7)
+
+        # In work panels, draw vertical dashed lines for highlighted (same x, curve moved)
+        if stype == 'work' and i >= 1:
+            prev_lam = states[i - 1][0]
+            for hi_idx, hi_col in zip(hi_indices, hi_colors):
+                x_pos = pts[hi_idx]
+                y_old = U(x_pos, prev_lam)
+                y_new = U(x_pos, lam)
+                y_lo, y_hi = min(y_old, y_new), max(y_old, y_new)
+                ax.plot([x_pos, x_pos], [y_lo, y_hi], color=hi_col,
+                        linestyle=':', linewidth=1.5, alpha=0.6, zorder=3)
+
+        ax.set_xlim(-1.8, 1.8)
+        ax.set_ylim(y_min, y_max)
+        ax.set_title(title, fontsize=9, color=col, fontweight='bold', linespacing=1.3)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        if i == 0:
+            ax.set_ylabel('$U(x, \\lambda)$', fontsize=LABEL_FS, color=TEXT_COLOR)
+
+    # Arrows between panels
+    for i in range(n_states - 1):
+        stype_next = states[i + 1][1]
+        label = 'shift $\\lambda$\n(work)' if stype_next == 'work' else 'MCMC\n(relax)'
+        col = AMBER if stype_next == 'work' else TEAL
+        x_mid = (axes[i].get_position().x1 + axes[i + 1].get_position().x0) / 2
+        fig.text(x_mid, 0.48, '→', fontsize=18, ha='center', va='center',
+                 color=col, fontweight='bold', transform=fig.transFigure)
+        fig.text(x_mid, 0.38, label, fontsize=7.5, ha='center', va='center',
+                 color=col, transform=fig.transFigure)
+
+    fig.savefig(f'{OUTPUT_DIR}/pm_alternating_steps.png', dpi=200, bbox_inches='tight',
+                facecolor='white')
+    plt.close(fig)
+    print('  ✓ pm_alternating_steps.png')
+
+
+# ──────────────────────────────────────────────
+# Figure 2c: Work trajectories (multiple runs)
+# ──────────────────────────────────────────────
+def fig_work_trajectories():
+    """Many runs of the same double-well protocol: lucky vs unlucky highlighted, rest faint."""
+    rng = np.random.RandomState(12)
+    n_steps = 500
+    dt = 1.0 / n_steps
+    t = np.linspace(0, 1, n_steps + 1)
+    beta = 5.0
+    tilt_strength = 3.0
+
+    def dU_dx(x, lam):
+        return 4 * x * (x**2 - 1) - tilt_strength * lam
+
+    def dU_dlam(x, lam):
+        return -tilt_strength * x
+
+    # Run many trajectories
+    n_traj_show = 30
+    n_traj_hist = 2000
+    all_work = np.zeros(n_traj_hist)
+    saved_x = []
+    saved_w = []
+
+    for i in range(n_traj_hist):
+        x = -1.0 + 0.2 * rng.randn()
+        cumwork = 0.0
+        traj_x = [x]
+        traj_w = [0.0]
+        for k in range(n_steps):
+            lam_k = k / n_steps
+            dlam = 1.0 / n_steps
+            cumwork += dU_dlam(x, lam_k) * dlam
+            force = -dU_dx(x, lam_k)
+            x = x + force * dt + np.sqrt(2 * dt / beta) * rng.randn()
+            if i < n_traj_show:
+                traj_x.append(x)
+                traj_w.append(cumwork)
+        all_work[i] = cumwork
+        if i < n_traj_show:
+            saved_x.append(np.array(traj_x))
+            saved_w.append(np.array(traj_w))
+
+    # Compute ΔF via Jarzynski
+    log_weights = -beta * all_work
+    log_max = np.max(log_weights)
+    delta_f_est = -(1.0 / beta) * (np.log(np.mean(np.exp(log_weights - log_max))) + log_max)
+
+    # Find the luckiest and unluckiest among shown trajectories
+    final_works = np.array([sw[-1] for sw in saved_w])
+    lucky_idx = np.argmin(final_works)
+    unlucky_idx = np.argmax(final_works)
+
+    fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+
+    # Panel (a): Trajectories
+    ax = axes[0]
+    for i in range(n_traj_show):
+        if i in (lucky_idx, unlucky_idx):
+            continue
+        ax.plot(t, saved_x[i], color=NEUTRAL, linewidth=0.6, alpha=0.35)
+    ax.plot(t, saved_x[lucky_idx], color=TEAL, linewidth=2.2, label='Lucky (low $W$)', zorder=5)
+    ax.plot(t, saved_x[unlucky_idx], color=RED, linewidth=2.2, label='Unlucky (high $W$)', zorder=5)
+    ax.axhline(-1, color=BLUE, linestyle=':', alpha=0.3, linewidth=1)
+    ax.axhline(1, color=RED, linestyle=':', alpha=0.3, linewidth=1)
+    ax.text(0.02, -1.15, 'left well', fontsize=8, color=BLUE, va='top')
+    ax.text(0.02, 1.15, 'right well', fontsize=8, color=RED, va='bottom')
+    ax.legend(fontsize=8.5, loc='center left', framealpha=0.9)
+    _style_ax(ax, xlabel='Time $t$', ylabel='Position $x(t)$', title='(a) Trajectories')
+
+    # Panel (b): Cumulative work
+    ax = axes[1]
+    for i in range(n_traj_show):
+        if i in (lucky_idx, unlucky_idx):
+            continue
+        ax.plot(t, saved_w[i], color=NEUTRAL, linewidth=0.6, alpha=0.35)
+    ax.plot(t, saved_w[lucky_idx], color=TEAL, linewidth=2.2, zorder=5)
+    ax.plot(t, saved_w[unlucky_idx], color=RED, linewidth=2.2, zorder=5)
+    ax.axhline(delta_f_est, color=TEXT_COLOR, linestyle='--', linewidth=1.5, alpha=0.7)
+    ax.text(0.98, delta_f_est - 0.15, r'$\Delta F$', fontsize=SUBLABEL_FS, color=TEXT_COLOR,
+            ha='right', va='top', fontweight='bold')
+    _style_ax(ax, xlabel='Time $t$', ylabel='Cumulative work $W(t)$', title='(b) Work along each trajectory')
+
+    # Panel (c): Work histogram
+    ax = axes[2]
+    ax.hist(all_work, bins=50, density=True, color=BLUE, alpha=0.4, edgecolor=BLUE, linewidth=0.5)
+    ax.axvline(np.mean(all_work), color=AMBER, linewidth=2.5, linestyle='--',
+               label=r'$\langle W \rangle$ (mean)')
+    ax.axvline(delta_f_est, color=RED, linewidth=2.5, linestyle='-',
+               label=r'$\Delta F$ (Jarzynski)')
+    ax.legend(fontsize=9, loc='upper right', framealpha=0.9)
+    ax.set_ylim(0, None)
+    _style_ax(ax, xlabel='Work $W$', ylabel='Density', title='(c) Work histogram')
+
+    fig.tight_layout()
+    fig.savefig(f'{OUTPUT_DIR}/pm_work_trajectories.png', dpi=200, bbox_inches='tight',
+                facecolor='white')
+    plt.close(fig)
+    print('  ✓ pm_work_trajectories.png')
+
+
+# ──────────────────────────────────────────────
 # Figure 3: Forward trajectory ensemble
 # ──────────────────────────────────────────────
 def fig_trajectory_ensemble():
@@ -348,6 +587,8 @@ if __name__ == '__main__':
     print('Generating path measures figures...')
     fig_boltzmann_overlap()
     fig_double_well_protocol()
+    fig_alternating_steps()
+    fig_work_trajectories()
     fig_trajectory_ensemble()
     fig_work_distribution()
     fig_crooks_intersection()

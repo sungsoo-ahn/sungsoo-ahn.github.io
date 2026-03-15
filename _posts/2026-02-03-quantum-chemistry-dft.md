@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT for ML Researchers"
 date: 2026-02-03
-last_updated: 2026-02-03
+last_updated: 2026-03-15
 description: "Quantum chemistry and density functional theory for ML researchers — from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 order: 1
 categories: [science]
@@ -28,6 +28,12 @@ Two families of methods tackle this problem, differing in what they approximate:
 - **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
 
 More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. This post introduces these ideas from first principles.
+
+### Overview
+
+The goal is to compute the energy and electron density of a molecular system from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ that encodes kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute the new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$ — everything else is computed exactly.
+
+This post builds up to the SCF loop: the Schrödinger equation defines the problem, the Born-Oppenheimer approximation separates electrons from nuclei, wavefunction theory shows what direct approximation looks like and where it falls short, and DFT offers a different path that makes the SCF loop possible.
 
 ### Roadmap
 
@@ -63,7 +69,7 @@ $$\begin{aligned}
 & \underbrace{- \sum_{i,A} \frac{Z_A}{|\mathbf{r}_i - \mathbf{R}_A|}}_{\text{e-N attraction}} + \underbrace{\sum_{A<B} \frac{Z_A Z_B}{|\mathbf{R}_A - \mathbf{R}_B|}}_{\text{N-N repulsion}}
 \end{aligned}$$
 
-where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomic-units] The first two terms are **kinetic energy**: the $$\nabla^2$$ (Laplacian) operator measures how rapidly the wavefunction curves in space, corresponding to particle momentum. The last three terms are **potential energy**, depending only on inter-particle distances: electrons repel each other, nuclei repel each other, and electrons are attracted to nuclei. Every term follows from classical physics; the quantum nature enters through the kinetic energy operator acting on the wavefunction rather than on particle velocities.
+where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomicunits] The first two terms are **kinetic energy**: the $$\nabla^2$$ (Laplacian) operator measures how rapidly the wavefunction curves in space, corresponding to particle momentum. The last three terms are **potential energy**, depending only on inter-particle distances: electrons repel each other, nuclei repel each other, and electrons are attracted to nuclei. Every term follows from classical physics; the quantum nature enters through the kinetic energy operator acting on the wavefunction rather than on particle velocities.
 
 ### The Wavefunction
 
@@ -75,7 +81,7 @@ The computational challenge is the electronic part. Even on a modest grid of $$G
 
 ## The Born-Oppenheimer Approximation
 
-The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. Even the lightest nucleus (the proton) is 1836 times heavier than an electron, and heavier nuclei are thousands of times heavier still. Nuclei therefore move much more slowly, and the electrons adjust instantaneously to any nuclear configuration.
+The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. Even the lightest nucleus (the proton) is 1836 times heavier than an electron, and heavier atoms have nuclei tens of thousands of times more massive. Nuclei therefore move much more slowly, and the electrons adjust instantaneously to any nuclear configuration.
 
 1. **The electronic problem**: Fix the nuclear positions $$\{\mathbf{R}_A\}$$ and solve for the electronic wavefunction and energy. The nuclei appear only as an external potential $$v_{\text{ext}}(\mathbf{r}) = -\sum_A Z_A / \lvert\mathbf{r} - \mathbf{R}_A\rvert$$ that the electrons move in. The nuclear-nuclear repulsion $$\sum_{A<B} Z_A Z_B / \lvert\mathbf{R}_A - \mathbf{R}_B\rvert$$ adds a constant for each configuration.
 
@@ -165,7 +171,7 @@ Because each electron sees only the average field of the others (as discussed ab
 > The density is a marginal: integrate out all electron positions except one and multiply by $$N$$. It is always non-negative and integrates to the total number of electrons: $$\int \rho(\mathbf{r}) \, d\mathbf{r} = N$$.
 {: .block-definition }
 
-The rest of this section develops DFT in four steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham approximation decomposes the unknown functional into computable pieces plus one unknown, (3) Jacob's Ladder organizes the approximations for that unknown piece, and (4) the Roothaan-Hall equations discretize the problem into matrices.
+The rest of this section develops DFT in five steps: (1) the Hohenberg-Kohn theorems establish that the density determines everything, (2) the Kohn-Sham approximation decomposes the unknown functional into computable pieces plus one unknown, (3) the Kohn-Sham equations give the resulting eigenvalue problem, (4) Jacob's Ladder organizes the approximations for that unknown piece, and (5) the Roothaan-Hall equations discretize the problem into matrices.
 
 ### The Hohenberg-Kohn Theorems
 
@@ -199,7 +205,7 @@ $$E_{\text{xc}}$$ absorbs the residual kinetic energy (the difference between th
 
 ### The Kohn-Sham Equations
 
-Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations:[^ks-derivation]
+Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigenvalue equations:[^ksderivation]
 
 > **Kohn-Sham equations.** The orbitals satisfy
 >
@@ -253,7 +259,7 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-The expense of SCF iterations, the unknown form of $$E_{\text{xc}}$$, and the desire for models that transfer across chemical space have motivated deep learning approaches on multiple fronts. Neural networks have been applied to both the wavefunction and density functional approaches, either learning the wavefunction or the XC functional directly, or bypassing the SCF iteration by predicting its output.
+The expense of SCF iterations, the unknown form of $$E_{\text{xc}}$$, and the desire for models that transfer across chemical space have motivated deep learning approaches on multiple fronts.
 
 ### Neural Network Wavefunctions
 
@@ -292,11 +298,11 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 - Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817).
 - Foster, A., et al. (2025). An ab initio foundation model of wavefunctions that accurately describes chemical bond breaking. [arXiv:2506.19960](https://arxiv.org/abs/2506.19960).
 - Luise, G., et al. (2025). Accurate and scalable exchange-correlation with deep learning. [arXiv:2506.14665](https://arxiv.org/abs/2506.14665).
-- Huang, B., et al. (2023). Ab initio machine learning in chemical compound space. [Chemical Reviews, 121(16), 10001-10036](https://arxiv.org/abs/2208.12590).
+- Huang, B., et al. (2021). Ab initio machine learning in chemical compound space. [Chemical Reviews, 121(16), 10001-10036](https://arxiv.org/abs/2208.12590).
 
 ---
 
-[^atomic-units]: Atomic units set $$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$. In these units, energies are measured in Hartrees (1 Ha ≈ 27.2 eV ≈ 627.5 kcal/mol) and distances in Bohr radii (1 $$a_0$$ ≈ 0.529 Å). This simplifies the notation by removing constants from the equations.
+[^atomicunits]: Atomic units set $$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$. In these units, energies are measured in Hartrees (1 Ha ≈ 27.2 eV ≈ 627.5 kcal/mol) and distances in Bohr radii (1 $$a_0$$ ≈ 0.529 Å). This simplifies the notation by removing constants from the equations.
 
 [^spin]: We suppress spin coordinates for notational simplicity. In full generality, each electron has a spin coordinate $$\sigma_i \in \{\uparrow, \downarrow\}$$ in addition to its spatial position, and the wavefunction is $$\Psi(\mathbf{r}_1\sigma_1, \ldots, \mathbf{r}_N\sigma_N)$$. The antisymmetry requirement applies to the combined spatial-spin coordinates.
 
@@ -310,4 +316,4 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 
 [^curvature]: The connection between curvature and kinetic energy comes from the de Broglie relation: a faster electron has a shorter wavelength, so its wavefunction oscillates more rapidly in space. More rapid oscillation means more curvature, and $$\nabla^2$$ measures exactly this. High curvature = short wavelength = high momentum = high kinetic energy.
 
-[^ks-derivation]: Derivation outline: minimize $$E[\{\phi_i\}]$$ subject to orthonormality $$\int \phi_i^* \phi_j \, d\mathbf{r} = \delta_{ij}$$ by introducing Lagrange multipliers $$\varepsilon_{ij}$$ and setting $$\delta \mathcal{L} / \delta \phi_i^* = 0$$. The chain rule $$\delta E[\rho]/\delta \phi_i^* = (\delta E/\delta \rho) \cdot \phi_i$$ (since $$\rho = \sum_i \lvert\phi_i\rvert^2$$) turns each term of the energy into a contribution to $$v_{\text{eff}}$$: $$T_s$$ gives $$-\frac{1}{2}\nabla^2 \phi_i$$, $$J[\rho]$$ gives $$(\int \rho(\mathbf{r}')/\lvert\mathbf{r}-\mathbf{r}'\rvert \, d\mathbf{r}') \, \phi_i$$, $$E_{\text{xc}}$$ gives $$v_{\text{xc}} \phi_i$$, and the external potential gives $$v_{\text{ext}} \phi_i$$. Collecting terms and noting that the Lagrange multiplier matrix can be diagonalized by a unitary rotation of the orbitals yields the KS eigenvalue equation.
+[^ksderivation]: Derivation outline: minimize $$E[\{\phi_i\}]$$ subject to orthonormality $$\int \phi_i^* \phi_j \, d\mathbf{r} = \delta_{ij}$$ by introducing Lagrange multipliers $$\varepsilon_{ij}$$ and setting $$\delta \mathcal{L} / \delta \phi_i^* = 0$$. The chain rule $$\delta E[\rho]/\delta \phi_i^* = (\delta E/\delta \rho) \cdot \phi_i$$ (since $$\rho = \sum_i \lvert\phi_i\rvert^2$$) turns each term of the energy into a contribution to $$v_{\text{eff}}$$: $$T_s$$ gives $$-\frac{1}{2}\nabla^2 \phi_i$$, $$J[\rho]$$ gives $$(\int \rho(\mathbf{r}')/\lvert\mathbf{r}-\mathbf{r}'\rvert \, d\mathbf{r}') \, \phi_i$$, $$E_{\text{xc}}$$ gives $$v_{\text{xc}} \phi_i$$, and the external potential gives $$v_{\text{ext}} \phi_i$$. Collecting terms and noting that the Lagrange multiplier matrix can be diagonalized by a unitary rotation of the orbitals yields the KS eigenvalue equation.
