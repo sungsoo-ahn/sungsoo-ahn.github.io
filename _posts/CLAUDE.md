@@ -42,6 +42,10 @@ Posts begin with an author note immediately after the frontmatter:
 - Readers likely don't know domain-specific jargon (e.g., "quadrupole") — use plain language
 - Footnotes work well for alternate terminology without cluttering the main text
 - When referencing publications, add to a References section as you cite, not at the end
+- **Footnote IDs: no hyphens.** `[^chemical-potential]` breaks rendering; use `[^chempot]` instead. Short single-word IDs only.
+- **Every text citation needs a References entry.** If you write "Bengio et al., 2021" in the text, add the full citation to References immediately.
+- **Cross-references: use section names, not numbers.** "See the Scaling Relations section" survives reordering; "see Section 5" doesn't.
+- **Figure captions: use `\(...\)` for math**, not `$...$` or `$$...$$`. Liquid consumes `\\`, breaking LaTeX commands.
 
 ## Figures
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis for ML Researchers"
 date: 2026-02-05
-last_updated: 2026-02-11
+last_updated: 2026-03-15
 description: "Heterogeneous electrocatalysis for ML researchers — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
 order: 1
 categories: [science]
@@ -19,11 +19,11 @@ published: true
 
 ## Introduction
 
-Here is the problem: design a catalyst[^catalyst] material that achieves a target adsorption energy[^adsorption-energy] for a given chemical reaction.
+Here is the problem: design a catalyst[^catalyst] material that achieves a target adsorption energy[^adsenergy] for a given chemical reaction.
 
-Why this matters: the Sabatier principle (Section 4) says that the best catalyst for a reaction binds intermediates[^intermediate] at a specific, known strength — not too strongly, not too weakly. Scaling relations (Section 5) further reduce the problem: a single number, the adsorption energy of one key intermediate, determines catalyst performance. The optimal value of that number is known from theory. What is *not* known is which material achieves it.
+Why this matters: the Sabatier principle says that the best catalyst for a reaction binds intermediates[^intermediate] at a specific, known strength — not too strongly, not too weakly. Scaling relations further reduce the problem: a single number, the adsorption energy of one key intermediate, determines catalyst performance. The optimal value of that number is known from theory. What is *not* known is which material achieves it.
 
-The search space is enormous. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^binding-site] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dft-relaxation] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
+The search space is enormous. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
 
 This is a natural problem for ML: learn a surrogate that maps material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space is structured the way it is, and what makes this problem scientifically important.
 
@@ -44,7 +44,7 @@ This is a natural problem for ML: learn a surrogate that maps material structure
 
 ## The Energy Storage Problem
 
-Renewable electricity from solar and wind is intermittent. Solar output peaks at midday, but demand peaks in the evening — a mismatch known as the **duck curve**.[^duck-curve] Grid-scale energy storage is the missing piece for full renewable adoption.
+Renewable electricity from solar and wind is intermittent. Solar output peaks at midday, but demand peaks in the evening — a mismatch known as the **duck curve**.[^duckcurve] Grid-scale energy storage is the missing piece for full renewable adoption.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_duck_curve.png" class="img-fluid rounded z-depth-1" zoomable=true caption="California hourly energy demand. The green area shows wind and solar generation peaking midday while total demand (black) peaks in the evening — the 'duck curve.' The gap must be filled by other sources or storage. From Zitnick et al. (2020)." %}
 
@@ -52,9 +52,9 @@ Several storage technologies exist, each with trade-offs:
 
 - **Pumped-storage hydropower (PSH):** 70–80% round-trip efficiency, but requires specific geography (two reservoirs at different elevations). Already accounts for 95% of grid storage worldwide — and most good sites are taken.
 - **Batteries:** 60–95% round-trip efficiency, but cost-prohibitive at the scale needed for multi-day or seasonal storage. Lithium-ion costs have fallen dramatically, yet storing a full day of U.S. electricity demand (~100 TWh) in batteries remains economically impractical.
-- **Hydrogen energy storage (HES):** Use excess electricity to split water (electrolysis),[^electrolysis] store the hydrogen, and convert it back to electricity in a fuel cell[^fuel-cell] when needed. Round-trip efficiency is lower (~35%), but hydrogen can be stored in bulk at low cost — underground caverns, pressurized tanks, or converted to methane for existing natural gas infrastructure.
+- **Hydrogen energy storage (HES):** Use excess electricity to split water (electrolysis),[^electrolysis] store the hydrogen, and convert it back to electricity in a fuel cell[^fuelcell] when needed. Round-trip efficiency is lower (~35%), but hydrogen can be stored in bulk at low cost — underground caverns, pressurized tanks, or converted to methane for existing natural gas infrastructure.
 
-The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^hes-efficiency] But efficiency is not the only constraint — what matters at grid scale is the total cost of stored energy. Zitnick et al. (2020) estimate HES at \$113/MWh, competitive with batteries for multi-day storage where the low cost of bulk hydrogen storage offsets the efficiency loss.
+The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint — what matters at grid scale is the total cost of stored energy. Zitnick et al. (2020) estimate HES at \$113/MWh, competitive with batteries for multi-day storage where the low cost of bulk hydrogen storage offsets the efficiency loss.
 
 The bottleneck is not storage capacity. It is the **catalyst**. Both the electrolyzer (splitting water) and the fuel cell (recombining hydrogen with oxygen) require electrocatalysts[^electrocatalyst] to drive their reactions at practical rates. The dominant catalyst is platinum, which is scarce and expensive. Reducing or replacing platinum is the key to making HES economically viable.
 
@@ -68,7 +68,7 @@ The previous section identified the catalyst as the bottleneck for hydrogen ener
 
 A **proton exchange membrane (PEM) fuel cell** converts hydrogen and oxygen into electricity and water. It has three layers:
 
-- **Anode:**[^anode-cathode] Hydrogen gas arrives and is split into protons and electrons: $$\text{H}_2 \rightarrow 2\text{H}^+ + 2e^-$$.
+- **Anode:**[^anodecathode] Hydrogen gas arrives and is split into protons and electrons: $$\text{H}_2 \rightarrow 2\text{H}^+ + 2e^-$$.
 - **Membrane:** A polymer electrolyte[^electrolyte] that conducts protons (H$$^+$$) but blocks electrons, forcing them through an external circuit — producing useful electrical current.
 - **Cathode:** Oxygen combines with the protons and electrons to form water: $$\tfrac{1}{2}\text{O}_2 + 2\text{H}^+ + 2e^- \rightarrow \text{H}_2\text{O}$$.
 
@@ -83,7 +83,7 @@ Platinum is the best-known catalyst for both the hydrogen oxidation reaction (an
 The problem is cost and scarcity:
 
 - Platinum accounts for over **40% of fuel cell capital costs** when including the support structures needed for adequate power density (Zitnick et al., 2020).
-- To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^pt-reserves]
+- To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^ptreserves]
 - A survey of automotive fuel cell experts found that **76% identified platinum cost** as the primary barrier to reducing fuel cell costs.
 
 Research suggests a 90% reduction in platinum loading may be achievable, and entirely platinum-free catalysts are an active area of research. But finding them requires searching an enormous space of candidate materials — and evaluating each candidate is computationally expensive.
@@ -116,7 +116,7 @@ $$G = H - TS$$
 
 where $$H$$ is enthalpy,[^enthalpy] $$T$$ is temperature, and $$S$$ is entropy.[^gibbs]
 
-A catalyst works by lowering the activation energy[^activation-energy] barriers between steps — not by changing the overall thermodynamics (the total $$\Delta G$$ from reactants to products is fixed), but by providing an alternative pathway with lower barriers.
+A catalyst works by lowering the activation energy[^activationenergy] barriers between steps — not by changing the overall thermodynamics (the total $$\Delta G$$ from reactants to products is fixed), but by providing an alternative pathway with lower barriers.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_activation_energy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Energy diagram for a single reaction step: O2 dissociating on a surface. The activation energy (0.62 eV) is the barrier the system must overcome. The reaction free energy (−1.5 eV) is the net energy change. A catalyst lowers the activation energy without changing the net free energy. From Zitnick et al. (2020)." %}
 
@@ -143,7 +143,7 @@ Combining these: as adsorption energy becomes more negative (stronger binding), 
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_volcano_plot.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Volcano plot for the ORR. Catalytic activity (log scale) vs. oxygen adsorption energy. Platinum and palladium sit near the peak. Metals to the left (Fe, W, Ni) bind too strongly; metals to the right (Ag, Au) bind too weakly. The two branches correspond to different rate-limiting steps. From Nørskov et al. (2004), as presented in Zitnick et al. (2020)." %}
 
-The volcano plot is the central organizing principle of electrocatalysis. It reduces the problem of finding a good catalyst to a one-dimensional search: find a material whose adsorption energy places it at the volcano peak. The optimal adsorption energy is known from theory — what remains is to find a material that achieves it.
+The volcano plot is the central organizing principle of electrocatalysis. It reduces the problem of finding a good catalyst to a one-dimensional search: find a material whose adsorption energy places it at the volcano peak. The optimal value is known from theory — what remains is to find a material that achieves it.
 
 ---
 
@@ -208,7 +208,7 @@ Oxide electrocatalysts introduce at least five layers of complexity absent from 
 2. **Surface terminations.** Cutting a crystal along a given plane can expose different atomic layers. A rutile (110) surface has at least three possible terminations,[^termination] each presenting different atoms to the adsorbate. On metals, the facet determines the surface; on oxides, the termination adds another degree of freedom.
 3. **Oxygen vacancies.** Surface oxygen atoms can be removed — by thermal treatment, electrochemical reduction, or solvent dissolution — leaving behind vacancy defects that serve as active sites. The number and arrangement of vacancies affects both activity and selectivity.
 4. **Active site ambiguity.** It is often unclear which surface site is catalytically active, and multiple competing reaction mechanisms may operate simultaneously.
-5. **Stronger electron correlation.** Standard DFT functionals (GGA) are less accurate for oxides because of strong electron–electron interactions in transition metal d-orbitals. Hubbard U corrections[^hubbard-u] or more expensive hybrid functionals are needed.
+5. **Stronger electron correlation.** Standard DFT functionals (GGA) are less accurate for oxides because of strong electron–electron interactions in transition metal d-orbitals. Hubbard U corrections[^hubbardu] or more expensive hybrid functionals are needed.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_terminations.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Surface terminations of rutile (110). (a) Three possible terminations (T1, T2, T3) obtained by cutting at different depths. The dashed blue box marks the surface unit cell. (b) Labeled surface oxygen sites — removing any subset of these creates vacancy defects, each configuration with different catalytic properties. From Tran et al. (2023)." %}
 
@@ -256,7 +256,7 @@ Oxides also exhibit **magnetic polymorphism** — the same crystal structure can
 
 ### Scaling Relations on Complex Materials
 
-The linear scaling relations that simplify catalyst screening on metals (the $$\Delta G_{*\text{OOH}} \approx \Delta G_{*\text{OH}} + 3.2$$ eV relation from Section 5) were established on close-packed metal surfaces with uniform binding sites. On oxide surfaces with diverse site types, the picture is noisier.
+The linear scaling relations that simplify catalyst screening on metals (the $$\Delta G_{*\text{OOH}} \approx \Delta G_{*\text{OH}} + 3.2 \;\text{eV}$$ relation from the Scaling Relations section) were established on close-packed metal surfaces with uniform binding sites. On oxide surfaces with diverse site types, the picture is noisier.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_scaling.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Scaling relations on oxide surfaces. (A) OOH* vs OH* binding energies. (B) O* vs OH* binding energies. Red points: OC22 dataset (oxides). Blue points: literature values. The linear correlations still exist but with larger scatter (R² ≈ 0.6–0.8) and higher MAE compared to metals. On materials with diverse site types — high-entropy alloys, doped carbons, amorphous oxides — the correlations weaken further. From Tran et al. (2023)." %}
 
@@ -305,7 +305,7 @@ This is a harder problem. A catalyst structure is a coupled system: the surface 
 Several gaps remain between current ML capabilities and practical catalyst discovery:
 
 - **Out-of-distribution generalization.** Models trained on OC20 (metals) transfer imperfectly to oxides (OC22) or solvated interfaces (OC25). Fine-tuning helps, but the chemical diversity of real catalyst spaces — high-entropy alloys, amorphous oxides, doped carbons — remains undersampled.
-- **Long-range interactions.** Local message-passing GNNs struggle with the long-range electrostatics and magnetic interactions that dominate in semiconducting oxides (Section 7). Extending effective interaction ranges without prohibitive cost is an active research direction.
+- **Long-range interactions.** Local message-passing GNNs struggle with the long-range electrostatics and magnetic interactions that dominate in semiconducting oxides (see Beyond Ideal Surfaces). Extending effective interaction ranges without prohibitive cost is an active research direction.
 - **Beyond adsorption energy.** Current screening pipelines optimize a single thermodynamic descriptor. Real catalyst selection requires stability under operating conditions (Pourbaix analysis), synthesis feasibility, cost, and selectivity — none of which are captured by adsorption energy alone.
 
 ---
@@ -327,29 +327,29 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 [^catalyst]: A **catalyst** is a substance that increases the rate of a chemical reaction without being consumed. It works by lowering the energy barrier (activation energy) that reactants must overcome, providing an alternative reaction pathway. The catalyst participates in intermediate steps but is regenerated at the end.
 
-[^adsorption-energy]: The **adsorption energy** (or binding energy) measures how strongly a molecule sticks to a surface. More negative values mean stronger binding. It is computed as the energy difference between the combined system (molecule on surface) and the separated components (clean surface + isolated molecule).
+[^adsenergy]: The **adsorption energy** (or binding energy) measures how strongly a molecule sticks to a surface. More negative values mean stronger binding. It is computed as the energy difference between the combined system (molecule on surface) and the separated components (clean surface + isolated molecule).
 
 [^intermediate]: A reaction **intermediate** is a molecule that is produced in one step of a multi-step reaction and consumed in a subsequent step. It exists transiently on the catalyst surface. For the oxygen reduction reaction, the intermediates are $$*$$O and $$*$$OH, where $$*$$ denotes binding to the surface.
 
 [^facet]: A **crystal facet** is the flat surface exposed when a crystal is cut along a specific plane. Different cuts expose different arrangements of atoms. Facets are labeled by **Miller indices** — e.g., (111), (110), (100) — which describe the orientation of the cutting plane relative to the crystal lattice.
 
-[^binding-site]: A **binding site** is a specific location on the catalyst surface where an adsorbate molecule can attach. On a close-packed metal surface, common sites include: **atop** (directly above one atom), **bridge** (between two atoms), and **hollow** (in the center of three atoms). Each site type produces a different adsorption energy.
+[^bindingsite]: A **binding site** is a specific location on the catalyst surface where an adsorbate molecule can attach. On a close-packed metal surface, common sites include: **atop** (directly above one atom), **bridge** (between two atoms), and **hollow** (in the center of three atoms). Each site type produces a different adsorption energy.
 
 [^adsorbate]: An **adsorbate** is a molecule or atom that has adhered to a surface. In electrocatalysis, adsorbates are the reaction intermediates sitting on the catalyst surface — for example, an oxygen atom ($$*$$O) or a hydroxyl group ($$*$$OH) bonded to a metal surface.
 
-[^dft-relaxation]: A **DFT relaxation** (or geometry optimization) is an iterative simulation that finds the lowest-energy arrangement of atoms. Starting from an initial guess, each step computes quantum-mechanical forces on every atom using density functional theory (see [previous post](/blog/2026/quantum-chemistry-dft/)), then nudges the atoms downhill. This repeats for 50–400 steps until the forces converge to near zero.
+[^dftrelax]: A **DFT relaxation** (or geometry optimization) is an iterative simulation that finds the lowest-energy arrangement of atoms. Starting from an initial guess, each step computes quantum-mechanical forces on every atom using density functional theory (see [previous post](/blog/2026/quantum-chemistry-dft/)), then nudges the atoms downhill. This repeats for 50–400 steps until the forces converge to near zero.
 
-[^duck-curve]: The "duck curve" refers to the shape of net electricity demand (demand minus solar generation) over a day: it dips at midday when solar peaks, then rises sharply in the evening. First identified by the California Independent System Operator (CAISO).
+[^duckcurve]: The "duck curve" refers to the shape of net electricity demand (demand minus solar generation) over a day: it dips at midday when solar peaks, then rises sharply in the evening. First identified by the California Independent System Operator (CAISO).
 
 [^electrolysis]: **Electrolysis** is the process of using electrical energy to drive a non-spontaneous chemical reaction. In water electrolysis, an applied voltage splits water into hydrogen and oxygen: $$2\text{H}_2\text{O} \rightarrow 2\text{H}_2 + \text{O}_2$$.
 
-[^fuel-cell]: A **fuel cell** is an electrochemical device that converts chemical energy (from a fuel like hydrogen) directly into electrical energy, without combustion. Unlike a battery, it does not store energy internally — it produces electricity continuously as long as fuel is supplied.
+[^fuelcell]: A **fuel cell** is an electrochemical device that converts chemical energy (from a fuel like hydrogen) directly into electrical energy, without combustion. Unlike a battery, it does not store energy internally — it produces electricity continuously as long as fuel is supplied.
 
-[^hes-efficiency]: Zitnick et al. (2020) estimate HES round-trip efficiency at ~35% (AC to AC), compared to 70–80% for pumped hydro and 60–95% for batteries. The losses occur in both the electrolyzer (~70% efficient) and the fuel cell (~60% efficient): 0.7 × 0.6 ≈ 0.42, minus additional transmission and conversion losses.
+[^heseff]: Zitnick et al. (2020) estimate HES round-trip efficiency at ~35% (AC to AC), compared to 70–80% for pumped hydro and 60–95% for batteries. The losses occur in both the electrolyzer (~70% efficient) and the fuel cell (~60% efficient): 0.7 × 0.6 ≈ 0.42, minus additional transmission and conversion losses.
 
 [^electrocatalyst]: An **electrocatalyst** is a catalyst that operates at an electrode surface in an electrochemical cell. It accelerates reactions involving electron transfer — such as the splitting of water or the reduction of oxygen. The "electro-" prefix distinguishes it from catalysts for purely thermal or gas-phase reactions.
 
-[^anode-cathode]: The **anode** is the electrode where oxidation occurs (loss of electrons); the **cathode** is where reduction occurs (gain of electrons). A mnemonic: **a**node = **a**way (electrons flow away from it).
+[^anodecathode]: The **anode** is the electrode where oxidation occurs (loss of electrons); the **cathode** is where reduction occurs (gain of electrons). A mnemonic: **a**node = **a**way (electrons flow away from it).
 
 [^electrolyte]: An **electrolyte** is a substance that conducts ions but not electrons. In a PEM fuel cell, the polymer membrane serves as the electrolyte — it allows protons (H$$^+$$) to pass through while forcing electrons to travel through the external circuit.
 
@@ -357,7 +357,7 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 [^orr]: The **oxygen reduction reaction (ORR)** is the cathode half-reaction in a fuel cell: $$\text{O}_2 + 4\text{H}^+ + 4e^- \rightarrow 2\text{H}_2\text{O}$$. It is kinetically sluggish — the main source of efficiency loss in fuel cells — and the primary motivation for catalyst research.
 
-[^pt-reserves]: As of 2020. South Africa holds approximately 80% of known platinum reserves.
+[^ptreserves]: As of 2020. South Africa holds approximately 80% of known platinum reserves.
 
 [^heterogeneous]: **Heterogeneous catalysis** means the catalyst and reactants are in different phases — typically a solid catalyst with gas- or liquid-phase reactants. This is in contrast to **homogeneous catalysis**, where catalyst and reactants are in the same phase (e.g., both dissolved in solution).
 
@@ -369,7 +369,7 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 [^gibbs]: The **Gibbs free energy** ($$G = H - TS$$) determines the direction of spontaneous processes at constant temperature and pressure. A reaction with $$\Delta G < 0$$ is thermodynamically favorable (exergonic); $$\Delta G > 0$$ requires energy input (endergonic).
 
-[^activation-energy]: The **activation energy** ($$E_a$$) is the minimum energy that reactants must have to undergo a reaction. Even thermodynamically favorable reactions ($$\Delta G < 0$$) may proceed slowly if the activation energy is high. A catalyst provides an alternative pathway with a lower $$E_a$$.
+[^activationenergy]: The **activation energy** ($$E_a$$) is the minimum energy that reactants must have to undergo a reaction. Even thermodynamically favorable reactions ($$\Delta G < 0$$) may proceed slowly if the activation energy is high. A catalyst provides an alternative pathway with a lower $$E_a$$.
 
 [^bep]: The **BEP relation** is an empirical observation: across a family of related catalysts, activation energy is linearly related to reaction energy. Proposed independently by Brønsted (1928) and Evans & Polanyi (1938). The slope $$\alpha$$ is typically between 0 and 1.
 
@@ -379,7 +379,7 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 [^termination]: A **surface termination** is the specific atomic layer exposed when a crystal is cut. On a binary oxide like TiO$$_2$$, cutting along the (110) plane can expose a Ti-rich, O-rich, or mixed layer depending on where the cut is made. Each termination has different catalytic properties.
 
-[^hubbard-u]: The **Hubbard U correction** adds an empirical on-site Coulomb repulsion to specific orbitals (usually transition metal d-orbitals) to compensate for the tendency of standard DFT functionals to over-delocalize electrons. Typical U values range from 3–6 eV depending on the metal.
+[^hubbardu]: The **Hubbard U correction** adds an empirical on-site Coulomb repulsion to specific orbitals (usually transition metal d-orbitals) to compensate for the tendency of standard DFT functionals to over-delocalize electrons. Typical U values range from 3–6 eV depending on the metal.
 
 [^mvk]: The **Mars-van Krevelen (MvK) mechanism** is a catalytic cycle in which lattice atoms from the catalyst surface participate directly in the reaction. An adsorbate reacts with a surface oxygen, the product desorbs (creating a vacancy), and the vacancy is replenished by oxygen from a subsequent reactant. Common in oxide and carbide catalysts.
 

@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-02-08
+last_updated: 2026-03-15
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 order: 2
 categories: [generative_model]
@@ -20,7 +20,7 @@ related_posts: false
 
 Diffusion models — DDPM, score-based models, and their ODE counterparts like flow matching — are built on stochastic differential equations (SDEs) and their associated density dynamics. An SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** is the PDE that connects the two sides: given the SDE describing how individual samples move, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving the probability flow ODE, reverse-time SDEs, and score matching objectives.
 
-Most diffusion model tutorials state the Fokker-Planck equation without proof and move on. Fully understanding where it comes from is surprisingly involved — the rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post aims to bridge that gap, building from physical intuition to a complete proof in three layers: (1) a visual explanation of what each term means, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
+Most diffusion model tutorials state the Fokker-Planck equation without proof and move on. The rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post aims to bridge that gap, building from physical intuition to a complete proof in three layers: (1) a visual explanation of what each term means, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
 
 ### Roadmap
 
@@ -63,15 +63,15 @@ We build intuition for each term before deriving the equation. The derivation wi
 
 ### Advection by Drift
 
-The quantity $$\mathbf{f}\,p_t$$ is a **probability flux**: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this is the finite-difference statement $$\partial p / \partial t = -(J(x{+}dx) - J(x))/dx$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), this reduces to the continuity equation from fluid dynamics.
+The quantity $$\mathbf{f}\,p_t$$ is a **probability flux**: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this is the finite-difference statement $$\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), this reduces to the continuity equation from fluid dynamics.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.png" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: $J = f \cdot p$. Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of an infinitesimal slab: $\partial p / \partial t = -(J(x{+}dx) - J(x))/dx$." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.png" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
 
 ### Spreading by Diffusion
 
 At each instant, the SDE's noise kicks every particle by a symmetric random displacement $$g\,d\mathbf{w}$$. The net effect is like Gaussian blurring: peaks erode and valleys fill.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density. The solid blue curve is the original density $p_t(x)$; the dashed coral curve is the density after Gaussian convolution (kernel shown above the peak). Peaks erode (red shading) and valleys fill (green shading). The derivation below explains why." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density. The solid blue curve is the original density \(p_t(x)\); the dashed coral curve is the density after Gaussian convolution (kernel shown above the peak). Peaks erode (red shading) and valleys fill (green shading). The section below explains why." %}
 
 **Why does blurring produce a second derivative?** In a small time step $$\Delta t$$, the noise kicks each particle from $$y$$ to $$y + \epsilon$$, where $$\epsilon \sim \mathcal{N}(0,\, g^2\,\Delta t)$$. A particle arrives at $$x$$ only if it started at $$y$$ and received kick $$\epsilon = x - y$$. Summing over all starting positions, weighted by the density $$p_t(y)$$ and the probability of the required kick:
 
@@ -87,7 +87,7 @@ Now take the expectation term by term:
 
 - **The quadratic term** $$\frac{\epsilon^2}{2}\,p_t''(x)$$ **survives.** Whether the particle goes left or right, $$\epsilon^2$$ is positive — the direction cancels but the magnitude does not. This term detects **curvature**: whether neighbors on both sides have higher density than $$x$$ ($$p_t'' > 0$$, valley) or lower ($$p_t'' < 0$$, peak).
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick $+\epsilon$ raises the density by the same amount that $-\epsilon$ lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than $x$. The average of neighbors falls below $p_t(x)$, so the quadratic (curvature) term $\frac{\epsilon^2}{2}p_t'' < 0$ drives density down." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick \(+\epsilon\) raises the density by the same amount that \(-\epsilon\) lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than \(x\). The average of neighbors falls below \(p_t(x)\), so the quadratic (curvature) term \(\frac{\epsilon^2}{2}p_t'' < 0\) drives density down." %}
 
 After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Dividing by $$\Delta t$$ and taking the limit gives the **diffusion PDE** in one dimension:
 
@@ -230,7 +230,7 @@ The example above showed that the ordinary chain rule $$d[\frac{1}{2}x^2] = x\,d
 > The $$\frac{g^2}{2}\,\Delta_{\mathbf{x}}\,\varphi$$ is the **Itô correction** — the second-order Taylor term that survives because $$(d\mathbf{w})^2 = dt$$.
 {: .block-lemma }
 
-One can verify the lemma against the example: setting $$\varphi(x) = \frac{1}{2}x^2$$ and $$dx = dW_t$$ (pure Brownian motion, no drift) gives $$d\varphi = x\,dW_t + \frac{1}{2}\,dt$$, matching $$d[\frac{1}{2}W_t^2] = W_t\,dW_t + \frac{1}{2}\,dt$$. This is the stochastic analogue of the second-order Taylor term from the heuristic derivation: the Taylor expansion of $$\mathbb{E}[p_t(\mathbf{x} - \boldsymbol{\epsilon})]$$ produced the same $$\frac{g^2}{2} \cdot \text{(second derivative)}$$ structure. Itô's lemma makes this rigorous by tracking the quadratic variation exactly rather than through a discretize-and-hope argument.
+One can verify the lemma against the example: setting $$\varphi(x) = \frac{1}{2}x^2$$ and $$dx = dW_t$$ (pure Brownian motion, no drift) gives $$d\varphi = x\,dW_t + \frac{1}{2}\,dt$$, matching $$d[\frac{1}{2}W_t^2] = W_t\,dW_t + \frac{1}{2}\,dt$$. Itô's lemma makes this rigorous by tracking the quadratic variation exactly rather than through a discretize-and-take-limits argument.
 
 **Derivation.** Start from the second-order Taylor expansion of $$d\varphi = \varphi(\mathbf{x} + d\mathbf{x}, t + dt) - \varphi(\mathbf{x}, t)$$:
 
