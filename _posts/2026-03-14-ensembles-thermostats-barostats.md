@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats for ML Researchers"
 date: 2026-03-14
-last_updated: 2026-03-14
+last_updated: 2026-03-15
 description: "Statistical mechanics for ML researchers — from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 order: 1
 categories: [science]
@@ -159,7 +159,7 @@ The distribution becomes the Boltzmann distribution:
 
 This is the workhorse ensemble. Temperature is the natural control variable — it's what we set in an experiment, and it determines which states are thermally accessible. Energy fluctuates around its mean; the fluctuations scale as $$\sqrt{N}$$.[^fluctuations]
 
-The parameter $$\beta = 1/k_{B}T$$ deserves attention. It controls how sharply the distribution concentrates on low-energy states. At low temperature (large $$\beta$$), the exponential $$e^{-\beta H(\mathbf{r}, \mathbf{v})}$$ decays steeply — only the lowest-energy states have significant probability. At high temperature (small $$\beta$$), the decay is gentle and many states become accessible. In this sense, $$\beta$$ encodes the interaction between the system and the environment: it tells the system how much energy the environment is willing to supply through random thermal fluctuations. A hot environment (small $$\beta$$) freely donates energy, making high-energy states reachable; a cold environment (large $$\beta$$) is stingy, confining the system near its energy minimum.
+The parameter $$\beta = 1/k_{B}T$$ controls how sharply the distribution concentrates on low-energy states. At low temperature (large $$\beta$$), the exponential $$e^{-\beta H(\mathbf{r}, \mathbf{v})}$$ decays steeply — only the lowest-energy states have significant probability. At high temperature (small $$\beta$$), many states become accessible. Operationally, $$\beta$$ encodes how much energy the environment is willing to supply through thermal fluctuations: a hot environment freely donates energy, a cold one confines the system near its energy minimum.
 
 *There is a circularity that confused me initially.* In Part I, we *defined* temperature through the equipartition theorem — as a property of the velocity distribution, computed from the average kinetic energy. But in NVT, we *fix* the temperature as a boundary condition. How can we both define $$T$$ from the system's behavior and impose it from outside?
 
@@ -202,7 +202,7 @@ Why do we need this ensemble at all? NVE and NVT fix the number of particles, wh
 
 An ensemble defines a probability distribution, but how do we actually draw samples from it? The **ergodic hypothesis** provides one bridge: for a system in equilibrium, time averages along a single long trajectory equal ensemble averages over the distribution. So if we can construct dynamics whose long-time statistics match the target ensemble, running the simulation long enough gives us the samples we need.
 
-MD also offers something beyond sampling the equilibrium distribution. In NVE (plain Newton's equations), the trajectory corresponds to *physical time* — each step advances the system by a real time increment (typically 1–2 femtoseconds). This means we can compute **non-equilibrium properties** — quantities that depend on how the system evolves in time, not just what states it visits at equilibrium: diffusion coefficients from how fast particles spread, reaction rates from how often transitions occur, viscosities from time-correlation functions.
+In NVE (plain Newton's equations), the trajectory corresponds to *physical time* — each step advances the system by a real time increment (typically 1–2 femtoseconds). This means we can compute **non-equilibrium properties** — quantities that depend on how the system evolves in time, not just what states it visits at equilibrium: diffusion coefficients from how fast particles spread, reaction rates from how often transitions occur, viscosities from time-correlation functions.
 
 However, all thermostatted methods modify the physical dynamics to some degree — the added friction (Nosé-Hoover) or noise (Langevin) perturbs the true trajectory. When dynamical properties matter, a common practice is to use a thermostat only during equilibration (to reach the target temperature), then switch to NVE for the production run where the trajectory is physically meaningful. Monte Carlo, as we will see, abandons dynamics entirely.
 
@@ -212,7 +212,7 @@ The word "thermostat" comes from Greek *thermos* (heat) + *statos* (standing/fix
 
 Plain MD conserves energy (NVE). To sample the NVT ensemble, we need a **thermostat** — a modification to the equations of motion that mimics coupling to a heat bath (i.e., a large environment at temperature $$T$$).
 
-**Velocity rescaling** is the simplest approach: at each step, multiply all velocities by $$\lambda = \sqrt{T_\text{target}/T_\text{current}}$$. This forces the instantaneous temperature to exactly equal $$T_\text{target}$$. The problem: it kills fluctuations. In the true canonical ensemble, temperature is a time-averaged quantity that fluctuates from step to step. Forcing it to be exactly $$T_\text{target}$$ at every instant produces the wrong distribution — the energy fluctuations are too small.
+**Velocity rescaling** is the simplest approach: at each step, multiply all velocities by $$\lambda = \sqrt{T_\text{target}/T_\text{current}}$$. This forces the instantaneous temperature to exactly equal $$T_\text{target}$$. The problem: it kills fluctuations. In the true canonical ensemble, the instantaneous kinetic temperature fluctuates from step to step. Forcing it to be exactly $$T_\text{target}$$ at every instant produces the wrong distribution — the energy fluctuations are too small.
 
 **Nosé-Hoover** introduces a fictional **friction variable** $$\xi$$ that couples to the particle velocities:
 
@@ -220,7 +220,7 @@ $$m_i \frac{d\mathbf{v}_i}{dt} = \mathbf{F}_i - \xi m_i \mathbf{v}_i$$
 
 $$\frac{d\xi}{dt} = \frac{1}{Q}\left(\sum_{i=1}^N m_i |\mathbf{v}_i|^2 - 3Nk_{B}T\right)$$
 
-where $$Q$$ is a fictitious "mass" controlling how quickly $$\xi$$ responds. The feedback mechanism: when kinetic energy exceeds the target, $$\xi$$ increases, damping the velocities; when kinetic energy is too low, $$\xi$$ goes negative, accelerating them. Nosé and Hoover showed that this extended system samples the canonical distribution exactly.[^nose-hoover]
+where $$Q$$ is a fictitious "mass" controlling how quickly $$\xi$$ responds. The feedback mechanism: when kinetic energy exceeds the target, $$\xi$$ increases, damping the velocities; when kinetic energy is too low, $$\xi$$ goes negative, accelerating them. Nosé and Hoover showed that this extended system samples the canonical distribution exactly.[^nosehoover]
 
 **Langevin dynamics** takes a different approach — add friction and random noise:
 
@@ -246,7 +246,7 @@ where $$\tau_P$$ is a relaxation time. Like velocity rescaling for temperature, 
 
 $$W\ddot{\mathbf{h}} = (P_\text{current} - P_\text{target})V\,\mathbf{h}^{-T}$$
 
-where $$\mathbf{h}$$ is the cell matrix (columns are box vectors), $$W$$ is a fictitious mass, and $$P_\text{current}$$ includes the virial contribution from interatomic forces. This produces the correct NPT distribution, including proper volume fluctuations.[^parrinello-rahman]
+where $$\mathbf{h}$$ is the cell matrix (columns are box vectors), $$W$$ is a fictitious mass, and $$P_\text{current}$$ includes the virial contribution from interatomic forces. This produces the correct NPT distribution, including proper volume fluctuations.[^parrinellorahman]
 
 The pattern is the same as for thermostats, and it is a general principle in simulation design: **crude methods** (Berendsen, velocity rescaling) force the target value directly — fast equilibration, wrong distribution. **Extended-variable methods** (Parrinello-Rahman, Nosé-Hoover) introduce auxiliary dynamical variables that couple to the system — slower to converge but produce the statistically correct ensemble.
 
@@ -263,14 +263,14 @@ Everything above modifies Newton's equations to sample the target ensemble. Mont
 > Moves that lower the energy are always accepted. Moves that raise it are accepted with probability $$e^{-\beta \Delta U}$$ — exponentially unlikely for large energy increases, but allowed for small fluctuations.
 {: .block-definition }
 
-MC is philosophically clean: you define a target distribution and construct a Markov chain whose stationary distribution matches it. No fictional friction variables, no fluctuation-dissipation relations, no symplectic integrators. The acceptance criterion guarantees **detailed balance**, which guarantees convergence to the correct distribution.[^detailed-balance]
+MC is philosophically clean: you define a target distribution and construct a Markov chain whose stationary distribution matches it. No fictional friction variables, no fluctuation-dissipation relations, no symplectic integrators. The acceptance criterion guarantees **detailed balance**, which guarantees convergence to the correct distribution.[^detailedbalance]
 
 **GCMC (Grand Canonical Monte Carlo)** extends this to the $$\mu$$VT ensemble by adding particle insertion and deletion moves:
 
 - **Insert:** Place a new particle at a random position. Accept with probability $$\min\!\left(1, \; \frac{V}{N+1} e^{-\beta(\Delta U - \mu)}\right)$$.
 - **Delete:** Remove a random particle. Accept with the inverse probability.
 
-This is how adsorption isotherms are computed — how many gas molecules adsorb onto a surface at a given chemical potential (i.e., gas pressure). GCMC is the standard method for the $$\mu$$VT ensemble because changing $$N$$ in dynamics-based approaches is difficult.[^gcmc-applications]
+This is how adsorption isotherms are computed — how many gas molecules adsorb onto a surface at a given chemical potential (i.e., gas pressure). GCMC is the standard method for the $$\mu$$VT ensemble because changing $$N$$ in dynamics-based approaches is difficult.[^gcmcapps]
 
 The trade-off: MC gives no dynamical information. Its moves (random displacements, insertions) are fictitious — there is no physical time associated with a MC step. It tells you equilibrium properties (averages, distributions) but nothing about rates, diffusion, or kinetics. If you need to know *how fast* something happens, you need MD, because MD integrates the real equations of motion and its trajectory corresponds to physical time. If you only need to know *what happens at equilibrium*, MC is often simpler.
 
@@ -291,13 +291,13 @@ Many ideas in this post have direct counterparts in modern generative models —
 
 **The Boltzmann distribution is an energy-based model.** The canonical distribution $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is exactly the form of an energy-based model (EBM) in ML. The potential energy $$U$$ is the learned energy function, and $$\beta$$ controls the sharpness of the distribution. The intractable partition function $$Z$$ is the same normalization problem that makes EBM training difficult.
 
-**Langevin dynamics is score-based sampling.** The Langevin thermostat $$d\mathbf{x} = -\nabla U(\mathbf{x})\,dt + \sqrt{2k_BT}\,d\mathbf{W}$$ is the same Langevin MCMC used to sample from unnormalized densities in ML. Score-based diffusion models (Song & Ermon, 2019) use this connection explicitly: the score $$\nabla_\mathbf{x} \log p(\mathbf{x}) = -\beta \nabla U(\mathbf{x})$$ is the force field, and sampling is a Langevin simulation at the learned energy landscape.
+**Langevin dynamics is score-based sampling.** The overdamped Langevin equation $$d\mathbf{x} = -\frac{1}{\gamma}\nabla U(\mathbf{x})\,dt + \sqrt{2k_{B}T/\gamma}\,d\mathbf{W}$$ (the high-friction limit of the thermostat in Part III, where inertia is negligible) is the same Langevin MCMC used to sample from unnormalized densities in ML. Score-based diffusion models (Song & Ermon, 2019) use this connection explicitly: the score $$\nabla_\mathbf{x} \log p(\mathbf{x}) = -\beta \nabla U(\mathbf{x})$$ is the force field, and sampling is a Langevin simulation at the learned energy landscape.
 
 **Metropolis-Hastings is the backbone of MCMC in ML.** The accept/reject mechanism from Monte Carlo is the same algorithm used for posterior sampling in Bayesian inference. Hamiltonian Monte Carlo (HMC) — widely used in probabilistic programming (Stan, PyMC) — borrows directly from molecular dynamics: it runs short NVE trajectories as proposals, using the Hamiltonian structure to make large, low-rejection moves through parameter space.
 
 **Simulated annealing is temperature scheduling.** Varying $$\beta$$ during sampling — starting at high temperature (flat distribution, broad exploration) and cooling toward low temperature (sharp distribution, concentrated on modes) — is simulated annealing. The same idea appears in diffusion models, where the noise schedule interpolates between a broad prior and the data distribution.
 
-**Free energy estimation connects to variational inference.** The identity $$F = -k_BT \ln Z$$ means estimating free energy differences is equivalent to estimating ratios of partition functions — the same problem as computing marginal likelihoods in Bayesian model comparison. Techniques like thermodynamic integration and free energy perturbation have ML counterparts in annealed importance sampling and variational bounds.
+**Free energy estimation connects to variational inference.** The identity $$F = -k_{B}T \ln Z$$ means estimating free energy differences is equivalent to estimating ratios of partition functions — the same problem as computing marginal likelihoods in Bayesian model comparison. Techniques like thermodynamic integration and free energy perturbation have ML counterparts in annealed importance sampling and variational bounds.
 
 ---
 
@@ -307,6 +307,7 @@ Many ideas in this post have direct counterparts in modern generative models —
 - Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
 - Nosé, S. (1984). A unified formulation of the constant temperature molecular dynamics methods. [J. Chem. Phys. 81, 511](https://doi.org/10.1063/1.447334).
 - Parrinello, M. & Rahman, A. (1981). Polymorphic transitions in single crystals: A new molecular dynamics method. [J. Appl. Phys. 52, 7182](https://doi.org/10.1063/1.328693).
+- Song, Y. & Ermon, S. (2019). Generative Modeling by Estimating Gradients of the Data Distribution. [NeurIPS 2019](https://arxiv.org/abs/1907.05600).
 
 ---
 
@@ -316,12 +317,12 @@ Many ideas in this post have direct counterparts in modern generative models —
 
 [^fluctuations]: In the canonical ensemble, the relative energy fluctuation is $$\sigma_E / \langle E \rangle \sim 1/\sqrt{N}$$. For $$N \sim 10^{23}$$ (a mole of atoms), fluctuations are negligible and NVE and NVT give identical results. The distinction matters for small systems — which is most of what we simulate.
 
-[^nose-hoover]: Nosé (1984) introduced the extended Lagrangian; Hoover (1985) reformulated it as coupled first-order equations. The combined "Nosé-Hoover thermostat" is standard in all major MD codes (GROMACS, LAMMPS, OpenMM).
+[^nosehoover]: Nosé (1984) introduced the extended Lagrangian; Hoover (1985) reformulated it as coupled first-order equations. The combined "Nosé-Hoover thermostat" is standard in all major MD codes (GROMACS, LAMMPS, OpenMM).
 
-[^parrinello-rahman]: Parrinello and Rahman (1981) originally introduced the method for studying structural phase transitions in crystals, where the box shape (not just size) changes.
+[^parrinellorahman]: Parrinello and Rahman (1981) originally introduced the method for studying structural phase transitions in crystals, where the box shape (not just size) changes.
 
 [^gcmc]: Grand canonical Monte Carlo is particularly important for studying gas storage in porous materials (zeolites, metal-organic frameworks) and ion channel selectivity in biology.
 
-[^detailed-balance]: Detailed balance means that the probability of being in state $$A$$ and transitioning to $$B$$ equals the probability of being in $$B$$ and transitioning to $$A$$: $$p(A)\,T(A \to B) = p(B)\,T(B \to A)$$. The Metropolis criterion is designed to satisfy this for $$p \propto e^{-\beta U}$$.
+[^detailedbalance]: Detailed balance means that the probability of being in state $$A$$ and transitioning to $$B$$ equals the probability of being in $$B$$ and transitioning to $$A$$: $$p(A)\,T(A \to B) = p(B)\,T(B \to A)$$. The Metropolis criterion is designed to satisfy this for $$p \propto e^{-\beta U}$$.
 
-[^gcmc-applications]: In practice, GCMC is the only practical method for the $$\mu$$VT ensemble. Inserting or deleting particles in MD would require discontinuous changes to the equations of motion, while MC handles it naturally through the accept/reject framework.
+[^gcmcapps]: In practice, GCMC is the only practical method for the $$\mu$$VT ensemble. Inserting or deleting particles in MD would require discontinuous changes to the equations of motion, while MC handles it naturally through the accept/reject framework.

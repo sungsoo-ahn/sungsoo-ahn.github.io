@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design for ML Researchers"
 date: 2026-03-03
-last_updated: 2026-03-04
+last_updated: 2026-03-15
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 order: 1
 categories: [science]
@@ -24,9 +24,15 @@ Many disease-relevant targets — protein–protein interactions, flat surfaces,
 
 For ML researchers, the appeal is structural. Protein design is a well-defined generative modeling problem: the input is a functional specification (target structure, binding constraints), the output is a sequence of discrete tokens (amino acids) that must satisfy continuous geometric constraints (3D folding). The training data is the Protein Data Bank — ~200,000 experimentally solved structures — supplemented by billions of sequences from genomic databases. Structure prediction (AlphaFold) provides a fast oracle for evaluating designs. And the experimental feedback loop is tight: a design campaign from computation to lab results takes weeks, not years.
 
-The field has hit an inflection point. Before 2020, computational protein design relied on Rosetta's physics-based energy function and Monte Carlo sampling — slow, expensive, and with low success rates. Between 2021 and 2023, AlphaFold2, ProteinMPNN, and RFDiffusion replaced the core steps of the pipeline with learned models, increasing success rates from ~1% to ~10–30% and reducing computation from CPU-weeks to GPU-hours. This created an opportunity: the tools work, but they are far from optimal, and the design space is enormous. Protein design is now a field where ML contributions have immediate, measurable experimental impact.
+Before 2020, computational protein design relied on Rosetta's physics-based energy function and Monte Carlo sampling — slow, expensive, and with low success rates. Between 2021 and 2023, AlphaFold2, ProteinMPNN, and RFDiffusion replaced the core steps of the pipeline with learned models, increasing success rates from ~1% to ~10–30% and reducing computation from CPU-weeks to GPU-hours. This created an opportunity: the tools work, but they are far from optimal, and the design space is enormous. Protein design is now a field where ML contributions have immediate, measurable experimental impact.
 
-This post covers the biology and computational infrastructure you need to participate. It follows the **sequence → structure → function** triangle: what proteins are, what holds them together, what they do, and how we design new ones.
+This post covers the biology and computational infrastructure you need to participate.
+
+### Overview
+
+A modern design campaign is a pipeline: **RFDiffusion** generates candidate backbone structures conditioned on the target, **ProteinMPNN** designs amino acid sequences for each backbone, **AlphaFold** predicts whether the designed sequence folds as intended, and the top candidates go to the lab. ~10,000 backbones enter; ~5 confirmed binders come out.
+
+To understand why each step works (and fails), you need the biology: what proteins are made of, what forces hold the shape together, what makes a good binding interface, and what physical constraints the pipeline must satisfy. This post builds that understanding, following the **sequence → structure → function** triangle.
 
 ### Roadmap
 
@@ -233,7 +239,7 @@ The classic physics-based suite, developed over 20+ years. Rosetta evaluates des
 - **ipTM** — interface confidence for protein complexes. The key metric for binder design.
 - **PAE** — predicted aligned error matrix. Shows expected positional error between all residue pairs. For binder design, check the inter-chain PAE block: low values mean the model is confident about the binding mode.
 
-AF2 (with AF2-Multimer) handles single chains and multi-chain protein complexes. AF3 extends to protein–nucleic acid and protein–small molecule complexes.
+AF2 handles single chains; AF2-Multimer extends it to multi-chain protein complexes. AF3 extends to protein–nucleic acid and protein–small molecule complexes.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_alphafold_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="AlphaFold predicts 3D structure from sequence. (a) CASP14 accuracy. (b–d) Example predictions (blue) overlaid with experimental structures (green). (e) The pipeline: input sequence → MSA + templates → Evoformer → structure module → 3D coordinates with confidence coloring. Figure from Jumper et al. (2021)." %}
 
@@ -259,7 +265,7 @@ Alternative structure predictors that provide a second opinion on AlphaFold. Use
 
 ### BoltzGen
 
-The standard pipeline above — RFDiffusion for backbones, ProteinMPNN for sequences, AlphaFold for validation — treats each step as a separate model. **BoltzGen** (Stark et al., 2025) integrates these into a unified pipeline that co-designs sequence and structure.
+The standard pipeline above — RFDiffusion for backbones, ProteinMPNN for sequences, AlphaFold for validation — treats each step as a separate model with backbone-only generation. **BoltzGen** (Stark et al., 2025) is still a multi-stage pipeline, but upgrades the core generative step to an all-atom diffusion model and adds purpose-built filtering stages.
 
 **Input:** target structure + design specification (binding site, covalent constraints, sequence length range). **Output:** designed binder with both 3D coordinates and amino acid sequence. BoltzGen's pipeline has several stages beyond the core generative model:
 
@@ -310,7 +316,7 @@ The self-consistency check eliminates most candidates. For each designed sequenc
 2. Compare the predicted structure to the intended backbone (scRMSD).
 3. Check confidence metrics (pLDDT, ipTM for binders).
 
-~1% of designs pass all filters — about 800 candidates from 80,000.
+~1% of designs pass all filters — roughly 1,000 candidates from 100,000.
 
 ### Step 5: Experimental validation
 

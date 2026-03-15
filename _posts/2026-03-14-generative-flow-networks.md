@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks for ML Researchers"
 date: 2026-03-14
-last_updated: 2026-03-14
+last_updated: 2026-03-15
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 order: 1
 categories: [science]
@@ -123,13 +123,13 @@ A trajectory leading to a high-reward terminal state gets high probability; the 
 
 ### A Worked Example: Uniform Backward Policy
 
-Consider a simple DAG with three terminal states $$x_1, x_2, x_3$$ with rewards $$R(x_1) = 4$$, $$R(x_2) = 2$$, $$R(x_3) = 1$$. With a uniform backward policy ($$p_\mathrm{B} = 1$$ on all edges), each terminal state has exactly one backward trajectory, and each trajectory's target probability is proportional to the reward of its terminal state: $$p_\mathrm{B}(\tau_1) \propto 4$$, $$p_\mathrm{B}(\tau_2) \propto 2$$, $$p_\mathrm{B}(\tau_3) \propto 1$$. The total is $$4 + 2 + 1 = 7$$, so the forward policy must route 4/7 of its probability toward $$x_1$$, 2/7 toward $$x_2$$, and 1/7 toward $$x_3$$.
+Consider a simple DAG with three terminal states $$x_1, x_2, x_3$$ with unnormalized target weights $$\exp R(x_1) = 4$$, $$\exp R(x_2) = 2$$, $$\exp R(x_3) = 1$$. With a uniform backward policy — and assuming each state has exactly one parent, so $$p_\mathrm{B} = 1$$ on every edge — each terminal state has exactly one backward trajectory, and each trajectory's target probability is proportional to $$\exp R(x)$$: $$p_\mathrm{B}(\tau_1) \propto 4$$, $$p_\mathrm{B}(\tau_2) \propto 2$$, $$p_\mathrm{B}(\tau_3) \propto 1$$. The total is $$4 + 2 + 1 = 7$$, so the forward policy must route 4/7 of its probability toward $$x_1$$, 2/7 toward $$x_2$$, and 1/7 toward $$x_3$$.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_forward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Uniform backward policy example. Left: backward policy with all probabilities equal to 1. Center: three trajectories with probabilities proportional to terminal rewards. Right: the forward policy that matches these trajectory probabilities." %}
 
 ### A Worked Example: Non-Uniform Backward Policy
 
-What if the backward policy is non-uniform? Suppose $$x_2$$ has two parents $$s_1$$ and $$s_2$$, and we set $$p_\mathrm{B}(s_1 \mid x_2) = p_\mathrm{B}(s_2 \mid x_2) = 0.5$$. Now there are four trajectories instead of three, because $$x_2$$ can be reached via either $$s_1$$ or $$s_2$$. The backward policy splits $$x_2$$'s reward of 2 across the two paths: each trajectory through $$x_2$$ gets target probability proportional to $$2 \times 0.5 = 1$$. The forward policy adjusts: it now routes more probability through $$s_2$$, because $$s_2$$ serves as a waypoint to both $$x_2$$ and $$x_3$$.
+What if the backward policy is non-uniform? Suppose $$x_2$$ has two parents $$s_1$$ and $$s_2$$, and we set $$p_\mathrm{B}(s_1 \mid x_2) = p_\mathrm{B}(s_2 \mid x_2) = 0.5$$. Now there are four trajectories instead of three, because $$x_2$$ can be reached via either $$s_1$$ or $$s_2$$. The backward policy splits $$x_2$$'s weight of $$\exp R(x_2) = 2$$ across the two paths: each trajectory through $$x_2$$ gets target probability proportional to $$2 \times 0.5 = 1$$. The forward policy adjusts: it now routes more probability through $$s_2$$, because $$s_2$$ serves as a waypoint to both $$x_2$$ and $$x_3$$.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_backward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Non-uniform backward policy. The 0.5 split at \(x_2\) creates four trajectories instead of three. The forward policy adapts: \(s_2\) now receives more probability (2/7 vs 1/7) because it serves as a path to both \(x_2\) and \(x_3\)." %}
 
@@ -162,7 +162,7 @@ The trajectory balance objective[^tb] directly enforces the flow-matching condit
 
 TB is the simplest objective. It trains a single scalar $$Z_\theta$$ plus the forward and backward policies. The downside is credit assignment: a single reward signal at the terminal state must propagate back through the entire construction sequence. For long trajectories, this makes learning slow — the gradient carries information about the full trajectory, and early transitions receive weak signal.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance in action. From left: backward policy and rewards; backward flows \(f_\mathrm{B}(\tau) = R(x) \prod p_\mathrm{B}\); forward flows \(f_\mathrm{F}(\tau) = Z_\theta\, p_\mathrm{F}(\tau)\) with \(Z_\theta = 7\); the resulting forward policy." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance in action. From left: backward policy and rewards; backward flows \(f_\mathrm{B}(\tau) = \exp R(x) \prod p_\mathrm{B}\); forward flows \(f_\mathrm{F}(\tau) = Z_\theta\, p_\mathrm{F}(\tau)\) with \(Z_\theta = 7\); the resulting forward policy." %}
 
 ### Detailed Balance (DB)
 
@@ -263,11 +263,11 @@ GFlowNets connect to RL, variational inference, and diffusion models through pre
 
 Standard RL maximizes expected cumulative reward $$\mathbb{E}[\sum_t r_t]$$, which leads to deterministic optimal policies. Maximum entropy (MaxEnt) RL adds an entropy bonus $$\mathcal{H}(\pi)$$ that penalizes the policy for being too concentrated, encouraging it to spread probability across multiple good trajectories:
 
-$$\pi^*_\mathrm{MaxEnt} = \arg\max_\pi \mathbb{E}_\tau \left[\sum_{t=1}^T r(s_t, s_{t-1}) + \alpha \mathcal{H}(\pi(\cdot \mid s_{t-1}))\right]$$
+$$\pi^*_\mathrm{MaxEnt} = \arg\max_\pi \mathbb{E}_\tau \left[\sum_{t=1}^T r(s_{t-1}, s_t) + \alpha \mathcal{H}(\pi(\cdot \mid s_{t-1}))\right]$$
 
-where $$r(s_t, s_{t-1})$$ is the per-step reward, $$\mathcal{H}(\pi(\cdot \mid s))$$ is the entropy of the policy at state $$s$$, and $$\alpha > 0$$ controls the trade-off between reward and entropy. The optimal policy samples trajectories proportionally to exponentiated cumulative reward:
+where $$r(s_{t-1}, s_t)$$ is the per-step reward, $$\mathcal{H}(\pi(\cdot \mid s))$$ is the entropy of the policy at state $$s$$, and $$\alpha > 0$$ controls the trade-off between reward and entropy. The optimal policy samples trajectories proportionally to exponentiated cumulative reward:
 
-$$\pi^*_\mathrm{MaxEnt}(\tau) \propto \exp\left(\frac{1}{\alpha}\sum_{t=1}^T r(s_t, s_{t-1})\right)$$
+$$\pi^*_\mathrm{MaxEnt}(\tau) \propto \exp\left(\frac{1}{\alpha}\sum_{t=1}^T r(s_{t-1}, s_t)\right)$$
 
 This looks similar to GFlowNets, but there is a subtle mismatch. MaxEnt RL optimizes a distribution over **trajectories**, while GFlowNets target a distribution over **terminal states**. Multiple trajectories can lead to the same terminal object $$x$$, so MaxEnt RL assigns probability to $$x$$ proportional to the *sum* of exponentiated rewards over all trajectories ending at $$x$$. This is not $$\exp R(x)$$ unless the per-step rewards are carefully structured.
 
@@ -297,7 +297,7 @@ The mapping is:
 
 When training on-policy (sampling trajectories from $$p_\mathrm{F}$$), the TB gradient equals the KL divergence gradient:
 
-$$\nabla_{p_\mathrm{F}} \mathbb{E}_{\tau \sim p_\mathrm{F}}[\mathcal{L}_\mathrm{TB}(\tau)] = \nabla_{p_\mathrm{F}} D_\mathrm{KL}(p_\mathrm{F} \| p_\mathrm{B})$$
+$$\nabla_\theta \mathbb{E}_{\tau \sim p_\mathrm{F}}[\mathcal{L}_\mathrm{TB}(\tau)] = \nabla_\theta D_\mathrm{KL}(p_\mathrm{F} \| p_\mathrm{B})$$
 
 [^hvi]: Malkin et al., "GFlowNets and variational inference," ICLR 2023.
 
@@ -316,7 +316,7 @@ The naming is confusing because GFlowNets and diffusion models use "forward" and
 
 The key difference is the training signal. Diffusion models learn from data samples — they observe $$x \sim p_\text{data}$$ and learn to reverse the noise process. GFlowNets learn from an energy function — they can evaluate $$R(x)$$ for any $$x$$ but have no dataset. This makes GFlowNets applicable when we have an energy function but no samples from the target distribution — the typical scientific discovery setting.
 
-A related line of work studies **diffusion samplers** — diffusion models trained to sample from Boltzmann distributions using energy functions rather than data.[^diffusionsampler] The GFlowNet objectives (TB, DB, SubTB) have continuous-time counterparts: in the limit of infinitesimal discretization steps, they converge to PDEs and path space measures that are natural objects in stochastic control theory. This means GFlowNet training objectives and diffusion sampler objectives are not merely analogous — they are asymptotically equivalent, and practitioners can choose between discrete-time (GFlowNet-style) and continuous-time (SDE-based) formulations based on the problem structure.
+A related line of work studies **diffusion samplers** — diffusion models trained to sample from Boltzmann distributions using energy functions rather than data.[^diffusionsampler] The GFlowNet objectives (TB, DB, SubTB) have continuous-time counterparts: in the limit of infinitesimal discretization steps, they converge to SDEs and path space measures that are natural objects in stochastic control theory. This means GFlowNet training objectives and diffusion sampler objectives are not merely analogous — they are asymptotically equivalent, and practitioners can choose between discrete-time (GFlowNet-style) and continuous-time (SDE-based) formulations based on the problem structure.
 
 [^diffusionsampler]: Berner, Richter, Sendera, Rector-Brooks, and Malkin, "From discrete-time policies to continuous-time diffusion samplers: Asymptotic equivalences and faster training," TMLR 2026.
 

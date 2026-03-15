@@ -11,9 +11,14 @@ Rendering rules for writing content on Jekyll sites with MathJax/KaTeX. Apply th
 
 - Use `$$...$$` (not `$...$`) for inline math with multiple underscores — markdown interprets underscores as italics
 - **Inside raw HTML elements** (`<div>`, `<span>`, figure captions), use `\(...\)` instead of `$$...$$` for inline math — MathJax treats `$$...$$` as display math inside HTML blocks, causing line breaks
+- **Inside `{% include figure.liquid %}` captions**: use `\(...\)` not `$...$` or `$$...$$`. Liquid consumes `\\`, breaking LaTeX commands like `\frac`, `\nabla`, `\mathbf`. Single-backslash commands (`\(`, `\)`, `\ell`) survive.
 - In inline math, use `\lvert...\rvert` instead of `|...|` for absolute values/norms — markdown interprets `|` as table column delimiters. Same for bra-ket notation: use `\mid` instead of `|` (e.g., `$$\langle \Psi \mid \hat{O} \mid \Psi \rangle$$`). Display math on its own line is not affected.
 - **Do not use `\$` for dollar signs** — MathJax/KaTeX interprets `\$` as a math delimiter, breaking rendering. Write "dollars" or "USD" in prose instead.
-- Notation consistency: vectors as lowercase bold ($$\mathbf{x}$$), matrices as uppercase bold ($$\mathbf{X}$$), don't reuse symbols for different meanings
+- **Notation consistency within a post**: pick one convention and stick to it. Common pitfalls:
+  - `\ln` vs `\log` — don't mix them for the same logarithm. If the post uses `\log` for natural log, use it everywhere.
+  - `\ell` vs plain `l` for degree/index — use `\ell` consistently if that's the convention.
+  - `k_BT` vs `k_{B}T` — use braces: `k_{B}T`.
+  - Vectors as lowercase bold ($$\mathbf{x}$$), matrices as uppercase bold ($$\mathbf{X}$$), don't reuse symbols for different meanings.
 
 ## Mermaid Diagrams
 
@@ -45,6 +50,21 @@ Rendering rules for writing content on Jekyll sites with MathJax/KaTeX. Apply th
 
 - Always verify diagram rendering visually — CSS/markdown preview cannot catch viewBox clipping
 - Use Playwright (Python) for headless screenshots: take full-page screenshots cropped around each `pre.mermaid` element to check for clipping on all sides
+
+## Footnotes
+
+- **No hyphens in footnote IDs.** `[^chemical-potential]` breaks; `[^chempot]` works. Use short single-word IDs.
+- Safe pattern: `[^fep]`, `[^ritonavir]`, `[^nosehoover]` (concatenated, no hyphens).
+
+## References
+
+- **Add references as you cite.** Don't defer to the end — you'll forget.
+- When citing a paper in text (e.g., "Bengio et al., 2021"), immediately add it to the References section. Every text citation must have a matching entry.
+
+## Cross-References
+
+- **Use section names, not numbers**, for internal references (e.g., "see the Scaling Relations section" not "see Section 5"). Named references survive reordering.
+- When referencing a Part, verify the Part actually contains what you claim. Common mistake: "Part 1 defines work" when work is defined in Part 3.
 
 ## General Rendering
 
