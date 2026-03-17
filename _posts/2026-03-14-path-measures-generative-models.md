@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-03-15
+last_updated: 2026-03-17
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 order: 1
 categories: [science]
@@ -15,6 +15,7 @@ related_posts: false
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
 <em>Note: This post connects two fields I've worked in from different entry points — non-equilibrium statistical mechanics from the molecular simulation side, and generative models from the ML side. The punchline: several ML methods (annealed importance sampling, diffusion models, GFlowNet trajectory balance) are instances of the same mathematical framework that physicists developed in the 1990s–2000s for systems driven out of equilibrium.<br><br>
 The connection became concrete while working on <a href="https://arxiv.org/abs/2405.19961">transition path sampling with diffusion models</a> — we wanted to connect folded and unfolded protein states and estimate the free energy difference, which led us directly to Jarzynski's equality. I learned the broader framework from studying and collaborating with <a href="https://chertkov.github.io/">Michael Chertkov</a>, whose work on fluctuation theorems and path integral control shaped how I think about these connections.<br><br>
+The main reference for the path measure interpretation developed here is <a href="https://arxiv.org/abs/2307.01050">Controlled Monte Carlo Diffusions</a> (CMCD, Vargas et al., 2024), which formalizes the forward-backward path measure ratio, derives the work identity via Girsanov's theorem, and connects it to diffusion-based sampling and optimal transport. Most of the continuous-time machinery in Parts 4–5 and the generative model connections in Part 6 follow their framework.<br><br>
 I wrote this post because the connection is underappreciated, and making it explicit improves both how we design methods and how we understand what they compute. It complements my earlier posts on <a href="/blog/2026/fokker-planck-equation/">the Fokker-Planck equation</a> and <a href="/blog/2026/ensembles-thermostats-barostats/">ensembles, thermostats, and barostats</a>. Corrections are welcome.</em>
 </p>
 
