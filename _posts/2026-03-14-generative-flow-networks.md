@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Generative Flow Networks for ML Researchers"
+title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 order: 1
-categories: [science]
+categories: [machine-learning]
 tags: [generative-models, reinforcement-learning, variational-inference, sampling]
 toc:
   sidebar: left
