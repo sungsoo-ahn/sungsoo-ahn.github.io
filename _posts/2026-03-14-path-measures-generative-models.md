@@ -2,10 +2,10 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-03-17
+last_updated: 2026-03-18
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 order: 1
-categories: [science]
+categories: [machine-learning]
 tags: [non-equilibrium-statistical-mechanics, path-measures, free-energy, generative-models]
 toc:
   sidebar: left
