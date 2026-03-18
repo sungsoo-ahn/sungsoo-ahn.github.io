@@ -2,10 +2,10 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 order: 2
-categories: [generative_model]
+categories: [machine-learning]
 tags: [fokker-planck, stochastic-differential-equations, diffusion-models]
 toc:
   sidebar: left
