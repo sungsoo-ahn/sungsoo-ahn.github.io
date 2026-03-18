@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design for ML Researchers"
 date: 2026-03-03
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 order: 1
 categories: [science]
@@ -54,7 +54,7 @@ A protein is a chain of **amino acids** — small molecules linked end-to-end li
 
 Every amino acid shares the same backbone atoms — a repeating N-C$$_\alpha$$-C unit — but differs in its **side chain**, the group that branches off at each C$$_\alpha$$. Side chains vary in size, charge, and hydrophobicity.[^hydrophobicity] This chemical diversity gives proteins their functional range.
 
-[^hydrophobicity]: The 20 amino acids split roughly into four groups: nonpolar/hydrophobic (A, V, L, I, M, F, W, P), polar uncharged (S, T, N, Q, Y, C, G), positively charged (K, R, H), and negatively charged (D, E). The nonpolar residues drive folding by burying themselves away from water.
+[^hydrophobicity]: The 20 amino acids split roughly into four groups: nonpolar/hydrophobic (G, A, V, L, I, M, F, W, P), polar uncharged (S, T, N, Q, Y, C), positively charged (K, R, H), and negatively charged (D, E). The nonpolar residues drive folding by burying themselves away from water.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_amino_acids.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="480px" zoomable=true caption="The 20 standard amino acids grouped by side-chain chemistry. All share the same backbone (N-Cα-C) but differ in the R group that branches off at each position. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
@@ -63,7 +63,7 @@ Every amino acid shares the same backbone atoms — a repeating N-C$$_\alpha$$-C
 Proteins organize at four levels:
 
 1. **Primary structure** — the amino acid sequence itself.
-2. **Secondary structure** — local repeating patterns. Alpha helices are coiled springs stabilized by hydrogen bonds between every 4th residue (a "residue" is one amino acid in the chain). Beta sheets are flat arrangements of adjacent strands connected by hydrogen bonds. Loops are the flexible connectors between them.
+2. **Secondary structure** — local repeating patterns. Alpha helices are coiled springs stabilized by hydrogen bonds between residue $$i$$ and residue $$i+4$$ (a "residue" is one amino acid in the chain). Beta sheets are flat arrangements of adjacent strands connected by hydrogen bonds. Loops are the flexible connectors between them.
 3. **Tertiary structure** — the full 3D shape of a single chain, with helices, sheets, and loops packed together.
 4. **Quaternary structure** — the assembly of multiple chains into a complex.
 

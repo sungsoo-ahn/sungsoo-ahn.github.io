@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats for ML Researchers"
 date: 2026-03-14
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "Statistical mechanics for ML researchers — from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 order: 1
 categories: [science]
@@ -267,7 +267,7 @@ MC is philosophically clean: you define a target distribution and construct a Ma
 
 **GCMC (Grand Canonical Monte Carlo)** extends this to the $$\mu$$VT ensemble by adding particle insertion and deletion moves:
 
-- **Insert:** Place a new particle at a random position. Accept with probability $$\min\!\left(1, \; \frac{V}{N+1} e^{-\beta(\Delta U - \mu)}\right)$$.
+- **Insert:** Place a new particle at a random position. Accept with probability $$\min\!\left(1, \; \frac{V}{\Lambda^3(N+1)} e^{-\beta(\Delta U - \mu)}\right)$$, where $$\Lambda = h/\sqrt{2\pi m k_B T}$$ is the thermal de Broglie wavelength.
 - **Delete:** Remove a random particle. Accept with the inverse probability.
 
 This is how adsorption isotherms are computed — how many gas molecules adsorb onto a surface at a given chemical potential (i.e., gas pressure). GCMC is the standard method for the $$\mu$$VT ensemble because changing $$N$$ in dynamics-based approaches is difficult.[^gcmcapps]
