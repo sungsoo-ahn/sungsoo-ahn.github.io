@@ -2,10 +2,10 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 order: 2
-categories: [gnn]
+categories: [machine-learning]
 tags: [geometric-deep-learning, equivariance, spherical-harmonics]
 toc:
   sidebar: left
