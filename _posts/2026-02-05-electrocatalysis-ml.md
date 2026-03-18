@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis for ML Researchers"
 date: 2026-02-05
-last_updated: 2026-03-15
+last_updated: 2026-03-18
 description: "Heterogeneous electrocatalysis for ML researchers — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
 order: 1
 categories: [science]
@@ -51,7 +51,7 @@ Renewable electricity from solar and wind is intermittent. Solar output peaks at
 Several storage technologies exist, each with trade-offs:
 
 - **Pumped-storage hydropower (PSH):** 70–80% round-trip efficiency, but requires specific geography (two reservoirs at different elevations). Already accounts for 95% of grid storage worldwide — and most good sites are taken.
-- **Batteries:** 60–95% round-trip efficiency, but cost-prohibitive at the scale needed for multi-day or seasonal storage. Lithium-ion costs have fallen dramatically, yet storing a full day of U.S. electricity demand (~100 TWh) in batteries remains economically impractical.
+- **Batteries:** 60–95% round-trip efficiency, but cost-prohibitive at the scale needed for multi-day or seasonal storage. Lithium-ion costs have fallen dramatically, yet storing a full day of U.S. electricity demand (~11 TWh) in batteries remains economically impractical.
 - **Hydrogen energy storage (HES):** Use excess electricity to split water (electrolysis),[^electrolysis] store the hydrogen, and convert it back to electricity in a fuel cell[^fuelcell] when needed. Round-trip efficiency is lower (~35%), but hydrogen can be stored in bulk at low cost — underground caverns, pressurized tanks, or converted to methane for existing natural gas infrastructure.
 
 The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint — what matters at grid scale is the total cost of stored energy. Zitnick et al. (2020) estimate HES at \$113/MWh, competitive with batteries for multi-day storage where the low cost of bulk hydrogen storage offsets the efficiency loss.
@@ -196,7 +196,7 @@ $$2\text{H}_2\text{O} \;\longrightarrow\; \text{O}_2 + 4\text{H}^+ + 4e^-$$
 
 The OER is kinetically sluggish — it requires forming an O–O bond through a sequence of four proton-coupled electron transfers, each with its own energy barrier. It is the primary source of efficiency loss in electrolyzers and the main target for catalyst improvement on the water-splitting side.
 
-Metal oxides are the dominant catalyst class for the OER. The reason is stability: water splitting typically operates under strongly acidic conditions to reduce gas solubility and improve proton conductivity. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is **iridium oxide (IrO$$_2$$)** — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
+Metal oxides are the dominant catalyst class for the OER. The reason is stability: in PEM electrolyzers, water splitting operates under strongly acidic conditions with a proton-conducting membrane. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is **iridium oxide (IrO$$_2$$)** — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oer_workflow.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The OER catalyst discovery workflow. (a) Select a bulk oxide structure. (b) Enumerate surface terminations and identify the most stable one via surface Pourbaix diagrams. (c) Place adsorbate intermediates. (d) Relax the structure and compute adsorption energy. Steps (a)–(b) are unique to oxides — on metals, the surface is determined by the facet alone. From Tran et al. (2023)." %}
 
@@ -290,7 +290,7 @@ A trained MLIP does not directly solve the catalyst design problem — it accele
 2. Relax each configuration using the ML surrogate instead of DFT.
 3. Rank by predicted energy and run DFT only on the top-$$k$$ lowest-energy candidates to validate.
 
-This reduces DFT cost by orders of magnitude while maintaining high success rates — EquiformerV2 within AdsorbML identifies the correct lowest-energy configuration ~84% of the time on OC20 (Lan et al., 2023). The pipeline has been applied to screen thousands of bimetallic alloy surfaces for the hydrogen evolution reaction, with a validated adsorption energy MAE of 0.12 eV across the screened space.
+This reduces DFT cost by orders of magnitude while maintaining high success rates — AdsorbML identifies the correct lowest-energy configuration ~84% of the time on OC20 (Lan et al., 2023). The pipeline has been applied to screen thousands of bimetallic alloy surfaces for the hydrogen evolution reaction, with a validated adsorption energy MAE of 0.12 eV across the screened space.
 
 ### Generative Catalyst Design
 

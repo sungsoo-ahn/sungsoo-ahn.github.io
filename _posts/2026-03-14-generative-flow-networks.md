@@ -295,9 +295,9 @@ The mapping is:
 | Target distribution $$p$$ | $$p_\mathrm{B}(\tau) \propto \exp R(x) \prod_t p_\mathrm{B}(s_{t-1} \mid s_t)$$ |
 | ELBO | Trajectory balance loss |
 
-When training on-policy (sampling trajectories from $$p_\mathrm{F}$$), the TB gradient equals the KL divergence gradient:
+When training on-policy (sampling trajectories from $$p_\mathrm{F}$$), the expected TB gradient is proportional to the KL divergence gradient:
 
-$$\nabla_\theta \mathbb{E}_{\tau \sim p_\mathrm{F}}[\mathcal{L}_\mathrm{TB}(\tau)] = \nabla_\theta D_\mathrm{KL}(p_\mathrm{F} \| p_\mathrm{B})$$
+$$\nabla_\theta D_\mathrm{KL}(p_\mathrm{F} \| p_\mathrm{B}) = \tfrac{1}{2}\,\mathbb{E}_{\tau \sim p_\mathrm{F}}[\nabla_\theta \mathcal{L}_\mathrm{TB}(\tau)]$$
 
 [^hvi]: Malkin et al., "GFlowNets and variational inference," ICLR 2023.
 
