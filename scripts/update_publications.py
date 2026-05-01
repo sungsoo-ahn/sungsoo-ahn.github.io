@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 
 # Configuration
-EXCEL_PATH = Path.home() / "Sungsahn0215 Dropbox/SPML/administration/papers.xlsx"
+EXCEL_PATH = Path.home() / "SPML Dropbox/SPML/administration/papers.xlsx"
 OUTPUT_PATH = Path(__file__).parent.parent / "_bibliography/papers.bib"
 
 # Venue abbreviations
