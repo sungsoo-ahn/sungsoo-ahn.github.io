@@ -148,6 +148,33 @@
       {% endif %}
     </div>
 
+    {% assign has_cofirst_author = false %}
+    {% assign has_cocorresponding_author = false %}
+    {% if entry.author contains '*' or entry.author contains '∗' %}
+      {% assign has_cofirst_author = true %}
+    {% endif %}
+    {% if entry.author contains '†' or entry.author contains '‡' %}
+      {% assign has_cocorresponding_author = true %}
+    {% endif %}
+    {% if has_cofirst_author or has_cocorresponding_author %}
+      <div class="author-notes">
+        {% if has_cofirst_author %}
+          <span><sup>*</sup> co-first authors</span>
+        {% endif %}
+        {% if has_cocorresponding_author %}
+          <span><sup>†</sup> co-corresponding authors</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if entry.presentation %}
+      <div class="publication-badges">
+        <span class="presentation-badge presentation-{{ entry.presentation | downcase }}">
+          {{- entry.presentation }} presentation{% if entry.presentation_venue %} ({{ entry.presentation_venue }}){% endif -%}
+        </span>
+      </div>
+    {% endif %}
+
     <!-- Links -->
     <div class="links">
       [{% if entry.html %}<a href="{% if entry.html contains '://' %}{{ entry.html }}{% else %}{{ entry.html | prepend: '/assets/html/' | relative_url }}{% endif %}">paper</a>{% endif %}{% if entry.html and entry.arxiv %} / {% endif %}{% if entry.arxiv %}<a href="http://arxiv.org/abs/{{ entry.arxiv }}">arxiv</a>{% endif %}{% if entry.pdf %}{% if entry.html or entry.arxiv %} / {% endif %}<a href="{% if entry.pdf contains '://' %}{{ entry.pdf }}{% else %}{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}{% endif %}">pdf</a>{% endif %}{% if entry.code %}{% if entry.html or entry.arxiv or entry.pdf %} / {% endif %}<a href="{{ entry.code }}">code</a>{% endif %}{% if entry.website %}{% if entry.html or entry.arxiv or entry.pdf or entry.code %} / {% endif %}<a href="{{ entry.website }}">project</a>{% endif %}{% if entry.video %}{% if entry.html or entry.arxiv or entry.pdf or entry.code or entry.website %} / {% endif %}<a href="{{ entry.video }}">video</a>{% endif %}]

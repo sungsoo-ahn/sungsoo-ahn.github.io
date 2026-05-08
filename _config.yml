@@ -320,6 +320,8 @@ filtered_bibtex_keywords:
     pdf,
     pmid,
     poster,
+    presentation,
+    presentation_venue,
     preview,
     selected,
     slides,

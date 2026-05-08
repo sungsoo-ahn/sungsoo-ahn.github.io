@@ -829,6 +829,12 @@ footer.sticky-bottom {
     text-align: right;
   }
 
+  .publication-note {
+    color: var(--global-text-color-light);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
   ol.bibliography {
     list-style: none;
     padding: 0;
@@ -891,6 +897,32 @@ footer.sticky-bottom {
             color: var(--global-text-color);
             border-bottom: 1px dashed var(--global-text-color);
           }
+        }
+      }
+
+      .author-notes {
+        color: var(--global-text-color-light);
+        font-size: 0.875rem;
+        margin-top: 0.15rem;
+
+        span + span {
+          margin-left: 0.75rem;
+        }
+      }
+
+      .publication-badges {
+        margin-top: 0.25rem;
+
+        .presentation-badge {
+          border: 1px solid var(--global-theme-color);
+          border-radius: 0.25rem;
+          color: var(--global-theme-color);
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 600;
+          line-height: 1.2;
+          padding: 0.15rem 0.4rem;
+          text-transform: uppercase;
         }
       }
 
