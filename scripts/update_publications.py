@@ -27,16 +27,71 @@ VENUE_ABBR = {
     "JSTAT": "JSTAT",
 }
 
+CO_FIRST_MARK = "*"
+CO_CORRESPONDING_MARK = "†"
+HIGHLIGHT_PRESENTATION_TYPES = {"spotlight", "oral"}
+AUTHOR_OVERRIDES = {
+    "DNACHUNKER: Learnable Tokenization for DNA Language Models": "Taewon Kim, Jihwan Shin, Hyomin Kim, Youngmok Jung, Jonghoon Lee, Won-Chul Lee, Insu Han, Sungsoo Ahn",
+    "Non-backtracking Graph Neural Networks": "Seonghyun Park, Narae Ryu, Gahee Kim, Dongyeop Woo, Se-Young Yun, Sungsoo Ahn",
+}
+CO_CORRESPONDING_OVERRIDES = {
+    "Machine Learning Hamiltonians are Accurate Energy-Force Predictors": ["Sungbin Lim", "Sungsoo Ahn"],
+    "Riemannian MeanFlow": ["Kirill Neklyudov", "Sungsoo Ahn"],
+}
+FIELD_OVERRIDES = {
+    ("Adaptive Teachers for Amortized Samplers", "ICLR"): {
+        "arxiv": "2410.01432",
+        "code": "https://github.com/alstn12088/adaptive-teacher",
+        "html": "https://openreview.net/forum?id=BdmVgLMvaf",
+    },
+    ("Boltz is a Strong Baseline for Atom-level Representation Learning", "-"): {
+        "code": None,
+    },
+    ("Bucket-Renormalization for Approximate Inference", "ICML"): {
+        "html": "https://proceedings.mlr.press/v80/ahn18a.html",
+    },
+    ("Bucket-Renormalization for Approximate Inference", "JSTAT"): {
+        "html": "https://iopscience.iop.org/article/10.1088/1742-5468/ab3218",
+    },
+    ("Gauging Variational Inference", "NeurIPS"): {
+        "year": 2017,
+    },
+    ("Graph Generation with K^2 Trees", "ICLR"): {
+        "code": "https://github.com/yunhuijang/hggt",
+    },
+    ("Learning Collective Variables from BioEmu with Time-Lagged Generation", "ICLR"): {
+        "website": None,
+    },
+}
+
 def clean_author_name(name):
     """Clean author name for BibTeX key generation."""
-    name = name.strip()
+    name = normalize_name(name)
     name = re.sub(r'\*|†', '', name)  # Remove special markers
     return name
+
+def normalize_name(name):
+    """Normalize spreadsheet names for matching and BibTeX output."""
+    name = str(name).replace('\xa0', ' ').strip()
+    name = re.sub(r'\s+', ' ', name)
+    name = re.sub(r'^and\s+', '', name)
+    return name
+
+def split_names(names_str):
+    """Split comma-delimited author fields from the spreadsheet."""
+    if not names_str or pd.isna(names_str):
+        return []
+    names = []
+    for raw_name in str(names_str).split(','):
+        name = normalize_name(raw_name)
+        if name:
+            names.append(name)
+    return names
 
 def generate_bibtex_key(row):
     """Generate a unique BibTeX key from the paper data."""
     first_author = clean_author_name(row['First Author'].split(',')[0].split(' ')[-1].lower())
-    year = str(row['Year'])
+    year = str(get_field(row, 'year', row['Year']))
     # Take first significant word from title
     title_words = row['Title'].lower().split()
     skip_words = {'a', 'an', 'the', 'for', 'of', 'in', 'on', 'to', 'via', 'with', 'and'}
@@ -46,9 +101,37 @@ def generate_bibtex_key(row):
 
 def format_authors_bibtex(authors_str):
     """Format authors string for BibTeX."""
-    authors_str = re.sub(r'\*|†', '', authors_str)  # Remove markers
-    authors = [a.strip() for a in authors_str.split(',')]
+    authors = split_names(authors_str)
     return ' and '.join(authors)
+
+def format_authors_with_contribution_marks(row):
+    """Format authors and mark co-first/co-corresponding authors."""
+    authors = split_names(AUTHOR_OVERRIDES.get(row['Title'], row['Authors']))
+    co_first_authors = {
+        clean_author_name(name)
+        for name in split_names(row.get('First Author', ''))
+    }
+    co_corresponding_authors = {
+        clean_author_name(name)
+        for name in split_names(row.get('Last Author', ''))
+    }
+    for name in CO_CORRESPONDING_OVERRIDES.get(row['Title'], []):
+        co_corresponding_authors.add(clean_author_name(name))
+
+    mark_co_first = len(co_first_authors) > 1
+    mark_co_corresponding = len(co_corresponding_authors) > 1
+
+    marked_authors = []
+    for author in authors:
+        clean_author = clean_author_name(author)
+        marked_author = clean_author
+        if mark_co_first and clean_author in co_first_authors:
+            marked_author += CO_FIRST_MARK
+        if mark_co_corresponding and clean_author in co_corresponding_authors:
+            marked_author += CO_CORRESPONDING_MARK
+        marked_authors.append(marked_author)
+
+    return ' and '.join(marked_authors)
 
 def get_entry_type(row):
     """Determine BibTeX entry type."""
@@ -64,7 +147,55 @@ def get_venue_name(venue, pub_type):
     """Get venue name for BibTeX (uses acronym)."""
     return venue  # Use acronym directly (ICLR, NeurIPS, etc.)
 
-def paper_to_bibtex(row, seen_keys):
+def get_field(row, field, default=None):
+    """Return a row field after applying local publication overrides."""
+    override = FIELD_OVERRIDES.get((row['Title'], row['Conference/Journal/Workshop']), {})
+    if field in override:
+        return override[field]
+    return default
+
+def get_presentation_type(row):
+    """Return highlighted presentation type for display."""
+    presentation_type = normalize_name(row.get('Presentation Type', ''))
+    if presentation_type.lower() in HIGHLIGHT_PRESENTATION_TYPES:
+        return presentation_type
+    return None
+
+def normalize_title(title):
+    """Normalize titles for matching duplicate publication records."""
+    title = str(title).replace('\xa0', ' ').strip().lower()
+    return re.sub(r'\s+', ' ', title)
+
+def build_highlighted_presentations(df):
+    """Collect spotlight/oral presentation records by title."""
+    highlighted_presentations = {}
+    for _, row in df.iterrows():
+        if row['Type'] == 'Workshop':
+            continue
+        presentation_type = get_presentation_type(row)
+        if not presentation_type:
+            continue
+        title = normalize_title(row['Title'])
+        highlighted_presentations.setdefault(title, []).append({
+            'type': presentation_type,
+            'venue': normalize_name(row['Conference/Journal/Workshop']),
+        })
+    return highlighted_presentations
+
+def get_presentation_info(row, highlighted_presentations):
+    """Return presentation metadata, including duplicate workshop records."""
+    presentation_type = get_presentation_type(row)
+    if presentation_type:
+        return presentation_type, None
+
+    matches = highlighted_presentations.get(normalize_title(row['Title']), [])
+    if matches:
+        match = matches[0]
+        return match['type'], match['venue']
+
+    return None, None
+
+def paper_to_bibtex(row, seen_keys, highlighted_presentations):
     """Convert a paper row to BibTeX entry."""
     # Skip workshop papers
     if row['Type'] == 'Workshop':
@@ -84,12 +215,12 @@ def paper_to_bibtex(row, seen_keys):
 
     entry_type = get_entry_type(row)
     venue = row['Conference/Journal/Workshop']
-    year = row['Year']
+    year = get_field(row, 'year', row['Year'])
 
     # Build BibTeX entry
     lines = [f"@{entry_type}{{{key},"]
     lines.append(f'  title={{{row["Title"]}}},')
-    lines.append(f'  author={{{format_authors_bibtex(row["Authors"])}}},')
+    lines.append(f'  author={{{format_authors_with_contribution_marks(row)}}},')
 
     if entry_type == 'inproceedings':
         lines.append(f'  booktitle={{{get_venue_name(venue, row["Type"])}}},')
@@ -105,15 +236,27 @@ def paper_to_bibtex(row, seen_keys):
     abbr = VENUE_ABBR.get(venue, venue)
     lines.append(f'  abbr={{{abbr}}},')
 
+    # Add highlighted presentation history
+    presentation_type, presentation_venue = get_presentation_info(row, highlighted_presentations)
+    if presentation_type:
+        lines.append(f'  presentation={{{presentation_type}}},')
+    if presentation_venue:
+        lines.append(f'  presentation_venue={{{presentation_venue}}},')
+
     # Add links
-    if pd.notna(row.get('Paper link')) and row['Paper link']:
-        lines.append(f'  html={{{row["Paper link"]}}},')
-    if pd.notna(row.get('Arxiv link')) and row['Arxiv link']:
-        lines.append(f'  arxiv={{{row["Arxiv link"].replace("https://arxiv.org/abs/", "")}}},')
-    if pd.notna(row.get('Code link')) and row['Code link']:
-        lines.append(f'  code={{{row["Code link"]}}},')
-    if pd.notna(row.get('Project page link')) and row['Project page link'] and row['Project page link'] != '-':
-        lines.append(f'  website={{{row["Project page link"]}}},')
+    paper_link = get_field(row, 'html', row.get('Paper link'))
+    arxiv_link = get_field(row, 'arxiv', row.get('Arxiv link'))
+    code_link = get_field(row, 'code', row.get('Code link'))
+    website_link = get_field(row, 'website', row.get('Project page link'))
+
+    if pd.notna(paper_link) and paper_link:
+        lines.append(f'  html={{{paper_link}}},')
+    if pd.notna(arxiv_link) and arxiv_link:
+        lines.append(f'  arxiv={{{str(arxiv_link).replace("https://arxiv.org/abs/", "")}}},')
+    if pd.notna(code_link) and code_link:
+        lines.append(f'  code={{{code_link}}},')
+    if pd.notna(website_link) and website_link and website_link != '-':
+        lines.append(f'  website={{{website_link}}},')
 
     # Mark selected papers (from "Selected" column in Excel)
     selected = row.get('Selected', '')
@@ -131,13 +274,14 @@ def main():
 
     # Reverse order (last row in Excel appears first)
     df = df.iloc[::-1]
+    highlighted_presentations = build_highlighted_presentations(df)
 
     # Generate BibTeX entries
     seen_keys = {}
     entries = []
 
     for _, row in df.iterrows():
-        entry = paper_to_bibtex(row, seen_keys)
+        entry = paper_to_bibtex(row, seen_keys, highlighted_presentations)
         if entry:
             entries.append(entry)
 

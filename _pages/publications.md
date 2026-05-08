@@ -9,6 +9,8 @@ nav_order: 2
 
 <div class="publications">
 
+<p class="publication-note"><sup>*</sup> co-first authors; <sup>†</sup> co-corresponding authors.</p>
+
 {% bibliography %}
 
 </div>
