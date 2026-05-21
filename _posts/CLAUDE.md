@@ -15,7 +15,11 @@ title: "Your Title Here"
 date: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 description: "One-sentence summary for SEO and post listings."
-order: 1  # controls display order (lower = appears later in list)
+order: 1 # legacy field; blog index now sorts by date
+series: optional-series-id
+series_title: "Optional Series Title"
+series_description: "Optional one-sentence reading path description."
+series_order: 1
 categories: [category-name]
 tags: [tag1, tag2, tag3]
 toc:
@@ -26,13 +30,18 @@ related_posts: false
 
 **MANDATORY: Update `last_updated`** — Whenever you edit a blog post, update the `last_updated` field in the frontmatter to today's date. This is required for every edit, no matter how small.
 
+Use `series` and `series_order` when a post belongs to a curated reading path. The blog index itself sorts posts by date; `series_order` only controls the reading-path module at the bottom of posts in the same series.
+
 ## Author Note
 
 Posts begin with an author note immediately after the frontmatter:
 
 ```html
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: Your context here — background, acknowledgments, recommended further reading.</em>
+  <em
+    >Note: Your context here — background, acknowledgments, recommended further
+    reading.</em
+  >
 </p>
 ```
 
@@ -46,6 +55,7 @@ Posts begin with an author note immediately after the frontmatter:
 - **Every text citation needs a References entry.** If you write "Bengio et al., 2021" in the text, add the full citation to References immediately.
 - **Cross-references: use section names, not numbers.** "See the Scaling Relations section" survives reordering; "see Section 5" doesn't.
 - **Figure captions: use `\(...\)` for math**, not `$...$` or `$$...$$`. Liquid consumes `\\`, breaking LaTeX commands.
+- **Provenance wording:** use "Redrawn from..." or "Adapted from..." when a figure is reconstructed from a paper or source. Directly licensed external figures should include the source and license.
 
 ## Figures
 
@@ -57,6 +67,8 @@ Posts begin with an author note immediately after the frontmatter:
 ```liquid
 {% include figure.liquid loading="eager" path="assets/img/blog/your_figure.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Your caption here." %}
 ```
+
+Run `python3 scripts/validate_blog.py` before committing. It fails on broken metadata, missing figures, bad footnote IDs, and unsafe caption math; it warns on unused blog images and provenance wording that should be reviewed.
 
 ## CSS
 

@@ -5,6 +5,10 @@ date: 2026-02-04
 last_updated: 2026-03-18
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 order: 2
+series: stochastic-generative-models
+series_title: "Stochastic Processes and Generative Models"
+series_description: "A reading path from stochastic dynamics to statistical mechanics, path measures, and generative modeling."
+series_order: 1
 categories: [machine-learning]
 tags: [fokker-planck, stochastic-differential-equations, diffusion-models]
 toc:
@@ -18,19 +22,9 @@ related_posts: false
 
 ## Introduction
 
-Diffusion models — DDPM, score-based models, and their ODE counterparts like flow matching — are built on stochastic differential equations (SDEs) and their associated density dynamics. An SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** is the PDE that connects the two sides: given the SDE describing how individual samples move, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving the probability flow ODE, reverse-time SDEs, and score matching objectives.
+Diffusion models, including DDPMs, score-based models, and ODE counterparts such as flow matching, are built on stochastic differential equations (SDEs) and their density dynamics. An SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** connects these two views: given an SDE for individual sample paths, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving probability-flow ODEs, reverse-time SDEs, and score-matching objectives.
 
-Most diffusion model tutorials state the Fokker-Planck equation without proof and move on. The rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post aims to bridge that gap, building from physical intuition to a complete proof in three layers: (1) a visual explanation of what each term means, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
-
-### Roadmap
-
-| Section | Why It's Needed |
-|---------|-----------------|
-| **The Fokker-Planck Equation** | Define the SDE, state the Fokker-Planck equation, and build intuition for each term |
-| **Deriving the Fokker-Planck Equation** | Heuristic derivation: Chapman-Kolmogorov → change of variables → Taylor-Gaussian smoothing → take limits |
-| **Rigorous Derivation via Itô Calculus** | The same result, proved rigorously: Itô's lemma → test functions → integration by parts |
-
----
+Most diffusion-model tutorials state the Fokker-Planck equation without proof and move on. A rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post bridges that gap in three layers: (1) a visual explanation of each term, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
 
 ## The Fokker-Planck Equation
 
@@ -43,7 +37,7 @@ Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R
 > where $$\mathbf{f}: \mathbb{R}^D \times [0,T] \to \mathbb{R}^D$$ is the **drift** (a deterministic force pushing the particle), $$g: [0,T] \to \mathbb{R}$$ is the **diffusion coefficient** (the intensity of random noise), and $$\mathbf{w}(t)$$ is a standard $$D$$-dimensional Wiener process (Brownian motion). The initial condition is $$\mathbf{x}(0) \sim p_0$$.
 {: .block-definition }
 
-The SDE describes how a single particle moves: at each instant, it drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is to determine the PDE governing the marginal density $$p_t(\mathbf{x})$$ — the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$. The answer is the **Fokker-Planck equation**:
+The SDE describes one particle path: at each instant, the particle drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is the PDE for the marginal density $$p_t(\mathbf{x})$$, the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$. The answer is the **Fokker-Planck equation**:
 
 > **Fokker-Planck Equation.** The density $$p_t(\mathbf{x})$$ evolves according to
 >
@@ -52,7 +46,7 @@ The SDE describes how a single particle moves: at each instant, it drifts by $$\
 > where $$\nabla_{\mathbf{x}} \cdot [\,\cdot\,]$$ is the divergence operator and $$\Delta_{\mathbf{x}} = \sum_{i=1}^{D} \frac{\partial^2}{\partial x_i^2}$$ is the Laplacian.
 {: .block-lemma }
 
-We build intuition for each term before deriving the equation. The derivation will also use the **transition kernel** — the Gaussian conditional distribution that arises from discretizing the SDE. For a small time step $$\Delta t$$, the Euler-Maruyama approximation gives $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}$$ with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
+Before deriving the equation, we build intuition for each term. The derivation also uses the **transition kernel**, the Gaussian conditional distribution obtained by discretizing the SDE. For a small time step $$\Delta t$$, the Euler-Maruyama approximation gives $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}$$ with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
 
 > **Transition kernel.** The conditional distribution is Gaussian:
 >
@@ -63,17 +57,17 @@ We build intuition for each term before deriving the equation. The derivation wi
 
 ### Advection by Drift
 
-The quantity $$\mathbf{f}\,p_t$$ is a **probability flux**: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this is the finite-difference statement $$\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), this reduces to the continuity equation from fluid dynamics.
+The quantity $$\mathbf{f}\,p_t$$ is a **probability flux**: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this becomes the finite-difference statement $$\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), the equation reduces to the continuity equation from fluid dynamics.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.png" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
 
 ### Spreading by Diffusion
 
-At each instant, the SDE's noise kicks every particle by a symmetric random displacement $$g\,d\mathbf{w}$$. The net effect is like Gaussian blurring: peaks erode and valleys fill.
+At each instant, the SDE's noise kicks every particle by a symmetric random displacement $$g\,d\mathbf{w}$$. The aggregate effect is Gaussian blurring: peaks erode and valleys fill.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density. The solid blue curve is the original density \(p_t(x)\); the dashed coral curve is the density after Gaussian convolution (kernel shown above the peak). Peaks erode (red shading) and valleys fill (green shading). The section below explains why." %}
 
-**Why does blurring produce a second derivative?** In a small time step $$\Delta t$$, the noise kicks each particle from $$y$$ to $$y + \epsilon$$, where $$\epsilon \sim \mathcal{N}(0,\, g^2\,\Delta t)$$. A particle arrives at $$x$$ only if it started at $$y$$ and received kick $$\epsilon = x - y$$. Summing over all starting positions, weighted by the density $$p_t(y)$$ and the probability of the required kick:
+**Why does blurring produce a second derivative?** In a small time step $$\Delta t$$, the noise moves each particle from $$y$$ to $$y + \epsilon$$, where $$\epsilon \sim \mathcal{N}(0,\, g^2\,\Delta t)$$. A particle arrives at $$x$$ only if it started at $$y$$ and received kick $$\epsilon = x - y$$. Summing over starting positions, weighted by the density $$p_t(y)$$ and the probability of the required kick:
 
 $$p_{t+\Delta t}(x) = \int p_t(y)\;\mathcal{N}\!\left(x - y;\;0,\,g^2\,\Delta t\right)dy = \mathbb{E}_\epsilon\!\left[p_t(x - \epsilon)\right]$$
 
@@ -99,7 +93,7 @@ In $$D$$ dimensions, the noise components $$dw_1, \ldots, dw_D$$ are independent
 
 ## Deriving the Fokker-Planck Equation
 
-This section gives a **heuristic derivation** based on Euler-Maruyama discretization. It produces the correct equation and builds understanding of where each term comes from, but it sweeps regularity conditions under the rug — we freely exchange limits, integrals, and Taylor expansions without justifying when these operations are valid. The next section provides a rigorous derivation via Itô calculus.
+This section gives a **heuristic derivation** based on Euler-Maruyama discretization. It produces the correct equation and shows where each term comes from, but it hides regularity conditions: we exchange limits, integrals, and Taylor expansions without justifying when those operations are valid. The next section gives the rigorous derivation via Itô calculus.
 
 The derivation proceeds from the Gaussian transition kernel in three steps.
 
@@ -111,12 +105,12 @@ The marginal density at time $$t + \Delta t$$ is obtained by integrating the tra
 >
 > $$p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\; \mathbf{y} + \mathbf{f}(\mathbf{y},t)\,\Delta t,\; g^2(t)\,\Delta t\;\mathbf{I}\right) p_t(\mathbf{y})\,d\mathbf{y}$$
 >
-> This is marginalization: summing over all previous positions $$\mathbf{y}$$, weighted by their density $$p_t(\mathbf{y})$$ and the transition probability $$\mathbf{y} \to \mathbf{x}$$. The Markov property justifies using only the one-step kernel.
+> This is marginalization: sum over all previous positions $$\mathbf{y}$$, weighted by their density $$p_t(\mathbf{y})$$ and the transition probability $$\mathbf{y} \to \mathbf{x}$$. The Markov property justifies using only the one-step kernel.
 {: .block-definition }
 
 ### Step 2: Change of Variables
 
-The Gaussian kernel is centered at $$\mathbf{y} + \mathbf{f}(\mathbf{y},t)\,\Delta t$$, which depends on $$\mathbf{y}$$ in a complicated way. To simplify, introduce a new integration variable that absorbs the drift:
+The Gaussian kernel is centered at $$\mathbf{y} + \mathbf{f}(\mathbf{y},t)\,\Delta t$$, which depends on $$\mathbf{y}$$. To simplify the integral, introduce a new variable that absorbs the drift:
 
 $$\mathbf{u} := \mathbf{y} + \mathbf{f}(\mathbf{y},t)\,\Delta t$$
 
@@ -132,7 +126,7 @@ Substituting into the Chapman-Kolmogorov integral and Taylor-expanding $$p_t(\ma
 
 $$p_t(\mathbf{y}) = p_t(\mathbf{u}) - \Delta t\;\mathbf{f}(\mathbf{u},t) \cdot \nabla_{\mathbf{u}} p_t(\mathbf{u}) + \mathcal{O}(\Delta t^2)$$
 
-Combining with the Jacobian determinant produces two $$\Delta t$$ corrections with distinct origins: one from the Taylor expansion of $$p_t$$ (density varies across space) and one from the Jacobian (the change of variables distorts volume elements):
+Combining this with the Jacobian determinant produces two $$\Delta t$$ corrections with distinct origins: one from the Taylor expansion of $$p_t$$, because density varies across space, and one from the Jacobian, because the change of variables distorts volume elements:
 
 $$\begin{aligned}
 p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\;\mathbf{u},\;g^2(t)\,\Delta t\;\mathbf{I}\right) \Big[&\, p_t(\mathbf{u}) - \Delta t\;\mathbf{f}(\mathbf{u},t) \cdot \nabla_{\mathbf{u}} p_t(\mathbf{u}) \\
@@ -160,7 +154,7 @@ Now apply this identity to each term in the bracket. Since $$\sigma^2 = g^2(t)\,
 
 $$\int \mathcal{N}(\mathbf{x};\;\mathbf{u},\;\sigma^2\mathbf{I})\;p_t(\mathbf{u})\,d\mathbf{u} = p_t(\mathbf{x}) + \frac{g^2(t)\,\Delta t}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x}) + \mathcal{O}(\Delta t^2)$$
 
-For the two terms already at order $$\Delta t$$ (the drift gradient and divergence terms), the Gaussian smoothing leaves them unchanged at leading order — the $$\sigma^2$$ correction would produce $$\mathcal{O}(\Delta t^2)$$ terms. Collecting everything:
+For the two terms already at order $$\Delta t$$, namely the drift-gradient and divergence terms, Gaussian smoothing leaves them unchanged at leading order; the $$\sigma^2$$ correction would only produce $$\mathcal{O}(\Delta t^2)$$ terms. Collecting everything:
 
 $$\begin{aligned}
 p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x}) = \;&{-}\Delta t\;\mathbf{f}(\mathbf{x},t) \cdot \nabla_{\mathbf{x}} p_t(\mathbf{x}) - \Delta t\;(\nabla_{\mathbf{x}} \cdot \mathbf{f})(\mathbf{x},t)\;p_t(\mathbf{x}) \\
@@ -177,11 +171,11 @@ This is the Fokker-Planck equation.
 
 ## Rigorous Derivation via Itô Calculus
 
-The heuristic derivation discretized the SDE, Taylor-expanded, and took limits — producing the right answer but without controlling error terms or justifying the interchange of limits and integrals. This section derives the same equation rigorously using Itô calculus.
+The heuristic derivation discretized the SDE, Taylor-expanded, and took limits. It produced the right answer, but without controlling error terms or justifying the interchange of limits and integrals. This section derives the same equation rigorously using Itô calculus.
 
 ### What Is Itô Calculus?
 
-Ordinary calculus assumes smooth paths: differentiation and the chain rule require the function to have well-defined derivatives. Brownian motion $$\mathbf{w}(t)$$ violates this — its sample paths are continuous but nowhere differentiable. Writing $$d\mathbf{w}/dt$$ is meaningless, so expressions like $$d\mathbf{x} = \mathbf{f}\,dt + g\,d\mathbf{w}$$ cannot be interpreted through classical calculus.
+Ordinary calculus assumes smooth paths: differentiation and the chain rule require well-defined derivatives. Brownian motion $$\mathbf{w}(t)$$ violates this assumption; its sample paths are continuous but nowhere differentiable. Writing $$d\mathbf{w}/dt$$ is meaningless, so expressions such as $$d\mathbf{x} = \mathbf{f}\,dt + g\,d\mathbf{w}$$ cannot be interpreted through classical calculus.
 
 **Itô calculus** resolves this by redefining integration rather than differentiation:
 
@@ -192,11 +186,11 @@ Ordinary calculus assumes smooth paths: differentiation and the chain rule requi
 > The integrand $$H(t_k)$$ is evaluated at the **left endpoint** of each subinterval, so it depends only on information available at time $$t_k$$, before the increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is realized.
 {: .block-definition }
 
-This left-endpoint choice has two consequences that drive everything that follows:
+The left-endpoint choice has two consequences that drive the derivation:
 
-1. **The Itô integral is a martingale.** Its expectation is zero: $$\mathbb{E}\!\left[\int_0^T H(t)\,d\mathbf{w}(t)\right] = 0$$. This is because each increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is independent of $$H(t_k)$$ and has zero mean. In the Fokker-Planck derivation below, this property lets us kill the stochastic integral by taking expectations.
+1. **The Itô integral is a martingale.** Its expectation is zero: $$\mathbb{E}\!\left[\int_0^T H(t)\,d\mathbf{w}(t)\right] = 0$$. Each increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is independent of $$H(t_k)$$ and has zero mean. In the Fokker-Planck derivation below, this property makes the stochastic integral disappear after taking expectations.
 
-2. **Quadratic variation is non-trivial.** For smooth paths, $$(dx)^2$$ is negligible compared to $$dx$$. For Brownian motion, $$(d\mathbf{w})^2 = dt$$ — the increments are of order $$\sqrt{dt}$$, so their squares accumulate at order $$dt$$. This means second-order Taylor terms survive, producing the Itô correction in the chain rule.
+2. **Quadratic variation is non-trivial.** For smooth paths, $$(dx)^2$$ is negligible compared to $$dx$$. For Brownian motion, $$(d\mathbf{w})^2 = dt$$: increments are order $$\sqrt{dt}$$, so their squares accumulate at order $$dt$$. Second-order Taylor terms therefore survive and produce the Itô correction in the chain rule.
 
 These two facts — martingale property and non-vanishing quadratic variation — are the only tools we need. The following example shows both in action.
 
@@ -221,7 +215,7 @@ These two facts — martingale property and non-vanishing quadratic variation �
 
 ### Itô's Lemma
 
-The example above showed that the ordinary chain rule $$d[\frac{1}{2}x^2] = x\,dx$$ picks up an extra $$\frac{1}{2}\,dt$$ for stochastic processes. Itô's lemma generalizes this to arbitrary smooth functions.
+The example above showed that the ordinary chain rule $$d[\frac{1}{2}x^2] = x\,dx$$ gains an extra $$\frac{1}{2}\,dt$$ for stochastic processes. Itô's lemma generalizes this correction to arbitrary smooth functions.
 
 > **Itô's lemma.** For the SDE $$d\mathbf{x} = \mathbf{f}\,dt + g\,d\mathbf{w}$$ and a smooth function $$\varphi(\mathbf{x}, t)$$:
 >
@@ -230,7 +224,7 @@ The example above showed that the ordinary chain rule $$d[\frac{1}{2}x^2] = x\,d
 > The $$\frac{g^2}{2}\,\Delta_{\mathbf{x}}\,\varphi$$ is the **Itô correction** — the second-order Taylor term that survives because $$(d\mathbf{w})^2 = dt$$.
 {: .block-lemma }
 
-One can verify the lemma against the example: setting $$\varphi(x) = \frac{1}{2}x^2$$ and $$dx = dW_t$$ (pure Brownian motion, no drift) gives $$d\varphi = x\,dW_t + \frac{1}{2}\,dt$$, matching $$d[\frac{1}{2}W_t^2] = W_t\,dW_t + \frac{1}{2}\,dt$$. Itô's lemma makes this rigorous by tracking the quadratic variation exactly rather than through a discretize-and-take-limits argument.
+The lemma recovers the example: setting $$\varphi(x) = \frac{1}{2}x^2$$ and $$dx = dW_t$$ (pure Brownian motion, no drift) gives $$d\varphi = x\,dW_t + \frac{1}{2}\,dt$$, matching $$d[\frac{1}{2}W_t^2] = W_t\,dW_t + \frac{1}{2}\,dt$$. Itô's lemma makes this rigorous by tracking quadratic variation exactly instead of relying on an informal discretize-and-limit argument.
 
 **Derivation.** Start from the second-order Taylor expansion of $$d\varphi = \varphi(\mathbf{x} + d\mathbf{x}, t + dt) - \varphi(\mathbf{x}, t)$$:
 
@@ -249,7 +243,7 @@ The rule $$dw_i\,dw_j = \delta_{ij}\,dt$$ kills all off-diagonal Hessian entries
 
 ### Deriving FP from Itô's Lemma
 
-The strategy is the **test function method**. We want a PDE for $$p_t$$, but Itô's lemma describes a single particle, not a density. The trick is to use a smooth "probe" function $$\varphi(\mathbf{x})$$ and track the weighted average $$\int \varphi\,p_t\,d\mathbf{x}$$. If we know how this average changes over time for *every* choice of $$\varphi$$, we know how $$p_t$$ itself changes — just as knowing all moments of a distribution determines the distribution. Concretely: Itô's lemma gives us $$d\varphi(\mathbf{x}(t))$$ in terms of derivatives of $$\varphi$$; taking expectations converts this to $$\frac{d}{dt}\int \varphi\,p_t\,d\mathbf{x}$$; integration by parts moves the derivatives from $$\varphi$$ onto $$p_t$$; and since the result holds for all $$\varphi$$, the integrands must match — giving the PDE.
+The strategy is the **test function method**. We want a PDE for $$p_t$$, but Itô's lemma describes one particle, not a density. The trick is to use a smooth "probe" function $$\varphi(\mathbf{x})$$ and track the weighted average $$\int \varphi\,p_t\,d\mathbf{x}$$. If we know how this average changes for *every* choice of $$\varphi$$, we know how $$p_t$$ itself changes, much as sufficiently many moments determine a distribution. Concretely, Itô's lemma gives $$d\varphi(\mathbf{x}(t))$$ in terms of derivatives of $$\varphi$$; taking expectations converts this to $$\frac{d}{dt}\int \varphi\,p_t\,d\mathbf{x}$$; integration by parts moves derivatives from $$\varphi$$ onto $$p_t$$; and because the result holds for all $$\varphi$$, the integrands must match.
 
 **Step 1: Apply Itô's lemma.** Since $$\varphi$$ does not depend on $$t$$, the $$\partial\varphi/\partial t$$ term vanishes:
 
@@ -277,7 +271,7 @@ $$\int \varphi(\mathbf{x})\bigl[p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x})\big
 
 $$\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr] + \frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})$$
 
-This is the Fokker-Planck equation — the same result as the heuristic derivation, now established rigorously. The test function approach works in the **weak (distributional) sense**: it avoids requiring $$p_t$$ to be classically differentiable, needing only that the integrated identity holds for all smooth test functions.
+This is the Fokker-Planck equation: the same result as the heuristic derivation, now established rigorously. The test-function approach works in the **weak (distributional) sense**: it avoids requiring $$p_t$$ to be classically differentiable and only requires the integrated identity to hold for all smooth test functions.
 
 ---
 

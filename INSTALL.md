@@ -1,5 +1,15 @@
 # Installing and Deploying
 
+> Project-local note: this repository is already deployed at `https://sungsoo-ahn.github.io`. For day-to-day local development on the maintainer machine, use Homebrew Ruby:
+>
+> ```bash
+> /opt/homebrew/opt/ruby/bin/bundle install
+> /opt/homebrew/opt/ruby/bin/bundle exec jekyll serve
+> python3 scripts/validate_blog.py
+> ```
+>
+> The Docker instructions below are retained from the upstream al-folio template as a fallback/reference path.
+
 <!--ts-->
 
 - [Installing and Deploying](#installing-and-deploying)
