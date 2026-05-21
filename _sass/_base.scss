@@ -385,6 +385,8 @@ ul.task-list input[type="checkbox"] {
 
   .navbar-brand {
     color: var(--global-text-color);
+    font-weight: 400 !important;
+    letter-spacing: 0;
     text-decoration: none;
   }
 
@@ -974,6 +976,34 @@ footer.sticky-bottom {
 
 // Publications
 
+.post article {
+  > .clearfix {
+    margin-bottom: 2.25rem;
+  }
+
+  > h2 {
+    border-top: 1px solid var(--global-divider-color);
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 2.5rem;
+    padding-top: 1.35rem;
+  }
+
+  .all-publications-link {
+    margin-top: 0.85rem;
+
+    a {
+      color: var(--global-text-color-light);
+      font-size: 0.9rem;
+
+      &:hover {
+        color: var(--global-text-color);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
 .publications {
   margin-top: 2rem;
 
@@ -1043,7 +1073,7 @@ footer.sticky-bottom {
       }
 
       .title {
-        font-weight: bolder;
+        font-weight: 400;
       }
 
       .author {
@@ -1179,6 +1209,45 @@ footer.sticky-bottom {
     div.award.hidden.open {
       border-color: var(--global-highlight-color);
     }
+  }
+}
+
+.blog-index {
+  ol.bibliography li {
+    margin-bottom: 1.35rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+  }
+
+  .title a {
+    color: var(--global-text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--global-divider-color);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--global-theme-color);
+      text-decoration-color: var(--global-theme-color);
+    }
+  }
+
+  .blog-list-description {
+    color: var(--global-text-color-light);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin-bottom: 0.25rem;
+    max-width: 760px;
+  }
+
+  .author {
+    color: var(--global-text-color-light);
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 }
 
@@ -1859,12 +1928,12 @@ article {
   }
 
   .post-header {
-    margin-bottom: 2.25rem;
+    margin-bottom: 1.6rem;
 
     .post-title {
-      font-size: 2.65rem;
-      line-height: 1.12;
-      margin-bottom: 0.75rem;
+      font-size: 2rem;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
     }
 
     .post-meta,
@@ -1876,64 +1945,35 @@ article {
   }
 
   .blog-post-hero {
-    background: var(--global-card-bg-color);
-    border: 1px solid var(--global-divider-color);
-    border-radius: 8px;
-    padding: 1.55rem 1.7rem;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
   }
 
   .blog-post-summary {
-    color: var(--global-text-color);
-    font-size: 1.08rem;
-    line-height: 1.65;
-    margin-bottom: 1rem;
+    color: var(--global-text-color-light);
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-bottom: 0.35rem;
     max-width: 760px;
   }
 
   .blog-post-meta {
     color: var(--global-text-color-light);
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     font-size: 0.9rem;
-    gap: 0.35rem 0.8rem;
-    margin-bottom: 0.9rem;
-
-    span:not(:last-child)::after {
-      color: var(--global-divider-color);
-      content: "·";
-      margin-left: 0.8rem;
-    }
-  }
-
-  .blog-post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-
-    a {
-      border: 1px solid var(--global-divider-color);
-      border-radius: 999px;
-      color: var(--global-text-color-light);
-      font-size: 0.78rem;
-      line-height: 1.2;
-      padding: 0.28rem 0.6rem;
-      text-decoration: none;
-
-      &:hover {
-        border-color: var(--global-theme-color);
-        color: var(--global-theme-color);
-        text-decoration: none;
-      }
-    }
+    line-height: 1.45;
+    margin-bottom: 0;
   }
 
   .post-content {
-    font-size: 1.06rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
 
     p,
     li {
-      line-height: 1.8;
+      line-height: 1.7;
     }
 
     p {
@@ -1941,15 +1981,15 @@ article {
     }
 
     h2 {
-      font-size: 2rem;
-      line-height: 1.25;
-      margin-top: 3rem;
+      font-size: 1.75rem;
+      line-height: 1.3;
+      margin-top: 2.5rem;
     }
 
     h3 {
-      font-size: 1.45rem;
-      line-height: 1.35;
-      margin-top: 2.25rem;
+      font-size: 1.3rem;
+      line-height: 1.4;
+      margin-top: 1.8rem;
     }
 
     h4 {
@@ -1964,14 +2004,14 @@ article {
   }
 
   #markdown-content > p:first-child[style] {
-    background: var(--global-card-bg-color);
-    border: 1px solid var(--global-divider-color);
-    border-radius: 8px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
     color: var(--global-text-color-light) !important;
-    font-size: 0.95rem !important;
-    line-height: 1.65;
-    margin-bottom: 2rem !important;
-    padding: 1rem 1.1rem;
+    font-size: 0.9rem !important;
+    line-height: 1.55;
+    margin-bottom: 1.5rem !important;
+    padding: 0;
 
     em,
     a {
@@ -1998,11 +2038,11 @@ article {
   }
 
   .blog-post .post-header .post-title {
-    font-size: 2.1rem;
+    font-size: 1.8rem;
   }
 
   .blog-post .blog-post-hero {
-    padding: 1.2rem 1.05rem;
+    padding: 0;
   }
 
   .blog-post .post-content {
