@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## Project Overview
 
@@ -61,10 +61,10 @@ Writing style and rendering rules are managed as skills:
 - `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
 - `/generate-blog-figures` — matplotlib figure generation workflow
 - `/download-paper-figures` — incorporating figures from academic papers
-  Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/CLAUDE.md`.
+  Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/AGENTS.md`.
   Blog metadata, figure paths, footnote IDs, and asset drift are checked by `scripts/validate_blog.py`, which also runs in pre-commit and CI.
 
-Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each with their own CLAUDE.md and skills.
+Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each with their own AGENTS.md and skills.
 
 ## Architecture
 
