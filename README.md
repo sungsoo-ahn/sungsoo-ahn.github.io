@@ -20,17 +20,24 @@ git add -A && git commit -m "Update content" && git push
 ```
 
 Data sources (synced from Dropbox):
+
 - `~/Sungsahn0215 Dropbox/SPML/administration/papers.xlsx`
 - `~/Sungsahn0215 Dropbox/SPML/administration/members.xlsx`
 
 ## Local Development
 
 ```bash
-bundle install
-bundle exec jekyll serve
+/opt/homebrew/opt/ruby/bin/bundle install
+/opt/homebrew/opt/ruby/bin/bundle exec jekyll serve
 ```
 
 Then open http://localhost:4000
+
+Before pushing blog changes, run:
+
+```bash
+python3 scripts/validate_blog.py
+```
 
 ## File Structure
 

@@ -5,6 +5,10 @@ date: 2026-02-03
 last_updated: 2026-03-15
 description: "Quantum chemistry and density functional theory for ML researchers — from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 order: 1
+series: ml-for-science
+series_title: "ML for Science Foundations"
+series_description: "A guided route through scientific ML topics: quantum chemistry, equivariant molecular models, electrocatalysis, and protein design."
+series_order: 1
 categories: [science]
 tags: [quantum-chemistry, density-functional-theory, machine-learning]
 toc:
@@ -18,9 +22,9 @@ related_posts: false
 
 ## Introduction
 
-The central computational problem of chemistry is this: given a collection of atoms — their types and positions — predict the system's properties. The total energy, the forces on each atom, the electron density, the vibrational frequencies. All of these are, in principle, determined by solving a single equation: the Schrödinger equation.
+The central computational problem of chemistry is simple to state: given a collection of atoms, with their types and positions, predict the system's properties. Total energy, atomic forces, electron density, and vibrational frequencies are all, in principle, determined by one equation: the Schrödinger equation.
 
-The difficulty is that the solution — the **wavefunction** — is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. The domain grows exponentially with system size. The wavefunction cannot be observed directly; we only see its consequences — energies, densities, spectra. In ML terms, it is a latent variable.
+The difficulty is that the solution, the **wavefunction**, is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. Its domain grows exponentially with system size. The wavefunction cannot be observed directly; we only observe its consequences: energies, densities, and spectra. In ML terms, it is a latent variable.
 
 Two families of methods tackle this problem, differing in what they approximate:
 
@@ -31,21 +35,9 @@ More recently, **deep learning methods** have been applied to both families, par
 
 ### Overview
 
-The goal is to compute the energy and electron density of a molecular system from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ that encodes kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute the new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$ — everything else is computed exactly.
+The goal is to compute a molecular system's energy and electron density from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
 
-This post builds up to the SCF loop: the Schrödinger equation defines the problem, the Born-Oppenheimer approximation separates electrons from nuclei, wavefunction theory shows what direct approximation looks like and where it falls short, and DFT offers a different path that makes the SCF loop possible.
-
-### Roadmap
-
-| Section | Why It's Needed |
-|---------|-----------------|
-| **The Schrödinger Equation** | Define the problem: an eigenvalue equation whose solution (the wavefunction) determines all properties |
-| **The Born-Oppenheimer Approximation** | Separate the nuclear and electronic problems — this is what gives us the potential energy surface |
-| **Wavefunction Theory** | Approximate the wavefunction directly using structured functional forms |
-| **Density Functional Theory** | Replace the exponential-dimensional wavefunction with the 3D electron density |
-| **Deep Learning for Quantum Chemistry** | Modern neural network approaches to both the wavefunction and the density functional |
-
----
+This post builds toward the SCF loop. The Schrödinger equation defines the problem, the Born-Oppenheimer approximation separates electrons from nuclei, wavefunction theory shows what direct approximation looks like and where it fails, and DFT offers the density-based path that makes the SCF loop possible.
 
 ## The Schrödinger Equation
 
@@ -58,7 +50,7 @@ All of non-relativistic quantum chemistry begins with a single equation. Conside
 > The **Hamiltonian** $$\hat{H}$$ is what we know — an operator encoding how particles move and interact. The **wavefunction** $$\Psi: \mathbb{R}^{3(N+M)} \to \mathbb{C}$$ is the unknown — a complete description of the quantum state. The **energy** $$E \in \mathbb{R}$$ is what we want — the total energy of the system in that state.
 {: .block-definition }
 
-The Schrödinger equation is an eigenvalue problem: applying $$\hat{H}$$ to $$\Psi$$ returns the same function scaled by $$E$$. There are many solutions (many possible quantum states), but the one with the lowest energy — the **ground state** — is the primary target of most quantum chemistry calculations.
+The Schrödinger equation is an eigenvalue problem: applying $$\hat{H}$$ to $$\Psi$$ returns the same function scaled by $$E$$. Many solutions exist, corresponding to many possible quantum states, but most quantum chemistry calculations target the lowest-energy solution: the **ground state**.
 
 ### The Hamiltonian
 
@@ -69,19 +61,19 @@ $$\begin{aligned}
 & \underbrace{- \sum_{i,A} \frac{Z_A}{|\mathbf{r}_i - \mathbf{R}_A|}}_{\text{e-N attraction}} + \underbrace{\sum_{A<B} \frac{Z_A Z_B}{|\mathbf{R}_A - \mathbf{R}_B|}}_{\text{N-N repulsion}}
 \end{aligned}$$
 
-where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomicunits] The first two terms are **kinetic energy**: the $$\nabla^2$$ (Laplacian) operator measures how rapidly the wavefunction curves in space, corresponding to particle momentum. The last three terms are **potential energy**, depending only on inter-particle distances: electrons repel each other, nuclei repel each other, and electrons are attracted to nuclei. Every term follows from classical physics; the quantum nature enters through the kinetic energy operator acting on the wavefunction rather than on particle velocities.
+where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomicunits] The first two terms are **kinetic energy**: the $$\nabla^2$$ (Laplacian) operator measures how rapidly the wavefunction curves in space, which corresponds to particle momentum. The last three terms are **potential energy** and depend only on inter-particle distances: electrons repel each other, nuclei repel each other, and electrons are attracted to nuclei. The interaction terms look classical; the quantum structure enters through the kinetic-energy operator acting on the wavefunction rather than on particle velocities.
 
 ### The Wavefunction
 
 The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude, $$\lvert\Psi\rvert^2$$, gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to this probability density.
 
-The computational challenge is the electronic part. Even on a modest grid of $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers — for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality of the quantum many-body problem, and it motivates every approximation that follows.
+The computational challenge is the electronic part. Even on a modest grid of $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers; for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality in the quantum many-body problem, and it motivates every approximation that follows.
 
 ---
 
 ## The Born-Oppenheimer Approximation
 
-The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. Even the lightest nucleus (the proton) is 1836 times heavier than an electron, and heavier atoms have nuclei tens of thousands of times more massive. Nuclei therefore move much more slowly, and the electrons adjust instantaneously to any nuclear configuration.
+The **Born-Oppenheimer approximation** separates the problem into two parts: first solve for the electrons with nuclei held fixed, then move the nuclei on the resulting energy landscape. Even the lightest nucleus, the proton, is 1836 times heavier than an electron; heavier nuclei are tens of thousands of times more massive. Nuclei therefore move much more slowly, so the electrons are approximated as adjusting instantaneously to each nuclear configuration.
 
 1. **The electronic problem**: Fix the nuclear positions $$\{\mathbf{R}_A\}$$ and solve for the electronic wavefunction and energy. The nuclei appear only as an external potential $$v_{\text{ext}}(\mathbf{r}) = -\sum_A Z_A / \lvert\mathbf{r} - \mathbf{R}_A\rvert$$ that the electrons move in. The nuclear-nuclear repulsion $$\sum_{A<B} Z_A Z_B / \lvert\mathbf{R}_A - \mathbf{R}_B\rvert$$ adds a constant for each configuration.
 
@@ -91,7 +83,7 @@ The electronic Hamiltonian, with nuclear positions fixed, is:
 
 $$\hat{H}_{\text{elec}} = -\sum_{i=1}^{N} \frac{1}{2}\nabla_i^2 + \sum_{i<j} \frac{1}{|\mathbf{r}_i - \mathbf{r}_j|} + \sum_{i=1}^{N} v_{\text{ext}}(\mathbf{r}_i)$$
 
-The Born-Oppenheimer separation is what makes molecular dynamics and force fields possible. The PES is the function that molecular dynamics simulates on, that geometry optimizations minimize, and that machine learning force fields approximate. Computing the PES requires solving the electronic problem — the subject of the rest of this post.
+The Born-Oppenheimer separation is what makes molecular dynamics and force fields possible. The PES is the function that molecular dynamics follows, geometry optimization minimizes, and machine-learning force fields approximate. Computing the PES requires solving the electronic problem, which is the subject of the rest of this post.
 
 From here on, we write the electronic wavefunction as $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N)$$, omitting the nuclear positions $$\{\mathbf{R}_A\}$$ from the argument. This is standard notation under the Born-Oppenheimer approximation: the nuclear positions are fixed parameters, not variables the wavefunction depends on dynamically.
 
@@ -108,7 +100,7 @@ The first approach to the electronic problem is to approximate the wavefunction 
 > The minimum is achieved by the true ground-state wavefunction.
 {: .block-lemma }
 
-So we can choose a parameterized family of trial wavefunctions and minimize the energy over the parameters.[^braket] The variational principle is directly analogous to minimizing a loss function: the energy is the loss, the wavefunction family is the model architecture, and a specific choice of parameterized family is called an **ansatz**[^ansatz] (plural: ansätze).
+This lets us choose a parameterized family of trial wavefunctions and minimize energy over its parameters.[^braket] The variational principle is directly analogous to loss minimization: the energy is the loss, the wavefunction family is the model architecture, and a specific parameterized family is called an **ansatz**[^ansatz] (plural: ansätze).
 
 ### The Hartree Product: A Mean-Field Approximation
 
@@ -116,7 +108,7 @@ The simplest ansatz assumes the electrons are **independent** — the many-elect
 
 $$\Psi_{\text{Hartree}}(\mathbf{r}_1, \ldots, \mathbf{r}_N) = \phi_1(\mathbf{r}_1) \cdot \phi_2(\mathbf{r}_2) \cdots \phi_N(\mathbf{r}_N)$$
 
-Each orbital $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ depends on only three coordinates, reducing the problem from one function on $$\mathbb{R}^{3N}$$ to $$N$$ functions on $$\mathbb{R}^3$$. The price is ignoring all correlations between electrons: each electron sees only the average field of the others. In ML terms, this is a mean-field factorization — replacing a joint distribution with a product of marginals.
+Each orbital $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ depends on only three coordinates, reducing the problem from one function on $$\mathbb{R}^{3N}$$ to $$N$$ functions on $$\mathbb{R}^3$$. The price is the loss of explicit electron correlation: each electron sees only the average field of the others. In ML terms, this is a mean-field factorization, replacing a joint distribution with a product of marginals.
 
 ### Antisymmetry and the Slater Determinant Approximation
 
@@ -124,7 +116,7 @@ The Hartree product violates a basic requirement: electrons are **fermions**, so
 
 $$\Psi(\ldots, \mathbf{r}_i, \ldots, \mathbf{r}_j, \ldots) = -\Psi(\ldots, \mathbf{r}_j, \ldots, \mathbf{r}_i, \ldots)$$
 
-The **Pauli exclusion principle** — no two electrons can occupy the same quantum state — is a direct consequence of this antisymmetry.[^pauli] The simplest antisymmetric wavefunction built from orbitals is:
+The **Pauli exclusion principle**, which says that no two electrons can occupy the same quantum state, follows directly from this antisymmetry.[^pauli] The simplest antisymmetric wavefunction built from orbitals is:
 
 > **Slater determinant.** The **Slater determinant** is an antisymmetric wavefunction built from $$N$$ orbitals:
 >
@@ -146,23 +138,23 @@ The **Pauli exclusion principle** — no two electrons can occupy the same quant
 > $$\hat{f}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} - \underbrace{\hat{K}(\mathbf{r})}_{\text{exchange}}$$
 {: .block-definition }
 
-The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local: its action on an orbital involves integrating over the product of different orbitals across all of space, unlike the other terms which depend only on the local point $$\mathbf{r}$$. It arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; the limitation of Hartree-Fock is not an unknown term but the single-determinant restriction itself.
+The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The **exchange operator** $$\hat{K}$$ is non-local: its action on an orbital involves integrating products of different orbitals across all space, unlike the other terms, which depend only on the local point $$\mathbf{r}$$. Exchange arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; Hartree-Fock is limited not by an unknown term, but by the single-determinant restriction itself.
 
 Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved **self-consistently**: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This **self-consistent field (SCF)** procedure is a fixed-point iteration, analogous to the EM algorithm: the orbitals define the effective field, and the effective field determines the orbitals.
 
 ### Electron Correlation
 
-Hartree-Fock captures roughly 99% of the total energy for most systems, but the remaining 1% — the **correlation energy** — is comparable in magnitude to chemical bond energies and reaction barriers, making it chemically decisive. The correlation energy is defined as the difference between the exact energy and the Hartree-Fock energy:
+Hartree-Fock captures roughly 99% of the total energy for many systems, but the remaining 1%, the **correlation energy**, is comparable in magnitude to chemical bond energies and reaction barriers. That small fraction is chemically decisive. The correlation energy is defined as the difference between the exact energy and the Hartree-Fock energy:
 
 $$E_{\text{corr}} = E_{\text{exact}} - E_{\text{HF}}$$
 
-Because each electron sees only the average field of the others (as discussed above), instantaneous electron-electron correlations are missing. **Post-Hartree-Fock methods** — configuration interaction (CI), coupled cluster (CC), Møller-Plesset perturbation theory (MP2, MP3, ...) — recover this missing energy using richer ansätze built from multiple Slater determinants. These methods are systematically improvable but expensive, with the "gold standard" CCSD(T) scaling as $$O(N^7)$$.
+Because each electron sees only the average field of the others, instantaneous electron-electron correlations are missing. **Post-Hartree-Fock methods** — configuration interaction (CI), coupled cluster (CC), Møller-Plesset perturbation theory (MP2, MP3, ...) — recover this missing energy with richer ansätze built from multiple Slater determinants. These methods are systematically improvable but expensive, with the "gold standard" CCSD(T) scaling as $$O(N^7)$$.
 
 ---
 
 ## Density Functional Theory
 
-**Density functional theory (DFT)** sidesteps the exponential complexity of the wavefunction by working with the **electron density** — a function of only three spatial variables instead of $$3N$$.
+**Density functional theory (DFT)** avoids the wavefunction's exponential dimensionality by working with the **electron density**, a function of only three spatial variables instead of $$3N$$.
 
 > **Electron density.** The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
 >
@@ -186,13 +178,13 @@ The rest of this section develops DFT in five steps: (1) the Hohenberg-Kohn theo
 > where $$E[\rho] = F[\rho] + \int \rho(\mathbf{r}) \, v_{\text{ext}}(\mathbf{r}) \, d\mathbf{r}$$.
 {: .block-lemma }
 
-The problem is that $$F[\rho]$$ is unknown — we know the sufficient statistic exists but not the function that maps it to the energy. The history of DFT is largely the history of approximating $$F[\rho]$$.
+The problem is that $$F[\rho]$$ is unknown. We know the sufficient statistic exists, but not the function that maps it to energy. Much of DFT's history is the history of approximating $$F[\rho]$$.
 
 ### The Kohn-Sham Approximation
 
 In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to introduce a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ (the **Kohn-Sham orbitals**) that reproduce the true electron density: $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$.
 
-Why orbitals? The density tells us *where* electrons are, but not *how fast they are moving* — and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy (via $$\nabla^2$$).[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards the curvature information, which is why no one knows how to compute kinetic energy *exactly* from $$\rho$$ alone. From the orbitals, it is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals thus unlock the dominant piece of $$F[\rho]$$, leaving only a small residual to approximate:
+Why introduce orbitals? The density tells us *where* electrons are, but not *how fast they are moving*, and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy through $$\nabla^2$$.[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards curvature information, which is why no exact kinetic-energy functional of $$\rho$$ alone is known. From the orbitals, the non-interacting kinetic energy is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals unlock the dominant piece of $$F[\rho]$$, leaving a smaller residual to approximate:
 
 > **Kohn-Sham energy decomposition.** The total energy splits into
 >
@@ -216,7 +208,7 @@ Minimizing $$E[\rho]$$ with respect to the orbitals yields single-particle eigen
 > $$\hat{f}_{\text{KS}}(\mathbf{r}) = \underbrace{-\frac{1}{2}\nabla^2}_{\text{kinetic}} + \underbrace{v_{\text{ext}}(\mathbf{r})}_{\text{nuclear}} + \underbrace{\int \frac{\rho(\mathbf{r}')}{\lvert\mathbf{r} - \mathbf{r}'\rvert} d\mathbf{r}'}_{\text{Coulomb}} + \underbrace{\frac{\delta E_{\text{xc}}}{\delta \rho(\mathbf{r})}}_{\text{xc}}$$
 {: .block-definition }
 
-The first three terms are identical to Hartree-Fock. The difference is in the last term: HF has the non-local exchange operator $$-\hat{K}$$, while KS-DFT has the functional derivative of $$E_{\text{xc}}[\rho]$$ — a potential (local in the simplest approximations) that replaces exchange and additionally captures correlation effects that Hartree-Fock misses entirely.
+The first three terms are identical to Hartree-Fock. The difference is the last term: HF has the non-local exchange operator $$-\hat{K}$$, while KS-DFT has the functional derivative of $$E_{\text{xc}}[\rho]$$, a potential that is local in the simplest approximations. This potential replaces exchange and also captures correlation effects that Hartree-Fock misses entirely.
 
 Despite this structural similarity in the equations, the two methods minimize *different* energy functionals. Hartree-Fock minimizes the expectation value of the exact Hamiltonian over single-determinant wavefunctions — all terms are computed exactly, but the ansatz is restricted. KS-DFT minimizes an energy functional that includes the approximate $$E_{\text{xc}}[\rho]$$ — the ansatz is not the limitation, the functional is. With the exact $$E_{\text{xc}}$$, KS-DFT would yield the exact ground-state energy.
 
@@ -232,7 +224,7 @@ The exchange-correlation functional $$E_{\text{xc}}[\rho]$$ must be approximated
 | Hybrid | + exact exchange computed from KS orbitals (as in HF) | B3LYP |
 | Double hybrid | + unoccupied KS orbitals | B2PLYP |
 
-Higher rungs are generally more accurate but more expensive. The choice of functional is often the most consequential decision in a DFT calculation — analogous to choosing an inductive bias. No single functional works best for all systems, which is one motivation for learning the functional from data.
+Higher rungs are usually more accurate but more expensive. The functional choice is often the most consequential decision in a DFT calculation, analogous to choosing an inductive bias. No single functional works best for all systems, which is one motivation for learning functionals from data.
 
 ### From Differential Equations to Matrices: The Roothaan-Hall Equations
 
@@ -245,13 +237,13 @@ The Kohn-Sham equations are differential eigenvalue problems in continuous space
 > $$\mathbf{C} \in \mathbb{R}^{K \times N}$$ contains the expansion coefficients for the $$N$$ occupied orbitals, $$\boldsymbol{\varepsilon}$$ is a diagonal matrix of orbital energies, and $$\mathbf{S} \in \mathbb{R}^{K \times K}$$ is the overlap matrix ($$S_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$), which is not the identity because the basis functions are not orthogonal.
 {: .block-definition }
 
-The approximation improves as $$K$$ grows.
+The basis-set approximation improves as $$K$$ grows.
 
 $$\mathbf{F} \in \mathbb{R}^{K \times K}$$ is the **Fock matrix** (also called the Kohn-Sham matrix). It is the matrix representation of $$\hat{f}_{\text{KS}}$$ in the chosen basis: $$F_{\mu\nu} = \int \chi_\mu(\mathbf{r}) \, \hat{f}_{\text{KS}} \, \chi_\nu(\mathbf{r}) \, d\mathbf{r}$$, containing kinetic, nuclear, Coulomb, and exchange-correlation contributions. Just as $$\hat{f}_{\text{KS}}$$ determines the orbitals in continuous space, the Fock matrix determines the coefficient vectors in the finite basis.
 
 The **density matrix** $$\mathbf{P} \in \mathbb{R}^{K \times K}$$ is the finite-basis counterpart of the electron density. Its elements are $$P_{\mu\nu} = \sum_{i=1}^{N} C_{\mu i} C_{\nu i}$$, or equivalently $$\mathbf{P} = \mathbf{C} \mathbf{C}^\top$$. The continuous density is recovered as $$\rho(\mathbf{r}) = \sum_{\mu\nu} P_{\mu\nu} \, \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r})$$. Because the Fock matrix depends on the density (through the Coulomb and XC terms), and the density depends on the orbitals obtained from the Fock matrix, the equations must be solved iteratively.
 
-In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain new $$\mathbf{C}$$ → repeat until convergence.
+In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain a new $$\mathbf{C}$$ → repeat until convergence.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
 
@@ -259,7 +251,7 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-The expense of SCF iterations, the unknown form of $$E_{\text{xc}}$$, and the desire for models that transfer across chemical space have motivated deep learning approaches on multiple fronts.
+The expense of SCF iterations, the unknown form of $$E_{\text{xc}}$$, and the need for models that transfer across chemical space have motivated several deep-learning approaches.
 
 ### Neural Network Wavefunctions
 
