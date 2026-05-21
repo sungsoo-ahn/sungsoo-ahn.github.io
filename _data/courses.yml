@@ -1,4 +1,5 @@
 - id: "2026-spring-protein-ai"
+  hidden: true
   title: "Protein & Artificial Intelligence"
   semester: "Spring 2026"
   institution: "KAIST"
