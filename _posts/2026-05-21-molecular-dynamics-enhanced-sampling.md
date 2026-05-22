@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables for ML Researchers"
+title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-05-21
+last_updated: 2026-05-22
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 order: 1
 series: stochastic-generative-models
@@ -17,7 +17,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post continues the statistical mechanics thread from <a href="/blog/2026/ensembles-thermostats-barostats/">Ensembles, Thermostats, and Barostats for ML Researchers</a> and <a href="/blog/2026/path-measures-generative-models/">From Jarzynski's Equality to Diffusion Models</a>. The motivation comes from two recent projects: <a href="https://arxiv.org/abs/2405.19961">TPS-DPS</a>, which learns path-sampling bias forces without collective variables, and <a href="http://arxiv.org/abs/2507.07390">BioEmu-CV</a>, which learns collective variables for enhanced sampling from a biomolecular foundation model.</em>
+<em>Note: This post continues the statistical mechanics thread from <a href="/blog/2026/ensembles-thermostats-barostats/">Ensembles, Thermostats, and Barostats</a> and <a href="/blog/2026/path-measures-generative-models/">From Jarzynski's Equality to Diffusion Models</a>. The motivation comes from two recent projects: <a href="https://arxiv.org/abs/2405.19961">TPS-DPS</a>, which learns path-sampling bias forces without collective variables, and <a href="http://arxiv.org/abs/2507.07390">BioEmu-CV</a>, which learns collective variables for enhanced sampling from a biomolecular foundation model.</em>
 </p>
 
 ## Introduction
@@ -117,6 +117,12 @@ $$s = \xi(\mathbf{x}) \in \mathbb{R}^{d}, \qquad d \ll 3N$$
 
 A CV is a low-dimensional summary of the molecular configuration. It might be a distance, angle, dihedral, contact count, radius of gyration, RMSD to a reference structure, or a learned neural representation.
 
+For a molecular example, alanine dipeptide is the standard toy system. Its backbone conformation is often summarized by two dihedral angles:
+
+$$s(\mathbf{x}) = (\phi(\mathbf{x}), \psi(\mathbf{x}))$$
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The two backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) summarize the conformation; the moving point shows the same frame in Ramachandran space." %}
+
 The free energy along the CV is:
 
 $$F(s) = -\beta^{-1}\log p(s) + C$$
@@ -127,7 +133,7 @@ $$p(s) = \int \delta(s - \xi(\mathbf{x}))\,p(\mathbf{x})\,d\mathbf{x}$$
 
 The additive constant $$C$$ is arbitrary. Only differences in $$F(s)$$ matter.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/md_cv_metadynamics.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A collective variable \(s(\mathbf{x})\) compresses high-dimensional molecular configurations into a coordinate where slow transitions become visible. Enhanced sampling methods estimate or flatten the free-energy profile \(F(s)\) by adding a bias along \(s\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/md_double_well_umbrella.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A two-dimensional double-well potential adapted from the TPS-DPS synthetic example. The collective variable \(s=\xi(x,y)=x\) projects configurations onto one coordinate. An umbrella restraint \(V_k=\frac{1}{2}\kappa(x-s_k)^2\) penalizes configurations away from the chosen window, so the biased potential \(U+V_k\) spends more time near \(s_k=0\)." %}
 
 A good CV should satisfy two conditions.
 
@@ -145,7 +151,15 @@ $$V_k(\mathbf{x}) = \frac{1}{2}\kappa(\xi(\mathbf{x}) - s_k)^2$$
 
 Each window forces the simulation to explore a local region of the CV. The windows overlap. After collecting samples from all windows, methods such as WHAM or MBAR stitch the biased histograms together to estimate the unbiased free-energy profile.
 
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_umbrella_sweep.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="A moving umbrella window on the same double-well toy problem. As the window center \(s_k\) changes, the harmonic restraint changes the biased potential \(U+V_k\) and shifts which CV region is easy to sample." %}
+
 The ML analogy is stratified sampling. Instead of hoping the Markov chain visits rare CV regions on its own, we force coverage of each region and correct afterward.
+
+The same toy system makes the sampling effect visible. The next animations show illustrative overdamped dynamics, not a calibrated molecular timestep.
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_unbiased_dynamics.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Unbiased toy dynamics on the double-well potential. Over a short run, trajectories initialized in basin A mostly stay there instead of crossing to basin B." %}
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
 
 The weakness is that umbrella sampling requires planning. You need a CV, window centers, force constants, and enough overlap. If the transition coordinate is unknown or curved, the windows can miss the important path.
 
@@ -158,6 +172,8 @@ At time $$t$$, suppose the current CV value is $$s_t = \xi(\mathbf{x}_t)$$. Meta
 $$V_t(s) = \sum_{t_i < t} w_i \exp\!\left(-\frac{\lVert s - s_{t_i}\rVert^2}{2\sigma^2}\right)$$
 
 The system is discouraged from returning to places it has already visited. Over time, the bias fills free-energy wells and pushes the simulation across barriers.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/md_cv_metadynamics.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Metadynamics builds a history-dependent bias by adding Gaussian hills along a collective variable. As the accumulated bias fills visited wells, the effective surface becomes easier to traverse." %}
 
 In ordinary metadynamics, the accumulated bias approaches:
 
