@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Ensembles, Thermostats, and Barostats for ML Researchers"
+title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-03-18
-description: "Statistical mechanics for ML researchers — from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
+last_updated: 2026-05-22
+description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"

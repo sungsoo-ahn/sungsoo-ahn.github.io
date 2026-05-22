@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Protein Design for ML Researchers"
+title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-03-18
+last_updated: 2026-05-22
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 order: 1
 series: ml-for-science

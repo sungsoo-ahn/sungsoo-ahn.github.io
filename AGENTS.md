@@ -31,6 +31,25 @@ uv run python scripts/update_members.py       # From members.xlsx
 
 **Important:** Do not kill and restart the Jekyll server on every file edit — this disconnects the user's browser. Leave the server running while editing. Only restart (kill + serve) when the user explicitly asks to open/preview the site.
 
+## Opening the Blog Preview
+
+When the user asks to show/open/preview the blog:
+
+1. Check whether Jekyll is already serving:
+   ```bash
+   lsof -iTCP:4000 -sTCP:LISTEN -n -P
+   ```
+2. If nothing is listening, start the server and leave it running:
+   ```bash
+   /opt/homebrew/opt/ruby/bin/bundle exec jekyll serve --host 127.0.0.1 --port 4000
+   ```
+3. Open the blog directly:
+   ```bash
+   open http://127.0.0.1:4000/blog/
+   ```
+
+If the server is already running, only run the `open` command. Do not restart the server unless the user explicitly asks.
+
 ## Data Sources
 
 Excel files synced from Dropbox:
