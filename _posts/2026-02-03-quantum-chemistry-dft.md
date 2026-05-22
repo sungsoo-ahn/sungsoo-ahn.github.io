@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Quantum Chemistry and DFT for ML Researchers"
+title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-03-15
-description: "Quantum chemistry and density functional theory for ML researchers — from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
+last_updated: 2026-05-22
+description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"

@@ -10,6 +10,9 @@ pagination:
 
   <div class="publications blog-index">
     <h1>Blogs</h1>
+    <p class="blog-index-note">
+      Informal notes for ML researchers entering scientific domains. They are meant as working introductions and bridges between literatures, not formal scientific review articles.
+    </p>
 
     {% assign postlist = site.posts | sort: "date" | reverse %}
 

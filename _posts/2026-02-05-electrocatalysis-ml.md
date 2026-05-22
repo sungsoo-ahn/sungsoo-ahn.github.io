@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Heterogeneous Electrocatalysis for ML Researchers"
+title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-03-18
-description: "Heterogeneous electrocatalysis for ML researchers — the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
+last_updated: 2026-05-22
+description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Adsorption, GCMC, and Classical DFT for ML Researchers"
+title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-05-21
-description: "Adsorption simulation for ML researchers: gas uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
+last_updated: 2026-05-22
+description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -39,6 +39,8 @@ This post introduces two ways to compute that density:
 
 For ML, this distinction matters because it changes the learning target. Predicting uptake is scalar regression. Predicting $$\rho(\mathbf{r})$$ is learning a thermodynamic density operator.
 
+To keep the notation anchored, I will use one running example: **methane adsorption in MOF-5**. The framework is fixed, methane is the adsorbate, and the thermodynamic condition is a chosen temperature and pressure. Changing the pressure changes the reservoir chemical potential; the number of methane molecules inside the unit cell is the thing we want to predict.
+
 ### Overview
 
 The adsorption problem is an open-system equilibrium problem. A porous material sits in contact with a gas reservoir, so the number of molecules inside the pore fluctuates. GCMC handles this by sampling particle configurations in the grand canonical ensemble. cDFT handles it by optimizing a density field that minimizes a grand-potential functional. Modern ML methods can use both views: broad cDFT labels teach a cheap density prior, while sparse GCMC labels correct toward particle-simulation fidelity.
@@ -51,9 +53,9 @@ The post builds this picture in four steps. The Adsorption Problem section defin
 
 ## The Adsorption Problem
 
-Adsorption occurs when guest molecules accumulate on a surface or inside a porous host. The host is the **adsorbent**. The guest fluid is the **adsorbate**.[^adswords] A methane molecule inside a metal-organic framework (MOF),[^mof] carbon dioxide inside a zeolite, and xenon inside activated carbon are all adsorption systems.
+Adsorption occurs when guest molecules accumulate on a surface or inside a porous host. The host is the **adsorbent**. The guest fluid is the **adsorbate**.[^adswords] In the running example, MOF-5 is the adsorbent and methane is the adsorbate. Carbon dioxide inside a zeolite and xenon inside activated carbon are the same kind of problem with different host-guest chemistry.
 
-The physical setup is open. The material is in contact with a large gas reservoir at temperature $$T$$ and pressure $$P$$. Gas molecules enter and leave the pores until equilibrium. The number of adsorbed molecules is not fixed; it is an outcome.
+The physical setup is open. The material is in contact with a large gas reservoir at temperature $$T$$ and pressure $$P$$. Methane molecules enter and leave the pores until equilibrium. The number of adsorbed methane molecules is not fixed; it is an outcome.
 
 This is why adsorption is usually modeled in the **grand canonical ensemble**, also called $$\mu VT$$:
 
@@ -62,15 +64,15 @@ This is why adsorption is usually modeled in the **grand canonical ensemble**, a
 - $$\mu$$ is fixed by the gas reservoir.
 - $$N$$ fluctuates.
 
-The chemical potential $$\mu$$ is the free-energy cost of adding one molecule to the reservoir.[^chempot] In practice, for a pure gas at fixed $$T$$, specifying pressure $$P$$ determines $$\mu$$ through an equation of state. This is why adsorption papers often say "simulation at pressure $$P$$" while the formal ensemble is written with $$\mu$$.
+The chemical potential $$\mu$$ is the free-energy cost of adding one molecule to the reservoir.[^chempot] In practice, for a pure gas at fixed $$T$$, specifying pressure $$P$$ determines $$\mu$$ through an equation of state. For methane in MOF-5, "simulate at pressure $$P$$" means "set the methane reservoir chemical potential corresponding to $$P$$." This is why adsorption papers often use pressure language while the formal ensemble is written with $$\mu$$.
 
 ### What Makes Adsorption Hard?
 
 Two effects must be modeled together.
 
-First, the porous material creates a heterogeneous external potential $$V_{\mathrm{ext}}(\mathbf{r})$$. Some regions are strongly attractive binding pockets. Some regions are sterically forbidden. The density can change by orders of magnitude across a single unit cell.
+First, the porous material creates a heterogeneous external potential $$V_{\mathrm{ext}}(\mathbf{r})$$. In MOF-5, methane sees favorable regions near parts of the framework and unfavorable regions where the framework atoms block space. The density can change by orders of magnitude across a single unit cell.
 
-Second, adsorbate molecules interact with each other. At low pressure, a molecule mostly feels the framework. At high pressure, molecules crowd the pore, form layers, and exclude volume from one another. This many-body structure is exactly what makes adsorption nontrivial.
+Second, adsorbate molecules interact with each other. At low pressure, a methane molecule mostly feels the framework. At high pressure, methane molecules crowd the pore and exclude volume from one another. This many-body structure is exactly what makes adsorption nontrivial.
 
 If we ignore fluid-fluid interactions, each molecule independently follows the framework potential. The density has the ideal-gas Boltzmann form:
 
@@ -82,11 +84,11 @@ Here $$\rho_{\mathrm{bulk}}(T,P)$$ is the number density of the gas reservoir. T
 
 ## GCMC: The Particle View
 
-GCMC samples adsorption equilibrium by constructing a Markov chain over particle configurations. Adams introduced grand canonical Monte Carlo for Lennard-Jones fluids in 1975; modern adsorption packages such as RASPA use the same ensemble logic with richer force fields and move sets. A state contains a variable number of adsorbate molecules:
+GCMC samples adsorption equilibrium by constructing a Markov chain over particle configurations. Adams introduced grand canonical Monte Carlo for Lennard-Jones fluids in 1975; modern adsorption packages such as RASPA use the same ensemble logic with richer force fields and move sets. For methane in MOF-5, a state contains a variable number of methane molecules inside the unit cell:
 
 $$\mathbf{x} = (N, \mathbf{r}_1, \ldots, \mathbf{r}_N, \Omega_1, \ldots, \Omega_N)$$
 
-where $$\mathbf{r}_i$$ is the molecular position and $$\Omega_i$$ denotes orientation for a non-spherical molecule.
+where $$\mathbf{r}_i$$ is the molecular position and $$\Omega_i$$ denotes orientation for a non-spherical molecule. Methane is often treated as nearly spherical in simple force fields, but keeping $$\Omega_i$$ in the notation makes the same state representation work for molecules such as carbon dioxide.
 
 The target distribution is the grand canonical distribution:
 
@@ -96,7 +98,7 @@ where $$U_N$$ is the potential energy of the $$N$$-molecule configuration and $$
 
 $$p(N,\mathbf{r}^N) \propto \exp[-\beta(U_N(\mathbf{r}^N) - \mu N)]$$
 
-Increasing $$N$$ is rewarded by $$\mu N$$ but penalized if the inserted molecules raise the interaction energy too much.
+Increasing $$N$$ is rewarded by $$\mu N$$ but penalized if the inserted molecules raise the interaction energy too much. At higher methane pressure, the reward for adding molecules increases; at high loading, the overlap and crowding penalties also increase.
 
 ### The Moves
 
@@ -106,7 +108,9 @@ GCMC uses Metropolis-Hastings moves that leave the grand canonical distribution 
 - **Insertion:** propose a new molecule at a random position and orientation.
 - **Deletion:** remove an existing molecule.
 
-The insertion/deletion moves are the defining feature. They let particle number fluctuate, which is exactly what adsorption needs. A trajectory of GCMC samples looks like a stack of snapshots, each with a different number of molecules in the pore.
+The insertion/deletion moves are the defining feature. They let particle number fluctuate, which is exactly what adsorption needs. A trajectory of GCMC samples for methane in MOF-5 looks like a stack of snapshots, each with a different number of methane molecules in the pore.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_moves.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Core GCMC move types for the methane-in-MOF-5 running example. Translation and rotation explore configurations at fixed particle count, while insertion and deletion move between states with different \(N\)." %}
 
 The uptake is the ensemble average:
 
@@ -116,13 +120,15 @@ The density field is the ensemble average of particle locations:
 
 $$\rho(\mathbf{r}) = \left\langle \sum_{i=1}^{N} \delta(\mathbf{r} - \mathbf{r}_i)\right\rangle_{T,\mu}$$
 
-On a computer, the delta functions are binned onto a voxel grid or smoothed with a kernel. This turns particle samples into a density field.
+On a computer, the delta functions are binned onto a voxel grid or smoothed with a kernel. For the running example, each accepted methane configuration contributes methane centers to the grid. Averaging those grids turns particle samples into a density field.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_snapshots_to_density.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Coarse-graining GCMC samples into a density field. Each accepted particle snapshot contributes methane positions to a grid; averaging snapshots estimates \(\rho(\mathbf{r})\), whose integral gives uptake." %}
 
 ### Why GCMC Is Expensive
 
 GCMC is the reference method because, for a chosen force field and enough sampling, it converges to the correct ensemble average. The price is sampling cost.
 
-Insertion becomes hard in dense pores. A random proposed molecule often overlaps with existing molecules or the framework, producing a huge energy increase and near-zero acceptance probability. Narrow pores are also difficult because the allowed volume is a small fraction of the cell. The Markov chain then spends many steps proposing moves that do not change the state.
+Insertion becomes hard in dense pores. A random proposed methane molecule can land too close to an existing methane molecule or a framework atom, producing a huge energy increase and near-zero acceptance probability. Narrow pores are also difficult because the allowed volume is a small fraction of the cell. The Markov chain then spends many steps proposing moves that do not change the state.
 
 This is why high-throughput adsorption screening is expensive. One material, one gas, one temperature, and one pressure is already a simulation. An isotherm needs many pressures. A screening campaign needs thousands or millions of materials.
 
@@ -130,7 +136,7 @@ This is why high-throughput adsorption screening is expensive. One material, one
 
 ## Classical DFT: The Density View
 
-Classical DFT solves the same equilibrium problem without sampling particles. It treats $$\rho(\mathbf{r})$$ as the optimization variable. Evans' 1979 review is the classic starting point for this density-functional view of non-uniform classical fluids.
+Classical DFT solves the same equilibrium problem without sampling particles. It treats $$\rho(\mathbf{r})$$ as the optimization variable. In the running example, $$\rho(\mathbf{r})$$ is the methane number density over the MOF-5 unit cell. Evans' 1979 review is the classic starting point for this density-functional view of non-uniform classical fluids.
 
 The word "classical" matters.[^cdft] This is not Kohn-Sham DFT for electrons. Quantum DFT uses the electron density to avoid the many-electron wavefunction. Classical DFT uses the molecular number density to avoid sampling many-particle configurations.
 
@@ -139,7 +145,7 @@ The word "classical" matters.[^cdft] This is not Kohn-Sham DFT for electrons. Qu
 > $$\rho_{\mathrm{eq}} = \arg\min_{\rho \geq 0} \Omega[\rho]$$
 {: .block-definition }
 
-For adsorption in a rigid framework, the grand potential is
+For adsorption in a rigid framework such as MOF-5, the grand potential is
 
 $$\Omega[\rho] = F_{\mathrm{id}}[\rho] + F_{\mathrm{exc}}[\rho] + \int \rho(\mathbf{r})\left[V_{\mathrm{ext}}(\mathbf{r}) - \mu\right]\,d\mathbf{r}$$
 
@@ -155,13 +161,13 @@ This term spreads density out because entropy favors many accessible configurati
 
 $$\int \rho(\mathbf{r})V_{\mathrm{ext}}(\mathbf{r})\,d\mathbf{r}$$
 
-puts density in attractive regions and removes it from repulsive regions.
+puts methane density in attractive regions and removes it from repulsive regions.
 
 **The chemical-potential term controls loading.** The term
 
 $$-\mu \int \rho(\mathbf{r})\,d\mathbf{r}$$
 
-rewards adding molecules when the reservoir chemical potential is high.
+rewards adding methane molecules when the reservoir chemical potential is high.
 
 **The excess term $$F_{\mathrm{exc}}[\rho]$$ contains fluid-fluid interactions.** This is the hard part. It accounts for excluded volume, dispersion attraction, chain connectivity, and other many-body effects. Unlike the ideal term, it is not known exactly for realistic fluids, so every practical cDFT method chooses an approximation.
 
@@ -179,7 +185,9 @@ Because the right-hand side depends on $$\rho_{\mathrm{eq}}$$ through $$F_{\math
 
 $$\rho^{(n+1)}(\mathbf{r}) = \rho_{\mathrm{bulk}}\exp\left[-\beta V_{\mathrm{ext}}(\mathbf{r}) - \beta \frac{\delta F_{\mathrm{exc}}}{\delta \rho(\mathbf{r})}\bigg\rvert_{\rho^{(n)}} + \beta\mu_{\mathrm{exc}}^{\mathrm{bulk}}\right]$$
 
-Starting from $$\rho^{(0)} = \rho_{\mathrm{Boltz}}$$, the solver repeatedly evaluates the many-body correction and updates the density until $$\rho^{(n+1)} \approx \rho^{(n)}$$.
+Starting from $$\rho^{(0)} = \rho_{\mathrm{Boltz}}$$, the solver repeatedly evaluates the many-body correction and updates the methane density until $$\rho^{(n+1)} \approx \rho^{(n)}$$.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_fixed_point.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The cDFT fixed-point loop. The current density \(\rho^{(n)}\) defines the many-body correction, the update produces \(\rho^{(n+1)}\), and the loop stops when the density no longer changes appreciably." %}
 
 This is the density analogue of a self-consistent field loop. In quantum DFT, the electron density defines an effective Hamiltonian, whose orbitals define a new density. In classical DFT, the adsorbate density defines a fluid-fluid correction, which defines a new density.
 
@@ -187,7 +195,7 @@ This is the density analogue of a self-consistent field loop. In quantum DFT, th
 
 The practical quality of cDFT depends on $$F_{\mathrm{exc}}[\rho]$$. For adsorption of small non-polar molecules, a common choice is a cDFT realization of **PC-SAFT**: perturbed-chain statistical associating fluid theory.
 
-PC-SAFT represents a molecule as a chain of tangent Lennard-Jones segments.[^pcsaft] For a non-polar adsorbate, much of the species dependence is summarized by three parameters:
+PC-SAFT represents a molecule as a chain of tangent Lennard-Jones segments.[^pcsaft] Methane is a small non-polar adsorbate, so much of the species dependence is summarized by three parameters:
 
 - $$m$$: number of segments.
 - $$\sigma$$: segment diameter.
@@ -201,7 +209,7 @@ where cross parameters often use Lorentz-Berthelot mixing:
 
 $$\sigma_{fj} = \frac{1}{2}(\sigma_f + \sigma_j), \qquad \varepsilon_{fj} = \sqrt{\varepsilon_f\varepsilon_j}$$
 
-So the adsorbate identity enters twice: directly in the fluid functional and indirectly in the framework potential. This is useful for ML because the species dependence is not arbitrary. A model can condition on a small vector like $$(m,\sigma,\varepsilon)$$ while still predicting a full 3D density field.
+So the adsorbate identity enters twice: directly in the fluid functional and indirectly in the framework potential. This is useful for ML because the species dependence is not arbitrary. A model can condition on a small vector like $$(m,\sigma,\varepsilon)$$ while still predicting a full 3D density field. The methane-in-MOF-5 case is one point in that larger conditional mapping.
 
 ### The Trade-Off
 
@@ -236,15 +244,15 @@ This suggests the supervised learning problem:
 
 $$\left(\text{framework}, \text{adsorbate}, T, P\right) \longmapsto \rho_{\mathrm{eq}}(\mathbf{r})$$
 
-The input contains geometry, chemistry, and thermodynamic condition. The output is a 3D field in physical units.
+For the running example, this is $$(\text{MOF-5}, \text{methane}, T, P) \mapsto \rho_{\mathrm{eq}}(\mathbf{r})$$. The input contains geometry, chemistry, and thermodynamic condition. The output is a 3D field in physical units.
 
 ### Multi-Fidelity Density Learning
 
 The natural data sources have different cost and fidelity.
 
-cDFT can generate many density fields across materials, gases, and pressures. Those labels are solver-converged densities for a chosen approximate functional. They are not perfect, but they teach the broad geometry-to-density map.
+cDFT can generate many density fields across materials, gases, and pressures. For methane in MOF-5, it can cheaply sweep a pressure grid and produce one density field per pressure. Those labels are solver-converged densities for a chosen approximate functional. They are not perfect, but they teach the broad geometry-to-density map.
 
-GCMC can generate higher-fidelity particle-simulation references. Those labels are expensive, so the dataset is smaller. After coarse-graining particle samples into density grids, GCMC can correct the remaining cDFT-to-particle-simulation gap.
+GCMC can generate higher-fidelity particle-simulation references. Those labels are expensive, so the dataset is smaller. After coarse-graining methane particle samples into density grids, GCMC can correct the remaining cDFT-to-particle-simulation gap.
 
 The ML pattern is familiar:
 
@@ -282,7 +290,7 @@ For ML researchers, the clean way to remember adsorption is:
 - cDFT optimizes the density field that minimizes the grand potential.
 - Uptake is the integral of the density, not a separate physical object.
 
-The methodological lesson is broader than adsorption. Whenever a scientific field reports a scalar observable, ask whether it is the projection of a richer object. In adsorption, that richer object is $$\rho(\mathbf{r})$$. Learning it gives the model more structure, more supervision, and a more natural bridge between simulation and prediction.
+The methane-in-MOF-5 example is only one instance. The methodological lesson is broader than adsorption. Whenever a scientific field reports a scalar observable, ask whether it is the projection of a richer object. In adsorption, that richer object is $$\rho(\mathbf{r})$$. Learning it gives the model more structure, more supervision, and a more natural bridge between simulation and prediction.
 
 ## References
 

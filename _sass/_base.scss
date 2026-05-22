@@ -858,46 +858,6 @@ footer.sticky-bottom {
   }
 }
 
-.series-nav {
-  background: var(--global-card-bg-color);
-  border: 1px solid var(--global-divider-color);
-  border-radius: 8px;
-  margin-top: 2.5rem;
-  margin-bottom: 2rem;
-  padding: 1.25rem 1.35rem;
-
-  .series-eyebrow {
-    color: var(--global-text-color-light);
-    font-size: 0.8rem;
-    letter-spacing: 0;
-    margin-bottom: 0.25rem;
-    text-transform: uppercase;
-  }
-
-  h2 {
-    font-size: 1.35rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .series-description {
-    color: var(--global-text-color-light);
-    margin-bottom: 0.75rem;
-  }
-
-  ol {
-    margin-bottom: 0;
-    padding-left: 1.25rem;
-  }
-
-  li {
-    margin: 0.35rem 0;
-  }
-
-  li.current span {
-    font-weight: 600;
-  }
-}
-
 .pagination {
   .page-item {
     .page-link {
@@ -1213,6 +1173,14 @@ footer.sticky-bottom {
 }
 
 .blog-index {
+  .blog-index-note {
+    color: var(--global-text-color-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-width: 760px;
+  }
+
   ol.bibliography li {
     margin-bottom: 1.35rem;
   }
@@ -1920,8 +1888,7 @@ article {
 
 .blog-post {
   .post-header,
-  .post-content,
-  .series-nav {
+  .post-content {
     max-width: 820px;
     margin-left: auto;
     margin-right: auto;

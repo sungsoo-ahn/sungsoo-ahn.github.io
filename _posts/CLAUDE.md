@@ -30,7 +30,7 @@ related_posts: false
 
 **MANDATORY: Update `last_updated`** — Whenever you edit a blog post, update the `last_updated` field in the frontmatter to today's date. This is required for every edit, no matter how small.
 
-Use `series` and `series_order` when a post belongs to a curated reading path. The blog index itself sorts posts by date; `series_order` only controls the reading-path module at the bottom of posts in the same series.
+The blog index sorts posts by date. Series metadata may be kept for organization, but posts do not render bottom reading-path or roadmap blocks.
 
 ## Author Note
 
