@@ -13,4 +13,5 @@ vendor
 .idea
 .venv
 .agent/
+.omc/
 __pycache__/
