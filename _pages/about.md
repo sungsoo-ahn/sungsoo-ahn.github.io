@@ -19,11 +19,11 @@ latest_posts:
   enabled: false
 
 members_content: |
-  [Yunhui Jang](https://yunhuijang.github.io/), [Hyosoon Jang](https://hsjang0.github.io/hsjang/), [Hyomin Kim](https://icecream126.github.io/), [Seonghyun Park](https://seonghyun26.github.io/hyun/), [Seongsu Kim](https://seongsukim-ml.github.io/), [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/), [Minkyu Kim](https://minkyu1022.github.io/mkkim/), [Dongyeop Woo](https://dongyeop3813.github.io/), [Nayoung Kim](https://nayoung10.github.io/), [Minsu Kim (Postdoc)](https://minsuukim.github.io/), [Taewon Kim](https://holymollyhao.github.io), [Hyunjin Seo](https://hyunjin72.github.io/), [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/), [Yoonho Kim](https://yoonhokim0527.github.io/), [Honghui Kim (Postdoc)](https://honghuikim.github.io/)
+  [Yunhui Jang](https://yunhuijang.github.io/), [Hyosoon Jang](https://hsjang0.github.io/hsjang/), [Hyomin Kim](https://icecream126.github.io/), [Seonghyun Park](https://seonghyun26.github.io/hyun/), [Seongsu Kim](https://seongsukim-ml.github.io/), [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/), [Minkyu Kim](https://minkyu1022.github.io/mkkim/), [Dongyeop Woo](https://dongyeop3813.github.io/), [Nayoung Kim](https://nayoung10.github.io/), [Taewon Kim](https://holymollyhao.github.io), [Hyunjin Seo](https://hyunjin72.github.io/), [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/), [Yoonho Kim](https://yoonhokim0527.github.io/), [Honghui Kim (Postdoc)](https://honghuikim.github.io/)
 
-  **Alumni:** Haeji Ko, Juwon Hwang
+  **Alumni:** Haeji Ko, Juwon Hwang, [Minsu Kim](https://minsuukim.github.io/)
 ---
 
-I am an Assistant Professor at [KAIST Graduate School of AI](https://gsai.kaist.ac.kr/), where I direct the **Structured and Probabilistic Machine Learning (SPML) Lab**.
+I am an Assistant Professor at [KAIST Graduate School of AI](https://gsai.kaist.ac.kr/), where I direct the <strong>Structured and Probabilistic Machine Learning <span class="spml-lab-lock">(<img class="spml-logo-inline spml-logo-light" src="{{ '/assets/img/spml_logo.svg' | relative_url }}" alt="SPML"><img class="spml-logo-inline spml-logo-dark" src="{{ '/assets/img/spml_logo_dark.svg' | relative_url }}" alt="SPML">) Lab.</span></strong>
 
 My research focuses on structured, probabilistic machine learning for atomic- and electron-level modeling, with applications to drug discovery and material design. I enjoy bringing this perspective to scientific problems and diving deep into the underlying physics, chemistry, and biology.

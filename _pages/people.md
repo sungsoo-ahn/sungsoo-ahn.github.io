@@ -18,7 +18,6 @@ nav_order: 3
 - [Minkyu Kim](https://minkyu1022.github.io/mkkim/)
 - [Dongyeop Woo](https://dongyeop3813.github.io/)
 - [Nayoung Kim](https://nayoung10.github.io/)
-- [Minsu Kim (Postdoc)](https://minsuukim.github.io/)
 - [Taewon Kim](https://holymollyhao.github.io)
 - [Hyunjin Seo](https://hyunjin72.github.io/)
 - [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/)
@@ -31,3 +30,4 @@ nav_order: 3
 
 - Haeji Ko
 - Juwon Hwang
+- [Minsu Kim](https://minsuukim.github.io/)
