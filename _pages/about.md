@@ -26,4 +26,6 @@ members_content: |
 
 I am an Assistant Professor at [KAIST Graduate School of AI](https://gsai.kaist.ac.kr/), where I direct the <strong>Structured and Probabilistic Machine Learning <span class="spml-lab-lock">(<img class="spml-logo-inline spml-logo-light" src="{{ '/assets/img/spml_logo.svg' | relative_url }}" alt="SPML"><img class="spml-logo-inline spml-logo-dark" src="{{ '/assets/img/spml_logo_dark.svg' | relative_url }}" alt="SPML">) Lab.</span></strong>
 
-My research focuses on structured, probabilistic machine learning for atomic- and electron-level modeling, with applications to drug discovery and material design. I enjoy bringing this perspective to scientific problems and diving deep into the underlying physics, chemistry, and biology.
+My research focuses on structured, probabilistic machine learning with applications to drug discovery and material design. I enjoy bringing novel and practical perspective to scientific problems and diving deep into the underlying physics, chemistry, and biology.
+
+[CV]({{ '/assets/pdf/cv.pdf' | relative_url }})
