@@ -5,6 +5,7 @@ date: 2026-02-02
 last_updated: 2026-06-18
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 2
 series: ml-for-science
 series_title: "ML for Science Foundations"

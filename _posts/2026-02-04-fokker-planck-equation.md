@@ -5,6 +5,7 @@ date: 2026-02-04
 last_updated: 2026-06-18
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 2
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"

@@ -20,6 +20,7 @@ REQUIRED_FRONTMATTER = {
     "date",
     "last_updated",
     "description",
+    "authors",
     "categories",
     "tags",
     "toc",
