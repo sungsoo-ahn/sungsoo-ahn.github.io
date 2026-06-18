@@ -5,6 +5,7 @@ date: 2026-03-14
 last_updated: 2026-06-18
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"

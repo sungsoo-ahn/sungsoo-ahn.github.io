@@ -16,6 +16,7 @@ date: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 description: "One-sentence summary for SEO and post listings."
 post_type: tutorial # tutorial | technical-note | research
+authors: ["Sungsoo Ahn"] # list all named authors shown in the post and blog index
 order: 1 # legacy field; blog index now sorts by date
 series: optional-series-id
 series_title: "Optional Series Title"
@@ -32,6 +33,10 @@ related_posts: false
 **MANDATORY: Update `last_updated`** — Whenever you edit a blog post, update the `last_updated` field in the frontmatter to today's date. This is required for every edit, no matter how small.
 
 The blog index sorts posts by date. Series metadata may be kept for organization, but posts do not render bottom reading-path or roadmap blocks.
+
+Use `authors` for every post, even single-author posts. The blog layout also supports the older `author` field as a fallback, but new posts should use `authors`.
+
+Many posts contain AI-generated draft text, edits, or figures. Listed authors are responsible for deciding what to incorporate, checking the technical content, and approving the final text.
 
 ## Author Note
 

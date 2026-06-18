@@ -5,6 +5,7 @@ date: 2026-05-21
 last_updated: 2026-06-18
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"

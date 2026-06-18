@@ -11,7 +11,7 @@ pagination:
   <div class="publications blog-index">
     <h1>Blogs</h1>
     <p class="blog-index-note">
-      Informal notes for ML researchers entering scientific domains. They are meant as working introductions and bridges between literatures, not formal scientific review articles.
+      Research updates, tutorials, and technical notes from SPML Lab for ML researchers entering scientific domains. Many posts contain AI-generated draft text, edits, or figures; the listed authors decide what to incorporate, verify the technical content, and take responsibility for the final text.
     </p>
 
     {% assign postlist = site.posts | sort: "date" | reverse %}
@@ -32,6 +32,11 @@ pagination:
     {% assign post_type_label = post_type | replace: "-", " " | capitalize %}
     {% if post_type == "technical-note" %}
       {% assign post_type_label = "Technical note" %}
+    {% endif %}
+    {% if post.authors %}
+      {% assign post_author_text = post.authors | join: ", " %}
+    {% else %}
+      {% assign post_author_text = post.author %}
     {% endif %}
 
     {% if post.external_source == blank %}
@@ -56,7 +61,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read{% if post.external_source %}; {{ post.external_source }}{% endif %}
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read{% if post.external_source %}; {{ post.external_source }}{% endif %}
           </div>
         </div>
       </div>

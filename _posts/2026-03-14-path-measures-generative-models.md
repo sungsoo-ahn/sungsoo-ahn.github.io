@@ -5,6 +5,7 @@ date: 2026-03-14
 last_updated: 2026-06-18
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
+authors: ["Sungsoo Ahn"]
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
