@@ -15,9 +15,24 @@ pagination:
     </p>
 
     {% assign postlist = site.posts | sort: "date" | reverse %}
+    {% assign research_count = site.posts | where: "post_type", "research" | size %}
+    {% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
+    {% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
+
+    <div class="blog-type-summary" aria-label="Blog post types">
+      <span>Post types</span>
+      <span>Research {{ research_count }}</span>
+      <span>Tutorials {{ tutorial_count }}</span>
+      <span>Technical notes {{ technical_note_count }}</span>
+    </div>
 
     <ol class="bibliography">
     {% for post in postlist %}
+    {% assign post_type = post.post_type | default: "tutorial" %}
+    {% assign post_type_label = post_type | replace: "-", " " | capitalize %}
+    {% if post_type == "technical-note" %}
+      {% assign post_type_label = "Technical note" %}
+    {% endif %}
 
     {% if post.external_source == blank %}
       {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
@@ -41,7 +56,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read{% if post.external_source %}; {{ post.external_source }}{% endif %}
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read{% if post.external_source %}; {{ post.external_source }}{% endif %}
           </div>
         </div>
       </div>

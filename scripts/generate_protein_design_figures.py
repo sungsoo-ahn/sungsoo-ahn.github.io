@@ -1392,8 +1392,8 @@ def generate_binder_example_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_self_consistency_figure(output_path):
     """Horizontal two-row workflow: backbone -> ProteinMPNN -> sequence -> AlphaFold -> structure -> compare."""
-    fig, ax = plt.subplots(figsize=(12, 4.5))
-    ax.set_xlim(-0.5, 12.5)
+    fig, ax = plt.subplots(figsize=(13.2, 4.7))
+    ax.set_xlim(-0.5, 13.3)
     ax.set_ylim(-0.5, 4.5)
     ax.axis('off')
 
@@ -1439,7 +1439,7 @@ def generate_self_consistency_figure(output_path):
         _draw_arrow(ax, x1, bot_y, x2, bot_y, color=ARROW_COLOR, lw=1.5, ms=12)
 
     # Decision annotation
-    ax.text(11.5, 2.0, 'Accept if\nscRMSD < 2 \u00c5',
+    ax.text(11.65, 2.0, 'accept if\nscRMSD < 2 \u00c5',
             ha='center', va='center', fontsize=10, fontweight='bold',
             color=COLOR_GREEN,
             bbox=dict(boxstyle='round,pad=0.4', fc=BOX_GREEN,
@@ -1456,8 +1456,8 @@ def generate_self_consistency_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_design_funnel_figure(output_path):
     """Funnel showing pipeline filtering from 10k backbones to 3-5 binders."""
-    fig, ax = plt.subplots(figsize=(11, 5))
-    ax.set_xlim(-1, 11.5)
+    fig, ax = plt.subplots(figsize=(12.5, 5.2))
+    ax.set_xlim(-1, 12.8)
     ax.set_ylim(-0.3, 5.8)
     ax.axis('off')
 
@@ -1509,9 +1509,9 @@ def generate_design_funnel_figure(output_path):
         ax.text(center_x, y_mid, label, ha='center', va='center',
                 fontsize=10, fontweight='bold', color=TEXT_COLOR, zorder=4)
 
-        ax.text(center_x + max_width / 2 + 0.5, y_mid,
+        ax.text(center_x + max_width / 2 + 0.72, y_mid,
                 method, ha='left', va='center',
-                fontsize=9, color=ec if ec != COLOR_GREEN else '#388e3c',
+                fontsize=8.5, color=ec if ec != COLOR_GREEN else '#388e3c',
                 fontstyle='italic')
 
     plt.tight_layout()

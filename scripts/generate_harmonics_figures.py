@@ -304,9 +304,9 @@ def generate_cg_tensor_product_figure(output_path):
     """
     Generate figure illustrating the Clebsch-Gordan tensor product.
     """
-    fig, ax = plt.subplots(1, 1, figsize=(13, 3.3))
-    ax.set_xlim(0, 13)
-    ax.set_ylim(0.25, 3.55)
+    fig, ax = plt.subplots(1, 1, figsize=(15, 3.8))
+    ax.set_xlim(0, 14.8)
+    ax.set_ylim(0.1, 3.8)
     ax.set_aspect('equal')
     ax.axis('off')
 
@@ -340,8 +340,8 @@ def generate_cg_tensor_product_figure(output_path):
 
     # Layout constants
     cy = 1.95
-    arrow_len = 0.45
-    arrow_gap = 0.15
+    arrow_len = 0.55
+    arrow_gap = 0.22
     unit = 0.40
     lw = 1.0
 
@@ -457,7 +457,7 @@ def generate_cg_tensor_product_figure(output_path):
             ha='center', va='bottom', fontsize=9, color=text_l2)
 
     # ========== Section headers ==========
-    h1_y = 3.38
+    h1_y = 3.52
 
     ax.text((x1 + x2 + unit) / 2, h1_y, 'Input',
             ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
@@ -474,7 +474,7 @@ def generate_cg_tensor_product_figure(output_path):
             ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
 
     # ========== Equations below each element (color-matched) ==========
-    eq_y = 0.60
+    eq_y = 0.42
 
     # --- Input ---
     ax.text(x1 + unit/2, eq_y, r'$\mathbf{x}^{(1)}$',

@@ -2,8 +2,9 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-05-22
+last_updated: 2026-06-18
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
+post_type: tutorial
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -31,13 +32,13 @@ Two families of methods tackle this problem, differing in what they approximate:
 - **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make the exponential-dimensional problem tractable.
 - **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
 
-More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. This post introduces these ideas from first principles.
+More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. The goal here is to introduce these ideas from first principles.
 
 ### Overview
 
 The goal is to compute a molecular system's energy and electron density from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
 
-This post builds toward the SCF loop. The Schrödinger equation defines the problem, the Born-Oppenheimer approximation separates electrons from nuclei, wavefunction theory shows what direct approximation looks like and where it fails, and DFT offers the density-based path that makes the SCF loop possible.
+The route to the SCF loop is: define the problem with the Schrödinger equation, separate electrons from nuclei with the Born-Oppenheimer approximation, see what direct wavefunction approximation looks like, and then use DFT as the density-based path that makes the SCF loop possible.
 
 ## The Schrödinger Equation
 

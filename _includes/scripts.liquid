@@ -163,7 +163,13 @@
   <script defer src="{{ '/assets/js/zoom.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
 
-{% if page.toc and page.toc.sidebar %}
+{% assign url_beginning = page.url | slice: 0, 6 %}
+{% assign show_sidebar_toc = false %}
+{% if page.toc and page.toc.sidebar and url_beginning != '/blog/' %}
+  {% assign show_sidebar_toc = true %}
+{% endif %}
+
+{% if show_sidebar_toc %}
   <!-- Sidebar Table of Contents -->
   <script defer src="{{ '/assets/js/bootstrap-toc.min.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}

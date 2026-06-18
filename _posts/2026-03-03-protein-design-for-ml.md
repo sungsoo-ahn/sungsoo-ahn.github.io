@@ -2,8 +2,9 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-05-22
+last_updated: 2026-06-18
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
+post_type: tutorial
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -28,15 +29,15 @@ Many disease-relevant targets — protein–protein interactions, flat surfaces,
 
 For ML researchers, the appeal is structural. Protein design is a well-defined generative modeling problem: the input is a functional specification (target structure, binding constraints), and the output is a sequence of discrete tokens (amino acids) that must satisfy continuous geometric constraints (3D folding). The training data is the Protein Data Bank, with ~200,000 experimentally solved structures, supplemented by billions of sequences from genomic databases. Structure prediction (AlphaFold) provides a fast oracle for evaluating designs. The experimental feedback loop is also tight: a design campaign can move from computation to lab results in weeks, not years.
 
-Before 2020, computational protein design relied on Rosetta's physics-based energy function and Monte Carlo sampling: slow, expensive, and low-throughput. Between 2021 and 2023, AlphaFold2, ProteinMPNN, and RFDiffusion replaced the core pipeline steps with learned models, increasing success rates from ~1% to ~10–30% and reducing computation from CPU-weeks to GPU-hours. This created an opportunity: the tools work, but they are far from optimal, and the design space is enormous. Protein design is now a field where ML contributions can have immediate, measurable experimental impact.
+Before 2020, computational protein design relied on Rosetta's physics-based energy function and Monte Carlo sampling: slow, expensive, and low-throughput. Between 2021 and 2023, AlphaFold2, ProteinMPNN, and RFDiffusion replaced the core pipeline steps with learned models, increasing success rates from ~1% to ~10–30% and reducing computation from CPU-weeks to GPU-hours. This created an opportunity: the tools work, but they are far from optimal, and the design space is large. Protein design is now a field where ML contributions can have immediate, measurable experimental impact.
 
-This post covers the biology and computational infrastructure you need to participate.
+The useful background has two parts: the biology and the computational infrastructure around it.
 
 ### Overview
 
 A modern design campaign is a pipeline: **RFDiffusion** generates candidate backbone structures conditioned on the target, **ProteinMPNN** designs amino acid sequences for each backbone, **AlphaFold** predicts whether each sequence folds as intended, and the top candidates go to the lab. Roughly 10,000 backbones enter; about 5 confirmed binders come out.
 
-To understand why each step works (and fails), you need the biology: what proteins are made of, what forces hold the shape together, what makes a good binding interface, and what physical constraints the pipeline must satisfy. This post builds that understanding, following the **sequence → structure → function** triangle.
+To understand why each step works (and fails), you need the biology: what proteins are made of, what forces hold the shape together, what makes a good binding interface, and what physical constraints the pipeline must satisfy. The organizing frame is the **sequence → structure → function** triangle.
 
 ## What a Protein Is
 
@@ -48,7 +49,7 @@ Every amino acid shares the same backbone atoms — a repeating N-C$$_\alpha$$-C
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_amino_acids.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="480px" zoomable=true caption="The 20 standard amino acids grouped by side-chain chemistry. All share the same backbone (N-Cα-C) but differ in the R group that branches off at each position. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
-### Structure hierarchy
+### Structure Hierarchy
 
 Proteins organize at four levels:
 
@@ -90,7 +91,7 @@ On top of the hydrophobic effect, several other forces contribute:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_interactions.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Four types of intramolecular interactions that stabilize protein tertiary structure: ionic bonds (salt bridges), hydrophobic interactions, hydrogen bonds, and disulfide bonds. Each acts between specific amino acid side chains along the polypeptide chain. Figure from Labster Theory." %}
 
-### Stability and failure modes
+### Stability and Failure Modes
 
 **Stability** measures how hard it is to unfold a protein. The **melting temperature** (T$$_m$$) is the temperature at which half the protein population is unfolded — higher T$$_m$$ means a more robust protein. Designed proteins typically need T$$_m$$ > 60°C to be useful.[^tm]
 
@@ -135,31 +136,31 @@ ML researchers sometimes imagine protein designers relying on vague biological i
 
 This is good news for ML researchers, because many of these heuristics translate naturally into energy function terms, loss functions, and model inductive biases.
 
-### Energy landscapes
+### Energy Landscapes
 
 The folded state of a protein sits at the bottom of a **free energy landscape**, a surface over all possible conformations. Design means finding sequences whose energy minimum matches a target structure. It is an optimization problem.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_energy_landscape.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="450px" zoomable=true caption="Protein folding energy landscape. The unfolded chain (top) explores many high-energy conformations across a wide entropy range. It collapses through a molten-globule intermediate into the native state — the global energy minimum. Protein design asks: which sequence has its minimum at the target structure? Figure by Thomas Splettstoesser ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0), [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Folding_funnel_schematic.svg))." %}
 
-### Packing geometry
+### Packing Geometry
 
 When a designer says "the hydrophobic core is well-packed," they mean atoms fill space tightly with no voids. This is quantified by packing density metrics and reflected in the van der Waals energy term in Rosetta. Empty space in the core means unfavorable energetics.
 
-### Hydrogen bond networks
+### Hydrogen Bond Networks
 
 "Satisfying all hydrogen bonds" has a precise meaning: every buried backbone or side-chain donor/acceptor must have a partner. An unsatisfied H-bond donor buried in the core costs roughly 5 kcal/mol, enough to destabilize the entire protein. Designers check these systematically.
 
-### Shape complementarity
+### Shape Complementarity
 
 Binding interfaces are scored by geometric fit using the **Sc score**, which measures how well the two surfaces fit together (like interlocking fingers). Sc = 1.0 is a perfect fit; most natural protein–protein interfaces score 0.6–0.7. This is a geometric computation, not a subjective judgment.
 
-### Systematic enumeration
+### Systematic Enumeration
 
 Rosetta's design protocol is **Monte Carlo sampling over sequence space with a physics-based energy function**. At each position, Rosetta tries different amino acid identities and side-chain rotamers,[^rotamer] accepts or rejects changes based on the energy function, and iterates. The transition from Rosetta to ML-based design was not a complete change in goals; it replaced a physics-based MCMC optimizer with learned models.
 
 [^rotamer]: A rotamer is a preferred side-chain conformation. Side chains don't rotate freely — they snap into a discrete set of low-energy angles, like a dial with set positions. Rosetta's rotamer library catalogs these preferred conformations for each amino acid type.
 
-### Biologist reasoning is ML reasoning
+### Biologist Reasoning Is ML Reasoning
 
 Three examples of "structural biology intuition" translated to ML terms:
 
@@ -189,7 +190,7 @@ The standard validation loop ties these together: generate a backbone (RFDiffusi
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_self_consistency.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistency check. A designed sequence is folded by AlphaFold, and the predicted structure is compared to the intended backbone. Small scRMSD — self-consistent root-mean-square deviation — below 2 Å indicates the sequence encodes the target fold." %}
 
-### What people design
+### What People Design
 
 Design targets:
 
@@ -201,7 +202,7 @@ Design targets:
 - **Enzymes** — proteins that catalyze chemical reactions. Harder than binder design: requires precise 3D geometry at the active site.
 - **Vaccine immunogens** — engineered proteins that train the immune system. The COVID-19 spike protein vaccines are a high-profile example.
 
-### Design constraints
+### Design Constraints
 
 Real designs are constrained:
 
@@ -269,7 +270,7 @@ The pipeline supports design types that the modular RFDiffusion/ProteinMPNN stac
 
 Experimental validation across 8 wet-lab campaigns showed nanomolar binders for 66% of novel protein targets (less than 30% sequence identity with any known bound structure in the PDB).
 
-### What does "good" look like?
+### What Does "Good" Look Like?
 
 A reference table for interpreting computational metrics:
 

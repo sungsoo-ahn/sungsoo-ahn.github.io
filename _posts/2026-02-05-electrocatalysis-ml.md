@@ -2,8 +2,9 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-05-22
-description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and the complexities of real catalyst design."
+last_updated: 2026-06-18
+description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
+post_type: tutorial
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -27,7 +28,7 @@ The design problem is to find a catalyst[^catalyst] material that achieves a tar
 
 This matters because the Sabatier principle says the best catalyst binds intermediates[^intermediate] at a specific strength: not too strongly, not too weakly. Scaling relations reduce the problem further. In many reaction families, one number, the adsorption energy of a key intermediate, largely determines catalyst performance. Theory identifies the optimal value; the open question is which material achieves it.
 
-The search space is enormous. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
+The search space is too large for exhaustive DFT. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
 
 This is a natural ML problem: learn a surrogate that maps material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why the problem matters scientifically.
 
@@ -75,7 +76,7 @@ The problem is cost and scarcity:
 - To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^ptreserves]
 - A survey of automotive fuel cell experts found that **76% identified platinum cost** as the primary barrier to reducing fuel cell costs.
 
-Research suggests a 90% reduction in platinum loading may be achievable, and platinum-free catalysts are an active research area. Finding them requires searching an enormous materials space, where each candidate is expensive to evaluate.
+Research suggests a 90% reduction in platinum loading may be achievable, and platinum-free catalysts are an active research area. Finding them requires searching a large materials space, where each candidate is expensive to evaluate.
 
 ---
 
@@ -154,7 +155,7 @@ The consequence is that a single descriptor, such as $$\Delta G_{*\text{OH}}$$, 
 
 ### The Constraint — and the Open Challenge
 
-The scaling relation is both a gift and a curse. It simplifies the search to one dimension, but also imposes a **fundamental limit**: because known catalysts lie on or near the scaling line, they share the same trade-off. The ideal catalyst would bind $$*$$OH at the volcano peak while also binding $$*$$OOH at its independently optimal value, which requires breaking the scaling relation. Strategies include nanostructured surfaces, alloys with specific local environments, and single-atom catalysts, but none has definitively broken the linear scaling.
+The scaling relation is both a gift and a curse. It simplifies the search to one dimension, but also imposes a **limit**: because known catalysts lie on or near the scaling line, they share the same trade-off. The ideal catalyst would bind $$*$$OH at the volcano peak while also binding $$*$$OOH at its independently optimal value, which requires breaking the scaling relation. Strategies include nanostructured surfaces, alloys with specific local environments, and single-atom catalysts, but none has definitively broken the linear scaling.
 
 ### The Design Space
 
