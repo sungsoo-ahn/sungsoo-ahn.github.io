@@ -15,6 +15,7 @@ title: "Your Title Here"
 date: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 description: "One-sentence summary for SEO and post listings."
+post_type: tutorial # tutorial | technical-note | research
 order: 1 # legacy field; blog index now sorts by date
 series: optional-series-id
 series_title: "Optional Series Title"

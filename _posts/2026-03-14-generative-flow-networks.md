@@ -2,8 +2,9 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-03-18
+last_updated: 2026-06-18
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
+post_type: tutorial
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
@@ -342,13 +343,13 @@ In my view, yes, with two practical innovations that make it work for constructi
 
 ---
 
-## Closing Thoughts
+## Closing
 
 GFlowNets address a specific gap: amortized sampling from energy-based distributions over combinatorial objects when we have access to the energy function but no dataset. Train a constructive policy once, sample forever. The flow-matching objectives reduce what sounds like a hard RL problem to something closer to regression.
 
 What I find most compelling is the combination of a well-defined probabilistic target, the Boltzmann distribution, with a practical and stable training procedure. The framework connects to MaxEnt RL, variational inference, and diffusion models, but the training itself is simpler than any of these: no policy gradients, no ELBO tricks, no score matching. Just match the flows.
 
-I think GFlowNets are in a somewhat undeserved state of neglect. The core idea, sampling diverse candidates proportionally to reward, is exactly what real scientific-discovery pipelines need. But "discovery" is hard to benchmark. We can evaluate GFlowNets on proxy tasks, such as docking scores or learned oracles, but these proxies have limited influence on whether the community takes the method seriously. A strong proxy result does not prove that GFlowNets would work in a real drug-discovery campaign, and running that campaign is a multi-year, multi-million-dollar effort that no ML lab can do alone.
+I think GFlowNets are undeservedly neglected. The core idea, sampling diverse candidates proportionally to reward, is exactly what real scientific-discovery pipelines need. But "discovery" is hard to benchmark. We can evaluate GFlowNets on proxy tasks, such as docking scores or learned oracles, but these proxies have limited influence on whether the community takes the method seriously. A strong proxy result does not prove that GFlowNets would work in a real drug-discovery campaign, and running that campaign is a multi-year, multi-million-dollar effort that no ML lab can do alone.
 
 There is also a practical gap. Real-world molecular design does not start from scratch; it starts from massive databases of known compounds, assay results, and pretrained models. A realistic discovery pipeline would pretrain a generative model on this offline data to learn chemistry, then fine-tune with GFlowNet objectives to steer generation toward a specific target using experimental feedback. This pretrain-then-finetune loop is expensive to set up and even harder to benchmark rigorously, because it requires the full pipeline: data curation, pretraining, reward model, GFlowNet fine-tuning, and experimental validation.
 

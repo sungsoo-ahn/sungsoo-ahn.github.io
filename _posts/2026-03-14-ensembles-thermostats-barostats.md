@@ -2,8 +2,9 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-05-22
+last_updated: 2026-06-18
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
+post_type: tutorial
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
@@ -26,7 +27,7 @@ If you work on molecular generative models, you have seen acronyms such as NVT, 
 
 The problem is that statistical mechanics textbooks often start from thermodynamics: Carnot cycles, heat engines, and the second law. For ML researchers, that is the long way around. We already think in terms of probability distributions, sampling, and expectations. The natural entry point is: what distribution are we sampling from, and why?
 
-This post takes that approach. We start from atoms and forces, define macroscopic quantities as expectations, introduce ensembles as modeling choices about which distribution to use, and then describe the algorithms (thermostats, barostats, Monte Carlo) that sample from these distributions.
+We start from atoms and forces, define macroscopic quantities as expectations, treat ensembles as modeling choices about distributions, and then describe the algorithms (thermostats, barostats, Monte Carlo) that sample from these distributions.
 
 ## Part I: From Atoms to Macroscopic Quantities
 
@@ -80,7 +81,7 @@ For the Boltzmann distribution, this equals $$F = -k_{B}T \ln Z$$, where $$Z = \
 
 At equilibrium, a system at constant $$T$$ and $$V$$ minimizes $$F$$, balancing two competing drives: lowering energy (favoring ordered, low-$$\langle H \rangle$$ states) and increasing entropy (favoring disordered, high-$$S$$ states).
 
-Both quantities are fundamentally hard to compute. Entropy requires knowing the distribution $$p$$, not just samples from it. Free energy requires the partition function $$Z$$, an integral over the entire phase space that is intractable for any nontrivial system.
+Both quantities are hard to compute. Entropy requires knowing the distribution $$p$$, not just samples from it. Free energy requires the partition function $$Z$$, an integral over the entire phase space that is intractable for any nontrivial system.
 
 All of these quantities — easy and hard alike — are expectations over some probability distribution of microstates. The next question is: which distribution?
 
@@ -267,7 +268,7 @@ The trade-off is that MC gives no dynamical information. Its moves, such as rand
 
 ## Closing
 
-This post covered two layers of molecular simulation:
+The useful split is two layers of molecular simulation:
 
 1. **Statistical mechanics** provides the probability distributions (ensembles) that connect microscopic states to macroscopic observables — the Boltzmann distribution, the NPT distribution, the grand canonical distribution. The choice of ensemble is a modeling decision about what to simulate explicitly and what to impose as a boundary condition.
 2. **Simulation algorithms** are the tools that sample from these distributions — thermostats and barostats modify the equations of motion; Monte Carlo bypasses dynamics entirely and samples directly.

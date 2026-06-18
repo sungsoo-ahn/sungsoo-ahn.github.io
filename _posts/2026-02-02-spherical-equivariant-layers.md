@@ -2,8 +2,9 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-03-18
+last_updated: 2026-06-18
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
+post_type: tutorial
 order: 2
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -49,7 +50,7 @@ Arbitrary neural-network operations are not safe on geometric features. If a fea
 
 As in any graph neural network, each atom $$i$$ carries a feature vector $$\mathbf{h}_i$$, and each layer updates it by aggregating messages $$\mathbf{m}_{ij}$$ from neighboring atoms $$j$$. Equivariance restricts what $$\mathbf{h}_i$$ and $$\mathbf{m}_{ij}$$ can be: they must be **spherical tensors**, vectors whose transformation under any rotation is exactly described by a **Wigner-D matrix**. Spherical tensors are organized by degree $$\ell = 0, 1, 2, \ldots$$ (scalars, 3D vectors, and higher angular patterns), and Wigner-D matrices are the **representation** matrices of the rotation **group** $$SO(3)$$.
 
-The central operation is therefore tensor combination: how do we combine two spherical tensors and get another spherical tensor out? The answer is the **Clebsch-Gordan tensor product** $$\otimes_{\text{cg}}$$. It plays the role that matrix multiplication plays in standard neural networks: the fundamental operation from which layers are built. A typical message takes the form:
+The central operation is therefore tensor combination: how do we combine two spherical tensors and get another spherical tensor out? The answer is the **Clebsch-Gordan tensor product** $$\otimes_{\text{cg}}$$. It plays the role that matrix multiplication plays in standard neural networks: the core operation from which layers are built. A typical message takes the form:
 
 $$\mathbf{m}_{ij} = W(r_{ij}) \left( \mathbf{h}_j \otimes_{\text{cg}} Y(\hat{\mathbf{r}}_{ij}) \right)$$
 
@@ -89,7 +90,7 @@ These are only two examples from an infinite family. The natural next question i
 > In the new basis, the representation is a **direct sum** $$D_1 \oplus D_2$$, meaning the carrier space splits into independent subspaces that don't mix under the group action. A representation that *cannot* be decomposed this way is called **irreducible**.[^irreps]
 {: .block-definition }
 
-Irreducible representations (irreps) are the fundamental building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
+Irreducible representations (irreps) are the basic building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
 
 For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \ldots$. The $\ell$-th irrep has a carrier space of dimension $2\ell + 1$: the $\ell = 0$ irrep is the trivial representation (1D, scalars), the $\ell = 1$ irrep is the standard representation (3D, vectors), and higher $\ell$ correspond to increasingly complex transformation properties.
 

@@ -126,8 +126,8 @@ def generate_gcmc_moves_figure(output_path):
 
 
 def generate_snapshots_to_density_figure(output_path):
-    fig = plt.figure(figsize=(10, 4.6))
-    grid = fig.add_gridspec(2, 4, width_ratios=[1, 1, 0.25, 2.1], wspace=0.15, hspace=0.15)
+    fig = plt.figure(figsize=(11.8, 4.8))
+    grid = fig.add_gridspec(2, 4, width_ratios=[1, 1, 0.35, 2.25], wspace=0.24, hspace=0.2)
     rng = np.random.default_rng(8)
     all_points = []
 
@@ -189,22 +189,22 @@ def generate_snapshots_to_density_figure(output_path):
         color=TEXT_COLOR,
     )
 
-    fig.suptitle("From particle snapshots to a density field", fontsize=14, fontweight="bold", color=TEXT_COLOR, y=1.02)
+    fig.suptitle("From particle snapshots to a density field", fontsize=14, fontweight="bold", color=TEXT_COLOR, y=0.99)
     fig.savefig(output_path, dpi=200, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     print(f"Saved snapshots-to-density figure to {output_path}")
 
 
 def generate_cdft_fixed_point_figure(output_path):
-    fig, ax = plt.subplots(figsize=(9.6, 4.8))
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 5.2)
+    fig, ax = plt.subplots(figsize=(11.2, 4.8))
+    ax.set_xlim(0, 11.2)
+    ax.set_ylim(0, 5.0)
     _clean_axis(ax)
 
-    _rounded_box(ax, (0.6, 2.8), 2.0, 0.78, "current density\n" + r"$\rho^{(n)}$", BOX_MAIN, EDGE_MAIN)
+    _rounded_box(ax, (0.65, 2.78), 2.05, 0.78, "current density\n" + r"$\rho^{(n)}$", BOX_MAIN, EDGE_MAIN)
     _rounded_box(
         ax,
-        (3.3, 2.8),
+        (3.55, 2.78),
         2.25,
         0.78,
         "evaluate correction\n" + r"$\delta F_{exc}/\delta\rho$",
@@ -214,31 +214,31 @@ def generate_cdft_fixed_point_figure(output_path):
     )
     _rounded_box(
         ax,
-        (6.2, 2.8),
-        2.05,
+        (6.6, 2.78),
+        2.25,
         0.78,
         "Boltzmann update\nwith many-body term",
         BOX_HIGHLIGHT,
         EDGE_HIGHLIGHT,
         fontsize=10.5,
     )
-    _rounded_box(ax, (6.2, 1.15), 2.05, 0.78, "new density\n" + r"$\rho^{(n+1)}$", BOX_MAIN, EDGE_MAIN)
-    _rounded_box(ax, (3.3, 1.15), 2.25, 0.78, "converged?", BOX_OUTPUT, EDGE_OUTPUT)
+    _rounded_box(ax, (6.6, 1.15), 2.25, 0.78, "new density\n" + r"$\rho^{(n+1)}$", BOX_MAIN, EDGE_MAIN)
+    _rounded_box(ax, (3.55, 1.15), 2.25, 0.78, "converged?", BOX_OUTPUT, EDGE_OUTPUT)
 
-    _arrow(ax, (2.65, 3.2), (3.25, 3.2))
-    _arrow(ax, (5.62, 3.2), (6.15, 3.2))
-    _arrow(ax, (7.22, 2.75), (7.22, 2.05))
-    _arrow(ax, (6.15, 1.54), (5.62, 1.54))
-    _arrow(ax, (3.25, 1.54), (2.05, 2.72), color=COLOR_REJECT, rad=0.2)
-    ax.text(2.55, 2.05, "No", color=COLOR_REJECT, fontsize=11, fontweight="bold")
+    _arrow(ax, (2.78, 3.17), (3.25, 3.17))
+    _arrow(ax, (5.85, 3.17), (6.18, 3.17))
+    _arrow(ax, (7.73, 2.70), (7.73, 2.03))
+    _arrow(ax, (6.08, 1.54), (5.85, 1.54))
+    _arrow(ax, (3.25, 1.54), (2.15, 2.60), color=COLOR_REJECT, rad=0.2)
+    ax.text(2.62, 2.10, "No", color=COLOR_REJECT, fontsize=10.5, fontweight="bold")
 
-    _arrow(ax, (5.58, 1.2), (8.0, 0.72), color=COLOR_ACCEPT)
-    _rounded_box(ax, (8.0, 0.38), 1.55, 0.68, r"$\rho_{eq}$", "white", EDGE_OUTPUT, fontsize=13)
-    ax.text(6.85, 1.02, "Yes", color=COLOR_ACCEPT, fontsize=11, fontweight="bold")
+    _arrow(ax, (5.80, 1.16), (9.0, 0.72), color=COLOR_ACCEPT)
+    _rounded_box(ax, (9.35, 0.38), 1.55, 0.68, r"$\rho_{eq}$", "white", EDGE_OUTPUT, fontsize=13)
+    ax.text(7.15, 0.98, "Yes", color=COLOR_ACCEPT, fontsize=10.5, fontweight="bold")
 
     ax.text(
-        5,
-        4.55,
+        5.6,
+        4.45,
         "same rhythm as quantum-DFT SCF, different object",
         ha="center",
         fontsize=11.5,

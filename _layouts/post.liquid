@@ -6,6 +6,11 @@ layout: default
 {% assign categories = page.categories | join: '' %}
 {% assign url_beginning = page.url | slice: 0, 6 %}
 {% assign read_time = content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+{% assign post_type = page.post_type | default: 'tutorial' %}
+{% assign post_type_label = post_type | replace: '-', ' ' | capitalize %}
+{% if post_type == 'technical-note' %}
+  {% assign post_type_label = 'Technical note' %}
+{% endif %}
 
 {% if page._styles %}
   <!-- Page/Post style -->
@@ -22,15 +27,17 @@ layout: default
         <p class="blog-post-summary">{{ page.description }}</p>
       {% endif %}
       <p class="blog-post-meta">
-        {{ page.date | date: '%B %d, %Y' }}; {{ read_time }} min read
-        {% if page.last_updated %}
-          ; updated {{ page.last_updated | date: '%B %d, %Y' }}
-        {% endif %}
+        <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>
         {% if page.author %}
-          ; {{ page.author }}
+          <span>{{ page.author }}</span>
+        {% endif %}
+        <span>{{ page.date | date: '%B %d, %Y' }}</span>
+        <span>{{ read_time }} min read</span>
+        {% if page.last_updated %}
+          <span>updated {{ page.last_updated | date: '%B %d, %Y' }}</span>
         {% endif %}
         {% if page.meta %}
-          ; {{ page.meta }}
+          <span>{{ page.meta }}</span>
         {% endif %}
       </p>
     {% else %}
