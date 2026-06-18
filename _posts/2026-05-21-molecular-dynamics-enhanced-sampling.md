@@ -2,8 +2,9 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-05-22
+last_updated: 2026-06-18
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
+post_type: tutorial
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
@@ -30,14 +31,14 @@ A femtosecond MD timestep resolves bond vibrations. Protein folding, ligand unbi
 
 For ML researchers, this is the key point: molecular simulation is not limited only by force-field accuracy or neural network speed. It is limited by **sampling**. A better potential energy model helps only if the dynamics visits the states whose probabilities, pathways, or free energies we need.
 
-This post is about the sampling problem. We will connect four ideas:
+The sampling problem connects four ideas:
 
 1. **Molecular dynamics** samples trajectories from a path distribution.
 2. **Enhanced sampling** deliberately changes that path distribution to make rare events common.
 3. **Collective variables** define the low-dimensional coordinates where we apply the change.
 4. **ML methods** either learn better collective variables or bypass them by learning path-level bias forces directly.
 
-The Jarzynski post developed the path-measure view: if we change the dynamics, we must account for the change in probability. This post is the practical molecular simulation version of that idea.
+The Jarzynski post developed the path-measure view: if we change the dynamics, we must account for the change in probability. Molecular simulation makes that accounting practical.
 
 ## Molecular Dynamics Samples Paths
 
@@ -151,15 +152,15 @@ $$V_k(\mathbf{x}) = \frac{1}{2}\kappa(\xi(\mathbf{x}) - s_k)^2$$
 
 Each window forces the simulation to explore a local region of the CV. The windows overlap. After collecting samples from all windows, methods such as WHAM or MBAR stitch the biased histograms together to estimate the unbiased free-energy profile.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_umbrella_sweep.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="A moving umbrella window on the same double-well toy problem. As the window center \(s_k\) changes, the harmonic restraint changes the biased potential \(U+V_k\) and shifts which CV region is easy to sample." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_umbrella_sweep.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="A moving umbrella window on the same double-well toy problem. As the window center \(s_k\) changes, the harmonic restraint changes the biased potential \(U+V_k\) and shifts which CV region is easy to sample." %}
 
 The ML analogy is stratified sampling. Instead of hoping the Markov chain visits rare CV regions on its own, we force coverage of each region and correct afterward.
 
 The same toy system makes the sampling effect visible. The next animations show illustrative overdamped dynamics, not a calibrated molecular timestep.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_unbiased_dynamics.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Unbiased toy dynamics on the double-well potential. Over a short run, trajectories initialized in basin A mostly stay there instead of crossing to basin B." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_unbiased_dynamics.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Unbiased toy dynamics on the double-well potential. Over a short run, trajectories initialized in basin A mostly stay there instead of crossing to basin B." %}
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
 
 The weakness is that umbrella sampling requires planning. You need a CV, window centers, force constants, and enough overlap. If the transition coordinate is unknown or curved, the windows can miss the important path.
 

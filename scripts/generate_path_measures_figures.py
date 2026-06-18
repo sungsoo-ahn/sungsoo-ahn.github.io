@@ -199,8 +199,8 @@ def fig_alternating_steps():
 
     # ── Plot ──
     n_states = len(states)
-    fig, axes = plt.subplots(1, n_states, figsize=(2.7 * n_states, 3.8),
-                              gridspec_kw={'wspace': 0.35})
+    fig, axes = plt.subplots(1, n_states, figsize=(3.05 * n_states, 4.05),
+                              gridspec_kw={'wspace': 0.42})
     x_plot = np.linspace(-1.8, 1.8, 300)
 
     all_u = [U(x_plot, lam) for lam, _ in states]
@@ -252,7 +252,7 @@ def fig_alternating_steps():
 
         ax.set_xlim(-1.8, 1.8)
         ax.set_ylim(y_min, y_max)
-        ax.set_title(title, fontsize=9, color=col, fontweight='bold', linespacing=1.3)
+        ax.set_title(title, fontsize=8.6, color=col, fontweight='bold', linespacing=1.25, pad=7)
         ax.set_xticks([])
         ax.set_yticks([])
         for spine in ax.spines.values():
@@ -266,9 +266,9 @@ def fig_alternating_steps():
         label = 'shift $\\lambda$\n(work)' if stype_next == 'work' else 'MCMC\n(relax)'
         col = AMBER if stype_next == 'work' else TEAL
         x_mid = (axes[i].get_position().x1 + axes[i + 1].get_position().x0) / 2
-        fig.text(x_mid, 0.48, '→', fontsize=18, ha='center', va='center',
+        fig.text(x_mid, 0.50, '→', fontsize=18, ha='center', va='center',
                  color=col, fontweight='bold', transform=fig.transFigure)
-        fig.text(x_mid, 0.38, label, fontsize=7.5, ha='center', va='center',
+        fig.text(x_mid, 0.39, label, fontsize=7.2, ha='center', va='center',
                  color=col, transform=fig.transFigure)
 
     fig.savefig(f'{OUTPUT_DIR}/pm_alternating_steps.png', dpi=200, bbox_inches='tight',
@@ -331,7 +331,7 @@ def fig_work_trajectories():
     lucky_idx = np.argmin(final_works)
     unlucky_idx = np.argmax(final_works)
 
-    fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+    fig, axes = plt.subplots(1, 3, figsize=(13.5, 3.8), gridspec_kw={'wspace': 0.36})
 
     # Panel (a): Trajectories
     ax = axes[0]
@@ -343,9 +343,11 @@ def fig_work_trajectories():
     ax.plot(t, saved_x[unlucky_idx], color=RED, linewidth=2.2, label='Unlucky (high $W$)', zorder=5)
     ax.axhline(-1, color=BLUE, linestyle=':', alpha=0.3, linewidth=1)
     ax.axhline(1, color=RED, linestyle=':', alpha=0.3, linewidth=1)
-    ax.text(0.02, -1.15, 'left well', fontsize=8, color=BLUE, va='top')
-    ax.text(0.02, 1.15, 'right well', fontsize=8, color=RED, va='bottom')
-    ax.legend(fontsize=8.5, loc='center left', framealpha=0.9)
+    ax.text(0.03, -1.22, 'left well', fontsize=8, color=BLUE, va='top',
+            bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
+    ax.text(0.03, 1.22, 'right well', fontsize=8, color=RED, va='bottom',
+            bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
+    ax.legend(fontsize=8.0, loc='upper left', framealpha=0.9)
     _style_ax(ax, xlabel='Time $t$', ylabel='Position $x(t)$', title='(a) Trajectories')
 
     # Panel (b): Cumulative work
@@ -357,8 +359,9 @@ def fig_work_trajectories():
     ax.plot(t, saved_w[lucky_idx], color=TEAL, linewidth=2.2, zorder=5)
     ax.plot(t, saved_w[unlucky_idx], color=RED, linewidth=2.2, zorder=5)
     ax.axhline(delta_f_est, color=TEXT_COLOR, linestyle='--', linewidth=1.5, alpha=0.7)
-    ax.text(0.98, delta_f_est - 0.15, r'$\Delta F$', fontsize=SUBLABEL_FS, color=TEXT_COLOR,
-            ha='right', va='top', fontweight='bold')
+    ax.text(0.94, delta_f_est + 0.10, r'$\Delta F$', fontsize=SUBLABEL_FS, color=TEXT_COLOR,
+            ha='right', va='bottom', fontweight='bold',
+            bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
     _style_ax(ax, xlabel='Time $t$', ylabel='Cumulative work $W(t)$', title='(b) Work along each trajectory')
 
     # Panel (c): Work histogram
@@ -368,7 +371,7 @@ def fig_work_trajectories():
                label=r'$\langle W \rangle$ (mean)')
     ax.axvline(delta_f_est, color=RED, linewidth=2.5, linestyle='-',
                label=r'$\Delta F$ (Jarzynski)')
-    ax.legend(fontsize=9, loc='upper right', framealpha=0.9)
+    ax.legend(fontsize=8.2, loc='upper right', framealpha=0.9)
     ax.set_ylim(0, None)
     _style_ax(ax, xlabel='Work $W$', ylabel='Density', title='(c) Work histogram')
 

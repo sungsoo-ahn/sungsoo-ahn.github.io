@@ -2,8 +2,9 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-05-22
+last_updated: 2026-06-18
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
+post_type: tutorial
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"
@@ -32,7 +33,7 @@ $$N = \int_{\mathcal{V}} \rho(\mathbf{r})\,d\mathbf{r}$$
 
 where $$\mathcal{V}$$ is the unit-cell volume. The scalar uptake $$N$$ tells you how many molecules are present. The field $$\rho(\mathbf{r})$$ tells you where they sit, which binding sites are occupied, which regions are inaccessible, and how adsorption changes with pressure.
 
-This post introduces two ways to compute that density:
+Two standard routes compute that density:
 
 - **Grand canonical Monte Carlo (GCMC)** samples explicit particle configurations and estimates density by averaging those samples.
 - **Classical density functional theory (cDFT)** skips particle sampling and solves directly for the equilibrium density field by minimizing a free-energy functional.

@@ -2,8 +2,9 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-03-18
+last_updated: 2026-06-18
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
+post_type: tutorial
 order: 2
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
@@ -24,7 +25,7 @@ related_posts: false
 
 Diffusion models, including DDPMs, score-based models, and ODE counterparts such as flow matching, are built on stochastic differential equations (SDEs) and their density dynamics. An SDE gradually corrupts data into noise; a learned reverse process turns noise back into data. The **Fokker-Planck equation** connects these two views: given an SDE for individual sample paths, it tells us how the probability density $$p_t(\mathbf{x})$$ evolves over time. It is the starting point for deriving probability-flow ODEs, reverse-time SDEs, and score-matching objectives.
 
-Most diffusion-model tutorials state the Fokker-Planck equation without proof and move on. A rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. This post bridges that gap in three layers: (1) a visual explanation of each term, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
+Most diffusion-model tutorials state the Fokker-Planck equation without proof and move on. A rigorous derivation requires Itô calculus, a branch of stochastic analysis that is not part of the standard ML curriculum. We bridge that gap in three layers: (1) a visual explanation of each term, (2) a heuristic derivation using only multivariate calculus, and (3) a rigorous derivation via Itô's lemma for readers who want the full argument.
 
 ## The Fokker-Planck Equation
 

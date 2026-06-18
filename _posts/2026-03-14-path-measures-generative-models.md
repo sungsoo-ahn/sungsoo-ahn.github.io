@@ -2,8 +2,9 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-03-18
+last_updated: 2026-06-18
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
+post_type: technical-note
 order: 1
 series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
@@ -26,7 +27,7 @@ A diffusion model transforms noise into data by learning to reverse a noising pr
 
 This structure, two opposing processes whose ratio encodes useful information, is not unique to diffusion models. It is the same framework physicists developed in the 1990s to understand systems driven out of equilibrium. In physics, state A might be an unbound protein-drug system and state B the bound complex; in diffusion models, state A is the data distribution and state B is Gaussian noise. The mathematics is the same.
 
-My previous post on ensembles ended with a claim: free energy is fundamentally hard to compute because it requires the partition function $$Z$$, an integral over the entire phase space. In practice, however, we usually need free energy *differences* between two states. The sign of $$\Delta F$$ determines which state nature prefers: does a protein fold, does a drug bind, is one crystal form more stable than another? Part 1 defines these precisely.
+My previous post on ensembles ended with a claim: free energy is hard to compute because it requires the partition function $$Z$$, an integral over the entire phase space. In practice, however, we usually need free energy *differences* between two states. The sign of $$\Delta F$$ determines which state nature prefers: does a protein fold, does a drug bind, is one crystal form more stable than another? Part 1 defines these precisely.
 
 The equilibrium approach computes $$\Delta F$$ directly, which requires sampling from both endpoints — intractable when the two states are separated by high barriers. The key idea is **bridging**: construct a chain of intermediate distributions between A and B so that neighbors overlap, even when the endpoints don't, and run MCMC at each level.
 
@@ -202,7 +203,7 @@ $$\left\langle \frac{w}{Z_K/Z_0} \right\rangle_F = 1$$
 > The average importance weight over forward chains is exactly the normalizing constant ratio — regardless of the number of intermediates $$K$$ or the quality of the MCMC transitions.
 {: .block-definition }
 
-This is the fundamental guarantee behind AIS: the estimator is unbiased for any annealing schedule.
+This is the central guarantee behind AIS: the estimator is unbiased for any annealing schedule.
 
 ### The ELBO and Its Gap
 
@@ -472,7 +473,7 @@ $$\text{Backward:} \quad dX_t = +\nabla U(X_t, \lambda(t)) \, dt + \sqrt{2/\beta
 
 with reference $$\Gamma_0 = \pi_0$$, $$\Gamma_T = \pi_T$$, $$\gamma^+ = \gamma^- = 0$$. The Stratonovich chain rule applied to $$U(X_t, \lambda(t))$$ causes the path integrals to telescope, leaving only the work and boundary terms. After cancellation (see the collapsible derivation below):
 
-> **Path measure ratio (fundamental identity, rigorous form).**
+> **Path measure ratio (core identity, rigorous form).**
 >
 > $$\ln \frac{\mathcal{P}_F}{\mathcal{P}_R}(X) = -\beta \Delta F + \beta W[X]$$
 >
@@ -693,7 +694,7 @@ This also explains why the same tricks transfer across fields. Physicists have s
 
 ---
 
-## Conclusion
+## Closing
 
 These are not analogies. AIS, diffusion models, and GFlowNets are instances of the same mathematics that physicists developed for non-equilibrium processes in the 1990s. The path measure ratio $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$ is the single identity from which Jarzynski, Crooks, and the second law follow. In ML terms, it appears as the importance weight, the trajectory balance condition, and the ELBO gap.
 

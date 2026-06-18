@@ -13,7 +13,7 @@ Color convention:
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle, Rectangle
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle, Rectangle, Polygon
 from matplotlib.patches import Arc
 import matplotlib.patheffects as pe
 
@@ -194,9 +194,9 @@ def generate_fuel_cell_figure(output_path):
     Simplified PEM fuel cell cross-section:
     Anode | Membrane | Cathode with reactions labeled.
     """
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.set_xlim(-0.5, 10.5)
-    ax.set_ylim(-1, 7.5)
+    fig, ax = plt.subplots(figsize=(11.5, 6.2))
+    ax.set_xlim(-0.8, 10.9)
+    ax.set_ylim(-1.05, 7.55)
     ax.set_aspect('equal')
     ax.axis('off')
 
@@ -215,24 +215,27 @@ def generate_fuel_cell_figure(output_path):
                 fontsize=12, fontweight='bold', color=ec)
 
     # Anode reaction
-    ax.text(1.75, 4.5, 'H$_2$', ha='center', va='center',
+    ax.text(1.75, 4.55, 'H$_2$', ha='center', va='center',
             fontsize=14, fontweight='bold', color='#5c6bc0')
-    ax.text(1.75, 3.5, r'$\rightarrow$ 2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=11, color='#5c6bc0')
+    ax.text(1.75, 3.45, 'splits into', ha='center', va='center',
+            fontsize=9.5, color='#5c6bc0', fontstyle='italic')
+    ax.text(1.75, 2.95, r'2H$^+$ + 2e$^-$',
+            ha='center', va='center', fontsize=11.5, color='#5c6bc0',
+            fontweight='bold')
 
     # H+ arrows through membrane
     for y_pos in [2.0, 3.0, 4.0]:
         _draw_arrow(ax, 3.2, y_pos, 6.8, y_pos,
                     color='#ffa000', lw=1.2, ms=10)
-    ax.text(5.0, 4.6, 'H$^+$', ha='center', va='center',
+    ax.text(5.0, 4.65, 'H$^+$', ha='center', va='center',
             fontsize=11, fontweight='bold', color='#ffa000')
 
     # Cathode reaction
-    ax.text(8.25, 4.5, '½O$_2$', ha='center', va='center',
+    ax.text(8.25, 4.75, '½O$_2$', ha='center', va='center',
             fontsize=14, fontweight='bold', color='#e53935')
-    ax.text(8.25, 3.5, '+ 2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=11, color='#e53935')
-    ax.text(8.25, 2.5, r'$\rightarrow$ H$_2$O',
+    ax.text(8.25, 3.75, '+ 2H$^+$ + 2e$^-$',
+            ha='center', va='center', fontsize=10.5, color='#e53935')
+    ax.text(8.25, 2.85, r'$\rightarrow$ H$_2$O',
             ha='center', va='center', fontsize=12,
             fontweight='bold', color='#e53935')
 
@@ -241,7 +244,7 @@ def generate_fuel_cell_figure(output_path):
                 arrowprops=dict(arrowstyle='-|>', color=ARROW_COLOR,
                                 lw=2.0, mutation_scale=14,
                                 connectionstyle='arc3,rad=-0.15'))
-    ax.text(5.0, 7.2, 'e$^-$ (external circuit)', ha='center', va='bottom',
+    ax.text(5.0, 7.18, 'electrons through external circuit', ha='center', va='bottom',
             fontsize=10, color=ARROW_COLOR, fontweight='bold')
 
     # Catalyst layers (thin strips)
@@ -273,6 +276,55 @@ def generate_fuel_cell_figure(output_path):
 
 
 # ──────────────────────────────────────────────
+# Figure 2b: Activation Energy
+# ──────────────────────────────────────────────
+def generate_activation_energy_figure(output_path):
+    """Clean reaction-coordinate diagram for one dissociation step."""
+    fig, ax = plt.subplots(figsize=(9.6, 4.8))
+    x = np.linspace(0, 1, 500)
+    reactant = 0.0
+    product = -1.5
+    barrier = 0.62
+    y = reactant + (product - reactant) / (1 + np.exp(-(x - 0.62) / 0.035))
+    y += barrier * np.exp(-((x - 0.44) / 0.10) ** 2)
+
+    ax.plot(x, y, color='#4169b1', lw=3.0, solid_capstyle='round')
+    ax.hlines([reactant, product, barrier], 0.06, 0.94, colors='#90a4ae',
+              linestyles=':', linewidth=1.5)
+    ax.text(0.06, reactant + 0.07, r'O$_2$', ha='left', va='bottom',
+            fontsize=13, fontweight='bold', color=TEXT_COLOR)
+    ax.text(0.94, product + 0.08, r'O* + O*', ha='right', va='bottom',
+            fontsize=13, fontweight='bold', color=TEXT_COLOR)
+    ax.text(0.10, reactant - 0.12, '0 eV', ha='left', va='top',
+            fontsize=10, color=COLOR_RED, fontweight='bold')
+    ax.text(0.83, product - 0.12, '-1.5 eV', ha='center', va='top',
+            fontsize=10, color=COLOR_RED, fontweight='bold')
+
+    peak_x = x[np.argmax(y)]
+    ax.annotate('', xy=(peak_x + 0.10, barrier), xytext=(peak_x + 0.10, reactant),
+                arrowprops=dict(arrowstyle='<->', color=TEXT_COLOR, lw=1.7))
+    ax.text(peak_x + 0.14, (barrier + reactant) / 2,
+            'activation\nenergy\n0.62 eV', ha='left', va='center',
+            fontsize=10.5, color=TEXT_COLOR, fontweight='bold',
+            bbox=dict(fc='white', ec='none', alpha=0.9, pad=2.0))
+
+    ax.annotate('', xy=(0.15, product), xytext=(0.15, reactant),
+                arrowprops=dict(arrowstyle='<->', color=TEXT_COLOR, lw=1.7))
+    ax.text(0.19, (reactant + product) / 2,
+            'reaction\nfree energy', ha='left', va='center',
+            fontsize=10.5, color=TEXT_COLOR,
+            bbox=dict(fc='white', ec='none', alpha=0.9, pad=2.0))
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(-1.9, 0.9)
+    ax.axis('off')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
+    plt.close()
+    print(f"Saved activation energy figure to {output_path}")
+
+
+# ──────────────────────────────────────────────
 # Figure 3: Gibbs Free Energy Diagram
 # ──────────────────────────────────────────────
 def generate_gibbs_energy_figure(output_path):
@@ -280,7 +332,7 @@ def generate_gibbs_energy_figure(output_path):
     Gibbs free energy diagram for ORR on Pt(111) vs Ni(111).
     Shows energy steps for dissociative ORR pathway.
     """
-    fig, ax = plt.subplots(figsize=(10, 5.5))
+    fig, ax = plt.subplots(figsize=(11, 5.8))
 
     # ORR dissociative pathway steps (approximate values in eV)
     # Reaction: O2 + 4H+ + 4e- → 2H2O
@@ -333,7 +385,7 @@ def generate_gibbs_energy_figure(output_path):
     # Ni has a very large last step
     ax.annotate('', xy=(2.5, G_Ni[2]), xytext=(2.5, G_Ni[3]),
                 arrowprops=dict(arrowstyle='<->', color=COLOR_RED, lw=1.5))
-    ax.text(2.35, (G_Ni[2] + G_Ni[3]) / 2 + 0.05, 'small\n(easy)',
+    ax.text(2.28, (G_Ni[2] + G_Ni[3]) / 2 + 0.12, 'small',
             ha='right', va='center', fontsize=8.5, color=COLOR_RED,
             fontstyle='italic',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
@@ -342,7 +394,7 @@ def generate_gibbs_energy_figure(output_path):
     # For Ni: annotate the large first drop
     ax.annotate('', xy=(0.5, G_Ni[1]), xytext=(0.5, G_Ni[0]),
                 arrowprops=dict(arrowstyle='<->', color=COLOR_RED, lw=1.5))
-    ax.text(0.35, (G_Ni[0] + G_Ni[1]) / 2, '1.6 eV\n(too strong)',
+    ax.text(0.30, (G_Ni[0] + G_Ni[1]) / 2, '1.6 eV\nstrong binding',
             ha='right', va='center', fontsize=8.5, color=COLOR_RED,
             fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
@@ -358,7 +410,7 @@ def generate_gibbs_energy_figure(output_path):
 
     ax.set_xticks([])
     ax.spines['bottom'].set_visible(False)
-    ax.legend(loc='upper right', fontsize=10, framealpha=0.9,
+    ax.legend(loc='upper right', fontsize=9, framealpha=0.9,
               edgecolor='#b0bec5')
 
     # Reaction coordinate label
@@ -379,7 +431,7 @@ def generate_volcano_plot_figure(output_path):
     Volcano plot: catalytic activity vs oxygen adsorption energy.
     Shows metals labeled, with "too strong" / "too weak" regions.
     """
-    fig, ax = plt.subplots(figsize=(8, 5.5))
+    fig, ax = plt.subplots(figsize=(8.6, 5.8))
 
     # Approximate data: (ΔE_O in eV relative to Pt, log10(activity))
     # Based on Nørskov et al. 2004 ORR volcano
@@ -434,14 +486,16 @@ def generate_volcano_plot_figure(output_path):
                 color=TEXT_COLOR, zorder=6)
 
     # Region labels
-    ax.text(-1.5, -3.8, 'Binds too\nstrongly', ha='center', va='center',
-            fontsize=12, color=COLOR_RED, fontweight='bold', alpha=0.7)
-    ax.text(1.3, -3.8, 'Binds too\nweakly', ha='center', va='center',
-            fontsize=12, color=COLOR_TEAL, fontweight='bold', alpha=0.7)
+    ax.text(-1.45, -3.85, 'binds too\nstrongly', ha='center', va='center',
+            fontsize=11, color=COLOR_RED, fontweight='bold', alpha=0.7,
+            bbox=dict(fc='white', ec='none', alpha=0.75, pad=1.5))
+    ax.text(1.23, -3.85, 'binds too\nweakly', ha='center', va='center',
+            fontsize=11, color=COLOR_TEAL, fontweight='bold', alpha=0.7,
+            bbox=dict(fc='white', ec='none', alpha=0.75, pad=1.5))
 
     # Optimal region annotation
     ax.annotate('Optimal\nbinding', xy=(0.0, 0.0),
-                xytext=(0.8, 0.8),
+                xytext=(0.95, 0.95),
                 fontsize=10, fontweight='bold', color=COLOR_GREEN,
                 ha='center',
                 arrowprops=dict(arrowstyle='->', color=COLOR_GREEN, lw=1.5),
@@ -452,7 +506,7 @@ def generate_volcano_plot_figure(output_path):
                 xlabel=r'$\Delta E_{\mathrm{O}}$ relative to Pt (eV)',
                 ylabel=r'log$_{10}$(activity)')
 
-    ax.legend(loc='upper left', fontsize=9, framealpha=0.9,
+    ax.legend(loc='lower left', fontsize=8.5, framealpha=0.9,
               edgecolor='#b0bec5')
 
     plt.tight_layout()
@@ -469,7 +523,7 @@ def generate_scaling_relations_figure(output_path):
     Scaling relations plot: *OOH binding energy vs *OH binding energy.
     Shows linear correlation with metals, and ideal point off the line.
     """
-    fig, ax = plt.subplots(figsize=(7, 6))
+    fig, ax = plt.subplots(figsize=(7.8, 6.2))
 
     # Approximate data: (ΔG_OH eV, ΔG_OOH eV) relative to Pt
     # Scaling relation: ΔG_OOH ≈ ΔG_OH + 3.2 eV (constant offset)
@@ -517,7 +571,7 @@ def generate_scaling_relations_figure(output_path):
             zorder=6, markeredgecolor='white', markeredgewidth=1.0)
     ax.annotate('Ideal catalyst\n(breaks scaling)',
                 xy=(ideal_oh, ideal_ooh),
-                xytext=(ideal_oh + 0.5, ideal_ooh - 0.5),
+                xytext=(ideal_oh + 0.62, ideal_ooh - 0.62),
                 fontsize=10, fontweight='bold', color=COLOR_GREEN,
                 ha='center',
                 arrowprops=dict(arrowstyle='->', color=COLOR_GREEN, lw=1.5),
@@ -535,7 +589,7 @@ def generate_scaling_relations_figure(output_path):
                 xytext=(ideal_oh - 0.15, ideal_oh + 3.2),
                 arrowprops=dict(arrowstyle='<->', color=COLOR_RED, lw=1.5))
     ax.text(ideal_oh - 0.3, (ideal_ooh + ideal_oh + 3.2) / 2,
-            'Gap:\n0.74 eV', ha='right', va='center', fontsize=9,
+            '0.74 eV\ngap', ha='right', va='center', fontsize=8.5,
             color=COLOR_RED, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
                       alpha=0.85, ec=COLOR_RED_LIGHT, lw=0.5))
@@ -544,7 +598,7 @@ def generate_scaling_relations_figure(output_path):
                 xlabel=r'$\Delta G_{*\mathrm{OH}}$ (eV)',
                 ylabel=r'$\Delta G_{*\mathrm{OOH}}$ (eV)')
 
-    ax.legend(loc='upper left', fontsize=9.5, framealpha=0.9,
+    ax.legend(loc='upper left', fontsize=8.6, framealpha=0.9,
               edgecolor='#b0bec5')
 
     plt.tight_layout()
@@ -812,6 +866,71 @@ def generate_ml_pipeline_figure(output_path):
 
 
 # ──────────────────────────────────────────────
+# Figure 8: OER Catalyst Discovery Workflow
+# ──────────────────────────────────────────────
+def generate_oer_workflow_figure(output_path):
+    """Readable schematic of the oxide OER discovery workflow."""
+    fig, ax = plt.subplots(figsize=(13.5, 5.2))
+    ax.set_xlim(0, 13.5)
+    ax.set_ylim(0, 5.2)
+    ax.axis('off')
+
+    ax.text(6.75, 4.85, 'Typical OER Catalyst Discovery Workflow',
+            ha='center', va='center', fontsize=14, fontweight='bold',
+            color=TEXT_COLOR)
+
+    stages = [
+        (1.1, '(a) select\nbulk oxide', BOX_MAIN, EDGE_MAIN),
+        (4.1, '(b) enumerate\nsurface terminations', BOX_WARM, EDGE_WARM),
+        (7.1, '(c) place\nadsorbate', BOX_CATALYST, EDGE_CATALYST),
+        (10.1, '(d) relax\nstructure', BOX_GREEN, EDGE_GREEN),
+    ]
+    bw, bh = 2.15, 0.78
+
+    for cx, label, fc, ec in stages:
+        _draw_box(ax, cx, 3.45, bw, bh, label, fc, ec, fontsize=10.5)
+
+    for (x1, *_), (x2, *__) in zip(stages[:-1], stages[1:]):
+        _draw_arrow(ax, x1 + bw / 2 + 0.18, 3.45, x2 - bw / 2 - 0.18, 3.45,
+                    color=ARROW_COLOR, lw=1.8, ms=14)
+
+    # Compact oxide/surface sketches below the labels.
+    for cx, _, _, _ in stages:
+        for i in range(3):
+            for j in range(2):
+                ax.add_patch(Circle((cx - 0.28 + 0.28 * i + 0.14 * (j % 2), 2.10 + 0.28 * j),
+                                    0.11, fc='#d32f2f' if (i + j) % 2 == 0 else '#b0bec5',
+                                    ec='white', lw=0.7, zorder=4))
+
+    # Branching terminations.
+    for offset, color in [(-0.34, EDGE_MAIN), (0.0, EDGE_WARM), (0.34, EDGE_GREEN)]:
+        ax.plot([4.1 - 0.55, 4.1 + 0.55], [1.72 + offset, 1.72 + offset],
+                color=color, lw=2.1, solid_capstyle='round')
+    ax.text(4.1, 0.88, 'surface Pourbaix\nselects stable termination',
+            ha='center', va='center', fontsize=9.2, color=EDGE_WARM,
+            fontstyle='italic')
+
+    # Adsorbate marker.
+    ax.add_patch(Circle((7.1, 2.68), 0.13, fc=COLOR_RED, ec='white', lw=1.0, zorder=6))
+    ax.text(7.1, 0.88, r'O*, OH*, OOH*' + '\nintermediates',
+            ha='center', va='center', fontsize=9.2, color=EDGE_CATALYST,
+            fontstyle='italic')
+
+    ax.text(10.1, 0.88, 'adsorption energy\nfeeds catalyst ranking',
+            ha='center', va='center', fontsize=9.2, color=EDGE_GREEN,
+            fontstyle='italic')
+
+    ax.text(6.75, 0.28,
+            'Oxides require both surface selection and adsorbate placement before relaxation.',
+            ha='center', va='center', fontsize=10, color='#607d8b')
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
+    plt.close()
+    print(f"Saved OER workflow figure to {output_path}")
+
+
+# ──────────────────────────────────────────────
 if __name__ == '__main__':
     import os
 
@@ -820,10 +939,12 @@ if __name__ == '__main__':
 
     generate_energy_cycle_figure(os.path.join(output_dir, 'ec_energy_cycle.png'))
     generate_fuel_cell_figure(os.path.join(output_dir, 'ec_fuel_cell.png'))
+    generate_activation_energy_figure(os.path.join(output_dir, 'ec_activation_energy.png'))
     generate_gibbs_energy_figure(os.path.join(output_dir, 'ec_gibbs_energy.png'))
     generate_volcano_plot_figure(os.path.join(output_dir, 'ec_volcano_plot.png'))
     generate_scaling_relations_figure(os.path.join(output_dir, 'ec_scaling_relations.png'))
     generate_binding_sites_figure(os.path.join(output_dir, 'ec_binding_sites.png'))
     generate_ml_pipeline_figure(os.path.join(output_dir, 'ec_ml_pipeline.png'))
+    generate_oer_workflow_figure(os.path.join(output_dir, 'ec_oer_workflow.png'))
 
-    print("\nDone! All 7 figures generated.")
+    print("\nDone! All 9 figures generated.")
