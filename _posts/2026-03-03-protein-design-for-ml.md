@@ -5,6 +5,7 @@ date: 2026-03-03
 last_updated: 2026-06-18
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"

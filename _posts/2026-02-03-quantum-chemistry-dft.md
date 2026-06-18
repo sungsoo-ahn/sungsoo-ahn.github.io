@@ -5,6 +5,7 @@ date: 2026-02-03
 last_updated: 2026-06-18
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
+authors: ["Sungsoo Ahn"]
 order: 1
 series: ml-for-science
 series_title: "ML for Science Foundations"

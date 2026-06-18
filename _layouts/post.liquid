@@ -11,6 +11,11 @@ layout: default
 {% if post_type == 'technical-note' %}
   {% assign post_type_label = 'Technical note' %}
 {% endif %}
+{% if page.authors %}
+  {% assign author_text = page.authors | join: ', ' %}
+{% else %}
+  {% assign author_text = page.author %}
+{% endif %}
 
 {% if page._styles %}
   <!-- Page/Post style -->
@@ -28,8 +33,8 @@ layout: default
       {% endif %}
       <p class="blog-post-meta">
         <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>
-        {% if page.author %}
-          <span>{{ page.author }}</span>
+        {% if author_text %}
+          <span>{{ author_text }}</span>
         {% endif %}
         <span>{{ page.date | date: '%B %d, %Y' }}</span>
         <span>{{ read_time }} min read</span>
@@ -40,10 +45,13 @@ layout: default
           <span>{{ page.meta }}</span>
         {% endif %}
       </p>
+      <p class="blog-ai-disclosure">
+        Many posts contain AI-generated draft text, edits, or figures. The listed authors decide what to incorporate, verify the technical content, and take responsibility for the final text.
+      </p>
     {% else %}
       <p class="post-meta">
         Created on {{ page.date | date: '%B %d, %Y' }}
-        {% if page.author %}by {{ page.author }}{% endif %}
+        {% if author_text %}by {{ author_text }}{% endif %}
         {% if page.last_updated %}, last updated on {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
         {% if page.meta %}• {{ page.meta }}{% endif %}
       </p>
