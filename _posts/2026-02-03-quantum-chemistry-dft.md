@@ -69,7 +69,7 @@ where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomicuni
 
 The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude, $$\lvert\Psi\rvert^2$$, gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to this probability density.
 
-The computational challenge is the electronic part. Even on a modest grid of $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers; for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality in the quantum many-body problem, and it motivates every approximation that follows.
+The computational challenge is the electronic part. On a grid with $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers; for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality in the quantum many-body problem, and it motivates every approximation that follows.
 
 ---
 
@@ -253,9 +253,9 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-Deep learning enters quantum chemistry at three natural points. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (Pfau et al., 2020). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, which is the central object in DFT and the input to the energy functional.
+Deep learning in quantum chemistry usually replaces one of three objects. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (Pfau et al., 2020). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, the central object in DFT and the input to the energy functional.
 
-One concrete connection for us is work from our group on GPWNO (Kim & Ahn, 2024), which predicts electron density fields, and QHFlow (Kim et al., 2025), which predicts DFT Hamiltonians with an equivariant flow-matching model. They are small examples of the broader lesson of this post: once you understand what the wavefunction, density, Hamiltonian, and SCF loop mean, it becomes much clearer what an ML model is trying to replace or approximate.
+In our group, GPWNO (Kim & Ahn, 2024) predicts electron density fields, and QHFlow (Kim et al., 2025) predicts DFT Hamiltonians with equivariant flow matching. I mention them because they sit exactly on the objects defined above: density, Hamiltonian, and SCF.
 
 ---
 

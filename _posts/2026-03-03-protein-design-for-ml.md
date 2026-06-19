@@ -85,7 +85,7 @@ A protein folds because the folded state is thermodynamically favorable. The dom
 
 On top of the hydrophobic effect, several other forces contribute:
 
-- **Hydrogen bonds** — weak electrostatic attractions between donor and acceptor atoms. Individually modest, but collectively essential for secondary structure. Every backbone N-H and C=O must either form an H-bond or be exposed to water; an unsatisfied H-bond donor buried in the core is energetically costly.
+- **Hydrogen bonds** — weak electrostatic attractions between donor and acceptor atoms. Individually weak, but collectively essential for secondary structure. Every backbone N-H and C=O must either form an H-bond or be exposed to water; an unsatisfied H-bond donor buried in the core is energetically costly.
 - **Salt bridges** — attractions between positively charged residues (Lys, Arg) and negatively charged ones (Asp, Glu). Contribute to stability on the protein surface.
 - **Disulfide bonds** — covalent bonds between two cysteine residues. Molecular staples that physically lock distant parts of the chain together. Common in antibodies and secreted proteins.
 - **Van der Waals interactions** — weak attractions between atoms at close range. Negligible individually but significant when combined, as thousands of atoms pack tightly in the core.
@@ -257,7 +257,7 @@ Boltz models are alternative structure predictors that provide a second opinion 
 
 ### BoltzGen
 
-BoltzGen (Stark et al., 2025) is useful to know because it shows where the field is moving: from a backbone-only generation step plus separate sequence design toward more integrated all-atom binder-design pipelines. For this tutorial, the practical lesson is modest. The core workflow is still generate, sequence, predict, filter, and validate; newer systems mostly change how tightly those steps are coupled and which failure modes they filter before experiments.
+BoltzGen (Stark et al., 2025) is worth one sentence here because it keeps the same design loop but couples the steps more tightly. The core workflow is still generate, sequence, predict, filter, and validate. Newer systems mostly change how tightly those steps interact and which failure modes they catch before experiments.
 
 ### What Does "Good" Look Like?
 

@@ -211,7 +211,7 @@ where cross parameters often use Lorentz-Berthelot mixing:
 
 $$\sigma_{fj} = \frac{1}{2}(\sigma_f + \sigma_j), \qquad \varepsilon_{fj} = \sqrt{\varepsilon_f\varepsilon_j}$$
 
-So the adsorbate identity enters twice: directly in the fluid functional and indirectly in the framework potential. This is useful for ML because the species dependence is not arbitrary. A model can condition on a small vector like $$(m,\sigma,\varepsilon)$$ while still predicting a full 3D density field. The methane-in-MOF-5 case is one point in that larger conditional mapping.
+So the adsorbate identity enters twice: directly in the fluid functional and indirectly in the framework potential. For ML, this means the species dependence has structure. A model can condition on a small vector like $$(m,\sigma,\varepsilon)$$ while still predicting a full 3D density field. The methane-in-MOF-5 case is one point in that larger conditional mapping.
 
 ### The Trade-Off
 
@@ -252,21 +252,21 @@ For the running example, this is $$(\text{MOF-5}, \text{methane}, T, P) \mapsto 
 
 The natural data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
 
-One concrete connection for us is work from our group on this density-field view of adsorption. The idea is modest: predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright.
+In our group, we use this density-field view of adsorption. Predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright.
 
 ---
 
 ## Connections to ML
 
-Adsorption simulation is a compact example of familiar ML ideas in physical clothing. GCMC is MCMC on an open system whose particle number changes. cDFT is a variational solver that maps a potential field and thermodynamic condition to an optimal density. The density field is a richer supervised target than scalar uptake because uptake is just its integral.
+Adsorption simulation has familiar ML structure. GCMC is MCMC on an open system whose particle number changes. cDFT is a variational solver that maps a potential field and thermodynamic condition to an optimal density. The density field is a richer supervised target than scalar uptake because uptake is just its integral.
 
-The main ML lesson is to respect the physics hierarchy. Cheap approximate solvers can provide broad coverage, expensive simulations can provide correction, and the functional itself is an inductive bias rather than a nuisance to ignore. This is the same pattern that appears in many scientific ML problems.
+The hierarchy matters. Cheap approximate solvers provide broad coverage. Expensive simulations provide correction. The functional itself is an inductive bias, not a nuisance to ignore.
 
 ---
 
 ## Closing
 
-For ML researchers, the clean way to remember adsorption is:
+For ML researchers, remember adsorption this way:
 
 - Adsorption is an open-system equilibrium problem.
 - The natural ensemble is $$\mu VT$$ because particle number fluctuates.
