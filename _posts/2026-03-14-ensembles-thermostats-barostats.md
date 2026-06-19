@@ -82,7 +82,7 @@ For the Boltzmann distribution, this equals $$F = -k_{B}T \ln Z$$, where $$Z = \
 
 At equilibrium, a system at constant $$T$$ and $$V$$ minimizes $$F$$, balancing two competing drives: lowering energy (favoring ordered, low-$$\langle H \rangle$$ states) and increasing entropy (favoring disordered, high-$$S$$ states).
 
-Both quantities are hard to compute. Entropy requires knowing the distribution $$p$$, not just samples from it. Free energy requires the partition function $$Z$$, an integral over the entire phase space that is intractable for any nontrivial system.
+Both quantities are hard to compute. Entropy requires knowing the distribution $$p$$, not samples alone. Free energy requires the partition function $$Z$$, an integral over the entire phase space that is intractable for any nontrivial system.
 
 All of these quantities — easy and hard alike — are expectations over some probability distribution of microstates. The next question is: which distribution?
 
@@ -278,9 +278,9 @@ A third layer — **thermodynamics** — tells you *what* happens at equilibrium
 
 ### Connections to Generative Modeling
 
-The main bridge to generative modeling is the distribution. The canonical ensemble $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is an energy-based model: $$U$$ plays the role of an energy function, $$\beta$$ controls sharpness, and the partition function $$Z$$ is the same normalization problem that appears in EBMs. Langevin dynamics and Metropolis-Hastings are then sampling algorithms for this unnormalized density, not just simulation tricks.
+The connection to generative modeling starts with the distribution. The canonical ensemble $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is an energy-based model: $$U$$ is the energy function, $$\beta$$ controls sharpness, and the partition function $$Z$$ is the same normalization problem that appears in EBMs. Langevin dynamics and Metropolis-Hastings are samplers for this unnormalized density.
 
-The rest of the analogy is a useful reading guide, not a separate literature survey. Temperature schedules resemble annealing schedules, free-energy estimation resembles estimating log-normalizer ratios, and HMC borrows its proposal mechanism directly from molecular dynamics. The tutorial point is that ensembles tell us what distribution we want, while thermostats, barostats, and Monte Carlo tell us how we sample it.
+Temperature schedules are annealing schedules. Free-energy estimation is log-normalizer estimation. HMC borrows its proposal mechanism from molecular dynamics. The split is simple: ensembles define the distribution; thermostats, barostats, and Monte Carlo sample it.
 
 ---
 
@@ -301,7 +301,7 @@ The rest of the analogy is a useful reading guide, not a separate literature sur
 
 [^nosehoover]: Nosé (1984) introduced the extended Lagrangian; Hoover (1985) reformulated it as coupled first-order equations. The combined "Nosé-Hoover thermostat" is standard in all major MD codes (GROMACS, LAMMPS, OpenMM).
 
-[^parrinellorahman]: Parrinello and Rahman (1981) originally introduced the method for studying structural phase transitions in crystals, where the box shape (not just size) changes.
+[^parrinellorahman]: Parrinello and Rahman (1981) originally introduced the method for studying structural phase transitions in crystals, where both box shape and box size change.
 
 [^gcmc]: Grand canonical Monte Carlo is particularly important for studying gas storage in porous materials (zeolites, metal-organic frameworks) and ion channel selectivity in biology.
 

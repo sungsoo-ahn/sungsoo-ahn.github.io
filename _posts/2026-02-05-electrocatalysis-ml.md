@@ -31,7 +31,7 @@ This matters because the Sabatier principle says the best catalyst binds interme
 
 The search space is too large for exhaustive DFT. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
 
-This is a natural ML problem: learn a surrogate that maps material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why the problem matters scientifically.
+For ML, the problem is direct: learn a surrogate from material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why the problem matters.
 
 ## The Energy Storage Problem
 
@@ -259,9 +259,9 @@ When scaling relations break down, the full multidimensional binding-energy spac
 
 ## Machine Learning for Catalyst Discovery
 
-The previous sections establish the problem: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge search space, where each DFT relaxation can take hours or days. ML helps mainly by changing the cost structure. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (Lan et al., 2023) use those surrogates to relax many candidate placements before validating only a small top-$$k$$ set with DFT.
+The search problem is now clear: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge space, when each DFT relaxation can take hours or days. ML changes the arithmetic. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (Lan et al., 2023) relax many candidate placements before validating only a small top-$$k$$ set with DFT.
 
-Generation is the next step, but it is harder than proposing a free molecule. A catalyst design couples a periodic slab, a surface orientation, an adsorbate, and a binding pose; changing one part can change the rest. One concrete connection for us is CatFlow (Kim et al., 2026), a recent project from our group that tries to generate slab-adsorbate systems jointly rather than treating the slab and adsorbate as separate objects. I mention it here only as one example of how the tutorial pieces connect to our work: the physical difficulty is still the surface-adsorbate coupling introduced above.
+Generation tries to skip part of enumerate-then-filter, but a catalyst is not a free molecule. The slab, surface orientation, adsorbate, and binding pose are coupled; changing one part can change the rest. In our group, CatFlow (Kim et al., 2026) is our attempt at this joint-generation problem. I include it here only to show where these tutorial pieces enter our own work. The hard part is still the surface-adsorbate coupling described above.
 
 ### Open Challenges
 

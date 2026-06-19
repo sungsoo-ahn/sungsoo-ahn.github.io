@@ -252,13 +252,13 @@ A good GFlowNet achieves high reward *and* high diversity. A model that finds on
 
 GFlowNets are close to maximum-entropy RL, variational inference, and diffusion-style samplers, but the useful distinction is the target. Standard RL usually wants a high-reward action sequence. GFlowNets want a distribution over terminal objects, with probability proportional to reward. That small change explains why the backward policy matters: it accounts for the fact that many construction paths can lead to the same object.
 
-The VI and diffusion connections are useful mainly as translation tools. The forward policy is a variational sampler over trajectories, the trajectory-balance loss is a log-ratio matching objective, and continuous-state variants start to look like stochastic-process samplers. For this tutorial, the takeaway is simpler: GFlowNets are a way to amortize sampling from an energy-like reward over structured discrete objects.
+The VI and diffusion connections mostly help with translation. The forward policy is a variational sampler over trajectories. The trajectory-balance loss matches a log-ratio. Continuous-state variants start to look like stochastic-process samplers. For this post, the core idea is simpler: GFlowNets amortize sampling from an energy-like reward over structured discrete objects.
 
 ---
 
 ## Part VI: Applications
 
-The natural applications are problems where one best answer is not enough: molecule design, biological sequence design, Bayesian structure learning, and combinatorial optimization. In each case, the reward is only a proxy, so a useful sampler should return diverse high-reward candidates rather than collapse to one mode. That is the practical reason GFlowNets are interesting for scientific discovery.
+GFlowNets fit problems where one best answer is not enough: molecule design, biological sequence design, Bayesian structure learning, and combinatorial optimization. In each case, the reward is only a proxy. A useful sampler should return diverse high-reward candidates rather than collapse to one mode.
 
 ---
 
@@ -279,4 +279,4 @@ In my view, yes, with two practical innovations that make it work for constructi
 
 GFlowNets address a specific gap: amortized sampling from energy-based distributions over combinatorial objects when we have access to the energy function but no dataset. Train a constructive policy once, sample forever. The flow-matching objectives reduce what sounds like a hard RL problem to something closer to regression.
 
-The caveat is that scientific discovery pipelines are hard to validate. Proxy rewards, docking scores, and learned oracles are useful for method development, but they do not replace experimental feedback. I would read GFlowNets less as a finished discovery engine and more as a clean probabilistic tool for the part of discovery where we need many plausible candidates, not just the current argmax.
+The caveat is validation. Proxy rewards, docking scores, and learned oracles are useful for method development, but they do not replace experimental feedback. I would read GFlowNets as a tool for the candidate-generation step, not as a full discovery pipeline.

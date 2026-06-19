@@ -329,7 +329,7 @@ Input: Positions + Atom Types
 
 The mathematical framework above is the common language behind many 3D atomic neural networks. Tensor Field Networks (Thomas et al., 2018) made the basic recipe explicit: spherical tensor features, spherical-harmonic edge information, radial functions, and CG tensor products. Later models such as NequIP, MACE, Equiformer, and eSCN changed the engineering details, but they still revolve around the same question: how do we mix atomic features without breaking the rotation law?
 
-For this tutorial, the important point is not the leaderboard history. Modern architectures mainly differ in where they spend compute: attention versus message passing, higher body-order interactions versus cheaper edge-aligned $$SO(2)$$ operations, and strict equivariance versus approximate equivariance for speed. Once the irreps, Wigner-D matrices, and CG tensor products are clear, those design choices become much easier to read.
+Do not read this section as a leaderboard. Read it as a map of engineering choices: attention or message passing, higher body order or cheaper edge-aligned $$SO(2)$$ operations, strict equivariance or approximate equivariance. Once the algebra above is clear, the architecture papers are easier to parse.
 
 ---
 
