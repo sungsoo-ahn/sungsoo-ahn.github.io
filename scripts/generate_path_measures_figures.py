@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 from scipy.stats import norm
 
+import blog_figure_style as bfs
+
 # ──────────────────────────────────────────────
 # Color palette (consistent with other posts)
 # ──────────────────────────────────────────────
@@ -32,23 +34,19 @@ TEAL_LIGHT = '#e0f2f1'
 CORAL = '#e07a5f'
 NEUTRAL = '#b0bec5'
 
-LABEL_FS = 13
-SUBLABEL_FS = 10.5
-TICK_FS = 9
+LABEL_FS = 10.5
+SUBLABEL_FS = 9.2
+TICK_FS = 8.5
 
 OUTPUT_DIR = 'assets/img/blog'
+
+bfs.use_blog_style()
 
 
 def _style_ax(ax, xlabel='', ylabel='', title=''):
     """Apply consistent axis styling."""
-    ax.set_xlabel(xlabel, fontsize=LABEL_FS, color=TEXT_COLOR)
-    ax.set_ylabel(ylabel, fontsize=LABEL_FS, color=TEXT_COLOR)
-    if title:
-        ax.set_title(title, fontsize=LABEL_FS, fontweight='bold', color=TEXT_COLOR, pad=10)
-    ax.tick_params(labelsize=TICK_FS, colors=TEXT_COLOR)
-    for spine in ax.spines.values():
-        spine.set_color(NEUTRAL)
-    ax.tick_params(colors=TEXT_COLOR)
+    bfs.style_axis(ax, xlabel=xlabel, ylabel=ylabel, title=title)
+    ax.tick_params(labelsize=TICK_FS)
 
 
 # ──────────────────────────────────────────────
@@ -56,33 +54,34 @@ def _style_ax(ax, xlabel='', ylabel='', title=''):
 # ──────────────────────────────────────────────
 def fig_boltzmann_overlap():
     """Two Boltzmann distributions with minimal overlap — illustrates why FEP fails."""
-    fig, ax = plt.subplots(figsize=(7, 3.5))
+    fig, ax = plt.subplots(figsize=(8.8, 4.0))
 
     x = np.linspace(-4, 10, 500)
     p_a = norm.pdf(x, loc=0, scale=1.0)
     p_b = norm.pdf(x, loc=6, scale=1.2)
 
-    ax.fill_between(x, p_a, alpha=0.3, color=BLUE, label=r'$p_A(\mathbf{x})$')
-    ax.plot(x, p_a, color=BLUE, linewidth=2)
-    ax.fill_between(x, p_b, alpha=0.3, color=RED, label=r'$p_B(\mathbf{x})$')
-    ax.plot(x, p_b, color=RED, linewidth=2)
+    ax.fill_between(x, p_a, alpha=0.28, color=BLUE)
+    ax.plot(x, p_a, color=BLUE, linewidth=2.4)
+    ax.fill_between(x, p_b, alpha=0.28, color=RED)
+    ax.plot(x, p_b, color=RED, linewidth=2.4)
 
     # Shade overlap region
     overlap = np.minimum(p_a, p_b)
     mask = overlap > 1e-4
-    ax.fill_between(x[mask], overlap[mask], alpha=0.5, color=AMBER,
-                    hatch='///', edgecolor=AMBER, label='Overlap (signal for FEP)')
+    ax.fill_between(x[mask], overlap[mask], alpha=0.58, color=AMBER,
+                    hatch='///', edgecolor=AMBER, linewidth=0.0)
 
-    ax.annotate('Exponentially\nsmall overlap', xy=(3, 0.02), fontsize=SUBLABEL_FS,
-                color=AMBER, ha='center', fontstyle='italic')
+    bfs.curve_label(ax, -0.72, 0.34, r'$p_A(\mathbf{x})$', BLUE, size=10.4)
+    bfs.curve_label(ax, 5.35, 0.285, r'$p_B(\mathbf{x})$', RED, size=10.4)
+    bfs.callout_label(ax, 'overlap signal', xy=(2.72, 0.006), xytext=(3.45, 0.085),
+                      color=AMBER, size=9.4, ha='left', rad=-0.12)
 
     ax.set_xlim(-4, 10)
-    ax.set_ylim(0, None)
+    ax.set_ylim(0, 0.43)
     _style_ax(ax, xlabel='Configuration space $\\mathbf{x}$', ylabel='Probability density')
-    ax.legend(fontsize=SUBLABEL_FS, framealpha=0.9)
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_boltzmann_overlap.png', dpi=200, bbox_inches='tight',
+    fig.savefig(f'{OUTPUT_DIR}/pm_boltzmann_overlap.png', dpi=250, bbox_inches='tight',
                 facecolor='white')
     plt.close(fig)
     print('  ✓ pm_boltzmann_overlap.png')
@@ -271,7 +270,7 @@ def fig_alternating_steps():
         fig.text(x_mid, 0.39, label, fontsize=7.2, ha='center', va='center',
                  color=col, transform=fig.transFigure)
 
-    fig.savefig(f'{OUTPUT_DIR}/pm_alternating_steps.png', dpi=200, bbox_inches='tight',
+    fig.savefig(f'{OUTPUT_DIR}/pm_alternating_steps.png', dpi=240, bbox_inches='tight',
                 facecolor='white')
     plt.close(fig)
     print('  ✓ pm_alternating_steps.png')
@@ -331,7 +330,7 @@ def fig_work_trajectories():
     lucky_idx = np.argmin(final_works)
     unlucky_idx = np.argmax(final_works)
 
-    fig, axes = plt.subplots(1, 3, figsize=(13.5, 3.8), gridspec_kw={'wspace': 0.36})
+    fig, axes = plt.subplots(1, 3, figsize=(14.2, 4.05), gridspec_kw={'wspace': 0.34})
 
     # Panel (a): Trajectories
     ax = axes[0]
@@ -347,8 +346,9 @@ def fig_work_trajectories():
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
     ax.text(0.03, 1.22, 'right well', fontsize=8, color=RED, va='bottom',
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
-    ax.legend(fontsize=8.0, loc='upper left', framealpha=0.9)
-    _style_ax(ax, xlabel='Time $t$', ylabel='Position $x(t)$', title='(a) Trajectories')
+    bfs.curve_label(ax, 0.62, 0.86, 'low work', TEAL, size=8.7)
+    bfs.curve_label(ax, 0.43, -1.18, 'high work', RED, size=8.7)
+    _style_ax(ax, xlabel='Time $t$', ylabel='Position $x(t)$', title='Trajectories')
 
     # Panel (b): Cumulative work
     ax = axes[1]
@@ -362,21 +362,25 @@ def fig_work_trajectories():
     ax.text(0.94, delta_f_est + 0.10, r'$\Delta F$', fontsize=SUBLABEL_FS, color=TEXT_COLOR,
             ha='right', va='bottom', fontweight='bold',
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
-    _style_ax(ax, xlabel='Time $t$', ylabel='Cumulative work $W(t)$', title='(b) Work along each trajectory')
+    bfs.curve_label(ax, 0.66, 1.18, 'low work', TEAL, size=8.7)
+    bfs.curve_label(ax, 0.66, 2.35, 'high work', RED, size=8.7)
+    _style_ax(ax, xlabel='Time $t$', ylabel='Cumulative work $W(t)$', title='Cumulative work')
 
     # Panel (c): Work histogram
     ax = axes[2]
-    ax.hist(all_work, bins=50, density=True, color=BLUE, alpha=0.4, edgecolor=BLUE, linewidth=0.5)
+    density, _, _ = ax.hist(all_work, bins=50, density=True, color=BLUE, alpha=0.4, edgecolor=BLUE, linewidth=0.5)
     ax.axvline(np.mean(all_work), color=AMBER, linewidth=2.5, linestyle='--',
-               label=r'$\langle W \rangle$ (mean)')
+               zorder=5)
     ax.axvline(delta_f_est, color=RED, linewidth=2.5, linestyle='-',
-               label=r'$\Delta F$ (Jarzynski)')
-    ax.legend(fontsize=8.2, loc='upper right', framealpha=0.9)
-    ax.set_ylim(0, None)
-    _style_ax(ax, xlabel='Work $W$', ylabel='Density', title='(c) Work histogram')
+               zorder=5)
+    y_top = density.max() * 1.16
+    bfs.curve_label(ax, np.mean(all_work) + 0.08, y_top * 0.86, r'$\langle W\rangle$', AMBER, size=8.8)
+    bfs.curve_label(ax, delta_f_est + 0.08, y_top * 0.60, r'$\Delta F$', RED, size=8.8)
+    ax.set_ylim(0, y_top)
+    _style_ax(ax, xlabel='Work $W$', ylabel='Density', title='Work histogram')
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_work_trajectories.png', dpi=200, bbox_inches='tight',
+    fig.savefig(f'{OUTPUT_DIR}/pm_work_trajectories.png', dpi=240, bbox_inches='tight',
                 facecolor='white')
     plt.close(fig)
     print('  ✓ pm_work_trajectories.png')
@@ -485,7 +489,7 @@ def fig_work_distribution():
 # ──────────────────────────────────────────────
 def fig_crooks_intersection():
     """P_F(W) and P_R(−W) crossing at W = ΔF."""
-    fig, ax = plt.subplots(figsize=(7, 3.5))
+    fig, ax = plt.subplots(figsize=(8.8, 4.0))
 
     delta_f = 3.0
     sigma = 1.2
@@ -496,9 +500,9 @@ def fig_crooks_intersection():
     # Reverse (−W): centered below ΔF
     p_r = norm.pdf(w, loc=delta_f - 1.0, scale=sigma)
 
-    ax.plot(w, p_f, color=BLUE, linewidth=2.5, label='$P_F(W)$')
+    ax.plot(w, p_f, color=BLUE, linewidth=2.5)
     ax.fill_between(w, p_f, alpha=0.15, color=BLUE)
-    ax.plot(w, p_r, color=RED, linewidth=2.5, label='$P_R(-W)$')
+    ax.plot(w, p_r, color=RED, linewidth=2.5)
     ax.fill_between(w, p_r, alpha=0.15, color=RED)
 
     # Mark intersection at ΔF
@@ -506,17 +510,16 @@ def fig_crooks_intersection():
     cross_y = norm.pdf(delta_f, loc=delta_f + 1.0, scale=sigma)
     ax.plot(delta_f, cross_y, 'o', color=TEXT_COLOR, markersize=8, zorder=6)
 
-    ax.annotate(r'$W = \Delta F$' + '\n(intersection)',
-                xy=(delta_f, cross_y), xytext=(delta_f + 1.5, cross_y + 0.08),
-                fontsize=SUBLABEL_FS, color=TEXT_COLOR, fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=TEXT_COLOR, lw=1.5))
+    bfs.curve_label(ax, 4.55, 0.285, r'$P_F(W)$', BLUE, size=10.3)
+    bfs.curve_label(ax, 0.65, 0.285, r'$P_R(-W)$', RED, size=10.3)
+    bfs.callout_label(ax, r'$W=\Delta F$', xy=(delta_f, cross_y),
+                      xytext=(3.68, 0.318), color=TEXT_COLOR, size=10.0, ha='left')
 
     _style_ax(ax, xlabel='Work $W$', ylabel='Density')
-    ax.legend(fontsize=SUBLABEL_FS, framealpha=0.9)
-    ax.set_ylim(0, None)
+    ax.set_ylim(0, 0.36)
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_crooks_intersection.png', dpi=200, bbox_inches='tight',
+    fig.savefig(f'{OUTPUT_DIR}/pm_crooks_intersection.png', dpi=250, bbox_inches='tight',
                 facecolor='white')
     plt.close(fig)
     print('  ✓ pm_crooks_intersection.png')

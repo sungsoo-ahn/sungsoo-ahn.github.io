@@ -81,8 +81,13 @@ def panel_label(ax, label: str) -> None:
     )
 
 
-def direct_label(ax, x: float, y: float, text: str, color: str, *, size: float = 9.5, ha: str = "center") -> None:
-    ax.text(
+def label_box(*, alpha: float = 0.88, pad: float = 1.6) -> dict:
+    """White backing for labels placed near plotted marks."""
+    return {"fc": "white", "ec": "none", "alpha": alpha, "pad": pad}
+
+
+def direct_label(ax, x: float, y: float, text: str, color: str, *, size: float = 9.5, ha: str = "center"):
+    return ax.text(
         x,
         y,
         text,
@@ -91,8 +96,87 @@ def direct_label(ax, x: float, y: float, text: str, color: str, *, size: float =
         fontsize=size,
         color=color,
         fontweight="semibold",
-        bbox={"fc": "white", "ec": "none", "alpha": 0.84, "pad": 1.5},
+        bbox=label_box(alpha=0.84, pad=1.5),
         zorder=30,
+    )
+
+
+def curve_label(ax, x: float, y: float, text: str, color: str, *, size: float = 9.0, ha: str = "left"):
+    """Label a curve directly, with enough backing to stay legible over fills."""
+    return ax.text(
+        x,
+        y,
+        text,
+        ha=ha,
+        va="center",
+        fontsize=size,
+        color=color,
+        fontweight="semibold",
+        bbox=label_box(alpha=0.9, pad=1.4),
+        zorder=35,
+    )
+
+
+def callout_label(
+    ax,
+    text: str,
+    xy: tuple[float, float],
+    xytext: tuple[float, float],
+    color: str,
+    *,
+    size: float = 9.5,
+    ha: str = "center",
+    rad: float = 0.0,
+):
+    """Place an annotation away from the data and point back to the feature."""
+    return ax.annotate(
+        text,
+        xy=xy,
+        xytext=xytext,
+        ha=ha,
+        va="center",
+        fontsize=size,
+        color=color,
+        fontweight="semibold",
+        bbox=label_box(alpha=0.92, pad=1.8),
+        arrowprops={
+            "arrowstyle": "-|>",
+            "color": color,
+            "lw": 1.4,
+            "mutation_scale": 12,
+            "shrinkA": 4,
+            "shrinkB": 5,
+            "connectionstyle": f"arc3,rad={rad}",
+        },
+        zorder=40,
+    )
+
+
+def state_marker(
+    ax,
+    x: float,
+    y: float,
+    label: str,
+    color: str,
+    *,
+    label_dx: float = 0.16,
+    label_dy: float = 0.18,
+    marker_size: float = 86,
+):
+    """Draw a metastable-state marker with a separate label."""
+    ax.scatter([x], [y], s=marker_size * 1.7, color="white", edgecolors="none", zorder=20)
+    ax.scatter([x], [y], s=marker_size, color=color, edgecolors="white", linewidths=1.5, zorder=22)
+    return ax.text(
+        x + label_dx,
+        y + label_dy,
+        label,
+        ha="center",
+        va="center",
+        fontsize=10,
+        fontweight="semibold",
+        color=color,
+        bbox=label_box(alpha=0.9, pad=1.3),
+        zorder=36,
     )
 
 
