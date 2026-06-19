@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -253,23 +253,11 @@ Meta's protein language models offer a faster structure-prediction route. ESMFol
 
 ### Boltz / Boltz2
 
-Boltz models are alternative structure predictors that provide a second opinion on AlphaFold. They are useful when you want independent confirmation that a designed sequence folds correctly. Different architecture and training data make agreement between AlphaFold and Boltz stronger evidence than either prediction alone.
+Boltz models are alternative structure predictors that provide a second opinion on AlphaFold. Agreement between two separately trained predictors is not experimental proof, but it is a useful computational sanity check before spending lab effort.
 
 ### BoltzGen
 
-The standard pipeline above — RFDiffusion for backbones, ProteinMPNN for sequences, AlphaFold for validation — treats each step as a separate model with backbone-only generation. **BoltzGen** (Stark et al., 2025) is still a multi-stage pipeline, but upgrades the core generative step to an all-atom diffusion model and adds purpose-built filtering stages.
-
-**Input:** target structure + design specification (binding site, covalent constraints, sequence length range). **Output:** designed binder with both 3D coordinates and amino acid sequence. BoltzGen's pipeline has several stages beyond the core generative model:
-
-1. **Structure generation** — an all-atom diffusion model generates candidate binder structures conditioned on the target.
-2. **Solubility-aware inverse folding** — a separate inverse folding model, trained on soluble proteins, re-sequences the generated structures to improve solubility and expression. This addresses a common failure mode: designs that look good computationally but don't express in bacteria.
-3. **Co-folding validation** — Boltz predicts the complex structure from the designed sequence to check self-consistency.
-4. **Quality filtering** — physics-based metrics are computed for each design: number of hydrogen bonds and salt bridges at the interface, change in solvent-accessible surface area upon binding, and surface hydrophobicity. Each design is ranked on every metric, and the worst rank across all metrics becomes the overall quality score.
-5. **Quality-diversity selection** — a greedy algorithm picks the final candidates by iteratively choosing designs that score high *and* are structurally distinct from those already selected. This prevents the final set from collapsing to minor variants of one solution.
-
-The pipeline supports design types that the modular RFDiffusion/ProteinMPNN stack handles poorly: cyclic peptides, disulfide-bonded peptides, and nanobodies.
-
-Experimental validation across 8 wet-lab campaigns showed nanomolar binders for 66% of novel protein targets (less than 30% sequence identity with any known bound structure in the PDB).
+BoltzGen (Stark et al., 2025) is useful to know because it shows where the field is moving: from a backbone-only generation step plus separate sequence design toward more integrated all-atom binder-design pipelines. For this tutorial, the practical lesson is modest. The core workflow is still generate, sequence, predict, filter, and validate; newer systems mostly change how tightly those steps are coupled and which failure modes they filter before experiments.
 
 ### What Does "Good" Look Like?
 

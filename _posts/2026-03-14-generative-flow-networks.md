@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -250,84 +250,15 @@ A good GFlowNet achieves high reward *and* high diversity. A model that finds on
 
 ## Part V: Connections to Existing Frameworks
 
-GFlowNets connect to RL, variational inference, and diffusion models through precise mathematical equivalences.
+GFlowNets are close to maximum-entropy RL, variational inference, and diffusion-style samplers, but the useful distinction is the target. Standard RL usually wants a high-reward action sequence. GFlowNets want a distribution over terminal objects, with probability proportional to reward. That small change explains why the backward policy matters: it accounts for the fact that many construction paths can lead to the same object.
 
-### GFlowNet as Maximum Entropy RL
-
-Standard RL maximizes expected cumulative reward $$\mathbb{E}[\sum_t r_t]$$, which leads to deterministic optimal policies. Maximum entropy (MaxEnt) RL adds an entropy bonus $$\mathcal{H}(\pi)$$ that penalizes the policy for being too concentrated, encouraging it to spread probability across multiple good trajectories:
-
-$$\pi^*_\mathrm{MaxEnt} = \arg\max_\pi \mathbb{E}_\tau \left[\sum_{t=1}^T r(s_{t-1}, s_t) + \alpha \mathcal{H}(\pi(\cdot \mid s_{t-1}))\right]$$
-
-where $$r(s_{t-1}, s_t)$$ is the per-step reward, $$\mathcal{H}(\pi(\cdot \mid s))$$ is the entropy of the policy at state $$s$$, and $$\alpha > 0$$ controls the trade-off between reward and entropy. The optimal policy samples trajectories proportionally to exponentiated cumulative reward:
-
-$$\pi^*_\mathrm{MaxEnt}(\tau) \propto \exp\left(\frac{1}{\alpha}\sum_{t=1}^T r(s_{t-1}, s_t)\right)$$
-
-This looks similar to GFlowNets, but there is a subtle mismatch. MaxEnt RL optimizes a distribution over **trajectories**, while GFlowNets target a distribution over **terminal states**. Multiple trajectories can lead to the same terminal object $$x$$, so MaxEnt RL assigns probability to $$x$$ proportional to the *sum* of exponentiated rewards over all trajectories ending at $$x$$. This is not $$\exp R(x)$$ unless the per-step rewards are carefully structured.
-
-The precise connection:[^maxentrl] GFlowNet is equivalent to MaxEnt RL with a specific reward shaping. Setting the per-step reward to
-
-$$r(s_{t-1}, s_t) = \log p_\mathrm{B}(s_{t-1} \mid s_t)$$
-
-at intermediate steps and $$r(s_{T-1}, x) = R(x) + \log p_\mathrm{B}(s_{T-1} \mid x)$$ at the terminal step makes the MaxEnt RL objective identical to the GFlowNet trajectory balance condition. The backward policy acts as reward shaping that removes the redundancy of endpoint-sharing trajectories.
-
-[^maxentrl]: Deleu et al., "Discrete probabilistic inference as control in multi-path environments," AISTATS 2024.
-
-In my view, this connection does not diminish GFlowNets. The primary contribution is the *problem formulation*: sampling proportionally to $$\exp R(x)$$ over combinatorial objects. The backward policy then naturally resolves the trajectory-redundancy problem that makes naive MaxEnt RL fail.
-
-### GFlowNet as Hierarchical Variational Inference
-
-Variational inference (VI) approximates an intractable target distribution $$p$$ by optimizing a tractable approximation $$q$$ to minimize $$D_\mathrm{KL}(q \| p)$$. GFlowNet training can be viewed as VI with trajectories as the latent variables.[^hvi]
-
-The mapping is:
-
-| VI concept | GFlowNet counterpart |
-|------------|---------------------|
-| Latent variable | Trajectory $$\tau$$ |
-| Observed variable | Terminal object $$x$$ |
-| Variational distribution $$q$$ | Forward policy $$p_\mathrm{F}(\tau)$$ |
-| Target distribution $$p$$ | $$p_\mathrm{B}(\tau) \propto \exp R(x) \prod_t p_\mathrm{B}(s_{t-1} \mid s_t)$$ |
-| ELBO | Trajectory balance loss |
-
-When training on-policy (sampling trajectories from $$p_\mathrm{F}$$), the expected TB gradient is proportional to the KL divergence gradient:
-
-$$\nabla_\theta D_\mathrm{KL}(p_\mathrm{F} \| p_\mathrm{B}) = \tfrac{1}{2}\,\mathbb{E}_{\tau \sim p_\mathrm{F}}[\nabla_\theta \mathcal{L}_\mathrm{TB}(\tau)]$$
-
-[^hvi]: Malkin et al., "GFlowNets and variational inference," ICLR 2023.
-
-This perspective explains a practical advantage: GFlowNets can train off-policy while standard VI cannot. In VI, the gradient estimator requires samples from the current variational distribution $$q$$, so you must re-sample every time $$q$$ changes. In GFlowNets, the TB loss is a squared log-ratio that can be evaluated on any trajectory, regardless of how it was generated. This is why replay buffers work: old trajectories from previous policy versions remain valid training data.
-
-### GFlowNet as Diffusion Model
-
-For continuous state spaces, the forward and backward policies become continuous-time stochastic processes — and the connection to diffusion models becomes direct.[^diffusion] The correspondence reverses the naming convention:
-
-- The GFlowNet **backward policy** $$\leftrightarrow$$ the diffusion model's **forward process** (adding noise, corrupting data toward a simple distribution).
-- The GFlowNet **forward policy** $$\leftrightarrow$$ the diffusion model's **reverse process** (denoising, generating data from noise).
-
-[^diffusion]: Zhang et al., "Unifying Generative Models with GFlowNets and Beyond," arXiv 2022. Sendera et al., "Improved off-policy training of diffusion samplers," arXiv 2024.
-
-The naming is confusing because GFlowNets and diffusion models use "forward" and "backward" in opposite senses. In GFlowNets, "forward" means constructing the object; in diffusion models, "forward" means destroying it.
-
-The key difference is the training signal. Diffusion models learn from data samples: they observe $$x \sim p_\text{data}$$ and learn to reverse the noise process. GFlowNets learn from an energy function: they can evaluate $$R(x)$$ for any $$x$$ but have no dataset. This makes GFlowNets applicable when we have an energy function but no samples from the target distribution, the typical scientific-discovery setting.
-
-A related line of work studies **diffusion samplers** — diffusion models trained to sample from Boltzmann distributions using energy functions rather than data.[^diffusionsampler] The GFlowNet objectives (TB, DB, SubTB) have continuous-time counterparts: in the limit of infinitesimal discretization steps, they converge to SDEs and path space measures that are natural objects in stochastic control theory. This means GFlowNet training objectives and diffusion sampler objectives are not merely analogous — they are asymptotically equivalent, and practitioners can choose between discrete-time (GFlowNet-style) and continuous-time (SDE-based) formulations based on the problem structure.
-
-[^diffusionsampler]: Berner, Richter, Sendera, Rector-Brooks, and Malkin, "From discrete-time policies to continuous-time diffusion samplers: Asymptotic equivalences and faster training," TMLR 2026.
+The VI and diffusion connections are useful mainly as translation tools. The forward policy is a variational sampler over trajectories, the trajectory-balance loss is a log-ratio matching objective, and continuous-state variants start to look like stochastic-process samplers. For this tutorial, the takeaway is simpler: GFlowNets are a way to amortize sampling from an energy-like reward over structured discrete objects.
 
 ---
 
 ## Part VI: Applications
 
-GFlowNets have been applied to several domains where diverse, high-quality candidates are more valuable than a single optimum:
-
-- **Molecule design**[^fm] — the canonical application. Molecules are built step by step by adding fragments, with a GNN policy and binding affinity as the reward. Drug discovery needs diverse scaffolds because proxy rewards are imprecise.
-- **Biological sequence design**[^seqdesign] — generating protein, DNA, or RNA sequences token by token, with binding activity as the reward. GFlowNets can jump between distant regions of sequence space in a single trajectory, unlike MCMC samplers that make local edits.
-- **Bayesian structure learning**[^bayesdag] — sampling causal DAGs proportionally to their posterior probability. Each DAG is constructed by adding edges, and the reward is the marginal likelihood. GFlowNets capture uncertainty over causal structures rather than returning a single MAP graph.
-- **Combinatorial optimization** — finding diverse high-quality solutions to problems like maximum independent set, using GNN-parameterized policies.
-
-[^seqdesign]: Jain et al., "Biological sequence design with GFlowNets," ICML 2022.
-[^bayesdag]: Deleu et al., "Bayesian structure learning with generative flow networks," UAI 2022.
-
-Standard synthetic benchmarks include HyperGrid (multi-modal reward on a grid) and bag generation (constructing multisets with trajectory redundancy).
+The natural applications are problems where one best answer is not enough: molecule design, biological sequence design, Bayesian structure learning, and combinatorial optimization. In each case, the reward is only a proxy, so a useful sampler should return diverse high-reward candidates rather than collapse to one mode. That is the practical reason GFlowNets are interesting for scientific discovery.
 
 ---
 
@@ -348,10 +279,4 @@ In my view, yes, with two practical innovations that make it work for constructi
 
 GFlowNets address a specific gap: amortized sampling from energy-based distributions over combinatorial objects when we have access to the energy function but no dataset. Train a constructive policy once, sample forever. The flow-matching objectives reduce what sounds like a hard RL problem to something closer to regression.
 
-What I find most compelling is the combination of a well-defined probabilistic target, the Boltzmann distribution, with a practical and stable training procedure. The framework connects to MaxEnt RL, variational inference, and diffusion models, but the training itself is simpler than any of these: no policy gradients, no ELBO tricks, no score matching. Just match the flows.
-
-I think GFlowNets are undeservedly neglected. The core idea, sampling diverse candidates proportionally to reward, is exactly what real scientific-discovery pipelines need. But "discovery" is hard to benchmark. We can evaluate GFlowNets on proxy tasks, such as docking scores or learned oracles, but these proxies have limited influence on whether the community takes the method seriously. A strong proxy result does not prove that GFlowNets would work in a real drug-discovery campaign, and running that campaign is a multi-year, multi-million-dollar effort that no ML lab can do alone.
-
-There is also a practical gap. Real-world molecular design does not start from scratch; it starts from massive databases of known compounds, assay results, and pretrained models. A realistic discovery pipeline would pretrain a generative model on this offline data to learn chemistry, then fine-tune with GFlowNet objectives to steer generation toward a specific target using experimental feedback. This pretrain-then-finetune loop is expensive to set up and even harder to benchmark rigorously, because it requires the full pipeline: data curation, pretraining, reward model, GFlowNet fine-tuning, and experimental validation.
-
-I believe people will revisit GFlowNets when the infrastructure for AI-driven scientific discovery matures — when molecular optimization with feedback loops becomes routine rather than heroic, and when benchmarking these pipelines end-to-end becomes tractable. The algorithm is ready. The ecosystem is not, yet.
+The caveat is that scientific discovery pipelines are hard to validate. Proxy rewards, docking scores, and learned oracles are useful for method development, but they do not replace experimental feedback. I would read GFlowNets less as a finished discovery engine and more as a clean probabilistic tool for the part of discovery where we need many plausible candidates, not just the current argmax.

@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -278,17 +278,9 @@ A third layer — **thermodynamics** — tells you *what* happens at equilibrium
 
 ### Connections to Generative Modeling
 
-Many ideas in this post have direct counterparts in modern generative models — the intellectual traffic goes both ways.
+The main bridge to generative modeling is the distribution. The canonical ensemble $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is an energy-based model: $$U$$ plays the role of an energy function, $$\beta$$ controls sharpness, and the partition function $$Z$$ is the same normalization problem that appears in EBMs. Langevin dynamics and Metropolis-Hastings are then sampling algorithms for this unnormalized density, not just simulation tricks.
 
-**The Boltzmann distribution is an energy-based model.** The canonical distribution $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}$$ is exactly the form of an energy-based model (EBM) in ML. The potential energy $$U$$ is the learned energy function, and $$\beta$$ controls the sharpness of the distribution. The intractable partition function $$Z$$ is the same normalization problem that makes EBM training difficult.
-
-**Langevin dynamics is score-based sampling.** The overdamped Langevin equation $$d\mathbf{x} = -\frac{1}{\gamma}\nabla U(\mathbf{x})\,dt + \sqrt{2k_{B}T/\gamma}\,d\mathbf{W}$$ (the high-friction limit of the thermostat in Part III, where inertia is negligible) is the same Langevin MCMC used to sample from unnormalized densities in ML. Score-based diffusion models (Song & Ermon, 2019) use this connection explicitly: the score $$\nabla_\mathbf{x} \log p(\mathbf{x}) = -\beta \nabla U(\mathbf{x})$$ is the force field, and sampling is a Langevin simulation at the learned energy landscape.
-
-**Metropolis-Hastings is the backbone of MCMC in ML.** The accept/reject mechanism from Monte Carlo is the same algorithm used for posterior sampling in Bayesian inference. Hamiltonian Monte Carlo (HMC) — widely used in probabilistic programming (Stan, PyMC) — borrows directly from molecular dynamics: it runs short NVE trajectories as proposals, using the Hamiltonian structure to make large, low-rejection moves through parameter space.
-
-**Simulated annealing is temperature scheduling.** Varying $$\beta$$ during sampling — starting at high temperature (flat distribution, broad exploration) and cooling toward low temperature (sharp distribution, concentrated on modes) — is simulated annealing. The same idea appears in diffusion models, where the noise schedule interpolates between a broad prior and the data distribution.
-
-**Free energy estimation connects to variational inference.** The identity $$F = -k_{B}T \ln Z$$ means estimating free energy differences is equivalent to estimating ratios of partition functions — the same problem as computing marginal likelihoods in Bayesian model comparison. Techniques like thermodynamic integration and free energy perturbation have ML counterparts in annealed importance sampling and variational bounds.
+The rest of the analogy is a useful reading guide, not a separate literature survey. Temperature schedules resemble annealing schedules, free-energy estimation resembles estimating log-normalizer ratios, and HMC borrows its proposal mechanism directly from molecular dynamics. The tutorial point is that ensembles tell us what distribution we want, while thermostats, barostats, and Monte Carlo tell us how we sample it.
 
 ---
 
@@ -298,7 +290,6 @@ Many ideas in this post have direct counterparts in modern generative models —
 - Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
 - Nosé, S. (1984). A unified formulation of the constant temperature molecular dynamics methods. [J. Chem. Phys. 81, 511](https://doi.org/10.1063/1.447334).
 - Parrinello, M. & Rahman, A. (1981). Polymorphic transitions in single crystals: A new molecular dynamics method. [J. Appl. Phys. 52, 7182](https://doi.org/10.1063/1.328693).
-- Song, Y. & Ermon, S. (2019). Generative Modeling by Estimating Gradients of the Data Distribution. [NeurIPS 2019](https://arxiv.org/abs/1907.05600).
 
 ---
 

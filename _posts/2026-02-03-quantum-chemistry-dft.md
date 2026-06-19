@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -253,27 +253,9 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-The expense of SCF iterations, the unknown form of $$E_{\text{xc}}$$, and the need for models that transfer across chemical space have motivated several deep-learning approaches.
+Deep learning enters quantum chemistry at three natural points. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (Pfau et al., 2020). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, which is the central object in DFT and the input to the energy functional.
 
-### Neural Network Wavefunctions
-
-Several works parameterize the many-electron wavefunction directly with neural networks, using **variational Monte Carlo (VMC)** to optimize the energy. The key challenge is enforcing the antisymmetry constraint.
-
-- [**FermiNet** (Pfau et al., 2020)](https://doi.org/10.1103/PhysRevResearch.2.033429): Parameterizes the wavefunction as a sum of neural network Slater determinants, where the orbitals are functions of *all* electron positions (not just one), enabling the network to capture correlations beyond a single determinant.
-
-- [**PsiFormer** (von Glehn et al., 2023)](https://arxiv.org/abs/2211.13672): Replaces the FermiNet backbone with a Transformer architecture, using self-attention over electron positions to capture complex many-body correlations more efficiently.
-
-- [**Orbformer** (Foster et al., 2025)](https://arxiv.org/abs/2506.19960): A transferable wavefunction model pretrained on thousands of molecular structures, combining an Electron Transformer with an Orbital Generator to achieve chemical accuracy across diverse benchmarks.
-
-### Machine Learning for DFT
-
-On the DFT side, neural networks target different parts of the KS-DFT pipeline: the XC functional, the Hamiltonian matrix, and the electron density.
-
-- [**Skala** (Luise et al., 2025)](https://arxiv.org/abs/2506.14665): Learns the exchange-correlation functional itself from data, replacing the hand-designed functionals on Jacob's Ladder with a neural network trained on high-accuracy reference calculations.
-
-- [**QHNet** (Yu et al., 2023)](https://arxiv.org/abs/2306.04922), [**QHFlow** (Kim et al., 2025)](https://arxiv.org/abs/2505.18817), and [**HelM** (Kaniselvan et al., 2025)](https://arxiv.org/abs/2510.00224): Predict the Fock matrix $$\mathbf{F}$$ directly from atomic structure, bypassing the SCF iteration. QHFlow uses equivariant flow matching to capture the multi-solution structure of the Hamiltonian, while HelM shows that pretraining on DFT Hamiltonian matrices improves downstream prediction of formation energies and band gaps across the periodic table.
-
-- [**DeepDFT** (Jørgensen & Bhowmik, 2022)](https://doi.org/10.1088/2632-2153/ac3149), [**A Recipe for Charge Density Prediction** (Fu et al., 2024)](https://arxiv.org/abs/2405.19276), [**ELECTRA** (Elsborg et al., 2025)](https://arxiv.org/abs/2503.08305), and [**GPWNO** (Kim & Ahn, 2024)](https://arxiv.org/abs/2402.04278): Predict the electron density $$\rho(\mathbf{r})$$ directly from atomic structure. These methods use graph neural networks, neural operators, and learnable basis sets (including floating orbitals) to estimate the 3D density field without solving the Kohn-Sham equations. Once the density is known, the total energy and forces can be computed from the KS energy functional without solving the eigenvalue problem.
+One concrete connection for us is work from our group on GPWNO (Kim & Ahn, 2024), which predicts electron density fields, and QHFlow (Kim et al., 2025), which predicts DFT Hamiltonians with an equivariant flow-matching model. They are small examples of the broader lesson of this post: once you understand what the wavefunction, density, Hamiltonian, and SCF loop mean, it becomes much clearer what an ML model is trying to replace or approximate.
 
 ---
 
@@ -285,14 +267,8 @@ On the DFT side, neural networks target different parts of the KS-DFT pipeline: 
 - Szabo, A. & Ostlund, N. S. (1996). Modern Quantum Chemistry. Dover Publications.
 - Perdew, J. P. & Schmidt, K. (2001). Jacob's ladder of density functional approximations for the exchange-correlation energy. [AIP Conference Proceedings, 577(1), 1-20](https://doi.org/10.1063/1.1390175).
 - Pfau, D., et al. (2020). Ab initio solution of the many-electron Schrödinger equation with deep neural networks. [Physical Review Research, 2(3), 033429](https://doi.org/10.1103/PhysRevResearch.2.033429).
-- Jørgensen, P. B. & Bhowmik, A. (2022). DeepDFT: Neural message passing network for accurate charge density prediction. [Machine Learning: Science and Technology, 3(1), 015012](https://doi.org/10.1088/2632-2153/ac3149).
-- Yu, H., et al. (2023). Efficient and equivariant graph networks for predicting quantum Hamiltonian. [ICML 2023](https://arxiv.org/abs/2306.04922).
-- von Glehn, I., et al. (2023). A self-attention ansatz for ab-initio quantum chemistry. [ICLR 2023](https://arxiv.org/abs/2211.13672).
 - Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://arxiv.org/abs/2402.04278).
 - Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817).
-- Foster, A., et al. (2025). An ab initio foundation model of wavefunctions that accurately describes chemical bond breaking. [arXiv:2506.19960](https://arxiv.org/abs/2506.19960).
-- Luise, G., et al. (2025). Accurate and scalable exchange-correlation with deep learning. [arXiv:2506.14665](https://arxiv.org/abs/2506.14665).
-- Huang, B., et al. (2021). Ab initio machine learning in chemical compound space. [Chemical Reviews, 121(16), 10001-10036](https://arxiv.org/abs/2208.12590).
 
 ---
 
