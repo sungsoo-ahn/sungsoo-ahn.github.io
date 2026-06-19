@@ -63,7 +63,7 @@ $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}, \qquad \beta = \frac{1}{k_{B}T
 
 This is already familiar to ML people: $$U(\mathbf{x})$$ is an energy function, $$p(\mathbf{x})$$ is an energy-based model, and Langevin dynamics is a sampler.
 
-But MD is not just a sampler over configurations. It is a sampler over **paths**:
+MD samples paths, not only configurations:
 
 $$\tau = (\mathbf{x}_0, \mathbf{x}_1, \ldots, \mathbf{x}_T)$$
 
@@ -205,7 +205,7 @@ This is why modern rare-event methods try to learn better proposals. We do not o
 
 ## Where ML Enters
 
-There are two natural ML entry points. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. One concrete connection for us is BioEmu-CV, a project from our group that learns such CVs from a biomolecular ensemble generator using a time-lagged objective. The goal is not to replace enhanced sampling, but to provide a better coordinate for methods such as OPES or steered MD.
+ML enters in two places. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. In our group, BioEmu-CV learns such CVs from a biomolecular ensemble generator using a time-lagged objective. The goal is not to replace enhanced sampling. It is to provide a better coordinate for methods such as OPES or steered MD.
 
 The second entry point is to **learn the path bias directly**. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler. I mention these projects as examples of the two design choices above: learn where to bias, or learn the path-level bias itself.
 
@@ -246,9 +246,9 @@ When reading or designing an MD-plus-ML method, I find the following questions m
 
 Molecular dynamics gives us a physically grounded path distribution. Rare events make that distribution hard to sample. Enhanced sampling changes the distribution so useful events happen more often. Collective variables decide where the change is applied. Reweighting and path-measure identities decide what we can recover afterward.
 
-This is the bridge from molecular simulation to generative modeling. A diffusion model, an AIS chain, a metadynamics run, and a transition path sampler are all controlled ways of changing a sampling process. The mathematical question is the same: what path distribution did we sample, and how does it relate to the one we wanted?
+A diffusion model, an AIS chain, a metadynamics run, and a transition path sampler all change a sampling process. The question is the same in each case: what path distribution did we sample, and how does it relate to the one we wanted?
 
-The current ML opportunity is not simply "make MD faster." It is to make the sampling distribution smarter while keeping the correction honest.
+The ML opportunity is larger than faster MD: change the sampling distribution while keeping the correction honest.
 
 ## References
 

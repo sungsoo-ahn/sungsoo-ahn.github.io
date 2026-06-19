@@ -34,7 +34,7 @@ The equilibrium approach computes $$\Delta F$$ directly, which requires sampling
 
 This is **annealed importance sampling** (AIS) — the method most commonly used to evaluate normalizing flows and energy-based models. The importance weight accumulated along the chain estimates the normalizing constant ratio $$Z_B/Z_A$$, which is the free energy difference (Part 2 formalizes this).
 
-AIS is a random process. Two runs give different importance weights because each MCMC chain follows a different random path. The weight $$w$$ is a functional of the entire chain, not just the endpoints.
+AIS is a random process. Two runs give different importance weights because each MCMC chain follows a different random path. The weight $$w$$ is a functional of the entire chain, not the endpoints alone.
 
 On average, $$\langle w \rangle = Z_B/Z_A$$ (the estimator is unbiased), but Jensen's inequality gives $$\langle \log w \rangle \leq \log(Z_B/Z_A)$$ — an evidence lower bound (ELBO) that is always loose when the chain hasn't equilibrated. The gap equals the KL divergence between forward and reverse chain distributions (Part 2 derives this).
 
@@ -554,7 +554,7 @@ In AIS terms: $$\langle w \rangle = Z_K/Z_0$$ (unbiasedness), $$\langle \log w \
 
 ### Crooks' Fluctuation Theorem
 
-The path measure ratio relates not just expectations but the *entire distribution* of work. For a given work value $$W$$, group all trajectories that produce that value:
+The path measure ratio relates the *entire distribution* of work, not only its expectations. For a given work value $$W$$, group all trajectories that produce that value:
 
 > **Crooks' fluctuation theorem (Crooks, 1999).**
 >
@@ -563,7 +563,7 @@ The path measure ratio relates not just expectations but the *entire distributio
 > The ratio of the probability of observing work $$W$$ in the forward direction to the probability of observing work $$-W$$ in the reverse direction is exponentially related to how far $$W$$ deviates from $$\Delta F$$.
 {: .block-definition }
 
-Crooks is stronger than Jarzynski: it relates the *entire work distribution*, not just an exponential average. Jarzynski is recovered by integrating both sides over $$W$$.
+Crooks is stronger than Jarzynski: it relates the *entire work distribution*, rather than only an exponential average. Jarzynski is recovered by integrating both sides over $$W$$.
 
 <details>
 <summary><strong>Deriving Jarzynski from Crooks (click to expand)</strong></summary>
@@ -609,9 +609,9 @@ The useful diagnostic is the same in all three cases: how different are the forw
 
 ## Closing
 
-These are not just analogies. AIS, diffusion models, and GFlowNets all compare forward and reverse path measures. The identity $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$ appears as an importance weight, a trajectory-balance condition, or a variational gap depending on the setting.
+AIS, diffusion models, and GFlowNets all compare forward and reverse path measures. The identity $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$ appears as an importance weight, a trajectory-balance condition, or a variational gap depending on the setting.
 
-The practical lesson is to ask what path distribution the algorithm actually samples and how far it is from the reverse or target path distribution. In physics this is a question about dissipation. In ML it is a question about how efficiently probability mass is transported between distributions.
+Ask what path distribution the algorithm samples and how far it is from the reverse or target path distribution. In physics this is dissipation. In ML it is transport efficiency.
 
 ---
 
