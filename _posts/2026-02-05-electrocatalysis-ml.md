@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -259,37 +259,9 @@ When scaling relations break down, the full multidimensional binding-energy spac
 
 ## Machine Learning for Catalyst Discovery
 
-The previous sections establish the problem: find a catalyst whose adsorption energy sits at the volcano peak, within a search space of billions of candidates, where each evaluation costs hours of DFT compute. ML makes this search tractable in two ways: surrogate energy models accelerate evaluation, and generative models propose candidates directly.
+The previous sections establish the problem: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge search space, where each DFT relaxation can take hours or days. ML helps mainly by changing the cost structure. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (Lan et al., 2023) use those surrogates to relax many candidate placements before validating only a small top-$$k$$ set with DFT.
 
-### Surrogate Energy Models
-
-The first generation of ML models for catalysis predicts DFT energies and forces from atomic structure, replacing the expensive quantum-mechanical calculation with a fast forward pass. These **machine learning interatomic potentials (MLIPs)**[^mlip] take an atomic configuration as input and predict total energy plus per-atom forces, enabling structure relaxation at a fraction of the DFT cost.
-
-The key architectural insight is that catalyst systems are inherently three-dimensional and obey physical symmetries: rotating or translating the entire system should not change the predicted energy. This motivates **equivariant graph neural networks** (covered in a [previous post](/blog/2026/spherical-equivariant-layers/)), which build these symmetries into the model architecture rather than learning them from data.
-
-The progression of models on the [OC20 benchmark](https://opencatalystproject.org/) illustrates how architectural advances translate to accuracy gains:
-
-- **SchNet** (Schütt et al., 2018) and **DimeNet++** (Gasteiger et al., 2020) established the invariant GNN baseline — message-passing networks that use interatomic distances (and angles, for DimeNet++) as features.
-- **GemNet-OC** (Gasteiger et al., 2022) introduced two-hop message passing with dihedral angle information, achieving strong performance on both energy and force prediction.
-- **EquiformerV2** (Liao & Smidt, 2024) combined equivariant Transformers with higher-order spherical harmonics representations, achieving state-of-the-art results on OC20 — energy MAE of 0.21 eV and force MAE of 0.013 eV/Å.
-
-### From Prediction to Screening: AdsorbML
-
-A trained MLIP does not directly solve the catalyst design problem — it accelerates a single energy evaluation. The **AdsorbML** pipeline (Lan et al., 2023) connects the surrogate model to the actual screening workflow:
-
-1. For a given (surface, adsorbate) pair, generate many candidate initial configurations by random placement.
-2. Relax each configuration using the ML surrogate instead of DFT.
-3. Rank by predicted energy and run DFT only on the top-$$k$$ lowest-energy candidates to validate.
-
-This reduces DFT cost by orders of magnitude while maintaining high success rates: AdsorbML identifies the correct lowest-energy configuration ~84% of the time on OC20 (Lan et al., 2023). The pipeline has screened thousands of bimetallic alloy surfaces for the hydrogen evolution reaction, with a validated adsorption energy MAE of 0.12 eV across the screened space.
-
-### Generative Catalyst Design
-
-Surrogate models accelerate evaluation but still require candidate proposals. The workflow remains enumerate-then-filter: list configurations, predict energies, pick the best. An alternative is to **generate** promising candidates directly by learning a model that, given a target adsorption energy or reaction intermediate, outputs a catalyst structure likely to achieve it.
-
-This is harder. A catalyst structure is a coupled system: the surface slab, a periodic crystal cut along a specific facet, and the adsorbate, a molecule at a specific position and orientation on that surface. The two are not independent. The adsorbate's preferred binding site depends on surface geometry, and the surface may reconstruct in response to the adsorbate.
-
-**CatFlow** (Kim et al., 2026) addresses this coupling through a flow matching framework that co-generates the slab and adsorbate jointly. The key idea is a **factorized primitive-cell representation**: rather than generating the full slab (which may contain hundreds of atoms in a repeated pattern), CatFlow generates only the primitive cell and encodes the surface orientation explicitly. This reduces the number of learnable variables by ~9x on average while preserving the interface geometry that determines catalytic activity. Generated structures show accurate adsorption energy distributions and sit closer to DFT-relaxed local minima compared to autoregressive and sequential baselines.
+Generation is the next step, but it is harder than proposing a free molecule. A catalyst design couples a periodic slab, a surface orientation, an adsorbate, and a binding pose; changing one part can change the rest. One concrete connection for us is CatFlow (Kim et al., 2026), a recent project from our group that tries to generate slab-adsorbate systems jointly rather than treating the slab and adsorbate as separate objects. I mention it here only as one example of how the tutorial pieces connect to our work: the physical difficulty is still the surface-adsorbate coupling introduced above.
 
 ### Open Challenges
 
@@ -309,8 +281,6 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 - Nørskov, J. K., Bligaard, T., Rossmeisl, J., & Christensen, C. H. (2009). Towards the computational design of solid catalysts. *Nature Chemistry*, 1, 37-46.
 - Tran, R., Lan, J., Shuaibi, M., Wood, B. M., Goyal, S., Das, A., ... & Zitnick, C. L. (2023). The Open Catalyst 2022 (OC22) dataset and challenges for oxide electrocatalysts. *ACS Catalysis*, 13(5), 3066-3084.
 - Shuaibi, M., Choubisa, H., Engel, M., Wood, B. M., Musielewicz, J., Comer, B., ... & Zitnick, C. L. (2025). Open Catalyst 2025 (OC25): dataset and models for the solid-liquid interface. *arXiv preprint arXiv:2509.17862*.
-- Gasteiger, J., Becker, F., & Günnemann, S. (2022). GemNet-OC: developing graph neural networks for large and diverse molecular simulation datasets. *Transactions on Machine Learning Research*.
-- Liao, Y.-L., & Smidt, T. (2024). EquiformerV2: improved equivariant Transformer for scaling to higher-degree representations. *ICLR 2024*.
 - Lan, J., Palizhati, A., Shuaibi, M., Wood, B. M., Wander, B., Das, A., ... & Zitnick, C. L. (2023). AdsorbML: a leap in efficiency for adsorption energy calculations using generalizable machine learning potentials. *npj Computational Materials*, 9, 172.
 - Kim, M., Kim, N., Kim, H., & Ahn, S. (2026). CatFlow: co-generation of slab-adsorbate systems via flow matching. *arXiv preprint arXiv:2602.05372*.
 

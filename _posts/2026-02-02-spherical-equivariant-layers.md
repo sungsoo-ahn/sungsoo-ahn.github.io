@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -327,53 +327,21 @@ Input: Positions + Atom Types
 
 ## Modern Architectures
 
-The mathematical framework described above—spherical harmonics, irreps, CG tensor products, and radial functions—underlies a family of architectures that have progressively pushed the accuracy and efficiency frontier for 3D atomic systems.
+The mathematical framework above is the common language behind many 3D atomic neural networks. Tensor Field Networks (Thomas et al., 2018) made the basic recipe explicit: spherical tensor features, spherical-harmonic edge information, radial functions, and CG tensor products. Later models such as NequIP, MACE, Equiformer, and eSCN changed the engineering details, but they still revolve around the same question: how do we mix atomic features without breaking the rotation law?
 
-### Early Foundations
-
-[Tensor Field Networks (Thomas et al., 2018)](https://arxiv.org/abs/1802.08219) introduced the foundational framework: spherical tensor features, CG tensor products for combining neighbor features with spherical harmonic edge embeddings, and radial functions for distance weighting. The message-passing equation described in the previous section is the TFN formulation.
-
-### Attention-Based Architectures
-
-[SE(3)-Transformer (Fuchs et al., 2020)](https://arxiv.org/abs/2006.10503) was the first to combine equivariant irreps features with the Transformer attention mechanism, replacing uniform neighbor aggregation with learned attention weights. [Equiformer (Liao & Smidt, 2023)](https://arxiv.org/abs/2206.11990) refined this with equivariant graph attention and nonlinear message passing, achieving strong results on molecular benchmarks. [EquiformerV2 (Liao et al., 2024)](https://arxiv.org/abs/2306.12059) scaled to higher degrees by adopting $SO(2)$ convolutions from eSCN (see below) and adding separable $S^2$ activations, achieving state-of-the-art results on the OC20 catalyst dataset.
-
-### Data Efficiency and Steerable Message Passing
-
-Spherical tensors are often called **steerable features** in the machine-learning literature. The term means that, once we know the Wigner-D matrix, we can predict exactly how a feature vector changes under any rotation without recomputing it from scratch. This steerability explains the data efficiency of equivariant architectures: the network already knows the rotation law, so it does not need to learn rotated patterns separately from data.
-
-[NequIP (Batzner et al., 2022)](https://doi.org/10.1038/s41467-022-29939-5) demonstrated this concretely. Using the TFN framework with learnable radial functions, gated nonlinearities, and residual connections, NequIP achieved state-of-the-art molecular dynamics accuracy with small training sets — as few as a few hundred structures. The [e3nn library](https://e3nn.org/) developed alongside NequIP provides a practical toolkit for working with irreps and CG tensor products. [SEGNN (Brandstetter et al., 2022)](https://arxiv.org/abs/2110.02905) generalized equivariant message passing by using steerable features for both node and edge attributes, enabling richer nonlinear operations through steerable MLPs.
-
-### Higher Body-Order Interactions
-
-[MACE (Batatia et al., 2022)](https://arxiv.org/abs/2206.07697) introduced higher body-order interactions through iterated CG tensor products within a single message-passing step. Earlier architectures mainly construct two-body messages; MACE efficiently encodes many-body correlations connected to the Atomic Cluster Expansion (ACE) framework, which is especially important when three- and four-body angular interactions matter.
-
-### Efficient $SO(2)$ Convolutions
-
-[eSCN (Passaro & Zitnick, 2023)](https://arxiv.org/abs/2302.03655) addressed the computational bottleneck of CG tensor products by rotating features to align with each edge direction, reducing the full $SO(3)$ operation to a cheaper $SO(2)$ operation and lowering complexity from $O(L^6)$ to $O(L^3)$. This edge-aligned strategy has been widely adopted. [eSEN (Fu et al., 2025)](https://arxiv.org/abs/2502.12147) further scaled this approach with Euclidean normalization and systems-level engineering—memory-efficient operations, fused kernels, and balanced compute across degrees.
-
-### Scaling to Production
-
-[UMA (Wood et al., 2025)](https://arxiv.org/abs/2506.23971) builds on the eSEN architecture and was trained on nearly 500 million atomic structures across molecules, materials, and catalysts. It uses a Mixture of Linear Experts (MoLE) to handle diverse DFT settings within a single model, achieving strong performance without fine-tuning. The Orb models ([Neumann et al., 2024](https://arxiv.org/abs/2410.22570); [v3, 2025](https://arxiv.org/abs/2504.06231)) take an alternative approach: rather than enforcing strict equivariance through architecture, they use data augmentation to achieve approximate equivariance, prioritizing inference speed and scalability.
+For this tutorial, the important point is not the leaderboard history. Modern architectures mainly differ in where they spend compute: attention versus message passing, higher body-order interactions versus cheaper edge-aligned $$SO(2)$$ operations, and strict equivariance versus approximate equivariance for speed. Once the irreps, Wigner-D matrices, and CG tensor products are clear, those design choices become much easier to read.
 
 ---
 
 ## References
 
 - Thomas, N., et al. (2018). Tensor Field Networks. [arXiv:1802.08219](https://arxiv.org/abs/1802.08219).
-- Fuchs, F. B., et al. (2020). SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks. [NeurIPS 2020](https://arxiv.org/abs/2006.10503).
 - Batzner, S., et al. (2022). E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials. [Nature Communications](https://doi.org/10.1038/s41467-022-29939-5).
-- Brandstetter, J., et al. (2022). Geometric and Physical Quantities Improve E(3) Equivariant Message Passing. [ICLR 2022](https://arxiv.org/abs/2110.02905).
 - Batatia, I., et al. (2022). MACE: Higher Order Equivariant Message Passing Neural Networks. [NeurIPS 2022](https://arxiv.org/abs/2206.07697).
 - Liao, Y.-L. & Smidt, T. (2023). Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs. [ICLR 2023](https://arxiv.org/abs/2206.11990).
 - Passaro, S. & Zitnick, C. L. (2023). Reducing SO(3) Convolutions to SO(2) for Efficient Equivariant GNNs. [ICML 2023](https://arxiv.org/abs/2302.03655).
-- Liao, Y.-L., et al. (2024). EquiformerV2: Improved Equivariant Transformer for Scaling to Higher-Degree Representations. [ICLR 2024](https://arxiv.org/abs/2306.12059).
-- Neumann, M., et al. (2024). Orb: A Fast, Scalable Neural Network Potential. [arXiv:2410.22570](https://arxiv.org/abs/2410.22570).
-- Neumann, M., et al. (2025). Orb v3. [arXiv:2504.06231](https://arxiv.org/abs/2504.06231).
-- Fu, X., et al. (2025). Learning Smooth and Expressive Interatomic Potentials for Physical Property Prediction. [arXiv:2502.12147](https://arxiv.org/abs/2502.12147).
-- Wood, B. M., et al. (2025). UMA: A Family of Universal Models for Atoms. [arXiv:2506.23971](https://arxiv.org/abs/2506.23971).
 - Tang, S. (2025). A Complete Guide to Spherical Equivariant Graph Transformers. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927).
 - Bekkers, E. (2024). Geometric Deep Learning Lecture Series. [UvA](https://uvagedl.github.io/).
-- Bronstein, M. M., et al. (2021). Geometric Deep Learning. [arXiv:2104.13478](https://arxiv.org/abs/2104.13478).
 - Duval, A., et al. (2023). A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems. [arXiv:2312.07511](https://arxiv.org/abs/2312.07511).
 
 ---
