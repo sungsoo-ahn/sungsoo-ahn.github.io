@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, Rectangle
 from scipy.ndimage import gaussian_filter1d
 
+import blog_figure_style as bfs
+
 
 # ──────────────────────────────────────────────
 # Color palette
@@ -51,6 +53,8 @@ ANNOTATION_BG_ALPHA = 0.85
 
 LABEL_FS = 13
 SUBLABEL_FS = 10.5
+
+bfs.use_blog_style()
 
 
 # ──────────────────────────────────────────────
@@ -268,10 +272,11 @@ def generate_gaussian_smoothing_figure(output_path):
                     where=(diff < 0), color=LOSS_COLOR, alpha=LOSS_ALPHA)
 
     # Curves
-    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.2,
-            label=r'$p_t(x)$ (before)')
+    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.2)
     ax.plot(x, p_after, color=DENSITY_AFTER, linewidth=2.0,
-            linestyle='--', label=r'$p_t(x)$ convolved (after)')
+            linestyle='--')
+    bfs.curve_label(ax, 5.95, 0.265, r'$p_t(x)$ before', DENSITY_SLATE, size=9.4)
+    bfs.curve_label(ax, 3.95, 0.175, 'after convolution', DENSITY_AFTER, size=9.2)
 
     # Gaussian kernel inset — positioned directly above the sharp peak
     peak_x = MU1  # x-position of the sharp peak
@@ -318,11 +323,8 @@ def generate_gaussian_smoothing_figure(output_path):
                 bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
                           alpha=ANNOTATION_BG_ALPHA, ec='#a5d6a7', lw=0.6))
 
-    ax.legend(loc='upper right', fontsize=10, framealpha=0.9,
-              edgecolor='#b0bec5')
-
     plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
+    plt.savefig(output_path, dpi=240, bbox_inches='tight', facecolor='white')
     plt.close()
     print(f"Saved Gaussian smoothing figure to {output_path}")
 

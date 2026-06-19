@@ -128,8 +128,8 @@ def _make_tps_grid(points=260):
 
 
 def _draw_tps_landmarks(ax, marker_scale=1.0, zorder=20):
-    ax.scatter([-1, 1], [0, 0], edgecolors="#111111", c="white", s=250 * marker_scale, zorder=zorder, linewidths=1.0)
-    ax.scatter([0, 0], [1, -1], edgecolors="#111111", c="white", s=420 * marker_scale, zorder=zorder, linewidths=1.0, marker="*")
+    ax.scatter([-1, 1], [0, 0], edgecolors=TEXT, c="white", s=250 * marker_scale, zorder=zorder, linewidths=0.95)
+    ax.scatter([0, 0], [1, -1], edgecolors=TEXT, c="white", s=420 * marker_scale, zorder=zorder, linewidths=0.95, marker="*")
 
 
 def _style_tps_animation_axis(ax, xlabel="x", ylabel="y"):
@@ -138,11 +138,11 @@ def _style_tps_animation_axis(ax, xlabel="x", ylabel="y"):
     ax.set_ylim(-1.5, 1.5)
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.set_xlabel(xlabel, fontsize=13, fontweight="medium")
-    ax.set_ylabel(ylabel, fontsize=13, fontweight="medium")
+    ax.set_xlabel(xlabel, fontsize=10.5, fontweight="medium", color=TEXT, labelpad=2)
+    ax.set_ylabel(ylabel, fontsize=10.5, fontweight="medium", color=TEXT, labelpad=2)
     for spine in ax.spines.values():
-        spine.set_color("#111111")
-        spine.set_linewidth(1.0)
+        spine.set_color(bfs.SPINE)
+        spine.set_linewidth(0.85)
 
 
 def _simulate_tps_paths(num_paths=24, steps=220, dt=0.015, noise=0.075, seed=0, bias=False):
@@ -264,16 +264,23 @@ def _draw_torsion_ring(ax, p0, p1, color, radius=0.34, lw=2.2):
 
 def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
     atom_style = {
-        "C_prev": ("#5f6872", 78, "C$_{i-1}$"),
-        "C": ("#5f6872", 78, "C"),
-        "CA": ("#3f4852", 100, "C$_\\alpha$"),
-        "CB": (GREEN, 92, "CH$_3$"),
-        "Me_prev": ("#a7b0b8", 68, "CH$_3$"),
-        "Me_next": ("#a7b0b8", 68, "CH$_3$"),
-        "N": ("#2f74c0", 88, "N"),
-        "N_next": ("#2f74c0", 88, "N$_{i+1}$"),
-        "O_prev": ("#d85040", 76, "O"),
-        "O": ("#d85040", 76, "O"),
+        "C_prev": ("#5f6872", 74),
+        "C": ("#5f6872", 74),
+        "CA": ("#3f4852", 96),
+        "CB": (GREEN, 84),
+        "Me_prev": ("#a7b0b8", 60),
+        "Me_next": ("#a7b0b8", 60),
+        "N": ("#2f74c0", 84),
+        "N_next": ("#2f74c0", 84),
+        "O_prev": ("#d85040", 68),
+        "O": ("#d85040", 68),
+    }
+    atom_labels = {
+        "C_prev": (r"C$_{i-1}$", np.array([-0.08, 0.14, 0.18])),
+        "N": ("N", np.array([-0.15, -0.10, 0.18])),
+        "CA": (r"C$_\alpha$", np.array([0.02, -0.17, 0.20])),
+        "C": ("C", np.array([0.16, -0.10, 0.18])),
+        "N_next": (r"N$_{i+1}$", np.array([0.16, 0.12, 0.18])),
     }
     bonds = [
         ("Me_prev", "C_prev"),
@@ -297,32 +304,60 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
     _draw_torsion_ring(ax, coords["N"], coords["CA"], TEAL, radius=0.36)
     _draw_torsion_ring(ax, coords["CA"], coords["C"], AMBER, radius=0.35)
 
-    for atom, (color, size, label) in atom_style.items():
+    for atom, (color, size) in atom_style.items():
         point = coords[atom]
         ax.scatter([point[0]], [point[1]], [point[2]], s=size, color=color, edgecolor="white", linewidth=0.8, depthshade=True)
-        if atom in {"C_prev", "N", "CA", "C", "N_next", "CB"}:
+        if atom in atom_labels:
+            label, offset = atom_labels[atom]
+            label_point = point + offset
             ax.text(
-                point[0],
-                point[1],
-                point[2] + 0.18,
+                label_point[0],
+                label_point[1],
+                label_point[2],
                 label,
                 ha="center",
                 va="center",
-                fontsize=8.5,
+                fontsize=8.0,
                 color=TEXT,
-                bbox={"fc": "white", "ec": "none", "alpha": 0.78, "pad": 1.0},
+                bbox=bfs.label_box(alpha=0.88, pad=0.9),
             )
 
     phi_center = 0.5 * (coords["N"] + coords["CA"])
     psi_center = 0.5 * (coords["CA"] + coords["C"])
-    ax.text(phi_center[0], phi_center[1] - 0.32, phi_center[2] + 0.48, rf"$\phi={phi_deg:+.0f}^\circ$", color=TEAL, fontsize=10.5, fontweight="bold")
-    ax.text(psi_center[0], psi_center[1] + 0.34, psi_center[2] + 0.46, rf"$\psi={psi_deg:+.0f}^\circ$", color=AMBER, fontsize=10.5, fontweight="bold")
-    ax.text2D(0.03, 0.95, "Backbone torsions in alanine dipeptide", transform=ax.transAxes, fontsize=11.5, fontweight="bold", color=TEXT)
-    ax.text2D(0.03, 0.07, r"$\phi$: C$_{i-1}$-N-C$_\alpha$-C     $\psi$: N-C$_\alpha$-C-N$_{i+1}$", transform=ax.transAxes, fontsize=9.4, color=TEXT)
+    ax.text(
+        phi_center[0] - 0.02,
+        phi_center[1] - 0.36,
+        phi_center[2] + 0.52,
+        rf"$\phi={phi_deg:+.0f}^\circ$",
+        color=TEAL,
+        fontsize=10.0,
+        fontweight="bold",
+        bbox=bfs.label_box(alpha=0.9, pad=1.1),
+    )
+    ax.text(
+        psi_center[0] + 0.08,
+        psi_center[1] + 0.36,
+        psi_center[2] + 0.50,
+        rf"$\psi={psi_deg:+.0f}^\circ$",
+        color=AMBER,
+        fontsize=10.0,
+        fontweight="bold",
+        bbox=bfs.label_box(alpha=0.9, pad=1.1),
+    )
+    ax.text2D(
+        0.04,
+        0.91,
+        "molecular frame",
+        transform=ax.transAxes,
+        fontsize=10.0,
+        fontweight="semibold",
+        color=TEXT,
+        bbox=bfs.label_box(alpha=0.92, pad=1.4),
+    )
 
     all_points = np.vstack(list(coords.values()))
     center = all_points.mean(axis=0)
-    span = 3.3
+    span = 3.55
     ax.set_xlim(center[0] - span / 2, center[0] + span / 2)
     ax.set_ylim(center[1] - span / 2, center[1] + span / 2)
     ax.set_zlim(center[2] - 1.25, center[2] + 1.35)
@@ -353,11 +388,11 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
     )
     angle_path = _smooth_angle_path(keypoints, frames_per_segment=28)
 
-    fig = plt.figure(figsize=(9.2, 4.15))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.08, 1.0], wspace=0.24)
+    fig = plt.figure(figsize=(9.35, 4.2))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.04, 1.0], wspace=0.27)
     ax_mol = fig.add_subplot(gs[0, 0], projection="3d")
     ax_ram = fig.add_subplot(gs[0, 1])
-    fig.subplots_adjust(left=0.02, right=0.985, bottom=0.12, top=0.9)
+    fig.subplots_adjust(left=0.035, right=0.985, bottom=0.13, top=0.92)
 
     def update(frame):
         phi, psi = angle_path[frame]
@@ -367,12 +402,12 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
         _draw_alanine_molecule(ax_mol, coords, measured_phi, measured_psi)
 
         ax_ram.clear()
-        ax_ram.set_title("CV space", loc="left", fontsize=11.0, fontweight="semibold", color=TEXT, pad=8)
+        ax_ram.set_title("Ramachandran CV space", loc="left", fontsize=10.8, fontweight="semibold", color=TEXT, pad=8)
         ax_ram.set_xlim(-180, 180)
         ax_ram.set_ylim(-180, 180)
         ax_ram.set_aspect("equal")
-        ax_ram.set_xlabel(r"$\phi$")
-        ax_ram.set_ylabel(r"$\psi$")
+        ax_ram.set_xlabel(r"$\phi$ angle")
+        ax_ram.set_ylabel(r"$\psi$ angle")
         ax_ram.set_xticks([-180, -90, 0, 90, 180])
         ax_ram.set_yticks([-180, -90, 0, 90, 180])
         bfs.style_axis(ax_ram, grid=True)
@@ -385,7 +420,17 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
         for (xy, width, height, angle, face, edge, label) in regions:
             patch = Ellipse(xy, width, height, angle=angle, facecolor=face, edgecolor=edge, lw=1.1, alpha=0.6)
             ax_ram.add_patch(patch)
-            ax_ram.text(xy[0], xy[1], label, ha="center", va="center", fontsize=9.5, color=edge, fontweight="semibold")
+            ax_ram.text(
+                xy[0],
+                xy[1],
+                label,
+                ha="center",
+                va="center",
+                fontsize=9.0,
+                color=edge,
+                fontweight="semibold",
+                bbox=bfs.label_box(alpha=0.82, pad=1.0),
+            )
 
         ax_ram.plot(angle_path[:, 0], angle_path[:, 1], color=bfs.NEUTRAL, lw=1.2, alpha=0.45)
         trail = angle_path[max(0, frame - 12) : frame + 1]
@@ -400,11 +445,12 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
             rf"$({measured_phi:+.0f}^\circ,{measured_psi:+.0f}^\circ)$",
             transform=ax_ram.transAxes,
             fontsize=9.0,
-            color=bfs.MUTED,
+            color=TEXT,
+            bbox=bfs.label_box(alpha=0.82, pad=1.0),
         )
 
     animation = FuncAnimation(fig, update, frames=len(angle_path), interval=85)
-    animation.save(output_path, writer=PillowWriter(fps=12), dpi=105)
+    animation.save(output_path, writer=PillowWriter(fps=12), dpi=120)
     plt.close(fig)
     print(f"Saved alanine dipeptide CV gif to {output_path}")
 
@@ -414,7 +460,9 @@ def generate_umbrella_sweep_gif(output_path: Path):
     _, x_grid, y_grid, potential = _make_tps_grid(points=260)
     kappa = 2.9
     centers = np.r_[np.linspace(-1, 1, 46), np.linspace(1, -1, 46)]
-    levels = np.linspace(potential.min(), 5.0, 55)
+    extent = (-1.5, 1.5, -1.5, 1.5)
+    cmap = BIASED_CMAP.copy()
+    cmap.set_bad("white")
 
     fig, ax = plt.subplots(figsize=(4.6, 4.6))
     fig.subplots_adjust(left=0.1, right=0.98, bottom=0.11, top=0.93)
@@ -423,16 +471,25 @@ def generate_umbrella_sweep_gif(output_path: Path):
         ax.clear()
         center = centers[frame]
         biased = potential + 0.5 * kappa * (x_grid - center) ** 2
-        ax.contourf(x_grid, y_grid, biased, levels=levels, vmax=5.0, cmap=BIASED_CMAP)
-        ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 7), colors="white", linewidths=0.7, alpha=0.58)
-        ax.axvspan(center - 0.13, center + 0.13, color="white", alpha=0.34, zorder=6)
-        ax.axvline(center, color=AMBER, lw=2.5, zorder=8)
+        ax.imshow(
+            np.ma.masked_greater(biased, 5.0),
+            extent=extent,
+            origin="lower",
+            cmap=cmap,
+            vmin=potential.min(),
+            vmax=5.0,
+            interpolation="bilinear",
+            zorder=0,
+        )
+        ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 5), colors="white", linewidths=0.58, alpha=0.48)
+        ax.axvspan(center - 0.12, center + 0.12, color="white", alpha=0.42, zorder=6)
+        ax.axvline(center, color=AMBER, lw=2.0, zorder=8)
         _draw_tps_landmarks(ax, marker_scale=0.85)
-        bfs.direct_label(ax, 0, 1.34, rf"$s_k={center:+.2f}$", AMBER, size=10)
+        bfs.direct_label(ax, 0, 1.34, rf"$s_k={center:+.2f}$", AMBER, size=9.2)
         _style_tps_animation_axis(ax)
 
     animation = FuncAnimation(fig, update, frames=len(centers), interval=85)
-    animation.save(output_path, writer=PillowWriter(fps=12), dpi=95)
+    animation.save(output_path, writer=PillowWriter(fps=12), dpi=120)
     plt.close(fig)
     print(f"Saved umbrella sweep gif to {output_path}")
 
@@ -442,7 +499,11 @@ def generate_md_dynamics_gif(output_path: Path, *, bias=False):
     _, x_grid, y_grid, potential = _make_tps_grid(points=260)
     positions, centers = _simulate_tps_paths(seed=19 if bias else 13, bias=bias)
     frame_indices = np.arange(0, positions.shape[0], 3)
-    levels = np.linspace(potential.min(), 5.0 if bias else 3.0, 55)
+    extent = (-1.5, 1.5, -1.5, 1.5)
+    biased_cmap = BIASED_CMAP.copy()
+    biased_cmap.set_bad("white")
+    landscape_cmap = LANDSCAPE_CMAP.copy()
+    landscape_cmap.set_bad("white")
 
     fig, ax = plt.subplots(figsize=(4.6, 4.6))
     fig.subplots_adjust(left=0.1, right=0.98, bottom=0.11, top=0.93)
@@ -454,12 +515,30 @@ def generate_md_dynamics_gif(output_path: Path, *, bias=False):
         if bias:
             center = centers[min(step, len(centers) - 1)]
             background = potential + 0.5 * 3.3 * (x_grid - center) ** 2
-            ax.contourf(x_grid, y_grid, background, levels=levels, vmax=5.0, cmap=BIASED_CMAP)
-            ax.axvspan(center - 0.15, center + 0.15, color="white", alpha=0.26, zorder=6)
-            ax.axvline(center, color=AMBER, lw=2.5, zorder=8)
+            ax.imshow(
+                np.ma.masked_greater(background, 5.0),
+                extent=extent,
+                origin="lower",
+                cmap=biased_cmap,
+                vmin=potential.min(),
+                vmax=5.0,
+                interpolation="bilinear",
+                zorder=0,
+            )
+            ax.axvspan(center - 0.12, center + 0.12, color="white", alpha=0.36, zorder=6)
+            ax.axvline(center, color=AMBER, lw=2.0, zorder=8)
             label = "biased"
         else:
-            ax.contourf(x_grid, y_grid, potential, levels=levels, vmax=3.0, cmap=LANDSCAPE_CMAP)
+            ax.imshow(
+                np.ma.masked_greater(potential, 3.0),
+                extent=extent,
+                origin="lower",
+                cmap=landscape_cmap,
+                vmin=potential.min(),
+                vmax=3.0,
+                interpolation="bilinear",
+                zorder=0,
+            )
             label = "unbiased"
 
         _draw_tps_landmarks(ax, marker_scale=0.85)
@@ -469,11 +548,11 @@ def generate_md_dynamics_gif(output_path: Path, *, bias=False):
             ax.plot(segment[:, path_idx, 0], segment[:, path_idx, 1], color=path_color, lw=1.0, alpha=0.28, zorder=12)
         current = positions[step]
         ax.scatter(current[:, 0], current[:, 1], s=18, c=path_color, edgecolors="white", linewidth=0.3, alpha=0.95, zorder=18)
-        bfs.direct_label(ax, 0, 1.34, label, path_color, size=10)
+        bfs.direct_label(ax, 0, 1.34, label, path_color, size=9.2)
         _style_tps_animation_axis(ax)
 
     animation = FuncAnimation(fig, update, frames=len(frame_indices), interval=85)
-    animation.save(output_path, writer=PillowWriter(fps=12), dpi=95)
+    animation.save(output_path, writer=PillowWriter(fps=12), dpi=120)
     plt.close(fig)
     label = "biased" if bias else "unbiased"
     print(f"Saved {label} dynamics gif to {output_path}")
@@ -491,10 +570,10 @@ def generate_double_well_umbrella(output_path: Path):
     umbrella = 0.5 * kappa * (x_grid - window_center) ** 2
     biased = potential + umbrella
 
-    potential_levels = np.linspace(potential.min(), 3.0, 80)
-    biased_levels = np.linspace(biased.min(), 5.0, 80)
+    potential_levels = np.linspace(potential.min(), 3.0, 48)
+    biased_levels = np.linspace(biased.min(), 5.0, 48)
 
-    fig, axes = plt.subplots(1, 3, figsize=(11.2, 3.7), gridspec_kw={"wspace": 0.2})
+    fig, axes = plt.subplots(1, 3, figsize=(11.8, 3.9), gridspec_kw={"wspace": 0.24})
 
     for ax in axes:
         ax.set_aspect("equal")
@@ -506,89 +585,120 @@ def generate_double_well_umbrella(output_path: Path):
             spine.set_color(bfs.SPINE)
             spine.set_linewidth(0.8)
         ax.tick_params(length=0, labelsize=8, colors=bfs.MUTED)
+        ax.set_xlabel("x", labelpad=2)
+
+    axes[0].set_ylabel("y", labelpad=2)
 
     ax = axes[0]
     ax.contourf(x_grid, y_grid, potential, levels=potential_levels, vmax=3, zorder=0, cmap=LANDSCAPE_CMAP)
-    ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 8), colors="white", linewidths=0.55, alpha=0.7)
+    ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 6), colors="white", linewidths=0.55, alpha=0.66)
     _draw_tps_landmarks(ax, marker_scale=0.95)
     ax.text(-1, -0.26, "A", ha="center", va="center", fontsize=10, fontweight="semibold", color=TEXT, zorder=35)
     ax.text(1, -0.26, "B", ha="center", va="center", fontsize=10, fontweight="semibold", color=TEXT, zorder=35)
-    bfs.panel_label(ax, "Original")
+    ax.set_title("Original landscape", loc="left", pad=8, fontweight="semibold")
 
     ax = axes[1]
-    ax.contourf(x_grid, y_grid, potential, levels=np.linspace(potential.min(), 3.0, 36), vmax=3, zorder=0, alpha=0.62, cmap=LANDSCAPE_CMAP)
+    ax.contourf(x_grid, y_grid, potential, levels=np.linspace(potential.min(), 3.0, 38), vmax=3, zorder=0, alpha=0.62, cmap=LANDSCAPE_CMAP)
     _draw_tps_landmarks(ax, marker_scale=0.95)
-    ax.axvspan(-0.16, 0.16, color="white", alpha=0.42, zorder=10)
-    ax.axvline(0, color=AMBER, lw=2.6, zorder=28)
-    ax.annotate("", xy=(1.15, -1.18), xytext=(-1.15, -1.18), arrowprops={"arrowstyle": "-|>", "lw": 2.2, "color": AMBER})
-    bfs.direct_label(ax, 0, -1.36, r"$s=\xi(x,y)=x$", AMBER, size=10)
-    bfs.panel_label(ax, "Choose CV")
+    ax.axvspan(-0.13, 0.13, color="white", alpha=0.48, zorder=10)
+    ax.axvline(0, color=AMBER, lw=2.1, zorder=28)
+    ax.annotate(
+        "",
+        xy=(1.16, -1.12),
+        xytext=(-1.16, -1.12),
+        arrowprops={"arrowstyle": "-|>", "lw": 1.8, "color": AMBER, "mutation_scale": 13},
+        zorder=30,
+    )
+    bfs.callout_label(ax, r"$s=\xi(x,y)=x$", xy=(0.0, 0.1), xytext=(0.48, 1.24), color=AMBER, size=9.1, ha="left", rad=-0.2)
+    ax.set_title("Choose a coordinate", loc="left", pad=8, fontweight="semibold")
 
     ax = axes[2]
     ax.contourf(x_grid, y_grid, biased, levels=biased_levels, vmax=5.0, zorder=0, cmap=BIASED_CMAP)
-    ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 7), colors="white", linewidths=0.55, alpha=0.62, zorder=4)
+    ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 6), colors="white", linewidths=0.55, alpha=0.58, zorder=4)
     _draw_tps_landmarks(ax, marker_scale=0.95)
-    ax.axvspan(-0.16, 0.16, color="white", alpha=0.36, zorder=8)
-    ax.axvline(0, color=AMBER, lw=2.6, zorder=22)
+    ax.axvspan(-0.13, 0.13, color="white", alpha=0.38, zorder=8)
+    ax.axvline(0, color=AMBER, lw=2.1, zorder=22)
     for yy in [1.0, -1.0]:
-        ax.add_patch(Circle((0, yy), 0.19, fc="none", ec=AMBER, lw=1.8, zorder=35))
-    bfs.direct_label(ax, 0, -1.36, r"$U+V_k$", AMBER, size=10)
-    bfs.panel_label(ax, "Bias")
+        ax.add_patch(Circle((0, yy), 0.19, fc="white", ec=AMBER, lw=1.7, alpha=0.9, zorder=35))
+    bfs.callout_label(ax, r"$U+V_k$", xy=(0.0, -1.0), xytext=(0.54, -1.25), color=AMBER, size=9.2, ha="left", rad=0.15)
+    ax.set_title("Add umbrella bias", loc="left", pad=8, fontweight="semibold")
 
-    for ax in axes:
-        ax.set_xlabel("x")
-    axes[0].set_ylabel("y")
-
-    bfs.save_figure(fig, output_path, dpi=230)
+    bfs.save_figure(fig, output_path, dpi=250)
 
 
 def generate_metastability(output_path: Path):
     """Rare events in a double-well landscape."""
-    fig, axes = plt.subplots(1, 2, figsize=(9.8, 3.45), gridspec_kw={"wspace": 0.28})
-    x = np.linspace(-2.1, 2.1, 600)
+    fig, axes = plt.subplots(1, 2, figsize=(11.6, 4.15), gridspec_kw={"wspace": 0.24})
+    x = np.linspace(-2.1, 2.1, 800)
     u = _double_well(x)
+    y_a = _double_well(np.array([-0.96]))[0]
+    y_b = _double_well(np.array([0.95]))[0]
+    y_barrier = _double_well(np.array([0.0]))[0]
+    y_floor = -0.36
+
+    def draw_energy_gap(ax, x_gap, y_low, y_high, low_anchor_x, high_anchor_x, color):
+        guide_style = {
+            "color": color,
+            "lw": 1.0,
+            "alpha": 0.62,
+            "linestyle": (0, (2.2, 2.2)),
+            "zorder": 24,
+        }
+        ax.plot([min(x_gap, low_anchor_x), max(x_gap, low_anchor_x)], [y_low, y_low], **guide_style)
+        ax.plot([min(x_gap, high_anchor_x), max(x_gap, high_anchor_x)], [y_high, y_high], **guide_style)
+        ax.annotate(
+            "",
+            xy=(x_gap, y_high),
+            xytext=(x_gap, y_low),
+            arrowprops={"arrowstyle": "<->", "color": color, "lw": 1.5, "mutation_scale": 12},
+            zorder=30,
+        )
 
     ax = axes[0]
-    ax.plot(x, u, color=BLUE, linewidth=2.4)
-    ax.fill_between(x, 0, u, color=BLUE_LIGHT, alpha=0.48)
-    ax.plot([-0.92], [_double_well(np.array([-0.92]))[0] + 0.08], "o", color=BLUE, markersize=9)
-    ax.plot([0.93], [_double_well(np.array([0.93]))[0] + 0.08], "o", color=GREEN, markersize=9)
-    ax.plot([0.0], [_double_well(np.array([0.0]))[0] + 0.08], "*", color=AMBER, markersize=13)
-    ax.annotate("", xy=(0.0, 1.25), xytext=(-0.86, 0.2), arrowprops=dict(arrowstyle="<->", color=AMBER, lw=1.5))
-    bfs.direct_label(ax, -0.98, 0.28, "A", BLUE)
-    bfs.direct_label(ax, 0.98, 0.28, "B", GREEN)
-    bfs.direct_label(ax, -0.38, 1.65, "barrier", AMBER)
-    ax.set_xlim(-2, 2)
-    ax.set_ylim(-0.15, 2.45)
+    ax.fill_between(x, y_floor, u, color=BLUE_LIGHT, alpha=0.46, zorder=1)
+    ax.plot(x, u, color=BLUE, linewidth=2.6, zorder=8)
+    bfs.state_marker(ax, -0.96, y_a + 0.08, "A", BLUE, label_dx=-0.18, label_dy=0.30)
+    bfs.state_marker(ax, 0.95, y_b + 0.08, "B", GREEN, label_dx=0.17, label_dy=0.28)
+    ax.scatter([0.0], [y_barrier + 0.03], s=120, color="white", edgecolors="none", zorder=24)
+    ax.scatter([0.0], [y_barrier + 0.03], s=58, color=AMBER, edgecolors="white", linewidths=1.3, zorder=26)
+    draw_energy_gap(ax, -0.46, y_a, y_barrier, -0.96, 0.0, AMBER)
+    bfs.curve_label(ax, -0.96, 1.58, "high barrier", AMBER, ha="left", size=9.4)
+    ax.set_xlim(-1.85, 1.85)
+    ax.set_ylim(y_floor, 2.08)
     ax.set_xticks([])
     ax.set_yticks([])
     bfs.style_axis(ax, xlabel="reaction coordinate", ylabel="free energy", title="Unbiased dynamics")
 
     ax = axes[1]
-    ax.plot(x, u, color=BLUE, linewidth=1.8, alpha=0.55, label="original")
+    ax.plot(x, u, color=BLUE, linewidth=2.0, alpha=0.44, zorder=5)
     bias = -0.82 * np.exp(-0.5 * ((x - 0.0) / 0.55) ** 2)
     ub = u + bias
-    ax.plot(x, ub, color=TEAL, linewidth=2.5, label="biased")
-    ax.fill_between(x, ub, u, where=bias < 0, color=TEAL_LIGHT, alpha=0.78)
-    path_x = np.linspace(-0.93, 0.95, 70)
-    path_y = np.interp(path_x, x, ub) + 0.12 + 0.03 * np.sin(np.linspace(0, 5 * np.pi, 70))
-    ax.plot(path_x, path_y, color=RED, linewidth=1.9)
-    for i in [12, 28, 44, 58]:
+    ax.fill_between(x, ub, u, where=bias < 0, color=TEAL_LIGHT, alpha=0.78, zorder=2)
+    ax.plot(x, ub, color=TEAL, linewidth=2.7, zorder=9)
+    path_x = np.linspace(-0.92, 0.92, 78)
+    path_y = np.interp(path_x, x, ub) + 0.14 + 0.035 * np.sin(np.linspace(0, 4.5 * np.pi, 78))
+    ax.plot(path_x, path_y, color=RED, linewidth=2.0, zorder=14)
+    for i in [14, 33, 52, 67]:
         _arrow(ax, (path_x[i - 2], path_y[i - 2]), (path_x[i + 2], path_y[i + 2]), color=RED, lw=1.7, ms=12)
-    bfs.direct_label(ax, 0.18, 1.45, "lower barrier", TEAL)
-    ax.set_xlim(-2, 2)
-    ax.set_ylim(-0.15, 2.45)
+    y_biased_barrier = np.interp(0.0, x, ub)
+    left_biased_min_x = x[np.argmin(np.where(x < 0, ub, np.inf))]
+    left_biased_min_y = np.interp(left_biased_min_x, x, ub)
+    draw_energy_gap(ax, -0.50, left_biased_min_y, y_biased_barrier, left_biased_min_x, 0.0, TEAL)
+    bfs.curve_label(ax, 0.34, 1.34, "original", BLUE, ha="left", size=9.0)
+    bfs.curve_label(ax, 0.46, 0.58, "biased", TEAL, ha="left", size=9.0)
+    bfs.curve_label(ax, -1.10, 0.78, "lower barrier", TEAL, ha="left", size=9.4)
+    ax.set_xlim(-1.85, 1.85)
+    ax.set_ylim(y_floor, 2.08)
     ax.set_xticks([])
     ax.set_yticks([])
     bfs.style_axis(ax, xlabel="reaction coordinate", ylabel="", title="Biased dynamics")
-    ax.legend(frameon=False, fontsize=9, loc="upper right")
 
-    bfs.save_figure(fig, output_path, dpi=230)
+    bfs.save_figure(fig, output_path, dpi=260)
 
 
 def generate_cv_metadynamics(output_path: Path):
     """Collective variables and metadynamics biasing."""
-    fig, axes = plt.subplots(1, 3, figsize=(11.0, 3.4), gridspec_kw={"wspace": 0.32})
+    fig, axes = plt.subplots(1, 3, figsize=(11.6, 3.55), gridspec_kw={"wspace": 0.34})
 
     ax = axes[0]
     rng = np.random.default_rng(7)
@@ -600,7 +710,7 @@ def generate_cv_metadynamics(output_path: Path):
     ax.scatter(cloud_b[:, 0], cloud_b[:, 1], s=18, color=GREEN, alpha=0.62, edgecolors="none")
     ax.plot([-1.7, 1.7], [-0.95, 0.95], color=AMBER, linewidth=2.0)
     _arrow(ax, (-1.45, -0.82), (1.45, 0.82), color=AMBER, lw=2.0)
-    bfs.direct_label(ax, 0.04, 1.04, r"$s=\xi(\mathbf{x})$", AMBER)
+    bfs.callout_label(ax, r"$s=\xi(\mathbf{x})$", xy=(0.44, 0.25), xytext=(-0.34, 1.06), color=AMBER, size=10.0, rad=0.06)
     ax.set_xlim(-2.0, 2.0)
     ax.set_ylim(-1.35, 1.35)
     ax.set_xticks([])
@@ -619,7 +729,7 @@ def generate_cv_metadynamics(output_path: Path):
     ax.set_yticks([])
 
     ax = axes[2]
-    ax.plot(s, f, color=BLUE, linewidth=1.9, alpha=0.55, label="free energy")
+    ax.plot(s, f, color=BLUE, linewidth=1.9, alpha=0.55)
     centers = np.array([-1.0, -0.72, -0.35, 0.02, 0.38])
     heights = np.linspace(0.22, 0.11, len(centers))
     bias = np.zeros_like(s)
@@ -629,15 +739,16 @@ def generate_cv_metadynamics(output_path: Path):
         ax.fill_between(s, 0, g, color=AMBER_LIGHT, alpha=0.84)
         ax.plot(s, g, color=AMBER, linewidth=1.0, alpha=0.82)
     effective = f + bias
-    ax.plot(s, effective, color=TEAL, linewidth=2.4, label="biased")
-    bfs.direct_label(ax, -0.58, 1.18, "Gaussian hills", AMBER)
+    ax.plot(s, effective, color=TEAL, linewidth=2.4)
+    bfs.callout_label(ax, "Gaussian hills", xy=(-0.96, 0.23), xytext=(-1.72, 0.73), color=AMBER, size=8.8, ha="left", rad=-0.16)
+    bfs.curve_label(ax, 0.66, 1.18, "free energy", BLUE, size=8.7)
+    bfs.curve_label(ax, 0.16, 0.58, "biased", TEAL, size=8.9)
     ax.set_xlim(-2, 2)
     ax.set_ylim(-0.15, 1.45)
     ax.set_yticks([])
     bfs.style_axis(ax, xlabel=r"CV $s$", ylabel="", title="Bias")
-    ax.legend(frameon=False, fontsize=9, loc="upper right")
 
-    bfs.save_figure(fig, output_path, dpi=230)
+    bfs.save_figure(fig, output_path, dpi=250)
 
 
 def generate_method_map(output_path: Path):
