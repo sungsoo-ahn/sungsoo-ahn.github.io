@@ -17,6 +17,10 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle, Rectangl
 from matplotlib.patches import Arc
 import matplotlib.patheffects as pe
 
+import blog_figure_style as bfs
+
+bfs.use_blog_style()
+
 
 # ──────────────────────────────────────────────
 # Color palette
@@ -111,74 +115,62 @@ def generate_energy_cycle_figure(output_path):
     Flowchart: Renewable → Electrolyzer → H2/CH4 → Fuel Cell → Grid
     With a return arrow showing the cycle.
     """
-    fig, ax = plt.subplots(figsize=(14, 4.5))
-    ax.set_xlim(-1, 15)
-    ax.set_ylim(-1.5, 3.5)
-    ax.set_aspect('equal')
+    fig, ax = plt.subplots(figsize=(10.8, 3.45))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
     ax.axis('off')
 
-    # Box dimensions
-    bw, bh = 2.4, 0.9
-    gap = 0.15
+    ax.text(
+        0.5, 0.91, 'Hydrogen energy storage cycle',
+        ha='center', va='center', fontsize=14,
+        color=TEXT_COLOR, fontweight='bold'
+    )
 
-    # Positions (left to right)
+    bw, bh = 0.16, 0.22
     positions = [
-        (1.2, 1.5, 'Renewable\nElectricity', BOX_GREEN, EDGE_GREEN),
-        (4.8, 1.5, 'Electrolyzer', BOX_WARM, EDGE_WARM),
-        (8.4, 1.5, 'H$_2$ / CH$_4$\nStorage', BOX_MAIN, EDGE_MAIN),
-        (12.0, 1.5, 'Fuel Cell', BOX_WARM, EDGE_WARM),
+        (0.12, 0.56, 'Renewable\nelectricity', BOX_GREEN, EDGE_GREEN),
+        (0.34, 0.56, 'Electrolyzer', BOX_WARM, EDGE_WARM),
+        (0.56, 0.56, 'H$_2$ / CH$_4$\nstorage', BOX_MAIN, EDGE_MAIN),
+        (0.78, 0.56, 'Fuel cell', BOX_WARM, EDGE_WARM),
     ]
 
-    # Draw boxes
     for cx, cy, label, fc, ec in positions:
-        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, fontsize=11)
+        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, rounding=0.015, fontsize=11.5)
 
-    # Forward arrows
-    rounding = 0.12
     for i in range(len(positions) - 1):
-        x1 = positions[i][0] + bw / 2 + rounding + gap
-        x2 = positions[i + 1][0] - bw / 2 - rounding - gap
-        y = positions[i][1]
-        _draw_arrow(ax, x1, y, x2, y)
+        _draw_arrow(ax, positions[i][0] + bw / 2 + 0.018, 0.56,
+                    positions[i + 1][0] - bw / 2 - 0.018, 0.56,
+                    color=ARROW_COLOR, lw=1.4, ms=12)
 
-    # Labels on arrows
     arrow_labels = [
-        (3.0, 2.15, 'H$_2$O + electricity', EDGE_WARM),
-        (6.6, 2.15, 'chemical\nenergy', EDGE_MAIN),
-        (10.2, 2.15, 'electricity\n+ heat', EDGE_WARM),
+        (0.23, 0.72, 'H$_2$O + power', EDGE_WARM),
+        (0.45, 0.72, 'chemical energy', EDGE_MAIN),
+        (0.67, 0.72, 'electricity + heat', EDGE_WARM),
     ]
     for x, y, label, color in arrow_labels:
-        ax.text(x, y, label, ha='center', va='bottom',
-                fontsize=8.5, color=color, fontstyle='italic',
-                linespacing=1.2)
+        ax.text(
+            x, y, label, ha='center', va='center',
+            fontsize=9.4, color=color, fontweight='semibold',
+            bbox=bfs.label_box(alpha=0.9, pad=1.4)
+        )
 
-    # Output arrow from fuel cell to "Grid"
-    grid_x, grid_y = 14.5, 1.5
-    _draw_arrow(ax, 12.0 + bw / 2 + rounding + gap, 1.5,
-                grid_x - 0.3, grid_y, color=COLOR_GREEN)
-    ax.text(grid_x + 0.1, grid_y, 'Grid', ha='left', va='center',
-            fontsize=12, color=COLOR_GREEN, fontweight='bold')
+    _draw_arrow(ax, positions[-1][0] + bw / 2 + 0.018, 0.56,
+                0.94, 0.56, color=COLOR_GREEN, lw=1.5, ms=12)
+    ax.text(0.955, 0.56, 'Grid', ha='left', va='center',
+            fontsize=11.5, color=COLOR_GREEN, fontweight='bold')
 
-    # Return arrow (bottom) showing cycle
-    return_y = -0.3
-    # Right end
-    ax.annotate('', xy=(1.2, 1.5 - bh / 2 - rounding - gap),
-                xytext=(1.2, return_y),
-                arrowprops=dict(arrowstyle='-|>', color=COLOR_GREEN,
-                                lw=1.4, mutation_scale=12))
-    ax.plot([1.2, 12.0], [return_y, return_y],
-            color=COLOR_GREEN, lw=1.4, zorder=2)
-    ax.plot([12.0, 12.0], [return_y, 1.5 - bh / 2 - rounding - gap],
-            color=COLOR_GREEN, lw=1.4, zorder=2)
-
-    ax.text(6.6, return_y - 0.35, 'H$_2$O byproduct recycles',
-            ha='center', va='top', fontsize=9, color=COLOR_GREEN,
-            fontstyle='italic')
-
-    # Title-like annotation
-    ax.text(7.1, 3.2, 'Hydrogen Energy Storage Cycle',
-            ha='center', va='center', fontsize=13,
-            color=TEXT_COLOR, fontweight='bold')
+    return_path = FancyArrowPatch(
+        (0.78, 0.36), (0.12, 0.36),
+        connectionstyle='angle3,angleA=-90,angleB=180',
+        arrowstyle='-|>', color=COLOR_GREEN, linewidth=1.5,
+        mutation_scale=12, zorder=2
+    )
+    ax.add_patch(return_path)
+    ax.text(
+        0.45, 0.28, 'water byproduct returns to electrolysis',
+        ha='center', va='center', fontsize=9.5, color=COLOR_GREEN,
+        fontstyle='italic'
+    )
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
@@ -194,17 +186,17 @@ def generate_fuel_cell_figure(output_path):
     Simplified PEM fuel cell cross-section:
     Anode | Membrane | Cathode with reactions labeled.
     """
-    fig, ax = plt.subplots(figsize=(11.5, 6.2))
-    ax.set_xlim(-0.8, 10.9)
-    ax.set_ylim(-1.05, 7.55)
+    fig, ax = plt.subplots(figsize=(8.6, 5.2))
+    ax.set_xlim(-0.55, 10.55)
+    ax.set_ylim(-0.8, 7.25)
     ax.set_aspect('equal')
     ax.axis('off')
 
     # Three regions
     regions = [
-        (0, 0, 3.5, 6, '#e8eaf6', '#5c6bc0', 'Anode'),
+        (0, 0, 3.35, 5.85, '#fce4ec', '#d64f3f', 'Anode'),
         (3.5, 0, 3, 6, '#fff8e1', '#ffa000', 'Membrane\n(PEM)'),
-        (6.5, 0, 3.5, 6, '#fce4ec', '#e53935', 'Cathode'),
+        (6.65, 0, 3.35, 5.85, '#e8eaf6', '#4268b3', 'Cathode'),
     ]
 
     for x, y, w, h, fc, ec, label in regions:
@@ -212,43 +204,46 @@ def generate_fuel_cell_figure(output_path):
                          linewidth=2, zorder=1)
         ax.add_patch(rect)
         ax.text(x + w / 2, h + 0.3, label, ha='center', va='bottom',
-                fontsize=12, fontweight='bold', color=ec)
+                fontsize=12.5, fontweight='bold', color=ec)
 
     # Anode reaction
-    ax.text(1.75, 4.55, 'H$_2$', ha='center', va='center',
-            fontsize=14, fontweight='bold', color='#5c6bc0')
-    ax.text(1.75, 3.45, 'splits into', ha='center', va='center',
-            fontsize=9.5, color='#5c6bc0', fontstyle='italic')
-    ax.text(1.75, 2.95, r'2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=11.5, color='#5c6bc0',
-            fontweight='bold')
+    ax.text(1.68, 4.45, 'H$_2$', ha='center', va='center',
+            fontsize=15, fontweight='bold', color='#d64f3f')
+    ax.text(1.68, 3.45, 'splits into', ha='center', va='center',
+            fontsize=10, color='#d64f3f', fontstyle='italic')
+    ax.text(1.68, 2.88, r'2H$^+$ + 2e$^-$',
+            ha='center', va='center', fontsize=12.5, color='#d64f3f',
+            fontweight='bold', bbox=bfs.label_box(alpha=0.82, pad=1.2))
 
     # H+ arrows through membrane
     for y_pos in [2.0, 3.0, 4.0]:
-        _draw_arrow(ax, 3.2, y_pos, 6.8, y_pos,
+        _draw_arrow(ax, 3.18, y_pos, 6.82, y_pos,
                     color='#ffa000', lw=1.2, ms=10)
     ax.text(5.0, 4.65, 'H$^+$', ha='center', va='center',
-            fontsize=11, fontweight='bold', color='#ffa000')
+            fontsize=12, fontweight='bold', color='#ffa000',
+            bbox=bfs.label_box(alpha=0.86, pad=1.2))
 
     # Cathode reaction
-    ax.text(8.25, 4.75, '½O$_2$', ha='center', va='center',
-            fontsize=14, fontweight='bold', color='#e53935')
-    ax.text(8.25, 3.75, '+ 2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=10.5, color='#e53935')
-    ax.text(8.25, 2.85, r'$\rightarrow$ H$_2$O',
-            ha='center', va='center', fontsize=12,
-            fontweight='bold', color='#e53935')
+    ax.text(8.32, 4.55, '½O$_2$', ha='center', va='center',
+            fontsize=15, fontweight='bold', color='#4268b3')
+    ax.text(8.32, 3.58, '+ 2H$^+$ + 2e$^-$',
+            ha='center', va='center', fontsize=11, color='#4268b3')
+    ax.text(8.32, 2.78, r'$\rightarrow$ H$_2$O',
+            ha='center', va='center', fontsize=13,
+            fontweight='bold', color='#4268b3',
+            bbox=bfs.label_box(alpha=0.82, pad=1.2))
 
     # Electron flow (external circuit - top)
-    ax.annotate('', xy=(8.25, 6.8), xytext=(1.75, 6.8),
+    ax.annotate('', xy=(8.32, 6.72), xytext=(1.68, 6.72),
                 arrowprops=dict(arrowstyle='-|>', color=ARROW_COLOR,
                                 lw=2.0, mutation_scale=14,
                                 connectionstyle='arc3,rad=-0.15'))
-    ax.text(5.0, 7.18, 'electrons through external circuit', ha='center', va='bottom',
-            fontsize=10, color=ARROW_COLOR, fontweight='bold')
+    ax.text(5.0, 7.02, 'electrons through external circuit', ha='center', va='bottom',
+            fontsize=10.5, color=ARROW_COLOR, fontweight='bold',
+            bbox=bfs.label_box(alpha=0.88, pad=1.1))
 
     # Catalyst layers (thin strips)
-    for x_pos, label in [(3.2, 'catalyst'), (6.8, 'catalyst')]:
+    for x_pos, label in [(3.28, 'catalyst'), (6.72, 'catalyst')]:
         rect = Rectangle((x_pos - 0.15, 0), 0.3, 6,
                          facecolor='#c8e6c9', edgecolor='#66bb6a',
                          linewidth=1, alpha=0.7, zorder=2)
@@ -258,16 +253,16 @@ def generate_fuel_cell_figure(output_path):
 
     # Input/output labels
     ax.text(-0.3, 3.0, 'H$_2$ in', ha='right', va='center',
-            fontsize=10, color='#5c6bc0', fontweight='bold')
-    _draw_arrow(ax, -0.1, 3.0, 0.3, 3.0, color='#5c6bc0', lw=1.5)
+            fontsize=10.5, color='#d64f3f', fontweight='bold')
+    _draw_arrow(ax, -0.1, 3.0, 0.3, 3.0, color='#d64f3f', lw=1.5)
 
-    ax.text(10.8, 4.0, 'O$_2$ in', ha='left', va='center',
-            fontsize=10, color='#e53935', fontweight='bold')
-    _draw_arrow(ax, 10.6, 4.0, 10.2, 4.0, color='#e53935', lw=1.5)
+    ax.text(10.32, 4.0, 'O$_2$ in', ha='left', va='center',
+            fontsize=10.5, color='#4268b3', fontweight='bold')
+    _draw_arrow(ax, 10.2, 4.0, 9.82, 4.0, color='#4268b3', lw=1.5)
 
-    ax.text(10.8, 2.0, 'H$_2$O out', ha='left', va='center',
+    ax.text(10.32, 2.0, 'H$_2$O out', ha='left', va='center',
             fontsize=10, color='#1a8a7a', fontweight='bold')
-    _draw_arrow(ax, 10.0, 2.0, 10.6, 2.0, color='#1a8a7a', lw=1.5)
+    _draw_arrow(ax, 9.9, 2.0, 10.24, 2.0, color='#1a8a7a', lw=1.5)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
