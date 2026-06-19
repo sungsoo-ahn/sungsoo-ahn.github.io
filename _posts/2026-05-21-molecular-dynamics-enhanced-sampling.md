@@ -2,7 +2,7 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -19,7 +19,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post continues the statistical mechanics thread from <a href="/blog/2026/ensembles-thermostats-barostats/">Ensembles, Thermostats, and Barostats</a> and <a href="/blog/2026/path-measures-generative-models/">From Jarzynski's Equality to Diffusion Models</a>. The motivation comes from two recent projects: <a href="https://arxiv.org/abs/2405.19961">TPS-DPS</a>, which learns path-sampling bias forces without collective variables, and <a href="http://arxiv.org/abs/2507.07390">BioEmu-CV</a>, which learns collective variables for enhanced sampling from a biomolecular foundation model.</em>
+<em>Note: This post continues the statistical mechanics thread from <a href="/blog/2026/ensembles-thermostats-barostats/">Ensembles, Thermostats, and Barostats</a> and <a href="/blog/2026/path-measures-generative-models/">From Jarzynski's Equality to Diffusion Models</a>. The motivation comes partly from two recent projects from our group: <a href="https://arxiv.org/abs/2405.19961">TPS-DPS</a>, which learns path-sampling bias forces without collective variables, and <a href="http://arxiv.org/abs/2507.07390">BioEmu-CV</a>, which learns collective variables for enhanced sampling from a biomolecular foundation model.</em>
 </p>
 
 ## Introduction
@@ -205,21 +205,13 @@ This is why modern rare-event methods try to learn better proposals. We do not o
 
 ## Where ML Enters
 
-There are two natural ML entry points.
+There are two natural ML entry points. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. One concrete connection for us is BioEmu-CV, a project from our group that learns such CVs from a biomolecular ensemble generator using a time-lagged objective. The goal is not to replace enhanced sampling, but to provide a better coordinate for methods such as OPES or steered MD.
 
-The first is **learn the CV**. If enhanced sampling depends on the coordinate $$s = \xi(\mathbf{x})$$, we can train a neural network to find a coordinate that preserves slow dynamics. Classical methods such as TICA already use time-lagged correlations for this purpose. Neural MLCV methods generalize the idea: learn a low-dimensional representation that predicts long-time behavior, separates metastable states, or approximates committor-like information.
-
-Our BioEmu-CV paper follows this route. The method uses BioEmu, a protein ensemble generator, to learn CVs through time-lagged generation. The objective pushes the CV to retain information that matters after a time lag while ignoring fast thermal fluctuations. The learned CV can then be used inside enhanced sampling methods such as on-the-fly probability enhanced sampling or steered MD.
-
-The second entry point is **learn the path bias directly**. Instead of first choosing a CV and then biasing along it, learn forces that make transition paths likely. This is the route taken by TPS-DPS. It trains a diffusion path sampler to produce molecular transition paths between metastable states without requiring hand-designed CVs. The learned bias is path-level: it is trained so the induced path distribution matches the desired transition-path distribution.
+The second entry point is to **learn the path bias directly**. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler. I mention these projects as examples of the two design choices above: learn where to bias, or learn the path-level bias itself.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/md_sampling_method_map.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Classical enhanced sampling asks where to apply a bias and how to undo it. ML can enter by learning the collective variable for CV-based methods or by learning a path-level bias directly. The path-measure view connects both directions to Jarzynski, AIS, diffusion models, and trajectory objectives." %}
 
-These routes are complementary, not mutually exclusive.
-
-Learning CVs keeps the classical enhanced-sampling machinery. The output is interpretable, reusable, and compatible with metadynamics, umbrella sampling, OPES, and SMD. The risk is that a low-dimensional CV may omit important hidden barriers.
-
-Learning path biases removes the CV bottleneck. The model can use high-dimensional molecular information directly. The risk is that path-level training is harder: the model must learn a whole trajectory distribution, not just a coordinate.
+These routes are complementary, not mutually exclusive. Learning CVs keeps the classical machinery interpretable and reusable, but a low-dimensional CV can miss hidden barriers. Learning path biases removes that bottleneck, but the model must learn a whole trajectory distribution rather than a coordinate.
 
 ## The Bias Is Not the Answer
 

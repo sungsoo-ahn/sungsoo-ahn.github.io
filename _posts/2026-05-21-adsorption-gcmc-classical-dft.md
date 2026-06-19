@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -19,7 +19,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post introduces gas adsorption simulation for ML researchers who encounter GCMC, isotherms, uptake, and classical DFT in porous-material papers. It is meant to sit between my earlier posts on <a href="/blog/2026/ensembles-thermostats-barostats/">ensembles and Monte Carlo</a> and <a href="/blog/2026/quantum-chemistry-dft/">quantum-chemistry DFT</a>. The background comes from work on learning adsorbate density fields, where GCMC provides particle-simulation references and classical DFT provides cheaper density-field supervision. Corrections are welcome.</em>
+<em>Note: This post introduces gas adsorption simulation for ML researchers who encounter GCMC, isotherms, uptake, and classical DFT in porous-material papers. It is meant to sit between my earlier posts on <a href="/blog/2026/ensembles-thermostats-barostats/">ensembles and Monte Carlo</a> and <a href="/blog/2026/quantum-chemistry-dft/">quantum-chemistry DFT</a>. The background comes partly from work in our group on learning adsorbate density fields, where GCMC provides particle-simulation references and classical DFT provides cheaper density-field supervision. Corrections are welcome.</em>
 </p>
 
 ## Introduction
@@ -250,35 +250,17 @@ For the running example, this is $$(\text{MOF-5}, \text{methane}, T, P) \mapsto 
 
 ### Multi-Fidelity Density Learning
 
-The natural data sources have different cost and fidelity.
+The natural data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
 
-cDFT can generate many density fields across materials, gases, and pressures. For methane in MOF-5, it can cheaply sweep a pressure grid and produce one density field per pressure. Those labels are solver-converged densities for a chosen approximate functional. They are not perfect, but they teach the broad geometry-to-density map.
-
-GCMC can generate higher-fidelity particle-simulation references. Those labels are expensive, so the dataset is smaller. After coarse-graining methane particle samples into density grids, GCMC can correct the remaining cDFT-to-particle-simulation gap.
-
-The ML pattern is familiar:
-
-1. Pre-train a density predictor on abundant cDFT labels.
-2. Fine-tune or adapt it on sparse GCMC density labels.
-3. Use the predicted density for uptake, spatial analysis, and possibly as a warm start for the original cDFT solver.
-
-The warm-start use is important. A neural density predictor does not have to replace physics. It can initialize a self-consistent cDFT solve closer to the fixed point, reducing iterations or rescuing cases where the standard Boltzmann initialization fails.
+One concrete connection for us is work from our group on this density-field view of adsorption. The idea is modest: predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright.
 
 ---
 
 ## Connections to ML
 
-Adsorption simulation is a compact example of several ML ideas in physical clothing.
+Adsorption simulation is a compact example of familiar ML ideas in physical clothing. GCMC is MCMC on an open system whose particle number changes. cDFT is a variational solver that maps a potential field and thermodynamic condition to an optimal density. The density field is a richer supervised target than scalar uptake because uptake is just its integral.
 
-**GCMC is MCMC with a changing dimension.** Insertion and deletion moves are reversible-jump-like transitions between spaces with different particle number. The target is an unnormalized energy-based distribution, and the partition function is not needed for Metropolis-Hastings.
-
-**cDFT is amortizable variational inference.** The solver maps a potential field and thermodynamic condition to an optimal density. A neural network can learn this solution operator, replacing iterative optimization with a feed-forward approximation.
-
-**The density is a sufficient target for multiple downstream tasks.** Scalar uptake is a lossy projection. A density field preserves more information and still recovers the scalar by integration.
-
-**Multi-fidelity learning matches the physics hierarchy.** Cheap approximate solvers provide broad coverage. Expensive simulations provide correction. This is often more scalable than training only on the highest-fidelity labels.
-
-**The functional is an inductive bias.** In cDFT, the excess functional encodes assumptions about hard cores, dispersion, chains, and mixtures. Learning can target the solution operator, the correction from one fidelity to another, or the functional itself.
+The main ML lesson is to respect the physics hierarchy. Cheap approximate solvers can provide broad coverage, expensive simulations can provide correction, and the functional itself is an inductive bias rather than a nuisance to ignore. This is the same pattern that appears in many scientific ML problems.
 
 ---
 

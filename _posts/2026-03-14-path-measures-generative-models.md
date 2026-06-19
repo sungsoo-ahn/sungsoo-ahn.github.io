@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-06-18
+last_updated: 2026-06-19
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
 authors: ["Sungsoo Ahn"]
@@ -19,7 +19,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post connects non-equilibrium statistical mechanics and generative modeling: AIS, diffusion models, and GFlowNet trajectory balance can all be read through the same forward/reverse path-measure ratio. The continuous-time view follows <a href="https://arxiv.org/abs/2307.01050">Controlled Monte Carlo Diffusions</a> (CMCD, Vargas et al., 2024), and the connection became concrete for me through work on <a href="https://arxiv.org/abs/2405.19961">transition path sampling with diffusion models</a>.</em>
+<em>Note: This post connects non-equilibrium statistical mechanics and generative modeling: AIS, diffusion models, and GFlowNet trajectory balance can all be read through the same forward/reverse path-measure ratio. The continuous-time view follows <a href="https://arxiv.org/abs/2307.01050">Controlled Monte Carlo Diffusions</a> (CMCD, Vargas et al., 2024), and the connection became concrete for me through work from our group on <a href="https://arxiv.org/abs/2405.19961">transition path sampling with diffusion models</a>.</em>
 </p>
 
 ## Introduction
@@ -601,107 +601,17 @@ Irreversibility equals information loss, measured as KL divergence between forwa
 
 ## Part 6: Connections to Generative Models
 
-The AIS–Jarzynski connection has been the throughline of this post since Part 2. This part shows that the same path measure framework appears in two other ML methods: diffusion models and GFlowNets.
+The AIS-Jarzynski connection has been the throughline of this post since Part 2. The same path-measure language also helps read diffusion models and GFlowNets. A diffusion model has a forward noising path measure and a learned reverse denoising path measure; its variational loss can be read as a KL between those path measures. A GFlowNet has a forward construction path measure and a backward deconstruction path measure; trajectory balance asks their ratio to match the terminal reward up to the partition function.
 
-### Diffusion Models = Forward/Reverse Non-Equilibrium Processes
-
-A diffusion model has two stochastic processes running in opposite directions, exactly the forward-backward SDE pair from Part 4:
-
-- **Forward (noising):** $$d\mathbf{x} = f(\mathbf{x}, t) \, dt + g(t) \, d\mathbf{w}$$. Gradually destroys data structure. State A = data distribution, state B = Gaussian noise. This is the "protocol" that drives the system from A to B.
-- **Reverse (denoising):** $$d\mathbf{x} = [f - g^2 \nabla \log p_t] \, dt + g \, d\bar{\mathbf{w}}$$. Learned process that reconstructs data from noise. The score $$\nabla \log p_t$$ plays the role of the drift in the backward SDE.
-
-The mapping to non-equilibrium statistical mechanics:
-
-| Non-eq. stat mech | Diffusion model |
-|---|---|
-| State A / State B | Data distribution / Gaussian noise |
-| Forward / reverse protocol | Noising / learned denoising process |
-| Forward / backward path measure | Distribution over noising / denoising trajectories |
-| Force field $$-\beta \nabla U_t$$ | Learned score $$\nabla \log p_t$$ |
-| Work $$W$$ | Negative log-likelihood ratio along trajectory |
-| Dissipated work $$\langle W_{\text{diss}} \rangle$$ | Gap between ELBO and true log-likelihood |
-
-The protocol speed (number of diffusion steps) controls dissipation: more steps = slower protocol = less dissipation. Nelson's relation from Part 4 gives the equilibrium condition: a perfectly learned score makes the process reversible ($$\mathcal{P}_F = \mathcal{P}_R$$).
-
-**The ELBO is a path-measure KL divergence.** The variational bound used in diffusion model training (the DDPM loss) can be derived as:
-
-$$D_{\text{KL}}(q(\mathbf{x}_{0:T}) \| p_\theta(\mathbf{x}_{0:T}))$$
-
-where $$q$$ is the forward path measure (the joint distribution over all noising steps $$\mathbf{x}_0, \mathbf{x}_1, \ldots, \mathbf{x}_T$$) and $$p_\theta$$ is the reverse generative path measure (the learned denoising chain). This is the expected log Radon-Nikodym derivative from Part 4, applied to the discrete chain. The KL decomposes into the sum of per-step KL terms:
-
-$$D_{\text{KL}}(q(\mathbf{x}_{0:T}) \| p_\theta(\mathbf{x}_{0:T})) = \sum_{t=1}^{T} \mathbb{E}_q\left[D_{\text{KL}}(q(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0) \| p_\theta(\mathbf{x}_{t-1} \mid \mathbf{x}_t))\right] + \text{const.}$$
-
-This is the DDPM weighted denoising loss. In the physics language, this is the same decomposition as breaking the work integral into per-step contributions in the discrete Jarzynski framework — each step contributes a "local work" term.
-
-**Dissipation = imperfect score.** From Part 5, $$\langle W_{\text{diss}} \rangle = (1/\beta) D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$. For diffusion models, this identity says:
-
-- The gap between the ELBO and the true log-likelihood = how far the learned score is from the true score = how far the process is from being reversible.
-- A perfectly trained diffusion model has zero dissipation: the learned score matches the true score at every time step, the forward and reverse path measures coincide (Nelson's relation from Part 4), and the ELBO equals the true log-likelihood.
-- More diffusion steps (a slower protocol) reduce dissipation even with an imperfect score, giving the same speed-accuracy tradeoff as in non-equilibrium physics and AIS.
-
-*AIS parallel: The DDPM loss decomposes the path-measure KL into per-step terms, just as the AIS importance weight decomposes into per-level density ratios. In both cases, adding more intermediate steps reduces the per-step contribution and tightens the overall bound.*
-
-The connection is precise: Song et al. (2021) formulated diffusion models as continuous-time SDEs, and Huang et al. (2021) showed that the variational perspective on diffusion models is equivalent to the path-measure KL framework.
-
-### GFlowNet Trajectory Balance = Path Measure Balance
-
-**GFlowNet trajectory balance is Crooks' theorem in discrete form.** A GFlowNet (Bengio et al., 2021) learns a discrete construction policy that builds objects, such as molecules, graphs, or sequences, step by step, sampling each with probability proportional to a reward $$R(x)$$. An object $$x$$ is built by a sequence of actions defining a trajectory $$\tau = (s_0, s_1, \ldots, s_T = x)$$ through a DAG of partial constructions. The **forward policy** $$P_F(a_t \mid s_t)$$ generates construction trajectories; the **backward policy** $$P_B(a_t \mid s_{t+1})$$ generates deconstructions.
-
-The **trajectory balance** condition (Malkin et al., 2022) requires:
-
-$$Z \cdot P_F(\tau) = R(x) \cdot P_B(\tau)$$
-
-where $$Z = \sum_{x} R(x)$$ is the partition function (total reward) and $$P_F(\tau) = \prod_t P_F(a_t \mid s_t)$$, $$P_B(\tau) = \prod_t P_B(a_t \mid s_{t+1})$$ are the full trajectory probabilities.
-
-**This is Crooks' theorem in discrete form.** The mapping is:
-
-| Non-eq. stat mech | GFlowNet |
-|---|---|
-| Forward path measure $$\mathcal{P}_F$$ | Forward policy trajectory distribution $$P_F(\tau)$$ |
-| Reverse path measure $$\mathcal{P}_R$$ | Backward policy trajectory distribution $$P_B(\tau)$$ |
-| $$e^{\beta \Delta F} = Z_A / Z_B$$ | $$Z$$ (the partition function / total reward) |
-| Work $$W[\mathbf{x}(\cdot)]$$ | $$\log R(x)$$ (the log-reward of the terminal object) |
-| Crooks: $$\mathcal{P}_F = e^{\beta(W - \Delta F)} \mathcal{P}_R$$ | Trajectory balance: $$Z \cdot P_F(\tau) = R(x) \cdot P_B(\tau)$$ |
-
-To see the identity explicitly, rewrite Crooks for a single trajectory:
-
-$$\frac{\mathcal{P}_F}{\mathcal{P}_R} = e^{\beta(W - \Delta F)}$$
-
-Rearrange: $$e^{\beta \Delta F} \cdot \mathcal{P}_F = e^{\beta W} \cdot \mathcal{P}_R$$. Identify $$Z = e^{\beta \Delta F}$$ and $$R(x) = e^{\beta W}$$:
-
-$$Z \cdot P_F = R \cdot P_B$$
-
-The GFlowNet community derived trajectory balance from first principles in the discrete DAG setting. The non-equilibrium statistical mechanics community had the continuous-system version since Crooks (1999). They are the same theorem.
-
-**What this buys you.** The correspondence runs deeper than the trajectory balance condition itself:
-
-- **Detailed balance** (the GFlowNet local condition $$F(s) P_F(a \mid s) = F(s') P_B(a \mid s')$$) corresponds to the **microscopic reversibility** condition in physics — detailed balance on the transition level rather than the trajectory level.
-- **Sub-trajectory balance** (Madan et al., 2023) corresponds to applying the Crooks relation on *sub-intervals* of the protocol rather than the full trajectory — a coarse-grained path measure ratio.
-- The **variance of the trajectory balance loss** $$\text{Var}[\log(Z \cdot P_F(\tau)) - \log(R(x) \cdot P_B(\tau))]$$ is exactly the log-variance divergence between forward and reverse path measures — the same objective used in controlled diffusion samplers (Vargas et al., 2024).
-
-### The Shared Diagnostic
-
-The identity $$\langle W_{\text{diss}} \rangle = (1/\beta) D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ from Part 5 gives a universal measure of generative model quality: how different are the forward and reverse path measures?
-
-| Method | What dissipation measures | What reduces it |
-|---|---|---|
-| **AIS** | Looseness of the bound on $$\log Z$$ | More intermediate distributions |
-| **Diffusion models** | Gap between ELBO and true log-likelihood | Better score estimation, more steps |
-| **GFlowNets** | Variance of the trajectory balance loss | Better policy training |
-
-The diagnostic is the same object in three disguises. If you evaluate an AIS bound and find it loose, the physics tells you exactly what's wrong: the forward and reverse chains are too different, meaning your annealing schedule is too aggressive or your MCMC is too weak.
-
-This also explains why the same tricks transfer across fields. Physicists have studied optimal protocols — what schedule $$\lambda(t)$$ minimizes dissipation? The answer involves the thermodynamic metric tensor (Sivak & Crooks, 2012), which provides a principled framework for choosing noise schedules in diffusion models and annealing schedules in AIS. Similarly, Crooks' theorem says combining forward and reverse measurements (BAR) beats either direction alone — explaining why bidirectional training helps in VAEs and flows.
+The useful diagnostic is the same in all three cases: how different are the forward and reverse path measures? In AIS this appears as loose importance weights, in diffusion models as the gap between the learned reverse process and the true reverse process, and in GFlowNets as variance in the trajectory-balance log-ratio. This is the main reason to learn the physics language: it turns several generative-model objectives into one question about reversibility and dissipation.
 
 ---
 
 ## Closing
 
-These are not analogies. AIS, diffusion models, and GFlowNets are instances of the same mathematics that physicists developed for non-equilibrium processes in the 1990s. The path measure ratio $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$ is the single identity from which Jarzynski, Crooks, and the second law follow. In ML terms, it appears as the importance weight, the trajectory balance condition, and the ELBO gap.
+These are not just analogies. AIS, diffusion models, and GFlowNets all compare forward and reverse path measures. The identity $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$ appears as an importance weight, a trajectory-balance condition, or a variational gap depending on the setting.
 
-Recognizing this lets us import decades of physics intuition about good non-equilibrium protocols and reason about all three methods with one conceptual framework. In physics, the central problem is moving a system efficiently between thermodynamic states. In ML, the central problem is transporting probability mass efficiently between distributions. These are the same problem.
-
-**What to do with this.** If you design annealing schedules for AIS, the thermodynamic metric tensor tells you where to place intermediates. If you train diffusion models, the dissipation identity tells you that the training loss *is* the KL between forward and reverse path measures, and that more diffusion steps reduce it even with an imperfect score. If you train GFlowNets, trajectory balance *is* Crooks' theorem, and sub-trajectory balance is Crooks applied to sub-intervals. In each case, the physics framework gives not just a derivation but a diagnostic: measure $$D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ and you know how far the generative process is from optimal.
+The practical lesson is to ask what path distribution the algorithm actually samples and how far it is from the reverse or target path distribution. In physics this is a question about dissipation. In ML it is a question about how efficiently probability mass is transported between distributions.
 
 ---
 
@@ -717,9 +627,6 @@ Recognizing this lets us import decades of physics intuition about good non-equi
 - F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. ([arXiv:2307.01050](https://arxiv.org/abs/2307.01050))
 - E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021.
 - N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *ICML*, 2022.
-- K. Madan, J. Rector-Brooks, M. Korablyov, E. Bengio, M. Jain, A. Ber, T. Dao, Y. Bengio, and N. Malkin, "Learning GFlowNets from partial episodes for improved convergence and stability," *ICML*, 2023.
-- Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, and B. Poole, "Score-based generative modeling through stochastic differential equations," *ICLR*, 2021.
-- C.-W. Huang, J. H. Lim, and A. Courville, "A variational perspective on diffusion-based generative models and score matching," *NeurIPS*, 2021.
 
 ---
 
