@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -24,48 +24,50 @@ related_posts: false
 
 ## Introduction
 
-Neural networks for 3D atomic systems, from Tensor Field Networks to modern architectures such as MACE and eSCN, achieve strong accuracy by building rotational equivariance into the model. When a molecule rotates in space, their internal representations rotate with it, so vector predictions such as forces transform correctly.
+Neural networks for 3D atomic systems, from Tensor Field Networks to modern architectures such as MACE and eSCN, build rotational equivariance into the model so that learned interactions generalize across orientations. When a molecule rotates in space, their internal representations rotate with it, so vector predictions such as forces transform correctly. Equivariance does not make the model accurate by itself; it removes a symmetry the model would otherwise have to relearn from data.
 
 ### High-Level Architecture
 
-These networks can be understood as having two interleaved components:
+Each atom $$i$$ is associated with a position $$\mathbf{r}_i$$ and a node feature $$\mathbf{h}_i$$. Its neighboring atoms are denoted by $$\mathcal{N}(i)$$, and the edge from atom $$j$$ to atom $$i$$ is described by the relative displacement
 
-1. **Message-passing layers**: Aggregate information between atoms by collecting features from neighbors and updating each atom's representation. This handles the *structural* question: how information flows through the molecular graph.
+$$\mathbf{r}_{ij} = \mathbf{r}_j - \mathbf{r}_i.$$
 
-2. **Spherical equivariant layers**: Transform feature vectors while preserving equivariance. These layers use spherical-harmonic features with well-defined rotation rules, so every component has a known response when the molecule rotates. This handles the *geometric* question: how features remain tied to 3D space.
+A standard GNN layer consists of two steps: first computing messages on edges, and then aggregating these messages at each node:
 
-{% include figure.liquid loading="eager" path="assets/img/blog/architecture_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="High-level architecture of spherical equivariant networks. Message-passing layers aggregate information from neighboring atoms (structural), while spherical equivariant layers transform features using CG tensor products and nonlinearities (geometric). These two components are interleaved for \(T\) layers." %}
+$$
+\begin{aligned}
+\mathbf{m}_{ij} &= \phi(\mathbf{h}_i, \mathbf{h}_j, \mathbf{r}_{ij}), \\
+\mathbf{m}_i &= \sum_{j \in \mathcal{N}(i)} \mathbf{m}_{ij}, \\
+\mathbf{h}'_i &= \psi(\mathbf{h}_i, \mathbf{m}_i).
+\end{aligned}
+$$
 
-The message-passing structure is straightforward: sum over neighbors and apply learned weights. The hard part is the spherical equivariant layer: **how do we transform features expressively without breaking their rotational behavior?**
+Here, $$\mathbf{m}_{ij}$$ is the message sent from atom $$j$$ to atom $$i$$, $$\mathbf{m}_i$$ is the aggregated message at atom $$i$$, and $$\phi$$ and $$\psi$$ are learned functions. The summation over $$j$$ is the graph aggregation step. It is permutation-invariant with respect to the ordering of neighbors, but it does not by itself guarantee rotational equivariance.
 
-Arbitrary neural-network operations are not safe on geometric features. If a feature represents a direction, such as a 3D vector, a standard MLP would destroy its geometric meaning: after the MLP, the feature would no longer rotate properly with the molecule. Equivariant models therefore need operations whose algebra preserves the rotation law.
+Spherical equivariant networks preserve this message-passing structure, but modify the edge function. Instead of using an unconstrained function $$\phi$$, they replace it with an equivariant function $$\phi_{\mathrm{eq}}$$. This function is designed so that, when the molecule is rotated, its input features and output messages transform consistently under the same rotation. The equivariant mechanism is therefore local to the design of $$\phi_{\mathrm{eq}}$$. In practical spherical equivariant networks, $$\phi_{\mathrm{eq}}$$ is constructed using spherical harmonics, radial functions, Clebsch-Gordan tensor products, and equivariant nonlinearities.
 
-> **Equivariance.** A function $f$ is **equivariant** with respect to a symmetry (such as rotation) if transforming the input and then applying $f$ gives the same result as applying $f$ first and then transforming the output. For instance, if we rotate a molecule and then predict forces, we get the same answer as predicting forces first and then rotating them:
+{% include figure.liquid loading="eager" path="assets/img/blog/architecture_overview.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="High-level architecture of spherical equivariant networks. Message passing performs graph aggregation over neighbors, while spherical equivariant operations update edge or node features using CG tensor products and nonlinearities. These two components are interleaved for \(T\) layers." %}
+
+The central question is how to make $$\phi_{\mathrm{eq}}$$ expressive while preserving the required rotation law. A standard MLP cannot be applied directly to geometric features. For example, if a feature represents a direction, such as a 3D vector, a generic MLP can destroy its geometric meaning: after the MLP is applied, the resulting feature may no longer rotate consistently with the molecule. Equivariant models therefore need operations whose algebra preserves the transformation rules of geometric features.
+
+> **Equivariance.** A function $\phi$ is **equivariant** with respect to a symmetry, such as rotation, if transforming the input and then applying $\phi$ gives the same result as applying $\phi$ first and then transforming the output. For example, if we rotate a molecule and then predict forces, we should obtain the same result as predicting forces first and then rotating them:
 >
-> $$f(\text{rotate}(\mathbf{x})) = \text{rotate}(f(\mathbf{x})) \quad \text{for every rotation}$$
+> $$\phi(\text{rotate}(\mathbf{x})) = \text{rotate}(\phi(\mathbf{x})) \quad \text{for every rotation}$$
 >
-> We will formalize this using the language of *groups* and *representations* below.
+> Groups and representations make this statement precise.
 {: .block-definition }
-
-### Overview
-
-As in any graph neural network, each atom $$i$$ carries a feature vector $$\mathbf{h}_i$$, and each layer updates it by aggregating messages $$\mathbf{m}_{ij}$$ from neighboring atoms $$j$$. Equivariance restricts what $$\mathbf{h}_i$$ and $$\mathbf{m}_{ij}$$ can be: they must be **spherical tensors**, vectors whose transformation under any rotation is exactly described by a **Wigner-D matrix**. Spherical tensors are organized by degree $$\ell = 0, 1, 2, \ldots$$ (scalars, 3D vectors, and higher angular patterns), and Wigner-D matrices are the **representation** matrices of the rotation **group** $$SO(3)$$.
-
-The central operation is therefore tensor combination: how do we combine two spherical tensors and get another spherical tensor out? The answer is the **Clebsch-Gordan tensor product** $$\otimes_{\text{cg}}$$. It plays the role that matrix multiplication plays in standard neural networks: the core operation from which layers are built. A typical message takes the form:
-
-$$\mathbf{m}_{ij} = W(r_{ij}) \left( \mathbf{h}_j \otimes_{\text{cg}} Y(\hat{\mathbf{r}}_{ij}) \right)$$
-
-where $$Y(\hat{\mathbf{r}}_{ij})$$ encodes the direction between atoms as a spherical tensor and $$W(r_{ij})$$ is a learned weight that depends only on distance.
 
 ## Mathematical Foundations
 
 ### Groups and Symmetries
 
-For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. We need a precise way to talk about the full collection of 3D rotations and how they combine.
+For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. A precise account needs the full collection of 3D rotations and their composition rules.
 
 A **group** is the natural mathematical structure for a set of transformations. For 3D rotations, any two rotations compose to another rotation, every rotation has an inverse, and one rotation does nothing. Closure, inverses, and an identity element are exactly the group axioms. The **special orthogonal group** $SO(3)$ is the group of all 3D rotations, represented concretely as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. Reflections and translations can also be included, but they are outside the scope of this post.
 
-A **group action** describes how a group transforms the elements of some space $X$. For each group element $g \in G$ and each point $x \in X$, the action produces a transformed point $g \cdot x \in X$, satisfying two properties: the identity element does nothing ($e \cdot x = x$), and composing group elements before acting is the same as acting sequentially ($(g_1 \cdot g_2) \cdot x = g_1 \cdot (g_2 \cdot x)$). For example, $SO(3)$ acts on 3D space by rotating vectors: $R \cdot \mathbf{v} = R\mathbf{v}$. Representations, which we define next, are a special case of group actions where the transformations are linear maps on a vector space.
+A **group action** describes how a group transforms the elements of some space $X$. For each group element $g \in G$ and each point $x \in X$, the action produces a transformed point $g \cdot x \in X$.
+
+The action must satisfy two properties: the identity element does nothing ($e \cdot x = x$), and composing group elements before acting is the same as acting sequentially ($(g_1 \cdot g_2) \cdot x = g_1 \cdot (g_2 \cdot x)$). For example, $SO(3)$ acts on 3D space by rotating vectors: $R \cdot \mathbf{v} = R\mathbf{v}$. Representations, defined next, are group actions whose transformations are linear maps on a vector space.
 
 ### Group Representations
 
@@ -120,13 +122,13 @@ Representations tell us how features should transform; spherical harmonics tell 
 
 To build intuition, consider the simpler case of the circle first. The **circular harmonics** $e^{im\phi} = \cos(m\phi) + i\sin(m\phi)$ form a basis for functions on the circle $S^1$. Any function on the circle can be written as a sum of these basis functions (this is the Fourier series). Crucially, each circular harmonic has a simple transformation property under 2D rotations: rotating by angle $\alpha$ multiplies $e^{im\phi}$ by $e^{im\alpha}$. Different values of $m$ transform independently. We write $Y_m(\phi)$ for the real part $\cos(m\phi)$ of each circular harmonic.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/circular_harmonics.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Circular harmonics \(Y_m\) for \(m = 0, 1, 2, 3\). Red indicates positive values, blue indicates negative values. The number of lobes increases with \(m\). Under rotation, each harmonic gets multiplied by a phase factor proportional to \(m\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/circular_harmonics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Circular harmonics \(Y_m\) for \(m = 0, 1, 2, 3\). Red indicates positive values, blue indicates negative values. The number of lobes increases with \(m\). Under rotation, each harmonic gets multiplied by a phase factor proportional to \(m\)." %}
 
 **Spherical harmonics** extend this idea from the circle to the sphere. Circular harmonics form a basis for functions on $S^1$; spherical harmonics form a basis for functions on the unit sphere $S^2$. The analogy also preserves the key symmetry property: circular harmonics transform simply under 2D rotations, and spherical harmonics transform simply under 3D rotations.
 
 The **spherical harmonics** $Y_\ell^m$ are special functions on the unit sphere $S^2$ that form a complete orthonormal basis.[^realsh] Each $Y_\ell^m: S^2 \to \mathbb{R}$ takes a direction and returns a real number. They are indexed by degree $\ell \geq 0$ and order $-\ell \leq m \leq \ell$, so for each degree $\ell$ there are $2\ell + 1$ spherical harmonics.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/spherical_harmonics.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Spherical harmonics for degrees \(\ell = 0, 1, 2, 3\). Red indicates positive values, blue indicates negative values. Each row shows all \(2\ell+1\) harmonics for a given degree. Higher degrees capture increasingly complex angular patterns." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/spherical_harmonics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Representative spherical harmonics for degrees \(\ell = 0, 1, 2, 3\). Red indicates positive regions and blue indicates negative regions; higher degrees create more angular lobes, so they can encode finer directional structure." %}
 
 Each degree captures a different level of angular complexity:
 
@@ -145,7 +147,7 @@ $$r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0(\hat{\mathbf{r}}) + \sum_{m=-2}^{2} f_m^{(
 
 When only the type-0 coefficient is nonzero, $$r$$ is constant in every direction: a perfect sphere. Adding type-2 coefficients deforms the sphere into an ellipsoid, capturing directional stretching or compression. The sign and component choice determine whether the shape stretches along the z-axis (prolate), squashes along it (oblate), or tilts the stretch into the xy-plane.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ellipsoid_anisotropy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Surfaces whose radius is set by \(r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0 + \sum_m f_m^{(2)} Y_2^m\). With only \(f^{(0)}\) (left), the radius is constant — a sphere. Turning on different type-2 coefficients deforms the sphere into ellipsoids. Red = stretched outward, blue = compressed inward relative to the base sphere (gray wireframe)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ellipsoid_anisotropy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Surfaces whose radius is set by \(r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0 + \sum_m f_m^{(2)} Y_2^m\). With only \(f^{(0)}\) (left), the radius is constant — a sphere. Turning on different type-2 coefficients deforms the sphere into ellipsoids. Red = stretched outward, blue = compressed inward relative to the base sphere." %}
 
 The defining property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to the Wigner-D matrix $D^{(\ell)}(R)$.
 
@@ -189,18 +191,18 @@ Neural network layers need to combine features, such as a node representation wi
 
 Think of the layer as operating on features organized by type: type-0 scalars, type-1 vectors, type-2 tensors, and so on. A standard MLP would destroy this structure, so the equivariant analogue of a mixing layer is a CG tensor product. It takes a multi-type feature, mixes contributions across types according to the CG coefficients, and produces a new multi-type feature. Panel (a) below shows the compact view; panel (b) reveals the cross-type connections performed inside one layer.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/cg_network.png" class="img-fluid rounded z-depth-1" zoomable=true caption="CG tensor products as neural network layers. (a) Features organized by type (0 through 3) pass through successive layers. (b) Inside each layer, CG tensor products mix features across types — for example, combining a type-1 and type-2 input to produce type-2 and type-3 outputs. This cross-type mixing is what gives equivariant networks their expressivity." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/cg_network.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="CG tensor products as neural network layers. (a) Features organized by type (0 through 3) pass through successive layers. (b) Inside each layer, CG tensor products mix features across types — for example, combining a type-1 and type-2 input to produce type-2 and type-3 outputs. This cross-type mixing is what gives equivariant networks their expressivity." %}
 
 ### The Idea
 
 The ordinary tensor product of two spherical tensors is already equivariant, but its output space is *not* organized as a direct sum of irreps. The **Clebsch-Gordan (CG) tensor product** fixes that organization problem by applying a change of basis that splits the tensor product space into irreducible components.
 
-The key insight is:
+The construction has three steps:
 1. The naive tensor product gives a valid equivariant representation, but it's **reducible**
 2. A change-of-basis transformation can decompose this into a direct sum of **irreps**
 3. The CG coefficients define exactly this change of basis
 
-{% include figure.liquid loading="eager" path="assets/img/blog/cg_tensor_product.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The Clebsch-Gordan tensor product for two ℓ=1 vectors. Two 3D input vectors x⁽¹⁾ and y⁽¹⁾ are combined via the tensor product into a 3×3 object. The CG transform applies a change-of-basis matrix C·(·)·C⁻¹ to decompose this into a direct sum of irreps: z⁽⁰⁾ (1D scalar, green), z⁽¹⁾ (3D vector, blue), and z⁽²⁾ (5D quadrupole, red). Grid lines indicate the dimension of each component." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/cg_tensor_product.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The Clebsch-Gordan tensor product for two ℓ=1 vectors. Two 3D input vectors x⁽¹⁾ and y⁽¹⁾ are combined via the tensor product into a 3×3 object. The CG transform applies a change-of-basis matrix C·(·)·C⁻¹ to decompose this into a direct sum of irreps: z⁽⁰⁾ (1D scalar, green), z⁽¹⁾ (3D vector, blue), and z⁽²⁾ (5D quadrupole, red). Grid lines indicate the dimension of each component." %}
 
 ### The Naive Tensor Product
 
@@ -268,17 +270,19 @@ This is what allows us to stack multiple layers while maintaining equivariance t
 
 ### Computational Considerations
 
-CG tensor products are expensive. A naive implementation has complexity $O(L^6)$ where $L$ is the maximum degree, which becomes prohibitive for large $L$. This has motivated substantial research into more efficient implementations. Modern approaches reduce the complexity to $O(L^3)$ through techniques such as aligning features with edge vectors (reducing $SO(3)$ operations to simpler $SO(2)$ operations, as introduced by eSCN), computing only selected output types rather than all possible outputs, and exploiting sparsity patterns in the CG coefficients.
+CG tensor products are expensive. A naive implementation has complexity $O(L^6)$ where $L$ is the maximum degree, which becomes prohibitive for large $L$.
+
+Modern implementations reduce the complexity to $O(L^3)$ by aligning features with edge vectors (reducing $SO(3)$ operations to simpler $SO(2)$ operations, as introduced by eSCN), computing only selected output types, and exploiting sparsity patterns in the CG coefficients.
 
 ---
 
 ## General Architectural Framework
 
-This section assembles the components from previous sections into a complete neural network layer.
+These components define one complete neural-network layer.
 
 ### Building Blocks
 
-Most modern equivariant architectures for 3D atomic systems share a common framework built from the components above. The input is a set of atoms indexed by $i = 1, \ldots, N$, each with a 3D position $\mathbf{r}_i \in \mathbb{R}^3$ and an atom type (element identity). The output might be a scalar property such as energy, vector quantities such as forces, or more complex tensorial properties.
+Most modern equivariant architectures for 3D atomic systems share the same framework. The input is a set of atoms indexed by $i = 1, \ldots, N$, each with a 3D position $\mathbf{r}_i \in \mathbb{R}^3$ and an atom type. The output might be a scalar property such as energy, vector quantities such as forces, or more complex tensorial properties.
 
 The network begins by embedding atom types into type-0 (scalar) features. This resembles word embeddings in NLP, except the resulting features are rotation-invariant.
 
@@ -301,7 +305,11 @@ Nonlinear activations require care. Applying a pointwise nonlinearity such as Re
 
 The simplest approach is to apply nonlinearities only to type-0 (scalar) features, which are invariant and can be processed with any standard activation function. For higher-type features, we use only linear transformations within each layer, relying on the CG tensor products between layers to provide the necessary nonlinear mixing.
 
-A more sophisticated approach is **gated nonlinearity**, where we use a scalar quantity (such as the norm of a higher-type feature) to gate the feature: $\mathbf{h}^{(\ell)} \leftarrow \sigma(\lVert\mathbf{h}^{(\ell)}\rVert) \cdot \mathbf{h}^{(\ell)}$, where $\sigma$ is a standard activation function (e.g., sigmoid or SiLU). This preserves equivariance because the norm $\lVert\mathbf{h}^{(\ell)}\rVert$ is rotation-invariant, and multiplying by a scalar preserves the transformation properties.
+A more expressive approach is **gated nonlinearity**. A scalar quantity, such as the norm of a higher-type feature, gates the feature:
+
+$$\mathbf{h}^{(\ell)} \leftarrow \sigma(\lVert\mathbf{h}^{(\ell)}\rVert) \cdot \mathbf{h}^{(\ell)}$$
+
+where $\sigma$ is a standard activation function such as sigmoid or SiLU. This preserves equivariance because the norm $\lVert\mathbf{h}^{(\ell)}\rVert$ is rotation-invariant, and multiplying by a scalar preserves the transformation properties.
 
 The output layer depends on the target quantity. For invariant quantities such as total energy, the model uses type-0 features and sums over atoms to obtain one scalar. For equivariant quantities such as atomic forces, the model can either use type-1 features directly or compute forces as the negative gradient of the predicted energy: $\mathbf{F} = -\nabla E$. The gradient approach guarantees conservative forces, which matters for molecular dynamics, but it requires backpropagation through the energy prediction.
 
@@ -327,9 +335,15 @@ Input: Positions + Atom Types
 
 ## Modern Architectures
 
-The mathematical framework above is the common language behind many 3D atomic neural networks. Tensor Field Networks (Thomas et al., 2018) made the basic recipe explicit: spherical tensor features, spherical-harmonic edge information, radial functions, and CG tensor products. Later models such as NequIP, MACE, Equiformer, and eSCN changed the engineering details, but they still revolve around the same question: how do we mix atomic features without breaking the rotation law?
+The mathematical framework above is the common language behind many 3D atomic neural networks. Representative architectures differ mainly in how they trade expressivity, computational cost, and implementation complexity.
 
-Do not read this section as a leaderboard. Read it as a map of engineering choices: attention or message passing, higher body order or cheaper edge-aligned $$SO(2)$$ operations, strict equivariance or approximate equivariance. Once the algebra above is clear, the architecture papers are easier to parse.
+- **Tensor Field Networks** (Thomas et al., 2018) made the basic recipe explicit: spherical tensor features, spherical-harmonic filters on edges, radial functions, and CG tensor products. This is the cleanest reference point for the algebra in this post.
+- **NequIP** (Batzner et al., 2022) used equivariant message passing for interatomic potentials, with energies as invariant outputs and forces obtained from the energy gradient. Its main contribution was showing that rotational equivariance improves data efficiency for molecular force fields.
+- **MACE** (Batatia et al., 2022) emphasized higher-order equivariant message passing. Instead of treating interactions as only pairwise messages, it builds features that capture many-body correlations more directly.
+- **Equiformer** (Liao & Smidt, 2023) combined equivariant tensor features with transformer-style attention. The attention weights decide how strongly neighboring atoms interact, while the feature updates still respect the rotation law.
+- **eSCN** (Passaro & Zitnick, 2023) reduced expensive $SO(3)$ operations to cheaper edge-aligned $SO(2)$ computations. Its main contribution is computational: make high-degree spherical features practical at larger scale.
+
+The shared constraint is the same across these models: each local update must mix features without breaking their prescribed rotation behavior.
 
 ---
 
@@ -343,6 +357,11 @@ Do not read this section as a leaderboard. Read it as a map of engineering choic
 - Tang, S. (2025). A Complete Guide to Spherical Equivariant Graph Transformers. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927).
 - Bekkers, E. (2024). Geometric Deep Learning Lecture Series. [UvA](https://uvagedl.github.io/).
 - Duval, A., et al. (2023). A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems. [arXiv:2312.07511](https://arxiv.org/abs/2312.07511).
+
+### Figure sources
+
+- Architecture, circular-harmonic, CG-network, and CG tensor-product diagrams (`architecture_overview.svg`, `circular_harmonics.svg`, `cg_network.svg`, `cg_tensor_product.svg`): custom explanatory figures generated by `scripts/generate_harmonics_figures.py` with SVG+PNG outputs and the shared blog figure style.
+- Spherical-harmonic and ellipsoid-anisotropy figures (`spherical_harmonics.svg`, `ellipsoid_anisotropy.svg`): custom 3D figures generated by `scripts/generate_harmonics_figures.py`; the 3D surfaces are rasterized inside SVG files so labels remain legible and editable while avoiding large 3D path dumps.
 
 ---
 

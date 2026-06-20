@@ -241,13 +241,14 @@ def generate_drift_advection_figure(output_path):
 
 
 # ──────────────────────────────────────────────
-# Figure 2: Gaussian Smoothing (improved kernel inset)
+# Figure 2: Gaussian Smoothing
 # ──────────────────────────────────────────────
 def generate_gaussian_smoothing_figure(output_path):
     """
-    Two-bump density before and after convolution,
-    red/green shading where density changed.
-    Gaussian kernel inset positioned directly above the sharp peak.
+    Two-bump density before and after convolution.
+
+    The layout is intentionally schematic: the main point is that local
+    averaging lowers sharp peaks and fills nearby valleys.
     """
     MU1, SIGMA1, AMP1 = 2.5, 0.55, 0.50
     MU2, SIGMA2, AMP2 = 5.5, 1.2, 0.28
@@ -261,72 +262,39 @@ def generate_gaussian_smoothing_figure(output_path):
     p_after = gaussian_filter1d(p_before, sigma=SMOOTH_SIGMA_PX)
     diff = p_after - p_before
 
-    fig, ax = plt.subplots(figsize=(11, 5.0))
+    fig, ax = plt.subplots(figsize=(5.4, 3.2))
     _style_axis(ax, (X_MIN, X_MAX), (Y_MIN, Y_MAX),
                 xlabel=r'$x$', ylabel=r'$p_t(x)$')
 
     # Gain / loss shading
     ax.fill_between(x, p_before, np.where(diff > 0, p_after, p_before),
-                    where=(diff > 0), color=GAIN_COLOR, alpha=GAIN_ALPHA)
+                    where=(diff > 0), color=GAIN_COLOR, alpha=0.52, zorder=2)
     ax.fill_between(x, np.where(diff < 0, p_after, p_before), p_before,
-                    where=(diff < 0), color=LOSS_COLOR, alpha=LOSS_ALPHA)
+                    where=(diff < 0), color=LOSS_COLOR, alpha=0.52, zorder=2)
 
     # Curves
-    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.2)
-    ax.plot(x, p_after, color=DENSITY_AFTER, linewidth=2.0,
-            linestyle='--')
-    bfs.curve_label(ax, 5.95, 0.265, r'$p_t(x)$ before', DENSITY_SLATE, size=9.4)
-    bfs.curve_label(ax, 3.95, 0.175, 'after convolution', DENSITY_AFTER, size=9.2)
+    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.6, zorder=8)
+    ax.plot(x, p_after, color=DENSITY_AFTER, linewidth=2.4,
+            linestyle='--', zorder=9)
+    bfs.curve_label(ax, 5.88, 0.27, r'$p_t(x)$', DENSITY_SLATE, size=10.4)
+    bfs.curve_label(ax, 6.16, 0.21, 'smoothed', DENSITY_AFTER, size=10.2)
 
-    # Gaussian kernel inset — positioned directly above the sharp peak
-    peak_x = MU1  # x-position of the sharp peak
-    peak_y = AMP1  # height of the sharp peak
+    ax.text(2.75, 0.58, 'sharp peak\nloses mass',
+            ha='center', va='center', fontsize=10.2,
+            color='#b7432f', fontweight='semibold',
+            bbox=dict(boxstyle='round,pad=0.25', fc='white',
+                      alpha=0.92, ec='#ef9a9a', lw=0.8),
+            zorder=30)
+    ax.text(4.05, 0.08, 'nearby valley\ngains mass',
+            ha='center', va='center', fontsize=10.2,
+            color='#2e7d32', fontweight='semibold',
+            bbox=dict(boxstyle='round,pad=0.25', fc='white',
+                      alpha=0.92, ec='#a5d6a7', lw=0.8),
+            zorder=30)
 
-    # Draw kernel centered above the peak
-    km = peak_x
-    ks = 0.30
-    ka = 0.06
-    kernel_base_y = peak_y + 0.06  # just above the peak
-    xk = np.linspace(km - 3 * ks, km + 3 * ks, 100)
-    yk = kernel_base_y + _gauss(xk, km, ks, ka)
-
-    ax.fill_between(xk, kernel_base_y, yk, color=COOL_ARROW, alpha=0.25)
-    ax.plot(xk, yk, color=COOL_ARROW, linewidth=1.5)
-
-    # Dashed vertical connector from peak to kernel
-    ax.plot([peak_x, peak_x], [peak_y, kernel_base_y],
-            color=COOL_BORDER, linewidth=1.0, linestyle=':', zorder=2)
-
-    # Label above kernel
-    ax.text(km, kernel_base_y + ka + 0.02,
-            'average with neighbors\n' + r'$\rightarrow$ peak erodes',
-            ha='center', va='bottom', fontsize=8.5,
-            color=COOL_ANNOT, fontstyle='italic', linespacing=1.3)
-
-    # Annotations for loss/gain
-    pi = np.argmax(p_before)
-    ax.annotate(r'$\Delta p < 0$',
-                xy=(x[pi], p_before[pi] - 0.01),
-                xytext=(x[pi] + 1.5, p_before[pi] + 0.08),
-                fontsize=10.5, color='#c62828', fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color='#c62828', lw=1.0),
-                bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
-                          alpha=ANNOTATION_BG_ALPHA, ec='#ef9a9a', lw=0.6))
-
-    vr = (x > 3.5) & (x < 4.5)
-    vi = np.argmin(p_before[vr]) + np.argmax(vr)
-    ax.annotate(r'$\Delta p > 0$',
-                xy=(x[vi], p_after[vi]),
-                xytext=(x[vi] - 0.5, -0.05),
-                fontsize=10.5, color='#2e7d32', fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color='#2e7d32', lw=1.0),
-                bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
-                          alpha=ANNOTATION_BG_ALPHA, ec='#a5d6a7', lw=0.6))
-
+    ax.set_yticks([0.0, 0.25, 0.5])
     plt.tight_layout()
-    plt.savefig(output_path, dpi=240, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved Gaussian smoothing figure to {output_path}")
+    bfs.save_figure(fig, output_path, dpi=260)
 
 
 # ──────────────────────────────────────────────
@@ -490,11 +458,12 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    generate_drift_advection_figure(
-        os.path.join(output_dir, 'fp_drift_advection.png'))
-    generate_gaussian_smoothing_figure(
-        os.path.join(output_dir, 'fp_gaussian_smoothing.png'))
-    generate_diffusion_schematic_figure(
-        os.path.join(output_dir, 'fp_diffusion_schematic.png'))
+    for ext in ('svg', 'png'):
+        generate_drift_advection_figure(
+            os.path.join(output_dir, f'fp_drift_advection.{ext}'))
+        generate_gaussian_smoothing_figure(
+            os.path.join(output_dir, f'fp_gaussian_smoothing.{ext}'))
+        generate_diffusion_schematic_figure(
+            os.path.join(output_dir, f'fp_diffusion_schematic.{ext}'))
 
     print("Done!")

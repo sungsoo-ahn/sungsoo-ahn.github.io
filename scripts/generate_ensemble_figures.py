@@ -18,6 +18,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 
+import blog_figure_style as bfs
+
+bfs.use_blog_style()
+
 # ──────────────────────────────────────────────
 # Color palette (extends FP post palette)
 # ──────────────────────────────────────────────
@@ -51,8 +55,9 @@ NEUTRAL_BORDER = '#b0bec5'
 ANNOTATION_BG = 'white'
 ANNOTATION_BG_ALPHA = 0.85
 
-LABEL_FS = 13
-SUBLABEL_FS = 10.5
+LABEL_FS = 14
+SUBLABEL_FS = 11.5
+NOTE_FS = 11.0
 
 # ML figure colors
 ML_BLUE = '#5b7fa5'
@@ -105,7 +110,7 @@ def _heat_bath(ax, cx, cy, w, h, side='right'):
                           linewidth=1.5, linestyle='--', zorder=1)
     ax.add_patch(rect)
     ax.text(cx, cy, 'Heat\nbath', ha='center', va='center',
-            fontsize=9, color=BATH_TEXT, fontstyle='italic', linespacing=1.2)
+            fontsize=NOTE_FS, color=BATH_TEXT, fontstyle='italic', linespacing=1.15)
 
 
 def _wavy_arrow(ax, x0, y0, x1, y1, color=BATH_ARROW, label=None):
@@ -118,7 +123,7 @@ def _wavy_arrow(ax, x0, y0, x1, y1, color=BATH_ARROW, label=None):
     if label:
         mx, my = (x0 + x1) / 2, (y0 + y1) / 2
         ax.text(mx, my + 0.06, label, ha='center', va='bottom',
-                fontsize=8, color=color, fontstyle='italic',
+                fontsize=10, color=color, fontstyle='italic',
                 bbox=dict(boxstyle='round,pad=0.15', fc='white',
                           alpha=0.9, ec='none'))
 
@@ -132,8 +137,8 @@ def generate_four_ensembles_figure(output_path):
     NVE (isolated), NVT (heat bath), NPT (heat bath + piston), μVT (reservoir).
     Each panel shows what's fixed and what fluctuates.
     """
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8.5))
-    fig.subplots_adjust(hspace=0.30, wspace=0.25)
+    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.8))
+    fig.subplots_adjust(hspace=0.32, wspace=0.22)
 
     for ax in axes.flat:
         ax.set_xlim(-0.15, 1.20)
@@ -161,7 +166,7 @@ def generate_four_ensembles_figure(output_path):
     _draw_velocity_arrows(ax, xs, ys, seed=43)
 
     ax.text(bcx, bcy - bh/2 - 0.10, 'Fixed: $N, V, E$',
-            ha='center', va='top', fontsize=10, color=TEXT_COLOR,
+            ha='center', va='top', fontsize=NOTE_FS, color=TEXT_COLOR,
             bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
                       alpha=ANNOTATION_BG_ALPHA, ec=NEUTRAL_BORDER, lw=0.6))
 
@@ -185,7 +190,7 @@ def generate_four_ensembles_figure(output_path):
 
     ax.text(bcx + 0.05, bcy - bh/2 - 0.10,
             'Fixed: $N, V, T$   Fluctuates: $E$',
-            ha='center', va='top', fontsize=10, color=TEXT_COLOR,
+            ha='center', va='top', fontsize=NOTE_FS, color=TEXT_COLOR,
             bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
                       alpha=ANNOTATION_BG_ALPHA, ec=NEUTRAL_BORDER, lw=0.6))
 
@@ -214,12 +219,12 @@ def generate_four_ensembles_figure(output_path):
                 arrowprops=dict(arrowstyle='->', color=MECH_ARROW,
                                 lw=2.5, mutation_scale=14))
     ax.text(bcx + 0.14, piston_y + 0.14, '$P_{\\mathrm{ext}}$',
-            ha='left', va='center', fontsize=11, color=MECH_TEXT,
+            ha='left', va='center', fontsize=12, color=MECH_TEXT,
             fontweight='bold')
 
     ax.text(bcx + 0.05, bcy - bh/2 - 0.10,
             'Fixed: $N, P, T$   Fluctuates: $V, E$',
-            ha='center', va='top', fontsize=10, color=TEXT_COLOR,
+            ha='center', va='top', fontsize=NOTE_FS, color=TEXT_COLOR,
             bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
                       alpha=ANNOTATION_BG_ALPHA, ec=NEUTRAL_BORDER, lw=0.6))
 
@@ -240,7 +245,7 @@ def generate_four_ensembles_figure(output_path):
                               linewidth=1.5, linestyle='--', zorder=1)
     ax.add_patch(res_rect)
     ax.text(bath_cx, bcy - 0.15, 'Particle\nreservoir',
-            ha='center', va='center', fontsize=9, color=RESERVOIR_TEXT,
+            ha='center', va='center', fontsize=NOTE_FS, color=RESERVOIR_TEXT,
             fontstyle='italic', linespacing=1.2)
 
     _system_box(ax, bcx, bcy, bw, bh)
@@ -269,12 +274,12 @@ def generate_four_ensembles_figure(output_path):
                 arrowprops=dict(arrowstyle='<->', color=RESERVOIR_ARROW,
                                 lw=1.5, mutation_scale=10))
     ax.text((bcx + bw/2 + bath_cx - bath_w/2) / 2 + 0.01, bcy - 0.20, '$N$',
-            ha='center', va='top', fontsize=9, color=RESERVOIR_TEXT,
+            ha='center', va='top', fontsize=10.5, color=RESERVOIR_TEXT,
             fontweight='bold')
 
     ax.text(bcx + 0.05, bcy - bh/2 - 0.10,
             r'Fixed: $\mu, V, T$   Fluctuates: $N, E$',
-            ha='center', va='top', fontsize=10, color=TEXT_COLOR,
+            ha='center', va='top', fontsize=NOTE_FS, color=TEXT_COLOR,
             bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
                       alpha=ANNOTATION_BG_ALPHA, ec=NEUTRAL_BORDER, lw=0.6))
 
@@ -677,13 +682,14 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    generate_system_boundary_figure(
-        os.path.join(output_dir, 'ens_system_boundary.png'))
-    generate_four_ensembles_figure(
-        os.path.join(output_dir, 'ens_four_ensembles.png'))
-    generate_thermostat_spectrum_figure(
-        os.path.join(output_dir, 'ens_thermostat_spectrum.png'))
-    generate_ml_connection_figure(
-        os.path.join(output_dir, 'ens_ml_connection.png'))
+    for ext in ('svg', 'png'):
+        generate_system_boundary_figure(
+            os.path.join(output_dir, f'ens_system_boundary.{ext}'))
+        generate_four_ensembles_figure(
+            os.path.join(output_dir, f'ens_four_ensembles.{ext}'))
+        generate_thermostat_spectrum_figure(
+            os.path.join(output_dir, f'ens_thermostat_spectrum.{ext}'))
+        generate_ml_connection_figure(
+            os.path.join(output_dir, f'ens_ml_connection.{ext}'))
 
     print("Done!")

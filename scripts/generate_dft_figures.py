@@ -8,6 +8,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 
+import blog_figure_style as bfs
+
+bfs.use_blog_style()
+
 
 # --- Refined color palette ---
 TEXT_COLOR = '#263238'
@@ -128,7 +132,7 @@ def generate_scf_loop_figure(output_path):
             facecolor=fc, edgecolor=ec, linewidth=1.8, zorder=3)
         ax.add_patch(box)
         ax.text(cx, cy, label, ha='center', va='center',
-                fontsize=10.5, color=TEXT_COLOR, fontweight='bold', zorder=4)
+                fontsize=12, color=TEXT_COLOR, fontweight='bold', zorder=4)
 
     # --- Step number badges (1–5 on loop boxes, indices 1–5) ---
     for i in range(5):
@@ -140,7 +144,7 @@ def generate_scf_loop_figure(output_path):
         circle = plt.Circle((nx, ny), 0.17, color=badge_color, zorder=5)
         ax.add_patch(circle)
         ax.text(nx, ny, str(i + 1), ha='center', va='center',
-                fontsize=7.5, color='white', fontweight='bold', zorder=6)
+                fontsize=8.5, color='white', fontweight='bold', zorder=6)
 
     # --- Explicit arrow routing (strictly horizontal / vertical) ---
     # 0→1: Initial guess → Build density (horizontal, same y=TOP_Y)
@@ -169,7 +173,7 @@ def generate_scf_loop_figure(output_path):
                no_x, bot_edge(TOP_Y, BH),
                color=COLOR_NO, lw=1.8)
     ax.text(no_x + 0.40, (MID_Y + TOP_Y) / 2, 'No',
-            ha='left', va='center', fontsize=11,
+            ha='left', va='center', fontsize=12,
             color=COLOR_NO, fontweight='bold')
 
     # --- "Yes" arrow: Converged?(5) → output box (horizontal right) ---
@@ -186,7 +190,7 @@ def generate_scf_loop_figure(output_path):
         linewidth=1.8, zorder=3)
     ax.add_patch(output_box)
     ax.text(output_cx, output_cy, 'Converged energy & density',
-            ha='center', va='center', fontsize=10,
+            ha='center', va='center', fontsize=11.5,
             color='#2E7D32', fontweight='bold', zorder=4)
 
     draw_arrow(right_edge(LEFT_X, BW_DEC), MID_Y,
@@ -194,7 +198,7 @@ def generate_scf_loop_figure(output_path):
                color=COLOR_YES, lw=1.6)
     mid_yes_x = (right_edge(LEFT_X, BW_DEC) + left_edge(output_cx, output_w)) / 2
     ax.text(mid_yes_x, MID_Y - 0.32, 'Yes',
-            ha='center', va='center', fontsize=11,
+            ha='center', va='center', fontsize=12,
             color=COLOR_YES, fontweight='bold')
 
     plt.tight_layout()
@@ -209,6 +213,7 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    generate_scf_loop_figure(os.path.join(output_dir, 'scf_loop.png'))
+    for ext in ('svg', 'png'):
+        generate_scf_loop_figure(os.path.join(output_dir, f'scf_loop.{ext}'))
 
     print("Done!")

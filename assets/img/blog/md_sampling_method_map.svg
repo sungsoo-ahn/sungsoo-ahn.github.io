@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="505.44pt" height="236.16pt" viewBox="0 0 505.44 236.16" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-06-20T21:16:28.365528</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 236.16 
+L 505.44 236.16 
+L 505.44 0 
+L 0 0 
+L 0 236.16 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 127.5048 91.4688 
+Q 143.4636 91.4688 157.409939 91.4688 
+" clip-path="url(#pc8bf871ea2)" style="fill: none; stroke: #6f7f86; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 152.209939 88.8688 
+L 157.409939 91.4688 
+L 152.209939 94.0688 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #6f7f86; stroke: #6f7f86; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 267.4512 91.4688 
+Q 279.7272 91.4688 289.990739 91.4688 
+" clip-path="url(#pc8bf871ea2)" style="fill: none; stroke: #6f7f86; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 284.790739 88.8688 
+L 289.990739 91.4688 
+L 284.790739 94.0688 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #6f7f86; stroke: #6f7f86; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 198.7056 149.1264 
+Q 202.52304 129.91248 212.502475 115.037473 
+" clip-path="url(#pc8bf871ea2)" style="fill: none; stroke: #1a8a7a; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 207.446316 117.907185 
+L 212.502475 115.037473 
+L 211.764549 120.804228 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #1a8a7a; stroke: #1a8a7a; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 311.6448 144.6912 
+Q 282.860352 116.793792 244.571068 113.776545 
+" clip-path="url(#pc8bf871ea2)" style="fill: none; stroke: #c0503f; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 249.550748 116.777011 
+L 244.571068 113.776545 
+L 249.959248 111.593081 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #c0503f; stroke: #c0503f; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #6f7f86" x="139.7808" y="69.2928" transform="rotate(-0 139.7808 69.2928)">bias</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #6f7f86" x="287.0928" y="69.2928" transform="rotate(-0 287.0928 69.2928)">reweight</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'Arial'; text-anchor: middle; fill: #6f7f86" x="237.9888" y="206.784" transform="rotate(-0 237.9888 206.784)">path-measure view: Jarzynski, AIS, diffusion models, trajectory objectives</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 600; font-size: 16px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="252.72" y="27.1584" transform="rotate(-0 252.72 27.1584)">Enhanced sampling changes the sampling distribution</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 71.0352 105.8832 
+C 86.011113 105.8832 100.375667 104.364408 110.965237 101.66132 
+C 121.554807 98.958232 127.5048 95.291544 127.5048 91.4688 
+C 127.5048 87.646056 121.554807 83.979368 110.965237 81.27628 
+C 100.375667 78.573192 86.011113 77.0544 71.0352 77.0544 
+C 56.059287 77.0544 41.694733 78.573192 31.105163 81.27628 
+C 20.515593 83.979368 14.5656 87.646056 14.5656 91.4688 
+C 14.5656 95.291544 20.515593 98.958232 31.105163 101.66132 
+C 41.694733 104.364408 56.059287 105.8832 71.0352 105.8832 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #ffffff; stroke: #5b7fa5; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 213.4368 105.8832 
+C 227.761586 105.8832 241.501595 104.364408 251.630749 101.66132 
+C 261.759902 98.958232 267.4512 95.291544 267.4512 91.4688 
+C 267.4512 87.646056 261.759902 83.979368 251.630749 81.27628 
+C 241.501595 78.573192 227.761586 77.0544 213.4368 77.0544 
+C 199.112014 77.0544 185.372005 78.573192 175.242851 81.27628 
+C 165.113698 83.979368 159.4224 87.646056 159.4224 91.4688 
+C 159.4224 95.291544 165.113698 98.958232 175.242851 101.66132 
+C 185.372005 104.364408 199.112014 105.8832 213.4368 105.8832 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #ffffff; stroke: #e8a030; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 360.7488 105.8832 
+C 378.980346 105.8832 396.46763 104.364408 409.35928 101.66132 
+C 422.25093 98.958232 429.4944 95.291544 429.4944 91.4688 
+C 429.4944 87.646056 422.25093 83.979368 409.35928 81.27628 
+C 396.46763 78.573192 378.980346 77.0544 360.7488 77.0544 
+C 342.517254 77.0544 325.02997 78.573192 312.13832 81.27628 
+C 299.24667 83.979368 292.0032 87.646056 292.0032 91.4688 
+C 292.0032 95.291544 299.24667 98.958232 312.13832 101.66132 
+C 325.02997 104.364408 342.517254 105.8832 360.7488 105.8832 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #ffffff; stroke: #4caf50; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 164.3328 181.2816 
+C 179.308713 181.2816 193.673267 179.762808 204.262837 177.05972 
+C 214.852407 174.356632 220.8024 170.689944 220.8024 166.8672 
+C 220.8024 163.044456 214.852407 159.377768 204.262837 156.67468 
+C 193.673267 153.971592 179.308713 152.4528 164.3328 152.4528 
+C 149.356887 152.4528 134.992333 153.971592 124.402763 156.67468 
+C 113.813193 159.377768 107.8632 163.044456 107.8632 166.8672 
+C 107.8632 170.689944 113.813193 174.356632 124.402763 177.05972 
+C 134.992333 179.762808 149.356887 181.2816 164.3328 181.2816 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 311.6448 181.2816 
+C 327.922966 181.2816 343.536612 179.762808 355.047014 177.05972 
+C 366.557416 174.356632 373.0248 170.689944 373.0248 166.8672 
+C 373.0248 163.044456 366.557416 159.377768 355.047014 156.67468 
+C 343.536612 153.971592 327.922966 152.4528 311.6448 152.4528 
+C 295.366634 152.4528 279.752988 153.971592 268.242586 156.67468 
+C 256.732184 159.377768 250.2648 163.044456 250.2648 166.8672 
+C 250.2648 170.689944 256.732184 174.356632 268.242586 177.05972 
+C 279.752988 179.762808 295.366634 181.2816 311.6448 181.2816 
+z
+" clip-path="url(#pc8bf871ea2)" style="fill: #ffffff; stroke: #c0503f; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 600; font-size: 11.5px; font-family: 'Arial'; text-anchor: middle; fill: #5b7fa5" x="71.0352" y="94.449816" transform="rotate(-0 71.0352 94.449816)">Unbiased MD</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 600; font-size: 11.5px; font-family: 'Arial'; text-anchor: middle; fill: #e8a030" x="213.4368" y="94.449816" transform="rotate(-0 213.4368 94.449816)">CV bias</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 600; font-size: 11.5px; font-family: 'Arial'; text-anchor: middle; fill: #4caf50" x="360.7488" y="94.449816" transform="rotate(-0 360.7488 94.449816)">Corrected estimates</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 600; font-size: 11.5px; font-family: 'Arial'; text-anchor: middle; fill: #1a8a7a" x="164.3328" y="169.848216" transform="rotate(-0 164.3328 169.848216)">Learn the CV</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 600; font-size: 11.5px; font-family: 'Arial'; text-anchor: middle; fill: #c0503f" x="311.6448" y="169.848216" transform="rotate(-0 311.6448 169.848216)">Learn path bias</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc8bf871ea2">
+   <rect x="7.2" y="7.2" width="491.04" height="221.76"/>
+  </clipPath>
+ </defs>
+</svg>

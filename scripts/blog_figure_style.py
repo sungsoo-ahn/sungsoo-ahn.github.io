@@ -1,6 +1,15 @@
-"""Shared visual helpers for generated blog figures."""
+"""Shared visual helpers for generated blog figures.
+
+Generated blog figures are SVG-first.  Matplotlib scripts should save an
+editable SVG plus a PNG preview, while sourced internet figures should keep
+their original format and provenance.
+"""
 
 from __future__ import annotations
+
+from pathlib import Path
+import shutil
+import subprocess
 
 import matplotlib.pyplot as plt
 
@@ -37,18 +46,46 @@ def use_blog_style() -> None:
             "xtick.color": MUTED,
             "ytick.color": MUTED,
             "text.color": TEXT,
-            "font.family": "sans-serif",
+            "font.family": "Arial",
             "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "font.size": 10,
-            "axes.titlesize": 11,
-            "axes.labelsize": 10,
-            "xtick.labelsize": 8.5,
-            "ytick.labelsize": 8.5,
-            "legend.fontsize": 8.5,
-            "savefig.facecolor": "white",
-            "savefig.edgecolor": "white",
+            "font.size": 11,
+            "axes.labelsize": 11.5,
+            "axes.titlesize": 12.5,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+            "legend.fontsize": 10,
+            "axes.linewidth": 0.8,
+            "lines.linewidth": 2.4,
+            "lines.markersize": 4.8,
+            "xtick.major.width": 0.8,
+            "ytick.major.width": 0.8,
+            "xtick.major.size": 3,
+            "ytick.major.size": 3,
+            "figure.dpi": 160,
+            "savefig.dpi": 300,
+            "savefig.bbox": "tight",
+            "savefig.transparent": True,
+            "savefig.facecolor": "none",
+            "savefig.edgecolor": "none",
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "svg.fonttype": "none",
         }
     )
+
+
+def clean_axes(ax, *, grid: bool = False) -> None:
+    """Remove nonessential chart furniture."""
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color(SPINE)
+    ax.spines["bottom"].set_color(SPINE)
+    ax.tick_params(length=3, width=0.8, colors=MUTED)
+    ax.grid(False)
+    ax.margins(x=0.02)
+    if grid:
+        ax.grid(color=GRID, linewidth=0.8, alpha=0.55)
+        ax.set_axisbelow(True)
 
 
 def style_axis(ax, xlabel: str = "", ylabel: str = "", title: str = "", *, grid: bool = False) -> None:
@@ -57,14 +94,7 @@ def style_axis(ax, xlabel: str = "", ylabel: str = "", title: str = "", *, grid:
     ax.set_ylabel(ylabel)
     if title:
         ax.set_title(title, loc="left", pad=8, fontweight="semibold")
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color(SPINE)
-    ax.spines["bottom"].set_color(SPINE)
-    ax.tick_params(length=3, width=0.8, colors=MUTED)
-    if grid:
-        ax.grid(color=GRID, linewidth=0.8, alpha=0.7)
-        ax.set_axisbelow(True)
+    clean_axes(ax, grid=grid)
 
 
 def panel_label(ax, label: str) -> None:
@@ -180,7 +210,44 @@ def state_marker(
     )
 
 
-def save_figure(fig, output_path, *, dpi: int = 220) -> None:
-    fig.savefig(output_path, dpi=dpi, bbox_inches="tight", facecolor="white")
+def _as_paths(output_path) -> tuple[Path, Path]:
+    path = Path(output_path)
+    if path.suffix.lower() == ".svg":
+        return path, path.with_suffix(".png")
+    return path.with_suffix(".svg"), path.with_suffix(".png")
+
+
+def render_svg_preview(svg_path, png_path, *, width: int | None = None) -> bool:
+    """Render an SVG to PNG for inspection with local command-line tools."""
+    svg_path = Path(svg_path)
+    png_path = Path(png_path)
+    if shutil.which("rsvg-convert"):
+        cmd = ["rsvg-convert", str(svg_path), "-o", str(png_path)]
+        if width is not None:
+            cmd.extend(["--width", str(width)])
+        subprocess.run(cmd, check=True)
+        return True
+    if shutil.which("magick"):
+        cmd = ["magick", str(svg_path)]
+        if width is not None:
+            cmd.extend(["-resize", f"{width}x"])
+        cmd.append(str(png_path))
+        subprocess.run(cmd, check=True)
+        return True
+    return False
+
+
+def save_svg_png(fig, output_path, *, dpi: int = 300, transparent: bool = True) -> tuple[Path, Path]:
+    """Save an editable SVG and a PNG preview with the same stem."""
+    svg_path, png_path = _as_paths(output_path)
+    svg_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(svg_path, format="svg", bbox_inches="tight", transparent=transparent)
+    fig.savefig(png_path, format="png", dpi=dpi, bbox_inches="tight", transparent=transparent)
     plt.close(fig)
-    print(f"Saved {output_path}")
+    print(f"Saved {svg_path} and {png_path}")
+    return svg_path, png_path
+
+
+def save_figure(fig, output_path, *, dpi: int = 300) -> None:
+    """Backward-compatible save helper that now emits SVG plus PNG."""
+    save_svg_png(fig, output_path, dpi=dpi)

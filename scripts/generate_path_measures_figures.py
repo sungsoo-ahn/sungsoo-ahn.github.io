@@ -43,6 +43,11 @@ OUTPUT_DIR = 'assets/img/blog'
 bfs.use_blog_style()
 
 
+def _save(fig, stem: str, *, dpi: int = 300) -> None:
+    """Save an editable SVG plus a PNG preview."""
+    bfs.save_svg_png(fig, f'{OUTPUT_DIR}/{stem}.svg', dpi=dpi, transparent=False)
+
+
 def _style_ax(ax, xlabel='', ylabel='', title=''):
     """Apply consistent axis styling."""
     bfs.style_axis(ax, xlabel=xlabel, ylabel=ylabel, title=title)
@@ -54,7 +59,7 @@ def _style_ax(ax, xlabel='', ylabel='', title=''):
 # ──────────────────────────────────────────────
 def fig_boltzmann_overlap():
     """Two Boltzmann distributions with minimal overlap — illustrates why FEP fails."""
-    fig, ax = plt.subplots(figsize=(8.8, 4.0))
+    fig, ax = plt.subplots(figsize=(5.6, 3.35))
 
     x = np.linspace(-4, 10, 500)
     p_a = norm.pdf(x, loc=0, scale=1.0)
@@ -81,10 +86,7 @@ def fig_boltzmann_overlap():
     _style_ax(ax, xlabel='Configuration space $\\mathbf{x}$', ylabel='Probability density')
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_boltzmann_overlap.png', dpi=250, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_boltzmann_overlap.png')
+    _save(fig, 'pm_boltzmann_overlap', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -92,7 +94,7 @@ def fig_boltzmann_overlap():
 # ──────────────────────────────────────────────
 def fig_double_well_protocol():
     """Time-dependent double well with λ tilting the landscape, plus a trajectory."""
-    fig, axes = plt.subplots(1, 3, figsize=(10, 3.2))
+    fig, axes = plt.subplots(1, 3, figsize=(7.0, 3.05))
 
     x = np.linspace(-2, 2, 300)
 
@@ -133,10 +135,7 @@ def fig_double_well_protocol():
     fig.suptitle('Protocol: tilting the double-well potential', fontsize=LABEL_FS,
                  fontweight='bold', color=TEXT_COLOR, y=1.02)
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_double_well_protocol.png', dpi=200, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_double_well_protocol.png')
+    _save(fig, 'pm_double_well_protocol', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -189,17 +188,17 @@ def fig_alternating_steps():
         snapshots.append(particles.copy())
 
     titles = [
-        r'$\lambda=0$' + '\n(equilibrium)',
-        r'$\lambda \to 0.5$' + '\n(potential shifts)',
-        r'$\lambda=0.5$' + '\n(particles relax)',
-        r'$\lambda \to 1.0$' + '\n(potential shifts)',
-        r'$\lambda=1.0$' + '\n(particles relax)',
+        r'$\lambda=0$' + '\nequilibrium',
+        r'$\lambda\to0.5$' + '\nwork step',
+        r'$\lambda=0.5$' + '\nrelax',
+        r'$\lambda\to1.0$' + '\nwork step',
+        r'$\lambda=1.0$' + '\nrelax',
     ]
 
     # ── Plot ──
     n_states = len(states)
-    fig, axes = plt.subplots(1, n_states, figsize=(3.05 * n_states, 4.05),
-                              gridspec_kw={'wspace': 0.42})
+    fig, axes = plt.subplots(1, n_states, figsize=(8.4, 3.4),
+                              gridspec_kw={'wspace': 0.24})
     x_plot = np.linspace(-1.8, 1.8, 300)
 
     all_u = [U(x_plot, lam) for lam, _ in states]
@@ -251,7 +250,7 @@ def fig_alternating_steps():
 
         ax.set_xlim(-1.8, 1.8)
         ax.set_ylim(y_min, y_max)
-        ax.set_title(title, fontsize=8.6, color=col, fontweight='bold', linespacing=1.25, pad=7)
+        ax.set_title(title, fontsize=9.4, color=col, fontweight='bold', linespacing=1.15, pad=6)
         ax.set_xticks([])
         ax.set_yticks([])
         for spine in ax.spines.values():
@@ -265,15 +264,12 @@ def fig_alternating_steps():
         label = 'shift $\\lambda$\n(work)' if stype_next == 'work' else 'MCMC\n(relax)'
         col = AMBER if stype_next == 'work' else TEAL
         x_mid = (axes[i].get_position().x1 + axes[i + 1].get_position().x0) / 2
-        fig.text(x_mid, 0.50, '→', fontsize=18, ha='center', va='center',
+        fig.text(x_mid, 0.50, '→', fontsize=17, ha='center', va='center',
                  color=col, fontweight='bold', transform=fig.transFigure)
-        fig.text(x_mid, 0.39, label, fontsize=7.2, ha='center', va='center',
+        fig.text(x_mid, 0.38, label, fontsize=8.0, ha='center', va='center',
                  color=col, transform=fig.transFigure)
 
-    fig.savefig(f'{OUTPUT_DIR}/pm_alternating_steps.png', dpi=240, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_alternating_steps.png')
+    _save(fig, 'pm_alternating_steps', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -330,7 +326,7 @@ def fig_work_trajectories():
     lucky_idx = np.argmin(final_works)
     unlucky_idx = np.argmax(final_works)
 
-    fig, axes = plt.subplots(1, 3, figsize=(14.2, 4.05), gridspec_kw={'wspace': 0.34})
+    fig, axes = plt.subplots(1, 3, figsize=(8.2, 3.45), gridspec_kw={'wspace': 0.34})
 
     # Panel (a): Trajectories
     ax = axes[0]
@@ -346,8 +342,8 @@ def fig_work_trajectories():
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
     ax.text(0.03, 1.22, 'right well', fontsize=8, color=RED, va='bottom',
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
-    bfs.curve_label(ax, 0.62, 0.86, 'low work', TEAL, size=8.7)
-    bfs.curve_label(ax, 0.43, -1.18, 'high work', RED, size=8.7)
+    bfs.curve_label(ax, 0.62, 0.86, 'low work', TEAL, size=9.2)
+    bfs.curve_label(ax, 0.43, -1.18, 'high work', RED, size=9.2)
     _style_ax(ax, xlabel='Time $t$', ylabel='Position $x(t)$', title='Trajectories')
 
     # Panel (b): Cumulative work
@@ -362,8 +358,8 @@ def fig_work_trajectories():
     ax.text(0.94, delta_f_est + 0.10, r'$\Delta F$', fontsize=SUBLABEL_FS, color=TEXT_COLOR,
             ha='right', va='bottom', fontweight='bold',
             bbox=dict(fc='white', ec='none', alpha=0.82, pad=1.0))
-    bfs.curve_label(ax, 0.66, 1.18, 'low work', TEAL, size=8.7)
-    bfs.curve_label(ax, 0.66, 2.35, 'high work', RED, size=8.7)
+    bfs.curve_label(ax, 0.66, 1.18, 'low work', TEAL, size=9.2)
+    bfs.curve_label(ax, 0.66, 2.35, 'high work', RED, size=9.2)
     _style_ax(ax, xlabel='Time $t$', ylabel='Cumulative work $W(t)$', title='Cumulative work')
 
     # Panel (c): Work histogram
@@ -374,16 +370,13 @@ def fig_work_trajectories():
     ax.axvline(delta_f_est, color=RED, linewidth=2.5, linestyle='-',
                zorder=5)
     y_top = density.max() * 1.16
-    bfs.curve_label(ax, np.mean(all_work) + 0.08, y_top * 0.86, r'$\langle W\rangle$', AMBER, size=8.8)
-    bfs.curve_label(ax, delta_f_est + 0.08, y_top * 0.60, r'$\Delta F$', RED, size=8.8)
+    bfs.curve_label(ax, np.mean(all_work) + 0.08, y_top * 0.86, r'$\langle W\rangle$', AMBER, size=9.2)
+    bfs.curve_label(ax, delta_f_est + 0.08, y_top * 0.60, r'$\Delta F$', RED, size=9.2)
     ax.set_ylim(0, y_top)
     _style_ax(ax, xlabel='Work $W$', ylabel='Density', title='Work histogram')
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_work_trajectories.png', dpi=240, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_work_trajectories.png')
+    _save(fig, 'pm_work_trajectories', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -427,10 +420,7 @@ def fig_trajectory_ensemble():
     ax.set_xlim(-0.05, 1.05)
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_trajectory_ensemble.png', dpi=200, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_trajectory_ensemble.png')
+    _save(fig, 'pm_trajectory_ensemble', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -478,10 +468,7 @@ def fig_work_distribution():
     ax.set_ylim(0, None)
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_work_distribution.png', dpi=200, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_work_distribution.png')
+    _save(fig, 'pm_work_distribution', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -489,7 +476,7 @@ def fig_work_distribution():
 # ──────────────────────────────────────────────
 def fig_crooks_intersection():
     """P_F(W) and P_R(−W) crossing at W = ΔF."""
-    fig, ax = plt.subplots(figsize=(8.8, 4.0))
+    fig, ax = plt.subplots(figsize=(5.6, 3.35))
 
     delta_f = 3.0
     sigma = 1.2
@@ -519,10 +506,7 @@ def fig_crooks_intersection():
     ax.set_ylim(0, 0.36)
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_crooks_intersection.png', dpi=250, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_crooks_intersection.png')
+    _save(fig, 'pm_crooks_intersection', dpi=300)
 
 
 # ──────────────────────────────────────────────
@@ -580,10 +564,7 @@ def fig_unification_diagram():
                       linewidth=1))
 
     fig.tight_layout()
-    fig.savefig(f'{OUTPUT_DIR}/pm_unification_diagram.png', dpi=200, bbox_inches='tight',
-                facecolor='white')
-    plt.close(fig)
-    print('  ✓ pm_unification_diagram.png')
+    _save(fig, 'pm_unification_diagram', dpi=300)
 
 
 # ──────────────────────────────────────────────

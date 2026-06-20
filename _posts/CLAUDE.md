@@ -66,12 +66,17 @@ Posts begin with an author note immediately after the frontmatter:
 ## Figures
 
 - Store figure images in `assets/img/blog/`
-- Write a single Python script with separate functions per figure — easier to regenerate individually
-- Use a consistent color palette across all figures with matching text colors for equation-figure correspondence
+- **Source before drawing:** do not redraw a well-known concept when a high-quality, license-compatible figure already exists online. Prefer Wikimedia Commons, official project pages, PMC/open-access paper figures, or author-provided figures with clear terms.
+- Draw custom figures only for post-specific conceptual simplifications, quantitative toy plots, synthesis diagrams, or cases where existing figures are legally unusable or visually unsuitable.
+- For generated static figures, write a single Python script with separate functions per figure and export SVG plus PNG preview.
+- If the SVG becomes a huge path dump for 3D surfaces, dense contours, raster-like heatmaps, or image composites, embed the PNG preview instead and keep the source code.
+- For sourced figures, keep the original useful format and document source URL, license, and any modifications in the Figure Sources section.
+- Use a consistent color palette across generated figures with matching text colors for equation-figure correspondence.
+- Captions should usually have two sentences: one saying what the figure shows, one explaining the mechanism or interpretation. Add concise provenance wording for sourced or adapted figures.
 - Embed figures using the Liquid include:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Your caption here." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="What the figure shows. Why it matters." %}
 ```
 
 Run `python3 scripts/validate_blog.py` before committing. It fails on broken metadata, missing figures, bad footnote IDs, and unsafe caption math; it warns on unused blog images and provenance wording that should be reviewed.

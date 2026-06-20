@@ -13,6 +13,8 @@ Color convention:
 
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
+from html import escape
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle, Rectangle, Polygon
 from matplotlib.patches import Arc
 import matplotlib.patheffects as pe
@@ -107,6 +109,75 @@ def _draw_arrow(ax, x1, y1, x2, y2, color=None, lw=1.6, ms=14, zorder=2):
     ax.add_patch(a)
 
 
+def _svg_text(x, y, lines, *, size=16, fill=TEXT_COLOR, weight="500", anchor="middle", line_gap=1.18):
+    """Return an SVG text block with explicit line breaks."""
+    if isinstance(lines, str):
+        lines = lines.split("\n")
+    tspans = []
+    for i, line in enumerate(lines):
+        dy = 0 if i == 0 else size * line_gap
+        tspans.append(
+            f'<tspan x="{x:.1f}" dy="{dy:.1f}">{escape(line)}</tspan>'
+        )
+    return (
+        f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" '
+        f'font-size="{size}" font-weight="{weight}" fill="{fill}">'
+        + "".join(tspans)
+        + "</text>"
+    )
+
+
+def _svg_box(x, y, w, h, lines, *, fill, stroke, size=16, weight="700", rx=10):
+    mid_y = y + h / 2 - (len(lines) - 1) * size * 0.56
+    return "\n".join(
+        [
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{fill}" '
+            f'stroke="{stroke}" stroke-width="2.2"/>',
+            _svg_text(x + w / 2, mid_y, lines, size=size, weight=weight),
+        ]
+    )
+
+
+def _svg_arrow(x1, y1, x2, y2, *, color=ARROW_COLOR, width=2.4):
+    return (
+        f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+        f'stroke="{color}" stroke-width="{width}" stroke-linecap="round" '
+        f'marker-end="url(#arrow)"/>'
+    )
+
+
+def _svg_header(width, height):
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="{ARROW_COLOR}"/>
+  </marker>
+  <marker id="greenArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="{COLOR_GREEN}"/>
+  </marker>
+  <style>
+    text {{ font-family: Arial, Helvetica, DejaVu Sans, sans-serif; }}
+  </style>
+</defs>
+<rect width="100%" height="100%" fill="white"/>
+'''
+
+
+def _write_svg_or_preview(output_path, svg):
+    """Write native SVG, and render PNG previews for .png outputs."""
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if out.suffix.lower() == ".png":
+        svg_path = out.with_suffix(".svg")
+        svg_path.write_text(svg, encoding="utf-8")
+        if not bfs.render_svg_preview(svg_path, out, width=1600):
+            raise RuntimeError("Could not render SVG preview; install rsvg-convert or ImageMagick.")
+        print(f"Saved native SVG preview to {out}")
+        return
+    out.write_text(svg, encoding="utf-8")
+    print(f"Saved native SVG figure to {out}")
+
+
 # ──────────────────────────────────────────────
 # Figure 1: Energy Storage Cycle
 # ──────────────────────────────────────────────
@@ -115,67 +186,49 @@ def generate_energy_cycle_figure(output_path):
     Flowchart: Renewable → Electrolyzer → H2/CH4 → Fuel Cell → Grid
     With a return arrow showing the cycle.
     """
-    fig, ax = plt.subplots(figsize=(10.8, 3.45))
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis('off')
-
-    ax.text(
-        0.5, 0.91, 'Hydrogen energy storage cycle',
-        ha='center', va='center', fontsize=14,
-        color=TEXT_COLOR, fontweight='bold'
-    )
-
-    bw, bh = 0.16, 0.22
-    positions = [
-        (0.12, 0.56, 'Renewable\nelectricity', BOX_GREEN, EDGE_GREEN),
-        (0.34, 0.56, 'Electrolyzer', BOX_WARM, EDGE_WARM),
-        (0.56, 0.56, 'H$_2$ / CH$_4$\nstorage', BOX_MAIN, EDGE_MAIN),
-        (0.78, 0.56, 'Fuel cell', BOX_WARM, EDGE_WARM),
+    width, height = 900, 330
+    boxes = [
+        (54, 128, 138, 72, ["Renewable", "electricity"], BOX_GREEN, EDGE_GREEN),
+        (258, 128, 138, 72, ["Electrolyzer"], BOX_WARM, EDGE_WARM),
+        (462, 128, 138, 72, ["H2 / CH4", "storage"], BOX_MAIN, EDGE_MAIN),
+        (666, 128, 138, 72, ["Fuel cell"], BOX_WARM, EDGE_WARM),
     ]
-
-    for cx, cy, label, fc, ec in positions:
-        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, rounding=0.015, fontsize=11.5)
-
-    for i in range(len(positions) - 1):
-        _draw_arrow(ax, positions[i][0] + bw / 2 + 0.018, 0.56,
-                    positions[i + 1][0] - bw / 2 - 0.018, 0.56,
-                    color=ARROW_COLOR, lw=1.4, ms=12)
-
-    arrow_labels = [
-        (0.23, 0.72, 'H$_2$O + power', EDGE_WARM),
-        (0.45, 0.72, 'chemical energy', EDGE_MAIN),
-        (0.67, 0.72, 'electricity + heat', EDGE_WARM),
+    parts = [
+        _svg_header(width, height),
+        _svg_text(width / 2, 48, "Hydrogen energy storage cycle", size=23, weight="700"),
     ]
-    for x, y, label, color in arrow_labels:
-        ax.text(
-            x, y, label, ha='center', va='center',
-            fontsize=9.4, color=color, fontweight='semibold',
-            bbox=bfs.label_box(alpha=0.9, pad=1.4)
+    for x, y, w, h, lines, fill, stroke in boxes:
+        parts.append(_svg_box(x, y, w, h, lines, fill=fill, stroke=stroke, size=17))
+
+    arrow_y = 164
+    labels = [
+        (225, 104, "H2O + power", EDGE_WARM),
+        (429, 104, "chemical energy", EDGE_MAIN),
+        (633, 104, "electricity + heat", EDGE_WARM),
+    ]
+    for left, right in zip(boxes[:-1], boxes[1:]):
+        parts.append(_svg_arrow(left[0] + left[2] + 18, arrow_y, right[0] - 18, arrow_y))
+    for x, y, label, color in labels:
+        parts.append(
+            f'<rect x="{x - 66}" y="{y - 18}" width="132" height="28" rx="7" fill="white" opacity="0.92"/>'
         )
+        parts.append(_svg_text(x, y, label, size=14, fill=color, weight="700"))
 
-    _draw_arrow(ax, positions[-1][0] + bw / 2 + 0.018, 0.56,
-                0.94, 0.56, color=COLOR_GREEN, lw=1.5, ms=12)
-    ax.text(0.955, 0.56, 'Grid', ha='left', va='center',
-            fontsize=11.5, color=COLOR_GREEN, fontweight='bold')
-
-    return_path = FancyArrowPatch(
-        (0.78, 0.36), (0.12, 0.36),
-        connectionstyle='angle3,angleA=-90,angleB=180',
-        arrowstyle='-|>', color=COLOR_GREEN, linewidth=1.5,
-        mutation_scale=12, zorder=2
+    parts.append(
+        f'<line x1="822" y1="{arrow_y}" x2="836" y2="{arrow_y}" stroke="{COLOR_GREEN}" '
+        'stroke-width="2.6" stroke-linecap="round" marker-end="url(#greenArrow)"/>'
     )
-    ax.add_patch(return_path)
-    ax.text(
-        0.45, 0.28, 'water byproduct returns to electrolysis',
-        ha='center', va='center', fontsize=9.5, color=COLOR_GREEN,
-        fontstyle='italic'
+    parts.append(_svg_text(848, arrow_y + 5, "Grid", size=17, fill=COLOR_GREEN, weight="700", anchor="start"))
+    parts.append(
+        f'<path d="M 735 224 L 735 252 L 124 252 L 124 215" fill="none" '
+        f'stroke="{COLOR_GREEN}" stroke-width="2.4" stroke-linecap="round" '
+        'stroke-linejoin="round" marker-end="url(#greenArrow)"/>'
     )
-
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved energy cycle figure to {output_path}")
+    parts.append(
+        _svg_text(430, 283, "water byproduct returns to electrolysis", size=15, fill=COLOR_GREEN, weight="600")
+    )
+    parts.append("</svg>\n")
+    _write_svg_or_preview(output_path, "\n".join(parts))
 
 
 # ──────────────────────────────────────────────
@@ -186,88 +239,72 @@ def generate_fuel_cell_figure(output_path):
     Simplified PEM fuel cell cross-section:
     Anode | Membrane | Cathode with reactions labeled.
     """
-    fig, ax = plt.subplots(figsize=(8.6, 5.2))
-    ax.set_xlim(-0.55, 10.55)
-    ax.set_ylim(-0.8, 7.25)
-    ax.set_aspect('equal')
-    ax.axis('off')
-
-    # Three regions
-    regions = [
-        (0, 0, 3.35, 5.85, '#fce4ec', '#d64f3f', 'Anode'),
-        (3.5, 0, 3, 6, '#fff8e1', '#ffa000', 'Membrane\n(PEM)'),
-        (6.65, 0, 3.35, 5.85, '#e8eaf6', '#4268b3', 'Cathode'),
+    width, height = 900, 550
+    anode = (82, 124, 220, 310)
+    pem = (340, 112, 220, 334)
+    cathode = (598, 124, 220, 310)
+    parts = [
+        _svg_header(width, height),
+        f'<rect x="{anode[0]}" y="{anode[1]}" width="{anode[2]}" height="{anode[3]}" fill="#fae8e4" stroke="{COLOR_RED}" stroke-width="2.6"/>',
+        f'<rect x="{pem[0]}" y="{pem[1]}" width="{pem[2]}" height="{pem[3]}" fill="{BOX_WARM}" stroke="{EDGE_WARM}" stroke-width="2.6"/>',
+        f'<rect x="{cathode[0]}" y="{cathode[1]}" width="{cathode[2]}" height="{cathode[3]}" fill="{BOX_MAIN}" stroke="#4268b3" stroke-width="2.6"/>',
+        _svg_text(192, 96, "Anode", size=17, fill=COLOR_RED, weight="700"),
+        _svg_text(450, 86, ["Membrane", "(PEM)"], size=17, fill=EDGE_WARM, weight="700"),
+        _svg_text(708, 96, "Cathode", size=17, fill="#4268b3", weight="700"),
     ]
 
-    for x, y, w, h, fc, ec, label in regions:
-        rect = Rectangle((x, y), w, h, facecolor=fc, edgecolor=ec,
-                         linewidth=2, zorder=1)
-        ax.add_patch(rect)
-        ax.text(x + w / 2, h + 0.3, label, ha='center', va='bottom',
-                fontsize=12.5, fontweight='bold', color=ec)
+    # External electron circuit.
+    parts.append(
+        f'<path d="M 192 72 C 290 28, 610 28, 708 72" fill="none" stroke="{ARROW_COLOR}" '
+        'stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>'
+    )
+    parts.append(
+        f'<rect x="314" y="20" width="272" height="30" rx="8" fill="white" opacity="0.92"/>'
+    )
+    parts.append(_svg_text(450, 41, "electrons through external circuit", size=15, fill=ARROW_COLOR, weight="700"))
 
-    # Anode reaction
-    ax.text(1.68, 4.45, 'H$_2$', ha='center', va='center',
-            fontsize=15, fontweight='bold', color='#d64f3f')
-    ax.text(1.68, 3.45, 'splits into', ha='center', va='center',
-            fontsize=10, color='#d64f3f', fontstyle='italic')
-    ax.text(1.68, 2.88, r'2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=12.5, color='#d64f3f',
-            fontweight='bold', bbox=bfs.label_box(alpha=0.82, pad=1.2))
+    # Reactions and ion flow.
+    parts.extend(
+        [
+            _svg_text(192, 222, "H2", size=25, fill=COLOR_RED, weight="700"),
+            _svg_text(192, 276, "splits into", size=15, fill=COLOR_RED, weight="600"),
+            f'<rect x="136" y="300" width="112" height="34" rx="7" fill="white" opacity="0.88"/>',
+            _svg_text(192, 323, "2H+ + 2e-", size=17, fill=COLOR_RED, weight="700"),
+            _svg_text(708, 222, "1/2 O2", size=24, fill="#4268b3", weight="700"),
+            _svg_text(708, 276, "+ 2H+ + 2e-", size=16, fill="#4268b3", weight="600"),
+            f'<rect x="656" y="300" width="104" height="34" rx="7" fill="white" opacity="0.88"/>',
+            _svg_text(708, 323, "-> H2O", size=18, fill="#4268b3", weight="700"),
+        ]
+    )
+    for y in (224, 284, 344):
+        parts.append(
+            f'<line x1="302" y1="{y}" x2="598" y2="{y}" stroke="{EDGE_WARM}" stroke-width="2.4" '
+            'stroke-linecap="round" marker-end="url(#arrow)"/>'
+        )
+    parts.append(f'<rect x="424" y="190" width="52" height="30" rx="7" fill="white" opacity="0.9"/>')
+    parts.append(_svg_text(450, 211, "H+", size=17, fill=EDGE_WARM, weight="700"))
 
-    # H+ arrows through membrane
-    for y_pos in [2.0, 3.0, 4.0]:
-        _draw_arrow(ax, 3.18, y_pos, 6.82, y_pos,
-                    color='#ffa000', lw=1.2, ms=10)
-    ax.text(5.0, 4.65, 'H$^+$', ha='center', va='center',
-            fontsize=12, fontweight='bold', color='#ffa000',
-            bbox=bfs.label_box(alpha=0.86, pad=1.2))
+    # Catalyst layers.
+    for x, label_x in [(318, 318), (582, 582)]:
+        parts.append(
+            f'<rect x="{x}" y="114" width="18" height="330" fill="{BOX_GREEN}" stroke="{EDGE_GREEN}" '
+            'stroke-width="1.5" opacity="0.84"/>'
+        )
+        parts.append(_svg_text(label_x, 476, "catalyst", size=14, fill=COLOR_GREEN, weight="600"))
 
-    # Cathode reaction
-    ax.text(8.32, 4.55, '½O$_2$', ha='center', va='center',
-            fontsize=15, fontweight='bold', color='#4268b3')
-    ax.text(8.32, 3.58, '+ 2H$^+$ + 2e$^-$',
-            ha='center', va='center', fontsize=11, color='#4268b3')
-    ax.text(8.32, 2.78, r'$\rightarrow$ H$_2$O',
-            ha='center', va='center', fontsize=13,
-            fontweight='bold', color='#4268b3',
-            bbox=bfs.label_box(alpha=0.82, pad=1.2))
-
-    # Electron flow (external circuit - top)
-    ax.annotate('', xy=(8.32, 6.72), xytext=(1.68, 6.72),
-                arrowprops=dict(arrowstyle='-|>', color=ARROW_COLOR,
-                                lw=2.0, mutation_scale=14,
-                                connectionstyle='arc3,rad=-0.15'))
-    ax.text(5.0, 7.02, 'electrons through external circuit', ha='center', va='bottom',
-            fontsize=10.5, color=ARROW_COLOR, fontweight='bold',
-            bbox=bfs.label_box(alpha=0.88, pad=1.1))
-
-    # Catalyst layers (thin strips)
-    for x_pos, label in [(3.28, 'catalyst'), (6.72, 'catalyst')]:
-        rect = Rectangle((x_pos - 0.15, 0), 0.3, 6,
-                         facecolor='#c8e6c9', edgecolor='#66bb6a',
-                         linewidth=1, alpha=0.7, zorder=2)
-        ax.add_patch(rect)
-        ax.text(x_pos, -0.5, label, ha='center', va='top',
-                fontsize=8, color='#388e3c', fontstyle='italic', rotation=0)
-
-    # Input/output labels
-    ax.text(-0.3, 3.0, 'H$_2$ in', ha='right', va='center',
-            fontsize=10.5, color='#d64f3f', fontweight='bold')
-    _draw_arrow(ax, -0.1, 3.0, 0.3, 3.0, color='#d64f3f', lw=1.5)
-
-    ax.text(10.32, 4.0, 'O$_2$ in', ha='left', va='center',
-            fontsize=10.5, color='#4268b3', fontweight='bold')
-    _draw_arrow(ax, 10.2, 4.0, 9.82, 4.0, color='#4268b3', lw=1.5)
-
-    ax.text(10.32, 2.0, 'H$_2$O out', ha='left', va='center',
-            fontsize=10, color='#1a8a7a', fontweight='bold')
-    _draw_arrow(ax, 9.9, 2.0, 10.24, 2.0, color='#1a8a7a', lw=1.5)
-
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved fuel cell figure to {output_path}")
+    # Inputs and products.
+    parts.extend(
+        [
+            _svg_text(54, 304, "H2 in", size=16, fill=COLOR_RED, weight="700", anchor="end"),
+            f'<line x1="60" y1="300" x2="104" y2="300" stroke="{COLOR_RED}" stroke-width="2.5" marker-end="url(#arrow)"/>',
+            _svg_text(874, 232, "O2 in", size=16, fill="#4268b3", weight="700", anchor="end"),
+            f'<line x1="874" y1="252" x2="804" y2="252" stroke="#4268b3" stroke-width="2.5" marker-end="url(#arrow)"/>',
+            _svg_text(874, 374, "H2O out", size=16, fill=COLOR_TEAL, weight="700", anchor="end"),
+            f'<line x1="804" y1="350" x2="874" y2="350" stroke="{COLOR_TEAL}" stroke-width="2.5" marker-end="url(#arrow)"/>',
+        ]
+    )
+    parts.append("</svg>\n")
+    _write_svg_or_preview(output_path, "\n".join(parts))
 
 
 # ──────────────────────────────────────────────
@@ -275,7 +312,7 @@ def generate_fuel_cell_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_activation_energy_figure(output_path):
     """Clean reaction-coordinate diagram for one dissociation step."""
-    fig, ax = plt.subplots(figsize=(9.6, 4.8))
+    fig, ax = plt.subplots(figsize=(7.3, 4.25))
     x = np.linspace(0, 1, 500)
     reactant = 0.0
     product = -1.5
@@ -327,7 +364,7 @@ def generate_gibbs_energy_figure(output_path):
     Gibbs free energy diagram for ORR on Pt(111) vs Ni(111).
     Shows energy steps for dissociative ORR pathway.
     """
-    fig, ax = plt.subplots(figsize=(11, 5.8))
+    fig, ax = plt.subplots(figsize=(6.6, 4.55))
 
     # ORR dissociative pathway steps (approximate values in eV)
     # Reaction: O2 + 4H+ + 4e- → 2H2O
@@ -426,7 +463,7 @@ def generate_volcano_plot_figure(output_path):
     Volcano plot: catalytic activity vs oxygen adsorption energy.
     Shows metals labeled, with "too strong" / "too weak" regions.
     """
-    fig, ax = plt.subplots(figsize=(8.6, 5.8))
+    fig, ax = plt.subplots(figsize=(6.8, 4.95))
 
     # Approximate data: (ΔE_O in eV relative to Pt, log10(activity))
     # Based on Nørskov et al. 2004 ORR volcano
@@ -518,7 +555,7 @@ def generate_scaling_relations_figure(output_path):
     Scaling relations plot: *OOH binding energy vs *OH binding energy.
     Shows linear correlation with metals, and ideal point off the line.
     """
-    fig, ax = plt.subplots(figsize=(7.8, 6.2))
+    fig, ax = plt.subplots(figsize=(6.6, 5.25))
 
     # Approximate data: (ΔG_OH eV, ΔG_OOH eV) relative to Pt
     # Scaling relation: ΔG_OOH ≈ ΔG_OH + 3.2 eV (constant offset)
@@ -865,64 +902,87 @@ def generate_ml_pipeline_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_oer_workflow_figure(output_path):
     """Readable schematic of the oxide OER discovery workflow."""
-    fig, ax = plt.subplots(figsize=(13.5, 5.2))
-    ax.set_xlim(0, 13.5)
-    ax.set_ylim(0, 5.2)
-    ax.axis('off')
-
-    ax.text(6.75, 4.85, 'Typical OER Catalyst Discovery Workflow',
-            ha='center', va='center', fontsize=14, fontweight='bold',
-            color=TEXT_COLOR)
-
+    width, height = 900, 420
     stages = [
-        (1.1, '(a) select\nbulk oxide', BOX_MAIN, EDGE_MAIN),
-        (4.1, '(b) enumerate\nsurface terminations', BOX_WARM, EDGE_WARM),
-        (7.1, '(c) place\nadsorbate', BOX_CATALYST, EDGE_CATALYST),
-        (10.1, '(d) relax\nstructure', BOX_GREEN, EDGE_GREEN),
+        (48, ["(a) select", "bulk oxide"], BOX_MAIN, EDGE_MAIN),
+        (264, ["(b) enumerate", "surface terminations"], BOX_WARM, EDGE_WARM),
+        (480, ["(c) place", "adsorbate"], BOX_CATALYST, EDGE_CATALYST),
+        (696, ["(d) relax", "structure"], BOX_GREEN, EDGE_GREEN),
     ]
-    bw, bh = 2.15, 0.78
+    box_w, box_h = 160, 70
+    parts = [
+        _svg_header(width, height),
+        _svg_text(width / 2, 48, "Typical OER catalyst discovery workflow", size=23, weight="700"),
+    ]
 
-    for cx, label, fc, ec in stages:
-        _draw_box(ax, cx, 3.45, bw, bh, label, fc, ec, fontsize=10.5)
+    for x, lines, fill, stroke in stages:
+        parts.append(_svg_box(x, 94, box_w, box_h, lines, fill=fill, stroke=stroke, size=16))
+    for left, right in zip(stages[:-1], stages[1:]):
+        parts.append(_svg_arrow(left[0] + box_w + 18, 129, right[0] - 18, 129, width=2.6))
 
-    for (x1, *_), (x2, *__) in zip(stages[:-1], stages[1:]):
-        _draw_arrow(ax, x1 + bw / 2 + 0.18, 3.45, x2 - bw / 2 - 0.18, 3.45,
-                    color=ARROW_COLOR, lw=1.8, ms=14)
+    # Compact oxide/surface sketches: semantic, not a detailed atomistic model.
+    sketch_y = 220
+    atom_colors = [COLOR_RED, "#b0bec5", COLOR_RED, "#b0bec5", COLOR_RED, "#b0bec5"]
+    for x, _, _, _ in stages:
+        cx = x + box_w / 2
+        coords = [
+            (cx - 26, sketch_y - 10),
+            (cx, sketch_y - 10),
+            (cx + 26, sketch_y - 10),
+            (cx - 13, sketch_y + 16),
+            (cx + 13, sketch_y + 16),
+            (cx + 39, sketch_y + 16),
+        ]
+        for (px, py), color in zip(coords, atom_colors):
+            parts.append(f'<circle cx="{px}" cy="{py}" r="9" fill="{color}" stroke="white" stroke-width="1.5"/>')
 
-    # Compact oxide/surface sketches below the labels.
-    for cx, _, _, _ in stages:
-        for i in range(3):
-            for j in range(2):
-                ax.add_patch(Circle((cx - 0.28 + 0.28 * i + 0.14 * (j % 2), 2.10 + 0.28 * j),
-                                    0.11, fc='#d32f2f' if (i + j) % 2 == 0 else '#b0bec5',
-                                    ec='white', lw=0.7, zorder=4))
+    # Surface termination choice.
+    term_cx = stages[1][0] + box_w / 2
+    for idx, color in enumerate([EDGE_MAIN, EDGE_WARM, EDGE_GREEN]):
+        y = 260 + idx * 18
+        parts.append(
+            f'<line x1="{term_cx - 50}" y1="{y}" x2="{term_cx + 50}" y2="{y}" '
+            f'stroke="{color}" stroke-width="3" stroke-linecap="round"/>'
+        )
+    parts.append(
+        _svg_text(
+            term_cx,
+            335,
+            ["surface Pourbaix", "selects stable termination"],
+            size=14,
+            fill=EDGE_WARM,
+            weight="600",
+        )
+    )
 
-    # Branching terminations.
-    for offset, color in [(-0.34, EDGE_MAIN), (0.0, EDGE_WARM), (0.34, EDGE_GREEN)]:
-        ax.plot([4.1 - 0.55, 4.1 + 0.55], [1.72 + offset, 1.72 + offset],
-                color=color, lw=2.1, solid_capstyle='round')
-    ax.text(4.1, 0.88, 'surface Pourbaix\nselects stable termination',
-            ha='center', va='center', fontsize=9.2, color=EDGE_WARM,
-            fontstyle='italic')
-
-    # Adsorbate marker.
-    ax.add_patch(Circle((7.1, 2.68), 0.13, fc=COLOR_RED, ec='white', lw=1.0, zorder=6))
-    ax.text(7.1, 0.88, r'O*, OH*, OOH*' + '\nintermediates',
-            ha='center', va='center', fontsize=9.2, color=EDGE_CATALYST,
-            fontstyle='italic')
-
-    ax.text(10.1, 0.88, 'adsorption energy\nfeeds catalyst ranking',
-            ha='center', va='center', fontsize=9.2, color=EDGE_GREEN,
-            fontstyle='italic')
-
-    ax.text(6.75, 0.28,
-            'Oxides require both surface selection and adsorbate placement before relaxation.',
-            ha='center', va='center', fontsize=10, color='#607d8b')
-
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved OER workflow figure to {output_path}")
+    ads_cx = stages[2][0] + box_w / 2
+    relax_cx = stages[3][0] + box_w / 2
+    parts.append(f'<circle cx="{ads_cx}" cy="194" r="12" fill="{COLOR_RED}" stroke="white" stroke-width="2"/>')
+    parts.append(
+        _svg_text(ads_cx, 335, ["O*, OH*, OOH*", "intermediates"], size=14, fill=EDGE_CATALYST, weight="600")
+    )
+    parts.append(
+        _svg_text(
+            relax_cx,
+            335,
+            ["adsorption energy", "feeds catalyst ranking"],
+            size=14,
+            fill=EDGE_GREEN,
+            weight="600",
+        )
+    )
+    parts.append(
+        _svg_text(
+            width / 2,
+            392,
+            "Oxides require both surface selection and adsorbate placement before relaxation.",
+            size=15,
+            fill="#607d8b",
+            weight="500",
+        )
+    )
+    parts.append("</svg>\n")
+    _write_svg_or_preview(output_path, "\n".join(parts))
 
 
 # ──────────────────────────────────────────────
@@ -932,14 +992,15 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    generate_energy_cycle_figure(os.path.join(output_dir, 'ec_energy_cycle.png'))
-    generate_fuel_cell_figure(os.path.join(output_dir, 'ec_fuel_cell.png'))
-    generate_activation_energy_figure(os.path.join(output_dir, 'ec_activation_energy.png'))
-    generate_gibbs_energy_figure(os.path.join(output_dir, 'ec_gibbs_energy.png'))
-    generate_volcano_plot_figure(os.path.join(output_dir, 'ec_volcano_plot.png'))
-    generate_scaling_relations_figure(os.path.join(output_dir, 'ec_scaling_relations.png'))
-    generate_binding_sites_figure(os.path.join(output_dir, 'ec_binding_sites.png'))
-    generate_ml_pipeline_figure(os.path.join(output_dir, 'ec_ml_pipeline.png'))
-    generate_oer_workflow_figure(os.path.join(output_dir, 'ec_oer_workflow.png'))
+    for ext in ('svg', 'png'):
+        generate_energy_cycle_figure(os.path.join(output_dir, f'ec_energy_cycle.{ext}'))
+        generate_fuel_cell_figure(os.path.join(output_dir, f'ec_fuel_cell.{ext}'))
+        generate_activation_energy_figure(os.path.join(output_dir, f'ec_activation_energy.{ext}'))
+        generate_gibbs_energy_figure(os.path.join(output_dir, f'ec_gibbs_energy.{ext}'))
+        generate_volcano_plot_figure(os.path.join(output_dir, f'ec_volcano_plot.{ext}'))
+        generate_scaling_relations_figure(os.path.join(output_dir, f'ec_scaling_relations.{ext}'))
+        generate_binding_sites_figure(os.path.join(output_dir, f'ec_binding_sites.{ext}'))
+        generate_ml_pipeline_figure(os.path.join(output_dir, f'ec_ml_pipeline.{ext}'))
+        generate_oer_workflow_figure(os.path.join(output_dir, f'ec_oer_workflow.{ext}'))
 
     print("\nDone! All 9 figures generated.")

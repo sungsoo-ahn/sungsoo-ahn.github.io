@@ -20,6 +20,10 @@ from matplotlib.patches import (FancyBboxPatch, FancyArrowPatch, Circle,
 import matplotlib.patheffects as pe
 from matplotlib.collections import PatchCollection
 
+import blog_figure_style as bfs
+
+bfs.use_blog_style()
+
 
 # ──────────────────────────────────────────────
 # Color palette (same as electrocatalysis)
@@ -910,10 +914,10 @@ def generate_energy_landscape_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_design_problems_figure(output_path):
     """Three panels: forward folding, inverse folding, de novo generation."""
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5),
-                              gridspec_kw={'wspace': 0.35})
+    fig, axes = plt.subplots(1, 3, figsize=(9.4, 3.55),
+                              gridspec_kw={'wspace': 0.16})
 
-    bw, bh = 2.8, 0.8
+    bw, bh = 3.35, 0.82
     rounding = 0.12
     gap = 0.1
 
@@ -923,7 +927,7 @@ def generate_design_problems_figure(output_path):
             'color': EDGE_MAIN,
             'input': ('Sequence', BOX_MAIN, EDGE_MAIN),
             'model': ('AlphaFold', BOX_ML, EDGE_ML),
-            'output': ('3D Structure', BOX_GREEN, EDGE_GREEN),
+            'output': ('3D\nstructure', BOX_GREEN, EDGE_GREEN),
         },
         {
             'title': 'Inverse Folding',
@@ -935,39 +939,39 @@ def generate_design_problems_figure(output_path):
         {
             'title': 'De Novo Generation',
             'color': EDGE_ML,
-            'input': ('Functional spec', BOX_WARM, EDGE_WARM),
+            'input': ('Functional\nspec', BOX_WARM, EDGE_WARM),
             'model': ('RFDiffusion', BOX_ML, EDGE_ML),
-            'output': ('Novel backbone', BOX_GREEN, EDGE_GREEN),
+            'output': ('Novel\nbackbone', BOX_GREEN, EDGE_GREEN),
         },
     ]
 
     for ax_i, (ax_obj, panel) in enumerate(zip(axes, panels)):
-        ax_obj.set_xlim(-2, 4.5)
+        ax_obj.set_xlim(-2.35, 4.85)
         ax_obj.set_ylim(-2, 3)
         ax_obj.set_aspect('equal')
         ax_obj.axis('off')
 
         # Panel title
         ax_obj.text(1.25, 2.6, panel['title'], ha='center', va='center',
-                    fontsize=12, fontweight='bold', color=panel['color'])
+                    fontsize=13.5, fontweight='bold', color=panel['color'])
 
         # Input box
         y_input = 1.2
         _draw_box(ax_obj, 1.25, y_input, bw, bh,
                   panel['input'][0], panel['input'][1], panel['input'][2],
-                  fontsize=10)
+                  fontsize=10.8)
 
         # Model box
         y_model = -0.1
         _draw_box(ax_obj, 1.25, y_model, bw, bh,
                   panel['model'][0], panel['model'][1], panel['model'][2],
-                  fontsize=10)
+                  fontsize=10.8)
 
         # Output box
         y_output = -1.4
         _draw_box(ax_obj, 1.25, y_output, bw, bh,
                   panel['output'][0], panel['output'][1], panel['output'][2],
-                  fontsize=10)
+                  fontsize=10.8)
 
         # Arrows
         _draw_arrow(ax_obj, 1.25, y_input - bh / 2 - rounding - gap,
@@ -1388,17 +1392,115 @@ def generate_binder_example_figure(output_path):
 
 
 # ──────────────────────────────────────────────
+# Figure: Side-chain Interactions
+# ──────────────────────────────────────────────
+def generate_protein_interactions_figure(output_path):
+    """Clean schematic of the main stabilizing side-chain interactions."""
+    fig, ax = plt.subplots(figsize=(8.8, 4.8))
+    ax.set_xlim(0, 10.0)
+    ax.set_ylim(0, 5.8)
+    ax.axis('off')
+
+    ax.text(5.0, 5.48, 'Common stabilizing interactions',
+            ha='center', va='center', fontsize=15,
+            fontweight='bold', color=TEXT_COLOR)
+
+    cards = [
+        (2.55, 4.02, 'Hydrophobic\npacking', BOX_HYDROPHOBIC, COLOR_HYDROPHOBIC),
+        (7.45, 4.02, 'Hydrogen\nbond', BOX_GREEN, COLOR_GREEN),
+        (2.55, 1.55, 'Salt\nbridge', BOX_POSITIVE, EDGE_ML),
+        (7.45, 1.55, 'Disulfide\nbridge', BOX_WARM, EDGE_WARM),
+    ]
+    card_w, card_h = 4.25, 1.95
+
+    for cx, cy, title, fc, ec in cards:
+        ax.add_patch(
+            FancyBboxPatch(
+                (cx - card_w / 2, cy - card_h / 2),
+                card_w,
+                card_h,
+                boxstyle='round,pad=0.08',
+                facecolor=fc,
+                edgecolor=ec,
+                linewidth=1.5,
+                alpha=0.88,
+                zorder=1,
+            )
+        )
+        ax.text(cx - card_w / 2 + 0.22, cy + card_h / 2 - 0.25,
+                title, ha='left', va='top', fontsize=12.6,
+                fontweight='bold', color=ec, linespacing=1.05)
+
+    # Hydrophobic packing: nonpolar residues cluster away from solvent.
+    hydrophobic_pts = [(2.05, 3.78), (2.45, 3.93), (2.85, 3.76),
+                       (2.25, 3.36), (2.68, 3.32)]
+    for x, y in hydrophobic_pts:
+        ax.add_patch(Circle((x, y), 0.18, fc=COLOR_HYDROPHOBIC,
+                            ec='white', lw=1.0, zorder=4))
+    for x, y in [(1.62, 3.18), (3.65, 4.28), (3.45, 3.08)]:
+        ax.add_patch(Circle((x, y), 0.08, fc='#b6c2c8',
+                            ec='white', lw=0.7, alpha=0.75, zorder=3))
+    ax.text(3.10, 3.32, 'nonpolar core', ha='left', va='center',
+            fontsize=10.5, color=COLOR_HYDROPHOBIC, fontstyle='italic')
+
+    # Hydrogen bond: donor and acceptor separated by a dashed contact.
+    ax.text(6.15, 3.62, 'N-H', ha='center', va='center',
+            fontsize=13, fontweight='bold', color=COLOR_GREEN)
+    ax.text(8.15, 3.62, 'O=C', ha='center', va='center',
+            fontsize=13, fontweight='bold', color=COLOR_GREEN)
+    ax.plot([6.62, 7.68], [3.62, 3.62], color=COLOR_GREEN,
+            lw=2.0, linestyle=(0, (2, 3)), solid_capstyle='round')
+    ax.text(7.15, 3.28, 'directional contact', ha='center', va='center',
+            fontsize=10.5, color=COLOR_GREEN, fontstyle='italic')
+
+    # Salt bridge: opposite charges.
+    ax.add_patch(Circle((1.92, 1.42), 0.34, fc=BOX_POSITIVE,
+                        ec=EDGE_ML, lw=1.7, zorder=3))
+    ax.add_patch(Circle((3.18, 1.42), 0.34, fc=BOX_NEGATIVE,
+                        ec=COLOR_NEGATIVE, lw=1.7, zorder=3))
+    ax.text(1.92, 1.42, '+', ha='center', va='center',
+            fontsize=18, fontweight='bold', color=EDGE_ML)
+    ax.text(3.18, 1.42, '-', ha='center', va='center',
+            fontsize=20, fontweight='bold', color=COLOR_NEGATIVE)
+    ax.plot([2.28, 2.82], [1.42, 1.42], color='#78909c',
+            lw=2.0, linestyle=(0, (3, 3)))
+    ax.text(2.55, 0.95, 'opposite charges pair', ha='center', va='center',
+            fontsize=10.5, color='#607d8b', fontstyle='italic')
+
+    # Disulfide bridge: covalent S-S staple.
+    ax.plot([6.18, 8.68], [1.42, 1.42], color='#b0bec5', lw=2.0, zorder=2)
+    for x in [6.70, 8.16]:
+        ax.add_patch(Circle((x, 1.42), 0.22, fc='white',
+                            ec=EDGE_WARM, lw=1.8, zorder=4))
+        ax.text(x, 1.42, 'S', ha='center', va='center',
+                fontsize=12.5, fontweight='bold', color=EDGE_WARM, zorder=5)
+    ax.plot([6.92, 7.94], [1.42, 1.42], color=EDGE_WARM,
+            lw=3.0, solid_capstyle='round', zorder=3)
+    ax.text(7.45, 0.95, 'covalent crosslink', ha='center', va='center',
+            fontsize=10.5, color=EDGE_WARM, fontstyle='italic')
+
+    fig.text(0.5, 0.04,
+             'Design needs the right interaction in the right environment, not just many contacts.',
+             ha='center', va='center', fontsize=11, color='#607d8b',
+             fontstyle='italic')
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=220, bbox_inches='tight', facecolor='white')
+    plt.close()
+    print(f"Saved protein interactions figure to {output_path}")
+
+
+# ──────────────────────────────────────────────
 # Figure 13: Self-Consistency Workflow
 # ──────────────────────────────────────────────
 def generate_self_consistency_figure(output_path):
     """Horizontal two-row workflow: backbone -> ProteinMPNN -> sequence -> AlphaFold -> structure -> compare."""
-    fig, ax = plt.subplots(figsize=(13.2, 4.7))
+    fig, ax = plt.subplots(figsize=(8.8, 3.55))
     ax.set_xlim(-0.5, 13.3)
     ax.set_ylim(-0.5, 4.5)
     ax.axis('off')
 
     ax.text(6, 4.2, 'Self-Consistency Protocol', ha='center', va='center',
-            fontsize=13, fontweight='bold', color=TEXT_COLOR)
+            fontsize=15, fontweight='bold', color=TEXT_COLOR)
 
     bw, bh = 2.2, 0.75
 
@@ -1420,7 +1522,7 @@ def generate_self_consistency_figure(output_path):
 
     # Draw all boxes
     for cx, cy, label, fc, ec in top_steps + bot_steps:
-        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, fontsize=9.5)
+        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, fontsize=10.8)
 
     # Top row arrows (left to right)
     for i in range(len(top_steps) - 1):
@@ -1440,7 +1542,7 @@ def generate_self_consistency_figure(output_path):
 
     # Decision annotation
     ax.text(11.65, 2.0, 'accept if\nscRMSD < 2 \u00c5',
-            ha='center', va='center', fontsize=10, fontweight='bold',
+            ha='center', va='center', fontsize=11, fontweight='bold',
             color=COLOR_GREEN,
             bbox=dict(boxstyle='round,pad=0.4', fc=BOX_GREEN,
                       ec=EDGE_GREEN, alpha=0.9, lw=1.2))
@@ -1456,13 +1558,13 @@ def generate_self_consistency_figure(output_path):
 # ──────────────────────────────────────────────
 def generate_design_funnel_figure(output_path):
     """Funnel showing pipeline filtering from 10k backbones to 3-5 binders."""
-    fig, ax = plt.subplots(figsize=(12.5, 5.2))
-    ax.set_xlim(-1, 12.8)
+    fig, ax = plt.subplots(figsize=(6.7, 4.35))
+    ax.set_xlim(-0.6, 10.4)
     ax.set_ylim(-0.3, 5.8)
     ax.axis('off')
 
-    ax.text(5, 5.5, 'Protein Design Pipeline', ha='center', va='center',
-            fontsize=13, fontweight='bold', color=TEXT_COLOR)
+    ax.text(4.45, 5.5, 'Protein Design Pipeline', ha='center', va='center',
+            fontsize=16, fontweight='bold', color=TEXT_COLOR)
 
     stages = [
         ('10,000 backbones', 'RFDiffusion', 10000, BOX_ML, EDGE_ML),
@@ -1474,9 +1576,9 @@ def generate_design_funnel_figure(output_path):
     ]
 
     n_stages = len(stages)
-    max_width = 9.0
+    max_width = 7.0
     min_width = 1.8
-    center_x = 5.0
+    center_x = 4.45
     total_height = 4.8
     stage_height = total_height / n_stages
 
@@ -1507,11 +1609,11 @@ def generate_design_funnel_figure(output_path):
 
         y_mid = (y_top + y_bot) / 2
         ax.text(center_x, y_mid, label, ha='center', va='center',
-                fontsize=10, fontweight='bold', color=TEXT_COLOR, zorder=4)
+                fontsize=12.3, fontweight='bold', color=TEXT_COLOR, zorder=4)
 
-        ax.text(center_x + max_width / 2 + 0.72, y_mid,
+        ax.text(center_x + max_width / 2 + 0.38, y_mid,
                 method, ha='left', va='center',
-                fontsize=8.5, color=ec if ec != COLOR_GREEN else '#388e3c',
+                fontsize=11.0, color=ec if ec != COLOR_GREEN else '#388e3c',
                 fontstyle='italic')
 
     plt.tight_layout()
@@ -1527,19 +1629,13 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    generate_amino_acids_figure(os.path.join(output_dir, 'pd_amino_acids.png'))
-    generate_structure_levels_figure(os.path.join(output_dir, 'pd_protein_structure_levels.png'))
-    generate_secondary_structure_figure(os.path.join(output_dir, 'pd_secondary_structure.png'))
-    generate_hydrophobic_core_figure(os.path.join(output_dir, 'pd_hydrophobic_core.png'))
-    generate_binding_interface_figure(os.path.join(output_dir, 'pd_binding_interface.png'))
-    generate_antibody_structure_figure(os.path.join(output_dir, 'pd_antibody_structure.png'))
-    generate_energy_landscape_figure(os.path.join(output_dir, 'pd_energy_landscape.png'))
-    generate_design_problems_figure(os.path.join(output_dir, 'pd_design_problems.png'))
-    generate_rfdiffusion_overview_figure(os.path.join(output_dir, 'pd_rfdiffusion_overview.png'))
-    generate_proteinmpnn_overview_figure(os.path.join(output_dir, 'pd_proteinmpnn_overview.png'))
-    generate_alphafold_overview_figure(os.path.join(output_dir, 'pd_alphafold_overview.png'))
-    generate_binder_example_figure(os.path.join(output_dir, 'pd_binder_example.png'))
-    generate_self_consistency_figure(os.path.join(output_dir, 'pd_self_consistency.png'))
-    generate_design_funnel_figure(os.path.join(output_dir, 'pd_design_funnel.png'))
+    # Source-first rule: well-known biology and model-overview figures are
+    # downloaded from Wikimedia or the cited CC-BY papers.  Only custom,
+    # post-specific explanatory diagrams are regenerated here.
+    for ext in ('svg', 'png'):
+        generate_protein_interactions_figure(os.path.join(output_dir, f'pd_protein_interactions.{ext}'))
+        generate_design_problems_figure(os.path.join(output_dir, f'pd_design_problems.{ext}'))
+        generate_self_consistency_figure(os.path.join(output_dir, f'pd_self_consistency.{ext}'))
+        generate_design_funnel_figure(os.path.join(output_dir, f'pd_design_funnel.{ext}'))
 
-    print("\nDone! All 14 figures generated.")
+    print("\nDone! Custom protein-design figures generated.")

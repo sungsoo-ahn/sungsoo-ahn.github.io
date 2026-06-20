@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -41,7 +41,7 @@ Two standard routes compute that density:
 
 For ML, this distinction matters because it changes the learning target. Predicting uptake is scalar regression. Predicting $$\rho(\mathbf{r})$$ is learning a thermodynamic density operator.
 
-To keep the notation anchored, I will use one running example: **methane adsorption in MOF-5**. The framework is fixed, methane is the adsorbate, and the thermodynamic condition is a chosen temperature and pressure. Changing the pressure changes the reservoir chemical potential; the number of methane molecules inside the unit cell is the thing we want to predict.
+To keep the notation anchored, I use one running example: **methane adsorption in MOF-5**. The framework is fixed, methane is the adsorbate, and the thermodynamic condition is a chosen temperature and pressure. Changing the pressure changes the reservoir chemical potential; the number of methane molecules inside the unit cell is the thing we want to predict.
 
 ### Overview
 
@@ -49,7 +49,7 @@ The adsorption problem is an open-system equilibrium problem. A porous material 
 
 The post builds this picture in four steps. The Adsorption Problem section defines uptake, density, and the grand canonical boundary condition. The GCMC section explains the particle sampler. The Classical DFT section explains the density variational problem and fixed-point equation. The final sections explain why unnormalized density fields are a better ML target than scalar uptake alone.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views of adsorption equilibrium. GCMC samples particle configurations in the grand canonical ensemble, then averages those samples into uptake or a density field. cDFT solves directly for the equilibrium density by fixed-point iteration. Adapted from internal manuscript materials on multi-fidelity adsorbate density learning." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views describe the same adsorption equilibrium with different representations. GCMC estimates uptake and density by averaging explicit particle samples, while cDFT optimizes the density field directly." %}
 
 ---
 
@@ -59,14 +59,14 @@ Adsorption occurs when guest molecules accumulate on a surface or inside a porou
 
 The physical setup is open. The material is in contact with a large gas reservoir at temperature $$T$$ and pressure $$P$$. Methane molecules enter and leave the pores until equilibrium. The number of adsorbed methane molecules is not fixed; it is an outcome.
 
-This is why adsorption is usually modeled in the **grand canonical ensemble**, also called $$\mu VT$$:
+Adsorption is therefore usually modeled in the **grand canonical ensemble**, also called $$\mu VT$$:
 
 - $$T$$ is fixed by a heat bath.
 - $$V$$ is fixed by the simulation cell.
 - $$\mu$$ is fixed by the gas reservoir.
 - $$N$$ fluctuates.
 
-The chemical potential $$\mu$$ is the free-energy cost of adding one molecule to the reservoir.[^chempot] In practice, for a pure gas at fixed $$T$$, specifying pressure $$P$$ determines $$\mu$$ through an equation of state. For methane in MOF-5, "simulate at pressure $$P$$" means "set the methane reservoir chemical potential corresponding to $$P$$." This is why adsorption papers often use pressure language while the formal ensemble is written with $$\mu$$.
+The chemical potential $$\mu$$ is the free-energy cost of adding one molecule to the reservoir.[^chempot] In practice, for a pure gas at fixed $$T$$, specifying pressure $$P$$ determines $$\mu$$ through an equation of state. For methane in MOF-5, "simulate at pressure $$P$$" means "set the methane reservoir chemical potential corresponding to $$P$$." Adsorption papers therefore often use pressure language while the formal ensemble is written with $$\mu$$.
 
 ### What Makes Adsorption Hard?
 
@@ -112,7 +112,7 @@ GCMC uses Metropolis-Hastings moves that leave the grand canonical distribution 
 
 The insertion/deletion moves are the defining feature. They let particle number fluctuate, which is exactly what adsorption needs. A trajectory of GCMC samples for methane in MOF-5 looks like a stack of snapshots, each with a different number of methane molecules in the pore.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_moves.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Core GCMC move types for the methane-in-MOF-5 running example. Translation and rotation explore configurations at fixed particle count, while insertion and deletion move between states with different \(N\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_moves.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Core GCMC move types for the methane-in-MOF-5 running example. Translation and rotation explore configurations at fixed particle count, while insertion and deletion move between states with different \(N\)." %}
 
 The uptake is the ensemble average:
 
@@ -124,7 +124,7 @@ $$\rho(\mathbf{r}) = \left\langle \sum_{i=1}^{N} \delta(\mathbf{r} - \mathbf{r}_
 
 On a computer, the delta functions are binned onto a voxel grid or smoothed with a kernel. For the running example, each accepted methane configuration contributes methane centers to the grid. Averaging those grids turns particle samples into a density field.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_snapshots_to_density.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Coarse-graining GCMC samples into a density field. Each accepted particle snapshot contributes methane positions to a grid; averaging snapshots estimates \(\rho(\mathbf{r})\), whose integral gives uptake." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_snapshots_to_density.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Coarse-graining GCMC samples into a density field. Each accepted particle snapshot contributes methane positions to a grid; averaging snapshots estimates \(\rho(\mathbf{r})\), whose integral gives uptake." %}
 
 ### Why GCMC Is Expensive
 
@@ -132,7 +132,7 @@ GCMC is the reference method because, for a chosen force field and enough sampli
 
 Insertion becomes hard in dense pores. A random proposed methane molecule can land too close to an existing methane molecule or a framework atom, producing a huge energy increase and near-zero acceptance probability. Narrow pores are also difficult because the allowed volume is a small fraction of the cell. The Markov chain then spends many steps proposing moves that do not change the state.
 
-This is why high-throughput adsorption screening is expensive. One material, one gas, one temperature, and one pressure is already a simulation. An isotherm needs many pressures. A screening campaign needs thousands or millions of materials.
+High-throughput adsorption screening is expensive for this reason. One material, one gas, one temperature, and one pressure is already a simulation. An isotherm needs many pressures. A screening campaign needs thousands or millions of materials.
 
 ---
 
@@ -189,7 +189,7 @@ $$\rho^{(n+1)}(\mathbf{r}) = \rho_{\mathrm{bulk}}\exp\left[-\beta V_{\mathrm{ext
 
 Starting from $$\rho^{(0)} = \rho_{\mathrm{Boltz}}$$, the solver repeatedly evaluates the many-body correction and updates the methane density until $$\rho^{(n+1)} \approx \rho^{(n)}$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_fixed_point.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The cDFT fixed-point loop. The current density \(\rho^{(n)}\) defines the many-body correction, the update produces \(\rho^{(n+1)}\), and the loop stops when the density no longer changes appreciably." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_fixed_point.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The cDFT fixed-point loop. The current density \(\rho^{(n)}\) defines the many-body correction, the update produces \(\rho^{(n+1)}\), and the loop stops when the density no longer changes appreciably." %}
 
 This is the density analogue of a self-consistent field loop. In quantum DFT, the electron density defines an effective Hamiltonian, whose orbitals define a new density. In classical DFT, the adsorbate density defines a fluid-fluid correction, which defines a new density.
 
@@ -266,7 +266,7 @@ The hierarchy matters. Cheap approximate solvers provide broad coverage. Expensi
 
 ## Closing
 
-For ML researchers, remember adsorption this way:
+Adsorption can be summarized this way:
 
 - Adsorption is an open-system equilibrium problem.
 - The natural ensemble is $$\mu VT$$ because particle number fluctuates.
@@ -288,6 +288,11 @@ The methane-in-MOF-5 example is only one instance. The methodological lesson is 
 - Dufour-Decieux, V., Rehner, P., Schilling, J., Moubarak, E., Gross, J. & Bardow, A. (2025). Classical density functional theory as a fast and accurate method for adsorption property prediction of porous materials. *AIChE Journal, 71*(6), e18779.
 - Ran, Y. A., et al. (2024). RASPA3: A Monte Carlo code for computing adsorption and diffusion in nanoporous materials and thermodynamics properties of fluids. *The Journal of Chemical Physics, 161*(11).
 - Thiele, N., et al. (2026). Efficient prediction of multicomponent adsorption isotherms and enthalpies of adsorption in MOFs using classical density functional theory. *The Journal of Physical Chemistry B*.
+
+### Figure sources
+
+- Adsorption overview (`adsorption_gcmc_cdft_particle_density.svg`): custom native SVG schematic generated by `scripts/generate_adsorption_gcmc_cdft_figures.py`; it replaces an internal raster composite with larger labels and editable vector elements.
+- GCMC move, snapshot-to-density, and cDFT fixed-point diagrams (`adsorption_gcmc_cdft_moves.svg`, `adsorption_gcmc_cdft_snapshots_to_density.svg`, `adsorption_gcmc_cdft_fixed_point.svg`): generated by `scripts/generate_adsorption_gcmc_cdft_figures.py` with SVG and PNG outputs.
 
 ---
 

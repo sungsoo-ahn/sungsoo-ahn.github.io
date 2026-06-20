@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
 authors: ["Sungsoo Ahn"]
@@ -30,7 +30,7 @@ This structure, two opposing processes whose ratio encodes useful information, i
 
 My previous post on ensembles ended with a claim: free energy is hard to compute because it requires the partition function $$Z$$, an integral over the entire phase space. In practice, however, we usually need free energy *differences* between two states. The sign of $$\Delta F$$ determines which state nature prefers: does a protein fold, does a drug bind, is one crystal form more stable than another? Part 1 defines these precisely.
 
-The equilibrium approach computes $$\Delta F$$ directly, which requires sampling from both endpoints — intractable when the two states are separated by high barriers. The key idea is **bridging**: construct a chain of intermediate distributions between A and B so that neighbors overlap, even when the endpoints don't, and run MCMC at each level.
+The equilibrium approach computes $$\Delta F$$ directly, which requires sampling from both endpoints — intractable when the two states are separated by high barriers. **Bridging** fixes the overlap problem: construct a chain of intermediate distributions between A and B so that neighbors overlap, even when the endpoints don't, and run MCMC at each level.
 
 This is **annealed importance sampling** (AIS) — the method most commonly used to evaluate normalizing flows and energy-based models. The importance weight accumulated along the chain estimates the normalizing constant ratio $$Z_B/Z_A$$, which is the free energy difference (Part 2 formalizes this).
 
@@ -48,7 +48,7 @@ The variance problem that plagues AIS (rare high-weight samples dominating the e
 
 Once you see AIS as Jarzynski, you notice the same mathematics appearing elsewhere — in diffusion models and GFlowNets. Part 6 makes these connections precise.
 
-**What this post is not.** This is not a survey of free energy methods in molecular simulation, such as thermodynamic integration, free energy perturbation, metadynamics, or umbrella sampling. Those are *applications* of the framework. This post develops the *framework itself*, path measures and non-equilibrium equalities, and then maps it onto generative models.
+Free-energy methods such as thermodynamic integration, free energy perturbation, metadynamics, and umbrella sampling are applications of the framework developed here. The focus is the framework itself: path measures, non-equilibrium equalities, and their translation to generative models.
 
 ## Part 1: The Free Energy Problem
 
@@ -130,7 +130,7 @@ Computing $$Z_A$$ and $$Z_B$$ individually is intractable, but their *ratio* can
 
 This is exact but often useless in practice. The average is dominated by rare configurations where $$U_B(\mathbf{x}) - U_A(\mathbf{x})$$ is small, meaning configurations that lie in the overlap between the two Boltzmann distributions. When A and B are very different, which is usually the interesting case, this overlap is exponentially small and the estimator has exponentially large variance.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pm_boltzmann_overlap.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Two Boltzmann distributions with minimal overlap. The shaded region is where the Zwanzig estimator gets its signal — exponentially small when A and B are far apart." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pm_boltzmann_overlap.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Two Boltzmann distributions with minimal overlap. The shaded region is where the Zwanzig estimator gets its signal — exponentially small when A and B are far apart." %}
 
 The core problem: we need a bridge between A and B that doesn't require direct overlap between their equilibrium distributions. Enter AIS.
 
@@ -138,7 +138,7 @@ The core problem: we need a bridge between A and B that doesn't require direct o
 
 ## Part 2: The AIS Framework
 
-**The big picture.** Part 1 showed that Zwanzig's direct comparison fails when states A and B are far apart. The solution is to bridge them through intermediates, constructing a chain of distributions whose neighbors overlap even when the endpoints do not. AIS does exactly this. In this part, we formalize AIS as a pair of forward and reverse path measures, derive their ratio, and extract three identities from it. Part 3 then specializes to physics, connecting these identities to the non-equilibrium equalities of Jarzynski, Crooks, and the second law.
+AIS fixes the overlap problem from direct free-energy comparison by bridging states A and B through intermediate distributions. Neighboring distributions overlap even when the endpoints do not. The resulting forward and reverse path measures yield three identities; in the physics specialization, these become Jarzynski's equality, Crooks' fluctuation theorem, and the second law.
 
 ### The AIS Setup
 
@@ -231,7 +231,7 @@ The Jensen bound is tight only when $$\log w$$ is constant across trajectories, 
 
 ## Part 3: Non-Equilibrium Processes and Work
 
-**The big picture.** The AIS identities from Part 2 hold for *any* choice of intermediate distributions and MCMC kernels. Non-equilibrium physics corresponds to a specific choice: Boltzmann distributions along a protocol, with Langevin dynamics as the MCMC kernel. This specialization turns the log importance weight into **work** and maps the AIS identities onto thermodynamics. Part 5 develops these as Jarzynski's equality, Crooks' fluctuation theorem, and the second law.
+Non-equilibrium physics is a special case of the AIS identities: choose Boltzmann intermediates along a protocol and Langevin dynamics as the transition kernel. This specialization turns the log importance weight into **work**, and the same path-measure ratio becomes the thermodynamic identities derived in the Non-Equilibrium Equalities section.
 
 **Intermediates = Boltzmann distributions along a protocol.** Define a protocol parameter $$\lambda_k$$ interpolating from $$\lambda_0 = 0$$ (state A) to $$\lambda_K = 1$$ (state B), with:
 
@@ -256,14 +256,14 @@ So $$\log w = -\beta \sum_{k=0}^{K-1} [U(\mathbf{x}_k, \lambda_{k+1}) - U(\mathb
 
 For the linear interpolation, $$U(\mathbf{x}, \lambda_{k+1}) - U(\mathbf{x}, \lambda_k) = \Delta\lambda_k \cdot [U_B(\mathbf{x}) - U_A(\mathbf{x})]$$: the work at each step is the energy difference between B and A, scaled by the protocol step size.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pm_alternating_steps.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The mechanism of a non-equilibrium process (= AIS). Amber panels: the potential shifts (\(\lambda\) changes), but the three tracked particles (circle, square, diamond) stay at the same x-position — this is the work step, where you record the density ratio \(\log \hat{p}_{k+1}(\mathbf{x}_k) - \log \hat{p}_k(\mathbf{x}_k)\). Teal panels: the potential stays fixed, but particles move via MCMC (Langevin dynamics) — this is the relaxation step. Dotted vertical lines show particles lifted by the potential shift; horizontal arrows show particles sliding to new positions during MCMC." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pm_alternating_steps.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The mechanism of a non-equilibrium process (= AIS). Amber panels are work steps, where the potential shifts while particles stay fixed; teal panels are relaxation steps, where particles move under the current potential." %}
 
 Now run many independent copies. Each receives different noise, producing different trajectories and different work values:
 
 - **Lucky run (low work, high $$w$$).** The sample lands in a high-density region of $$p_{k+1}$$ before the distribution shifts much — per-step ratios are close to 1, $$\log w$$ stays near $$\log(Z_K/Z_0)$$, and work $$W$$ is close to $$\Delta F$$.
 - **Unlucky run (high work, low $$w$$).** The chain gets trapped in a mode of $$p_k$$ with low density under $$p_{k+1}$$ — each step gives a large negative density ratio, $$\log w$$ falls far below $$\log(Z_K/Z_0)$$, and work $$W$$ far exceeds $$\Delta F$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pm_work_trajectories.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Many runs of the same protocol on a double-well potential. (a) Trajectories: each starts in the left well, but noise produces different paths. The lucky trajectory (teal) crosses the barrier early; the unlucky one (red) stays trapped. (b) Cumulative work: the lucky run accumulates little work, the unlucky run accumulates a lot. (c) Work histogram — the mean \(\langle W \rangle\) exceeds \(\Delta F\) (second law), but the exponential average \(\langle e^{-\beta W} \rangle\) recovers \(\Delta F\) exactly (Jarzynski)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pm_work_trajectories.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Many runs of the same protocol produce different trajectories and work values. Low-work trajectories are rare but dominate the exponential average, which is why Jarzynski's equality is statistically demanding." %}
 
 **Quasistatic vs. driven processes.** How fast we run the protocol determines the variance of $$W$$:
 
@@ -293,9 +293,9 @@ The path measure ratio contains more than expectations: it relates the full *dis
 
 ## Part 4: Continuous-Time Machinery
 
-**The big picture.** Parts 2–3 derived the path measure ratio and non-equilibrium equalities using discrete chains. This part develops the continuous-time tools, path integrals, Radon-Nikodym derivatives, Girsanov's theorem, and forward-backward SDEs, that make these results rigorous and generalize them beyond any particular discretization.
+Discrete chains are enough for AIS, but Langevin dynamics live in continuous time. To carry the same path-measure ratio to SDEs, we need path integrals, Radon-Nikodym derivatives, Girsanov's theorem, and forward-backward SDEs.
 
-Part 2 introduced path measures in discrete time — products of MCMC kernels over finite chains. But continuous-time dynamics (the Langevin SDE from Part 3) produce trajectories in $$C([0, T]; \mathbb{R}^d)$$, where the discrete product formula no longer applies. We need a continuous-time theory of path measures.[^pathmeasure]
+AIS introduced path measures in discrete time — products of MCMC kernels over finite chains. But continuous-time dynamics, such as the Langevin SDE, produce trajectories in $$C([0, T]; \mathbb{R}^d)$$, where the discrete product formula no longer applies. We need a continuous-time theory of path measures.[^pathmeasure]
 
 *AIS parallel: This is the distribution over entire AIS chains from Part 2 — now extended to continuous time.*
 
@@ -366,7 +366,7 @@ Girsanov's theorem states that the Radon-Nikodym derivative between their path m
 
 The first term is a stochastic integral (the "martingale part"); the second is a deterministic correction. The key property: the diffusion coefficient $$\sigma$$ must be the same for both processes — Girsanov changes the drift, not the noise. This is why the noise cancels in the forward/reverse ratio: both processes have the same $$\sigma$$.
 
-The rigorous proof uses exponential martingales, Novikov's condition, and absolute continuity on path space, machinery I won't claim to have fully internalized. See Øksendal (Chapter 8) or Revuz & Yor (Chapter VIII) for the full treatment. In practice, the discrete derivation below verifies the result step by step; the theorem justifies taking the continuous limit.
+A full proof uses exponential martingales, Novikov's condition, and absolute continuity on path space. See Øksendal (Chapter 8) or Revuz & Yor (Chapter VIII) for the full treatment. In practice, the discrete derivation below verifies the result step by step; the theorem justifies taking the continuous limit.
 
 ### Discrete Derivation of Girsanov's Formula
 
@@ -522,7 +522,7 @@ The continuous-time path measure ratio has the same form $$\beta(W - \Delta F)$$
 
 ## Part 5: Non-Equilibrium Equalities
 
-**The big picture.** We have one identity, derived two ways:
+The discrete and continuous derivations give the same identity:
 
 - **Discrete (Part 2):** $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \ln(Z_K/Z_0) - \ln w$$, from detailed balance cancellation in AIS chains.
 - **Continuous (Part 4):** $$\ln(\mathcal{P}_F / \mathcal{P}_R) = \beta(W - \Delta F)$$, from the Stratonovich chain rule applied to the Langevin SDE.
@@ -578,7 +578,7 @@ $$\int e^{-\beta W} P_F(W) \, dW = e^{-\beta \Delta F} \int P_R(-W) \, dW = e^{-
 
 **Physical intuition.** Trajectories where the forward work is less than $$\Delta F$$ (the system "got lucky") are exponentially rare, but they are *exactly as probable* as the corresponding reverse trajectories where the reverse work exceeds $$\Delta F$$. The crossing point $$P_F(W) = P_R(-W)$$ occurs at $$W = \Delta F$$, giving a graphical method for estimating $$\Delta F$$ — the **Bennett acceptance ratio** (BAR). Shirts et al. (2003) showed BAR is the minimum-variance estimator given samples from both directions.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pm_crooks_intersection.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Crooks' fluctuation theorem: the forward work distribution \(P_F(W)\) and reverse work distribution \(P_R(-W)\) intersect at \(W = \Delta F\). This crossing point is the basis of the Bennett acceptance ratio (BAR) method." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pm_crooks_intersection.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Crooks' fluctuation theorem makes the free-energy difference visible as the crossing of \(P_F(W)\) and \(P_R(-W)\). This crossing point is the basis of the Bennett acceptance ratio (BAR) method." %}
 
 ### Dissipation as KL Divergence
 
@@ -603,7 +603,7 @@ Irreversibility equals information loss, measured as KL divergence between forwa
 
 The AIS-Jarzynski connection has been the throughline of this post since Part 2. The same path-measure language also helps read diffusion models and GFlowNets. A diffusion model has a forward noising path measure and a learned reverse denoising path measure; its variational loss can be read as a KL between those path measures. A GFlowNet has a forward construction path measure and a backward deconstruction path measure; trajectory balance asks their ratio to match the terminal reward up to the partition function.
 
-The useful diagnostic is the same in all three cases: how different are the forward and reverse path measures? In AIS this appears as loose importance weights, in diffusion models as the gap between the learned reverse process and the true reverse process, and in GFlowNets as variance in the trajectory-balance log-ratio. This is the main reason to learn the physics language: it turns several generative-model objectives into one question about reversibility and dissipation.
+The diagnostic is the same in all three cases: how different are the forward and reverse path measures? In AIS this appears as loose importance weights, in diffusion models as the gap between the learned reverse process and the true reverse process, and in GFlowNets as variance in the trajectory-balance log-ratio. The physics language turns several generative-model objectives into one question about reversibility and dissipation.
 
 ---
 
@@ -627,6 +627,10 @@ Ask what path distribution the algorithm samples and how far it is from the reve
 - F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. ([arXiv:2307.01050](https://arxiv.org/abs/2307.01050))
 - E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021.
 - N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *ICML*, 2022.
+
+### Figure sources
+
+- Path-measure diagrams (`pm_boltzmann_overlap.svg`, `pm_alternating_steps.svg`, `pm_work_trajectories.svg`, `pm_crooks_intersection.svg`): custom explanatory figures generated by `scripts/generate_path_measures_figures.py` with SVG+PNG outputs and the shared blog figure style.
 
 ---
 
