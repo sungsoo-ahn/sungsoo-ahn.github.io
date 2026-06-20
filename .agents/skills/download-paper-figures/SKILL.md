@@ -1,75 +1,73 @@
 ---
 name: download-paper-figures
-description: Download figures from academic papers and add them to blog posts with proper citations. Use when incorporating paper figures into content.
-disable-model-invocation: true
+description: Find, license-check, download, cite, or redraw figures from papers and web sources for blog posts. Use when incorporating paper figures, Wikimedia/open-license figures, official project figures, or internet-downloaded educational diagrams.
 ---
 
 # Download and Cite Paper Figures
 
-Workflow for incorporating figures from academic papers into blog posts.
+Use source figures when they are clearer than a custom redraw and legally usable.
 
-## Step 1: Access the Paper
+## Source-First Rule
 
-Use arXiv MCP tools:
+- Search before drawing any well-known concept or method overview.
+- Prefer high-quality existing figures from Wikimedia Commons, official project pages, PMC/open-access articles, or author pages with explicit licenses.
+- Do not copy figures from unclear or restrictive sources. If a useful figure is not license-compatible, redraw the idea approximately in the blog style and cite it as adapted.
+- For publisher figures, assume restrictive unless the article or figure explicitly says CC BY or another compatible license.
+- For physical device or process schematics, consider whether ChatGPT/image generation would produce a clearer explanatory base than a source figure or hand-drawn boxes. Use this only for illustrative renderings, then add exact labels/callouts as editable SVG text.
+- Do not use image generation to substitute for canonical method-overview figures when a licensed high-quality source already exists, such as RFDiffusion, AlphaFold, ProteinMPNN, or standard protein-structure diagrams.
 
-```
-mcp__arxiv__download_paper(paper_id="XXXX.XXXXX")
-mcp__arxiv__read_paper(paper_id="XXXX.XXXXX")
-```
+## Workflow
 
-For non-arXiv papers, use `WebFetch` on the paper URL.
+1. Identify the target concept and candidate source figure.
+2. Verify license and provenance before downloading:
+   - Wikimedia: use the file page license.
+   - PMC: use article page license text or `https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC...`.
+   - arXiv: check paper license; CC BY is usable, all-rights-reserved is not.
+   - Publisher sites: do not reproduce directly unless the figure license is explicit and compatible.
+3. Download the highest useful resolution or original vector file.
+4. Save under `assets/img/blog/` with a stable descriptive filename.
+5. Add or update a Figure Sources entry with source URL, license, and modifications.
+6. Write a two-sentence caption plus a short provenance note.
+7. Run `python3 scripts/validate_blog.py`.
 
-## Step 2: Check Copyright
+If using ChatGPT/image generation instead of a downloaded source figure:
 
-**Do NOT reproduce figures directly** from these publishers:
+1. Generate a no-text base illustration and save it under `assets/img/blog/<stem>_imagegen_base.png`.
+2. Add exact labels, arrows, and equations in a separate editable SVG layer.
+3. Save the final annotated SVG plus PNG preview.
+4. Record the prompt, asset paths, and design rationale in the Figure Sources section.
 
-- ACS (American Chemical Society)
-- Elsevier
-- Wiley
-- Springer/Nature
-- AAAS (Science)
+## Caption Wording
 
-**ArXiv CC-BY papers**: Can extract figures, but prefer redrawing in our visual style for consistency.
-
-**General rule**: Always redraw figures using approximate data from the paper. This avoids copyright issues and ensures visual consistency with the blog's style.
-
-## Step 3: Redraw in Our Style
-
-- Add figure functions to the blog's figure generation script
-- Use the same color palette and styling conventions
-- Hardcode approximate data values from the paper (not pixel-exact reproduction)
-- Match the key message of the original figure, not its exact appearance
-
-## Step 4: Add Citations
-
-### In Figure Caption
-
-Use this format when the figure is redrawn or reconstructed:
-
-```
-"Adapted from [Author et al., Year]."
-```
-
-Example:
+Direct licensed source:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/figure.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Volcano plot showing catalytic activity vs. adsorption energy. Adapted from Nørskov et al., 2004." %}
+caption="RFDiffusion generates protein backbones through iterative denoising. Conditioning lets the same diffusion model handle unconditional generation, motif scaffolding, symmetry, and binder design. From Watson et al. (2023), CC BY 4.0."
 ```
 
-### In References Section
+Redrawn or reconstructed:
 
-Add full citation in the blog post's References section:
-
-```markdown
-- Nørskov, J. K., et al. (2004). Origin of the overpotential for oxygen reduction at a fuel-cell cathode. _J. Phys. Chem. B_, 108(46), 17886-17892.
+```liquid
+caption="The volcano plot relates catalytic activity to adsorption energy. The peak appears because weak binding cannot activate intermediates, while strong binding prevents product release. Adapted from Nørskov et al. (2004)."
 ```
 
-## Workflow Summary
+Use `\(...\)` for math inside Liquid captions.
 
-1. Read paper via arXiv MCP or WebFetch
-2. Identify key figures to include
-3. Check publisher copyright (assume restrictive unless CC-BY)
-4. Redraw figures in the blog's matplotlib style
-5. Add "Adapted from..." or "Redrawn from..." in caption
-6. Add full citation in References section
-7. Run `python3 scripts/validate_blog.py`
+## Copyright Rules
+
+- Do not reproduce figures directly from ACS, Elsevier, Wiley, Springer/Nature paywalled figures, AAAS, or other restrictive publishers unless the specific article/figure is open under a compatible license.
+- PMC open-access articles often expose figure images directly; still verify the article license and third-party material exceptions.
+- If the source is a screenshot, a blog image with unclear ownership, or a social-media image, do not use it directly.
+
+## Output Requirements
+
+For each incorporated figure, provide:
+
+- asset path;
+- source URL;
+- license;
+- caption;
+- short design/provenance note.
+
+For redrawn figures, also provide source code and SVG+PNG outputs.
+For image-generated figures, also provide the prompt, base PNG, final annotated SVG, and PNG preview.

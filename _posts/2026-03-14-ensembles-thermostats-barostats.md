@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -26,7 +26,7 @@ related_posts: false
 
 If you work on molecular generative models, you have seen acronyms such as NVT, NPT, and GCMC in simulation papers. These refer to **ensembles**, probability distributions over molecular configurations, and to the algorithms that sample from them. Understanding them is essential for knowing what your model's training data represents and which physical quantities your model can, or cannot, predict.
 
-The problem is that statistical mechanics textbooks often start from thermodynamics: Carnot cycles, heat engines, and the second law. For ML researchers, that is the long way around. We already think in terms of probability distributions, sampling, and expectations. The natural entry point is: what distribution are we sampling from, and why?
+Statistical mechanics textbooks often start from thermodynamics: Carnot cycles, heat engines, and the second law. For ML researchers, that is the long way around. We already think in terms of probability distributions, sampling, and expectations. The natural entry point is: what distribution are we sampling from, and why?
 
 We start from atoms and forces, define macroscopic quantities as expectations, treat ensembles as modeling choices about distributions, and then describe the algorithms (thermostats, barostats, Monte Carlo) that sample from these distributions.
 
@@ -52,7 +52,7 @@ Newton's equations conserve $$H$$ exactly — energy flows between kinetic and p
 
 ### Macroscopic Quantities as Averages
 
-Macroscopic quantities such as temperature, pressure, and free energy are not properties of a single microstate. They are **observables of an ensemble**: averages over the probability distribution of microstates that a system visits at equilibrium. We write $$\langle A \rangle$$ for this average, concretely estimated as a time average along a long simulation trajectory. We will define ensembles precisely in Part II; for now, the point is that macroscopic quantities are expectations, and they differ in how easily they can be estimated from samples.
+Macroscopic quantities such as temperature, pressure, and free energy are not properties of a single microstate. They are **observables of an ensemble**: averages over the probability distribution of microstates that a system visits at equilibrium. We write $$\langle A \rangle$$ for this average, concretely estimated as a time average along a long simulation trajectory. The ensemble determines which variables are fixed, which variables fluctuate, and how easily each observable can be estimated from samples.
 
 **Temperature** is defined through the equipartition theorem:[^equipartition]
 
@@ -78,7 +78,9 @@ This is exactly the Shannon entropy from information theory, scaled by Boltzmann
 
 $$F = \langle H \rangle - TS$$
 
-For the Boltzmann distribution, this equals $$F = -k_{B}T \ln Z$$, where $$Z = \int e^{-\beta H(\mathbf{r}^N, \mathbf{v}^N)} \, d\mathbf{r}^N d\mathbf{v}^N$$ is the **partition function** and $$\beta = 1/k_{B}T$$. Why is $$TS$$ energy you cannot use? Entropy $$S$$ measures uncertainty about which microstate the system occupies. To extract work, energy must be directed in a controlled way; if the system could be in many microstates, that energy is dispersed across random thermal motions. Higher entropy means more energy locked in uncontrollable motion. Temperature $$T$$ sets the conversion rate: each unit of entropy costs $$T$$ units of energy. Thus $$TS$$ is the energetic cost of thermal randomness, and $$F = \langle H \rangle - TS$$ is the energy "free" to do work.
+For the Boltzmann distribution, this equals $$F = -k_{B}T \ln Z$$, where $$Z = \int e^{-\beta H(\mathbf{r}^N, \mathbf{v}^N)} \, d\mathbf{r}^N d\mathbf{v}^N$$ is the **partition function** and $$\beta = 1/k_{B}T$$.
+
+The term $$TS$$ is energy you cannot use. Entropy $$S$$ measures uncertainty about which microstate the system occupies. To extract work, energy must be directed in a controlled way; if the system could be in many microstates, that energy is dispersed across random thermal motions. Higher entropy means more energy locked in uncontrollable motion. Temperature $$T$$ sets the conversion rate: each unit of entropy costs $$T$$ units of energy. Thus $$TS$$ is the energetic cost of thermal randomness, and $$F = \langle H \rangle - TS$$ is the energy "free" to do work.
 
 At equilibrium, a system at constant $$T$$ and $$V$$ minimizes $$F$$, balancing two competing drives: lowering energy (favoring ordered, low-$$\langle H \rangle$$ states) and increasing entropy (favoring disordered, high-$$S$$ states).
 
@@ -96,9 +98,9 @@ We simulate molecular systems to study microscopic behavior: how atoms move, wha
 
 For example, we might simulate 1,000 water molecules explicitly while assuming they sit at a fixed temperature of 300 K imposed from outside. Temperature is not tracked atom by atom; it is a condition we enforce, abstracting away the surrounding environment (the rest of the liquid, the container walls, the room) that would maintain it in reality.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ens_system_boundary.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The modeling choice behind every simulation. Left: the physical reality — a small region of atoms embedded in a vast environment. Right: we simulate the atoms explicitly and replace the environment with macroscopic boundary conditions (\(T\), \(P\), \(\mu\)). An ensemble is a specific choice of which conditions to impose." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ens_system_boundary.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The modeling choice behind every simulation. Left: the physical reality — a small region of atoms embedded in a vast environment. Right: we simulate the atoms explicitly and replace the environment with macroscopic boundary conditions (\(T\), \(P\), \(\mu\)). An ensemble is a specific choice of which conditions to impose." %}
 
-Why is this conditioning valid? Because the environment is enormous compared to the system. When our 1,000 water molecules exchange energy with $$10^{23}$$ surrounding molecules, the environment's temperature barely changes — it acts as an effectively infinite reservoir. This separation of scales is what lets us replace a detailed atomistic environment with a single number ($$T = 300$$ K). The same logic applies to pressure (the atmosphere is much larger than our simulation box) and chemical potential (the gas reservoir is vast compared to a surface).
+This conditioning is valid because the environment is enormous compared to the system. When our 1,000 water molecules exchange energy with $$10^{23}$$ surrounding molecules, the environment's temperature barely changes — it acts as an effectively infinite reservoir. This separation of scales lets us replace a detailed atomistic environment with a single number ($$T = 300$$ K). The same logic applies to pressure (the atmosphere is much larger than our simulation box) and chemical potential (the gas reservoir is vast compared to a surface).
 
 But which macroscopic quantities can serve as boundary conditions? A system can exchange three things with its surroundings — **energy**, **volume**, and **matter**. For each, there is a quantity that equalizes at equilibrium, and that quantity is the natural boundary condition:
 
@@ -117,7 +119,7 @@ An **ensemble** is a choice of which of these to fix. It specifies a probability
 
 ### The Four Ensembles
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ens_four_ensembles.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The four standard ensembles. (a) NVE: an isolated system with fixed energy — thick insulating walls. (b) NVT: the system exchanges heat \(Q\) with a thermal bath at temperature \(T\). (c) NPT: heat exchange plus a movable piston maintaining external pressure. (d) \(\mu\)VT: heat and particle exchange with a reservoir at chemical potential \(\mu\) — the boundary is permeable." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ens_four_ensembles.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The four standard ensembles. (a) NVE: an isolated system with fixed energy — thick insulating walls. (b) NVT: the system exchanges heat \(Q\) with a thermal bath at temperature \(T\). (c) NPT: heat exchange plus a movable piston maintaining external pressure. (d) \(\mu\)VT: heat and particle exchange with a reservoir at chemical potential \(\mu\) — the boundary is permeable." %}
 
 Each ensemble is defined by its probability distribution over microstates. The naming convention tells you which macroscopic quantities are fixed — the letters are the boundary conditions.
 
@@ -152,9 +154,11 @@ This is the workhorse ensemble. Temperature is the natural control variable: it 
 
 The parameter $$\beta = 1/k_{B}T$$ controls how sharply the distribution concentrates on low-energy states. At low temperature (large $$\beta$$), the exponential $$e^{-\beta H(\mathbf{r}, \mathbf{v})}$$ decays steeply — only the lowest-energy states have significant probability. At high temperature (small $$\beta$$), many states become accessible. Operationally, $$\beta$$ encodes how much energy the environment is willing to supply through thermal fluctuations: a hot environment freely donates energy, a cold one confines the system near its energy minimum.
 
-*There is a circularity that confused me initially.* In Part I, we *defined* temperature through the equipartition theorem as a property of the velocity distribution, computed from average kinetic energy. But in NVT, we *fix* temperature as a boundary condition. How can we both define $$T$$ from the system's behavior and impose it from outside?
+*A common source of confusion is circularity.* In Part I, temperature was *defined* through the equipartition theorem as a property of the velocity distribution, computed from average kinetic energy. But in NVT, temperature is *fixed* as a boundary condition. How can $$T$$ be both measured from the system's behavior and imposed from outside?
 
-The resolution is that $$T$$ has two roles. The $$T$$ in the Boltzmann distribution is the **environment temperature**, a property of the enormous reservoir surrounding the system, not of the system itself. We impose it as a boundary condition. The system then evolves, exchanging energy with that environment. The equipartition result $$\langle \text{kinetic energy} \rangle = \frac{3}{2}Nk_{B}T$$ is a *consequence*: if the system is in thermal equilibrium with an environment at temperature $$T$$, then its average kinetic energy will be $$\frac{3}{2}Nk_{B}T$$. The two uses are consistent but logically different. One is an input; the other is a measurable prediction. The thermostat (Part III) is the algorithm that enforces this coupling in a simulation.
+The resolution is that $$T$$ has two roles. The $$T$$ in the Boltzmann distribution is the **environment temperature**, a property of the enormous reservoir surrounding the system, not of the system itself. We impose it as a boundary condition. The system then evolves, exchanging energy with that environment.
+
+The equipartition result $$\langle \text{kinetic energy} \rangle = \frac{3}{2}Nk_{B}T$$ is a *consequence*: if the system is in thermal equilibrium with an environment at temperature $$T$$, then its average kinetic energy will be $$\frac{3}{2}Nk_{B}T$$. The two uses are consistent but logically different. One is an input; the other is a measurable prediction. The thermostat (Part III) is the algorithm that enforces this coupling in a simulation.
 
 **NPT (Isothermal-Isobaric).** Fixed $$N$$, pressure $$P$$, temperature $$T$$. The name says exactly what it does: "isothermal" means constant temperature (Greek *iso* = equal, *thermos* = heat), and "isobaric" means constant pressure (*baros* = weight/pressure). Now the volume $$V$$ also fluctuates — the system can expand or compress against the environment.
 
@@ -195,7 +199,7 @@ An ensemble defines a probability distribution, but how do we draw samples from 
 
 In NVE (plain Newton's equations), the trajectory corresponds to *physical time*: each step advances the system by a real time increment, typically 1–2 femtoseconds. This means we can compute **non-equilibrium properties**, quantities that depend on how the system evolves in time rather than only which states it visits at equilibrium: diffusion coefficients from particle spreading, reaction rates from transition frequencies, and viscosities from time-correlation functions.
 
-However, all thermostatted methods modify the physical dynamics to some degree — the added friction (Nosé-Hoover) or noise (Langevin) perturbs the true trajectory. When dynamical properties matter, a common practice is to use a thermostat only during equilibration (to reach the target temperature), then switch to NVE for the production run where the trajectory is physically meaningful. Monte Carlo, as we will see, abandons dynamics entirely.
+However, all thermostatted methods modify the physical dynamics to some degree — the added friction (Nosé-Hoover) or noise (Langevin) perturbs the true trajectory. When dynamical properties matter, a common practice is to use a thermostat only during equilibration, then switch to NVE for the production run where the trajectory is physically meaningful. Monte Carlo abandons dynamics entirely.
 
 ### Thermostats (Controlling Temperature)
 
@@ -217,7 +221,9 @@ where $$Q$$ is a fictitious "mass" controlling how quickly $$\xi$$ responds. The
 
 $$m_i \frac{d\mathbf{v}_i}{dt} = \mathbf{F}_i - \gamma m_i \mathbf{v}_i + \sigma \boldsymbol{\eta}_i(t)$$
 
-where $$\gamma$$ is the friction coefficient, $$\boldsymbol{\eta}_i(t)$$ is white noise, and $$\sigma = \sqrt{2\gamma k_{B}T m_i}$$ satisfies the **fluctuation-dissipation relation** — the balance between energy removed by friction and energy injected by noise. This is an SDE. The friction term dissipates energy; the noise term injects it; the balance produces the Boltzmann distribution as the stationary distribution. If you have read my post on the [Fokker-Planck equation](/blog/2026/fokker-planck-equation/), this is the same structure: an SDE whose density dynamics are governed by a Fokker-Planck PDE, and the stationary solution is $$p(\mathbf{r}, \mathbf{v}) \propto e^{-\beta H(\mathbf{r}, \mathbf{v})}$$.
+where $$\gamma$$ is the friction coefficient, $$\boldsymbol{\eta}_i(t)$$ is white noise, and $$\sigma = \sqrt{2\gamma k_{B}T m_i}$$ satisfies the **fluctuation-dissipation relation**: the balance between energy removed by friction and energy injected by noise.
+
+This is an SDE. The friction term dissipates energy; the noise term injects it; the balance produces the Boltzmann distribution as the stationary distribution. If you have read my post on the [Fokker-Planck equation](/blog/2026/fokker-planck-equation/), this is the same structure: an SDE whose density dynamics are governed by a Fokker-Planck PDE, and the stationary solution is $$p(\mathbf{r}, \mathbf{v}) \propto e^{-\beta H(\mathbf{r}, \mathbf{v})}$$.
 
 The trade-off is that Langevin dynamics destroys dynamical information, because stochastic noise scrambles the true trajectory, but it is robust and easy to implement. Nosé-Hoover is deterministic, with no random noise, but can get stuck in non-ergodic oscillations for small systems.
 
@@ -269,7 +275,7 @@ The trade-off is that MC gives no dynamical information. Its moves, such as rand
 
 ## Closing
 
-The useful split is two layers of molecular simulation:
+Molecular simulation separates into two layers:
 
 1. **Statistical mechanics** provides the probability distributions (ensembles) that connect microscopic states to macroscopic observables — the Boltzmann distribution, the NPT distribution, the grand canonical distribution. The choice of ensemble is a modeling decision about what to simulate explicitly and what to impose as a boundary condition.
 2. **Simulation algorithms** are the tools that sample from these distributions — thermostats and barostats modify the equations of motion; Monte Carlo bypasses dynamics entirely and samples directly.
@@ -290,6 +296,10 @@ Temperature schedules are annealing schedules. Free-energy estimation is log-nor
 - Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
 - Nosé, S. (1984). A unified formulation of the constant temperature molecular dynamics methods. [J. Chem. Phys. 81, 511](https://doi.org/10.1063/1.447334).
 - Parrinello, M. & Rahman, A. (1981). Polymorphic transitions in single crystals: A new molecular dynamics method. [J. Appl. Phys. 52, 7182](https://doi.org/10.1063/1.328693).
+
+### Figure sources
+
+- Ensemble diagrams (`ens_system_boundary.svg`, `ens_four_ensembles.svg`): custom explanatory figures generated by `scripts/generate_ensemble_figures.py` with SVG+PNG outputs and the shared blog figure style.
 
 ---
 

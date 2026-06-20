@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -28,17 +28,19 @@ Small-molecule drugs dominate pharmacology, but they have hard limits. A typical
 
 Many disease-relevant targets — protein–protein interactions, flat surfaces, disordered regions — are "undruggable" by small molecules because there is no deep binding pocket to exploit. Designed proteins can bind these surfaces directly. The prefusion-stabilized COVID-19 spike (Hsieh et al., 2020) was used in multiple approved vaccines, and de novo designed miniprotein inhibitors achieved picomolar (extremely tight) binding to the spike in lab assays (Cao et al., 2020).
 
-For ML researchers, the appeal is structural. Protein design is a well-defined generative modeling problem: the input is a functional specification (target structure, binding constraints), and the output is a sequence of discrete tokens (amino acids) that must satisfy continuous geometric constraints (3D folding). The training data is the Protein Data Bank, with ~200,000 experimentally solved structures, supplemented by billions of sequences from genomic databases. Structure prediction (AlphaFold) provides a fast oracle for evaluating designs. The experimental feedback loop is also tight: a design campaign can move from computation to lab results in weeks, not years.
+For ML researchers, the appeal is structural. Protein design is a well-defined generative modeling problem: the input is a functional specification (target structure, binding constraints), and the output is a sequence of discrete tokens (amino acids) that must satisfy continuous geometric constraints (3D folding).
+
+The training data is the Protein Data Bank, with ~200,000 experimentally solved structures, supplemented by billions of sequences from genomic databases. Structure prediction (AlphaFold) provides a fast oracle for evaluating designs. The experimental feedback loop is also tight: a design campaign can move from computation to lab results in weeks, not years.
 
 Before 2020, computational protein design relied on Rosetta's physics-based energy function and Monte Carlo sampling: slow, expensive, and low-throughput. Between 2021 and 2023, AlphaFold2, ProteinMPNN, and RFDiffusion replaced the core pipeline steps with learned models, increasing success rates from ~1% to ~10–30% and reducing computation from CPU-weeks to GPU-hours. This created an opportunity: the tools work, but they are far from optimal, and the design space is large. Protein design is now a field where ML contributions can have immediate, measurable experimental impact.
 
-The useful background has two parts: the biology and the computational infrastructure around it.
+The background splits into two parts: the biology and the computational infrastructure around it.
 
 ### Overview
 
 A modern design campaign is a pipeline: **RFDiffusion** generates candidate backbone structures conditioned on the target, **ProteinMPNN** designs amino acid sequences for each backbone, **AlphaFold** predicts whether each sequence folds as intended, and the top candidates go to the lab. Roughly 10,000 backbones enter; about 5 confirmed binders come out.
 
-To understand why each step works (and fails), you need the biology: what proteins are made of, what forces hold the shape together, what makes a good binding interface, and what physical constraints the pipeline must satisfy. The organizing frame is the **sequence → structure → function** triangle.
+The biology explains why each step works and fails: what proteins are made of, what forces hold the shape together, what makes a good binding interface, and what physical constraints the pipeline must satisfy. The organizing frame is the **sequence → structure → function** triangle.
 
 ## What a Protein Is
 
@@ -48,7 +50,7 @@ Every amino acid shares the same backbone atoms — a repeating N-C$$_\alpha$$-C
 
 [^hydrophobicity]: The 20 amino acids split roughly into four groups: nonpolar/hydrophobic (G, A, V, L, I, M, F, W, P), polar uncharged (S, T, N, Q, Y, C), positively charged (K, R, H), and negatively charged (D, E). The nonpolar residues drive folding by burying themselves away from water.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_amino_acids.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="480px" zoomable=true caption="The 20 standard amino acids grouped by side-chain chemistry. All share the same backbone (N-Cα-C) but differ in the R group that branches off at each position. From Wikimedia Commons (CC BY-SA 3.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_amino_acids.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="The standard amino acids share a common backbone but differ in side-chain chemistry. Those side chains determine charge, hydrophobicity, and geometry, which is why sequence controls folding and binding. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
 ### Structure Hierarchy
 
@@ -59,9 +61,9 @@ Proteins organize at four levels:
 3. **Tertiary structure** — the full 3D shape of a single chain, with helices, sheets, and loops packed together.
 4. **Quaternary structure** — the assembly of multiple chains into a complex.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_structure_levels.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="380px" zoomable=true caption="The four levels of protein structure. Primary: amino acid sequence. Secondary: helices and sheets. Tertiary: complete 3D fold of one chain. Quaternary: multi-chain assembly. From Wikimedia Commons (public domain)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_structure_levels.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Protein structure is organized from sequence to local motifs, full-chain folds, and multi-chain assemblies. Each level constrains the next: sequence creates local geometry, local geometry packs into a fold, and folds assemble into function. From Wikimedia Commons (public domain)." %}
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_secondary_structure.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The two dominant secondary structures. Beta sheet (left): strands running side by side connected by inter-strand hydrogen bonds. Alpha helix (right): a right-handed coil with hydrogen bonds between residue i and residue i+4. Both shown as cartoon and atomic representations. From Wikimedia Commons (CC BY-SA 4.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_secondary_structure_source.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Alpha helices and beta sheets are the main recurring local protein geometries. Hydrogen bonds stabilize these patterns, turning a flexible chain into predictable structural elements. From Wikimedia Commons (CC BY-SA 4.0)." %}
 
 A **fold** (or topology) is the overall arrangement of secondary-structure elements. Two proteins with completely different sequences can share the same fold: different bricks, same floor plan. A **domain** is a compact, independently folding unit within a larger protein; many proteins consist of multiple linked domains.
 
@@ -69,7 +71,7 @@ A **fold** (or topology) is the overall arrangement of secondary-structure eleme
 
 Related proteins across species, called **homologs**, share a common ancestor. Lining up homologous sequences produces a **multiple sequence alignment (MSA)**, which reveals **conservation**: positions that remain fixed across millions of years of evolution are usually structurally or functionally critical.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_msa.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A multiple sequence alignment (MSA) of ribosomal protein P0 homologs across ~30 species, from mammals to archaea. Color indicates amino acid properties (cyan: hydrophobic, magenta: positive charge). Asterisks mark fully conserved positions — evolution says 'don't change this.' From Wikimedia Commons (CC BY-SA 3.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_msa_source.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true zoomable=true caption="A multiple sequence alignment lines up homologous proteins across species. Conserved columns mark positions where evolution strongly constrained the allowed amino acids. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
 MSAs also reveal **coevolution** — pairs of positions that mutate together, implying physical contact. This was the key insight behind early contact prediction methods and a core input to AlphaFold2. For ML researchers, MSAs are the protein equivalent of a large unlabeled dataset: they encode structural constraints without explicit 3D labels.
 
@@ -81,7 +83,7 @@ The organizing principle of structural biology is the **sequence → structure �
 
 A protein folds because the folded state is thermodynamically favorable. The dominant driving force is the **hydrophobic effect**: nonpolar side chains are energetically penalized when exposed to water, so the chain collapses to bury them in a tightly packed interior, the **hydrophobic core**. Disrupting this core usually destroys the protein.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_hydrophobic_core.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The hydrophobic effect drives protein folding. An unfolded chain exposes hydrophobic residues (green) to water (left). Folding buries them in the core, leaving hydrophilic residues (purple) on the surface (right). From Wikimedia Commons (CC BY-SA 3.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_hydrophobic_core_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="The hydrophobic effect drives nonpolar residues away from water and into the protein core. Folding lowers the solvent exposure of hydrophobic side chains while leaving polar residues on the surface. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
 On top of the hydrophobic effect, several other forces contribute:
 
@@ -90,7 +92,7 @@ On top of the hydrophobic effect, several other forces contribute:
 - **Disulfide bonds** — covalent bonds between two cysteine residues. Molecular staples that physically lock distant parts of the chain together. Common in antibodies and secreted proteins.
 - **Van der Waals interactions** — weak attractions between atoms at close range. Negligible individually but significant when combined, as thousands of atoms pack tightly in the core.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_interactions.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Four types of intramolecular interactions that stabilize protein tertiary structure: ionic bonds (salt bridges), hydrophobic interactions, hydrogen bonds, and disulfide bonds. Each acts between specific amino acid side chains along the polypeptide chain. Figure from Labster Theory." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_interactions.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Tertiary structure is stabilized by several side-chain interactions, including hydrophobic packing, hydrogen bonds, salt bridges, and disulfide bridges. A design fails when these interactions are missing, geometrically strained, or placed in the wrong environment." %}
 
 ### Stability and Failure Modes
 
@@ -117,11 +119,11 @@ Most proteins function by **binding** to other molecules — other proteins, sma
 
 **Specificity** is equally important: a binder that grabs everything is useless. The physical contact surface between two binding partners is the **binding interface**, typically spanning 1,000–2,000 Å$$^2$$. Interface residues do not contribute equally; a handful of **hotspot residues** provide most of the binding energy. Identifying target-surface hotspots is the first step of binder design.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_binding_interface.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="450px" zoomable=true caption="A protein–protein binding interface: RNase inhibitor (left) bound to RNase (right), with contact dots showing the complementary surface (PDB: 1DFJ). From Wikimedia Commons (CC BY 3.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_binding_interface_source.jpg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="620px" zoomable=true caption="This RNase inhibitor-RNase complex shows a protein-protein binding interface. The interface works because the two surfaces are geometrically and chemically complementary. From Wikimedia Commons (CC BY 3.0; PDB: 1DFJ)." %}
 
 For antibodies specifically, the target surface is called the **epitope** and the matching surface on the antibody is the **paratope**. Different antibodies can target different epitopes on the same target protein.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_antibody_structure.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="450px" zoomable=true caption="Antibody (IgG) structure. (1) Fab region, (2) Fc region, (3) heavy chain, (4) light chain, (5) antigen binding site, (6) hinge region. The antigen binding sites at the tips of each Fab arm contain the CDR loops — the regions that directly contact the target. From Wikimedia Commons (CC BY-SA 3.0)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_antibody_structure.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="620px" zoomable=true caption="An IgG antibody separates target recognition from immune-effector function. The antigen-binding sites sit at the tips of the Fab arms, where CDR loops contact the target. From Wikimedia Commons (CC BY-SA 3.0)." %}
 
 Beyond binding, **enzymes** catalyze chemical reactions. Their **active sites**, small pockets with precisely positioned catalytic residues, accelerate reactions by factors of 10$$^6$$–10$$^{12}$$. Enzyme design is harder than binder design because it requires exact 3D geometry, not merely a good surface fit.
 
@@ -135,13 +137,13 @@ ML researchers sometimes imagine protein designers relying on vague biological i
 
 [^ramachandran]: The Ramachandran plot charts the two backbone dihedral angles ($$\phi$$, $$\psi$$) for each residue. Some angle combinations cause atomic clashes and are forbidden. A well-designed protein has all residues in the "allowed" regions of this plot.
 
-This is good news for ML researchers, because many of these heuristics translate naturally into energy function terms, loss functions, and model inductive biases.
+Many of these heuristics translate naturally into energy-function terms, loss functions, and model inductive biases.
 
 ### Energy Landscapes
 
 The folded state of a protein sits at the bottom of a **free energy landscape**, a surface over all possible conformations. Design means finding sequences whose energy minimum matches a target structure. It is an optimization problem.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_energy_landscape.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="450px" zoomable=true caption="Protein folding energy landscape. The unfolded chain (top) explores many high-energy conformations across a wide entropy range. It collapses through a molten-globule intermediate into the native state — the global energy minimum. Protein design asks: which sequence has its minimum at the target structure? Figure by Thomas Splettstoesser ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0), [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Folding_funnel_schematic.svg))." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_energy_landscape.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="620px" zoomable=true caption="A folding funnel depicts many unfolded conformations collapsing toward a low-energy native state. Protein design asks for a sequence whose energy minimum is the desired target structure. Figure by Thomas Splettstoesser, Wikimedia Commons (CC BY-SA 3.0)." %}
 
 ### Packing Geometry
 
@@ -179,7 +181,7 @@ The domain knowledge ML researchers admire in structural biologists is largely a
 
 Protein design decomposes into three ML problem formulations:
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_design_problems.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Three computational problems in protein design. Forward folding predicts structure from sequence. Inverse folding designs a sequence for a given backbone. De novo generation creates new backbones from functional specifications." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_design_problems.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Protein design splits into forward folding, inverse folding, and de novo backbone generation. The direction of the mapping changes, but each problem links sequence, structure, and functional constraints." %}
 
 **Forward folding** (structure prediction). Input: amino acid sequence. Output: 3D atomic coordinates. Model: AlphaFold2. This is the "check your work" step: given a designed sequence, does the predicted fold match the intended structure?
 
@@ -189,7 +191,7 @@ Protein design decomposes into three ML problem formulations:
 
 The standard validation loop ties these together: generate a backbone (RFDiffusion) → design a sequence for it (ProteinMPNN) → predict the structure of that sequence (AlphaFold) → compare the prediction to the intended backbone. If they match, the design is self-consistent.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_self_consistency.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistency check. A designed sequence is folded by AlphaFold, and the predicted structure is compared to the intended backbone. Small scRMSD — self-consistent root-mean-square deviation — below 2 Å indicates the sequence encodes the target fold." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_self_consistency.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Self-consistency checks whether a designed sequence folds back to the intended backbone. Low scRMSD means the sequence encodes the target structure rather than merely fitting the design model." %}
 
 ### What People Design
 
@@ -233,7 +235,7 @@ Rosetta is the classic physics-based suite, developed over more than 20 years. I
 
 AF2 handles single chains; AF2-Multimer extends it to multi-chain protein complexes. AF3 extends to protein–nucleic acid and protein–small molecule complexes.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_alphafold_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="AlphaFold predicts 3D structure from sequence. (a) CASP14 accuracy. (b–d) Example predictions (blue) overlaid with experimental structures (green). (e) The pipeline: input sequence → MSA + templates → Evoformer → structure module → 3D coordinates with confidence coloring. Adapted from Jumper et al. (2021)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_alphafold_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="AlphaFold predicts 3D structure from sequence and evolutionary context. The model combines MSA/template information with a structure module, then reports coordinates and confidence estimates. From Jumper et al. (2021), CC BY 4.0." %}
 
 ### ESMFold / ESM3
 
@@ -243,13 +245,13 @@ Meta's protein language models offer a faster structure-prediction route. ESMFol
 
 **Input:** 3D backbone coordinates (as a graph of residue positions). **Output:** amino acid probability distribution at each position. A message-passing neural network that designs sequences for given backbones. Fast, accurate, and the standard inverse folding tool. Typically generates 8–16 sequences per backbone.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_proteinmpnn_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="ProteinMPNN architecture. (A) Backbone coordinates are encoded as inter-atomic distances, processed by a message-passing encoder, then decoded autoregressively into amino acid probabilities. (B) Random decoding order allows using sequence context from all decoded positions. (C) Tied positions enable symmetric and multi-state design. Adapted from Dauparas et al. (2022)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_proteinmpnn_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="ProteinMPNN designs sequences for fixed backbones using geometric message passing. Random decoding order and tied positions let the same model handle fixed-context, symmetric, and multi-chain design problems. From Dauparas et al. (2022), CC BY 4.0." %}
 
 ### RFDiffusion
 
 **Input:** target protein structure + conditioning constraints (hotspot residues, motifs, symmetry). **Output:** new backbone coordinates. A denoising diffusion model over backbone coordinates — analogous to image diffusion models but operating in SE(3) coordinate space. The most powerful current tool for de novo backbone generation.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_rfdiffusion_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="RFDiffusion generates protein backbones by iterative denoising. (a) The diffusion process: Gaussian noise is progressively removed to produce a protein structure. (b) Conditioning modes: unconditional generation, symmetric oligomers, binder design, and motif scaffolding. (c) A denoising trajectory for a 300-residue protein. Adapted from Watson et al. (2023)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_rfdiffusion_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="RFDiffusion generates protein backbones through iterative denoising. Conditioning lets the same diffusion model handle unconditional generation, motif scaffolding, symmetry, and binder design. From Watson et al. (2023), CC BY 4.0." %}
 
 ### Boltz / Boltz2
 
@@ -275,7 +277,7 @@ A reference table for interpreting computational metrics:
 
 ## The Design Workflow
 
-The tools above assemble into a five-step pipeline. The key insight is the **numbers at each stage**: the funnel from millions of computational candidates to a handful of experimental hits shapes every decision in a design project.
+The tools above assemble into a five-step pipeline. The important constraint is the **numbers at each stage**: the funnel from millions of computational candidates to a handful of experimental hits shapes every decision in a design project.
 
 ### Step 1: Define the problem
 
@@ -312,7 +314,7 @@ The top ~20 candidates are ordered as synthetic genes and tested in the lab:
 
 Typical hit rates: ~10 of 20 ordered designs express as soluble protein, and 3–5 bind the target. These numbers vary by target difficulty, but the order of magnitude is consistent across published studies.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/pd_design_funnel.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The design funnel. Starting from 10,000 generated backbones, the pipeline narrows through sequence design, computational filtering, and experimental validation to yield a handful of confirmed binders." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/pd_design_funnel.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The design funnel narrows thousands of generated backbones to a small number of experimentally tested proteins. The main leverage point is improving computational filters so fewer weak candidates reach the lab." %}
 
 The gap between computational output (millions of candidates) and experimental throughput (tens to hundreds) is the defining constraint of protein design. Every ML improvement that increases the pass rate at Step 4 reduces the cost and time of experimental campaigns. This is the field's main leverage point.
 
@@ -333,15 +335,16 @@ The gap between computational output (millions of candidates) and experimental t
 
 ### Figure sources
 
-- Amino acids diagram: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Amino_Acids.svg), CC BY-SA 3.0.
-- Protein structure levels: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Main_protein_structure_levels_en.svg), public domain.
-- Secondary structure (alpha helix and beta sheet): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Alpha_beta_structure_(full).png), CC BY-SA 4.0.
-- Hydrophobic interaction: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cartoon_of_protein_hydrophobic_interaction.jpg), CC BY-SA 3.0.
-- Protein interactions: [Labster Theory](https://theory.labster.com/protein_interactions/).
-- Protein–protein interface (PDB 1DFJ): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:1dfj_RNAseInhibitor-RNAse_complex.jpg), CC BY 3.0.
-- Antibody structure: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Immunoglobulin_basic_unit.svg), CC BY-SA 3.0.
-- Multiple sequence alignment: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:RPLP0_90_ClustalW_aln.gif), CC BY-SA 3.0.
-- Folding energy landscape: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Folding_funnel_schematic.svg) by Thomas Splettstoesser, CC BY-SA 3.0.
-- AlphaFold overview: Figure 1 from Jumper et al. (2021), via [PMC8371605](https://pmc.ncbi.nlm.nih.gov/articles/PMC8371605/).
-- ProteinMPNN overview: Figure 1 from Dauparas et al. (2022), via [PMC9997061](https://pmc.ncbi.nlm.nih.gov/articles/PMC9997061/).
-- RFDiffusion overview: Figure 1 from Watson et al. (2023), via [PMC10468394](https://pmc.ncbi.nlm.nih.gov/articles/PMC10468394/).
+- Amino acids diagram (`pd_amino_acids.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Amino_Acids.svg), CC BY-SA 3.0.
+- Protein structure levels (`pd_protein_structure_levels.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Main_protein_structure_levels_en.svg), public domain.
+- Secondary structure (`pd_secondary_structure_source.png`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Alpha_beta_structure_(full).png), CC BY-SA 4.0.
+- Multiple sequence alignment (`pd_msa_source.gif`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:RPLP0_90_ClustalW_aln.gif), CC BY-SA 3.0.
+- Hydrophobic interaction (`pd_hydrophobic_core_source.jpg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cartoon_of_protein_hydrophobic_interaction.jpg), CC BY-SA 3.0.
+- Tertiary-structure interactions (`pd_protein_interactions.svg`): custom simplified schematic generated by `scripts/generate_protein_design_figures.py`; it replaces a visually dense Wikimedia source figure with larger labels and a blog-style palette.
+- Protein-protein interface (`pd_binding_interface_source.jpg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:1dfj_RNAseInhibitor-RNAse_complex.jpg), CC BY 3.0.
+- Antibody structure (`pd_antibody_structure.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Immunoglobulin_basic_unit.svg), CC BY-SA 3.0.
+- Folding energy landscape (`pd_energy_landscape.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Folding_funnel_schematic.svg) by Thomas Splettstoesser, CC BY-SA 3.0.
+- AlphaFold overview (`pd_alphafold_overview_source.jpg`): Figure 1 from Jumper et al. (2021), via [PMC8371605](https://pmc.ncbi.nlm.nih.gov/articles/PMC8371605/), CC BY 4.0.
+- ProteinMPNN overview (`pd_proteinmpnn_overview_source.jpg`): Figure 1 from Dauparas et al. (2022), via [PMC9997061](https://pmc.ncbi.nlm.nih.gov/articles/PMC9997061/), CC BY 4.0.
+- RFDiffusion overview (`pd_rfdiffusion_overview_source.jpg`): Figure 1 from Watson et al. (2023), via [PMC10468394](https://pmc.ncbi.nlm.nih.gov/articles/PMC10468394/), CC BY 4.0.
+- Custom diagrams (`pd_design_problems.svg`, `pd_self_consistency.svg`, `pd_design_funnel.svg`): generated by `scripts/generate_protein_design_figures.py`.

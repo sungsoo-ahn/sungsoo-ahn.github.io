@@ -8,9 +8,13 @@ from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 from math import factorial
 
+import blog_figure_style as bfs
+
+bfs.use_blog_style()
+
 # Consistent color scheme
-POSITIVE_COLOR = '#CC4444'  # Lighter red
-NEGATIVE_COLOR = '#4444CC'  # Lighter blue
+POSITIVE_COLOR = bfs.RED
+NEGATIVE_COLOR = bfs.BLUE
 
 
 def associated_legendre(l, m, x):
@@ -144,21 +148,21 @@ def generate_circular_harmonics_figure(output_path):
 
 def generate_spherical_harmonics_figure(output_path):
     """
-    Generate spherical harmonics figure in pyramid layout similar to reference.
+    Generate a readable conceptual spherical harmonics figure.
+
+    The older pyramid layout showed every m for each degree through l=3, but
+    the individual labels and surfaces were too small at blog width.  This
+    version shows one representative mode per degree so the qualitative
+    increase in angular complexity is visible without magnification.
     """
-    # Create figure with specific layout for pyramid
-    fig = plt.figure(figsize=(14, 8))
+    fig = plt.figure(figsize=(9.8, 3.25))
 
-    L_max = 3
-
-    # Calculate positions for pyramid layout
-    positions = []
-    for l in range(L_max + 1):
-        n_harmonics = 2 * l + 1
-        row_width = n_harmonics
-        start_col = (2 * L_max + 1 - row_width) / 2
-        for m_idx, m in enumerate(range(-l, l + 1)):
-            positions.append((l, m, start_col + m_idx))
+    modes = [
+        (0, 0, "degree 0"),
+        (1, 0, "degree 1"),
+        (2, 0, "degree 2"),
+        (3, 2, "degree 3"),
+    ]
 
     # Grid resolution for spherical harmonics
     n_theta = 100
@@ -167,22 +171,8 @@ def generate_spherical_harmonics_figure(output_path):
     phi = np.linspace(0, 2*np.pi, n_phi)
     theta_grid, phi_grid = np.meshgrid(theta, phi)
 
-    # Create axes for each harmonic
-    n_cols = 2 * L_max + 1
-    n_rows = L_max + 1
-
-    for l, m, col_pos in positions:
-        # Calculate subplot position
-        row = l
-        col = col_pos
-
-        # Create 3D axis with tighter vertical spacing
-        left = (col + 0.1) / (n_cols + 0.2)
-        bottom = 1 - (row + 1) / (n_rows) * 0.95
-        width = 0.85 / (n_cols + 0.2)
-        height = 0.95 / (n_rows)
-
-        ax = fig.add_axes([left, bottom, width, height], projection='3d')
+    for idx, (l, m, degree_label) in enumerate(modes):
+        ax = fig.add_axes([0.025 + idx * 0.245, 0.08, 0.235, 0.82], projection='3d')
 
         # Compute spherical harmonic
         Y = real_spherical_harmonic(l, m, theta_grid, phi_grid)
@@ -202,13 +192,15 @@ def generate_spherical_harmonics_figure(output_path):
         colors = np.empty(Y.shape, dtype=object)
         colors_rgba = np.zeros((*Y.shape, 4))
 
-        # Create custom colormap for positive/negative (bright colors)
+        # Create custom colormap for positive/negative regions.
+        pos = np.array([200, 91, 74, 255]) / 255
+        neg = np.array([79, 126, 168, 255]) / 255
         for i in range(Y.shape[0]):
             for j in range(Y.shape[1]):
                 if Y[i, j] >= 0:
-                    colors_rgba[i, j] = [0.9, 0.3, 0.3, 1]  # Bright red
+                    colors_rgba[i, j] = pos
                 else:
-                    colors_rgba[i, j] = [0.3, 0.4, 0.9, 1]  # Bright blue
+                    colors_rgba[i, j] = neg
 
         # Draw coordinate grid (unit sphere wireframe)
         # Longitude lines
@@ -218,7 +210,7 @@ def generate_spherical_harmonics_figure(output_path):
             y_line = np.sin(theta_line) * np.sin(lng)
             z_line = np.cos(theta_line)
             ax.plot(x_line * 0.98, y_line * 0.98, z_line * 0.98,
-                   color='gray', alpha=0.3, linewidth=0.3)
+                   color=bfs.NEUTRAL, alpha=0.28, linewidth=0.35)
 
         # Latitude lines
         for lat in np.linspace(0, np.pi, 7)[1:-1]:  # Skip poles
@@ -227,11 +219,13 @@ def generate_spherical_harmonics_figure(output_path):
             y_line = np.sin(lat) * np.sin(phi_line)
             z_line = np.cos(lat) * np.ones_like(phi_line)
             ax.plot(x_line * 0.98, y_line * 0.98, z_line * 0.98,
-                   color='gray', alpha=0.3, linewidth=0.3)
+                   color=bfs.NEUTRAL, alpha=0.28, linewidth=0.35)
 
         # Plot surface (shade=False to preserve colors)
-        ax.plot_surface(x, y, z, facecolors=colors_rgba,
-                       rstride=2, cstride=2, antialiased=True, shade=False)
+        surface = ax.plot_surface(x, y, z, facecolors=colors_rgba,
+                                  rstride=2, cstride=2, antialiased=True,
+                                  shade=False)
+        surface.set_rasterized(True)
 
         # Set equal aspect ratio
         max_range = 1.0
@@ -249,11 +243,10 @@ def generate_spherical_harmonics_figure(output_path):
         ax.view_init(elev=30, azim=45)
 
         # Add label
-        ax.set_title(f'$Y_{{{l},{m}}}$', fontsize=11, pad=-5)
+        ax.set_title(f'{degree_label}\n$Y_{{{l}}}^{{{m}}}$',
+                     fontsize=15, fontweight='semibold', pad=2, color=bfs.TEXT)
 
-    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved spherical harmonics figure to {output_path}")
+    bfs.save_figure(fig, output_path, dpi=260)
 
 
 def generate_circular_harmonics_simple(output_path):
@@ -289,7 +282,7 @@ def generate_circular_harmonics_simple(output_path):
         ax.set_xticklabels([])
 
         ax.grid(True, alpha=0.4, color='gray', linestyle='-', linewidth=0.5)
-        ax.set_title(f'$Y_{{{m}}}$', fontsize=14, pad=10)
+        ax.set_title(f'$Y_{{{m}}}$', fontsize=16, pad=10, color=bfs.TEXT)
         ax.spines['polar'].set_visible(True)
         ax.spines['polar'].set_color('gray')
         ax.spines['polar'].set_linewidth(0.5)
@@ -519,7 +512,7 @@ def generate_ellipsoid_anisotropy_figure(output_path):
     Generate figure showing how degree-2 spherical harmonics describe anisotropy.
     Four panels: sphere, prolate, oblate, tilted ellipsoid.
     """
-    fig = plt.figure(figsize=(14, 4.5))
+    fig = plt.figure(figsize=(10.4, 3.7))
 
     # Panel configurations: title, subtitle, {m: coefficient}
     panels = [
@@ -538,7 +531,7 @@ def generate_ellipsoid_anisotropy_figure(output_path):
 
     for idx, (title, subtitle, coeffs) in enumerate(panels):
         left = 0.02 + idx * 0.24
-        ax = fig.add_axes([left, 0.08, 0.23, 0.78], projection='3d')
+        ax = fig.add_axes([left, 0.09, 0.23, 0.77], projection='3d')
 
         # Compute r(theta, phi) = 1 + sum c_m * Y_2^m(theta, phi)
         r = np.ones_like(theta_grid)
@@ -595,8 +588,10 @@ def generate_ellipsoid_anisotropy_figure(output_path):
                     colors_rgba[i, j] = [0.85, 0.85, 0.85, 1.0]
 
         # Plot surface
-        ax.plot_surface(x, y, z, facecolors=colors_rgba,
-                        rstride=2, cstride=2, antialiased=True, shade=False)
+        surface = ax.plot_surface(x, y, z, facecolors=colors_rgba,
+                                  rstride=2, cstride=2, antialiased=True,
+                                  shade=False)
+        surface.set_rasterized(True)
 
         # Styling
         max_range = 1.5
@@ -608,13 +603,11 @@ def generate_ellipsoid_anisotropy_figure(output_path):
         ax.view_init(elev=25, azim=45)
 
         # Title and subtitle
-        ax.set_title(title, fontsize=11, pad=5)
+        ax.set_title(title, fontsize=15, pad=5, fontweight='semibold', color=bfs.TEXT)
         ax.text2D(0.5, -0.02, subtitle, transform=ax.transAxes,
-                  ha='center', va='top', fontsize=10, color='#555555')
+                  ha='center', va='top', fontsize=13, color=bfs.MUTED)
 
-    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved ellipsoid anisotropy figure to {output_path}")
+    bfs.save_figure(fig, output_path, dpi=260)
 
 
 def generate_cg_network_figure(output_path):
@@ -660,7 +653,7 @@ def generate_cg_network_figure(output_path):
     def type_cy(t_idx, cy):
         return cy + stack_h/2 - (t_idx + 0.5) * box_h - t_idx * type_gap
 
-    def draw_type_stack(ax, x, cy, label, fontsize=8.5):
+    def draw_type_stack(ax, x, cy, label, fontsize=9.5):
         for t_idx, t in enumerate(type_labels):
             y = type_cy(t_idx, cy) - box_h/2
             fill, edge = type_colors[t]
@@ -670,7 +663,7 @@ def generate_cg_network_figure(output_path):
                     fontweight='bold', color=text_color)
         if label:
             ax.text(x + box_w/2, cy - stack_h/2 - 0.30, label,
-                    ha='center', va='center', fontsize=8,
+                    ha='center', va='center', fontsize=9,
                     color=text_desc, linespacing=1.3)
 
     def draw_bg_arrow(ax, x1, x2, cy, half_h):
@@ -724,7 +717,7 @@ def generate_cg_network_figure(output_path):
         y = cy - layer_h/2
         draw_box(ax, x, y, layer_w, layer_h, color_layer, edge_layer, zorder=1)
         ax.text(x + layer_w/2, cy - layer_h/2 - 0.18, f'Layer {i+1}',
-                ha='center', va='top', fontsize=7.5,
+                ha='center', va='top', fontsize=9,
                 fontweight='bold', color='#00838f')
 
     ax.text(x_stacks[0] - 0.2, cy + stack_h/2 + 0.30, '(a)',
@@ -782,7 +775,7 @@ def generate_cg_network_figure(output_path):
 
         ax.text(x_mid, cy + stack_h/2 + 0.25,
                 'CG tensor products',
-                ha='center', va='center', fontsize=7.5,
+                ha='center', va='center', fontsize=8.8,
                 color='#d32f2f')
 
     ax.text(x_stacks_b[0] - 0.2, cy + stack_h/2 + 0.30, '(b)',
@@ -800,187 +793,91 @@ def generate_architecture_figure(output_path):
     Generate high-level architecture diagram showing message-passing and
     spherical equivariant layers interleaved.
     """
-    from matplotlib.patches import FancyBboxPatch
+    from html import escape
+    from pathlib import Path
 
-    fig, ax = plt.subplots(1, 1, figsize=(14, 3.8))
-    ax.set_xlim(0, 14)
-    ax.set_ylim(0.2, 3.8)
-    ax.set_aspect('equal')
-    ax.axis('off')
-
-    # --- Color palette (matching CG figure style) ---
-    color_mp = '#90caf9'        # sky blue — message passing
-    color_se = '#d1c4e9'        # soft lavender — spherical equivariant
-    color_input = '#c8e6c9'     # light green — input
-    color_output = '#ffccbc'    # light peach — output
-
-    edge_mp = '#42a5f5'
-    edge_se = '#9575cd'
-    edge_input = '#66bb6a'
-    edge_output = '#ff8a65'
-
-    text_color = '#37474f'
+    width, height = 920, 360
+    text_color = '#263238'
+    muted = '#607d8b'
+    arrow_color = '#455a64'
+    color_mp = '#dceefc'
+    color_se = '#e8e1f5'
+    color_input = '#e0f2e9'
+    color_output = '#fae8e4'
+    edge_mp = '#4f9fd8'
+    edge_se = '#8a6fc8'
+    edge_input = '#4caf50'
+    edge_output = '#d56b4f'
     text_mp = '#1565c0'
     text_se = '#5e35b1'
     text_input = '#2e7d32'
-    text_output = '#bf360c'
-    arrow_color = '#546e7a'
-    text_desc = '#546e7a'       # darker grey for descriptions
+    text_output = '#b84a2c'
 
-    lw = 1.2
-    rounding = 0.12
+    def text(x, y, lines, *, size=16, fill=text_color, weight=500, anchor='middle'):
+        if isinstance(lines, str):
+            lines = [lines]
+        tspans = []
+        for i, line in enumerate(lines):
+            dy = 0 if i == 0 else size * 1.16
+            tspans.append(f'<tspan x="{x}" dy="{dy:.1f}">{escape(line)}</tspan>')
+        return (
+            f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" '
+            f'font-weight="{weight}" fill="{fill}">' + ''.join(tspans) + '</text>'
+        )
 
-    # --- Helpers ---
-    def rounded_box(x, y, w, h, facecolor, edgecolor, zorder=2):
-        box = FancyBboxPatch((x, y), w, h,
-                             boxstyle=f'round,pad={rounding}',
-                             facecolor=facecolor, edgecolor=edgecolor,
-                             linewidth=lw, zorder=zorder)
-        ax.add_patch(box)
-        return box
+    def box(x, y, w, h, lines, fill, stroke, text_fill, *, size=18, sub=None):
+        mid = y + 46
+        pieces = [
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="14" fill="{fill}" '
+            f'stroke="{stroke}" stroke-width="2.4"/>',
+            text(x + w / 2, mid, lines, size=size, fill=text_fill, weight=700),
+        ]
+        if sub:
+            pieces.append(text(x + w / 2, y + h - 30, sub, size=15, fill=muted, weight=500))
+        return '\n'.join(pieces)
 
-    def draw_arrow(x1, x2, y=None, color=arrow_color):
-        """Draw a horizontal arrow with visible head."""
-        if y is None:
-            y = cy
-        ax.annotate('', xy=(x2, y), xytext=(x1, y),
-                    arrowprops=dict(arrowstyle='-|>', color=color,
-                                    lw=1.5, mutation_scale=12,
-                                    shrinkA=0, shrinkB=0),
-                    zorder=3)
+    def arrow(x1, y1, x2, y2):
+        return (
+            f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{arrow_color}" '
+            'stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>'
+        )
 
-    # --- Layout (uniform gap between all elements) ---
-    cy = 2.0
-    box_h = 1.3
-    box_w_io = 1.3       # input/output width
-    box_w = 1.6          # layer block width
-    gap = 0.5            # uniform gap between adjacent elements
-    dots_w = 0.6         # width reserved for the dots region
-    arrow_pad = 0.06     # small pad so arrow doesn't touch box edge
+    svg = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+        '<defs>',
+        f'<marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="{arrow_color}"/></marker>',
+        '<style>text { font-family: Arial, Helvetica, DejaVu Sans, sans-serif; }</style>',
+        '</defs>',
+        '<rect width="100%" height="100%" fill="white"/>',
+        f'<rect x="194" y="66" width="536" height="218" rx="22" fill="none" stroke="#b0bec5" stroke-width="1.6" stroke-dasharray="6 8"/>',
+        text(462, 51, 'Repeated equivariant block', size=18, fill=muted, weight=700),
+        text(462, 309, 'applied T times', size=17, fill=muted, weight=600),
+        box(40, 136, 130, 92, ['Input'], color_input, edge_input, text_input,
+            size=20, sub=['atom types', 'positions']),
+        box(230, 116, 190, 132, ['Message', 'passing'], color_mp, edge_mp, text_mp,
+            size=21, sub=['aggregate', 'neighbors']),
+        box(500, 116, 200, 132, ['Spherical', 'equivariant'], color_se, edge_se, text_se,
+            size=21, sub=['CG products', 'nonlinearities']),
+        box(770, 136, 120, 92, ['Output'], color_output, edge_output, text_output,
+            size=20, sub=['energy', 'forces']),
+        arrow(174, 182, 222, 182),
+        arrow(426, 182, 492, 182),
+        arrow(706, 182, 762, 182),
+        text(325, 270, 'structural update', size=15, fill=text_mp, weight=600),
+        text(600, 270, 'geometric update', size=15, fill=text_se, weight=600),
+        '</svg>\n',
+    ]
+    svg_text = '\n'.join(svg)
 
-    # Compute total width and center it
-    total = (box_w_io + gap + box_w + gap + box_w + gap
-             + dots_w + gap + box_w + gap + box_w + gap + box_w_io)
-    x0 = (14 - total) / 2  # left margin to center everything
-
-    x_input = x0
-    x_b1_mp = x_input + box_w_io + gap
-    x_b1_se = x_b1_mp + box_w + gap
-    x_dots  = x_b1_se + box_w + gap          # start of dots region
-    x_b2_mp = x_dots + dots_w + gap
-    x_b2_se = x_b2_mp + box_w + gap
-    x_output = x_b2_se + box_w + gap
-
-    # --- Helper to draw an MP or SE block ---
-    def draw_mp_block(x):
-        rounded_box(x, cy - box_h/2, box_w, box_h, color_mp, edge_mp)
-        ax.text(x + box_w/2, cy + 0.22, 'Message',
-                ha='center', va='center', fontsize=10.5,
-                fontweight='bold', color=text_mp)
-        ax.text(x + box_w/2, cy - 0.08, 'Passing',
-                ha='center', va='center', fontsize=10.5,
-                fontweight='bold', color=text_mp)
-        ax.text(x + box_w/2, cy - 0.42,
-                'Aggregate from\nneighbors',
-                ha='center', va='center', fontsize=7.5,
-                color=text_desc, linespacing=1.4)
-
-    def draw_se_block(x):
-        rounded_box(x, cy - box_h/2, box_w, box_h, color_se, edge_se)
-        ax.text(x + box_w/2, cy + 0.22, 'Spherical',
-                ha='center', va='center', fontsize=10.5,
-                fontweight='bold', color=text_se)
-        ax.text(x + box_w/2, cy - 0.08, 'Equivariant',
-                ha='center', va='center', fontsize=10.5,
-                fontweight='bold', color=text_se)
-        ax.text(x + box_w/2, cy - 0.42,
-                'CG tensor products,\nnonlinearities',
-                ha='center', va='center', fontsize=7.5,
-                color=text_desc, linespacing=1.4)
-
-    # --- Draw all blocks ---
-    # Input
-    rounded_box(x_input, cy - box_h/2, box_w_io, box_h,
-                color_input, edge_input)
-    ax.text(x_input + box_w_io/2, cy + 0.22, 'Input',
-            ha='center', va='center', fontsize=11,
-            fontweight='bold', color=text_input)
-    ax.text(x_input + box_w_io/2, cy - 0.18, 'Atom types,\npositions',
-            ha='center', va='center', fontsize=7.5,
-            color=text_desc, linespacing=1.4)
-
-    draw_mp_block(x_b1_mp)
-    draw_se_block(x_b1_se)
-
-    # Dots — centered in their reserved region
-    dots_cx = x_dots + dots_w / 2
-    for i in range(3):
-        ax.plot(dots_cx + (i - 1) * 0.20, cy, 'o',
-                color='#90a4ae', markersize=4.5, zorder=3)
-
-    draw_mp_block(x_b2_mp)
-    draw_se_block(x_b2_se)
-
-    # Output
-    rounded_box(x_output, cy - box_h/2, box_w_io, box_h,
-                color_output, edge_output)
-    ax.text(x_output + box_w_io/2, cy + 0.22, 'Output',
-            ha='center', va='center', fontsize=11,
-            fontweight='bold', color=text_output)
-    ax.text(x_output + box_w_io/2, cy - 0.18, 'Energy,\nforces',
-            ha='center', va='center', fontsize=7.5,
-            color=text_desc, linespacing=1.4)
-
-    # --- Arrows (uniform: from right edge of box to left edge of next) ---
-    def box_right(x, w):
-        return x + w + rounding + arrow_pad
-
-    def box_left(x):
-        return x - rounding - arrow_pad
-
-    draw_arrow(box_right(x_input, box_w_io), box_left(x_b1_mp))
-    draw_arrow(box_right(x_b1_mp, box_w),   box_left(x_b1_se))
-    # No arrows into/out of dots — ellipsis implies continuation
-    draw_arrow(box_right(x_b2_mp, box_w),   box_left(x_b2_se))
-    draw_arrow(box_right(x_b2_se, box_w),   box_left(x_output))
-
-    # --- Annotations below blocks ---
-    annot_y = cy - box_h/2 - 0.28
-    for bx in [x_b1_mp, x_b2_mp]:
-        ax.text(bx + box_w/2, annot_y, 'structural',
-                ha='center', va='center', fontsize=8,
-                color=text_mp, style='italic')
-    for bx in [x_b1_se, x_b2_se]:
-        ax.text(bx + box_w/2, annot_y, 'geometric',
-                ha='center', va='center', fontsize=8,
-                color=text_se, style='italic')
-
-    # --- Repeat bracket on top (spanning full repeated section) ---
-    brace_y = cy + box_h/2 + 0.32
-    brace_x1 = x_b1_mp - rounding
-    brace_x2 = x_b2_se + box_w + rounding
-    brace_mid = (brace_x1 + brace_x2) / 2
-
-    tick = 0.10
-    bracket_color = '#78909c'
-    ax.plot([brace_x1, brace_x1, brace_mid - 0.06],
-            [brace_y - tick, brace_y, brace_y],
-            color=bracket_color, lw=0.9, solid_capstyle='round')
-    ax.plot([brace_mid + 0.06, brace_x2, brace_x2],
-            [brace_y, brace_y, brace_y - tick],
-            color=bracket_color, lw=0.9, solid_capstyle='round')
-    ax.plot([brace_mid - 0.06, brace_mid, brace_mid + 0.06],
-            [brace_y, brace_y + tick, brace_y],
-            color=bracket_color, lw=0.9, solid_capstyle='round')
-
-    ax.text(brace_mid, brace_y + tick + 0.12,
-            r'$\times\; T$ layers',
-            ha='center', va='bottom', fontsize=10,
-            color=text_color)
-
-    plt.savefig(output_path, dpi=200, bbox_inches='tight',
-                facecolor='white', pad_inches=0.15)
-    plt.close()
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if out.suffix.lower() == '.png':
+        svg_path = out.with_suffix('.svg')
+        svg_path.write_text(svg_text, encoding='utf-8')
+        if not bfs.render_svg_preview(svg_path, out, width=1600):
+            raise RuntimeError('Could not render architecture SVG preview.')
+    else:
+        out.write_text(svg_text, encoding='utf-8')
     print(f"Saved architecture figure to {output_path}")
 
 
@@ -990,12 +887,15 @@ if __name__ == '__main__':
     output_dir = 'assets/img/blog'
     os.makedirs(output_dir, exist_ok=True)
 
-    # Generate figures
-    generate_circular_harmonics_simple(os.path.join(output_dir, 'circular_harmonics.png'))
+    # Generate flat diagrams as SVG plus PNG.  Keep 3D surfaces as PNG because
+    # vector export becomes a large path dump that is slow and hard to edit.
+    for ext in ('svg', 'png'):
+        generate_circular_harmonics_simple(os.path.join(output_dir, f'circular_harmonics.{ext}'))
+        generate_cg_tensor_product_figure(os.path.join(output_dir, f'cg_tensor_product.{ext}'))
+        generate_architecture_figure(os.path.join(output_dir, f'architecture_overview.{ext}'))
+        generate_cg_network_figure(os.path.join(output_dir, f'cg_network.{ext}'))
+
     generate_spherical_harmonics_figure(os.path.join(output_dir, 'spherical_harmonics.png'))
-    generate_cg_tensor_product_figure(os.path.join(output_dir, 'cg_tensor_product.png'))
     generate_ellipsoid_anisotropy_figure(os.path.join(output_dir, 'ellipsoid_anisotropy.png'))
-    generate_architecture_figure(os.path.join(output_dir, 'architecture_overview.png'))
-    generate_cg_network_figure(os.path.join(output_dir, 'cg_network.png'))
 
     print("Done!")

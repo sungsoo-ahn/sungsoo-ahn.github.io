@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -33,13 +33,15 @@ Two families of methods tackle this problem, differing in what they approximate:
 - **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make the exponential-dimensional problem tractable.
 - **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
 
-More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. The goal here is to introduce these ideas from first principles.
+More recently, **deep learning methods** have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. The rest of this post introduces these ideas from first principles.
 
 ### Overview
 
-The goal is to compute a molecular system's energy and electron density from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
+The computational target is a molecular system's energy and electron density from its atomic structure. The practical workhorse is **Kohn-Sham DFT**, which solves this through a fixed-point iteration called the **self-consistent field (SCF) loop**.
 
-The route to the SCF loop is: define the problem with the Schrödinger equation, separate electrons from nuclei with the Born-Oppenheimer approximation, see what direct wavefunction approximation looks like, and then use DFT as the density-based path that makes the SCF loop possible.
+The loop is simple to state: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate **exchange-correlation** term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
+
+The route to the SCF loop is: define the problem with the Schrödinger equation, separate electrons from nuclei with the Born-Oppenheimer approximation, look at direct wavefunction approximation, and then use DFT as the density-based path that makes the SCF loop possible.
 
 ## The Schrödinger Equation
 
@@ -184,9 +186,17 @@ The problem is that $$F[\rho]$$ is unknown. We know the sufficient statistic exi
 
 ### The Kohn-Sham Approximation
 
-In 1965, Kohn and Sham turned DFT into a practical method. The key idea is to introduce a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$ (the **Kohn-Sham orbitals**) that reproduce the true electron density: $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$.
+In 1965, Kohn and Sham turned DFT into a practical method. They introduced a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$, called the **Kohn-Sham orbitals**, that reproduce the true electron density:
 
-Why introduce orbitals? The density tells us *where* electrons are, but not *how fast they are moving*, and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy through $$\nabla^2$$.[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards curvature information, which is why no exact kinetic-energy functional of $$\rho$$ alone is known. From the orbitals, the non-interacting kinetic energy is exact: $$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$. The orbitals unlock the dominant piece of $$F[\rho]$$, leaving a smaller residual to approximate:
+$$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$
+
+Orbitals are useful because the density tells us *where* electrons are, but not *how fast they are moving*, and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy through $$\nabla^2$$.[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards curvature information, which is why no exact kinetic-energy functional of $$\rho$$ alone is known.
+
+From the orbitals, the non-interacting kinetic energy is exact:
+
+$$T_s = -\frac{1}{2} \sum_{i} \int \phi_i^*(\mathbf{r}) \nabla^2 \phi_i(\mathbf{r}) \, d\mathbf{r}$$
+
+The orbitals unlock the dominant piece of $$F[\rho]$$, leaving a smaller residual to approximate:
 
 > **Kohn-Sham energy decomposition.** The total energy splits into
 >
@@ -247,7 +257,7 @@ The **density matrix** $$\mathbf{P} \in \mathbb{R}^{K \times K}$$ is the finite-
 
 In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain a new $$\mathbf{C}$$ → repeat until convergence.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
 
 ---
 
@@ -255,7 +265,7 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 Deep learning in quantum chemistry usually replaces one of three objects. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (Pfau et al., 2020). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, the central object in DFT and the input to the energy functional.
 
-In our group, GPWNO (Kim & Ahn, 2024) predicts electron density fields, and QHFlow (Kim et al., 2025) predicts DFT Hamiltonians with equivariant flow matching. I mention them because they sit exactly on the objects defined above: density, Hamiltonian, and SCF.
+In our group, GPWNO (Kim & Ahn, 2024) predicts electron density fields, while QHFlow (Kim et al., 2025) predicts DFT Hamiltonians with equivariant flow matching. Both operate on the DFT objects developed above: density, Hamiltonian, and the SCF loop.
 
 ---
 
@@ -269,6 +279,10 @@ In our group, GPWNO (Kim & Ahn, 2024) predicts electron density fields, and QHFl
 - Pfau, D., et al. (2020). Ab initio solution of the many-electron Schrödinger equation with deep neural networks. [Physical Review Research, 2(3), 033429](https://doi.org/10.1103/PhysRevResearch.2.033429).
 - Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://arxiv.org/abs/2402.04278).
 - Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817).
+
+### Figure sources
+
+- SCF loop diagram (`scf_loop.svg`): custom explanatory figure generated by `scripts/generate_dft_figures.py` with SVG+PNG outputs and the shared blog figure style.
 
 ---
 

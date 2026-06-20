@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -45,11 +45,11 @@ Several storage technologies exist, each with trade-offs:
 - **Batteries:** 60–95% round-trip efficiency, but cost-prohibitive at the scale needed for multi-day or seasonal storage. Lithium-ion costs have fallen dramatically, yet storing a full day of U.S. electricity demand (~11 TWh) in batteries remains economically impractical.
 - **Hydrogen energy storage (HES):** Use excess electricity to split water (electrolysis),[^electrolysis] store the hydrogen, and convert it back to electricity in a fuel cell[^fuelcell] when needed. Round-trip efficiency is lower (~35%), but hydrogen can be stored in bulk at low cost — underground caverns, pressurized tanks, or converted to methane for existing natural gas infrastructure.
 
-The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint. At grid scale, the relevant quantity is the total cost of stored energy. Zitnick et al. (2020) estimate HES at \$113/MWh, competitive with batteries for multi-day storage because cheap bulk hydrogen storage can offset the efficiency loss.
+The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint. At grid scale, the relevant quantity is the total cost of stored energy. Zitnick et al. (2020) estimate HES at 113 USD/MWh, competitive with batteries for multi-day storage because cheap bulk hydrogen storage can offset the efficiency loss.
 
 The bottleneck is not storage capacity. It is the **catalyst**. Both the electrolyzer (splitting water) and the fuel cell (recombining hydrogen with oxygen) require electrocatalysts[^electrocatalyst] to drive their reactions at practical rates. The dominant catalyst is platinum, which is scarce and expensive. Reducing or replacing platinum is the key to making HES economically viable.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_energy_cycle.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The hydrogen energy storage cycle. Renewable electricity powers an electrolyzer that splits water into hydrogen. The hydrogen can be stored directly or converted to methane via methanation with captured CO2. Fuel cells convert stored fuel back to electricity for the grid. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_energy_cycle.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The hydrogen energy storage cycle. Renewable electricity powers an electrolyzer that splits water into hydrogen. The hydrogen can be stored directly or converted to methane via methanation with captured CO2. Fuel cells convert stored fuel back to electricity for the grid. Adapted from Zitnick et al. (2020)." %}
 
 ---
 
@@ -65,13 +65,13 @@ A **proton exchange membrane (PEM) fuel cell** converts hydrogen and oxygen into
 
 An **electrolyzer** runs the same reactions in reverse: apply a voltage to split water into hydrogen and oxygen. Both devices need a catalyst at each electrode[^electrode] to make the reactions proceed fast enough to be practical.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_fuel_cell.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Schematic of a PEM fuel cell. Hydrogen enters at the anode (left, red), is split into protons and electrons. Protons pass through the membrane (gold center), electrons flow through an external circuit (top) to power a load. At the cathode (right, blue), oxygen combines with protons and electrons to form water. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_fuel_cell.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Schematic of a PEM fuel cell. Hydrogen enters at the anode (left, red), is split into protons and electrons. Protons pass through the membrane (gold center), electrons flow through an external circuit (top) to power a load. At the cathode (right, blue), oxygen combines with protons and electrons to form water. Adapted from Zitnick et al. (2020)." %}
 
 ### The Platinum Problem
 
 Platinum is the best-known catalyst for both the hydrogen oxidation reaction at the anode and the oxygen reduction reaction[^orr] at the cathode. It sits near the peak of the activity volcano, explained below: it binds reactants strongly enough to catalyze the reaction, but weakly enough to release products.
 
-The problem is cost and scarcity:
+Cost and scarcity dominate:
 
 - Platinum accounts for over **40% of fuel cell capital costs** when including the support structures needed for adequate power density (Zitnick et al., 2020).
 - To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^ptreserves]
@@ -85,7 +85,7 @@ Research suggests a 90% reduction in platinum loading may be achievable, and pla
 
 **Heterogeneous catalysis**[^heterogeneous] involves a reaction between a solid surface, the catalyst, and gas- or liquid-phase reactants. The catalyst is not consumed; it provides a surface where reactants can adsorb,[^adsorption] react, and desorb as products.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_adsorption_types.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Potential energy as a function of distance between an adsorbate and a surface. Physisorption (gold) is a weak van der Waals attraction. Chemisorption (blue) involves forming a chemical bond — the deeper well corresponds to the adsorption energy that determines catalytic activity. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_adsorption_types.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Potential energy as a function of distance between an adsorbate and a surface. Physisorption (gold) is a weak van der Waals attraction. Chemisorption (blue) involves forming a chemical bond — the deeper well corresponds to the adsorption energy that determines catalytic activity. Adapted from Zitnick et al. (2020)." %}
 
 ### The Oxygen Reduction Reaction
 
@@ -109,11 +109,11 @@ where $$H$$ is enthalpy,[^enthalpy] $$T$$ is temperature, and $$S$$ is entropy.[
 
 A catalyst works by lowering the activation energy[^activationenergy] barriers between steps — not by changing the overall thermodynamics (the total $$\Delta G$$ from reactants to products is fixed), but by providing an alternative pathway with lower barriers.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_activation_energy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Energy diagram for a single reaction step: O2 dissociating on a surface. The activation energy (0.62 eV) is the barrier the system must overcome. The reaction free energy (−1.5 eV) is the net energy change. A catalyst lowers the activation energy without changing the net free energy. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_activation_energy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Energy diagram for a single reaction step: O2 dissociating on a surface. The activation energy (0.62 eV) is the barrier the system must overcome. The reaction free energy (−1.5 eV) is the net energy change. A catalyst lowers the activation energy without changing the net free energy. Adapted from Zitnick et al. (2020)." %}
 
 The key screening quantity is the **adsorption energy**: how strongly each intermediate binds to the surface. If binding is too strong, the intermediate cannot desorb and the catalyst is "poisoned." If binding is too weak, the intermediate never forms.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_gibbs_energy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Gibbs free energy diagram for the dissociative ORR pathway on Pt(111) (blue) and Ni(111) (green). Pt has moderate energy barriers at each step — close to ideal. Ni binds oxygen too strongly: the initial steps drop much further, but the activation barriers between steps are correspondingly larger. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_gibbs_energy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Gibbs free energy diagram for the dissociative ORR pathway on Pt(111) (blue) and Ni(111) (green). Pt has moderate energy barriers at each step — close to ideal. Ni binds oxygen too strongly: the initial steps drop much further, but the activation barriers between steps are correspondingly larger. Adapted from Zitnick et al. (2020)." %}
 
 ---
 
@@ -132,7 +132,7 @@ $$r \propto \exp\!\left(-\frac{E_a}{k_B T}\right)$$
 
 Combining these: as adsorption energy becomes more negative (stronger binding), $$E_a$$ decreases for adsorption steps but increases for desorption steps. The overall rate is limited by the slowest step. On the strong-binding side, desorption is rate-limiting — the rate decreases as binding strengthens. On the weak-binding side, adsorption is rate-limiting — the rate decreases as binding weakens. The result is a **volcano plot**: reaction rate versus adsorption energy traces an inverted-V shape, with the optimum at the peak.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_volcano_plot.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Volcano plot for the ORR. Catalytic activity (log scale) vs. oxygen adsorption energy. Platinum and palladium sit near the peak. Metals to the left (Fe, W, Ni) bind too strongly; metals to the right (Ag, Au) bind too weakly. The two branches correspond to different rate-limiting steps. Adapted from Nørskov et al. (2004), as presented in Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_volcano_plot.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Volcano plot for the ORR. Catalytic activity (log scale) vs. oxygen adsorption energy. Platinum and palladium sit near the peak. Metals to the left (Fe, W, Ni) bind too strongly; metals to the right (Ag, Au) bind too weakly. The two branches correspond to different rate-limiting steps. Adapted from Nørskov et al. (2004), as presented in Zitnick et al. (2020)." %}
 
 The volcano plot is the central organizing principle of electrocatalysis. It reduces catalyst discovery to a one-dimensional search: find a material whose adsorption energy places it at the volcano peak. Theory gives the optimal value; materials discovery asks which structure achieves it.
 
@@ -152,7 +152,7 @@ This **scaling relation** arises because both $$*$$OH and $$*$$OOH bond to the s
 
 The consequence is that a single descriptor, such as $$\Delta G_{*\text{OH}}$$, determines a catalyst's position on the volcano. This makes screening tractable despite the high-dimensional space of possible materials.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_scaling_relations.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="2D volcano plot showing catalytic activity (color, red = highest) as a function of OH and OOH binding free energies. The dashed red line is the scaling relation — all known catalysts (dots) cluster along it. The activity peak (red region) sits slightly off the line, meaning the scaling relation itself limits achievable performance. Pt(111) is labeled near the peak. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_scaling_relations.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="2D volcano plot showing catalytic activity (color, red = highest) as a function of OH and OOH binding free energies. The dashed red line is the scaling relation — all known catalysts (dots) cluster along it. The activity peak (red region) sits slightly off the line, meaning the scaling relation itself limits achievable performance. Pt(111) is labeled near the peak. Adapted from Zitnick et al. (2020)." %}
 
 ### The Constraint — and the Open Challenge
 
@@ -173,7 +173,7 @@ Even with the simplification to a single descriptor, the space of candidate cata
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_miller_indices.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Crystal facets exposed by cutting along different planes (Miller indices). Top: the (100), (110), and (111) cutting planes through a cubic unit cell. Bottom: the resulting surface arrangements — (111) is the most densely packed. Different facets expose different binding site geometries. Adapted from Zitnick et al. (2020)." %}
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_adsorbates.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="The 82 adsorbate molecules in the OC20 dataset, grouped by composition: O and H (top), small molecules with one carbon (C1), larger molecules with two or more carbons (C2), and nitrogen-containing molecules (N). These are intermediates of reactions relevant to renewable energy storage. Adapted from Zitnick et al. (2020)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_adsorbates.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="700px" zoomable=true caption="The 82 adsorbate molecules in the OC20 dataset, grouped by composition: O and H (top), small molecules with one carbon (C1), larger molecules with two or more carbons (C2), and nitrogen-containing molecules (N). These are intermediates of reactions relevant to renewable energy storage. Adapted from Zitnick et al. (2020)." %}
 
 Combining these factors gives on the order of **1,000 candidate configurations per catalyst composition**, and billions of total (composition, facet, site, adsorbate) combinations. Each evaluation requires a DFT relaxation, an $$O(n^3)$$ iterative simulation that takes hours to days. This is the search problem that motivates ML approaches to catalyst design.
 
@@ -189,7 +189,7 @@ The OER is kinetically sluggish because it forms an O–O bond through four prot
 
 Metal oxides are the dominant catalyst class for the OER. The reason is stability: in PEM electrolyzers, water splitting operates under strongly acidic conditions with a proton-conducting membrane. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is **iridium oxide (IrO$$_2$$)** — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_oer_workflow.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The OER catalyst discovery workflow. (a) Select a bulk oxide structure. (b) Enumerate surface terminations and identify the most stable one via surface Pourbaix diagrams. (c) Place adsorbate intermediates. (d) Relax the structure and compute adsorption energy. Steps (a)–(b) are unique to oxides — on metals, the surface is determined by the facet alone. Adapted from Tran et al. (2023)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oer_workflow.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The OER catalyst discovery workflow. (a) Select a bulk oxide structure. (b) Enumerate surface terminations and identify the most stable one via surface Pourbaix diagrams. (c) Place adsorbate intermediates. (d) Relax the structure and compute adsorption energy. Steps (a)–(b) are unique to oxides — on metals, the surface is determined by the facet alone. Adapted from Tran et al. (2023)." %}
 
 ### Why Oxides Are Harder Than Metals
 
@@ -201,7 +201,7 @@ Oxide electrocatalysts introduce at least five layers of complexity absent from 
 4. **Active site ambiguity.** It is often unclear which surface site is catalytically active, and multiple competing reaction mechanisms may operate simultaneously.
 5. **Stronger electron correlation.** Standard DFT functionals (GGA) are less accurate for oxides because of strong electron–electron interactions in transition metal d-orbitals. Hubbard U corrections[^hubbardu] or more expensive hybrid functionals are needed.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_terminations.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="550px" zoomable=true caption="Surface terminations of rutile (110). (a) Three possible terminations (T1, T2, T3) obtained by cutting at different depths. The dashed blue box marks the surface unit cell. (b) Labeled surface oxygen sites — removing any subset of these creates vacancy defects, each configuration with different catalytic properties. Adapted from Tran et al. (2023)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_terminations.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="700px" zoomable=true caption="Surface terminations of rutile (110). (a) Three possible terminations (T1, T2, T3) obtained by cutting at different depths. The dashed blue box marks the surface unit cell. (b) Labeled surface oxygen sites — removing any subset of these creates vacancy defects, each configuration with different catalytic properties. Adapted from Tran et al. (2023)." %}
 
 ### Adsorbate Binding on Oxides
 
@@ -241,9 +241,11 @@ The design space grows dramatically beyond pure metals and binary alloys.
 
 Many high-performing electrocatalysts lack long-range crystalline order. Amorphous metal oxides and hydroxides used for oxygen evolution have no single repeating unit cell. Instead, they present a distribution of local coordination environments, each with potentially different catalytic activity. Standard DFT assumes periodic boundary conditions and a well-defined slab; modeling amorphous surfaces requires large supercells or ensemble sampling to capture this structural diversity.
 
-The problem is compounded by **surface reconstruction under operating conditions**. Atoms migrate, oxidation states change, and the electrochemically active phase may differ from the as-synthesized material. Oxide surfaces are particularly prone to reconstruction: partial dissolution by the solvent creates vacancy defects, and applied potential can rearrange the surface. The structure being modeled is not necessarily the structure that catalyzes.
+**Surface reconstruction under operating conditions** compounds the difficulty. Atoms migrate, oxidation states change, and the electrochemically active phase may differ from the as-synthesized material. Oxide surfaces are particularly prone to reconstruction: partial dissolution by the solvent creates vacancy defects, and applied potential can rearrange the surface. The structure being modeled is not necessarily the structure that catalyzes.
 
-Oxides also exhibit **magnetic polymorphism** — the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties (Tran et al., 2023). In semiconducting oxides, a further complication arises from **charge self-compensation**: when vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. This means a vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
+Oxides also exhibit **magnetic polymorphism**: the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties (Tran et al., 2023).
+
+In semiconducting oxides, **charge self-compensation** adds another failure mode. When vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. A vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
 
 ### Scaling Relations on Complex Materials
 
@@ -261,7 +263,7 @@ When scaling relations break down, the full multidimensional binding-energy spac
 
 The search problem is now clear: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge space, when each DFT relaxation can take hours or days. ML changes the arithmetic. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (Lan et al., 2023) relax many candidate placements before validating only a small top-$$k$$ set with DFT.
 
-Generation tries to skip part of enumerate-then-filter, but a catalyst is not a free molecule. The slab, surface orientation, adsorbate, and binding pose are coupled; changing one part can change the rest. In our group, CatFlow (Kim et al., 2026) is our attempt at this joint-generation problem. I include it here only to show where these tutorial pieces enter our own work. The hard part is still the surface-adsorbate coupling described above.
+Generation tries to skip part of enumerate-then-filter, but a catalyst is not a free molecule. The slab, surface orientation, adsorbate, and binding pose are coupled; changing one part can change the rest. In our group, CatFlow (Kim et al., 2026) targets this joint-generation problem. The hard part remains the surface-adsorbate coupling described above.
 
 ### Open Challenges
 
@@ -283,6 +285,13 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 - Shuaibi, M., Choubisa, H., Engel, M., Wood, B. M., Musielewicz, J., Comer, B., ... & Zitnick, C. L. (2025). Open Catalyst 2025 (OC25): dataset and models for the solid-liquid interface. *arXiv preprint arXiv:2509.17862*.
 - Lan, J., Palizhati, A., Shuaibi, M., Wood, B. M., Wander, B., Das, A., ... & Zitnick, C. L. (2023). AdsorbML: a leap in efficiency for adsorption energy calculations using generalizable machine learning potentials. *npj Computational Materials*, 9, 172.
 - Kim, M., Kim, N., Kim, H., & Ahn, S. (2026). CatFlow: co-generation of slab-adsorbate systems via flow matching. *arXiv preprint arXiv:2602.05372*.
+
+### Figure sources
+
+- Renewable-storage and OC20 figures (`ec_duck_curve.png`, `ec_adsorption_types.png`, `ec_catalyst_surface.png`, `ec_catalyst_types.png`, `ec_miller_indices.png`, `ec_adsorbates.png`): adapted from Zitnick et al. (2020), [arXiv:2010.09435](https://arxiv.org/abs/2010.09435). The downloaded/cropped raster figures were resized for blog readability.
+- Custom electrocatalysis diagrams (`ec_energy_cycle.svg`, `ec_fuel_cell.svg`, `ec_activation_energy.svg`, `ec_gibbs_energy.svg`, `ec_volcano_plot.svg`, `ec_scaling_relations.svg`, `ec_oer_workflow.svg`): generated by `scripts/generate_electrocatalysis_figures.py` with SVG and PNG outputs. The cycle, fuel-cell, and OER workflow figures are native SVG schematics with sparse labels; the quantitative energy and volcano plots use Matplotlib with the shared blog style. The conceptual layouts are adapted from Zitnick et al. (2020), Nørskov et al. (2004), and Tran et al. (2023), as noted in the captions.
+- OC22 oxide figures (`ec_oxide_terminations.png`, `ec_oxide_adsorbates.jpg`, `ec_oxide_scaling.png`): adapted from Tran et al. (2023), [arXiv:2206.08917](https://arxiv.org/abs/2206.08917). Connected dark margins were flood-filled to white where needed so the figures read cleanly on the blog page.
+- OC25 solid-liquid overview (`ec_solid_liquid_overview.png`): adapted from Shuaibi et al. (2025), [arXiv:2509.17862](https://arxiv.org/abs/2509.17862).
 
 ---
 

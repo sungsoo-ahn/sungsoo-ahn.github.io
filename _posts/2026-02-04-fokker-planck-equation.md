@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-06-19
+last_updated: 2026-06-20
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -48,7 +48,13 @@ The SDE describes one particle path: at each instant, the particle drifts by $$\
 > where $$\nabla_{\mathbf{x}} \cdot [\,\cdot\,]$$ is the divergence operator and $$\Delta_{\mathbf{x}} = \sum_{i=1}^{D} \frac{\partial^2}{\partial x_i^2}$$ is the Laplacian.
 {: .block-lemma }
 
-Before deriving the equation, we build intuition for each term. The derivation also uses the **transition kernel**, the Gaussian conditional distribution obtained by discretizing the SDE. For a small time step $$\Delta t$$, the Euler-Maruyama approximation gives $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}$$ with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
+Before deriving the equation, we build intuition for each term. The derivation also uses the **transition kernel**, the Gaussian conditional distribution obtained by discretizing the SDE.
+
+For a small time step $$\Delta t$$, the Euler-Maruyama approximation gives
+
+$$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t + g(t)\sqrt{\Delta t}\;\boldsymbol{\epsilon}$$
+
+with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
 
 > **Transition kernel.** The conditional distribution is Gaussian:
 >
@@ -61,13 +67,13 @@ Before deriving the equation, we build intuition for each term. The derivation a
 
 The quantity $$\mathbf{f}\,p_t$$ is a **probability flux**: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this becomes the finite-difference statement $$\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), the equation reduces to the continuity equation from fluid dynamics.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.png" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
 
 ### Spreading by Diffusion
 
 At each instant, the SDE's noise kicks every particle by a symmetric random displacement $$g\,d\mathbf{w}$$. The aggregate effect is Gaussian blurring: peaks erode and valleys fill.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density. The solid blue curve is the original density \(p_t(x)\); the dashed coral curve is the density after Gaussian convolution (kernel shown above the peak). Peaks erode (red shading) and valleys fill (green shading). The section below explains why." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density by local averaging. Sharp peaks lose mass while nearby valleys gain mass, producing a smoother curve without changing the global interpretation." %}
 
 **Why does blurring produce a second derivative?** In a small time step $$\Delta t$$, the noise moves each particle from $$y$$ to $$y + \epsilon$$, where $$\epsilon \sim \mathcal{N}(0,\, g^2\,\Delta t)$$. A particle arrives at $$x$$ only if it started at $$y$$ and received kick $$\epsilon = x - y$$. Summing over starting positions, weighted by the density $$p_t(y)$$ and the probability of the required kick:
 
@@ -83,7 +89,7 @@ Now take the expectation term by term:
 
 - **The quadratic term** $$\frac{\epsilon^2}{2}\,p_t''(x)$$ **survives.** Whether the particle goes left or right, $$\epsilon^2$$ is positive — the direction cancels but the magnitude does not. This term detects **curvature**: whether neighbors on both sides have higher density than $$x$$ ($$p_t'' > 0$$, valley) or lower ($$p_t'' < 0$$, peak).
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick \(+\epsilon\) raises the density by the same amount that \(-\epsilon\) lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than \(x\). The average of neighbors falls below \(p_t(x)\), so the quadratic (curvature) term \(\frac{\epsilon^2}{2}p_t'' < 0\) drives density down." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick \(+\epsilon\) raises the density by the same amount that \(-\epsilon\) lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than \(x\). The average of neighbors falls below \(p_t(x)\), so the quadratic (curvature) term \(\frac{\epsilon^2}{2}p_t'' < 0\) drives density down." %}
 
 After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Dividing by $$\Delta t$$ and taking the limit gives the **diffusion PDE** in one dimension:
 
@@ -245,7 +251,9 @@ The rule $$dw_i\,dw_j = \delta_{ij}\,dt$$ kills all off-diagonal Hessian entries
 
 ### Deriving FP from Itô's Lemma
 
-The strategy is the **test function method**. We want a PDE for $$p_t$$, but Itô's lemma describes one particle, not a density. The trick is to use a smooth "probe" function $$\varphi(\mathbf{x})$$ and track the weighted average $$\int \varphi\,p_t\,d\mathbf{x}$$. If we know how this average changes for *every* choice of $$\varphi$$, we know how $$p_t$$ itself changes, much as sufficiently many moments determine a distribution. Concretely, Itô's lemma gives $$d\varphi(\mathbf{x}(t))$$ in terms of derivatives of $$\varphi$$; taking expectations converts this to $$\frac{d}{dt}\int \varphi\,p_t\,d\mathbf{x}$$; integration by parts moves derivatives from $$\varphi$$ onto $$p_t$$; and because the result holds for all $$\varphi$$, the integrands must match.
+The strategy is the **test function method**. We want a PDE for $$p_t$$, but Itô's lemma describes one particle, not a density. Use a smooth "probe" function $$\varphi(\mathbf{x})$$ and track the weighted average $$\int \varphi\,p_t\,d\mathbf{x}$$. If we know how this average changes for *every* choice of $$\varphi$$, we know how $$p_t$$ itself changes, much as sufficiently many moments determine a distribution.
+
+Concretely, Itô's lemma gives $$d\varphi(\mathbf{x}(t))$$ in terms of derivatives of $$\varphi$$. Taking expectations converts this to $$\frac{d}{dt}\int \varphi\,p_t\,d\mathbf{x}$$. Integration by parts moves derivatives from $$\varphi$$ onto $$p_t$$. Because the result holds for all $$\varphi$$, the integrands must match.
 
 **Step 1: Apply Itô's lemma.** Since $$\varphi$$ does not depend on $$t$$, the $$\partial\varphi/\partial t$$ term vanishes:
 
@@ -283,3 +291,7 @@ This is the Fokker-Planck equation: the same result as the heuristic derivation,
 - Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. [ICLR 2021](https://arxiv.org/abs/2011.13456).
 - Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). Flow Matching for Generative Modeling. [ICLR 2023](https://arxiv.org/abs/2210.02747).
 - Lai, C.-H., Song, Y., Kim, D., Mitsufuji, Y. & Ermon, S. (2025). The Principles of Diffusion Models. [arXiv:2510.21890](https://arxiv.org/abs/2510.21890).
+
+### Figure sources
+
+- Fokker-Planck diagrams (`fp_drift_advection.svg`, `fp_gaussian_smoothing.svg`, `fp_diffusion_schematic.svg`): custom explanatory figures generated by `scripts/generate_fokker_planck_figures.py` with SVG+PNG outputs and the shared blog figure style.

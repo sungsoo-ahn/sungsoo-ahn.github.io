@@ -43,8 +43,8 @@ def _style_axis(ax, xlabel="", ylabel="", title=""):
     ax.set_xlabel(xlabel, fontsize=12, color=TEXT)
     ax.set_ylabel(ylabel, fontsize=12, color=TEXT)
     if title:
-        ax.set_title(title, fontsize=12, fontweight="bold", color=TEXT, pad=8)
-    ax.tick_params(colors="#78909c", labelsize=9)
+        ax.set_title(title, fontsize=13.5, fontweight="bold", color=TEXT, pad=8)
+    ax.tick_params(colors="#78909c", labelsize=9.5)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color(NEUTRAL)
@@ -570,10 +570,8 @@ def generate_double_well_umbrella(output_path: Path):
     umbrella = 0.5 * kappa * (x_grid - window_center) ** 2
     biased = potential + umbrella
 
-    potential_levels = np.linspace(potential.min(), 3.0, 48)
-    biased_levels = np.linspace(biased.min(), 5.0, 48)
-
-    fig, axes = plt.subplots(1, 3, figsize=(11.8, 3.9), gridspec_kw={"wspace": 0.24})
+    fig, axes = plt.subplots(1, 3, figsize=(9.2, 3.65), gridspec_kw={"wspace": 0.24})
+    extent = [x.min(), x.max(), y.min(), y.max()]
 
     for ax in axes:
         ax.set_aspect("equal")
@@ -590,15 +588,36 @@ def generate_double_well_umbrella(output_path: Path):
     axes[0].set_ylabel("y", labelpad=2)
 
     ax = axes[0]
-    ax.contourf(x_grid, y_grid, potential, levels=potential_levels, vmax=3, zorder=0, cmap=LANDSCAPE_CMAP)
+    ax.imshow(
+        np.ma.masked_greater(potential, 3.0),
+        extent=extent,
+        origin="lower",
+        cmap=LANDSCAPE_CMAP,
+        vmin=potential.min(),
+        vmax=3.0,
+        interpolation="bilinear",
+        rasterized=True,
+        zorder=0,
+    )
     ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 6), colors="white", linewidths=0.55, alpha=0.66)
     _draw_tps_landmarks(ax, marker_scale=0.95)
     ax.text(-1, -0.26, "A", ha="center", va="center", fontsize=10, fontweight="semibold", color=TEXT, zorder=35)
     ax.text(1, -0.26, "B", ha="center", va="center", fontsize=10, fontweight="semibold", color=TEXT, zorder=35)
-    ax.set_title("Original landscape", loc="left", pad=8, fontweight="semibold")
+    ax.set_title("Original landscape", loc="left", pad=8, fontweight="semibold", fontsize=13.5)
 
     ax = axes[1]
-    ax.contourf(x_grid, y_grid, potential, levels=np.linspace(potential.min(), 3.0, 38), vmax=3, zorder=0, alpha=0.62, cmap=LANDSCAPE_CMAP)
+    ax.imshow(
+        np.ma.masked_greater(potential, 3.0),
+        extent=extent,
+        origin="lower",
+        cmap=LANDSCAPE_CMAP,
+        vmin=potential.min(),
+        vmax=3.0,
+        alpha=0.62,
+        interpolation="bilinear",
+        rasterized=True,
+        zorder=0,
+    )
     _draw_tps_landmarks(ax, marker_scale=0.95)
     ax.axvspan(-0.13, 0.13, color="white", alpha=0.48, zorder=10)
     ax.axvline(0, color=AMBER, lw=2.1, zorder=28)
@@ -609,26 +628,36 @@ def generate_double_well_umbrella(output_path: Path):
         arrowprops={"arrowstyle": "-|>", "lw": 1.8, "color": AMBER, "mutation_scale": 13},
         zorder=30,
     )
-    bfs.callout_label(ax, r"$s=\xi(x,y)=x$", xy=(0.0, 0.1), xytext=(0.48, 1.24), color=AMBER, size=9.1, ha="left", rad=-0.2)
-    ax.set_title("Choose a coordinate", loc="left", pad=8, fontweight="semibold")
+    bfs.callout_label(ax, r"$s=\xi(x,y)=x$", xy=(0.0, 0.1), xytext=(0.48, 1.24), color=AMBER, size=10.4, ha="left", rad=-0.2)
+    ax.set_title("Choose a coordinate", loc="left", pad=8, fontweight="semibold", fontsize=13.5)
 
     ax = axes[2]
-    ax.contourf(x_grid, y_grid, biased, levels=biased_levels, vmax=5.0, zorder=0, cmap=BIASED_CMAP)
+    ax.imshow(
+        np.ma.masked_greater(biased, 5.0),
+        extent=extent,
+        origin="lower",
+        cmap=BIASED_CMAP,
+        vmin=biased.min(),
+        vmax=5.0,
+        interpolation="bilinear",
+        rasterized=True,
+        zorder=0,
+    )
     ax.contour(x_grid, y_grid, potential, levels=np.linspace(0, 3, 6), colors="white", linewidths=0.55, alpha=0.58, zorder=4)
     _draw_tps_landmarks(ax, marker_scale=0.95)
     ax.axvspan(-0.13, 0.13, color="white", alpha=0.38, zorder=8)
     ax.axvline(0, color=AMBER, lw=2.1, zorder=22)
     for yy in [1.0, -1.0]:
         ax.add_patch(Circle((0, yy), 0.19, fc="white", ec=AMBER, lw=1.7, alpha=0.9, zorder=35))
-    bfs.callout_label(ax, r"$U+V_k$", xy=(0.0, -1.0), xytext=(0.54, -1.25), color=AMBER, size=9.2, ha="left", rad=0.15)
-    ax.set_title("Add umbrella bias", loc="left", pad=8, fontweight="semibold")
+    bfs.callout_label(ax, r"$U+V_k$", xy=(0.0, -1.0), xytext=(0.54, -1.25), color=AMBER, size=10.4, ha="left", rad=0.15)
+    ax.set_title("Add umbrella bias", loc="left", pad=8, fontweight="semibold", fontsize=13.5)
 
     bfs.save_figure(fig, output_path, dpi=250)
 
 
 def generate_metastability(output_path: Path):
     """Rare events in a double-well landscape."""
-    fig, axes = plt.subplots(1, 2, figsize=(11.6, 4.15), gridspec_kw={"wspace": 0.24})
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.8), gridspec_kw={"wspace": 0.24})
     x = np.linspace(-2.1, 2.1, 800)
     u = _double_well(x)
     y_a = _double_well(np.array([-0.96]))[0]
@@ -662,7 +691,7 @@ def generate_metastability(output_path: Path):
     ax.scatter([0.0], [y_barrier + 0.03], s=120, color="white", edgecolors="none", zorder=24)
     ax.scatter([0.0], [y_barrier + 0.03], s=58, color=AMBER, edgecolors="white", linewidths=1.3, zorder=26)
     draw_energy_gap(ax, -0.46, y_a, y_barrier, -0.96, 0.0, AMBER)
-    bfs.curve_label(ax, -0.96, 1.58, "high barrier", AMBER, ha="left", size=9.4)
+    bfs.curve_label(ax, -0.96, 1.58, "high barrier", AMBER, ha="left", size=10.4)
     ax.set_xlim(-1.85, 1.85)
     ax.set_ylim(y_floor, 2.08)
     ax.set_xticks([])
@@ -684,9 +713,9 @@ def generate_metastability(output_path: Path):
     left_biased_min_x = x[np.argmin(np.where(x < 0, ub, np.inf))]
     left_biased_min_y = np.interp(left_biased_min_x, x, ub)
     draw_energy_gap(ax, -0.50, left_biased_min_y, y_biased_barrier, left_biased_min_x, 0.0, TEAL)
-    bfs.curve_label(ax, 0.34, 1.34, "original", BLUE, ha="left", size=9.0)
-    bfs.curve_label(ax, 0.46, 0.58, "biased", TEAL, ha="left", size=9.0)
-    bfs.curve_label(ax, -1.10, 0.78, "lower barrier", TEAL, ha="left", size=9.4)
+    bfs.curve_label(ax, 0.34, 1.34, "original", BLUE, ha="left", size=10.0)
+    bfs.curve_label(ax, 0.46, 0.58, "biased", TEAL, ha="left", size=10.0)
+    bfs.curve_label(ax, -1.10, 0.78, "lower barrier", TEAL, ha="left", size=10.4)
     ax.set_xlim(-1.85, 1.85)
     ax.set_ylim(y_floor, 2.08)
     ax.set_xticks([])
@@ -698,7 +727,7 @@ def generate_metastability(output_path: Path):
 
 def generate_cv_metadynamics(output_path: Path):
     """Collective variables and metadynamics biasing."""
-    fig, axes = plt.subplots(1, 3, figsize=(11.6, 3.55), gridspec_kw={"wspace": 0.34})
+    fig, axes = plt.subplots(1, 3, figsize=(9.2, 3.4), gridspec_kw={"wspace": 0.34})
 
     ax = axes[0]
     rng = np.random.default_rng(7)
@@ -710,7 +739,7 @@ def generate_cv_metadynamics(output_path: Path):
     ax.scatter(cloud_b[:, 0], cloud_b[:, 1], s=18, color=GREEN, alpha=0.62, edgecolors="none")
     ax.plot([-1.7, 1.7], [-0.95, 0.95], color=AMBER, linewidth=2.0)
     _arrow(ax, (-1.45, -0.82), (1.45, 0.82), color=AMBER, lw=2.0)
-    bfs.callout_label(ax, r"$s=\xi(\mathbf{x})$", xy=(0.44, 0.25), xytext=(-0.34, 1.06), color=AMBER, size=10.0, rad=0.06)
+    bfs.callout_label(ax, r"$s=\xi(\mathbf{x})$", xy=(0.44, 0.25), xytext=(-0.34, 1.06), color=AMBER, size=11.0, rad=0.06)
     ax.set_xlim(-2.0, 2.0)
     ax.set_ylim(-1.35, 1.35)
     ax.set_xticks([])
@@ -740,9 +769,9 @@ def generate_cv_metadynamics(output_path: Path):
         ax.plot(s, g, color=AMBER, linewidth=1.0, alpha=0.82)
     effective = f + bias
     ax.plot(s, effective, color=TEAL, linewidth=2.4)
-    bfs.callout_label(ax, "Gaussian hills", xy=(-0.96, 0.23), xytext=(-1.72, 0.73), color=AMBER, size=8.8, ha="left", rad=-0.16)
-    bfs.curve_label(ax, 0.66, 1.18, "free energy", BLUE, size=8.7)
-    bfs.curve_label(ax, 0.16, 0.58, "biased", TEAL, size=8.9)
+    bfs.callout_label(ax, "Gaussian hills", xy=(-0.96, 0.23), xytext=(-1.72, 0.73), color=AMBER, size=9.8, ha="left", rad=-0.16)
+    bfs.curve_label(ax, 0.66, 1.18, "free energy", BLUE, size=9.8)
+    bfs.curve_label(ax, 0.16, 0.58, "biased", TEAL, size=9.8)
     ax.set_xlim(-2, 2)
     ax.set_ylim(-0.15, 1.45)
     ax.set_yticks([])
@@ -753,7 +782,7 @@ def generate_cv_metadynamics(output_path: Path):
 
 def generate_method_map(output_path: Path):
     """Map classical enhanced sampling and ML methods."""
-    fig, ax = plt.subplots(figsize=(11.2, 4.4))
+    fig, ax = plt.subplots(figsize=(8.8, 4.0))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
@@ -766,10 +795,17 @@ def generate_method_map(output_path: Path):
         "path": (0.62, 0.28, "Learn path bias", RED),
     }
 
-    def draw_node(key, radius=0.09):
+    def draw_node(key):
         x0, y0, label, color = nodes[key]
-        ax.add_patch(Circle((x0, y0), radius, fc="white", ec=color, lw=1.8, zorder=5))
-        ax.text(x0, y0, label, ha="center", va="center", fontsize=10.5, fontweight="semibold", color=color, zorder=8)
+        widths = {
+            "estimate": 0.28,
+            "path": 0.25,
+            "cv": 0.23,
+            "md": 0.23,
+            "bias": 0.22,
+        }
+        ax.add_patch(Ellipse((x0, y0), widths[key], 0.13, fc="white", ec=color, lw=1.8, zorder=5))
+        ax.text(x0, y0, label, ha="center", va="center", fontsize=11.5, fontweight="semibold", color=color, zorder=8)
 
     def link_points(start, end, color=bfs.NEUTRAL, curve=0.0, lw=1.5):
         ax.add_patch(
@@ -787,18 +823,18 @@ def generate_method_map(output_path: Path):
             )
         )
 
-    link_points((0.24, 0.62), (0.34, 0.62), color=bfs.MUTED, lw=1.8)
-    link_points((0.52, 0.62), (0.62, 0.62), color=bfs.MUTED, lw=1.8)
+    link_points((0.245, 0.62), (0.31, 0.62), color=bfs.MUTED, lw=1.8)
+    link_points((0.53, 0.62), (0.58, 0.62), color=bfs.MUTED, lw=1.8)
     link_points((0.39, 0.36), (0.42, 0.52), color=TEAL, curve=-0.1)
     link_points((0.62, 0.38), (0.48, 0.52), color=RED, curve=0.18)
 
     for key in nodes:
         draw_node(key)
 
-    ax.text(0.27, 0.72, "bias", ha="center", fontsize=9.0, color=bfs.MUTED)
-    ax.text(0.57, 0.72, "reweight", ha="center", fontsize=9.0, color=bfs.MUTED)
-    ax.text(0.47, 0.1, "path-measure view: Jarzynski, AIS, diffusion models, trajectory objectives", ha="center", fontsize=10.0, color=bfs.MUTED)
-    ax.text(0.5, 0.91, "Enhanced sampling changes the sampling distribution", ha="center", fontsize=14, color=TEXT, fontweight="semibold")
+    ax.text(0.27, 0.72, "bias", ha="center", fontsize=10.0, color=bfs.MUTED)
+    ax.text(0.57, 0.72, "reweight", ha="center", fontsize=10.0, color=bfs.MUTED)
+    ax.text(0.47, 0.1, "path-measure view: Jarzynski, AIS, diffusion models, trajectory objectives", ha="center", fontsize=11.0, color=bfs.MUTED)
+    ax.text(0.5, 0.91, "Enhanced sampling changes the sampling distribution", ha="center", fontsize=16, color=TEXT, fontweight="semibold")
 
     bfs.save_figure(fig, output_path, dpi=230)
 
