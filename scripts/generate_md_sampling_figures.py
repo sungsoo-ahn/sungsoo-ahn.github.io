@@ -9,6 +9,7 @@ import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.patches import Circle, Ellipse, FancyArrowPatch, FancyBboxPatch
 from matplotlib.colors import LinearSegmentedColormap
+from PIL import Image
 
 import blog_figure_style as bfs
 
@@ -37,6 +38,34 @@ BIASED_CMAP = LinearSegmentedColormap.from_list(
     "blog_biased_landscape",
     ["#fffaf0", "#f2e0b6", "#d4b66a", "#9e8447"],
 )
+
+
+def _capture_opaque_frame(fig):
+    fig.canvas.draw()
+    rgba = Image.fromarray(np.asarray(fig.canvas.buffer_rgba()).copy())
+    white_background = Image.new("RGBA", rgba.size, "white")
+    return Image.alpha_composite(white_background, rgba).convert("RGB")
+
+
+def _save_opaque_gif(fig, update, output_path: Path, *, frames, fps=12, dpi=120):
+    fig.set_dpi(dpi)
+    fig.patch.set_facecolor("white")
+    fig.patch.set_alpha(1.0)
+    rendered_frames = []
+    for frame in range(frames):
+        update(frame)
+        rendered_frames.append(_capture_opaque_frame(fig))
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    rendered_frames[0].save(
+        output_path,
+        save_all=True,
+        append_images=rendered_frames[1:],
+        duration=round(1000 / fps),
+        loop=0,
+        optimize=False,
+        disposal=2,
+    )
 
 
 def _style_axis(ax, xlabel="", ylabel="", title=""):
@@ -198,6 +227,59 @@ def _wrap_angle(angle):
     return ((angle + 180.0) % 360.0) - 180.0
 
 
+def _alanine_hydrogen_coords(coords):
+    """Approximate hydrogens used for a deliberately poor Cartesian projection."""
+    normal = _normalize(np.cross(coords["N"] - coords["CA"], coords["C"] - coords["CA"]))
+    h_n_dir = _normalize(
+        _normalize(coords["N"] - coords["C_prev"])
+        + _normalize(coords["N"] - coords["CA"])
+        + 0.25 * normal
+    )
+    h_ca_dir = _normalize(
+        _normalize(coords["CA"] - coords["N"])
+        + _normalize(coords["CA"] - coords["C"])
+        - 0.45 * normal
+    )
+    h_cb_dir = _normalize(
+        _normalize(coords["CB"] - coords["CA"])
+        + 0.45 * normal
+        + np.array([0.0, 0.2, 0.0])
+    )
+    h_n_next_dir = _normalize(
+        _normalize(coords["N_next"] - coords["C"])
+        + _normalize(coords["N_next"] - coords["Me_next"])
+        - 0.25 * normal
+    )
+    return {
+        "H_N": coords["N"] + 1.02 * h_n_dir,
+        "H_CA": coords["CA"] + 1.09 * h_ca_dir,
+        "H_CB": coords["CB"] + 1.09 * h_cb_dir,
+        "H_N_next": coords["N_next"] + 1.02 * h_n_next_dir,
+    }
+
+
+def _hydrogen_feature_vector(coords):
+    return np.concatenate([coords[name] for name in ("H_N", "H_CA", "H_CB", "H_N_next")])
+
+
+def _make_random_hydrogen_projection(angle_path):
+    features = []
+    for phi, psi in angle_path:
+        coords, _, _ = _alanine_dipeptide_coords(phi, psi)
+        features.append(_hydrogen_feature_vector(coords))
+    features = np.asarray(features)
+
+    rng = np.random.default_rng(912)
+    projection = rng.normal(size=(features.shape[1], 2))
+    projection /= np.linalg.norm(projection, axis=0, keepdims=True)
+    projected = (features - features.mean(axis=0)) @ projection
+
+    scale = np.percentile(np.abs(projected), 95)
+    if scale > 1e-12:
+        projected = projected / scale
+    return projected
+
+
 def _alanine_dipeptide_coords(phi_deg, psi_deg):
     """Build a compact Ace-Ala-Nme backbone schematic with target phi/psi."""
     n_atom = np.array([0.0, 0.0, 0.0])
@@ -230,6 +312,7 @@ def _alanine_dipeptide_coords(phi_deg, psi_deg):
         "N_next": n_next,
         "Me_next": methyl_next,
     }
+    coords.update(_alanine_hydrogen_coords(coords))
     measured_phi = _wrap_angle(_dihedral_angle(coords["C_prev"], coords["N"], coords["CA"], coords["C"]))
     measured_psi = _wrap_angle(_dihedral_angle(coords["N"], coords["CA"], coords["C"], coords["N_next"]))
     return coords, measured_phi, measured_psi
@@ -274,6 +357,10 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
         "N_next": ("#2f74c0", 84),
         "O_prev": ("#d85040", 68),
         "O": ("#d85040", 68),
+        "H_N": ("#f8fbfd", 42),
+        "H_CA": ("#f8fbfd", 42),
+        "H_CB": ("#f8fbfd", 38),
+        "H_N_next": ("#f8fbfd", 38),
     }
     atom_labels = {
         "C_prev": (r"C$_{i-1}$", np.array([-0.08, 0.14, 0.18])),
@@ -281,16 +368,22 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
         "CA": (r"C$_\alpha$", np.array([0.02, -0.17, 0.20])),
         "C": ("C", np.array([0.16, -0.10, 0.18])),
         "N_next": (r"N$_{i+1}$", np.array([0.16, 0.12, 0.18])),
+        "H_N": (r"H$_N$", np.array([-0.10, -0.08, 0.14])),
+        "H_CA": (r"H$_\alpha$", np.array([0.08, -0.08, 0.15])),
     }
     bonds = [
         ("Me_prev", "C_prev"),
         ("C_prev", "O_prev"),
         ("C_prev", "N"),
+        ("N", "H_N"),
         ("N", "CA"),
+        ("CA", "H_CA"),
         ("CA", "CB"),
+        ("CB", "H_CB"),
         ("CA", "C"),
         ("C", "O"),
         ("C", "N_next"),
+        ("N_next", "H_N_next"),
         ("N_next", "Me_next"),
     ]
 
@@ -306,7 +399,17 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
 
     for atom, (color, size) in atom_style.items():
         point = coords[atom]
-        ax.scatter([point[0]], [point[1]], [point[2]], s=size, color=color, edgecolor="white", linewidth=0.8, depthshade=True)
+        is_hydrogen = atom.startswith("H_")
+        ax.scatter(
+            [point[0]],
+            [point[1]],
+            [point[2]],
+            s=size,
+            color=color,
+            edgecolor="#b0bec5" if is_hydrogen else "white",
+            linewidth=0.7 if is_hydrogen else 0.8,
+            depthshade=True,
+        )
         if atom in atom_labels:
             label, offset = atom_labels[atom]
             label_point = point + offset
@@ -317,7 +420,7 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
                 label,
                 ha="center",
                 va="center",
-                fontsize=8.0,
+                fontsize=7.0 if is_hydrogen else 8.0,
                 color=TEXT,
                 bbox=bfs.label_box(alpha=0.88, pad=0.9),
             )
@@ -387,12 +490,22 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
         ]
     )
     angle_path = _smooth_angle_path(keypoints, frames_per_segment=28)
+    random_h_projection = _make_random_hydrogen_projection(angle_path)
+    random_xlim = (
+        random_h_projection[:, 0].min() - 0.28,
+        random_h_projection[:, 0].max() + 0.28,
+    )
+    random_ylim = (
+        random_h_projection[:, 1].min() - 0.28,
+        random_h_projection[:, 1].max() + 0.28,
+    )
 
-    fig = plt.figure(figsize=(9.35, 4.2))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.04, 1.0], wspace=0.27)
+    fig = plt.figure(figsize=(12.4, 4.15))
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.08, 1.0, 1.0], wspace=0.28)
     ax_mol = fig.add_subplot(gs[0, 0], projection="3d")
     ax_ram = fig.add_subplot(gs[0, 1])
-    fig.subplots_adjust(left=0.035, right=0.985, bottom=0.13, top=0.92)
+    ax_random = fig.add_subplot(gs[0, 2])
+    fig.subplots_adjust(left=0.025, right=0.99, bottom=0.13, top=0.92)
 
     def update(frame):
         phi, psi = angle_path[frame]
@@ -402,15 +515,13 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
         _draw_alanine_molecule(ax_mol, coords, measured_phi, measured_psi)
 
         ax_ram.clear()
-        ax_ram.set_title("Ramachandran CV space", loc="left", fontsize=10.8, fontweight="semibold", color=TEXT, pad=8)
+        ax_ram.set_title("Good CV: Ramachandran space", loc="left", fontsize=10.8, fontweight="semibold", color=TEXT, pad=8)
         ax_ram.set_xlim(-180, 180)
         ax_ram.set_ylim(-180, 180)
         ax_ram.set_aspect("equal")
-        ax_ram.set_xlabel(r"$\phi$ angle")
-        ax_ram.set_ylabel(r"$\psi$ angle")
         ax_ram.set_xticks([-180, -90, 0, 90, 180])
         ax_ram.set_yticks([-180, -90, 0, 90, 180])
-        bfs.style_axis(ax_ram, grid=True)
+        bfs.style_axis(ax_ram, xlabel=r"$\phi$ angle", ylabel=r"$\psi$ angle", grid=True)
 
         regions = [
             ((-62, -45), 74, 54, -20, bfs.RED_LIGHT, RED, r"$\alpha_R$"),
@@ -449,8 +560,44 @@ def generate_alanine_dipeptide_cv_gif(output_path: Path):
             bbox=bfs.label_box(alpha=0.82, pad=1.0),
         )
 
-    animation = FuncAnimation(fig, update, frames=len(angle_path), interval=85)
-    animation.save(output_path, writer=PillowWriter(fps=12), dpi=120)
+        ax_random.clear()
+        ax_random.set_title("Poor CV: random H projection", loc="left", fontsize=10.8, fontweight="semibold", color=TEXT, pad=8)
+        ax_random.set_xlim(*random_xlim)
+        ax_random.set_ylim(*random_ylim)
+        ax_random.set_aspect("equal")
+        ax_random.set_xticks([])
+        ax_random.set_yticks([])
+        bfs.style_axis(
+            ax_random,
+            xlabel=r"$r_1(\mathrm{H\ coords})$",
+            ylabel=r"$r_2(\mathrm{H\ coords})$",
+            grid=True,
+        )
+
+        for state_frame, color in [
+            (0, RED),
+            (28, BLUE),
+            (56, GREEN),
+        ]:
+            state_point = random_h_projection[state_frame]
+            ax_random.scatter(
+                [state_point[0]],
+                [state_point[1]],
+                s=62,
+                color="white",
+                edgecolor=color,
+                linewidth=1.0,
+                alpha=0.9,
+                zorder=8,
+            )
+
+        ax_random.plot(random_h_projection[:, 0], random_h_projection[:, 1], color=bfs.NEUTRAL, lw=1.2, alpha=0.45)
+        bad_trail = random_h_projection[max(0, frame - 12) : frame + 1]
+        if len(bad_trail) > 1:
+            ax_random.plot(bad_trail[:, 0], bad_trail[:, 1], color=RED, lw=2.3, alpha=0.86)
+        current_bad = random_h_projection[frame]
+        ax_random.scatter([current_bad[0]], [current_bad[1]], s=78, color=RED, edgecolor=TEXT, linewidth=0.8, zorder=12)
+    _save_opaque_gif(fig, update, output_path, frames=len(angle_path), fps=12, dpi=120)
     plt.close(fig)
     print(f"Saved alanine dipeptide CV gif to {output_path}")
 
