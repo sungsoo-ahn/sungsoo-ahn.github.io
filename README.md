@@ -47,6 +47,7 @@ _pages/about.md           # Homepage content
 _pages/people.md          # Lab members (auto-generated from members.xlsx)
 _pages/publications.md    # Publications page
 _data/socials.yml         # Social links
+docs/palette.md           # Official color palette
 assets/img/prof_pic.jpg   # Profile photo
 scripts/                  # Update scripts
 ```
