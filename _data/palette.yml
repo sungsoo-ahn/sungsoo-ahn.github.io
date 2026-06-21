@@ -1,0 +1,69 @@
+# Official palette for Sungsoo Ahn's website, blog figures, and related materials.
+# Keep scripts/blog_figure_style.py synchronized with these values.
+
+brand:
+  purple:
+    hex: "#7A53EC"
+    role: "Primary brand accent, links, and main figure emphasis"
+  purple_strong:
+    hex: "#5B3A8C"
+    role: "Dark purple accent, headings, outlines, and hover states"
+  purple_soft:
+    hex: "#F6F2FA"
+    role: "Soft page and card tint"
+  purple_light:
+    hex: "#F2EDFF"
+    role: "Light figure fill and selected-region background"
+
+text:
+  ink:
+    hex: "#231533"
+    role: "Primary text"
+  muted:
+    hex: "#665A75"
+    role: "Secondary text and annotations"
+
+structure:
+  grid:
+    hex: "#E4DDEC"
+    role: "Grid lines and subtle dividers"
+  spine:
+    hex: "#C8BBD8"
+    role: "Axes, borders, and quiet outlines"
+  neutral:
+    hex: "#B9AEC7"
+    role: "Auxiliary marks and inactive elements"
+
+semantic:
+  indigo:
+    hex: "#5F6ED8"
+    light_hex: "#EEF0FF"
+    role: "Secondary model/component color"
+  teal:
+    hex: "#16877F"
+    light_hex: "#E4F4F2"
+    role: "Cool processes, diffusion, relaxation, and correction"
+  amber:
+    hex: "#B7791F"
+    light_hex: "#FFF4DC"
+    role: "Energy, work, bias, and warning-like emphasis"
+  rose:
+    hex: "#C7506B"
+    light_hex: "#FCE8EE"
+    role: "Negative change, loss, barriers, and high-risk emphasis"
+  green:
+    hex: "#3C8F63"
+    light_hex: "#E5F3EA"
+    role: "Positive change, favorable regions, and accepted states"
+
+dark_theme:
+  bg:
+    hex: "#18131F"
+  card:
+    hex: "#21192B"
+  ink:
+    hex: "#F4EFF9"
+  muted:
+    hex: "#B9ABC8"
+  link:
+    hex: "#B896FF"
