@@ -23,29 +23,29 @@ import blog_figure_style as bfs
 # ──────────────────────────────────────────────
 # Color palette
 # ──────────────────────────────────────────────
-TEXT_COLOR = '#263238'
+TEXT_COLOR = bfs.TEXT
 
 # Density curves (consistent across all figures)
-DENSITY_SLATE = '#5b7fa5'        # slate blue for density curves
-DENSITY_FILL = '#dce8f4'         # light blue fill under density
-DENSITY_AFTER = '#e07a5f'        # soft coral for "after" curves
+DENSITY_SLATE = bfs.PURPLE       # primary purple for density curves
+DENSITY_FILL = bfs.PURPLE_LIGHT  # light purple fill under density
+DENSITY_AFTER = bfs.TEAL         # teal for "after" curves
 
 # Warm palette (drift / advection)
-WARM_ARROW = '#e8860c'           # amber for drift arrows
-WARM_ANNOT = '#d4760a'           # warm orange for annotations
-WARM_HIGHLIGHT = '#fff3e0'       # light amber fill
-WARM_BORDER = '#e8a030'          # amber border
+WARM_ARROW = bfs.AMBER           # amber for drift arrows
+WARM_ANNOT = bfs.AMBER           # warm annotations
+WARM_HIGHLIGHT = bfs.AMBER_LIGHT # light amber fill
+WARM_BORDER = bfs.AMBER          # amber border
 
 # Cool palette (diffusion)
-COOL_ARROW = '#1a8a7a'           # teal for diffusion arrows
-COOL_ANNOT = '#0d7d6c'          # teal for annotations
-COOL_HIGHLIGHT = '#e0f2f1'      # light teal fill
-COOL_BORDER = '#4db6ac'         # teal border
+COOL_ARROW = bfs.TEAL            # teal for diffusion arrows
+COOL_ANNOT = bfs.TEAL            # teal for annotations
+COOL_HIGHLIGHT = bfs.TEAL_LIGHT  # light teal fill
+COOL_BORDER = bfs.TEAL           # teal border
 
 # Gain/loss shading (Gaussian smoothing figure)
-GAIN_COLOR = '#a5d6a7'
+GAIN_COLOR = bfs.GREEN
 GAIN_ALPHA = 0.45
-LOSS_COLOR = '#ef9a9a'
+LOSS_COLOR = bfs.RED
 LOSS_ALPHA = 0.45
 
 ANNOTATION_BG = 'white'
@@ -66,9 +66,9 @@ def _style_axis(ax, xlim, ylim, xlabel=None, ylabel=None):
     ax.set_ylim(ylim)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_color('#b0bec5')
-    ax.spines['bottom'].set_color('#b0bec5')
-    ax.tick_params(colors='#78909c', labelsize=9)
+    ax.spines['left'].set_color(bfs.SPINE)
+    ax.spines['bottom'].set_color(bfs.SPINE)
+    ax.tick_params(colors=bfs.MUTED, labelsize=9)
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=11, color=TEXT_COLOR, labelpad=6)
     if ylabel:
@@ -84,13 +84,13 @@ def _two_bump(x):
     return _gauss(x, 2.5, 0.55, 0.50) + _gauss(x, 5.5, 1.2, 0.28)
 
 
-def _arrow(ax, start, end, lw=2.0, ms=15, color='#37474f', zorder=3):
+def _arrow(ax, start, end, lw=2.0, ms=15, color=bfs.TEXT, zorder=3):
     a = FancyArrowPatch(start, end, arrowstyle='-|>', color=color,
                         linewidth=lw, mutation_scale=ms, zorder=zorder)
     ax.add_patch(a)
 
 
-def _eqbox(ax, x, y, text, fs=SUBLABEL_FS, ec='#b0bec5'):
+def _eqbox(ax, x, y, text, fs=SUBLABEL_FS, ec=bfs.SPINE):
     ax.text(x, y, text, ha='center', va='top', fontsize=fs,
             color=TEXT_COLOR,
             bbox=dict(boxstyle='round,pad=0.3', fc=ANNOTATION_BG,
@@ -281,15 +281,15 @@ def generate_gaussian_smoothing_figure(output_path):
 
     ax.text(2.75, 0.58, 'sharp peak\nloses mass',
             ha='center', va='center', fontsize=10.2,
-            color='#b7432f', fontweight='semibold',
+            color=bfs.RED, fontweight='semibold',
             bbox=dict(boxstyle='round,pad=0.25', fc='white',
-                      alpha=0.92, ec='#ef9a9a', lw=0.8),
+                      alpha=0.92, ec=bfs.RED_LIGHT, lw=0.8),
             zorder=30)
     ax.text(4.05, 0.08, 'nearby valley\ngains mass',
             ha='center', va='center', fontsize=10.2,
-            color='#2e7d32', fontweight='semibold',
+            color=bfs.GREEN, fontweight='semibold',
             bbox=dict(boxstyle='round,pad=0.25', fc='white',
-                      alpha=0.92, ec='#a5d6a7', lw=0.8),
+                      alpha=0.92, ec=bfs.GREEN_LIGHT, lw=0.8),
             zorder=30)
 
     ax.set_yticks([0.0, 0.25, 0.5])
@@ -359,8 +359,8 @@ def generate_diffusion_schematic_figure(output_path):
     # Show density differences: one positive, one negative
     # Δ_left = p(x-ε) - p(x), Δ_right = p(x+ε) - p(x)
     for xi, pi, sign_label, color in [
-        (x0 - EPS, p_left, r'$-\epsilon \, p_t^{\prime}$', '#2e7d32'),
-        (x0 + EPS, p_right, r'$+\epsilon \, p_t^{\prime}$', '#c62828'),
+        (x0 - EPS, p_left, r'$-\epsilon \, p_t^{\prime}$', bfs.GREEN),
+        (x0 + EPS, p_right, r'$+\epsilon \, p_t^{\prime}$', bfs.RED),
     ]:
         # Vertical bar from p0 to pi
         ax.plot([xi, xi], [p0, pi], linewidth=2.5, color=color,
@@ -418,23 +418,23 @@ def generate_diffusion_schematic_figure(output_path):
 
     # Dashed horizontal line at average of neighbors
     ax.plot([x0 - EPS - 0.3, x0 + EPS + 0.3], [p_avg, p_avg],
-            linewidth=1.5, linestyle='--', color='#c62828', alpha=0.7,
+            linewidth=1.5, linestyle='--', color=bfs.RED, alpha=0.7,
             zorder=4)
     ax.text(x0 + EPS + 0.4, p_avg,
             r'avg of neighbors',
-            ha='left', va='center', fontsize=9, color='#c62828',
+            ha='left', va='center', fontsize=9, color=bfs.RED,
             fontstyle='italic')
 
     # Show gap between p(x) and average
     ax.annotate('', xy=(x0 + 0.15, p_avg), xytext=(x0 + 0.15, p0),
-                arrowprops=dict(arrowstyle='<->', color='#c62828',
+                arrowprops=dict(arrowstyle='<->', color=bfs.RED,
                                 lw=1.5))
     ax.text(x0 + 0.30, (p0 + p_avg) / 2,
             r"$\frac{\epsilon^2}{2}\,p_t'' < 0$",
-            ha='left', va='center', fontsize=10, color='#c62828',
+            ha='left', va='center', fontsize=10, color=bfs.RED,
             fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
-                      alpha=0.85, ec='#ef9a9a', lw=0.5))
+                      alpha=0.85, ec=bfs.RED_LIGHT, lw=0.5))
 
     # Annotation
     ax.text(5.8, 0.50, 'both neighbors lower\n' + r'$\rightarrow$ density decreases',

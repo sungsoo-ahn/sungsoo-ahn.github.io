@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-20T21:45:14.170434</dc:date>
+    <dc:date>2026-06-21T18:22:00.579527</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -570,7 +570,7 @@ L 191.560925 131.337936
 L 191.580856 130.282802 
 L 191.5875 129.2275 
 z
-" clip-path="url(#p3c848af1af)" style="fill: #c85b4a; opacity: 0.8; stroke: #c85b4a; stroke-linejoin: miter"/>
+" clip-path="url(#paff33073ef)" style="fill: #c7506b; opacity: 0.8; stroke: #c7506b; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 107.775 129.2275 
@@ -1074,7 +1074,7 @@ L 107.775 129.2275
 L 107.775 129.2275 
 L 107.775 129.2275 
 z
-" clip-path="url(#p3c848af1af)" style="fill: #4f7ea8; opacity: 0.8; stroke: #4f7ea8; stroke-linejoin: miter"/>
+" clip-path="url(#paff33073ef)" style="fill: #5f6ed8; opacity: 0.8; stroke: #5f6ed8; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2">
@@ -1097,7 +1097,7 @@ C 109.976231 145.99 112.156058 145.556405 114.189731 144.714031
 C 116.223404 143.871656 118.071372 142.636883 119.627877 141.080377 
 C 121.184383 139.523872 122.419156 137.675904 123.261531 135.642231 
 C 124.103905 133.608558 124.5375 131.428731 124.5375 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_2">
@@ -1119,7 +1119,7 @@ C 112.177463 162.7525 116.537117 161.885311 120.604462 160.200561
 C 124.671807 158.515812 128.367744 156.046266 131.480755 152.933255 
 C 134.593766 149.820244 137.063312 146.124307 138.748061 142.056962 
 C 140.432811 137.989617 141.3 133.629963 141.3 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_3">
@@ -1141,7 +1141,7 @@ C 114.378694 179.515 120.918175 178.214216 127.019193 175.687092
 C 133.120211 173.159968 138.664115 169.455649 143.333632 164.786132 
 C 148.003149 160.116615 151.707468 154.572711 154.234592 148.471693 
 C 156.761716 142.370675 158.0625 135.831194 158.0625 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_4">
@@ -1163,7 +1163,7 @@ C 116.579925 196.2775 125.299234 194.543122 133.433924 191.173623
 C 141.568614 187.804124 148.960487 182.865032 155.18651 176.63901 
 C 161.412532 170.412987 166.351624 163.021114 169.721123 154.886424 
 C 173.090622 146.751734 174.825 138.032425 174.825 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_5">
@@ -1185,7 +1185,7 @@ C 118.781157 213.04 129.680292 210.872027 139.848655 206.660153
 C 150.017018 202.44828 159.256859 196.274415 167.039387 188.491887 
 C 174.821915 180.709359 180.99578 171.469518 185.207653 161.301155 
 C 189.419527 151.132792 191.5875 140.233657 191.5875 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_6">
@@ -1207,7 +1207,7 @@ C 120.982388 229.8025 134.061351 227.200933 146.263386 222.146684
 C 158.465422 217.092435 169.553231 209.683798 178.892265 200.344765 
 C 188.231298 191.005731 195.639935 179.917922 200.694184 167.715886 
 C 205.748433 155.513851 208.35 142.434888 208.35 129.2275 
-" clip-path="url(#p3c848af1af)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#paff33073ef)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
    </g>
@@ -1229,14 +1229,14 @@ C 120.982388 229.8025 134.061351 227.200933 146.263386 222.146684
 C 158.465422 217.092435 169.553231 209.683798 178.892265 200.344765 
 C 188.231298 191.005731 195.639935 179.917922 200.694184 167.715886 
 C 205.748433 155.513851 208.35 142.434888 208.35 129.2275 
-" style="fill: none; stroke: #808080; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
+" style="fill: none; stroke: #c8bbd8; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_1">
     <!-- $Y_{0}$ -->
-    <g style="fill: #263238" transform="translate(99.055 18.6525)">
+    <g style="fill: #231533" transform="translate(99.055 18.6525)">
      <text>
-      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #263238">Y</tspan>
-      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #263238">0</tspan>
+      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #231533">Y</tspan>
+      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #231533">0</tspan>
      </text>
     </g>
    </g>
@@ -1783,7 +1783,7 @@ L 404.564358 131.337267
 L 404.604212 130.282718 
 L 404.6175 129.2275 
 z
-" clip-path="url(#p1ec4bb5069)" style="fill: #c85b4a; opacity: 0.8; stroke: #c85b4a; stroke-linejoin: miter"/>
+" clip-path="url(#p636cda9b1a)" style="fill: #c7506b; opacity: 0.8; stroke: #c7506b; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 320.805 129.2275 
@@ -2287,7 +2287,7 @@ L 320.805 129.2275
 L 320.805 129.2275 
 L 320.805 129.2275 
 z
-" clip-path="url(#p1ec4bb5069)" style="fill: #4f7ea8; opacity: 0.8; stroke: #4f7ea8; stroke-linejoin: miter"/>
+" clip-path="url(#p636cda9b1a)" style="fill: #5f6ed8; opacity: 0.8; stroke: #5f6ed8; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_3"/>
    <g id="matplotlib.axis_4">
@@ -2310,7 +2310,7 @@ C 323.006231 145.99 325.186058 145.556405 327.219731 144.714031
 C 329.253404 143.871656 331.101372 142.636883 332.657877 141.080377 
 C 334.214383 139.523872 335.449156 137.675904 336.291531 135.642231 
 C 337.133905 133.608558 337.5675 131.428731 337.5675 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_8">
@@ -2332,7 +2332,7 @@ C 325.207463 162.7525 329.567117 161.885311 333.634462 160.200561
 C 337.701807 158.515812 341.397744 156.046266 344.510755 152.933255 
 C 347.623766 149.820244 350.093312 146.124307 351.778061 142.056962 
 C 353.462811 137.989617 354.33 133.629963 354.33 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_9">
@@ -2354,7 +2354,7 @@ C 327.408694 179.515 333.948175 178.214216 340.049193 175.687092
 C 346.150211 173.159968 351.694115 169.455649 356.363632 164.786132 
 C 361.033149 160.116615 364.737468 154.572711 367.264592 148.471693 
 C 369.791716 142.370675 371.0925 135.831194 371.0925 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_10">
@@ -2376,7 +2376,7 @@ C 329.609925 196.2775 338.329234 194.543122 346.463924 191.173623
 C 354.598614 187.804124 361.990487 182.865032 368.21651 176.63901 
 C 374.442532 170.412987 379.381624 163.021114 382.751123 154.886424 
 C 386.120622 146.751734 387.855 138.032425 387.855 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_11">
@@ -2398,7 +2398,7 @@ C 331.811157 213.04 342.710292 210.872027 352.878655 206.660153
 C 363.047018 202.44828 372.286859 196.274415 380.069387 188.491887 
 C 387.851915 180.709359 394.02578 171.469518 398.237653 161.301155 
 C 402.449527 151.132792 404.6175 140.233657 404.6175 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_12">
@@ -2420,7 +2420,7 @@ C 334.012388 229.8025 347.091351 227.200933 359.293386 222.146684
 C 371.495422 217.092435 382.583231 209.683798 391.922265 200.344765 
 C 401.261298 191.005731 408.669935 179.917922 413.724184 167.715886 
 C 418.778433 155.513851 421.38 142.434888 421.38 129.2275 
-" clip-path="url(#p1ec4bb5069)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p636cda9b1a)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
    </g>
@@ -2442,14 +2442,14 @@ C 334.012388 229.8025 347.091351 227.200933 359.293386 222.146684
 C 371.495422 217.092435 382.583231 209.683798 391.922265 200.344765 
 C 401.261298 191.005731 408.669935 179.917922 413.724184 167.715886 
 C 418.778433 155.513851 421.38 142.434888 421.38 129.2275 
-" style="fill: none; stroke: #808080; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
+" style="fill: none; stroke: #c8bbd8; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_2">
     <!-- $Y_{1}$ -->
-    <g style="fill: #263238" transform="translate(312.085 18.6525)">
+    <g style="fill: #231533" transform="translate(312.085 18.6525)">
      <text>
-      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #263238">Y</tspan>
-      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #263238">1</tspan>
+      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #231533">Y</tspan>
+      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #231533">1</tspan>
      </text>
     </g>
    </g>
@@ -2996,7 +2996,7 @@ L 617.514675 131.33526
 L 617.614283 130.282467 
 L 617.6475 129.2275 
 z
-" clip-path="url(#p9f78725ce2)" style="fill: #c85b4a; opacity: 0.8; stroke: #c85b4a; stroke-linejoin: miter"/>
+" clip-path="url(#p86c9a2d015)" style="fill: #c7506b; opacity: 0.8; stroke: #c7506b; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
     <path d="M 533.835 129.2275 
@@ -3500,7 +3500,7 @@ L 533.835 129.2275
 L 533.835 129.2275 
 L 533.835 129.2275 
 z
-" clip-path="url(#p9f78725ce2)" style="fill: #4f7ea8; opacity: 0.8; stroke: #4f7ea8; stroke-linejoin: miter"/>
+" clip-path="url(#p86c9a2d015)" style="fill: #5f6ed8; opacity: 0.8; stroke: #5f6ed8; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_5"/>
    <g id="matplotlib.axis_6">
@@ -3523,7 +3523,7 @@ C 536.036231 145.99 538.216058 145.556405 540.249731 144.714031
 C 542.283404 143.871656 544.131372 142.636883 545.687877 141.080377 
 C 547.244383 139.523872 548.479156 137.675904 549.321531 135.642231 
 C 550.163905 133.608558 550.5975 131.428731 550.5975 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_14">
@@ -3545,7 +3545,7 @@ C 538.237463 162.7525 542.597117 161.885311 546.664462 160.200561
 C 550.731807 158.515812 554.427744 156.046266 557.540755 152.933255 
 C 560.653766 149.820244 563.123312 146.124307 564.808061 142.056962 
 C 566.492811 137.989617 567.36 133.629963 567.36 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_15">
@@ -3567,7 +3567,7 @@ C 540.438694 179.515 546.978175 178.214216 553.079193 175.687092
 C 559.180211 173.159968 564.724115 169.455649 569.393632 164.786132 
 C 574.063149 160.116615 577.767468 154.572711 580.294592 148.471693 
 C 582.821716 142.370675 584.1225 135.831194 584.1225 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_16">
@@ -3589,7 +3589,7 @@ C 542.639925 196.2775 551.359234 194.543122 559.493924 191.173623
 C 567.628614 187.804124 575.020487 182.865032 581.24651 176.63901 
 C 587.472532 170.412987 592.411624 163.021114 595.781123 154.886424 
 C 599.150622 146.751734 600.885 138.032425 600.885 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_17">
@@ -3611,7 +3611,7 @@ C 544.841157 213.04 555.740292 210.872027 565.908655 206.660153
 C 576.077018 202.44828 585.316859 196.274415 593.099387 188.491887 
 C 600.881915 180.709359 607.05578 171.469518 611.267653 161.301155 
 C 615.479527 151.132792 617.6475 140.233657 617.6475 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_18">
@@ -3633,7 +3633,7 @@ C 547.042388 229.8025 560.121351 227.200933 572.323386 222.146684
 C 584.525422 217.092435 595.613231 209.683798 604.952265 200.344765 
 C 614.291298 191.005731 621.699935 179.917922 626.754184 167.715886 
 C 631.808433 155.513851 634.41 142.434888 634.41 129.2275 
-" clip-path="url(#p9f78725ce2)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p86c9a2d015)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
    </g>
@@ -3655,14 +3655,14 @@ C 547.042388 229.8025 560.121351 227.200933 572.323386 222.146684
 C 584.525422 217.092435 595.613231 209.683798 604.952265 200.344765 
 C 614.291298 191.005731 621.699935 179.917922 626.754184 167.715886 
 C 631.808433 155.513851 634.41 142.434888 634.41 129.2275 
-" style="fill: none; stroke: #808080; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
+" style="fill: none; stroke: #c8bbd8; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_3">
     <!-- $Y_{2}$ -->
-    <g style="fill: #263238" transform="translate(525.115 18.6525)">
+    <g style="fill: #231533" transform="translate(525.115 18.6525)">
      <text>
-      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #263238">Y</tspan>
-      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #263238">2</tspan>
+      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #231533">Y</tspan>
+      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #231533">2</tspan>
      </text>
     </g>
    </g>
@@ -4209,7 +4209,7 @@ L 830.411926 131.331916
 L 830.611071 130.282049 
 L 830.6775 129.2275 
 z
-" clip-path="url(#pf201d717f8)" style="fill: #c85b4a; opacity: 0.8; stroke: #c85b4a; stroke-linejoin: miter"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: #c7506b; opacity: 0.8; stroke: #c7506b; stroke-linejoin: miter"/>
    </g>
    <g id="patch_16">
     <path d="M 746.865 129.2275 
@@ -4713,7 +4713,7 @@ L 746.865 129.2275
 L 746.865 129.2275 
 L 746.865 129.2275 
 z
-" clip-path="url(#pf201d717f8)" style="fill: #4f7ea8; opacity: 0.8; stroke: #4f7ea8; stroke-linejoin: miter"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: #5f6ed8; opacity: 0.8; stroke: #5f6ed8; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_7"/>
    <g id="matplotlib.axis_8">
@@ -4736,7 +4736,7 @@ C 749.066231 145.99 751.246058 145.556405 753.279731 144.714031
 C 755.313404 143.871656 757.161372 142.636883 758.717877 141.080377 
 C 760.274383 139.523872 761.509156 137.675904 762.351531 135.642231 
 C 763.193905 133.608558 763.6275 131.428731 763.6275 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_20">
@@ -4758,7 +4758,7 @@ C 751.267463 162.7525 755.627117 161.885311 759.694462 160.200561
 C 763.761807 158.515812 767.457744 156.046266 770.570755 152.933255 
 C 773.683766 149.820244 776.153312 146.124307 777.838061 142.056962 
 C 779.522811 137.989617 780.39 133.629963 780.39 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_21">
@@ -4780,7 +4780,7 @@ C 753.468694 179.515 760.008175 178.214216 766.109193 175.687092
 C 772.210211 173.159968 777.754115 169.455649 782.423632 164.786132 
 C 787.093149 160.116615 790.797468 154.572711 793.324592 148.471693 
 C 795.851716 142.370675 797.1525 135.831194 797.1525 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_22">
@@ -4802,7 +4802,7 @@ C 755.669925 196.2775 764.389234 194.543122 772.523924 191.173623
 C 780.658614 187.804124 788.050487 182.865032 794.27651 176.63901 
 C 800.502532 170.412987 805.441624 163.021114 808.811123 154.886424 
 C 812.180622 146.751734 813.915 138.032425 813.915 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_23">
@@ -4824,7 +4824,7 @@ C 757.871157 213.04 768.770292 210.872027 778.938655 206.660153
 C 789.107018 202.44828 798.346859 196.274415 806.129387 188.491887 
 C 813.911915 180.709359 820.08578 171.469518 824.297653 161.301155 
 C 828.509527 151.132792 830.6775 140.233657 830.6775 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
     <g id="ytick_24">
@@ -4846,7 +4846,7 @@ C 760.072388 229.8025 773.151351 227.200933 785.353386 222.146684
 C 797.555422 217.092435 808.643231 209.683798 817.982265 200.344765 
 C 827.321298 191.005731 834.729935 179.917922 839.784184 167.715886 
 C 844.838433 155.513851 847.44 142.434888 847.44 129.2275 
-" clip-path="url(#pf201d717f8)" style="fill: none; stroke: #808080; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
+" clip-path="url(#p0ca0f8a51d)" style="fill: none; stroke: #e4ddec; stroke-opacity: 0.4; stroke-width: 0.5; stroke-linecap: square"/>
      </g>
     </g>
    </g>
@@ -4868,21 +4868,21 @@ C 760.072388 229.8025 773.151351 227.200933 785.353386 222.146684
 C 797.555422 217.092435 808.643231 209.683798 817.982265 200.344765 
 C 827.321298 191.005731 834.729935 179.917922 839.784184 167.715886 
 C 844.838433 155.513851 847.44 142.434888 847.44 129.2275 
-" style="fill: none; stroke: #808080; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
+" style="fill: none; stroke: #c8bbd8; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_4">
     <!-- $Y_{3}$ -->
-    <g style="fill: #263238" transform="translate(738.145 18.6525)">
+    <g style="fill: #231533" transform="translate(738.145 18.6525)">
      <text>
-      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #263238">Y</tspan>
-      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #263238">3</tspan>
+      <tspan x="0" y="-0.328125" style="font-style: oblique; font-size: 16px; font-family: 'DejaVu Sans'; fill: #231533">Y</tspan>
+      <tspan x="9.773438" y="2.296875" style="font-size: 11.2px; font-family: 'DejaVu Sans'; fill: #231533">3</tspan>
      </text>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p3c848af1af">
+  <clipPath id="paff33073ef">
    <path d="M 208.35 129.2275 
 C 208.35 116.020112 205.748433 102.941149 200.694184 90.739114 
 C 195.639935 78.537078 188.231298 67.449269 178.892265 58.110235 
@@ -4920,7 +4920,7 @@ C 107.775 129.2275 107.775 129.2275 107.775 129.2275
 z
 "/>
   </clipPath>
-  <clipPath id="p1ec4bb5069">
+  <clipPath id="p636cda9b1a">
    <path d="M 421.38 129.2275 
 C 421.38 116.020112 418.778433 102.941149 413.724184 90.739114 
 C 408.669935 78.537078 401.261298 67.449269 391.922265 58.110235 
@@ -4958,7 +4958,7 @@ C 320.805 129.2275 320.805 129.2275 320.805 129.2275
 z
 "/>
   </clipPath>
-  <clipPath id="p9f78725ce2">
+  <clipPath id="p86c9a2d015">
    <path d="M 634.41 129.2275 
 C 634.41 116.020112 631.808433 102.941149 626.754184 90.739114 
 C 621.699935 78.537078 614.291298 67.449269 604.952265 58.110235 
@@ -4996,7 +4996,7 @@ C 533.835 129.2275 533.835 129.2275 533.835 129.2275
 z
 "/>
   </clipPath>
-  <clipPath id="pf201d717f8">
+  <clipPath id="p0ca0f8a51d">
    <path d="M 847.44 129.2275 
 C 847.44 116.020112 844.838433 102.941149 839.784184 90.739114 
 C 834.729935 78.537078 827.321298 67.449269 817.982265 58.110235 

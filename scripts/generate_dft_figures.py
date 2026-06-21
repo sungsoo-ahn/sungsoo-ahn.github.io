@@ -14,28 +14,28 @@ bfs.use_blog_style()
 
 
 # --- Refined color palette ---
-TEXT_COLOR = '#263238'
-ARROW_COLOR = '#455a64'
+TEXT_COLOR = bfs.TEXT
+ARROW_COLOR = bfs.MUTED
 
-# Main loop boxes: soft slate-blue
-BOX_MAIN = '#dce8f4'
-EDGE_MAIN = '#5b7fa5'
+# Main loop boxes: soft theme purple
+BOX_MAIN = bfs.PURPLE_LIGHT
+EDGE_MAIN = bfs.PURPLE
 
 # Entry box: lighter, muted
-BOX_ENTRY = '#eef2f7'
-EDGE_ENTRY = '#8da4be'
+BOX_ENTRY = bfs.PURPLE_SOFT
+EDGE_ENTRY = bfs.MUTED
 
 # Decision box: warm amber
-BOX_DECISION = '#fff3e0'
-EDGE_DECISION = '#e8a030'
+BOX_DECISION = bfs.AMBER_LIGHT
+EDGE_DECISION = bfs.AMBER
 
 # Output box: soft green
-BOX_OUTPUT = '#e0f2e9'
-EDGE_OUTPUT = '#4caf50'
+BOX_OUTPUT = bfs.GREEN_LIGHT
+EDGE_OUTPUT = bfs.GREEN
 
 # Feedback arrow
-COLOR_NO = '#d32f2f'
-COLOR_YES = '#388e3c'
+COLOR_NO = bfs.RED
+COLOR_YES = bfs.GREEN
 
 
 def generate_scf_loop_figure(output_path):
@@ -191,7 +191,7 @@ def generate_scf_loop_figure(output_path):
     ax.add_patch(output_box)
     ax.text(output_cx, output_cy, 'Converged energy & density',
             ha='center', va='center', fontsize=11.5,
-            color='#2E7D32', fontweight='bold', zorder=4)
+            color=bfs.GREEN, fontweight='bold', zorder=4)
 
     draw_arrow(right_edge(LEFT_X, BW_DEC), MID_Y,
                left_edge(output_cx, output_w), MID_Y,

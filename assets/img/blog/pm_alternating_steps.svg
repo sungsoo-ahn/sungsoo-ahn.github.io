@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-20T20:58:25.566798</dc:date>
+    <dc:date>2026-06-21T18:21:43.852210</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,7 +40,7 @@ z
    </g>
    <g id="FillBetweenPolyCollection_1">
     <defs>
-     <path id="m2d788426e3" d="M 20.802578 -7.2 
+     <path id="ma680e2693d" d="M 20.802578 -7.2 
 L 20.802578 -219.870218 
 L 21.065603 -215.316941 
 L 21.328627 -210.881998 
@@ -643,24 +643,24 @@ L 21.328627 -7.2
 L 21.065603 -7.2 
 L 20.802578 -7.2 
 z
-" style="stroke: #5b7fa5; stroke-opacity: 0.06"/>
+" style="stroke: #7a53ec; stroke-opacity: 0.06"/>
     </defs>
-    <g clip-path="url(#pb97545880b)">
-     <use xlink:href="#m2d788426e3" x="0" y="225.21697" style="fill: #5b7fa5; fill-opacity: 0.06; stroke: #5b7fa5; stroke-opacity: 0.06"/>
+    <g clip-path="url(#pce79ac512a)">
+     <use xlink:href="#ma680e2693d" x="0" y="225.21697" style="fill: #7a53ec; fill-opacity: 0.06; stroke: #7a53ec; stroke-opacity: 0.06"/>
     </g>
    </g>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2">
     <g id="text_1">
      <!-- $U(x, \lambda)$ -->
-     <g style="fill: #263238" transform="translate(14.715703 140.62147) rotate(-90)">
+     <g style="fill: #231533" transform="translate(14.715703 140.62147) rotate(-90)">
       <text>
-       <tspan x="0" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">U</tspan>
-       <tspan x="11.781738" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">x</tspan>
-       <tspan x="23.378906" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">λ</tspan>
-       <tspan x="7.685303" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">(</tspan>
-       <tspan x="17.995605" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">,</tspan>
-       <tspan x="29.592773" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #263238">)</tspan>
+       <tspan x="0" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">U</tspan>
+       <tspan x="11.781738" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">x</tspan>
+       <tspan x="23.378906" y="-0.640625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">λ</tspan>
+       <tspan x="7.685303" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">(</tspan>
+       <tspan x="17.995605" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">,</tspan>
+       <tspan x="29.592773" y="-0.640625" style="font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #231533">)</tspan>
       </text>
      </g>
     </g>
@@ -729,22 +729,22 @@ L 97.079654 42.213617
 L 98.394776 22.856931 
 L 99.446873 5.346752 
 L 99.446873 5.346752 
-" clip-path="url(#pb97545880b)" style="fill: none; stroke: #5b7fa5; stroke-width: 2.5; stroke-linecap: square"/>
+" clip-path="url(#pce79ac512a)" style="fill: none; stroke: #7a53ec; stroke-width: 2.5; stroke-linecap: square"/>
    </g>
    <g id="text_2">
     <!-- $\lambda=0$ -->
-    <g style="fill: #5b7fa5" transform="translate(48.562726 13.928344)">
+    <g style="fill: #7a53ec" transform="translate(48.562726 13.928344)">
      <text>
-      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #5b7fa5">λ</tspan>
-      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #5b7fa5">=</tspan>
-      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #5b7fa5">0</tspan>
+      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #7a53ec">λ</tspan>
+      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #7a53ec">=</tspan>
+      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #7a53ec">0</tspan>
      </text>
     </g>
-    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #5b7fa5" transform="translate(34.796866 23.52097)">equilibrium</text>
+    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #7a53ec" transform="translate(34.796866 23.52097)">equilibrium</text>
    </g>
    <g id="PathCollection_1">
     <defs>
-     <path id="md186dc95f9" d="M 0 4.1833 
+     <path id="m0fec963805" d="M 0 4.1833 
 C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 
 C 3.742521 2.173559 4.1833 1.109424 4.1833 0 
 C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 
@@ -754,36 +754,36 @@ C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0
 C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804 
 C -2.173559 3.742521 -1.109424 4.1833 0 4.1833 
 z
-" style="stroke: #c0503f; stroke-width: 2"/>
+" style="stroke: #c7506b; stroke-width: 2"/>
     </defs>
-    <g clip-path="url(#pb97545880b)">
-     <use xlink:href="#md186dc95f9" x="35.851739" y="123.238238" style="fill: #ffffff; stroke: #c0503f; stroke-width: 2"/>
+    <g clip-path="url(#pce79ac512a)">
+     <use xlink:href="#m0fec963805" x="35.851739" y="123.238238" style="fill: #ffffff; stroke: #c7506b; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_2">
     <defs>
-     <path id="m095c317740" d="M -4.1833 4.1833 
+     <path id="ma7ec320719" d="M -4.1833 4.1833 
 L 4.1833 4.1833 
 L 4.1833 -4.1833 
 L -4.1833 -4.1833 
 z
-" style="stroke: #7b1fa2; stroke-width: 2"/>
+" style="stroke: #5b3a8c; stroke-width: 2"/>
     </defs>
-    <g clip-path="url(#pb97545880b)">
-     <use xlink:href="#m095c317740" x="41.150376" y="123.112514" style="fill: #ffffff; stroke: #7b1fa2; stroke-width: 2"/>
+    <g clip-path="url(#pce79ac512a)">
+     <use xlink:href="#ma7ec320719" x="41.150376" y="123.112514" style="fill: #ffffff; stroke: #5b3a8c; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_3">
     <defs>
-     <path id="ma1e6dc5f95" d="M -0 5.91608 
+     <path id="m814e1385bc" d="M -0 5.91608 
 L 5.91608 0 
 L 0 -5.91608 
 L -5.91608 -0 
 z
-" style="stroke: #1a8a7a; stroke-width: 2"/>
+" style="stroke: #16877f; stroke-width: 2"/>
     </defs>
-    <g clip-path="url(#pb97545880b)">
-     <use xlink:href="#ma1e6dc5f95" x="48.695958" y="112.013668" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 2"/>
+    <g clip-path="url(#pce79ac512a)">
+     <use xlink:href="#m814e1385bc" x="48.695958" y="112.013668" style="fill: #ffffff; stroke: #16877f; stroke-width: 2"/>
     </g>
    </g>
   </g>
@@ -1400,7 +1400,7 @@ L 118.847553 218.01697
 L 118.584529 218.01697 
 L 118.321504 218.01697 
 z
-" clip-path="url(#pd95de042be)" style="fill: #e8860c; fill-opacity: 0.06; stroke: #e8860c; stroke-opacity: 0.06"/>
+" clip-path="url(#p83f6e0078d)" style="fill: #b7791f; fill-opacity: 0.06; stroke: #b7791f; stroke-opacity: 0.06"/>
    </g>
    <g id="matplotlib.axis_3"/>
    <g id="matplotlib.axis_4"/>
@@ -1463,49 +1463,49 @@ L 195.387653 92.493928
 L 196.702775 73.612488 
 L 196.9658 69.488251 
 L 196.9658 69.488251 
-" clip-path="url(#pd95de042be)" style="fill: none; stroke: #e8860c; stroke-width: 2.5; stroke-linecap: square"/>
+" clip-path="url(#p83f6e0078d)" style="fill: none; stroke: #b7791f; stroke-width: 2.5; stroke-linecap: square"/>
    </g>
    <g id="line2d_3">
     <path d="M 133.370665 123.238238 
 L 133.370665 83.644629 
-" clip-path="url(#pd95de042be)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #c0503f; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#p83f6e0078d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #c7506b; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="line2d_4">
     <path d="M 138.669302 123.112514 
 L 138.669302 92.161934 
-" clip-path="url(#pd95de042be)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #7b1fa2; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#p83f6e0078d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #5b3a8c; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="line2d_5">
     <path d="M 146.214885 112.013668 
 L 146.214885 93.371292 
-" clip-path="url(#pd95de042be)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #1a8a7a; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#p83f6e0078d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #16877f; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="text_3">
     <!-- $\lambda\to0.5$ -->
-    <g style="fill: #e8860c" transform="translate(141.616652 13.928344)">
+    <g style="fill: #b7791f" transform="translate(141.616652 13.928344)">
      <text>
-      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">λ</tspan>
-      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">→</tspan>
-      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">0</tspan>
-      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">.</tspan>
-      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">5</tspan>
+      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">λ</tspan>
+      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">→</tspan>
+      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">0</tspan>
+      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">.</tspan>
+      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">5</tspan>
      </text>
     </g>
-    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #e8860c" transform="translate(135.705668 23.52097)">work step</text>
+    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #b7791f" transform="translate(135.705668 23.52097)">work step</text>
    </g>
    <g id="PathCollection_4">
-    <g clip-path="url(#pd95de042be)">
-     <use xlink:href="#md186dc95f9" x="133.370665" y="83.644629" style="fill: #ffffff; stroke: #c0503f; stroke-width: 2"/>
+    <g clip-path="url(#p83f6e0078d)">
+     <use xlink:href="#m0fec963805" x="133.370665" y="83.644629" style="fill: #ffffff; stroke: #c7506b; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_5">
-    <g clip-path="url(#pd95de042be)">
-     <use xlink:href="#m095c317740" x="138.669302" y="92.161934" style="fill: #ffffff; stroke: #7b1fa2; stroke-width: 2"/>
+    <g clip-path="url(#p83f6e0078d)">
+     <use xlink:href="#ma7ec320719" x="138.669302" y="92.161934" style="fill: #ffffff; stroke: #5b3a8c; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_6">
-    <g clip-path="url(#pd95de042be)">
-     <use xlink:href="#ma1e6dc5f95" x="146.214885" y="93.371292" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 2"/>
+    <g clip-path="url(#p83f6e0078d)">
+     <use xlink:href="#m814e1385bc" x="146.214885" y="93.371292" style="fill: #ffffff; stroke: #16877f; stroke-width: 2"/>
     </g>
    </g>
   </g>
@@ -2122,7 +2122,7 @@ L 216.366479 218.01697
 L 216.103455 218.01697 
 L 215.84043 218.01697 
 z
-" clip-path="url(#p70101ade47)" style="fill: #1a8a7a; fill-opacity: 0.06; stroke: #1a8a7a; stroke-opacity: 0.06"/>
+" clip-path="url(#p23f7830c8e)" style="fill: #16877f; fill-opacity: 0.06; stroke: #16877f; stroke-opacity: 0.06"/>
    </g>
    <g id="matplotlib.axis_5"/>
    <g id="matplotlib.axis_6"/>
@@ -2185,62 +2185,62 @@ L 292.906579 92.493928
 L 294.221701 73.612488 
 L 294.484726 69.488251 
 L 294.484726 69.488251 
-" clip-path="url(#p70101ade47)" style="fill: none; stroke: #1a8a7a; stroke-width: 2.5; stroke-linecap: square"/>
+" clip-path="url(#p23f7830c8e)" style="fill: none; stroke: #16877f; stroke-width: 2.5; stroke-linecap: square"/>
    </g>
    <g id="text_4">
     <!-- $\lambda=0.5$ -->
-    <g style="fill: #1a8a7a" transform="translate(239.135578 13.928344)">
+    <g style="fill: #16877f" transform="translate(239.135578 13.928344)">
      <text>
-      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">λ</tspan>
-      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">=</tspan>
-      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">0</tspan>
-      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">.</tspan>
-      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">5</tspan>
+      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">λ</tspan>
+      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">=</tspan>
+      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">0</tspan>
+      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">.</tspan>
+      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">5</tspan>
      </text>
     </g>
-    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(244.186609 23.52097)">relax</text>
+    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #16877f" transform="translate(244.186609 23.52097)">relax</text>
    </g>
    <g id="PathCollection_7">
-    <g clip-path="url(#p70101ade47)">
-     <use xlink:href="#md186dc95f9" x="277.962072" y="161.54633" style="fill: #ffffff; stroke: #c0503f; stroke-width: 2"/>
+    <g clip-path="url(#p23f7830c8e)">
+     <use xlink:href="#m0fec963805" x="277.962072" y="161.54633" style="fill: #ffffff; stroke: #c7506b; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_8">
-    <g clip-path="url(#p70101ade47)">
-     <use xlink:href="#m095c317740" x="254.891989" y="100.355212" style="fill: #ffffff; stroke: #7b1fa2; stroke-width: 2"/>
+    <g clip-path="url(#p23f7830c8e)">
+     <use xlink:href="#ma7ec320719" x="254.891989" y="100.355212" style="fill: #ffffff; stroke: #5b3a8c; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_9">
-    <g clip-path="url(#p70101ade47)">
-     <use xlink:href="#ma1e6dc5f95" x="265.557018" y="127.283533" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 2"/>
+    <g clip-path="url(#p23f7830c8e)">
+     <use xlink:href="#m814e1385bc" x="265.557018" y="127.283533" style="fill: #ffffff; stroke: #16877f; stroke-width: 2"/>
     </g>
    </g>
    <g id="patch_5">
     <path d="M 232.892126 209.702332 
 Q 254.427165 209.702332 273.949742 209.702332 
-" style="fill: none; stroke: #c0503f; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #c7506b; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 269.549742 207.502332 
 L 273.949742 209.702332 
 L 269.549742 211.902332 
-" style="fill: none; stroke: #c0503f; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #c7506b; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
    <g id="patch_6">
     <path d="M 238.183722 209.702332 
 Q 245.53642 209.702332 250.876657 209.702332 
-" style="fill: none; stroke: #7b1fa2; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #5b3a8c; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 246.476657 207.502332 
 L 250.876657 209.702332 
 L 246.476657 211.902332 
-" style="fill: none; stroke: #7b1fa2; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #5b3a8c; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
    <g id="patch_7">
     <path d="M 245.734449 209.702332 
 Q 254.646378 209.702332 261.545845 209.702332 
-" style="fill: none; stroke: #1a8a7a; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #16877f; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 257.145845 207.502332 
 L 261.545845 209.702332 
 L 257.145845 211.902332 
-" style="fill: none; stroke: #1a8a7a; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #16877f; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
   </g>
   <g id="axes_4">
@@ -2856,7 +2856,7 @@ L 313.885405 218.01697
 L 313.622381 218.01697 
 L 313.359357 218.01697 
 z
-" clip-path="url(#p8bafa3ce8e)" style="fill: #e8860c; fill-opacity: 0.06; stroke: #e8860c; stroke-opacity: 0.06"/>
+" clip-path="url(#pe396a5799b)" style="fill: #b7791f; fill-opacity: 0.06; stroke: #b7791f; stroke-opacity: 0.06"/>
    </g>
    <g id="matplotlib.axis_7"/>
    <g id="matplotlib.axis_8"/>
@@ -2908,49 +2908,49 @@ L 390.162481 157.07273
 L 391.477603 140.901809 
 L 392.003652 133.629749 
 L 392.003652 133.629749 
-" clip-path="url(#p8bafa3ce8e)" style="fill: none; stroke: #e8860c; stroke-width: 2.5; stroke-linecap: square"/>
+" clip-path="url(#pe396a5799b)" style="fill: none; stroke: #b7791f; stroke-width: 2.5; stroke-linecap: square"/>
    </g>
    <g id="line2d_8">
     <path d="M 375.480999 198.736408 
 L 375.480999 161.54633 
-" clip-path="url(#p8bafa3ce8e)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #c0503f; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#pe396a5799b)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #c7506b; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="line2d_9">
     <path d="M 352.410915 100.355212 
 L 352.410915 99.913833 
-" clip-path="url(#p8bafa3ce8e)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #7b1fa2; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#pe396a5799b)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #5b3a8c; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="line2d_10">
     <path d="M 363.075944 144.238734 
 L 363.075944 127.283533 
-" clip-path="url(#p8bafa3ce8e)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #1a8a7a; stroke-opacity: 0.6; stroke-width: 1.5"/>
+" clip-path="url(#pe396a5799b)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #16877f; stroke-opacity: 0.6; stroke-width: 1.5"/>
    </g>
    <g id="text_5">
     <!-- $\lambda\to1.0$ -->
-    <g style="fill: #e8860c" transform="translate(336.654504 13.928344)">
+    <g style="fill: #b7791f" transform="translate(336.654504 13.928344)">
      <text>
-      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">λ</tspan>
-      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">→</tspan>
-      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">1</tspan>
-      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">.</tspan>
-      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #e8860c">0</tspan>
+      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">λ</tspan>
+      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">→</tspan>
+      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">1</tspan>
+      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">.</tspan>
+      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #b7791f">0</tspan>
      </text>
     </g>
-    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #e8860c" transform="translate(330.74352 23.52097)">work step</text>
+    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #b7791f" transform="translate(330.74352 23.52097)">work step</text>
    </g>
    <g id="PathCollection_10">
-    <g clip-path="url(#p8bafa3ce8e)">
-     <use xlink:href="#md186dc95f9" x="375.480999" y="198.736408" style="fill: #ffffff; stroke: #c0503f; stroke-width: 2"/>
+    <g clip-path="url(#pe396a5799b)">
+     <use xlink:href="#m0fec963805" x="375.480999" y="198.736408" style="fill: #ffffff; stroke: #c7506b; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_11">
-    <g clip-path="url(#p8bafa3ce8e)">
-     <use xlink:href="#m095c317740" x="352.410915" y="99.913833" style="fill: #ffffff; stroke: #7b1fa2; stroke-width: 2"/>
+    <g clip-path="url(#pe396a5799b)">
+     <use xlink:href="#ma7ec320719" x="352.410915" y="99.913833" style="fill: #ffffff; stroke: #5b3a8c; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_12">
-    <g clip-path="url(#p8bafa3ce8e)">
-     <use xlink:href="#ma1e6dc5f95" x="363.075944" y="144.238734" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 2"/>
+    <g clip-path="url(#pe396a5799b)">
+     <use xlink:href="#m814e1385bc" x="363.075944" y="144.238734" style="fill: #ffffff; stroke: #16877f; stroke-width: 2"/>
     </g>
    </g>
   </g>
@@ -3567,7 +3567,7 @@ L 411.404332 218.01697
 L 411.141307 218.01697 
 L 410.878283 218.01697 
 z
-" clip-path="url(#p54e5e45651)" style="fill: #1a8a7a; fill-opacity: 0.06; stroke: #1a8a7a; stroke-opacity: 0.06"/>
+" clip-path="url(#p8a219712af)" style="fill: #16877f; fill-opacity: 0.06; stroke: #16877f; stroke-opacity: 0.06"/>
    </g>
    <g id="matplotlib.axis_9"/>
    <g id="matplotlib.axis_10"/>
@@ -3619,129 +3619,129 @@ L 487.681407 157.07273
 L 488.996529 140.901809 
 L 489.522578 133.629749 
 L 489.522578 133.629749 
-" clip-path="url(#p54e5e45651)" style="fill: none; stroke: #1a8a7a; stroke-width: 2.5; stroke-linecap: square"/>
+" clip-path="url(#p8a219712af)" style="fill: none; stroke: #16877f; stroke-width: 2.5; stroke-linecap: square"/>
    </g>
    <g id="text_6">
     <!-- $\lambda=1.0$ -->
-    <g style="fill: #1a8a7a" transform="translate(434.17343 13.928344)">
+    <g style="fill: #16877f" transform="translate(434.17343 13.928344)">
      <text>
-      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">λ</tspan>
-      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">=</tspan>
-      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">1</tspan>
-      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">.</tspan>
-      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #1a8a7a">0</tspan>
+      <tspan x="0" y="-0.15625" style="font-style: oblique; font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">λ</tspan>
+      <tspan x="7.374573" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">=</tspan>
+      <tspan x="17.056274" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">1</tspan>
+      <tspan x="23.020935" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">.</tspan>
+      <tspan x="26.000977" y="-0.15625" style="font-size: 9.4px; font-family: 'DejaVu Sans'; fill: #16877f">0</tspan>
      </text>
     </g>
-    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(439.224462 23.52097)">relax</text>
+    <text style="font-weight: 700; font-size: 9.4px; font-family: 'Arial'; fill: #16877f" transform="translate(439.224462 23.52097)">relax</text>
    </g>
    <g id="PathCollection_13">
-    <g clip-path="url(#p54e5e45651)">
-     <use xlink:href="#md186dc95f9" x="480.023069" y="204.11841" style="fill: #ffffff; stroke: #c0503f; stroke-width: 2"/>
+    <g clip-path="url(#p8a219712af)">
+     <use xlink:href="#m0fec963805" x="480.023069" y="204.11841" style="fill: #ffffff; stroke: #c7506b; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_14">
-    <g clip-path="url(#p54e5e45651)">
-     <use xlink:href="#m095c317740" x="478.827598" y="205.7171" style="fill: #ffffff; stroke: #7b1fa2; stroke-width: 2"/>
+    <g clip-path="url(#p8a219712af)">
+     <use xlink:href="#ma7ec320719" x="478.827598" y="205.7171" style="fill: #ffffff; stroke: #5b3a8c; stroke-width: 2"/>
     </g>
    </g>
    <g id="PathCollection_15">
-    <g clip-path="url(#p54e5e45651)">
-     <use xlink:href="#ma1e6dc5f95" x="480.68877" y="202.669911" style="fill: #ffffff; stroke: #1a8a7a; stroke-width: 2"/>
+    <g clip-path="url(#p8a219712af)">
+     <use xlink:href="#m814e1385bc" x="480.68877" y="202.669911" style="fill: #ffffff; stroke: #16877f; stroke-width: 2"/>
     </g>
    </g>
    <g id="patch_10">
     <path d="M 474.999189 209.702332 
 Q 476.512731 209.702332 476.013812 209.702332 
-" style="fill: none; stroke: #c0503f; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #c7506b; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 471.613812 207.502332 
 L 476.013812 209.702332 
 L 471.613812 211.902332 
-" style="fill: none; stroke: #c0503f; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #c7506b; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
    <g id="patch_11">
     <path d="M 451.929967 209.702332 
 Q 464.378987 209.702332 474.815545 209.702332 
-" style="fill: none; stroke: #7b1fa2; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #5b3a8c; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 470.415545 207.502332 
 L 474.815545 209.702332 
 L 470.415545 211.902332 
-" style="fill: none; stroke: #7b1fa2; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #5b3a8c; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
    <g id="patch_12">
     <path d="M 462.591505 209.702332 
 Q 470.639398 209.702332 476.674829 209.702332 
-" style="fill: none; stroke: #1a8a7a; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #16877f; stroke-width: 1.8; stroke-linecap: round"/>
     <path d="M 472.274829 207.502332 
 L 476.674829 209.702332 
 L 472.274829 211.902332 
-" style="fill: none; stroke: #1a8a7a; stroke-width: 1.8; stroke-linecap: round"/>
+" style="fill: none; stroke: #16877f; stroke-width: 1.8; stroke-linecap: round"/>
    </g>
   </g>
   <g id="text_7">
-   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #e8860c" x="108.884189" y="126.951689" transform="rotate(-0 108.884189 126.951689)">→</text>
+   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #b7791f" x="108.884189" y="126.951689" transform="rotate(-0 108.884189 126.951689)">→</text>
   </g>
   <g id="text_8">
    <!-- shift $\lambda$ -->
-   <g style="fill: #e8860c" transform="translate(98.044189 149.65297)">
+   <g style="fill: #b7791f" transform="translate(98.044189 149.65297)">
     <text>
-     <tspan x="0" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">s</tspan>
-     <tspan x="4" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">h</tspan>
-     <tspan x="8.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">i</tspan>
-     <tspan x="10.226562" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">f</tspan>
-     <tspan x="12.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">t</tspan>
-     <tspan x="14.671875" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c"> </tspan>
-     <tspan x="16.894531" y="-0.921875" style="font-style: oblique; font-size: 8px; font-family: 'DejaVu Sans'; fill: #e8860c">λ</tspan>
+     <tspan x="0" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">s</tspan>
+     <tspan x="4" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">h</tspan>
+     <tspan x="8.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">i</tspan>
+     <tspan x="10.226562" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">f</tspan>
+     <tspan x="12.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">t</tspan>
+     <tspan x="14.671875" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f"> </tspan>
+     <tspan x="16.894531" y="-0.921875" style="font-style: oblique; font-size: 8px; font-family: 'DejaVu Sans'; fill: #b7791f">λ</tspan>
     </text>
    </g>
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #e8860c" transform="translate(97.775439 158.23147)">(work)</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #b7791f" transform="translate(97.775439 158.23147)">(work)</text>
   </g>
   <g id="text_9">
-   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #1a8a7a" x="206.403115" y="126.951689" transform="rotate(-0 206.403115 126.951689)">→</text>
+   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #16877f" x="206.403115" y="126.951689" transform="rotate(-0 206.403115 126.951689)">→</text>
   </g>
   <g id="text_10">
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(193.961865 149.65297)">MCMC</text>
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(195.06999 158.23147)">(relax)</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #16877f" transform="translate(193.961865 149.65297)">MCMC</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #16877f" transform="translate(195.06999 158.23147)">(relax)</text>
   </g>
   <g id="text_11">
-   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #e8860c" x="303.922041" y="126.951689" transform="rotate(-0 303.922041 126.951689)">→</text>
+   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #b7791f" x="303.922041" y="126.951689" transform="rotate(-0 303.922041 126.951689)">→</text>
   </g>
   <g id="text_12">
    <!-- shift $\lambda$ -->
-   <g style="fill: #e8860c" transform="translate(293.082041 149.65297)">
+   <g style="fill: #b7791f" transform="translate(293.082041 149.65297)">
     <text>
-     <tspan x="0" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">s</tspan>
-     <tspan x="4" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">h</tspan>
-     <tspan x="8.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">i</tspan>
-     <tspan x="10.226562" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">f</tspan>
-     <tspan x="12.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c">t</tspan>
-     <tspan x="14.671875" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #e8860c"> </tspan>
-     <tspan x="16.894531" y="-0.921875" style="font-style: oblique; font-size: 8px; font-family: 'DejaVu Sans'; fill: #e8860c">λ</tspan>
+     <tspan x="0" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">s</tspan>
+     <tspan x="4" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">h</tspan>
+     <tspan x="8.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">i</tspan>
+     <tspan x="10.226562" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">f</tspan>
+     <tspan x="12.449219" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f">t</tspan>
+     <tspan x="14.671875" y="-0.921875" style="font-size: 8px; font-family: 'Arial'; fill: #b7791f"> </tspan>
+     <tspan x="16.894531" y="-0.921875" style="font-style: oblique; font-size: 8px; font-family: 'DejaVu Sans'; fill: #b7791f">λ</tspan>
     </text>
    </g>
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #e8860c" transform="translate(292.813291 158.23147)">(work)</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #b7791f" transform="translate(292.813291 158.23147)">(work)</text>
   </g>
   <g id="text_13">
-   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #1a8a7a" x="401.440967" y="126.951689" transform="rotate(-0 401.440967 126.951689)">→</text>
+   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: middle; fill: #16877f" x="401.440967" y="126.951689" transform="rotate(-0 401.440967 126.951689)">→</text>
   </g>
   <g id="text_14">
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(388.999717 149.65297)">MCMC</text>
-   <text style="font-size: 8px; font-family: 'Arial'; fill: #1a8a7a" transform="translate(390.107842 158.23147)">(relax)</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #16877f" transform="translate(388.999717 149.65297)">MCMC</text>
+   <text style="font-size: 8px; font-family: 'Arial'; fill: #16877f" transform="translate(390.107842 158.23147)">(relax)</text>
   </g>
  </g>
  <defs>
-  <clipPath id="pb97545880b">
+  <clipPath id="pce79ac512a">
    <rect x="20.802578" y="29.52097" width="78.644295" height="188.496"/>
   </clipPath>
-  <clipPath id="pd95de042be">
+  <clipPath id="p83f6e0078d">
    <rect x="118.321504" y="29.52097" width="78.644295" height="188.496"/>
   </clipPath>
-  <clipPath id="p70101ade47">
+  <clipPath id="p23f7830c8e">
    <rect x="215.84043" y="29.52097" width="78.644295" height="188.496"/>
   </clipPath>
-  <clipPath id="p8bafa3ce8e">
+  <clipPath id="pe396a5799b">
    <rect x="313.359357" y="29.52097" width="78.644295" height="188.496"/>
   </clipPath>
-  <clipPath id="p54e5e45651">
+  <clipPath id="p8a219712af">
    <rect x="410.878283" y="29.52097" width="78.644295" height="188.496"/>
   </clipPath>
  </defs>
