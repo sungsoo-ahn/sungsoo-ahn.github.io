@@ -14,29 +14,29 @@ from PIL import Image
 import blog_figure_style as bfs
 
 
-TEXT = "#263238"
-BLUE = "#5b7fa5"
-BLUE_LIGHT = "#dce8f4"
-AMBER = "#e8a030"
-AMBER_LIGHT = "#fff3e0"
-TEAL = "#1a8a7a"
-TEAL_LIGHT = "#e0f2f1"
-RED = "#c0503f"
-RED_LIGHT = "#fce4ec"
-GREEN = "#4caf50"
-GREEN_LIGHT = "#e0f2e9"
-NEUTRAL = "#b0bec5"
+TEXT = bfs.TEXT
+BLUE = bfs.PURPLE
+BLUE_LIGHT = bfs.PURPLE_LIGHT
+AMBER = bfs.AMBER
+AMBER_LIGHT = bfs.AMBER_LIGHT
+TEAL = bfs.TEAL
+TEAL_LIGHT = bfs.TEAL_LIGHT
+RED = bfs.RED
+RED_LIGHT = bfs.RED_LIGHT
+GREEN = bfs.GREEN
+GREEN_LIGHT = bfs.GREEN_LIGHT
+NEUTRAL = bfs.NEUTRAL
 
 OUTPUT_DIR = Path("assets/img/blog")
 
 bfs.use_blog_style()
 LANDSCAPE_CMAP = LinearSegmentedColormap.from_list(
     "blog_landscape",
-    ["#f7fbfc", "#dcecf2", "#b9d9df", "#89bfc6", "#5d9ba5"],
+    ["#fbf9ff", "#eee9ff", "#d7ccfb", "#aa92f0", "#7a53ec"],
 )
 BIASED_CMAP = LinearSegmentedColormap.from_list(
     "blog_biased_landscape",
-    ["#fffaf0", "#f2e0b6", "#d4b66a", "#9e8447"],
+    ["#fffaf0", bfs.AMBER_LIGHT, "#ddbf70", bfs.AMBER],
 )
 
 
@@ -73,7 +73,7 @@ def _style_axis(ax, xlabel="", ylabel="", title=""):
     ax.set_ylabel(ylabel, fontsize=12, color=TEXT)
     if title:
         ax.set_title(title, fontsize=13.5, fontweight="bold", color=TEXT, pad=8)
-    ax.tick_params(colors="#78909c", labelsize=9.5)
+    ax.tick_params(colors=bfs.MUTED, labelsize=9.5)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color(NEUTRAL)
@@ -318,7 +318,7 @@ def _alanine_dipeptide_coords(phi_deg, psi_deg):
     return coords, measured_phi, measured_psi
 
 
-def _draw_bond(ax, coords, start, end, color="#707880", lw=2.6, alpha=1.0):
+def _draw_bond(ax, coords, start, end, color=bfs.MUTED, lw=2.6, alpha=1.0):
     p0 = coords[start]
     p1 = coords[end]
     ax.plot(
@@ -347,20 +347,20 @@ def _draw_torsion_ring(ax, p0, p1, color, radius=0.34, lw=2.2):
 
 def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
     atom_style = {
-        "C_prev": ("#5f6872", 74),
-        "C": ("#5f6872", 74),
-        "CA": ("#3f4852", 96),
+        "C_prev": (bfs.MUTED, 74),
+        "C": (bfs.MUTED, 74),
+        "CA": (bfs.TEXT, 96),
         "CB": (GREEN, 84),
-        "Me_prev": ("#a7b0b8", 60),
-        "Me_next": ("#a7b0b8", 60),
-        "N": ("#2f74c0", 84),
-        "N_next": ("#2f74c0", 84),
-        "O_prev": ("#d85040", 68),
-        "O": ("#d85040", 68),
-        "H_N": ("#f8fbfd", 42),
-        "H_CA": ("#f8fbfd", 42),
-        "H_CB": ("#f8fbfd", 38),
-        "H_N_next": ("#f8fbfd", 38),
+        "Me_prev": (bfs.NEUTRAL, 60),
+        "Me_next": (bfs.NEUTRAL, 60),
+        "N": (bfs.BLUE, 84),
+        "N_next": (bfs.BLUE, 84),
+        "O_prev": (bfs.RED, 68),
+        "O": (bfs.RED, 68),
+        "H_N": ("#fbf9ff", 42),
+        "H_CA": ("#fbf9ff", 42),
+        "H_CB": ("#fbf9ff", 38),
+        "H_N_next": ("#fbf9ff", 38),
     }
     atom_labels = {
         "C_prev": (r"C$_{i-1}$", np.array([-0.08, 0.14, 0.18])),
@@ -388,11 +388,11 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
     ]
 
     for start, end in bonds:
-        _draw_bond(ax, coords, start, end, color="#8a949d", lw=2.4)
+        _draw_bond(ax, coords, start, end, color=bfs.MUTED, lw=2.4)
     _draw_bond(ax, coords, "N", "CA", color=TEAL, lw=5.0)
     _draw_bond(ax, coords, "CA", "C", color=AMBER, lw=5.0)
     for start, end in bonds:
-        _draw_bond(ax, coords, start, end, color="#eef2f4", lw=1.0, alpha=0.65)
+        _draw_bond(ax, coords, start, end, color=bfs.PURPLE_LIGHT, lw=1.0, alpha=0.65)
 
     _draw_torsion_ring(ax, coords["N"], coords["CA"], TEAL, radius=0.36)
     _draw_torsion_ring(ax, coords["CA"], coords["C"], AMBER, radius=0.35)
@@ -406,7 +406,7 @@ def _draw_alanine_molecule(ax, coords, phi_deg, psi_deg):
             [point[2]],
             s=size,
             color=color,
-            edgecolor="#b0bec5" if is_hydrogen else "white",
+            edgecolor=bfs.SPINE if is_hydrogen else "white",
             linewidth=0.7 if is_hydrogen else 0.8,
             depthshade=True,
         )

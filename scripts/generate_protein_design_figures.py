@@ -28,32 +28,32 @@ bfs.use_blog_style()
 # ──────────────────────────────────────────────
 # Color palette (same as electrocatalysis)
 # ──────────────────────────────────────────────
-TEXT_COLOR = '#263238'
-ARROW_COLOR = '#455a64'
+TEXT_COLOR = bfs.TEXT
+ARROW_COLOR = bfs.MUTED
 
-BOX_MAIN = '#dce8f4'
-EDGE_MAIN = '#5b7fa5'
+BOX_MAIN = bfs.PURPLE_LIGHT
+EDGE_MAIN = bfs.PURPLE
 
-BOX_WARM = '#fff3e0'
-EDGE_WARM = '#e8a030'
-COLOR_WARM = '#e07a5f'
+BOX_WARM = bfs.AMBER_LIGHT
+EDGE_WARM = bfs.AMBER
+COLOR_WARM = bfs.AMBER
 
-BOX_GREEN = '#e0f2e9'
-EDGE_GREEN = '#4caf50'
-COLOR_GREEN = '#388e3c'
+BOX_GREEN = bfs.GREEN_LIGHT
+EDGE_GREEN = bfs.GREEN
+COLOR_GREEN = bfs.GREEN
 
-COLOR_RED = '#d32f2f'
-COLOR_RED_LIGHT = '#ef9a9a'
+COLOR_RED = bfs.RED
+COLOR_RED_LIGHT = bfs.RED_LIGHT
 
-COLOR_TEAL = '#1a8a7a'
-COLOR_TEAL_LIGHT = '#b2dfdb'
+COLOR_TEAL = bfs.TEAL
+COLOR_TEAL_LIGHT = bfs.TEAL_LIGHT
 
-BOX_CATALYST = '#f3e5f5'
-EDGE_CATALYST = '#9c27b0'
-BOX_ML = '#e8eaf6'
-EDGE_ML = '#5c6bc0'
+BOX_CATALYST = bfs.PURPLE_SOFT
+EDGE_CATALYST = bfs.PURPLE_STRONG
+BOX_ML = bfs.BLUE_LIGHT
+EDGE_ML = bfs.BLUE
 
-DENSITY_SLATE = '#5b7fa5'
+DENSITY_SLATE = bfs.PURPLE
 ANNOTATION_BG = 'white'
 ANNOTATION_BG_ALPHA = 0.85
 
@@ -61,16 +61,16 @@ LABEL_FS = 12
 SUBLABEL_FS = 10
 
 # Extra colors for protein figures
-COLOR_HYDROPHOBIC = '#5b7fa5'      # slate blue (nonpolar)
-COLOR_POLAR = '#4caf50'            # green
-COLOR_POSITIVE = '#5c6bc0'         # indigo
-COLOR_NEGATIVE = '#e07a5f'         # warm red
-COLOR_SPECIAL = '#e8a030'          # amber
-BOX_HYDROPHOBIC = '#dce8f4'
-BOX_POLAR = '#e0f2e9'
-BOX_POSITIVE = '#e8eaf6'
-BOX_NEGATIVE = '#fff3e0'
-BOX_SPECIAL = '#fff8e1'
+COLOR_HYDROPHOBIC = bfs.PURPLE     # nonpolar
+COLOR_POLAR = bfs.GREEN            # green
+COLOR_POSITIVE = bfs.BLUE          # indigo-blue
+COLOR_NEGATIVE = bfs.ROSE          # warm rose
+COLOR_SPECIAL = bfs.AMBER          # amber
+BOX_HYDROPHOBIC = bfs.PURPLE_LIGHT
+BOX_POLAR = bfs.GREEN_LIGHT
+BOX_POSITIVE = bfs.BLUE_LIGHT
+BOX_NEGATIVE = bfs.RED_LIGHT
+BOX_SPECIAL = bfs.AMBER_LIGHT
 
 
 # ──────────────────────────────────────────────
@@ -81,9 +81,9 @@ def _style_axis(ax, xlim, ylim, xlabel=None, ylabel=None):
     ax.set_ylim(ylim)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_color('#b0bec5')
-    ax.spines['bottom'].set_color('#b0bec5')
-    ax.tick_params(colors='#78909c', labelsize=9)
+    ax.spines['left'].set_color(bfs.SPINE)
+    ax.spines['bottom'].set_color(bfs.SPINE)
+    ax.tick_params(colors=bfs.MUTED, labelsize=9)
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=11, color=TEXT_COLOR, labelpad=6)
     if ylabel:
@@ -1438,7 +1438,7 @@ def generate_protein_interactions_figure(output_path):
         ax.add_patch(Circle((x, y), 0.18, fc=COLOR_HYDROPHOBIC,
                             ec='white', lw=1.0, zorder=4))
     for x, y in [(1.62, 3.18), (3.65, 4.28), (3.45, 3.08)]:
-        ax.add_patch(Circle((x, y), 0.08, fc='#b6c2c8',
+        ax.add_patch(Circle((x, y), 0.08, fc=bfs.NEUTRAL,
                             ec='white', lw=0.7, alpha=0.75, zorder=3))
     ax.text(3.10, 3.32, 'nonpolar core', ha='left', va='center',
             fontsize=10.5, color=COLOR_HYDROPHOBIC, fontstyle='italic')
@@ -1462,13 +1462,13 @@ def generate_protein_interactions_figure(output_path):
             fontsize=18, fontweight='bold', color=EDGE_ML)
     ax.text(3.18, 1.42, '-', ha='center', va='center',
             fontsize=20, fontweight='bold', color=COLOR_NEGATIVE)
-    ax.plot([2.28, 2.82], [1.42, 1.42], color='#78909c',
+    ax.plot([2.28, 2.82], [1.42, 1.42], color=bfs.MUTED,
             lw=2.0, linestyle=(0, (3, 3)))
     ax.text(2.55, 0.95, 'opposite charges pair', ha='center', va='center',
-            fontsize=10.5, color='#607d8b', fontstyle='italic')
+            fontsize=10.5, color=bfs.MUTED, fontstyle='italic')
 
     # Disulfide bridge: covalent S-S staple.
-    ax.plot([6.18, 8.68], [1.42, 1.42], color='#b0bec5', lw=2.0, zorder=2)
+    ax.plot([6.18, 8.68], [1.42, 1.42], color=bfs.SPINE, lw=2.0, zorder=2)
     for x in [6.70, 8.16]:
         ax.add_patch(Circle((x, 1.42), 0.22, fc='white',
                             ec=EDGE_WARM, lw=1.8, zorder=4))
@@ -1481,7 +1481,7 @@ def generate_protein_interactions_figure(output_path):
 
     fig.text(0.5, 0.04,
              'Design needs the right interaction in the right environment, not just many contacts.',
-             ha='center', va='center', fontsize=11, color='#607d8b',
+             ha='center', va='center', fontsize=11, color=bfs.MUTED,
              fontstyle='italic')
     plt.tight_layout()
     plt.savefig(output_path, dpi=220, bbox_inches='tight', facecolor='white')
@@ -1613,7 +1613,7 @@ def generate_design_funnel_figure(output_path):
 
         ax.text(center_x + max_width / 2 + 0.38, y_mid,
                 method, ha='left', va='center',
-                fontsize=11.0, color=ec if ec != COLOR_GREEN else '#388e3c',
+                fontsize=11.0, color=ec if ec != COLOR_GREEN else bfs.GREEN,
                 fontstyle='italic')
 
     plt.tight_layout()

@@ -5,6 +5,7 @@ Generate figures for circular and spherical harmonics with consistent styling.
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from matplotlib.colors import to_rgba
 from mpl_toolkits.mplot3d import Axes3D
 from math import factorial
 
@@ -193,8 +194,8 @@ def generate_spherical_harmonics_figure(output_path):
         colors_rgba = np.zeros((*Y.shape, 4))
 
         # Create custom colormap for positive/negative regions.
-        pos = np.array([200, 91, 74, 255]) / 255
-        neg = np.array([79, 126, 168, 255]) / 255
+        pos = np.array(to_rgba(POSITIVE_COLOR))
+        neg = np.array(to_rgba(NEGATIVE_COLOR))
         for i in range(Y.shape[0]):
             for j in range(Y.shape[1]):
                 if Y[i, j] >= 0:
@@ -281,10 +282,10 @@ def generate_circular_harmonics_simple(output_path):
         ax.set_xticks([])
         ax.set_xticklabels([])
 
-        ax.grid(True, alpha=0.4, color='gray', linestyle='-', linewidth=0.5)
+        ax.grid(True, alpha=0.4, color=bfs.GRID, linestyle='-', linewidth=0.5)
         ax.set_title(f'$Y_{{{m}}}$', fontsize=16, pad=10, color=bfs.TEXT)
         ax.spines['polar'].set_visible(True)
-        ax.spines['polar'].set_color('gray')
+        ax.spines['polar'].set_color(bfs.SPINE)
         ax.spines['polar'].set_linewidth(0.5)
 
     plt.tight_layout()
@@ -303,33 +304,31 @@ def generate_cg_tensor_product_figure(output_path):
     ax.set_aspect('equal')
     ax.axis('off')
 
-    # --- Refined color palette ---
-    # Block fills (soft pastels)
-    color_l0 = '#a5d6a7'       # sage green
-    color_l1 = '#90caf9'       # sky blue
-    color_l2 = '#ef9a9a'       # soft coral
-    color_tensor = '#cfd8dc'   # blue-gray
-    color_cg = '#d1c4e9'       # soft lavender
+    # --- Purple-led semantic palette ---
+    color_l0 = bfs.GREEN_LIGHT
+    color_l1 = bfs.BLUE_LIGHT
+    color_l2 = bfs.RED_LIGHT
+    color_tensor = bfs.PURPLE_SOFT
+    color_cg = bfs.PURPLE_LIGHT
 
-    # Matching edge colors (mid-tone of each fill)
-    edge_l0 = '#66bb6a'
-    edge_l1 = '#42a5f5'
-    edge_l2 = '#e57373'
-    edge_neutral = '#90a4ae'   # for tensor & cg blocks
-    arrow_color = '#78909c'
+    edge_l0 = bfs.GREEN
+    edge_l1 = bfs.BLUE
+    edge_l2 = bfs.RED
+    edge_neutral = bfs.SPINE
+    arrow_color = bfs.MUTED
 
     # Grid
-    grid_color = '#b0bec5'
+    grid_color = bfs.SPINE
     grid_lw = 0.4
 
     # Text colors (dark, readable versions of block colors)
-    text_color = '#37474f'
-    text_l0 = '#2e7d32'
-    text_l1 = '#1565c0'
-    text_l2 = '#c62828'
-    text_cg = '#5e35b1'        # deep purple (matches lavender)
-    text_tensor = '#546e7a'    # dark blue-gray
-    text_muted = '#90a4ae'
+    text_color = bfs.TEXT
+    text_l0 = bfs.GREEN
+    text_l1 = bfs.BLUE
+    text_l2 = bfs.RED
+    text_cg = bfs.PURPLE_STRONG
+    text_tensor = bfs.MUTED
+    text_muted = bfs.MUTED
 
     # Layout constants
     cy = 1.95
@@ -550,42 +549,33 @@ def generate_ellipsoid_anisotropy_figure(output_path):
             ax.plot(r_ref * np.sin(theta_line) * np.cos(lng),
                     r_ref * np.sin(theta_line) * np.sin(lng),
                     r_ref * np.cos(theta_line),
-                    color='gray', alpha=0.3, linewidth=0.3)
+                    color=bfs.NEUTRAL, alpha=0.3, linewidth=0.3)
         for lat in np.linspace(0, np.pi, 7)[1:-1]:
             phi_line = np.linspace(0, 2 * np.pi, 50)
             ax.plot(r_ref * np.sin(lat) * np.cos(phi_line),
                     r_ref * np.sin(lat) * np.sin(phi_line),
                     r_ref * np.cos(lat) * np.ones_like(phi_line),
-                    color='gray', alpha=0.3, linewidth=0.3)
+                    color=bfs.NEUTRAL, alpha=0.3, linewidth=0.3)
 
         # Compute deviation-based colors
         deviation = r - 1.0
         colors_rgba = np.zeros((*r.shape, 4))
         max_dev = 0.35  # normalize to known max coefficient
+        base_rgba = np.array(to_rgba(bfs.PURPLE_SOFT))
+        pos_rgba = np.array(to_rgba(POSITIVE_COLOR))
+        neg_rgba = np.array(to_rgba(NEGATIVE_COLOR))
 
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
                 d = deviation[i, j] / max_dev  # in [-1, 1]
                 d = np.clip(d, -1, 1)
                 if d > 0:
-                    # Blend from light gray to red
-                    colors_rgba[i, j] = [
-                        0.85 + 0.15 * d,   # R: 0.85 -> 1.0
-                        0.85 - 0.55 * d,   # G: 0.85 -> 0.30
-                        0.85 - 0.55 * d,   # B: 0.85 -> 0.30
-                        1.0
-                    ]
+                    colors_rgba[i, j] = base_rgba * (1 - d) + pos_rgba * d
                 elif d < 0:
-                    # Blend from light gray to blue
                     ad = -d
-                    colors_rgba[i, j] = [
-                        0.85 - 0.55 * ad,  # R: 0.85 -> 0.30
-                        0.85 - 0.55 * ad,  # G: 0.85 -> 0.30
-                        0.85 + 0.15 * ad,  # B: 0.85 -> 1.0
-                        1.0
-                    ]
+                    colors_rgba[i, j] = base_rgba * (1 - ad) + neg_rgba * ad
                 else:
-                    colors_rgba[i, j] = [0.85, 0.85, 0.85, 1.0]
+                    colors_rgba[i, j] = base_rgba
 
         # Plot surface
         surface = ax.plot_surface(x, y, z, facecolors=colors_rgba,
@@ -621,18 +611,18 @@ def generate_cg_network_figure(output_path):
     fig, (ax_a, ax_b) = plt.subplots(1, 2, figsize=(14, 4.2),
                                       gridspec_kw={'wspace': 0.08})
 
-    # --- Color palette ---
+    # --- Purple-led semantic palette ---
     type_colors = {
-        0: ('#c5cae9', '#7986cb'),   # indigo
-        1: ('#ffcdd2', '#e57373'),   # pink
-        2: ('#c8e6c9', '#66bb6a'),   # green
-        3: ('#e1bee7', '#ab47bc'),   # purple
+        0: (bfs.BLUE_LIGHT, bfs.BLUE),
+        1: (bfs.RED_LIGHT, bfs.RED),
+        2: (bfs.GREEN_LIGHT, bfs.GREEN),
+        3: (bfs.PURPLE_LIGHT, bfs.PURPLE),
     }
-    color_layer = '#b2ebf2'
-    edge_layer = '#00acc1'
-    text_color = '#37474f'
-    text_desc = '#546e7a'
-    conn_color = '#78909c'
+    color_layer = bfs.TEAL_LIGHT
+    edge_layer = bfs.TEAL
+    text_color = bfs.TEXT
+    text_desc = bfs.MUTED
+    conn_color = bfs.MUTED
 
     lw = 1.2
     rounding = 0.06
@@ -682,7 +672,7 @@ def generate_cg_network_figure(output_path):
             (x1, cy + shaft_h),          # top-left of shaft
         ]
         ax.add_patch(Polygon(verts, closed=True,
-                             facecolor='#eeeeee', edgecolor='none',
+                             facecolor=bfs.PURPLE_SOFT, edgecolor='none',
                              zorder=0))
 
     # ============================================================
@@ -718,7 +708,7 @@ def generate_cg_network_figure(output_path):
         draw_box(ax, x, y, layer_w, layer_h, color_layer, edge_layer, zorder=1)
         ax.text(x + layer_w/2, cy - layer_h/2 - 0.18, f'Layer {i+1}',
                 ha='center', va='top', fontsize=9,
-                fontweight='bold', color='#00838f')
+                fontweight='bold', color=bfs.TEAL)
 
     ax.text(x_stacks[0] - 0.2, cy + stack_h/2 + 0.30, '(a)',
             ha='left', va='center', fontsize=11,
@@ -776,7 +766,7 @@ def generate_cg_network_figure(output_path):
         ax.text(x_mid, cy + stack_h/2 + 0.25,
                 'CG tensor products',
                 ha='center', va='center', fontsize=8.8,
-                color='#d32f2f')
+                color=bfs.RED)
 
     ax.text(x_stacks_b[0] - 0.2, cy + stack_h/2 + 0.30, '(b)',
             ha='left', va='center', fontsize=11,
@@ -797,21 +787,21 @@ def generate_architecture_figure(output_path):
     from pathlib import Path
 
     width, height = 920, 360
-    text_color = '#263238'
-    muted = '#607d8b'
-    arrow_color = '#455a64'
-    color_mp = '#dceefc'
-    color_se = '#e8e1f5'
-    color_input = '#e0f2e9'
-    color_output = '#fae8e4'
-    edge_mp = '#4f9fd8'
-    edge_se = '#8a6fc8'
-    edge_input = '#4caf50'
-    edge_output = '#d56b4f'
-    text_mp = '#1565c0'
-    text_se = '#5e35b1'
-    text_input = '#2e7d32'
-    text_output = '#b84a2c'
+    text_color = bfs.TEXT
+    muted = bfs.MUTED
+    arrow_color = bfs.MUTED
+    color_mp = bfs.BLUE_LIGHT
+    color_se = bfs.PURPLE_LIGHT
+    color_input = bfs.GREEN_LIGHT
+    color_output = bfs.RED_LIGHT
+    edge_mp = bfs.BLUE
+    edge_se = bfs.PURPLE
+    edge_input = bfs.GREEN
+    edge_output = bfs.RED
+    text_mp = bfs.BLUE
+    text_se = bfs.PURPLE_STRONG
+    text_input = bfs.GREEN
+    text_output = bfs.RED
 
     def text(x, y, lines, *, size=16, fill=text_color, weight=500, anchor='middle'):
         if isinstance(lines, str):
@@ -849,7 +839,7 @@ def generate_architecture_figure(output_path):
         '<style>text { font-family: Arial, Helvetica, DejaVu Sans, sans-serif; }</style>',
         '</defs>',
         '<rect width="100%" height="100%" fill="white"/>',
-        f'<rect x="194" y="66" width="536" height="218" rx="22" fill="none" stroke="#b0bec5" stroke-width="1.6" stroke-dasharray="6 8"/>',
+        f'<rect x="194" y="66" width="536" height="218" rx="22" fill="none" stroke="{bfs.SPINE}" stroke-width="1.6" stroke-dasharray="6 8"/>',
         text(462, 51, 'Repeated equivariant block', size=18, fill=muted, weight=700),
         text(462, 309, 'applied T times', size=17, fill=muted, weight=600),
         box(40, 136, 130, 92, ['Input'], color_input, edge_input, text_input,
