@@ -78,9 +78,9 @@ GFlowNets construct objects step by step, like assembling a molecule atom by ato
 
 Each edge $$(s_{t-1}, s_t)$$ in the DAG represents an action, such as adding an atom, appending an amino acid, or placing a node. Multiple trajectories can lead to the same terminal object $$x$$, because different construction orders can produce the same result.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_molecules.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A DAG for toy molecule construction. Each node is a partially built molecule; each edge adds a fragment, and terminal nodes are completed candidates with rewards. Redrawn from Bengio et al., <a href='https://arxiv.org/abs/2302.00615'>GFlowNet Foundations</a> (Figure 2b)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_molecules.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A DAG for molecule construction. Each node is a partially built molecule; each edge adds a fragment. Terminal states (large circles) are completed molecules. Redrawn from Bengio et al., <a href='https://arxiv.org/abs/2302.00615'>GFlowNet Foundations</a> (Figure 2b)." %}
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_abstract.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Abstract view of the same construction DAG. The blue node is the initial state, white nodes are partially constructed objects, and red nodes are terminal candidates." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_abstract.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Abstract view of the same structure. The blue node is the initial state \(s_0\); pink nodes are terminal states \(x \in \mathcal{X}\). Intermediate white nodes are partially constructed objects." %}
 
 ### Forward Policy
 
@@ -94,7 +94,7 @@ $$p_\mathrm{F}(x) = \sum_{\tau \in \mathcal{T}(x)} p_\mathrm{F}(\tau)$$
 
 where $$\mathcal{T}(x)$$ is the set of all trajectories that terminate at $$x$$. For example, a molecule with three atoms A, B, C can be built as A→B→C or A→C→B or B→A→C, and so on — all producing the same molecule $$x$$. The total probability of generating $$x$$ is the sum over all these construction orders.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_forward_policy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The forward policy constructs objects step by step through a DAG. A highlighted path is one trajectory from the initial state to a terminal object; an object's probability sums over all such paths." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_forward_policy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The forward policy constructs objects step by step through a DAG. A trajectory (highlighted) is a path from the initial state to a terminal state. The probability of an object is the sum over all trajectories ending at it." %}
 
 ### The Key Difficulty
 
@@ -112,19 +112,19 @@ $$p_\mathrm{B}(\tau) \propto \exp R(x) \prod_{t=1}^{T} p_\mathrm{B}(s_{t-1} \mid
 
 A trajectory leading to a high-reward terminal state gets high probability; the backward policy determines how that probability is split among the different construction orders for $$x$$. The backward policy can be fixed (e.g., uniform over parents) or learned jointly with the forward policy.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_backward_policy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The backward policy decomposes a terminal state into a reverse construction path. Matching forward and backward trajectory distributions makes the terminal-object marginal match the reward distribution." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_backward_policy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The backward policy decomposes a terminal state into a trajectory by reversing the construction. Training matches the forward and backward trajectory distributions, which implies matching the marginal distributions over objects." %}
 
 ### A Worked Example: Uniform Backward Policy
 
 Consider a simple DAG with three terminal states $$x_1, x_2, x_3$$ and unnormalized target weights $$\exp R(x_1) = 4$$, $$\exp R(x_2) = 2$$, $$\exp R(x_3) = 1$$. With a uniform backward policy, and assuming each state has exactly one parent so $$p_\mathrm{B} = 1$$ on every edge, each terminal state has exactly one backward trajectory. Each trajectory's target probability is proportional to $$\exp R(x)$$: $$p_\mathrm{B}(\tau_1) \propto 4$$, $$p_\mathrm{B}(\tau_2) \propto 2$$, $$p_\mathrm{B}(\tau_3) \propto 1$$. The total is $$4 + 2 + 1 = 7$$, so the forward policy must route 4/7 of its probability toward $$x_1$$, 2/7 toward $$x_2$$, and 1/7 toward $$x_3$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_forward.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Uniform backward-policy example. Because every terminal has one reverse path, the target trajectory weights are just the terminal rewards, and the forward policy routes mass in the same proportions." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_forward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Uniform backward policy example. Left: backward policy with all probabilities equal to 1. Center: three trajectories with probabilities proportional to terminal rewards. Right: the forward policy that matches these trajectory probabilities." %}
 
 ### A Worked Example: Non-Uniform Backward Policy
 
 What if the backward policy is non-uniform? Suppose $$x_2$$ has two parents $$s_1$$ and $$s_2$$, and we set $$p_\mathrm{B}(s_1 \mid x_2) = p_\mathrm{B}(s_2 \mid x_2) = 0.5$$. Now there are four trajectories instead of three, because $$x_2$$ can be reached through either $$s_1$$ or $$s_2$$. The backward policy splits $$x_2$$'s weight of $$\exp R(x_2) = 2$$ across the two paths: each trajectory through $$x_2$$ gets target probability proportional to $$2 \times 0.5 = 1$$. The forward policy adjusts by routing more probability through $$s_2$$, because $$s_2$$ serves as a waypoint to both $$x_2$$ and $$x_3$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_backward.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Non-uniform backward-policy example. Splitting the reverse path into \(x_2\) creates four target trajectories, so the forward policy changes its route probabilities even though terminal rewards are unchanged." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_backward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Non-uniform backward policy. The 0.5 split at \(x_2\) creates four trajectories instead of three. The forward policy adapts: \(s_2\) now receives more probability (2/7 vs 1/7) because it serves as a path to both \(x_2\) and \(x_3\)." %}
 
 ### Flows
 
@@ -153,7 +153,7 @@ The trajectory balance objective (<span id="cite-malkin2022"></span>[Malkin et a
 
 TB is the simplest objective. It trains a single scalar $$Z_\theta$$ plus the forward and backward policies. The downside is credit assignment: a single reward signal at the terminal state must propagate back through the entire construction sequence. For long trajectories, this makes learning slow — the gradient carries information about the full trajectory, and early transitions receive weak signal.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance matches backward and forward flows. Rewards define target trajectory weights; the learned normalizer \(Z_\theta\) and forward policy reproduce those weights from the initial state." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance in action. From left: backward policy and rewards; backward flows \(f_\mathrm{B}(\tau) = R(x) \prod p_\mathrm{B}\); forward flows \(f_\mathrm{F}(\tau) = Z_\theta\, p_\mathrm{F}(\tau)\) with \(Z_\theta = 7\); the resulting forward policy." %}
 
 ### Detailed Balance (DB)
 
