@@ -285,8 +285,8 @@ In our group, GPWNO (<span id="cite-kim2024"></span>[Kim & Ahn, 2024](#ref-kim20
 - <span id="ref-szabo1996"></span>Szabo, A. & Ostlund, N. S. (1996). *Modern Quantum Chemistry*. Dover Publications. <a href="#cite-szabo1996" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-perdew2001"></span>Perdew, J. P. & Schmidt, K. (2001). Jacob's ladder of density functional approximations for the exchange-correlation energy. [AIP Conference Proceedings, 577(1), 1-20](https://doi.org/10.1063/1.1390175). <a href="#cite-perdew2001" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-pfau2020"></span>Pfau, D., et al. (2020). Ab initio solution of the many-electron Schrödinger equation with deep neural networks. [Physical Review Research, 2(3), 033429](https://doi.org/10.1103/PhysRevResearch.2.033429). <a href="#cite-pfau2020" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-kim2024"></span>Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://arxiv.org/abs/2402.04278). <a href="#cite-kim2024" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-kim2025"></span>Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817). <a href="#cite-kim2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2024"></span>Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://proceedings.mlr.press/v235/kim24b.html). <a href="#cite-kim2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2025"></span>Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://proceedings.neurips.cc/paper_files/paper/2025/hash/13f1750b825659394a6499399e7637fc-Abstract-Conference.html). <a href="#cite-kim2025" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 

@@ -287,7 +287,7 @@ This is the Fokker-Planck equation: the same result as the heuristic derivation,
 
 ## References
 
-- <span id="ref-ho2020"></span>Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. [NeurIPS 2020](https://arxiv.org/abs/2006.11239). <a href="#cite-ho2020" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-song2021"></span>Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. [ICLR 2021](https://arxiv.org/abs/2011.13456). <a href="#cite-song2021" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-lipman2023"></span>Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). Flow Matching for Generative Modeling. [ICLR 2023](https://arxiv.org/abs/2210.02747). <a href="#cite-lipman2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-ho2020"></span>Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. [NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html). <a href="#cite-ho2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-song2021"></span>Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. [ICLR 2021](https://openreview.net/forum?id=PxTIG12RRHS). <a href="#cite-song2021" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-lipman2023"></span>Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). Flow Matching for Generative Modeling. [ICLR 2023](https://openreview.net/forum?id=PqvMRDCJT9t). <a href="#cite-lipman2023" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-lai2025"></span>Lai, C.-H., Song, Y., Kim, D., Mitsufuji, Y. & Ermon, S. (2025). The Principles of Diffusion Models. [arXiv:2510.21890](https://arxiv.org/abs/2510.21890). <a href="#cite-lai2025" class="reversefootnote" role="doc-backlink">↩</a>
