@@ -118,9 +118,7 @@ transformers from vision, and state-space interpolants from sequence modeling.
 The MaskGIT branch became the strongest lineage and was then developed into
 MaskGXT.
 
-Explore the full search tree below, or
-[open it full screen](https://kiyoung98.github.io/NanoCSP-agent/) to inspect every
-candidate and transition.
+Explore the full search tree below.
 
 <div class="row justify-content-center my-4">
   <div class="col-12">
@@ -149,7 +147,7 @@ trials, research ideas became measurable bets rather than prose suggestions.
 ## Where human research taste entered
 
 The masked generative formulation and most of the model code emerged from the
-automated search. Before the final human-guided refinements, the best branch was
+automated search. Before the human-guided refinements, the best branch was
 already competitive with the previous state of the art. We then supplied four
 missing mechanisms or objectives:
 
