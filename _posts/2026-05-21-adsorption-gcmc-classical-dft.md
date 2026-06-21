@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -86,7 +86,7 @@ Here $$\rho_{\mathrm{bulk}}(T,P)$$ is the number density of the gas reservoir. T
 
 ## GCMC: The Particle View
 
-GCMC samples adsorption equilibrium by constructing a Markov chain over particle configurations. Adams introduced grand canonical Monte Carlo for Lennard-Jones fluids in 1975; modern adsorption packages such as RASPA use the same ensemble logic with richer force fields and move sets. For methane in MOF-5, a state contains a variable number of methane molecules inside the unit cell:
+GCMC samples adsorption equilibrium by constructing a Markov chain over particle configurations. Adams introduced grand canonical Monte Carlo for Lennard-Jones fluids in 1975 (<span id="cite-adams1975"></span>[Adams, 1975](#ref-adams1975)); modern adsorption packages such as RASPA (<span id="cite-dubbeldam2016"></span>[Dubbeldam et al., 2016](#ref-dubbeldam2016)) and RASPA3 (<span id="cite-ran2024"></span>[Ran et al., 2024](#ref-ran2024)) use the same ensemble logic with richer force fields and move sets. For methane in MOF-5, a state contains a variable number of methane molecules inside the unit cell:
 
 $$\mathbf{x} = (N, \mathbf{r}_1, \ldots, \mathbf{r}_N, \Omega_1, \ldots, \Omega_N)$$
 
@@ -138,7 +138,7 @@ High-throughput adsorption screening is expensive for this reason. One material,
 
 ## Classical DFT: The Density View
 
-Classical DFT solves the same equilibrium problem without sampling particles. It treats $$\rho(\mathbf{r})$$ as the optimization variable. In the running example, $$\rho(\mathbf{r})$$ is the methane number density over the MOF-5 unit cell. Evans' 1979 review is the classic starting point for this density-functional view of non-uniform classical fluids.
+Classical DFT solves the same equilibrium problem without sampling particles. It treats $$\rho(\mathbf{r})$$ as the optimization variable. In the running example, $$\rho(\mathbf{r})$$ is the methane number density over the MOF-5 unit cell. Evans' review is the classic starting point for this density-functional view of non-uniform classical fluids (<span id="cite-evans1979"></span>[Evans, 1979](#ref-evans1979)).
 
 The word "classical" matters.[^cdft] This is not Kohn-Sham DFT for electrons. Quantum DFT uses the electron density to avoid the many-electron wavefunction. Classical DFT uses the molecular number density to avoid sampling many-particle configurations.
 
@@ -171,7 +171,7 @@ $$-\mu \int \rho(\mathbf{r})\,d\mathbf{r}$$
 
 rewards adding methane molecules when the reservoir chemical potential is high.
 
-**The excess term $$F_{\mathrm{exc}}[\rho]$$ contains fluid-fluid interactions.** This is the hard part. It accounts for excluded volume, dispersion attraction, chain connectivity, and other many-body effects. Unlike the ideal term, it is not known exactly for realistic fluids, so every practical cDFT method chooses an approximation.
+**The excess term $$F_{\mathrm{exc}}[\rho]$$ contains fluid-fluid interactions.** This is the hard part. It accounts for excluded volume, dispersion attraction, chain connectivity, and other many-body effects. Unlike the ideal term, it is not known exactly for realistic fluids, so every practical cDFT method chooses an approximation, such as fundamental measure theory for hard-sphere structure (<span id="cite-roth2010"></span>[Roth, 2010](#ref-roth2010)).
 
 The structure should feel familiar if you have seen variational inference or energy-based models. We define an objective over distributions, split it into a tractable reference part plus an interaction correction, then optimize the object we want directly.
 
@@ -195,7 +195,7 @@ This is the density analogue of a self-consistent field loop. In quantum DFT, th
 
 ### What Is the Functional?
 
-The practical quality of cDFT depends on $$F_{\mathrm{exc}}[\rho]$$. For adsorption of small non-polar molecules, a common choice is a cDFT realization of **PC-SAFT**: perturbed-chain statistical associating fluid theory.
+The practical quality of cDFT depends on $$F_{\mathrm{exc}}[\rho]$$. For adsorption of small non-polar molecules, a common choice is a cDFT realization of **PC-SAFT**: perturbed-chain statistical associating fluid theory (<span id="cite-gross2001"></span>[Gross & Sadowski, 2001](#ref-gross2001); <span id="cite-sauer2017"></span>[Sauer & Gross, 2017](#ref-sauer2017)).
 
 PC-SAFT represents a molecule as a chain of tangent Lennard-Jones segments.[^pcsaft] Methane is a small non-polar adsorbate, so much of the species dependence is summarized by three parameters:
 
@@ -250,9 +250,9 @@ For the running example, this is $$(\text{MOF-5}, \text{methane}, T, P) \mapsto 
 
 ### Multi-Fidelity Density Learning
 
-The natural data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
+The natural data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. Recent adsorption-property studies use cDFT in this spirit (<span id="cite-dufour2025"></span>[Dufour-Decieux et al., 2025](#ref-dufour2025); <span id="cite-thiele2026"></span>[Thiele et al., 2026](#ref-thiele2026)). After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
 
-In our group, we use this density-field view of adsorption. Predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright.
+In our group, we use this density-field view of adsorption. Predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright. The force-field side of this workflow often starts from generic force fields such as UFF (<span id="cite-rappe1992"></span>[Rappe et al., 1992](#ref-rappe1992)).
 
 ---
 
@@ -278,21 +278,16 @@ The methane-in-MOF-5 example is only one instance. The methodological lesson is 
 
 ## References
 
-- Adams, D. J. (1975). Grand canonical ensemble Monte Carlo for a Lennard-Jones fluid. *Molecular Physics, 29*(1), 307-311. [DOI](https://doi.org/10.1080/00268977500100211).
-- Evans, R. (1979). The nature of the liquid-vapour interface and other topics in the statistical mechanics of non-uniform, classical fluids. *Advances in Physics, 28*(2), 143-200. [DOI](https://doi.org/10.1080/00018737900101365).
-- Roth, R. (2010). Fundamental measure theory for hard-sphere mixtures: a review. *Journal of Physics: Condensed Matter, 22*(6), 063102. [DOI](https://doi.org/10.1088/0953-8984/22/6/063102).
-- Rappe, A. K., Casewit, C. J., Colwell, K. S., Goddard III, W. A. & Skiff, W. M. (1992). UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. *Journal of the American Chemical Society, 114*(25), 10024-10035. [DOI](https://doi.org/10.1021/ja00051a040).
-- Gross, J. & Sadowski, G. (2001). Perturbed-chain SAFT: An equation of state based on a perturbation theory for chain molecules. *Industrial & Engineering Chemistry Research, 40*(4), 1244-1260. [DOI](https://doi.org/10.1021/ie0003887).
-- Dubbeldam, D., Calero, S., Ellis, D. E. & Snurr, R. Q. (2016). RASPA: molecular simulation software for adsorption and diffusion in flexible nanoporous materials. *Molecular Simulation, 42*(2), 81-101. [DOI](https://doi.org/10.1080/08927022.2015.1010082).
-- Sauer, E. & Gross, J. (2017). Classical density functional theory for liquid-fluid interfaces and confined systems. *Industrial & Engineering Chemistry Research, 56*(14), 4119-4135. [DOI](https://doi.org/10.1021/acs.iecr.6b04551).
-- Dufour-Decieux, V., Rehner, P., Schilling, J., Moubarak, E., Gross, J. & Bardow, A. (2025). Classical density functional theory as a fast and accurate method for adsorption property prediction of porous materials. *AIChE Journal, 71*(6), e18779.
-- Ran, Y. A., et al. (2024). RASPA3: A Monte Carlo code for computing adsorption and diffusion in nanoporous materials and thermodynamics properties of fluids. *The Journal of Chemical Physics, 161*(11).
-- Thiele, N., et al. (2026). Efficient prediction of multicomponent adsorption isotherms and enthalpies of adsorption in MOFs using classical density functional theory. *The Journal of Physical Chemistry B*.
-
-### Figure sources
-
-- Adsorption overview (`adsorption_gcmc_cdft_particle_density.svg`): custom native SVG schematic generated by `scripts/generate_adsorption_gcmc_cdft_figures.py`; it replaces an internal raster composite with larger labels and editable vector elements.
-- GCMC move, snapshot-to-density, and cDFT fixed-point diagrams (`adsorption_gcmc_cdft_moves.svg`, `adsorption_gcmc_cdft_snapshots_to_density.svg`, `adsorption_gcmc_cdft_fixed_point.svg`): generated by `scripts/generate_adsorption_gcmc_cdft_figures.py` with SVG and PNG outputs.
+- <span id="ref-adams1975"></span>Adams, D. J. (1975). Grand canonical ensemble Monte Carlo for a Lennard-Jones fluid. *Molecular Physics, 29*(1), 307-311. [DOI](https://doi.org/10.1080/00268977500100211). <a href="#cite-adams1975" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-evans1979"></span>Evans, R. (1979). The nature of the liquid-vapour interface and other topics in the statistical mechanics of non-uniform, classical fluids. *Advances in Physics, 28*(2), 143-200. [DOI](https://doi.org/10.1080/00018737900101365). <a href="#cite-evans1979" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-roth2010"></span>Roth, R. (2010). Fundamental measure theory for hard-sphere mixtures: a review. *Journal of Physics: Condensed Matter, 22*(6), 063102. [DOI](https://doi.org/10.1088/0953-8984/22/6/063102). <a href="#cite-roth2010" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-rappe1992"></span>Rappe, A. K., Casewit, C. J., Colwell, K. S., Goddard III, W. A. & Skiff, W. M. (1992). UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. *Journal of the American Chemical Society, 114*(25), 10024-10035. [DOI](https://doi.org/10.1021/ja00051a040). <a href="#cite-rappe1992" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-gross2001"></span>Gross, J. & Sadowski, G. (2001). Perturbed-chain SAFT: An equation of state based on a perturbation theory for chain molecules. *Industrial & Engineering Chemistry Research, 40*(4), 1244-1260. [DOI](https://doi.org/10.1021/ie0003887). <a href="#cite-gross2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-dubbeldam2016"></span>Dubbeldam, D., Calero, S., Ellis, D. E. & Snurr, R. Q. (2016). RASPA: molecular simulation software for adsorption and diffusion in flexible nanoporous materials. *Molecular Simulation, 42*(2), 81-101. [DOI](https://doi.org/10.1080/08927022.2015.1010082). <a href="#cite-dubbeldam2016" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-sauer2017"></span>Sauer, E. & Gross, J. (2017). Classical density functional theory for liquid-fluid interfaces and confined systems. *Industrial & Engineering Chemistry Research, 56*(14), 4119-4135. [DOI](https://doi.org/10.1021/acs.iecr.6b04551). <a href="#cite-sauer2017" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-dufour2025"></span>Dufour-Decieux, V., Rehner, P., Schilling, J., Moubarak, E., Gross, J. & Bardow, A. (2025). Classical density functional theory as a fast and accurate method for adsorption property prediction of porous materials. *AIChE Journal, 71*(6), e18779. <a href="#cite-dufour2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-ran2024"></span>Ran, Y. A., et al. (2024). RASPA3: A Monte Carlo code for computing adsorption and diffusion in nanoporous materials and thermodynamics properties of fluids. *The Journal of Chemical Physics, 161*(11). <a href="#cite-ran2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-thiele2026"></span>Thiele, N., et al. (2026). Efficient prediction of multicomponent adsorption isotherms and enthalpies of adsorption in MOFs using classical density functional theory. *The Journal of Physical Chemistry B*. <a href="#cite-thiele2026" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 

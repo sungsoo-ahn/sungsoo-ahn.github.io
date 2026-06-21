@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -337,31 +337,33 @@ Input: Positions + Atom Types
 
 The mathematical framework above is the common language behind many 3D atomic neural networks. Representative architectures differ mainly in how they trade expressivity, computational cost, and implementation complexity.
 
-- **Tensor Field Networks** (Thomas et al., 2018) made the basic recipe explicit: spherical tensor features, spherical-harmonic filters on edges, radial functions, and CG tensor products. This is the cleanest reference point for the algebra in this post.
-- **NequIP** (Batzner et al., 2022) used equivariant message passing for interatomic potentials, with energies as invariant outputs and forces obtained from the energy gradient. Its main contribution was showing that rotational equivariance improves data efficiency for molecular force fields.
-- **MACE** (Batatia et al., 2022) emphasized higher-order equivariant message passing. Instead of treating interactions as only pairwise messages, it builds features that capture many-body correlations more directly.
-- **Equiformer** (Liao & Smidt, 2023) combined equivariant tensor features with transformer-style attention. The attention weights decide how strongly neighboring atoms interact, while the feature updates still respect the rotation law.
-- **eSCN** (Passaro & Zitnick, 2023) reduced expensive $SO(3)$ operations to cheaper edge-aligned $SO(2)$ computations. Its main contribution is computational: make high-degree spherical features practical at larger scale.
+- **Tensor Field Networks** (<span id="cite-thomas2018"></span>[Thomas et al., 2018](#ref-thomas2018)) made the basic recipe explicit: spherical tensor features, spherical-harmonic filters on edges, radial functions, and CG tensor products. This is the cleanest reference point for the algebra in this post.
+- **NequIP** (<span id="cite-batzner2022"></span>[Batzner et al., 2022](#ref-batzner2022)) used equivariant message passing for interatomic potentials, with energies as invariant outputs and forces obtained from the energy gradient. Its main contribution was showing that rotational equivariance improves data efficiency for molecular force fields.
+- **MACE** (<span id="cite-batatia2022"></span>[Batatia et al., 2022](#ref-batatia2022)) emphasized higher-order equivariant message passing. Instead of treating interactions as only pairwise messages, it builds features that capture many-body correlations more directly.
+- **Equiformer** (<span id="cite-liao2023"></span>[Liao & Smidt, 2023](#ref-liao2023)) combined equivariant tensor features with transformer-style attention. The attention weights decide how strongly neighboring atoms interact, while the feature updates still respect the rotation law.
+- **eSCN** (<span id="cite-passaro2023"></span>[Passaro & Zitnick, 2023](#ref-passaro2023)) reduced expensive $SO(3)$ operations to cheaper edge-aligned $SO(2)$ computations. Its main contribution is computational: make high-degree spherical features practical at larger scale.
 
 The shared constraint is the same across these models: each local update must mix features without breaking their prescribed rotation behavior.
+
+For broader treatments, see Tang's spherical equivariant transformer guide
+(<span id="cite-tang2025"></span>[Tang, 2025](#ref-tang2025)),
+Bekkers' geometric deep learning lectures
+(<span id="cite-bekkers2024"></span>[Bekkers, 2024](#ref-bekkers2024)), and
+Duval et al.'s survey of geometric GNNs for atomic systems
+(<span id="cite-duval2023"></span>[Duval et al., 2023](#ref-duval2023)).
 
 ---
 
 ## References
 
-- Thomas, N., et al. (2018). Tensor Field Networks. [arXiv:1802.08219](https://arxiv.org/abs/1802.08219).
-- Batzner, S., et al. (2022). E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials. [Nature Communications](https://doi.org/10.1038/s41467-022-29939-5).
-- Batatia, I., et al. (2022). MACE: Higher Order Equivariant Message Passing Neural Networks. [NeurIPS 2022](https://arxiv.org/abs/2206.07697).
-- Liao, Y.-L. & Smidt, T. (2023). Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs. [ICLR 2023](https://arxiv.org/abs/2206.11990).
-- Passaro, S. & Zitnick, C. L. (2023). Reducing SO(3) Convolutions to SO(2) for Efficient Equivariant GNNs. [ICML 2023](https://arxiv.org/abs/2302.03655).
-- Tang, S. (2025). A Complete Guide to Spherical Equivariant Graph Transformers. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927).
-- Bekkers, E. (2024). Geometric Deep Learning Lecture Series. [UvA](https://uvagedl.github.io/).
-- Duval, A., et al. (2023). A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems. [arXiv:2312.07511](https://arxiv.org/abs/2312.07511).
-
-### Figure sources
-
-- Architecture, circular-harmonic, CG-network, and CG tensor-product diagrams (`architecture_overview.svg`, `circular_harmonics.svg`, `cg_network.svg`, `cg_tensor_product.svg`): custom explanatory figures generated by `scripts/generate_harmonics_figures.py` with SVG+PNG outputs and the shared blog figure style.
-- Spherical-harmonic and ellipsoid-anisotropy figures (`spherical_harmonics.svg`, `ellipsoid_anisotropy.svg`): custom 3D figures generated by `scripts/generate_harmonics_figures.py`; the 3D surfaces are rasterized inside SVG files so labels remain legible and editable while avoiding large 3D path dumps.
+- <span id="ref-thomas2018"></span>Thomas, N., et al. (2018). Tensor Field Networks. [arXiv:1802.08219](https://arxiv.org/abs/1802.08219). <a href="#cite-thomas2018" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-batzner2022"></span>Batzner, S., et al. (2022). E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials. [Nature Communications](https://doi.org/10.1038/s41467-022-29939-5). <a href="#cite-batzner2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-batatia2022"></span>Batatia, I., et al. (2022). MACE: Higher Order Equivariant Message Passing Neural Networks. [NeurIPS 2022](https://arxiv.org/abs/2206.07697). <a href="#cite-batatia2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-liao2023"></span>Liao, Y.-L. & Smidt, T. (2023). Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs. [ICLR 2023](https://arxiv.org/abs/2206.11990). <a href="#cite-liao2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-passaro2023"></span>Passaro, S. & Zitnick, C. L. (2023). Reducing SO(3) Convolutions to SO(2) for Efficient Equivariant GNNs. [ICML 2023](https://arxiv.org/abs/2302.03655). <a href="#cite-passaro2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tang2025"></span>Tang, S. (2025). A Complete Guide to Spherical Equivariant Graph Transformers. [arXiv:2512.13927](https://arxiv.org/abs/2512.13927). <a href="#cite-tang2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-bekkers2024"></span>Bekkers, E. (2024). Geometric Deep Learning Lecture Series. [UvA](https://uvagedl.github.io/). <a href="#cite-bekkers2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-duval2023"></span>Duval, A., et al. (2023). A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems. [arXiv:2312.07511](https://arxiv.org/abs/2312.07511). <a href="#cite-duval2023" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 
