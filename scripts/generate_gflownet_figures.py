@@ -1,4 +1,8 @@
-"""Generate native SVG diagrams for the GFlowNet blog post."""
+"""Generate the native SVG detailed-balance diagram for the GFlowNet post.
+
+The other GFlowNet figures are original PNGs and are intentionally not
+generated here.
+"""
 
 from __future__ import annotations
 
@@ -244,59 +248,6 @@ def draw_dag(svg: Svg, *, highlight=(), reverse=False, show_labels=False, edge_l
             labeled_node(svg, x, y, name if show_labels else "", fill=WHITE, stroke=TEXT)
 
 
-def figure_dag_molecules():
-    svg = Svg(760, 360)
-    svg.text(380, 28, "Toy molecule construction DAG", size=22, weight=700)
-    nodes = {
-        "empty": (74, 185, "start"),
-        "c": (190, 98, "C"),
-        "o": (190, 185, "O"),
-        "n": (190, 272, "N"),
-        "co": (340, 98, "C-O"),
-        "cn": (340, 185, "C-N"),
-        "on": (340, 272, "O-N"),
-        "x1": (575, 80, "x1\nhigh reward"),
-        "x2": (575, 185, "x2"),
-        "x3": (575, 290, "x3"),
-    }
-    edges = [
-        ("empty", "c"),
-        ("empty", "o"),
-        ("empty", "n"),
-        ("c", "co"),
-        ("o", "co"),
-        ("c", "cn"),
-        ("n", "cn"),
-        ("o", "on"),
-        ("n", "on"),
-        ("co", "x1"),
-        ("cn", "x2"),
-        ("on", "x2"),
-        ("on", "x3"),
-    ]
-    for u, v in edges:
-        r2 = 42 if v.startswith("x") else 25
-        arrow(svg, nodes[u][:2], nodes[v][:2], color=GRAY, marker="arrow-gray", opacity=0.72, r1=24, r2=r2)
-    for name, (x, y, label) in nodes.items():
-        if name == "empty":
-            labeled_node(svg, x, y, "", fill=BLUE_LIGHT, stroke=BLUE, r=22)
-            svg.text(x, y + 42, "empty", size=14, weight=600, fill=BLUE)
-        elif name.startswith("x"):
-            labeled_node(svg, x, y, label, fill=RED_LIGHT, stroke=RED, color=RED, r=44, size=15)
-        else:
-            labeled_node(svg, x, y, label, fill=WHITE, stroke=TEXT, r=25, size=15)
-    save(svg, "fig_dag_molecules")
-
-
-def figure_dag_abstract():
-    svg = Svg(720, 340)
-    draw_dag(svg, show_labels=False)
-    svg.text(70, 112, "initial\nstate", size=18, weight=700, fill=BLUE, anchor="end")
-    svg.text(650, 165, "terminal\nstates", size=18, weight=700, fill=RED, anchor="start")
-    svg.text(350, 314, "intermediate states are partially constructed objects", size=16, fill=MUTED)
-    save(svg, "fig_dag_abstract")
-
-
 def figure_forward_policy():
     svg = Svg(720, 340)
     highlight = [("s0", "b"), ("b", "d"), ("d", "e"), ("e", "x1")]
@@ -449,13 +400,6 @@ def figure_detailed_balance():
 
 
 def main():
-    figure_dag_molecules()
-    figure_dag_abstract()
-    figure_forward_policy()
-    figure_backward_policy()
-    figure_example_forward()
-    figure_example_backward()
-    figure_flow_matching()
     figure_detailed_balance()
 
 
