@@ -254,8 +254,11 @@ def save_svg_png(fig, output_path, *, dpi: int = 300, transparent: bool = True) 
     """Save an editable SVG and a PNG preview with the same stem."""
     svg_path, png_path = _as_paths(output_path)
     svg_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(svg_path, format="svg", bbox_inches="tight", transparent=transparent)
-    fig.savefig(png_path, format="png", dpi=dpi, bbox_inches="tight", transparent=transparent)
+    save_kwargs = {"bbox_inches": "tight", "transparent": transparent}
+    if not transparent:
+        save_kwargs.update({"facecolor": fig.get_facecolor(), "edgecolor": fig.get_edgecolor()})
+    fig.savefig(svg_path, format="svg", **save_kwargs)
+    fig.savefig(png_path, format="png", dpi=dpi, **save_kwargs)
     plt.close(fig)
     print(f"Saved {svg_path} and {png_path}")
     return svg_path, png_path
