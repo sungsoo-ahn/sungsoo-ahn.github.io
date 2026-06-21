@@ -4,6 +4,12 @@ title: "Cross-Domain Algorithmic Discovery with an AI Co-Scientist"
 date: 2026-06-19
 last_updated: 2026-06-20
 description: "An AI co-scientist reshaped MaskGIT, a vision model, into a state-of-the-art algorithm for crystal structure prediction."
+abstract: >
+  This post describes how an AI co-scientist transferred MaskGIT, a masked
+  generative model from computer vision, to crystal structure prediction. The
+  resulting MaskGXT model discretizes crystal structures into tokens, refines
+  them with continuous offsets, and reaches state-of-the-art performance on
+  standard CSP benchmarks.
 post_type: research
 authors: ["Kiyoung Seong"]
 categories: [machine-learning]

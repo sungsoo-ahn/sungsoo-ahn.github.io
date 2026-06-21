@@ -15,6 +15,12 @@ title: "Your Title Here"
 date: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 description: "One-sentence summary for SEO and post listings."
+abstract: >
+  Optional short abstract shown below the post metadata.
+blog_blocks:
+  - title: Key points
+    content: >
+      Optional named block shown before the post body.
 post_type: tutorial # tutorial | technical-note | research
 authors: ["Sungsoo Ahn"] # list all named authors shown in the post and blog index
 order: 1 # legacy field; blog index now sorts by date
@@ -36,7 +42,9 @@ The blog index sorts posts by date. Series metadata may be kept for organization
 
 Use `authors` for every post, even single-author posts. The blog layout also supports the older `author` field as a fallback, but new posts should use `authors`.
 
-Many posts contain AI-generated draft text, edits, or figures. Listed authors are responsible for deciding what to incorporate, checking the technical content, and approving the final text.
+Optional frontmatter blocks render between the post metadata and the post body. Use `abstract` for a single abstract-style block. Use `blog_blocks` for additional named blocks such as `Key points`, `Prerequisites`, or `Scope`. Keep these blocks short; Markdown is supported inside each block.
+
+If a post uses AI-assisted material, handle provenance in that post's author note or body only when it is relevant to that specific article.
 
 ## Author Note
 

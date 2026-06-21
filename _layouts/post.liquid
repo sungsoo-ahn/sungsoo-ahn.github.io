@@ -25,9 +25,9 @@ layout: default
 {% endif %}
 
 <div class="post{% if url_beginning == '/blog/' %} blog-post{% endif %}">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    {% if url_beginning == '/blog/' %}
+  {% if url_beginning == '/blog/' %}
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
       {% if page.description %}
         <p class="blog-post-summary">{{ page.description }}</p>
       {% endif %}
@@ -45,10 +45,16 @@ layout: default
           <span>{{ page.meta }}</span>
         {% endif %}
       </p>
-      <p class="blog-ai-disclosure">
-        Many posts contain AI-generated draft text, edits, or figures. The listed authors decide what to incorporate, verify the technical content, and take responsibility for the final text.
-      </p>
-    {% else %}
+      {% if page.abstract %}
+        <section class="blog-post-abstract" aria-labelledby="blog-post-abstract-title">
+          <h2 id="blog-post-abstract-title">Abstract</h2>
+          <div class="blog-post-block-content">{{ page.abstract | markdownify }}</div>
+        </section>
+      {% endif %}
+    </header>
+  {% else %}
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
       <p class="post-meta">
         Created on {{ page.date | date: '%B %d, %Y' }}
         {% if author_text %}by {{ author_text }}{% endif %}
@@ -77,8 +83,19 @@ layout: default
           {% endfor %}
         {% endif %}
       </p>
+    </header>
+  {% endif %}
+
+  {% if url_beginning == '/blog/' %}
+    {% if page.blog_blocks %}
+      {% for block in page.blog_blocks %}
+        <section class="blog-post-block" aria-labelledby="blog-post-block-{{ forloop.index }}">
+          <h2 id="blog-post-block-{{ forloop.index }}">{{ block.title }}</h2>
+          <div class="blog-post-block-content">{{ block.content | markdownify }}</div>
+        </section>
+      {% endfor %}
     {% endif %}
-  </header>
+  {% endif %}
 
   <article class="post-content">
     {% if page.toc and page.toc.beginning %}
