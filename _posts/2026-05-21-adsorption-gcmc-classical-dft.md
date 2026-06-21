@@ -26,7 +26,7 @@ related_posts: false
 
 Gas adsorption looks like a scalar prediction problem at first: given a porous material, a gas species, a temperature, and a pressure, predict how much gas the material stores.
 
-That scalar is called **uptake**. It is the main number used in high-throughput screening for methane storage, carbon capture, and gas separations. But uptake is only the integral of a richer object: the equilibrium density field of gas molecules inside the pore.
+That scalar is called uptake. It is the main number used in high-throughput screening for methane storage, carbon capture, and gas separations. But uptake is only the integral of a richer object: the equilibrium density field of gas molecules inside the pore.
 
 If $$\rho(\mathbf{r})$$ is the local number density of adsorbate molecules at position $$\mathbf{r}$$, then the total loading is
 
@@ -41,7 +41,7 @@ Two standard routes compute that density:
 
 For ML, this distinction matters because it changes the learning target. Predicting uptake is scalar regression. Predicting $$\rho(\mathbf{r})$$ is learning a thermodynamic density operator.
 
-To keep the notation anchored, I use one running example: **methane adsorption in MOF-5**. The framework is fixed, methane is the adsorbate, and the thermodynamic condition is a chosen temperature and pressure. Changing the pressure changes the reservoir chemical potential; the number of methane molecules inside the unit cell is the thing we want to predict.
+To keep the notation anchored, I use one running example: methane adsorption in MOF-5. The framework is fixed, methane is the adsorbate, and the thermodynamic condition is a chosen temperature and pressure. Changing the pressure changes the reservoir chemical potential; the number of methane molecules inside the unit cell is the thing we want to predict.
 
 ### Overview
 
@@ -55,11 +55,11 @@ The post builds this picture in four steps. The Adsorption Problem section defin
 
 ## The Adsorption Problem
 
-Adsorption occurs when guest molecules accumulate on a surface or inside a porous host. The host is the **adsorbent**. The guest fluid is the **adsorbate**.[^adswords] In the running example, MOF-5 is the adsorbent and methane is the adsorbate. Carbon dioxide inside a zeolite and xenon inside activated carbon are the same kind of problem with different host-guest chemistry.
+Adsorption occurs when guest molecules accumulate on a surface or inside a porous host. The host is the adsorbent. The guest fluid is the adsorbate.[^adswords] In the running example, MOF-5 is the adsorbent and methane is the adsorbate. Carbon dioxide inside a zeolite and xenon inside activated carbon are the same kind of problem with different host-guest chemistry.
 
 The physical setup is open. The material is in contact with a large gas reservoir at temperature $$T$$ and pressure $$P$$. Methane molecules enter and leave the pores until equilibrium. The number of adsorbed methane molecules is not fixed; it is an outcome.
 
-Adsorption is therefore usually modeled in the **grand canonical ensemble**, also called $$\mu VT$$:
+Adsorption is therefore usually modeled in the grand canonical ensemble, also called $$\mu VT$$:
 
 - $$T$$ is fixed by a heat bath.
 - $$V$$ is fixed by the simulation cell.
@@ -195,7 +195,7 @@ This is the density analogue of a self-consistent field loop. In quantum DFT, th
 
 ### What Is the Functional?
 
-The practical quality of cDFT depends on $$F_{\mathrm{exc}}[\rho]$$. For adsorption of small non-polar molecules, a common choice is a cDFT realization of **PC-SAFT**: perturbed-chain statistical associating fluid theory (<span id="cite-gross2001"></span>[Gross & Sadowski, 2001](#ref-gross2001); <span id="cite-sauer2017"></span>[Sauer & Gross, 2017](#ref-sauer2017)).
+The practical quality of cDFT depends on $$F_{\mathrm{exc}}[\rho]$$. For adsorption of small non-polar molecules, a common choice is a cDFT realization of PC-SAFT: perturbed-chain statistical associating fluid theory (<span id="cite-gross2001"></span>[Gross & Sadowski, 2001](#ref-gross2001); <span id="cite-sauer2017"></span>[Sauer & Gross, 2017](#ref-sauer2017)).
 
 PC-SAFT represents a molecule as a chain of tangent Lennard-Jones segments.[^pcsaft] Methane is a small non-polar adsorbate, so much of the species dependence is summarized by three parameters:
 
@@ -240,7 +240,7 @@ The density field gives three observables at once:
 - **Binding sites:** inspect where $$\rho(\mathbf{r})$$ concentrates.
 - **Isotherms:** evaluate the density predictor over a pressure grid and integrate at each pressure.
 
-The critical detail is that the density should be **unnormalized**. A probability density normalized to integrate to one can tell you where molecules prefer to sit, but it cannot tell you how many molecules are present. For adsorption, the integral is the answer.
+The critical detail is that the density should be unnormalized. A probability density normalized to integrate to one can tell you where molecules prefer to sit, but it cannot tell you how many molecules are present. For adsorption, the integral is the answer.
 
 This suggests the supervised learning problem:
 

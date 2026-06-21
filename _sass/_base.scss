@@ -1979,6 +1979,19 @@ article {
     font-weight: inherit;
   }
 
+  li > strong:first-child,
+  li > b:first-child,
+  li > p:first-child > strong:first-child,
+  li > p:first-child > b:first-child,
+  summary > strong:first-child,
+  summary > b:first-child,
+  figcaption > strong:first-child,
+  figcaption > b:first-child,
+  .caption > strong:first-child,
+  .caption > b:first-child {
+    font-weight: 700;
+  }
+
   .post-header,
   .blog-post-block,
   .post-content {

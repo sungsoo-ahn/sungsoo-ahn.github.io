@@ -16,39 +16,32 @@ published: true
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>An AI co-scientist discovers a new CSP algorithm.</strong> The co-scientist transferred MaskGIT's masked-generation idea from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
-AI co-scientists may be ready to change deep learning research. In our recent
-work, we show that a human–AI co-scientist loop can produce a state-of-the-art
-algorithm for **crystal structure prediction**[^csp]: generating plausible crystal
-structures from chemical compositions.
+In our recent work, a human–AI co-scientist loop produced MaskGXT, a
+state-of-the-art algorithm for crystal structure prediction[^csp]: generating
+plausible crystal structures from chemical compositions.
 
-This story sits within a rapidly growing wave of AI-for-science systems. Recent
-systems such as FunSearch (<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024)),
+Recent AI-for-science systems such as FunSearch (<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024)),
 AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025)), The AI Scientist
 (<span id="cite-lu2024"></span>[Lu et al., 2024](#ref-lu2024); <span id="cite-yamada2025"></span>[Yamada et al., 2025](#ref-yamada2025)), AIDE
 (<span id="cite-jiang2025"></span>[Jiang et al., 2025](#ref-jiang2025)), and Google's AI co-scientist
-(<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025)) show that language-model agents can
-search programs, generate hypotheses,
-run experiments, and organize scientific reasoning. However, for deep learning
-research, the strongest demonstrations have still mostly looked like program
-search, hypothesis generation, code-level experimentation, or automated research
-workflow construction. What remains rare is a clear case where a human–AI
-co-scientist loop yields a reusable **deep learning algorithm**: a modeling
-formulation, objective, or sampler that improves a real scientific ML benchmark.
+(<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025)) have mostly shown program search,
+hypothesis generation, code-level experimentation, or automated research
+workflow construction. The harder target for deep learning research is a
+reusable algorithm: a modeling formulation, objective, or sampler that improves a
+real scientific ML benchmark.
 
-That is what we tried to demonstrate with **MaskGXT**, the **Masked Generative
-Crystal Transformer**. MaskGXT treats a crystal as a sequence of discrete tokens:
+MaskGXT, the Masked Generative Crystal Transformer, treats a crystal as a
+sequence of discrete tokens:
 lattice parameters, fractional coordinates, space group, and Wyckoff
 positions.[^wyckoff] It learns to complete the missing tokens with a transformer.
-It transfers the masked-generation principle behind
-**MaskGIT** (<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)) from
-computer vision to crystals, then adapts it to periodic coordinates,
+It transfers the masked-generation principle behind MaskGIT
+(<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)) from computer
+vision to crystals, then adapts it to periodic coordinates,
 crystallographic symmetry, and polymorph coverage.
 
-The broader lesson is not full autonomy. It is that fast evaluation can turn
-**research taste into an empirical loop**: humans propose risky model-level
-directions, and the co-scientist tests, combines, and refines them at scale.
-MaskGXT is one example of that loop producing a state-of-the-art deep learning
-algorithm.
+The loop had a narrow division of labor. Humans supplied a few model-level
+directions; the co-scientist implemented candidates, ran experiments, and
+selected branches by validation METRe.
 
 Code is available for both the
 [AI co-scientist search loop](https://github.com/kiyoung98/NanoCSP-agent) and
@@ -63,7 +56,7 @@ chemical composition (<span id="cite-martirossyan2025"></span>[Martirossyan et a
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_results_bars.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGXT benchmark results.</strong> Bars summarize the main paper's filtered standard-CSP scores and held-out METRe scores; higher is better for MR and METRe, lower is better for RMSE and cRMSE. MaskGXT wins the match-rate and METRe columns, with its largest margin on the MP-20 polymorph split." %}
 
-On the MP-20 polymorph split, MaskGXT raises METRe from **70.87% to 79.06%**.
+On the MP-20 polymorph split, MaskGXT raises METRe from 70.87% to 79.06%.
 This is not a random benchmark victory.
 
 CSP has become one of the most active testbeds for generative modeling in
@@ -104,8 +97,8 @@ experiments, and further search.
 
 The search target was also different. Many ML-agent workflows start with the
 broad modeling family already fixed and then search for better code,
-hyperparameters, or implementation details. Here, we made the **generative
-methodology itself** the object of search. Rather than restricting the loop to
+hyperparameters, or implementation details. Here, we made the generative
+methodology itself the object of search. Rather than restricting the loop to
 known CSP models, we used it to explore frameworks from other fields that had
 credible mechanisms for crystals.
 
@@ -139,10 +132,10 @@ Explore the full search tree below.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_trajectory.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>The research trajectory toward MaskGXT.</strong> Validation METRe against the number of trials; the black step line is the running best. The three shaded bands are the search stages, with the per-candidate budget escalating from 2h to 12h training and then 30m of sampling tuning." %}
 
-The trajectory matters. This was not one impressive chat response, but a long
-empirical process: propose a mechanism, write runnable code, train it, inspect
-the result, preserve what worked, and try again. Across roughly five hundred
-trials, research ideas became measurable bets rather than prose suggestions.
+The search did not end at one impressive chat response. It ran as an empirical
+process: propose a mechanism, write runnable code, train it, inspect the result,
+preserve what worked, and try again. Across roughly five hundred trials,
+research ideas became measurable bets rather than prose suggestions.
 
 ## Where human research taste entered
 
@@ -163,12 +156,10 @@ missing mechanisms or objectives:
   lost by discretization. The continuous offset mechanism was then developed
   within the loop.
 
-This boundary is important. MaskGXT was neither a fully autonomous discovery nor
-a conventional human-designed method. Human input entered at a few bottlenecks as
-research taste; the co-scientist loop converted those hints into code,
-experiments, ablations, and further improvements.
-
-**Autonomy is not the central claim. Scientific leverage is.**
+MaskGXT was neither a fully autonomous discovery nor a conventional
+human-designed method. Human input entered at four bottlenecks; the co-scientist
+loop converted those hints into code, experiments, ablations, and further
+improvements.
 
 ## The resulting algorithm: MaskGXT
 
@@ -179,8 +170,8 @@ space group, lattice, fractional coordinates, Wyckoff positions, and atom sites
 as a sequence of tokens. During training it masks a random subset and learns to
 reconstruct them, as MaskGIT reconstructs masked image tokens.
 
-A direct transfer would not work. The final formulation adds several
-crystal-specific mechanisms:
+The crystal setting adds periodic geometry, symmetry, and polymorph coverage
+requirements, so MaskGXT includes five extra mechanisms.
 
 - **Periodic ordinal smoothing** treats nearby coordinate bins as similar and
   makes bins near 0 and 1 neighbors.
@@ -193,87 +184,72 @@ crystal-specific mechanisms:
 - **Space-group-stratified sampling** branches over likely symmetries, producing
   diverse polymorph candidates instead of redundant draws.
 
-The important scientific idea is therefore not “apply MaskGIT unchanged.” It is
-“transfer a useful modeling principle, then discover the domain adaptations that
-make the transfer work.”
-
-## Our take: start using AI scientists now
+## Our take: where co-scientist loops are useful
 
 ### Start with one problem, not all of science
 
 We think the usual question---“Can AI autonomously do science?”---is too broad to
-guide research practice. A more useful question is: **which part of a current
+guide research practice. A more useful question is: which part of a current
 problem can be converted into a closed loop of proposal, implementation,
-evaluation, and revision?**
+evaluation, and revision?
 
-This result does not show that AI can solve materials science in general. It
-shows something narrower: when a problem has code, data, and a meaningful score,
-a co-scientist loop can become a practical research tool. We would start with
-those concrete bottlenecks rather than wait for a system that can address every
-scientific problem at once.
+MaskGXT is a narrower result: CSP already had code, data, and a meaningful
+score, so the loop could compare many candidate methods without redefining the
+problem each time. We would start with bottlenecks that already have this
+structure.
 
-### Evaluation may be the real infrastructure
+### Evaluation infrastructure matters
 
 We suspect AI co-scientist workflows are strongest when evaluation is fast enough
-to turn **research taste into an empirical loop**. CSP offered fixed data,
+to turn research taste into an empirical loop. CSP offered fixed data,
 executable models, training runs measured in hours, and a validation metric
 reasonably aligned with the final objective. This allowed the loop to test many
 ideas without asking a human to judge every intermediate result.
 
-For many areas of science, we expect the decisive bottleneck to be neither idea
-generation nor coding. It may be the design of **fast evaluation protocols that
-approximate the ultimate scientific goal well enough to guide search**. Better
-surrogates, small-scale experiments, predictive scaling laws, and carefully
-designed proxy tasks may matter as much as better foundation models.
+In less mature domains, the hard part may be building evaluation protocols that
+are cheap enough for repeated search and faithful enough to predict final
+scientific value. Better surrogates, small-scale experiments, predictive scaling
+laws, and carefully designed proxy tasks may matter as much as better foundation
+models.
 
-A powerful model paired with a misleading metric may optimize the wrong thing
-faster. A merely competent co-scientist workflow paired with a well-designed loop
-may discover something useful.
+For MaskGXT, validation METRe gave the search tree a useful pressure signal: weak
+branches were discarded, and the MaskGIT lineage kept absorbing crystal-specific
+mechanisms.
 
 ### Co-scientist loops can give humans more room to be novel
 
-There is a common concern that AI will make research more incremental because it
-is trained on existing work. We believe that the opposite can happen.
-Current AI systems are extremely effective at exploiting and combining existing
-ideas: they can implement unfamiliar methods, debug interactions, run ablations,
-and search through many combinations much faster than a human researcher.
+Current AI systems are strong at exploiting and combining existing ideas. In this
+project, the loop implemented unfamiliar methods, debugged interactions, ran
+ablations, and searched through many combinations faster than a human researcher
+could.
 
-That lowers the cost of trying an idea that may fail. Humans can spend more of
-their limited attention on unusual abstractions, cross-domain hypotheses, and
-new objectives, while the co-scientist loop performs the large amount of
-exploitation needed to determine whether those ideas survive implementation and
+That changes where human attention goes. Humans can spend more time on unusual
+abstractions, cross-domain hypotheses, and new objectives, while the
+co-scientist loop tests whether those ideas survive implementation and
 evaluation.
-
-In this division of labor, AI does not replace research taste. It makes research
-taste cheaper to exercise.
 
 ### The human role may shift toward goal and loop design
 
-If implementation and empirical search become increasingly automatable, the
-human role moves upward: choosing a worthwhile problem, constructing an aligned
-metric, supplying missing domain mechanisms, recognizing misleading evidence,
-and deciding when the objective itself should change.
+As implementation and search get cheaper, the human work shifts to choosing a
+worthwhile problem, constructing an aligned metric, supplying missing domain
+mechanisms, recognizing misleading evidence, and deciding when the objective
+itself should change.
 
-The main bottleneck may eventually be human attention. One run can create
-hundreds of hypotheses, code variants, logs, plots, and failures. Useful systems
-will need to maintain a compact research state: what was tried, why it failed,
-what mechanisms remain unexplored, and which decisions truly require human
-judgment.
+The next bottleneck is attention. One run can create hundreds of hypotheses, code
+variants, logs, plots, and failures. Useful systems will need to maintain a
+compact research state: what was tried, why it failed, what mechanisms remain
+unexplored, and which decisions truly require human judgment.
 
 ## Conclusion
 
-MaskGXT is one case study, not evidence that current systems can autonomously
-solve arbitrary scientific problems. But it is evidence for a more immediate and
-actionable claim: **human–AI co-scientist workflows may already be capable enough
-to contribute to discovery when we design the research loop correctly.**
+MaskGXT does not settle whether current systems can do science autonomously. It
+shows a narrower result: with a runnable benchmark, a useful proxy metric, and a
+few human interventions, a co-scientist loop can produce a competitive reusable
+model.
 
-The practical next step, in our view, is not to wait for an AI that can solve all
-of science. It is to look at the problems already on our desks and ask which
-parts can be made searchable now.
-
-These workflows become useful long before they can replace scientists. They
-become useful when they multiply our ability to try, evaluate, combine, and
-refine ideas.
+The practical next step is to look for research problems with the same structure:
+a searchable design space, cheap enough evaluation, and a metric worth
+optimizing.
 
 ## References
 
@@ -307,7 +283,7 @@ refine ideas.
     structures for that composition. It is narrower than exhaustive
     first-principles search over all possible structures.
 
-[^wyckoff]: A **space group** describes the symmetry operations of a crystal.
+[^wyckoff]: A space group describes the symmetry operations of a crystal.
     **Wyckoff positions** describe symmetry-equivalent sites inside that space
     group, so they provide a compact way to represent crystallographic
     constraints.
