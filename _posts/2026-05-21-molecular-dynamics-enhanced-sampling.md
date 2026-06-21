@@ -31,7 +31,7 @@ The phrase "long enough" hides the entire problem.
 
 A femtosecond MD timestep resolves bond vibrations. Protein folding, ligand unbinding, conformational switching, and nucleation can take microseconds, milliseconds, or longer. The simulation spends nearly all its time vibrating inside one metastable basin and almost none of its time crossing the barrier that matters.
 
-The key point for ML is that molecular simulation is not limited only by force-field accuracy or neural network speed. It is limited by **sampling**. A better potential energy model helps only if the dynamics visits the states whose probabilities, pathways, or free energies we need.
+The key point for ML is that molecular simulation is not limited only by force-field accuracy or neural network speed. It is limited by sampling. A better potential energy model helps only if the dynamics visits the states whose probabilities, pathways, or free energies we need.
 
 The sampling problem connects four ideas:
 
@@ -114,7 +114,7 @@ For path quantities, the correction involves ratios between path measures rather
 
 We cannot bias directly in $$3N$$ coordinates. A protein with 1,000 atoms already has 3,000 coordinate dimensions. Depositing a useful bias in that space is hopeless.
 
-Enhanced sampling therefore uses a **collective variable**:
+Enhanced sampling therefore uses a collective variable:
 
 $$s = \xi(\mathbf{x}) \in \mathbb{R}^{d}, \qquad d \ll 3N$$
 
@@ -144,7 +144,7 @@ A good CV should satisfy two conditions.
 
 First, it should distinguish the metastable states we care about. If folded and unfolded proteins map to the same $$s$$, biasing $$s$$ cannot help.
 
-Second, it should capture the **slow mode** of the transition. A coordinate can distinguish endpoints while missing the bottleneck between them. In that case, the simulation moves quickly along the CV but remains trapped in hidden orthogonal degrees of freedom. This is the classic failure mode: the projected free-energy profile looks flat, but the actual molecular system is still stuck.
+Second, it should capture the slow mode of the transition. A coordinate can distinguish endpoints while missing the bottleneck between them. In that case, the simulation moves quickly along the CV but remains trapped in hidden orthogonal degrees of freedom. This is the classic failure mode: the projected free-energy profile looks flat, but the actual molecular system is still stuck.
 
 CV discovery is therefore not ordinary dimensionality reduction. PCA finds high-variance directions. Many useful CVs are low-variance but slow. The relevant question is not "which coordinate explains the most variance?" but "which coordinate preserves the long-timescale dynamics?"
 
@@ -208,9 +208,9 @@ Modern rare-event methods try to learn better proposals for this reason. We do n
 
 ## Where ML Enters
 
-ML enters in two places. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. Time-lagged objectives for slow molecular coordinates have a long history (<span id="cite-perez2013"></span>[Perez-Hernandez et al., 2013](#ref-perez2013)). In our group, BioEmu-CV (<span id="cite-park2025"></span>[Park et al., 2025](#ref-park2025)) learns such CVs from a biomolecular ensemble generator. The goal is not to replace enhanced sampling. It is to provide a better coordinate for methods such as OPES or steered MD.
+ML enters in two places. The first is to learn the CV: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. Time-lagged objectives for slow molecular coordinates have a long history (<span id="cite-perez2013"></span>[Perez-Hernandez et al., 2013](#ref-perez2013)). In our group, BioEmu-CV (<span id="cite-park2025"></span>[Park et al., 2025](#ref-park2025)) learns such CVs from a biomolecular ensemble generator. The goal is not to replace enhanced sampling. It is to provide a better coordinate for methods such as OPES or steered MD.
 
-The second entry point is to **learn the path bias directly**. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler (<span id="cite-seong2024"></span>[Seong et al., 2025](#ref-seong2024)). These projects illustrate the two design choices above: learn where to bias, or learn the path-level bias itself.
+The second entry point is to learn the path bias directly. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler (<span id="cite-seong2024"></span>[Seong et al., 2025](#ref-seong2024)). These projects illustrate the two design choices above: learn where to bias, or learn the path-level bias itself.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/md_sampling_method_map.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Classical enhanced sampling asks where to apply a bias and how to undo it. ML can enter by learning the collective variable for CV-based methods or by learning a path-level bias directly. The path-measure view connects both directions to Jarzynski, AIS, diffusion models, and trajectory objectives." %}
 

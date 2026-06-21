@@ -35,7 +35,7 @@ For ML, the problem is direct: learn a surrogate from material structure to adso
 
 ## The Energy Storage Problem
 
-Renewable electricity from solar and wind is intermittent. Solar output peaks at midday, while demand often peaks in the evening, creating the mismatch known as the **duck curve**.[^duckcurve] Grid-scale energy storage is the missing piece for full renewable adoption.
+Renewable electricity from solar and wind is intermittent. Solar output peaks at midday, while demand often peaks in the evening, creating the mismatch known as the duck curve.[^duckcurve] Grid-scale energy storage is the missing piece for full renewable adoption.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_duck_curve.png" class="img-fluid rounded z-depth-1" zoomable=true caption="California hourly energy demand. The green area shows wind and solar generation peaking midday while total demand (black) peaks in the evening — the 'duck curve.' The gap must be filled by other sources or storage. Adapted from Zitnick et al. (2020)." %}
 
@@ -47,7 +47,7 @@ Several storage technologies exist, each with trade-offs:
 
 The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint. At grid scale, the relevant quantity is the total cost of stored energy. [Zitnick et al. (2020)](#ref-zitnick2020) estimate HES at 113 USD/MWh, competitive with batteries for multi-day storage because cheap bulk hydrogen storage can offset the efficiency loss.
 
-The bottleneck is not storage capacity. It is the **catalyst**. Both the electrolyzer (splitting water) and the fuel cell (recombining hydrogen with oxygen) require electrocatalysts[^electrocatalyst] to drive their reactions at practical rates. The dominant catalyst is platinum, which is scarce and expensive. Reducing or replacing platinum is the key to making HES economically viable.
+The bottleneck is not storage capacity. It is the catalyst. Both the electrolyzer (splitting water) and the fuel cell (recombining hydrogen with oxygen) require electrocatalysts[^electrocatalyst] to drive their reactions at practical rates. The dominant catalyst is platinum, which is scarce and expensive. Reducing or replacing platinum is the key to making HES economically viable.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_energy_cycle.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The hydrogen energy storage cycle. Renewable electricity powers an electrolyzer that splits water into hydrogen. The hydrogen can be stored directly or converted to methane via methanation with captured CO2. Fuel cells convert stored fuel back to electricity for the grid. Adapted from Zitnick et al. (2020)." %}
 
@@ -55,15 +55,15 @@ The bottleneck is not storage capacity. It is the **catalyst**. Both the electro
 
 ## Fuel Cells and Electrolyzers
 
-The previous section identified catalysts as the bottleneck for hydrogen energy storage. The catalysis occurs inside two devices: the **electrolyzer**, which converts electricity into hydrogen, and the **fuel cell**, which converts hydrogen back into electricity. Their internal structure reveals the specific reactions a catalyst must accelerate, and why those reactions are hard.
+The previous section identified catalysts as the bottleneck for hydrogen energy storage. The catalysis occurs inside two devices: the electrolyzer, which converts electricity into hydrogen, and the fuel cell, which converts hydrogen back into electricity. Their internal structure reveals the specific reactions a catalyst must accelerate, and why those reactions are hard.
 
-A **proton exchange membrane (PEM) fuel cell** converts hydrogen and oxygen into electricity and water. It has three layers:
+A proton exchange membrane (PEM) fuel cell converts hydrogen and oxygen into electricity and water. It has three layers:
 
 - **Anode:**[^anodecathode] Hydrogen gas arrives and is split into protons and electrons: $$\text{H}_2 \rightarrow 2\text{H}^+ + 2e^-$$.
 - **Membrane:** A polymer electrolyte[^electrolyte] that conducts protons (H$$^+$$) but blocks electrons, forcing them through an external circuit — producing useful electrical current.
 - **Cathode:** Oxygen combines with the protons and electrons to form water: $$\tfrac{1}{2}\text{O}_2 + 2\text{H}^+ + 2e^- \rightarrow \text{H}_2\text{O}$$.
 
-An **electrolyzer** runs the same reactions in reverse: apply a voltage to split water into hydrogen and oxygen. Both devices need a catalyst at each electrode[^electrode] to make the reactions proceed fast enough to be practical.
+An electrolyzer runs the same reactions in reverse: apply a voltage to split water into hydrogen and oxygen. Both devices need a catalyst at each electrode[^electrode] to make the reactions proceed fast enough to be practical.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_fuel_cell.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Schematic of a PEM fuel cell. Hydrogen enters at the anode (left, red), is split into protons and electrons. Protons pass through the membrane (gold center), electrons flow through an external circuit (top) to power a load. At the cathode (right, blue), oxygen combines with protons and electrons to form water. Adapted from Zitnick et al. (2020)." %}
 
@@ -73,9 +73,9 @@ Platinum is the best-known catalyst for both the hydrogen oxidation reaction at 
 
 Cost and scarcity dominate:
 
-- Platinum accounts for over **40% of fuel cell capital costs** when including the support structures needed for adequate power density ([Zitnick et al., 2020](#ref-zitnick2020)).
+- Platinum accounts for over 40% of fuel cell capital costs when including the support structures needed for adequate power density ([Zitnick et al., 2020](#ref-zitnick2020)).
 - To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^ptreserves]
-- A survey of automotive fuel cell experts found that **76% identified platinum cost** as the primary barrier to reducing fuel cell costs.
+- A survey of automotive fuel cell experts found that 76% identified platinum cost as the primary barrier to reducing fuel cell costs.
 
 Research suggests a 90% reduction in platinum loading may be achievable, and platinum-free catalysts are an active research area. Finding them requires searching a large materials space, where each candidate is expensive to evaluate.
 
@@ -89,7 +89,7 @@ Research suggests a 90% reduction in platinum loading may be achievable, and pla
 
 ### The Oxygen Reduction Reaction
 
-The cathode reaction in a fuel cell, the **oxygen reduction reaction (ORR)**, is the harder half to catalyze and the primary target for improvement. Consider the dissociative pathway[^dissociative] on a metal surface, where $$*$$ denotes a binding site on the catalyst:
+The cathode reaction in a fuel cell, the oxygen reduction reaction (ORR), is the harder half to catalyze and the primary target for improvement. Consider the dissociative pathway[^dissociative] on a metal surface, where $$*$$ denotes a binding site on the catalyst:
 
 $$\tfrac{1}{2}\text{O}_2 + * \;\longrightarrow\; *\text{O}$$
 
@@ -97,11 +97,11 @@ $$*\text{O} + \text{H}^+ + e^- \;\longrightarrow\; *\text{OH}$$
 
 $$*\text{OH} + \text{H}^+ + e^- \;\longrightarrow\; \text{H}_2\text{O} + *$$
 
-Each step involves an **adsorbate** ($$*$$O or $$*$$OH) bound to the catalyst surface. The reaction proceeds through these intermediate states, and the catalyst is regenerated at the end — the binding site $$*$$ is freed.
+Each step involves an adsorbate ($$*$$O or $$*$$OH) bound to the catalyst surface. The reaction proceeds through these intermediate states, and the catalyst is regenerated at the end — the binding site $$*$$ is freed.
 
 ### Gibbs Free Energy and Reaction Barriers
 
-Each step has a **Gibbs free energy change** $$\Delta G$$, which determines whether the step is thermodynamically favorable ($$\Delta G < 0$$) or requires energy input ($$\Delta G > 0$$). **Gibbs free energy** is:
+Each step has a Gibbs free energy change $$\Delta G$$, which determines whether the step is thermodynamically favorable ($$\Delta G < 0$$) or requires energy input ($$\Delta G > 0$$). Gibbs free energy is:
 
 $$G = H - TS$$
 
@@ -111,7 +111,7 @@ A catalyst works by lowering the activation energy[^activationenergy] barriers b
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_activation_energy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Energy diagram for a single reaction step: O2 dissociating on a surface. The activation energy (0.62 eV) is the barrier the system must overcome. The reaction free energy (−1.5 eV) is the net energy change. A catalyst lowers the activation energy without changing the net free energy. Adapted from Zitnick et al. (2020)." %}
 
-The key screening quantity is the **adsorption energy**: how strongly each intermediate binds to the surface. If binding is too strong, the intermediate cannot desorb and the catalyst is "poisoned." If binding is too weak, the intermediate never forms.
+The key screening quantity is the adsorption energy: how strongly each intermediate binds to the surface. If binding is too strong, the intermediate cannot desorb and the catalyst is "poisoned." If binding is too weak, the intermediate never forms.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_gibbs_energy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Gibbs free energy diagram for the dissociative ORR pathway on Pt(111) (blue) and Ni(111) (green). Pt has moderate energy barriers at each step — close to ideal. Ni binds oxygen too strongly: the initial steps drop much further, but the activation barriers between steps are correspondingly larger. Adapted from Zitnick et al. (2020)." %}
 
@@ -122,7 +122,7 @@ The key screening quantity is the **adsorption energy**: how strongly each inter
 > **The Sabatier principle.** The optimal catalyst binds reaction intermediates neither too strongly nor too weakly. Too strong, and products cannot desorb. Too weak, and reactants cannot adsorb. Maximum activity occurs at an intermediate binding strength.
 {: .block-definition }
 
-This qualitative principle becomes quantitative through the **Brønsted-Evans-Polanyi (BEP) relations**: across a family of catalysts, the activation energy $$E_a$$ for a given elementary step is linearly related to the reaction energy $$\Delta E$$:
+This qualitative principle becomes quantitative through the Brønsted-Evans-Polanyi (BEP) relations: across a family of catalysts, the activation energy $$E_a$$ for a given elementary step is linearly related to the reaction energy $$\Delta E$$:
 
 $$E_a = \alpha \, \Delta E + \beta$$
 
@@ -130,7 +130,7 @@ where $$\alpha$$ and $$\beta$$ are constants specific to the reaction step.[^bep
 
 $$r \propto \exp\!\left(-\frac{E_a}{k_B T}\right)$$
 
-Combining these: as adsorption energy becomes more negative (stronger binding), $$E_a$$ decreases for adsorption steps but increases for desorption steps. The overall rate is limited by the slowest step. On the strong-binding side, desorption is rate-limiting — the rate decreases as binding strengthens. On the weak-binding side, adsorption is rate-limiting — the rate decreases as binding weakens. The result is a **volcano plot**: reaction rate versus adsorption energy traces an inverted-V shape, with the optimum at the peak.
+Combining these: as adsorption energy becomes more negative (stronger binding), $$E_a$$ decreases for adsorption steps but increases for desorption steps. The overall rate is limited by the slowest step. On the strong-binding side, desorption is rate-limiting — the rate decreases as binding strengthens. On the weak-binding side, adsorption is rate-limiting — the rate decreases as binding weakens. The result is a volcano plot: reaction rate versus adsorption energy traces an inverted-V shape, with the optimum at the peak.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_volcano_plot.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Volcano plot for the ORR. Catalytic activity (log scale) vs. oxygen adsorption energy. Platinum and palladium sit near the peak. Metals to the left (Fe, W, Ni) bind too strongly; metals to the right (Ag, Au) bind too weakly. The two branches correspond to different rate-limiting steps. Adapted from Nørskov et al. (2004), as presented in Zitnick et al. (2020)." %}
 
@@ -144,11 +144,11 @@ The volcano plot is the central organizing principle of electrocatalysis. The OR
 
 The ORR involves multiple intermediates ($$*$$O, $$*$$OH, $$*$$OOH), each with its own binding energy. In principle, optimizing the catalyst requires tuning all of them independently. In practice, they are correlated.
 
-The $$*$$OH and $$*$$OOH binding energies are **linearly correlated** across all known catalysts, with a constant offset of ~3.2 eV:
+The $$*$$OH and $$*$$OOH binding energies are linearly correlated across all known catalysts, with a constant offset of ~3.2 eV:
 
 $$\Delta G_{*\text{OOH}} \approx \Delta G_{*\text{OH}} + 3.2 \;\text{eV}$$
 
-This **scaling relation** arises because both $$*$$OH and $$*$$OOH bond to the surface through oxygen, so the catalyst surface "sees" similar binding chemistry. The hydrogen atoms point away and contribute little to the interaction.
+This scaling relation arises because both $$*$$OH and $$*$$OOH bond to the surface through oxygen, so the catalyst surface "sees" similar binding chemistry. The hydrogen atoms point away and contribute little to the interaction.
 
 The consequence is that a single descriptor, such as $$\Delta G_{*\text{OH}}$$, determines a catalyst's position on the volcano. This makes screening tractable despite the high-dimensional space of possible materials.
 
@@ -156,15 +156,15 @@ The consequence is that a single descriptor, such as $$\Delta G_{*\text{OH}}$$, 
 
 ### The Constraint — and the Open Challenge
 
-The scaling relation is both a gift and a curse. It simplifies the search to one dimension, but also imposes a **limit**: because known catalysts lie on or near the scaling line, they share the same trade-off. The ideal catalyst would bind $$*$$OH at the volcano peak while also binding $$*$$OOH at its independently optimal value, which requires breaking the scaling relation. Strategies include nanostructured surfaces, alloys with specific local environments, and single-atom catalysts, but none has definitively broken the linear scaling.
+The scaling relation is both a gift and a curse. It simplifies the search to one dimension, but also imposes a limit: because known catalysts lie on or near the scaling line, they share the same trade-off. The ideal catalyst would bind $$*$$OH at the volcano peak while also binding $$*$$OOH at its independently optimal value, which requires breaking the scaling relation. Strategies include nanostructured surfaces, alloys with specific local environments, and single-atom catalysts, but none has definitively broken the linear scaling.
 
 ### The Design Space
 
 Even with the simplification to a single descriptor, the space of candidate catalyst configurations is vast:
 
 - **~40 metals** can appear in a catalyst, in combinations of 1–3 elements (yielding over 10,000 compositions before considering ratios).
-- Each composition can be cut along multiple **crystal facets** — (100), (110), (111), and others — exposing different surface arrangements.
-- Each surface has multiple **binding sites**: an adsorbate can bond to 1 atom (atop), 2 atoms (bridge), or 3 atoms (hollow).
+- Each composition can be cut along multiple crystal facets — (100), (110), (111), and others — exposing different surface arrangements.
+- Each surface has multiple binding sites: an adsorbate can bond to 1 atom (atop), 2 atoms (bridge), or 3 atoms (hollow).
 - **82 adsorbate molecules** are relevant intermediates of reactions important for renewable energy.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_catalyst_surface.png" class="img-fluid rounded z-depth-1" zoomable=true caption="3D rendering of a catalyst surface with adsorbate molecules (red and white atoms) bound at different sites on a close-packed metal surface (gray). The adsorbates are small compared to the surface — their binding energy depends on the local arrangement of surface atoms. Adapted from Zitnick et al. (2020)." %}
@@ -175,19 +175,19 @@ Even with the simplification to a single descriptor, the space of candidate cata
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_adsorbates.png" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="700px" zoomable=true caption="The 82 adsorbate molecules in the OC20 dataset, grouped by composition: O and H (top), small molecules with one carbon (C1), larger molecules with two or more carbons (C2), and nitrogen-containing molecules (N). These are intermediates of reactions relevant to renewable energy storage. Adapted from Zitnick et al. (2020)." %}
 
-Combining these factors gives on the order of **1,000 candidate configurations per catalyst composition**, and billions of total (composition, facet, site, adsorbate) combinations. Each evaluation requires a DFT relaxation, an $$O(n^3)$$ iterative simulation that takes hours to days. This is the search problem that motivates ML approaches to catalyst design.
+Combining these factors gives on the order of 1,000 candidate configurations per catalyst composition, and billions of total (composition, facet, site, adsorbate) combinations. Each evaluation requires a DFT relaxation, an $$O(n^3)$$ iterative simulation that takes hours to days. This is the search problem that motivates ML approaches to catalyst design.
 
 ---
 
 ## Why Oxides Matter
 
-The previous sections focused on the fuel-cell cathode (ORR) and used pure metals, especially platinum, as running examples. The other half of the hydrogen energy cycle is water splitting, where the bottleneck is a different reaction: the **oxygen evolution reaction (OER)**.[^oer]
+The previous sections focused on the fuel-cell cathode (ORR) and used pure metals, especially platinum, as running examples. The other half of the hydrogen energy cycle is water splitting, where the bottleneck is a different reaction: the oxygen evolution reaction (OER).[^oer]
 
 $$2\text{H}_2\text{O} \;\longrightarrow\; \text{O}_2 + 4\text{H}^+ + 4e^-$$
 
 The OER is kinetically sluggish because it forms an O–O bond through four proton-coupled electron transfers, each with its own energy barrier. It is the primary source of efficiency loss in electrolyzers and the main target for catalyst improvement on the water-splitting side.
 
-Metal oxides are the dominant catalyst class for the OER. The reason is stability: in PEM electrolyzers, water splitting operates under strongly acidic conditions with a proton-conducting membrane. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is **iridium oxide (IrO$$_2$$)** — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
+Metal oxides are the dominant catalyst class for the OER. The reason is stability: in PEM electrolyzers, water splitting operates under strongly acidic conditions with a proton-conducting membrane. Under these conditions, most pure metals dissolve. Oxides survive. The best-known stable and active OER catalyst is iridium oxide (IrO$$_2$$) — but iridium is rarer and more expensive than platinum (Tran et al., 2023). Finding cheaper multi-component oxide catalysts that match IrO$$_2$$ in both activity and acid stability is a central goal of electrocatalysis research.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oer_workflow.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The OER catalyst discovery workflow. (a) Select a bulk oxide structure. (b) Enumerate surface terminations and identify the most stable one via surface Pourbaix diagrams. (c) Place adsorbate intermediates. (d) Relax the structure and compute adsorption energy. Steps (a)–(b) are unique to oxides — on metals, the surface is determined by the facet alone. Adapted from Tran et al. (2023)." %}
 
@@ -205,9 +205,9 @@ Oxide electrocatalysts introduce at least five layers of complexity absent from 
 
 ### Adsorbate Binding on Oxides
 
-On a metal surface, adsorbates bind to metal atoms at well-defined sites (atop, bridge, hollow). Oxides add a second class of binding interactions: adsorbates can bind to **surface oxygen atoms** rather than to metal atoms. This enables reactions that have no analogue on metals.
+On a metal surface, adsorbates bind to metal atoms at well-defined sites (atop, bridge, hollow). Oxides add a second class of binding interactions: adsorbates can bind to surface oxygen atoms rather than to metal atoms. This enables reactions that have no analogue on metals.
 
-The **Mars-van Krevelen (MvK) mechanism**[^mvk] is the most important example. In MvK, an incoming adsorbate reacts with a lattice oxygen atom on the surface, forming a new intermediate that desorbs and leaves behind an oxygen vacancy. The vacancy is later replenished by oxygen from the next adsorbate. The catalyst surface itself participates as a reactant, cycling between oxidized and reduced states.
+The Mars-van Krevelen (MvK) mechanism[^mvk] is the most important example. In MvK, an incoming adsorbate reacts with a lattice oxygen atom on the surface, forming a new intermediate that desorbs and leaves behind an oxygen vacancy. The vacancy is later replenished by oxygen from the next adsorbate. The catalyst surface itself participates as a reactant, cycling between oxidized and reduced states.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_adsorbates.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="Adsorbate placement strategies on oxide surfaces. Top row: adsorbates bind to undercoordinated surface metals at lattice oxygen positions (including vacancy sites). Bottom row: adsorbates bind to existing surface oxygen to form new intermediates — e.g., CO on surface O forms CO2, monatomic O on surface O forms a dimer. This second class of binding is unique to oxides. Adapted from Tran et al. (2023)." %}
 
@@ -225,7 +225,7 @@ Real electrocatalysis happens in liquid, not vacuum. The catalyst surface is imm
 - **The electrical double layer.** At an electrified interface, ions in the electrolyte rearrange to screen the surface charge, forming a structured layer whose properties govern charge transfer kinetics. The structure of this double layer depends on applied potential, ion concentration, and solvent identity.
 - **Specific ion adsorption.** Ions from the electrolyte can adsorb directly on the catalyst surface, blocking active sites or modifying the local electronic environment.
 
-The **solvation energy** captures these effects: it is the difference between a species' adsorption energy in the solvated environment and in vacuum. A catalyst that looks optimal in gas-phase DFT may perform differently once solvent shifts binding energies by tenths of an eV, comparable to the width of the volcano peak.
+The solvation energy captures these effects: it is the difference between a species' adsorption energy in the solvated environment and in vacuum. A catalyst that looks optimal in gas-phase DFT may perform differently once solvent shifts binding energies by tenths of an eV, comparable to the width of the volcano peak.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_solid_liquid_overview.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The OC25 dataset models catalysis at solid-liquid interfaces: catalyst surfaces with explicit solvent molecules and ions, spanning 88 elements and multiple solvent types. Adapted from Shuaibi et al. (2025)." %}
 
@@ -243,9 +243,9 @@ Many high-performing electrocatalysts lack long-range crystalline order. Amorpho
 
 **Surface reconstruction under operating conditions** compounds the difficulty. Atoms migrate, oxidation states change, and the electrochemically active phase may differ from the as-synthesized material. Oxide surfaces are particularly prone to reconstruction: partial dissolution by the solvent creates vacancy defects, and applied potential can rearrange the surface. The structure being modeled is not necessarily the structure that catalyzes.
 
-Oxides also exhibit **magnetic polymorphism**: the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties ([Tran et al., 2023](#ref-tran2023)).
+Oxides also exhibit magnetic polymorphism: the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties ([Tran et al., 2023](#ref-tran2023)).
 
-In semiconducting oxides, **charge self-compensation** adds another failure mode. When vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. A vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
+In semiconducting oxides, charge self-compensation adds another failure mode. When vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. A vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
 
 ### Scaling Relations on Complex Materials
 
@@ -288,65 +288,65 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 ---
 
-[^catalyst]: A **catalyst** is a substance that increases the rate of a chemical reaction without being consumed. It works by lowering the energy barrier (activation energy) that reactants must overcome, providing an alternative reaction pathway. The catalyst participates in intermediate steps but is regenerated at the end.
+[^catalyst]: A catalyst is a substance that increases the rate of a chemical reaction without being consumed. It works by lowering the energy barrier (activation energy) that reactants must overcome, providing an alternative reaction pathway. The catalyst participates in intermediate steps but is regenerated at the end.
 
-[^adsenergy]: The **adsorption energy** (or binding energy) measures how strongly a molecule sticks to a surface. More negative values mean stronger binding. It is computed as the energy difference between the combined system (molecule on surface) and the separated components (clean surface + isolated molecule).
+[^adsenergy]: The adsorption energy (or binding energy) measures how strongly a molecule sticks to a surface. More negative values mean stronger binding. It is computed as the energy difference between the combined system (molecule on surface) and the separated components (clean surface + isolated molecule).
 
-[^intermediate]: A reaction **intermediate** is a molecule that is produced in one step of a multi-step reaction and consumed in a subsequent step. It exists transiently on the catalyst surface. For the oxygen reduction reaction, the intermediates are $$*$$O and $$*$$OH, where $$*$$ denotes binding to the surface.
+[^intermediate]: A reaction intermediate is a molecule that is produced in one step of a multi-step reaction and consumed in a subsequent step. It exists transiently on the catalyst surface. For the oxygen reduction reaction, the intermediates are $$*$$O and $$*$$OH, where $$*$$ denotes binding to the surface.
 
-[^facet]: A **crystal facet** is the flat surface exposed when a crystal is cut along a specific plane. Different cuts expose different arrangements of atoms. Facets are labeled by **Miller indices** — e.g., (111), (110), (100) — which describe the orientation of the cutting plane relative to the crystal lattice.
+[^facet]: A crystal facet is the flat surface exposed when a crystal is cut along a specific plane. Different cuts expose different arrangements of atoms. Facets are labeled by Miller indices — e.g., (111), (110), (100) — which describe the orientation of the cutting plane relative to the crystal lattice.
 
-[^bindingsite]: A **binding site** is a specific location on the catalyst surface where an adsorbate molecule can attach. On a close-packed metal surface, common sites include: **atop** (directly above one atom), **bridge** (between two atoms), and **hollow** (in the center of three atoms). Each site type produces a different adsorption energy.
+[^bindingsite]: A binding site is a specific location on the catalyst surface where an adsorbate molecule can attach. On a close-packed metal surface, common sites include: atop (directly above one atom), bridge (between two atoms), and hollow (in the center of three atoms). Each site type produces a different adsorption energy.
 
-[^adsorbate]: An **adsorbate** is a molecule or atom that has adhered to a surface. In electrocatalysis, adsorbates are the reaction intermediates sitting on the catalyst surface — for example, an oxygen atom ($$*$$O) or a hydroxyl group ($$*$$OH) bonded to a metal surface.
+[^adsorbate]: An adsorbate is a molecule or atom that has adhered to a surface. In electrocatalysis, adsorbates are the reaction intermediates sitting on the catalyst surface — for example, an oxygen atom ($$*$$O) or a hydroxyl group ($$*$$OH) bonded to a metal surface.
 
-[^dftrelax]: A **DFT relaxation** (or geometry optimization) is an iterative simulation that finds the lowest-energy arrangement of atoms. Starting from an initial guess, each step computes quantum-mechanical forces on every atom using density functional theory (see [previous post](/blog/2026/quantum-chemistry-dft/)), then nudges the atoms downhill. This repeats for 50–400 steps until the forces converge to near zero.
+[^dftrelax]: A DFT relaxation (or geometry optimization) is an iterative simulation that finds the lowest-energy arrangement of atoms. Starting from an initial guess, each step computes quantum-mechanical forces on every atom using density functional theory (see [previous post](/blog/2026/quantum-chemistry-dft/)), then nudges the atoms downhill. This repeats for 50–400 steps until the forces converge to near zero.
 
 [^duckcurve]: The "duck curve" refers to the shape of net electricity demand (demand minus solar generation) over a day: it dips at midday when solar peaks, then rises sharply in the evening. First identified by the California Independent System Operator (CAISO).
 
-[^electrolysis]: **Electrolysis** is the process of using electrical energy to drive a non-spontaneous chemical reaction. In water electrolysis, an applied voltage splits water into hydrogen and oxygen: $$2\text{H}_2\text{O} \rightarrow 2\text{H}_2 + \text{O}_2$$.
+[^electrolysis]: Electrolysis is the process of using electrical energy to drive a non-spontaneous chemical reaction. In water electrolysis, an applied voltage splits water into hydrogen and oxygen: $$2\text{H}_2\text{O} \rightarrow 2\text{H}_2 + \text{O}_2$$.
 
-[^fuelcell]: A **fuel cell** is an electrochemical device that converts chemical energy (from a fuel like hydrogen) directly into electrical energy, without combustion. Unlike a battery, it does not store energy internally — it produces electricity continuously as long as fuel is supplied.
+[^fuelcell]: A fuel cell is an electrochemical device that converts chemical energy (from a fuel like hydrogen) directly into electrical energy, without combustion. Unlike a battery, it does not store energy internally — it produces electricity continuously as long as fuel is supplied.
 
 [^heseff]: Zitnick et al. (2020) estimate HES round-trip efficiency at ~35% (AC to AC), compared to 70–80% for pumped hydro and 60–95% for batteries. The losses occur in both the electrolyzer (~70% efficient) and the fuel cell (~60% efficient): 0.7 × 0.6 ≈ 0.42, minus additional transmission and conversion losses.
 
-[^electrocatalyst]: An **electrocatalyst** is a catalyst that operates at an electrode surface in an electrochemical cell. It accelerates reactions involving electron transfer — such as the splitting of water or the reduction of oxygen. The "electro-" prefix distinguishes it from catalysts for purely thermal or gas-phase reactions.
+[^electrocatalyst]: An electrocatalyst is a catalyst that operates at an electrode surface in an electrochemical cell. It accelerates reactions involving electron transfer — such as the splitting of water or the reduction of oxygen. The "electro-" prefix distinguishes it from catalysts for purely thermal or gas-phase reactions.
 
-[^anodecathode]: The **anode** is the electrode where oxidation occurs (loss of electrons); the **cathode** is where reduction occurs (gain of electrons). A mnemonic: **a**node = **a**way (electrons flow away from it).
+[^anodecathode]: The anode is the electrode where oxidation occurs (loss of electrons); the cathode is where reduction occurs (gain of electrons). A mnemonic: anode = away (electrons flow away from it).
 
-[^electrolyte]: An **electrolyte** is a substance that conducts ions but not electrons. In a PEM fuel cell, the polymer membrane serves as the electrolyte — it allows protons (H$$^+$$) to pass through while forcing electrons to travel through the external circuit.
+[^electrolyte]: An electrolyte is a substance that conducts ions but not electrons. In a PEM fuel cell, the polymer membrane serves as the electrolyte — it allows protons (H$$^+$$) to pass through while forcing electrons to travel through the external circuit.
 
-[^electrode]: An **electrode** is a conductor through which electric current enters or leaves an electrochemical cell. In a fuel cell, the two electrodes are the anode (fuel side) and cathode (oxygen side).
+[^electrode]: An electrode is a conductor through which electric current enters or leaves an electrochemical cell. In a fuel cell, the two electrodes are the anode (fuel side) and cathode (oxygen side).
 
-[^orr]: The **oxygen reduction reaction (ORR)** is the cathode half-reaction in a fuel cell: $$\text{O}_2 + 4\text{H}^+ + 4e^- \rightarrow 2\text{H}_2\text{O}$$. It is kinetically sluggish — the main source of efficiency loss in fuel cells — and the primary motivation for catalyst research.
+[^orr]: The oxygen reduction reaction (ORR) is the cathode half-reaction in a fuel cell: $$\text{O}_2 + 4\text{H}^+ + 4e^- \rightarrow 2\text{H}_2\text{O}$$. It is kinetically sluggish — the main source of efficiency loss in fuel cells — and the primary motivation for catalyst research.
 
 [^ptreserves]: As of 2020. South Africa holds approximately 80% of known platinum reserves.
 
-[^heterogeneous]: **Heterogeneous catalysis** means the catalyst and reactants are in different phases — typically a solid catalyst with gas- or liquid-phase reactants. This is in contrast to **homogeneous catalysis**, where catalyst and reactants are in the same phase (e.g., both dissolved in solution).
+[^heterogeneous]: Heterogeneous catalysis means the catalyst and reactants are in different phases — typically a solid catalyst with gas- or liquid-phase reactants. This is in contrast to homogeneous catalysis, where catalyst and reactants are in the same phase (e.g., both dissolved in solution).
 
-[^adsorption]: **Adsorption** is the adhesion of atoms or molecules to a surface (not to be confused with *absorption*, which is uptake into the bulk). In **chemisorption**, the adsorbate forms a chemical bond with the surface. In **physisorption**, the interaction is weaker (van der Waals forces only).
+[^adsorption]: Adsorption is the adhesion of atoms or molecules to a surface (not to be confused with *absorption*, which is uptake into the bulk). In chemisorption, the adsorbate forms a chemical bond with the surface. In physisorption, the interaction is weaker (van der Waals forces only).
 
-[^dissociative]: In a **dissociative pathway**, a molecule breaks apart as it adsorbs — e.g., O$$_2$$ splits into two separate O atoms on the surface. The alternative is an **associative pathway**, where the molecule adsorbs intact and breaks apart in a later step.
+[^dissociative]: In a dissociative pathway, a molecule breaks apart as it adsorbs — e.g., O$$_2$$ splits into two separate O atoms on the surface. The alternative is an associative pathway, where the molecule adsorbs intact and breaks apart in a later step.
 
-[^enthalpy]: **Enthalpy** ($$H$$) is the total heat content of a system at constant pressure: $$H = U + PV$$, where $$U$$ is internal energy, $$P$$ is pressure, and $$V$$ is volume. Changes in enthalpy ($$\Delta H$$) measure the heat released or absorbed by a reaction.
+[^enthalpy]: Enthalpy ($$H$$) is the total heat content of a system at constant pressure: $$H = U + PV$$, where $$U$$ is internal energy, $$P$$ is pressure, and $$V$$ is volume. Changes in enthalpy ($$\Delta H$$) measure the heat released or absorbed by a reaction.
 
-[^gibbs]: The **Gibbs free energy** ($$G = H - TS$$) determines the direction of spontaneous processes at constant temperature and pressure. A reaction with $$\Delta G < 0$$ is thermodynamically favorable (exergonic); $$\Delta G > 0$$ requires energy input (endergonic).
+[^gibbs]: The Gibbs free energy ($$G = H - TS$$) determines the direction of spontaneous processes at constant temperature and pressure. A reaction with $$\Delta G < 0$$ is thermodynamically favorable (exergonic); $$\Delta G > 0$$ requires energy input (endergonic).
 
-[^activationenergy]: The **activation energy** ($$E_a$$) is the minimum energy that reactants must have to undergo a reaction. Even thermodynamically favorable reactions ($$\Delta G < 0$$) may proceed slowly if the activation energy is high. A catalyst provides an alternative pathway with a lower $$E_a$$.
+[^activationenergy]: The activation energy ($$E_a$$) is the minimum energy that reactants must have to undergo a reaction. Even thermodynamically favorable reactions ($$\Delta G < 0$$) may proceed slowly if the activation energy is high. A catalyst provides an alternative pathway with a lower $$E_a$$.
 
-[^bep]: The **BEP relation** is an empirical observation: across a family of related catalysts, activation energy is linearly related to reaction energy. Proposed independently by Brønsted (1928) and Evans & Polanyi (1938). The slope $$\alpha$$ is typically between 0 and 1.
+[^bep]: The BEP relation is an empirical observation: across a family of related catalysts, activation energy is linearly related to reaction energy. Proposed independently by Brønsted (1928) and Evans & Polanyi (1938). The slope $$\alpha$$ is typically between 0 and 1.
 
-[^arrhenius]: The **Arrhenius equation** says that reaction rate increases exponentially as the activation energy decreases or temperature increases. $$k_B$$ is Boltzmann's constant. At room temperature ($$k_B T \approx 0.025$$ eV), even small changes in $$E_a$$ (tenths of an eV) cause large changes in rate.
+[^arrhenius]: The Arrhenius equation says that reaction rate increases exponentially as the activation energy decreases or temperature increases. $$k_B$$ is Boltzmann's constant. At room temperature ($$k_B T \approx 0.025$$ eV), even small changes in $$E_a$$ (tenths of an eV) cause large changes in rate.
 
-[^oer]: The **oxygen evolution reaction (OER)** is the anode half-reaction in water splitting: $$2\text{H}_2\text{O} \rightarrow \text{O}_2 + 4\text{H}^+ + 4e^-$$. It is the reverse of the ORR and is kinetically even more demanding — forming the O–O bond requires coordinating four electron transfers.
+[^oer]: The oxygen evolution reaction (OER) is the anode half-reaction in water splitting: $$2\text{H}_2\text{O} \rightarrow \text{O}_2 + 4\text{H}^+ + 4e^-$$. It is the reverse of the ORR and is kinetically even more demanding — forming the O–O bond requires coordinating four electron transfers.
 
-[^termination]: A **surface termination** is the specific atomic layer exposed when a crystal is cut. On a binary oxide like TiO$$_2$$, cutting along the (110) plane can expose a Ti-rich, O-rich, or mixed layer depending on where the cut is made. Each termination has different catalytic properties.
+[^termination]: A surface termination is the specific atomic layer exposed when a crystal is cut. On a binary oxide like TiO$$_2$$, cutting along the (110) plane can expose a Ti-rich, O-rich, or mixed layer depending on where the cut is made. Each termination has different catalytic properties.
 
-[^hubbardu]: The **Hubbard U correction** adds an empirical on-site Coulomb repulsion to specific orbitals (usually transition metal d-orbitals) to compensate for the tendency of standard DFT functionals to over-delocalize electrons. Typical U values range from 3–6 eV depending on the metal.
+[^hubbardu]: The Hubbard U correction adds an empirical on-site Coulomb repulsion to specific orbitals (usually transition metal d-orbitals) to compensate for the tendency of standard DFT functionals to over-delocalize electrons. Typical U values range from 3–6 eV depending on the metal.
 
-[^mvk]: The **Mars-van Krevelen (MvK) mechanism** is a catalytic cycle in which lattice atoms from the catalyst surface participate directly in the reaction. An adsorbate reacts with a surface oxygen, the product desorbs (creating a vacancy), and the vacancy is replenished by oxygen from a subsequent reactant. Common in oxide and carbide catalysts.
+[^mvk]: The Mars-van Krevelen (MvK) mechanism is a catalytic cycle in which lattice atoms from the catalyst surface participate directly in the reaction. An adsorbate reacts with a surface oxygen, the product desorbs (creating a vacancy), and the vacancy is replenished by oxygen from a subsequent reactant. Common in oxide and carbide catalysts.
 
-[^mlip]: A **machine learning interatomic potential (MLIP)** is a model that predicts the potential energy surface of an atomic system — total energy as a function of atomic positions — learned from quantum-mechanical (typically DFT) training data. Once trained, it can compute energies and forces orders of magnitude faster than DFT, enabling rapid structure relaxation and molecular dynamics.
+[^mlip]: A machine learning interatomic potential (MLIP) is a model that predicts the potential energy surface of an atomic system — total energy as a function of atomic positions — learned from quantum-mechanical (typically DFT) training data. Once trained, it can compute energies and forces orders of magnitude faster than DFT, enabling rapid structure relaxation and molecular dynamics.
 
 <style>
 .footnote-tooltip {

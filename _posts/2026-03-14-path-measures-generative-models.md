@@ -30,19 +30,19 @@ This structure, two opposing processes whose ratio encodes useful information, i
 
 My previous post on ensembles ended with a claim: free energy is hard to compute because it requires the partition function $$Z$$, an integral over the entire phase space. In practice, however, we usually need free energy *differences* between two states. The sign of $$\Delta F$$ determines which state nature prefers: does a protein fold, does a drug bind, is one crystal form more stable than another? Part 1 defines these precisely.
 
-The equilibrium approach computes $$\Delta F$$ directly, which requires sampling from both endpoints — intractable when the two states are separated by high barriers. **Bridging** fixes the overlap problem: construct a chain of intermediate distributions between A and B so that neighbors overlap, even when the endpoints don't, and run MCMC at each level.
+The equilibrium approach computes $$\Delta F$$ directly, which requires sampling from both endpoints — intractable when the two states are separated by high barriers. Bridging fixes the overlap problem: construct a chain of intermediate distributions between A and B so that neighbors overlap, even when the endpoints don't, and run MCMC at each level.
 
-This is **annealed importance sampling** (AIS) — the method most commonly used to evaluate normalizing flows and energy-based models. The importance weight accumulated along the chain estimates the normalizing constant ratio $$Z_B/Z_A$$, which is the free energy difference (Part 2 formalizes this).
+This is annealed importance sampling (AIS) — the method most commonly used to evaluate normalizing flows and energy-based models. The importance weight accumulated along the chain estimates the normalizing constant ratio $$Z_B/Z_A$$, which is the free energy difference (Part 2 formalizes this).
 
 AIS is a random process. Two runs give different importance weights because each MCMC chain follows a different random path. The weight $$w$$ is a functional of the entire chain, not the endpoints alone.
 
 On average, $$\langle w \rangle = Z_B/Z_A$$ (the estimator is unbiased), but Jensen's inequality gives $$\langle \log w \rangle \leq \log(Z_B/Z_A)$$ — an evidence lower bound (ELBO) that is always loose when the chain hasn't equilibrated. The gap equals the KL divergence between forward and reverse chain distributions (Part 2 derives this).
 
-When we specialize AIS to physics — choosing Boltzmann distributions as intermediates and Langevin dynamics as the MCMC kernel — the log importance weight becomes the **work** $$W$$, the energy cost of driving the system from state A to state B (Part 3 defines this precisely). In this language, the unbiasedness of AIS is **Jarzynski's equality** (<span id="cite-jarzynski1997"></span>[Jarzynski, 1997](#ref-jarzynski1997)):
+When we specialize AIS to physics — choosing Boltzmann distributions as intermediates and Langevin dynamics as the MCMC kernel — the log importance weight becomes the work $$W$$, the energy cost of driving the system from state A to state B (Part 3 defines this precisely). In this language, the unbiasedness of AIS is Jarzynski's equality (<span id="cite-jarzynski1997"></span>[Jarzynski, 1997](#ref-jarzynski1997)):
 
 $$\langle e^{-\beta W} \rangle = e^{-\beta \Delta F}$$
 
-where $$\beta = 1/k_BT$$ is the inverse temperature. The ELBO becomes the **second law**: $$\langle W \rangle \geq \Delta F$$. And the ELBO gap becomes **dissipation = KL divergence** between the forward and reverse path measures (Part 5 develops these fully).
+where $$\beta = 1/k_BT$$ is the inverse temperature. The ELBO becomes the second law: $$\langle W \rangle \geq \Delta F$$. And the ELBO gap becomes dissipation = KL divergence between the forward and reverse path measures (Part 5 develops these fully).
 
 The variance problem that plagues AIS (rare high-weight samples dominating the estimate) is the same variance problem physicists have studied since 1997: most trajectories dissipate too much work, so the exponential average is dominated by rare low-work runs.
 
@@ -54,15 +54,15 @@ Free-energy methods such as thermodynamic integration, free energy perturbation,
 
 ### Configurations, States, and the Boltzmann Distribution
 
-Consider $$N$$ atoms with positions $$\mathbf{x} = (\mathbf{r}_1, \ldots, \mathbf{r}_N) \in \mathbb{R}^{3N}$$. A single assignment of all positions, one snapshot of the system, is a **configuration**. A potential energy function $$U(\mathbf{x})$$ assigns each configuration an energy based on interactions between atoms: bonds, electrostatics, van der Waals forces, and so on.
+Consider $$N$$ atoms with positions $$\mathbf{x} = (\mathbf{r}_1, \ldots, \mathbf{r}_N) \in \mathbb{R}^{3N}$$. A single assignment of all positions, one snapshot of the system, is a configuration. A potential energy function $$U(\mathbf{x})$$ assigns each configuration an energy based on interactions between atoms: bonds, electrostatics, van der Waals forces, and so on.
 
-In ML terms, think of $$\mathbf{x}$$ as a data point in $$\mathbb{R}^{3N}$$ and $$U(\mathbf{x})$$ as a negative log-probability up to a constant. A **thermodynamic state** is not a single configuration; it is the *entire probability distribution* over configurations defined by $$U$$. At temperature $$T$$, this distribution is the **Boltzmann distribution**:
+In ML terms, think of $$\mathbf{x}$$ as a data point in $$\mathbb{R}^{3N}$$ and $$U(\mathbf{x})$$ as a negative log-probability up to a constant. A thermodynamic state is not a single configuration; it is the *entire probability distribution* over configurations defined by $$U$$. At temperature $$T$$, this distribution is the Boltzmann distribution:
 
 > **Boltzmann distribution.**
 >
 > $$p(\mathbf{x}) = \frac{e^{-\beta U(\mathbf{x})}}{Z}, \qquad Z = \int e^{-\beta U(\mathbf{x})} \, d\mathbf{x}, \qquad \beta = \frac{1}{k_B T}$$
 >
-> The Boltzmann factor $$e^{-\beta U(\mathbf{x})}$$ assigns high probability to low-energy configurations. The **partition function** $$Z$$ normalizes the distribution — it sums the Boltzmann weight over all possible configurations.
+> The Boltzmann factor $$e^{-\beta U(\mathbf{x})}$$ assigns high probability to low-energy configurations. The partition function $$Z$$ normalizes the distribution — it sums the Boltzmann weight over all possible configurations.
 {: .block-definition }
 
 A state is therefore an energy-based model: $$U$$ defines the unnormalized log-density, and $$Z$$ is the intractable normalizing constant — for even $$N = 100$$ atoms, it is an integral over $$\mathbb{R}^{300}$$.
@@ -79,7 +79,7 @@ In each case, the configuration space $$\mathbf{x} \in \mathbb{R}^{3N}$$ is the 
 
 ### Free Energy
 
-The **Helmholtz free energy** packages the intractable partition function into a single thermodynamic quantity:
+The Helmholtz free energy packages the intractable partition function into a single thermodynamic quantity:
 
 > **Helmholtz free energy.**
 >
@@ -98,7 +98,7 @@ This makes $$\Delta F$$ the central quantity in three classes of problems:
 
 - **Protein folding.** State A is the unfolded ensemble (high entropy, many disordered conformations). State B is the folded state (low energy, compact structure with favorable contacts). The protein folds spontaneously if $$\Delta F_{\text{unfolded} \to \text{folded}} < 0$$ — the energy gain from forming contacts outweighs the entropy loss from ordering. Typical folding free energies are small: 5–15 kcal/mol, the difference between large opposing terms. Predicting the sign correctly requires getting both the energy and entropy right.
 
-- **Drug binding.** State A is the drug and protein separated in solution. State B is the drug bound in the protein's active site. The **binding free energy** $$\Delta F_{\text{bind}}$$ determines affinity: a drug with $$\Delta F_{\text{bind}} = -10$$ kcal/mol binds $$\sim 10^7$$ times more tightly than one with $$\Delta F_{\text{bind}} = -1$$ kcal/mol (since the equilibrium constant goes as $$K \propto e^{-\beta \Delta F}$$). Binding free energy calculation is the gold standard for computational drug design — pharmaceutical companies routinely use free energy perturbation (FEP) to prioritize candidates before synthesis.[^fep]
+- **Drug binding.** State A is the drug and protein separated in solution. State B is the drug bound in the protein's active site. The binding free energy $$\Delta F_{\text{bind}}$$ determines affinity: a drug with $$\Delta F_{\text{bind}} = -10$$ kcal/mol binds $$\sim 10^7$$ times more tightly than one with $$\Delta F_{\text{bind}} = -1$$ kcal/mol (since the equilibrium constant goes as $$K \propto e^{-\beta \Delta F}$$). Binding free energy calculation is the gold standard for computational drug design — pharmaceutical companies routinely use free energy perturbation (FEP) to prioritize candidates before synthesis.[^fep]
 
 [^fep]: FEP is the only computational approach that is both rigorous (grounded in statistical mechanics, not heuristic scoring) and accounts for the entropic costs of binding. Achieving $$\sim$$1 kcal/mol accuracy in $$\Delta\Delta F$$ predictions is considered state-of-the-art.
 
@@ -154,11 +154,11 @@ Two runs give different weights because each MCMC chain follows a different rand
 
 ### Forward and Reverse Path Measures
 
-The **forward path measure** is the joint probability of the entire chain $$(\mathbf{x}_0, \ldots, \mathbf{x}_K)$$:
+The forward path measure is the joint probability of the entire chain $$(\mathbf{x}_0, \ldots, \mathbf{x}_K)$$:
 
 $$\mathcal{P}_F[\mathbf{x}_0, \ldots, \mathbf{x}_K] = p_0(\mathbf{x}_0) \prod_{k=1}^{K} T_k(\mathbf{x}_k \mid \mathbf{x}_{k-1})$$
 
-The **reverse path measure** starts from $$p_K$$ and steps backward:
+The reverse path measure starts from $$p_K$$ and steps backward:
 
 $$\mathcal{P}_R[\mathbf{x}_0, \ldots, \mathbf{x}_K] = p_K(\mathbf{x}_K) \prod_{k=1}^{K} \tilde{T}_k(\mathbf{x}_{k-1} \mid \mathbf{x}_k)$$
 
@@ -212,7 +212,7 @@ Taking logs and applying Jensen's inequality ($$\log \langle w \rangle \geq \lan
 
 $$\langle \log w \rangle_F \leq \log \frac{Z_K}{Z_0}$$
 
-The left side is the **ELBO** — the evidence lower bound. The gap has an information-theoretic interpretation:
+The left side is the ELBO — the evidence lower bound. The gap has an information-theoretic interpretation:
 
 > **ELBO gap = KL divergence.**
 >
@@ -231,7 +231,7 @@ The Jensen bound is tight only when $$\log w$$ is constant across trajectories, 
 
 ## Part 3: Non-Equilibrium Processes and Work
 
-Non-equilibrium physics is a special case of the AIS identities: choose Boltzmann intermediates along a protocol and Langevin dynamics as the transition kernel. This specialization turns the log importance weight into **work**, and the same path-measure ratio becomes the thermodynamic identities derived in the Non-Equilibrium Equalities section.
+Non-equilibrium physics is a special case of the AIS identities: choose Boltzmann intermediates along a protocol and Langevin dynamics as the transition kernel. This specialization turns the log importance weight into work, and the same path-measure ratio becomes the thermodynamic identities derived in the Non-Equilibrium Equalities section.
 
 **Intermediates = Boltzmann distributions along a protocol.** Define a protocol parameter $$\lambda_k$$ interpolating from $$\lambda_0 = 0$$ (state A) to $$\lambda_K = 1$$ (state B), with:
 
@@ -245,7 +245,7 @@ $$\mathbf{x}_{k+1} = \mathbf{x}_k - \nabla U(\mathbf{x}_k, \lambda_k) \Delta t +
 
 $$\log \hat{p}_{k+1}(\mathbf{x}_k) - \log \hat{p}_k(\mathbf{x}_k) = -\beta\bigl[U(\mathbf{x}_k, \lambda_{k+1}) - U(\mathbf{x}_k, \lambda_k)\bigr]$$
 
-So $$\log w = -\beta \sum_{k=0}^{K-1} [U(\mathbf{x}_k, \lambda_{k+1}) - U(\mathbf{x}_k, \lambda_k)]$$. Physicists call this sum the **work**:
+So $$\log w = -\beta \sum_{k=0}^{K-1} [U(\mathbf{x}_k, \lambda_{k+1}) - U(\mathbf{x}_k, \lambda_k)]$$. Physicists call this sum the work:
 
 > **Work (discrete).**
 >
@@ -268,7 +268,7 @@ Now run many independent copies. Each receives different noise, producing differ
 **Quasistatic vs. driven processes.** How fast we run the protocol determines the variance of $$W$$:
 
 - **Quasistatic ($$K \to \infty$$):** The chain equilibrates at every level. Every trajectory gives $$W = \Delta F$$ (equivalently, all weights $$w$$ are equal). Variance is zero, but cost is infinite.
-- **Driven (finite $$K$$):** The chain cannot keep up. On average $$\langle W \rangle > \Delta F$$; the excess is the **dissipated work** $$\langle W_{\text{diss}} \rangle = \langle W \rangle - \Delta F$$. In AIS terms, it is the gap between the ELBO and the true $$\log(Z_K/Z_0)$$.
+- **Driven (finite $$K$$):** The chain cannot keep up. On average $$\langle W \rangle > \Delta F$$; the excess is the dissipated work $$\langle W_{\text{diss}} \rangle = \langle W \rangle - \Delta F$$. In AIS terms, it is the gap between the ELBO and the true $$\log(Z_K/Z_0)$$.
 
 **Notation bridge.** The two notational systems used throughout this post map as follows:
 
@@ -283,11 +283,11 @@ Now run many independent copies. Each receives different noise, producing differ
 
 | AIS identity | Physics name | Statement |
 |---|---|---|
-| Unbiasedness: $$\langle w \rangle = Z_K/Z_0$$ | **Jarzynski's equality** | $$\langle e^{-\beta W} \rangle = e^{-\beta \Delta F}$$ |
-| ELBO: $$\langle \log w \rangle \leq \log(Z_K/Z_0)$$ | **Second law** | $$\langle W \rangle \geq \Delta F$$ |
-| ELBO gap = KL | **Dissipation = KL** | $$\langle W \rangle - \Delta F = (1/\beta) \, D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ |
+| Unbiasedness: $$\langle w \rangle = Z_K/Z_0$$ | Jarzynski's equality | $$\langle e^{-\beta W} \rangle = e^{-\beta \Delta F}$$ |
+| ELBO: $$\langle \log w \rangle \leq \log(Z_K/Z_0)$$ | Second law | $$\langle W \rangle \geq \Delta F$$ |
+| ELBO gap = KL | Dissipation = KL | $$\langle W \rangle - \Delta F = (1/\beta) \, D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ |
 
-The path measure ratio contains more than expectations: it relates the full *distribution* of $$W$$ under the forward and reverse processes. This is **Crooks' fluctuation theorem**, the strongest of the three results, developed fully in Part 5.
+The path measure ratio contains more than expectations: it relates the full *distribution* of $$W$$ under the forward and reverse processes. This is Crooks' fluctuation theorem, the strongest of the three results, developed fully in Part 5.
 
 ---
 
@@ -303,11 +303,11 @@ AIS introduced path measures in discrete time — products of MCMC kernels over 
 
 ### The Path Integral Picture
 
-Physicists have a powerful way to think about path measures: the **Feynman-Kac path integral**. Consider a particle diffusing in a time-dependent potential $$U(\mathbf{x}, \lambda(t))$$. The probability of observing a specific trajectory $$\mathbf{x}(\cdot)$$ is weighted by an exponential of the **action** along that path:
+Physicists have a powerful way to think about path measures: the Feynman-Kac path integral. Consider a particle diffusing in a time-dependent potential $$U(\mathbf{x}, \lambda(t))$$. The probability of observing a specific trajectory $$\mathbf{x}(\cdot)$$ is weighted by an exponential of the action along that path:
 
 $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp\left(-\frac{\beta}{4} \int_0^T \lvert \dot{\mathbf{x}}(t) + \nabla U(\mathbf{x}(t), \lambda(t)) \rvert^2 \, dt\right)$$
 
-This is the **Onsager-Machlup action** for overdamped Langevin dynamics. Each trajectory gets a weight determined by how "surprising" it is: trajectories that follow the force field ($$\dot{\mathbf{x}} \approx -\nabla U$$) have low action and high weight, while trajectories that fight the forces have high action and low weight.[^underdamped]
+This is the Onsager-Machlup action for overdamped Langevin dynamics. Each trajectory gets a weight determined by how "surprising" it is: trajectories that follow the force field ($$\dot{\mathbf{x}} \approx -\nabla U$$) have low action and high weight, while trajectories that fight the forces have high action and low weight.[^underdamped]
 
 [^underdamped]: The underdamped case adds velocity degrees of freedom and a kinetic energy term to the action, but the conceptual structure is the same. Overdamped Langevin is the standard setting for the ML connections because it matches the dynamics used in diffusion models and score-based methods.
 
@@ -331,9 +331,9 @@ The path integral picture gives us a way to *assign weights* to individual traje
 
 ### Why the Path Integral Picture Is Not Enough
 
-The path integral formula $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp(-\text{action})$$ is a powerful heuristic, but it is not rigorous: **there is no uniform measure on continuous path space**. In finite dimensions, $$p(x) \propto e^{-U(x)}$$ makes sense because Lebesgue measure provides the reference. On $$C([0, T]; \mathbb{R}^d)$$, no such flat reference exists — the path integral $$\int \mathcal{D}[\mathbf{x}(\cdot)]$$ is formal notation, not a well-defined integral.[^pathrigorous]
+The path integral formula $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp(-\text{action})$$ is a powerful heuristic, but it is not rigorous: there is no uniform measure on continuous path space. In finite dimensions, $$p(x) \propto e^{-U(x)}$$ makes sense because Lebesgue measure provides the reference. On $$C([0, T]; \mathbb{R}^d)$$, no such flat reference exists — the path integral $$\int \mathcal{D}[\mathbf{x}(\cdot)]$$ is formal notation, not a well-defined integral.[^pathrigorous]
 
-The rigorous approach: never write down an individual path measure's density. Instead, work with **ratios** between path measures. This is the **Radon-Nikodym derivative**.
+The rigorous approach: never write down an individual path measure's density. Instead, work with ratios between path measures. This is the Radon-Nikodym derivative.
 
 [^pathrigorous]: Physicists handle this by discretizing time ($$N$$ Gaussian steps) and taking $$N \to \infty$$. This produces correct results but requires justifying the interchange of limits and integrals — which is subtle and often swept under the rug.
 
@@ -341,7 +341,7 @@ The rigorous approach: never write down an individual path measure's density. In
 
 The key insight is that while individual path measures have no density with respect to a flat reference, two path measures that share the same noise structure *do* have well-defined densities with respect to *each other*. This is the same idea as importance sampling: we don't need $$p(x)$$ and $$q(x)$$ individually — we need their ratio $$p(x)/q(x)$$.
 
-Given two probability measures $$\mathbb{P}$$ and $$\mathbb{Q}$$ on the same space, the **Radon-Nikodym derivative** $$d\mathbb{P}/d\mathbb{Q}$$ is the density of $$\mathbb{P}$$ with respect to $$\mathbb{Q}$$ — the function that reweights $$\mathbb{Q}$$-samples to produce $$\mathbb{P}$$-expectations:
+Given two probability measures $$\mathbb{P}$$ and $$\mathbb{Q}$$ on the same space, the Radon-Nikodym derivative $$d\mathbb{P}/d\mathbb{Q}$$ is the density of $$\mathbb{P}$$ with respect to $$\mathbb{Q}$$ — the function that reweights $$\mathbb{Q}$$-samples to produce $$\mathbb{P}$$-expectations:
 
 $$\mathbb{E}_{\mathbb{P}}[f(X)] = \mathbb{E}_{\mathbb{Q}}\left[\frac{d\mathbb{P}}{d\mathbb{Q}}(X) \cdot f(X)\right]$$
 
@@ -478,7 +478,7 @@ with reference $$\Gamma_0 = \pi_0$$, $$\Gamma_T = \pi_T$$, $$\gamma^+ = \gamma^-
 >
 > $$\ln \frac{\mathcal{P}_F}{\mathcal{P}_R}(X) = -\beta \Delta F + \beta W[X]$$
 >
-> where the **work** is $$W[X] = \int_0^T \frac{\partial U}{\partial \lambda}(X_t, \lambda(t)) \dot{\lambda}(t) \, dt$$ and the **free energy difference** is $$\Delta F = F_T - F_0 = -\frac{1}{\beta} \ln \frac{Z_T}{Z_0}$$.
+> where the work is $$W[X] = \int_0^T \frac{\partial U}{\partial \lambda}(X_t, \lambda(t)) \dot{\lambda}(t) \, dt$$ and the free energy difference is $$\Delta F = F_T - F_0 = -\frac{1}{\beta} \ln \frac{Z_T}{Z_0}$$.
 {: .block-definition }
 
 The general forward-backward RND was given above. This work identity is the result of *specializing* it to the physics setting — choosing the specific drifts $$\pm \nabla U$$ from the non-equilibrium protocol and using the Stratonovich chain rule to collapse the path integrals into the work functional $$W$$ from Part 3.
@@ -545,7 +545,7 @@ $$\left\langle e^{-\beta(W - \Delta F)} \right\rangle_F = 1$$
 Three properties make this remarkable:
 
 1. $$\Delta F$$ is an equilibrium quantity. $$W$$ is measured from non-equilibrium trajectories. The equality holds for *any* protocol.
-2. The **second law** $$\langle W \rangle \geq \Delta F$$ follows from Jensen's inequality: $$e^{-\beta \Delta F} = \langle e^{-\beta W} \rangle \geq e^{-\beta \langle W \rangle}$$.
+2. The second law $$\langle W \rangle \geq \Delta F$$ follows from Jensen's inequality: $$e^{-\beta \Delta F} = \langle e^{-\beta W} \rangle \geq e^{-\beta \langle W \rangle}$$.
 3. The bound is tight only when $$W$$ is constant — the quasistatic limit where every trajectory gives $$W = \Delta F$$.
 
 In AIS terms: $$\langle w \rangle = Z_K/Z_0$$ (unbiasedness), $$\langle \log w \rangle \leq \log(Z_K/Z_0)$$ (the ELBO), and the bound is tight when all importance weights are equal (perfect annealing).
@@ -576,13 +576,13 @@ $$\int e^{-\beta W} P_F(W) \, dW = e^{-\beta \Delta F} \int P_R(-W) \, dW = e^{-
 
 </details>
 
-**Physical intuition.** Trajectories where the forward work is less than $$\Delta F$$ (the system "got lucky") are exponentially rare, but they are *exactly as probable* as the corresponding reverse trajectories where the reverse work exceeds $$\Delta F$$. The crossing point $$P_F(W) = P_R(-W)$$ occurs at $$W = \Delta F$$, giving a graphical method for estimating $$\Delta F$$ — the **Bennett acceptance ratio** (BAR). Shirts et al. showed BAR is the minimum-variance estimator given samples from both directions (<span id="cite-shirts2003"></span>[Shirts et al., 2003](#ref-shirts2003)).
+**Physical intuition.** Trajectories where the forward work is less than $$\Delta F$$ (the system "got lucky") are exponentially rare, but they are *exactly as probable* as the corresponding reverse trajectories where the reverse work exceeds $$\Delta F$$. The crossing point $$P_F(W) = P_R(-W)$$ occurs at $$W = \Delta F$$, giving a graphical method for estimating $$\Delta F$$ — the Bennett acceptance ratio (BAR). Shirts et al. showed BAR is the minimum-variance estimator given samples from both directions (<span id="cite-shirts2003"></span>[Shirts et al., 2003](#ref-shirts2003)).
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pm_crooks_intersection.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Crooks' fluctuation theorem makes the free-energy difference visible as the crossing of \(P_F(W)\) and \(P_R(-W)\). This crossing point is the basis of the Bennett acceptance ratio (BAR) method." %}
 
 ### Dissipation as KL Divergence
 
-From Jarzynski and Jensen, the second law gives $$\langle W \rangle_F \geq \Delta F$$. The gap is the average **dissipated work** $$\langle W_{\text{diss}} \rangle = \langle W \rangle_F - \Delta F$$. This gap has an information-theoretic interpretation:
+From Jarzynski and Jensen, the second law gives $$\langle W \rangle_F \geq \Delta F$$. The gap is the average dissipated work $$\langle W_{\text{diss}} \rangle = \langle W \rangle_F - \Delta F$$. This gap has an information-theoretic interpretation:
 
 > **Dissipated work as KL divergence.**
 >

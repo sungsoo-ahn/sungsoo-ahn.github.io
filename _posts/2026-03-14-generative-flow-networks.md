@@ -28,7 +28,7 @@ Suppose you want to generate a molecule that binds to a target protein. You have
 
 In scientific discovery, diversity is essential. Proxy reward functions are imprecise; the top-scoring molecule under the proxy may fail experimentally. The safer strategy is to cast a wide net: generate many diverse candidates that score well, then filter them in the lab.
 
-GFlowNets address this by sampling objects **proportionally to their reward** (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)). Instead of finding $$x^* = \arg\max_x R(x)$$, a GFlowNet learns a policy that generates $$x$$ with probability proportional to $$\exp R(x)$$. If molecule A has reward 4 and molecule B has reward 2, A is sampled $$e^4 / e^2 \approx 7.4$$ times more often than B, but B is still generated regularly. This is an energy-based (Boltzmann) distribution, the same type that appears in statistical mechanics and Bayesian inference.
+GFlowNets address this by sampling objects proportionally to their reward (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)). Instead of finding $$x^* = \arg\max_x R(x)$$, a GFlowNet learns a policy that generates $$x$$ with probability proportional to $$\exp R(x)$$. If molecule A has reward 4 and molecule B has reward 2, A is sampled $$e^4 / e^2 \approx 7.4$$ times more often than B, but B is still generated regularly. This is an energy-based (Boltzmann) distribution, the same type that appears in statistical mechanics and Bayesian inference.
 
 ## Part I: The Goal
 
@@ -49,7 +49,7 @@ We can evaluate $$R(x)$$ for any given object $$x$$, for example by running a do
 
 MCMC methods such as Metropolis-Hastings, Langevin dynamics, and HMC can sample from $$p^*(x)$$ without knowing $$Z$$, but each run produces a single correlated chain of samples. When we need repeated samples from the same distribution, or from many related distributions, rerunning MCMC from scratch is wasteful.
 
-GFlowNets perform **amortized sampling**: they invest upfront computation to train a neural network (the forward policy), and then sampling is a single forward pass through the network — fast and parallelizable. This is the same idea behind amortized variational inference, where an encoder network replaces per-datapoint optimization. The upfront training cost is large, but inference at deployment time is cheap.
+GFlowNets perform amortized sampling: they invest upfront computation to train a neural network (the forward policy), and then sampling is a single forward pass through the network — fast and parallelizable. This is the same idea behind amortized variational inference, where an encoder network replaces per-datapoint optimization. The upfront training cost is large, but inference at deployment time is cheap.
 
 In probabilistic-ML terms, GFlowNets are amortized MCMC for combinatorial spaces: train once, sample forever, with the learned policy replacing the Markov chain.
 
@@ -72,7 +72,7 @@ Maximum entropy RL comes closer — it augments the reward with an entropy bonus
 
 GFlowNets construct objects step by step, like assembling a molecule atom by atom. The construction process is represented as a directed acyclic graph (DAG): a graph with directed edges and no cycles, so every path eventually terminates. The DAG has three types of nodes:
 
-- A single **initial state** $$s_0$$, such as an empty molecule.
+- A single initial state $$s_0$$, such as an empty molecule.
 - **Intermediate states** represent partially constructed objects (e.g., a molecule with some atoms added).
 - **Terminal states** $$x \in \mathcal{X}$$ are the completed objects.
 
@@ -84,7 +84,7 @@ Each edge $$(s_{t-1}, s_t)$$ in the DAG represents an action, such as adding an 
 
 ### Forward Policy
 
-The **forward policy** $$p_\mathrm{F}(s_t \mid s_{t-1})$$ is a learned distribution over next states given the current state — a neural network that looks at the current partial object and decides what to add next. A **trajectory** $$\tau = (s_0, s_1, \ldots, s_T = x)$$ is a complete path from the initial state to a terminal state. Its probability is the product of all transition probabilities along the path:
+The forward policy $$p_\mathrm{F}(s_t \mid s_{t-1})$$ is a learned distribution over next states given the current state — a neural network that looks at the current partial object and decides what to add next. A trajectory $$\tau = (s_0, s_1, \ldots, s_T = x)$$ is a complete path from the initial state to a terminal state. Its probability is the product of all transition probabilities along the path:
 
 $$p_\mathrm{F}(\tau) = \prod_{t=1}^{T} p_\mathrm{F}(s_t \mid s_{t-1})$$
 
@@ -100,11 +100,11 @@ where $$\mathcal{T}(x)$$ is the set of all trajectories that terminate at $$x$$.
 
 We want $$p_\mathrm{F}(x) \approx p^*(x)$$ for every object $$x$$, but computing $$p_\mathrm{F}(x)$$ requires summing over all trajectories $$\mathcal{T}(x)$$. For a molecule with 20 atoms, the number of construction orders can be astronomically large, making this sum intractable.
 
-GFlowNets sidestep this by replacing **object-level matching** with **trajectory-level matching**. Instead of asking whether the probability of each object $$x$$ matches $$p^*(x)$$, we ask whether each trajectory under the forward policy matches a target trajectory distribution. If trajectory probabilities match, object probabilities match automatically: $$p_\mathrm{F}(x) = \sum_\tau p_\mathrm{F}(\tau)$$, so matching each trajectory also matches the sum.
+GFlowNets sidestep this by replacing object-level matching with trajectory-level matching. Instead of asking whether the probability of each object $$x$$ matches $$p^*(x)$$, we ask whether each trajectory under the forward policy matches a target trajectory distribution. If trajectory probabilities match, object probabilities match automatically: $$p_\mathrm{F}(x) = \sum_\tau p_\mathrm{F}(\tau)$$, so matching each trajectory also matches the sum.
 
 ### Backward Policy
 
-To define a target distribution over trajectories, we need a way to decompose each terminal object $$x$$ into a trajectory. The **backward policy** $$p_\mathrm{B}(s_{t-1} \mid s_t)$$ does this: given a state, it assigns probabilities to its parent states in the DAG. Starting from a terminal state $$x$$ and repeatedly sampling parents, we trace a path back to the initial state $$s_0$$ — a trajectory in reverse.
+To define a target distribution over trajectories, we need a way to decompose each terminal object $$x$$ into a trajectory. The backward policy $$p_\mathrm{B}(s_{t-1} \mid s_t)$$ does this: given a state, it assigns probabilities to its parent states in the DAG. Starting from a terminal state $$x$$ and repeatedly sampling parents, we trace a path back to the initial state $$s_0$$ — a trajectory in reverse.
 
 The backward policy, combined with the reward, defines the target distribution over trajectories:
 
@@ -130,11 +130,11 @@ What if the backward policy is non-uniform? Suppose $$x_2$$ has two parents $$s_
 
 We want $$p_\mathrm{F}(\tau) \approx p_\mathrm{B}(\tau)$$, but $$p_\mathrm{B}(\tau)$$ is defined only up to a normalizing constant, the $$\propto$$ in the equation above. We do not know the partition function $$Z$$, so we cannot compute the actual probability $$p_\mathrm{B}(\tau)$$.
 
-The solution is to work with **unnormalized densities** instead of probabilities. We multiply both sides by their respective normalizing constants and match the unnormalized quantities directly:
+The solution is to work with unnormalized densities instead of probabilities. We multiply both sides by their respective normalizing constants and match the unnormalized quantities directly:
 
 $$f_\mathrm{F}(\tau) = Z_\theta \prod_{t=1}^{T} p_\mathrm{F}(s_t \mid s_{t-1}) \approx \exp R(x) \prod_{t=1}^{T} p_\mathrm{B}(s_{t-1} \mid s_t) = f_\mathrm{B}(\tau)$$
 
-Here $$Z_\theta$$ is a trainable scalar, the model's estimate of the partition function. The left side $$f_\mathrm{F}(\tau)$$ is the forward flow (unnormalized forward probability), and the right side $$f_\mathrm{B}(\tau)$$ is the backward flow (unnormalized backward probability). These trajectory-wise unnormalized densities are called **flows**, hence the name Generative *Flow* Network.
+Here $$Z_\theta$$ is a trainable scalar, the model's estimate of the partition function. The left side $$f_\mathrm{F}(\tau)$$ is the forward flow (unnormalized forward probability), and the right side $$f_\mathrm{B}(\tau)$$ is the backward flow (unnormalized backward probability). These trajectory-wise unnormalized densities are called flows, hence the name Generative *Flow* Network.
 
 ---
 
@@ -163,7 +163,7 @@ TB applies to entire trajectories, which can be long. The detailed balance objec
 >
 > $$\mathcal{L}_\mathrm{DB}(s_{t-1}, s_t) = \left(\log \frac{f_\theta(s_{t-1}) \, p_\mathrm{F}(s_t \mid s_{t-1})}{f_\theta(s_t) \, p_\mathrm{B}(s_{t-1} \mid s_t)}\right)^2$$
 >
-> where $$f_\theta(s)$$ is a learned **state flow** — the total flow through state $$s$$. Boundary conditions: $$f_\theta(s_0) = Z_\theta$$ and $$f_\theta(x) = \exp R(x)$$ for terminal states.
+> where $$f_\theta(s)$$ is a learned state flow — the total flow through state $$s$$. Boundary conditions: $$f_\theta(s_0) = Z_\theta$$ and $$f_\theta(x) = \exp R(x)$$ for terminal states.
 {: .block-definition }
 
 DB provides local credit assignment: each transition gets its own loss signal, so early transitions receive direct feedback rather than waiting for the terminal reward. The trade-off is that the model must learn the state flow function $$f_\theta(s)$$, an additional neural network that estimates how much total flow passes through each intermediate state.
@@ -185,7 +185,7 @@ In practice, SubTB sums losses over all sub-trajectories of all lengths within a
 
 ### Flow Matching
 
-An alternative to the balance conditions is **flow matching** (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper ([Bengio et al., 2021](#ref-bengio2021)). It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
+An alternative to the balance conditions is flow matching (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper ([Bengio et al., 2021](#ref-bengio2021)). It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
 
 ### Why These Objectives Are Surprisingly Easy to Optimize
 
@@ -207,9 +207,9 @@ GFlowNet training follows an RL-style loop:
 2. **Store** these trajectories in a replay buffer $$\mathcal{B}$$.
 3. **Train** the forward policy on a batch $$\{\tau^{(b)}\}_{b=1}^{B_2}$$ sampled from the replay buffer, minimizing $$\mathcal{L}_\mathrm{TB}$$, $$\mathcal{L}_\mathrm{DB}$$, or $$\mathcal{L}_\mathrm{SubTB}$$.
 
-This is an **off-policy** algorithm: training uses replayed trajectories, not only fresh ones. "Off-policy" means the trajectories used for training were not necessarily generated by the current policy; they may come from an earlier version stored in the replay buffer. Replay matters because reward evaluation is often expensive, such as docking simulations that take seconds per molecule. Replaying past trajectories extracts more learning signal per reward evaluation.
+This is an off-policy algorithm: training uses replayed trajectories, not only fresh ones. "Off-policy" means the trajectories used for training were not necessarily generated by the current policy; they may come from an earlier version stored in the replay buffer. Replay matters because reward evaluation is often expensive, such as docking simulations that take seconds per molecule. Replaying past trajectories extracts more learning signal per reward evaluation.
 
-In practice, most implementations mix **on-policy** samples (fresh trajectories from the current $$p_\mathrm{F}$$) with replayed trajectories. The on-policy samples ensure the model keeps exploring new regions of the DAG, while the replay buffer provides a stable training distribution and prevents the model from forgetting high-reward regions it discovered earlier.
+In practice, most implementations mix on-policy samples (fresh trajectories from the current $$p_\mathrm{F}$$) with replayed trajectories. The on-policy samples ensure the model keeps exploring new regions of the DAG, while the replay buffer provides a stable training distribution and prevents the model from forgetting high-reward regions it discovered earlier.
 
 ### Exploration
 
