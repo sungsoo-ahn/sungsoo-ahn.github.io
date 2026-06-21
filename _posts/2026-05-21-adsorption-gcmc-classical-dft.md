@@ -49,7 +49,7 @@ The adsorption problem is an open-system equilibrium problem. A porous material 
 
 The post builds this picture in four steps. The Adsorption Problem section defines uptake, density, and the grand canonical boundary condition. The GCMC section explains the particle sampler. The Classical DFT section explains the density variational problem and fixed-point equation. The final sections explain why unnormalized density fields are a better ML target than scalar uptake alone.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views describe the same adsorption equilibrium with different representations. GCMC estimates uptake and density by averaging explicit particle samples, while cDFT optimizes the density field directly." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views of adsorption equilibrium. GCMC samples particle configurations in the grand canonical ensemble, then averages those samples into uptake or a density field. cDFT solves directly for the equilibrium density by fixed-point iteration. Adapted from internal manuscript materials on multi-fidelity adsorbate density learning." %}
 
 ---
 

@@ -1,5 +1,8 @@
 """
 Generate figures for the adsorption / GCMC / classical DFT blog post.
+
+The particle-density overview is a restored PNG from the original post and is
+intentionally not regenerated here.
 """
 
 from html import escape
@@ -454,8 +457,6 @@ def generate_cdft_fixed_point_figure(output_path):
 if __name__ == "__main__":
     output_dir = Path("assets/img/blog")
     output_dir.mkdir(parents=True, exist_ok=True)
-
-    generate_particle_density_overview(output_dir / "adsorption_gcmc_cdft_particle_density.svg")
 
     for ext in ("svg", "png"):
         generate_gcmc_moves_figure(output_dir / f"adsorption_gcmc_cdft_moves.{ext}")
