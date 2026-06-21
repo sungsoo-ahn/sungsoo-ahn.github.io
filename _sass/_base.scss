@@ -1974,6 +1974,11 @@ article {
 }
 
 .blog-post {
+  strong,
+  b {
+    font-weight: inherit;
+  }
+
   .post-header,
   .blog-post-block,
   .post-content {
