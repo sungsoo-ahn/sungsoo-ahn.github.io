@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
 authors: ["Sungsoo Ahn"]
@@ -38,7 +38,7 @@ AIS is a random process. Two runs give different importance weights because each
 
 On average, $$\langle w \rangle = Z_B/Z_A$$ (the estimator is unbiased), but Jensen's inequality gives $$\langle \log w \rangle \leq \log(Z_B/Z_A)$$ — an evidence lower bound (ELBO) that is always loose when the chain hasn't equilibrated. The gap equals the KL divergence between forward and reverse chain distributions (Part 2 derives this).
 
-When we specialize AIS to physics — choosing Boltzmann distributions as intermediates and Langevin dynamics as the MCMC kernel — the log importance weight becomes the **work** $$W$$, the energy cost of driving the system from state A to state B (Part 3 defines this precisely). In this language, the unbiasedness of AIS is **Jarzynski's equality** (1997):
+When we specialize AIS to physics — choosing Boltzmann distributions as intermediates and Langevin dynamics as the MCMC kernel — the log importance weight becomes the **work** $$W$$, the energy cost of driving the system from state A to state B (Part 3 defines this precisely). In this language, the unbiasedness of AIS is **Jarzynski's equality** (<span id="cite-jarzynski1997"></span>[Jarzynski, 1997](#ref-jarzynski1997)):
 
 $$\langle e^{-\beta W} \rangle = e^{-\beta \Delta F}$$
 
@@ -119,7 +119,7 @@ The free energy difference between states A and B is:
 > where $$Z_A = \int e^{-\beta U_A(\mathbf{x})} \, d\mathbf{x}$$ and $$Z_B = \int e^{-\beta U_B(\mathbf{x})} \, d\mathbf{x}$$.
 {: .block-definition }
 
-Computing $$Z_A$$ and $$Z_B$$ individually is intractable, but their *ratio* can in principle be estimated by rewriting it as an expectation under one endpoint's distribution. Zwanzig (1954) showed how:
+Computing $$Z_A$$ and $$Z_B$$ individually is intractable, but their *ratio* can in principle be estimated by rewriting it as an expectation under one endpoint's distribution. Zwanzig showed how (<span id="cite-zwanzig1954"></span>[Zwanzig, 1954](#ref-zwanzig1954)):
 
 > **Zwanzig's identity (free energy perturbation).**
 >
@@ -138,7 +138,7 @@ The core problem: we need a bridge between A and B that doesn't require direct o
 
 ## Part 2: The AIS Framework
 
-AIS fixes the overlap problem from direct free-energy comparison by bridging states A and B through intermediate distributions. Neighboring distributions overlap even when the endpoints do not. The resulting forward and reverse path measures yield three identities; in the physics specialization, these become Jarzynski's equality, Crooks' fluctuation theorem, and the second law.
+AIS (<span id="cite-neal2001"></span>[Neal, 2001](#ref-neal2001)) fixes the overlap problem from direct free-energy comparison by bridging states A and B through intermediate distributions. Neighboring distributions overlap even when the endpoints do not. The resulting forward and reverse path measures yield three identities; in the physics specialization, these become Jarzynski's equality, Crooks' fluctuation theorem, and the second law.
 
 ### The AIS Setup
 
@@ -394,7 +394,7 @@ Girsanov compares two *forward* processes, SDEs running in the same direction wi
 
 ### Forward-Backward SDEs
 
-Girsanov's theorem compares two processes running in the *same* direction — two forward SDEs with different drifts. But we need to compare processes running in *opposite* directions: the forward protocol (A $$\to$$ B) against the reverse protocol (B $$\to$$ A). This requires pairing a forward Itô SDE with a backward Itô SDE, which introduces a new notational distinction (forward vs. backward integration). We adopt the notation from Vargas et al. (2024):
+Girsanov's theorem compares two processes running in the *same* direction — two forward SDEs with different drifts. But we need to compare processes running in *opposite* directions: the forward protocol (A $$\to$$ B) against the reverse protocol (B $$\to$$ A). This requires pairing a forward Itô SDE with a backward Itô SDE, which introduces a new notational distinction (forward vs. backward integration). We adopt the notation from <span id="cite-vargas2024"></span>[Vargas et al., 2024](#ref-vargas2024):
 
 > **Forward-backward SDEs.**
 >
@@ -438,7 +438,7 @@ This generalizes Girsanov's theorem. The proof applies Girsanov twice — once f
 
 ### Nelson's Relation: When the RND Is Trivial
 
-A natural question: when does the forward-backward RND equal 1 (i.e., the two path measures are identical)? Nelson (1967) gave the answer:
+A natural question: when does the forward-backward RND equal 1 (i.e., the two path measures are identical)? Nelson gave the answer (<span id="cite-nelson1967"></span>[Nelson, 1967](#ref-nelson1967)):
 
 > **Nelson's relation.** $$\fwd{\mathbb{P}}^{\mu, a} = \bwd{\mathbb{P}}^{\nu, b}$$ if and only if $$\nu = \fwd{\mathbb{P}}^{\mu, a}_T$$ and
 >
@@ -556,7 +556,7 @@ In AIS terms: $$\langle w \rangle = Z_K/Z_0$$ (unbiasedness), $$\langle \log w \
 
 The path measure ratio relates the *entire distribution* of work, not only its expectations. For a given work value $$W$$, group all trajectories that produce that value:
 
-> **Crooks' fluctuation theorem (Crooks, 1999).**
+> **Crooks' fluctuation theorem (<span id="cite-crooks1999"></span>[Crooks, 1999](#ref-crooks1999)).**
 >
 > $$\frac{P_F(W)}{P_R(-W)} = e^{\beta(W - \Delta F)}$$
 >
@@ -576,7 +576,7 @@ $$\int e^{-\beta W} P_F(W) \, dW = e^{-\beta \Delta F} \int P_R(-W) \, dW = e^{-
 
 </details>
 
-**Physical intuition.** Trajectories where the forward work is less than $$\Delta F$$ (the system "got lucky") are exponentially rare, but they are *exactly as probable* as the corresponding reverse trajectories where the reverse work exceeds $$\Delta F$$. The crossing point $$P_F(W) = P_R(-W)$$ occurs at $$W = \Delta F$$, giving a graphical method for estimating $$\Delta F$$ — the **Bennett acceptance ratio** (BAR). Shirts et al. (2003) showed BAR is the minimum-variance estimator given samples from both directions.
+**Physical intuition.** Trajectories where the forward work is less than $$\Delta F$$ (the system "got lucky") are exponentially rare, but they are *exactly as probable* as the corresponding reverse trajectories where the reverse work exceeds $$\Delta F$$. The crossing point $$P_F(W) = P_R(-W)$$ occurs at $$W = \Delta F$$, giving a graphical method for estimating $$\Delta F$$ — the **Bennett acceptance ratio** (BAR). Shirts et al. showed BAR is the minimum-variance estimator given samples from both directions (<span id="cite-shirts2003"></span>[Shirts et al., 2003](#ref-shirts2003)).
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pm_crooks_intersection.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Crooks' fluctuation theorem makes the free-energy difference visible as the crossing of \(P_F(W)\) and \(P_R(-W)\). This crossing point is the basis of the Bennett acceptance ratio (BAR) method." %}
 
@@ -591,7 +591,7 @@ From Jarzynski and Jensen, the second law gives $$\langle W \rangle_F \geq \Delt
 > The average work wasted beyond the free energy difference equals (up to temperature) the KL divergence between the forward and reverse path measures. Reversible processes (zero dissipation) have $$\mathcal{P}_F = \mathcal{P}_R$$.
 {: .block-definition }
 
-This is the ELBO gap identity from Part 2 in physics notation:
+This is the ELBO gap identity from Part 2 in physics notation. The same information-geometric view also underlies thermodynamic metric and optimal-protocol results (<span id="cite-sivak2012"></span>[Sivak & Crooks, 2012](#ref-sivak2012)):
 
 $$D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R) = \left\langle \ln \frac{\mathcal{P}_F}{\mathcal{P}_R} \right\rangle_F = \left\langle \beta(W - \Delta F) \right\rangle_F = \beta \langle W_{\text{diss}} \rangle$$
 
@@ -601,7 +601,7 @@ Irreversibility equals information loss, measured as KL divergence between forwa
 
 ## Part 6: Connections to Generative Models
 
-The AIS-Jarzynski connection has been the throughline of this post since Part 2. The same path-measure language also helps read diffusion models and GFlowNets. A diffusion model has a forward noising path measure and a learned reverse denoising path measure; its variational loss can be read as a KL between those path measures. A GFlowNet has a forward construction path measure and a backward deconstruction path measure; trajectory balance asks their ratio to match the terminal reward up to the partition function.
+The AIS-Jarzynski connection has been the throughline of this post since Part 2. The same path-measure language also helps read diffusion models and GFlowNets. A diffusion model has a forward noising path measure and a learned reverse denoising path measure; its variational loss can be read as a KL between those path measures. A GFlowNet (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)) has a forward construction path measure and a backward deconstruction path measure; trajectory balance (<span id="cite-malkin2022"></span>[Malkin et al., 2022](#ref-malkin2022)) asks their ratio to match the terminal reward up to the partition function.
 
 The diagnostic is the same in all three cases: how different are the forward and reverse path measures? In AIS this appears as loose importance weights, in diffusion models as the gap between the learned reverse process and the true reverse process, and in GFlowNets as variance in the trajectory-balance log-ratio. The physics language turns several generative-model objectives into one question about reversibility and dissipation.
 
@@ -617,20 +617,16 @@ Ask what path distribution the algorithm samples and how far it is from the reve
 
 ## References
 
-- C. Jarzynski, "Nonequilibrium equality for free energy differences," *Physical Review Letters*, 1997.
-- G. E. Crooks, "Entropy production fluctuation theorem and the nonequilibrium work relation for free energy differences," *Physical Review E*, 1999.
-- R. M. Neal, "Annealed importance sampling," *Statistics and Computing*, 2001.
-- R. W. Zwanzig, "High-temperature equation of state by a perturbation method," *Journal of Chemical Physics*, 1954.
-- E. Nelson, *Dynamical Theories of Brownian Motion*, Princeton University Press, 1967.
-- M. R. Shirts, E. Bair, G. Hooker, and V. S. Pande, "Equilibrium free energies from nonequilibrium measurements using maximum-likelihood methods," *Physical Review Letters*, 2003.
-- D. A. Sivak and G. E. Crooks, "Thermodynamic metrics and optimal paths," *Physical Review Letters*, 2012.
-- F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. ([arXiv:2307.01050](https://arxiv.org/abs/2307.01050))
-- E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021.
-- N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *ICML*, 2022.
-
-### Figure sources
-
-- Path-measure diagrams (`pm_boltzmann_overlap.svg`, `pm_alternating_steps.svg`, `pm_work_trajectories.svg`, `pm_crooks_intersection.svg`): custom explanatory figures generated by `scripts/generate_path_measures_figures.py` with SVG+PNG outputs and the shared blog figure style.
+- <span id="ref-jarzynski1997"></span>C. Jarzynski, "Nonequilibrium equality for free energy differences," *Physical Review Letters*, 1997. [DOI](https://doi.org/10.1103/PhysRevLett.78.2690). <a href="#cite-jarzynski1997" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-crooks1999"></span>G. E. Crooks, "Entropy production fluctuation theorem and the nonequilibrium work relation for free energy differences," *Physical Review E*, 1999. [DOI](https://doi.org/10.1103/PhysRevE.60.2721). <a href="#cite-crooks1999" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-neal2001"></span>R. M. Neal, "Annealed importance sampling," *Statistics and Computing*, 2001. [DOI](https://doi.org/10.1023/A:1008923215028). <a href="#cite-neal2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-zwanzig1954"></span>R. W. Zwanzig, "High-temperature equation of state by a perturbation method," *Journal of Chemical Physics*, 1954. [DOI](https://doi.org/10.1063/1.1740409). <a href="#cite-zwanzig1954" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-nelson1967"></span>E. Nelson, *Dynamical Theories of Brownian Motion*, Princeton University Press, 1967. [PDF](https://web.math.princeton.edu/~nelson/books/bmotion.pdf). <a href="#cite-nelson1967" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-shirts2003"></span>M. R. Shirts, E. Bair, G. Hooker, and V. S. Pande, "Equilibrium free energies from nonequilibrium measurements using maximum-likelihood methods," *Physical Review Letters*, 2003. [DOI](https://doi.org/10.1103/PhysRevLett.91.140601). <a href="#cite-shirts2003" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-sivak2012"></span>D. A. Sivak and G. E. Crooks, "Thermodynamic metrics and optimal paths," *Physical Review Letters*, 2012. [DOI](https://doi.org/10.1103/PhysRevLett.108.190602). <a href="#cite-sivak2012" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-vargas2024"></span>F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. [arXiv:2307.01050](https://arxiv.org/abs/2307.01050). <a href="#cite-vargas2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-bengio2021"></span>E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021. [NeurIPS](https://proceedings.neurips.cc/paper/2021/hash/e614f646836aaed9f89ce58e837e2310-Abstract.html). <a href="#cite-bengio2021" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-malkin2022"></span>N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *NeurIPS*, 2022. [arXiv:2201.13259](https://arxiv.org/abs/2201.13259). <a href="#cite-malkin2022" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 

@@ -13,7 +13,7 @@ Create publication-quality blog figures. Treat figures as explanatory objects, n
 - Prefer stable, license-compatible sources: Wikimedia Commons, official project pages, PMC/open-access paper figures, or author-provided figures with clear terms.
 - Do not redraw standard concepts such as amino acid charts, protein structure hierarchy, AlphaFold/RFDiffusion/ProteinMPNN overview figures, or canonical architecture diagrams when a clear licensed source exists.
 - Draw a custom figure only when the post needs a new abstraction, a simplified toy plot, a synthesis across sources, or a figure whose existing versions are legally unusable or visually unsuitable.
-- Record source URL, license, asset path, and any modifications in the post's Figure Sources section or figure manifest.
+- Record source URL, license, asset path, and any modifications in agent-facing notes, a figure-generation script, or a figure manifest. Do not add a rendered source appendix to the post body.
 
 ## Image-Generation Rule
 
@@ -68,7 +68,7 @@ Inside `{% include figure.liquid %}` captions, use `\(...\)` for math, not `$...
 
 1. Decide source vs draw using the source-first rule.
 2. For sourced figures, download the original/highest useful resolution and document provenance.
-3. For image-generated physical schematics, generate a no-text base image, save it into `assets/img/blog/`, then add labels/callouts in SVG coordinates. Record the final prompt in the figure script, manifest, or Figure Sources section.
+3. For image-generated physical schematics, generate a no-text base image, save it into `assets/img/blog/`, then add labels/callouts in SVG coordinates. Record the final prompt in the figure script, manifest, or agent-facing notes.
 4. For code-generated figures, write or update the figure script and save SVG+PNG with `bfs.save_svg_png(...)` or `bfs.save_figure(...)`.
 5. Render/check PNG previews at blog width.
 6. Inspect for label collisions, arrow crossings, readable text, semantic colors, and non-default styling.

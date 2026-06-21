@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -20,7 +20,7 @@ published: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post introduces heterogeneous electrocatalysis — the problem setting that motivates large-scale catalyst design efforts like the Open Catalyst project. The first half follows <a href="https://arxiv.org/abs/2010.09435">Zitnick et al. (2020)</a>, which covers the energy storage problem, the Sabatier principle, and the idealized metal-surface picture. The second half draws on <a href="https://arxiv.org/abs/2206.08917">Tran et al. (2023)</a> and <a href="https://arxiv.org/abs/2509.17862">Shuaibi et al. (2025)</a> to explain why real catalysts — oxides, disordered materials, surfaces in liquid — are far more complex. I wrote this as a bridge between my previous posts on <a href="/blog/2026/quantum-chemistry-dft/">DFT</a> and <a href="/blog/2026/spherical-equivariant-layers/">equivariant GNNs</a>, and the application domain where these methods have the most impact. Corrections are welcome.</em>
+<em>Note: This post introduces heterogeneous electrocatalysis — the problem setting that motivates large-scale catalyst design efforts like the Open Catalyst project. The first half follows <span id="cite-zitnick2020"></span><a href="#ref-zitnick2020">Zitnick et al. (2020)</a>, which covers the energy storage problem, the Sabatier principle, and the idealized metal-surface picture. The second half draws on <span id="cite-tran2023"></span><a href="#ref-tran2023">Tran et al. (2023)</a> and <span id="cite-shuaibi2025"></span><a href="#ref-shuaibi2025">Shuaibi et al. (2025)</a> to explain why real catalysts — oxides, disordered materials, surfaces in liquid — are far more complex. I wrote this as a bridge between my previous posts on <a href="/blog/2026/quantum-chemistry-dft/">DFT</a> and <a href="/blog/2026/spherical-equivariant-layers/">equivariant GNNs</a>, and the application domain where these methods have the most impact. Corrections are welcome.</em>
 </p>
 
 ## Introduction
@@ -29,7 +29,7 @@ The design problem is to find a catalyst[^catalyst] material that achieves a tar
 
 This matters because the Sabatier principle says the best catalyst binds intermediates[^intermediate] at a specific strength: not too strongly, not too weakly. Scaling relations reduce the problem further. In many reaction families, one number, the adsorption energy of a key intermediate, largely determines catalyst performance. Theory identifies the optimal value; the open question is which material achieves it.
 
-The search space is too large for exhaustive DFT. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
+The search space is too large for exhaustive DFT. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. The OC20 benchmark made this scale concrete for machine learning (<span id="cite-chanussot2021"></span>[Chanussot et al., 2021](#ref-chanussot2021)). Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
 
 For ML, the problem is direct: learn a surrogate from material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why the problem matters.
 
@@ -45,7 +45,7 @@ Several storage technologies exist, each with trade-offs:
 - **Batteries:** 60–95% round-trip efficiency, but cost-prohibitive at the scale needed for multi-day or seasonal storage. Lithium-ion costs have fallen dramatically, yet storing a full day of U.S. electricity demand (~11 TWh) in batteries remains economically impractical.
 - **Hydrogen energy storage (HES):** Use excess electricity to split water (electrolysis),[^electrolysis] store the hydrogen, and convert it back to electricity in a fuel cell[^fuelcell] when needed. Round-trip efficiency is lower (~35%), but hydrogen can be stored in bulk at low cost — underground caverns, pressurized tanks, or converted to methane for existing natural gas infrastructure.
 
-The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint. At grid scale, the relevant quantity is the total cost of stored energy. Zitnick et al. (2020) estimate HES at 113 USD/MWh, competitive with batteries for multi-day storage because cheap bulk hydrogen storage can offset the efficiency loss.
+The efficiency gap is real: HES wastes roughly two-thirds of the input energy.[^heseff] But efficiency is not the only constraint. At grid scale, the relevant quantity is the total cost of stored energy. [Zitnick et al. (2020)](#ref-zitnick2020) estimate HES at 113 USD/MWh, competitive with batteries for multi-day storage because cheap bulk hydrogen storage can offset the efficiency loss.
 
 The bottleneck is not storage capacity. It is the **catalyst**. Both the electrolyzer (splitting water) and the fuel cell (recombining hydrogen with oxygen) require electrocatalysts[^electrocatalyst] to drive their reactions at practical rates. The dominant catalyst is platinum, which is scarce and expensive. Reducing or replacing platinum is the key to making HES economically viable.
 
@@ -73,7 +73,7 @@ Platinum is the best-known catalyst for both the hydrogen oxidation reaction at 
 
 Cost and scarcity dominate:
 
-- Platinum accounts for over **40% of fuel cell capital costs** when including the support structures needed for adequate power density (Zitnick et al., 2020).
+- Platinum accounts for over **40% of fuel cell capital costs** when including the support structures needed for adequate power density ([Zitnick et al., 2020](#ref-zitnick2020)).
 - To supply 35 TWh/day of electricity via HES would require ~2,000 metric tons of platinum. Known world reserves are ~70,000 metric tons.[^ptreserves]
 - A survey of automotive fuel cell experts found that **76% identified platinum cost** as the primary barrier to reducing fuel cell costs.
 
@@ -134,7 +134,7 @@ Combining these: as adsorption energy becomes more negative (stronger binding), 
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_volcano_plot.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="650px" zoomable=true caption="Volcano plot for the ORR. Catalytic activity (log scale) vs. oxygen adsorption energy. Platinum and palladium sit near the peak. Metals to the left (Fe, W, Ni) bind too strongly; metals to the right (Ag, Au) bind too weakly. The two branches correspond to different rate-limiting steps. Adapted from Nørskov et al. (2004), as presented in Zitnick et al. (2020)." %}
 
-The volcano plot is the central organizing principle of electrocatalysis. It reduces catalyst discovery to a one-dimensional search: find a material whose adsorption energy places it at the volcano peak. Theory gives the optimal value; materials discovery asks which structure achieves it.
+The volcano plot is the central organizing principle of electrocatalysis. The ORR version traces back to the overpotential analysis of <span id="cite-norskov2004"></span>[Nørskov et al. (2004)](#ref-norskov2004), and the broader computational-design program is laid out in <span id="cite-norskov2009"></span>[Nørskov et al. (2009)](#ref-norskov2009). It reduces catalyst discovery to a one-dimensional search: find a material whose adsorption energy places it at the volcano peak. Theory gives the optimal value; materials discovery asks which structure achieves it.
 
 ---
 
@@ -243,7 +243,7 @@ Many high-performing electrocatalysts lack long-range crystalline order. Amorpho
 
 **Surface reconstruction under operating conditions** compounds the difficulty. Atoms migrate, oxidation states change, and the electrochemically active phase may differ from the as-synthesized material. Oxide surfaces are particularly prone to reconstruction: partial dissolution by the solvent creates vacancy defects, and applied potential can rearrange the surface. The structure being modeled is not necessarily the structure that catalyzes.
 
-Oxides also exhibit **magnetic polymorphism**: the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties (Tran et al., 2023).
+Oxides also exhibit **magnetic polymorphism**: the same crystal structure can have different magnetic configurations (ferromagnetic, antiferromagnetic, nonmagnetic), each with different surface energies and adsorption properties ([Tran et al., 2023](#ref-tran2023)).
 
 In semiconducting oxides, **charge self-compensation** adds another failure mode. When vacancies or dopants perturb the electron count, the surface can thermodynamically prefer to reconstruct — breaking or forming bonds — rather than promote electrons into the conduction band. A vacancy on one side of a slab can trigger geometric rearrangement on the other side, an effect that is long-ranged and difficult to capture with local models.
 
@@ -253,7 +253,7 @@ The linear scaling relations that simplify catalyst screening on metals (the $$\
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_scaling.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Scaling relations on oxide surfaces. (A) OOH* vs OH* binding energies. (B) O* vs OH* binding energies. Red points: OC22 dataset (oxides). Blue points: literature values. The linear correlations still exist but with larger scatter (R² ≈ 0.6–0.8) and higher MAE compared to metals. On materials with diverse site types — high-entropy alloys, doped carbons, amorphous oxides — the correlations weaken further. Adapted from Tran et al. (2023)." %}
 
-Tran et al. (2023) find that the linear correlations persist on oxides, with slopes within 0.15 eV of literature values for metals, but with substantially more scatter (R$$^2$$ ≈ 0.6 for $$*$$OOH vs. $$*$$OH, compared to >0.9 on metals). The increased scatter makes the one-dimensional volcano picture less predictive: two oxides with similar $$\Delta G_{*\text{OH}}$$ can have meaningfully different $$\Delta G_{*\text{OOH}}$$ values. On more disordered materials, such as high-entropy alloys and amorphous oxides, the correlations are expected to weaken further, making single-descriptor screening unreliable.
+[Tran et al. (2023)](#ref-tran2023) find that the linear correlations persist on oxides, with slopes within 0.15 eV of literature values for metals, but with substantially more scatter (R$$^2$$ ≈ 0.6 for $$*$$OOH vs. $$*$$OH, compared to >0.9 on metals). The increased scatter makes the one-dimensional volcano picture less predictive: two oxides with similar $$\Delta G_{*\text{OH}}$$ can have meaningfully different $$\Delta G_{*\text{OOH}}$$ values. On more disordered materials, such as high-entropy alloys and amorphous oxides, the correlations are expected to weaken further, making single-descriptor screening unreliable.
 
 When scaling relations break down, the full multidimensional binding-energy space re-emerges. Each intermediate must be evaluated independently, and the tractable one-dimensional search becomes a high-dimensional optimization problem: precisely the setting where learned surrogates have the most to contribute.
 
@@ -261,9 +261,9 @@ When scaling relations break down, the full multidimensional binding-energy spac
 
 ## Machine Learning for Catalyst Discovery
 
-The search problem is now clear: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge space, when each DFT relaxation can take hours or days. ML changes the arithmetic. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (Lan et al., 2023) relax many candidate placements before validating only a small top-$$k$$ set with DFT.
+The search problem is now clear: find a catalyst whose adsorption energy sits near the useful part of the volcano, inside a huge space, when each DFT relaxation can take hours or days. ML changes the arithmetic. Machine-learning interatomic potentials (MLIPs)[^mlip] replace many DFT evaluations with fast energy-and-force predictions, and screening workflows such as AdsorbML (<span id="cite-lan2023"></span>[Lan et al., 2023](#ref-lan2023)) relax many candidate placements before validating only a small top-$$k$$ set with DFT.
 
-Generation tries to skip part of enumerate-then-filter, but a catalyst is not a free molecule. The slab, surface orientation, adsorbate, and binding pose are coupled; changing one part can change the rest. In our group, CatFlow (Kim et al., 2026) targets this joint-generation problem. The hard part remains the surface-adsorbate coupling described above.
+Generation tries to skip part of enumerate-then-filter, but a catalyst is not a free molecule. The slab, surface orientation, adsorbate, and binding pose are coupled; changing one part can change the rest. In our group, CatFlow (<span id="cite-kim2026"></span>[Kim et al., 2026](#ref-kim2026)) targets this joint-generation problem. The hard part remains the surface-adsorbate coupling described above.
 
 ### Open Challenges
 
@@ -277,21 +277,14 @@ Several gaps remain between current ML capabilities and practical catalyst disco
 
 ## References
 
-- Zitnick, C. L., Chanussot, L., Das, A., Goyal, S., Heras-Domingo, J., Ho, C., ... & Ulissi, Z. W. (2020). An introduction to electrocatalyst design using machine learning for renewable energy storage. *arXiv preprint arXiv:2010.09435*.
-- Chanussot, L., Das, A., Goyal, S., Lavril, T., Shuaibi, M., Riviere, M., ... & Zitnick, C. L. (2021). Open Catalyst 2020 (OC20) dataset and community challenges. *ACS Catalysis*, 11(10), 6059-6072.
-- Nørskov, J. K., Rossmeisl, J., Logadottir, A., Lindqvist, L., Kitchin, J. R., Bligaard, T., & Jónsson, H. (2004). Origin of the overpotential for oxygen reduction at a fuel-cell cathode. *J. Phys. Chem. B*, 108(46), 17886-17892.
-- Nørskov, J. K., Bligaard, T., Rossmeisl, J., & Christensen, C. H. (2009). Towards the computational design of solid catalysts. *Nature Chemistry*, 1, 37-46.
-- Tran, R., Lan, J., Shuaibi, M., Wood, B. M., Goyal, S., Das, A., ... & Zitnick, C. L. (2023). The Open Catalyst 2022 (OC22) dataset and challenges for oxide electrocatalysts. *ACS Catalysis*, 13(5), 3066-3084.
-- Shuaibi, M., Choubisa, H., Engel, M., Wood, B. M., Musielewicz, J., Comer, B., ... & Zitnick, C. L. (2025). Open Catalyst 2025 (OC25): dataset and models for the solid-liquid interface. *arXiv preprint arXiv:2509.17862*.
-- Lan, J., Palizhati, A., Shuaibi, M., Wood, B. M., Wander, B., Das, A., ... & Zitnick, C. L. (2023). AdsorbML: a leap in efficiency for adsorption energy calculations using generalizable machine learning potentials. *npj Computational Materials*, 9, 172.
-- Kim, M., Kim, N., Kim, H., & Ahn, S. (2026). CatFlow: co-generation of slab-adsorbate systems via flow matching. *arXiv preprint arXiv:2602.05372*.
-
-### Figure sources
-
-- Renewable-storage and OC20 figures (`ec_duck_curve.png`, `ec_adsorption_types.png`, `ec_catalyst_surface.png`, `ec_catalyst_types.png`, `ec_miller_indices.png`, `ec_adsorbates.png`): adapted from Zitnick et al. (2020), [arXiv:2010.09435](https://arxiv.org/abs/2010.09435). The downloaded/cropped raster figures were resized for blog readability.
-- Custom electrocatalysis diagrams (`ec_energy_cycle.svg`, `ec_fuel_cell.svg`, `ec_activation_energy.svg`, `ec_gibbs_energy.svg`, `ec_volcano_plot.svg`, `ec_scaling_relations.svg`, `ec_oer_workflow.svg`): generated by `scripts/generate_electrocatalysis_figures.py` with SVG and PNG outputs. The cycle, fuel-cell, and OER workflow figures are native SVG schematics with sparse labels; the quantitative energy and volcano plots use Matplotlib with the shared blog style. The conceptual layouts are adapted from Zitnick et al. (2020), Nørskov et al. (2004), and Tran et al. (2023), as noted in the captions.
-- OC22 oxide figures (`ec_oxide_terminations.png`, `ec_oxide_adsorbates.jpg`, `ec_oxide_scaling.png`): adapted from Tran et al. (2023), [arXiv:2206.08917](https://arxiv.org/abs/2206.08917). Connected dark margins were flood-filled to white where needed so the figures read cleanly on the blog page.
-- OC25 solid-liquid overview (`ec_solid_liquid_overview.png`): adapted from Shuaibi et al. (2025), [arXiv:2509.17862](https://arxiv.org/abs/2509.17862).
+- <span id="ref-zitnick2020"></span>Zitnick, C. L., Chanussot, L., Das, A., Goyal, S., Heras-Domingo, J., Ho, C., ... & Ulissi, Z. W. (2020). An introduction to electrocatalyst design using machine learning for renewable energy storage. [arXiv:2010.09435](https://arxiv.org/abs/2010.09435). <a href="#cite-zitnick2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-chanussot2021"></span>Chanussot, L., Das, A., Goyal, S., Lavril, T., Shuaibi, M., Riviere, M., ... & Zitnick, C. L. (2021). Open Catalyst 2020 (OC20) dataset and community challenges. *ACS Catalysis, 11*(10), 6059-6072. [DOI](https://doi.org/10.1021/acscatal.0c04525). <a href="#cite-chanussot2021" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-norskov2004"></span>Nørskov, J. K., Rossmeisl, J., Logadottir, A., Lindqvist, L., Kitchin, J. R., Bligaard, T. & Jónsson, H. (2004). Origin of the overpotential for oxygen reduction at a fuel-cell cathode. *J. Phys. Chem. B, 108*(46), 17886-17892. [DOI](https://doi.org/10.1021/jp047349j). <a href="#cite-norskov2004" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-norskov2009"></span>Nørskov, J. K., Bligaard, T., Rossmeisl, J. & Christensen, C. H. (2009). Towards the computational design of solid catalysts. *Nature Chemistry, 1*, 37-46. [DOI](https://doi.org/10.1038/nchem.121). <a href="#cite-norskov2009" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tran2023"></span>Tran, R., Lan, J., Shuaibi, M., Wood, B. M., Goyal, S., Das, A., ... & Zitnick, C. L. (2023). The Open Catalyst 2022 (OC22) dataset and challenges for oxide electrocatalysts. *ACS Catalysis, 13*(5), 3066-3084. [arXiv:2206.08917](https://arxiv.org/abs/2206.08917). <a href="#cite-tran2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-shuaibi2025"></span>Shuaibi, M., Choubisa, H., Engel, M., Wood, B. M., Musielewicz, J., Comer, B., ... & Zitnick, C. L. (2025). Open Catalyst 2025 (OC25): dataset and models for the solid-liquid interface. [arXiv:2509.17862](https://arxiv.org/abs/2509.17862). <a href="#cite-shuaibi2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-lan2023"></span>Lan, J., Palizhati, A., Shuaibi, M., Wood, B. M., Wander, B., Das, A., ... & Zitnick, C. L. (2023). AdsorbML: a leap in efficiency for adsorption energy calculations using generalizable machine learning potentials. *npj Computational Materials, 9*, 172. [arXiv:2211.16486](https://arxiv.org/abs/2211.16486). <a href="#cite-lan2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2026"></span>Kim, M., Kim, N., Kim, H. & Ahn, S. (2026). CatFlow: co-generation of slab-adsorbate systems via flow matching. [arXiv:2602.05372](https://arxiv.org/abs/2602.05372). <a href="#cite-kim2026" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -25,6 +25,7 @@ related_posts: false
 ## Introduction
 
 Molecular dynamics is easy to describe and hard to use. You have atoms, a potential energy function, and Newton's equations. Integrate the equations for long enough, and the trajectory should tell you how the molecule moves.
+For background on molecular simulation, see <span id="cite-frenkel2001"></span>[Frenkel & Smit, 2001](#ref-frenkel2001) and <span id="cite-tuckerman2010"></span>[Tuckerman, 2010](#ref-tuckerman2010).
 
 The phrase "long enough" hides the entire problem.
 
@@ -149,7 +150,7 @@ CV discovery is therefore not ordinary dimensionality reduction. PCA finds high-
 
 ## Umbrella Sampling
 
-Umbrella sampling is the cleanest CV-based method. Choose windows centered at different CV values $$s_1, \ldots, s_K$$. In window $$k$$, add a harmonic bias:
+Umbrella sampling is the cleanest CV-based method (<span id="cite-torrie1977"></span>[Torrie & Valleau, 1977](#ref-torrie1977)). Choose windows centered at different CV values $$s_1, \ldots, s_K$$. In window $$k$$, add a harmonic bias:
 
 $$V_k(\mathbf{x}) = \frac{1}{2}\kappa(\xi(\mathbf{x}) - s_k)^2$$
 
@@ -169,7 +170,7 @@ The weakness is that umbrella sampling requires planning. You need a CV, window 
 
 ## Metadynamics
 
-Metadynamics automates part of this process. Instead of fixing windows ahead of time, it builds a history-dependent bias during the simulation.
+Metadynamics automates part of this process (<span id="cite-laio2002"></span>[Laio & Parrinello, 2002](#ref-laio2002)). Instead of fixing windows ahead of time, it builds a history-dependent bias during the simulation.
 
 At time $$t$$, suppose the current CV value is $$s_t = \xi(\mathbf{x}_t)$$. Metadynamics deposits a small Gaussian hill centered at $$s_t$$:
 
@@ -183,7 +184,7 @@ In ordinary metadynamics, the accumulated bias approaches:
 
 $$V(s) \approx -F(s)$$
 
-up to an additive constant. In well-tempered metadynamics, the hill heights decay so the bias approaches a scaled version of $$-F(s)$$. This improves stability and makes reweighting better behaved.
+up to an additive constant. In well-tempered metadynamics (<span id="cite-barducci2008"></span>[Barducci et al., 2008](#ref-barducci2008)), the hill heights decay so the bias approaches a scaled version of $$-F(s)$$. This improves stability and makes reweighting better behaved.
 
 Metadynamics is popular because it is intuitive: fill the holes until the landscape is flat. It also exposes the central dependency of enhanced sampling. If the CV is good, metadynamics can turn impossible transitions into routine ones. If the CV is bad, it confidently fills the wrong landscape.
 
@@ -195,7 +196,7 @@ Steered molecular dynamics (SMD) pulls the system along a CV according to a sche
 
 $$V(\mathbf{x}, t) = \frac{1}{2}\kappa(\xi(\mathbf{x}) - s(t))^2$$
 
-This creates non-equilibrium trajectories. The work done by the moving restraint can be used with Jarzynski's equality:
+This creates non-equilibrium trajectories. The work done by the moving restraint can be used with Jarzynski's equality (<span id="cite-jarzynski1997"></span>[Jarzynski, 1997](#ref-jarzynski1997)):
 
 $$\left\langle e^{-\beta W} \right\rangle = e^{-\beta \Delta F}$$
 
@@ -207,9 +208,9 @@ Modern rare-event methods try to learn better proposals for this reason. We do n
 
 ## Where ML Enters
 
-ML enters in two places. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. In our group, BioEmu-CV learns such CVs from a biomolecular ensemble generator using a time-lagged objective. The goal is not to replace enhanced sampling. It is to provide a better coordinate for methods such as OPES or steered MD.
+ML enters in two places. The first is to **learn the CV**: train a neural network coordinate $$s = \xi(\mathbf{x})$$ that preserves slow dynamics, separates metastable states, or approximates committor-like information. Time-lagged objectives for slow molecular coordinates have a long history (<span id="cite-perez2013"></span>[Perez-Hernandez et al., 2013](#ref-perez2013)). In our group, BioEmu-CV (<span id="cite-park2025"></span>[Park et al., 2025](#ref-park2025)) learns such CVs from a biomolecular ensemble generator. The goal is not to replace enhanced sampling. It is to provide a better coordinate for methods such as OPES or steered MD.
 
-The second entry point is to **learn the path bias directly**. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler. These projects illustrate the two design choices above: learn where to bias, or learn the path-level bias itself.
+The second entry point is to **learn the path bias directly**. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler (<span id="cite-seong2024"></span>[Seong et al., 2024](#ref-seong2024)). These projects illustrate the two design choices above: learn where to bias, or learn the path-level bias itself.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/md_sampling_method_map.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Classical enhanced sampling asks where to apply a bias and how to undo it. ML can enter by learning the collective variable for CV-based methods or by learning a path-level bias directly. The path-measure view connects both directions to Jarzynski, AIS, diffusion models, and trajectory objectives." %}
 
@@ -254,18 +255,12 @@ The ML opportunity is larger than faster MD: change the sampling distribution wh
 
 ## References
 
-- Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
-- Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
-- Torrie, G. M. & Valleau, J. P. (1977). Nonphysical sampling distributions in Monte Carlo free-energy estimation: umbrella sampling. [J. Comput. Phys. 23, 187](https://doi.org/10.1016/0021-9991(77)90121-8).
-- Laio, A. & Parrinello, M. (2002). Escaping free-energy minima. [PNAS 99, 12562](https://doi.org/10.1073/pnas.202427399).
-- Barducci, A., Bussi, G. & Parrinello, M. (2008). Well-tempered metadynamics: a smoothly converging and tunable free-energy method. [Phys. Rev. Lett. 100, 020603](https://doi.org/10.1103/PhysRevLett.100.020603).
-- Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. [Phys. Rev. Lett. 78, 2690](https://doi.org/10.1103/PhysRevLett.78.2690).
-- Perez-Hernandez, G. et al. (2013). Identification of slow molecular order parameters for Markov model construction. [J. Chem. Phys. 139, 015102](https://doi.org/10.1063/1.4811489).
-- Seong, K., Park, S., Kim, S., Kim, W. Y. & Ahn, S. (2024). Transition Path Sampling with Improved Off-Policy Training of Diffusion Path Samplers. [arXiv:2405.19961](https://arxiv.org/abs/2405.19961).
-- Park, S., Seong, K., Yang, S., Gomez-Bombarelli, R. & Ahn, S. (2025). Learning Collective Variables for Enhanced Sampling from BioEmu with Time-Lagged Generation. [arXiv:2507.07390](http://arxiv.org/abs/2507.07390).
-
-### Figure sources
-
-- Enhanced-sampling diagrams (`md_metastability_bias.svg`, `md_cv_metadynamics.svg`, `md_sampling_method_map.svg`): custom explanatory figures generated by `scripts/generate_md_sampling_figures.py` with SVG+PNG outputs and the shared blog figure style.
-- Double-well umbrella figure (`md_double_well_umbrella.svg`): custom Matplotlib figure generated by `scripts/generate_md_sampling_figures.py`; the heatmap layers are rasterized inside the SVG so axes, labels, and annotations remain editable without a large contour-path dump.
-- MD animations (`md_alanine_dipeptide_cvs.gif`, `md_umbrella_sweep.gif`, `md_unbiased_dynamics.gif`, `md_biased_dynamics.gif`): custom GIFs generated by `scripts/generate_md_sampling_figures.py`; the double-well landscape is adapted from the TPS-DPS synthetic example in Seong et al. (2024).
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-torrie1977"></span>Torrie, G. M. & Valleau, J. P. (1977). Nonphysical sampling distributions in Monte Carlo free-energy estimation: umbrella sampling. [J. Comput. Phys. 23, 187](https://doi.org/10.1016/0021-9991(77)90121-8). <a href="#cite-torrie1977" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-laio2002"></span>Laio, A. & Parrinello, M. (2002). Escaping free-energy minima. [PNAS 99, 12562](https://doi.org/10.1073/pnas.202427399). <a href="#cite-laio2002" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-barducci2008"></span>Barducci, A., Bussi, G. & Parrinello, M. (2008). Well-tempered metadynamics: a smoothly converging and tunable free-energy method. [Phys. Rev. Lett. 100, 020603](https://doi.org/10.1103/PhysRevLett.100.020603). <a href="#cite-barducci2008" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-jarzynski1997"></span>Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. [Phys. Rev. Lett. 78, 2690](https://doi.org/10.1103/PhysRevLett.78.2690). <a href="#cite-jarzynski1997" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-perez2013"></span>Perez-Hernandez, G. et al. (2013). Identification of slow molecular order parameters for Markov model construction. [J. Chem. Phys. 139, 015102](https://doi.org/10.1063/1.4811489). <a href="#cite-perez2013" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-seong2024"></span>Seong, K., Park, S., Kim, S., Kim, W. Y. & Ahn, S. (2024). Transition Path Sampling with Improved Off-Policy Training of Diffusion Path Samplers. [arXiv:2405.19961](https://arxiv.org/abs/2405.19961). <a href="#cite-seong2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-park2025"></span>Park, S., Seong, K., Yang, S., Gomez-Bombarelli, R. & Ahn, S. (2025). Learning Collective Variables for Enhanced Sampling from BioEmu with Time-Lagged Generation. [arXiv:2507.07390](https://arxiv.org/abs/2507.07390). <a href="#cite-park2025" class="reversefootnote" role="doc-backlink">↩</a>

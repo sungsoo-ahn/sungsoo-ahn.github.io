@@ -78,7 +78,7 @@ Posts begin with an author note immediately after the frontmatter:
 - Draw custom figures only for post-specific conceptual simplifications, quantitative toy plots, synthesis diagrams, or cases where existing figures are legally unusable or visually unsuitable.
 - For generated static figures, write a single Python script with separate functions per figure and export SVG plus PNG preview.
 - If the SVG becomes a huge path dump for 3D surfaces, dense contours, raster-like heatmaps, or image composites, embed the PNG preview instead and keep the source code.
-- For sourced figures, keep the original useful format and document source URL, license, and any modifications in the Figure Sources section.
+- For sourced figures, keep the original useful format and document source URL, license, and any modifications in agent-facing notes, figure-generation scripts, or asset metadata. Do not add a rendered figure-source appendix to the post body.
 - Use a consistent color palette across generated figures with matching text colors for equation-figure correspondence.
 - Captions should usually have two sentences: one saying what the figure shows, one explaining the mechanism or interpretation. Add concise provenance wording for sourced or adapted figures.
 - Embed figures using the Liquid include:
