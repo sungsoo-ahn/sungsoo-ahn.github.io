@@ -3,6 +3,8 @@
 Generated blog figures are SVG-first.  Matplotlib scripts should save an
 editable SVG plus a PNG preview, while sourced internet figures should keep
 their original format and provenance.
+
+Official palette: docs/palette.md and _data/palette.yml.
 """
 
 from __future__ import annotations
@@ -15,34 +17,34 @@ import matplotlib.pyplot as plt
 
 
 TEXT = "#231533"
-MUTED = "#665a75"
-GRID = "#e4ddec"
-SPINE = "#c8bbd8"
+MUTED = "#665A75"
+GRID = "#E4DDEC"
+SPINE = "#C8BBD8"
 
-PURPLE = "#7a53ec"
-PURPLE_STRONG = "#5b3a8c"
-PURPLE_SOFT = "#f6f2fa"
-PURPLE_LIGHT = "#f2edff"
+PURPLE = "#7A53EC"
+PURPLE_STRONG = "#5B3A8C"
+PURPLE_SOFT = "#F6F2FA"
+PURPLE_LIGHT = "#F2EDFF"
 
 # Purple-led semantic palette.  Keep the older color names as public aliases
 # because the figure scripts use them for semantic roles such as "blue curve"
 # or "red loss"; the hues are tuned to sit cleanly beside the site purple.
-BLUE = "#5f6ed8"
-BLUE_LIGHT = "#eef0ff"
-AMBER = "#b7791f"
-AMBER_LIGHT = "#fff4dc"
-TEAL = "#16877f"
-TEAL_LIGHT = "#e4f4f2"
-RED = "#c7506b"
-RED_LIGHT = "#fce8ee"
-GREEN = "#3c8f63"
-GREEN_LIGHT = "#e5f3ea"
+BLUE = "#5F6ED8"
+BLUE_LIGHT = "#EEF0FF"
+AMBER = "#B7791F"
+AMBER_LIGHT = "#FFF4DC"
+TEAL = "#16877F"
+TEAL_LIGHT = "#E4F4F2"
+RED = "#C7506B"
+RED_LIGHT = "#FCE8EE"
+GREEN = "#3C8F63"
+GREEN_LIGHT = "#E5F3EA"
 VIOLET = PURPLE
 VIOLET_DARK = PURPLE_STRONG
 VIOLET_LIGHT = PURPLE_LIGHT
 ROSE = RED
 ROSE_LIGHT = RED_LIGHT
-NEUTRAL = "#b9aec7"
+NEUTRAL = "#B9AEC7"
 
 
 def use_blog_style() -> None:
