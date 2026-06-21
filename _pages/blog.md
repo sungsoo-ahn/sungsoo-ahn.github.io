@@ -9,16 +9,15 @@ pagination:
 ---
 
   <div class="publications blog-index">
-    <h1>Blogs</h1>
-    <p class="blog-index-note">
-      Research updates, tutorials, and technical notes from SPML Lab for ML researchers entering scientific domains. Many posts contain AI-generated draft text, edits, or figures; the listed authors decide what to incorporate, verify the technical content, and take responsibility for the final text.
-    </p>
-
     {% assign postlist = site.posts | sort: "date" | reverse %}
     {% assign research_count = site.posts | where: "post_type", "research" | size %}
     {% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
     {% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
 
+    <h1>SPML Lab Blog</h1>
+    <p class="blog-index-note">
+      Research updates, tutorials, and technical notes from SPML Lab for ML researchers entering scientific domains.
+    </p>
     <div class="blog-type-summary" aria-label="Blog post types">
       <span>Post types</span>
       <span>Research {{ research_count }}</span>
