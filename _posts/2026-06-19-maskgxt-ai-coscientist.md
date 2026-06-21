@@ -186,18 +186,6 @@ requirements, so MaskGXT includes five extra mechanisms.
 
 ## Our take: where co-scientist loops are useful
 
-### Start with one problem, not all of science
-
-We think the usual question---“Can AI autonomously do science?”---is too broad to
-guide research practice. A more useful question is: which part of a current
-problem can be converted into a closed loop of proposal, implementation,
-evaluation, and revision?
-
-MaskGXT is a narrower result: CSP already had code, data, and a meaningful
-score, so the loop could compare many candidate methods without redefining the
-problem each time. We would start with bottlenecks that already have this
-structure.
-
 ### Evaluation infrastructure matters
 
 We suspect AI co-scientist workflows are strongest when evaluation is fast enough
@@ -215,18 +203,6 @@ models.
 For MaskGXT, validation METRe gave the search tree a useful pressure signal: weak
 branches were discarded, and the MaskGIT lineage kept absorbing crystal-specific
 mechanisms.
-
-### Co-scientist loops can give humans more room to be novel
-
-Current AI systems are strong at exploiting and combining existing ideas. In this
-project, the loop implemented unfamiliar methods, debugged interactions, ran
-ablations, and searched through many combinations faster than a human researcher
-could.
-
-That changes where human attention goes. Humans can spend more time on unusual
-abstractions, cross-domain hypotheses, and new objectives, while the
-co-scientist loop tests whether those ideas survive implementation and
-evaluation.
 
 ### The human role may shift toward goal and loop design
 
