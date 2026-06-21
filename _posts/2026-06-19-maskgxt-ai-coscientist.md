@@ -14,7 +14,7 @@ related_posts: false
 published: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>A vision model that predicts crystals.</strong> An AI co-scientist carries a masked-prediction idea across domains: from filling in masked patches of an image (left, the vision world of MaskGIT) to filling in the sites of a crystal lattice (right, the materials world of crystal structure prediction)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>An AI co-scientist discovers a new CSP algorithm.</strong> The co-scientist transferred MaskGIT's masked-generation idea from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
 AI co-scientists may be ready to change deep learning research. In our recent
 work, we show that a human–AI co-scientist loop can produce a state-of-the-art
