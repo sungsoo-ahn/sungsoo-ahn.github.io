@@ -123,7 +123,9 @@ For a molecular example, alanine dipeptide is the standard toy system. Its backb
 
 $$s(\mathbf{x}) = (\phi(\mathbf{x}), \psi(\mathbf{x}))$$
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The two backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) summarize the conformation; the moving point shows the same frame in Ramachandran space." %}
+The contrast matters: a CV is not just any low-dimensional projection. Random atom coordinates can be low-dimensional but still fail to organize the slow states you care about.
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) give a useful Ramachandran CV, while an arbitrary projection of hydrogen Cartesian coordinates shows what a poor CV can look like." %}
 
 The free energy along the CV is:
 
