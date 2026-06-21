@@ -19,7 +19,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This post connects non-equilibrium statistical mechanics and generative modeling: AIS, diffusion models, and GFlowNet trajectory balance can all be read through the same forward/reverse path-measure ratio. The continuous-time view follows <a href="https://arxiv.org/abs/2307.01050">Controlled Monte Carlo Diffusions</a> (CMCD, Vargas et al., 2024), and the connection became concrete for me through work from our group on <a href="https://arxiv.org/abs/2405.19961">transition path sampling with diffusion models</a>.</em>
+<em>Note: This post connects non-equilibrium statistical mechanics and generative modeling: AIS, diffusion models, and GFlowNet trajectory balance can all be read through the same forward/reverse path-measure ratio. The continuous-time view follows <a href="https://openreview.net/forum?id=PP1rudnxiW">Controlled Monte Carlo Diffusions</a> (CMCD, Vargas et al., 2024), and the connection became concrete for me through work from our group on <a href="https://openreview.net/forum?id=WQV9kB1qSU">transition path sampling with diffusion models</a>.</em>
 </p>
 
 ## Introduction
@@ -624,9 +624,9 @@ Ask what path distribution the algorithm samples and how far it is from the reve
 - <span id="ref-nelson1967"></span>E. Nelson, *Dynamical Theories of Brownian Motion*, Princeton University Press, 1967. [PDF](https://web.math.princeton.edu/~nelson/books/bmotion.pdf). <a href="#cite-nelson1967" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-shirts2003"></span>M. R. Shirts, E. Bair, G. Hooker, and V. S. Pande, "Equilibrium free energies from nonequilibrium measurements using maximum-likelihood methods," *Physical Review Letters*, 2003. [DOI](https://doi.org/10.1103/PhysRevLett.91.140601). <a href="#cite-shirts2003" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-sivak2012"></span>D. A. Sivak and G. E. Crooks, "Thermodynamic metrics and optimal paths," *Physical Review Letters*, 2012. [DOI](https://doi.org/10.1103/PhysRevLett.108.190602). <a href="#cite-sivak2012" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-vargas2024"></span>F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. [arXiv:2307.01050](https://arxiv.org/abs/2307.01050). <a href="#cite-vargas2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-vargas2024"></span>F. Vargas, S. Padhy, D. Blessing, and N. Nüsken, "Transport meets variational inference: Controlled Monte Carlo Diffusions," *ICLR*, 2024. [ICLR 2024](https://openreview.net/forum?id=PP1rudnxiW). <a href="#cite-vargas2024" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-bengio2021"></span>E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021. [NeurIPS](https://proceedings.neurips.cc/paper/2021/hash/e614f646836aaed9f89ce58e837e2310-Abstract.html). <a href="#cite-bengio2021" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-malkin2022"></span>N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *NeurIPS*, 2022. [arXiv:2201.13259](https://arxiv.org/abs/2201.13259). <a href="#cite-malkin2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-malkin2022"></span>N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *NeurIPS*, 2022. [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2022/hash/27b51baca8377a0cf109f6ecc15a0f70-Abstract-Conference.html). <a href="#cite-malkin2022" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 
