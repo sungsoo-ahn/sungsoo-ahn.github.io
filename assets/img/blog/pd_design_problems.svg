@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-20T21:49:02.951452</dc:date>
+    <dc:date>2026-06-21T18:21:11.687094</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -32,25 +32,25 @@ z
    <g id="patch_2">
     <path d="M 86.193976 60.520934 
 Q 86.193976 60.959789 86.193976 59.60979 
-" clip-path="url(#pcb426951e8)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p9c78ec680e)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 88.993976 54.00979 
 L 86.193976 59.60979 
 L 83.393976 54.00979 
 z
-" clip-path="url(#pcb426951e8)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p9c78ec680e)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="patch_3">
     <path d="M 86.193976 89.046536 
 Q 86.193976 89.485392 86.193976 88.135393 
-" clip-path="url(#pcb426951e8)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p9c78ec680e)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 88.993976 82.535393 
 L 86.193976 88.135393 
 L 83.393976 82.535393 
 z
-" clip-path="url(#pcb426951e8)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p9c78ec680e)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #5b7fa5" x="86.193976" y="19.387968" transform="rotate(-0 86.193976 19.387968)">Forward Folding</text>
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #7a53ec" x="86.193976" y="19.387968" transform="rotate(-0 86.193976 19.387968)">Forward Folding</text>
    </g>
    <g id="patch_4">
     <path d="M 49.439834 58.326657 
@@ -63,7 +63,7 @@ Q 46.806702 35.067319 46.806702 37.700452
 L 46.806702 55.693524 
 Q 46.806702 58.326657 49.439834 58.326657 
 z
-" clip-path="url(#pcb426951e8)" style="fill: #dce8f4; stroke: #5b7fa5; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p9c78ec680e)" style="fill: #f2edff; stroke: #7a53ec; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 49.439834 86.852259 
@@ -76,7 +76,7 @@ Q 46.806702 63.592922 46.806702 66.226054
 L 46.806702 84.219127 
 Q 46.806702 86.852259 49.439834 86.852259 
 z
-" clip-path="url(#pcb426951e8)" style="fill: #e8eaf6; stroke: #5c6bc0; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p9c78ec680e)" style="fill: #eef0ff; stroke: #5f6ed8; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 49.439834 115.377861 
@@ -89,42 +89,42 @@ Q 46.806702 92.118524 46.806702 94.751657
 L 46.806702 112.744729 
 Q 46.806702 115.377861 49.439834 115.377861 
 z
-" clip-path="url(#pcb426951e8)" style="fill: #e0f2e9; stroke: #4caf50; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p9c78ec680e)" style="fill: #e5f3ea; stroke: #3c8f63; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="86.193976" y="49.562363" transform="rotate(-0 86.193976 49.562363)">Sequence</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="86.193976" y="49.562363" transform="rotate(-0 86.193976 49.562363)">Sequence</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="86.193976" y="78.022153" transform="rotate(-0 86.193976 78.022153)">AlphaFold</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="86.193976" y="78.022153" transform="rotate(-0 86.193976 78.022153)">AlphaFold</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(79.291257 100.843837)">3D</text>
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(62.789195 112.251674)">structure</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(79.291257 100.843837)">3D</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(62.789195 112.251674)">structure</text>
    </g>
   </g>
   <g id="axes_2">
    <g id="patch_7">
     <path d="M 269.46 60.520934 
 Q 269.46 60.959789 269.46 59.60979 
-" clip-path="url(#pdb69f51d3a)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 272.26 54.00979 
 L 269.46 59.60979 
 L 266.66 54.00979 
 z
-" clip-path="url(#pdb69f51d3a)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="patch_8">
     <path d="M 269.46 89.046536 
 Q 269.46 89.485392 269.46 88.135393 
-" clip-path="url(#pdb69f51d3a)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 272.26 82.535393 
 L 269.46 88.135393 
 L 266.66 82.535393 
 z
-" clip-path="url(#pdb69f51d3a)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #e8a030" x="269.46" y="19.387968" transform="rotate(-0 269.46 19.387968)">Inverse Folding</text>
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #b7791f" x="269.46" y="19.387968" transform="rotate(-0 269.46 19.387968)">Inverse Folding</text>
    </g>
    <g id="patch_9">
     <path d="M 232.705858 58.326657 
@@ -137,7 +137,7 @@ Q 230.072726 35.067319 230.072726 37.700452
 L 230.072726 55.693524 
 Q 230.072726 58.326657 232.705858 58.326657 
 z
-" clip-path="url(#pdb69f51d3a)" style="fill: #e0f2e9; stroke: #4caf50; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: #e5f3ea; stroke: #3c8f63; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
     <path d="M 232.705858 86.852259 
@@ -150,7 +150,7 @@ Q 230.072726 63.592922 230.072726 66.226054
 L 230.072726 84.219127 
 Q 230.072726 86.852259 232.705858 86.852259 
 z
-" clip-path="url(#pdb69f51d3a)" style="fill: #e8eaf6; stroke: #5c6bc0; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: #eef0ff; stroke: #5f6ed8; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
     <path d="M 232.705858 115.377861 
@@ -163,41 +163,41 @@ Q 230.072726 92.118524 230.072726 94.751657
 L 230.072726 112.744729 
 Q 230.072726 115.377861 232.705858 115.377861 
 z
-" clip-path="url(#pdb69f51d3a)" style="fill: #dce8f4; stroke: #5b7fa5; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p1d88a28b4b)" style="fill: #f2edff; stroke: #7a53ec; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="text_6">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="269.46" y="49.49655" transform="rotate(-0 269.46 49.49655)">Backbone</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="269.46" y="49.49655" transform="rotate(-0 269.46 49.49655)">Backbone</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="269.46" y="78.022153" transform="rotate(-0 269.46 78.022153)">ProteinMPNN</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="269.46" y="78.022153" transform="rotate(-0 269.46 78.022153)">ProteinMPNN</text>
    </g>
    <g id="text_8">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="269.46" y="106.613568" transform="rotate(-0 269.46 106.613568)">Sequence</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="269.46" y="106.613568" transform="rotate(-0 269.46 106.613568)">Sequence</text>
    </g>
   </g>
   <g id="axes_3">
    <g id="patch_12">
     <path d="M 452.726024 60.520934 
 Q 452.726024 60.959789 452.726024 59.60979 
-" clip-path="url(#p01fc7a685c)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p112198f945)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 455.526024 54.00979 
 L 452.726024 59.60979 
 L 449.926024 54.00979 
 z
-" clip-path="url(#p01fc7a685c)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p112198f945)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
     <path d="M 452.726024 89.046536 
 Q 452.726024 89.485392 452.726024 88.135393 
-" clip-path="url(#p01fc7a685c)" style="fill: none; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p112198f945)" style="fill: none; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 455.526024 82.535393 
 L 452.726024 88.135393 
 L 449.926024 82.535393 
 z
-" clip-path="url(#p01fc7a685c)" style="fill: #455a64; stroke: #455a64; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p112198f945)" style="fill: #665a75; stroke: #665a75; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="text_9">
-    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #5c6bc0" x="452.726024" y="19.476562" transform="rotate(-0 452.726024 19.476562)">De Novo Generation</text>
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial'; text-anchor: middle; fill: #5f6ed8" x="452.726024" y="19.476562" transform="rotate(-0 452.726024 19.476562)">De Novo Generation</text>
    </g>
    <g id="patch_14">
     <path d="M 415.971883 58.326657 
@@ -210,7 +210,7 @@ Q 413.33875 35.067319 413.33875 37.700452
 L 413.33875 55.693524 
 Q 413.33875 58.326657 415.971883 58.326657 
 z
-" clip-path="url(#p01fc7a685c)" style="fill: #fff3e0; stroke: #e8a030; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p112198f945)" style="fill: #fff4dc; stroke: #b7791f; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_15">
     <path d="M 415.971883 86.852259 
@@ -223,7 +223,7 @@ Q 413.33875 63.592922 413.33875 66.226054
 L 413.33875 84.219127 
 Q 413.33875 86.852259 415.971883 86.852259 
 z
-" clip-path="url(#p01fc7a685c)" style="fill: #e8eaf6; stroke: #5c6bc0; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p112198f945)" style="fill: #eef0ff; stroke: #5f6ed8; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_16">
     <path d="M 415.971883 115.377861 
@@ -236,29 +236,29 @@ Q 413.33875 92.118524 413.33875 94.751657
 L 413.33875 112.744729 
 Q 413.33875 115.377861 415.971883 115.377861 
 z
-" clip-path="url(#p01fc7a685c)" style="fill: #e0f2e9; stroke: #4caf50; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p112198f945)" style="fill: #e5f3ea; stroke: #3c8f63; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="text_10">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(425.430712 43.792632)">Functional</text>
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(440.419087 55.200469)">spec</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(425.430712 43.792632)">Functional</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(440.419087 55.200469)">spec</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #263238" x="452.726024" y="78.022153" transform="rotate(-0 452.726024 78.022153)">RFDiffusion</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; text-anchor: middle; fill: #231533" x="452.726024" y="78.022153" transform="rotate(-0 452.726024 78.022153)">RFDiffusion</text>
    </g>
    <g id="text_12">
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(438.021993 100.843837)">Novel</text>
-    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #263238" transform="translate(427.521524 112.251674)">backbone</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(438.021993 100.843837)">Novel</text>
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'Arial'; fill: #231533" transform="translate(427.521524 112.251674)">backbone</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pcb426951e8">
+  <clipPath id="p9c78ec680e">
    <rect x="7.2" y="7.2" width="157.987952" height="109.713855"/>
   </clipPath>
-  <clipPath id="pdb69f51d3a">
+  <clipPath id="p1d88a28b4b">
    <rect x="190.466024" y="7.2" width="157.987952" height="109.713855"/>
   </clipPath>
-  <clipPath id="p01fc7a685c">
+  <clipPath id="p112198f945">
    <rect x="373.732048" y="7.2" width="157.987952" height="109.713855"/>
   </clipPath>
  </defs>

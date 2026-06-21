@@ -27,38 +27,38 @@ bfs.use_blog_style()
 # ──────────────────────────────────────────────
 # Color palette
 # ──────────────────────────────────────────────
-TEXT_COLOR = '#263238'
-ARROW_COLOR = '#455a64'
+TEXT_COLOR = bfs.TEXT
+ARROW_COLOR = bfs.MUTED
 
-# Primary boxes (slate blue)
-BOX_MAIN = '#dce8f4'
-EDGE_MAIN = '#5b7fa5'
+# Primary boxes (theme purple)
+BOX_MAIN = bfs.PURPLE_LIGHT
+EDGE_MAIN = bfs.PURPLE
 
 # Energy / warm
-BOX_WARM = '#fff3e0'
-EDGE_WARM = '#e8a030'
-COLOR_WARM = '#e07a5f'
+BOX_WARM = bfs.AMBER_LIGHT
+EDGE_WARM = bfs.AMBER
+COLOR_WARM = bfs.AMBER
 
 # Green / optimal
-BOX_GREEN = '#e0f2e9'
-EDGE_GREEN = '#4caf50'
-COLOR_GREEN = '#388e3c'
+BOX_GREEN = bfs.GREEN_LIGHT
+EDGE_GREEN = bfs.GREEN
+COLOR_GREEN = bfs.GREEN
 
 # Red / strong binding
-COLOR_RED = '#d32f2f'
-COLOR_RED_LIGHT = '#ef9a9a'
+COLOR_RED = bfs.RED
+COLOR_RED_LIGHT = bfs.RED_LIGHT
 
 # Teal / weak binding
-COLOR_TEAL = '#1a8a7a'
-COLOR_TEAL_LIGHT = '#b2dfdb'
+COLOR_TEAL = bfs.TEAL
+COLOR_TEAL_LIGHT = bfs.TEAL_LIGHT
 
 # Special
-BOX_CATALYST = '#f3e5f5'
-EDGE_CATALYST = '#9c27b0'
-BOX_ML = '#e8eaf6'
-EDGE_ML = '#5c6bc0'
+BOX_CATALYST = bfs.PURPLE_SOFT
+EDGE_CATALYST = bfs.PURPLE_STRONG
+BOX_ML = bfs.BLUE_LIGHT
+EDGE_ML = bfs.BLUE
 
-DENSITY_SLATE = '#5b7fa5'
+DENSITY_SLATE = bfs.PURPLE
 ANNOTATION_BG = 'white'
 ANNOTATION_BG_ALPHA = 0.85
 
@@ -75,9 +75,9 @@ def _style_axis(ax, xlim, ylim, xlabel=None, ylabel=None):
     ax.set_ylim(ylim)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_color('#b0bec5')
-    ax.spines['bottom'].set_color('#b0bec5')
-    ax.tick_params(colors='#78909c', labelsize=9)
+    ax.spines['left'].set_color(bfs.SPINE)
+    ax.spines['bottom'].set_color(bfs.SPINE)
+    ax.tick_params(colors=bfs.MUTED, labelsize=9)
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=11, color=TEXT_COLOR, labelpad=6)
     if ylabel:
@@ -245,12 +245,12 @@ def generate_fuel_cell_figure(output_path):
     cathode = (598, 124, 220, 310)
     parts = [
         _svg_header(width, height),
-        f'<rect x="{anode[0]}" y="{anode[1]}" width="{anode[2]}" height="{anode[3]}" fill="#fae8e4" stroke="{COLOR_RED}" stroke-width="2.6"/>',
+        f'<rect x="{anode[0]}" y="{anode[1]}" width="{anode[2]}" height="{anode[3]}" fill="{COLOR_RED_LIGHT}" stroke="{COLOR_RED}" stroke-width="2.6"/>',
         f'<rect x="{pem[0]}" y="{pem[1]}" width="{pem[2]}" height="{pem[3]}" fill="{BOX_WARM}" stroke="{EDGE_WARM}" stroke-width="2.6"/>',
-        f'<rect x="{cathode[0]}" y="{cathode[1]}" width="{cathode[2]}" height="{cathode[3]}" fill="{BOX_MAIN}" stroke="#4268b3" stroke-width="2.6"/>',
+        f'<rect x="{cathode[0]}" y="{cathode[1]}" width="{cathode[2]}" height="{cathode[3]}" fill="{bfs.BLUE_LIGHT}" stroke="{bfs.BLUE}" stroke-width="2.6"/>',
         _svg_text(192, 96, "Anode", size=17, fill=COLOR_RED, weight="700"),
         _svg_text(450, 86, ["Membrane", "(PEM)"], size=17, fill=EDGE_WARM, weight="700"),
-        _svg_text(708, 96, "Cathode", size=17, fill="#4268b3", weight="700"),
+        _svg_text(708, 96, "Cathode", size=17, fill=bfs.BLUE, weight="700"),
     ]
 
     # External electron circuit.
@@ -270,10 +270,10 @@ def generate_fuel_cell_figure(output_path):
             _svg_text(192, 276, "splits into", size=15, fill=COLOR_RED, weight="600"),
             f'<rect x="136" y="300" width="112" height="34" rx="7" fill="white" opacity="0.88"/>',
             _svg_text(192, 323, "2H+ + 2e-", size=17, fill=COLOR_RED, weight="700"),
-            _svg_text(708, 222, "1/2 O2", size=24, fill="#4268b3", weight="700"),
-            _svg_text(708, 276, "+ 2H+ + 2e-", size=16, fill="#4268b3", weight="600"),
+            _svg_text(708, 222, "1/2 O2", size=24, fill=bfs.BLUE, weight="700"),
+            _svg_text(708, 276, "+ 2H+ + 2e-", size=16, fill=bfs.BLUE, weight="600"),
             f'<rect x="656" y="300" width="104" height="34" rx="7" fill="white" opacity="0.88"/>',
-            _svg_text(708, 323, "-> H2O", size=18, fill="#4268b3", weight="700"),
+            _svg_text(708, 323, "-> H2O", size=18, fill=bfs.BLUE, weight="700"),
         ]
     )
     for y in (224, 284, 344):
@@ -297,8 +297,8 @@ def generate_fuel_cell_figure(output_path):
         [
             _svg_text(54, 304, "H2 in", size=16, fill=COLOR_RED, weight="700", anchor="end"),
             f'<line x1="60" y1="300" x2="104" y2="300" stroke="{COLOR_RED}" stroke-width="2.5" marker-end="url(#arrow)"/>',
-            _svg_text(874, 232, "O2 in", size=16, fill="#4268b3", weight="700", anchor="end"),
-            f'<line x1="874" y1="252" x2="804" y2="252" stroke="#4268b3" stroke-width="2.5" marker-end="url(#arrow)"/>',
+            _svg_text(874, 232, "O2 in", size=16, fill=bfs.BLUE, weight="700", anchor="end"),
+            f'<line x1="874" y1="252" x2="804" y2="252" stroke="{bfs.BLUE}" stroke-width="2.5" marker-end="url(#arrow)"/>',
             _svg_text(874, 374, "H2O out", size=16, fill=COLOR_TEAL, weight="700", anchor="end"),
             f'<line x1="804" y1="350" x2="874" y2="350" stroke="{COLOR_TEAL}" stroke-width="2.5" marker-end="url(#arrow)"/>',
         ]
@@ -320,8 +320,8 @@ def generate_activation_energy_figure(output_path):
     y = reactant + (product - reactant) / (1 + np.exp(-(x - 0.62) / 0.035))
     y += barrier * np.exp(-((x - 0.44) / 0.10) ** 2)
 
-    ax.plot(x, y, color='#4169b1', lw=3.0, solid_capstyle='round')
-    ax.hlines([reactant, product, barrier], 0.06, 0.94, colors='#90a4ae',
+    ax.plot(x, y, color=EDGE_MAIN, lw=3.0, solid_capstyle='round')
+    ax.hlines([reactant, product, barrier], 0.06, 0.94, colors=bfs.NEUTRAL,
               linestyles=':', linewidth=1.5)
     ax.text(0.06, reactant + 0.07, r'O$_2$', ha='left', va='bottom',
             fontsize=13, fontweight='bold', color=TEXT_COLOR)
@@ -387,8 +387,8 @@ def generate_gibbs_energy_figure(output_path):
 
     # Plot energy platforms and connecting lines
     for G_vals, color, label, ls, lw in [
-        (G_ideal, '#9e9e9e', 'Ideal (no overpotential)', '--', 1.5),
-        (G_Pt, '#5c6bc0', 'Pt(111)', '-', 2.2),
+        (G_ideal, bfs.NEUTRAL, 'Ideal (no overpotential)', '--', 1.5),
+        (G_Pt, bfs.BLUE, 'Pt(111)', '-', 2.2),
         (G_Ni, COLOR_RED, 'Ni(111)', '-', 2.2),
     ]:
         for i, (xi, gi) in enumerate(zip(x_positions, G_vals)):
@@ -406,12 +406,12 @@ def generate_gibbs_energy_figure(output_path):
     # Annotate rate-limiting step for Pt (largest drop)
     # For Pt, the first step (½O2 → *O) has ΔG = -0.8 eV
     ax.annotate('', xy=(0.5, G_Pt[1]), xytext=(0.5, G_Pt[0]),
-                arrowprops=dict(arrowstyle='<->', color='#5c6bc0', lw=1.5))
+                arrowprops=dict(arrowstyle='<->', color=bfs.BLUE, lw=1.5))
     ax.text(0.65, (G_Pt[0] + G_Pt[1]) / 2, '0.8 eV',
-            ha='left', va='center', fontsize=9, color='#5c6bc0',
+            ha='left', va='center', fontsize=9, color=bfs.BLUE,
             fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
-                      alpha=0.85, ec='#5c6bc0', lw=0.5))
+                      alpha=0.85, ec=bfs.BLUE, lw=0.5))
 
     # Annotate rate-limiting step for Ni (*OH → H2O, desorption)
     # Ni has a very large last step
@@ -443,7 +443,7 @@ def generate_gibbs_energy_figure(output_path):
     ax.set_xticks([])
     ax.spines['bottom'].set_visible(False)
     ax.legend(loc='upper right', fontsize=9, framealpha=0.9,
-              edgecolor='#b0bec5')
+              edgecolor=bfs.SPINE)
 
     # Reaction coordinate label
     ax.text(1.5, -3.4, 'Reaction coordinate', ha='center', va='top',
@@ -539,7 +539,7 @@ def generate_volcano_plot_figure(output_path):
                 ylabel=r'log$_{10}$(activity)')
 
     ax.legend(loc='lower left', fontsize=8.5, framealpha=0.9,
-              edgecolor='#b0bec5')
+              edgecolor=bfs.SPINE)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
@@ -631,7 +631,7 @@ def generate_scaling_relations_figure(output_path):
                 ylabel=r'$\Delta G_{*\mathrm{OOH}}$ (eV)')
 
     ax.legend(loc='upper left', fontsize=8.6, framealpha=0.9,
-              edgecolor='#b0bec5')
+              edgecolor=bfs.SPINE)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
@@ -669,8 +669,8 @@ def generate_binding_sites_figure(output_path):
     # Draw atoms
     atom_radius = 0.35
     for x, y in atoms:
-        circle = plt.Circle((x, y), atom_radius, color='#b0bec5',
-                           ec='#78909c', linewidth=1.5, zorder=2)
+        circle = plt.Circle((x, y), atom_radius, color=bfs.NEUTRAL,
+                           ec=bfs.MUTED, linewidth=1.5, zorder=2)
         ax.add_patch(circle)
 
     # Highlight binding sites
@@ -725,7 +725,7 @@ def generate_binding_sites_figure(output_path):
     # Legend-like note
     ax.text(3.0, -0.6, 'Top-down view of close-packed metal surface.\n'
             'Adsorbate can bond at atop (1), bridge (2), or hollow (3) sites.',
-            ha='center', va='top', fontsize=9.5, color='#607d8b',
+            ha='center', va='top', fontsize=9.5, color=bfs.MUTED,
             fontstyle='italic', linespacing=1.3)
 
     plt.tight_layout()
@@ -780,7 +780,7 @@ def generate_ml_pipeline_figure(output_path):
         (CX, 2.5, 'Initial structure', BOX_MAIN, EDGE_MAIN),
         (CX, 1.0, 'DFT: compute\nenergy & forces', BOX_WARM, EDGE_WARM),
         (CX, -0.5, 'Update atom\npositions', BOX_MAIN, EDGE_MAIN),
-        (CX, -2.0, 'Converged?', '#fff3e0', EDGE_WARM),
+        (CX, -2.0, 'Converged?', BOX_WARM, EDGE_WARM),
         (CX, -3.5, 'Relaxed energy', BOX_GREEN, EDGE_GREEN),
     ]
 
@@ -826,7 +826,7 @@ def generate_ml_pipeline_figure(output_path):
         (CX, 2.5, 'Initial structure', BOX_MAIN, EDGE_MAIN),
         (CX, 1.0, 'GNN: predict\nenergy & forces', BOX_ML, EDGE_ML),
         (CX, -0.5, 'Update atom\npositions', BOX_MAIN, EDGE_MAIN),
-        (CX, -2.0, 'Converged?', '#e8eaf6', EDGE_ML),
+        (CX, -2.0, 'Converged?', BOX_ML, EDGE_ML),
         (CX, -3.5, 'Relaxed energy', BOX_GREEN, EDGE_GREEN),
     ]
 
@@ -922,7 +922,7 @@ def generate_oer_workflow_figure(output_path):
 
     # Compact oxide/surface sketches: semantic, not a detailed atomistic model.
     sketch_y = 220
-    atom_colors = [COLOR_RED, "#b0bec5", COLOR_RED, "#b0bec5", COLOR_RED, "#b0bec5"]
+    atom_colors = [COLOR_RED, bfs.NEUTRAL, COLOR_RED, bfs.NEUTRAL, COLOR_RED, bfs.NEUTRAL]
     for x, _, _, _ in stages:
         cx = x + box_w / 2
         coords = [
@@ -977,7 +977,7 @@ def generate_oer_workflow_figure(output_path):
             392,
             "Oxides require both surface selection and adsorbate placement before relaxation.",
             size=15,
-            fill="#607d8b",
+            fill=bfs.MUTED,
             weight="500",
         )
     )

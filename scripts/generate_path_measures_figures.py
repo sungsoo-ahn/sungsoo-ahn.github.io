@@ -22,17 +22,17 @@ import blog_figure_style as bfs
 # ──────────────────────────────────────────────
 # Color palette (consistent with other posts)
 # ──────────────────────────────────────────────
-TEXT_COLOR = '#263238'
-BLUE = '#5b7fa5'
-BLUE_LIGHT = '#dce8f4'
-RED = '#c0503f'
-RED_LIGHT = '#fce4ec'
-AMBER = '#e8860c'
-AMBER_LIGHT = '#fff3e0'
-TEAL = '#1a8a7a'
-TEAL_LIGHT = '#e0f2f1'
-CORAL = '#e07a5f'
-NEUTRAL = '#b0bec5'
+TEXT_COLOR = bfs.TEXT
+BLUE = bfs.PURPLE
+BLUE_LIGHT = bfs.PURPLE_LIGHT
+RED = bfs.RED
+RED_LIGHT = bfs.RED_LIGHT
+AMBER = bfs.AMBER
+AMBER_LIGHT = bfs.AMBER_LIGHT
+TEAL = bfs.TEAL
+TEAL_LIGHT = bfs.TEAL_LIGHT
+CORAL = bfs.ROSE
+NEUTRAL = bfs.NEUTRAL
 
 LABEL_FS = 10.5
 SUBLABEL_FS = 9.2
@@ -165,7 +165,7 @@ def fig_alternating_steps():
     # Pick 3 highlighted particles: one near left min, one near barrier, one outlier
     sorted_idx = np.argsort(particles)
     hi_indices = [sorted_idx[5], sorted_idx[n_particles // 2], sorted_idx[-5]]
-    hi_colors = [RED, '#7b1fa2', TEAL]  # red, purple, teal
+    hi_colors = [RED, bfs.PURPLE_STRONG, TEAL]  # rose, purple, teal
     hi_markers = ['o', 's', 'D']  # circle, square, diamond
 
     # Build sequence: (λ, particles, title, step_type)

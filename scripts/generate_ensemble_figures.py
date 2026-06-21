@@ -25,33 +25,33 @@ bfs.use_blog_style()
 # ──────────────────────────────────────────────
 # Color palette (extends FP post palette)
 # ──────────────────────────────────────────────
-TEXT_COLOR = '#263238'
+TEXT_COLOR = bfs.TEXT
 
 # System box
-SYSTEM_FILL = '#dce8f4'          # light blue fill
-SYSTEM_BORDER = '#5b7fa5'        # slate blue border
-SYSTEM_PARTICLE = '#5b7fa5'      # slate blue particles
+SYSTEM_FILL = bfs.PURPLE_LIGHT   # light purple fill
+SYSTEM_BORDER = bfs.PURPLE       # theme-purple border
+SYSTEM_PARTICLE = bfs.PURPLE     # theme-purple particles
 
 # Heat bath (warm)
-BATH_FILL = '#fff3e0'            # light amber
-BATH_BORDER = '#e8a030'          # amber border
-BATH_ARROW = '#e8860c'           # amber arrows
-BATH_TEXT = '#d4760a'            # warm annotation
+BATH_FILL = bfs.AMBER_LIGHT      # light amber
+BATH_BORDER = bfs.AMBER          # amber border
+BATH_ARROW = bfs.AMBER           # amber arrows
+BATH_TEXT = bfs.AMBER            # warm annotation
 
 # Mechanical coupling (cool)
-MECH_FILL = '#e0f2f1'           # light teal
-MECH_BORDER = '#4db6ac'         # teal border
-MECH_ARROW = '#1a8a7a'          # teal arrows
-MECH_TEXT = '#0d7d6c'           # teal annotation
+MECH_FILL = bfs.TEAL_LIGHT       # light teal
+MECH_BORDER = bfs.TEAL           # teal border
+MECH_ARROW = bfs.TEAL            # teal arrows
+MECH_TEXT = bfs.TEAL             # teal annotation
 
 # Particle reservoir (coral)
-RESERVOIR_FILL = '#fce4ec'       # light pink
-RESERVOIR_BORDER = '#e07a5f'     # soft coral
-RESERVOIR_ARROW = '#c0503f'      # darker coral arrows
-RESERVOIR_TEXT = '#b7432f'       # coral annotation
+RESERVOIR_FILL = bfs.RED_LIGHT   # light rose
+RESERVOIR_BORDER = bfs.ROSE      # rose border
+RESERVOIR_ARROW = bfs.RED        # rose arrows
+RESERVOIR_TEXT = bfs.RED         # rose annotation
 
 # Neutral
-NEUTRAL_BORDER = '#b0bec5'
+NEUTRAL_BORDER = bfs.NEUTRAL
 ANNOTATION_BG = 'white'
 ANNOTATION_BG_ALPHA = 0.85
 
@@ -60,9 +60,9 @@ SUBLABEL_FS = 11.5
 NOTE_FS = 11.0
 
 # ML figure colors
-ML_BLUE = '#5b7fa5'
-ML_ORANGE = '#e8860c'
-ML_TEAL = '#1a8a7a'
+ML_BLUE = bfs.PURPLE
+ML_ORANGE = bfs.AMBER
+ML_TEAL = bfs.TEAL
 
 
 # ──────────────────────────────────────────────
@@ -158,7 +158,7 @@ def generate_four_ensembles_figure(output_path):
     wall = FancyBboxPatch((bcx - bw/2 - 0.04, bcy - bh/2 - 0.04),
                           bw + 0.08, bh + 0.08,
                           boxstyle='round,pad=0.02',
-                          facecolor='#eceff1', edgecolor='#78909c',
+                          facecolor=bfs.PURPLE_SOFT, edgecolor=bfs.MUTED,
                           linewidth=3.0, zorder=1)
     ax.add_patch(wall)
     _system_box(ax, bcx, bcy, bw, bh)
@@ -327,23 +327,23 @@ def generate_thermostat_spectrum_figure(output_path):
         dy = (np.random.RandomState(70+i).rand() - 0.5) * 0.08
         ax.annotate('', xy=(xs[i] + dx*0.5, ys[i] + dy*0.5),
                     xytext=(xs[i] + dx, ys[i] + dy),
-                    arrowprops=dict(arrowstyle='->', color='#c62828',
+                    arrowprops=dict(arrowstyle='->', color=bfs.RED,
                                     lw=1.2, mutation_scale=8))
 
     # Label: scale factor
     ax.text(bcx, bcy + bh/2 + 0.08,
             r'$\mathbf{v} \leftarrow \lambda\,\mathbf{v}$',
-            ha='center', va='bottom', fontsize=12, color='#c62828',
+            ha='center', va='bottom', fontsize=12, color=bfs.RED,
             fontweight='bold',
-            bbox=dict(boxstyle='round,pad=0.3', fc='#ffebee',
-                      alpha=0.9, ec='#ef9a9a', lw=0.6))
+            bbox=dict(boxstyle='round,pad=0.3', fc=bfs.RED_LIGHT,
+                      alpha=0.9, ec=bfs.RED_LIGHT, lw=0.6))
 
     ax.text(bcx, bcy - bh/2 - 0.06,
             r'$\lambda = \sqrt{T_{\mathrm{target}} / T_{\mathrm{current}}}$',
             ha='center', va='top', fontsize=9.5, color=TEXT_COLOR, bbox=box_props)
 
     ax.text(bcx, -0.20, 'Simple but wrong\ndistribution',
-            ha='center', va='top', fontsize=9, color='#c62828',
+            ha='center', va='top', fontsize=9, color=bfs.RED,
             fontstyle='italic', linespacing=1.3)
 
     # ── (b) Nosé-Hoover ──
@@ -479,12 +479,12 @@ def generate_ml_connection_figure(output_path):
 
     # Shared layer highlighting
     shared = [True, True, False, False]
-    shared_fills = ['#e8eaf6', '#e8eaf6', None, None]
+    shared_fills = [bfs.PURPLE_LIGHT, bfs.PURPLE_LIGHT, None, None]
 
     for i, y in enumerate(layers_y):
         # Layer name on far left
         ax.text(-0.02, y, layer_names[i], ha='left', va='center',
-                fontsize=9, color='#78909c', fontstyle='italic', rotation=0)
+                fontsize=9, color=bfs.MUTED, fontstyle='italic', rotation=0)
 
         # Shared background
         if shared[i]:
@@ -499,7 +499,7 @@ def generate_ml_connection_figure(output_path):
         lbox = FancyBboxPatch((left_x - layer_w/2, y - layer_h/2),
                               layer_w, layer_h,
                               boxstyle='round,pad=0.02',
-                              facecolor=SYSTEM_FILL if shared[i] else '#f5f5f5',
+                              facecolor=SYSTEM_FILL if shared[i] else bfs.PURPLE_SOFT,
                               edgecolor=left_colors[i],
                               linewidth=1.5, zorder=2)
         ax.add_patch(lbox)
@@ -510,7 +510,7 @@ def generate_ml_connection_figure(output_path):
         rbox = FancyBboxPatch((right_x - layer_w/2, y - layer_h/2),
                               layer_w, layer_h,
                               boxstyle='round,pad=0.02',
-                              facecolor=SYSTEM_FILL if shared[i] else '#fff8e1',
+                              facecolor=SYSTEM_FILL if shared[i] else bfs.AMBER_LIGHT,
                               edgecolor=right_colors[i],
                               linewidth=1.5, zorder=2)
         ax.add_patch(rbox)
@@ -531,9 +531,9 @@ def generate_ml_connection_figure(output_path):
         y = layers_y[i]
         ax.annotate('same', xy=(left_x + layer_w/2 + 0.02, y),
                     xytext=(right_x - layer_w/2 - 0.02, y),
-                    ha='right', va='center', fontsize=9, color='#7986cb',
+                    ha='right', va='center', fontsize=9, color=bfs.PURPLE,
                     fontweight='bold',
-                    arrowprops=dict(arrowstyle='<->', color='#7986cb',
+                    arrowprops=dict(arrowstyle='<->', color=bfs.PURPLE,
                                     lw=1.2, connectionstyle='arc3,rad=0'))
 
     # "Different" annotation for Layer 3
@@ -550,7 +550,7 @@ def generate_ml_connection_figure(output_path):
             'MD/MC can only estimate expectations $\\langle A \\rangle$, not the partition function.',
             ha='center', va='center', fontsize=10, color=TEXT_COLOR,
             linespacing=1.4,
-            bbox=dict(boxstyle='round,pad=0.4', fc='#fff8e1',
+            bbox=dict(boxstyle='round,pad=0.4', fc=bfs.AMBER_LIGHT,
                       alpha=0.9, ec=ML_ORANGE, lw=0.8))
 
     plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
@@ -585,7 +585,7 @@ def generate_system_boundary_figure(output_path):
     # Large environment region
     env = FancyBboxPatch((0.02, 0.02), 0.96, 0.88,
                          boxstyle='round,pad=0.02',
-                         facecolor='#f5f5f5', edgecolor='#b0bec5',
+                         facecolor=bfs.PURPLE_SOFT, edgecolor=bfs.SPINE,
                          linewidth=1.5, zorder=0)
     ax.add_patch(env)
 
@@ -597,7 +597,7 @@ def generate_system_boundary_figure(output_path):
     # Remove particles inside the system region
     cx, cy, r = 0.50, 0.47, 0.22
     mask = (ex - cx)**2 + (ey - cy)**2 > (r + 0.04)**2
-    ax.scatter(ex[mask], ey[mask], s=20, c='#b0bec5', alpha=0.5,
+    ax.scatter(ex[mask], ey[mask], s=20, c=bfs.NEUTRAL, alpha=0.5,
                zorder=1, edgecolors='white', linewidths=0.3)
 
     # System region (circle, highlighted)
@@ -620,7 +620,7 @@ def generate_system_boundary_figure(output_path):
     ax.text(cx, cy - r - 0.06, 'system', ha='center', va='top',
             fontsize=11, color=SYSTEM_BORDER, fontweight='bold')
     ax.text(0.88, 0.85, 'environment', ha='center', va='top',
-            fontsize=11, color='#78909c', fontstyle='italic')
+            fontsize=11, color=bfs.MUTED, fontstyle='italic')
 
     # ── Right panel: modeling choice ──
     ax = ax_r
@@ -663,12 +663,12 @@ def generate_system_boundary_figure(output_path):
 
     # Bottom label
     ax.text(bcx, 0.00, 'environment replaced by\nboundary conditions',
-            ha='center', va='top', fontsize=10, color='#78909c',
+            ha='center', va='top', fontsize=10, color=bfs.MUTED,
             fontstyle='italic', linespacing=1.3)
 
     # Arrow between panels
     fig.text(0.50, 0.50, r'$\Rightarrow$', ha='center', va='center',
-             fontsize=28, color='#78909c')
+             fontsize=28, color=bfs.MUTED)
 
     plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
     plt.close()

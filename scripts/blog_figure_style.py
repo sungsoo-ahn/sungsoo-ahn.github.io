@@ -14,24 +14,35 @@ import subprocess
 import matplotlib.pyplot as plt
 
 
-TEXT = "#263238"
-MUTED = "#6f7f86"
-GRID = "#d8e0e4"
-SPINE = "#b6c2c8"
+TEXT = "#231533"
+MUTED = "#665a75"
+GRID = "#e4ddec"
+SPINE = "#c8bbd8"
 
-BLUE = "#4f7ea8"
-BLUE_LIGHT = "#e6eef6"
-AMBER = "#d99a24"
-AMBER_LIGHT = "#fff4df"
-TEAL = "#158574"
-TEAL_LIGHT = "#e2f3ef"
-RED = "#c85b4a"
-RED_LIGHT = "#fae8e4"
-GREEN = "#3f9b5f"
-GREEN_LIGHT = "#e4f3e8"
-VIOLET = "#7d6aa8"
-VIOLET_LIGHT = "#eeeaf5"
-NEUTRAL = "#aebbc2"
+PURPLE = "#7a53ec"
+PURPLE_STRONG = "#5b3a8c"
+PURPLE_SOFT = "#f6f2fa"
+PURPLE_LIGHT = "#f2edff"
+
+# Purple-led semantic palette.  Keep the older color names as public aliases
+# because the figure scripts use them for semantic roles such as "blue curve"
+# or "red loss"; the hues are tuned to sit cleanly beside the site purple.
+BLUE = "#5f6ed8"
+BLUE_LIGHT = "#eef0ff"
+AMBER = "#b7791f"
+AMBER_LIGHT = "#fff4dc"
+TEAL = "#16877f"
+TEAL_LIGHT = "#e4f4f2"
+RED = "#c7506b"
+RED_LIGHT = "#fce8ee"
+GREEN = "#3c8f63"
+GREEN_LIGHT = "#e5f3ea"
+VIOLET = PURPLE
+VIOLET_DARK = PURPLE_STRONG
+VIOLET_LIGHT = PURPLE_LIGHT
+ROSE = RED
+ROSE_LIGHT = RED_LIGHT
+NEUTRAL = "#b9aec7"
 
 
 def use_blog_style() -> None:

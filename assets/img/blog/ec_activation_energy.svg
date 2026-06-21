@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-20T21:39:14.857605</dc:date>
+    <dc:date>2026-06-21T18:21:52.559024</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -114,49 +114,49 @@ L 445.681443 249.01269
 L 479.87495 249.104674 
 L 509.04 249.117087 
 L 509.04 249.117087 
-" clip-path="url(#pcae1c98d3d)" style="fill: none; stroke: #4169b1; stroke-width: 3; stroke-linecap: round"/>
+" clip-path="url(#p2fcc6f8311)" style="fill: none; stroke: #7a53ec; stroke-width: 3; stroke-linecap: round"/>
    </g>
    <g id="LineCollection_1">
     <path d="M 37.3104 97.92 
 L 478.9296 97.92 
-" clip-path="url(#pcae1c98d3d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #90a4ae; stroke-width: 1.5"/>
+" clip-path="url(#p2fcc6f8311)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #b9aec7; stroke-width: 1.5"/>
     <path d="M 37.3104 249.12 
 L 478.9296 249.12 
-" clip-path="url(#pcae1c98d3d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #90a4ae; stroke-width: 1.5"/>
+" clip-path="url(#p2fcc6f8311)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #b9aec7; stroke-width: 1.5"/>
     <path d="M 37.3104 35.424 
 L 478.9296 35.424 
-" clip-path="url(#pcae1c98d3d)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #90a4ae; stroke-width: 1.5"/>
+" clip-path="url(#p2fcc6f8311)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #b9aec7; stroke-width: 1.5"/>
    </g>
    <g id="text_1">
     <!-- O$_2$ -->
-    <g style="fill: #263238" transform="translate(37.3104 88.298531)">
+    <g style="fill: #231533" transform="translate(37.3104 88.298531)">
      <text>
-      <tspan x="0" y="-0.53125" style="font-weight: 700; font-size: 13px; font-family: 'Arial'; fill: #263238">O</tspan>
-      <tspan x="10.23623" y="1.601562" style="font-size: 9.1px; font-family: 'DejaVu Sans'; fill: #263238">2</tspan>
+      <tspan x="0" y="-0.53125" style="font-weight: 700; font-size: 13px; font-family: 'Arial'; fill: #231533">O</tspan>
+      <tspan x="10.23623" y="1.601562" style="font-size: 9.1px; font-family: 'DejaVu Sans'; fill: #231533">2</tspan>
      </text>
     </g>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial'; text-anchor: end; fill: #263238" x="478.9296" y="238.490531" transform="rotate(-0 478.9296 238.490531)">O* + O*</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial'; text-anchor: end; fill: #231533" x="478.9296" y="238.490531" transform="rotate(-0 478.9296 238.490531)">O* + O*</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #d32f2f" x="57.384" y="117.173812" transform="rotate(-0 57.384 117.173812)">0 eV</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #c7506b" x="57.384" y="117.173812" transform="rotate(-0 57.384 117.173812)">0 eV</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #d32f2f" x="423.7272" y="268.373812" transform="rotate(-0 423.7272 268.373812)">-1.5 eV</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #c7506b" x="423.7272" y="268.373812" transform="rotate(-0 423.7272 268.373812)">-1.5 eV</text>
    </g>
    <g id="patch_2">
     <path d="M 277.630413 94.016754 
 Q 277.630413 66.669453 277.630413 39.322151 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
     <path d="M 279.830413 89.616754 
 L 277.630413 94.016754 
 L 275.430413 89.616754 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
     <path d="M 275.430413 43.722151 
 L 277.630413 39.322151 
 L 279.830413 43.722151 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
    </g>
    <g id="text_5">
     <g id="patch_3">
@@ -167,22 +167,22 @@ L 295.709013 48.723234
 z
 " style="fill: #ffffff; opacity: 0.9"/>
     </g>
-    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #263238" transform="translate(297.704013 58.233937)">activation</text>
-    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #263238" transform="translate(297.704013 69.324891)">energy</text>
-    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #263238" transform="translate(297.704013 80.553656)">0.62 eV</text>
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #231533" transform="translate(297.704013 58.233937)">activation</text>
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #231533" transform="translate(297.704013 69.324891)">energy</text>
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial'; fill: #231533" transform="translate(297.704013 80.553656)">0.62 eV</text>
    </g>
    <g id="patch_4">
     <path d="M 82.476 101.818631 
 Q 82.476 173.519541 82.476 245.22045 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
     <path d="M 80.276 106.218631 
 L 82.476 101.818631 
 L 84.676 106.218631 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
     <path d="M 84.676 240.82045 
 L 82.476 245.22045 
 L 80.276 240.82045 
-" style="fill: none; stroke: #263238; stroke-width: 1.7; stroke-linecap: round"/>
+" style="fill: none; stroke: #231533; stroke-width: 1.7; stroke-linecap: round"/>
    </g>
    <g id="text_6">
     <g id="patch_5">
@@ -193,13 +193,13 @@ L 100.5546 161.155594
 z
 " style="fill: #ffffff; opacity: 0.9"/>
     </g>
-    <text style="font-size: 10.5px; font-family: 'Arial'; fill: #263238" transform="translate(102.5496 170.54325)">reaction</text>
-    <text style="font-size: 10.5px; font-family: 'Arial'; fill: #263238" transform="translate(102.5496 181.802531)">free energy</text>
+    <text style="font-size: 10.5px; font-family: 'Arial'; fill: #231533" transform="translate(102.5496 170.54325)">reaction</text>
+    <text style="font-size: 10.5px; font-family: 'Arial'; fill: #231533" transform="translate(102.5496 181.802531)">free energy</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pcae1c98d3d">
+  <clipPath id="p2fcc6f8311">
    <rect x="7.2" y="7.2" width="501.84" height="282.24"/>
   </clipPath>
  </defs>

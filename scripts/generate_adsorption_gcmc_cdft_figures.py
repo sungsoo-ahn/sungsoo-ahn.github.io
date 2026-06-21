@@ -7,6 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
 
 import blog_figure_style as bfs
@@ -14,23 +15,28 @@ import blog_figure_style as bfs
 bfs.use_blog_style()
 
 
-TEXT_COLOR = "#263238"
-ARROW_COLOR = "#455a64"
+TEXT_COLOR = bfs.TEXT
+ARROW_COLOR = bfs.MUTED
 
-BOX_MAIN = "#dce8f4"
-EDGE_MAIN = "#5b7fa5"
-BOX_HIGHLIGHT = "#fff3e0"
-EDGE_HIGHLIGHT = "#e8a030"
-BOX_OUTPUT = "#e0f2e9"
-EDGE_OUTPUT = "#4caf50"
-BOX_CORRECTION = "#ede7f6"
-EDGE_CORRECTION = "#7e57c2"
+BOX_MAIN = bfs.PURPLE_LIGHT
+EDGE_MAIN = bfs.PURPLE
+BOX_HIGHLIGHT = bfs.AMBER_LIGHT
+EDGE_HIGHLIGHT = bfs.AMBER
+BOX_OUTPUT = bfs.GREEN_LIGHT
+EDGE_OUTPUT = bfs.GREEN
+BOX_CORRECTION = bfs.PURPLE_SOFT
+EDGE_CORRECTION = bfs.PURPLE_STRONG
 
-COLOR_ACCEPT = "#4caf50"
-COLOR_REJECT = "#d32f2f"
-COLOR_FRAMEWORK = "#455a64"
-COLOR_METHANE = "#e8a030"
-COLOR_DENSITY = "#5b7fa5"
+COLOR_ACCEPT = bfs.GREEN
+COLOR_REJECT = bfs.RED
+COLOR_FRAMEWORK = bfs.MUTED
+COLOR_METHANE = bfs.AMBER
+COLOR_DENSITY = bfs.PURPLE
+
+DENSITY_CMAP = LinearSegmentedColormap.from_list(
+    "purple_density",
+    ["#fbf9ff", bfs.PURPLE_LIGHT, "#c8b8fb", bfs.PURPLE],
+)
 
 
 class Svg:
@@ -79,7 +85,7 @@ class Svg:
         h: float,
         *,
         fill: str = "white",
-        stroke: str = "#d8e0e4",
+        stroke: str = bfs.GRID,
         sw: float = 1.6,
         rx: float = 10,
         opacity: float = 1.0,
@@ -117,7 +123,7 @@ class Svg:
         style = (
             "<style>"
             "text{font-family:Arial,Helvetica,'DejaVu Sans',sans-serif;dominant-baseline:middle}"
-            ".caption{fill:#6f7f86;font-size:15px;font-weight:500}"
+            f".caption{{fill:{bfs.MUTED};font-size:15px;font-weight:500}}"
             "</style>"
         )
         return (
@@ -128,14 +134,14 @@ class Svg:
 
 
 def _mini_framework(svg: Svg, x: float, y: float, w: float, h: float, *, density: bool = False, samples: int = 7) -> None:
-    svg.rect(x, y, w, h, fill="white", stroke="#b6c2c8", sw=1.3, rx=4)
-    node_color = "#455a64"
+    svg.rect(x, y, w, h, fill="white", stroke=bfs.SPINE, sw=1.3, rx=4)
+    node_color = bfs.MUTED
     for px, py in [(0.16, 0.20), (0.82, 0.25), (0.22, 0.72), (0.78, 0.68), (0.50, 0.48)]:
         svg.circle(x + px * w, y + py * h, 4.4, fill=node_color, stroke="white", sw=0.8)
-    svg.line(x + 0.16 * w, y + 0.20 * h, x + 0.50 * w, y + 0.48 * h, stroke="#b6c2c8", sw=1.3)
-    svg.line(x + 0.82 * w, y + 0.25 * h, x + 0.50 * w, y + 0.48 * h, stroke="#b6c2c8", sw=1.3)
-    svg.line(x + 0.22 * w, y + 0.72 * h, x + 0.50 * w, y + 0.48 * h, stroke="#b6c2c8", sw=1.3)
-    svg.line(x + 0.78 * w, y + 0.68 * h, x + 0.50 * w, y + 0.48 * h, stroke="#b6c2c8", sw=1.3)
+    svg.line(x + 0.16 * w, y + 0.20 * h, x + 0.50 * w, y + 0.48 * h, stroke=bfs.SPINE, sw=1.3)
+    svg.line(x + 0.82 * w, y + 0.25 * h, x + 0.50 * w, y + 0.48 * h, stroke=bfs.SPINE, sw=1.3)
+    svg.line(x + 0.22 * w, y + 0.72 * h, x + 0.50 * w, y + 0.48 * h, stroke=bfs.SPINE, sw=1.3)
+    svg.line(x + 0.78 * w, y + 0.68 * h, x + 0.50 * w, y + 0.48 * h, stroke=bfs.SPINE, sw=1.3)
 
     if density:
         for px, py, r, alpha in [
@@ -172,7 +178,7 @@ def generate_particle_density_overview(output_path):
     svg.text(580, 66, "same equilibrium problem, different representation", size=16, fill=bfs.MUTED, italic=True)
 
     # Open-system setup.
-    svg.rect(38, 120, 210, 260, fill="#f8fbfc", stroke="#d8e0e4", sw=1.6, rx=12)
+    svg.rect(38, 120, 210, 260, fill=bfs.PURPLE_SOFT, stroke=bfs.GRID, sw=1.6, rx=12)
     svg.text(143, 145, "Open pore", size=18, weight=700, fill=EDGE_MAIN)
     _mini_framework(svg, 72, 178, 142, 112, samples=6)
     svg.text(143, 320, "reservoir fixes", size=15, fill=bfs.MUTED)
@@ -190,7 +196,7 @@ def generate_particle_density_overview(output_path):
     _mini_framework(svg, 552, 172, 60, 58, samples=4)
     svg.text(492, 250, "average many samples", size=15, fill=bfs.MUTED)
 
-    svg.rect(746, 120, 310, 160, fill="#f8fbfc", stroke="#d8e0e4", sw=1.6, rx=12)
+    svg.rect(746, 120, 310, 160, fill=bfs.PURPLE_SOFT, stroke=bfs.GRID, sw=1.6, rx=12)
     svg.text(901, 144, "Outputs", size=18, weight=700)
     svg.text(820, 198, "uptake", size=15, fill=bfs.MUTED)
     svg.text(820, 224, "⟨N⟩", size=25, weight=700, fill=EDGE_MAIN)
@@ -205,7 +211,7 @@ def generate_particle_density_overview(output_path):
     svg.text(548, 407, "optimize ρ(r)", size=20, weight=700, fill=TEXT_COLOR)
     svg.text(548, 437, "fixed-point solve", size=15, fill=bfs.MUTED)
 
-    svg.rect(746, 330, 310, 160, fill="#fffaf0", stroke=EDGE_HIGHLIGHT, sw=2.0, rx=12)
+    svg.rect(746, 330, 310, 160, fill=bfs.AMBER_LIGHT, stroke=EDGE_HIGHLIGHT, sw=2.0, rx=12)
     svg.text(901, 354, "ML target", size=18, weight=700, fill=EDGE_HIGHLIGHT)
     _mini_framework(svg, 786, 386, 88, 68, density=True)
     svg.text(958, 402, "density field", size=19, weight=700, fill=TEXT_COLOR)
@@ -331,7 +337,7 @@ def generate_snapshots_to_density_figure(output_path):
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         _clean_axis(ax)
-        ax.add_patch(Rectangle((0.08, 0.08), 0.84, 0.84, facecolor="white", edgecolor="#b0bec5", linewidth=1.2))
+        ax.add_patch(Rectangle((0.08, 0.08), 0.84, 0.84, facecolor="white", edgecolor=bfs.SPINE, linewidth=1.2))
 
         n_points = [7, 12, 9, 15][idx]
         cluster_a = rng.normal([0.32, 0.68], [0.08, 0.08], (n_points // 2, 2))
@@ -362,7 +368,7 @@ def generate_snapshots_to_density_figure(output_path):
             + np.roll(hist, -1, axis=1)
         ) / 5
 
-    density_axis.imshow(hist.T, origin="lower", extent=(0, 1, 0, 1), cmap="YlGnBu")
+    density_axis.imshow(hist.T, origin="lower", extent=(0, 1, 0, 1), cmap=DENSITY_CMAP)
     density_axis.add_patch(Rectangle((0, 0), 1, 1, facecolor="none", edgecolor=EDGE_MAIN, linewidth=1.8))
     density_axis.text(
         0.5,
