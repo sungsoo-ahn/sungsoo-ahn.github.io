@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -28,7 +28,7 @@ Suppose you want to generate a molecule that binds to a target protein. You have
 
 In scientific discovery, diversity is essential. Proxy reward functions are imprecise; the top-scoring molecule under the proxy may fail experimentally. The safer strategy is to cast a wide net: generate many diverse candidates that score well, then filter them in the lab.
 
-GFlowNets address this by sampling objects **proportionally to their reward**. Instead of finding $$x^* = \arg\max_x R(x)$$, a GFlowNet learns a policy that generates $$x$$ with probability proportional to $$\exp R(x)$$. If molecule A has reward 4 and molecule B has reward 2, A is sampled $$e^4 / e^2 \approx 7.4$$ times more often than B, but B is still generated regularly. This is an energy-based (Boltzmann) distribution, the same type that appears in statistical mechanics and Bayesian inference.
+GFlowNets address this by sampling objects **proportionally to their reward** (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)). Instead of finding $$x^* = \arg\max_x R(x)$$, a GFlowNet learns a policy that generates $$x$$ with probability proportional to $$\exp R(x)$$. If molecule A has reward 4 and molecule B has reward 2, A is sampled $$e^4 / e^2 \approx 7.4$$ times more often than B, but B is still generated regularly. This is an energy-based (Boltzmann) distribution, the same type that appears in statistical mechanics and Bayesian inference.
 
 ## Part I: The Goal
 
@@ -142,7 +142,7 @@ Here $$Z_\theta$$ is a trainable scalar, the model's estimate of the partition f
 
 ### Trajectory Balance (TB)
 
-The trajectory balance objective[^tb] directly enforces the flow-matching condition for complete trajectories. If $$f_\mathrm{F}(\tau) = f_\mathrm{B}(\tau)$$, then $$\log(f_\mathrm{F} / f_\mathrm{B}) = 0$$. Squaring this log-ratio gives a loss that is zero when the flows match and positive otherwise:
+The trajectory balance objective (<span id="cite-malkin2022"></span>[Malkin et al., 2022](#ref-malkin2022)) directly enforces the flow-matching condition for complete trajectories. If $$f_\mathrm{F}(\tau) = f_\mathrm{B}(\tau)$$, then $$\log(f_\mathrm{F} / f_\mathrm{B}) = 0$$. Squaring this log-ratio gives a loss that is zero when the flows match and positive otherwise:
 
 > **Trajectory Balance.** For a trajectory $$\tau = (s_0, \ldots, s_T = x)$$:
 >
@@ -151,15 +151,13 @@ The trajectory balance objective[^tb] directly enforces the flow-matching condit
 > The loss is zero when the forward flow $$Z_\theta \prod p_\mathrm{F}$$ equals the backward flow $$\exp R(x) \prod p_\mathrm{B}$$ for every trajectory.
 {: .block-definition }
 
-[^tb]: Malkin et al., "Trajectory balance: Improved credit assignment in GFlowNets," NeurIPS 2022.
-
 TB is the simplest objective. It trains a single scalar $$Z_\theta$$ plus the forward and backward policies. The downside is credit assignment: a single reward signal at the terminal state must propagate back through the entire construction sequence. For long trajectories, this makes learning slow — the gradient carries information about the full trajectory, and early transitions receive weak signal.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance matches backward and forward flows. Rewards define target trajectory weights; the learned normalizer \(Z_\theta\) and forward policy reproduce those weights from the initial state." %}
 
 ### Detailed Balance (DB)
 
-TB applies to entire trajectories, which can be long. The detailed balance objective[^db] breaks this into individual transitions, one edge at a time. The idea comes from detailed balance in Markov chain theory: at equilibrium, probability flux along each edge must be equal in both directions.
+TB applies to entire trajectories, which can be long. The detailed balance objective (<span id="cite-bengio2023"></span>[Bengio et al., 2023](#ref-bengio2023); <span id="cite-deleu2022"></span>[Deleu et al., 2022](#ref-deleu2022)) breaks this into individual transitions, one edge at a time. The idea comes from detailed balance in Markov chain theory: at equilibrium, probability flux along each edge must be equal in both directions.
 
 > **Detailed Balance.** For each edge $$(s_{t-1}, s_t)$$:
 >
@@ -168,15 +166,13 @@ TB applies to entire trajectories, which can be long. The detailed balance objec
 > where $$f_\theta(s)$$ is a learned **state flow** — the total flow through state $$s$$. Boundary conditions: $$f_\theta(s_0) = Z_\theta$$ and $$f_\theta(x) = \exp R(x)$$ for terminal states.
 {: .block-definition }
 
-[^db]: Bengio et al., "GFlowNet foundations," JMLR 2023. Deleu et al., "Bayesian structure learning with generative flow networks," UAI 2022.
-
 DB provides local credit assignment: each transition gets its own loss signal, so early transitions receive direct feedback rather than waiting for the terminal reward. The trade-off is that the model must learn the state flow function $$f_\theta(s)$$, an additional neural network that estimates how much total flow passes through each intermediate state.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_detailed_balance.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Detailed balance enforces flow consistency on one edge at a time. The product of state flow and transition probability must match in the forward and backward directions." %}
 
 ### Sub-Trajectory Balance (SubTB)
 
-TB enforces balance over the full trajectory (global but weak signal); DB enforces balance over single edges (local but requires learning state flows). Sub-trajectory balance[^subtb] interpolates between the two by enforcing balance on sub-trajectories of arbitrary length $$\ell$$. For a sub-trajectory $$(s_i, s_{i+1}, \ldots, s_{i+\ell})$$:
+TB enforces balance over the full trajectory (global but weak signal); DB enforces balance over single edges (local but requires learning state flows). Sub-trajectory balance (<span id="cite-madan2023"></span>[Madan et al., 2023](#ref-madan2023)) interpolates between the two by enforcing balance on sub-trajectories of arbitrary length $$\ell$$. For a sub-trajectory $$(s_i, s_{i+1}, \ldots, s_{i+\ell})$$:
 
 > **Sub-Trajectory Balance.** For states $$s_i, \ldots, s_{i+\ell}$$ along a trajectory:
 >
@@ -185,15 +181,11 @@ TB enforces balance over the full trajectory (global but weak signal); DB enforc
 > where $$f_\theta(s)$$ is the learned state flow. Setting $$\ell = 1$$ recovers DB; setting $$i = 0$$, $$\ell = T$$, and using the boundary conditions $$f_\theta(s_0) = Z_\theta$$, $$f_\theta(x) = \exp R(x)$$ recovers TB.
 {: .block-definition }
 
-[^subtb]: Madan et al., "Learning GFlowNets from partial episodes for improved convergence and stability," ICML 2023.
-
 In practice, SubTB sums losses over all sub-trajectories of all lengths within a sampled trajectory, optionally weighting shorter sub-trajectories more heavily. This interpolates between local credit assignment (DB) and global credit assignment (TB), and often trains more stably than either alone.
 
 ### Flow Matching
 
-An alternative to the balance conditions is **flow matching** (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper.[^fm] It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
-
-[^fm]: Bengio et al., "Flow network based generative models for non-iterative diverse candidate generation," NeurIPS 2021.
+An alternative to the balance conditions is **flow matching** (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper ([Bengio et al., 2021](#ref-bengio2021)). It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
 
 ### Why These Objectives Are Surprisingly Easy to Optimize
 
@@ -225,9 +217,7 @@ A pure on-policy GFlowNet only visits states reachable under its current forward
 
 Common strategies include $$\epsilon$$-greedy exploration, tempering the forward policy, and prioritized replay buffers. In $$\epsilon$$-greedy exploration, the sampler takes a uniformly random action with probability $$\epsilon$$ instead of sampling from $$p_\mathrm{F}$$. Tempering raises the policy temperature to flatten the distribution and encourage more random choices. Prioritized replay oversamples high-reward trajectories so the model gets more training signal from the best discoveries.
 
-Some recent work combines GFlowNets with local search:[^localsearch] generate a candidate with the forward policy, improve it with local perturbations such as swapping one atom for another, and add the improved candidate to the replay buffer.
-
-[^localsearch]: Kim et al., "Local Search GFlowNets," ICLR 2024.
+Some recent work combines GFlowNets with local search (<span id="cite-kim2024gflownet"></span>[Kim et al., 2024](#ref-kim2024gflownet)): generate a candidate with the forward policy, improve it with local perturbations such as swapping one atom for another, and add the improved candidate to the replay buffer.
 
 ### Backward Policy Design
 
@@ -287,13 +277,9 @@ The caveat is validation. Proxy rewards, docking scores, and learned oracles are
 
 ## References
 
-- E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021.
-- N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *NeurIPS*, 2022.
-- Y. Bengio, S. Lahlou, T. Deleu, E. J. Hu, M. Tiwari, and E. Bengio, "GFlowNet Foundations," *JMLR*, 2023.
-- T. Deleu, A. Góis, C. Emezue, M. Rankawat, S. Lacoste-Julien, S. Bauer, and Y. Bengio, "Bayesian structure learning with generative flow networks," *UAI*, 2022.
-- K. Madan, J. Rector-Brooks, M. Korablyov, E. Bengio, M. Jain, A. Nica, T. Bosc, Y. Bengio, and N. Malkin, "Learning GFlowNets from partial episodes for improved convergence and stability," *ICML*, 2023.
-- M. Kim, T. Yun, E. Bengio, D. Zhang, Y. Bengio, S. Ahn, and J. Park, "Local Search GFlowNets," *ICLR*, 2024.
-
-### Figure sources
-
-- GFlowNet diagrams (`assets/img/blog/gflownet/*.svg`): generated by `scripts/generate_gflownet_figures.py`. The toy molecule construction DAG is redrawn and simplified from Bengio et al. (2023), Figure 2b; all other diagrams are custom explanatory SVGs.
+- <span id="ref-bengio2021"></span>E. Bengio, M. Jain, M. Korablyov, D. Precup, and Y. Bengio, "Flow network based generative models for non-iterative diverse candidate generation," *NeurIPS*, 2021. [NeurIPS](https://proceedings.neurips.cc/paper/2021/hash/e614f646836aaed9f89ce58e837e2310-Abstract.html). <a href="#cite-bengio2021" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-malkin2022"></span>N. Malkin, M. Jain, E. Bengio, C. Sun, and Y. Bengio, "Trajectory balance: Improved credit assignment in GFlowNets," *NeurIPS*, 2022. [arXiv:2201.13259](https://arxiv.org/abs/2201.13259). <a href="#cite-malkin2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-bengio2023"></span>Y. Bengio, S. Lahlou, T. Deleu, E. J. Hu, M. Tiwari, and E. Bengio, "GFlowNet Foundations," *JMLR*, 2023. [JMLR](https://jmlr.org/papers/v24/22-0364.html). <a href="#cite-bengio2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-deleu2022"></span>T. Deleu, A. Góis, C. Emezue, M. Rankawat, S. Lacoste-Julien, S. Bauer, and Y. Bengio, "Bayesian structure learning with generative flow networks," *UAI*, 2022. [PMLR](https://proceedings.mlr.press/v180/deleu22a.html). <a href="#cite-deleu2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-madan2023"></span>K. Madan, J. Rector-Brooks, M. Korablyov, E. Bengio, M. Jain, A. Nica, T. Bosc, Y. Bengio, and N. Malkin, "Learning GFlowNets from partial episodes for improved convergence and stability," *ICML*, 2023. [PMLR](https://proceedings.mlr.press/v202/madan23a.html). <a href="#cite-madan2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2024gflownet"></span>M. Kim, T. Yun, E. Bengio, D. Zhang, Y. Bengio, S. Ahn, and J. Park, "Local Search GFlowNets," *ICLR*, 2024. [OpenReview](https://openreview.net/forum?id=6cFcw1RxGr). <a href="#cite-kim2024gflownet" class="reversefootnote" role="doc-backlink">↩</a>

@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -96,6 +96,8 @@ From here on, we write the electronic wavefunction as $$\Psi(\mathbf{r}_1, \ldot
 ## Wavefunction Theory
 
 The first approach to the electronic problem is to approximate the wavefunction directly. We need to find the ground-state wavefunction $$\Psi$$ — the eigenfunction of the electronic Hamiltonian with the lowest energy.
+For a standard textbook treatment of Hartree-Fock and post-Hartree-Fock theory,
+see <span id="cite-szabo1996"></span>[Szabo & Ostlund, 1996](#ref-szabo1996).
 
 > **Variational principle.** Any trial wavefunction $$\tilde{\Psi}$$ gives an upper bound on the true ground-state energy:
 >
@@ -159,6 +161,8 @@ Because each electron sees only the average field of the others, instantaneous e
 ## Density Functional Theory
 
 **Density functional theory (DFT)** avoids the wavefunction's exponential dimensionality by working with the **electron density**, a function of only three spatial variables instead of $$3N$$.
+Kohn's Nobel lecture gives a compact historical account of why this change of
+variable matters (<span id="cite-kohn1999"></span>[Kohn, 1999](#ref-kohn1999)).
 
 > **Electron density.** The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
 >
@@ -171,7 +175,7 @@ The rest of this section develops DFT in five steps: (1) the Hohenberg-Kohn theo
 
 ### The Hohenberg-Kohn Theorems
 
-> **Hohenberg-Kohn theorems.** DFT rests on two theorems proved by Hohenberg and Kohn in 1964:
+> **Hohenberg-Kohn theorems.** DFT rests on two theorems proved by Hohenberg and Kohn in 1964 (<span id="cite-hohenberg1964"></span>[Hohenberg & Kohn, 1964](#ref-hohenberg1964)):
 >
 > **First theorem.** The ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties.[^sufficient]
 >
@@ -186,7 +190,9 @@ The problem is that $$F[\rho]$$ is unknown. We know the sufficient statistic exi
 
 ### The Kohn-Sham Approximation
 
-In 1965, Kohn and Sham turned DFT into a practical method. They introduced a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$, called the **Kohn-Sham orbitals**, that reproduce the true electron density:
+In 1965, Kohn and Sham turned DFT into a practical method
+(<span id="cite-kohn1965"></span>[Kohn & Sham, 1965](#ref-kohn1965)).
+They introduced a **fictitious system of non-interacting electrons** with orbitals $$\phi_i: \mathbb{R}^3 \to \mathbb{C}$$, called the **Kohn-Sham orbitals**, that reproduce the true electron density:
 
 $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$
 
@@ -226,7 +232,9 @@ Despite this structural similarity in the equations, the two methods minimize *d
 
 ### Jacob's Ladder of Exchange-Correlation Functionals
 
-The exchange-correlation functional $$E_{\text{xc}}[\rho]$$ must be approximated. Perdew organized the zoo of approximations into a hierarchy known as **Jacob's Ladder**, where each rung uses richer information about the density:
+The exchange-correlation functional $$E_{\text{xc}}[\rho]$$ must be approximated.
+Perdew organized the zoo of approximations into a hierarchy known as **Jacob's
+Ladder** (<span id="cite-perdew2001"></span>[Perdew & Schmidt, 2001](#ref-perdew2001)), where each rung uses richer information about the density:
 
 | Rung | Input | Example |
 |------|-------|---------|
@@ -263,26 +271,22 @@ In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$
 
 ## Deep Learning for Quantum Chemistry
 
-Deep learning in quantum chemistry usually replaces one of three objects. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (Pfau et al., 2020). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, the central object in DFT and the input to the energy functional.
+Deep learning in quantum chemistry usually replaces one of three objects. It can parameterize the many-electron wavefunction directly, as in neural VMC models such as FermiNet (<span id="cite-pfau2020"></span>[Pfau et al., 2020](#ref-pfau2020)). It can learn pieces of the Kohn-Sham pipeline, such as the exchange-correlation functional or the Hamiltonian matrix. Or it can predict the electron density $$\rho(\mathbf{r})$$, the central object in DFT and the input to the energy functional.
 
-In our group, GPWNO (Kim & Ahn, 2024) predicts electron density fields, while QHFlow (Kim et al., 2025) predicts DFT Hamiltonians with equivariant flow matching. Both operate on the DFT objects developed above: density, Hamiltonian, and the SCF loop.
+In our group, GPWNO (<span id="cite-kim2024"></span>[Kim & Ahn, 2024](#ref-kim2024)) predicts electron density fields, while QHFlow (<span id="cite-kim2025"></span>[Kim et al., 2025](#ref-kim2025)) predicts DFT Hamiltonians with equivariant flow matching. Both operate on the DFT objects developed above: density, Hamiltonian, and the SCF loop.
 
 ---
 
 ## References
 
-- Hohenberg, P. & Kohn, W. (1964). Inhomogeneous electron gas. [Physical Review, 136(3B), B864](https://doi.org/10.1103/PhysRev.136.B864).
-- Kohn, W. & Sham, L. J. (1965). Self-consistent equations including exchange and correlation effects. [Physical Review, 140(4A), A1133](https://doi.org/10.1103/PhysRev.140.A1133).
-- Kohn, W. (1999). Nobel lecture: Electronic structure of matter—wave functions and density functionals. [Reviews of Modern Physics, 71(5), 1253](https://doi.org/10.1103/RevModPhys.71.1253).
-- Szabo, A. & Ostlund, N. S. (1996). Modern Quantum Chemistry. Dover Publications.
-- Perdew, J. P. & Schmidt, K. (2001). Jacob's ladder of density functional approximations for the exchange-correlation energy. [AIP Conference Proceedings, 577(1), 1-20](https://doi.org/10.1063/1.1390175).
-- Pfau, D., et al. (2020). Ab initio solution of the many-electron Schrödinger equation with deep neural networks. [Physical Review Research, 2(3), 033429](https://doi.org/10.1103/PhysRevResearch.2.033429).
-- Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://arxiv.org/abs/2402.04278).
-- Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817).
-
-### Figure sources
-
-- SCF loop diagram (`scf_loop.svg`): custom explanatory figure generated by `scripts/generate_dft_figures.py` with SVG+PNG outputs and the shared blog figure style.
+- <span id="ref-hohenberg1964"></span>Hohenberg, P. & Kohn, W. (1964). Inhomogeneous electron gas. [Physical Review, 136(3B), B864](https://doi.org/10.1103/PhysRev.136.B864). <a href="#cite-hohenberg1964" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kohn1965"></span>Kohn, W. & Sham, L. J. (1965). Self-consistent equations including exchange and correlation effects. [Physical Review, 140(4A), A1133](https://doi.org/10.1103/PhysRev.140.A1133). <a href="#cite-kohn1965" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kohn1999"></span>Kohn, W. (1999). Nobel lecture: Electronic structure of matter—wave functions and density functionals. [Reviews of Modern Physics, 71(5), 1253](https://doi.org/10.1103/RevModPhys.71.1253). <a href="#cite-kohn1999" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-szabo1996"></span>Szabo, A. & Ostlund, N. S. (1996). *Modern Quantum Chemistry*. Dover Publications. <a href="#cite-szabo1996" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-perdew2001"></span>Perdew, J. P. & Schmidt, K. (2001). Jacob's ladder of density functional approximations for the exchange-correlation energy. [AIP Conference Proceedings, 577(1), 1-20](https://doi.org/10.1063/1.1390175). <a href="#cite-perdew2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-pfau2020"></span>Pfau, D., et al. (2020). Ab initio solution of the many-electron Schrödinger equation with deep neural networks. [Physical Review Research, 2(3), 033429](https://doi.org/10.1103/PhysRevResearch.2.033429). <a href="#cite-pfau2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2024"></span>Kim, S. & Ahn, S. (2024). Gaussian plane-wave neural operator for electron density estimation. [ICML 2024](https://arxiv.org/abs/2402.04278). <a href="#cite-kim2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kim2025"></span>Kim, S., Kim, N., Kim, D. & Ahn, S. (2025). High-order equivariant flow matching for density functional theory Hamiltonian prediction. [NeurIPS 2025 Spotlight](https://arxiv.org/abs/2505.18817). <a href="#cite-kim2025" class="reversefootnote" role="doc-backlink">↩</a>
 
 ---
 

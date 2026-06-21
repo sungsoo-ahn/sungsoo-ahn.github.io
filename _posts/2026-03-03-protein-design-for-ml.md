@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -26,7 +26,7 @@ related_posts: false
 
 Small-molecule drugs dominate pharmacology, but they have hard limits. A typical small molecule has a molecular weight under 500 Da and contacts its target over ~300 Å$$^2$$ (1 Å = 0.1 nm). Proteins are 100–1000x larger, with binding interfaces spanning 1,000–2,000 Å$$^2$$. That extra contact area gives proteins more selectivity: they encode more geometric and chemical information at the interface, so they can distinguish targets that small molecules cannot.
 
-Many disease-relevant targets — protein–protein interactions, flat surfaces, disordered regions — are "undruggable" by small molecules because there is no deep binding pocket to exploit. Designed proteins can bind these surfaces directly. The prefusion-stabilized COVID-19 spike (Hsieh et al., 2020) was used in multiple approved vaccines, and de novo designed miniprotein inhibitors achieved picomolar (extremely tight) binding to the spike in lab assays (Cao et al., 2020).
+Many disease-relevant targets — protein–protein interactions, flat surfaces, disordered regions — are "undruggable" by small molecules because there is no deep binding pocket to exploit. Designed proteins can bind these surfaces directly. The prefusion-stabilized COVID-19 spike (<span id="cite-hsieh2020"></span>[Hsieh et al., 2020](#ref-hsieh2020)) was used in multiple approved vaccines, and de novo designed miniprotein inhibitors achieved picomolar (extremely tight) binding to the spike in lab assays (<span id="cite-cao2020"></span>[Cao et al., 2020](#ref-cao2020)).
 
 For ML researchers, the appeal is structural. Protein design is a well-defined generative modeling problem: the input is a functional specification (target structure, binding constraints), and the output is a sequence of discrete tokens (amino acids) that must satisfy continuous geometric constraints (3D folding).
 
@@ -222,7 +222,7 @@ Seven tools define the current protein design stack. For each, the key questions
 
 ### Rosetta
 
-Rosetta is the classic physics-based suite, developed over more than 20 years. It evaluates designs with an energy function that sums van der Waals packing, electrostatics, hydrogen bonds, solvation, and backbone geometry terms. Output is reported in **Rosetta Energy Units (REU)**, where lower is better. Rosetta is still widely used for scoring and refinement, even as ML tools handle generation.
+Rosetta is the classic physics-based suite, developed over more than 20 years (<span id="cite-leman2020"></span>[Leman et al., 2020](#ref-leman2020)). It evaluates designs with an energy function that sums van der Waals packing, electrostatics, hydrogen bonds, solvation, and backbone geometry terms. Output is reported in **Rosetta Energy Units (REU)**, where lower is better. Rosetta is still widely used for scoring and refinement, even as ML tools handle generation.
 
 ### AlphaFold2 / AlphaFold3
 
@@ -233,33 +233,33 @@ Rosetta is the classic physics-based suite, developed over more than 20 years. I
 - **ipTM** — interface confidence for protein complexes. The key metric for binder design.
 - **PAE** — predicted aligned error matrix. Shows expected positional error between all residue pairs. For binder design, check the inter-chain PAE block: low values mean the model is confident about the binding mode.
 
-AF2 handles single chains; AF2-Multimer extends it to multi-chain protein complexes. AF3 extends to protein–nucleic acid and protein–small molecule complexes.
+AF2 handles single chains (<span id="cite-jumper2021"></span>[Jumper et al., 2021](#ref-jumper2021)); AF2-Multimer extends it to multi-chain protein complexes. AF3 extends to protein–nucleic acid and protein–small molecule complexes (<span id="cite-abramson2024"></span>[Abramson et al., 2024](#ref-abramson2024)).
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_alphafold_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="AlphaFold predicts 3D structure from sequence and evolutionary context. The model combines MSA/template information with a structure module, then reports coordinates and confidence estimates. From Jumper et al. (2021), CC BY 4.0." %}
 
 ### ESMFold / ESM3
 
-Meta's protein language models offer a faster structure-prediction route. ESMFold predicts structure from a **single sequence**, with no MSA required, making it much faster than AlphaFold. ESM3 is more general, jointly modeling sequences, structures, and functional annotations. These models are useful for rapid self-consistency screening at scale: when you have 80,000 candidate sequences, filter with ESMFold first and send only the top candidates to AlphaFold.
+Meta's protein language models offer a faster structure-prediction route. ESMFold predicts structure from a **single sequence**, with no MSA required, making it much faster than AlphaFold (<span id="cite-lin2023"></span>[Lin et al., 2023](#ref-lin2023)). ESM3 is more general, jointly modeling sequences, structures, and functional annotations. These models are useful for rapid self-consistency screening at scale: when you have 80,000 candidate sequences, filter with ESMFold first and send only the top candidates to AlphaFold.
 
 ### ProteinMPNN
 
-**Input:** 3D backbone coordinates (as a graph of residue positions). **Output:** amino acid probability distribution at each position. A message-passing neural network that designs sequences for given backbones. Fast, accurate, and the standard inverse folding tool. Typically generates 8–16 sequences per backbone.
+**Input:** 3D backbone coordinates (as a graph of residue positions). **Output:** amino acid probability distribution at each position. A message-passing neural network that designs sequences for given backbones (<span id="cite-dauparas2022"></span>[Dauparas et al., 2022](#ref-dauparas2022)). Fast, accurate, and the standard inverse folding tool. Typically generates 8–16 sequences per backbone.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_proteinmpnn_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="ProteinMPNN designs sequences for fixed backbones using geometric message passing. Random decoding order and tied positions let the same model handle fixed-context, symmetric, and multi-chain design problems. From Dauparas et al. (2022), CC BY 4.0." %}
 
 ### RFDiffusion
 
-**Input:** target protein structure + conditioning constraints (hotspot residues, motifs, symmetry). **Output:** new backbone coordinates. A denoising diffusion model over backbone coordinates — analogous to image diffusion models but operating in SE(3) coordinate space. The most powerful current tool for de novo backbone generation.
+**Input:** target protein structure + conditioning constraints (hotspot residues, motifs, symmetry). **Output:** new backbone coordinates. A denoising diffusion model over backbone coordinates — analogous to image diffusion models but operating in SE(3) coordinate space. RFDiffusion is the most powerful current tool for de novo backbone generation (<span id="cite-watson2023"></span>[Watson et al., 2023](#ref-watson2023)).
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_rfdiffusion_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="RFDiffusion generates protein backbones through iterative denoising. Conditioning lets the same diffusion model handle unconditional generation, motif scaffolding, symmetry, and binder design. From Watson et al. (2023), CC BY 4.0." %}
 
 ### Boltz / Boltz2
 
-Boltz models are alternative structure predictors that provide a second opinion on AlphaFold. Agreement between two separately trained predictors is not experimental proof, but it is a useful computational sanity check before spending lab effort.
+Boltz models are alternative structure predictors that provide a second opinion on AlphaFold (<span id="cite-wohlwend2024"></span>[Wohlwend et al., 2024](#ref-wohlwend2024)). Agreement between two separately trained predictors is not experimental proof, but it is a useful computational sanity check before spending lab effort.
 
 ### BoltzGen
 
-BoltzGen (Stark et al., 2025) is worth one sentence here because it keeps the same design loop but couples the steps more tightly. The core workflow is still generate, sequence, predict, filter, and validate. Newer systems mostly change how tightly those steps interact and which failure modes they catch before experiments.
+BoltzGen (<span id="cite-stark2025"></span>[Stark et al., 2025](#ref-stark2025)) is worth one sentence here because it keeps the same design loop but couples the steps more tightly. The core workflow is still generate, sequence, predict, filter, and validate. Newer systems mostly change how tightly those steps interact and which failure modes they catch before experiments.
 
 ### What Does "Good" Look Like?
 
@@ -322,29 +322,13 @@ The gap between computational output (millions of candidates) and experimental t
 
 ## References
 
-- Cao, L., et al. (2020). De novo design of picomolar SARS-CoV-2 miniprotein inhibitors. *Science*, 370(6515), 426–431.
-- Hsieh, C.-L., et al. (2020). Structure-based design of prefusion-stabilized SARS-CoV-2 spikes. *Science*, 369(6510), 1501–1505.
-- Leman, J. K., et al. (2020). Macromolecular modeling and design in Rosetta: recent methods and frameworks. *Nature Methods*, 17, 665–680.
-- Jumper, J., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*, 596, 583–589.
-- Dauparas, J., et al. (2022). Robust deep learning–based protein sequence design using ProteinMPNN. *Science*, 378(6615), 49–56.
-- Lin, Z., et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science*, 379(6637), 1123–1130.
-- Watson, J. L., et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*, 620, 1089–1100.
-- Abramson, J., et al. (2024). Accurate structure prediction of biomolecular interactions with AlphaFold 3. *Nature*, 630, 493–500.
-- Wohlwend, J., et al. (2024). Boltz-1: Democratizing Biomolecular Interaction Modeling. *arXiv:2408.00537*.
-- Stark, H., et al. (2025). BoltzGen: Toward Universal Binder Design. *bioRxiv:2025.11.20.689494*.
-
-### Figure sources
-
-- Amino acids diagram (`pd_amino_acids.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Amino_Acids.svg), CC BY-SA 3.0.
-- Protein structure levels (`pd_protein_structure_levels.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Main_protein_structure_levels_en.svg), public domain.
-- Secondary structure (`pd_secondary_structure_source.png`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Alpha_beta_structure_(full).png), CC BY-SA 4.0.
-- Multiple sequence alignment (`pd_msa_source.gif`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:RPLP0_90_ClustalW_aln.gif), CC BY-SA 3.0.
-- Hydrophobic interaction (`pd_hydrophobic_core_source.jpg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cartoon_of_protein_hydrophobic_interaction.jpg), CC BY-SA 3.0.
-- Tertiary-structure interactions (`pd_protein_interactions.svg`): custom simplified schematic generated by `scripts/generate_protein_design_figures.py`; it replaces a visually dense Wikimedia source figure with larger labels and a blog-style palette.
-- Protein-protein interface (`pd_binding_interface_source.jpg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:1dfj_RNAseInhibitor-RNAse_complex.jpg), CC BY 3.0.
-- Antibody structure (`pd_antibody_structure.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Immunoglobulin_basic_unit.svg), CC BY-SA 3.0.
-- Folding energy landscape (`pd_energy_landscape.svg`): [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Folding_funnel_schematic.svg) by Thomas Splettstoesser, CC BY-SA 3.0.
-- AlphaFold overview (`pd_alphafold_overview_source.jpg`): Figure 1 from Jumper et al. (2021), via [PMC8371605](https://pmc.ncbi.nlm.nih.gov/articles/PMC8371605/), CC BY 4.0.
-- ProteinMPNN overview (`pd_proteinmpnn_overview_source.jpg`): Figure 1 from Dauparas et al. (2022), via [PMC9997061](https://pmc.ncbi.nlm.nih.gov/articles/PMC9997061/), CC BY 4.0.
-- RFDiffusion overview (`pd_rfdiffusion_overview_source.jpg`): Figure 1 from Watson et al. (2023), via [PMC10468394](https://pmc.ncbi.nlm.nih.gov/articles/PMC10468394/), CC BY 4.0.
-- Custom diagrams (`pd_design_problems.svg`, `pd_self_consistency.svg`, `pd_design_funnel.svg`): generated by `scripts/generate_protein_design_figures.py`.
+- <span id="ref-cao2020"></span>Cao, L., et al. (2020). De novo design of picomolar SARS-CoV-2 miniprotein inhibitors. *Science, 370*(6515), 426-431. [DOI](https://doi.org/10.1126/science.abd9909). <a href="#cite-cao2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-hsieh2020"></span>Hsieh, C.-L., et al. (2020). Structure-based design of prefusion-stabilized SARS-CoV-2 spikes. *Science, 369*(6510), 1501-1505. [DOI](https://doi.org/10.1126/science.abd0826). <a href="#cite-hsieh2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-leman2020"></span>Leman, J. K., et al. (2020). Macromolecular modeling and design in Rosetta: recent methods and frameworks. *Nature Methods, 17*, 665-680. [DOI](https://doi.org/10.1038/s41592-020-0848-2). <a href="#cite-leman2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-jumper2021"></span>Jumper, J., et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature, 596*, 583-589. [DOI](https://doi.org/10.1038/s41586-021-03819-2). <a href="#cite-jumper2021" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-dauparas2022"></span>Dauparas, J., et al. (2022). Robust deep learning-based protein sequence design using ProteinMPNN. *Science, 378*(6615), 49-56. [DOI](https://doi.org/10.1126/science.add2187). <a href="#cite-dauparas2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-lin2023"></span>Lin, Z., et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science, 379*(6637), 1123-1130. [DOI](https://doi.org/10.1126/science.ade2574). <a href="#cite-lin2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-watson2023"></span>Watson, J. L., et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature, 620*, 1089-1100. [DOI](https://doi.org/10.1038/s41586-023-06415-8). <a href="#cite-watson2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-abramson2024"></span>Abramson, J., et al. (2024). Accurate structure prediction of biomolecular interactions with AlphaFold 3. *Nature, 630*, 493-500. [DOI](https://doi.org/10.1038/s41586-024-07487-w). <a href="#cite-abramson2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-wohlwend2024"></span>Wohlwend, J., et al. (2024). Boltz-1: Democratizing Biomolecular Interaction Modeling. [bioRxiv](https://doi.org/10.1101/2024.11.19.624167). <a href="#cite-wohlwend2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-stark2025"></span>Stark, H., et al. (2025). BoltzGen: Toward Universal Binder Design. [bioRxiv](https://doi.org/10.1101/2025.11.20.689494). <a href="#cite-stark2025" class="reversefootnote" role="doc-backlink">↩</a>

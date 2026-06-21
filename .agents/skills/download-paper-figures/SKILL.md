@@ -26,7 +26,7 @@ Use source figures when they are clearer than a custom redraw and legally usable
    - Publisher sites: do not reproduce directly unless the figure license is explicit and compatible.
 3. Download the highest useful resolution or original vector file.
 4. Save under `assets/img/blog/` with a stable descriptive filename.
-5. Add or update a Figure Sources entry with source URL, license, and modifications.
+5. Record source URL, license, and modifications in agent-facing notes, a figure-generation script, or a figure manifest. Do not add a rendered source appendix to the post body.
 6. Write a two-sentence caption plus a short provenance note.
 7. Run `python3 scripts/validate_blog.py`.
 
@@ -35,7 +35,7 @@ If using ChatGPT/image generation instead of a downloaded source figure:
 1. Generate a no-text base illustration and save it under `assets/img/blog/<stem>_imagegen_base.png`.
 2. Add exact labels, arrows, and equations in a separate editable SVG layer.
 3. Save the final annotated SVG plus PNG preview.
-4. Record the prompt, asset paths, and design rationale in the Figure Sources section.
+4. Record the prompt, asset paths, and design rationale in agent-facing notes, a figure-generation script, or a figure manifest.
 
 ## Caption Wording
 
