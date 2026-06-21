@@ -8,27 +8,32 @@
   color-scheme: light;
   --global-bg-color: #{$white-color};
   --global-code-bg-color: #{$code-bg-color-light};
-  --global-text-color: #{$black-color};
-  --global-text-color-light: #{$grey-color};
-  --global-theme-color: #{$black-color};
-  --global-hover-color: #{$grey-color-dark};
+  --global-text-color: #{$spml-purple-ink};
+  --global-text-color-light: #{$spml-purple-muted};
+  --global-theme-color: #{$spml-purple-link};
+  --global-hover-color: #{$spml-purple-strong};
   --global-hover-text-color: #{$white-color};
-  --global-footer-bg-color: #{$grey-color-dark};
-  --global-footer-text-color: #{$grey-color-light};
+  --global-footer-bg-color: #{$spml-purple-ink};
+  --global-footer-text-color: #{$spml-purple-soft};
   --global-footer-link-color: #{$white-color};
-  --global-distill-app-color: #{$grey-color};
-  --global-divider-color: rgba(0, 0, 0, 0.1);
+  --global-distill-app-color: #{$spml-purple-muted};
+  --global-divider-color: rgba(35, 21, 51, 0.14);
   --global-card-bg-color: #{$white-color};
-  --global-highlight-color: #{$red-color-dark};
+  --global-highlight-color: #{$spml-purple-strong};
   --global-back-to-top-bg-color: rgba(
-    #{color.channel($black-color, "red", $space: rgb)},
-    #{color.channel($black-color, "green", $space: rgb)},
-    #{color.channel($black-color, "blue", $space: rgb)},
+    #{color.channel($spml-purple-ink, "red", $space: rgb)},
+    #{color.channel($spml-purple-ink, "green", $space: rgb)},
+    #{color.channel($spml-purple-ink, "blue", $space: rgb)},
     0.4
   );
   --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$white-color};
-  --global-newsletter-text-color: #{$black-color};
+  --global-newsletter-text-color: #{$spml-purple-ink};
+  --spml-paper-block-bg: #f7f2fb;
+  --spml-paper-block-border: #cdbce8;
+  --spml-paper-block-accent: #{$spml-purple-strong};
+  --spml-paper-block-heading: #{$spml-purple-ink};
+  --spml-paper-block-muted: #{$spml-purple-muted};
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -91,28 +96,33 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --global-bg-color: #{$grey-color-dark};
+  --global-bg-color: #{$spml-dark-bg};
   --global-code-bg-color: #{$code-bg-color-dark};
-  --global-text-color: #{$grey-color-light};
-  --global-text-color-light: #{$grey-color};
-  --global-theme-color: #{$cyan-color};
-  --global-hover-color: #{$cyan-color};
-  --global-hover-text-color: #{$white-color};
-  --global-footer-bg-color: #{$grey-color-light};
-  --global-footer-text-color: #{$grey-color-dark};
-  --global-footer-link-color: #{$black-color};
-  --global-distill-app-color: #{$grey-color-light};
-  --global-divider-color: #424246;
-  --global-card-bg-color: #{$grey-900};
+  --global-text-color: #{$spml-dark-ink};
+  --global-text-color-light: #{$spml-dark-muted};
+  --global-theme-color: #{$spml-dark-link};
+  --global-hover-color: #{$spml-dark-ink};
+  --global-hover-text-color: #{$spml-dark-bg};
+  --global-footer-bg-color: #100d16;
+  --global-footer-text-color: #{$spml-dark-muted};
+  --global-footer-link-color: #{$spml-dark-ink};
+  --global-distill-app-color: #{$spml-dark-muted};
+  --global-divider-color: rgba(246, 242, 250, 0.15);
+  --global-card-bg-color: #{$spml-dark-card};
   --global-back-to-top-bg-color: rgba(
-    #{color.channel($white-color, "red", $space: rgb)},
-    #{color.channel($white-color, "green", $space: rgb)},
-    #{color.channel($white-color, "blue", $space: rgb)},
+    #{color.channel($spml-dark-ink, "red", $space: rgb)},
+    #{color.channel($spml-dark-ink, "green", $space: rgb)},
+    #{color.channel($spml-dark-ink, "blue", $space: rgb)},
     0.5
   );
-  --global-back-to-top-text-color: #{$black-color};
-  --global-newsletter-bg-color: #{$grey-color-light};
-  --global-newsletter-text-color: #{$grey-color-dark};
+  --global-back-to-top-text-color: #{$spml-dark-bg};
+  --global-newsletter-bg-color: #{$spml-dark-card};
+  --global-newsletter-text-color: #{$spml-dark-ink};
+  --spml-paper-block-bg: #241b30;
+  --spml-paper-block-border: rgba(184, 150, 255, 0.38);
+  --spml-paper-block-accent: #{$spml-dark-link};
+  --spml-paper-block-heading: #{$spml-dark-ink};
+  --spml-paper-block-muted: #{$spml-dark-muted};
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #215d42;
