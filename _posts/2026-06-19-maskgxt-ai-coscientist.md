@@ -20,10 +20,11 @@ In our recent work, a human–AI co-scientist loop produced MaskGXT, a
 state-of-the-art algorithm for inorganic crystal structure prediction (CSP).[^csp]
 We call the loop HACO, short for Human–AI Co-discovery system.
 
-As far as we know, MaskGXT is the first AI co-scientist result to produce a
-**competitive generative deep-learning algorithm for a mature scientific ML
-benchmark.** HACO, our Human–AI Co-discovery system, searched across complete
-CSP methods with sparse human steering rather than tuning a fixed architecture.
+Among reported human–AI co-discovery results, MaskGXT is the first we know of
+to produce a **competitive generative deep-learning algorithm for a mature
+scientific ML benchmark.** HACO, our Human–AI Co-discovery system, searched
+across complete CSP methods with sparse human steering rather than tuning a
+fixed architecture.
 MaskGXT is the masked-generation branch that survived validation and turned
 MaskGIT-style parallel decoding into a crystal-generation algorithm.
 
