@@ -16,51 +16,16 @@ published: true
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGIT, transferred into CSP.</strong> HACO moved masked generation from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
-Can an AI co-scientist discover a deep-learning algorithm that stands up to
-human-designed methods?
+In our recent work, a human–AI co-scientist loop produced MaskGXT, a
+state-of-the-art algorithm for inorganic crystal structure prediction (CSP).[^csp]
+We call the loop HACO, short for Human–AI Co-discovery system.
 
-We study this question in crystal structure prediction (CSP)[^csp]: generating
-plausible inorganic crystal structures from chemical compositions. The result is
-MaskGXT, a masked generative transformer for CSP, developed through HACO, our
-Human–AI Co-discovery system for scientific algorithm discovery.
-
-Recent AI-for-science systems already show that language-model agents can
-help with scientific search. FunSearch
-(<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024))
-and AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025))
-demonstrated program search for mathematical and algorithmic discovery. The AI
-Scientist (<span id="cite-lu2024"></span>[Lu et al., 2024](#ref-lu2024);
-<span id="cite-yamada2025"></span>[Yamada et al., 2025](#ref-yamada2025)), AIDE
-(<span id="cite-jiang2025"></span>[Jiang et al., 2025](#ref-jiang2025)), and
-Google's AI co-scientist (<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025))
-pushed toward hypothesis generation, code-level experimentation, and automated
-research workflows.
-
-As far as we know, **this is the first AI co-scientist result to produce a
-competitive generative deep-learning algorithm for a mature scientific ML
-benchmark.**
-
-We did not ask HACO to tune a known CSP architecture. We asked it to search for
-a generative modeling principle that could transfer into CSP. Starting from the
-CSP task, it searched across ideas from other fields, identified masked
-generative modeling as a useful principle, and adapted it into a
-crystal-generation algorithm that competes with human-designed CSP methods.
-
-The key transfer came from MaskGIT
-(<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)), a
-masked generative model originally developed for image generation. HACO turned
-this idea into MaskGXT by representing a crystal as a sequence of discrete
-tokens: space group, lattice parameters, fractional coordinates, Wyckoff
-positions, and atom types.[^wyckoff] A transformer then learns to complete
-missing tokens, making crystal generation a masked parallel decoding problem.
-
-Crystals made the transfer awkward. They are periodic, symmetry-redundant, and
-polymorphic: the same composition can form multiple valid structures, and the
-same structure can be written in many equivalent coordinate systems. With sparse
-human steering, HACO added crystallographic symmetry tokens, periodic coordinate
-supervision, space-group-stratified sampling, and sub-bin coordinate refinement.
-The agent wrote the code, ran the experiments, analyzed validation feedback, and
-kept branches that improved performance.
+As far as we know, MaskGXT is the first AI co-scientist result to produce a
+**competitive generative deep-learning algorithm for a mature scientific ML
+benchmark.** HACO, our Human–AI Co-discovery system, searched across complete
+CSP methods with sparse human steering rather than tuning a fixed architecture.
+MaskGXT is the masked-generation branch that survived validation and turned
+MaskGIT-style parallel decoding into a crystal-generation algorithm.
 
 We release code for both the
 [HACO search loop](https://github.com/kiyoung98/HACO) and
@@ -99,13 +64,26 @@ generative-model development.
 
 ## How HACO worked
 
+Recent AI-for-science systems already show that language-model agents can help
+with scientific search. FunSearch
+(<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024))
+and AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025))
+demonstrated program search for mathematical and algorithmic discovery. The AI
+Scientist (<span id="cite-lu2024"></span>[Lu et al., 2024](#ref-lu2024);
+<span id="cite-yamada2025"></span>[Yamada et al., 2025](#ref-yamada2025)), AIDE
+(<span id="cite-jiang2025"></span>[Jiang et al., 2025](#ref-jiang2025)), and
+Google's AI co-scientist (<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025))
+pushed toward hypothesis generation, code-level experimentation, and automated
+research workflows.
+
 {% include video.liquid path="assets/video/maskgxt_agent_anim.mp4" class="img-fluid rounded z-depth-1 mx-auto d-block" poster="/assets/img/blog/maskgxt_agent.png" autoplay=true loop=true muted=true controls=true caption="<strong>The HACO loop.</strong> A tree-structured search organizes candidate CSP methods; each node is a complete generative model. The tree grows as idea, draft, debug, and improve operators are applied, while human input enters only sparsely as high-level mechanisms or objectives." %}
 
 HACO used familiar agent machinery: a tree of candidate methods, operators for
 idea generation, drafting, debugging, and improvement, executable experiments,
-and score-based selection. The important choice was what the tree searched over.
-Each node was not just a code patch or a hyperparameter setting. It was a
-complete CSP method, trained under a fixed budget and scored by validation
+and score-based selection. We did not ask it to tune a known CSP architecture.
+We asked it to search for a generative modeling principle that could transfer
+into CSP. Each node was not just a code patch or a hyperparameter setting. It
+was a complete CSP method, trained under a fixed budget and scored by validation
 METRe.
 
 Most branches did not survive validation. Autoregressive formulations were easy
@@ -151,12 +129,21 @@ research ideas became measurable bets rather than prose suggestions.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
 
-MaskGXT adapts MaskGIT’s discrete masked generative formulation to inorganic
-crystal structure prediction. It represents a crystal as a discrete token
-sequence of space group, lattice lengths and angles, fractional coordinates,
-atom types, and Wyckoff positions. During training, it randomly masks part of
-this sequence and learns to reconstruct the missing tokens, analogous to how
-MaskGIT reconstructs masked image tokens.
+The key transfer came from MaskGIT
+(<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)), a
+masked generative model originally developed for image generation. HACO turned
+this idea into MaskGXT by representing a crystal as a sequence of discrete
+tokens: space group, lattice parameters, fractional coordinates, Wyckoff
+positions, and atom types.[^wyckoff] During training, the model randomly masks
+part of this sequence and learns to reconstruct the missing tokens. At sampling
+time, a transformer fills in the missing tokens through masked parallel
+decoding.
+
+That description makes the transfer sound cleaner than it was. Crystals are
+periodic, symmetry-redundant, and polymorphic: the same composition can form
+multiple valid structures, and the same structure can be written in many
+equivalent coordinate systems. MaskGXT had to make masked generation work under
+those constraints.
 
 The main algorithmic move came from the agent: recast CSP as masked discrete
 token generation. Once that branch survived validation, HACO refined it with
@@ -242,10 +229,9 @@ one.
 
 ---
 
-[^csp]: In this post, CSP means the benchmark version of crystal structure
-    prediction: given a chemical composition, generate plausible crystal
-    structures for that composition. It is narrower than exhaustive
-    first-principles search over all possible structures.
+[^csp]: Here, CSP means generating plausible inorganic crystal structures from
+    chemical compositions. It is narrower than exhaustive first-principles
+    search over all possible structures.
 
 [^wyckoff]: A space group describes the symmetry operations of a crystal.
     Wyckoff positions describe symmetry-equivalent sites inside that space
