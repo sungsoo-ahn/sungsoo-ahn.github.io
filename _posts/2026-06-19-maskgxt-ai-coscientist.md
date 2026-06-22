@@ -137,19 +137,20 @@ process: propose a mechanism, write runnable code, train it, inspect the result,
 preserve what worked, and try again. Across roughly five hundred trials,
 research ideas became measurable bets rather than prose suggestions.
 
-That division of labor matters for interpreting MaskGXT. It was neither a fully
-autonomous discovery nor a conventional human-designed method. Humans steered a
-few high-level bottlenecks, and the loop converted those hints into tested
-algorithmic components.
-
 ## The resulting algorithm: MaskGXT
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
 
-The transferred core is a discrete masked formulation. MaskGXT represents a crystal as a sequence of space group, lattice, fractional coordinates, atom types, Wyckoff positions. During training it masks a random subset and learns to reconstruct them, as MaskGIT reconstructs masked image tokens.
+MaskGXT adapts MaskGIT’s discrete masked generative formulation to inorganic
+crystal structure prediction. It represents a crystal as a discrete token
+sequence of space group, lattice lengths and angles, fractional coordinates,
+atom types, and Wyckoff positions. During training, it randomly masks part of
+this sequence and learns to reconstruct the missing tokens, analogous to how
+MaskGIT reconstructs masked image tokens.
 
-The crystal setting adds periodic geometry, symmetry, and polymorph coverage
-requirements, so MaskGXT includes five extra mechanisms.
+Adapting this formulation to crystals requires handling periodicity, symmetry,
+and polymorph diversity. MaskGXT therefore adds five crystal-specific
+mechanisms:
 
 - **Periodic ordinal smoothing** treats nearby coordinate bins as similar and
   makes bins near 0 and 1 neighbors.
@@ -164,6 +165,24 @@ requirements, so MaskGXT includes five extra mechanisms.
 - **Space-group-stratified sampling** was a human-steered sampling mechanism. It
   uses non-i.i.d. draws across likely symmetries to produce diverse polymorph
   candidates instead of redundant samples.[^iid]
+
+## Human steering in the co-scientist loop
+
+The division of labor matters for interpreting MaskGXT. It was neither a fully
+autonomous discovery nor a conventional human-designed method. Most components
+emerged from automated search, but humans steered four high-level bottlenecks:
+
+- **Symmetry tokens.** We suggested representing crystallographic symmetry
+  explicitly, pointing to DiffCSP++ ([Jiao et al., 2024](#ref-jiao2024)) and
+  WyFormer ([Kazeev et al., 2025](#ref-kazeev2025)).
+- **Symmetry-preserving augmentation.** We suggested orbit permutation over a
+  symmetry-based atom ordering, referring to MCFlow
+  ([Seong et al., 2026](#ref-seong2026)).
+- **Stratified sampling.** We supplied the mechanism that non-i.i.d. sampling
+  could improve polymorph coverage.[^iid]
+- **Sub-bin regression.** We supplied only the objective---recover the precision
+  lost by discretization. The continuous offset mechanism was then developed
+  within the loop.
 
 ## Our take: where co-scientist loops are useful
 
