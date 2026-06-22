@@ -3,7 +3,7 @@ layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
 last_updated: 2026-06-22
-description: "How a human–AI co-scientist loop produced MaskGXT, a state-of-the-art deep learning algorithm for crystal structure prediction."
+description: "How HACO, a Human–AI Co-discovery system, produced MaskGXT, a competitive generative model for crystal structure prediction."
 post_type: research
 authors: ["Kiyoung Seong", "Sungsoo Ahn"]
 categories: [machine-learning]
@@ -14,111 +14,121 @@ related_posts: false
 published: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>An AI co-scientist discovers a new CSP algorithm.</strong> The co-scientist transferred MaskGIT's masked-generation idea from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGIT, transferred into CSP.</strong> HACO moved masked generation from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
-In our recent work, a human–AI co-scientist loop produced MaskGXT, a
-state-of-the-art algorithm for inorganic crystal structure prediction (CSP)[^csp]: generating
-plausible crystal structures from chemical compositions.
+Can an AI co-scientist discover a deep-learning algorithm that stands up to
+human-designed methods?
 
-Recent AI-for-science systems such as FunSearch (<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024)),
-AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025)), The AI Scientist
-(<span id="cite-lu2024"></span>[Lu et al., 2024](#ref-lu2024); <span id="cite-yamada2025"></span>[Yamada et al., 2025](#ref-yamada2025)), AIDE
-(<span id="cite-jiang2025"></span>[Jiang et al., 2025](#ref-jiang2025)), and Google's AI co-scientist
-(<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025)) have mostly shown program search,
-hypothesis generation, code-level experimentation, or automated research
-workflow construction. The harder target for deep learning research is a
-reusable algorithm: a modeling formulation, objective, or sampler that improves a
-real scientific ML benchmark.
+We study this question in crystal structure prediction (CSP)[^csp]: generating
+plausible inorganic crystal structures from chemical compositions. The result is
+MaskGXT, a masked generative transformer for CSP, developed through HACO, our
+Human–AI Co-discovery system for scientific algorithm discovery.
 
-MaskGXT, the Masked Generative Crystal Transformer, treats a crystal as a
-sequence of discrete tokens:
-lattice parameters, fractional coordinates, atom types, space group, and Wyckoff positions.[^wyckoff] It learns to complete the missing tokens with a transformer.
-It transfers the masked-generation principle behind MaskGIT
-(<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)) from computer
-vision to crystals, then adapts it to periodic coordinates,
-crystallographic symmetry, and polymorph coverage.
+Recent AI-for-science systems already show that language-model agents can
+help with scientific search. FunSearch
+(<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024))
+and AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025))
+demonstrated program search for mathematical and algorithmic discovery. The AI
+Scientist (<span id="cite-lu2024"></span>[Lu et al., 2024](#ref-lu2024);
+<span id="cite-yamada2025"></span>[Yamada et al., 2025](#ref-yamada2025)), AIDE
+(<span id="cite-jiang2025"></span>[Jiang et al., 2025](#ref-jiang2025)), and
+Google's AI co-scientist (<span id="cite-gottweis2025"></span>[Gottweis et al., 2025](#ref-gottweis2025))
+pushed toward hypothesis generation, code-level experimentation, and automated
+research workflows.
 
-The loop had a narrow division of labor. Humans supplied a few model-level
-directions; the co-scientist implemented candidates, ran experiments, and
-selected branches by validation METRe.
+As far as we know, **this is the first AI co-scientist result to produce a
+competitive generative deep-learning algorithm for a mature scientific ML
+benchmark.**
 
-Code is available for both the
-[AI co-scientist search loop](https://github.com/kiyoung98/HACO) and
+We did not ask HACO to tune a known CSP architecture. We asked it to search for
+a generative modeling principle that could transfer into CSP. Starting from the
+CSP task, it searched across ideas from other fields, identified masked
+generative modeling as a useful principle, and adapted it into a
+crystal-generation algorithm that competes with human-designed CSP methods.
+
+The key transfer came from MaskGIT
+(<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)), a
+masked generative model originally developed for image generation. HACO turned
+this idea into MaskGXT by representing a crystal as a sequence of discrete
+tokens: space group, lattice parameters, fractional coordinates, Wyckoff
+positions, and atom types.[^wyckoff] A transformer then learns to complete
+missing tokens, making crystal generation a masked parallel decoding problem.
+
+Crystals made the transfer awkward. They are periodic, symmetry-redundant, and
+polymorphic: the same composition can form multiple valid structures, and the
+same structure can be written in many equivalent coordinate systems. With sparse
+human steering, HACO added crystallographic symmetry tokens, periodic coordinate
+supervision, space-group-stratified sampling, and sub-bin coordinate refinement.
+The agent wrote the code, ran the experiments, analyzed validation feedback, and
+kept branches that improved performance.
+
+We release code for both the
+[HACO search loop](https://github.com/kiyoung98/HACO) and
 [MaskGXT](https://github.com/kiyoung98/maskgxt).
 
-## The result: a new state of the art
+## The result: benchmark evidence
 
-A single MaskGXT model reaches the best match rate on the standard MP-20 and
-MPTS-52 benchmarks. Its largest advantage appears in polymorph-aware evaluation,
-where the model must recover multiple structures that can arise from the same
-chemical composition (<span id="cite-martirossyan2025"></span>[Martirossyan et al., 2025](#ref-martirossyan2025)).[^metre]
+The benchmark comparison is below. MaskGXT wins the standard match-rate columns,
+and its largest advantage appears in polymorph-aware evaluation, where the model
+must recover multiple structures that can arise from the same chemical
+composition (<span id="cite-martirossyan2025"></span>[Martirossyan et al., 2025](#ref-martirossyan2025)).[^metre]
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_results_bars.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGXT benchmark results.</strong> Bars summarize the main paper's filtered standard-CSP scores and held-out METRe scores; higher is better for MR and METRe, lower is better for RMSE and cRMSE. MaskGXT wins the match-rate and METRe columns, with its largest margin on the MP-20 polymorph split." %}
 
 On the MP-20 polymorph split, MaskGXT raises METRe from 70.87% to 79.06%.
-This is not a random benchmark victory.
 
-CSP has become one of the most active testbeds for generative modeling in
-materials science. Early learned crystal generators such as
-CDVAE (<span id="cite-xie2022"></span>[Xie et al., 2022](#ref-xie2022)) and DiffCSP
-(<span id="cite-jiao2023"></span>[Jiao et al., 2023](#ref-jiao2023)) made periodic coordinate generation a
-benchmark problem. FlowMM (<span id="cite-miller2024"></span>[Miller et al., 2024](#ref-miller2024)), OMatG
-(<span id="cite-hoellmer2025"></span>[Hoellmer et al., 2025](#ref-hoellmer2025)), CrystalFlow
-(<span id="cite-luo2025"></span>[Luo et al., 2025](#ref-luo2025)), and MCFlow
-(<span id="cite-seong2026"></span>[Seong et al., 2026](#ref-seong2026)) developed continuous flow, Riemannian,
-stochastic-interpolant, and multimodal formulations.
+CSP is already a crowded and technically mature benchmark. Learned crystal
+generation has moved from early diffusion-based models such as CDVAE
+(<span id="cite-xie2022"></span>[Xie et al., 2022](#ref-xie2022)) and DiffCSP
+(<span id="cite-jiao2023"></span>[Jiao et al., 2023](#ref-jiao2023)), to
+flow-based and stochastic-interpolant approaches such as FlowMM
+(<span id="cite-miller2024"></span>[Miller et al., 2024](#ref-miller2024)),
+OMatG (<span id="cite-hoellmer2025"></span>[Hoellmer et al., 2025](#ref-hoellmer2025)),
+and MCFlow (<span id="cite-seong2026"></span>[Seong et al., 2026](#ref-seong2026)).
 
-A large line of symmetry-aware methods---including
-DiffCSP++ (<span id="cite-jiao2024"></span>[Jiao et al., 2024](#ref-jiao2024)), WyCryst
-(<span id="cite-zhu2024"></span>[Zhu et al., 2024](#ref-zhu2024)), Wyckoff Transformer
-(<span id="cite-kazeev2025"></span>[Kazeev et al., 2025](#ref-kazeev2025)), WyckoffDiff
-(<span id="cite-kelvinius2025"></span>[Kelvinius et al., 2025](#ref-kelvinius2025)), SymmCD
-(<span id="cite-levy2025"></span>[Levy et al., 2025](#ref-levy2025)), and CrystalFormer
-(<span id="cite-cao2025"></span>[Cao et al., 2025](#ref-cao2025))---explicitly modeled space groups, Wyckoff
-positions, or crystallographic constraints. Recent materials-generation and
-lightweight-transformer models such as MatterGen (<span id="cite-zeni2025"></span>[Zeni et al., 2025](#ref-zeni2025))
-and Crystalite (<span id="cite-veljkovic2026"></span>[Veljković et al., 2026](#ref-veljkovic2026)) add further
-competitive baselines. In other words, MaskGXT was not improving an
-underexplored toy benchmark. It was competing against several years of
-domain-specific architecture and generative-model design.
+In parallel, symmetry-aware methods have explicitly incorporated space groups,
+Wyckoff positions, and crystallographic constraints, as in DiffCSP++
+(<span id="cite-jiao2024"></span>[Jiao et al., 2024](#ref-jiao2024)),
+Wyckoff Transformer (<span id="cite-kazeev2025"></span>[Kazeev et al., 2025](#ref-kazeev2025)),
+SymmCD (<span id="cite-levy2025"></span>[Levy et al., 2025](#ref-levy2025)),
+and CrystalFormer (<span id="cite-cao2025"></span>[Cao et al., 2025](#ref-cao2025)).
+This is only a selective snapshot; many relevant works remain outside this
+short list. The point is that MaskGXT was not improving an empty benchmark, but
+competing against several years of domain-specific architecture design and
+generative-model development.
 
-## How the co-scientist loop worked
+## How HACO worked
 
-{% include video.liquid path="assets/video/maskgxt_agent_anim.mp4" class="img-fluid rounded z-depth-1 mx-auto d-block" poster="assets/img/blog/maskgxt_agent.png" autoplay=true loop=true muted=true controls=true caption="<strong>The AI co-scientist loop.</strong> A tree-structured search organizes candidate CSP methods; each node is a complete generative model. The tree grows as idea, draft, debug, and improve operators are applied, while human input enters only sparsely as high-level mechanisms or objectives." %}
+{% include video.liquid path="assets/video/maskgxt_agent_anim.mp4" class="img-fluid rounded z-depth-1 mx-auto d-block" poster="/assets/img/blog/maskgxt_agent.png" autoplay=true loop=true muted=true controls=true caption="<strong>The HACO loop.</strong> A tree-structured search organizes candidate CSP methods; each node is a complete generative model. The tree grows as idea, draft, debug, and improve operators are applied, while human input enters only sparsely as high-level mechanisms or objectives." %}
 
-The co-scientist framework itself was not new. We mostly reused the ingredients
-that appear across recent AI-scientist systems: a tree of candidate ideas,
-operators for proposing, drafting, debugging, and improving candidates,
-executable experiments, and score-based selection. The difference was the human
-interface. Humans supplied sparse research taste: which mechanisms seemed worth
-trying, which objectives mattered, and when a branch deserved more budget. The
-loop still turned those hints into code, experiments, selection decisions, and
-follow-up variants.
+HACO used familiar agent machinery: a tree of candidate methods, operators for
+idea generation, drafting, debugging, and improvement, executable experiments,
+and score-based selection. The important choice was what the tree searched over.
+Each node was not just a code patch or a hyperparameter setting. It was a
+complete CSP method, trained under a fixed budget and scored by validation
+METRe.
 
-The search target was also different. Many ML-agent workflows start with the
-broad modeling family already fixed and then search for better code,
-hyperparameters, or implementation details. Here, we made the generative
-methodology itself the object of search. Rather than restricting the loop to
-known CSP models, we let it explore frameworks from other fields that had
-credible mechanisms for crystals.
+Most branches did not survive validation. Autoregressive formulations were easy
+to instantiate but did not give the polymorph coverage we needed. Several
+continuous-interpolant ideas looked plausible on paper but were too expensive or
+unstable under the search budget. The MaskGIT branch was not obvious at the
+start; it became compelling because it combined parallel generation, discrete
+symmetry-aware representations, and a clean validation signal.
 
-The search was organized as a tree. Each node was a complete candidate method:
-proposed, implemented, trained under a fixed budget, and evaluated on validation
-METRe within the co-scientist loop. Scores determined which branches to expand,
-debug, or abandon. The exploration covered fourteen cross-domain frameworks,
-including autoregressive transformers from language modeling, masked generative
+The exploration covered fourteen cross-domain frameworks, including
+autoregressive transformers from language modeling, masked generative
 transformers from vision, and state-space interpolants from sequence modeling.
-The MaskGIT branch became the strongest lineage and was then developed into
-MaskGXT.
+The MaskGIT branch survived repeated validation, absorbed the crystallographic
+mechanisms suggested during the search, and eventually became MaskGXT.
 
-Explore the full search tree below.
+Explore the full HACO search tree below.
 
 <div class="row justify-content-center my-4">
   <div class="col-12">
     <div class="position-relative">
       <iframe
         src="https://kiyoung98.github.io/HACO/"
-        title="MaskGXT search tree"
+        title="HACO search tree"
         loading="lazy"
         class="img-fluid rounded z-depth-1 d-block w-100"
         style="height: 70vh; border: 0;"
@@ -148,34 +158,22 @@ atom types, and Wyckoff positions. During training, it randomly masks part of
 this sequence and learns to reconstruct the missing tokens, analogous to how
 MaskGIT reconstructs masked image tokens.
 
-Adapting this formulation to crystals requires handling periodicity, symmetry,
-and polymorph diversity. MaskGXT therefore adds the following crystal-specific
-mechanisms:
+The main algorithmic move came from the agent: recast CSP as masked discrete
+token generation. Once that branch survived validation, HACO refined it with
+periodic ordinal smoothing, confidence-ranked greedy decoding, and the
+Transformer scaling choices that made the branch competitive.
 
-- **Periodic ordinal smoothing** was developed by the agent. It treats nearby
-  coordinate bins as similar and makes bins near 0 and 1 neighbors.
-- **Symmetry tokens** were a human-steered representation mechanism. We
-  suggested explicit crystallographic symmetry tokens, drawing on DiffCSP++
-  ([Jiao et al., 2024](#ref-jiao2024)) and WyFormer
-  ([Kazeev et al., 2025](#ref-kazeev2025)). These expose space-group structure
-  to the transformer.
-- **Symmetry-preserving augmentation** was a human-steered data augmentation
-  mechanism. We suggested orbit permutation over a symmetry-based atom ordering,
-  drawing on MCFlow ([Seong et al., 2026](#ref-seong2026)). This exposes the
-  model to equivalent crystal descriptions.
-- **Sub-bin regression** came from a human-steered objective: recover the
-  precision lost by discretization. The agent developed the continuous-offset
-  mechanism that restores precision inside each coordinate bin.
-- **Confidence-ranked greedy decoding** was developed by the agent. It produces
-  a high-probability structure from the finite token space.
-- **Space-group-stratified sampling** was a human-steered sampling mechanism. It
-  uses non-i.i.d. draws across likely symmetries to produce diverse polymorph
-  candidates instead of redundant samples.[^iid]
+Human steering entered more sparsely. We pointed the search toward
+crystallographic structure where the agent lacked domain priors: explicit
+space-group and Wyckoff tokens, symmetry-preserving orbit permutation, polymorph
+coverage through space-group-stratified sampling, and an objective to recover
+sub-bin coordinate precision. The agent then implemented these ideas, tested
+them, and kept the versions that improved validation METRe.
 
-This division of labor matters for interpreting MaskGXT. It was neither a fully
-autonomous discovery nor a conventional human-designed method. The agent found
-the masked formulation and developed several implementation details; humans
-supplied sparse domain-level mechanisms and objectives.
+MaskGXT should be read as a co-discovered method. The agent found the masked
+generation lineage and did most of the implementation-level development; humans
+supplied a few crystallographic mechanisms and objectives at the points where
+domain knowledge mattered.
 
 ## Our take: where co-scientist loops are useful
 
@@ -199,9 +197,10 @@ mechanisms.
 
 ### The human role may shift toward goal and loop design
 
-As implementation and search get cheaper, the human work shifts to choosing an important scientific problem, constructing an aligned metric, supplying missing domain
-mechanisms, recognizing misleading evidence, and deciding when the objective
-itself should change.
+As implementation and search get cheaper, the human work shifts to choosing an
+important scientific problem, constructing an aligned metric, supplying missing
+domain mechanisms, recognizing misleading evidence, and deciding when the
+objective itself should change.
 
 The next bottleneck is attention. One run can create hundreds of hypotheses, code
 variants, logs, plots, and failures. Useful systems will need to maintain a
@@ -211,13 +210,10 @@ unexplored, and which decisions truly require human judgment.
 ## Conclusion
 
 MaskGXT does not settle whether current systems can do science autonomously. It
-shows a narrower result: with a runnable benchmark, a useful proxy metric, and a
-few human interventions, a co-scientist loop can produce a competitive reusable
-model.
-
-The practical next step is to look for research problems with the same structure:
-a searchable design space, cheap enough evaluation, and a metric worth
-optimizing.
+shows a narrower result: if the design space is searchable, the evaluation loop
+is cheap enough, and the metric points in the right direction, an AI
+co-scientist can help find a real algorithm rather than only write code around
+one.
 
 ## References
 
