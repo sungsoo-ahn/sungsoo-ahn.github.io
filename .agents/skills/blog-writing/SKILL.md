@@ -13,6 +13,7 @@ Rules for writing and editing blog posts. Blog prose is direct and opinionated �
 - **Cut throat-clearing openers** — delete filler like "The equation says:", "What does X look like?", "The fundamental challenge is clear:", "The methods described above form the backbone of...". Just state the content.
 - **Don't restate what was just shown** — if the math already demonstrated a property, don't add a sentence restating it in words.
 - **Drop dramatic qualifiers** — "fundamental physical flaw", "radically different approach", "enormous complexity" → just state the facts. Let the reader judge significance.
+- **Avoid self-aware scaffolding sentences** — delete sentences like "The boundary of this claim matters", "This distinction is important", or "This raises an interesting question". Replace them with the concrete claim, comparison, or evidence.
 - **Merge redundant statements** — if two consecutive sentences say the same thing in different words, combine into one.
 - **Break up stacked parentheticals** — a sentence with three em-dash clauses should be split into separate sentences.
 
