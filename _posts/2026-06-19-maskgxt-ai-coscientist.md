@@ -162,38 +162,6 @@ generation lineage and did most of the implementation-level development; humans
 supplied a few crystallographic mechanisms and objectives at the points where
 domain knowledge mattered.
 
-## Our take: where co-scientist loops are useful
-
-### Evaluation infrastructure matters
-
-We suspect AI co-scientist workflows are strongest when evaluation is fast enough
-to turn research taste into an empirical loop. CSP offered fixed data,
-executable models, training runs measured in hours, and a validation metric
-reasonably aligned with the final objective. This allowed the loop to test many
-ideas without asking a human to judge every intermediate result.
-
-In less mature domains, the hard part may be building evaluation protocols that
-are cheap enough for repeated search and faithful enough to predict final
-scientific value. Better surrogates, small-scale experiments, predictive scaling
-laws, and carefully designed proxy tasks may matter as much as better foundation
-models.
-
-For MaskGXT, validation METRe gave the search tree a useful pressure signal: weak
-branches were discarded, and the MaskGIT lineage kept absorbing crystal-specific
-mechanisms.
-
-### The human role may shift toward goal and loop design
-
-As implementation and search get cheaper, the human work shifts to choosing an
-important scientific problem, constructing an aligned metric, supplying missing
-domain mechanisms, recognizing misleading evidence, and deciding when the
-objective itself should change.
-
-The next bottleneck is attention. One run can create hundreds of hypotheses, code
-variants, logs, plots, and failures. Useful systems will need to maintain a
-compact research state: what was tried, why it failed, what mechanisms remain
-unexplored, and which decisions truly require human judgment.
-
 ## Conclusion
 
 MaskGXT does not settle whether current systems can do science autonomously. It
@@ -201,6 +169,23 @@ shows a narrower result: if the design space is searchable, the evaluation loop
 is cheap enough, and the metric points in the right direction, an AI
 co-scientist can help find a real algorithm rather than only write code around
 one.
+
+CSP had the right ingredients for this kind of loop: fixed data, executable
+models, training runs measured in hours, and validation METRe, a metric close
+enough to final performance to discard weak branches and keep improving the
+MaskGIT lineage. For less mature domains, the first hard problem may be the
+evaluation protocol: cheap surrogates, small-scale experiments, predictive
+scaling laws, or proxy tasks that are faithful enough to guide repeated search.
+Without that pressure signal, an agent can generate many plausible ideas without
+learning which ones matter.
+
+As implementation and search get cheaper, the human role shifts toward designing
+the loop: choosing the problem, constructing the metric, supplying missing domain
+mechanisms, catching misleading evidence, and deciding when the objective should
+change. The next bottleneck is attention. A single run can produce hundreds of
+hypotheses, code variants, logs, plots, and failures, so useful systems will need
+a compact research state that tracks what was tried, why it failed, and which
+decisions still require human judgment.
 
 ## References
 
