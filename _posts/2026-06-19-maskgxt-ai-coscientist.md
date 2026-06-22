@@ -2,7 +2,7 @@
 layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
-last_updated: 2026-06-21
+last_updated: 2026-06-22
 description: "How a human–AI co-scientist loop produced MaskGXT, a state-of-the-art deep learning algorithm for crystal structure prediction."
 post_type: research
 authors: ["Kiyoung Seong", "Sungsoo Ahn"]
@@ -91,9 +91,10 @@ The co-scientist framework itself was not new. We mostly reused the ingredients
 that appear across recent AI-scientist systems: a tree of candidate ideas,
 operators for proposing, drafting, debugging, and improving candidates,
 executable experiments, and score-based selection. The difference was the human
-interface. We allowed humans to intervene during the search with high-level
-mechanisms and objectives, then let the loop turn those hints into code,
-experiments, and further search.
+interface. Humans supplied sparse research taste: which mechanisms seemed worth
+trying, which objectives mattered, and when a branch deserved more budget. The
+loop still turned those hints into code, experiments, selection decisions, and
+follow-up variants.
 
 The search target was also different. Many ML-agent workflows start with the
 broad modeling family already fixed and then search for better code,
@@ -137,29 +138,10 @@ process: propose a mechanism, write runnable code, train it, inspect the result,
 preserve what worked, and try again. Across roughly five hundred trials,
 research ideas became measurable bets rather than prose suggestions.
 
-## Where human research taste entered
-
-The masked generative formulation and most of the model code emerged from the
-automated search. Before the human-guided refinements, the best branch was
-already competitive with the previous state of the art. We then supplied four
-missing mechanisms or objectives:
-
-- **Symmetry tokens.** We suggested representing crystallographic symmetry
-  explicitly, pointing to DiffCSP++ ([Jiao et al., 2024](#ref-jiao2024)) and
-  WyFormer ([Kazeev et al., 2025](#ref-kazeev2025)).
-- **Symmetry-preserving augmentation.** We suggested orbit permutation over a
-  symmetry-based atom ordering, pointing to MCFlow
-  ([Seong et al., 2026](#ref-seong2026)).
-- **Stratified sampling.** We supplied the mechanism that non-i.i.d. sampling
-  could improve polymorph coverage.[^iid]
-- **Sub-bin precision.** We supplied only the objective---recover the precision
-  lost by discretization. The continuous offset mechanism was then developed
-  within the loop.
-
-MaskGXT was neither a fully autonomous discovery nor a conventional
-human-designed method. Human input entered at four bottlenecks; the co-scientist
-loop converted those hints into code, experiments, ablations, and further
-improvements.
+That division of labor matters for interpreting MaskGXT. It was neither a fully
+autonomous discovery nor a conventional human-designed method. Humans steered a
+few high-level bottlenecks, and the loop converted those hints into tested
+algorithmic components.
 
 ## The resulting algorithm: MaskGXT
 
@@ -175,14 +157,17 @@ requirements, so MaskGXT includes five extra mechanisms.
 
 - **Periodic ordinal smoothing** treats nearby coordinate bins as similar and
   makes bins near 0 and 1 neighbors.
-- **Symmetry tokens and symmetry-preserving augmentation** expose the model to
-  crystallographic structure and equivalent crystal descriptions.
-- **Sub-bin regression** restores continuous geometric precision inside each
-  discrete coordinate bin.
+- **Symmetry tokens and symmetry-preserving augmentation** were human-steered
+  mechanisms. They expose the model to crystallographic structure and equivalent
+  crystal descriptions.
+- **Sub-bin regression** came from a human-steered objective: recover the
+  precision lost by discretization. The loop developed the continuous-offset
+  mechanism that restores precision inside each coordinate bin.
 - **Confidence-ranked greedy decoding** produces a high-probability structure
   from the finite token space.
-- **Space-group-stratified sampling** branches over likely symmetries, producing
-  diverse polymorph candidates instead of redundant draws.
+- **Space-group-stratified sampling** was a human-steered sampling mechanism. It
+  uses non-i.i.d. draws across likely symmetries to produce diverse polymorph
+  candidates instead of redundant samples.[^iid]
 
 ## Our take: where co-scientist loops are useful
 
@@ -260,7 +245,7 @@ optimizing.
     first-principles search over all possible structures.
 
 [^wyckoff]: A space group describes the symmetry operations of a crystal.
-    **Wyckoff positions** describe symmetry-equivalent sites inside that space
+    Wyckoff positions describe symmetry-equivalent sites inside that space
     group, so they provide a compact way to represent crystallographic
     constraints.
 
