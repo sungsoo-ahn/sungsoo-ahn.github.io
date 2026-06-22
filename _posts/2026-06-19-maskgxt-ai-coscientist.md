@@ -149,40 +149,33 @@ this sequence and learns to reconstruct the missing tokens, analogous to how
 MaskGIT reconstructs masked image tokens.
 
 Adapting this formulation to crystals requires handling periodicity, symmetry,
-and polymorph diversity. MaskGXT therefore adds five crystal-specific
+and polymorph diversity. MaskGXT therefore adds the following crystal-specific
 mechanisms:
 
-- **Periodic ordinal smoothing** treats nearby coordinate bins as similar and
-  makes bins near 0 and 1 neighbors.
-- **Symmetry tokens and symmetry-preserving augmentation** were human-steered
-  mechanisms. They expose the model to crystallographic structure and equivalent
-  crystal descriptions.
+- **Periodic ordinal smoothing** was developed by the agent. It treats nearby
+  coordinate bins as similar and makes bins near 0 and 1 neighbors.
+- **Symmetry tokens** were a human-steered representation mechanism. We
+  suggested explicit crystallographic symmetry tokens, drawing on DiffCSP++
+  ([Jiao et al., 2024](#ref-jiao2024)) and WyFormer
+  ([Kazeev et al., 2025](#ref-kazeev2025)). These expose space-group structure
+  to the transformer.
+- **Symmetry-preserving augmentation** was a human-steered data augmentation
+  mechanism. We suggested orbit permutation over a symmetry-based atom ordering,
+  drawing on MCFlow ([Seong et al., 2026](#ref-seong2026)). This exposes the
+  model to equivalent crystal descriptions.
 - **Sub-bin regression** came from a human-steered objective: recover the
-  precision lost by discretization. The loop developed the continuous-offset
+  precision lost by discretization. The agent developed the continuous-offset
   mechanism that restores precision inside each coordinate bin.
-- **Confidence-ranked greedy decoding** produces a high-probability structure
-  from the finite token space.
+- **Confidence-ranked greedy decoding** was developed by the agent. It produces
+  a high-probability structure from the finite token space.
 - **Space-group-stratified sampling** was a human-steered sampling mechanism. It
   uses non-i.i.d. draws across likely symmetries to produce diverse polymorph
   candidates instead of redundant samples.[^iid]
 
-## Human steering in the co-scientist loop
-
-The division of labor matters for interpreting MaskGXT. It was neither a fully
-autonomous discovery nor a conventional human-designed method. Most components
-emerged from automated search, but humans steered four high-level bottlenecks:
-
-- **Symmetry tokens.** We suggested representing crystallographic symmetry
-  explicitly, pointing to DiffCSP++ ([Jiao et al., 2024](#ref-jiao2024)) and
-  WyFormer ([Kazeev et al., 2025](#ref-kazeev2025)).
-- **Symmetry-preserving augmentation.** We suggested orbit permutation over a
-  symmetry-based atom ordering, referring to MCFlow
-  ([Seong et al., 2026](#ref-seong2026)).
-- **Stratified sampling.** We supplied the mechanism that non-i.i.d. sampling
-  could improve polymorph coverage.[^iid]
-- **Sub-bin regression.** We supplied only the objective---recover the precision
-  lost by discretization. The continuous offset mechanism was then developed
-  within the loop.
+This division of labor matters for interpreting MaskGXT. It was neither a fully
+autonomous discovery nor a conventional human-designed method. The agent found
+the masked formulation and developed several implementation details; humans
+supplied sparse domain-level mechanisms and objectives.
 
 ## Our take: where co-scientist loops are useful
 
