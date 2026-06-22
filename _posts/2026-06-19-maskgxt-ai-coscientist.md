@@ -17,7 +17,7 @@ published: true
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>An AI co-scientist discovers a new CSP algorithm.</strong> The co-scientist transferred MaskGIT's masked-generation idea from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
 In our recent work, a human–AI co-scientist loop produced MaskGXT, a
-state-of-the-art algorithm for crystal structure prediction[^csp]: generating
+state-of-the-art algorithm for inorganic crystal structure prediction (CSP)[^csp]: generating
 plausible crystal structures from chemical compositions.
 
 Recent AI-for-science systems such as FunSearch (<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024)),
@@ -32,8 +32,7 @@ real scientific ML benchmark.
 
 MaskGXT, the Masked Generative Crystal Transformer, treats a crystal as a
 sequence of discrete tokens:
-lattice parameters, fractional coordinates, space group, and Wyckoff
-positions.[^wyckoff] It learns to complete the missing tokens with a transformer.
+lattice parameters, fractional coordinates, atom types, space group, and Wyckoff positions.[^wyckoff] It learns to complete the missing tokens with a transformer.
 It transfers the masked-generation principle behind MaskGIT
 (<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)) from computer
 vision to crystals, then adapts it to periodic coordinates,
@@ -99,7 +98,7 @@ The search target was also different. Many ML-agent workflows start with the
 broad modeling family already fixed and then search for better code,
 hyperparameters, or implementation details. Here, we made the generative
 methodology itself the object of search. Rather than restricting the loop to
-known CSP models, we used it to explore frameworks from other fields that had
+known CSP models, we let it explore frameworks from other fields that had
 credible mechanisms for crystals.
 
 The search was organized as a tree. Each node was a complete candidate method:
@@ -165,10 +164,7 @@ improvements.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
 
-The transferred core is a discrete masked formulation. MaskGXT represents the
-space group, lattice, fractional coordinates, Wyckoff positions, and atom sites
-as a sequence of tokens. During training it masks a random subset and learns to
-reconstruct them, as MaskGIT reconstructs masked image tokens.
+The transferred core is a discrete masked formulation. MaskGXT represents a crystal as a sequence of space group, lattice, fractional coordinates, atom types, Wyckoff positions. During training it masks a random subset and learns to reconstruct them, as MaskGIT reconstructs masked image tokens.
 
 The crystal setting adds periodic geometry, symmetry, and polymorph coverage
 requirements, so MaskGXT includes five extra mechanisms.
@@ -206,8 +202,7 @@ mechanisms.
 
 ### The human role may shift toward goal and loop design
 
-As implementation and search get cheaper, the human work shifts to choosing a
-worthwhile problem, constructing an aligned metric, supplying missing domain
+As implementation and search get cheaper, the human work shifts to choosing an important scientific problem, constructing an aligned metric, supplying missing domain
 mechanisms, recognizing misleading evidence, and deciding when the objective
 itself should change.
 
