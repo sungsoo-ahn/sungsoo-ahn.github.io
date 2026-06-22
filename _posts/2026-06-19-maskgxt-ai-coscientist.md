@@ -44,7 +44,7 @@ directions; the co-scientist implemented candidates, ran experiments, and
 selected branches by validation METRe.
 
 Code is available for both the
-[AI co-scientist search loop](https://github.com/kiyoung98/HAICO) and
+[AI co-scientist search loop](https://github.com/kiyoung98/HACO) and
 [MaskGXT](https://github.com/kiyoung98/maskgxt).
 
 ## The result: a new state of the art
@@ -118,13 +118,13 @@ Explore the full search tree below.
   <div class="col-12">
     <div class="position-relative">
       <iframe
-        src="https://kiyoung98.github.io/HAICO/"
+        src="https://kiyoung98.github.io/HACO/"
         title="MaskGXT search tree"
         loading="lazy"
         class="img-fluid rounded z-depth-1 d-block w-100"
         style="height: 70vh; border: 0;"
         allowfullscreen></iframe>
-      <a href="https://kiyoung98.github.io/HAICO/" target="_blank" rel="noopener"
+      <a href="https://kiyoung98.github.io/HACO/" target="_blank" rel="noopener"
          class="btn btn-light position-absolute"
          style="top: 0.5rem; right: 0.5rem; padding: 0.15rem 0.5rem; font-size: 0.7rem; line-height: 1.4; opacity: 0.9;">Open ↗</a>
     </div>
