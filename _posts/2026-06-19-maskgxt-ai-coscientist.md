@@ -28,9 +28,9 @@ fixed architecture.
 MaskGXT is the masked-generation branch that survived validation and turned
 MaskGIT-style parallel decoding into a crystal-generation algorithm.
 
-We release code for both the
-[HACO search loop](https://github.com/kiyoung98/HACO) and
-[MaskGXT](https://github.com/kiyoung98/maskgxt).
+The [preprint is now on arXiv](https://arxiv.org/abs/2606.22866). We also
+release code for both the [HACO search loop](https://github.com/kiyoung98/HACO)
+and [MaskGXT](https://github.com/kiyoung98/maskgxt).
 
 ## The result: benchmark evidence
 
