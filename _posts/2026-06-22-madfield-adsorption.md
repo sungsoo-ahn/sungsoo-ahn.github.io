@@ -20,6 +20,10 @@ published: true
 
 {% include figure.liquid loading="eager" path="assets/img/blog/madfield_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>Predicting where gas goes, at database scale.</strong> MADField replaces slow per-material adsorption simulation with a single neural-network forward pass, making it possible to screen hundreds of thousands of porous frameworks for the rare high-capacity ones." %}
 
+**MADField evaluates gas adsorption about 250,000× faster than grand canonical Monte Carlo (GCMC), the gold-standard simulation.** We built it to predict the full 3D adsorbate density field in a tenth of a second — instead of hours of GCMC — and read off uptake by integrating it. On the full **270,583-structure ARC-MOF database** it recovers **95% of the rare high-capacity methane stores in the top 1.7%** of its ranking, **56× more precise than the best previous ML baseline**, and holds up on unseen materials like amorphous carbons.
+
+This post shares the whole story: the problem, what MADField achieves, and how. The how is two ideas — predict the density field, not the scalar uptake, and train multi-fidelity, a broad, cheap cDFT prior corrected by a little GCMC. Together they make MADField fast and accurate enough to drop into real adsorbent-discovery pipelines for gas storage, carbon capture, and separation.
+
 ## Material "adsorbent" discovery
 
 Adsorption is the process by which gas molecules accumulate inside the pores of a porous solid. The solid that holds the gas is the **adsorbent**; the gas it holds is the **adsorbate**. Methane inside a porous crystal, or carbon dioxide pulled from flue gas, are both adsorption.
