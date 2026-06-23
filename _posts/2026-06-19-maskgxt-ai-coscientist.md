@@ -130,6 +130,25 @@ research ideas became measurable bets rather than prose suggestions.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
 
+Explore crystal structures sampled by MaskGXT from the MP-20 polymorph split test set.
+
+<div class="row justify-content-center my-4">
+  <div class="col-12">
+    <div class="position-relative">
+      <iframe
+        src="https://kiyoung98.github.io/MaskGXT/"
+        title="MaskGXT crystal structure explorer"
+        loading="lazy"
+        class="img-fluid rounded z-depth-1 d-block w-100"
+        style="height: 75vh; border: 0;"
+        allowfullscreen></iframe>
+      <a href="https://kiyoung98.github.io/MaskGXT/" target="_blank" rel="noopener"
+         class="btn btn-light position-absolute"
+         style="top: 0.5rem; right: 0.5rem; padding: 0.15rem 0.5rem; font-size: 0.7rem; line-height: 1.4; opacity: 0.9;">Open ↗</a>
+    </div>
+  </div>
+</div>
+
 The key transfer came from MaskGIT
 (<span id="cite-chang2022"></span>[Chang et al., 2022](#ref-chang2022)), a
 masked generative model originally developed for image generation. HACO turned
