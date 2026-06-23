@@ -15,10 +15,14 @@ published: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post describes our paper, <a href="https://arxiv.org/abs/2606.21284">MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials</a>. For background on gas adsorption, GCMC, and classical DFT, see our earlier <a href="/blog/2026/adsorption-gcmc-classical-dft/">adsorption tutorial</a>.</em>
+  <em>Note: For background on gas adsorption, GCMC, and classical DFT, see our earlier <a href="/blog/2026/adsorption-gcmc-classical-dft/">adsorption tutorial</a>.</em>
 </p>
 
-{% include figure.liquid loading="eager" path="assets/img/blog/madfield_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>Predicting where gas goes, at database scale.</strong> MADField replaces slow per-material adsorption simulation with a single neural-network forward pass, making it possible to screen hundreds of thousands of porous frameworks for the rare high-capacity ones." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/madfield_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>Acceleration of material adsorbent screening using MADField.</strong> MADField predicts the equilibrium adsorbate density inside a porous framework directly, replacing slow GCMC simulation and making it possible to screen an entire database for the rare high-capacity materials." %}
+
+Grand canonical Monte Carlo (GCMC) is the gold-standard simulation for gas adsorption, used to design materials from methane storage to CO₂ direct air capture. It samples gas molecules in the material one at a time, averaging them into the equilibrium adsorbate density field — accurate, but far too slow to screen candidates at scale. In our recent work, we introduce **MADField**, which evaluates adsorption **about 250,000× faster than GCMC with no loss in accuracy**. The speedup comes from a change of paradigm: instead of simulating particles, MADField predicts the same density field with a neural network trained at two fidelities — pre-trained on cheap, abundant classical DFT (cDFT) and fine-tuned on a little high-fidelity GCMC — then integrates it for uptake. On all 270,583 ARC-MOF structures, MADField recovers **95% of the rare high-capacity materials within the top 1.7%** of its ranking, 56× more precisely than the best previous ML baseline.
+
+The full method and experiments are in our paper, [MADField (arXiv:2606.21284)](https://arxiv.org/abs/2606.21284).
 
 ## Material "adsorbent" discovery
 
@@ -44,12 +48,12 @@ so the real work is getting $\rho(\mathbf{r})$ — and there are two standard wa
 
 <div class="row justify-content-center align-items-end my-4">
   <div class="col-md-6 col-12 mb-3 mb-md-0 text-center">
-    <video class="img-fluid rounded z-depth-1" autoplay loop muted playsinline controls src="{{ '/assets/video/madfield_gcmc.mp4' | relative_url }}"></video>
+    <img class="img-fluid rounded z-depth-1" src="{{ '/assets/img/blog/madfield_gcmc.gif' | relative_url }}" alt="GCMC sampling animation">
     <p class="mt-2 mb-0"><strong>GCMC</strong></p>
     <p class="text-muted" style="font-size: 0.85em;">Molecules build up and move, then coarse-grain into the density field. Millions of steps.</p>
   </div>
   <div class="col-md-6 col-12 mb-3 mb-md-0 text-center">
-    <video class="img-fluid rounded z-depth-1" autoplay loop muted playsinline controls src="{{ '/assets/video/madfield_cdft.mp4' | relative_url }}"></video>
+    <img class="img-fluid rounded z-depth-1" src="{{ '/assets/img/blog/madfield_cdft.gif' | relative_url }}" alt="cDFT iteration animation">
     <p class="mt-2 mb-0"><strong>cDFT</strong></p>
     <p class="text-muted" style="font-size: 0.85em;">Propose a new density to minimize the free-energy functional. Tens–hundreds of iterations.</p>
   </div>
@@ -66,7 +70,7 @@ MADField is a neural network that predicts the 3D equilibrium gas density field 
 
 <div class="row justify-content-center my-4">
   <div class="col-md-7 col-12">
-    {% include figure.liquid loading="eager" path="assets/img/blog/madfield_oneshot.png" class="img-fluid rounded z-depth-1" zoomable=true caption="MADField predicts the converged equilibrium CH₄ density directly — the same field GCMC and cDFT reach by iterating, but in a single ~0.1 s pass with no iteration. Reconstructed from our paper visualizations." %}
+    {% include figure.liquid loading="eager" path="assets/img/blog/madfield_rho.png" class="img-fluid rounded z-depth-1" zoomable=true caption="MADField predicts the converged equilibrium CH₄ density directly — the same field GCMC and cDFT reach by iterating, but in a single ~0.1 s pass with no iteration. Reconstructed from our paper visualizations." %}
   </div>
 </div>
 ### Result 1: benchmark on a practical MOF screening pipeline
@@ -129,7 +133,7 @@ We use both. MADField is first **pre-trained on 280,000 cDFT calculations** span
 
 How good is the cheap, approximate cDFT data on its own? Good enough that **MADField-cDFT** — trained without a single GCMC label — already outranks every learned baseline on the screening above, and on per-MOF working-capacity accuracy it places second only to MADField-GCMC, ahead of Uni-MOF and the rest. Starting from that strong cDFT foundation, the small GCMC set then delivers a decisive gain: fine-tuning raises screening average precision **8×** (MADField-cDFT → MADField-GCMC, 0.068 → 0.557). cDFT supplies the breadth, GCMC the fidelity — the full result needs both.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/madfield_wc_parity.png" class="img-fluid rounded z-depth-1" zoomable=true caption="<strong>Working capacity accuracy across models.</strong> Predicted versus GCMC-reference working capacity over all 270,583 frameworks; the dashed line is \(y=x\) and each panel's MAE is in cm³/cm³. MADField-GCMC tracks the reference most tightly (MAE 4.1), but MADField-cDFT — trained on the approximate cDFT data alone — is already second (6.2), ahead of the strongest learned baseline, Uni-MOF (13.0). Adapted from our paper." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/madfield_parity.png" class="img-fluid rounded z-depth-1" zoomable=true caption="<strong>Working capacity accuracy across models.</strong> Predicted versus GCMC-reference working capacity over all 270,583 frameworks; the dashed line is \(y=x\) and each panel's MAE is in cm³/cm³. MADField-GCMC tracks the reference most tightly (MAE 4.1), but MADField-cDFT — trained on the approximate cDFT data alone — is already second (6.2), ahead of the strongest learned baseline, Uni-MOF (13.0). Adapted from our paper." %}
 
 This is what drives generalization. We also tried training on GCMC alone, without the cDFT prior, and performance dropped sharply — most of all on out-of-distribution materials. The cDFT prior is what carries MADField to material classes it never saw during fine-tuning.
 
