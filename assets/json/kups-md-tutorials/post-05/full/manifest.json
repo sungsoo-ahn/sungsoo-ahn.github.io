@@ -32,9 +32,13 @@
   "provenance": {
     "config_path": "configs/post-05/full.json",
     "config_sha256": "cc78ccac72341e718683ccef58ee73f3ba2418b8c8c188bb9442f63ee79857fa",
-    "git_revision": "aa488210738d716175ac57662c68f1b167ffe25e",
+    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "lock_path": "uv.lock",
+    "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
-    "python_version": "3.13.13"
+    "precision_policy": "jax_enable_x64=false;env_JAX_ENABLE_X64=unset",
+    "python_version": "3.13.13",
+    "runtime_device": "jax:cpu;devices:cpu"
   },
   "samples_file": "barostat_samples.csv",
   "summary_file": "barostat_summary.json",

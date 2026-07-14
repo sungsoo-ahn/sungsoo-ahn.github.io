@@ -25,7 +25,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-01/full/manifest.json",
       "kind": "compact-result",
       "post": "01",
-      "sha256": "f21ff69f26643b6f5ed6347f787c404ea6269855a9ba1bcd140c2a3b660ad4f8",
+      "sha256": "c26b35d9c61dab2d4ddb1d3fa2cb6054196b38bbf077e682b31fbe09d3a274f3",
       "source": "/home/sungs/kups-md-tutorials/results/post-01/full/manifest.json"
     },
     {
@@ -53,7 +53,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-02/full/manifest.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "eb295363a0574779c967aea87dc988d4f62e0a00b496c4ba8e8721b4dbf5decc",
+      "sha256": "71b0efe0f680f41cbfee7f11debbb2e332986639ef2873225d96dde3391844e2",
       "source": "/home/sungs/kups-md-tutorials/results/post-02/full/manifest.json"
     },
     {
@@ -95,7 +95,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/manifest.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "9878c54267953a5c2a3ad1e37e562fccf3e4a205c818392cf4503c55a8bfbf5b",
+      "sha256": "7a6c551361d343c913fe6a22dd84902ba3fe359399be23f84f78d897d0c8e78b",
       "source": "/home/sungs/kups-md-tutorials/results/post-03/full/manifest.json"
     },
     {
@@ -116,7 +116,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/manifest.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "17d94881b3cb2e677616959b03ca5ca9023d997046b6013201d2a0149d17912c",
+      "sha256": "ff023075b20303f05190cd6c1978d260f90dbe642a8439e143ae079505042149",
       "source": "/home/sungs/kups-md-tutorials/results/post-04/full/manifest.json"
     },
     {
@@ -165,7 +165,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/manifest.json",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "53b36da9edb42b2cb5d4a82f0ca0c562637a96586765714043f3c5088f74d84e",
+      "sha256": "22d49f7b8dbb2dc65ea898d758b4e2b0c7b93cec85b81fdaa50001645736b54c",
       "source": "/home/sungs/kups-md-tutorials/results/post-05/full/manifest.json"
     },
     {
@@ -186,7 +186,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-06/full/manifest.json",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "8c6836a9a39de007b7502a72980962bdcf9f49a2681e20af59856bc738f1c0f5",
+      "sha256": "5386f379709428e01fd10a73537bc5ef5e46238b8acded27c2e9e0aefb31a81e",
       "source": "/home/sungs/kups-md-tutorials/results/post-06/full/manifest.json"
     },
     {
@@ -221,7 +221,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/manifest.json",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "d11f2110fc5395f5a29bc32db7bb8119e3241430bd0fcb8e0372f0a6b07a3e1f",
+      "sha256": "61f29aaf5de8ce100aa98be846a42f9206040c3377494ed04369cf042a8b9d61",
       "source": "/home/sungs/kups-md-tutorials/results/post-07/full/manifest.json"
     },
     {
@@ -277,7 +277,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-08/full/manifest.json",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "81bb49fc53756334262c905e06cc1e9b4f78931e538d2607a659ab6a2cc74c1e",
+      "sha256": "9d5ad995dd8094245bbbc31330e3660a8b8fd14d9d80544d00ba9e8cd8f02196",
       "source": "/home/sungs/kups-md-tutorials/results/post-08/full/manifest.json"
     },
     {
@@ -305,7 +305,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-09/full/manifest.json",
       "kind": "compact-result",
       "post": "09",
-      "sha256": "40c59f578eaf40838ef1ae98481fd8412c5102bfd1a9c9e888d8aac3c0cdc10a",
+      "sha256": "fe6bacbaea0a717ab71099aee9759b2bdc0a7b4bdc86677dd72abde4ab8a7ff0",
       "source": "/home/sungs/kups-md-tutorials/results/post-09/full/manifest.json"
     },
     {
@@ -333,7 +333,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-10/full/manifest.json",
       "kind": "compact-result",
       "post": "10",
-      "sha256": "35e8147df7cc4faeb2f70e46cbb5b1426b3953871045969cdaa74a2ced067630",
+      "sha256": "8e48cd9c27247e37463d3d66825d268939057d403941118f21a113a966872fa5",
       "source": "/home/sungs/kups-md-tutorials/results/post-10/full/manifest.json"
     },
     {
@@ -389,7 +389,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/manifest.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "1f3e9b1b34811ae4d29af2f188142a7297108b5f55ee8f707a3de26a62890456",
+      "sha256": "51f9c06ff6d5588573c87068f85cf9842df591ab555bfe8f1d2466c3ac6b20d8",
       "source": "/home/sungs/kups-md-tutorials/results/post-11/full/manifest.json"
     },
     {
@@ -410,7 +410,7 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-12/full/manifest.json",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "a125014c07160cbfc3414ce28f4dad71e9266efc1ea2ba77864e48aa3e35f677",
+      "sha256": "b5f3453d5700e0a15faeaf50989f5daf8dddc371422a49ee3c8f9c88024a3b9c",
       "source": "/home/sungs/kups-md-tutorials/results/post-12/full/manifest.json"
     },
     {
@@ -429,5 +429,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "5c0e956c972406754b5db4fe0557719232ca7bf8"
+  "source_git_revision": "a6690308cc9665e5fb292fd83af87868630a362b"
 }
