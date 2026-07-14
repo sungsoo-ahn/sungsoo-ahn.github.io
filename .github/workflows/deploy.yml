@@ -45,6 +45,9 @@ jobs:
       - name: Validate blog posts
         run: python3 scripts/validate_blog.py
 
+      - name: Validate hidden kUPS pages
+        run: python3 scripts/validate_kups_pages.py
+
       - name: Build site
         run: |
           bundle exec jekyll build
