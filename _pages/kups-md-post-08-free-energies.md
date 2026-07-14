@@ -38,9 +38,10 @@ binning bias was introduced, and what uncertainty should accompany the derived
 barrier.
 
 This draft demonstrates the executable slice of the eighth tutorial with a
-controlled double-well distribution and a synthetic RDF-derived PMF. It is a
-small diagnostic for the estimator mechanics before the final argon/kUPS
-free-energy observable is added.
+controlled double-well distribution, a synthetic RDF-derived PMF with an answer
+key, and a compact reduced-unit argon trajectory RDF transformed into a PMF.
+It is still a diagnostic for estimator mechanics, not a production
+free-energy calculation from a long GPU kUPS trajectory.
 
 The target reader already knows that equilibrium samples are distributed
 according to Boltzmann weights. The practical gap is usually the step from
@@ -138,6 +139,7 @@ The current diagnostic keeps the answer key available:
 | bin widths | 0.06, 0.18, 0.35 | resolution versus bias comparison |
 | biased center | 0.9 | simple reweighting test |
 | RDF peak radius | 1.2 | minimum of the RDF-derived PMF |
+| compact argon trajectory | 108 atoms, 551 sampled frames | real time-correlated RDF support |
 
 The true double-well barrier is `1.0`, so the diagnostic can separate estimator
 error from the physical free-energy definition.
@@ -251,38 +253,47 @@ cutoff choices, and low-count bins. If g(r) is invalid or noisy, the derived
 PMF is invalid or noisy too.
 
 The controlled post 08 workflow includes a synthetic RDF-like profile with a
-configured peak radius of 1.2 and width 0.16. The full summary reports an
-RDF-derived PMF minimum at radius about 1.2004, matching the configured peak.
-It also reports an RDF-derived PMF barrier height of about 1.705 in the shifted
-profile. This verifies the transformation for the synthetic example.
+configured peak radius of 1.2 and width 0.16. The full summary reports a
+synthetic RDF-derived PMF minimum at radius about 1.2004, matching the
+configured peak. It also reports a synthetic RDF-derived PMF barrier height of
+about 1.705 in the shifted profile. This verifies the transformation for the
+answer-key example.
 
-The final article should connect this back to an actual argon/kUPS trajectory
-and the RDF estimator from post 07. That final pass should show where the RDF
-has valid support, how uncertainty is attached to the RDF or PMF, and where
-the logarithm amplifies low-count noise.
+The refreshed workflow also computes an RDF from a compact reduced-unit argon
+trajectory using the same physical support logic introduced in post 07. The
+full-profile argon run uses 108 atoms and 551 sampled frames at number density
+0.85 and temperature 0.70. Its RDF first peak is near radius `1.125` with
+`g(r)` about `3.01`; applying `-kT log g(r)` after masking low-RDF bins gives a
+shifted PMF minimum at radius `1.125` and a finite-bin range of about `1.64`
+in reduced energy units. This is a trajectory-derived PMF diagnostic, but it is
+not yet a long production kUPS free-energy result.
 
 ## What Should The Diagnostic Show?
 
-The full run checks three estimator questions. The first panel compares the
+The full run checks four estimator questions. The first panel compares the
 true PMF, a direct histogram PMF, and a reweighted PMF. The second panel shows
 that bin width changes the estimated barrier even for equilibrium samples. The
 third panel shows how an RDF-like g(r) can become a shifted PMF through
-negative kT times the logarithm of g(r).
+negative kT times the logarithm of g(r). The fourth panel repeats that
+transformation on compact time-correlated argon trajectory frames.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and an RDF-like pair distribution can be converted into a shifted potential of mean force." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support." %}
 
 The figure is intentionally an estimator figure. It does not claim to be a
 production free-energy calculation for a molecular process. The first panel
 checks whether the histogram and reweighting pipelines produce plausible
 profiles against a known answer. The second panel isolates binning effects on
 barrier estimates. The third panel connects the observable-estimator language
-from post 07 to free-energy interpretation.
+from post 07 to free-energy interpretation. The fourth panel shows the same
+transform on actual compact argon trajectory frames, making the support and
+low-count-bin problem visible.
 
 The figure also shows what a review should not ignore. Barrier values depend
 on binning. Reweighted estimates can differ from direct estimates. RDF-derived
-PMFs are shifted profiles, not absolute free energies. A clean figure can still
-hide estimator assumptions unless those assumptions are written into the
-caption, prose, and review note.
+PMFs are shifted profiles, not absolute free energies, and the PMF line should
+break where `g(r)` is too small to support a stable logarithm. A clean figure
+can still hide estimator assumptions unless those assumptions are written into
+the caption, prose, and review note.
 
 ## How Should Uncertainty Be Reported?
 
@@ -357,13 +368,13 @@ relative to a reference method. If a free-energy barrier matters, model checks
 should be reported near the PMF analysis, not only in a separate benchmark
 table.
 
-## How Would This Extend to kUPS Trajectories?
+## How Would This Extend to Larger kUPS Trajectories?
 
-The final post should add an argon/kUPS RDF-derived PMF diagnostic linked to
-post 07. A minimal extension would run or reuse a validated argon trajectory,
-compute an RDF with finite-size-aware support, transform it into a shifted PMF,
-and report uncertainty or at least block/replica sensitivity on the RDF or
-derived PMF.
+The current hidden draft now includes a compact reduced-unit argon
+trajectory-derived PMF linked to the post 07 RDF workflow. A larger kUPS
+extension would run or reuse validated GPU trajectories, compute RDFs with
+finite-size-aware support, transform them into shifted PMFs, and report
+uncertainty or at least block/replica sensitivity on the RDF and derived PMF.
 
 That extension should record:
 
@@ -377,9 +388,9 @@ That extension should record:
 | model-health checks | whether the kUPS trajectory is credible for the sampled states |
 
 The current controlled workflow remains useful because it isolates estimator
-mechanics with an answer key. The production extension should not replace that
-lesson; it should show how the same review habits transfer to a physical
-trajectory.
+mechanics with an answer key. The compact trajectory-derived PMF sits beside
+that lesson; a production extension should show how the same review habits
+transfer to longer physical trajectories and model-credibility checks.
 
 ## Reproduction
 
@@ -402,13 +413,14 @@ configuration loader, free-energy diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. For the current full profile, the
 configuration hash is
-`99b5c4ddcc41bc3206c1d168633c18d6d0403a102b1ed042458c093e66196416`, the
-recorded source revision is `ffbf49effecb7ccac823145c58c073e0c8cd731c`, and
+`ce962a26cd12d9dfd62c36c8114f8de7c6c784519749fd84d1bbd59664e59aa7`, the
+recorded source revision is `77ddc60ae82aa8dca9d2cd0ad4029fa493b7a188`, and
 the runtime device is CPU.
 
-The compact outputs include the summary JSON and PMF curve table. Those files
-are committed so the notebook and website figure can be regenerated without
-raw samples or bulky intermediate data.
+The compact outputs include the summary JSON and PMF curve table, including
+the argon RDF and argon RDF-PMF columns. Those files are committed so the
+notebook and website figure can be regenerated without raw samples or bulky
+intermediate data.
 
 ## Practical Checklist
 
@@ -435,18 +447,18 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled free-energy workflows
 - committed compact PMF curve and summary outputs
+- compact reduced-unit argon trajectory RDF-derived PMF transformation
 - executable notebook
-- generated SVG/PNG figure and snapshot review
+- generated four-panel SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
-- argon/kUPS RDF-derived PMF diagnostics linked back to post 07 observables
 - citations for PMFs, histogram estimators, reweighting, and RDF-derived
   potentials of mean force beyond the current starter references
 - rendered desktop and mobile page snapshots for this expanded prose
-- final consistency pass after the production RDF-derived PMF diagnostic is
-  added
+- larger GPU kUPS RDF-derived PMF diagnostics, block/replica uncertainty, and a
+  final consistency pass before public indexing
 
 The rule for this post is that free energy is a property of an estimator over a
 chosen coordinate. Changing the coordinate, bins, weights, or sampled support
