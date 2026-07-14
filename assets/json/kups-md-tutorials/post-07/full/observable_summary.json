@@ -1,0 +1,51 @@
+{
+  "config_sha256": "240a48a5693bdb1390ec17bcc33de0d3ebfca7c48b9a8dd1bcc528c38caa98db",
+  "displacement_sigma": 0.1,
+  "number_density": 0.021,
+  "post": "07",
+  "profile": "full",
+  "rdf_bin_width": 0.05,
+  "rdf_max_radius": 8.0,
+  "sample_every": 1,
+  "seed": 2026071407,
+  "systems": [
+    {
+      "atom_count": 32,
+      "cell_length": 11.507391653295759,
+      "coordination_block_standard_error": 0.00041810741658424326,
+      "coordination_cutoff": 4.6,
+      "coordination_number": 11.998980725882339,
+      "coordination_relative_standard_error": 3.484524445333651e-05,
+      "finite_size_shell_fraction": 1.39041065795458,
+      "frame_count": 360,
+      "number_density": 0.021,
+      "rdf_first_peak_radius": 4.075,
+      "rdf_first_peak_value": 7.757117511006622,
+      "repetitions": 2,
+      "system": "small_cell"
+    },
+    {
+      "atom_count": 256,
+      "cell_length": 23.014783306591518,
+      "coordination_block_standard_error": 5.82301331877037e-05,
+      "coordination_cutoff": 4.6,
+      "coordination_number": 11.99880712337814,
+      "coordination_relative_standard_error": 4.852993517518065e-06,
+      "finite_size_shell_fraction": 0.69520532897729,
+      "frame_count": 360,
+      "number_density": 0.021,
+      "rdf_first_peak_radius": 4.075,
+      "rdf_first_peak_value": 7.666294263335618,
+      "repetitions": 4,
+      "system": "large_cell"
+    }
+  ],
+  "vacf": {
+    "correlation_time_input": 12.0,
+    "first_zero_lag": 68,
+    "lag1_autocorrelation": 0.9209906119041723,
+    "max_lag": 90,
+    "normalized_integral": 12.036489987867178,
+    "system": "large_cell"
+  }
+}

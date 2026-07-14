@@ -1,0 +1,43 @@
+{
+  "config": {
+    "experiment": {
+      "coordination_cutoff": 4.6,
+      "displacement_sigma": 0.1,
+      "frame_count": 360,
+      "max_vacf_lag": 90,
+      "number_density": 0.021,
+      "rdf_bin_width": 0.05,
+      "rdf_max_radius": 8.0,
+      "sample_every": 1,
+      "seed": 2026071407,
+      "systems": [
+        {
+          "name": "small_cell",
+          "repetitions": 2
+        },
+        {
+          "name": "large_cell",
+          "repetitions": 4
+        }
+      ],
+      "velocity_correlation_time": 12.0
+    },
+    "post": "07",
+    "profile": "full",
+    "title": "How Do Trajectories Become Physical Observables?"
+  },
+  "provenance": {
+    "config_path": "configs/post-07/full.json",
+    "config_sha256": "240a48a5693bdb1390ec17bcc33de0d3ebfca7c48b9a8dd1bcc528c38caa98db",
+    "git_revision": "cb7fc171eb897c85af10f99a9768fb5312d488f9",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "rdf_file": "rdf_samples.csv",
+  "summary_file": "observable_summary.json",
+  "vacf_file": "vacf_samples.csv",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}

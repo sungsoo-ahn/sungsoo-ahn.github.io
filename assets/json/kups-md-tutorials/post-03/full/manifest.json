@@ -1,0 +1,56 @@
+{
+  "config": {
+    "experiment": {
+      "force_cases": [
+        {
+          "force_scale": 1.0,
+          "name": "exact_force"
+        },
+        {
+          "force_scale": 0.98,
+          "name": "biased_low_force"
+        },
+        {
+          "force_scale": 1.02,
+          "name": "biased_high_force"
+        }
+      ],
+      "num_steps": 3000,
+      "precisions": [
+        "float64",
+        "float32",
+        "rounded_1e-4",
+        "rounded_1e-3"
+      ],
+      "time_steps": [
+        0.02,
+        0.05,
+        0.1,
+        0.18
+      ]
+    },
+    "post": "03",
+    "profile": "full",
+    "system": {
+      "kind": "harmonic_oscillator",
+      "mass": 1.0,
+      "omega": 1.0,
+      "position": 1.0,
+      "velocity": 0.0
+    },
+    "title": "How Do Timestep, Precision, and Force Error Become Simulation Error?"
+  },
+  "provenance": {
+    "config_path": "configs/post-03/full.json",
+    "config_sha256": "034d7197d94c44eace7c41879741151306621be28b7e07da36add0da3885c131",
+    "git_revision": "7f7ee8abde70ed407eea703e010178678343cb60",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "samples_file": "error_samples.csv",
+  "summary_file": "error_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}
