@@ -1,5 +1,23 @@
 {
+  "argon_cell_response_file": "argon_cell_response.csv",
   "config": {
+    "argon_cell_response": {
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "number_density": 1.0,
+      "repetitions": 3,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "volume_factors": [
+        0.9,
+        0.94,
+        0.97,
+        1.0,
+        1.03,
+        1.06,
+        1.1
+      ]
+    },
     "experiment": {
       "barostats": [
         {
@@ -31,8 +49,8 @@
   },
   "provenance": {
     "config_path": "configs/post-05/full.json",
-    "config_sha256": "cc78ccac72341e718683ccef58ee73f3ba2418b8c8c188bb9442f63ee79857fa",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "b5982b95b1fbbb2a7ef928abe96f62c13c41c3260b4fa605cd237881c364b191",
+    "git_revision": "ee9d062400b8737e812279685f67911967621ad1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
