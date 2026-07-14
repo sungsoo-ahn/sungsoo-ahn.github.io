@@ -41,13 +41,16 @@ someone else reproduce it? If the answer is vague, later claims about
 thermostats, equilibration, free energies, or MLIP stability are already on
 weak ground.
 
-This draft demonstrates the first reproducible slice of the series using a
-small FCC argon smoke profile. The current executable artifacts are:
+This draft demonstrates the first reproducible slice of the series using FCC
+argon smoke and full profiles. The smoke profile is for fast CPU verification;
+the full profile is the current source for the diagnostic figure.
 
 - [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-01/smoke.json)
+- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-01/full.json)
 - [initialization notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-01-initialization.ipynb)
-- [compact summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-01/smoke/initialization_summary.json)
-- [provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-01/smoke/manifest.json)
+- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-01/smoke/initialization_summary.json)
+- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-01/full/initialization_summary.json)
+- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-01/full/manifest.json)
 - [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-01.md)
 
 ## What Must Be Fixed?
@@ -55,20 +58,20 @@ small FCC argon smoke profile. The current executable artifacts are:
 An initial state is not only coordinates. For this tutorial, the committed
 configuration fixes:
 
-| Choice | Smoke value | Why it matters |
+| Choice | Full value | Why it matters |
 |---|---:|---|
 | system | FCC argon | controlled, cheap CPU example |
-| atom count | 32 | small smoke profile for fast checks |
+| atom count | 500 | larger profile for smoother diagnostics |
 | number density | 0.0213 atoms/angstrom^3 | determines the cell volume |
 | temperature | 94.4 K | sets the velocity scale |
 | seed | 2026071401 | makes the velocity draw reproducible |
 | center-of-mass removal | true | removes bulk translation from the initialized momenta |
 
-The full tutorial will expand this into a larger profile, but the smoke case is
-already useful because it exposes the bookkeeping. A later trajectory should
-not merely say "argon at 94.4 K." It should say which density, which seed, which
-velocity distribution, whether exact temperature rescaling was used, whether
-center-of-mass motion was removed, and which code revision produced the state.
+The smoke case remains useful because it exposes the bookkeeping quickly. A
+later trajectory should not merely say "argon at 94.4 K." It should say which
+density, which seed, which velocity distribution, whether exact temperature
+rescaling was used, whether center-of-mass motion was removed, and which code
+revision produced the state.
 
 ## Velocities Are Samples
 
@@ -82,7 +85,7 @@ This distinction matters for later posts. Thermostat validation, equilibration
 diagnostics, and uncertainty estimates all depend on remembering which
 quantities were sampled and which were constrained by construction.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_initialization_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Initialization diagnostics for the committed smoke profile. The figure checks the FCC cell density, shows the seeded velocity draw as standardized components, and records provenance fields that should remain reproducible." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_initialization_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Initialization diagnostics for the committed full profile. The figure checks the FCC cell density, shows the seeded velocity draw as standardized components, and records provenance fields that should remain reproducible." %}
 
 ## Reproduction
 
@@ -94,6 +97,8 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 01 --profile smoke
 uv run kups-tutorial verify 01 --profile smoke
+uv run kups-tutorial run 01 --profile full
+uv run kups-tutorial verify 01 --profile full
 uv run jupyter execute notebooks/post-01-initialization.ipynb --inplace
 ```
 
@@ -107,14 +112,13 @@ making the numerical outputs testable.
 This page is not the final article. The implemented pieces are:
 
 - CPU smoke initialization workflow
-- committed compact smoke outputs
+- committed compact smoke and full outputs
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, and figure feedback
 
 The missing pieces are:
 
-- full-profile initialization review
 - final article prose
 - rendered desktop and mobile page snapshots
 - broader connection to minimization and warmup choices
