@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "_posts"
+PAGES_DIR = ROOT / "_pages"
 BLOG_IMG_DIR = ROOT / "assets" / "img" / "blog"
 
 REQUIRED_FRONTMATTER = {
@@ -154,8 +155,10 @@ def validate_post(path: Path) -> list[Finding]:
 def validate_assets() -> list[Finding]:
     findings: list[Finding] = []
     referenced: set[Path] = set()
-    for post in sorted(POSTS_DIR.glob("[0-9][0-9][0-9][0-9]-*.md")):
-        text = post.read_text(encoding="utf-8")
+    content_files = sorted(POSTS_DIR.glob("[0-9][0-9][0-9][0-9]-*.md"))
+    content_files.extend(sorted(PAGES_DIR.glob("kups-md-post-*.md")))
+    for content_file in content_files:
+        text = content_file.read_text(encoding="utf-8")
         for match in FIGURE_RE.finditer(text):
             attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}
             figure_path = attrs.get("path")
