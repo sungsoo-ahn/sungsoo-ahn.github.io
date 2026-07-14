@@ -3,7 +3,7 @@ layout: page
 permalink: /kups-md-tutorials/
 title: kUPS MD Tutorials
 description: Executable molecular-dynamics tutorials for MLIP-aware machine-learning researchers.
-nav: true
+nav: false
 nav_order: 4
 ---
 
