@@ -29,9 +29,13 @@
   "provenance": {
     "config_path": "configs/post-09/full.json",
     "config_sha256": "281e2a5263e75449ec89785e20e7f02f68298a17159ddec0f18cc66d2fff6a6c",
-    "git_revision": "2d6ec8444959731418a832a5ed5fa2aaf30bf038",
+    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "lock_path": "uv.lock",
+    "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
-    "python_version": "3.13.13"
+    "precision_policy": "jax_enable_x64=false;env_JAX_ENABLE_X64=unset",
+    "python_version": "3.13.13",
+    "runtime_device": "jax:cpu;devices:cpu"
   },
   "samples_file": "work_samples.csv",
   "summary_file": "estimator_summary.json",
