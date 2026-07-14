@@ -1,0 +1,50 @@
+name: Capture kUPS snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Base URL to capture
+        required: false
+        default: https://sungsoo-ahn.github.io
+      posts:
+        description: Comma-separated post IDs
+        required: false
+        default: 01,02,03,04,05,06,07,08,09,10,11,12
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: |
+          npx playwright install-deps chromium
+          npx playwright install chromium
+
+      - name: Capture hidden page snapshots
+        run: |
+          node scripts/capture_kups_snapshots.js \
+            --base-url "${{ inputs.base_url }}" \
+            --posts "${{ inputs.posts }}" \
+            --output-dir snapshots/kups-md-pages
+
+      - name: Upload snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: kups-md-page-snapshots
+          path: snapshots/kups-md-pages
