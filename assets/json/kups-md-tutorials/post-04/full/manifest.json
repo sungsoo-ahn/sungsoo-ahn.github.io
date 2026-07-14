@@ -1,5 +1,33 @@
 {
+  "argon_langevin_samples_file": "argon_langevin_samples.csv",
   "config": {
+    "argon_langevin": {
+      "cases": [
+        {
+          "gamma": 0.2,
+          "name": "weak_argon_langevin"
+        },
+        {
+          "gamma": 1.0,
+          "name": "moderate_argon_langevin"
+        },
+        {
+          "gamma": 4.0,
+          "name": "strong_argon_langevin"
+        }
+      ],
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "num_steps": 4000,
+      "number_density": 0.65,
+      "repetitions": 3,
+      "sample_every": 10,
+      "seed": 4042,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "time_step": 0.003,
+      "warmup_steps": 500
+    },
     "experiment": {
       "num_steps": 40000,
       "sample_every": 10,
@@ -38,8 +66,8 @@
   },
   "provenance": {
     "config_path": "configs/post-04/full.json",
-    "config_sha256": "76d18d222650176601cd88e8633a1329565a25649635afbd44a2a36b95dde6a6",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "69a4d3e720092385a21f69d84ea831a50dc6743f9c444afdb65741eba7dfff9f",
+    "git_revision": "5c87ed290bf74721bf7223fa5cbb00f8aeb80890",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
@@ -50,6 +78,7 @@
   "samples_file": "thermostat_samples.csv",
   "summary_file": "thermostat_summary.json",
   "versions": {
+    "ase": "3.29.0",
     "kups": "1.0.3",
     "numpy": "2.5.1"
   }
