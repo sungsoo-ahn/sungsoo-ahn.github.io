@@ -1,5 +1,26 @@
 {
+  "argon_observable_samples_file": "argon_observable_samples.csv",
   "config": {
+    "argon_observable": {
+      "checkpoints": [
+        3000,
+        6000,
+        12000
+      ],
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "gamma": 1.0,
+      "max_steps": 12000,
+      "number_density": 0.85,
+      "repetitions": 3,
+      "replica_count": 5,
+      "sample_every": 20,
+      "seed": 2026071606,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "time_step": 0.002,
+      "warmup_steps": 1000
+    },
     "experiment": {
       "checkpoints": [
         2000,
@@ -25,8 +46,8 @@
   },
   "provenance": {
     "config_path": "configs/post-06/full.json",
-    "config_sha256": "33cd5b29b5c89683f48a15e90bbf65d20c78ada80d80af80539f4645b02af34f",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "ecac9f6ecdb425afdce7320849badcbf4cc222178b75d21b9fc47debfa806076",
+    "git_revision": "386044aea007e3545fd663e2809bff3a382a3545",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
