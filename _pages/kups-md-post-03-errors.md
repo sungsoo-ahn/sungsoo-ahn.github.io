@@ -21,7 +21,7 @@ nav: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the velocity-Verlet diagnostic from the previous tutorial and separates timestep, precision, and force-error mechanisms before later argon and MLIP NVE checks. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the velocity-Verlet diagnostic from the previous tutorial and separates timestep, precision, force-error, and compact argon NVE mechanisms before later GPU kUPS and MLIP production checks. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
 ## Introduction
@@ -41,9 +41,11 @@ This page uses the same controlled oscillator as the integrator post because
 the exact reference is known. That is a feature, not a simplification to hide
 behind. A many-body trajectory can make every mechanism happen at once. A
 controlled oscillator lets us isolate mechanisms before adding atomistic
-complexity back in. The final series still needs argon/kUPS NVE checks and, in
-the capstone, MLIP-specific extrapolation diagnostics. This hidden draft is the
-mechanism-level layer that those later checks should use.
+complexity back in. The current executable workflow now adds a compact
+reduced-unit argon NVE check so the article includes one physical many-body
+energy trace. The final series still needs larger GPU kUPS production checks
+and, in the capstone, MLIP-specific extrapolation diagnostics. This hidden
+draft is the mechanism-level layer that those later checks should use.
 
 The core distinction is between four words that often get blurred: error,
 drift, instability, and uncertainty. Error is any difference from a reference or
@@ -189,13 +191,15 @@ sweep. The rounded-precision runs show that arithmetic can set an error floor
 even when the analytical force is unchanged. The force-scale cases show that a
 biased force can shift normalized energy drift.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Simulation-error diagnostics for the committed full profile. The figure separates bounded timestep error, precision-induced error floors, and force-bias drift so later NVE tests can report these mechanisms separately." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Simulation-error diagnostics for the committed full profile. The figure separates bounded oscillator timestep error, precision-induced error floors, force-bias drift, and compact argon NVE energy drift so later production checks can report these mechanisms separately." %}
 
-The figure has three jobs. The timestep panel shows that exact-force velocity
+The figure has four jobs. The timestep panel shows that exact-force velocity
 Verlet has increasing but bounded energy error as dt grows. The precision panel
 shows that rounded arithmetic can raise the error floor. The force-bias panel
 shows that a deterministic force perturbation can move normalized drift away
-from the exact-force reference.
+from the exact-force reference. The argon NVE panel checks the same reporting
+vocabulary on a compact many-body Lennard-Jones argon cell rather than another
+one-dimensional oscillator.
 
 The figure review caught a small but real readability issue. In an earlier
 version, the precision labels were sorted alphabetically, which put
@@ -386,10 +390,11 @@ should not be.
 
 ## What Should Not Be Inferred?
 
-This page does not prove that the final argon or MLIP simulations are ready.
-The review note explicitly keeps an argon/kUPS NVE diagnostic as an open item
-for final release. The oscillator is a mechanism-level diagnostic. It makes the
-error vocabulary testable before production complexity is added.
+This page does not prove that the final GPU kUPS or MLIP simulations are ready.
+The new compact argon NVE panel is a physical sanity check, not a production
+benchmark. The review note still keeps larger GPU production diagnostics as a
+final-release item. The oscillator remains the mechanism-level diagnostic that
+makes the error vocabulary testable before production complexity is added.
 
 It also does not imply that MLIP errors are simple force-scale errors. Real
 learned potentials can have local extrapolation, nonuniform bias, inconsistent
@@ -430,17 +435,19 @@ that remains outside site navigation while the rest of the series is brought to
 the same standard. The implemented pieces are:
 
 - smoke and full controlled error-diagnostic workflows
+- compact argon NVE reduced-unit energy-drift workflow
 - committed compact summaries and downsampled comparison samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
 - expanded prose separating timestep sensitivity, precision floors, force
-  bias, normalized drift, phase error, and final-release limitations
+  bias, normalized drift, compact argon NVE behavior, phase error, and
+  final-release limitations
 
 The remaining non-publication pieces are:
 
-- rendered desktop and mobile page snapshots for this expanded draft
-- argon/kUPS NVE diagnostic before treating this post as final
+- rendered desktop and mobile page snapshots for this updated expanded draft
+- larger GPU kUPS production NVE diagnostic before treating this post as final
 - final all-post consistency pass once the other articles are expanded
 - final rendered desktop and mobile page snapshots after that consistency pass
 - public indexing decision after the series is ready as a unit
