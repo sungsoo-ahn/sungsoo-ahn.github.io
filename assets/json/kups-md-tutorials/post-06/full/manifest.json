@@ -26,9 +26,13 @@
   "provenance": {
     "config_path": "configs/post-06/full.json",
     "config_sha256": "33cd5b29b5c89683f48a15e90bbf65d20c78ada80d80af80539f4645b02af34f",
-    "git_revision": "65489c640f6f4c15c65cc1b74001dcbfcda09f14",
+    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "lock_path": "uv.lock",
+    "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
-    "python_version": "3.13.13"
+    "precision_policy": "jax_enable_x64=false;env_JAX_ENABLE_X64=unset",
+    "python_version": "3.13.13",
+    "runtime_device": "jax:cpu;devices:cpu"
   },
   "samples_file": "trajectory_length_samples.csv",
   "summary_file": "trajectory_length_summary.json",
