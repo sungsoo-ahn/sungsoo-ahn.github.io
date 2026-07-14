@@ -1,6 +1,64 @@
 {
+  "argon_cell_response": {
+    "atom_count": 108,
+    "fitted_bulk_modulus": 42.130470396759165,
+    "points": [
+      {
+        "number_density": 1.1111111111111112,
+        "potential_energy_per_atom": -7.943835163694869,
+        "pressure": 3.6676980074161842,
+        "volume": 97.19999999999999,
+        "volume_factor": 0.9
+      },
+      {
+        "number_density": 1.0638297872340428,
+        "potential_energy_per_atom": -7.988019699856439,
+        "pressure": 0.2774444855730285,
+        "volume": 101.51999999999998,
+        "volume_factor": 0.94
+      },
+      {
+        "number_density": 1.0309278350515467,
+        "potential_energy_per_atom": -7.9458354083501055,
+        "pressure": -1.535641314127479,
+        "volume": 104.75999999999998,
+        "volume_factor": 0.97
+      },
+      {
+        "number_density": 1.0000000000000002,
+        "potential_energy_per_atom": -7.7615881397890965,
+        "pressure": -2.6935747813785866,
+        "volume": 107.99999999999997,
+        "volume_factor": 1.0
+      },
+      {
+        "number_density": 0.9708737864077671,
+        "potential_energy_per_atom": -7.644200690994525,
+        "pressure": -3.7003956839417276,
+        "volume": 111.23999999999998,
+        "volume_factor": 1.03
+      },
+      {
+        "number_density": 0.9433962264150948,
+        "potential_energy_per_atom": -7.50154664720041,
+        "pressure": -4.429540386862746,
+        "volume": 114.47999999999995,
+        "volume_factor": 1.06
+      },
+      {
+        "number_density": 0.909090909090909,
+        "potential_energy_per_atom": -7.284427161024354,
+        "pressure": -5.076521173238251,
+        "volume": 118.80000000000001,
+        "volume_factor": 1.1
+      }
+    ],
+    "pressure_span": 8.744219180654435,
+    "reference_pressure": -1.9272186923656562,
+    "reference_volume": 107.99999999999997
+  },
   "compressibility": 0.01,
-  "config_sha256": "cc78ccac72341e718683ccef58ee73f3ba2418b8c8c188bb9442f63ee79857fa",
+  "config_sha256": "b5982b95b1fbbb2a7ef928abe96f62c13c41c3260b4fa605cd237881c364b191",
   "equilibrium_volume": 1000.0,
   "post": "05",
   "profile": "full",
