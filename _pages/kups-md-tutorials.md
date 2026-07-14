@@ -5,36 +5,57 @@ title: kUPS MD Tutorials
 description: Executable molecular-dynamics tutorials for MLIP-aware machine-learning researchers.
 nav: false
 nav_order: 4
+pagination:
+  enabled: false
 ---
 
-This page tracks the executable tutorial repository for a planned series on
-molecular-dynamics practice with
-[kUPS](https://github.com/cusp-ai-oss/kUPS).
+<div class="publications blog-index">
+  {% assign tutorials = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+  {% assign tutorial_count = tutorials | size %}
 
-The material is aimed at machine-learning researchers who already know
-machine-learned interatomic potentials, force fields, and the equations of MD,
-but want a practical understanding of initialization, integrators, ensemble
-control, uncertainty, free-energy estimation, enhanced sampling, and MLIP
-failure modes.
+  <h1>kUPS Molecular Dynamics Tutorials</h1>
+  <p class="blog-index-note">
+    A hidden draft index for executable molecular-dynamics practice: initialization, integrators, ensembles, uncertainty, observables, free energies, enhanced sampling, and MLIP reliability.
+  </p>
+  <div class="blog-type-summary" aria-label="kUPS tutorial status">
+    <span>Series status</span>
+    <span>{{ tutorial_count }} drafts</span>
+    <span>Hidden</span>
+    <span>Direct-link only</span>
+  </div>
 
-## Current repository
+  <p class="blog-index-note">
+    These pages are intentionally kept out of public navigation while the simulations, figures, citations, and review notes mature. The source of truth for executable artifacts is <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.
+  </p>
 
-- Repository: [sungsoo-ahn/kups-md-tutorials](https://github.com/sungsoo-ahn/kups-md-tutorials)
-- Status: early scaffold
-- Python: 3.13
-- Primary simulation library: kUPS 1.0.3
-- Current plan: twelve executable posts, from initialization through enhanced
-  sampling and an MLIP aluminum capstone
+  <ol class="bibliography">
+  {% for post in tutorials %}
+    {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+    <li>
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </div>
+          {% if post.description %}
+            <div class="blog-list-description">{{ post.description }}</div>
+          {% endif %}
+          <div class="author">
+            <span class="blog-post-type blog-post-type-tutorial">Tutorial {{ post.series_order }}</span>{% if post.authors %}; {{ post.authors | join: ", " }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
+          </div>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
 
-## Local reproduction
+  <h2>Repository</h2>
+  <p>
+    The repository owns configurations, notebooks, tests, compact summaries, manifests, figure generation, and review notes. Raw trajectories, model archives, and bulky caches are intentionally excluded.
+  </p>
 
-```bash
-git clone https://github.com/sungsoo-ahn/kups-md-tutorials
+  <pre><code>git clone https://github.com/sungsoo-ahn/kups-md-tutorials
 cd kups-md-tutorials
 uv sync
-uv run pytest
-```
-
-The repository is the source of truth for simulations, notebooks, tests,
-configuration, compact numerical summaries, and figure-generation code. Final
-articles and publication-ready assets will live on this website.
+uv run pytest</code></pre>
+</div>
