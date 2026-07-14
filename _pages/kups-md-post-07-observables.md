@@ -38,9 +38,10 @@ different. What estimator was used? Which samples enter it? What finite-size
 region is valid? What error bar belongs on the derived number?
 
 This draft demonstrates the executable slice of the seventh tutorial with
-seeded periodic argon FCC cells. It computes radial distribution functions,
-coordination integrals, block uncertainties, and a velocity autocorrelation
-function before the final argon/kUPS trajectory diagnostic is added.
+seeded periodic argon FCC cells plus a compact reduced-unit argon trajectory.
+It computes radial distribution functions, coordination integrals, block
+uncertainties, and velocity autocorrelation functions from both controlled
+displaced structures and sampled trajectory frames.
 
 The target reader already knows that MD produces positions and velocities.
 The missing skill is turning those arrays into quantities with physical
@@ -50,12 +51,11 @@ and an uncertainty model. The same trajectory can support a structural claim,
 fail to support a dynamical claim, and be ambiguous for a finite-size-sensitive
 quantity.
 
-This page uses displaced periodic FCC argon cells rather than a production
-liquid trajectory. That scope is deliberate. The controlled structure makes
-normalization and finite-size support easy to see. It also keeps the page from
-pretending that a polished curve is already a production measurement. The
-final version must still add an actual argon/kUPS trajectory observable
-diagnostic before any liquid-like or dynamical MD claim is final.
+This page still does not claim a production liquid calculation. The controlled
+displaced structure makes normalization and finite-size support easy to see.
+The compact trajectory panel then checks the same estimators on real
+time-correlated reduced-unit frames. A larger GPU kUPS trajectory remains
+needed before any public liquid-like or dynamical MD claim is final.
 
 The executable artifacts for this page are:
 
@@ -119,6 +119,17 @@ The current diagnostic keeps the estimator explicit:
 | RDF bin width | 0.05 | resolution versus noise tradeoff |
 | coordination cutoff | 4.6 | first-shell integral boundary |
 | VACF max lag | 90 | time-correlation support |
+
+The full profile also includes a compact trajectory-generated observable
+check:
+
+| Choice | Full value | Why it matters |
+|---|---:|---|
+| argon trajectory | 108 atoms | actual sampled frames, not displaced static copies |
+| sampled frames | 551 | compact trajectory average after warmup |
+| RDF peak radius | 1.095 | reduced-unit first-neighbor structure |
+| coordination cutoff | 1.45 | first-shell integral boundary |
+| coordination | 11.66 | physical trajectory-derived neighbor count |
 
 The small-cell RDF is not drawn beyond half the periodic box length. Those
 radial shells are not valid for a minimum-image RDF estimator, even if a plotting
@@ -238,27 +249,30 @@ the VACF estimator recovers the configured decay scale in this controlled
 workflow.
 
 They do not support a diffusion claim for real argon. A diffusion coefficient
-from a VACF integral would require a physical velocity trajectory, units,
-careful tail treatment, finite-size analysis, and uncertainty on the integral.
-The final article should add actual kUPS trajectory observables before making
-any physical dynamical claim.
+from a VACF integral would require physical units, careful tail treatment,
+finite-size analysis, and uncertainty on the integral. The compact trajectory
+check now adds physical reduced-unit velocities, but a larger kUPS production
+trajectory is still needed before making any public dynamical claim.
 
 ## What Should The Diagnostic Show?
 
-The full run checks three things. The RDF panel shows the normalized pair
+The full run checks four things. The RDF panel shows the normalized pair
 estimator rather than a raw distance histogram. The coordination panel turns
 that curve into a first-shell integral with a block standard error. The VACF
 panel treats time correlation as its own observable, not as a side effect of
-the trajectory.
+the trajectory. The compact argon panel applies the RDF estimator to actual
+sampled trajectory frames.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, and the velocity autocorrelation function shows how a trajectory becomes a time-correlation estimator." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF is a time-correlation estimator, and the compact argon trajectory panel shows the same RDF machinery on sampled frames." %}
 
-The figure is intentionally estimator-focused. The RDF panel compares the 32-
-and 256-atom cells while respecting the small-cell finite-size limit. The
-coordination panel shows that the first-shell integral is close to the expected
-FCC value and that block uncertainty is part of the reported number. The VACF
-panel shows a decaying time-correlation function with a configured memory
-scale.
+The figure is intentionally estimator-focused. The controlled RDF panel
+compares the 32- and 256-atom cells while respecting the small-cell finite-size
+limit. The coordination panel shows that the first-shell integral is close to
+the expected FCC value and that block uncertainty is part of the reported
+number. The VACF panel shows a decaying time-correlation function with a
+configured memory scale. The trajectory RDF panel shows a reduced-unit argon
+first peak near `1.095` and marks the first-shell cutoff used for the reported
+coordination.
 
 The figure supports a narrow but important mechanism: observables require
 analysis definitions. The same stored frames can produce different results if
@@ -351,11 +365,12 @@ is valid, or the uncertainty is honest.
 
 ## How Would This Extend to kUPS Trajectories?
 
-The final post should replace or augment the displaced-FCC estimator with
-observables from an actual argon/kUPS trajectory. A natural extension would use
-the initialization, integrator, thermostat, barostat, and trajectory-length
-checks from earlier posts, then compute RDF, coordination number, and possibly
-VACF on a physically generated trajectory.
+The current compact trajectory augments the displaced-FCC estimator with
+observables from actual reduced-unit argon frames. The larger extension should
+use kUPS production trajectories with the initialization, integrator,
+thermostat, barostat, and trajectory-length checks from earlier posts, then
+compute RDF, coordination number, and possibly VACF with production-scale
+sampling.
 
 That extension should record:
 
@@ -368,9 +383,9 @@ That extension should record:
 | finite-size comparison | whether the observable changes with box size |
 | model-health checks | whether the kUPS trajectory remains in a credible regime |
 
-The current controlled workflow is still useful after that extension. It acts
-as a unit test for the observable-estimator logic. If the production figure
-changes, the controlled estimator can remain as a simpler reference for
+The controlled workflow remains useful after the compact trajectory addition.
+It acts as a unit test for the observable-estimator logic. If the production
+figure changes, the controlled estimator can remain as a simpler reference for
 normalization, support masking, and notebook regeneration.
 
 ## What Belongs in the Methods Paragraph?
@@ -402,6 +417,7 @@ uv run kups-tutorial verify 07 --profile smoke
 uv run kups-tutorial run 07 --profile full
 uv run kups-tutorial verify 07 --profile full
 uv run jupyter execute notebooks/post-07-observables.ipynb --inplace
+uv run python scripts/generate_post07_figures.py
 ```
 
 The notebook is deliberately not the implementation source. It imports the
@@ -410,15 +426,16 @@ configuration loader, observable diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. For the current full profile, the
 configuration hash is
-`240a48a5693bdb1390ec17bcc33de0d3ebfca7c48b9a8dd1bcc528c38caa98db`, the
-recorded source revision is `ffbf49effecb7ccac823145c58c073e0c8cd731c`, and
+`ae9b991dee64e91d1779bfa8200fffa4f1b6bf35abff3fccd8a6ace67b9e386c`, the
+recorded source revision is `f929899fa5ea3d516e0e2a5906966590de07611d`, and
 the runtime device is CPU.
 
-The compact outputs include the summary JSON plus RDF and VACF sample tables.
-Those files are committed so the notebook and website figure can be
-regenerated without raw trajectory archives. Raw trajectories remain out of
-scope for the repository because the plan commits compact summaries and figure
-sources, not bulky intermediate data.
+The compact outputs include the summary JSON plus controlled RDF/VACF and
+argon trajectory RDF/VACF sample tables. Those files are committed so the
+notebook and website figure can be regenerated without raw trajectory
+archives. Raw trajectories remain out of scope for the repository because the
+plan commits compact summaries and figure sources, not bulky intermediate
+data.
 
 ## Practical Checklist
 
@@ -444,6 +461,7 @@ artifact produced by a plotting function.
 This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled argon-FCC observable workflows
+- compact reduced-unit argon trajectory observable workflow
 - committed compact RDF, VACF, and summary outputs
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -451,12 +469,12 @@ This page is not the final article. The implemented pieces are:
 
 The missing pieces are:
 
-- argon/kUPS trajectory diagnostics for physical observables
+- larger GPU kUPS trajectory diagnostics for physical observables
 - citations for RDF normalization, coordination integrals, finite-size effects,
   and time-correlation functions beyond the current starter references
 - rendered desktop and mobile page snapshots for this expanded prose
-- final consistency pass after the production trajectory-observable diagnostic
-  is added
+- final consistency pass after production trajectory-observable diagnostics are
+  added
 
 The rule for this post is that an observable is a statistical object. The
 trajectory provides samples; the estimator, normalization, finite-size support,
