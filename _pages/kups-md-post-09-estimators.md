@@ -42,8 +42,9 @@ biased or intermediate states (<span id="cite-zwanzig1954"></span>[Zwanzig,
 2008](#ref-shirts2008)).
 
 This draft demonstrates the executable slice of the ninth tutorial with
-exactly solvable Gaussian state pairs. The true \(\Delta F\) is known, so the
-diagnostic can separate estimator assumptions from physical-model error.
+exactly solvable Gaussian state pairs. The true free-energy difference is
+known, so the diagnostic can separate estimator assumptions from
+physical-model error.
 
 - [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-09/smoke.json)
 - [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-09/full.json)
@@ -58,7 +59,7 @@ diagnostic can separate estimator assumptions from physical-model error.
 The current diagnostic compares two unit-variance one-dimensional states. The
 second state is displaced and assigned a known free-energy offset:
 
-| Case | Mean shift | True \(\Delta F\) | Intended regime |
+| Case | Mean shift | True Delta F | Intended regime |
 |---|---:|---:|---|
 | good_overlap | 0.5 | 0.8 | many useful samples in both states |
 | marginal_overlap | 1.5 | 0.8 | estimator looks plausible but ESS warns |
