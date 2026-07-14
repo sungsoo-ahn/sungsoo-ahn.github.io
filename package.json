@@ -1,6 +1,10 @@
 {
+  "scripts": {
+    "capture:kups": "node scripts/capture_kups_snapshots.js"
+  },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.10.0",
+    "playwright": "^1.17.2",
     "prettier": "^3.7.4"
   }
 }
