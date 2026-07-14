@@ -39,9 +39,12 @@ whether autocorrelation was measured, whether uncertainty reflects effective
 sample size, and whether independent replicas agree.
 
 This draft demonstrates the executable slice of the sixth tutorial with a
-controlled correlated observable. The model has a known equilibrium mean, so it
-can expose estimator failure modes cleanly before the final argon/kUPS
-observable diagnostics are added.
+controlled correlated observable and a compact reduced-unit argon
+physical-observable check. The controlled model has a known equilibrium mean,
+so it can expose estimator failure modes cleanly. The argon diagnostic then
+asks the same trajectory-length question for potential energy per atom across
+independent atomistic replicas. That is still not the final GPU kUPS production
+workflow, but it is no longer only a toy answer-key diagnostic.
 
 The target reader already knows what an MD trajectory is. The missing question
 is how to decide whether the trajectory is evidence. That decision cannot be
@@ -117,16 +120,27 @@ observable with a known answer:
 | replicas | 6 | independent agreement check |
 | checkpoints | 2000, 6000, 12000, 24000 | short-to-long estimator comparison |
 
+The same full profile also includes a compact physical-observable check:
+
+| Choice | Full value | Why it matters |
+|---|---:|---|
+| argon cell | 3x3x3 FCC conventional repeats | 108-atom reduced-unit system |
+| observable | potential energy per atom | physical trajectory average, not an answer-key scalar |
+| replicas | 5 | independent agreement check |
+| checkpoints | 3000, 6000, 12000 | short-to-long atomistic estimator comparison |
+| dynamics | Langevin, gamma = 1.0 | simple thermalized reduced-unit trajectory |
+
 The full run keeps the underlying process fixed and changes only how much data
 is allowed into the estimator. This separates the effect of trajectory length
 from changes in the model, integrator, or ensemble.
 
-The observable is not an atomistic energy, density, or RDF value. It is a
-controlled stochastic process with a known mean and known correlation
-structure. That makes it an answer-key diagnostic. In real MD, the true
-equilibrium mean is not known. Here, the answer key lets us test whether the
-review workflow can detect overconfident estimators and finite-trajectory
-failure modes.
+The controlled observable is not an atomistic energy, density, or RDF value.
+It is a stochastic process with a known mean and known correlation structure.
+That makes it an answer-key diagnostic. In real MD, the true equilibrium mean
+is not known. Here, the answer key lets us test whether the review workflow can
+detect overconfident estimators and finite-trajectory failure modes. The argon
+observable removes the answer key and forces the review to rely on
+autocorrelation and replica agreement.
 
 The full profile uses six independent replicas. Each replica starts with the
 same statistical model and a controlled initial bias. The warmup removes the
@@ -181,9 +195,10 @@ A practical equilibration review should therefore be observable-specific:
 | Do independent replicas agree after warmup? | A single trace can hide metastability. |
 | Does the estimate change when the discard is varied moderately? | Fragile estimates are not ready for production claims. |
 
-The review note for this hidden draft keeps the atomistic diagnostic open
-because a real argon/kUPS trajectory must demonstrate these checks on physical
-observables. The controlled model only proves the estimator machinery.
+The review note for this hidden draft now separates two levels of evidence.
+The controlled model proves the estimator machinery against an answer key. The
+compact argon diagnostic applies the machinery to a physical observable. A
+larger GPU kUPS production trajectory remains open before public release.
 
 ## Why Do Frames Not Equal Samples?
 
@@ -227,14 +242,15 @@ error, block standard error, replica standard error, and a conservative
 uncertainty used for review. The conservative uncertainty is intentionally not
 the smallest number available.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory-length diagnostics for the committed full profile. Running means retain memory, naive uncertainty is overconfident, and effective sample size grows much more slowly than the raw number of retained frames." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory-length diagnostics for the committed full profile. Running means retain memory, naive uncertainty is overconfident, effective sample size grows more slowly than retained frames, and the compact argon panel shows how replica disagreement can remain visible for a physical observable." %}
 
 The figure is designed to make four separate claims. The running-mean panel
 shows that estimates can retain early-history memory. The uncertainty panel
 shows that naive standard error is too small for correlated data. The
-checkpoint panel shows how the estimate and uncertainty evolve as the allowed
-trajectory length increases. The effective-sample panel shows that independent
-information grows more slowly than stored frames.
+effective-sample panel shows that independent information grows more slowly
+than stored frames. The argon panel shows checkpointed potential energy per
+atom with conservative uncertainty from independent reduced-unit argon
+replicas.
 
 The full summary gives the numerical version of the same story. At 24000
 steps, the naive standard error is about 0.00537. The autocorrelation-aware
@@ -243,11 +259,13 @@ also about 0.0208. At 2000 steps, the naive standard error is about 0.0271,
 while the conservative standard error is about 0.162. A naive analysis would
 be much too confident early in the run.
 
-The figure does not claim that the controlled observable is a physical
-quantity. It is an estimator diagnostic. A final production article should add
-an argon/kUPS observable, such as density, potential energy, RDF coordination,
-or a time-correlation estimate, and repeat the same logic with physical units
-and system-specific equilibration checks.
+The controlled panels do not claim that the answer-key observable is a
+physical quantity. They are estimator diagnostics. The argon panel is a
+physical-observable wiring check: in the current full run, effective samples
+increase from about 35 to 115 and autocorrelation-adjusted standard error
+falls from about 0.0186 to 0.0117, while replica spread still dominates the
+conservative interval. That is exactly the kind of warning a trajectory-length
+review should surface.
 
 ## How Should Block Averages Be Used?
 
@@ -343,13 +361,13 @@ tail can be noisy even when the mean of the underlying observable is precise.
 Transport coefficients can be especially sensitive to long-time behavior and
 finite-size effects.
 
-For an argon/kUPS extension, a useful diagnostic would report at least one
-equilibration-sensitive observable and one structural observable. Density or
-potential energy could track relaxation from initialization and NPT/NVT
-preparation. RDF coordination could show how a trajectory estimator and its
-uncertainty behave for a physically interpretable structural quantity. A
-time-correlation example could be added later, but it should not be mixed into
-the same claim without separate uncertainty analysis.
+For a larger argon/kUPS extension, a useful diagnostic would report additional
+equilibration-sensitive and structural observables. Density could track
+relaxation from initialization and NPT/NVT preparation. RDF coordination could
+show how a trajectory estimator and its uncertainty behave for a physically
+interpretable structural quantity. A time-correlation example could be added
+later, but it should not be mixed into the same claim without separate
+uncertainty analysis.
 
 For MLIP production, the trajectory-length question also interacts with model
 validity. If a learned potential slowly drifts into a region outside its
@@ -382,9 +400,10 @@ is limiting the calculation.
 For a hidden tutorial draft, the same rule applies to figures and prose. The
 figure caption should not claim more than the diagnostic supports. The current
 figure supports claims about estimator behavior for a controlled correlated
-observable. It does not yet support physical claims about argon equilibration,
-RDF convergence, or transport-property uncertainty. Those claims require the
-final atomistic diagnostic listed in the open items.
+observable and potential-energy-per-atom uncertainty for compact reduced-unit
+argon. It does not yet support public-release claims about GPU kUPS argon
+equilibration, RDF convergence, or transport-property uncertainty. Those
+claims require the production diagnostic listed in the open items.
 
 ## Reproduction
 
@@ -399,6 +418,7 @@ uv run kups-tutorial verify 06 --profile smoke
 uv run kups-tutorial run 06 --profile full
 uv run kups-tutorial verify 06 --profile full
 uv run jupyter execute notebooks/post-06-trajectory-length.ipynb --inplace
+uv run python scripts/generate_post06_figures.py
 ```
 
 The notebook is deliberately not the implementation source. It imports the
@@ -407,8 +427,8 @@ configuration loader, uncertainty diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. For the current full profile, the
 configuration hash is
-`33cd5b29b5c89683f48a15e90bbf65d20c78ada80d80af80539f4645b02af34f`, the
-recorded source revision is `ffbf49effecb7ccac823145c58c073e0c8cd731c`, and
+`ecac9f6ecdb425afdce7320849badcbf4cc222178b75d21b9fc47debfa806076`, the
+recorded source revision is `386044aea007e3545fd663e2809bff3a382a3545`, and
 the runtime device is CPU.
 
 Those details matter because uncertainty estimates are protocol-dependent.
@@ -443,6 +463,8 @@ summary after the fact.
 This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled trajectory-length workflows
+- compact reduced-unit argon potential-energy-per-atom trajectory-length
+  workflow
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -450,11 +472,13 @@ This page is not the final article. The implemented pieces are:
 
 The missing pieces are:
 
-- argon/kUPS trajectory-length diagnostics for physical observables
+- larger GPU kUPS trajectory-length diagnostics for physical observables such
+  as density, RDF coordination, or time-correlation estimates
 - citations for autocorrelation, effective sample size, blocking analysis, and
   equilibration diagnostics beyond the current starter references
 - rendered desktop and mobile page snapshots for this expanded prose
-- final consistency pass after the physical-observable diagnostic is added
+- final consistency pass after the production physical-observable diagnostic is
+  added
 
 The rule for this post is the same as the rest of the series: a trajectory is
 not trustworthy because it is large. It becomes useful when the estimator,
