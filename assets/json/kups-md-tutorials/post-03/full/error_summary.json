@@ -1,5 +1,49 @@
 {
-  "config_sha256": "034d7197d94c44eace7c41879741151306621be28b7e07da36add0da3885c131",
+  "argon_nve_runs": [
+    {
+      "atom_count": 108,
+      "energy_span": 0.008084120651176363,
+      "final_energy": -356.0991339146266,
+      "initial_energy": -356.0927085684825,
+      "max_abs_relative_energy_error": 2.252401297836315e-05,
+      "normalized_energy_drift": -4.811740305784303e-06,
+      "num_steps": 2500,
+      "number_density": 0.65,
+      "sample_every": 10,
+      "temperature": 0.7,
+      "time_step": 0.0015,
+      "unstable": false
+    },
+    {
+      "atom_count": 108,
+      "energy_span": 0.024727036620447507,
+      "final_energy": -356.0978857380752,
+      "initial_energy": -356.0927085684825,
+      "max_abs_relative_energy_error": 5.925466350688008e-05,
+      "normalized_energy_drift": -1.9385100071260026e-06,
+      "num_steps": 2500,
+      "number_density": 0.65,
+      "sample_every": 10,
+      "temperature": 0.7,
+      "time_step": 0.003,
+      "unstable": false
+    },
+    {
+      "atom_count": 108,
+      "energy_span": 0.09409559594536177,
+      "final_energy": -356.13812569469405,
+      "initial_energy": -356.0927085684825,
+      "max_abs_relative_energy_error": 0.0002642446578691055,
+      "normalized_energy_drift": -8.5028655213811e-06,
+      "num_steps": 2500,
+      "number_density": 0.65,
+      "sample_every": 10,
+      "temperature": 0.7,
+      "time_step": 0.006,
+      "unstable": false
+    }
+  ],
+  "config_sha256": "4e5fcfd773ee961d175d30d83c22fef68a7686eb235dd83a141359e05e78b2b3",
   "initial_position": 1.0,
   "initial_velocity": 0.0,
   "mass": 1.0,
