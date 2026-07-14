@@ -1,5 +1,22 @@
 {
+  "argon_nve_samples_file": "argon_nve_samples.csv",
   "config": {
+    "argon_nve": {
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "num_steps": 2500,
+      "number_density": 0.65,
+      "repetitions": 3,
+      "sample_every": 10,
+      "seed": 3032,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "time_steps": [
+        0.0015,
+        0.003,
+        0.006
+      ]
+    },
     "experiment": {
       "force_cases": [
         {
@@ -42,8 +59,8 @@
   },
   "provenance": {
     "config_path": "configs/post-03/full.json",
-    "config_sha256": "034d7197d94c44eace7c41879741151306621be28b7e07da36add0da3885c131",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "4e5fcfd773ee961d175d30d83c22fef68a7686eb235dd83a141359e05e78b2b3",
+    "git_revision": "c0c9a25fd40b0ff98432c4a2a0bab986e1d4b74b",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
@@ -54,6 +71,7 @@
   "samples_file": "error_samples.csv",
   "summary_file": "error_summary.json",
   "versions": {
+    "ase": "3.29.0",
     "kups": "1.0.3",
     "numpy": "2.5.1"
   }
