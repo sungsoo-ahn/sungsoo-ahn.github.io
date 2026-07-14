@@ -37,6 +37,7 @@ Before pushing blog changes, run:
 
 ```bash
 python3 scripts/validate_blog.py
+python3 scripts/validate_kups_pages.py
 ```
 
 ## File Structure
