@@ -101,7 +101,7 @@ The full committed summary records 500 atoms, number density
 0.021300000000000034 atoms/angstrom^3, volume 23474.178403755832
 angstrom^3, target temperature 94.4 K, instantaneous kinetic temperature
 90.89870854463463 K, kinetic energy 5.8747814906665905 eV, seed 2026071401,
-and center-of-mass speed about \(9.35 \times 10^{-19}\) in the configured units.
+and center-of-mass speed about 9.35 x 10^-19 in the configured units.
 The exact number of digits is not aesthetically important. What matters is that
 the numerical record is machine-checkable, not reconstructed from prose.
 
@@ -146,11 +146,11 @@ periodic calculation, the cell defines the replicated universe. It determines
 which atom images can become neighbors, how distances are wrapped, and how
 volume-dependent quantities such as pressure are later interpreted.
 
-For a fixed atom count \(N\) and number density \(\rho\), the volume is
+For a fixed atom count N and number density rho, the volume is
 
 $$V = \frac{N}{\rho}.$$
 
-The full profile has \(N=500\) and \(\rho=0.0213\) atoms/angstrom^3, so the
+The full profile has N = 500 and rho = 0.0213 atoms/angstrom^3, so the
 recorded volume is about 23474.1784 angstrom^3. If one only reports the
 temperature and chemical formula, this volume is lost. Two simulations with the
 same temperature and atom count but different densities are not replicas of the
@@ -175,8 +175,8 @@ fields that should not change silently.
 
 After coordinates and the cell, the next question is momentum. The common
 canonical choice is to draw velocities from the Maxwell-Boltzmann distribution
-at a target temperature. For atom \(i\), each Cartesian velocity component has a
-variance set by \(k_B T / m_i\). The draw is random, even though the random
+at a target temperature. For atom i, each Cartesian velocity component has a
+variance set by k_B T / m_i. The draw is random, even though the random
 number generator is seeded.
 
 This distinction is easy to blur. A target temperature is a parameter of the
@@ -214,7 +214,7 @@ complicate comparisons across replicas.
 
 The tutorial removes center-of-mass momentum after the velocity draw. The
 recorded center-of-mass speed is effectively zero, about
-\(9.35 \times 10^{-19}\). This is a bookkeeping choice, but it is still a
+9.35 x 10^-19. This is a bookkeeping choice, but it is still a
 choice. If it is applied after exact temperature rescaling, before exact
 temperature rescaling, or not at all, the final kinetic state can differ.
 
