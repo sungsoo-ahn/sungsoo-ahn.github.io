@@ -6,6 +6,7 @@ const path = require("path");
 const { chromium } = require("playwright");
 
 const pages = [
+  ["index", ""],
   ["01", "post-01-initialization"],
   ["02", "post-02-integrators"],
   ["03", "post-03-errors"],
@@ -38,7 +39,12 @@ function parseArgs(argv) {
     } else if (arg === "--output-dir") {
       args.outputDir = argv[++index];
     } else if (arg === "--posts") {
-      args.posts = argv[++index].split(",").map((item) => item.padStart(2, "0"));
+      args.posts = argv[++index].split(",").map((item) => {
+        if (item === "index") {
+          return item;
+        }
+        return item.padStart(2, "0");
+      });
     } else {
       throw new Error(`Unknown argument: ${arg}`);
     }
@@ -61,7 +67,10 @@ async function main() {
       for (const [label, viewport] of viewports) {
         const context = await browser.newContext({ viewport });
         const page = await context.newPage();
-        const url = `${args.baseUrl.replace(/\/$/, "")}/kups-md-tutorials/${slug}/`;
+        const baseUrl = args.baseUrl.replace(/\/$/, "");
+        const url = slug
+          ? `${baseUrl}/kups-md-tutorials/${slug}/`
+          : `${baseUrl}/kups-md-tutorials/`;
         const response = await page.goto(url, {
           waitUntil: "networkidle",
           timeout: 45000,

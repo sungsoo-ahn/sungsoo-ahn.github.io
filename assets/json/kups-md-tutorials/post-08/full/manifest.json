@@ -1,5 +1,23 @@
 {
   "config": {
+    "argon_rdf_pmf": {
+      "coordination_cutoff": 1.45,
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "gamma": 1.0,
+      "max_vacf_lag": 120,
+      "num_steps": 12000,
+      "number_density": 0.85,
+      "rdf_bin_width": 0.03,
+      "rdf_max_radius": 3.0,
+      "repetitions": 3,
+      "sample_every": 20,
+      "seed": 2026071808,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "time_step": 0.002,
+      "warmup_steps": 1000
+    },
     "experiment": {
       "bias_center": 0.9,
       "bias_strength": 2.0,
@@ -25,8 +43,8 @@
   "curves_file": "free_energy_curves.csv",
   "provenance": {
     "config_path": "configs/post-08/full.json",
-    "config_sha256": "99b5c4ddcc41bc3206c1d168633c18d6d0403a102b1ed042458c093e66196416",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "ce962a26cd12d9dfd62c36c8114f8de7c6c784519749fd84d1bbd59664e59aa7",
+    "git_revision": "77ddc60ae82aa8dca9d2cd0ad4029fa493b7a188",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
