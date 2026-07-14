@@ -1,5 +1,25 @@
 {
+  "argon_trajectory_rdf_file": "argon_trajectory_rdf_samples.csv",
+  "argon_trajectory_vacf_file": "argon_trajectory_vacf_samples.csv",
   "config": {
+    "argon_trajectory": {
+      "coordination_cutoff": 1.45,
+      "cutoff": 2.5,
+      "epsilon": 1.0,
+      "gamma": 1.0,
+      "max_vacf_lag": 120,
+      "num_steps": 12000,
+      "number_density": 0.85,
+      "rdf_bin_width": 0.03,
+      "rdf_max_radius": 3.0,
+      "repetitions": 3,
+      "sample_every": 20,
+      "seed": 2026071707,
+      "sigma": 1.0,
+      "temperature": 0.7,
+      "time_step": 0.002,
+      "warmup_steps": 1000
+    },
     "experiment": {
       "coordination_cutoff": 4.6,
       "displacement_sigma": 0.1,
@@ -28,8 +48,8 @@
   },
   "provenance": {
     "config_path": "configs/post-07/full.json",
-    "config_sha256": "240a48a5693bdb1390ec17bcc33de0d3ebfca7c48b9a8dd1bcc528c38caa98db",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "ae9b991dee64e91d1779bfa8200fffa4f1b6bf35abff3fccd8a6ace67b9e386c",
+    "git_revision": "f929899fa5ea3d516e0e2a5906966590de07611d",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
