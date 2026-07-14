@@ -1,0 +1,46 @@
+{
+  "bias_center": 0.9,
+  "bias_strength": 2.0,
+  "bins": [
+    {
+      "barrier_error": -0.014633240013341431,
+      "barrier_height": 0.9853667599866586,
+      "bin_width": 0.06,
+      "bins": 84,
+      "bootstrap_barrier_standard_error": 0.03198591685747835,
+      "occupied_bins": 65,
+      "rmse_vs_true": 0.17070805036123415
+    },
+    {
+      "barrier_error": -0.023895451397889844,
+      "barrier_height": 0.9761045486021102,
+      "bin_width": 0.18,
+      "bins": 28,
+      "bootstrap_barrier_standard_error": 0.016639812435214136,
+      "occupied_bins": 23,
+      "rmse_vs_true": 0.36645446042875934
+    },
+    {
+      "barrier_error": -0.08477620960047005,
+      "barrier_height": 0.91522379039953,
+      "bin_width": 0.35,
+      "bins": 15,
+      "bootstrap_barrier_standard_error": 0.017385305791899036,
+      "occupied_bins": 12,
+      "rmse_vs_true": 0.5906367378809873
+    }
+  ],
+  "config_sha256": "99b5c4ddcc41bc3206c1d168633c18d6d0403a102b1ed042458c093e66196416",
+  "domain_max": 2.5,
+  "domain_min": -2.5,
+  "post": "08",
+  "profile": "full",
+  "rdf_pmf_barrier_height": 1.7050866181659299,
+  "rdf_pmf_minimum_radius": 1.200418410041841,
+  "reweighted_barrier_error": 0.1228803891966257,
+  "reweighted_barrier_height": 1.1228803891966257,
+  "sample_count": 80000,
+  "seed": 2026071408,
+  "temperature": 1.0,
+  "true_barrier_height": 1.0
+}

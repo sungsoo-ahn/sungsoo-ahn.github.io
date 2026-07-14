@@ -1,0 +1,42 @@
+{
+  "config_sha256": "6211ec8ffc66d02bb3bb71d3fc84fe364456b2df01e42c8c350041eb99d84535",
+  "domain_max": 2.5,
+  "domain_min": -2.5,
+  "metadynamics": {
+    "barrier_visit_fraction": 0.13466666666666666,
+    "basin_visit_fraction_left": 0.3596666666666667,
+    "basin_visit_fraction_right": 0.3616666666666667,
+    "bias_factor": 10.0,
+    "deposit_count": 3000,
+    "final_bias_range": 6.533895225463827,
+    "final_histogram_flatness": 0.6635071090047393,
+    "hill_height": 0.03,
+    "hill_width": 0.12,
+    "initial_barrier_height": 0.9555062500000001,
+    "reconstructed_barrier_error": 0.09221638638705165,
+    "reconstructed_barrier_height": 1.0477226363870518
+  },
+  "post": "11",
+  "profile": "full",
+  "pulling": {
+    "crooks_crossing_delta_f": -0.0006959031674557675,
+    "end_center": 1.1,
+    "forward_dissipated_work": 0.16990254339688352,
+    "forward_ess_fraction": 0.7158601024697085,
+    "forward_jarzynski_delta_f": 0.001144114118007522,
+    "forward_mean_work": 0.1699025433968834,
+    "forward_work_std": 0.581026607015418,
+    "path_count": 20000,
+    "path_steps": 260,
+    "reverse_dissipated_work": 0.17337380079082518,
+    "reverse_ess_fraction": 0.7215265256179567,
+    "reverse_jarzynski_delta_f": -0.009001701511524463,
+    "reverse_mean_work": 0.1733738007908253,
+    "reverse_work_std": 0.5737331445702706,
+    "start_center": -1.1,
+    "trap_force_constant": 18.0,
+    "true_delta_f": -1.1102230246251565e-16
+  },
+  "seed": 2026071411,
+  "temperature": 1.0
+}
