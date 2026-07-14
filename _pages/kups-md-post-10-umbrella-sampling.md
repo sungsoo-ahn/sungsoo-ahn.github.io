@@ -187,23 +187,27 @@ show that uncertainty or the protocol should be revised before publication.
 ## What Should The Diagnostic Show?
 
 The full run compares the known PMF to dense and sparse WHAM-style
-reconstructions. It also records adjacent histogram overlap and per-window
-sampling means. The sparse protocol intentionally skips the bridge through the
+reconstructions. It also records adjacent histogram overlap, per-window
+sampling means, and the local disagreement between independently reconstructed
+replica PMFs. The sparse protocol intentionally skips the bridge through the
 barrier region, making the reconstruction less reliable even though every
 window has local support.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Umbrella-sampling diagnostics for the committed full profile. Dense windows maintain adjacent overlap and recover the known PMF, while sparse windows leave a near-zero-overlap bridge and bias the reconstructed barrier downward." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Umbrella-sampling diagnostics for the committed full profile. Dense windows maintain adjacent overlap and recover the known PMF, while sparse windows leave a near-zero-overlap bridge, bias the reconstructed barrier downward, and show larger local replica disagreement near the missing bridge." %}
 
-The figure has three jobs. The PMF panel compares reconstructed profiles to
-the known answer. The overlap panel shows whether adjacent windows form a
+The figure has four jobs. The PMF panel compares reconstructed profiles to the
+known answer. The overlap panel shows whether adjacent windows form a
 statistical bridge. The window-sampling panel shows that each biased ensemble
 has its own sampled mean and width, which may differ from the nominal umbrella
-center.
+center. The replica-disagreement panel localizes where independently split
+PMF reconstructions disagree, with dense replica RMSE about 0.115 and sparse
+replica RMSE about 0.235.
 
-The overlap panel is the most important diagnostic. The sparse protocol's
-near-zero bridge explains why the barrier is biased downward. Without that
-panel, the sparse PMF might look like a plausible reconstruction. With it, the
-protocol failure is visible.
+The overlap and replica-disagreement panels are the most important diagnostics.
+The sparse protocol's near-zero bridge explains why the barrier is biased
+downward, and the local replica-disagreement spike marks the same fragile
+region. Without those panels, the sparse PMF might look like a plausible
+reconstruction. With them, the protocol failure is visible.
 
 ## What Are Common Umbrella Mistakes?
 
@@ -446,7 +450,7 @@ This page is not the final article. The implemented pieces are:
 - smoke and full controlled umbrella-sampling workflows
 - committed compact summaries, PMF curves, and window-overlap outputs
 - executable notebook
-- generated SVG/PNG figure and snapshot review
+- generated SVG/PNG four-panel figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:

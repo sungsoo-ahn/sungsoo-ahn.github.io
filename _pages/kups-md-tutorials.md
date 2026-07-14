@@ -18,10 +18,10 @@ pagination:
     A hidden draft index for executable molecular-dynamics practice: initialization, integrators, ensembles, uncertainty, observables, free energies, enhanced sampling, and MLIP reliability.
   </p>
   <div class="blog-type-summary" aria-label="kUPS tutorial status">
-    <span>Series status</span>
-    <span>{{ tutorial_count }} drafts</span>
+    <span>Post types</span>
+    <span>Tutorials {{ tutorial_count }}</span>
+    <span>Draft series</span>
     <span>Hidden</span>
-    <span>Direct-link only</span>
   </div>
 
   <p class="blog-index-note">
@@ -30,6 +30,8 @@ pagination:
 
   <ol class="bibliography">
   {% for post in tutorials %}
+    {% assign post_type = "tutorial" %}
+    {% assign post_type_label = "Tutorial" %}
     {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
     <li>
       <div class="row">
@@ -41,7 +43,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-tutorial">Tutorial {{ post.series_order }}</span>{% if post.authors %}; {{ post.authors | join: ", " }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }} {{ post.series_order }}</span>{% if post.authors %}; {{ post.authors | join: ", " }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
           </div>
         </div>
       </div>
