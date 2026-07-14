@@ -1,0 +1,52 @@
+{
+  "config": {
+    "experiment": {
+      "num_steps": 40000,
+      "sample_every": 10,
+      "seed": 2026071404,
+      "temperature": 1.0,
+      "thermostats": [
+        {
+          "gamma": 0.1,
+          "method": "baoab_langevin",
+          "name": "weak_langevin"
+        },
+        {
+          "gamma": 1.0,
+          "method": "baoab_langevin",
+          "name": "moderate_langevin"
+        },
+        {
+          "gamma": 5.0,
+          "method": "baoab_langevin",
+          "name": "strong_langevin"
+        }
+      ],
+      "time_step": 0.02,
+      "warmup_steps": 5000
+    },
+    "post": "04",
+    "profile": "full",
+    "system": {
+      "kind": "harmonic_oscillator",
+      "mass": 1.0,
+      "omega": 1.0,
+      "position": 0.0,
+      "velocity": 0.0
+    },
+    "title": "How Do Thermostats Change Sampling and Dynamics?"
+  },
+  "provenance": {
+    "config_path": "configs/post-04/full.json",
+    "config_sha256": "76d18d222650176601cd88e8633a1329565a25649635afbd44a2a36b95dde6a6",
+    "git_revision": "ec59147a061678c882292e6bbea031fe9c262207",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "samples_file": "thermostat_samples.csv",
+  "summary_file": "thermostat_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}

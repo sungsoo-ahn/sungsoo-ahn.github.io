@@ -1,0 +1,57 @@
+{
+  "config": {
+    "experiment": {
+      "bin_width": 0.04,
+      "domain_max": 2.5,
+      "domain_min": -2.5,
+      "grid_points": 2001,
+      "protocols": [
+        {
+          "force_constant": 18.0,
+          "name": "dense_windows",
+          "window_centers": [
+            -1.6,
+            -1.2,
+            -0.8,
+            -0.4,
+            0.0,
+            0.4,
+            0.8,
+            1.2,
+            1.6
+          ]
+        },
+        {
+          "force_constant": 18.0,
+          "name": "sparse_windows",
+          "window_centers": [
+            -1.6,
+            -0.8,
+            0.8,
+            1.6
+          ]
+        }
+      ],
+      "sample_count_per_window": 20000,
+      "seed": 2026071410,
+      "temperature": 1.0
+    },
+    "post": "10",
+    "profile": "full",
+    "title": "What Does Umbrella Sampling Actually Sample?"
+  },
+  "curves_file": "umbrella_curves.csv",
+  "provenance": {
+    "config_path": "configs/post-10/full.json",
+    "config_sha256": "9b052e2a4710381d78d1700c0bd5d7805467664e037f0b3b74e854a30db852fb",
+    "git_revision": "c2b45f46b1481580030499399cf5f01ab36f6ead",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "summary_file": "umbrella_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  },
+  "windows_file": "umbrella_windows.csv"
+}

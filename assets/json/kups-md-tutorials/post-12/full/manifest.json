@@ -1,0 +1,59 @@
+{
+  "config": {
+    "experiment": {
+      "cases": [
+        {
+          "force_bias": 0.0,
+          "force_noise": 0.03,
+          "name": "in_domain_fcc",
+          "strain": 0.0,
+          "thermal_displacement": 0.035,
+          "uncertainty_scale": 1.0
+        },
+        {
+          "force_bias": 0.018,
+          "force_noise": 0.065,
+          "name": "strained_cell",
+          "strain": 0.06,
+          "thermal_displacement": 0.055,
+          "uncertainty_scale": 1.4
+        },
+        {
+          "force_bias": 0.055,
+          "force_noise": 0.13,
+          "name": "extrapolative_hot",
+          "strain": 0.12,
+          "thermal_displacement": 0.09,
+          "uncertainty_scale": 2.0
+        }
+      ],
+      "material": "fcc_aluminum",
+      "model_artifact": {
+        "name": "mace-mp-0-medium",
+        "repository": "ACEsuit/mace",
+        "revision": "pinned-placeholder",
+        "sha256": "pending-gpu-artifact-hash"
+      },
+      "sample_count": 50000,
+      "seed": 2026071412,
+      "temperature_k": 300.0,
+      "time_step_fs": 1.0
+    },
+    "post": "12",
+    "profile": "full",
+    "title": "What Changes When the Potential Is a Machine-Learned Interatomic Potential?"
+  },
+  "provenance": {
+    "config_path": "configs/post-12/full.json",
+    "config_sha256": "f7e31a9b090adf3f18027a950110cd272bcb6e17e348e67847f63e5fde853721",
+    "git_revision": "f2b963221ecda033f508f6b62ec2e31a2d0370ca",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "samples_file": "mlip_samples.csv",
+  "summary_file": "mlip_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}

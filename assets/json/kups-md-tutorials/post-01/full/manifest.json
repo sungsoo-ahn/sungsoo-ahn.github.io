@@ -1,0 +1,33 @@
+{
+  "config": {
+    "initialization": {
+      "force_exact_temperature": false,
+      "remove_center_of_mass": true,
+      "seed": 2026071401,
+      "temperature_k": 94.4
+    },
+    "post": "01",
+    "profile": "full",
+    "system": {
+      "kind": "argon_fcc",
+      "lattice_constant": null,
+      "number_density": 0.0213,
+      "repetitions": 5
+    },
+    "title": "How Do You Initialize an MD Simulation Without Biasing the Result?"
+  },
+  "provenance": {
+    "config_path": "configs/post-01/full.json",
+    "config_sha256": "97f10e793ad6e7993963660d5886b2b34251f12f53bcba4e5bcb9f629fbc54e3",
+    "git_revision": "2a705f408ad3bc2ed3bfb950e3f6f2dfb56e681a",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "structure_file": "initial_state.extxyz",
+  "summary_file": "initialization_summary.json",
+  "versions": {
+    "ase": "3.29.0",
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}

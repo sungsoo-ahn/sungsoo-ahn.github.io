@@ -1,0 +1,42 @@
+{
+  "config": {
+    "experiment": {
+      "domain_max": 2.5,
+      "domain_min": -2.5,
+      "grid_points": 2001,
+      "metadynamics": {
+        "bias_factor": 10.0,
+        "deposit_count": 3000,
+        "hill_height": 0.03,
+        "hill_width": 0.12,
+        "record_every": 25
+      },
+      "pulling": {
+        "end_center": 1.1,
+        "noise_scale": 0.2,
+        "path_count": 20000,
+        "path_steps": 260,
+        "start_center": -1.1,
+        "trap_force_constant": 18.0
+      },
+      "seed": 2026071411,
+      "temperature": 1.0
+    },
+    "post": "11",
+    "profile": "full",
+    "title": "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
+  },
+  "curves_file": "enhanced_sampling_curves.csv",
+  "provenance": {
+    "config_path": "configs/post-11/full.json",
+    "config_sha256": "6211ec8ffc66d02bb3bb71d3fc84fe364456b2df01e42c8c350041eb99d84535",
+    "git_revision": "2a3523798125965409da1158d731544ceda51f63",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "summary_file": "enhanced_sampling_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}

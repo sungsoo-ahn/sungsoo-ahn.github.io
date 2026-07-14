@@ -1,0 +1,39 @@
+{
+  "config": {
+    "experiment": {
+      "checkpoints": [
+        2000,
+        6000,
+        12000,
+        24000
+      ],
+      "correlation_time": 30.0,
+      "equilibration_time": 120.0,
+      "initial_bias": 2.5,
+      "max_steps": 24000,
+      "replica_count": 6,
+      "sample_every": 4,
+      "seed": 2026071406,
+      "stationary_variance": 1.0,
+      "time_step": 1.0,
+      "true_mean": 0.5,
+      "warmup_steps": 1000
+    },
+    "post": "06",
+    "profile": "full",
+    "title": "When Is a Trajectory Long Enough to Trust?"
+  },
+  "provenance": {
+    "config_path": "configs/post-06/full.json",
+    "config_sha256": "33cd5b29b5c89683f48a15e90bbf65d20c78ada80d80af80539f4645b02af34f",
+    "git_revision": "65489c640f6f4c15c65cc1b74001dcbfcda09f14",
+    "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
+    "python_version": "3.13.13"
+  },
+  "samples_file": "trajectory_length_samples.csv",
+  "summary_file": "trajectory_length_summary.json",
+  "versions": {
+    "kups": "1.0.3",
+    "numpy": "2.5.1"
+  }
+}
