@@ -44,7 +44,7 @@
   "provenance": {
     "config_path": "configs/post-10/full.json",
     "config_sha256": "9b052e2a4710381d78d1700c0bd5d7805467664e037f0b3b74e854a30db852fb",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "git_revision": "a437579ce4b3e734aaf391e3de9175d827d9ab90",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
