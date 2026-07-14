@@ -1,5 +1,20 @@
 {
-  "config_sha256": "240a48a5693bdb1390ec17bcc33de0d3ebfca7c48b9a8dd1bcc528c38caa98db",
+  "argon_trajectory": {
+    "atom_count": 108,
+    "coordination_block_standard_error": 0.03537336527166774,
+    "coordination_cutoff": 1.45,
+    "coordination_number": 11.655481602089955,
+    "coordination_relative_standard_error": 0.0030349123682135034,
+    "frame_count": 551,
+    "number_density": 0.85,
+    "rdf_first_peak_radius": 1.095,
+    "rdf_first_peak_value": 3.021144703396483,
+    "temperature": 0.7,
+    "vacf_first_zero_lag": 4,
+    "vacf_lag1_autocorrelation": 0.7997626737115738,
+    "vacf_normalized_integral": 0.018046003263717525
+  },
+  "config_sha256": "ae9b991dee64e91d1779bfa8200fffa4f1b6bf35abff3fccd8a6ace67b9e386c",
   "displacement_sigma": 0.1,
   "number_density": 0.021,
   "post": "07",
