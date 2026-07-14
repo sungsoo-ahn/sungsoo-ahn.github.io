@@ -1,5 +1,46 @@
 {
-  "config_sha256": "76d18d222650176601cd88e8633a1329565a25649635afbd44a2a36b95dde6a6",
+  "argon_langevin_runs": [
+    {
+      "atom_count": 108,
+      "final_total_energy": -358.6722579844769,
+      "gamma": 0.2,
+      "kinetic_temperature_mean": 0.6143339668536689,
+      "kinetic_temperature_relative_error": -0.12238004735190144,
+      "kinetic_temperature_std": 0.035656644704824575,
+      "samples": 350,
+      "target_temperature": 0.7,
+      "thermostat": "weak_argon_langevin",
+      "velocity_integrated_autocorrelation_time": 15.789786081234418,
+      "velocity_lag1_autocorrelation": 0.7653410770724021
+    },
+    {
+      "atom_count": 108,
+      "final_total_energy": -348.1308485242817,
+      "gamma": 1.0,
+      "kinetic_temperature_mean": 0.6977690422435706,
+      "kinetic_temperature_relative_error": -0.0031870825091847577,
+      "kinetic_temperature_std": 0.042797029867575276,
+      "samples": 350,
+      "target_temperature": 0.7,
+      "thermostat": "moderate_argon_langevin",
+      "velocity_integrated_autocorrelation_time": 19.855175452115045,
+      "velocity_lag1_autocorrelation": 0.7190954290146847
+    },
+    {
+      "atom_count": 108,
+      "final_total_energy": -315.77082992972794,
+      "gamma": 4.0,
+      "kinetic_temperature_mean": 0.7026585800982365,
+      "kinetic_temperature_relative_error": 0.003797971568909375,
+      "kinetic_temperature_std": 0.05819479233033255,
+      "samples": 350,
+      "target_temperature": 0.7,
+      "thermostat": "strong_argon_langevin",
+      "velocity_integrated_autocorrelation_time": 15.476717250017334,
+      "velocity_lag1_autocorrelation": 0.7043617140710755
+    }
+  ],
+  "config_sha256": "69a4d3e720092385a21f69d84ea831a50dc6743f9c444afdb65741eba7dfff9f",
   "mass": 1.0,
   "omega": 1.0,
   "post": "04",
