@@ -460,12 +460,12 @@ This page is not the final article. The implemented pieces are:
 - committed compact summaries and diagnostic curves
 - executable notebook
 - generated SVG/PNG four-panel figure and snapshot review
+- rendered desktop and mobile page snapshots for the latest four-panel figure
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - final 3,500-10,000-word article prose
-- rendered desktop and mobile page snapshots for the latest four-panel figure
 - production MD context with real atomistic steered trajectories
 - final uncertainty diagnostics and citation pass
 
