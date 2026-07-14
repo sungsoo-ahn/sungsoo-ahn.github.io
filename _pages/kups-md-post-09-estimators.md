@@ -228,11 +228,14 @@ and checks for hysteresis or replica disagreement. The estimator name alone is
 not evidence. The overlap network is the evidence.
 Disconnected windows make the final estimate a protocol failure, not a result.
 
-This hidden draft does not add a final WHAM/MBAR figure yet. It introduces the
-conceptual bridge after the two-state FEP/BAR diagnostic because the two-state
-case makes the failure mechanism easier to inspect. A final production pass
-can add multi-window diagnostics, but those figures need their own snapshot
-review.
+The refreshed executable diagnostic now adds a minimal multi-state bridge
+test. It samples harmonic biased windows from a known Gaussian target and
+compares a connected dense bridge with an endpoint-only sparse bridge. The
+dense bridge has minimum adjacent overlap about 0.184 in the full profile,
+whereas the sparse bridge has effectively zero adjacent overlap and one broken
+edge. This is not a full production WHAM/MBAR analysis, but it makes the
+network assumption concrete: without adjacent overlap, a multi-state estimator
+has a protocol failure before it has a trustworthy result.
 
 ## What Does Estimator Failure Look Like?
 
@@ -350,14 +353,17 @@ sample sizes. In the poor-overlap case, the forward effective sample size
 collapses to less than one percent of the nominal sample count even though the
 simulation contains fifty thousand samples per state.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_estimator_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Estimator diagnostics for the committed full profile. BAR remains close to the known Delta F in this controlled example, while the overlap and ESS panels show why one-sided FEP becomes fragile as state overlap disappears." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_estimator_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Estimator diagnostics for the committed full profile. BAR remains close to the known Delta F in this controlled example, while the overlap, ESS, work-tail, and multi-state bridge panels show why estimators need connected probability mass." %}
 
-The figure has three roles. The estimator panel shows that all methods are
+The figure has four roles. The estimator panel shows that all methods are
 close in good overlap and that errors grow as overlap decreases. The overlap
 and ESS panel shows the hidden statistical problem more directly than the
 estimator values alone. The work-distribution panel shows why the exponential
 average becomes fragile: poor-overlap estimates are controlled by rare tail
-samples rather than typical work values.
+samples rather than typical work values. The multi-state bridge panel compares
+a connected dense set of biased windows with a sparse endpoint-only protocol;
+the sparse curve has a visible missing middle because the adjacent-window
+overlap network is broken.
 
 This is the main lesson for free-energy calculations. A good-looking estimate
 is not enough. It must be accompanied by diagnostics that show the estimator
@@ -435,16 +441,18 @@ the runtime device is CPU.
 This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled estimator workflows
-- committed compact estimator summaries and work-sample outputs
+- committed compact estimator summaries, work-sample outputs, and
+  multi-state bridge curves
 - executable notebook
-- generated SVG/PNG figure and snapshot review
+- generated SVG/PNG four-panel figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
-- fuller WHAM/MBAR discussion and any final multi-state diagnostic figures
-- final citation pass and production-style diagnostics
-- rendered desktop and mobile page snapshots for this expanded prose
+- final production-style estimator diagnostics if a later public article needs
+  a chemistry-specific WHAM/MBAR or alchemical example
+- rendered desktop and mobile page snapshots for this refreshed bridge panel
+  and prose
 
 The rule for this post is that estimator reliability is an overlap question.
 More samples help only when they include the configurations that carry the
