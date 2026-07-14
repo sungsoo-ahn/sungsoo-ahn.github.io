@@ -8,15 +8,18 @@
   "protocols": [
     {
       "barrier_error": 0.010642645377835214,
+      "barrier_replica_difference": 0.020574951578747447,
       "force_constant": 18.0,
       "forward_reverse_pmf_rmse": 0.11475475739033186,
       "max_replica_mean_difference": 0.0020746250000001076,
+      "max_replica_pmf_difference": 0.6937895972092569,
       "mean_adjacent_overlap": 0.44348125,
       "min_adjacent_overlap": 0.35519999999999996,
       "min_effective_bins": 35,
       "pmf_rmse_vs_true": 0.17304311889899085,
       "protocol": "dense_windows",
       "reconstructed_barrier_height": 1.0106426453778352,
+      "replica_barrier_height": 0.9900676937990878,
       "window_count": 9,
       "windows": [
         {
@@ -86,15 +89,18 @@
     },
     {
       "barrier_error": -0.2553692514369371,
+      "barrier_replica_difference": 0.01510407873575792,
       "force_constant": 18.0,
       "forward_reverse_pmf_rmse": 0.235204836660486,
       "max_replica_mean_difference": 0.001875499999999919,
+      "max_replica_pmf_difference": 0.9656124769979476,
       "mean_adjacent_overlap": 0.12085000000000001,
       "min_adjacent_overlap": 0.00030000000000000003,
       "min_effective_bins": 34,
       "pmf_rmse_vs_true": 0.2228841891089617,
       "protocol": "sparse_windows",
       "reconstructed_barrier_height": 0.7446307485630629,
+      "replica_barrier_height": 0.729526669827305,
       "window_count": 4,
       "windows": [
         {
