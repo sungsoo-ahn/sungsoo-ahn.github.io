@@ -22,14 +22,45 @@
       "seed": 2026071409,
       "temperature": 1.0
     },
+    "multistate_overlap": {
+      "bin_width": 0.06,
+      "domain_max": 3.0,
+      "domain_min": -3.0,
+      "force_constant": 12.0,
+      "protocols": [
+        {
+          "name": "dense_bridge",
+          "window_centers": [
+            -2.0,
+            -1.2,
+            -0.6,
+            0.0,
+            0.6,
+            1.2,
+            2.0
+          ]
+        },
+        {
+          "name": "sparse_bridge",
+          "window_centers": [
+            -2.0,
+            2.0
+          ]
+        }
+      ],
+      "sample_count_per_window": 8000,
+      "seed": 2026071909
+    },
     "post": "09",
     "profile": "full",
     "title": "What Do Free-Energy Estimators Assume?"
   },
+  "multistate_curves_file": "multistate_curves.csv",
+  "multistate_windows_file": "multistate_windows.csv",
   "provenance": {
     "config_path": "configs/post-09/full.json",
-    "config_sha256": "281e2a5263e75449ec89785e20e7f02f68298a17159ddec0f18cc66d2fff6a6c",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125",
+    "git_revision": "bb7b05a54980db66f3295b1b7a7e7f73a93ea9b1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
