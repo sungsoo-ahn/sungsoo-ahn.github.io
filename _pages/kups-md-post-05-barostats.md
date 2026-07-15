@@ -316,6 +316,15 @@ replica-level total-energy change across the sampled moving-cell traces is
 about 0.121 per atom. This is a useful moving-cell wiring and relaxation
 check, not a final kUPS production NPT result.
 
+The moving-cell summary also records the runtime limitation explicitly:
+
+| Field | Full-profile value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target requested CUDA/GPU, but the generated runtime was CPU |
+
 The final kUPS production diagnostic should add real atomistic NPT dynamics
 with documented thermostat/barostat settings, timestep, warmup, and sampling
 interval. A minimal production version could compare NVT at fixed density with
@@ -358,7 +367,7 @@ volume process. The slow barostat has the same target distribution but much
 longer memory, which means fewer effective samples for the same wall-clock
 trajectory length.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks three reduced-unit moving-cell replicas with volume uncertainty, kinetic temperature, pressure SEM, and effective-sample annotations." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks three CPU-fallback reduced-unit moving-cell replicas with volume uncertainty, kinetic temperature, pressure SEM, and effective-sample annotations." %}
 
 The figure has four roles. The volume panel checks whether the scalar cell
 samples the expected fluctuation scale. The pressure panel checks the
@@ -438,9 +447,9 @@ configuration loader, scalar barostat diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. In the current full run, the
 source revision recorded by the manifest is
-`ffbf49effecb7ccac823145c58c073e0c8cd731c`, the config hash is
-`cc78ccac72341e718683ccef58ee73f3ba2418b8c8c188bb9442f63ee79857fa`, and the
-runtime device is CPU.
+`9f5ee463377d42ab75f764d47a7e31ad15e2b530`, the config hash is
+`d9da66ce28211ce45668052d4aaed25f8f5f7e58ed34c79f7a9f10103520a92f`, and
+the runtime device is `jax:cpu;devices:cpu`.
 
 That provenance is useful because pressure and cell diagnostics are sensitive
 to small protocol changes. A different seed, timestep, sampling interval,
@@ -482,6 +491,8 @@ This page is not the final article. The implemented pieces are:
 - compact reduced-unit argon moving-cell density-relaxation workflow with
   three full-profile replicas, kinetic-temperature samples, and energy-like
   trace diagnostics
+- machine-readable target-device, runtime-device, GPU-readiness, and blocking
+  reason provenance for the moving-cell diagnostic
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
