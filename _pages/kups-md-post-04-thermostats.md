@@ -61,6 +61,7 @@ The executable artifacts for this page are:
 - [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/smoke/thermostat_summary.json)
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/full/thermostat_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/full/manifest.json)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post04_figures.py)
 - [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-04.md)
 
 ## What Does a Thermostat Change?
