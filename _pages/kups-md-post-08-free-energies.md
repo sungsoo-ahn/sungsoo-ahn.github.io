@@ -83,7 +83,9 @@ $$F(s) = -kT \log p(s) + C,$$
 where p(s) is the equilibrium probability density of that coordinate and C is
 an arbitrary additive constant. The constant does not affect barriers or
 differences, but the coordinate and probability measure do. A histogram over s
-is an estimator for p(s), not the exact distribution.
+is an estimator for p(s), not the exact distribution
+(<a href="#ref-tuckerman2010" id="cite-tuckerman2010">Tuckerman, 2010</a>;
+<a href="#ref-frenkel2001" id="cite-frenkel2001">Frenkel & Smit, 2001</a>).
 
 This is why the phrase "the free energy" is incomplete. One should ask: free
 energy of which coordinate, under which ensemble, at which temperature, using
@@ -111,7 +113,9 @@ coordinate axis. That is the meaning of "mean force" in potential of mean
 force: forces and entropic contributions from hidden variables are averaged
 conditional on the coordinate. If those hidden variables are not equilibrated
 at each coordinate value, the PMF estimate can be biased even when the
-histogram along the displayed coordinate looks well populated.
+histogram along the displayed coordinate looks well populated
+(<a href="#ref-kirkwood1935" id="cite-kirkwood1935">Kirkwood, 1935</a>;
+<a href="#ref-chandler1987" id="cite-chandler1987">Chandler, 1987</a>).
 
 This matters when interpreting barriers. A barrier in one coordinate is not
 automatically a transition-state free energy. It may be a projection artifact,
@@ -171,7 +175,10 @@ A histogram starts as counts. Those counts become probabilities only after
 normalization by the total sample count and bin width. The probabilities then
 become free energies after applying the negative log and choosing an additive
 zero. Empty bins create a special problem: the log of zero is undefined, and
-empty regions often mean the trajectory did not sample that coordinate range.
+empty regions often mean the trajectory did not sample that coordinate range
+(<a href="#ref-ferrenberg1989" id="cite-ferrenberg1989">Ferrenberg &
+Swendsen, 1989</a>; <a href="#ref-kumar1992" id="cite-kumar1992">Kumar et al.,
+1992</a>).
 
 In practice, one usually shifts the PMF so its minimum is zero. This makes
 barriers and relative differences easy to read. The shift should not be
@@ -182,7 +189,9 @@ The bin width controls a tradeoff. Narrow bins preserve resolution but increase
 noise and empty-bin risk. Wide bins reduce noise but smear features and bias
 barriers. In the full diagnostic, increasing bin width from 0.06 to 0.35 moves
 the estimated barrier from about 0.985 to about 0.915 even though all estimates
-come from equilibrium samples of the same underlying distribution.
+come from equilibrium samples of the same underlying distribution
+(<a href="#ref-ferrenberg1989" id="cite-ferrenberg1989b">Ferrenberg &
+Swendsen, 1989</a>).
 
 The correct response is not always "use the finest bin." A very fine histogram
 can produce noisy PMFs, disconnected support, or unstable barriers. A better
@@ -219,7 +228,9 @@ Reweighting tries to estimate an unbiased distribution from samples drawn from
 a biased distribution. If the bias potential is known, each sample can be
 assigned a statistical weight that compensates for the bias. In the simplest
 case, the weight is proportional to the exponential of the bias energy divided
-by kT, with normalization handled by the estimator.
+by kT, with normalization handled by the estimator
+(<a href="#ref-kumar1992" id="cite-kumar1992b">Kumar et al., 1992</a>;
+<a href="#ref-souaille2001" id="cite-souaille2001">Souaille & Roux, 2001</a>).
 
 The current diagnostic uses a simple biased-sample reweighting test with bias
 center 0.9 and bias strength 2.0. The full summary reports a reweighted
@@ -234,6 +245,10 @@ stable weights, and enough effective samples after weighting. If the biased
 simulation never visits an important region, reweighting cannot create
 information there. If a few samples carry most of the weight, the effective
 sample size can be small even when the raw sample count is large.
+Modern multistate estimators make the same overlap warning explicit: MBAR
+uses samples from multiple equilibrium states without discretizing the sampled
+energy range, but it still depends on overlap between sampled states
+(<a href="#ref-shirts2008" id="cite-shirts2008">Shirts & Chodera, 2008</a>).
 
 This page keeps reweighting at the basics level. Post 09 is reserved for
 free-energy estimators and their assumptions, including overlap, Bennett
@@ -251,7 +266,9 @@ This object is a free-energy-like profile for pair separation in the sampled
 environment. It is useful, but it inherits every limitation of the RDF:
 finite-size support, bin width, density normalization, frame correlation,
 cutoff choices, and low-count bins. If g(r) is invalid or noisy, the derived
-PMF is invalid or noisy too.
+PMF is invalid or noisy too
+(<a href="#ref-kirkwood1935" id="cite-kirkwood1935b">Kirkwood, 1935</a>;
+<a href="#ref-chandler1987" id="cite-chandler1987b">Chandler, 1987</a>).
 
 The controlled post 08 workflow includes a synthetic RDF-like profile with a
 configured peak radius of 1.2 and width 0.16. The full summary reports a
@@ -316,7 +333,9 @@ The committed workflow uses bootstrap replicates to estimate uncertainty in
 the histogram barrier. Bootstrap uncertainty is useful because it asks how the
 estimate changes when the sampled data are resampled. In the full profile,
 bootstrap barrier standard errors are positive for all bin widths and are
-recorded in the summary rather than inferred from visual smoothness.
+recorded in the summary rather than inferred from visual smoothness
+(<a href="#ref-ferrenberg1989" id="cite-ferrenberg1989c">Ferrenberg &
+Swendsen, 1989</a>).
 
 Bootstrap is not a universal cure. If trajectory samples are correlated,
 ordinary sample-level bootstrap can be overconfident. Blocks or replicas may be
@@ -379,7 +398,9 @@ are reported, it should say how minima and barrier locations were identified.
 For RDF-derived PMFs, the methods should also report the RDF estimator from
 post 07: density, bin width, finite-size cutoff, frame selection, and
 uncertainty. The phrase "-kT log g(r)" is not enough. The g(r) itself is an
-estimator with assumptions.
+estimator with assumptions
+(<a href="#ref-kirkwood1935" id="cite-kirkwood1935c">Kirkwood, 1935</a>;
+<a href="#ref-chandler1987" id="cite-chandler1987c">Chandler, 1987</a>).
 
 For MLIP work, the methods should separate sampling uncertainty from model
 validity. A PMF may be converged for the learned potential while still wrong
@@ -483,11 +504,11 @@ This page is not the final article. The implemented pieces are:
 - generated four-panel SVG/PNG figure and snapshot review
 - rendered desktop and mobile page snapshots for the refreshed hidden draft
 - self-review note covering code, science, notebook, and figure feedback
+- final citations for PMFs, histogram estimators, reweighting, and RDF-derived
+  potentials of mean force
 
 The missing pieces are:
 
-- citations for PMFs, histogram estimators, reweighting, and RDF-derived
-  potentials of mean force beyond the current starter references
 - larger GPU kUPS RDF-derived PMF diagnostics and final production consistency
   pass before public indexing
 
@@ -497,6 +518,11 @@ changes what can be claimed.
 
 ## References
 
-- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
-- <span id="ref-kumar1992"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011-1021.
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010">↩</a>
+- <span id="ref-chandler1987"></span>Chandler, D. (1987). *Introduction to Modern Statistical Mechanics*. Oxford University Press. <a href="#cite-chandler1987">↩</a> <a href="#cite-chandler1987b">↩</a> <a href="#cite-chandler1987c">↩</a>
+- <span id="ref-kirkwood1935"></span>Kirkwood, J. G. (1935). Statistical mechanics of fluid mixtures. *Journal of Chemical Physics*, 3, 300-313. DOI: `10.1063/1.1749657`. <a href="#cite-kirkwood1935">↩</a> <a href="#cite-kirkwood1935b">↩</a> <a href="#cite-kirkwood1935c">↩</a>
+- <span id="ref-ferrenberg1989"></span>Ferrenberg, A. M. & Swendsen, R. H. (1989). Optimized Monte Carlo data analysis. *Physical Review Letters*, 63, 1195-1198. DOI: `10.1103/PhysRevLett.63.1195`. <a href="#cite-ferrenberg1989">↩</a> <a href="#cite-ferrenberg1989b">↩</a> <a href="#cite-ferrenberg1989c">↩</a>
+- <span id="ref-kumar1992"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011-1021. DOI: `10.1002/jcc.540130812`. <a href="#cite-kumar1992">↩</a> <a href="#cite-kumar1992b">↩</a>
+- <span id="ref-souaille2001"></span>Souaille, M. & Roux, B. (2001). Extension to the weighted histogram analysis method: combining umbrella sampling with free energy calculations. *Computer Physics Communications*, 135, 40-57. DOI: `10.1016/S0010-4655(00)00215-0`. <a href="#cite-souaille2001">↩</a>
+- <span id="ref-shirts2008"></span>Shirts, M. R. & Chodera, J. D. (2008). Statistically optimal analysis of samples from multiple equilibrium states. *Journal of Chemical Physics*, 129, 124105. DOI: `10.1063/1.2978177`. <a href="#cite-shirts2008">↩</a>
