@@ -438,10 +438,10 @@ the runtime device is `jax:cpu;devices:cpu`.
 
 | Provenance field | Value |
 |---|---|
-| configuration hash | <span style="overflow-wrap: anywhere;">`54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125`</span> |
-| source revision | <span style="overflow-wrap: anywhere;">`98dc7cb2b3a6828141117f80de81bb9a242e57aa`</span> |
-| runtime device | <span style="overflow-wrap: anywhere;">`jax:cpu;devices:cpu`</span> |
-| precision policy | <span style="overflow-wrap: anywhere;">`jax_enable_x64=false;env_JAX_ENABLE_X64=unset`</span> |
+| configuration hash | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125</code> |
+| source revision | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">98dc7cb2b3a6828141117f80de81bb9a242e57aa</code> |
+| runtime device | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">jax:cpu;devices:cpu</code> |
+| precision policy | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">jax_enable_x64=false;env_JAX_ENABLE_X64=unset</code> |
 
 ## Current Status
 
