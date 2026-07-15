@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-11-enhanced-sampling/
 title: "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible enhanced-sampling diagnostic for metadynamics-style bias filling, nonequilibrium work, Jarzynski estimates, and Crooks crossings."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -459,15 +459,17 @@ This page is not the final article. The implemented pieces are:
 - smoke and full controlled enhanced-sampling workflows
 - committed compact summaries and diagnostic curves
 - executable notebook
-- generated SVG/PNG four-panel figure and snapshot review
+- generated SVG/PNG four-panel figure with Jarzynski/Crooks, ESS, and
+  fast/slow hysteresis diagnostics
 - rendered desktop and mobile page snapshots for the latest four-panel figure
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - final 3,500-10,000-word article prose
-- production MD context with real atomistic steered trajectories
-- final uncertainty diagnostics and citation pass
+- production MD context with real atomistic steered trajectories, model checks,
+  and production-level uncertainty intervals if public claims are added
+- final citation pass
 
 The rule for this post is that enhanced sampling is a change of measure. Bias
 history and path weights are part of the estimator, not implementation details
