@@ -43,10 +43,15 @@
     "profile": "full",
     "title": "What Changes When the Potential Is a Machine-Learned Interatomic Potential?"
   },
+  "execution": {
+    "elapsed_seconds": 0.022,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-12/full.json",
     "config_sha256": "280098054b6a06181c1dd7184eb74560c10a7337c35c0635bb7cb8aac99752be",
-    "git_revision": "a7f446c84fe86cd3cd476b72fa5483e44e954d26",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
