@@ -1,8 +1,87 @@
 {
   "bin_width": 0.04,
-  "config_sha256": "9b052e2a4710381d78d1700c0bd5d7805467664e037f0b3b74e854a30db852fb",
+  "config_sha256": "c8b1a577d4708124388fb96d403982f600c892b327e522b052f806f8e6a1ec0f",
   "domain_max": 2.5,
   "domain_min": -2.5,
+  "pair_distance_umbrella": {
+    "coordinate": "reduced pair distance r/sigma",
+    "force_constant": 45.0,
+    "forward_reverse_pmf_rmse": 0.09236939066278496,
+    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
+    "max_replica_pmf_difference": 0.6810532287731705,
+    "mean_adjacent_overlap": 0.4817738095238096,
+    "min_adjacent_overlap": 0.31091666666666673,
+    "min_effective_bins": 20,
+    "minimum_radius": 1.1325000000000003,
+    "pmf_rmse_vs_true": 0.13804691107585199,
+    "production_gpu_ready": false,
+    "reconstructed_well_depth": 0.9505315176414,
+    "runtime_device": "jax:cpu;devices:cpu",
+    "sample_count_per_window": 12000,
+    "target_device": "cuda_or_cpu_fallback",
+    "target_requests_gpu": true,
+    "well_depth": 0.9452637415489162,
+    "well_depth_error": 0.005267776092483745,
+    "window_count": 8,
+    "windows": [
+      {
+        "center": 0.98,
+        "effective_bins": 20,
+        "replica_mean_difference": 0.0005730374999999288,
+        "sample_mean": 1.0996314541666667,
+        "sample_std": 0.06795147352944822
+      },
+      {
+        "center": 1.1,
+        "effective_bins": 24,
+        "replica_mean_difference": 0.001290066666666645,
+        "sample_mean": 1.1436796458333334,
+        "sample_std": 0.08331938312931743
+      },
+      {
+        "center": 1.25,
+        "effective_bins": 31,
+        "replica_mean_difference": 0.0007922625000000849,
+        "sample_mean": 1.2311572041666667,
+        "sample_std": 0.1068867842798918
+      },
+      {
+        "center": 1.45,
+        "effective_bins": 38,
+        "replica_mean_difference": 0.001784170833333265,
+        "sample_mean": 1.4144077208333334,
+        "sample_std": 0.12908166568222745
+      },
+      {
+        "center": 1.65,
+        "effective_bins": 39,
+        "replica_mean_difference": 0.0017434708333337046,
+        "sample_mean": 1.633728304166667,
+        "sample_std": 0.12881640355877805
+      },
+      {
+        "center": 1.9,
+        "effective_bins": 39,
+        "replica_mean_difference": 0.0012701791666664963,
+        "sample_mean": 1.8926965458333338,
+        "sample_std": 0.1268530826747058
+      },
+      {
+        "center": 2.15,
+        "effective_bins": 31,
+        "replica_mean_difference": 0.0025648708333330106,
+        "sample_mean": 2.1423975208333332,
+        "sample_std": 0.11700537670228452
+      },
+      {
+        "center": 2.35,
+        "effective_bins": 22,
+        "replica_mean_difference": 0.0006105000000000693,
+        "sample_mean": 2.278885741666667,
+        "sample_std": 0.0863275704196974
+      }
+    ]
+  },
   "post": "10",
   "profile": "full",
   "protocols": [

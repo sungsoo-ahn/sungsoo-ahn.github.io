@@ -43,7 +43,10 @@ states (<span id="cite-torrie1977"></span>[Torrie & Valleau,
 This draft demonstrates the executable slice of the tenth tutorial with a
 known one-dimensional double-well PMF. Dense and sparse umbrella protocols are
 run against the same answer key, so the diagnostic can isolate overlap and
-window placement from physical-model error.
+window placement from physical-model error. The refreshed executable workflow
+also adds a compact pair-distance umbrella diagnostic with Lennard-Jones
+contact physics, window-overlap checks, replica disagreement, and explicit
+CPU-fallback runtime provenance.
 
 The target reader already knows why enhanced sampling is needed: equilibrium
 trajectories can spend too much time in basins and too little time near
@@ -76,6 +79,7 @@ double-well coordinate:
 |---|---:|---:|---:|
 | dense_windows | 9 | 0.3552 | 0.0106 |
 | sparse_windows | 4 | 0.0003 | -0.2554 |
+| pair_distance_umbrella | 8 | 0.3109 | well-depth error 0.0053 |
 
 Both protocols draw many samples from every biased window. The difference is
 whether those biased samples connect neighboring regions of the collective
@@ -184,6 +188,30 @@ start from different basin histories, cross barriers at different rates, or
 fail in different windows. If replicas disagree in a region, the PMF should
 show that uncertainty or the protocol should be revised before publication.
 
+## What Does the Pair-Distance Diagnostic Add?
+
+The compact pair-distance diagnostic is not a final production umbrella
+calculation, but it makes the tutorial less abstract. Instead of only sampling
+a generic double-well coordinate, it reconstructs a one-dimensional
+pair-interaction PMF along reduced pair distance \(r/\sigma\). The target
+profile is a Lennard-Jones contact well shifted to zero at its minimum. Harmonic
+umbrella windows then reconstruct that profile from biased pair-distance
+samples.
+
+For the committed full profile, eight windows span \(r/\sigma = 0.98\) to
+2.35 with force constant 45.0 and 12,000 samples per window. The reconstructed
+contact-well depth differs from the known pair PMF by about 0.005, the PMF RMSE
+is about 0.138, and the minimum adjacent overlap is about 0.311. Those numbers
+are not presented as a production molecular free energy. They are a compact
+atomistic-coordinate check that the same review habits apply once the
+coordinate has physical meaning: window centers, biased means, overlap,
+replica disagreement, and runtime provenance must all be reported.
+
+The runtime provenance is intentionally visible. The full profile targets
+`cuda_or_cpu_fallback`, but this artifact was generated on
+`jax:cpu;devices:cpu`, so production GPU readiness is `false`. The blocking
+reason is recorded in the summary rather than left implicit.
+
 ## What Should The Diagnostic Show?
 
 The full run compares the known PMF to dense and sparse WHAM-style
@@ -193,15 +221,17 @@ replica PMFs. The sparse protocol intentionally skips the bridge through the
 barrier region, making the reconstruction less reliable even though every
 window has local support.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Umbrella-sampling diagnostics for the committed full profile. Dense windows maintain adjacent overlap and recover the known PMF, while sparse windows leave a near-zero-overlap bridge, bias the reconstructed barrier downward, and show larger local replica disagreement near the missing bridge." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Umbrella-sampling diagnostics for the committed full profile. Dense windows maintain adjacent overlap and recover the known PMF, sparse windows leave a near-zero-overlap bridge, and the compact pair-distance umbrella reconstructs a Lennard-Jones contact well while disclosing CPU-fallback runtime provenance." %}
 
-The figure has four jobs. The PMF panel compares reconstructed profiles to the
+The figure has six jobs. The PMF panel compares reconstructed profiles to the
 known answer. The overlap panel shows whether adjacent windows form a
 statistical bridge. The window-sampling panel shows that each biased ensemble
 has its own sampled mean and width, which may differ from the nominal umbrella
 center. The replica-disagreement panel localizes where independently split
 PMF reconstructions disagree, with dense replica RMSE about 0.115 and sparse
-replica RMSE about 0.235.
+replica RMSE about 0.235. The pair-distance panel checks the compact
+atomistic-coordinate umbrella reconstruction, and the status panel records the
+target device, runtime device, and GPU-readiness state for that artifact.
 
 The overlap and replica-disagreement panels are the most important diagnostics.
 The sparse protocol's near-zero bridge explains why the barrier is biased
@@ -441,7 +471,18 @@ uv run jupyter execute notebooks/post-10-umbrella-sampling.ipynb --inplace
 
 The notebook is deliberately not the implementation source. It imports the
 configuration loader, umbrella diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
+`src/kups_md_tutorials/`. The committed full manifest records configuration
+hash `c8b1a577d4708124388fb96d403982f600c892b327e522b052f806f8e6a1ec0f`,
+source revision `ec4bf4eb96bf66be2647282f0f0c44afad192e74`, target device
+`cuda_or_cpu_fallback`, runtime device `jax:cpu;devices:cpu`, and production
+GPU readiness `false` for the compact pair-distance umbrella diagnostic.
+
+| Runtime field | Value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
 
 ## Current Status
 
@@ -449,16 +490,19 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled umbrella-sampling workflows
 - committed compact summaries, PMF curves, and window-overlap outputs
+- compact pair-distance umbrella diagnostic with machine-readable
+  target/runtime/GPU-readiness provenance
 - executable notebook
-- generated SVG/PNG four-panel figure with local replica-disagreement diagnostics
+- generated SVG/PNG six-panel figure with local replica-disagreement and
+  pair-distance umbrella diagnostics
 - rendered desktop and mobile page snapshots
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - final 3,500-10,000-word article prose
-- production MD context with real atomistic umbrella windows, model checks, and
-  final production uncertainty intervals if public claims are added
+- larger production MD context with real atomistic umbrella windows, model
+  checks, and final production uncertainty intervals if public claims are added
 - final citation pass
 
 The rule for this post is that umbrella sampling is only as trustworthy as the
