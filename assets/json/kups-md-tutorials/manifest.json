@@ -46,14 +46,14 @@
       "destination": "assets/json/kups-md-tutorials/post-02/full/integrator_summary.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "6c740fdaea077dd908a304746c70af332db6a99840831227331842865a15ed11",
+      "sha256": "7e4f5ae8366879647a7f62ec3c4f314bffc0f81d49af38a15a8b1f2821cc9d12",
       "source": "results/post-02/full/integrator_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/manifest.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "71b0efe0f680f41cbfee7f11debbb2e332986639ef2873225d96dde3391844e2",
+      "sha256": "192ac1120173f64a64454659ae62183fe223da4bd0ebed153f2cda899629a6c8",
       "source": "results/post-02/full/manifest.json"
     },
     {
@@ -499,5 +499,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "8e902dd2d9acac6c5e96dcf11ff1e2be0884dd57"
+  "source_git_revision": "7a55c398c1768cba9e065646ed35c15abc8d2891"
 }

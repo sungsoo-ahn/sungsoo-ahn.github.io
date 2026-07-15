@@ -7,6 +7,7 @@
       ],
       "num_steps": 2000,
       "reference_integrator": "velocity_verlet",
+      "seed": 2026071402,
       "time_steps": [
         0.02,
         0.05,
@@ -27,8 +28,8 @@
   },
   "provenance": {
     "config_path": "configs/post-02/full.json",
-    "config_sha256": "71f928b853d925484e2300c9cb2bf624b16f6eab8ec76e89ca8aee7f43e4b0e4",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "f50d0058bc90342e80be4a9ea6e7b25bbd7defbfe39a5bec72e27056ea46e388",
+    "git_revision": "7a55c398c1768cba9e065646ed35c15abc8d2891",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
