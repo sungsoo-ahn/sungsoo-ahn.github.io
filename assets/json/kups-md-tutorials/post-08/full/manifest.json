@@ -16,6 +16,8 @@
       "sigma": 1.0,
       "temperature": 0.7,
       "time_step": 0.002,
+      "uncertainty_block_count": 4,
+      "uncertainty_replica_count": 3,
       "warmup_steps": 1000
     },
     "experiment": {
@@ -43,8 +45,8 @@
   "curves_file": "free_energy_curves.csv",
   "provenance": {
     "config_path": "configs/post-08/full.json",
-    "config_sha256": "ce962a26cd12d9dfd62c36c8114f8de7c6c784519749fd84d1bbd59664e59aa7",
-    "git_revision": "77ddc60ae82aa8dca9d2cd0ad4029fa493b7a188",
+    "config_sha256": "bcc20425a35ce733a709a9f9f586c0f54fff3e300c58f394be66892b6d085a9a",
+    "git_revision": "2b58993ec5729a393d50cc4d35ba93e95fb4fc1c",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

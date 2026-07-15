@@ -4,13 +4,19 @@
     "finite_pmf_bins": 52,
     "frame_count": 551,
     "masked_low_rdf_bins": 32,
+    "max_block_pmf_sem": 0.02904577494140013,
+    "max_replica_pmf_std": 0.061596542439163675,
+    "mean_block_pmf_sem": 0.008447618047247389,
+    "mean_replica_pmf_std": 0.010907462418098035,
     "number_density": 0.85,
     "pmf_barrier_height": 1.6428833417866573,
     "pmf_minimum_radius": 1.125,
     "pmf_minimum_value": 0.0,
     "rdf_first_peak_radius": 1.125,
     "rdf_first_peak_value": 3.01124983152954,
-    "temperature": 0.7
+    "temperature": 0.7,
+    "uncertainty_block_count": 4,
+    "uncertainty_replica_count": 3
   },
   "bias_center": 0.9,
   "bias_strength": 2.0,
@@ -43,7 +49,7 @@
       "rmse_vs_true": 0.5906367378809873
     }
   ],
-  "config_sha256": "ce962a26cd12d9dfd62c36c8114f8de7c6c784519749fd84d1bbd59664e59aa7",
+  "config_sha256": "bcc20425a35ce733a709a9f9f586c0f54fff3e300c58f394be66892b6d085a9a",
   "domain_max": 2.5,
   "domain_min": -2.5,
   "post": "08",
