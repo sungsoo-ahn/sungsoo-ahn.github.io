@@ -16,6 +16,7 @@
       "sample_every": 20,
       "seed": 2026071707,
       "sigma": 1.0,
+      "target_device": "cuda_or_cpu_fallback",
       "temperature": 0.7,
       "time_step": 0.002,
       "uncertainty_block_count": 4,
@@ -50,8 +51,8 @@
   },
   "provenance": {
     "config_path": "configs/post-07/full.json",
-    "config_sha256": "598620d4d2614fb617295b8df2630466623a0433ad39a7cff40ee8a6f2ea9aec",
-    "git_revision": "2a882825f28bd6b7c68c86356b2919265dae63f8",
+    "config_sha256": "4dae2edac859bdc8af1b6bb86997b0d5a2e5729cc806c170f4a2067f6c2b0f9e",
+    "git_revision": "c1e3058be3b2ce658de5cf995ad56f010cca31a3",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
