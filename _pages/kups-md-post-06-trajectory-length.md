@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-06-trajectory-length/
 title: "When Is a Trajectory Long Enough to Trust?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible trajectory-length diagnostic for molecular dynamics: warmup removal, autocorrelation, effective sample size, block uncertainty, and independent replica agreement."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -42,9 +42,10 @@ This draft demonstrates the executable slice of the sixth tutorial with a
 controlled correlated observable and a compact reduced-unit argon
 physical-observable check. The controlled model has a known equilibrium mean,
 so it can expose estimator failure modes cleanly. The argon diagnostic then
-asks the same trajectory-length question for potential energy per atom across
-independent atomistic replicas. That is still not the final GPU kUPS production
-workflow, but it is no longer only a toy answer-key diagnostic.
+asks the same trajectory-length question for potential energy per atom and a
+nearest-neighbor coordination number across independent atomistic replicas.
+That is still not the final GPU kUPS production workflow, but it is no longer
+only a toy answer-key diagnostic.
 
 The target reader already knows what an MD trajectory is. The missing question
 is how to decide whether the trajectory is evidence. That decision cannot be
@@ -125,7 +126,7 @@ The same full profile also includes a compact physical-observable check:
 | Choice | Full value | Why it matters |
 |---|---:|---|
 | argon cell | 3x3x3 FCC conventional repeats | 108-atom reduced-unit system |
-| observable | potential energy per atom | physical trajectory average, not an answer-key scalar |
+| observables | potential energy per atom; coordination number at rc = 1.5 | physical trajectory averages, not answer-key scalars |
 | replicas | 5 | independent agreement check |
 | checkpoints | 3000, 6000, 12000 | short-to-long atomistic estimator comparison |
 | dynamics | Langevin, gamma = 1.0 | simple thermalized reduced-unit trajectory |
@@ -249,8 +250,8 @@ shows that estimates can retain early-history memory. The uncertainty panel
 shows that naive standard error is too small for correlated data. The
 effective-sample panel shows that independent information grows more slowly
 than stored frames. The argon panel shows checkpointed potential energy per
-atom with conservative uncertainty from independent reduced-unit argon
-replicas.
+atom and coordination number with conservative uncertainty from independent
+reduced-unit argon replicas.
 
 The full summary gives the numerical version of the same story. At 24000
 steps, the naive standard error is about 0.00537. The autocorrelation-aware
@@ -261,11 +262,13 @@ be much too confident early in the run.
 
 The controlled panels do not claim that the answer-key observable is a
 physical quantity. They are estimator diagnostics. The argon panel is a
-physical-observable wiring check: in the current full run, effective samples
-increase from about 35 to 115 and autocorrelation-adjusted standard error
-falls from about 0.0186 to 0.0117, while replica spread still dominates the
-conservative interval. That is exactly the kind of warning a trajectory-length
-review should surface.
+physical-observable wiring check: in the current full run, potential-energy
+effective samples increase from about 35 to 115, while coordination-number
+effective samples increase from about 55 to 368. The coordination mean remains
+near 12.30 neighbors at rc = 1.5, but the conservative 95 percent half-width
+widens from about 0.074 to 0.115 because the review interval uses the largest
+available uncertainty signal. That is exactly the kind of warning a
+trajectory-length review should surface.
 
 ## How Should Block Averages Be Used?
 
@@ -400,9 +403,10 @@ is limiting the calculation.
 For a hidden tutorial draft, the same rule applies to figures and prose. The
 figure caption should not claim more than the diagnostic supports. The current
 figure supports claims about estimator behavior for a controlled correlated
-observable and potential-energy-per-atom uncertainty for compact reduced-unit
-argon. It does not yet support public-release claims about GPU kUPS argon
-equilibration, RDF convergence, or transport-property uncertainty. Those
+observable, potential-energy-per-atom uncertainty, and a compact coordination
+number for reduced-unit argon. It does not yet support public-release claims
+about GPU kUPS argon equilibration, RDF convergence, or transport-property
+uncertainty. Those
 claims require the production diagnostic listed in the open items.
 
 ## Reproduction
@@ -463,8 +467,8 @@ summary after the fact.
 This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled trajectory-length workflows
-- compact reduced-unit argon potential-energy-per-atom trajectory-length
-  workflow
+- compact reduced-unit argon potential-energy-per-atom and coordination-number
+  trajectory-length workflow
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -476,7 +480,8 @@ The missing pieces are:
   as density, RDF coordination, or time-correlation estimates
 - citations for autocorrelation, effective sample size, blocking analysis, and
   equilibration diagnostics beyond the current starter references
-- rendered desktop and mobile page snapshots for this expanded prose
+- rendered desktop and mobile page snapshots for this expanded prose after the
+  coordination-number refresh
 - final consistency pass after the production physical-observable diagnostic is
   added
 
