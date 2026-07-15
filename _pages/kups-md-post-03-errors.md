@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-03-errors/
 title: "How Do Timestep, Precision, and Force Error Become Simulation Error?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible simulation-error diagnostic for molecular dynamics: timestep sensitivity, precision floors, force bias, bounded energy oscillation, and drift."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -41,11 +41,13 @@ This page uses the same controlled oscillator as the integrator post because
 the exact reference is known. That is a feature, not a simplification to hide
 behind. A many-body trajectory can make every mechanism happen at once. A
 controlled oscillator lets us isolate mechanisms before adding atomistic
-complexity back in. The current executable workflow now adds a compact
-reduced-unit argon NVE check so the article includes one physical many-body
-energy trace. The final series still needs larger GPU kUPS production checks
-and, in the capstone, MLIP-specific extrapolation diagnostics. This hidden
-draft is the mechanism-level layer that those later checks should use.
+complexity back in. The current executable workflow now adds a larger
+reduced-unit argon NVE protocol check so the article includes physical
+many-body energy traces with timestep and replica variation. The committed run
+records CPU fallback because this environment does not have a CUDA-enabled
+stack, so the final series still needs real GPU kUPS production checks and, in
+the capstone, MLIP-specific extrapolation diagnostics. This hidden draft is the
+mechanism-level layer that those later checks should use.
 
 The core distinction is between four words that often get blurred: error,
 drift, instability, and uncertainty. Error is any difference from a reference or
@@ -77,6 +79,17 @@ The current diagnostic fixes the oscillator and varies three axes:
 | precision models | float64, float32, rounded grids | separates arithmetic effects |
 | force scales | 0.98, 1.0, 1.02 | deterministic force-error proxy |
 | total runs | 48 | full grid over all three axes |
+
+The full profile also includes a many-body NVE protocol check:
+
+| Choice | Full value | Why it matters |
+|---|---:|---|
+| protocol label | gpu_ready_lj_nve_replicas | explicit production-style diagnostic path |
+| target device | cuda_or_cpu_fallback | records that this run used CPU fallback here |
+| argon cell | 256 atoms | larger than the initial compact 108-atom check |
+| replicas | 3 velocity seeds | exposes initialization sensitivity |
+| timesteps | 0.0015, 0.003, 0.006 | checks timestep-dependent energy behavior |
+| steps | 1200 | compact but nontrivial many-body NVE trace |
 
 The force-scale perturbation is not meant to model every MLIP failure. It is a
 controlled negative example: even a simple systematic force bias changes the
@@ -191,15 +204,23 @@ sweep. The rounded-precision runs show that arithmetic can set an error floor
 even when the analytical force is unchanged. The force-scale cases show that a
 biased force can shift normalized energy drift.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Simulation-error diagnostics for the committed full profile. The figure separates bounded oscillator timestep error, precision-induced error floors, force-bias drift, and compact argon NVE energy drift so later production checks can report these mechanisms separately." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Simulation-error diagnostics for the committed full profile. The figure separates bounded oscillator timestep error, precision-induced error floors, force-bias drift, and 256-atom argon NVE energy drift with three-replica uncertainty bands so later production checks can report these mechanisms separately." %}
 
 The figure has four jobs. The timestep panel shows that exact-force velocity
 Verlet has increasing but bounded energy error as dt grows. The precision panel
 shows that rounded arithmetic can raise the error floor. The force-bias panel
 shows that a deterministic force perturbation can move normalized drift away
 from the exact-force reference. The argon NVE panel checks the same reporting
-vocabulary on a compact many-body Lennard-Jones argon cell rather than another
-one-dimensional oscillator.
+vocabulary on a 256-atom many-body Lennard-Jones argon cell rather than another
+one-dimensional oscillator, and the band shows the standard deviation across
+three independent velocity seeds.
+
+For the full NVE protocol, the maximum relative energy error across all
+timestep/replica runs is about `2.65e-4`, the maximum absolute normalized drift
+is about `3.12e-5`, and the largest replica drift standard error is about
+`2.79e-6`. No configured NVE run is flagged as unstable. These values support a
+bounded-energy diagnostic for the committed reduced-unit protocol; they do not
+prove that a future MLIP or CUDA production run is ready.
 
 The figure review caught a small but real readability issue. In an earlier
 version, the precision labels were sorted alphabetically, which put
@@ -391,10 +412,11 @@ should not be.
 ## What Should Not Be Inferred?
 
 This page does not prove that the final GPU kUPS or MLIP simulations are ready.
-The new compact argon NVE panel is a physical sanity check, not a production
-benchmark. The review note still keeps larger GPU production diagnostics as a
-final-release item. The oscillator remains the mechanism-level diagnostic that
-makes the error vocabulary testable before production complexity is added.
+The 256-atom argon NVE protocol is a stronger physical sanity check than the
+initial compact trace, but it still ran through the committed CPU fallback path
+in this environment. The review note keeps real GPU kUPS production diagnostics
+as a final-release item. The oscillator remains the mechanism-level diagnostic
+that makes the error vocabulary testable before production complexity is added.
 
 It also does not imply that MLIP errors are simple force-scale errors. Real
 learned potentials can have local extrapolation, nonuniform bias, inconsistent
@@ -435,7 +457,8 @@ that remains outside site navigation while the rest of the series is brought to
 the same standard. The implemented pieces are:
 
 - smoke and full controlled error-diagnostic workflows
-- compact argon NVE reduced-unit energy-drift workflow
+- 256-atom argon NVE reduced-unit energy-drift workflow with 3 velocity-seed
+  replicas
 - committed compact summaries and downsampled comparison samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -446,8 +469,8 @@ the same standard. The implemented pieces are:
 
 The remaining non-publication pieces are:
 
-- rendered desktop and mobile page snapshots for this updated expanded draft
-- larger GPU kUPS production NVE diagnostic before treating this post as final
+- real CUDA/GPU kUPS production NVE diagnostic before treating this post as
+  final
 - final all-post consistency pass once the other articles are expanded
 - final rendered desktop and mobile page snapshots after that consistency pass
 - public indexing decision after the series is ready as a unit
