@@ -13,20 +13,16 @@ pagination:
   {% assign tutorials = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
   {% assign tutorial_count = tutorials | size %}
 
-  <h1>kUPS Molecular Dynamics Tutorials</h1>
+  <h1>kUPS MD Tutorials</h1>
   <p class="blog-index-note">
-    A hidden draft index for executable molecular-dynamics practice: initialization, integrators, ensembles, uncertainty, observables, free energies, enhanced sampling, and MLIP reliability.
+    Executable molecular-dynamics tutorials for ML researchers who know MLIPs and MD equations, but want practical details of initialization, integrators, ensembles, uncertainty, free energies, enhanced sampling, and MLIP reliability.
   </p>
   <div class="blog-type-summary" aria-label="kUPS tutorial status">
     <span>Post types</span>
     <span>Tutorials {{ tutorial_count }}</span>
-    <span>Draft series</span>
     <span>Hidden</span>
+    <span>Executable artifacts</span>
   </div>
-
-  <p class="blog-index-note">
-    These pages are intentionally kept out of public navigation while the simulations, figures, citations, and review notes mature. The source of truth for executable artifacts is <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.
-  </p>
 
   <ol class="bibliography">
   {% for post in tutorials %}
@@ -50,14 +46,4 @@ pagination:
     </li>
   {% endfor %}
   </ol>
-
-  <h2>Repository</h2>
-  <p>
-    The repository owns configurations, notebooks, tests, compact summaries, manifests, figure generation, and review notes. Raw trajectories, model archives, and bulky caches are intentionally excluded.
-  </p>
-
-  <pre><code>git clone https://github.com/sungsoo-ahn/kups-md-tutorials
-cd kups-md-tutorials
-uv sync
-uv run pytest</code></pre>
 </div>
