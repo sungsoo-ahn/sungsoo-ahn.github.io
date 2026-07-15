@@ -1,41 +1,41 @@
 {
   "files": [
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post12_mlip_diagnostics.svg",
       "kind": "figure",
-      "post": "11",
-      "sha256": "ab084926c5dc5548629a6e3c4bb87fd6945d1da59688e1a65cf091cfad053b0e",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-11/enhanced_sampling_diagnostics_full.svg"
+      "post": "12",
+      "sha256": "c21fc75d152adf8c47b625fa8b33304edc09ceadd5cc31e87029ae8123e5ae93",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-12/mlip_diagnostics_full.svg"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post12_mlip_diagnostics.png",
       "kind": "figure",
-      "post": "11",
-      "sha256": "ebb04cb13f99e753e70887f8c6ffc9befa0ee4f48efa25cb2b22c3f545133525",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-11/enhanced_sampling_diagnostics_full.png"
+      "post": "12",
+      "sha256": "6bef4816a20b534dd6418e93a162b1889d3f6761dce8615cd13b97cfb135b318",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-12/mlip_diagnostics_full.png"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-12/full/manifest.json",
       "kind": "compact-result",
-      "post": "11",
-      "sha256": "13322f4af30759b8a556856a652ccde26b832141ce3a38ca774d19eaea0393d3",
-      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/enhanced_sampling_curves.csv"
+      "post": "12",
+      "sha256": "6f74b15477ac9125f5c3cfe046ab890e4416711bdeefb4256d256b1431a00458",
+      "source": "/home/sungs/kups-md-tutorials/results/post-12/full/manifest.json"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_summary.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-12/full/mlip_samples.csv",
       "kind": "compact-result",
-      "post": "11",
-      "sha256": "f9c078093eb2d42594fbf91fe8c5b17a8d95db1acca24cfb2fe78a95b698cfa8",
-      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/enhanced_sampling_summary.json"
+      "post": "12",
+      "sha256": "4b7b3897ea95cf6f2ff4a9c90731818b18c0226a7911190f3d8c38dd216c397c",
+      "source": "/home/sungs/kups-md-tutorials/results/post-12/full/mlip_samples.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/manifest.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-12/full/mlip_summary.json",
       "kind": "compact-result",
-      "post": "11",
-      "sha256": "a1846bc69ea3d6100262fdf4c0f634a6cdb53f434beea6c69a9d2ea6603cf85a",
-      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/manifest.json"
+      "post": "12",
+      "sha256": "f04e6f017c21adfd74e538cdae91178039c2ebfbea0087d7ddf0db010514106a",
+      "source": "/home/sungs/kups-md-tutorials/results/post-12/full/mlip_summary.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "cc48b6e98842111e8bba2882545d19a21e4d0bcd"
+  "source_git_revision": "35f16fe7df747b97c77e474312d529e3865f7707"
 }
