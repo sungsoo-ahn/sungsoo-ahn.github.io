@@ -55,12 +55,17 @@
     "profile": "full",
     "title": "What Do Free-Energy Estimators Assume?"
   },
+  "execution": {
+    "elapsed_seconds": 0.278,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "multistate_curves_file": "multistate_curves.csv",
   "multistate_windows_file": "multistate_windows.csv",
   "provenance": {
     "config_path": "configs/post-09/full.json",
     "config_sha256": "54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125",
-    "git_revision": "98dc7cb2b3a6828141117f80de81bb9a242e57aa",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

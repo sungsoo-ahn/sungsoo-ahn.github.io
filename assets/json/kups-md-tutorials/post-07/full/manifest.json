@@ -49,10 +49,15 @@
     "profile": "full",
     "title": "How Do Trajectories Become Physical Observables?"
   },
+  "execution": {
+    "elapsed_seconds": 31.431,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-07/full.json",
     "config_sha256": "4dae2edac859bdc8af1b6bb86997b0d5a2e5729cc806c170f4a2067f6c2b0f9e",
-    "git_revision": "c1e3058be3b2ce658de5cf995ad56f010cca31a3",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

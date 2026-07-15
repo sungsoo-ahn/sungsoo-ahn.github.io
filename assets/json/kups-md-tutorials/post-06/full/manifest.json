@@ -46,10 +46,15 @@
     "profile": "full",
     "title": "When Is a Trajectory Long Enough to Trust?"
   },
+  "execution": {
+    "elapsed_seconds": 48.96,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-06/full.json",
     "config_sha256": "6f78f4d49c0337b35ed454cab07e69b445423c1c8fba7fefc641370d4e539aa6",
-    "git_revision": "a382fdf8dbbd3c105f67d2063fbfd66750832cbb",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
