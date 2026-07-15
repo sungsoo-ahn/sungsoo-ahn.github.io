@@ -24,32 +24,40 @@ pagination:
 
   <ol class="bibliography">
   {% for post in postlist %}
-    {% assign post_type = "tutorial" %}
-    {% assign post_type_label = "Tutorial" %}
+  {% assign post_type = post.post_type | default: "tutorial" %}
+  {% assign post_type_label = post_type | replace: "-", " " | capitalize %}
+  {% if post_type == "technical-note" %}
+    {% assign post_type_label = "Technical note" %}
+  {% endif %}
+  {% if post.authors %}
+    {% assign post_author_text = post.authors | join: ", " %}
+  {% else %}
+    {% assign post_author_text = post.author %}
+  {% endif %}
+
+  {% if post.external_source == blank %}
     {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-    {% if post.authors %}
-      {% assign post_author_text = post.authors | join: ", " %}
-    {% else %}
-      {% assign post_author_text = post.author %}
-    {% endif %}
-    {% if post.last_updated %}
-      {% assign post_date = post.last_updated %}
-      {% assign date_label = "updated" %}
-    {% else %}
-      {% assign post_date = post.date %}
-      {% assign date_label = "posted" %}
-    {% endif %}
+  {% else %}
+    {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+  {% endif %}
+
     <li>
       <div class="row">
         <div class="col-sm-10">
           <div class="title">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {% if post.redirect == blank %}
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {% elsif post.redirect contains '://' %}
+              <a href="{{ post.redirect }}" target="_blank" rel="noopener">{{ post.title }}</a>
+            {% else %}
+              <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
+            {% endif %}
           </div>
           {% if post.description %}
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post_date | date: '%B %d, %Y' }}; {{ read_time }} min read; part {{ post.series_order }} of {{ tutorial_count }}{% if date_label == "updated" %}; updated draft{% endif %}
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
           </div>
         </div>
       </div>
