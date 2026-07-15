@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-08-free-energies/
 title: "How Do Equilibrium Samples Become Free Energies?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible free-energy diagnostic for molecular dynamics: collective variables, histogram PMFs, binning bias, reweighting, RDF-derived PMFs, and uncertainty."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -265,8 +265,11 @@ full-profile argon run uses 108 atoms and 551 sampled frames at number density
 0.85 and temperature 0.70. Its RDF first peak is near radius `1.125` with
 `g(r)` about `3.01`; applying `-kT log g(r)` after masking low-RDF bins gives a
 shifted PMF minimum at radius `1.125` and a finite-bin range of about `1.64`
-in reduced energy units. This is a trajectory-derived PMF diagnostic, but it is
-not yet a long production kUPS free-energy result.
+in reduced energy units. Four contiguous blocks give a maximum PMF block SEM
+of about `0.029`, and three independent seed-shifted replicas give a maximum
+local PMF standard deviation of about `0.062`. This is a trajectory-derived
+PMF diagnostic with explicit uncertainty checks, but it is not yet a long
+production kUPS free-energy result.
 
 ## What Should The Diagnostic Show?
 
@@ -277,7 +280,7 @@ third panel shows how an RDF-like g(r) can become a shifted PMF through
 negative kT times the logarithm of g(r). The fourth panel repeats that
 transformation on compact time-correlated argon trajectory frames.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the trajectory RDF-PMF panel now overlays block SEM and replica disagreement." %}
 
 The figure is intentionally an estimator figure. It does not claim to be a
 production free-energy calculation for a molecular process. The first panel
@@ -320,9 +323,12 @@ sensitivity:
 | Are weights stable? | effective sample size after reweighting |
 | Is the coordinate sufficient? | physical interpretation and failure modes |
 
-This is why the full diagnostic reports both bootstrap standard errors and
-bin-width dependence. The coarse-bin estimate can have a modest bootstrap
-standard error while still being biased downward relative to the known barrier.
+This is why the full diagnostic reports bootstrap standard errors, bin-width
+dependence, blockwise trajectory PMF SEM, and replica PMF disagreement. The
+coarse-bin estimate can have a modest bootstrap standard error while still
+being biased downward relative to the known barrier. The compact argon PMF can
+also have small block SEM while showing where independent seed-shifted
+replicas disagree locally.
 The review should catch both.
 
 ## What Are Common PMF Mistakes?
@@ -447,18 +453,19 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled free-energy workflows
 - committed compact PMF curve and summary outputs
-- compact reduced-unit argon trajectory RDF-derived PMF transformation
+- compact reduced-unit argon trajectory RDF-derived PMF transformation with
+  block and replica uncertainty overlays
 - executable notebook
 - generated four-panel SVG/PNG figure and snapshot review
+- rendered desktop and mobile page snapshots for the refreshed hidden draft
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - citations for PMFs, histogram estimators, reweighting, and RDF-derived
   potentials of mean force beyond the current starter references
-- rendered desktop and mobile page snapshots for this expanded prose
-- larger GPU kUPS RDF-derived PMF diagnostics, block/replica uncertainty, and a
-  final consistency pass before public indexing
+- larger GPU kUPS RDF-derived PMF diagnostics and final production consistency
+  pass before public indexing
 
 The rule for this post is that free energy is a property of an estimator over a
 chosen coordinate. Changing the coordinate, bins, weights, or sampled support
