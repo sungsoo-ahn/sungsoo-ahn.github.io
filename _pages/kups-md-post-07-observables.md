@@ -104,7 +104,9 @@ measurement." A reproducible observable report should state:
 
 The current diagnostic is built around three observable types: an RDF as a
 normalized structural estimator, a coordination number as an integral derived
-from the RDF, and a VACF as a time-correlation estimator.
+from the RDF, and a VACF as a time-correlation estimator
+(<a href="#ref-allen1987" id="cite-allen1987">Allen & Tildesley, 1987</a>;
+<a href="#ref-frenkel2001" id="cite-frenkel2001">Frenkel & Smit, 2001</a>).
 
 ## What Is Being Estimated?
 
@@ -172,7 +174,8 @@ functioning on a controlled periodic structure.
 A raw pair-distance histogram counts how many pairs fall into each radial bin.
 An RDF divides that count by the shell volume, density, number of reference
 particles, number of frames, and any pair-counting convention. The goal is to
-estimate how the local pair density at radius r compares with the bulk density.
+estimate how the local pair density at radius r compares with the bulk density
+(<a href="#ref-hansen2013" id="cite-hansen2013">Hansen & McDonald, 2013</a>).
 For a uniform ideal gas, the RDF should be near 1 away from finite-size and
 sampling artifacts. For a structured material, peaks and troughs encode local
 order.
@@ -191,15 +194,21 @@ $$g(r) \approx \frac{\mathrm{pair\ counts\ in\ shell}}{\mathrm{frames}
 The details depend on whether pairs are counted once or twice, how periodic
 boundaries are handled, and how shell volumes are approximated for finite bin
 widths. Those details are not cosmetic. They determine whether the curve has
-the right units and limiting behavior.
+the right units and limiting behavior
+(<a href="#ref-allen1987" id="cite-allen1987b">Allen & Tildesley, 1987</a>;
+<a href="#ref-tuckerman2010" id="cite-tuckerman2010">Tuckerman, 2010</a>).
 
 For a finite periodic cell using a minimum-image convention, the RDF should
 not be interpreted beyond half the shortest box length. Beyond that distance,
 the set of available pair separations is constrained by the periodic geometry,
 and the spherical shell is not sampled as if it lived in an infinite isotropic
-system. The first implementation for this post drew invalid small-cell shells;
-the review corrected that by masking small-cell RDF bins beyond half the box
-length before the reviewed figure was committed.
+system. This half-box rule is a structural-analysis support limit, separate
+from hydrodynamic finite-size corrections used for transport coefficients
+(<a href="#ref-frenkel2001" id="cite-frenkel2001b">Frenkel & Smit, 2001</a>;
+<a href="#ref-yeh2004" id="cite-yeh2004">Yeh & Hummer, 2004</a>). The first
+implementation for this post drew invalid small-cell shells; the review
+corrected that by masking small-cell RDF bins beyond half the box length before
+the reviewed figure was committed.
 
 The small cell therefore has less valid radial support than the large cell.
 That is not a plotting annoyance. It is a finite-size property of the
@@ -213,7 +222,9 @@ The coordination number up to a cutoff is an integral of the RDF against the
 spherical shell measure and the number density. In words, it asks how many
 neighbors are expected inside a chosen radius around a reference particle. For
 a first-shell coordination number, the cutoff is often placed near the first
-minimum after the first RDF peak.
+minimum after the first RDF peak
+(<a href="#ref-hansen2013" id="cite-hansen2013b">Hansen & McDonald, 2013</a>;
+<a href="#ref-allen1987" id="cite-allen1987c">Allen & Tildesley, 1987</a>).
 
 In this diagnostic, the cutoff is 4.6 in the same distance units as the
 constructed cells. That cutoff includes the first FCC neighbor shell. The full
@@ -246,13 +257,20 @@ being integrated.
 A time average of a static observable uses samples at individual times. A
 time-correlation function uses pairs of times separated by a lag. The velocity
 autocorrelation function, for example, compares velocities at time t with
-velocities at time t plus a lag. It asks how quickly velocity memory is lost.
+velocities at time t plus a lag. It asks how quickly velocity memory is lost
+(<a href="#ref-kubo1957" id="cite-kubo1957">Kubo, 1957</a>;
+<a href="#ref-alder1970" id="cite-alder1970">Alder & Wainwright, 1970</a>).
 
 That changes the estimator. Long lags have fewer time origins than short lags.
 The noise usually grows with lag. The tail can matter for transport
 coefficients, but the tail is also where the estimator can be least stable.
 Therefore a time-correlation function should not be treated as just another
 smooth curve.
+The Green-Kubo viewpoint makes the same warning operational: transport
+coefficients involve integrals of equilibrium time-correlation functions, so
+lag support and tail noise are part of the estimator rather than cosmetic plot
+choices (<a href="#ref-green1954" id="cite-green1954">Green, 1954</a>;
+<a href="#ref-kubo1957" id="cite-kubo1957b">Kubo, 1957</a>).
 
 The current VACF diagnostic uses the large cell and a seeded correlated
 velocity process with configured correlation time 12.0. The full summary
@@ -334,7 +352,9 @@ Finite-size effects enter observables in several ways. The box limits which
 length scales exist. Periodic boundaries impose artificial repetition. Long
 wavelength fluctuations may be suppressed. Time-correlation functions and
 transport estimates can have system-size-dependent tails. RDFs have limited
-radial support under minimum-image analysis.
+radial support under minimum-image analysis
+(<a href="#ref-yeh2004" id="cite-yeh2004b">Yeh & Hummer, 2004</a>;
+<a href="#ref-alder1970" id="cite-alder1970b">Alder & Wainwright, 1970</a>).
 
 The small-versus-large comparison in this post is deliberately simple. Both
 systems are built from the same periodic FCC motif at the same density. The
@@ -490,12 +510,12 @@ This page is not the final article. The implemented pieces are:
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
+- final citations for RDF normalization, coordination integrals, finite-size
+  transport effects, and time-correlation functions
 
 The missing pieces are:
 
 - larger GPU kUPS trajectory diagnostics for physical observables
-- citations for RDF normalization, coordination integrals, finite-size effects,
-  and time-correlation functions beyond the current starter references
 - rendered desktop and mobile page snapshots after production diagnostics
 - final consistency pass after production trajectory-observable diagnostics are
   added
@@ -506,6 +526,11 @@ and uncertainty determine what can be claimed from those samples.
 
 ## References
 
-- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
-- <span id="ref-allen1987"></span>Allen, M. P. & Tildesley, D. J. (1987). *Computer Simulation of Liquids*. Oxford University Press.
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001">↩</a> <a href="#cite-frenkel2001b">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010">↩</a>
+- <span id="ref-allen1987"></span>Allen, M. P. & Tildesley, D. J. (1987). *Computer Simulation of Liquids*. Oxford University Press. <a href="#cite-allen1987">↩</a> <a href="#cite-allen1987b">↩</a> <a href="#cite-allen1987c">↩</a>
+- <span id="ref-hansen2013"></span>Hansen, J. P. & McDonald, I. R. (2013). *Theory of Simple Liquids* (4th ed.). Academic Press. <a href="#cite-hansen2013">↩</a> <a href="#cite-hansen2013b">↩</a>
+- <span id="ref-green1954"></span>Green, M. S. (1954). Markoff random processes and the statistical mechanics of time-dependent phenomena. II. Irreversible processes in fluids. *Journal of Chemical Physics*, 22, 398-413. DOI: `10.1063/1.1740082`. <a href="#cite-green1954">↩</a>
+- <span id="ref-kubo1957"></span>Kubo, R. (1957). Statistical-mechanical theory of irreversible processes. I. General theory and simple applications to magnetic and conduction problems. *Journal of the Physical Society of Japan*, 12, 570-586. DOI: `10.1143/JPSJ.12.570`. <a href="#cite-kubo1957">↩</a> <a href="#cite-kubo1957b">↩</a>
+- <span id="ref-alder1970"></span>Alder, B. J. & Wainwright, T. E. (1970). Decay of the velocity autocorrelation function. *Physical Review A*, 1, 18-21. DOI: `10.1103/PhysRevA.1.18`. <a href="#cite-alder1970">↩</a> <a href="#cite-alder1970b">↩</a>
+- <span id="ref-yeh2004"></span>Yeh, I. C. & Hummer, G. (2004). System-size dependence of diffusion coefficients and viscosities from molecular dynamics simulations with periodic boundary conditions. *Journal of Physical Chemistry B*, 108, 15873-15879. DOI: `10.1021/jp0477147`. <a href="#cite-yeh2004">↩</a> <a href="#cite-yeh2004b">↩</a>
