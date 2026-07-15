@@ -307,12 +307,14 @@ The committed argon diagnostics now add actual atomistic coordinates, periodic
 boundaries, affine cell scaling, and a compact moving-cell trajectory. The full
 profile uses a 108-atom reduced-unit FCC argon cell, scales the volume from
 0.90 to 1.10 times the reference volume for the static response check, and
-starts the moving-cell run from `V/V0 = 0.90`. In the current full run, the
-fitted reduced-unit bulk response is about 42.1, the pressure span is about
-8.7, the moving-cell mean pressure is about 1.06 against a target of 1.0, and
-the volume-factor effective sample count is about 92. This is a useful
-moving-cell wiring and relaxation check, not a final kUPS production NPT
-result.
+starts three moving-cell replicas from `V/V0 = 0.90`. In the current full run,
+the fitted reduced-unit bulk response is about 42.1, the pressure span is about
+8.7, the moving-cell mean pressure is about 0.925 +/- 0.005 against a target of
+1.0, the mean kinetic temperature is 0.699 against a target of 0.70, and the
+volume-factor effective sample count is about 96. The maximum absolute
+replica-level total-energy change across the sampled moving-cell traces is
+about 0.121 per atom. This is a useful moving-cell wiring and relaxation
+check, not a final kUPS production NPT result.
 
 The final kUPS production diagnostic should add real atomistic NPT dynamics
 with documented thermostat/barostat settings, timestep, warmup, and sampling
@@ -356,16 +358,16 @@ volume process. The slow barostat has the same target distribution but much
 longer memory, which means fewer effective samples for the same wall-clock
 trajectory length.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks reduced-unit moving-cell relaxation with pressure and effective-sample annotations." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks three reduced-unit moving-cell replicas with volume uncertainty, kinetic temperature, pressure SEM, and effective-sample annotations." %}
 
 The figure has four roles. The volume panel checks whether the scalar cell
 samples the expected fluctuation scale. The pressure panel checks the
 corresponding pressure variance in the controlled model. The memory panel
 shows why a trajectory with the same number of stored frames can contain very
 different amounts of independent information. The argon panel checks that a
-compressed reduced-unit cell can move, relax its density, report a pressure
-mean near the target, and still expose the effective number of independent
-volume-factor samples.
+compressed reduced-unit cell can move, relax its density, report replica-level
+pressure uncertainty, keep the kinetic temperature near the target, and still
+expose the effective number of independent volume-factor samples.
 
 The target lines in the variance panels are essential. Without them, the
 figure would be only a comparison among three arbitrary runs. With them, the
@@ -477,7 +479,9 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled scalar barostat workflows
 - compact reduced-unit argon pressure-volume response workflow
-- compact reduced-unit argon moving-cell density-relaxation workflow
+- compact reduced-unit argon moving-cell density-relaxation workflow with
+  three full-profile replicas, kinetic-temperature samples, and energy-like
+  trace diagnostics
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -486,10 +490,12 @@ This page is not the final article. The implemented pieces are:
 The missing pieces are:
 
 - final kUPS production NPT dynamics diagnostics with full atomistic
-  thermostat/barostat settings and energy/temperature checks
+  thermostat/barostat settings, GPU provenance, and production stress/cell
+  checks
 - citations for NPT ensemble fluctuations, compressibility, barostat coupling,
   and finite-size pressure fluctuations
-- rendered desktop and mobile page snapshots for the moving-cell refresh
+- rendered desktop and mobile page snapshots after the final production NPT
+  diagnostic is added
 - final consistency pass after the production dynamics diagnostic is added
 
 The rule for this series is simple: a result is not ready because the code ran.
