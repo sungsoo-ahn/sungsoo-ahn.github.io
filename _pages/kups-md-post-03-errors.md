@@ -71,6 +71,7 @@ The executable artifacts for this page are:
 - [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/smoke/error_summary.json)
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/error_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/manifest.json)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post03_figures.py)
 - [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-03.md)
 
 ## What Must Be Separated?

@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-02-integrators/
 title: "What Does an MD Integrator Actually Approximate?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible integrator diagnostic for molecular dynamics: discrete maps, velocity Verlet, energy error, reversibility, and timestep sensitivity."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -74,6 +74,7 @@ The executable artifacts for this page are:
 - [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/smoke/integrator_summary.json)
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/full/integrator_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/full/manifest.json)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post02_figures.py)
 - [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-02.md)
 
 ## What Is the Discrete Object?

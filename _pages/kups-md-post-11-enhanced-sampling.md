@@ -71,6 +71,7 @@ were generated.
 - [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/smoke/enhanced_sampling_summary.json)
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/enhanced_sampling_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/manifest.json)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post11_figures.py)
 - [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-11.md)
 
 ## What Changes When The Method Is Adaptive?
