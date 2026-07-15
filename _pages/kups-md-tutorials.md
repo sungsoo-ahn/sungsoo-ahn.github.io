@@ -10,25 +10,38 @@ pagination:
 ---
 
 <div class="publications blog-index">
-  {% assign tutorials = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
-  {% assign tutorial_count = tutorials | size %}
+  {% assign postlist = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+  {% assign tutorial_count = postlist | size %}
 
   <h1>kUPS MD Tutorials</h1>
   <p class="blog-index-note">
     Executable molecular-dynamics tutorials for ML researchers who know MLIPs and MD equations, but want practical details of initialization, integrators, ensembles, uncertainty, free energies, enhanced sampling, and MLIP reliability.
   </p>
   <div class="blog-type-summary" aria-label="kUPS tutorial status">
-    <span>Post types</span>
+    <span>Series status</span>
     <span>Tutorials {{ tutorial_count }}</span>
-    <span>Hidden</span>
+    <span>Hidden draft</span>
     <span>Executable artifacts</span>
+    <span>Self-reviewed figures</span>
   </div>
 
   <ol class="bibliography">
-  {% for post in tutorials %}
+  {% for post in postlist %}
     {% assign post_type = "tutorial" %}
     {% assign post_type_label = "Tutorial" %}
     {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+    {% if post.authors %}
+      {% assign post_author_text = post.authors | join: ", " %}
+    {% else %}
+      {% assign post_author_text = post.author %}
+    {% endif %}
+    {% if post.last_updated %}
+      {% assign post_date = post.last_updated %}
+      {% assign date_label = "updated" %}
+    {% else %}
+      {% assign post_date = post.date %}
+      {% assign date_label = "posted" %}
+    {% endif %}
     <li>
       <div class="row">
         <div class="col-sm-10">
@@ -39,7 +52,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }} {{ post.series_order }}</span>{% if post.authors %}; {{ post.authors | join: ", " }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }} {{ post.series_order }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ date_label }} {{ post_date | date: '%B %d, %Y' }}; {{ read_time }} min read
           </div>
         </div>
       </div>
