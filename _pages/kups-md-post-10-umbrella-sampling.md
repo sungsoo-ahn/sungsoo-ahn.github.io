@@ -38,7 +38,11 @@ WHAM and MBAR formalize this reweighting problem across biased or intermediate
 states (<span id="cite-torrie1977"></span>[Torrie & Valleau,
 1977](#ref-torrie1977); <span id="cite-kumar1992"></span>[Kumar et al.,
 1992](#ref-kumar1992); <span id="cite-shirts2008"></span>[Shirts & Chodera,
-2008](#ref-shirts2008)).
+2008](#ref-shirts2008)). Production umbrella-sampling reviews emphasize the
+same operational point: biasing is only useful when the reaction coordinate,
+window protocol, reconstruction method, and convergence checks are all reported
+as part of the free-energy calculation (<span id="cite-kaestner2011"></span>[Kästner,
+2011](#ref-kaestner2011)).
 
 This draft demonstrates the executable slice of the tenth tutorial with a
 known one-dimensional double-well PMF. Dense and sparse umbrella protocols are
@@ -187,6 +191,8 @@ In production MD, replicas are even more important. Different replicas can
 start from different basin histories, cross barriers at different rates, or
 fail in different windows. If replicas disagree in a region, the PMF should
 show that uncertainty or the protocol should be revised before publication.
+That is why a production umbrella result should report convergence evidence,
+not only the final reweighted curve ([Kästner, 2011](#ref-kaestner2011)).
 
 ## What Does the Pair-Distance Diagnostic Add?
 
@@ -337,6 +343,17 @@ diagnostic to an actual MD umbrella workflow. A practical extension would pick
 a simple coordinate from the earlier observable/free-energy posts, define
 windows, run biased trajectories, reconstruct the PMF, and report overlap and
 replica consistency.
+
+For a real atomistic or MLIP-driven system, that extension would need a written
+sampling protocol before any long run is launched. The protocol should name the
+collective variable and units, define the admissible coordinate range, choose
+initial windows from pilot sampling rather than convenience alone, specify how
+starting structures are generated, separate equilibration from production,
+state the WHAM or MBAR inputs, and define the revision rule for low-overlap or
+high-disagreement windows. The compact pair-distance diagnostic on this page is
+useful because it exercises those bookkeeping habits on a physical coordinate,
+but it does not replace an atomistic umbrella campaign with equilibrated
+windows, model-domain checks, and production uncertainty intervals.
 
 That extension should record:
 
@@ -503,7 +520,8 @@ The missing pieces are:
 - final 3,500-10,000-word article prose
 - larger production MD context with real atomistic umbrella windows, model
   checks, and final production uncertainty intervals if public claims are added
-- final citation pass
+- additional citations if the final production article adds new scientific
+  claims beyond the current controlled umbrella and protocol discussion
 
 The rule for this post is that umbrella sampling is only as trustworthy as the
 biased ensembles that connect the coordinate. Window placement, overlap, and
@@ -514,3 +532,4 @@ replica consistency are part of the result, not optional diagnostics.
 - <span id="ref-torrie1977"></span>Torrie, G. M. & Valleau, J. P. (1977). Nonphysical sampling distributions in Monte Carlo free-energy estimation: umbrella sampling. *Journal of Computational Physics*, 23, 187-199. <a href="#cite-torrie1977" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-kumar1992"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011-1021. <a href="#cite-kumar1992" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-shirts2008"></span>Shirts, M. R. & Chodera, J. D. (2008). Statistically optimal analysis of samples from multiple equilibrium states. *The Journal of Chemical Physics*, 129, 124105. <a href="#cite-shirts2008" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kaestner2011"></span>Kästner, J. (2011). Umbrella sampling. *WIREs Computational Molecular Science*, 1, 932-942. <a href="#cite-kaestner2011" class="reversefootnote" role="doc-backlink">↩</a>
