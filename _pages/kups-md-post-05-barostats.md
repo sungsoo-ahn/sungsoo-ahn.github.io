@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-05-barostats/
 title: "How Should Pressure and Cell Degrees of Freedom Be Coupled?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible pressure and cell diagnostic for molecular dynamics: NPT-like volume fluctuations, compressibility, pressure variance, barostat time constants, and cell memory."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -21,7 +21,7 @@ nav: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post extends the thermostat discussion to pressure and cell degrees of freedom, using a controlled scalar model plus a compact reduced-unit argon cell-response check before the final argon/kUPS NPT dynamics diagnostic is added. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post extends the thermostat discussion to pressure and cell degrees of freedom, using a controlled scalar model plus compact reduced-unit argon cell-response and moving-cell checks before the final kUPS production NPT article is added. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
 ## Introduction
@@ -37,16 +37,17 @@ scale, whether pressure fluctuations are interpreted statistically, and whether
 the cell-coupling dynamics distort the observables that will be measured later.
 
 This draft demonstrates the executable slice of the fifth tutorial with a
-controlled scalar-volume model and a compact reduced-unit argon pressure-volume
-check. The model is not the final production NPT workflow; it is a microscope
-for fluctuation targets and barostat memory. The argon check is also limited:
-it affinely scales an FCC cell and evaluates the Lennard-Jones virial pressure,
-but it does not yet run dynamic NPT sampling with kUPS. That scope matters. A
-scalar stochastic cell coordinate cannot teach every detail of anisotropic
-stress, elastic response, or cell-shape coupling. A static atomistic sweep
-cannot replace production equilibration. Together they make two first failure
-modes visible: confusing pressure control with pressure clamping, and forgetting
-to validate the pressure response of actual coordinates and cell scaling.
+controlled scalar-volume model, a reduced-unit argon pressure-volume sweep,
+and a compact isotropic moving-cell argon check. The model is not the final
+production NPT workflow; it is a microscope for fluctuation targets, barostat
+memory, virial pressure signs, and density relaxation under a moving box. That
+scope matters. A scalar stochastic cell coordinate cannot teach every detail of
+anisotropic stress, elastic response, or cell-shape coupling. The compact
+argon moving-cell check cannot replace a kUPS production NPT trajectory.
+Together they make three first failure modes visible: confusing pressure
+control with pressure clamping, forgetting to validate pressure response under
+cell scaling, and treating a moving cell as production-ready before its
+relaxation and effective samples have been reviewed.
 
 The intended reader already knows what forces, velocities, temperature, and
 MLIP-driven trajectories are. The missing pieces are usually more operational:
@@ -193,9 +194,11 @@ or at least effective sample count.
 For the scalar part of this page, the controlled model avoids the atomistic
 virial entirely. That is an advantage for teaching the diagnostic and a
 limitation for production science. The compact argon sweep adds a direct virial
-pressure check under affine cell scaling, but the final article still needs an
-argon/kUPS NPT dynamics diagnostic with moving cell degrees of freedom before
-it can make concrete claims about atomistic pressure control.
+pressure check under affine cell scaling. The new moving-cell check then starts
+from a compressed reduced-unit argon cell and lets the isotropic volume factor
+relax under a noisy pressure-feedback update. It is a useful review harness for
+cell motion, density relaxation, pressure mean, and volume effective samples,
+but it still does not replace a final kUPS production NPT trajectory.
 
 ## What Does the Relaxation Time Change?
 
@@ -300,20 +303,24 @@ anisotropic diagonal, or fully flexible; whether the target is a scalar
 pressure or stress tensor; and whether cell angles are allowed to change. This
 page is a first step toward that vocabulary, not the final treatment.
 
-The committed argon cell-response diagnostic now adds actual atomistic
-coordinates, periodic boundaries, and affine cell scaling. The full profile
-uses a 108-atom reduced-unit FCC argon cell, scales the volume from 0.90 to
-1.10 times the reference volume, and fits the resulting pressure-volume slope.
-In the current full run, the fitted reduced-unit bulk response is about 42.1
-and the pressure span is about 8.7. This is a useful wiring and sign check, not
-a production NPT result.
+The committed argon diagnostics now add actual atomistic coordinates, periodic
+boundaries, affine cell scaling, and a compact moving-cell trajectory. The full
+profile uses a 108-atom reduced-unit FCC argon cell, scales the volume from
+0.90 to 1.10 times the reference volume for the static response check, and
+starts the moving-cell run from `V/V0 = 0.90`. In the current full run, the
+fitted reduced-unit bulk response is about 42.1, the pressure span is about
+8.7, the moving-cell mean pressure is about 1.06 against a target of 1.0, and
+the volume-factor effective sample count is about 92. This is a useful
+moving-cell wiring and relaxation check, not a final kUPS production NPT
+result.
 
-The final argon/kUPS diagnostic should add dynamic cell degrees of freedom. A
-minimal production version could compare NVT at fixed density with isotropic
-NPT density relaxation, then check pressure mean, density mean, volume
-fluctuations, and energy/temperature behavior. A more advanced version could
-later add flexible-cell solids, but that is beyond what the current committed
-workflow supports.
+The final kUPS production diagnostic should add real atomistic NPT dynamics
+with documented thermostat/barostat settings, timestep, warmup, and sampling
+interval. A minimal production version could compare NVT at fixed density with
+isotropic NPT density relaxation, then check pressure mean, density mean,
+volume fluctuations, and energy/temperature behavior. A more advanced version
+could later add flexible-cell solids, but that is beyond what the current
+committed workflow supports.
 
 ## How Should Thermostat and Barostat Choices Interact?
 
@@ -349,15 +356,16 @@ volume process. The slow barostat has the same target distribution but much
 longer memory, which means fewer effective samples for the same wall-clock
 trajectory length.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel checks the reduced-unit pressure response under affine cell scaling." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks reduced-unit moving-cell relaxation with pressure and effective-sample annotations." %}
 
 The figure has four roles. The volume panel checks whether the scalar cell
 samples the expected fluctuation scale. The pressure panel checks the
 corresponding pressure variance in the controlled model. The memory panel
 shows why a trajectory with the same number of stored frames can contain very
-different amounts of independent information. The argon panel checks that
-actual atomistic coordinates, periodic boundaries, affine cell scaling, and
-virial pressure have the expected pressure-volume sign and scale.
+different amounts of independent information. The argon panel checks that a
+compressed reduced-unit cell can move, relax its density, report a pressure
+mean near the target, and still expose the effective number of independent
+volume-factor samples.
 
 The target lines in the variance panels are essential. Without them, the
 figure would be only a comparison among three arbitrary runs. With them, the
@@ -376,10 +384,11 @@ read together.
 ## How Would This Extend to Atomistic Argon?
 
 The compact argon panel returns to the atomistic thread used in the earlier
-tutorials, but only as a static cell-response diagnostic. A production
-diagnostic would start from a validated initialized structure, run NVT
-equilibration at fixed volume, then run isotropic NPT with a documented
-thermostat, barostat, timestep, warmup, and sampling interval.
+tutorials, now with both a static cell-response diagnostic and a reduced-unit
+moving-cell trajectory. A production diagnostic would start from a validated
+initialized structure, run NVT equilibration at fixed volume, then run
+isotropic NPT with a documented thermostat, barostat, timestep, warmup, and
+sampling interval.
 
 The review should include at least these checks:
 
@@ -468,6 +477,7 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled scalar barostat workflows
 - compact reduced-unit argon pressure-volume response workflow
+- compact reduced-unit argon moving-cell density-relaxation workflow
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -475,12 +485,11 @@ This page is not the final article. The implemented pieces are:
 
 The missing pieces are:
 
-- final argon/kUPS NPT dynamics diagnostics with actual moving cell degrees of
-  freedom
+- final kUPS production NPT dynamics diagnostics with full atomistic
+  thermostat/barostat settings and energy/temperature checks
 - citations for NPT ensemble fluctuations, compressibility, barostat coupling,
   and finite-size pressure fluctuations
-- rendered desktop and mobile page snapshots for the compact argon
-  cell-response refresh
+- rendered desktop and mobile page snapshots for the moving-cell refresh
 - final consistency pass after the production dynamics diagnostic is added
 
 The rule for this series is simple: a result is not ready because the code ran.
