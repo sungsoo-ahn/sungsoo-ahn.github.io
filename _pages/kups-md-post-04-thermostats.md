@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-04-thermostats/
 title: "How Do Thermostats Change Sampling and Dynamics?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible thermostat diagnostic for molecular dynamics: BAOAB Langevin sampling, canonical moment checks, coupling strength, autocorrelation, and dynamical distortion."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -21,7 +21,7 @@ nav: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the initialization and integrator diagnostics by asking what changes once a thermostat is added, first in a controlled oscillator and then in a compact reduced-unit argon Langevin check. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the initialization and integrator diagnostics by asking what changes once a thermostat is added, first in a controlled oscillator and then in a reduced-unit argon thermostat-to-NVE handoff check. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
 ## Introduction
@@ -158,10 +158,11 @@ targets in this compact run.
 That result supports a limited claim: the BAOAB Langevin diagnostic samples
 near the expected canonical moments for this oscillator and run length. It does
 not prove that every distributional detail is exact. The executable workflow
-now adds a compact reduced-unit argon Langevin check so the hidden draft also
-shows one many-body kinetic-temperature response. That compact check is still
-not a GPU kUPS production thermostat benchmark, and the review note keeps the
-larger production diagnostic as a final-release blocker.
+now adds a 256-atom reduced-unit argon Langevin protocol with three
+velocity/noise replicas and a deterministic NVE handoff segment. That protocol
+records CPU fallback in this environment, so it is still not a real CUDA/GPU
+kUPS production thermostat benchmark. The review note keeps the larger
+production diagnostic as a final-release blocker.
 
 ## Why Is Temperature Alone Not Enough?
 
@@ -196,15 +197,23 @@ for one degree of freedom. Finally, it reports the position integrated
 autocorrelation time to show that stronger coupling can change dynamical
 memory.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_thermostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Thermostat diagnostics for the committed full profile. The BAOAB Langevin oscillator cases sample near the same canonical moment targets while strong coupling substantially increases position autocorrelation time; the compact argon panel checks many-body kinetic-temperature response." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_thermostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Thermostat diagnostics for the committed full profile. The BAOAB Langevin oscillator cases sample near the same canonical moment targets while strong coupling substantially increases position autocorrelation time; the argon panel checks post-thermostat NVE energy drift for a 256-atom, three-replica handoff protocol." %}
 
-The figure has a specific scope. It is moment-focused and memory-focused. It
-does not yet show the full kinetic-energy distribution. The argon panel is a
-compact reduced-unit response check, not a final production calculation. That
-is acceptable for the hidden draft because the prose makes moment-level and
-temperature-response claims. If the final article makes stronger
-distribution-shape claims, the review note already flags a possible
-kinetic-energy histogram or empirical CDF as future work.
+The figure has a specific scope. It is moment-focused, memory-focused, and
+handoff-focused. It does not yet show the full kinetic-energy distribution. The
+argon panel is a reduced-unit CPU-fallback handoff check, not a final
+production calculation. That is acceptable for the hidden draft because the
+prose makes moment-level, memory, and NVE-handoff claims. If the final article
+makes stronger distribution-shape claims, the review note already flags a
+possible kinetic-energy histogram or empirical CDF as future work.
+
+For the full argon protocol, the maximum absolute kinetic-temperature relative
+error across thermostat cases and replicas is about `5.86e-2`. After the
+thermostat segment is removed, the 1000-step NVE handoff has maximum absolute
+normalized energy drift about `1.14e-5`, maximum relative energy error about
+`5.29e-5`, and no unstable handoff runs. These numbers support a bounded
+handoff sanity check, not a claim that the final production kUPS workflow is
+complete.
 
 The most important panel is the autocorrelation panel. The strong-coupling run
 has position integrated autocorrelation time about 52.7, while the weak and
@@ -260,11 +269,12 @@ acceptable normalized drift, and no obvious instability. If the NVE trajectory
 drifts badly after thermostat removal, the thermostat was not the real problem;
 it was hiding a timestep, precision, force, or model issue.
 
-For this hidden draft, a compact argon Langevin thermostat diagnostic is now
-included. The final GPU kUPS production pass remains open. That final pass
-should show how the oscillator lesson transfers to the target argon trajectory
-family at production settings: warmup under a thermostat, moment checks, a
-coupling sweep if needed, and an NVE handoff check for dynamics.
+For this hidden draft, a 256-atom reduced-unit argon Langevin thermostat
+diagnostic with three replicas and a deterministic NVE handoff is now included.
+The final GPU kUPS production pass remains open. That final pass should show
+how the oscillator lesson transfers to the target argon trajectory family at
+production settings: warmup under a thermostat, moment checks, a coupling sweep
+if needed, and an NVE handoff check for dynamics.
 
 ## What Does This Mean for Enhanced Sampling?
 
@@ -419,10 +429,11 @@ noise interact with estimator variance.
 ## What Should Not Be Inferred?
 
 This page does not prove that the final argon thermostat workflow is complete.
-The oscillator has known targets and cheap sampling; the compact argon panel
-adds a many-body kinetic-temperature response check but still has finite-size,
-short-trajectory, and reduced-unit limitations. The review note keeps the
-larger GPU kUPS production thermostat diagnostic as a final-release blocker.
+The oscillator has known targets and cheap sampling; the argon handoff panel
+adds a many-body reduced-unit check but still has finite-size,
+short-trajectory, CPU-fallback, and non-kUPS-production limitations. The review
+note keeps the larger GPU kUPS production thermostat diagnostic as a
+final-release blocker.
 
 It also does not claim that BAOAB Langevin is always the right thermostat.
 Different thermostats have different strengths. CSVR, Nosé-Hoover chains,
@@ -463,18 +474,17 @@ that remains outside site navigation while the rest of the series is brought to
 the same standard. The implemented pieces are:
 
 - smoke and full controlled BAOAB Langevin workflows
-- compact argon Langevin reduced-unit temperature-response workflow
+- 256-atom, three-replica reduced-unit argon Langevin plus NVE-handoff workflow
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
 - expanded prose separating canonical moment checks, coupling strength,
-  autocorrelation, compact argon temperature response, thermostat-induced
-  dynamical distortion, NVE handoff, and final-release limitations
+  autocorrelation, argon thermostat-to-NVE handoff, thermostat-induced
+  dynamical distortion, and final-release limitations
 
 The remaining non-publication pieces are:
 
-- rendered desktop and mobile page snapshots for this updated expanded draft
 - larger GPU kUPS production thermostat and NVE handoff diagnostic before
   treating this post as final
 - final all-post consistency pass once the other articles are expanded
