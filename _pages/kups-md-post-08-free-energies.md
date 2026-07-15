@@ -271,6 +271,16 @@ local PMF standard deviation of about `0.062`. This is a trajectory-derived
 PMF diagnostic with explicit uncertainty checks, but it is not yet a long
 production kUPS free-energy result.
 
+The latest diagnostic also asks how much the RDF-derived PMF changes when the
+minimum accepted RDF support is changed before applying the logarithm. In the
+committed full profile, support thresholds `0.02`, `0.05`, and `0.10` retain
+`53`, `52`, and `52` finite PMF bins. The shifted PMF ranges are about `2.998`,
+`1.643`, and `1.643`, so the support-threshold range span is about `1.355` in
+reduced energy units. The first-minimum radius stays at `1.125`, but admitting
+one very-low-support bin changes the apparent PMF range substantially. That is
+the point of the diagnostic: an RDF-derived PMF is only as defensible as the
+support rule used before `-kT log g(r)`.
+
 ## What Should The Diagnostic Show?
 
 The full run checks four estimator questions. The first panel compares the
@@ -278,9 +288,10 @@ true PMF, a direct histogram PMF, and a reweighted PMF. The second panel shows
 that bin width changes the estimated barrier even for equilibrium samples. The
 third panel shows how an RDF-like g(r) can become a shifted PMF through
 negative kT times the logarithm of g(r). The fourth panel repeats that
-transformation on compact time-correlated argon trajectory frames.
+transformation on compact time-correlated argon trajectory frames and overlays
+support-threshold sensitivity curves.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the trajectory RDF-PMF panel now overlays block SEM and replica disagreement." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the trajectory RDF-PMF panel overlays block SEM, replica disagreement, and support-threshold sensitivity." %}
 
 The figure is intentionally an estimator figure. It does not claim to be a
 production free-energy calculation for a molecular process. The first panel
@@ -324,11 +335,12 @@ sensitivity:
 | Is the coordinate sufficient? | physical interpretation and failure modes |
 
 This is why the full diagnostic reports bootstrap standard errors, bin-width
-dependence, blockwise trajectory PMF SEM, and replica PMF disagreement. The
-coarse-bin estimate can have a modest bootstrap standard error while still
-being biased downward relative to the known barrier. The compact argon PMF can
-also have small block SEM while showing where independent seed-shifted
-replicas disagree locally.
+dependence, blockwise trajectory PMF SEM, replica PMF disagreement, and
+support-threshold sensitivity. The coarse-bin estimate can have a modest
+bootstrap standard error while still being biased downward relative to the
+known barrier. The compact argon PMF can also have small block SEM while
+showing where independent seed-shifted replicas disagree locally and where
+low-support RDF bins change the apparent PMF range.
 The review should catch both.
 
 ## What Are Common PMF Mistakes?
@@ -455,6 +467,7 @@ This page is not the final article. The implemented pieces are:
 - committed compact PMF curve and summary outputs
 - compact reduced-unit argon trajectory RDF-derived PMF transformation with
   block and replica uncertainty overlays
+- RDF support-threshold sensitivity for the compact argon RDF-derived PMF
 - executable notebook
 - generated four-panel SVG/PNG figure and snapshot review
 - rendered desktop and mobile page snapshots for the refreshed hidden draft
