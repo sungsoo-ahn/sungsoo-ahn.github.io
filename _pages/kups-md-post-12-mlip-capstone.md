@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-12-mlip-capstone/
 title: "What Changes When the Potential Is a Machine-Learned Interatomic Potential?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible MLIP reliability diagnostic for fcc aluminum: static force error, extrapolation, drift, uncertainty calibration, and artifact provenance."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -21,7 +21,7 @@ nav: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post closes the series by asking what changes when the potential is a machine-learned interatomic potential rather than a fixed analytic or classical model. The current diagnostic is a deterministic surrogate for MLIP reliability checks; the final public article must replace the placeholder MACE artifact metadata with a verified model hash from the GPU production pass. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post closes the series by asking what changes when the potential is a machine-learned interatomic potential rather than a fixed analytic or classical model. The current numerical diagnostic is a deterministic CPU surrogate for MLIP reliability checks; the MACE artifact metadata is now pinned and hash-verified, but the final public article still needs a real GPU production pass. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
 ## Introduction
@@ -46,8 +46,9 @@ id="cite-behler2007"></span>[Behler & Parrinello, 2007](#ref-behler2007);
 
 This draft demonstrates the executable slice of the twelfth tutorial with
 three fcc-Al reliability regimes. The configured model artifact is recorded as
-`mace-mp-0-medium` from `ACEsuit/mace`, but the revision and hash are
-placeholders until the final GPU artifact pass.
+`mace-mp-0b3-medium.model` from `mace-foundations/mace-mp-0`, pinned at
+revision `e291ace`, with SHA-256
+`2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012`.
 
 The target reader already knows how MLIPs are trained and evaluated on static
 structures. The capstone question is different: what evidence is needed before
@@ -59,8 +60,8 @@ provenance.
 This page keeps that chain visible. The current numbers are deterministic
 surrogate diagnostics, not final MACE/fcc-Al production results. That
 limitation is intentional in the hidden draft. It lets the page describe the
-review protocol before the final GPU pass replaces placeholder model metadata
-with a pinned artifact hash and real production diagnostics.
+review protocol before the final GPU pass replaces the surrogate numerical
+diagnostic with real production trajectories.
 
 - [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/smoke.json)
 - [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/full.json)
@@ -289,10 +290,11 @@ For an MLIP, a name is not enough. The artifact, repository revision, training
 or release identifier, downloaded file hash, model settings, neighbor/cutoff
 settings, precision, device, and software versions all affect reproducibility.
 
-The current page deliberately says that `mace-mp-0-medium` from `ACEsuit/mace`
-has placeholder revision and hash metadata. That is not acceptable for a final
-public capstone. It is acceptable for the hidden draft only because the review
-calls it out as a final-release blocker.
+The current page pins `mace-mp-0b3-medium.model` from
+`mace-foundations/mace-mp-0` at revision `e291ace` and records the downloaded
+file's SHA-256 hash. That fixes model-file provenance for this hidden draft,
+but it does not turn the surrogate numerical diagnostic into a production
+MACE/fcc-Al result.
 
 The final GPU pass should freeze:
 
@@ -325,9 +327,9 @@ does not look dramatic. The uncertainty panel asks whether uncertainty grows
 with realized error.
 
 The artifact annotation is also part of the figure review. It exposes the
-placeholder revision and hash so the hidden draft cannot be mistaken for a
-completed MACE production result. In the final article, that annotation should
-be replaced by the pinned revision and verified hash from the GPU pass.
+pinned model file and repository revision so the hidden draft carries exact
+artifact provenance even though the plotted numerical diagnostics are still a
+controlled surrogate rather than a completed MACE production result.
 
 The intended reader should leave the figure with one habit: never review an
 MLIP trajectory from a single metric. Static error, drift, extrapolation,
@@ -338,8 +340,8 @@ credible MD claim needs the relevant subset of those answers.
 
 The final capstone should replace the deterministic surrogate with a real
 MACE/fcc-Al production run. The controlled workflow should remain as a smoke
-and review harness, but the public scientific claims should be based on the
-verified model artifact and GPU outputs.
+and review harness, but the public scientific claims should be based on GPU
+outputs from the verified model artifact.
 
 The production pass should include:
 
@@ -434,6 +436,7 @@ configuration loader, MLIP capstone diagnostics, and figure generator from
 This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled MLIP reliability workflows
+- pinned `mace-mp-0b3-medium.model` artifact metadata with verified SHA-256
 - committed compact summaries and diagnostic samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -442,7 +445,6 @@ This page is not the final article. The implemented pieces are:
 The missing pieces are:
 
 - real MACE/fcc-Al GPU production run
-- verified MACE artifact revision and hash
 - final 3,500-10,000-word article prose
 - rendered desktop and mobile page snapshots
 - final citation pass

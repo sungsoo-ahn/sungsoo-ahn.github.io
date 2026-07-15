@@ -46,12 +46,12 @@
       "uncertainty_mean": 0.40399118868875783
     }
   ],
-  "config_sha256": "f7e31a9b090adf3f18027a950110cd272bcb6e17e348e67847f63e5fde853721",
+  "config_sha256": "280098054b6a06181c1dd7184eb74560c10a7337c35c0635bb7cb8aac99752be",
   "material": "fcc_aluminum",
-  "model_name": "mace-mp-0-medium",
-  "model_repository": "ACEsuit/mace",
-  "model_revision": "pinned-placeholder",
-  "model_sha256": "pending-gpu-artifact-hash",
+  "model_name": "mace-mp-0b3-medium.model",
+  "model_repository": "mace-foundations/mace-mp-0",
+  "model_revision": "e291ace",
+  "model_sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
   "post": "12",
   "profile": "full",
   "sample_count": 50000,
