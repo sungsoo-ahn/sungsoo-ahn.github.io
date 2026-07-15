@@ -135,6 +135,15 @@ check:
 | max RDF replica std | 0.051 | radial-bin replica disagreement |
 | VACF integral replica SE | 0.012 | time-correlation tail sensitivity |
 
+The compact trajectory summary also records the runtime limitation explicitly:
+
+| Field | Full-profile value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target requested CUDA/GPU, but the generated runtime was CPU |
+
 The small-cell RDF is not drawn beyond half the periodic box length. Those
 radial shells are not valid for a minimum-image RDF estimator, even if a plotting
 routine could produce numbers there.
@@ -269,7 +278,7 @@ the trajectory, and overlays the compact argon VACF with a seed-shifted
 replica band. The compact argon panel applies the RDF estimator to actual
 sampled trajectory frames and overlays seed-shifted replica disagreement.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF panel overlays controlled and compact trajectory correlations with replica spread, and the compact argon trajectory panel shows the same RDF machinery on sampled frames with a three-replica RDF uncertainty band." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF panel overlays controlled and compact trajectory correlations with replica spread, and the compact CPU-fallback argon trajectory panel shows the same RDF machinery on sampled frames with a three-replica RDF uncertainty band." %}
 
 The figure is intentionally estimator-focused. The controlled RDF panel
 compares the 32- and 256-atom cells while respecting the small-cell finite-size
@@ -434,11 +443,13 @@ The notebook is deliberately not the implementation source. It imports the
 configuration loader, observable diagnostics, and figure generator from
 `src/kups_md_tutorials/`. The committed full manifest records the configuration
 hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, runtime device, and package versions. For the current full profile, the
+policy, target device, runtime device, GPU-readiness state, and package
+versions. For the current full profile, the
 configuration hash is
-`ae9b991dee64e91d1779bfa8200fffa4f1b6bf35abff3fccd8a6ace67b9e386c`, the
-recorded source revision is `f929899fa5ea3d516e0e2a5906966590de07611d`, and
-the runtime device is CPU.
+`4dae2edac859bdc8af1b6bb86997b0d5a2e5729cc806c170f4a2067f6c2b0f9e`, the
+recorded source revision is `c1e3058be3b2ce658de5cf995ad56f010cca31a3`, the
+target device is `cuda_or_cpu_fallback`, the runtime device is
+`jax:cpu;devices:cpu`, and the production GPU readiness flag is `false`.
 
 The compact outputs include the summary JSON plus controlled RDF/VACF and
 argon trajectory RDF/VACF sample tables. Those files are committed so the
@@ -472,6 +483,8 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled argon-FCC observable workflows
 - compact reduced-unit argon trajectory observable workflow
+- machine-readable target-device, runtime-device, GPU-readiness, and blocking
+  reason provenance for the compact argon trajectory observable diagnostic
 - committed compact RDF, VACF, replica RDF/VACF uncertainty, and summary
   outputs
 - executable notebook
