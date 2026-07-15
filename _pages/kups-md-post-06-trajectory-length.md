@@ -36,7 +36,12 @@ For ML researchers working with MLIPs, this matters because the simulation may
 look stable while the estimator is still biased or overconfident. The practical
 question is not how many frames were written. It is whether warmup was removed,
 whether autocorrelation was measured, whether uncertainty reflects effective
-sample size, and whether independent replicas agree.
+sample size, and whether independent replicas agree. The diagnostic language
+used here follows standard molecular-simulation reporting practice for
+trajectory observables (<span id="cite-frenkel2001"></span>[Frenkel & Smit,
+2001](#ref-frenkel2001); <span id="cite-tuckerman2010"></span>[Tuckerman,
+2010](#ref-tuckerman2010); <span id="cite-allen2017"></span>[Allen &
+Tildesley, 2017](#ref-allen2017)).
 
 This draft demonstrates the executable slice of the sixth tutorial with a
 controlled correlated observable and a compact reduced-unit argon
@@ -205,6 +210,12 @@ A practical equilibration review should therefore be observable-specific:
 | Do independent replicas agree after warmup? | A single trace can hide metastability. |
 | Does the estimate change when the discard is varied moderately? | Fragile estimates are not ready for production claims. |
 
+Automated equilibration detection can be useful when it is treated as an
+analysis choice to review, not as a substitute for scientific judgment. The
+standard idea is to choose a truncation point that trades initial-condition bias
+against the loss of effective samples (<span id="cite-chodera2016"></span>[Chodera,
+2016](#ref-chodera2016)).
+
 The review note for this hidden draft now separates two levels of evidence.
 The controlled model proves the estimator machinery against an answer key. The
 compact argon diagnostic applies the machinery to a physical observable. A
@@ -224,7 +235,11 @@ $$N_{\mathrm{eff}} \approx \frac{N}{2\tau_{\mathrm{int}}},$$
 where N is the number of retained samples and tau-int is an integrated
 autocorrelation time measured in sample units. The exact prefactor and
 estimator details depend on convention, but the lesson is stable: correlation
-reduces independent information.
+reduces independent information. This is the same statistical issue discussed
+in Monte Carlo autocorrelation-time analyses and in molecular-simulation error
+estimation for correlated averages (<span id="cite-sokal1997"></span>[Sokal,
+1997](#ref-sokal1997); <span id="cite-flyvbjerg1989"></span>[Flyvbjerg &
+Petersen, 1989](#ref-flyvbjerg1989)).
 
 The full diagnostic makes this visible. At the final checkpoint, the retained
 data contain 34500 raw samples across replicas. The effective sample estimate
@@ -285,7 +300,11 @@ Blocking is a practical way to estimate uncertainty when samples are
 correlated. The trajectory is divided into contiguous blocks, each block is
 averaged, and the variance among block means is used to estimate uncertainty.
 If blocks are much longer than the correlation time, block means are closer to
-independent than individual frames.
+independent than individual frames. The block-averaging citation is not just a
+bibliography item here: it is the reason this page treats naive frame-count
+standard errors as a failure mode rather than a minor reporting choice
+(<span id="cite-flyvbjerg1989b"></span>[Flyvbjerg & Petersen,
+1989](#ref-flyvbjerg1989)).
 
 The method is useful because it asks a concrete question: if I group adjacent
 frames into chunks, how variable are the chunk means? If the block size is too
@@ -486,13 +505,13 @@ This page is not the final article. The implemented pieces are:
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
+- final citations for autocorrelation, effective sample size, blocking
+  analysis, equilibration diagnostics, and physical-observable convergence
 
 The missing pieces are:
 
 - larger GPU kUPS trajectory-length diagnostics for physical observables such
   as density, RDF coordination, or time-correlation estimates
-- citations for autocorrelation, effective sample size, blocking analysis, and
-  equilibration diagnostics beyond the current starter references
 - rendered desktop and mobile page snapshots after the final production
   physical-observable diagnostic is added
 - final consistency pass after the production physical-observable diagnostic is
@@ -504,6 +523,9 @@ uncertainty, and independent checks support the claim being made.
 
 ## References
 
-- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
-- <span id="ref-flyvbjerg1989"></span>Flyvbjerg, H. & Petersen, H. G. (1989). Error estimates on averages of correlated data. *Journal of Chemical Physics*, 91, 461-466.
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-allen2017"></span>Allen, M. P. & Tildesley, D. J. (2017). *Computer Simulation of Liquids* (2nd ed.). Oxford University Press. <a href="#cite-allen2017" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-flyvbjerg1989"></span>Flyvbjerg, H. & Petersen, H. G. (1989). Error estimates on averages of correlated data. *Journal of Chemical Physics*, 91, 461-466. <a href="#cite-flyvbjerg1989" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-flyvbjerg1989b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-sokal1997"></span>Sokal, A. (1997). Monte Carlo methods in statistical mechanics: foundations and new algorithms. In C. DeWitt-Morette, P. Cartier & A. Folacci (Eds.), *Functional Integration*, NATO ASI Series, vol. 361, pp. 131-192. Springer. <a href="#cite-sokal1997" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-chodera2016"></span>Chodera, J. D. (2016). A simple method for automated equilibration detection in molecular simulations. *Journal of Chemical Theory and Computation*, 12, 1799-1805. <a href="#cite-chodera2016" class="reversefootnote" role="doc-backlink">↩</a>
