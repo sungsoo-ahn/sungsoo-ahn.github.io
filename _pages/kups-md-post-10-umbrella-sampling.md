@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-10-umbrella-sampling/
 title: "What Does Umbrella Sampling Actually Sample?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible umbrella-sampling diagnostic for biased windows, adjacent overlap, WHAM-style reconstruction, and sparse-window failure modes."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -450,14 +450,15 @@ This page is not the final article. The implemented pieces are:
 - smoke and full controlled umbrella-sampling workflows
 - committed compact summaries, PMF curves, and window-overlap outputs
 - executable notebook
-- generated SVG/PNG four-panel figure and snapshot review
+- generated SVG/PNG four-panel figure with local replica-disagreement diagnostics
+- rendered desktop and mobile page snapshots
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - final 3,500-10,000-word article prose
-- rendered desktop and mobile page snapshots
-- production MD context and final uncertainty diagnostics
+- production MD context with real atomistic umbrella windows, model checks, and
+  final production uncertainty intervals if public claims are added
 - final citation pass
 
 The rule for this post is that umbrella sampling is only as trustworthy as the
