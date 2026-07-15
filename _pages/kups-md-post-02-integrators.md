@@ -29,7 +29,9 @@ nav: false
 The equation of motion is continuous, but an MD trajectory is not. Every saved
 state came from a discrete map: positions and momenta at one time were
 converted into positions and momenta at the next time. The integrator is that
-map.
+map. The velocity-Verlet family became central to molecular simulation because
+it gives a simple reversible, second-order update for Hamiltonian dynamics
+(<span id="cite-verlet1967"></span>[Verlet, 1967](#ref-verlet1967)).
 
 For ML researchers who already know
 
@@ -117,6 +119,10 @@ error often has a particular shape. A stable symplectic method can show bounded
 energy error rather than monotonic energy drift, because it nearly conserves a
 modified energy. That modified energy is often called a shadow Hamiltonian. The
 simulation is still approximate, but the approximation is structured.
+This is the geometric-numerical-integration perspective behind shadow-energy
+diagnostics (<span id="cite-leimkuhler2004"></span>[Leimkuhler & Reich,
+2004](#ref-leimkuhler2004); <span id="cite-hairer2006"></span>[Hairer et al.,
+2006](#ref-hairer2006)).
 
 ## Why Use a Harmonic Oscillator?
 
@@ -447,6 +453,6 @@ all been reviewed against the same reproducibility contract.
 
 ## References
 
-- <span id="ref-verlet1967"></span>Verlet, L. (1967). Computer "experiments" on classical fluids. I. Thermodynamical properties of Lennard-Jones molecules. *Physical Review*, 159(1), 98-103.
-- <span id="ref-leimkuhler2004"></span>Leimkuhler, B. & Reich, S. (2004). *Simulating Hamiltonian Dynamics*. Cambridge University Press.
-- <span id="ref-hairer2006"></span>Hairer, E., Lubich, C. & Wanner, G. (2006). *Geometric Numerical Integration*. Springer.
+- <span id="ref-verlet1967"></span>Verlet, L. (1967). Computer "experiments" on classical fluids. I. Thermodynamical properties of Lennard-Jones molecules. *Physical Review*, 159(1), 98-103. <a href="#cite-verlet1967" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-leimkuhler2004"></span>Leimkuhler, B. & Reich, S. (2004). *Simulating Hamiltonian Dynamics*. Cambridge University Press. <a href="#cite-leimkuhler2004" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-hairer2006"></span>Hairer, E., Lubich, C. & Wanner, G. (2006). *Geometric Numerical Integration*. Springer. <a href="#cite-hairer2006" class="reversefootnote" role="doc-backlink">↩</a>

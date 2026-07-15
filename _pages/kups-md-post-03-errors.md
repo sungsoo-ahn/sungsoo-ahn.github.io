@@ -56,6 +56,12 @@ by time and energy scale. Instability is qualitative failure: a trajectory that
 leaves the physically meaningful regime or a diagnostic that blows up.
 Uncertainty is what remains after estimating a quantity from finite data. A
 good MD report should not use one number to stand in for all four.
+The numerical-analysis literature separates geometric timestep error from
+finite-precision arithmetic for exactly this reason
+(<span id="cite-hairer2006"></span>[Hairer et al., 2006](#ref-hairer2006);
+<span id="cite-leimkuhler2004"></span>[Leimkuhler & Reich,
+2004](#ref-leimkuhler2004); <span id="cite-higham2002"></span>[Higham,
+2002](#ref-higham2002)).
 
 The executable artifacts for this page are:
 
@@ -490,6 +496,6 @@ all been reviewed against the same reproducibility contract.
 
 ## References
 
-- <span id="ref-hairer2006"></span>Hairer, E., Lubich, C. & Wanner, G. (2006). *Geometric Numerical Integration*. Springer.
-- <span id="ref-leimkuhler2004"></span>Leimkuhler, B. & Reich, S. (2004). *Simulating Hamiltonian Dynamics*. Cambridge University Press.
-- <span id="ref-higham2002"></span>Higham, N. J. (2002). *Accuracy and Stability of Numerical Algorithms*. SIAM.
+- <span id="ref-hairer2006"></span>Hairer, E., Lubich, C. & Wanner, G. (2006). *Geometric Numerical Integration*. Springer. <a href="#cite-hairer2006" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-leimkuhler2004"></span>Leimkuhler, B. & Reich, S. (2004). *Simulating Hamiltonian Dynamics*. Cambridge University Press. <a href="#cite-leimkuhler2004" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-higham2002"></span>Higham, N. J. (2002). *Accuracy and Stability of Numerical Algorithms*. SIAM. <a href="#cite-higham2002" class="reversefootnote" role="doc-backlink">↩</a>
