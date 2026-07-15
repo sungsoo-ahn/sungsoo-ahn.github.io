@@ -193,7 +193,7 @@ start from different basin histories, cross barriers at different rates, or
 fail in different windows. If replicas disagree in a region, the PMF should
 show that uncertainty or the protocol should be revised before publication.
 That is why a production umbrella result should report convergence evidence,
-not only the final reweighted curve ([Kästner, 2011](#ref-kaestner2011)).
+not only the final reweighted curve (<span id="cite-kaestner2011b"></span>[Kästner, 2011](#ref-kaestner2011)).
 
 ## What Does the Pair-Distance Diagnostic Add?
 
@@ -533,4 +533,4 @@ replica consistency are part of the result, not optional diagnostics.
 - <span id="ref-torrie1977"></span>Torrie, G. M. & Valleau, J. P. (1977). Nonphysical sampling distributions in Monte Carlo free-energy estimation: umbrella sampling. *Journal of Computational Physics*, 23, 187-199. <a href="#cite-torrie1977" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-kumar1992"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011-1021. <a href="#cite-kumar1992" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-shirts2008"></span>Shirts, M. R. & Chodera, J. D. (2008). Statistically optimal analysis of samples from multiple equilibrium states. *The Journal of Chemical Physics*, 129, 124105. <a href="#cite-shirts2008" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-kaestner2011"></span>Kästner, J. (2011). Umbrella sampling. *WIREs Computational Molecular Science*, 1, 932-942. <a href="#cite-kaestner2011" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kaestner2011"></span>Kästner, J. (2011). Umbrella sampling. *WIREs Computational Molecular Science*, 1, 932-942. <a href="#cite-kaestner2011" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-kaestner2011b" class="reversefootnote" role="doc-backlink">↩</a>

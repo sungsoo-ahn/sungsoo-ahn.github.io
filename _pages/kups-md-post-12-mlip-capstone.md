@@ -305,8 +305,8 @@ file's SHA-256 hash. That fixes model-file provenance for this hidden draft,
 but it does not turn the surrogate numerical diagnostic into a production
 MACE/fcc-Al result. The validation question remains tied to the intended task:
 the same artifact can be adequate for a qualitative pilot and inadequate for a
-published fcc-Al free-energy or dynamics claim ([Morrow et al.,
-2023](#ref-morrow2023); [Batatia et al., 2025](#ref-batatia2025)).
+published fcc-Al free-energy or dynamics claim (<span id="cite-morrow2023b"></span>[Morrow et al.,
+2023](#ref-morrow2023); <span id="cite-batatia2025b"></span>[Batatia et al., 2025](#ref-batatia2025)).
 
 The final GPU pass should freeze:
 
@@ -483,5 +483,5 @@ are part of the scientific result.
 - <span id="ref-bartok2010"></span>Bartok, A. P., Payne, M. C., Kondor, R. & Csanyi, G. (2010). Gaussian approximation potentials: The accuracy of quantum mechanics, without the electrons. *Physical Review Letters*, 104, 136403. <a href="#cite-bartok2010" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-batzner2022"></span>Batzner, S. et al. (2022). E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials. *Nature Communications*, 13, 2453. <a href="#cite-batzner2022" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-batatia2022"></span>Batatia, I. et al. (2022). MACE: Higher order equivariant message passing neural networks for fast and accurate force fields. *NeurIPS Workshop*. <a href="#cite-batatia2022" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-morrow2023"></span>Morrow, J. D., Gardner, J. L. A. & Deringer, V. L. (2023). How to validate machine-learned interatomic potentials. *The Journal of Chemical Physics*, 158, 121501. <a href="#cite-morrow2023" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-batatia2025"></span>Batatia, I. et al. (2025). A foundation model for atomistic materials chemistry. *The Journal of Chemical Physics*, 163, 184110. <a href="#cite-batatia2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-morrow2023"></span>Morrow, J. D., Gardner, J. L. A. & Deringer, V. L. (2023). How to validate machine-learned interatomic potentials. *The Journal of Chemical Physics*, 158, 121501. <a href="#cite-morrow2023" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-morrow2023b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-batatia2025"></span>Batatia, I. et al. (2025). A foundation model for atomistic materials chemistry. *The Journal of Chemical Physics*, 163, 184110. <a href="#cite-batatia2025" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-batatia2025b" class="reversefootnote" role="doc-backlink">↩</a>
