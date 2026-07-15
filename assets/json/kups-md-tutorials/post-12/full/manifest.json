@@ -29,10 +29,10 @@
       ],
       "material": "fcc_aluminum",
       "model_artifact": {
-        "name": "mace-mp-0-medium",
-        "repository": "ACEsuit/mace",
-        "revision": "pinned-placeholder",
-        "sha256": "pending-gpu-artifact-hash"
+        "name": "mace-mp-0b3-medium.model",
+        "repository": "mace-foundations/mace-mp-0",
+        "revision": "e291ace",
+        "sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012"
       },
       "sample_count": 50000,
       "seed": 2026071412,
@@ -45,8 +45,8 @@
   },
   "provenance": {
     "config_path": "configs/post-12/full.json",
-    "config_sha256": "f7e31a9b090adf3f18027a950110cd272bcb6e17e348e67847f63e5fde853721",
-    "git_revision": "ffbf49effecb7ccac823145c58c073e0c8cd731c",
+    "config_sha256": "280098054b6a06181c1dd7184eb74560c10a7337c35c0635bb7cb8aac99752be",
+    "git_revision": "a7f446c84fe86cd3cd476b72fa5483e44e954d26",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
