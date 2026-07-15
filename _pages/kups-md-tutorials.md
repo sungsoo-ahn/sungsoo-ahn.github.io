@@ -20,9 +20,6 @@ pagination:
   <div class="blog-type-summary" aria-label="kUPS tutorial types">
     <span>Post types</span>
     <span>Tutorials {{ tutorial_count }}</span>
-    <span>Executable notes</span>
-    <span>MD practice</span>
-    <span>MLIP reliability</span>
   </div>
 
   <ol class="bibliography">
@@ -52,7 +49,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ date_label }} {{ post_date | date: '%B %d, %Y' }}; {{ read_time }} min read; part {{ post.series_order }} of {{ tutorial_count }}
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post_date | date: '%B %d, %Y' }}; {{ read_time }} min read; part {{ post.series_order }} of {{ tutorial_count }}{% if date_label == "updated" %}; updated draft{% endif %}
           </div>
         </div>
       </div>
