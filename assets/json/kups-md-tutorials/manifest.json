@@ -1,48 +1,55 @@
 {
   "files": [
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post03_error_diagnostics.svg",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post04_thermostat_diagnostics.svg",
       "kind": "figure",
-      "post": "03",
-      "sha256": "9a1f28c5f803e95490dc374e5fe74bf3a7cd5cdc20f32bee173276d509b8590c",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-03/error_diagnostics_full.svg"
+      "post": "04",
+      "sha256": "eb51bddc83422c2afa46e0482a6b4411f2530cdf9e628185e27f3a28a65d6355",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-04/thermostat_diagnostics_full.svg"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post03_error_diagnostics.png",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post04_thermostat_diagnostics.png",
       "kind": "figure",
-      "post": "03",
-      "sha256": "4fcc6779df29865d705ccec8f4f0529f3753c95b1697f5c5de47f37156a6d959",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-03/error_diagnostics_full.png"
+      "post": "04",
+      "sha256": "f3dacf93d097c29e6d55c3d6b4c026b98ab0dd80b742ae14c0f094b1ffbd8aab",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-04/thermostat_diagnostics_full.png"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/argon_nve_samples.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/argon_handoff_samples.csv",
       "kind": "compact-result",
-      "post": "03",
-      "sha256": "d6e0d6251854c2d61bac5bd9404aadc473846f96e44aee4d9b70ad69e94cc9c1",
-      "source": "/home/sungs/kups-md-tutorials/results/post-03/full/argon_nve_samples.csv"
+      "post": "04",
+      "sha256": "88af3f4012729361d2935891d67bcc3259049c7768ac2883dced121ea3d1928a",
+      "source": "/home/sungs/kups-md-tutorials/results/post-04/full/argon_handoff_samples.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/error_samples.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/argon_langevin_samples.csv",
       "kind": "compact-result",
-      "post": "03",
-      "sha256": "dc20a4200c585ccbadcc3b216fc694d4bf6d9c0700e59135a1aa871c66105ea9",
-      "source": "/home/sungs/kups-md-tutorials/results/post-03/full/error_samples.csv"
+      "post": "04",
+      "sha256": "b7ced261303fca3904a14169f9a0043788d59cc092ff6026637b4037e3f52cc2",
+      "source": "/home/sungs/kups-md-tutorials/results/post-04/full/argon_langevin_samples.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/error_summary.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/manifest.json",
       "kind": "compact-result",
-      "post": "03",
-      "sha256": "d0c8cf6c8e1f1adab62be74eece5a4dec8f95b463d4e53e16e8522e4449cc94c",
-      "source": "/home/sungs/kups-md-tutorials/results/post-03/full/error_summary.json"
+      "post": "04",
+      "sha256": "7159413ebbbe9b94df9190a5dcafa0477ba0035c93207c6bb701ce920040900a",
+      "source": "/home/sungs/kups-md-tutorials/results/post-04/full/manifest.json"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/manifest.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/thermostat_samples.csv",
       "kind": "compact-result",
-      "post": "03",
-      "sha256": "a0e16e089f3c8d6343a3e18d0e2401c92564842185b9295b0bdc5bbc6076bb12",
-      "source": "/home/sungs/kups-md-tutorials/results/post-03/full/manifest.json"
+      "post": "04",
+      "sha256": "bdf92efa9a5cf92f76e137bbd2fd08383d3fe13d5ceaf3b15cf5a2fdbec3a0fe",
+      "source": "/home/sungs/kups-md-tutorials/results/post-04/full/thermostat_samples.csv"
+    },
+    {
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-04/full/thermostat_summary.json",
+      "kind": "compact-result",
+      "post": "04",
+      "sha256": "3daa37c42c104cf4498dcc84cfde8e60baad34fbf521e280a7904eae274a8f5b",
+      "source": "/home/sungs/kups-md-tutorials/results/post-04/full/thermostat_summary.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "b0ed74d482a449d3064c7602c8f310d4c6696fc5"
+  "source_git_revision": "ff0df9deae3cde52ae647e7e88e862839046f16e"
 }

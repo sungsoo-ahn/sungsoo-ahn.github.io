@@ -2,6 +2,7 @@
   "argon_langevin_protocol": {
     "atom_count": 256,
     "case_count": 3,
+    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
     "max_abs_nve_handoff_drift": 1.1416081314474206e-05,
     "max_abs_temperature_relative_error": 0.058607191316123575,
     "max_nve_handoff_energy_error": 5.286178529259186e-05,
@@ -9,9 +10,12 @@
     "mean_abs_temperature_relative_error": 0.024320945356392152,
     "num_steps": 2500,
     "nve_handoff_steps": 1000,
+    "production_gpu_ready": false,
     "protocol_label": "gpu_ready_langevin_nve_handoff_replicas",
     "replica_count": 3,
+    "runtime_device": "jax:cpu;devices:cpu",
     "target_device": "cuda_or_cpu_fallback",
+    "target_requests_gpu": true,
     "target_temperature": 0.7,
     "unstable_handoff_count": 0
   },

@@ -161,8 +161,18 @@ not prove that every distributional detail is exact. The executable workflow
 now adds a 256-atom reduced-unit argon Langevin protocol with three
 velocity/noise replicas and a deterministic NVE handoff segment. That protocol
 records CPU fallback in this environment, so it is still not a real CUDA/GPU
-kUPS production thermostat benchmark. The review note keeps the larger
-production diagnostic as a final-release blocker.
+kUPS production thermostat benchmark. The summary makes that limitation
+machine-readable instead of leaving it only in prose:
+
+| Field | Full-profile value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target requested CUDA/GPU, but the generated runtime was CPU |
+
+The review note keeps the larger production diagnostic as a final-release
+blocker.
 
 ## Why Is Temperature Alone Not Enough?
 
@@ -197,7 +207,7 @@ for one degree of freedom. Finally, it reports the position integrated
 autocorrelation time to show that stronger coupling can change dynamical
 memory.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_thermostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Thermostat diagnostics for the committed full profile. The BAOAB Langevin oscillator cases sample near the same canonical moment targets while strong coupling substantially increases position autocorrelation time; the argon panel checks post-thermostat NVE energy drift for a 256-atom, three-replica handoff protocol." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_thermostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Thermostat diagnostics for the committed full profile. The BAOAB Langevin oscillator cases sample near the same canonical moment targets while strong coupling substantially increases position autocorrelation time; the argon panel checks post-thermostat NVE energy drift for a 256-atom, three-replica CPU-fallback handoff protocol." %}
 
 The figure has a specific scope. It is moment-focused, memory-focused, and
 handoff-focused. It does not yet show the full kinetic-energy distribution. The
@@ -475,6 +485,8 @@ the same standard. The implemented pieces are:
 
 - smoke and full controlled BAOAB Langevin workflows
 - 256-atom, three-replica reduced-unit argon Langevin plus NVE-handoff workflow
+- machine-readable target-device, runtime-device, GPU-readiness, and blocking
+  reason provenance for the argon thermostat handoff protocol
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
