@@ -23,6 +23,7 @@ nav_order: 3
 - [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/)
 - [Yoonho Kim](https://yoonhokim0527.github.io/)
 - [Honghui Kim (Postdoc)](https://honghuikim.github.io/)
+- [Seonghwan Kim (Postdoc)](https://seonghann.github.io/)
 
 ---
 
