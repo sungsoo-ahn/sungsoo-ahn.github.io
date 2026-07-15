@@ -140,6 +140,7 @@ The current diagnostic keeps the answer key available:
 | biased center | 0.9 | simple reweighting test |
 | RDF peak radius | 1.2 | minimum of the RDF-derived PMF |
 | compact argon trajectory | 108 atoms, 551 sampled frames | real time-correlated RDF support |
+| compact argon target/runtime | `cuda_or_cpu_fallback` target, `jax:cpu;devices:cpu` runtime | CPU-fallback draft provenance |
 
 The true double-well barrier is `1.0`, so the diagnostic can separate estimator
 error from the physical free-energy definition.
@@ -291,7 +292,7 @@ negative kT times the logarithm of g(r). The fourth panel repeats that
 transformation on compact time-correlated argon trajectory frames and overlays
 support-threshold sensitivity curves.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the trajectory RDF-PMF panel overlays block SEM, replica disagreement, and support-threshold sensitivity." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the compact trajectory RDF-PMF panel overlays block SEM, replica disagreement, support-threshold sensitivity, and CPU-fallback runtime provenance." %}
 
 The figure is intentionally an estimator figure. It does not claim to be a
 production free-energy calculation for a molecular process. The first panel
@@ -429,11 +430,19 @@ The notebook is deliberately not the implementation source. It imports the
 configuration loader, free-energy diagnostics, and figure generator from
 `src/kups_md_tutorials/`. The committed full manifest records the configuration
 hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, runtime device, and package versions. For the current full profile, the
-configuration hash is
-`bcc20425a35ce733a709a9f9f586c0f54fff3e300c58f394be66892b6d085a9a`, the
-recorded source revision is `ebcbcd2ff3172e211b2439f0543221381addbb32`, and
-the runtime device is CPU.
+policy, target device, runtime device, GPU-readiness status, and package
+versions. For the current full profile, the configuration hash is
+`7d98bc849d66ecd7769dca29ede00e593774fd47e4b1c2854ef4e7b428ed6703`, the
+recorded source revision is `82fe878dbecd0a51ca7c2f84b2e0e128b8f8dbd2`, the
+target device is `cuda_or_cpu_fallback`, the runtime device is
+`jax:cpu;devices:cpu`, and production GPU readiness is `false`.
+
+| Runtime field | Value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
 
 The compact outputs include the summary JSON and PMF curve table, including
 the argon RDF and argon RDF-PMF columns. Those files are committed so the
@@ -468,6 +477,8 @@ This page is not the final article. The implemented pieces are:
 - compact reduced-unit argon trajectory RDF-derived PMF transformation with
   block and replica uncertainty overlays
 - RDF support-threshold sensitivity for the compact argon RDF-derived PMF
+- machine-readable target/runtime/GPU-readiness provenance for the compact
+  argon RDF-derived PMF
 - executable notebook
 - generated four-panel SVG/PNG figure and snapshot review
 - rendered desktop and mobile page snapshots for the refreshed hidden draft
