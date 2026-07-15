@@ -1,55 +1,48 @@
 {
   "files": [
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post05_barostat_diagnostics.svg",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg",
       "kind": "figure",
-      "post": "05",
-      "sha256": "d9371028b1a2b9d6624d1ee5b689851df2c2008b2abf292641a21c67b7afa510",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-05/barostat_diagnostics_full.svg"
+      "post": "06",
+      "sha256": "ca2829cdbc457ce0d366eb0179e30ccd4f93ed390f3749ff15c9bd352d463bb0",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-06/trajectory_length_diagnostics_full.svg"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post05_barostat_diagnostics.png",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
       "kind": "figure",
-      "post": "05",
-      "sha256": "eb5df181b00ad962f192efc0ded3109b671b81639ca72e014ab5e496549c046b",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-05/barostat_diagnostics_full.png"
+      "post": "06",
+      "sha256": "79b522fd7d10d325051e9471b990b05c56580ed9d75105f8d1a6df4e54b2994b",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-06/trajectory_length_diagnostics_full.png"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/argon_cell_response.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-06/full/argon_observable_samples.csv",
       "kind": "compact-result",
-      "post": "05",
-      "sha256": "773aeca2552e231f18b50522c4674a9287ce2560f1e0d5a876a42a5254795ab5",
-      "source": "/home/sungs/kups-md-tutorials/results/post-05/full/argon_cell_response.csv"
+      "post": "06",
+      "sha256": "2611243e4f73ff43b26aec421b932279dab9847a082b5e4185dd3648b712d5b0",
+      "source": "/home/sungs/kups-md-tutorials/results/post-06/full/argon_observable_samples.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/argon_npt_dynamics.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-06/full/manifest.json",
       "kind": "compact-result",
-      "post": "05",
-      "sha256": "417f904e2cd7c7b82d39cb3c68c422fd1d6bf826eba77b46aa5fa32c9f8ec063",
-      "source": "/home/sungs/kups-md-tutorials/results/post-05/full/argon_npt_dynamics.csv"
+      "post": "06",
+      "sha256": "4830764b087a2143c91b806e1722300d1876ef8464a4964dd12707df06c6f0d4",
+      "source": "/home/sungs/kups-md-tutorials/results/post-06/full/manifest.json"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/barostat_samples.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-06/full/trajectory_length_samples.csv",
       "kind": "compact-result",
-      "post": "05",
-      "sha256": "e2dc551ba5a91e48dd8822eb8cecf0d8981895563e05c9d6bc550108f2159813",
-      "source": "/home/sungs/kups-md-tutorials/results/post-05/full/barostat_samples.csv"
+      "post": "06",
+      "sha256": "ceffa842edb862ad7f213bb8c117a7575994f64ba5206c1875d8f0333b17ed0e",
+      "source": "/home/sungs/kups-md-tutorials/results/post-06/full/trajectory_length_samples.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/barostat_summary.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-06/full/trajectory_length_summary.json",
       "kind": "compact-result",
-      "post": "05",
-      "sha256": "e7220262e1d7fbb581c64181a83066fb5d3e661137f3eabeae2a21768b4b2545",
-      "source": "/home/sungs/kups-md-tutorials/results/post-05/full/barostat_summary.json"
-    },
-    {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-05/full/manifest.json",
-      "kind": "compact-result",
-      "post": "05",
-      "sha256": "8f771c78be2e2678b1632d381a3e21054ebc87c0068ba933521687b20a517f68",
-      "source": "/home/sungs/kups-md-tutorials/results/post-05/full/manifest.json"
+      "post": "06",
+      "sha256": "f33d089ad65024e32c6a2502b1a8850b2e98c2b32d117c709d5e129706cb9ae4",
+      "source": "/home/sungs/kups-md-tutorials/results/post-06/full/trajectory_length_summary.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "74e974776d0d052e81a50386932788c2ea131f73"
+  "source_git_revision": "f5f5fd99157d4eb1eb4ecafb5bb677b6d374a328"
 }
