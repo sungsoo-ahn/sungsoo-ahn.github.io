@@ -45,7 +45,11 @@ This draft demonstrates the executable slice of the eleventh tutorial with a
 known one-dimensional double-well coordinate. The adaptive-bias diagnostic
 shows how history-dependent hills fill wells; the nonequilibrium diagnostic
 uses controlled work ensembles to show mean-work dissipation, Jarzynski
-estimates, and a Crooks crossing.
+estimates, and a Crooks crossing. The refreshed workflow also adds a compact
+pair-distance steered-pulling diagnostic on a Lennard-Jones contact coordinate,
+so the page can discuss nonequilibrium work fragility on a simple
+atomistic-coordinate example while still separating it from final production
+MD.
 
 The target reader already knows why equilibrium MD can miss rare transitions.
 The more subtle question is what is being estimated after we deliberately make
@@ -328,7 +332,7 @@ The figure combines adaptive and nonequilibrium diagnostics because the two
 families share a review pattern: the data are generated from a modified
 measure, and the estimator must expose that modification.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Enhanced-sampling diagnostics for the committed full profile. Adaptive bias changes where samples are drawn, nonequilibrium work identities recover the free-energy difference from a path ensemble rather than from mean work, and the steered-trajectory panel shows how faster pulling increases forward/reverse hysteresis." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Enhanced-sampling diagnostics for the committed full profile. Adaptive bias changes where samples are drawn, nonequilibrium work identities recover the free-energy difference from a path ensemble rather than from mean work, and the steered-trajectory plus pair-distance panels show how protocol speed, path overlap, and runtime provenance affect interpretation." %}
 
 The adaptive-bias panel compares the true PMF, a bias-derived reconstruction,
 and the scaled final bias. It is meant to show that the final bias carries
@@ -352,6 +356,19 @@ slow time-dependent restraints. In the committed full profile, the fast
 protocol's hysteresis gap is about 6.08 times the slow gap. That panel is the
 warning label for any production pulling calculation: if the loop stays wide,
 the protocol is still far from reversible even when the paths look smooth.
+
+The pair-distance panel repeats the same review habit on a reduced atomistic
+coordinate \(r/\sigma\). It pulls a Lennard-Jones contact from \(r/\sigma =
+1.08\) to \(2.20\) with 8000 paths. The fast/slow hysteresis-gap ratio is
+about 5.43, the true restrained free-energy difference is about 0.607, and the
+slow forward/reverse Jarzynski estimates differ by about 1.49. That
+disagreement is not hidden as a failure of presentation: it is the lesson that
+exponential work identities can be exact while finite path ensembles remain
+fragile.
+
+The compact status panel records the runtime boundary for this diagnostic. The
+full profile targets `cuda_or_cpu_fallback`, but this artifact was generated on
+`jax:cpu;devices:cpu`, so production GPU readiness is `false`.
 
 ## What Should Be Reported In Methods?
 
@@ -450,7 +467,18 @@ uv run jupyter execute notebooks/post-11-enhanced-sampling.ipynb --inplace
 
 The notebook is deliberately not the implementation source. It imports the
 configuration loader, enhanced-sampling diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
+`src/kups_md_tutorials/`. The committed full manifest records configuration
+hash `29f19850d439bb4d2f6e77752c0f30a4532b52fb459871b92f5d044406e82a06`,
+source revision `66c25c2f9b8dd6e79728d70341583f63f94a4526`, target device
+`cuda_or_cpu_fallback`, runtime device `jax:cpu;devices:cpu`, and production
+GPU readiness `false` for the compact pair-distance steered diagnostic.
+
+| Runtime field | Value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
 
 ## Current Status
 
@@ -458,10 +486,12 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled enhanced-sampling workflows
 - committed compact summaries and diagnostic curves
+- compact pair-distance steered-pulling diagnostic with target/runtime/GPU-
+  readiness provenance
 - executable notebook
-- generated SVG/PNG four-panel figure with Jarzynski/Crooks, ESS, and
-  fast/slow hysteresis diagnostics
-- rendered desktop and mobile page snapshots for the latest four-panel figure
+- generated SVG/PNG six-panel figure with Jarzynski/Crooks, ESS, fast/slow
+  hysteresis, pair-distance work, and runtime-status diagnostics
+- rendered desktop and mobile page snapshots for the latest six-panel figure
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
