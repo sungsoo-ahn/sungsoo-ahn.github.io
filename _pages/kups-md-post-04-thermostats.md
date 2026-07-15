@@ -42,7 +42,10 @@ controlled microscope. The oscillator has known canonical moments, so the
 thermostat can be checked against targets rather than judged by visual
 temperature traces. That does not make the oscillator a production MD system.
 It makes the sampling/dynamics tradeoff visible before the series moves back to
-argon and later to MLIP aluminum.
+argon and later to MLIP aluminum. BAOAB and related stochastic splittings are
+useful precisely because the order of deterministic and random substeps changes
+sampling behavior (<span id="cite-leimkuhler2013"></span>[Leimkuhler &
+Matthews, 2013](#ref-leimkuhler2013)).
 
 The main distinction is simple: a thermostat is a sampling device, not only a
 temperature clamp. It can help draw from a canonical distribution, remove or
@@ -335,6 +338,11 @@ Nosé-Hoover methods introduce extended variables that can produce deterministic
 canonical sampling when the dynamics are sufficiently ergodic. Andersen-style
 methods randomize velocities through collision-like events. Local thermostats
 and global thermostats act differently on collective motion.
+These families are standard tools, but their sampling and dynamical side
+effects differ enough that the thermostat choice must be part of the scientific
+claim (<span id="cite-bussi2007"></span>[Bussi et al.,
+2007](#ref-bussi2007); <span id="cite-tuckerman2010"></span>[Tuckerman,
+2010](#ref-tuckerman2010)).
 
 These differences matter because the thermostat is not an interchangeable
 accessory. A global velocity-rescaling thermostat can maintain the kinetic
@@ -509,6 +517,6 @@ all been reviewed against the same reproducibility contract.
 
 ## References
 
-- <span id="ref-leimkuhler2013"></span>Leimkuhler, B. & Matthews, C. (2013). Rational construction of stochastic numerical methods for molecular sampling. *Applied Mathematics Research eXpress*, 2013(1), 34-56.
-- <span id="ref-bussi2007"></span>Bussi, G., Donadio, D. & Parrinello, M. (2007). Canonical sampling through velocity rescaling. *Journal of Chemical Physics*, 126, 014101.
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
+- <span id="ref-leimkuhler2013"></span>Leimkuhler, B. & Matthews, C. (2013). Rational construction of stochastic numerical methods for molecular sampling. *Applied Mathematics Research eXpress*, 2013(1), 34-56. <a href="#cite-leimkuhler2013" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-bussi2007"></span>Bussi, G., Donadio, D. & Parrinello, M. (2007). Canonical sampling through velocity rescaling. *Journal of Chemical Physics*, 126, 014101. <a href="#cite-bussi2007" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a>

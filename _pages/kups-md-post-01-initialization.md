@@ -51,6 +51,13 @@ which parts of the nominal initial distribution are discarded before production.
 The random seed decides whether a colleague can reproduce the exact same
 starting point or only the same recipe.
 
+This way of treating initialization as part of the statistical-mechanical
+specification follows the standard simulation view that the generated
+coordinates, momenta, ensemble, and equilibration protocol define the measure
+being sampled (<span id="cite-frenkel2001"></span>[Frenkel & Smit,
+2001](#ref-frenkel2001); <span id="cite-tuckerman2010"></span>[Tuckerman,
+2010](#ref-tuckerman2010)).
+
 The running example here is deliberately modest: FCC argon at a fixed density
 and temperature. Argon is not the scientific destination of the series. It is a
 cheap controlled system for making the bookkeeping impossible to skip. The same
@@ -464,5 +471,5 @@ all been reviewed against the same reproducibility contract.
 
 ## References
 
-- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a>
