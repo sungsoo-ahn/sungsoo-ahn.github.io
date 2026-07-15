@@ -57,7 +57,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read<span class="sr-only">; part {{ post.series_order }} of {{ tutorial_count }}</span>
           </div>
         </div>
       </div>
