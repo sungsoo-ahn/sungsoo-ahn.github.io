@@ -67,42 +67,42 @@
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post03_error_diagnostics.svg",
       "kind": "figure",
       "post": "03",
-      "sha256": "a58d880f691d73353fe6b5a3f9aa8d777888b056ba3afdf36674864440040130",
+      "sha256": "ae8615aed6de76fb9669590c5f7df947389de5f04694daa02c948b4fa0d91c45",
       "source": "/home/sungs/kups-md-tutorials/figures/post-03/error_diagnostics_full.svg"
     },
     {
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post03_error_diagnostics.png",
       "kind": "figure",
       "post": "03",
-      "sha256": "80472f45811976732536543b677352cec9e789d305e06f35fd98d0eaa494afe4",
+      "sha256": "56db6bfd69a0ef2cfb7b150fca5de9263825f8b872a8ce3c2703c626939d4004",
       "source": "/home/sungs/kups-md-tutorials/figures/post-03/error_diagnostics_full.png"
     },
     {
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/argon_nve_samples.csv",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "ca99450505a5d4b440f0564e03b012b843b68111d433677d6bdadbe170b06aa8",
+      "sha256": "d6e0d6251854c2d61bac5bd9404aadc473846f96e44aee4d9b70ad69e94cc9c1",
       "source": "/home/sungs/kups-md-tutorials/results/post-03/full/argon_nve_samples.csv"
     },
     {
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/error_samples.csv",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "854cb23008d1b8b4e4334b023bc722538b6d7486081be762248e47965f2b27cc",
+      "sha256": "dc20a4200c585ccbadcc3b216fc694d4bf6d9c0700e59135a1aa871c66105ea9",
       "source": "/home/sungs/kups-md-tutorials/results/post-03/full/error_samples.csv"
     },
     {
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/error_summary.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "20a3670c18b96b2070ec4a7de757671cbe267702d7195d70cc7b67dad8734351",
+      "sha256": "bde8470bc51b4a7d46b8da10127072b726bb858354fe6a5ebb22e7e4a33c3b4e",
       "source": "/home/sungs/kups-md-tutorials/results/post-03/full/error_summary.json"
     },
     {
       "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-03/full/manifest.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "3cce425bccd58aaaf63e6e8207b42d65ca47e394ef55de40a2b32ce894dd76a5",
+      "sha256": "e36e4e84efa4c1e5e2c4d74153ea13ba2e47b8798054d1cad33a30e511466736",
       "source": "/home/sungs/kups-md-tutorials/results/post-03/full/manifest.json"
     },
     {
@@ -492,5 +492,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "3df4d73d84bf74930715d436e667e50366c99d4b"
+  "source_git_revision": "79e95afa8c174c5db2d4880cfe838476d4810b9a"
 }
