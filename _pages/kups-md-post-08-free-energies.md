@@ -431,8 +431,8 @@ configuration loader, free-energy diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. For the current full profile, the
 configuration hash is
-`ce962a26cd12d9dfd62c36c8114f8de7c6c784519749fd84d1bbd59664e59aa7`, the
-recorded source revision is `77ddc60ae82aa8dca9d2cd0ad4029fa493b7a188`, and
+`bcc20425a35ce733a709a9f9f586c0f54fff3e300c58f394be66892b6d085a9a`, the
+recorded source revision is `ebcbcd2ff3172e211b2439f0543221381addbb32`, and
 the runtime device is CPU.
 
 The compact outputs include the summary JSON and PMF curve table, including
