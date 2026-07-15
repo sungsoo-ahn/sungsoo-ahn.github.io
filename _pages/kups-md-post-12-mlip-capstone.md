@@ -43,12 +43,20 @@ id="cite-behler2007"></span>[Behler & Parrinello, 2007](#ref-behler2007);
 <span id="cite-bartok2010"></span>[Bartok et al., 2010](#ref-bartok2010);
 <span id="cite-batzner2022"></span>[Batzner et al., 2022](#ref-batzner2022);
 <span id="cite-batatia2022"></span>[Batatia et al., 2022](#ref-batatia2022)).
+Validation guidance for MLIPs makes the same deployment point: a potential
+should be reviewed against the physical task it will be used for, not only
+against a single static test metric (<span id="cite-morrow2023"></span>[Morrow
+et al., 2023](#ref-morrow2023)).
 
 This draft demonstrates the executable slice of the twelfth tutorial with
 three fcc-Al reliability regimes. The configured model artifact is recorded as
 `mace-mp-0b3-medium.model` from `mace-foundations/mace-mp-0`, pinned at
 revision `e291ace`, with SHA-256
 `2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012`.
+The artifact belongs to the MACE-MP-0 foundation-model family, which is useful
+for broad initial exploration but still needs task-specific validation before
+quantitative production claims (<span id="cite-batatia2025"></span>[Batatia
+et al., 2025](#ref-batatia2025)).
 
 The target reader already knows how MLIPs are trained and evaluated on static
 structures. The capstone question is different: what evidence is needed before
@@ -294,7 +302,10 @@ The current page pins `mace-mp-0b3-medium.model` from
 `mace-foundations/mace-mp-0` at revision `e291ace` and records the downloaded
 file's SHA-256 hash. That fixes model-file provenance for this hidden draft,
 but it does not turn the surrogate numerical diagnostic into a production
-MACE/fcc-Al result.
+MACE/fcc-Al result. The validation question remains tied to the intended task:
+the same artifact can be adequate for a qualitative pilot and inadequate for a
+published fcc-Al free-energy or dynamics claim ([Morrow et al.,
+2023](#ref-morrow2023); [Batatia et al., 2025](#ref-batatia2025)).
 
 The final GPU pass should freeze:
 
@@ -342,6 +353,15 @@ The final capstone should replace the deterministic surrogate with a real
 MACE/fcc-Al production run. The controlled workflow should remain as a smoke
 and review harness, but the public scientific claims should be based on GPU
 outputs from the verified model artifact.
+
+That final pass should be planned before the run starts. The protocol should
+state the exact MACE artifact and repository revision, the fcc-Al cell and
+initialization path, timestep and precision policy, neighbor/cutoff settings,
+thermostat or NVE handoff, trajectory length and replica plan, model-support
+diagnostics, observable/free-energy targets, and the rule for rejecting or
+narrowing claims when extrapolation, drift, uncertainty, or neighbor risk is
+too large. The current surrogate diagnostic exercises that review structure,
+but it is not a substitute for the real GPU production evidence.
 
 The production pass should include:
 
@@ -440,14 +460,17 @@ This page is not the final article. The implemented pieces are:
 - committed compact summaries and diagnostic samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
+- rendered desktop and mobile page snapshots for the hidden draft
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - real MACE/fcc-Al GPU production run
 - final 3,500-10,000-word article prose
-- rendered desktop and mobile page snapshots
-- final citation pass
+- rendered desktop and mobile page snapshots after final production diagnostics
+  or any public-indexing change
+- additional citations if the final production article adds new scientific
+  claims beyond the current controlled MLIP-reliability and protocol discussion
 
 The rule for this post is that an MLIP is part of the simulation method, not a
 drop-in oracle. Provenance, extrapolation, drift, and uncertainty diagnostics
@@ -459,3 +482,5 @@ are part of the scientific result.
 - <span id="ref-bartok2010"></span>Bartok, A. P., Payne, M. C., Kondor, R. & Csanyi, G. (2010). Gaussian approximation potentials: The accuracy of quantum mechanics, without the electrons. *Physical Review Letters*, 104, 136403. <a href="#cite-bartok2010" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-batzner2022"></span>Batzner, S. et al. (2022). E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials. *Nature Communications*, 13, 2453. <a href="#cite-batzner2022" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-batatia2022"></span>Batatia, I. et al. (2022). MACE: Higher order equivariant message passing neural networks for fast and accurate force fields. *NeurIPS Workshop*. <a href="#cite-batatia2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-morrow2023"></span>Morrow, J. D., Gardner, J. L. A. & Deringer, V. L. (2023). How to validate machine-learned interatomic potentials. *The Journal of Chemical Physics*, 158, 121501. <a href="#cite-morrow2023" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-batatia2025"></span>Batatia, I. et al. (2025). A foundation model for atomistic materials chemistry. *The Journal of Chemical Physics*, 163, 184110. <a href="#cite-batatia2025" class="reversefootnote" role="doc-backlink">↩</a>
