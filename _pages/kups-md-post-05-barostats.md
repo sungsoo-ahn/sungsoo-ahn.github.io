@@ -35,6 +35,10 @@ For ML researchers, the practical question is not whether one pressure number
 looks close to a target. It is whether the volume distribution has the right
 scale, whether pressure fluctuations are interpreted statistically, and whether
 the cell-coupling dynamics distort the observables that will be measured later.
+The diagnostic vocabulary used here follows standard NPT simulation and
+fluctuation-analysis references rather than treating the barostat as a black
+box (<span id="cite-frenkel2001"></span>[Frenkel & Smit, 2001](#ref-frenkel2001);
+<span id="cite-tuckerman2010"></span>[Tuckerman, 2010](#ref-tuckerman2010)).
 
 This draft demonstrates the executable slice of the fifth tutorial with a
 controlled scalar-volume model, a reduced-unit argon pressure-volume sweep,
@@ -102,7 +106,10 @@ pressure contains kinetic and configurational terms, and instantaneous values
 are noisy in small boxes. A single snapshot pressure can be far from the target
 without indicating failure. A useful NPT diagnostic therefore looks at the
 distribution: the mean pressure, volume mean, volume variance, pressure
-variance, and cell autocorrelation.
+variance, and cell autocorrelation. The point is rooted in ensemble-fluctuation
+theory: finite systems have real thermodynamic fluctuations, and those
+fluctuations depend on the ensemble and the measured observable
+(<span id="cite-lebowitz1967"></span>[Lebowitz et al., 1967](#ref-lebowitz1967)).
 
 This is why the phrase "set pressure to 1 bar" is incomplete. A production
 protocol should say which ensemble is intended, which cell degrees of freedom
@@ -135,7 +142,12 @@ The same configuration also carries a compact atomistic check:
 
 In the NPT ensemble, volume variance is proportional to compressibility. A
 barostat that suppresses this variance is not merely "more stable"; it may be
-sampling the wrong ensemble.
+sampling the wrong ensemble. The usual fluctuation relation connects
+isothermal compressibility to volume fluctuations in the constant-pressure
+ensemble, which is why this page checks variance rather than only the mean
+volume (<span id="cite-frenkel2001b"></span>[Frenkel & Smit,
+2001](#ref-frenkel2001); <span id="cite-tuckerman2010b"></span>[Tuckerman,
+2010](#ref-tuckerman2010)).
 
 For an isotropic scalar-volume model, the useful relation is that the volume
 variance should scale with kT times the isothermal compressibility times the
@@ -189,7 +201,12 @@ average as the system grows, but small tutorial boxes are deliberately small.
 They are useful for speed and debugging, not for claiming high-precision
 equations of state. A pressure diagnostic should therefore state system size,
 trajectory length, sampling interval, equilibration discard, and uncertainty
-or at least effective sample count.
+or at least effective sample count. This is the practical side of the
+finite-system fluctuation problem: large instantaneous pressure excursions in
+small periodic cells are not automatically a barostat failure, but they do
+require statistical averaging and uncertainty reporting
+(<span id="cite-lebowitz1967b"></span>[Lebowitz et al.,
+1967](#ref-lebowitz1967)).
 
 For the scalar part of this page, the controlled model avoids the atomistic
 virial entirely. That is an advantage for teaching the diagnostic and a
@@ -206,7 +223,11 @@ The relaxation time controls how quickly the cell variable responds. A very
 short relaxation time can make the cell chase instantaneous noise. A very long
 relaxation time can make the cell change so slowly that the trajectory has few
 independent volume samples. Both failures can pass a superficial "mean
-pressure near target" check.
+pressure near target" check. Extended-system NPT algorithms make this coupling
+choice explicit: the barostat equations and their splitting determine the cell
+memory and the ensemble sampled by the trajectory
+(<span id="cite-martyna1994"></span>[Martyna et al.,
+1994](#ref-martyna1994)).
 
 The scalar diagnostic is designed to isolate this point. The target
 distribution is the same for all three barostat settings. Only the relaxation
@@ -288,7 +309,11 @@ Anisotropic and flexible-cell barostats introduce more choices. The cell
 matrix can change lengths independently, and in fully flexible schemes it can
 also change angles. These extra degrees of freedom are necessary for some
 solids, interfaces, and stressed systems, but they can also introduce rotation,
-shear, or shape instabilities if used without care.
+shear, or shape instabilities if used without care. The classic
+Parrinello-Rahman construction is the reference point for treating the cell
+shape and size as dynamical variables under applied stress
+(<span id="cite-parrinello1981"></span>[Parrinello & Rahman,
+1981](#ref-parrinello1981)).
 
 The important question is what mechanical boundary condition the simulation is
 supposed to represent. If the material is a bulk isotropic liquid, suppressing
@@ -345,7 +370,10 @@ variables. The numerical splitting, timestep, and coupling constants determine
 how energy flows between physical and cell degrees of freedom. If the
 thermostat is too aggressive, it can mask integration or force-model problems.
 If the barostat is too aggressive, it can inject cell noise that the thermostat
-then removes.
+then removes. Modern constant-pressure algorithms therefore specify the
+thermostat, barostat, and integration order together, not as independent
+post-processing choices (<span id="cite-martyna1994b"></span>[Martyna et al.,
+1994](#ref-martyna1994)).
 
 The simple review habit is to check NVT before NPT. If NVT does not sample or
 conserve as expected, NPT will be harder to interpret. Once NPT is enabled,
@@ -497,14 +525,15 @@ This page is not the final article. The implemented pieces are:
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
+- final citations for NPT ensemble fluctuations, compressibility relations,
+  barostat coupling, flexible-cell coupling, and finite-size pressure
+  fluctuations
 
 The missing pieces are:
 
 - final kUPS production NPT dynamics diagnostics with full atomistic
   thermostat/barostat settings, GPU provenance, and production stress/cell
   checks
-- citations for NPT ensemble fluctuations, compressibility, barostat coupling,
-  and finite-size pressure fluctuations
 - rendered desktop and mobile page snapshots after the final production NPT
   diagnostic is added
 - final consistency pass after the production dynamics diagnostic is added
@@ -515,6 +544,8 @@ all been reviewed against the same reproducibility contract.
 
 ## References
 
-- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press.
-- <span id="ref-martyna1994"></span>Martyna, G. J., Tobias, D. J. & Klein, M. L. (1994). Constant pressure molecular dynamics algorithms. *Journal of Chemical Physics*, 101, 4177-4189.
-- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press.
+- <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-frenkel2001b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-tuckerman2010b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-lebowitz1967"></span>Lebowitz, J. L., Percus, J. K. & Verlet, L. (1967). Ensemble dependence of fluctuations with application to machine computations. *Physical Review*, 153, 250-254. <a href="#cite-lebowitz1967" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-lebowitz1967b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-martyna1994"></span>Martyna, G. J., Tobias, D. J. & Klein, M. L. (1994). Constant pressure molecular dynamics algorithms. *Journal of Chemical Physics*, 101, 4177-4189. <a href="#cite-martyna1994" class="reversefootnote" role="doc-backlink">↩</a> <a href="#cite-martyna1994b" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-parrinello1981"></span>Parrinello, M. & Rahman, A. (1981). Polymorphic transitions in single crystals: A new molecular dynamics method. *Journal of Applied Physics*, 52, 7182-7190. <a href="#cite-parrinello1981" class="reversefootnote" role="doc-backlink">↩</a>
