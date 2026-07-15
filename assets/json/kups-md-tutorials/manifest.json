@@ -1,62 +1,41 @@
 {
   "files": [
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post07_observable_diagnostics.svg",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post08_free_energy_diagnostics.svg",
       "kind": "figure",
-      "post": "07",
-      "sha256": "c8c2da8b9c408608a20a3f3ba981882d9aee8b1bc6866d2e2ec59a95764855f9",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-07/observable_diagnostics_full.svg"
+      "post": "08",
+      "sha256": "90896d680126761a5eea265c7c8e8131578657022638639cef94fac845601cdb",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-08/free_energy_diagnostics_full.svg"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post07_observable_diagnostics.png",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post08_free_energy_diagnostics.png",
       "kind": "figure",
-      "post": "07",
-      "sha256": "48fc1780ef904e834f9abed60e74d87f854675ad8dabbce51c4bda7dc2173934",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-07/observable_diagnostics_full.png"
+      "post": "08",
+      "sha256": "7ea837f3a16431898a5c8c6152574f3fb63c6d9e25813500cfde069033a655c8",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-08/free_energy_diagnostics_full.png"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/argon_trajectory_rdf_samples.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-08/full/free_energy_curves.csv",
       "kind": "compact-result",
-      "post": "07",
-      "sha256": "f6d88405e47cc39d5a07c007408d92a6ccaf01987fc7459f00b37450e0201484",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/argon_trajectory_rdf_samples.csv"
+      "post": "08",
+      "sha256": "95e61c464aad9a4853169848529f6830607be7a91ad494454c28d221d974ae94",
+      "source": "/home/sungs/kups-md-tutorials/results/post-08/full/free_energy_curves.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/argon_trajectory_vacf_samples.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-08/full/free_energy_summary.json",
       "kind": "compact-result",
-      "post": "07",
-      "sha256": "76810a176673a9519098619812299b6621308090d98bc12f36a504b9879da6e3",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/argon_trajectory_vacf_samples.csv"
+      "post": "08",
+      "sha256": "22e4440f6221d84e30643676169b84ac98ad2bf7f2c8cae8978f4ff0be534c7f",
+      "source": "/home/sungs/kups-md-tutorials/results/post-08/full/free_energy_summary.json"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/manifest.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-08/full/manifest.json",
       "kind": "compact-result",
-      "post": "07",
-      "sha256": "1250094a2b6f33573156b052702aa489d2b9baad58100c88054b25ac8f5571d2",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/manifest.json"
-    },
-    {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/observable_summary.json",
-      "kind": "compact-result",
-      "post": "07",
-      "sha256": "43e3b876875c02847fc919c5a0760296964d083c8143bc2a06c0747821343cc4",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/observable_summary.json"
-    },
-    {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/rdf_samples.csv",
-      "kind": "compact-result",
-      "post": "07",
-      "sha256": "e35237eeca77ff803a35863bc8339cd67534437e1acbdd092a82cb40ea7d2866",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/rdf_samples.csv"
-    },
-    {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-07/full/vacf_samples.csv",
-      "kind": "compact-result",
-      "post": "07",
-      "sha256": "179be2a68983fae4d4509815fca5b31e1ea04b390809c55ace9c9336efe57c3c",
-      "source": "/home/sungs/kups-md-tutorials/results/post-07/full/vacf_samples.csv"
+      "post": "08",
+      "sha256": "12ec3f853ee97c72c929d350d03d5aa811eabcbab85bdec8cfa2dceb4e02cba2",
+      "source": "/home/sungs/kups-md-tutorials/results/post-08/full/manifest.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "c1e3058be3b2ce658de5cf995ad56f010cca31a3"
+  "source_git_revision": "82fe878dbecd0a51ca7c2f84b2e0e128b8f8dbd2"
 }

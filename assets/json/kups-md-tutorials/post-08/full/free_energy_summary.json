@@ -3,6 +3,7 @@
     "atom_count": 108,
     "finite_pmf_bins": 52,
     "frame_count": 551,
+    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
     "masked_low_rdf_bins": 32,
     "max_block_pmf_sem": 0.02904577494140013,
     "max_replica_pmf_std": 0.061596542439163675,
@@ -12,8 +13,10 @@
     "pmf_barrier_height": 1.6428833417866573,
     "pmf_minimum_radius": 1.125,
     "pmf_minimum_value": 0.0,
+    "production_gpu_ready": false,
     "rdf_first_peak_radius": 1.125,
     "rdf_first_peak_value": 3.01124983152954,
+    "runtime_device": "jax:cpu;devices:cpu",
     "support_threshold_finite_bins": [
       53,
       52,
@@ -35,6 +38,8 @@
       0.05,
       0.1
     ],
+    "target_device": "cuda_or_cpu_fallback",
+    "target_requests_gpu": true,
     "temperature": 0.7,
     "uncertainty_block_count": 4,
     "uncertainty_replica_count": 3
@@ -70,7 +75,7 @@
       "rmse_vs_true": 0.5906367378809873
     }
   ],
-  "config_sha256": "bcc20425a35ce733a709a9f9f586c0f54fff3e300c58f394be66892b6d085a9a",
+  "config_sha256": "7d98bc849d66ecd7769dca29ede00e593774fd47e4b1c2854ef4e7b428ed6703",
   "domain_max": 2.5,
   "domain_min": -2.5,
   "post": "08",
