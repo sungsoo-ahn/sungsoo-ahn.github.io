@@ -1,48 +1,41 @@
 {
   "files": [
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post10_umbrella_diagnostics.svg",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
       "kind": "figure",
-      "post": "10",
-      "sha256": "6551bc5c755fc728736691c507052142203c98b7b85313011b3872cfd88afd8b",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-10/umbrella_diagnostics_full.svg"
+      "post": "11",
+      "sha256": "6ea56cd3fbb62ab133f33ad8fba447c174b23ce2503ff609ad0b9cb8f3158da4",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-11/enhanced_sampling_diagnostics_full.svg"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post10_umbrella_diagnostics.png",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
       "kind": "figure",
-      "post": "10",
-      "sha256": "aa5700fd62537b344daae1246d39ebd66e0d0c6c2b3d3685f6472a47bc1673c9",
-      "source": "/home/sungs/kups-md-tutorials/figures/post-10/umbrella_diagnostics_full.png"
+      "post": "11",
+      "sha256": "ff5bb37dee63b28662435aedb123da0832527f2528c2b478134915ba61062332",
+      "source": "/home/sungs/kups-md-tutorials/figures/post-11/enhanced_sampling_diagnostics_full.png"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-10/full/manifest.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
       "kind": "compact-result",
-      "post": "10",
-      "sha256": "12177686275267ee0435d31dc537c78db283a3745f1d344d6c6b1d1647977fb9",
-      "source": "/home/sungs/kups-md-tutorials/results/post-10/full/manifest.json"
+      "post": "11",
+      "sha256": "9cc803d2af86cc6cb0983dd688ec86625a502b0614b09db406462c7aa3130f5c",
+      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/enhanced_sampling_curves.csv"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-10/full/umbrella_curves.csv",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_summary.json",
       "kind": "compact-result",
-      "post": "10",
-      "sha256": "333229d94380680d1d621f3daa5d32e2ab8724a97e882b573ca55895c3b00461",
-      "source": "/home/sungs/kups-md-tutorials/results/post-10/full/umbrella_curves.csv"
+      "post": "11",
+      "sha256": "3c58f9b2a601951222caa49f3a87f9c231aa3425e61b4d746425e61406324d4f",
+      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/enhanced_sampling_summary.json"
     },
     {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-10/full/umbrella_summary.json",
+      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-11/full/manifest.json",
       "kind": "compact-result",
-      "post": "10",
-      "sha256": "00cf141220a1cde2a4f82db9232c2029aed314c51cccd13c1c3378a2f66eafc9",
-      "source": "/home/sungs/kups-md-tutorials/results/post-10/full/umbrella_summary.json"
-    },
-    {
-      "destination": "/home/sungs/sungsoo-ahn.github.io/assets/json/kups-md-tutorials/post-10/full/umbrella_windows.csv",
-      "kind": "compact-result",
-      "post": "10",
-      "sha256": "79e225266b4ca8e06df783fe128454c5bd290cba3d335ca49b1ca0082fd90ba5",
-      "source": "/home/sungs/kups-md-tutorials/results/post-10/full/umbrella_windows.csv"
+      "post": "11",
+      "sha256": "e53b2fb05f6a1c4a075b958d89f394441ca8eb93cc64a2d035853b53440be6c3",
+      "source": "/home/sungs/kups-md-tutorials/results/post-11/full/manifest.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "ec4bf4eb96bf66be2647282f0f0c44afad192e74"
+  "source_git_revision": "66c25c2f9b8dd6e79728d70341583f63f94a4526"
 }

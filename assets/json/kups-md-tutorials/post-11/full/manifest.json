@@ -22,6 +22,23 @@
       "seed": 2026071411,
       "temperature": 1.0
     },
+    "pair_distance_steered": {
+      "domain_max": 2.45,
+      "domain_min": 0.92,
+      "end_radius": 2.2,
+      "epsilon": 1.0,
+      "fast_path_steps": 90,
+      "grid_points": 801,
+      "noise_scale": 0.025,
+      "path_count": 8000,
+      "seed": 2026071811,
+      "sigma": 1.0,
+      "slow_path_steps": 540,
+      "start_radius": 1.08,
+      "target_device": "cuda_or_cpu_fallback",
+      "temperature": 0.7,
+      "trap_force_constant": 42.0
+    },
     "post": "11",
     "profile": "full",
     "title": "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
@@ -29,8 +46,8 @@
   "curves_file": "enhanced_sampling_curves.csv",
   "provenance": {
     "config_path": "configs/post-11/full.json",
-    "config_sha256": "6211ec8ffc66d02bb3bb71d3fc84fe364456b2df01e42c8c350041eb99d84535",
-    "git_revision": "f8b7104b415ffdf71827d6f6f99863d1ff1359e7",
+    "config_sha256": "29f19850d439bb4d2f6e77752c0f30a4532b52fb459871b92f5d044406e82a06",
+    "git_revision": "66c25c2f9b8dd6e79728d70341583f63f94a4526",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
