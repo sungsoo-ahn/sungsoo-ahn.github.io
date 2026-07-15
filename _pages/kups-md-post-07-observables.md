@@ -133,6 +133,7 @@ check:
 | trajectory replicas | 3 | seed-shifted initialization sensitivity |
 | coordination replica SE | 0.028 | trajectory-level uncertainty check |
 | max RDF replica std | 0.051 | radial-bin replica disagreement |
+| VACF integral replica SE | 0.012 | time-correlation tail sensitivity |
 
 The small-cell RDF is not drawn beyond half the periodic box length. Those
 radial shells are not valid for a minimum-image RDF estimator, even if a plotting
@@ -254,8 +255,9 @@ workflow.
 They do not support a diffusion claim for real argon. A diffusion coefficient
 from a VACF integral would require physical units, careful tail treatment,
 finite-size analysis, and uncertainty on the integral. The compact trajectory
-check now adds physical reduced-unit velocities, but a larger kUPS production
-trajectory is still needed before making any public dynamical claim.
+check now adds physical reduced-unit velocities and a three-replica VACF
+standard-deviation band, but a larger kUPS production trajectory is still
+needed before making any public dynamical claim.
 
 ## What Should The Diagnostic Show?
 
@@ -263,10 +265,11 @@ The full run checks four things. The RDF panel shows the normalized pair
 estimator rather than a raw distance histogram. The coordination panel turns
 that curve into a first-shell integral with a block standard error. The VACF
 panel treats time correlation as its own observable, not as a side effect of
-the trajectory. The compact argon panel applies the RDF estimator to actual
+the trajectory, and overlays the compact argon VACF with a seed-shifted
+replica band. The compact argon panel applies the RDF estimator to actual
 sampled trajectory frames and overlays seed-shifted replica disagreement.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF is a time-correlation estimator, and the compact argon trajectory panel shows the same RDF machinery on sampled frames with a three-replica RDF uncertainty band." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF panel overlays controlled and compact trajectory correlations with replica spread, and the compact argon trajectory panel shows the same RDF machinery on sampled frames with a three-replica RDF uncertainty band." %}
 
 The figure is intentionally estimator-focused. The controlled RDF panel
 compares the 32- and 256-atom cells while respecting the small-cell finite-size
@@ -293,15 +296,15 @@ be estimated directly from block-level coordination values. For a VACF,
 uncertainty depends on lag and time-origin count.
 
 The current diagnostic uses block uncertainty for the controlled coordination
-number and replica uncertainty for the compact trajectory RDF/coordination
-check. The compact trajectory reports a coordination block SE of about `0.030`,
-a coordination replica SE of about `0.028`, a first-peak radius replica standard
-deviation of about `0.017`, and a maximum RDF-bin replica standard deviation of
-about `0.051`. It still does not put uncertainty bands on the controlled RDF or
-VACF curves. That is acceptable for this hidden draft because the claims are
-focused on normalization, finite-size support, and the first-shell coordination
-value. A final production article should expand uncertainty treatment for curves
-if the curve shape is used to support a scientific claim.
+number and replica uncertainty for the compact trajectory RDF, coordination,
+and VACF checks. The compact trajectory reports a coordination block SE of
+about `0.030`, a coordination replica SE of about `0.028`, a first-peak radius
+replica standard deviation of about `0.017`, a maximum RDF-bin replica standard
+deviation of about `0.051`, and a VACF integral replica SE of about `0.012`.
+The VACF integral ranges from about `-0.017` to `0.021` across compact
+replicas, which is a warning against over-reading the short reduced-unit
+trajectory tail. A final production article should expand uncertainty
+treatment for any curve shape used to support a scientific claim.
 
 The uncertainty method should match the sampling problem. If frames are
 correlated, treating every frame as independent underestimates uncertainty. If
@@ -469,7 +472,8 @@ This page is not the final article. The implemented pieces are:
 
 - smoke and full controlled argon-FCC observable workflows
 - compact reduced-unit argon trajectory observable workflow
-- committed compact RDF, VACF, replica RDF-uncertainty, and summary outputs
+- committed compact RDF, VACF, replica RDF/VACF uncertainty, and summary
+  outputs
 - executable notebook
 - generated SVG/PNG figure and snapshot review
 - self-review note covering code, science, notebook, and figure feedback
