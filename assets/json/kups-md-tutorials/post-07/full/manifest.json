@@ -18,6 +18,8 @@
       "sigma": 1.0,
       "temperature": 0.7,
       "time_step": 0.002,
+      "uncertainty_block_count": 4,
+      "uncertainty_replica_count": 3,
       "warmup_steps": 1000
     },
     "experiment": {
@@ -48,8 +50,8 @@
   },
   "provenance": {
     "config_path": "configs/post-07/full.json",
-    "config_sha256": "ae9b991dee64e91d1779bfa8200fffa4f1b6bf35abff3fccd8a6ace67b9e386c",
-    "git_revision": "f929899fa5ea3d516e0e2a5906966590de07611d",
+    "config_sha256": "598620d4d2614fb617295b8df2630466623a0433ad39a7cff40ee8a6f2ea9aec",
+    "git_revision": "3df4d73d84bf74930715d436e667e50366c99d4b",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
