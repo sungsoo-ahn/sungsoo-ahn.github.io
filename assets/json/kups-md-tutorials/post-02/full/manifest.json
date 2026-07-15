@@ -26,10 +26,15 @@
     },
     "title": "What Does an MD Integrator Actually Approximate?"
   },
+  "execution": {
+    "elapsed_seconds": 0.021,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-02/full.json",
     "config_sha256": "f50d0058bc90342e80be4a9ea6e7b25bbd7defbfe39a5bec72e27056ea46e388",
-    "git_revision": "7a55c398c1768cba9e065646ed35c15abc8d2891",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

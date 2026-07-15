@@ -44,10 +44,15 @@
     "title": "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
   },
   "curves_file": "enhanced_sampling_curves.csv",
+  "execution": {
+    "elapsed_seconds": 1.943,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-11/full.json",
     "config_sha256": "29f19850d439bb4d2f6e77752c0f30a4532b52fb459871b92f5d044406e82a06",
-    "git_revision": "66c25c2f9b8dd6e79728d70341583f63f94a4526",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

@@ -67,10 +67,15 @@
     "profile": "full",
     "title": "How Should Pressure and Cell Degrees of Freedom Be Coupled?"
   },
+  "execution": {
+    "elapsed_seconds": 84.858,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-05/full.json",
     "config_sha256": "d9da66ce28211ce45668052d4aaed25f8f5f7e58ed34c79f7a9f10103520a92f",
-    "git_revision": "9f5ee463377d42ab75f764d47a7e31ad15e2b530",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

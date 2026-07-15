@@ -70,10 +70,15 @@
     },
     "title": "How Do Thermostats Change Sampling and Dynamics?"
   },
+  "execution": {
+    "elapsed_seconds": 104.511,
+    "max_full_profile_seconds": 3600,
+    "measured_by": "kups_md_tutorials.workflows.run_post"
+  },
   "provenance": {
     "config_path": "configs/post-04/full.json",
     "config_sha256": "f90d6f7c70eaa506e678c7fa9ee24b76795414e4e64980502815eeed4e3eb45d",
-    "git_revision": "ff0df9deae3cde52ae647e7e88e862839046f16e",
+    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
