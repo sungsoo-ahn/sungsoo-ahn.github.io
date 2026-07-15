@@ -345,6 +345,27 @@ added, windows were moved, or samples were discarded because diagnostics failed,
 that history explains the final protocol. A concise failure log can be more
 useful than a polished final table alone.
 
+## When Should the Claim Be Narrowed?
+
+The review decision should be made before looking for a flattering summary
+number. If overlap is connected, ESS remains healthy, directions agree within
+uncertainty, and the high-weight configurations pass model checks, the result
+can support the stated free-energy claim. If one of those conditions fails, the
+claim should be narrowed to what the diagnostics actually support.
+
+That narrowing can take several forms. A poor endpoint calculation might become
+a statement that more intermediate states are needed. A fragile reweighting
+calculation might become a qualitative comparison rather than a quantitative
+barrier estimate. An MLIP calculation whose high-weight frames leave the model
+domain might become a model-validation failure, even if BAR returns a stable
+number. In each case, the estimator did useful work: it identified the
+boundary of the defensible claim.
+
+This is also why negative diagnostics belong in the article body. They are not
+embarrassing side notes. They tell readers which part of the protocol carried
+probability mass, which part did not, and which scientific conclusion survived
+the estimator review.
+
 ## What Should The Diagnostic Show?
 
 The full run compares forward FEP, reverse FEP, and BAR against the known
