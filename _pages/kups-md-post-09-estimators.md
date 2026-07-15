@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-09-estimators/
 title: "What Do Free-Energy Estimators Assume?"
 date: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 description: "A reproducible free-energy estimator diagnostic for FEP, BAR, overlap, effective sample size, and estimator failure modes."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -432,9 +432,16 @@ configuration loader, estimator diagnostics, and figure generator from
 hash, source Git revision, lockfile hash, Python version, platform, precision
 policy, runtime device, and package versions. For the current full profile, the
 configuration hash is
-`281e2a5263e75449ec89785e20e7f02f68298a17159ddec0f18cc66d2fff6a6c`, the
-recorded source revision is `ffbf49effecb7ccac823145c58c073e0c8cd731c`, and
-the runtime device is CPU.
+`54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125`, the
+recorded source revision is `98dc7cb2b3a6828141117f80de81bb9a242e57aa`, and
+the runtime device is `jax:cpu;devices:cpu`.
+
+| Provenance field | Value |
+|---|---|
+| configuration hash | `54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125` |
+| source revision | `98dc7cb2b3a6828141117f80de81bb9a242e57aa` |
+| runtime device | `jax:cpu;devices:cpu` |
+| precision policy | `jax_enable_x64=false;env_JAX_ENABLE_X64=unset` |
 
 ## Current Status
 
@@ -445,14 +452,14 @@ This page is not the final article. The implemented pieces are:
   multi-state bridge curves
 - executable notebook
 - generated SVG/PNG four-panel figure and snapshot review
+- rendered desktop and mobile page snapshots for the refreshed bridge panel
+  and provenance section
 - self-review note covering code, science, notebook, and figure feedback
 
 The missing pieces are:
 
 - final production-style estimator diagnostics if a later public article needs
   a chemistry-specific WHAM/MBAR or alchemical example
-- rendered desktop and mobile page snapshots for this refreshed bridge panel
-  and prose
 
 The rule for this post is that estimator reliability is an overlap question.
 More samples help only when they include the configurations that carry the
