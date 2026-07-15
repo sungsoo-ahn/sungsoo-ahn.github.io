@@ -2,14 +2,18 @@
   "argon_nve_protocol": {
     "atom_count": 256,
     "final_time_max": 7.2,
+    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
     "max_abs_normalized_energy_drift": 3.117547035951448e-05,
     "max_abs_relative_energy_error": 0.00026472729735704483,
     "mean_abs_normalized_energy_drift": 1.472723648273502e-05,
     "num_steps": 1200,
+    "production_gpu_ready": false,
     "protocol_label": "gpu_ready_lj_nve_replicas",
     "replica_count": 3,
     "replica_drift_standard_error_max": 2.793524444000255e-06,
+    "runtime_device": "jax:cpu;devices:cpu",
     "target_device": "cuda_or_cpu_fallback",
+    "target_requests_gpu": true,
     "time_step_count": 3,
     "unstable_run_count": 0
   },

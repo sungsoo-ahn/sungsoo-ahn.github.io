@@ -86,6 +86,8 @@ The full profile also includes a many-body NVE protocol check:
 |---|---:|---|
 | protocol label | gpu_ready_lj_nve_replicas | explicit production-style diagnostic path |
 | target device | cuda_or_cpu_fallback | records that this run used CPU fallback here |
+| runtime device | jax:cpu;devices:cpu | generated artifact provenance |
+| production GPU ready | false | CUDA/GPU target was not satisfied in this environment |
 | argon cell | 256 atoms | larger than the initial compact 108-atom check |
 | replicas | 3 velocity seeds | exposes initialization sensitivity |
 | timesteps | 0.0015, 0.003, 0.006 | checks timestep-dependent energy behavior |
@@ -213,7 +215,8 @@ shows that a deterministic force perturbation can move normalized drift away
 from the exact-force reference. The argon NVE panel checks the same reporting
 vocabulary on a 256-atom many-body Lennard-Jones argon cell rather than another
 one-dimensional oscillator, and the band shows the standard deviation across
-three independent velocity seeds.
+three independent velocity seeds. The panel legend also reports that this
+artifact is a CPU-fallback run, not a completed GPU production run.
 
 For the full NVE protocol, the maximum relative energy error across all
 timestep/replica runs is about `2.65e-4`, the maximum absolute normalized drift
@@ -414,9 +417,13 @@ should not be.
 This page does not prove that the final GPU kUPS or MLIP simulations are ready.
 The 256-atom argon NVE protocol is a stronger physical sanity check than the
 initial compact trace, but it still ran through the committed CPU fallback path
-in this environment. The review note keeps real GPU kUPS production diagnostics
-as a final-release item. The oscillator remains the mechanism-level diagnostic
-that makes the error vocabulary testable before production complexity is added.
+in this environment. The full summary now records `target_device =
+cuda_or_cpu_fallback`, `runtime_device = jax:cpu;devices:cpu`,
+`production_gpu_ready = false`, and the blocking reason: the target requested
+CUDA/GPU, but the generated artifact runtime was CPU. The review note keeps
+real GPU kUPS production diagnostics as a final-release item. The oscillator
+remains the mechanism-level diagnostic that makes the error vocabulary
+testable before production complexity is added.
 
 It also does not imply that MLIP errors are simple force-scale errors. Real
 learned potentials can have local extrapolation, nonuniform bias, inconsistent
@@ -459,6 +466,8 @@ the same standard. The implemented pieces are:
 - smoke and full controlled error-diagnostic workflows
 - 256-atom argon NVE reduced-unit energy-drift workflow with 3 velocity-seed
   replicas
+- machine-readable runtime-device and GPU-readiness provenance for the NVE
+  protocol
 - committed compact summaries and downsampled comparison samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
