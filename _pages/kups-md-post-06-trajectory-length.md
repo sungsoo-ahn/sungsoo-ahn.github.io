@@ -131,6 +131,15 @@ The same full profile also includes a compact physical-observable check:
 | checkpoints | 3000, 6000, 12000 | short-to-long atomistic estimator comparison |
 | dynamics | Langevin, gamma = 1.0 | simple thermalized reduced-unit trajectory |
 
+The physical-observable summary also records the runtime limitation explicitly:
+
+| Field | Full-profile value |
+|---|---|
+| target device | `cuda_or_cpu_fallback` |
+| runtime device | `jax:cpu;devices:cpu` |
+| production GPU ready | `false` |
+| blocking reason | target requested CUDA/GPU, but the generated runtime was CPU |
+
 The full run keeps the underlying process fixed and changes only how much data
 is allowed into the estimator. This separates the effect of trajectory length
 from changes in the model, integrator, or ensemble.
@@ -243,7 +252,7 @@ error, block standard error, replica standard error, and a conservative
 uncertainty used for review. The conservative uncertainty is intentionally not
 the smallest number available.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory-length diagnostics for the committed full profile. Running means retain memory, naive uncertainty is overconfident, effective sample size grows more slowly than retained frames, and the compact argon panel shows how replica disagreement can remain visible for a physical observable." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory-length diagnostics for the committed full profile. Running means retain memory, naive uncertainty is overconfident, effective sample size grows more slowly than retained frames, and the compact CPU-fallback argon panel shows how replica disagreement can remain visible for a physical observable." %}
 
 The figure is designed to make four separate claims. The running-mean panel
 shows that estimates can retain early-history memory. The uncertainty panel
@@ -429,11 +438,13 @@ The notebook is deliberately not the implementation source. It imports the
 configuration loader, uncertainty diagnostics, and figure generator from
 `src/kups_md_tutorials/`. The committed full manifest records the configuration
 hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, runtime device, and package versions. For the current full profile, the
+policy, target device, runtime device, GPU-readiness state, and package
+versions. For the current full profile, the
 configuration hash is
-`ecac9f6ecdb425afdce7320849badcbf4cc222178b75d21b9fc47debfa806076`, the
-recorded source revision is `386044aea007e3545fd663e2809bff3a382a3545`, and
-the runtime device is CPU.
+`6f78f4d49c0337b35ed454cab07e69b445423c1c8fba7fefc641370d4e539aa6`, the
+recorded source revision is `a382fdf8dbbd3c105f67d2063fbfd66750832cbb`, the
+target device is `cuda_or_cpu_fallback`, the runtime device is
+`jax:cpu;devices:cpu`, and the production GPU readiness flag is `false`.
 
 Those details matter because uncertainty estimates are protocol-dependent.
 Changing the seed, replica count, sampling interval, warmup length, or
@@ -469,6 +480,8 @@ This page is not the final article. The implemented pieces are:
 - smoke and full controlled trajectory-length workflows
 - compact reduced-unit argon potential-energy-per-atom and coordination-number
   trajectory-length workflow
+- machine-readable target-device, runtime-device, GPU-readiness, and blocking
+  reason provenance for the compact argon physical-observable diagnostic
 - committed compact summaries and downsampled samples
 - executable notebook
 - generated SVG/PNG figure and snapshot review
@@ -480,8 +493,8 @@ The missing pieces are:
   as density, RDF coordination, or time-correlation estimates
 - citations for autocorrelation, effective sample size, blocking analysis, and
   equilibration diagnostics beyond the current starter references
-- rendered desktop and mobile page snapshots for this expanded prose after the
-  coordination-number refresh
+- rendered desktop and mobile page snapshots after the final production
+  physical-observable diagnostic is added
 - final consistency pass after the production physical-observable diagnostic is
   added
 
