@@ -19,7 +19,7 @@ latest_posts:
   enabled: false
 
 members_content: |
-  [Yunhui Jang](https://yunhuijang.github.io/), [Hyosoon Jang](https://hsjang0.github.io/hsjang/), [Hyomin Kim](https://icecream126.github.io/), [Seonghyun Park](https://seonghyun26.github.io/hyun/), [Seongsu Kim](https://seongsukim-ml.github.io/), [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/), [Minkyu Kim](https://minkyu1022.github.io/mkkim/), [Dongyeop Woo](https://dongyeop3813.github.io/), [Nayoung Kim](https://nayoung10.github.io/), [Taewon Kim](https://holymollyhao.github.io), [Hyunjin Seo](https://hyunjin72.github.io/), [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/), [Yoonho Kim](https://yoonhokim0527.github.io/), [Honghui Kim (Postdoc)](https://honghuikim.github.io/)
+  [Yunhui Jang](https://yunhuijang.github.io/), [Hyosoon Jang](https://hsjang0.github.io/hsjang/), [Hyomin Kim](https://icecream126.github.io/), [Seonghyun Park](https://seonghyun26.github.io/hyun/), [Seongsu Kim](https://seongsukim-ml.github.io/), [Kiyoung Seong](https://kiyoung98.github.io/kiyoung/), [Minkyu Kim](https://minkyu1022.github.io/mkkim/), [Dongyeop Woo](https://dongyeop3813.github.io/), [Nayoung Kim](https://nayoung10.github.io/), [Taewon Kim](https://holymollyhao.github.io), [Hyunjin Seo](https://hyunjin72.github.io/), [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/), [Yoonho Kim](https://yoonhokim0527.github.io/), [Honghui Kim (Postdoc)](https://honghuikim.github.io/), [Seonghwan Kim (Postdoc)](https://seonghann.github.io/)
 
   **Alumni:** Haeji Ko, Juwon Hwang, [Minsu Kim](https://minsuukim.github.io/)
 ---
