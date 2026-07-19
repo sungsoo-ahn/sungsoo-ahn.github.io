@@ -59,14 +59,13 @@ Wyckoff Transformer (<span id="cite-kazeev2025"></span>[Kazeev et al., 2025](#re
 SymmCD (<span id="cite-levy2025"></span>[Levy et al., 2025](#ref-levy2025)),
 and CrystalFormer (<span id="cite-cao2025"></span>[Cao et al., 2025](#ref-cao2025)).
 This is only a selective snapshot; many relevant works remain outside this
-short list. The point is that MaskGXT was not improving an empty benchmark, but
+short list. The point is that HACO was not improving an empty benchmark, but
 competing against several years of domain-specific architecture design and
 generative-model development.
 
 ## How HACO worked
 
-Recent AI-for-science systems already show that language-model agents can help
-with scientific search. FunSearch
+Recent AI-for-science systems already show that language-model agents can help scientific search. FunSearch
 (<span id="cite-romeraparedes2024"></span>[Romera-Paredes et al., 2024](#ref-romeraparedes2024))
 and AlphaEvolve (<span id="cite-novikov2025"></span>[Novikov et al., 2025](#ref-novikov2025))
 demonstrated program search for mathematical and algorithmic discovery. The AI
@@ -79,19 +78,24 @@ research workflows.
 
 {% include video.liquid path="assets/video/maskgxt_agent_anim.mp4" class="img-fluid rounded z-depth-1 mx-auto d-block" poster="/assets/img/blog/maskgxt_agent.png" autoplay=true loop=true muted=true controls=true caption="<strong>The HACO loop.</strong> A tree-structured search organizes candidate CSP methods; each node is a complete generative model. The tree grows as idea, draft, debug, and improve operators are applied, while human input enters only sparsely as high-level mechanisms or objectives." %}
 
-HACO used familiar agent machinery: a tree of candidate methods, operators for
-idea generation, drafting, debugging, and improvement, executable experiments,
+HACO used familiar agent machinery: a tree of candidate methods; operators for
+idea generation, drafting, debugging, and improvement; executable experiments;
 and score-based selection. We did not ask it to tune a known CSP architecture.
 We asked it to search for a generative modeling principle that could transfer
 into CSP. Each node was not just a code patch or a hyperparameter setting. It
 was a complete CSP method, trained under a fixed budget and scored by validation
 METRe.
 
+The search did not end at one impressive chat response. It ran as an empirical
+process: propose a mechanism, write runnable code, train it, inspect the result,
+preserve what worked, and try again. Across roughly five hundred trials,
+research ideas became measurable bets rather than prose suggestions.
+
 Most branches did not survive validation. Autoregressive formulations were easy
 to instantiate but did not give the polymorph coverage we needed. Several
 continuous-interpolant ideas looked plausible on paper but were too expensive or
 unstable under the search budget. The MaskGIT branch was not obvious at the
-start; it became compelling because it combined parallel generation, discrete
+start, but it became compelling once it brought together parallel generation, discrete
 symmetry-aware representations, and a clean validation signal.
 
 The exploration covered fourteen cross-domain frameworks, including
@@ -120,11 +124,6 @@ Explore the full HACO search tree below.
 </div>
 
 {% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_trajectory.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>The research trajectory toward MaskGXT.</strong> Validation METRe against the number of trials; the black step line is the running best. The three shaded bands are the search stages, with the per-candidate budget escalating from 2h to 12h training and then 30m of sampling tuning." %}
-
-The search did not end at one impressive chat response. It ran as an empirical
-process: propose a mechanism, write runnable code, train it, inspect the result,
-preserve what worked, and try again. Across roughly five hundred trials,
-research ideas became measurable bets rather than prose suggestions.
 
 ## The resulting algorithm: MaskGXT
 
@@ -159,23 +158,22 @@ part of this sequence and learns to reconstruct the missing tokens. At sampling
 time, a transformer fills in the missing tokens through masked parallel
 decoding.
 
-That description makes the transfer sound cleaner than it was. Crystals are
+That description makes the transfer sound cleaner than it was. However, crystals are
 periodic, symmetry-redundant, and polymorphic: the same composition can form
 multiple valid structures, and the same structure can be written in many
 equivalent coordinate systems. MaskGXT had to make masked generation work under
 those constraints.
 
-The main algorithmic move came from the agent: recast CSP as masked discrete
-token generation. Once that branch survived validation, HACO refined it with
-periodic ordinal smoothing, confidence-ranked greedy decoding, and the
-Transformer scaling choices that made the branch competitive.
+The main algorithmic move came from HACO: it reframed CSP as masked discrete
+token generation. After that branch survived validation, the search refined it into a
+stronger model with periodic ordinal smoothing, confidence-ranked greedy decoding, and
+Transformer scaling choices that made the approach competitive.
 
-Human steering entered more sparsely. We pointed the search toward
-crystallographic structure where the agent lacked domain priors: explicit
-space-group and Wyckoff tokens, symmetry-preserving orbit permutation, polymorph
-coverage through space-group-stratified sampling, and an objective to recover
-sub-bin coordinate precision. The agent then implemented these ideas, tested
-them, and kept the versions that improved validation METRe.
+Human steering entered more selectively, mainly where the agent lacked crystallographic priors.
+We guided the search toward explicit space-group and Wyckoff tokens, symmetry-preserving
+orbit permutations, space-group-stratified sampling for polymorph coverage, and sub-bin
+coordinate refinement. HACO then implemented these mechanisms, tested them empirically,
+and retained the versions that improved validation METRe.
 
 MaskGXT should be read as a co-discovered method. The agent found the masked
 generation lineage and did most of the implementation-level development; humans
