@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -26,7 +26,7 @@ related_posts: false
 
 If you work on molecular generative models, you have seen acronyms such as NVT, NPT, and GCMC in simulation papers. These refer to ensembles, probability distributions over molecular configurations, and to the algorithms that sample from them. Understanding them is essential for knowing what your model's training data represents and which physical quantities your model can, or cannot, predict.
 
-Statistical mechanics textbooks often start from thermodynamics: Carnot cycles, heat engines, and the second law. For ML researchers, that is the long way around. We already think in terms of probability distributions, sampling, and expectations. The natural entry point is: what distribution are we sampling from, and why?
+Statistical mechanics textbooks often start from thermodynamics: Carnot cycles, heat engines, and the second law. For ML researchers, that is the long way around. We already think in terms of probability distributions, sampling, and expectations. Start with the distribution: what are we sampling from, and why?
 
 We start from atoms and forces, define macroscopic quantities as expectations, treat ensembles as modeling choices about distributions, and then describe the algorithms (thermostats, barostats, Monte Carlo) that sample from these distributions. Standard textbook treatments include <span id="cite-frenkel2001"></span>[Frenkel & Smit, 2001](#ref-frenkel2001) and <span id="cite-tuckerman2010"></span>[Tuckerman, 2010](#ref-tuckerman2010).
 
@@ -174,7 +174,7 @@ This matches standard laboratory conditions — most experiments are done at atm
 
 $$p(\mathbf{r}^N, \mathbf{v}^N, N) \propto e^{-\beta(H(\mathbf{r}^N, \mathbf{v}^N) - \mu N)}$$
 
-Completing the pattern: when two systems can exchange particles, particles migrate until the free energy cost of adding one particle equalizes — that is, until both have the same $$\mu = (\partial F / \partial N)_{T,V}$$. Chemical potential is what equalizes at chemical equilibrium, so it is the natural boundary condition for particle exchange. (Note: $$T$$ uses internal energy $$E$$ and entropy $$S$$ in its derivative, while $$P$$ and $$\mu$$ use free energy $$F$$. This is because $$F = E - TS$$ already contains $$T$$, so using $$F$$ to define $$T$$ would be circular.)
+When two systems can exchange particles, particles migrate until the free energy cost of adding one particle equalizes — that is, until both have the same $$\mu = (\partial F / \partial N)_{T,V}$$. Chemical potential is what equalizes at chemical equilibrium, so it is the natural boundary condition for particle exchange. (Note: $$T$$ uses internal energy $$E$$ and entropy $$S$$ in its derivative, while $$P$$ and $$\mu$$ use free energy $$F$$. This is because $$F = E - TS$$ already contains $$T$$, so using $$F$$ to define $$T$$ would be circular.)
 
 As with temperature, $$\mu$$ here is a property of the *environment*, not of the system itself — it is imposed as a boundary condition. Since $$N$$ is an integer, the derivative $$\partial F / \partial N$$ requires some interpretation: for large $$N$$, the discrete difference $$F(N+1) - F(N)$$ is well approximated by the derivative. Operationally, $$\mu$$ answers: "how much does the free energy change when I add one more particle?"
 
@@ -182,7 +182,7 @@ When the environment's $$\mu$$ is high, it readily donates particles; when $$\mu
 
 In the distribution, the $$-\mu N$$ term rewards having more particles — each additional particle lowers the exponent by $$\beta\mu$$. The equilibrium particle number balances this reward against the energy cost of accommodating an extra particle (the increase in $$H$$).
 
-Why do we need this ensemble at all? NVE and NVT fix the number of particles, which is fine for a closed system such as a protein in a water box. But many important systems are open: gas molecules adsorb onto and desorb from a catalyst surface; ions flow through a membrane channel; solvent molecules enter and leave a porous material. In these systems, $$N$$ is not directly controlled. It is an outcome determined by balance between the system and its environment. The $$\mu$$VT ensemble models this by fixing chemical potential, set by gas pressure or solution concentration, and letting $$N$$ fluctuate to its equilibrium value.[^gcmc]
+The $$\mu$$VT ensemble is for open systems. NVE and NVT fix the number of particles, which is fine for a closed system such as a protein in a water box. But gas molecules adsorb onto and desorb from a catalyst surface; ions flow through a membrane channel; solvent molecules enter and leave a porous material. In these systems, $$N$$ is not directly controlled. It is an outcome determined by balance between the system and its environment. The $$\mu$$VT ensemble models this by fixing chemical potential, set by gas pressure or solution concentration, and letting $$N$$ fluctuate to its equilibrium value.[^gcmc]
 
 | Ensemble | Fixed | Fluctuates | Distribution | Typical use |
 |----------|-------|------------|--------------|-------------|
@@ -225,7 +225,7 @@ where $$\gamma$$ is the friction coefficient, $$\boldsymbol{\eta}_i(t)$$ is whit
 
 This is an SDE. The friction term dissipates energy; the noise term injects it; the balance produces the Boltzmann distribution as the stationary distribution. If you have read my post on the [Fokker-Planck equation](/blog/2026/fokker-planck-equation/), this is the same structure: an SDE whose density dynamics are governed by a Fokker-Planck PDE, and the stationary solution is $$p(\mathbf{r}, \mathbf{v}) \propto e^{-\beta H(\mathbf{r}, \mathbf{v})}$$.
 
-The trade-off is that Langevin dynamics destroys dynamical information, because stochastic noise scrambles the true trajectory, but it is robust and easy to implement. Nosé-Hoover is deterministic, with no random noise, but can get stuck in non-ergodic oscillations for small systems.
+The trade-off is that Langevin dynamics destroys dynamical information, because stochastic noise scrambles the true trajectory, but its implementation is simple. Nosé-Hoover is deterministic, with no random noise, but can get stuck in non-ergodic oscillations for small systems.
 
 ### Barostats (Controlling Pressure)
 
@@ -303,7 +303,7 @@ Temperature schedules are annealing schedules. Free-energy estimation is log-nor
 
 [^virial]: The virial equation follows from the virial theorem of classical mechanics. The sum $$\sum_i \mathbf{r}_i \cdot \mathbf{F}_i$$ is the virial — it measures how much the interatomic forces contribute to pressure beyond the ideal gas term.
 
-[^fluctuations]: In the canonical ensemble, the relative energy fluctuation is $$\sigma_E / \langle E \rangle \sim 1/\sqrt{N}$$. For $$N \sim 10^{23}$$ (a mole of atoms), fluctuations are negligible and NVE and NVT give identical results. The distinction matters for small systems — which is most of what we simulate.
+[^fluctuations]: In the canonical ensemble, the relative energy fluctuation is $$\sigma_E / \langle E \rangle \sim 1/\sqrt{N}$$. For $$N \sim 10^{23}$$ (a mole of atoms), fluctuations are negligible and NVE and NVT give identical results. For small systems — which is most of what we simulate — NVE and NVT can differ.
 
 [^nosehoover]: Nosé (1984) introduced the extended Lagrangian; Hoover (1985) reformulated it as coupled first-order equations. The combined "Nosé-Hoover thermostat" is standard in all major MD codes (GROMACS, LAMMPS, OpenMM).
 
