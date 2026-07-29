@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-03-errors/
 title: "How Do Timestep, Precision, and Force Error Become Simulation Error?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible simulation-error diagnostic for molecular dynamics: timestep sensitivity, precision floors, force bias, bounded energy oscillation, and drift."
+last_updated: 2026-07-29
+description: "How timestep, numerical precision, force bias, and neighbor lists leave different signatures in an MD trajectory."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 3
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 3
 categories: [science]
 tags: [molecular-dynamics, timestep, precision, force-error, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the velocity-Verlet diagnostic from the previous tutorial and separates timestep, precision, force-error, and compact argon NVE mechanisms before later GPU kUPS and MLIP production checks. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 3 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 An NVE diagnostic often gets compressed into one question: did the energy
 drift? That question is too blunt. The same total-energy trace can mix bounded
@@ -41,7 +41,7 @@ This page uses the same controlled oscillator as the integrator post because
 the exact reference is known. That is a feature, not a simplification to hide
 behind. A many-body trajectory can make every mechanism happen at once. A
 controlled oscillator lets us isolate mechanisms before adding atomistic
-complexity back in. The current executable workflow now adds a larger
+complexity back in. The full run now adds a larger
 reduced-unit argon NVE protocol check so the article includes physical
 many-body energy traces with timestep and replica variation. The committed run
 records CPU fallback because this environment does not have a CUDA-enabled
@@ -62,17 +62,6 @@ finite-precision arithmetic for exactly this reason
 <span id="cite-leimkuhler2004"></span>[Leimkuhler & Reich,
 2004](#ref-leimkuhler2004); <span id="cite-higham2002"></span>[Higham,
 2002](#ref-higham2002)).
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/full.json)
-- [error notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-03-errors.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/smoke/error_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/error_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/manifest.json)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post03_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-03.md)
 
 ## What Must Be Separated?
 
@@ -118,6 +107,8 @@ force by multiplying it by 0.98 or 1.02. That is not a realistic MLIP error
 model, but it is deliberately interpretable: one run is slightly too soft, one
 is correct, and one is slightly too stiff. The resulting drift and phase error
 can then be read without debating what the model learned.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_timestep_error.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The controlled sweep shows how bounded integration error grows with timestep. A stable-looking trace can still be quantitatively inaccurate." %}
 
 ## Why Is Energy Drift Not One Thing?
 
@@ -177,6 +168,8 @@ operations or reduced precision internally. The right question is not whether a
 label says "float32" or "float64"; it is whether the resulting trajectory-level
 diagnostics meet the tolerance needed for the scientific claim.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_precision_floor.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Reducing the timestep eventually exposes a precision-dependent error floor. Smaller steps cannot remove rounding error once arithmetic dominates discretization." %}
+
 ## How Does Force Error Enter?
 
 Force error is different from roundoff and timestep truncation. The integrator
@@ -205,39 +198,7 @@ post does not claim to be that capstone. It provides a vocabulary: force bias,
 precision floor, bounded timestep error, normalized drift, phase error, and
 instability are different diagnoses.
 
-## What Should the Diagnostic Show?
-
-The exact-force float64 runs show the timestep story: the maximum relative
-energy error grows as the timestep increases, while remaining bounded on this
-sweep. The rounded-precision runs show that arithmetic can set an error floor
-even when the analytical force is unchanged. The force-scale cases show that a
-biased force can shift normalized energy drift.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Simulation-error diagnostics for the committed full profile. The figure separates bounded oscillator timestep error, precision-induced error floors, force-bias drift, and 256-atom argon NVE energy drift with three-replica uncertainty bands so later production checks can report these mechanisms separately." %}
-
-The figure has four jobs. The timestep panel shows that exact-force velocity
-Verlet has increasing but bounded energy error as dt grows. The precision panel
-shows that rounded arithmetic can raise the error floor. The force-bias panel
-shows that a deterministic force perturbation can move normalized drift away
-from the exact-force reference. The argon NVE panel checks the same reporting
-vocabulary on a 256-atom many-body Lennard-Jones argon cell rather than another
-one-dimensional oscillator, and the band shows the standard deviation across
-three independent velocity seeds. The panel legend also reports that this
-artifact is a CPU-fallback run, not a completed GPU production run.
-
-For the full NVE protocol, the maximum relative energy error across all
-timestep/replica runs is about `2.65e-4`, the maximum absolute normalized drift
-is about `3.12e-5`, and the largest replica drift standard error is about
-`2.79e-6`. No configured NVE run is flagged as unstable. These values support a
-bounded-energy diagnostic for the committed reduced-unit protocol; they do not
-prove that a future MLIP or CUDA production run is ready.
-
-The figure review caught a small but real readability issue. In an earlier
-version, the precision labels were sorted alphabetically, which put
-rounded_1e-3 before rounded_1e-4. That made the mechanism harder to scan. The
-reviewed figure now orders the precision models as float64, float32,
-rounded_1e-4, and rounded_1e-3. A figure that supports a mechanism should make
-the mechanism easy to read.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_force_bias.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A persistent force bias produces directional energy drift rather than bounded oscillation. This signature differs from the timestep error of a reversible symplectic update." %}
 
 ## What Is Normalized Drift?
 
@@ -335,6 +296,8 @@ Force bias changes drift and phase behavior. When those shapes appear in a real
 trajectory, the report can describe them with more precision than "the energy
 looks okay."
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_argon_nve.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS argon NVE replicas show bounded normalized energy error across the tested timesteps. Replica bands separate numerical variation from a single favorable trace." %}
+
 ## Where Do Neighbor Lists and Cutoffs Enter?
 
 The current executable diagnostic does not include neighbor lists or cutoffs,
@@ -396,58 +359,9 @@ with uncertainty or extrapolation signals, and do static errors predict
 trajectory reliability? The oscillator in this post does not answer those
 questions. It defines how the answers should be separated.
 
-## What Should Be Recorded?
+## Run the Example
 
-The compact summary for this page records the post, profile, config hash,
-initial state, mass, oscillator frequency, and one row per run. Each run records
-timestep, precision model, force case, force scale, initial and final energy,
-maximum relative energy error, normalized energy drift, final position error,
-RMS position error, and whether the run was unstable. That is the minimal
-shape of a useful error diagnostic: it records mechanism-specific fields rather
-than only a pass/fail flag.
-
-The manifest records the environment: config path, config hash, lockfile hash,
-git revision, Python version, platform, precision policy, runtime device, kUPS
-version, and NumPy version. This is especially important for precision
-diagnostics. If the same experiment is rerun on a different device, with a
-different precision policy, or after a dependency change, the manifest should
-make that visible.
-
-For a production atomistic version, the same pattern should include system
-size, density or cell, timestep, integrator, force model, cutoff, neighbor-list
-policy, precision, device, seed, warmup policy, and compact energy/drift
-summaries. The raw trajectory may be too large to commit. The diagnostic record
-should not be.
-
-## What Should Not Be Inferred?
-
-This page does not prove that the final GPU kUPS or MLIP simulations are ready.
-The 256-atom argon NVE protocol is a stronger physical sanity check than the
-initial compact trace, but it still ran through the committed CPU fallback path
-in this environment. The full summary now records `target_device =
-cuda_or_cpu_fallback`, `runtime_device = jax:cpu;devices:cpu`,
-`production_gpu_ready = false`, and the blocking reason: the target requested
-CUDA/GPU, but the generated artifact runtime was CPU. The review note keeps
-real GPU kUPS production diagnostics as a final-release item. The oscillator
-remains the mechanism-level diagnostic that makes the error vocabulary
-testable before production complexity is added.
-
-It also does not imply that MLIP errors are simple force-scale errors. Real
-learned potentials can have local extrapolation, nonuniform bias, inconsistent
-energy-force behavior, discontinuities from neighbor features, and uncertainty
-that is not calibrated. A 2 percent scale perturbation is only a controlled
-proxy that shows how force error can enter trajectory diagnostics.
-
-Finally, this page does not replace statistical uncertainty analysis. A stable
-trajectory can still be too short. A low drift number does not give an
-effective sample size. A precise force model does not remove autocorrelation.
-Those questions appear later in the curriculum. The present task is narrower:
-keep timestep, precision, and force-error mechanisms from being collapsed into
-one vague "simulation error" bucket.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -455,45 +369,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 03 --profile smoke
 uv run kups-tutorial verify 03 --profile smoke
-uv run kups-tutorial run 03 --profile full
-uv run kups-tutorial verify 03 --profile full
-uv run jupyter execute notebooks/post-03-errors.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, error diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
-
-## Current Status
-
-This page is not the final article. It is a substantially expanded hidden draft
-that remains outside site navigation while the rest of the series is brought to
-the same standard. The implemented pieces are:
-
-- smoke and full controlled error-diagnostic workflows
-- 256-atom argon NVE reduced-unit energy-drift workflow with 3 velocity-seed
-  replicas
-- machine-readable runtime-device and GPU-readiness provenance for the NVE
-  protocol
-- committed compact summaries and downsampled comparison samples
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- self-review note covering code, science, notebook, and figure feedback
-- expanded prose separating timestep sensitivity, precision floors, force
-  bias, normalized drift, compact argon NVE behavior, phase error, and
-  final-release limitations
-
-The remaining non-publication pieces are:
-
-- real CUDA/GPU kUPS production NVE diagnostic before treating this post as
-  final
-- final all-post consistency pass once the other articles are expanded
-- final rendered desktop and mobile page snapshots after that consistency pass
-- public indexing decision after the series is ready as a unit
-
-The rule for this series is simple: a result is not ready because the code ran.
-It is ready only after the code, data, figure, prose, and rendered page have
-all been reviewed against the same reproducibility contract.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-03/full).
 
 ## References
 

@@ -1,32 +1,88 @@
 {
   "files": [
     {
+      "destination": "assets/img/blog/kups_md_post01_initial_cell.svg",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "edcd93bd9631c1faccbcc8e9d6688cfe7990ed9d563c2c3ce1c246b104eea4dd",
+      "source": "figures/post-01/initial_cell_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_initial_cell.png",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "9f1f4297e1a6bafae8b6545cc993bf006dd89ff14e5728bac9992f2ed8f77866",
+      "source": "figures/post-01/initial_cell_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_initialization_checks.svg",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "3850272076b4b15ad6231ee2cb3c44705cf34252708c2bcd983debf43d936fc1",
+      "source": "figures/post-01/initialization_checks_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_initialization_checks.png",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "4c76e2554e1d2e3b895b6fce355d4bbdca7f540719b161c60955b0e5c0ce1cf0",
+      "source": "figures/post-01/initialization_checks_full.png"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.svg",
       "kind": "figure",
       "post": "01",
-      "sha256": "47db77e3ea386f22c6eec167f3b1921f7507e9c1fddfe2c3120bc431d6e8237c",
+      "sha256": "a66f89c6978ba060c1365d99d33801c1604e95e523d64839919dc1466261193f",
       "source": "figures/post-01/initialization_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.png",
       "kind": "figure",
       "post": "01",
-      "sha256": "f4fd02af3ceadb6c90db0aab70ca3d8ff85b755ee0ac656ca1c272125df24b5e",
+      "sha256": "c1e616d758f534b214902488552c1abbca0f237dec606511a7e14534d5d35c73",
       "source": "figures/post-01/initialization_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_velocity_draw.svg",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "e1207e8f92d5c358a4b50ab5284b14a99934d8c1762bdd7a3e11e1855979e0f6",
+      "source": "figures/post-01/velocity_draw_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_velocity_draw.png",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "177966d262c7253d82ad319c49e3c9983de8f7d2ac5a27a4595f0b49389b7223",
+      "source": "figures/post-01/velocity_draw_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-01/full/initialization_summary.json",
       "kind": "compact-result",
       "post": "01",
-      "sha256": "f6beab0bd80f3b1c29d436a747fadeb9b58efdbb5d621257809d0170bc783a86",
+      "sha256": "ec4078b69fa6726b45fe3c677a62ed8907e3b893d032cda85105bd2860562260",
       "source": "results/post-01/full/initialization_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-01/full/manifest.json",
       "kind": "compact-result",
       "post": "01",
-      "sha256": "4db199b58f759bfcfb26babec1b902254e2f52ea82e3537e86f6c5b485ffdc6b",
+      "sha256": "f1479c4adec20d3a523b2d2d4f05500150af3dac5eaedc56106e170e762eb993",
       "source": "results/post-01/full/manifest.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_energy_error.svg",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "82417d399ab27445f22d1c2a9fafad19a4f24dfd19a4c54006fce919d25b0796",
+      "source": "figures/post-02/energy_error_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_energy_error.png",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "f30ca2c275d23db08965ec0997cf9ca45d49bf799dbe077d9318d35de1d11862",
+      "source": "figures/post-02/energy_error_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.svg",
@@ -39,21 +95,49 @@
       "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.png",
       "kind": "figure",
       "post": "02",
-      "sha256": "990d64f829a3a8b8abaacb5e50417442438b7543f7a234b0f1318c6e0362aeb9",
+      "sha256": "6b45b55e9bdb4a706acafdab018d1a91236f40d3cf53aa031ea5b550e807e58d",
       "source": "figures/post-02/integrator_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_phase_space.svg",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "3e98609c5041a91358119db84fa552f0054893929dc59e2110b34bcdec5e63ec",
+      "source": "figures/post-02/phase_space_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_phase_space.png",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "da37fc348bcf1f33c3ca098109471729c8e01bb26c015df89d38cdf439c22736",
+      "source": "figures/post-02/phase_space_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_reversibility.svg",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "9dd20a70cbc9b45912cc76c687bfc43c85240df94a01e8d455993d57e0473f11",
+      "source": "figures/post-02/reversibility_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_reversibility.png",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "da19972ffb5e82ee57976d99c9f8408b1730c0ecda484372cabab435df476119",
+      "source": "figures/post-02/reversibility_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/integrator_summary.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "7e4f5ae8366879647a7f62ec3c4f314bffc0f81d49af38a15a8b1f2821cc9d12",
+      "sha256": "3e5562c2a54cdb96dc406857b941dd826d552371fabf6612a3d2235c4baab55b",
       "source": "results/post-02/full/integrator_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/manifest.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "4600702013be042cefc9fb2cfd3623e85c614f1e878bfb45f4b3e8f38a3f4a57",
+      "sha256": "3ee4dd91cf4419a7b3992c88cee3ad27072a588afc1e4a080e7ecdf29407805a",
       "source": "results/post-02/full/manifest.json"
     },
     {
@@ -64,24 +148,80 @@
       "source": "results/post-02/full/trajectory_samples.csv"
     },
     {
+      "destination": "assets/img/blog/kups_md_post03_argon_nve.svg",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "861062cc071de2eea68ca8d6761c014e7ee877c12b1abbde8ce1463a13af54d1",
+      "source": "figures/post-03/argon_nve_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_argon_nve.png",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "eb2dff9af79582a2aca9cd93d4b15492dd34e7387c87ec009ac6351eeb594fa3",
+      "source": "figures/post-03/argon_nve_full.png"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post03_error_diagnostics.svg",
       "kind": "figure",
       "post": "03",
-      "sha256": "9a1f28c5f803e95490dc374e5fe74bf3a7cd5cdc20f32bee173276d509b8590c",
+      "sha256": "416239dd44e69b4f2256608ec60506ced0db1d6c40d19b0ff91dbd4cfb2ff135",
       "source": "figures/post-03/error_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post03_error_diagnostics.png",
       "kind": "figure",
       "post": "03",
-      "sha256": "4fcc6779df29865d705ccec8f4f0529f3753c95b1697f5c5de47f37156a6d959",
+      "sha256": "25a8d60cdb1c5dde00bf4087463195917db664071de095a2a5ee22736700e1b7",
       "source": "figures/post-03/error_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_force_bias.svg",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "8c1b201f81b1000773c73cc01619e428193fef004a7d8d1e9dfd7b5d981575fc",
+      "source": "figures/post-03/force_bias_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_force_bias.png",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "48e1e78dbe3f2ebf9832d16aeca2b2a436358ad0dde3d88e243c190cfeecaba1",
+      "source": "figures/post-03/force_bias_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_precision_floor.svg",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "cb84c02c486520bec9ca7829135e90eb4df505c96d78017d5a2c2c96e06e6756",
+      "source": "figures/post-03/precision_floor_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_precision_floor.png",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "5badad7ff01581e258632adc44f28700a1ba1b6dfa4e2d5a627b332872821ac0",
+      "source": "figures/post-03/precision_floor_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_timestep_error.svg",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "84532238d91afb5faa0554e386da944973d3f0d67e1703cde31876cde19055b3",
+      "source": "figures/post-03/timestep_error_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_timestep_error.png",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "daabb2c9eb9624a3b53a8d9adea8d2d37f41575b6031388ee857482347759a0b",
+      "source": "figures/post-03/timestep_error_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-03/full/argon_nve_samples.csv",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "d6e0d6251854c2d61bac5bd9404aadc473846f96e44aee4d9b70ad69e94cc9c1",
+      "sha256": "88363213619325c34c14bcfe9a2c6a4d0fadab1555a18a6e95cc1dfd680b3074",
       "source": "results/post-03/full/argon_nve_samples.csv"
     },
     {
@@ -95,49 +235,105 @@
       "destination": "assets/json/kups-md-tutorials/post-03/full/error_summary.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "d0c8cf6c8e1f1adab62be74eece5a4dec8f95b463d4e53e16e8522e4449cc94c",
+      "sha256": "0e0d11f49a62c2b1875e772a8fed3b9857645742d9dcd1b69cba5eb711247196",
       "source": "results/post-03/full/error_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-03/full/manifest.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "4309624a96864067eb13faaa24908b44d8a5d98440225504479974bf43323d8d",
+      "sha256": "57cc4674c385e20cad66ad7f112189b797112be404a300031e4159141544ccfb",
       "source": "results/post-03/full/manifest.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_argon_handoff.svg",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "38756d61020f4ccef794bcb5561c1efadef311319ee4c0436aaad5d8baed9ffa",
+      "source": "figures/post-04/argon_handoff_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_argon_handoff.png",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "d9caa63d13de60049d53d2679902524751d4f63f4f5acecc1da423ace07a7df1",
+      "source": "figures/post-04/argon_handoff_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_canonical_variance.svg",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "fb96ab3a112ecc357c9be58b036d3a2f44b630220762df105afdc2aa1f1fccc1",
+      "source": "figures/post-04/canonical_variance_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_canonical_variance.png",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "2a46b8558e377200d0f5ef3a554397acfffe16275ccf49c917116bea47442de3",
+      "source": "figures/post-04/canonical_variance_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_coupling_memory.svg",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "0468eecfe679d4fbdb17a5e610b67024922b89fc22808e3884e396df48a3269c",
+      "source": "figures/post-04/coupling_memory_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_coupling_memory.png",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "b39da07e0ada0ec9bc8332cac727c375bc8ebb99111235e38a826497280a5b0f",
+      "source": "figures/post-04/coupling_memory_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_kinetic_temperature.svg",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "154341d9f87da7d0e4bff30f1efaf441ccc074f809f37e9b10fb26a21fb94d4f",
+      "source": "figures/post-04/kinetic_temperature_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_kinetic_temperature.png",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "c3e1ff1d5b007276032bc6b831b6fe197e80aa7975833d0592eb7a8e5afa03a3",
+      "source": "figures/post-04/kinetic_temperature_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.svg",
       "kind": "figure",
       "post": "04",
-      "sha256": "eb51bddc83422c2afa46e0482a6b4411f2530cdf9e628185e27f3a28a65d6355",
+      "sha256": "6f46daa81b96fcffd56b25797af5dcd3c784ef5a6b56db88ed14905f5c65a906",
       "source": "figures/post-04/thermostat_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.png",
       "kind": "figure",
       "post": "04",
-      "sha256": "f3dacf93d097c29e6d55c3d6b4c026b98ab0dd80b742ae14c0f094b1ffbd8aab",
+      "sha256": "afdbff57a8f2ff339ea1281a816b1b4ab1d33537d492e90914a911062252b3a2",
       "source": "figures/post-04/thermostat_diagnostics_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-04/full/argon_handoff_samples.csv",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "88af3f4012729361d2935891d67bcc3259049c7768ac2883dced121ea3d1928a",
+      "sha256": "113459115ada8c17299cb95d97ebb761a4d70604a2e5f33165ccdd22aef57c9b",
       "source": "results/post-04/full/argon_handoff_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-04/full/argon_langevin_samples.csv",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "b7ced261303fca3904a14169f9a0043788d59cc092ff6026637b4037e3f52cc2",
+      "sha256": "9e83bd544770c8f97beee94d81bee2791c78764192e89b5c80fe98e88be16b9f",
       "source": "results/post-04/full/argon_langevin_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-04/full/manifest.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "bb61ba7a6bdc52623fdac1a531bc7b5d67309272a5cabf5aa71063a028db64f4",
+      "sha256": "be767ae10dc08da0e9a0459a057aa217bc13a9ee65d3ec8ab1f427ad593ed8a5",
       "source": "results/post-04/full/manifest.json"
     },
     {
@@ -151,8 +347,22 @@
       "destination": "assets/json/kups-md-tutorials/post-04/full/thermostat_summary.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "3daa37c42c104cf4498dcc84cfde8e60baad34fbf521e280a7904eae274a8f5b",
+      "sha256": "4a071f4581c2c590d726a618d1d0bc83df392d133117ee68037d75d33d6fedce",
       "source": "results/post-04/full/thermostat_summary.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_argon_npt.svg",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "090e638e5c2af2b9f650861e2000f8f9a1ba326cc38ec44f15144a3058c0a4ba",
+      "source": "figures/post-05/argon_npt_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_argon_npt.png",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "a4d182b3600b3638cc15115edde690dfe39c24fc7d2fdd6943a53d343ff9ef46",
+      "source": "figures/post-05/argon_npt_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.svg",
@@ -165,8 +375,50 @@
       "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.png",
       "kind": "figure",
       "post": "05",
-      "sha256": "72422fda987d9e48aac4189e821d088a5455b3df7d93c7839142e85a5c07f3fd",
+      "sha256": "30f75d5badfa71145427330816298991c3d6fa545cae77e73896057968a6ce19",
       "source": "figures/post-05/barostat_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_cell_memory.svg",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "d66781126df0283fec22dde16e323fc277308bb3d3d0fe6250031c136c380688",
+      "source": "figures/post-05/cell_memory_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_cell_memory.png",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "2760b7f05428809b11bf7a1a2a41eaecbefc04090d720898cf601501b9551605",
+      "source": "figures/post-05/cell_memory_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_pressure_fluctuations.svg",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "786a9c41fb8327b690e3e64a16996188e991ad0f814a526ec4e2dd7d3d6212e1",
+      "source": "figures/post-05/pressure_fluctuations_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_pressure_fluctuations.png",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "3e93c72f81c6e80219e9c298c1729d110a0274d9019962a0971da4c8078fc916",
+      "source": "figures/post-05/pressure_fluctuations_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_volume_fluctuations.svg",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "ff8d9e23ae8b44f1cfa3282e328200cf960456483a0105b1fe63290bab288e22",
+      "source": "figures/post-05/volume_fluctuations_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_volume_fluctuations.png",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "b90a9af2ea945d02186a0a01e293ac33bda00f3788a8a0c9963ea47577e0e760",
+      "source": "figures/post-05/volume_fluctuations_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-05/full/argon_cell_response.csv",
@@ -179,7 +431,7 @@
       "destination": "assets/json/kups-md-tutorials/post-05/full/argon_npt_dynamics.csv",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "417f904e2cd7c7b82d39cb3c68c422fd1d6bf826eba77b46aa5fa32c9f8ec063",
+      "sha256": "55f0f1c80d7ad37df8e19ae1aebf6d73154c5d4912f38b53beedb2ee4ac3e7c9",
       "source": "results/post-05/full/argon_npt_dynamics.csv"
     },
     {
@@ -193,42 +445,98 @@
       "destination": "assets/json/kups-md-tutorials/post-05/full/barostat_summary.json",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "701dda5c3d617463335de391cd89b608123d8965ec6bfae35cf6dae41af8f9dd",
+      "sha256": "4d0a7e4b0a5691693405c82d85c8a609dbc4a856ef033e48d4654839069afec4",
       "source": "results/post-05/full/barostat_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-05/full/manifest.json",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "9e2fe1f3ccfcc67bbd64a784309c8d804f6d2a276fce38911eb99c5a9679b202",
+      "sha256": "040b5fad04a109d4c9a55780328d8fe94c107f71c23dcb558ce712d87277ca3f",
       "source": "results/post-05/full/manifest.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_argon_replicas.svg",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "65d22d0cc4f89c66d67dd44f750fdd3e7478944e4880549297c966170110ce2c",
+      "source": "figures/post-06/argon_replicas_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_argon_replicas.png",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "0840e0640b49b5499a32643a56b15c350371d69d5b843d8a4073094a045a36ad",
+      "source": "figures/post-06/argon_replicas_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_correlated_uncertainty.svg",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "2ed8eeea433126352c4c4e52e3e04a45d5b111a7cd95d6a6be0f2d810f1d07ea",
+      "source": "figures/post-06/correlated_uncertainty_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_correlated_uncertainty.png",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "1daef88d4d3f682772837fc54b9925bc5832242b7046ccc199b806e01b4a015c",
+      "source": "figures/post-06/correlated_uncertainty_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_effective_samples.svg",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "e9761dbdb8adb737b507018b20b9e439e0033c9c26036d3032d39f3fc513e58c",
+      "source": "figures/post-06/effective_samples_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_effective_samples.png",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "311634f224ed2b61768ed8dfd0e4427dd33c1cc0bddef2c03113898703ede8bd",
+      "source": "figures/post-06/effective_samples_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_running_means.svg",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "4fbf1ca8252dd75b791bdb62b38abff78ffea1492fe596675c7e8223bc1e53ab",
+      "source": "figures/post-06/running_means_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_running_means.png",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "95c85b5dfb7225fee331ff02cc1dac536b72a61298e596b611330e4a5ca51f0a",
+      "source": "figures/post-06/running_means_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg",
       "kind": "figure",
       "post": "06",
-      "sha256": "ad532014ef4ccc6cd7b84627948a09e13ef165f8a551796960a2a132d913f229",
+      "sha256": "87f139bdef39307d5f2ce3d40fdf599fcb9071d6e94d1e6de6f14cc18819a5b7",
       "source": "figures/post-06/trajectory_length_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
       "kind": "figure",
       "post": "06",
-      "sha256": "ab0c81472fa8143710e93c84261b8840d177e3f75b645650fc82c9d63be3b648",
+      "sha256": "c2f838d84a3f0caa4117af77263937af9c8d77fd03ef7b633196ee63276d9de1",
       "source": "figures/post-06/trajectory_length_diagnostics_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-06/full/argon_observable_samples.csv",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "2611243e4f73ff43b26aec421b932279dab9847a082b5e4185dd3648b712d5b0",
+      "sha256": "2544e19923e7f24231553e36a909c5a28e7a0040c16d0ea3dc5bed5cb00983dc",
       "source": "results/post-06/full/argon_observable_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-06/full/manifest.json",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "de02b0c26556beeae75583c4737eb284211fda0b99fcae0fbab5f70b916d4637",
+      "sha256": "b63f9b24c382d2f67c29060dc983e65f1d6482fdf06b20b60cdf9af9ee9f9c37",
       "source": "results/post-06/full/manifest.json"
     },
     {
@@ -242,49 +550,105 @@
       "destination": "assets/json/kups-md-tutorials/post-06/full/trajectory_length_summary.json",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "464b8211d5d4a27dcf35153d386b17389aef381ba33294f49db7eafe4cf1381d",
+      "sha256": "1456ec3608d029499e506327c4e50fa4908e9b181307b320a59178ddc5335c59",
       "source": "results/post-06/full/trajectory_length_summary.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_argon_rdf.svg",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "eb8c94a7c85572918182436f5266c6724c86f66fa5b1e495de1a44c7b1d0601a",
+      "source": "figures/post-07/argon_rdf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_argon_rdf.png",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "a40e1530499bc72c4506b76542309aee977f069248cde0112a4639ccd958a9a5",
+      "source": "figures/post-07/argon_rdf_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_coordination.svg",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "fd77957e729117e3bae4d8ef681b76591e153372f575a65357b17e04f743a6b1",
+      "source": "figures/post-07/coordination_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_coordination.png",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "aa6be95f5f940f4b405f3086654c3e47ade26f30b0a6530e41741c80dbf73b1b",
+      "source": "figures/post-07/coordination_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.svg",
       "kind": "figure",
       "post": "07",
-      "sha256": "c8c2da8b9c408608a20a3f3ba981882d9aee8b1bc6866d2e2ec59a95764855f9",
+      "sha256": "917c9b72627b867f4b84c7625939b0d34b53b3ad826288b088b433613cabb8fb",
       "source": "figures/post-07/observable_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.png",
       "kind": "figure",
       "post": "07",
-      "sha256": "48fc1780ef904e834f9abed60e74d87f854675ad8dabbce51c4bda7dc2173934",
+      "sha256": "7446be7b09630c4dd5fd88b41dfd5f562d35166bb08f560745d2910550f6104f",
       "source": "figures/post-07/observable_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_rdf.svg",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "9c9dd99c4457f40e737a0994b650498dbad8a356ed64cbdf3886e69a7702a09b",
+      "source": "figures/post-07/rdf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_rdf.png",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "c39869b9cd535bcf1e58eab704ae0ab8cbe06c94cb0b2ecb327c48f42825e2ac",
+      "source": "figures/post-07/rdf_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_vacf.svg",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "719ac14a0655b3c9845fcfdfc24bd2ab704e5b6e782330c59c5362a096681100",
+      "source": "figures/post-07/vacf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_vacf.png",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "b02ed0f559aa12c6adbd997b3d10ef4074703fa2984f9b34cdcb94be97463f50",
+      "source": "figures/post-07/vacf_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/argon_trajectory_rdf_samples.csv",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "f6d88405e47cc39d5a07c007408d92a6ccaf01987fc7459f00b37450e0201484",
+      "sha256": "cc75bb577d092a6193fcc13294d7254c17ceec72814f162152384855dfa7dd12",
       "source": "results/post-07/full/argon_trajectory_rdf_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/argon_trajectory_vacf_samples.csv",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "76810a176673a9519098619812299b6621308090d98bc12f36a504b9879da6e3",
+      "sha256": "991c038f154e75d9f84a9b358e17812a3bff711aca94e1580c7fc686c34c3839",
       "source": "results/post-07/full/argon_trajectory_vacf_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/manifest.json",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "b50112784bd19de71ba3f5293243fcd01593f2d5281236a3dc50bc4d8c067f13",
+      "sha256": "88ed4486ee00f0b53de75b52ff9722cd6753ab3b7a14c88bd5c2794785f432a0",
       "source": "results/post-07/full/manifest.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/observable_summary.json",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "43e3b876875c02847fc919c5a0760296964d083c8143bc2a06c0747821343cc4",
+      "sha256": "84f4bc85cd4d8f697e2e53e51a7eee8d301acc2e3bd223442b9b20e3fa6d13a8",
       "source": "results/post-07/full/observable_summary.json"
     },
     {
@@ -302,39 +666,109 @@
       "source": "results/post-07/full/vacf_samples.csv"
     },
     {
+      "destination": "assets/img/blog/kups_md_post08_argon_rdf_pmf.svg",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "4e21a039d0c9098fad5f29023a64d775cad5dff99b72026fd1e2226a72dfde84",
+      "source": "figures/post-08/argon_rdf_pmf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_argon_rdf_pmf.png",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "c64d11772c23c969b9aeb14b847fdc6ef7cc041b6f040855795ab70b8e4894c5",
+      "source": "figures/post-08/argon_rdf_pmf_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_binning.svg",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "37625a5675e471e83280c6c18e145057f88c41d8cb62639769d53d5f2dde2e72",
+      "source": "figures/post-08/binning_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_binning.png",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "69ebf78a094d711b421f0d2b3ffb8ee9ec6f999f22d2573e4d09055f1cfa536a",
+      "source": "figures/post-08/binning_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_equilibrium_pmf.svg",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "ed2988a4879d6a3302c97b48baded316f8f2e31ea5801657cf3956d2a42033ee",
+      "source": "figures/post-08/equilibrium_pmf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_equilibrium_pmf.png",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "4958a560e8853f366c428694ada5f0336134034ceef68c26a00759d5e9403748",
+      "source": "figures/post-08/equilibrium_pmf_full.png"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.svg",
       "kind": "figure",
       "post": "08",
-      "sha256": "90896d680126761a5eea265c7c8e8131578657022638639cef94fac845601cdb",
+      "sha256": "e6b309b6daf9f65bf74798b11977168792418bfef08ee5178bc371afbf1536a3",
       "source": "figures/post-08/free_energy_diagnostics_full.svg"
     },
     {
       "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.png",
       "kind": "figure",
       "post": "08",
-      "sha256": "7ea837f3a16431898a5c8c6152574f3fb63c6d9e25813500cfde069033a655c8",
+      "sha256": "f911d77c3906f4f5c5c83a8f886edd76bb77f589a3c4ecd8367fa0c5c880ad5d",
       "source": "figures/post-08/free_energy_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_rdf_pmf.svg",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "453e358294e1fe6caf2d53a89d17085e5e5a7e7af67d7834b01519410468d6bb",
+      "source": "figures/post-08/rdf_pmf_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_rdf_pmf.png",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "5ae7868c296842338c3022c097c03a4aad2d79ca78ebdffabec1211e54240386",
+      "source": "figures/post-08/rdf_pmf_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/free_energy_curves.csv",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "95e61c464aad9a4853169848529f6830607be7a91ad494454c28d221d974ae94",
+      "sha256": "5ed2f0e71e20f2fab4ddb3d803a1fa27dce38f91a4cbe4982ee624823304f580",
       "source": "results/post-08/full/free_energy_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/free_energy_summary.json",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "22e4440f6221d84e30643676169b84ac98ad2bf7f2c8cae8978f4ff0be534c7f",
+      "sha256": "01915d5eefb0ee4070d080d85bd23dc1a1e26670512a2042067f3bd9b9a4dab6",
       "source": "results/post-08/full/free_energy_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/manifest.json",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "056ba5c05203231bff3e639592a150ee01e1781f47228a964bf93e63a675e757",
+      "sha256": "cbf136e8532cf035d5ec174020342d39791a68fe978728b45d218cff7e743792",
       "source": "results/post-08/full/manifest.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_effective_samples.svg",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "0228b85bb97861e8cf6fab3c11dac0073418e01c8709f64ad6edf859fc752289",
+      "source": "figures/post-09/effective_samples_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_effective_samples.png",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "71ecb34049c7496d481d2f964a02adc5b2bd9b17f9a1f4c117c82ad744c94ccf",
+      "source": "figures/post-09/effective_samples_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.svg",
@@ -347,21 +781,63 @@
       "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.png",
       "kind": "figure",
       "post": "09",
-      "sha256": "ffb199a88f9de6526bb0669eeb4b9ab42a87f0c2d476ccc9003240fd12efd847",
+      "sha256": "cb49b7e08ee4ec5857d4a53b1567b9c4b7cafcac9c69dda5c89ac35ba5ffd32d",
       "source": "figures/post-09/estimator_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_multistate_bridge.svg",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "0bb1b451142a41931b90b259000e5ff5cde4d3c0993d894bea4400ed034a3ff5",
+      "source": "figures/post-09/multistate_bridge_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_multistate_bridge.png",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "3ada6b8e22f249a47d7ba1371f7973919b16acd9b3cc45cb5a0d4aefc84ede0b",
+      "source": "figures/post-09/multistate_bridge_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_overlap.svg",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "b5ab38a60173e8bd8aed2862e813a1f72381794a3ddeef5395e209ace5b440df",
+      "source": "figures/post-09/overlap_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_overlap.png",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "51f7b21d8e74fbd50287cb98bac252eaac4519cd263fa2af762cf52d03694db6",
+      "source": "figures/post-09/overlap_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_work_tails.svg",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "256b7d85775e742cd36b2c5eb838ed05d273f2c09ac577049557697715be6ccd",
+      "source": "figures/post-09/work_tails_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_work_tails.png",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "04c7cf0dce7d281b85aacd2833f3511625daac9b1b8cba5124d0288f46dd35a5",
+      "source": "figures/post-09/work_tails_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-09/full/estimator_summary.json",
       "kind": "compact-result",
       "post": "09",
-      "sha256": "2b9a42733b2246b4a8c158d7d825028ddf4fb72d4b392fb68bc4c66d686654fb",
+      "sha256": "bae2eaa0993476b5e9d59d09c62e3d5983ed4214d64363b0ded0f9b5318d5c7d",
       "source": "results/post-09/full/estimator_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-09/full/manifest.json",
       "kind": "compact-result",
       "post": "09",
-      "sha256": "ab6edd6c3effa01726ea49f7e7b05ff517d6bf593f74ed41591830bfb226d7f5",
+      "sha256": "6e9e54e48d0bbe66ab71e94c993f8d281360c1bca5dba7a838ea8a917a1eb136",
       "source": "results/post-09/full/manifest.json"
     },
     {
@@ -386,6 +862,62 @@
       "source": "results/post-09/full/work_samples.csv"
     },
     {
+      "destination": "assets/img/blog/kups_md_post10_biased_windows.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "24ef8ec9be90dcfeabcff39d53ce06e8a256db34b7ac33981a299f21556a7748",
+      "source": "figures/post-10/biased_windows_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_biased_windows.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "46545cd3d2834a9ccb402c58e005a41aaff5a7f5597197ffae2a88274e3b3e4e",
+      "source": "figures/post-10/biased_windows_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_pair_umbrellas.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "3dc22f374f10836475fb5675f4d2955ba9e5ba1b1ecf3de012d223a663d45f77",
+      "source": "figures/post-10/pair_umbrellas_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_pair_umbrellas.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "90369946d0343008fc7badfba03e4fd05f79eb8ee23add18fdf72db256f5b4e9",
+      "source": "figures/post-10/pair_umbrellas_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_reconstruction.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "e98138df4f92e3325df0f554e1f9f04c60d57e24abb5e2094d2a2a3d35168697",
+      "source": "figures/post-10/reconstruction_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_reconstruction.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "88acee45324b3c5c162a16910d1f6084ef96317230f1555c77821a5d26704888",
+      "source": "figures/post-10/reconstruction_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_replicas.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "e75963599d96e4dbffa40d88c707e5f71165c246ed7cffc90fd2e749efb41550",
+      "source": "figures/post-10/replicas_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_replicas.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "afe187cc59f4d7c1318e9f07e9e330bd49a50b593decf7d91dad08a9f57c6398",
+      "source": "figures/post-10/replicas_full.png"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.svg",
       "kind": "figure",
       "post": "10",
@@ -396,28 +928,42 @@
       "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.png",
       "kind": "figure",
       "post": "10",
-      "sha256": "aa5700fd62537b344daae1246d39ebd66e0d0c6c2b3d3685f6472a47bc1673c9",
+      "sha256": "8f579d8c13f790ee9903857b476230773ca61347c3ae580710686d534d658158",
       "source": "figures/post-10/umbrella_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_window_overlap.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "1c484c384c1b23a72dca0c7672f1d87afb6b3bc0ad0d0850e4b662513587630d",
+      "source": "figures/post-10/window_overlap_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_window_overlap.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "f94e6b6b1d11eddb35dd7fb33fdaa3b0364cc4f3aaa21f40a5a54b014852fe91",
+      "source": "figures/post-10/window_overlap_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-10/full/manifest.json",
       "kind": "compact-result",
       "post": "10",
-      "sha256": "ce519721a733cb4b28c9e58c9d155c286a10eb6baa5b39b1ea1c225b1bc2280e",
+      "sha256": "fbe862e81971d2df9ca328724e99699ef565b45f919cb5f237c6f9b74ba45b10",
       "source": "results/post-10/full/manifest.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-10/full/umbrella_curves.csv",
       "kind": "compact-result",
       "post": "10",
-      "sha256": "333229d94380680d1d621f3daa5d32e2ab8724a97e882b573ca55895c3b00461",
+      "sha256": "14a285edf1aad2ede55af072deebed2aba1606ed709c6dd1d16a83e8c2e8da91",
       "source": "results/post-10/full/umbrella_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-10/full/umbrella_summary.json",
       "kind": "compact-result",
       "post": "10",
-      "sha256": "00cf141220a1cde2a4f82db9232c2029aed314c51cccd13c1c3378a2f66eafc9",
+      "sha256": "c300512a57ce6800a0178494250cb031a3c0b510886445ba42d433ee49e65c35",
       "source": "results/post-10/full/umbrella_summary.json"
     },
     {
@@ -426,6 +972,34 @@
       "post": "10",
       "sha256": "79e225266b4ca8e06df783fe128454c5bd290cba3d335ca49b1ca0082fd90ba5",
       "source": "results/post-10/full/umbrella_windows.csv"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_adaptive_bias.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "ac73b35fce3e0dc8c18eefd9e145ff999c0036c6ad8b3fa9a2a5c63c2f96c0a8",
+      "source": "figures/post-11/adaptive_bias_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_adaptive_bias.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "51506f72205006097ce6653a4afae67ee10713c5c8d86693ca39ea1c33758d2e",
+      "source": "figures/post-11/adaptive_bias_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_bias_history.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "b29c504cb10d6df4a9ed17befc9187527573e963ddf0d7f7a37feb1e879aeeef",
+      "source": "figures/post-11/bias_history_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_bias_history.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "e57fcf4c4d1ba2815924b07381e087e3ac9c7538de01e650ca61697b160addd5",
+      "source": "figures/post-11/bias_history_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
@@ -438,29 +1012,85 @@
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
       "kind": "figure",
       "post": "11",
-      "sha256": "ff5bb37dee63b28662435aedb123da0832527f2528c2b478134915ba61062332",
+      "sha256": "d253019952d96ebd3110dbc44665b70ec9e58304bae49ba50c73ade04c314ef3",
       "source": "figures/post-11/enhanced_sampling_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_hysteresis.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "775d1d70d52fd0c9245cb72793cb3d2e63be4299ab955f0304adecb794cbc36f",
+      "source": "figures/post-11/hysteresis_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_hysteresis.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "1a3dd7f8216c4a9f7b08a7877f7dd87c8f97852a2b60ba350d3cfff71b3e0903",
+      "source": "figures/post-11/hysteresis_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_pair_pulling.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "8d4ede29db4f2cb66ced8975b21f6568e71e87b6e4c9c0976f3ae38ffd62de49",
+      "source": "figures/post-11/pair_pulling_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_pair_pulling.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "e2379256d8360dc94922f7d839d9ce2f7ce5b5b4f37c89e34ef52fbe40eea6dd",
+      "source": "figures/post-11/pair_pulling_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_work_ensemble.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "6be49668d9601bf484e8bb67e12c650c0a1570bd6458f7dfac05dd2c380acad3",
+      "source": "figures/post-11/work_ensemble_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_work_ensemble.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "38a8addadd8b874439ddb23dbbbf0fa5a9c24bf5676efe1d1a950b81551b73a6",
+      "source": "figures/post-11/work_ensemble_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "9cc803d2af86cc6cb0983dd688ec86625a502b0614b09db406462c7aa3130f5c",
+      "sha256": "914ba8b51c090ee145efce4ce9658da9c6564cfd0f0bd40f7aa0cec64e3adca3",
       "source": "results/post-11/full/enhanced_sampling_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_summary.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "3c58f9b2a601951222caa49f3a87f9c231aa3425e61b4d746425e61406324d4f",
+      "sha256": "004acf6bc68c4014007cca6bd5ae3059b9a77ac822cd572d0a701b6990de395f",
       "source": "results/post-11/full/enhanced_sampling_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/manifest.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "a6537af165e55de0662119bfebfd052e8a05405b3cd27c164bb76c91d46f61b8",
+      "sha256": "1288c071110c65e96eeb013905e0c551bc5b505510bbd429141d5ea2195e237a",
       "source": "results/post-11/full/manifest.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_dynamics_risk.svg",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "833be886c47c4b89cf902045aa1d3cbe12856d5c97f1ccfbad4dcba1692bfc4b",
+      "source": "figures/post-12/dynamics_risk_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_dynamics_risk.png",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "4760ebe2c582fc35d8c9cc37dcc7693aa11486174046d5f597292b0413703653",
+      "source": "figures/post-12/dynamics_risk_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.svg",
@@ -473,14 +1103,42 @@
       "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.png",
       "kind": "figure",
       "post": "12",
-      "sha256": "6bef4816a20b534dd6418e93a162b1889d3f6761dce8615cd13b97cfb135b318",
+      "sha256": "556e83f46bf17d0589b23677e947482665f06f6a3557afe1353de7a53edcc439",
       "source": "figures/post-12/mlip_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_static_error.svg",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "6e5d867f37fb02b258d6a56d31363966a8be66addcfb19cdd664d4df9b3deeff",
+      "source": "figures/post-12/static_error_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_static_error.png",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "2488e1185400d4ead4d9bc96164ca49088d01ed62b8e435cb431d546e5b88c50",
+      "source": "figures/post-12/static_error_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_uncertainty_calibration.svg",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "c40f5ca37de8c87f7527897dae684b3deb9bd4727f7187003a0b00776a21bfaf",
+      "source": "figures/post-12/uncertainty_calibration_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_uncertainty_calibration.png",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "eabde198892d83daab67290869728c883f77a3332f341a1ae97d3351ebcd3988",
+      "source": "figures/post-12/uncertainty_calibration_full.png"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-12/full/manifest.json",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "9646c5c6831d7bb4917f3878f1b18b3c9f4b6d7868ea5886e83efe323defdf5b",
+      "sha256": "927358cca1326cb5f798dab1998353693dd2dab9b07d917156afbef08126a17a",
       "source": "results/post-12/full/manifest.json"
     },
     {
@@ -494,10 +1152,10 @@
       "destination": "assets/json/kups-md-tutorials/post-12/full/mlip_summary.json",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "f04e6f017c21adfd74e538cdae91178039c2ebfbea0087d7ddf0db010514106a",
+      "sha256": "44190ca9766dacd83e39b8f36b0d3c2fe9e232768bdd336d247b8b1a691bf496",
       "source": "results/post-12/full/mlip_summary.json"
     }
   ],
   "profile": "full",
-  "source_git_revision": "4d4cf7294d5a861e8683f3e3c1b2524d9a309e00"
+  "source_git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf"
 }

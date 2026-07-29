@@ -5,17 +5,17 @@
     "frame_count": 551,
     "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
     "masked_low_rdf_bins": 32,
-    "max_block_pmf_sem": 0.02904577494140013,
-    "max_replica_pmf_std": 0.061596542439163675,
-    "mean_block_pmf_sem": 0.008447618047247389,
-    "mean_replica_pmf_std": 0.010907462418098035,
+    "max_block_pmf_sem": 0.021100707996888124,
+    "max_replica_pmf_std": 0.05701432460336996,
+    "mean_block_pmf_sem": 0.006175932738880721,
+    "mean_replica_pmf_std": 0.011934880977203983,
     "number_density": 0.85,
-    "pmf_barrier_height": 1.6428833417866573,
+    "pmf_barrier_height": 1.7214047454869006,
     "pmf_minimum_radius": 1.125,
     "pmf_minimum_value": 0.0,
     "production_gpu_ready": false,
     "rdf_first_peak_radius": 1.125,
-    "rdf_first_peak_value": 3.01124983152954,
+    "rdf_first_peak_value": 3.013901527905581,
     "runtime_device": "jax:cpu;devices:cpu",
     "support_threshold_finite_bins": [
       53,
@@ -28,11 +28,11 @@
       1.125
     ],
     "support_threshold_pmf_ranges": [
-      2.997867501609803,
-      1.6428833417866573,
-      1.6428833417866573
+      3.1356652001579355,
+      1.7214047454869006,
+      1.7214047454869006
     ],
-    "support_threshold_range_span": 1.3549841598231456,
+    "support_threshold_range_span": 1.414260454671035,
     "support_thresholds": [
       0.02,
       0.05,
@@ -54,7 +54,7 @@
       "bins": 84,
       "bootstrap_barrier_standard_error": 0.03198591685747835,
       "occupied_bins": 65,
-      "rmse_vs_true": 0.17070805036123415
+      "rmse_vs_true": 0.17070805036123377
     },
     {
       "barrier_error": -0.023895451397889844,
@@ -63,7 +63,7 @@
       "bins": 28,
       "bootstrap_barrier_standard_error": 0.016639812435214136,
       "occupied_bins": 23,
-      "rmse_vs_true": 0.36645446042875934
+      "rmse_vs_true": 0.36645446042875973
     },
     {
       "barrier_error": -0.08477620960047005,
@@ -72,7 +72,7 @@
       "bins": 15,
       "bootstrap_barrier_standard_error": 0.017385305791899036,
       "occupied_bins": 12,
-      "rmse_vs_true": 0.5906367378809873
+      "rmse_vs_true": 0.5906367378809877
     }
   ],
   "config_sha256": "7d98bc849d66ecd7769dca29ede00e593774fd47e4b1c2854ef4e7b428ed6703",

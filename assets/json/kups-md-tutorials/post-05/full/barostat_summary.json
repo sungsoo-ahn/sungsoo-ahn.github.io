@@ -1,7 +1,7 @@
 {
   "argon_cell_response": {
     "atom_count": 108,
-    "fitted_bulk_modulus": 42.130470396759165,
+    "fitted_bulk_modulus": 42.130470396759186,
     "points": [
       {
         "number_density": 1.1111111111111112,
@@ -54,24 +54,24 @@
       }
     ],
     "pressure_span": 8.744219180654435,
-    "reference_pressure": -1.9272186923656562,
+    "reference_pressure": -1.9272186923656704,
     "reference_volume": 107.99999999999997
   },
   "argon_npt_dynamics": {
     "atom_count": 108,
-    "density_relaxation_fraction": 0.033734616352002804,
+    "density_relaxation_fraction": 0.033734616352003005,
     "density_standard_error": 9.107822205308235e-05,
     "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
     "initial_volume_factor": 0.9,
     "kinetic_temperature_standard_error": 0.0009399803533059329,
     "max_abs_total_energy_drift_per_atom": 0.12052225577520925,
-    "mean_density": 1.0736282040533305,
+    "mean_density": 1.0736282040533303,
     "mean_kinetic_temperature": 0.6988168161481869,
-    "mean_pressure": 0.9254699576242782,
+    "mean_pressure": 0.9254699576242778,
     "mean_total_energy_per_atom": -6.9379864627288494,
     "mean_volume_factor": 0.9315122941590748,
-    "pressure_error": -0.0745300423757218,
-    "pressure_standard_error": 0.005168954583869048,
+    "pressure_error": -0.07453004237572225,
+    "pressure_standard_error": 0.005168954583869415,
     "production_gpu_ready": false,
     "replica_count": 3,
     "runtime_device": "jax:cpu;devices:cpu",
@@ -79,10 +79,10 @@
     "target_device": "cuda_or_cpu_fallback",
     "target_pressure": 1.0,
     "target_requests_gpu": true,
-    "volume_effective_samples": 96.00305741786161,
+    "volume_effective_samples": 96.00305741786154,
     "volume_factor_span": 0.059749088339782874,
-    "volume_factor_standard_error": 7.73752649749826e-05,
-    "volume_integrated_autocorrelation_time": 12.499601911394302
+    "volume_factor_standard_error": 7.73752649750034e-05,
+    "volume_integrated_autocorrelation_time": 12.499601911394311
   },
   "compressibility": 0.01,
   "config_sha256": "d9da66ce28211ce45668052d4aaed25f8f5f7e58ed34c79f7a9f10103520a92f",
@@ -103,7 +103,7 @@
       "samples": 2500,
       "volume_effective_samples": 1255.7211131776073,
       "volume_integrated_autocorrelation_time": 1.9908879238907913,
-      "volume_lag1_autocorrelation": 0.33848275386135235,
+      "volume_lag1_autocorrelation": 0.3384827538613524,
       "volume_mean": 999.6760317247359,
       "volume_variance": 9.787584469846385,
       "volume_variance_relative_error": -0.02124155301536157
@@ -120,7 +120,7 @@
       "relaxation_time": 2.0,
       "samples": 2500,
       "volume_effective_samples": 344.9572772297935,
-      "volume_integrated_autocorrelation_time": 7.24727427140093,
+      "volume_integrated_autocorrelation_time": 7.247274271400929,
       "volume_lag1_autocorrelation": 0.7611702352643483,
       "volume_mean": 1000.0989697614353,
       "volume_variance": 8.605542949057543,
@@ -137,9 +137,9 @@
       "pressure_variance_relative_error": -0.14796315851175235,
       "relaxation_time": 8.0,
       "samples": 2500,
-      "volume_effective_samples": 110.9573838228405,
-      "volume_integrated_autocorrelation_time": 22.53117290501019,
-      "volume_lag1_autocorrelation": 0.9250422166292653,
+      "volume_effective_samples": 110.95738382284054,
+      "volume_integrated_autocorrelation_time": 22.531172905010184,
+      "volume_lag1_autocorrelation": 0.925042216629265,
       "volume_mean": 1000.4394746805582,
       "volume_variance": 8.520368414882478,
       "volume_variance_relative_error": -0.14796315851175224
