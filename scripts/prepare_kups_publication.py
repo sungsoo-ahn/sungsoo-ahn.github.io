@@ -83,7 +83,7 @@ def get_frontmatter_value(lines: list[str], key: str) -> str | None:
 
 def rewrite_frontmatter(lines: list[str], *, publication_date: str) -> list[str]:
     rewritten: list[str] = []
-    skip_keys = {"permalink", "nav", "nav_order"}
+    skip_keys = {"permalink", "nav", "nav_order", "publication_status"}
     for line in lines:
         key = (
             line.split(":", 1)[0].strip()
@@ -104,18 +104,16 @@ def rewrite_frontmatter(lines: list[str], *, publication_date: str) -> list[str]
 def rewrite_author_note(body: str, *, post: str) -> str:
     final_note = (
         '<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">\n'
-        "<em>Note: This post is part of the kUPS Molecular Dynamics Tutorials "
-        "series for ML researchers who already know MLIPs and the equations of "
-        "motion. Corrections and replication issues should be tracked in "
+        f"<em>Part {int(post)} of the kUPS Molecular Dynamics Tutorials for ML "
+        "researchers who are new to simulation practice. The executable "
+        "examples and data are maintained in "
         '<a href="https://github.com/sungsoo-ahn/kups-md-tutorials">'
-        "sungsoo-ahn/kups-md-tutorials</a>; the corresponding source, "
-        "configuration, notebook, results, figures, and self-review artifacts "
-        f"are linked below for Post {post}.</em>\n"
+        "sungsoo-ahn/kups-md-tutorials</a>.</em>\n"
         "</p>"
     )
     return re.sub(
         r'<p style="color: #666; font-size: 0\.9em; margin-bottom: 1\.5em;">\n'
-        r"<em>Note:.*?</em>\n</p>",
+        r"<em>.*?</em>\n</p>",
         final_note,
         body,
         count=1,
@@ -178,6 +176,9 @@ def prepare_posts(
             raise ValueError(
                 f"{source.relative_to(ROOT)}: hidden draft must set nav: false"
             )
+        publication_status = (
+            get_frontmatter_value(frontmatter, "publication_status") or "draft"
+        )
 
         destination = target_dir / destination_name(
             source,
@@ -194,12 +195,18 @@ def prepare_posts(
         if output_dir is not None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_text(rewritten, encoding="utf-8")
+        blockers = list(public_blockers(rewritten))
+        if publication_status != "ready":
+            blockers.insert(
+                0,
+                f"publication_status is {publication_status!r}, not 'ready'",
+            )
         prepared.append(
             PreparedPost(
                 post=post,
                 source=source,
                 destination=destination,
-                public_blockers=public_blockers(rewritten),
+                public_blockers=tuple(blockers),
             )
         )
     return prepared
@@ -240,9 +247,8 @@ def main() -> int:
     blocked = [item for item in prepared if item.public_blockers]
     if blocked:
         print(
-            "public release still blocked: staged posts contain non-final or "
-            "hidden-draft body language that must be revised after production "
-            "diagnostics."
+            "public release still blocked: staged posts are not marked ready "
+            "or contain legacy non-final body language."
         )
     if index_uses_hidden_pages():
         print(
