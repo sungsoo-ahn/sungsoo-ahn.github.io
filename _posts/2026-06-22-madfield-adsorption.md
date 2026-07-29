@@ -2,7 +2,7 @@
 layout: post
 title: "MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials"
 date: 2026-06-22
-last_updated: 2026-06-23
+last_updated: 2026-07-29
 description: "MADField predicts the full 3D adsorbate density field in nanoporous materials, turning slow gas-adsorption simulation into a single forward pass."
 post_type: research
 authors: ["Yoonho Kim", "Seongsu Kim", "Sungsoo Ahn", "Honghui Kim"]
@@ -117,7 +117,7 @@ $$
 
 Integrating the field recovers uptake, but it carries more than its integral: where $$\rho(\mathbf{r})$$ concentrates marks the binding sites, and sweeping pressure traces the full isotherm. All three fall out of one prediction.
 
-This matters more than it might seem. A version of MADField that shares the exact same backbone but regresses $$N$$ directly is **7.2× worse**. The accuracy gain comes from the target, not the network.
+A version of MADField that shares the exact same backbone but regresses $$N$$ directly is **7.2× worse**. The accuracy gain comes from the target, not the network.
 
 Density-field prediction is not new (<span id="cite-sun2024"></span>[Sun & Siepmann, 2024](#ref-sun2024); [Burner et al., 2026](#ref-burner2026)), but prior work has a critical gap: existing models predict a **normalized** density that integrates to one by construction. Integrating it gives 1, not uptake. Some models require the uptake $$N$$ itself as an input to work around this. Neither can independently predict how much gas a material holds.
 
@@ -141,9 +141,9 @@ This is what drives generalization. We also tried training on GCMC alone, withou
 
 MADField reframes adsorption prediction as estimating the 3D equilibrium density field, then recovers gas uptake by integrating it. That one target unifies what a screening pipeline needs: ranking candidates by working capacity, accurate uptake on seen and unseen materials, faithful density fields, and a warm start that accelerates the cDFT solver itself. Multi-fidelity training is what makes it work — a broad, cheap cDFT prior corrected by a little high-fidelity GCMC — and what carries the model from MOFs to disordered solids it never trained on.
 
-Two results are worth underlining. MADField generalizes far beyond the MOFs it was trained on — to amorphous carbons and other disordered porous materials, including frameworks with thousands of atoms and unit cells far larger than anything it saw in training, where the strongest baselines fall apart but MADField stays accurate. And the model gives back to the simulators it learned from: its predicted density is a strong initial guess for the cDFT solver, cutting the iterations to convergence by about half and recovering many cases that otherwise fail to converge at all.
+MADField generalizes far beyond the MOFs it was trained on — to amorphous carbons and other disordered porous materials, including frameworks with thousands of atoms and unit cells far larger than anything it saw in training, where the strongest baselines fall apart but MADField stays accurate. Its predicted density also gives cDFT a strong initial guess, cutting the iterations to convergence by about half and recovering many cases that otherwise fail to converge at all.
 
-Beyond the model, this work sets the right bar for the problem. Real adsorbent discovery is a needle-in-a-haystack retrieval task, and our database-scale screening benchmark measures exactly that — whether a model surfaces the rare high-capacity materials, not merely whether it reproduces the overall trend. That standard is far stricter than average uptake error, and it is the one a deployable pipeline lives or dies by. By it, capturing the broad behaviour is not nearly enough; only predictions sharp enough to rank the best materials to the very top pay off — and MADField is the first to clear that bar, by a wide margin over prior work.
+Real adsorbent discovery is a needle-in-a-haystack retrieval task. Our database-scale screening benchmark measures whether a model surfaces the rare high-capacity materials, not merely whether it reproduces the overall trend. Average uptake error is too weak a metric for a deployable screening pipeline. Predictions must rank the best materials at the top, and MADField is the first model in this benchmark to clear that bar by a wide margin.
 
 ## References
 

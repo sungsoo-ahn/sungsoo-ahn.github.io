@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -90,13 +90,13 @@ On top of the hydrophobic effect, several other forces contribute:
 - **Hydrogen bonds** — weak electrostatic attractions between donor and acceptor atoms. Individually weak, but collectively essential for secondary structure. Every backbone N-H and C=O must either form an H-bond or be exposed to water; an unsatisfied H-bond donor buried in the core is energetically costly.
 - **Salt bridges** — attractions between positively charged residues (Lys, Arg) and negatively charged ones (Asp, Glu). Contribute to stability on the protein surface.
 - **Disulfide bonds** — covalent bonds between two cysteine residues. Molecular staples that physically lock distant parts of the chain together. Common in antibodies and secreted proteins.
-- **Van der Waals interactions** — weak attractions between atoms at close range. Negligible individually but significant when combined, as thousands of atoms pack tightly in the core.
+- **Van der Waals interactions** — weak attractions between atoms at close range. Individually small, but they add up as thousands of atoms pack tightly in the core.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_protein_interactions.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Tertiary structure is stabilized by several side-chain interactions, including hydrophobic packing, hydrogen bonds, salt bridges, and disulfide bridges. A design fails when these interactions are missing, geometrically strained, or placed in the wrong environment." %}
 
 ### Stability and Failure Modes
 
-**Stability** measures how hard it is to unfold a protein. The melting temperature (T$$_m$$) is the temperature at which half the protein population is unfolded — higher T$$_m$$ means a more robust protein. Designed proteins typically need T$$_m$$ > 60°C to be useful.[^tm]
+**Stability** measures how hard it is to unfold a protein. The melting temperature (T$$_m$$) is the temperature at which half the protein population is unfolded — higher T$$_m$$ means a more stable protein. Designed proteins typically need T$$_m$$ > 60°C to be useful.[^tm]
 
 [^tm]: T$$_m$$ is measured by heating the protein while monitoring secondary structure (e.g., circular dichroism). A well-designed miniprotein might reach T$$_m$$ > 90°C.
 
@@ -117,7 +117,7 @@ Most proteins function by binding to other molecules — other proteins, small m
 | 100 nM – 1 μM | Moderate | Signaling interactions |
 | > 1 μM | Weak | Transient contacts |
 
-**Specificity** is equally important: a binder that grabs everything is useless. The physical contact surface between two binding partners is the binding interface, typically spanning 1,000–2,000 Å$$^2$$. Interface residues do not contribute equally; a handful of hotspot residues provide most of the binding energy. Identifying target-surface hotspots is the first step of binder design.
+**Specificity** is the other binding constraint: a binder that grabs everything is useless. The physical contact surface between two binding partners is the binding interface, typically spanning 1,000–2,000 Å$$^2$$. Interface residues do not contribute equally; a handful of hotspot residues provide most of the binding energy. Identifying target-surface hotspots is the first step of binder design.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_binding_interface_source.jpg" class="img-fluid rounded z-depth-1 mx-auto d-block" max-width="620px" zoomable=true caption="This RNase inhibitor-RNase complex shows a protein-protein binding interface. The interface works because the two surfaces are geometrically and chemically complementary. From Wikimedia Commons (CC BY 3.0; PDB: 1DFJ)." %}
 
@@ -249,7 +249,7 @@ Meta's protein language models offer a faster structure-prediction route. ESMFol
 
 ### RFDiffusion
 
-**Input:** target protein structure + conditioning constraints (hotspot residues, motifs, symmetry). Output: new backbone coordinates. A denoising diffusion model over backbone coordinates — analogous to image diffusion models but operating in SE(3) coordinate space. RFDiffusion is the most powerful current tool for de novo backbone generation (<span id="cite-watson2023"></span>[Watson et al., 2023](#ref-watson2023)).
+**Input:** target protein structure + conditioning constraints (hotspot residues, motifs, symmetry). Output: new backbone coordinates. A denoising diffusion model over backbone coordinates — analogous to image diffusion models but operating in SE(3) coordinate space. RFDiffusion is a standard tool for de novo backbone generation (<span id="cite-watson2023"></span>[Watson et al., 2023](#ref-watson2023)).
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pd_rfdiffusion_overview_source.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="RFDiffusion generates protein backbones through iterative denoising. Conditioning lets the same diffusion model handle unconditional generation, motif scaffolding, symmetry, and binder design. From Watson et al. (2023), CC BY 4.0." %}
 
@@ -277,7 +277,7 @@ A reference table for interpreting computational metrics:
 
 ## The Design Workflow
 
-The tools above assemble into a five-step pipeline. The important constraint is the numbers at each stage: the funnel from millions of computational candidates to a handful of experimental hits shapes every decision in a design project.
+The tools above assemble into a five-step pipeline. The funnel from millions of computational candidates to a handful of experimental hits shapes every decision in a design project.
 
 ### Step 1: Define the problem
 
