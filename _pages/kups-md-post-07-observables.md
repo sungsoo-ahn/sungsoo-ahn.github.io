@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-07-observables/
 title: "How Do Trajectories Become Physical Observables?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible observable-estimator diagnostic for molecular dynamics: RDF normalization, coordination integrals, finite-size support, uncertainty, and velocity autocorrelation functions."
+last_updated: 2026-07-29
+description: "How trajectory frames become RDFs, coordination numbers, and velocity correlations with finite-size limits and uncertainty."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 7
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 7
 categories: [science]
 tags: [molecular-dynamics, rdf, observables, correlation-functions, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post follows the trajectory-length discussion by asking how sampled configurations and velocities become physical observables with normalization, finite-size limits, and uncertainty. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 7 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 A trajectory is not an observable by itself. It is a source of samples from
 which an observable is estimated. That distinction matters because every
@@ -56,16 +56,6 @@ displaced structure makes normalization and finite-size support easy to see.
 The compact trajectory panel then checks the same estimators on real
 time-correlated reduced-unit frames. A larger GPU kUPS trajectory remains
 needed before any public liquid-like or dynamical MD claim is final.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-07/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-07/full.json)
-- [observable notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-07-observables.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-07/smoke/observable_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-07/full/observable_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-07/full/manifest.json)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-07.md)
 
 ## What Is an Observable?
 
@@ -216,6 +206,8 @@ estimator. The summary records the finite-size shell fraction as about 1.39 for
 the small system and about 0.70 for the large system, making the support issue
 explicit.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_rdf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The normalized RDF approaches the ideal-gas baseline only within its finite-size support. Shell volume and available pair counts turn raw distances into an estimator." %}
+
 ## How Does an RDF Become a Coordination Number?
 
 The coordination number up to a cutoff is an integral of the RDF against the
@@ -240,7 +232,7 @@ estimation. If the RDF is invalid at some radii, the coordination integral
 over those radii is also invalid. If the cutoff is moved across a peak or
 minimum, the coordination number changes.
 
-The committed workflow estimates block standard errors for the coordination
+The run estimates block standard errors for the coordination
 number. They are very small in this controlled setup: about 0.00042 for the
 small cell and 0.000058 for the large cell. Those small uncertainties should
 not be generalized to a liquid trajectory. They reflect a controlled displaced
@@ -251,6 +243,8 @@ For production MD, a coordination report should say how the cutoff was chosen,
 whether the RDF minimum is stable across replicas, whether block or replica
 uncertainty is reported, and whether the system size supports the radial range
 being integrated.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_coordination.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Integrating the RDF to a chosen cutoff gives a coordination number with block uncertainty. The cutoff and sampling error are part of the reported observable." %}
 
 ## What Makes a Time-Correlation Observable Different?
 
@@ -286,32 +280,7 @@ check now adds physical reduced-unit velocities and a three-replica VACF
 standard-deviation band, but a larger kUPS production trajectory is still
 needed before making any public dynamical claim.
 
-## What Should The Diagnostic Show?
-
-The full run checks four things. The RDF panel shows the normalized pair
-estimator rather than a raw distance histogram. The coordination panel turns
-that curve into a first-shell integral with a block standard error. The VACF
-panel treats time correlation as its own observable, not as a side effect of
-the trajectory, and overlays the compact argon VACF with a seed-shifted
-replica band. The compact argon panel applies the RDF estimator to actual
-sampled trajectory frames and overlays seed-shifted replica disagreement.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_observable_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Observable diagnostics for the committed full profile. The controlled RDF is normalized and finite-size limited, the coordination number carries a block uncertainty, the VACF panel overlays controlled and compact trajectory correlations with replica spread, and the compact CPU-fallback argon trajectory panel shows the same RDF machinery on sampled frames with a three-replica RDF uncertainty band." %}
-
-The figure is intentionally estimator-focused. The controlled RDF panel
-compares the 32- and 256-atom cells while respecting the small-cell finite-size
-limit. The coordination panel shows that the first-shell integral is close to
-the expected FCC value and that block uncertainty is part of the reported
-number. The VACF panel shows a decaying time-correlation function with a
-configured memory scale. The trajectory RDF panel shows a reduced-unit argon
-first peak near `1.095` and marks the first-shell cutoff used for the reported
-coordination. Its annotation reports the trajectory coordination and the
-coordination replica standard error from three seed-shifted compact runs.
-
-The figure supports a narrow but important mechanism: observables require
-analysis definitions. The same stored frames can produce different results if
-the RDF normalization is wrong, if invalid radial bins are drawn, if the
-coordination cutoff is changed, or if a time-correlation tail is over-read.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_vacf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The velocity autocorrelation decays over lag time rather than simulation time. Its uncertainty depends on both the number of time origins and their correlation." %}
 
 ## How Should Uncertainty Be Attached?
 
@@ -422,30 +391,16 @@ That extension should record:
 | finite-size comparison | whether the observable changes with box size |
 | model-health checks | whether the kUPS trajectory remains in a credible regime |
 
-The controlled workflow remains useful after the compact trajectory addition.
+The controlled example remains useful after the compact trajectory addition.
 It acts as a unit test for the observable-estimator logic. If the production
 figure changes, the controlled estimator can remain as a simpler reference for
 normalization, support masking, and notebook regeneration.
 
-## What Belongs in the Methods Paragraph?
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post07_argon_rdf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS argon trajectory produces a structured RDF with replica spread around the first shells. The same normalization used in the controlled case now measures a physical trajectory." %}
 
-An observable methods paragraph should be specific enough that another person
-can reproduce the estimator, not only the trajectory. For an RDF, that means
-reporting the density, bin width, maximum radius, periodic-boundary convention,
-whether invalid shells were masked, and the frame set used for averaging. For a
-coordination number, it means reporting the cutoff, integration convention, and
-uncertainty estimator. For a VACF, it means reporting the velocity source,
-normalization, lag range, time-origin handling, and any integration limit.
+## Run the Example
 
-The methods text should also separate physical interpretation from analysis
-mechanics. "The first-shell coordination is near 12" is a physical statement
-for this controlled FCC-like structure. "The RDF was masked beyond half the
-box length" is an estimator-validity statement. Both are needed. Omitting the
-second makes the first harder to trust.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -453,76 +408,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 07 --profile smoke
 uv run kups-tutorial verify 07 --profile smoke
-uv run kups-tutorial run 07 --profile full
-uv run kups-tutorial verify 07 --profile full
-uv run jupyter execute notebooks/post-07-observables.ipynb --inplace
-uv run python scripts/generate_post07_figures.py
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, observable diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records the configuration
-hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, target device, runtime device, GPU-readiness state, and package
-versions. For the current full profile, the
-configuration hash is
-`4dae2edac859bdc8af1b6bb86997b0d5a2e5729cc806c170f4a2067f6c2b0f9e`, the
-recorded source revision is `c1e3058be3b2ce658de5cf995ad56f010cca31a3`, the
-target device is `cuda_or_cpu_fallback`, the runtime device is
-`jax:cpu;devices:cpu`, and the production GPU readiness flag is `false`.
-
-The compact outputs include the summary JSON plus controlled RDF/VACF and
-argon trajectory RDF/VACF sample tables. Those files are committed so the
-notebook and website figure can be regenerated without raw trajectory
-archives. Raw trajectories remain out of scope for the repository because the
-plan commits compact summaries and figure sources, not bulky intermediate
-data.
-
-## Practical Checklist
-
-Before accepting an observable from a trajectory, record concrete answers to
-these questions:
-
-| Question | Evidence to record |
-|---|---|
-| What is the observable definition? | Formula, units, and code path. |
-| What samples enter the estimator? | Frames, warmup discard, stride, and replicas. |
-| What normalization is used? | Density, shell volume, time-origin convention, or reference measure. |
-| What is the valid support? | Half-box RDF limit, lag support, cutoff, or finite-size bound. |
-| What uncertainty is attached? | Block, replica, bootstrap, or correlation-aware interval. |
-| What derived choices matter? | RDF bin width, coordination cutoff, VACF integration range. |
-| What does the figure claim? | Caption and plotted quantities must match the summary values. |
-
-The checklist is intentionally stricter than "plot the observable." A
-scientific observable is a statistical claim about a system, not a visual
-artifact produced by a plotting function.
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled argon-FCC observable workflows
-- compact reduced-unit argon trajectory observable workflow
-- machine-readable target-device, runtime-device, GPU-readiness, and blocking
-  reason provenance for the compact argon trajectory observable diagnostic
-- committed compact RDF, VACF, replica RDF/VACF uncertainty, and summary
-  outputs
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- self-review note covering code, science, notebook, and figure feedback
-- final citations for RDF normalization, coordination integrals, finite-size
-  transport effects, and time-correlation functions
-
-The missing pieces are:
-
-- larger GPU kUPS trajectory diagnostics for physical observables
-- rendered desktop and mobile page snapshots after production diagnostics
-- final consistency pass after production trajectory-observable diagnostics are
-  added
-
-The rule for this post is that an observable is a statistical object. The
-trajectory provides samples; the estimator, normalization, finite-size support,
-and uncertainty determine what can be claimed from those samples.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-07/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-07/full).
 
 ## References
 

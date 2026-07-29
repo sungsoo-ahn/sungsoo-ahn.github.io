@@ -62,6 +62,13 @@ table {
   }
 }
 
+// Keep wide tutorial tables inside the article column on narrow screens.
+.post-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 a,
 table.table a {
   color: var(--global-theme-color);

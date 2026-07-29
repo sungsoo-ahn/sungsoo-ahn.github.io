@@ -106,6 +106,8 @@ concentration, and reduced Lennard-Jones density can describe very different
 cells with similar-looking numbers. Recording the generated volume provides a
 simple check that the intended convention reached the simulation.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_initial_cell.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS initialization builds 500 FCC argon atoms at the requested number density. Fixing the cell before drawing velocities separates configurational choices from the kinetic sample." %}
+
 ## Temperature Sets a Velocity Distribution
 
 At temperature $$T$$, each Cartesian velocity component is commonly drawn from
@@ -152,7 +154,7 @@ center-of-mass velocity after sampling, leaving a center-of-mass speed near
 zero. The order matters: drawing velocities, removing the center-of-mass motion,
 and optionally rescaling temperature are distinct transformations.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_initialization_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The FCC construction fixes the atom count and density, while the velocity histogram shows one finite draw from the target distribution. The final checks confirm that the requested seed was used and center-of-mass motion was removed." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_velocity_draw.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The seeded kUPS velocity components follow the target Gaussian shape while the finite draw gives 90.9 K rather than exactly 94.4 K. Temperature sets a distribution, not one deterministic kinetic energy." %}
 
 ## Minimization and Warmup Change the Starting Point
 
@@ -199,10 +201,11 @@ That description is short, but it distinguishes the important alternatives. A
 colleague can reproduce the same state or create an independent replica without
 guessing which choices were scientific and which were incidental.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post01_initialization_checks.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The recorded density, seed, center-of-mass speed, and configuration hash make the initialized state auditable. These fields distinguish a reproducible state from a prose-only recipe." %}
+
 ## Run the Example
 
-The smoke profile uses the same initialization policy with 32 atoms so the
-complete path runs quickly on a CPU:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -212,11 +215,7 @@ uv run kups-tutorial run 01 --profile smoke
 uv run kups-tutorial verify 01 --profile smoke
 ```
 
-The repository also contains the [full
-configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-01/full.json),
-[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-01-initialization.ipynb),
-and [recorded
-results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-01/full).
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-01/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-01/full).
 
 ## References
 

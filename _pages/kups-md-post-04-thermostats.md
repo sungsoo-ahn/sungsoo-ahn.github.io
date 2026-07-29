@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-04-thermostats/
 title: "How Do Thermostats Change Sampling and Dynamics?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible thermostat diagnostic for molecular dynamics: BAOAB Langevin sampling, canonical moment checks, coupling strength, autocorrelation, and dynamical distortion."
+last_updated: 2026-07-29
+description: "How thermostat coupling changes both canonical sampling and the dynamics used to estimate time-dependent observables."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 4
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 4
 categories: [science]
 tags: [molecular-dynamics, thermostats, langevin, sampling, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post builds on the initialization and integrator diagnostics by asking what changes once a thermostat is added, first in a controlled oscillator and then in a reduced-unit argon thermostat-to-NVE handoff check. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 4 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 A thermostat is often described as "keeping the temperature fixed." That phrase
 is too vague for molecular simulation. A thermostat changes the equations being
@@ -52,17 +52,6 @@ temperature clamp. It can help draw from a canonical distribution, remove or
 inject kinetic energy, randomize momenta, change autocorrelation times, and
 destroy the dynamics that one might otherwise interpret as physical. A correct
 temperature is therefore necessary but not sufficient evidence.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-04/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-04/full.json)
-- [thermostat notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-04-thermostats.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/smoke/thermostat_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/full/thermostat_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-04/full/manifest.json)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post04_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-04.md)
 
 ## What Does a Thermostat Change?
 
@@ -175,8 +164,10 @@ machine-readable instead of leaving it only in prose:
 | production GPU ready | `false` |
 | blocking reason | target requested CUDA/GPU, but the generated runtime was CPU |
 
-The review note keeps the larger production diagnostic as a final-release
+The analysis keeps the larger production diagnostic as a final-release
 blocker.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_canonical_variance.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The controlled kUPS Langevin runs recover the canonical position variance across coupling strengths. Matching the equilibrium moment does not guarantee unchanged dynamics." %}
 
 ## Why Is Temperature Alone Not Enough?
 
@@ -203,38 +194,7 @@ heat with the system. The kinetic temperature may look stable while the model
 is producing wrong structural statistics or wrong dynamics. A thermostat is not
 a repair mechanism for an invalid force model.
 
-## What Should the Diagnostic Show?
-
-The full run compares observed position and velocity variances to their
-canonical targets. It also compares mean kinetic energy to the 0.5 kT target
-for one degree of freedom. Finally, it reports the position integrated
-autocorrelation time to show that stronger coupling can change dynamical
-memory.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_thermostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Thermostat diagnostics for the committed full profile. The BAOAB Langevin oscillator cases sample near the same canonical moment targets while strong coupling substantially increases position autocorrelation time; the argon panel checks post-thermostat NVE energy drift for a 256-atom, three-replica CPU-fallback handoff protocol." %}
-
-The figure has a specific scope. It is moment-focused, memory-focused, and
-handoff-focused. It does not yet show the full kinetic-energy distribution. The
-argon panel is a reduced-unit CPU-fallback handoff check, not a final
-production calculation. That is acceptable for the hidden draft because the
-prose makes moment-level, memory, and NVE-handoff claims. If the final article
-makes stronger distribution-shape claims, the review note already flags a
-possible kinetic-energy histogram or empirical CDF as future work.
-
-For the full argon protocol, the maximum absolute kinetic-temperature relative
-error across thermostat cases and replicas is about `5.86e-2`. After the
-thermostat segment is removed, the 1000-step NVE handoff has maximum absolute
-normalized energy drift about `1.14e-5`, maximum relative energy error about
-`5.29e-5`, and no unstable handoff runs. These numbers support a bounded
-handoff sanity check, not a claim that the final production kUPS workflow is
-complete.
-
-The most important panel is the autocorrelation panel. The strong-coupling run
-has position integrated autocorrelation time about 52.7, while the weak and
-moderate cases are about 10.1 and 12.7. Strong coupling is not simply "more
-temperature control." It changes how slowly the position samples decorrelate.
-The effective sample count drops from roughly 348 in the weak case and 275 in
-the moderate case to about 66 in the strong case.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_kinetic_temperature.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kinetic-temperature check probes more than a mean temperature label. Its distribution reveals whether the thermostat samples the intended kinetic fluctuations." %}
 
 ## How Does Coupling Distort Dynamics?
 
@@ -263,6 +223,8 @@ workflow is to equilibrate with a thermostat, then switch to NVE production
 after checking energy behavior. The exact decision depends on the observable,
 system, and acceptable bias.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_coupling_memory.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Stronger coupling changes the position autocorrelation time even when equilibrium moments remain accurate. Thermostat strength therefore enters every dynamical observable." %}
+
 ## When Should One Switch to NVE?
 
 Switching from thermostatted equilibration to NVE production is not a ritual.
@@ -290,6 +252,8 @@ how the oscillator lesson transfers to the target argon trajectory family at
 production settings: warmup under a thermostat, moment checks, a coupling sweep
 if needed, and an NVE handoff check for dynamics.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post04_argon_handoff.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS argon handoff compares thermostatted preparation with subsequent NVE behavior. The handoff isolates equilibrium preparation from unthermostatted dynamical measurement." %}
+
 ## What Does This Mean for Enhanced Sampling?
 
 Thermostats also appear inside enhanced-sampling workflows. Umbrella sampling,
@@ -308,27 +272,6 @@ The later free-energy posts will return to this point. A thermostat can help
 maintain a target temperature in biased windows, but it does not guarantee
 overlap, independence, or estimator validity. Moment checks and autocorrelation
 checks remain part of the evidence chain.
-
-## What Should Be Recorded?
-
-The compact summary for this page records the seed, timestep, sample interval,
-target temperature, gamma values, observed means, variances, kinetic energies,
-autocorrelations, integrated autocorrelation times, and effective sample
-counts. That is the right shape for a thermostat diagnostic: it records both
-sampling targets and dynamical memory.
-
-The manifest records the configuration path, config hash, lock hash, git
-revision, runtime device, precision policy, Python version, kUPS version, and
-NumPy version. For stochastic dynamics, the seed and software versions matter.
-Different random streams or numerical kernels can produce different finite-run
-statistics even when the target distribution is the same.
-
-For a production atomistic thermostat report, the same record should include
-system size, density or cell, initialization source, warmup length, thermostat
-method, coupling constants, timestep, sample interval, removed degrees of
-freedom, constraints, precision policy, and whether the production segment is
-thermostatted or NVE. Without those fields, a temperature number is not enough
-to reproduce the simulation.
 
 ## How Do Thermostat Families Differ?
 
@@ -374,7 +317,7 @@ Moment checks are a first pass, not a full distributional proof. For a harmonic
 oscillator, the canonical position and velocity distributions are Gaussian.
 Checking means and variances is informative, but a stronger diagnostic could
 also compare histograms, empirical CDFs, quantiles, or kinetic-energy
-distributions. The review note already flags a possible kinetic-energy
+distributions. The analysis already flags a possible kinetic-energy
 histogram if the final article makes stronger distribution-shape claims.
 
 For many-body systems, the analogous checks are broader. One might inspect
@@ -445,31 +388,9 @@ seeds, reasonable warmup changes, and shorter timestep checks. This becomes
 more important in enhanced sampling, where biased trajectories and thermostat
 noise interact with estimator variance.
 
-## What Should Not Be Inferred?
+## Run the Example
 
-This page does not prove that the final argon thermostat workflow is complete.
-The oscillator has known targets and cheap sampling; the argon handoff panel
-adds a many-body reduced-unit check but still has finite-size,
-short-trajectory, CPU-fallback, and non-kUPS-production limitations. The review
-note keeps the larger GPU kUPS production thermostat diagnostic as a
-final-release blocker.
-
-It also does not claim that BAOAB Langevin is always the right thermostat.
-Different thermostats have different strengths. CSVR, Nosé-Hoover chains,
-Langevin variants, Andersen-like collisions, and local thermostats can all be
-appropriate or inappropriate depending on the task. The article's claim is
-narrower: thermostat diagnostics should distinguish canonical moment checks
-from dynamical distortion.
-
-Finally, this page does not replace uncertainty analysis. Autocorrelation
-reduces effective sample size. If samples are correlated, 3500 saved points are
-not 3500 independent samples. The strong-coupling case makes that clear. Later
-posts on trajectory length and observables will turn this into a broader error
-bar workflow.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -477,44 +398,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 04 --profile smoke
 uv run kups-tutorial verify 04 --profile smoke
-uv run kups-tutorial run 04 --profile full
-uv run kups-tutorial verify 04 --profile full
-uv run jupyter execute notebooks/post-04-thermostats.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, thermostat diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
-
-## Current Status
-
-This page is not the final article. It is a substantially expanded hidden draft
-that remains outside site navigation while the rest of the series is brought to
-the same standard. The implemented pieces are:
-
-- smoke and full controlled BAOAB Langevin workflows
-- 256-atom, three-replica reduced-unit argon Langevin plus NVE-handoff workflow
-- machine-readable target-device, runtime-device, GPU-readiness, and blocking
-  reason provenance for the argon thermostat handoff protocol
-- committed compact summaries and downsampled samples
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- self-review note covering code, science, notebook, and figure feedback
-- expanded prose separating canonical moment checks, coupling strength,
-  autocorrelation, argon thermostat-to-NVE handoff, thermostat-induced
-  dynamical distortion, and final-release limitations
-
-The remaining non-publication pieces are:
-
-- larger GPU kUPS production thermostat and NVE handoff diagnostic before
-  treating this post as final
-- final all-post consistency pass once the other articles are expanded
-- final rendered desktop and mobile page snapshots after that consistency pass
-- public indexing decision after the series is ready as a unit
-
-The rule for this series is simple: a result is not ready because the code ran.
-It is ready only after the code, data, figure, prose, and rendered page have
-all been reviewed against the same reproducibility contract.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-04/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-04/full).
 
 ## References
 

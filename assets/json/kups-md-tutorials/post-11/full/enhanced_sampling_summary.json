@@ -48,7 +48,7 @@
   "post": "11",
   "profile": "full",
   "pulling": {
-    "crooks_crossing_delta_f": -0.0006959031674557675,
+    "crooks_crossing_delta_f": -0.0006959031674559735,
     "end_center": 1.1,
     "forward_dissipated_work": 0.16990254339688352,
     "forward_ess_fraction": 0.7158601024697085,
@@ -58,7 +58,7 @@
     "path_count": 20000,
     "path_steps": 260,
     "reverse_dissipated_work": 0.17337380079082518,
-    "reverse_ess_fraction": 0.7215265256179567,
+    "reverse_ess_fraction": 0.7215265256179569,
     "reverse_jarzynski_delta_f": -0.009001701511524463,
     "reverse_mean_work": 0.1733738007908253,
     "reverse_work_std": 0.5737331445702706,

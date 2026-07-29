@@ -64,7 +64,7 @@
       "max_pmf_abs_error": 5.410000000000015,
       "mean_adjacent_overlap": 0.2750230263157895,
       "min_adjacent_overlap": 0.18438815789473684,
-      "pmf_rmse_vs_true": 1.3032160142560922,
+      "pmf_rmse_vs_true": 1.303216014256092,
       "protocol": "dense_bridge",
       "sample_count_per_window": 8000,
       "window_count": 7

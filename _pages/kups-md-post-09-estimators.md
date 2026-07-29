@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-09-estimators/
 title: "What Do Free-Energy Estimators Assume?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible free-energy estimator diagnostic for FEP, BAR, overlap, effective sample size, and estimator failure modes."
+last_updated: 2026-07-29
+description: "Why FEP, BAR, WHAM, and MBAR succeed or fail according to overlap rather than nominal sample count."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 9
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 9
 categories: [science]
 tags: [molecular-dynamics, free-energy, estimators, bar, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post follows the PMF discussion by asking when free-energy estimators can be trusted, especially when overlap and effective sample size are poor. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 9 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 Free-energy perturbation is exact as an identity and fragile as an estimator.
 The difference is overlap. If samples from state A almost never visit
@@ -59,17 +59,6 @@ one wants a free-energy difference between states, Hamiltonians, biased
 windows, or alchemical endpoints. The answer is not "use the most advanced
 estimator." The answer is to understand what overlap structure the estimator
 requires and what diagnostics would reveal a failure.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-09/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-09/full.json)
-- [estimator notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-09-estimators.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-09/smoke/estimator_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-09/full/estimator_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-09/full/manifest.json)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post09_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-09.md)
 
 ## What Is Being Estimated?
 
@@ -134,6 +123,8 @@ fraction falls to about 0.274 percent. With 50000 nominal samples, that is only
 about 137 effective weighted samples by this diagnostic. More raw samples help
 only if they actually sample the important tail.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_work_tails.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="FEP is controlled by rare low-work samples in the exponential average. Missing a tail changes the estimate without producing an obvious runtime failure." %}
+
 ## Why Does Reverse FEP Not Automatically Fix It?
 
 One can also run the perturbation in reverse, sampling state B and estimating
@@ -156,6 +147,8 @@ For MLIP-based free-energy work, reverse checks are also model checks. If the
 learned potential produces configurations in one state that have unreasonable
 energies under another state, the work distribution can reveal extrapolation
 or instability. That failure should not be averaged away.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_overlap.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Forward and reverse work distributions become informative only where they overlap. Opposite-direction estimates can both be biased when their sampled tails do not meet." %}
 
 ## What Does BAR Add?
 
@@ -208,6 +201,8 @@ Those counts are approximate because they multiply the nominal sample count by
 the reported ESS fraction. They are enough to explain the mechanism. The poor
 case has many samples but very little weighted information.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_effective_samples.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Exponential weights collapse the effective sample size before the nominal sample count looks small. A large trajectory can still contain only a few influential work values." %}
+
 ## What Do WHAM and MBAR Assume?
 
 WHAM and MBAR generalize the same overlap logic across multiple states,
@@ -237,6 +232,8 @@ whereas the sparse bridge has effectively zero adjacent overlap and one broken
 edge. This is not a full production WHAM/MBAR analysis, but it makes the
 network assumption concrete: without adjacent overlap, a multi-state estimator
 has a protocol failure before it has a trustworthy result.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_multistate_bridge.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Intermediate states form a connected bridge across configuration space. A broken overlap edge cannot be repaired by adding samples to already disconnected windows." %}
 
 ## What Does Estimator Failure Look Like?
 
@@ -282,7 +279,7 @@ configurations, the path may be physically or numerically inappropriate.
 For biased sampling, intermediate states may be umbrella windows. For
 alchemical transformations, they may be lambda states. For a PMF
 reconstruction, they may be overlapping windows along a coordinate. In all
-cases, the review question is the same: does the sampled network provide a
+cases, the question is the same: does the sampled network provide a
 connected bridge of probability mass?
 
 A good intermediate-state report includes the list of states, sample counts,
@@ -367,75 +364,9 @@ embarrassing side notes. They tell readers which part of the protocol carried
 probability mass, which part did not, and which scientific conclusion survived
 the estimator review.
 
-## What Should The Diagnostic Show?
+## Run the Example
 
-The full run compares forward FEP, reverse FEP, and BAR against the known
-answer. It also records overlap coefficients and exponential-weight effective
-sample sizes. In the poor-overlap case, the forward effective sample size
-collapses to less than one percent of the nominal sample count even though the
-simulation contains fifty thousand samples per state.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post09_estimator_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Estimator diagnostics for the committed full profile. BAR remains close to the known Delta F in this controlled example, while the overlap, ESS, work-tail, and multi-state bridge panels show why estimators need connected probability mass." %}
-
-The figure has four roles. The estimator panel shows that all methods are
-close in good overlap and that errors grow as overlap decreases. The overlap
-and ESS panel shows the hidden statistical problem more directly than the
-estimator values alone. The work-distribution panel shows why the exponential
-average becomes fragile: poor-overlap estimates are controlled by rare tail
-samples rather than typical work values. The multi-state bridge panel compares
-a connected dense set of biased windows with a sparse endpoint-only protocol;
-the sparse curve has a visible missing middle because the adjacent-window
-overlap network is broken.
-
-This is the main lesson for free-energy calculations. A good-looking estimate
-is not enough. It must be accompanied by diagnostics that show the estimator
-had the probability mass it needed.
-
-## What Belongs in a Methods Paragraph?
-
-A free-energy estimator methods paragraph should report the sampled states,
-temperature, number of samples, energy or work definitions, estimator formula,
-overlap diagnostics, ESS diagnostics, uncertainty method, and any discarded or
-failed states. If BAR, WHAM, or MBAR is used, the report should say which
-states were included and how their overlap was checked.
-
-For alchemical or biased simulations, the methods should also record lambda
-schedules or bias centers, force-field or MLIP versions, restraint or bias
-parameters, equilibration discard, sampling interval, and whether estimates
-were checked in both directions. If only one direction was used, the report
-should explain why.
-
-For MLIP studies, model validity belongs near the estimator. A free-energy
-estimate can be statistically precise for a learned potential that is wrong in
-the important overlap region. The methods should therefore separate estimator
-uncertainty, sampling uncertainty, and model error.
-
-## Practical Checklist
-
-Before accepting a free-energy estimator result, record concrete answers to
-these questions:
-
-| Question | Evidence to record |
-|---|---|
-| What states are compared? | Hamiltonians, biases, coordinates, and temperature |
-| What estimator is used? | FEP, BAR, WHAM, MBAR, or another estimator |
-| Is there overlap? | overlap coefficient, overlap matrix, or work-distribution plot |
-| How many weighted samples remain? | ESS fraction or equivalent diagnostic |
-| Do directions agree? | forward/reverse checks where available |
-| Are intermediates connected? | adjacent-window overlap or multi-state network |
-| What uncertainty is reported? | bootstrap, asymptotic, block, or replica estimate |
-| What model checks matter? | MLIP validity in important sampled regions |
-
-The checklist is intentionally estimator-focused. A free-energy estimate is a
-claim about probability ratios. It is only as good as the overlap evidence
-supporting those ratios.
-For hidden drafts, those diagnostics should be recorded even when the final
-production estimator is still pending, because they determine which claims the
-draft is allowed to make.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -443,49 +374,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 09 --profile smoke
 uv run kups-tutorial verify 09 --profile smoke
-uv run kups-tutorial run 09 --profile full
-uv run kups-tutorial verify 09 --profile full
-uv run jupyter execute notebooks/post-09-estimators.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, estimator diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records the configuration
-hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, runtime device, and package versions. For the current full profile, the
-configuration hash is
-`54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125`, the
-recorded source revision is `98dc7cb2b3a6828141117f80de81bb9a242e57aa`, and
-the runtime device is `jax:cpu;devices:cpu`.
-
-| Provenance field | Value |
-|---|---|
-| configuration hash | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125</code> |
-| source revision | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">98dc7cb2b3a6828141117f80de81bb9a242e57aa</code> |
-| runtime device | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">jax:cpu;devices:cpu</code> |
-| precision policy | <code style="white-space: normal; overflow-wrap: anywhere; word-break: break-all;">jax_enable_x64=false;env_JAX_ENABLE_X64=unset</code> |
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled estimator workflows
-- committed compact estimator summaries, work-sample outputs, and
-  multi-state bridge curves
-- executable notebook
-- generated SVG/PNG four-panel figure and snapshot review
-- rendered desktop and mobile page snapshots for the refreshed bridge panel
-  and provenance section
-- self-review note covering code, science, notebook, and figure feedback
-
-The missing pieces are:
-
-- final production-style estimator diagnostics if a later public article needs
-  a chemistry-specific WHAM/MBAR or alchemical example
-
-The rule for this post is that estimator reliability is an overlap question.
-More samples help only when they include the configurations that carry the
-statistical weight.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-09/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-09/full).
 
 ## References
 

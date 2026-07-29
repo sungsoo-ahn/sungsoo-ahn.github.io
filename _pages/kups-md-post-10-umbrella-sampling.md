@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-10-umbrella-sampling/
 title: "What Does Umbrella Sampling Actually Sample?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible umbrella-sampling diagnostic for biased windows, adjacent overlap, WHAM-style reconstruction, and sparse-window failure modes."
+last_updated: 2026-07-29
+description: "How biased windows sample local distributions and how overlap controls umbrella reconstruction and hysteresis."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 10
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 10
 categories: [science]
 tags: [molecular-dynamics, umbrella-sampling, free-energy, wham, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post follows the free-energy-estimator discussion by asking what biased umbrella windows actually sample, how adjacent overlap controls reconstruction, and how sparse windows can fail even with many samples. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 10 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 Umbrella sampling does not sample the target PMF directly. Each window samples
 a biased ensemble. The unbiased PMF is reconstructed later, and that
@@ -47,7 +47,7 @@ as part of the free-energy calculation (<span id="cite-kaestner2011"></span>[Kä
 This draft demonstrates the executable slice of the tenth tutorial with a
 known one-dimensional double-well PMF. Dense and sparse umbrella protocols are
 run against the same answer key, so the diagnostic can isolate overlap and
-window placement from physical-model error. The refreshed executable workflow
+window placement from physical-model error. The full run
 also adds a compact pair-distance umbrella diagnostic with Lennard-Jones
 contact physics, window-overlap checks, replica disagreement, and explicit
 CPU-fallback runtime provenance.
@@ -73,7 +73,7 @@ the result.
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/umbrella_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/manifest.json)
 - [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post10_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-10.md)
+- [self-analysis](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-10.md)
 
 ## What Is Being Sampled?
 
@@ -107,6 +107,8 @@ sparse protocol uses four windows at -1.6, -0.8, 0.8, and 1.6. Both use the
 same force constant, temperature, bin width, and samples per window. The
 comparison therefore isolates window placement.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_biased_windows.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Each umbrella window samples a shifted local distribution rather than the unbiased target. The reconstruction must account for the bias applied in every window." %}
+
 ## Why Is Overlap the Central Diagnostic?
 
 Umbrella sampling reconstructs a global PMF from local biased samples. Adjacent
@@ -129,6 +131,8 @@ the windows do not connect the barrier region.
 This is the core lesson: local sample count is not global evidence. A window
 can be well sampled around its own biased distribution and still fail to
 support the full PMF if neighboring windows do not overlap.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_window_overlap.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Adjacent-window overlap reveals whether samples can connect neighboring regions. Sparse windows leave gaps even when every individual histogram looks smooth." %}
 
 ## What Should Window Placement Achieve?
 
@@ -170,10 +174,12 @@ have PMF RMSE about 0.173 versus the known PMF. Sparse windows have RMSE about
 0.223. The sparse RMSE is not catastrophic, but the barrier error is large
 because the sparse protocol fails in the most important bridge region.
 
-This illustrates a useful review habit. A global RMSE can hide a localized
+This illustrates a useful diagnostic. A global RMSE can hide a localized
 barrier problem. A barrier error can hide local shape errors elsewhere. An
 overlap plot can reveal the protocol failure that caused both. A free-energy
 review should not rely on a single scalar diagnostic.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_reconstruction.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Dense overlapping windows recover the controlled free-energy profile more accurately than sparse windows. Reconstruction quality follows connectivity, not the number of plotted curves." %}
 
 ## Why Are Replicas Useful?
 
@@ -195,6 +201,8 @@ show that uncertainty or the protocol should be revised before publication.
 That is why a production umbrella result should report convergence evidence,
 not only the final reweighted curve (<span id="cite-kaestner2011b"></span>[Kästner, 2011](#ref-kaestner2011)).
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_replicas.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Replica disagreement localizes unstable regions of the reconstructed profile. A global error score can hide these window-specific failures." %}
+
 ## What Does the Pair-Distance Diagnostic Add?
 
 The compact pair-distance diagnostic is not a final production umbrella
@@ -205,12 +213,12 @@ profile is a Lennard-Jones contact well shifted to zero at its minimum. Harmonic
 umbrella windows then reconstruct that profile from biased pair-distance
 samples.
 
-For the committed full profile, eight windows span \(r/\sigma = 0.98\) to
+For the full run, eight windows span \(r/\sigma = 0.98\) to
 2.35 with force constant 45.0 and 12,000 samples per window. The reconstructed
 contact-well depth differs from the known pair PMF by about 0.005, the PMF RMSE
 is about 0.138, and the minimum adjacent overlap is about 0.311. Those numbers
 are not presented as a production molecular free energy. They are a compact
-atomistic-coordinate check that the same review habits apply once the
+atomistic-coordinate check that the same diagnostics apply once the
 coordinate has physical meaning: window centers, biased means, overlap,
 replica disagreement, and runtime provenance must all be reported.
 
@@ -218,33 +226,6 @@ The runtime provenance is intentionally visible. The full profile targets
 `cuda_or_cpu_fallback`, but this artifact was generated on
 `jax:cpu;devices:cpu`, so production GPU readiness is `false`. The blocking
 reason is recorded in the summary rather than left implicit.
-
-## What Should The Diagnostic Show?
-
-The full run compares the known PMF to dense and sparse WHAM-style
-reconstructions. It also records adjacent histogram overlap, per-window
-sampling means, and the local disagreement between independently reconstructed
-replica PMFs. The sparse protocol intentionally skips the bridge through the
-barrier region, making the reconstruction less reliable even though every
-window has local support.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Umbrella-sampling diagnostics for the committed full profile. Dense windows maintain adjacent overlap and recover the known PMF, sparse windows leave a near-zero-overlap bridge, and the compact pair-distance umbrella reconstructs a Lennard-Jones contact well while disclosing CPU-fallback runtime provenance." %}
-
-The figure has six jobs. The PMF panel compares reconstructed profiles to the
-known answer. The overlap panel shows whether adjacent windows form a
-statistical bridge. The window-sampling panel shows that each biased ensemble
-has its own sampled mean and width, which may differ from the nominal umbrella
-center. The replica-disagreement panel localizes where independently split
-PMF reconstructions disagree, with dense replica RMSE about 0.115 and sparse
-replica RMSE about 0.235. The pair-distance panel checks the compact
-atomistic-coordinate umbrella reconstruction, and the status panel records the
-target device, runtime device, and GPU-readiness state for that artifact.
-
-The overlap and replica-disagreement panels are the most important diagnostics.
-The sparse protocol's near-zero bridge explains why the barrier is biased
-downward, and the local replica-disagreement spike marks the same fragile
-region. Without those panels, the sparse PMF might look like a plausible
-reconstruction. With them, the protocol failure is visible.
 
 ## What Are Common Umbrella Mistakes?
 
@@ -314,28 +295,9 @@ equilibrated.
 
 For that reason, production umbrella protocols should record initialization
 metadata in the same way they record force constants and sample counts. The
-review question is not only whether a window exists. It is whether the window's
+question is not only whether a window exists. It is whether the window's
 starting structure, warmup, trajectory length, and replica behavior make the
 biased ensemble credible.
-
-## What Belongs in the Methods Paragraph?
-
-An umbrella-sampling methods paragraph should report the collective variable,
-window centers, bias functional form, force constants, sample counts, warmup
-discard, sampling interval, reconstruction method, overlap diagnostics,
-uncertainty method, and replica or hysteresis checks. If windows were added or
-moved after a failed pilot run, that revision should be documented.
-
-For WHAM or MBAR, the methods should state how bias energies were evaluated and
-which samples were included. If a region has low support or a disconnected
-overlap bridge, the result should be labeled as a draft diagnostic rather than
-a final PMF. The estimator cannot infer what the windows did not sample.
-
-For MLIP simulations, the methods should also report model-health checks in
-the sampled windows. High-bias or barrier-region configurations may be outside
-the model's training distribution. A PMF can be statistically well reconstructed
-for an unreliable potential, so estimator diagnostics and model diagnostics
-need to be reviewed together.
 
 ## How Would This Extend to Production MD?
 
@@ -370,6 +332,8 @@ That extension should record:
 The current controlled workflow remains useful as an answer-key diagnostic.
 It shows what a window-placement failure looks like without conflating it with
 model error, slow MD relaxation, or coordinate ambiguity.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_pair_umbrellas.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS pair-distance umbrellas reconstruct the Lennard-Jones contact well from biased trajectories. The physical run links window overlap to a molecular coordinate." %}
 
 ## What Should Uncertainty Mean Here?
 
@@ -421,7 +385,7 @@ is the combined protocol, not any single knob.
 When overlap fails in production, rerunning the same sparse protocol for a
 longer time may not solve the problem. Longer sampling helps if the tails are
 present but noisy. It does little if the biased distributions barely touch.
-That distinction is why overlap diagnostics should be reviewed before
+That distinction is why overlap diagnostics should be checked before
 interpreting the final PMF. If the diagnostic says the bridge is missing, the
 protocol should be revised before more expensive production runs are launched.
 
@@ -431,50 +395,9 @@ diagnostics justify accepting the revised protocol. Hidden failed pilots are a
 source of bias, especially when the final PMF is used to support a mechanistic
 claim.
 
-## What Should The Reader Take Away?
+## Run the Example
 
-The main conceptual point is that umbrella sampling changes the ensemble on
-purpose. The biased data are not a nuisance around the real answer. They are
-the evidence from which the answer is reconstructed. That evidence has to be
-designed, sampled, and reviewed.
-
-The dense protocol in this post is not better because it looks smoother. It is
-better because the windows connect the coordinate, the reconstructed barrier is
-close to the known answer, and the replica diagnostics are more consistent.
-The sparse protocol is not worse because it has fewer samples overall. It is
-worse because it leaves a statistical gap where the reconstruction needs a
-bridge.
-
-For a machine-learning researcher, the analogy to dataset design is direct.
-You cannot recover a reliable model in a region where the data do not support
-the inference, even if the total dataset size is large. Umbrella sampling has
-the same structure. The important question is not only how many frames were
-generated, but where those frames carry statistical weight after the bias is
-accounted for.
-
-## Practical Checklist
-
-Before accepting an umbrella-sampling PMF, record concrete answers to these
-questions:
-
-| Question | Evidence to record |
-|---|---|
-| What is the coordinate? | definition, units, and output path |
-| What does each window sample? | center, force constant, mean, width, and support |
-| Do adjacent windows overlap? | minimum and mean overlap, or overlap matrix |
-| Is any bridge missing? | low-overlap gap and revision decision |
-| How was the PMF reconstructed? | WHAM/MBAR method and bias metadata |
-| Do replicas agree? | forward/reverse or independent PMF consistency |
-| What uncertainty is reported? | block, bootstrap, replica, or estimator uncertainty |
-| What model checks matter? | MLIP validity in biased and barrier regions |
-
-The checklist is intentionally more than a plotting recipe. Umbrella sampling
-is a protocol for collecting biased evidence. The reconstruction is only as
-good as the evidence that connects the windows.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -482,51 +405,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 10 --profile smoke
 uv run kups-tutorial verify 10 --profile smoke
-uv run kups-tutorial run 10 --profile full
-uv run kups-tutorial verify 10 --profile full
-uv run jupyter execute notebooks/post-10-umbrella-sampling.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, umbrella diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records configuration
-hash `c8b1a577d4708124388fb96d403982f600c892b327e522b052f806f8e6a1ec0f`,
-source revision `ec4bf4eb96bf66be2647282f0f0c44afad192e74`, target device
-`cuda_or_cpu_fallback`, runtime device `jax:cpu;devices:cpu`, and production
-GPU readiness `false` for the compact pair-distance umbrella diagnostic.
-
-| Runtime field | Value |
-|---|---|
-| target device | `cuda_or_cpu_fallback` |
-| runtime device | `jax:cpu;devices:cpu` |
-| production GPU ready | `false` |
-| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled umbrella-sampling workflows
-- committed compact summaries, PMF curves, and window-overlap outputs
-- compact pair-distance umbrella diagnostic with machine-readable
-  target/runtime/GPU-readiness provenance
-- executable notebook
-- generated SVG/PNG six-panel figure with local replica-disagreement and
-  pair-distance umbrella diagnostics
-- rendered desktop and mobile page snapshots
-- self-review note covering code, science, notebook, and figure feedback
-
-The missing pieces are:
-
-- final 3,500-10,000-word article prose
-- larger production MD context with real atomistic umbrella windows, model
-  checks, and final production uncertainty intervals if public claims are added
-- additional citations if the final production article adds new scientific
-  claims beyond the current controlled umbrella and protocol discussion
-
-The rule for this post is that umbrella sampling is only as trustworthy as the
-biased ensembles that connect the coordinate. Window placement, overlap, and
-replica consistency are part of the result, not optional diagnostics.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-10/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-10/full).
 
 ## References
 

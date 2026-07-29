@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-12-mlip-capstone/
 title: "What Changes When the Potential Is a Machine-Learned Interatomic Potential?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible MLIP reliability diagnostic for fcc aluminum: static force error, extrapolation, drift, uncertainty calibration, and artifact provenance."
+last_updated: 2026-07-29
+description: "Why static MLIP errors do not predict dynamical stability, extrapolation, neighbor-list risk, or calibrated uncertainty."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 12
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 12
 categories: [science]
 tags: [molecular-dynamics, machine-learned-potentials, mace, aluminum, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post closes the series by asking what changes when the potential is a machine-learned interatomic potential rather than a fixed analytic or classical model. The current numerical diagnostic is a deterministic CPU surrogate for MLIP reliability checks; the MACE artifact metadata is now pinned and hash-verified, but the final public article still needs a real GPU production pass. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 12 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 An MLIP changes the failure modes of molecular dynamics. The equations of
 motion, thermostat, barostat, observables, free-energy estimators, and enhanced
@@ -44,7 +44,7 @@ id="cite-behler2007"></span>[Behler & Parrinello, 2007](#ref-behler2007);
 <span id="cite-batzner2022"></span>[Batzner et al., 2022](#ref-batzner2022);
 <span id="cite-batatia2022"></span>[Batatia et al., 2022](#ref-batatia2022)).
 Validation guidance for MLIPs makes the same deployment point: a potential
-should be reviewed against the physical task it will be used for, not only
+should be checked against the physical task it will be used for, not only
 against a single static test metric (<span id="cite-morrow2023"></span>[Morrow
 et al., 2023](#ref-morrow2023)).
 
@@ -78,7 +78,7 @@ diagnostic with real production trajectories.
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/mlip_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/manifest.json)
 - [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post12_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-12.md)
+- [self-analysis](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-12.md)
 
 ## What Changes In The Capstone?
 
@@ -139,6 +139,8 @@ For a machine-learning researcher, this is the difference between held-out
 prediction and closed-loop control. MD is closed-loop deployment. The model's
 errors change the states the model will see next.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_static_error.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The controlled MLIP diagnostic separates force RMSE from systematic force bias across deployment regimes. Similar aggregate test errors can hide different dynamical risks." %}
+
 ## How Should Extrapolation Be Treated?
 
 Extrapolation is not a binary moral judgment on a model. It is a diagnostic
@@ -165,6 +167,8 @@ that the result is correct. The extrapolation metric may miss a failure mode,
 or the model may be confidently biased within its nominal domain. That is why
 the capstone pairs extrapolation with force error, drift, uncertainty
 coverage, and observable/free-energy shifts.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_dynamics_risk.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Drift, extrapolation flags, and neighbor-list risk rise differently as the trajectory leaves the reference regime. No single static score certifies stable dynamics." %}
 
 ## Why Does Drift Matter For MLIPs?
 
@@ -266,6 +270,8 @@ may indicate that the entire trajectory has left the model's domain. A
 free-energy calculation that relies on high-uncertainty barrier configurations
 needs stronger validation than one whose important regions are well supported.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_uncertainty_calibration.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The error-to-uncertainty ratio tests whether uncertainty scales with actual force error. This controlled CPU surrogate illustrates the diagnostic; it is not evidence from a production MACE trajectory." %}
+
 ## How Do MLIP Errors Reach Observables And Free Energies?
 
 The earlier posts treated observables and free energies as estimators from a
@@ -322,120 +328,9 @@ The final GPU pass should freeze:
 Without this provenance, another researcher cannot know whether a discrepancy
 comes from physics, model version, precision, or a changed artifact.
 
-## What Should The Diagnostic Show?
+## Run the Example
 
-The full run checks three ideas. Static force metrics worsen as the case leaves
-the in-domain regime. Dynamics and extrapolation metrics expose failure modes
-that static force error alone does not explain. Uncertainty calibration must be
-checked against realized force errors rather than treated as a decorative model
-output.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_mlip_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="MLIP reliability diagnostics for the committed full profile. Static errors, dynamics drift, extrapolation flags, neighbor-list risk, and uncertainty calibration must be reviewed together before trusting MD or free-energy claims from a learned potential." %}
-
-The figure has three roles. The static-error panel shows that force and energy
-metrics worsen across regimes. The dynamics/extrapolation panel shows that
-deployment warnings can become severe even when a single scalar drift metric
-does not look dramatic. The uncertainty panel asks whether uncertainty grows
-with realized error.
-
-The artifact annotation is also part of the figure review. It exposes the
-pinned model file and repository revision so the hidden draft carries exact
-artifact provenance even though the plotted numerical diagnostics are still a
-controlled surrogate rather than a completed MACE production result.
-
-The intended reader should leave the figure with one habit: never review an
-MLIP trajectory from a single metric. Static error, drift, extrapolation,
-neighbor risk, uncertainty, and provenance answer different questions. A
-credible MD claim needs the relevant subset of those answers.
-
-## What Would Make The Capstone Production-Ready?
-
-The final capstone should replace the deterministic surrogate with a real
-MACE/fcc-Al production run. The controlled workflow should remain as a smoke
-and review harness, but the public scientific claims should be based on GPU
-outputs from the verified model artifact.
-
-That final pass should be planned before the run starts. The protocol should
-state the exact MACE artifact and repository revision, the fcc-Al cell and
-initialization path, timestep and precision policy, neighbor/cutoff settings,
-thermostat or NVE handoff, trajectory length and replica plan, model-support
-diagnostics, observable/free-energy targets, and the rule for rejecting or
-narrowing claims when extrapolation, drift, uncertainty, or neighbor risk is
-too large. The current surrogate diagnostic exercises that review structure,
-but it is not a substitute for the real GPU production evidence.
-
-The production pass should include:
-
-| Requirement | Evidence |
-|---|---|
-| pinned MACE artifact | repository revision and SHA-256 hash |
-| real fcc-Al trajectories | compact summaries and provenance manifests |
-| stability diagnostics | NVE drift, bounded fluctuations, and failures |
-| ensemble diagnostics | temperature/pressure checks where applicable |
-| model-support diagnostics | extrapolation or uncertainty over sampled frames |
-| observable/free-energy links | how model errors affect downstream claims |
-| rendered review artifacts | figure snapshots and page snapshots |
-
-If any of those items fails, the final article should report the failure. A
-negative result is scientifically useful: it tells readers where a learned
-potential is not yet ready for a specific MD claim.
-
-## How Does This Close The Series?
-
-The capstone is not a separate ML benchmark appended to an MD tutorial. It is a
-stress test of the whole workflow. Initialization still matters because an MLIP
-can be pushed out of domain by a bad starting density, poor minimization, or
-unreviewed velocity draw. Integrators still matter because force noise and
-cutoff behavior can turn a tolerable static error into energy drift.
-
-Thermostats and barostats still matter because learned forces define the
-distribution those controllers act on. A thermostat can regulate kinetic
-temperature while structural observables remain biased. A barostat can sample
-a cell distribution that is internally consistent for the learned potential
-but wrong relative to the reference physics.
-
-Trajectory-length and observable diagnostics still matter because MLIP errors
-can create long autocorrelation, hidden metastability, or biased estimator
-inputs. A clean-looking RDF or coordination number is not enough unless the
-sampled local environments are inside the model's credible domain.
-
-Free-energy and enhanced-sampling diagnostics still matter most in the
-regions where MLIPs are easiest to overtrust. Barriers, strained geometries,
-rare coordination states, and driven paths often sit at the edge of training
-support. If an umbrella window, metadynamics bias, or pulling protocol depends
-on those regions, the free-energy estimator inherits the model-risk question.
-
-The series therefore ends with a practical rule: an MLIP does not replace MD
-validation. It adds a model-validity layer to every MD validation step.
-
-This also changes how limitations should be written. If the final GPU pass
-finds extrapolation, drift, or artifact uncertainty, the article should not
-hide that behind a polished capstone story. The useful result is the complete
-diagnostic chain: what was checked, what passed, what failed, and which MD
-claims remain defensible for the pinned model.
-
-## Practical Checklist
-
-Before trusting an MLIP-driven MD result, record concrete answers to these
-questions:
-
-| Question | Evidence to record |
-|---|---|
-| Which exact model ran? | repository revision, artifact hash, model settings |
-| Is the trajectory in domain? | extrapolation or uncertainty diagnostics |
-| Are forces accurate enough? | static force/energy checks on relevant frames |
-| Is dynamics stable? | NVE drift and bounded fluctuation diagnostics |
-| Is ensemble control credible? | temperature, pressure, and cell checks |
-| Are neighbor settings safe? | cutoff, skin, rebuild, and risk diagnostics |
-| Do observables depend on risky frames? | per-region model-support review |
-| Are free energies model-limited? | support checks in basins and barriers |
-
-The checklist is not a replacement for physics judgment. It is a way to keep
-MLIP validation attached to the MD claim being made.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -443,39 +338,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 12 --profile smoke
 uv run kups-tutorial verify 12 --profile smoke
-uv run kups-tutorial run 12 --profile full
-uv run kups-tutorial verify 12 --profile full
-uv run jupyter execute notebooks/post-12-mlip-capstone.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, MLIP capstone diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled MLIP reliability workflows
-- pinned `mace-mp-0b3-medium.model` artifact metadata with verified SHA-256
-- committed compact summaries and diagnostic samples
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- rendered desktop and mobile page snapshots for the hidden draft
-- self-review note covering code, science, notebook, and figure feedback
-
-The missing pieces are:
-
-- real MACE/fcc-Al GPU production run
-- final 3,500-10,000-word article prose
-- rendered desktop and mobile page snapshots after final production diagnostics
-  or any public-indexing change
-- additional citations if the final production article adds new scientific
-  claims beyond the current controlled MLIP-reliability and protocol discussion
-
-The rule for this post is that an MLIP is part of the simulation method, not a
-drop-in oracle. Provenance, extrapolation, drift, and uncertainty diagnostics
-are part of the scientific result.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-12/full).
 
 ## References
 
