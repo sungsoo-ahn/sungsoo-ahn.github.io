@@ -37,6 +37,58 @@ Rules for writing and editing blog posts. Blog prose is direct and opinionated â
 - **Figures near their discussion.** Place figures immediately after the text that introduces them, not paragraphs later.
 - **Notation introductions need breathing room.** Don't introduce 3+ new symbols in one paragraph with no prose between equations.
 
+## Quality Checklist (apply before finalizing)
+
+### Substance
+
+- Every paragraph must contain a concrete claim, result, argument, or necessary explanation.
+- If the opening sentence can be deleted without losing information, delete or rewrite it.
+- Replace vague praise ("important", "powerful", "compelling", "robust") with the specific mechanism, result, or consequence.
+- Support novelty, causality, and superiority claims with evidence, numbers, comparisons, or citations.
+
+### Relevance and Precision
+
+- Every sentence should advance the paragraph's purpose.
+- Remove background the intended reader already knows.
+- Tie abstract nouns to specific objects, mechanisms, experiments, or numbers.
+- Check pronouns such as "this", "it", and "these results" for clear antecedents.
+
+### Formulaic Rhetoric
+
+Flag these patterns; do not ban them when they carry real technical contrast:
+
+- "It is important to note that ..."
+- "This highlights/underscores/demonstrates ..."
+- "Not only X, but also Y."
+- "X is not merely A; it is B."
+- "In today's rapidly evolving landscape ..."
+- "Taken together", "Overall", or "In summary"
+- A final sentence that merely restates the paragraph.
+- A short dramatic sentence that tells the reader what to feel: "This matters." "The implication is clear."
+
+### Structure and Rhythm
+
+- Avoid making every paragraph follow the same claim -> explanation -> summary template.
+- Watch for sections that are suspiciously equal in length or structure.
+- Vary sentence length and syntax when several consecutive sentences sound alike.
+- Use transitions only when the logical relation requires them.
+- End each paragraph where the argument ends, not with a manufactured conclusion.
+
+### Language
+
+- Prefer direct verbs over noun phrases: "evaluate" instead of "conduct an evaluation of".
+- Cut 10-20% of words when meaning survives.
+- Use passive voice only when the actor is unknown, irrelevant, or intentionally de-emphasized.
+- Remove redundant adjective pairs such as "novel and innovative" or "clear and evident".
+- Keep technical terms only when they are necessary and precise.
+
+### Voice
+
+- Ask whether the passage sounds like something the author would actually say or write.
+- Preserve legitimate uncertainty instead of converting everything into confident declarative prose.
+- Include the author's actual judgment, not only a polished synthesis of conventional observations.
+- Compare the passage against two or three known non-AI passages by the author when voice is uncertain.
+
 ## Coherence Checklist (apply when reviewing)
 
 - Every forward reference ("Part 3 defines this") â€” verify the target actually contains what you claim
