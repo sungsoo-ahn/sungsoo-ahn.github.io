@@ -16,6 +16,7 @@ BLOG_IMG_DIR = ROOT / "assets" / "img" / "blog"
 EXPORT_DIR = ROOT / "assets" / "json" / "kups-md-tutorials"
 SERIES = "kups-md-tutorials"
 POSTS = tuple(f"{post:02d}" for post in range(1, 13))
+PUBLICATION_STATUSES = {"draft", "ready"}
 
 FIGURE_RE = re.compile(r'{%\s*include\s+figure\.liquid\b(?P<attrs>.*?)%}')
 ATTR_RE = re.compile(r'(?P<key>[\w-]+)="(?P<value>[^"]*)"')
@@ -91,16 +92,23 @@ def validate_page(post: str, path: Path) -> list[Finding]:
 
     if "toc" not in frontmatter:
         findings.append(Finding(path, "missing toc frontmatter"))
-    if "Note:" not in body or "intentionally hidden from site navigation" not in body:
-        findings.append(Finding(path, "missing hidden-draft author note"))
+
+    publication_status = frontmatter.get("publication_status")
+    if (
+        publication_status is not None
+        and publication_status not in PUBLICATION_STATUSES
+    ):
+        findings.append(
+            Finding(
+                path,
+                "publication_status must be 'draft' or 'ready' when present",
+            )
+        )
 
     required_links = (
-        f"configs/post-{post}/smoke.json",
-        f"configs/post-{post}/full.json",
-        f"notebooks/post-{post}",
-        f"results/post-{post}/smoke/",
-        f"results/post-{post}/full/",
-        f"reviews/post-{post}.md",
+        "https://github.com/sungsoo-ahn/kups-md-tutorials",
+        f"kups-tutorial run {post}",
+        f"kups-tutorial verify {post}",
     )
     for fragment in required_links:
         if fragment not in body:
@@ -129,10 +137,6 @@ def validate_page(post: str, path: Path) -> list[Finding]:
         if "$" in caption:
             findings.append(Finding(path, "figure caption uses dollar math delimiters"))
 
-    if "This page is not the final article" not in body:
-        findings.append(Finding(path, "missing explicit non-final status"))
-    if "rendered desktop and mobile page snapshots" not in body:
-        findings.append(Finding(path, "missing rendered snapshot blocker"))
     return findings
 
 

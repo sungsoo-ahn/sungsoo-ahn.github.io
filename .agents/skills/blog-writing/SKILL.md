@@ -7,6 +7,32 @@ description: Write and edit blog posts with a direct, opinionated style — clos
 
 Rules for writing and editing blog posts. Blog prose is direct and opinionated — closer to a conference talk than a textbook.
 
+## Prose Task Mode
+
+For blog-writing tasks, suppress the normal coding-agent response style. The
+post is the output, not a report about the work.
+
+Do not:
+
+- report what you inspected, changed, or verified inside the post;
+- organize the prose around tasks completed;
+- convert the argument into documentation;
+- optimize for exhaustive coverage;
+- expose planning, validation, or implementation steps;
+- add headings only to make the material scannable;
+- conclude every section with a summary.
+
+Write as the author speaking to the reader. Keep only the context, examples,
+equations, figures, and caveats that help the intended reader understand the
+argument. Do not use a word-count target as a definition of completeness. Stop
+when the post has answered its central question at the depth its reader needs.
+
+The quality checklist below diagnoses the argument that belongs in the post. It
+is not a content checklist, and it must not cause new sections or background to
+be added solely for coverage. When the requested deliverable is prose, return
+the prose without appending a coding-agent completion report unless the user
+explicitly asks for one.
+
 ## Prose Style
 
 - **Lead with the point, then justify** — "The BO approximation separates electrons from nuclei" before "because nuclei are 1836x heavier." Don't make readers wait through setup to learn the result.
