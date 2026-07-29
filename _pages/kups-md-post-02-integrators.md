@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-02-integrators/
 title: "What Does an MD Integrator Actually Approximate?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible integrator diagnostic for molecular dynamics: discrete maps, velocity Verlet, energy error, reversibility, and timestep sensitivity."
+last_updated: 2026-07-29
+description: "What velocity Verlet preserves, what a finite timestep changes, and how reversibility and energy error expose the discrete map."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 2
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 2
 categories: [science]
 tags: [molecular-dynamics, integrators, kups, reproducibility]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post assumes the initialization contract from the first tutorial and focuses on the discrete update rule used after an initial state exists. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 2 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 The equation of motion is continuous, but an MD trajectory is not. Every saved
 state came from a discrete map: positions and momenta at one time were
@@ -65,17 +65,6 @@ forces, neighbor-list mistakes, precision problems, or a learned potential that
 is being evaluated outside its training distribution. The point of this page is
 to make the integrator part precise before later posts add those other failure
 modes.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-02/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-02/full.json)
-- [integrator notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-02-integrators.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/smoke/integrator_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/full/integrator_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-02/full/manifest.json)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post02_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-02.md)
 
 ## What Is the Discrete Object?
 
@@ -162,6 +151,8 @@ This is useful because it shows how local timestep error accumulates over many
 applications of the map. The smoke profile uses fewer steps and a smaller
 timestep set so CI can catch broken logic quickly.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post02_phase_space.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Velocity Verlet follows the exact oscillator orbit closely in phase space. The closed orbit tests the integrator map without force-field or sampling noise." %}
+
 ## What Does Velocity Verlet Preserve?
 
 The most important lesson is not that velocity Verlet is accurate at every
@@ -188,6 +179,8 @@ look reasonable while the map violates the structure one expected. Integrator
 diagnostics should ask about phase-space geometry, energy behavior, and
 reversibility before the article claims that a timestep is acceptable.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post02_energy_error.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The timestep sweep separates bounded velocity-Verlet error from explicit Euler's runaway energy. The negative control shows that solving the same differential equation does not give every discrete map the same stability." %}
+
 ## Why Keep Explicit Euler?
 
 Explicit Euler is not included as a serious production MD method. It is a
@@ -212,31 +205,6 @@ The negative control also clarifies what a diagnostic should not do. If a plot
 only reports final energy drift for one chosen timestep, a bad update may look
 acceptable by accident over a short run. A sweep across timesteps, with an
 exact reference and a reversibility check, gives a much stronger picture.
-
-## What Should the Diagnostics Show?
-
-Three checks matter before the prose makes stronger claims.
-
-First, the numerical phase-space orbit should stay close to the exact orbit.
-Second, the energy error should be bounded for velocity Verlet on this sweep,
-not monotonically amplifying as it does for explicit Euler. Third, reversing the
-velocity and applying the same map again should return velocity Verlet to the
-initial state up to floating-point roundoff.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post02_integrator_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Integrator diagnostics for the committed full profile. The harmonic oscillator exposes velocity Verlet as a reversible discrete map with bounded energy error on this timestep sweep, while explicit Euler is retained as a negative control." %}
-
-The figure is designed around those checks. The phase-space panel compares the
-exact orbit with velocity Verlet and explicit Euler. The energy-error panel
-uses a logarithmic scale because the negative control grows rapidly. The text
-panel records the forward/backward reversibility result so the reader can see
-that reversibility was tested, not inferred from the method name.
-
-The figure-review note records one limitation. Explicit Euler dominates the
-log-scale energy-error panel by many orders of magnitude. That is acceptable
-for this page because the intended comparison is contrastive: velocity Verlet
-has bounded energy error on this sweep, while explicit Euler is a deliberately
-bad control. If a later article needs a detailed shadow-energy discussion, a
-second zoomed velocity-Verlet-only panel may be useful.
 
 ## What Does Bounded Energy Error Mean?
 
@@ -292,6 +260,8 @@ algorithms, but if its state convention is unclear, the sampling argument can
 become unclear too. This is one reason production MD packages are careful about
 velocity definitions, half-step updates, and restart files.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post02_reversibility.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Forward integration followed by velocity reversal returns to the initial state at floating-point scale. Reversibility tests the implemented update sequence, not the physical accuracy of the force model." %}
+
 ## How Do Force Evaluations Fit In?
 
 Velocity Verlet is cheap in a specific sense: for a force that depends only on
@@ -316,100 +286,9 @@ precision policies, or MACE. The integrator is not independent of force
 evaluation; it is the schedule by which force evaluations are requested and
 used.
 
-## How Should This Influence MD Practice?
+## Run the Example
 
-The practical rule is to treat the integrator as part of the scientific
-protocol. Report the integrator family, timestep, state convention when
-relevant, constraint algorithm if present, thermostat/barostat coupling if
-present, precision policy, neighbor-list update policy, and energy diagnostics.
-The name "NVE" is not enough. NVE describes the target ensemble or control
-mode, not the numerical map that generated the trajectory.
-
-For a new system, a useful workflow is:
-
-| Step | Question | Evidence |
-|---|---|---|
-| initialize | Is the starting state pinned? | config, seed, summary, manifest |
-| short NVE | Does energy show bounded behavior? | energy trace and drift metric |
-| timestep sweep | Does error shrink as dt shrinks? | repeated controlled runs |
-| reversibility | Is the deterministic map implemented consistently? | forward/backward check |
-| production choice | Is the chosen dt accurate enough for the observable? | observable-specific tolerance |
-
-This is intentionally more demanding than checking that a simulation did not
-crash. A trajectory can run for a long time while accumulating biased dynamics.
-Conversely, a trajectory can show bounded energy oscillation that looks noisy
-but is numerically acceptable for the intended observable. The diagnostic needs
-to distinguish these cases.
-
-## How Does This Connect to the Next Post?
-
-The next post separates timestep, precision, and force error. That separation
-depends on the integrator vocabulary here. Once the map is fixed, one can ask
-how dt changes the truncation error, how mixed precision changes roundoff, and
-how force error from an MLIP changes the trajectory. Without this separation,
-"the simulation drifted" is too vague to debug.
-
-The same distinction returns throughout the series. Thermostats modify the map
-to sample a temperature-controlled ensemble. Barostats add cell degrees of
-freedom. Trajectory-length diagnostics ask whether averages have converged
-under the chosen map. Free-energy estimators assume that the samples were
-generated from the claimed distribution. Enhanced sampling adds bias forces or
-path weights. The MLIP capstone asks whether the potential remains reliable
-under the dynamics. Each topic builds on the integrator as the discrete engine
-of the trajectory.
-
-The harmonic oscillator therefore has a narrow role. It does not certify a
-production simulation. It makes the numerical object visible. Once that object
-is visible, later failures can be classified more honestly.
-
-## What Should Not Be Inferred?
-
-The oscillator diagnostic is intentionally limited. It does not prove that a
-timestep of 0.2 is acceptable for any molecular system. It does not prove that
-velocity Verlet will keep a many-body trajectory close to an exact reference
-for long physical times. It does not say anything about bonded vibrations,
-constraints, hydrogen mass repartitioning, discontinuous cutoffs, multiple
-time-step methods, or thermostat and barostat splitting. It isolates one
-question: does the implemented deterministic map have the expected behavior on
-a problem where the answer is known?
-
-That limitation is important because MD errors are easy to misattribute. If an
-NVE trajectory drifts in a realistic simulation, the integrator is only one
-suspect. The force may be discontinuous at the cutoff. The neighbor list may be
-rebuilt too rarely. The timestep may be too large for the highest-frequency
-mode. The precision policy may be too aggressive. A constraint solver may be
-too loose. A learned potential may produce noisy forces in a region where it
-has little training support. A thermostat may be left on while the analysis
-claims NVE behavior.
-
-The right use of this page is therefore as a baseline. Before diagnosing those
-complications, verify that the map-level language is correct. Know what
-bounded energy error looks like in a clean Hamiltonian test. Know what a failed
-negative control looks like. Know how reversibility is checked. Then, when a
-real simulation misbehaves, the debugging question can be sharper than "the MD
-is unstable."
-
-The same caution applies to accuracy. A small energy error does not
-automatically imply that every observable is accurate. Transport coefficients,
-time-correlation functions, rare-event rates, and free-energy barriers can be
-sensitive to different aspects of the trajectory. A timestep that is adequate
-for a structural RDF may be too large for a vibrational spectrum. A timestep
-that preserves energy in a short NVE test may still distort kinetics after a
-thermostat is added. The numerical map is necessary evidence, not the whole
-scientific argument.
-
-For MLIP users, the danger is to hide all of these issues under model
-validation metrics. Static force RMSE is not an integrator diagnostic. A low
-force error on held-out structures does not guarantee stable dynamics at a
-chosen timestep. Conversely, an unstable trajectory does not automatically mean
-the learned potential is useless. The trajectory may be asking the model,
-integrator, and timestep combination to operate outside their joint reliable
-region. This series keeps those pieces separate so they can be tested together
-later.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -417,40 +296,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 02 --profile smoke
 uv run kups-tutorial verify 02 --profile smoke
-uv run kups-tutorial run 02 --profile full
-uv run kups-tutorial verify 02 --profile full
-uv run jupyter execute notebooks/post-02-integrators.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, integrator diagnostics, and figure generator from
-`src/kups_md_tutorials/`.
-
-## Current Status
-
-This page is not the final article. It is a substantially expanded hidden draft
-that remains outside site navigation while the rest of the series is brought to
-the same standard. The implemented pieces are:
-
-- smoke and full integrator diagnostic workflows
-- committed compact summaries and downsampled trajectory samples
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- self-review note covering code, science, notebook, and figure feedback
-- expanded prose connecting discrete maps, velocity Verlet, bounded energy
-  error, reversibility, force-evaluation scheduling, timestep choice, and later
-  MLIP force-error diagnostics
-
-The remaining non-publication pieces are:
-
-- rendered desktop and mobile page snapshots for this expanded draft
-- final all-post consistency pass once the other articles are expanded
-- final rendered desktop and mobile page snapshots after that consistency pass
-- public indexing decision after the series is ready as a unit
-
-The rule for this series is simple: a result is not ready because the code ran.
-It is ready only after the code, data, figure, prose, and rendered page have
-all been reviewed against the same reproducibility contract.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-02/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-02/full).
 
 ## References
 

@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-08-free-energies/
 title: "How Do Equilibrium Samples Become Free Energies?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible free-energy diagnostic for molecular dynamics: collective variables, histogram PMFs, binning bias, reweighting, RDF-derived PMFs, and uncertainty."
+last_updated: 2026-07-29
+description: "How equilibrium probabilities become free-energy profiles, and why bins, support, weights, and uncertainty change the estimate."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 8
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 8
 categories: [science]
 tags: [molecular-dynamics, free-energy, pmf, reweighting, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post follows the observable-estimator discussion by asking how equilibrium samples become free-energy estimates once a collective variable, normalization, binning rule, and uncertainty model are chosen. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 8 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 Free energy is not read directly from a trajectory. It is inferred from a
 probability distribution over a chosen coordinate. That coordinate may be a
@@ -54,19 +54,8 @@ This page therefore treats free energy as an analysis object. The same raw
 equilibrium samples can support different claims depending on the collective
 variable, binning rule, support, normalization, and uncertainty estimator. The
 controlled example has an answer key, so it can show estimator bias directly.
-Real MD usually lacks that answer key, which makes the review habits more
+Real MD usually lacks that answer key, which makes the diagnostics more
 important, not less.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-08/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-08/full.json)
-- [free-energy notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-08-free-energies.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-08/smoke/free_energy_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-08/full/free_energy_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-08/full/manifest.json)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post08_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-08.md)
 
 ## What Is the Free Energy Of?
 
@@ -200,6 +189,8 @@ review asks whether the result is stable over reasonable bin choices, whether
 the relevant transition region has enough samples, and whether the uncertainty
 estimate reflects the analysis choices being reported.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_equilibrium_pmf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The sampled equilibrium density recovers the controlled potential of mean force where probability mass is present. Taking a logarithm turns sparse sampling into large free-energy error." %}
+
 ## Why Do Empty and Low-Count Bins Matter?
 
 Free-energy estimators are harsh on low probabilities because of the logarithm.
@@ -214,7 +205,7 @@ unreliable near the barrier that the paper wants to discuss.
 
 The controlled full run avoids making claims in unsupported regions. The true
 double-well has high walls near the domain edge, and the reviewed figure
-focuses on the sampled support. The review note keeps this as an explicit
+focuses on the sampled support. The analysis keeps this as an explicit
 article point: missing or empty bins should be explained rather than hidden by
 plot styling.
 
@@ -222,6 +213,8 @@ For production MD, the same issue appears when an RDF-derived PMF uses radii
 where g(r) is near zero, when a distance coordinate rarely visits the barrier,
 or when a collective variable misses a metastable basin. These are not
 formatting problems. They are sampling limitations.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_binning.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The estimated barrier changes with histogram resolution because low-count bins amplify noise. Bin width is therefore part of the estimator, not a plotting preference." %}
 
 ## What Does Reweighting Change?
 
@@ -300,37 +293,11 @@ one very-low-support bin changes the apparent PMF range substantially. That is
 the point of the diagnostic: an RDF-derived PMF is only as defensible as the
 support rule used before `-kT log g(r)`.
 
-## What Should The Diagnostic Show?
-
-The full run checks four estimator questions. The first panel compares the
-true PMF, a direct histogram PMF, and a reweighted PMF. The second panel shows
-that bin width changes the estimated barrier even for equilibrium samples. The
-third panel shows how an RDF-like g(r) can become a shifted PMF through
-negative kT times the logarithm of g(r). The fourth panel repeats that
-transformation on compact time-correlated argon trajectory frames and overlays
-support-threshold sensitivity curves.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_free_energy_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Free-energy diagnostics for the committed full profile. Histogram PMFs depend on binning, reweighting changes the estimate through statistical weights, and both synthetic and compact argon RDFs can be converted into shifted potentials of mean force only where the RDF has support; the compact trajectory RDF-PMF panel overlays block SEM, replica disagreement, support-threshold sensitivity, and CPU-fallback runtime provenance." %}
-
-The figure is intentionally an estimator figure. It does not claim to be a
-production free-energy calculation for a molecular process. The first panel
-checks whether the histogram and reweighting pipelines produce plausible
-profiles against a known answer. The second panel isolates binning effects on
-barrier estimates. The third panel connects the observable-estimator language
-from post 07 to free-energy interpretation. The fourth panel shows the same
-transform on actual compact argon trajectory frames, making the support and
-low-count-bin problem visible.
-
-The figure also shows what a review should not ignore. Barrier values depend
-on binning. Reweighted estimates can differ from direct estimates. RDF-derived
-PMFs are shifted profiles, not absolute free energies, and the PMF line should
-break where `g(r)` is too small to support a stable logarithm. A clean figure
-can still hide estimator assumptions unless those assumptions are written into
-the caption, prose, and review note.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_rdf_pmf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Applying the logarithm to an RDF produces a shifted pair potential of mean force only where the RDF has support. Near-empty radial bins cannot support a finite estimate." %}
 
 ## How Should Uncertainty Be Reported?
 
-The committed workflow uses bootstrap replicates to estimate uncertainty in
+The run uses bootstrap replicates to estimate uncertainty in
 the histogram barrier. Bootstrap uncertainty is useful because it asks how the
 estimate changes when the sampled data are resampled. In the full profile,
 bootstrap barrier standard errors are positive for all bin widths and are
@@ -388,27 +355,6 @@ can be well converged for a learned potential that is wrong in the sampled
 region. For MLIP studies, the PMF should be read together with evidence that
 the model is credible for the relevant configurations.
 
-## What Belongs in the Methods Paragraph?
-
-A free-energy methods paragraph should make the estimator reproducible. It
-should name the coordinate, temperature, ensemble, sampling protocol, warmup
-discard, binning or smoothing rule, normalization, reference zero, support
-criteria, reweighting formula if used, and uncertainty estimator. If barriers
-are reported, it should say how minima and barrier locations were identified.
-
-For RDF-derived PMFs, the methods should also report the RDF estimator from
-post 07: density, bin width, finite-size cutoff, frame selection, and
-uncertainty. The phrase "-kT log g(r)" is not enough. The g(r) itself is an
-estimator with assumptions
-(<a href="#ref-kirkwood1935" id="cite-kirkwood1935c">Kirkwood, 1935</a>;
-<a href="#ref-chandler1987" id="cite-chandler1987c">Chandler, 1987</a>).
-
-For MLIP work, the methods should separate sampling uncertainty from model
-validity. A PMF may be converged for the learned potential while still wrong
-relative to a reference method. If a free-energy barrier matters, model checks
-should be reported near the PMF analysis, not only in a separate benchmark
-table.
-
 ## How Would This Extend to Larger kUPS Trajectories?
 
 The current hidden draft now includes a compact reduced-unit argon
@@ -430,12 +376,14 @@ That extension should record:
 
 The current controlled workflow remains useful because it isolates estimator
 mechanics with an answer key. The compact trajectory-derived PMF sits beside
-that lesson; a production extension should show how the same review habits
+that lesson; a production extension should show how the same diagnostics
 transfer to longer physical trajectories and model-credibility checks.
 
-## Reproduction
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post08_argon_rdf_pmf.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS argon RDF-derived PMF carries block and replica uncertainty together with support-threshold sensitivity. The profile is trustworthy only over radii sampled by the trajectory." %}
 
-The current executable path is:
+## Run the Example
+
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -443,79 +391,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 08 --profile smoke
 uv run kups-tutorial verify 08 --profile smoke
-uv run kups-tutorial run 08 --profile full
-uv run kups-tutorial verify 08 --profile full
-uv run jupyter execute notebooks/post-08-free-energies.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, free-energy diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records the configuration
-hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, target device, runtime device, GPU-readiness status, and package
-versions. For the current full profile, the configuration hash is
-`7d98bc849d66ecd7769dca29ede00e593774fd47e4b1c2854ef4e7b428ed6703`, the
-recorded source revision is `82fe878dbecd0a51ca7c2f84b2e0e128b8f8dbd2`, the
-target device is `cuda_or_cpu_fallback`, the runtime device is
-`jax:cpu;devices:cpu`, and production GPU readiness is `false`.
-
-| Runtime field | Value |
-|---|---|
-| target device | `cuda_or_cpu_fallback` |
-| runtime device | `jax:cpu;devices:cpu` |
-| production GPU ready | `false` |
-| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
-
-The compact outputs include the summary JSON and PMF curve table, including
-the argon RDF and argon RDF-PMF columns. Those files are committed so the
-notebook and website figure can be regenerated without raw samples or bulky
-intermediate data.
-
-## Practical Checklist
-
-Before accepting a PMF claim, record concrete answers to these questions:
-
-| Question | Evidence to record |
-|---|---|
-| What is the coordinate? | definition, units, and code path |
-| What distribution was sampled? | ensemble, temperature, bias, and support |
-| What estimator was used? | histogram, KDE, reweighting, RDF-derived transform, or other method |
-| How were bins or smoothing chosen? | bin-width sensitivity or smoothing rationale |
-| What regions are unsupported? | empty bins, low counts, finite-size limits, or poor overlap |
-| What uncertainty is attached? | bootstrap, block, replica, or estimator-specific interval |
-| What is the additive zero? | shifted minimum or other reference |
-| What model checks matter? | MLIP validity over sampled coordinate states |
-
-The checklist is deliberately more detailed than a single PMF plot. A
-free-energy profile is a statistical summary, and its credibility depends on
-the estimator and support as much as on the trajectory.
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled free-energy workflows
-- committed compact PMF curve and summary outputs
-- compact reduced-unit argon trajectory RDF-derived PMF transformation with
-  block and replica uncertainty overlays
-- RDF support-threshold sensitivity for the compact argon RDF-derived PMF
-- machine-readable target/runtime/GPU-readiness provenance for the compact
-  argon RDF-derived PMF
-- executable notebook
-- generated four-panel SVG/PNG figure and snapshot review
-- rendered desktop and mobile page snapshots for the refreshed hidden draft
-- self-review note covering code, science, notebook, and figure feedback
-- final citations for PMFs, histogram estimators, reweighting, and RDF-derived
-  potentials of mean force
-
-The missing pieces are:
-
-- larger GPU kUPS RDF-derived PMF diagnostics and final production consistency
-  pass before public indexing
-
-The rule for this post is that free energy is a property of an estimator over a
-chosen coordinate. Changing the coordinate, bins, weights, or sampled support
-changes what can be claimed.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-08/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-08/full).
 
 ## References
 

@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-11-enhanced-sampling/
 title: "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible enhanced-sampling diagnostic for metadynamics-style bias filling, nonequilibrium work, Jarzynski estimates, and Crooks crossings."
+last_updated: 2026-07-29
+description: "How adaptive bias and nonequilibrium pulling change the sampled path distribution and the estimator used afterward."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 11
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 11
 categories: [science]
 tags: [molecular-dynamics, enhanced-sampling, metadynamics, nonequilibrium-work, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post follows umbrella sampling by asking how adaptive bias and nonequilibrium pulling change the measure being sampled, and what corrections are needed before a free-energy claim is trustworthy. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 11 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 Enhanced sampling methods work by changing the probability measure. A
 metadynamics-style bias discourages revisiting already sampled regions. A
@@ -72,7 +72,7 @@ were generated.
 - [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/enhanced_sampling_summary.json)
 - [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/manifest.json)
 - [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post11_figures.py)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-11.md)
+- [self-analysis](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-11.md)
 
 ## What Changes When The Method Is Adaptive?
 
@@ -118,6 +118,10 @@ toy adaptive run: the barrier is no longer invisible. In a production MD
 system, the corresponding diagnostic would usually include the biased
 coordinate trace, the accumulated bias, basin counts, and a convergence
 measure for the reconstructed free-energy surface.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_adaptive_bias.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The adaptive bias progressively fills the controlled free-energy basins. Because the bias changes during sampling, early and late configurations do not come from one stationary distribution." %}
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_bias_history.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The growing bias range records the history dependence of the adaptive run. Convergence requires the bias increments to slow, not merely a trajectory that crosses barriers." %}
 
 ## What Does Well-Tempered Bias Change?
 
@@ -166,7 +170,7 @@ fixed-bias methods such as umbrella sampling when feasible.
 A common mistake is to show only the coordinate trace and say the barrier was
 crossed. Barrier crossing is a sampling event, not a free-energy estimate. The
 result becomes a free-energy claim only after the bias history, estimator, and
-uncertainty are included. This is why the review artifact treats the
+uncertainty are included. This is why the analysis treats the
 metadynamics diagnostic as a measure-changing example, not merely a faster
 trajectory.
 
@@ -218,6 +222,8 @@ path-repeat design, work definition, and reweighting assumptions must be
 reported with the result (<span id="cite-hummer2001"></span>[Hummer & Szabo,
 2001](#ref-hummer2001)).
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_work_ensemble.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Forward and reverse work values form path ensembles rather than equilibrium state samples. Jarzynski and Crooks use the work distribution, not the mean dissipated work." %}
+
 ## Why Is Exponential Averaging Fragile?
 
 The Jarzynski estimator weights work values exponentially. That makes rare
@@ -242,7 +248,7 @@ diagnostics are more informative than reporting a single mean.
 The practical rule is simple: nonequilibrium estimators need path overlap in
 work space. Umbrella sampling needs overlap in coordinate space. Free-energy
 perturbation needs overlap in energy-difference space. The mathematical
-objects differ, but the review habit is the same: check whether the data cover
+objects differ, but the diagnostic is the same: check whether the data cover
 the statistically important region of the estimator.
 
 ## What Does Crooks Add Beyond Jarzynski?
@@ -333,70 +339,7 @@ data. If forward and reverse paths explore different extrapolative regions,
 the free-energy disagreement may be a model problem rather than only a
 sampling problem.
 
-## What Should The Diagnostic Show?
-
-The figure combines adaptive and nonequilibrium diagnostics because the two
-families share a review pattern: the data are generated from a modified
-measure, and the estimator must expose that modification.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Enhanced-sampling diagnostics for the committed full profile. Adaptive bias changes where samples are drawn, nonequilibrium work identities recover the free-energy difference from a path ensemble rather than from mean work, and the steered-trajectory plus pair-distance panels show how protocol speed, path overlap, and runtime provenance affect interpretation." %}
-
-The adaptive-bias panel compares the true PMF, a bias-derived reconstruction,
-and the scaled final bias. It is meant to show that the final bias carries
-information about the landscape, while also reminding the reader that the
-trajectory was generated under a changing potential.
-
-The bias-growth panel shows history dependence directly. It makes visible that
-the bias is not a static restraint chosen before the run; it accumulates from
-the sampled path. The basin and barrier visitation annotations connect that
-history to the practical goal of escaping basins.
-
-The work-distribution panel shows the nonequilibrium side. The forward and
-reverse work ensembles have positive mean work, while the Jarzynski and Crooks
-markers sit near the true free-energy difference. That contrast is the lesson:
-mean work measures dissipative protocol cost; the free-energy estimator uses
-an exponential or bidirectional path identity.
-
-The steered-trajectory panel is a protocol diagnostic rather than a
-free-energy estimator. It compares the forward/reverse loop width for fast and
-slow time-dependent restraints. In the committed full profile, the fast
-protocol's hysteresis gap is about 6.08 times the slow gap. That panel is the
-warning label for any production pulling calculation: if the loop stays wide,
-the protocol is still far from reversible even when the paths look smooth.
-
-The pair-distance panel repeats the same review habit on a reduced atomistic
-coordinate \(r/\sigma\). It pulls a Lennard-Jones contact from \(r/\sigma =
-1.08\) to \(2.20\) with 8000 paths. The fast/slow hysteresis-gap ratio is
-about 5.43, the true restrained free-energy difference is about 0.607, and the
-slow forward/reverse Jarzynski estimates differ by about 1.49. That
-disagreement is not hidden as a failure of presentation: it is the lesson that
-exponential work identities can be exact while finite path ensembles remain
-fragile.
-
-The compact status panel records the runtime boundary for this diagnostic. The
-full profile targets `cuda_or_cpu_fallback`, but this artifact was generated on
-`jax:cpu;devices:cpu`, so production GPU readiness is `false`.
-
-## What Should Be Reported In Methods?
-
-For adaptive bias, a methods paragraph should report the collective variable,
-bias functional form, hill height, hill width, deposition stride or count,
-tempering parameters, temperature, warmup treatment, bias reconstruction
-method, convergence checks, and whether multiple walkers or replicas were
-used. If the bias was restarted or parameters were changed after a pilot run,
-that history belongs in the report.
-
-For nonequilibrium pulling, the methods should report the start and end
-states, control parameter schedule, restraint strength, pulling speed or number
-of steps, number of paths, initialization of path endpoints, work definition,
-estimator, direction agreement, and work-overlap diagnostics. Reporting only a
-single free-energy number is not enough.
-
-For MLIP simulations, methods should also describe model-health checks along
-biased or driven configurations. Enhanced sampling often intentionally visits
-rare regions. Those regions may be exactly where a learned potential has the
-least support. The simulation protocol and model-validity protocol should be
-reviewed together.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_hysteresis.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Fast pulling separates forward and reverse paths more strongly than slow pulling. The hysteresis is evidence of dissipation and poor path overlap." %}
 
 ## What Should Not Be Claimed?
 
@@ -445,7 +388,7 @@ That extension should record:
 | overlap diagnostics | work distributions support Jarzynski/Crooks estimates |
 | model checks | MLIP predictions are credible along rare or driven paths |
 
-The controlled workflow remains useful because it isolates estimator logic.
+The controlled example remains useful because it isolates estimator logic.
 It shows that accelerated barrier crossing, mean work, and free energy are
 different claims. A trajectory can cross the coordinate many times because the
 measure was changed; a pulling protocol can have a smooth path while remaining
@@ -454,28 +397,11 @@ distributions do not overlap.
 The production workflow should add molecular realism
 without losing that separation.
 
-## Practical Checklist
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_pair_pulling.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS pair-distance pulling runs compare slow and fast protocols on a molecular coordinate. Protocol speed changes both the work distribution and the recoverable free-energy signal." %}
 
-Before accepting an enhanced-sampling result, record concrete answers to these
-questions:
+## Run the Example
 
-| Question | Evidence to record |
-|---|---|
-| What measure was changed? | adaptive bias, pulling protocol, or both |
-| What metadata corrects it? | bias history, work values, path weights |
-| Did the method improve support? | basin/barrier visits or path overlap |
-| Is the estimator stable? | replicas, blocks, ESS, or direction agreement |
-| Is mean work separated from free energy? | Jarzynski/Crooks or equivalent diagnostics |
-| Are rare configurations credible? | MLIP validity checks along biased paths |
-| What failed in pilots? | revised hill settings, speeds, or coordinates |
-
-The checklist is intentionally estimator-centered. Enhanced sampling is useful
-because it changes what the simulation sees. The result is trustworthy only
-when the correction for that change is visible and reviewed.
-
-## Reproduction
-
-The current executable path is:
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -483,52 +409,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 11 --profile smoke
 uv run kups-tutorial verify 11 --profile smoke
-uv run kups-tutorial run 11 --profile full
-uv run kups-tutorial verify 11 --profile full
-uv run jupyter execute notebooks/post-11-enhanced-sampling.ipynb --inplace
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, enhanced-sampling diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records configuration
-hash `29f19850d439bb4d2f6e77752c0f30a4532b52fb459871b92f5d044406e82a06`,
-source revision `66c25c2f9b8dd6e79728d70341583f63f94a4526`, target device
-`cuda_or_cpu_fallback`, runtime device `jax:cpu;devices:cpu`, and production
-GPU readiness `false` for the compact pair-distance steered diagnostic.
-
-| Runtime field | Value |
-|---|---|
-| target device | `cuda_or_cpu_fallback` |
-| runtime device | `jax:cpu;devices:cpu` |
-| production GPU ready | `false` |
-| blocking reason | target device requests CUDA/GPU, but generated artifact runtime was `jax:cpu;devices:cpu` |
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled enhanced-sampling workflows
-- committed compact summaries and diagnostic curves
-- compact pair-distance steered-pulling diagnostic with target/runtime/GPU-
-  readiness provenance
-- executable notebook
-- generated SVG/PNG six-panel figure with Jarzynski/Crooks, ESS, fast/slow
-  hysteresis, pair-distance work, and runtime-status diagnostics
-- rendered desktop and mobile page snapshots for the latest six-panel figure
-- self-review note covering code, science, notebook, and figure feedback
-
-The missing pieces are:
-
-- final 3,500-10,000-word article prose
-- production MD context with real atomistic steered trajectories, model checks,
-  and production-level uncertainty intervals if public claims are added
-- additional citations if the final production article adds new scientific
-  claims beyond the current controlled enhanced-sampling and protocol
-  discussion
-
-The rule for this post is that enhanced sampling is a change of measure. Bias
-history and path weights are part of the estimator, not implementation details
-to hide after the trajectory crosses a barrier.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-11/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-11/full).
 
 ## References
 

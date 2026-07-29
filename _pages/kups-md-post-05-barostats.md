@@ -3,14 +3,14 @@ layout: post
 permalink: /kups-md-tutorials/post-05-barostats/
 title: "How Should Pressure and Cell Degrees of Freedom Be Coupled?"
 date: 2026-07-14
-last_updated: 2026-07-15
-description: "A reproducible pressure and cell diagnostic for molecular dynamics: NPT-like volume fluctuations, compressibility, pressure variance, barostat time constants, and cell memory."
+last_updated: 2026-07-29
+description: "How pressure control couples the simulation cell to noisy finite-system pressure and changes volume fluctuations and memory."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 5
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "Executable molecular-dynamics practice for ML researchers who are new to simulation."
 series_order: 5
 categories: [science]
 tags: [molecular-dynamics, npt, pressure, barostat, kups]
@@ -18,13 +18,13 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
+publication_status: draft
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This is an early draft page for the executable kUPS MD tutorial series. It is intentionally hidden from site navigation while the simulations, notebooks, figures, and review artifacts mature. This post extends the thermostat discussion to pressure and cell degrees of freedom, using a controlled scalar model plus compact reduced-unit argon cell-response and moving-cell checks before the final kUPS production NPT article is added. Corrections and replication issues should be tracked in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
+<em>Part 5 of the kUPS Molecular Dynamics Tutorials. The executable example is maintained in <a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
 </p>
 
-## Introduction
 
 Pressure control is not the same kind of operation as setting a scalar
 temperature. In small molecular simulations, instantaneous pressure fluctuates
@@ -67,16 +67,6 @@ too small, if the compressibility is wrong, if the coupling time is too short
 or too long, or if the cell is constrained in a way that does not match the
 physical question, the sampled ensemble can be wrong even when the mean
 pressure is close to the target.
-
-The executable artifacts for this page are:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/smoke.json)
-- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/full.json)
-- [barostat notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-05-barostats.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/smoke/barostat_summary.json)
-- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/barostat_summary.json)
-- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/manifest.json)
-- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-05.md)
 
 ## What Is a Barostat Actually Doing?
 
@@ -157,7 +147,7 @@ more in volume than stiff systems, larger systems should have larger absolute
 volume variance but smaller relative volume fluctuations, and finite
 trajectories should show sampling uncertainty around the target variance.
 
-The committed full profile sets the expected volume variance to 10.0 and the
+The full run sets the expected volume variance to 10.0 and the
 expected pressure variance to 0.1 in dimensionless units. These are not meant
 as argon values. They are controlled targets. The scalar model is constructed
 so that the correct answer is known before the run begins. That lets the page
@@ -181,6 +171,8 @@ does not say that a real material with an MLIP will have this compressibility.
 It does not say that the cell matrix in a fully flexible simulation is
 validated. It says the diagnostic machinery can check known fluctuation targets
 and expose how coupling time changes memory.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_volume_fluctuations.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The sampled volume fluctuations match the controlled compressibility target. An NPT trajectory should fluctuate around the ensemble mean rather than clamp the cell to one value." %}
 
 ## Why Is Pressure So Noisy?
 
@@ -217,6 +209,8 @@ relax under a noisy pressure-feedback update. It is a useful review harness for
 cell motion, density relaxation, pressure mean, and volume effective samples,
 but it still does not replace a final kUPS production NPT trajectory.
 
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_pressure_fluctuations.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Instantaneous pressure remains broad even when its mean is well behaved. Pressure control acts on this noisy signal, so single-frame pressure is not a convergence diagnostic." %}
+
 ## What Does the Relaxation Time Change?
 
 The relaxation time controls how quickly the cell variable responds. A very
@@ -251,7 +245,7 @@ This is the main lesson for production workflows. A slow barostat can look
 gentle and stable while producing a long-memory trajectory. If the observable
 depends on volume or density, that memory changes how much independent
 information has actually been collected. The barostat time constant therefore
-belongs in the methods section and in the review checklist.
+belongs in the methods section and in the diagnostic record.
 
 The opposite limit is also important. A barostat that is too aggressive can
 drive unphysical cell oscillations, amplify noisy pressure estimates, or couple
@@ -259,6 +253,8 @@ badly to the thermostat and integrator. The current scalar model does not
 attempt to demonstrate every instability mode. It gives a minimal,
 reproducible place to see why coupling strength is a statistical design
 choice.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_cell_memory.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Increasing the barostat relaxation time lengthens cell memory. The coupling time changes correlation and effective sample count even when the target pressure is unchanged." %}
 
 ## How Should a Simulation Be Initialized Before NPT?
 
@@ -375,7 +371,7 @@ thermostat, barostat, and integration order together, not as independent
 post-processing choices (<span id="cite-martyna1994b"></span>[Martyna et al.,
 1994](#ref-martyna1994)).
 
-The simple review habit is to check NVT before NPT. If NVT does not sample or
+The simple diagnostic is to check NVT before NPT. If NVT does not sample or
 conserve as expected, NPT will be harder to interpret. Once NPT is enabled,
 check temperature, pressure, volume, and energy-like diagnostics together. A
 single scalar temperature or pressure mean is too weak.
@@ -386,39 +382,6 @@ response rapidly. For MLIPs, neighbor lists, cutoff behavior, and stress
 calculation details can become visible when the box changes. Reproducible NPT
 workflows should therefore record the timestep, neighbor-list settings when
 relevant, precision policy, thermostat parameters, and barostat parameters.
-
-## What Should The Diagnostic Show?
-
-The full run checks two fluctuation targets: volume variance and pressure
-variance. It also reports the integrated autocorrelation time of the scalar
-volume process. The slow barostat has the same target distribution but much
-longer memory, which means fewer effective samples for the same wall-clock
-trajectory length.
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Pressure and scalar-cell diagnostics for the committed full profile. The controlled NPT-like model recovers volume and pressure fluctuation scales, slower barostat coupling increases cell memory, and the compact argon panel now checks three CPU-fallback reduced-unit moving-cell replicas with volume uncertainty, kinetic temperature, pressure SEM, and effective-sample annotations." %}
-
-The figure has four roles. The volume panel checks whether the scalar cell
-samples the expected fluctuation scale. The pressure panel checks the
-corresponding pressure variance in the controlled model. The memory panel
-shows why a trajectory with the same number of stored frames can contain very
-different amounts of independent information. The argon panel checks that a
-compressed reduced-unit cell can move, relax its density, report replica-level
-pressure uncertainty, keep the kinetic temperature near the target, and still
-expose the effective number of independent volume-factor samples.
-
-The target lines in the variance panels are essential. Without them, the
-figure would be only a comparison among three arbitrary runs. With them, the
-diagnostic asks whether the simulation recovers a known ensemble property. In
-a real atomistic workflow, the target may not always be known from first
-principles, but the same style of thinking applies: compare against
-compressibility estimates, equations of state, independent references, or
-larger-system checks when available.
-
-The visual result also shows why a barostat diagnostic should not rely on a
-single time trace. A pressure trace may look noisy even when the variance is
-correct. A volume trace may look smooth because the barostat is slow, not
-because the ensemble is better. The summary statistics and the figure must be
-read together.
 
 ## How Would This Extend to Atomistic Argon?
 
@@ -453,9 +416,11 @@ argon pressure-volume sweep. The open item remains open because the review
 standard for the series is that the article, data, figure, and rendered page
 must all describe the same executed workflow.
 
-## Reproduction
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_argon_npt.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The kUPS argon moving-cell run shows volume, temperature, and pressure across replicas. The physical trajectory makes the cell response and its uncertainty visible together." %}
 
-The current executable path is:
+## Run the Example
+
+The smoke profile follows the same protocol with a smaller CPU workload:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -463,84 +428,9 @@ cd kups-md-tutorials
 uv sync
 uv run kups-tutorial run 05 --profile smoke
 uv run kups-tutorial verify 05 --profile smoke
-uv run kups-tutorial run 05 --profile full
-uv run kups-tutorial verify 05 --profile full
-uv run jupyter execute notebooks/post-05-barostats.ipynb --inplace
-uv run python scripts/generate_post05_figures.py
 ```
 
-The notebook is deliberately not the implementation source. It imports the
-configuration loader, scalar barostat diagnostics, and figure generator from
-`src/kups_md_tutorials/`. The committed full manifest records the configuration
-hash, source Git revision, lockfile hash, Python version, platform, precision
-policy, runtime device, and package versions. In the current full run, the
-source revision recorded by the manifest is
-`9f5ee463377d42ab75f764d47a7e31ad15e2b530`, the config hash is
-`d9da66ce28211ce45668052d4aaed25f8f5f7e58ed34c79f7a9f10103520a92f`, and
-the runtime device is `jax:cpu;devices:cpu`.
-
-That provenance is useful because pressure and cell diagnostics are sensitive
-to small protocol changes. A different seed, timestep, sampling interval,
-warmup length, precision policy, or implementation of the stochastic update can
-change the finite-run estimates. The review note records what was checked so
-the article can be revised when the final atomistic workflow is added.
-
-## Practical Checklist
-
-Before treating an NPT run as production data, the following questions should
-have concrete answers:
-
-| Question | A weak answer | A stronger answer |
-|---|---|---|
-| What cell can move? | "NPT was used." | Isotropic, semi-isotropic, anisotropic, or flexible cell is specified. |
-| What pressure is targeted? | "1 bar." | Units, tensor/scalar target, and coupling scheme are stated. |
-| What is equilibrated? | "The pressure stabilized." | Warmup discard, density relaxation, and pressure uncertainty are reported. |
-| What fluctuates? | "The box changes." | Volume mean, variance, and autocorrelation are checked. |
-| What is measured? | "Averages after NPT." | Observable-specific ensemble choice is justified. |
-| What is reproducible? | "The notebook runs." | Configs, summaries, manifests, figures, and page snapshots are reviewed. |
-
-This checklist is especially important for ML researchers using MD as an
-experimental substrate. A learned potential can make it easy to run long
-trajectories, but long trajectories do not compensate for ambiguous ensemble
-definition. The more automated the workflow becomes, the more explicit the
-ensemble and diagnostic metadata should be.
-
-The current scalar diagnostic is small enough to rerun quickly. That is
-intentional. The page is not trying to replace production NPT simulation; it is
-trying to make the review habits executable before the workflow becomes more
-complex.
-
-## Current Status
-
-This page is not the final article. The implemented pieces are:
-
-- smoke and full controlled scalar barostat workflows
-- compact reduced-unit argon pressure-volume response workflow
-- compact reduced-unit argon moving-cell density-relaxation workflow with
-  three full-profile replicas, kinetic-temperature samples, and energy-like
-  trace diagnostics
-- machine-readable target-device, runtime-device, GPU-readiness, and blocking
-  reason provenance for the moving-cell diagnostic
-- committed compact summaries and downsampled samples
-- executable notebook
-- generated SVG/PNG figure and snapshot review
-- self-review note covering code, science, notebook, and figure feedback
-- final citations for NPT ensemble fluctuations, compressibility relations,
-  barostat coupling, flexible-cell coupling, and finite-size pressure
-  fluctuations
-
-The missing pieces are:
-
-- final kUPS production NPT dynamics diagnostics with full atomistic
-  thermostat/barostat settings, GPU provenance, and production stress/cell
-  checks
-- rendered desktop and mobile page snapshots after the final production NPT
-  diagnostic is added
-- final consistency pass after the production dynamics diagnostic is added
-
-The rule for this series is simple: a result is not ready because the code ran.
-It is ready only after the code, data, figure, prose, and rendered page have
-all been reviewed against the same reproducibility contract.
+The repository also contains the [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/full.json), [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/notebooks), and [recorded results](https://github.com/sungsoo-ahn/kups-md-tutorials/tree/main/results/post-05/full).
 
 ## References
 
