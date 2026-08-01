@@ -29,7 +29,7 @@
       "sample_every": 10,
       "seed": 4042,
       "sigma": 1.0,
-      "target_device": "cuda_or_cpu_fallback",
+      "target_device": "cpu",
       "temperature": 0.7,
       "time_step": 0.003,
       "warmup_steps": 500
@@ -333,7 +333,7 @@
   "kups_md_summary_file": "kups_md_summary.json",
   "provenance": {
     "config_path": "configs/post-04/full.json",
-    "config_sha256": "fb304cebd34bb0df1e0cbfb5010810512520c209bf92d009356d68549c48d9f3",
+    "config_sha256": "56ef03497f115224f468bec7c633bdc596dbb93a7c2a2a6ad90e6acd5a77a180",
     "git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
