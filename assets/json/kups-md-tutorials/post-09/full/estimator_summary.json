@@ -55,7 +55,7 @@
       "true_delta_f": 0.8
     }
   ],
-  "config_sha256": "54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125",
+  "config_sha256": "0899430d385b4e1d967c4de91fb9f3e97348b6a11b39ec9f818337d26b5af076",
   "multistate_protocols": [
     {
       "disconnected_edges": 0,
@@ -86,5 +86,40 @@
   "profile": "full",
   "sample_count": 50000,
   "seed": 2026071409,
+  "shared_kups_evidence": {
+    "atom_count": 256,
+    "engine": "kups",
+    "execution_summary_path": "results/post-08/full/kups_md_summary.json",
+    "execution_summary_sha256": "9afa03a220f5a9f9a21f6ae5d8e10ede7c0f8e0f23d9d327ce56ea2d39fbca63",
+    "frames_per_replica": 80,
+    "hdf5_sha256": [
+      "07d605fcf78fa8d14d697b214a2b6dfa6dc9f0b4767cbf626664d218c170e32e",
+      "e4a1d621418ad4ec993b0cd6ae3dd8479c01ba2a6bb95b1afe43326fc64ab617",
+      "942f4c0281ed051f15620f12bc0096a3bb629b30b52ca61b16333e8387803deb"
+    ],
+    "max_replica_pmf_standard_deviation_ev": 0.0008543815962232505,
+    "observed_devices": [
+      "gpu:NVIDIA RTX A5000"
+    ],
+    "observed_gpu": true,
+    "pmf_curves_path": "results/post-08/full/free_energy_curves.csv",
+    "pmf_curves_sha256": "a97aa33b0687d4113a317930e350af7197d5f68781bc722082d909a1627c6cb1",
+    "pmf_finite_bins": 60,
+    "pmf_minimum_radius_angstrom": 3.64,
+    "pmf_range_ev": 0.0379758077388616,
+    "pmf_summary_path": "results/post-08/full/kups_rdf_pmf_summary.json",
+    "pmf_summary_sha256": "3bf657d1e362d6b82ecb8bb0868fefc129fb3bbf7245e25ad62c4c46287283a3",
+    "replica_count": 3,
+    "requested_device": "gpu",
+    "source_post": "08",
+    "source_profile": "full",
+    "support_threshold_range_span_ev": 0.0142373586589147,
+    "support_thresholds": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "total_frames": 240
+  },
   "temperature": 1.0
 }

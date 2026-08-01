@@ -53,19 +53,36 @@
     },
     "post": "09",
     "profile": "full",
+    "shared_kups_evidence": {
+      "execution_summary_path": "results/post-08/full/kups_md_summary.json",
+      "execution_summary_sha256": "9afa03a220f5a9f9a21f6ae5d8e10ede7c0f8e0f23d9d327ce56ea2d39fbca63",
+      "pmf_curves_path": "results/post-08/full/free_energy_curves.csv",
+      "pmf_curves_sha256": "a97aa33b0687d4113a317930e350af7197d5f68781bc722082d909a1627c6cb1",
+      "pmf_summary_path": "results/post-08/full/kups_rdf_pmf_summary.json",
+      "pmf_summary_sha256": "3bf657d1e362d6b82ecb8bb0868fefc129fb3bbf7245e25ad62c4c46287283a3",
+      "source_post": "08",
+      "source_profile": "full"
+    },
     "title": "What Do Free-Energy Estimators Assume?"
   },
   "execution": {
-    "elapsed_seconds": 0.278,
+    "elapsed_seconds": 0.65,
     "max_full_profile_seconds": 3600,
     "measured_by": "kups_md_tutorials.workflows.run_post"
   },
   "multistate_curves_file": "multistate_curves.csv",
   "multistate_windows_file": "multistate_windows.csv",
+  "output_sha256": {
+    "estimator_summary.json": "b57fef9ced5837c0e4ea91240522ed889cf39f6cc3ff5966c0a0f4584cf3526d",
+    "multistate_curves.csv": "ab9065567b4ee2c7b75fa1228ba9e618880b4e0768df287483f3b0ec50cdf3d9",
+    "multistate_windows.csv": "4ef1ac79207781c9a15b274e95081affbfa947cec06d9ca5bee448beac23dd86",
+    "shared_kups_pmf.csv": "802e4416c81c3ce12da71c4cbfa491a3666bf2ea5a8103aa87c5b9198b4730b1",
+    "work_samples.csv": "52b0dbcb3e44d8020e49d8e68dae16b6a43477e1cd31d047a30df757cd84dea8"
+  },
   "provenance": {
     "config_path": "configs/post-09/full.json",
-    "config_sha256": "54f9c7456965f1eb75ff0f47960d59c3eccd1c5dfa192c5298919e3fc04ed125",
-    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
+    "config_sha256": "0899430d385b4e1d967c4de91fb9f3e97348b6a11b39ec9f818337d26b5af076",
+    "git_revision": "3fc285c9944ca333238dff3eba938c8852689d55",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
@@ -74,6 +91,42 @@
     "runtime_device": "jax:cpu;devices:cpu"
   },
   "samples_file": "work_samples.csv",
+  "shared_kups_evidence": {
+    "atom_count": 256,
+    "engine": "kups",
+    "execution_summary_path": "results/post-08/full/kups_md_summary.json",
+    "execution_summary_sha256": "9afa03a220f5a9f9a21f6ae5d8e10ede7c0f8e0f23d9d327ce56ea2d39fbca63",
+    "frames_per_replica": 80,
+    "hdf5_sha256": [
+      "07d605fcf78fa8d14d697b214a2b6dfa6dc9f0b4767cbf626664d218c170e32e",
+      "e4a1d621418ad4ec993b0cd6ae3dd8479c01ba2a6bb95b1afe43326fc64ab617",
+      "942f4c0281ed051f15620f12bc0096a3bb629b30b52ca61b16333e8387803deb"
+    ],
+    "max_replica_pmf_standard_deviation_ev": 0.0008543815962232505,
+    "observed_devices": [
+      "gpu:NVIDIA RTX A5000"
+    ],
+    "observed_gpu": true,
+    "pmf_curves_path": "results/post-08/full/free_energy_curves.csv",
+    "pmf_curves_sha256": "a97aa33b0687d4113a317930e350af7197d5f68781bc722082d909a1627c6cb1",
+    "pmf_finite_bins": 60,
+    "pmf_minimum_radius_angstrom": 3.64,
+    "pmf_range_ev": 0.0379758077388616,
+    "pmf_summary_path": "results/post-08/full/kups_rdf_pmf_summary.json",
+    "pmf_summary_sha256": "3bf657d1e362d6b82ecb8bb0868fefc129fb3bbf7245e25ad62c4c46287283a3",
+    "replica_count": 3,
+    "requested_device": "gpu",
+    "source_post": "08",
+    "source_profile": "full",
+    "support_threshold_range_span_ev": 0.0142373586589147,
+    "support_thresholds": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "total_frames": 240
+  },
+  "shared_kups_pmf_file": "shared_kups_pmf.csv",
   "summary_file": "estimator_summary.json",
   "versions": {
     "kups": "1.0.3",
