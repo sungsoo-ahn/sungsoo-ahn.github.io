@@ -7,7 +7,7 @@
       "include": "_includes/kups-notebooks/post-01/post01-finite-draw.html",
       "include_sha256": "b5a49c5d24495d04ec73fa3172e6a8d2033df45260b9407926fe67b3ba9af560",
       "notebook": "post-01-initialization.ipynb",
-      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "notebook_sha256": "a9185423c1e871259e36eaf114ef767a1e7e884d320a716b6b06ed951b4d95f9",
       "output_sha256": "f2f03401077f1252cc1f2c7f21b2b2dc77d5e7e4a63b500937df5a8e541ac041",
       "post": "01",
       "source_sha256": "6b6dd90237950e30fafa9f5b222e78d850263d0865914e674a2c1f5be4c5b982"
@@ -19,7 +19,7 @@
       "include": "_includes/kups-notebooks/post-01/post01-kups-state.html",
       "include_sha256": "cdd6fab1ed44a9183dbe175db7488593f1788fcba42014f2cd35b425d6ecce14",
       "notebook": "post-01-initialization.ipynb",
-      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "notebook_sha256": "a9185423c1e871259e36eaf114ef767a1e7e884d320a716b6b06ed951b4d95f9",
       "output_sha256": "3b497ea4ddd9ae2b911c3733f94760c83752c455446395148e42c23f2bcb3241",
       "post": "01",
       "source_sha256": "15adbb839f386cbb6b9ebbf5f7e7ff337f38b3500ba17f825fafe47ad76a9f17"
@@ -31,7 +31,7 @@
       "include": "_includes/kups-notebooks/post-01/post01-setup.html",
       "include_sha256": "a86c92e272afa6b9faab3cd29dc160be33b764b337cd01270b7e6ff4f5759486",
       "notebook": "post-01-initialization.ipynb",
-      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "notebook_sha256": "a9185423c1e871259e36eaf114ef767a1e7e884d320a716b6b06ed951b4d95f9",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "01",
       "source_sha256": "354904564048ab5961a2b17b9caa72e083ff18f1dcfdfd7eb35c78a4ba64decf"
@@ -41,10 +41,10 @@
       "cell_id": "post02-kups-nve",
       "display": "blog-code-open",
       "include": "_includes/kups-notebooks/post-02/post02-kups-nve.html",
-      "include_sha256": "1eca5d4fa2e8ed14ed245feedb2f9a5d55ef601931048de8f8f64681423102b2",
+      "include_sha256": "0ab4cfb332261d4e908fcf284ca7fccca5339ba5e83113976d389a5630524216",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
-      "output_sha256": "ffce606a3e547ef9297f93736dc6a6ff12cb2c5bec2c8034963ca80c3f76bcad",
+      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
+      "output_sha256": "4977dc76ac1f22287290c0125f298fefda9ceb14525fb8bcc2a3b5a4f47f1b64",
       "post": "02",
       "source_sha256": "a8bdbcce3e491467d1dc629c9d51ed3340425b44c6c2eff9afd8adf8ae9d9e2d"
     },
@@ -55,7 +55,7 @@
       "include": "_includes/kups-notebooks/post-02/post02-setup.html",
       "include_sha256": "94162825edb0484afc6ba32bc8964a775ddb16d581b298dc72754fb52c1b7953",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
+      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "02",
       "source_sha256": "c21067714814fb06fa0f3b53c39ce3272a30786ed3bde161d7dee194a7152c04"
@@ -67,7 +67,7 @@
       "include": "_includes/kups-notebooks/post-02/post02-verlet-control.html",
       "include_sha256": "771050b71cdb7e1c780a2853f5ee8c0fe3dfbafdf6333d65d072ddd9aeba5c99",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
+      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
       "output_sha256": "6f404976af97b3f9d2598a9c5aaba1614b5a0d62140238833cf248a5d289d253",
       "post": "02",
       "source_sha256": "6612a34ddaf83734277cb1d7132871a40355e8234324f41ab85c6f9577fc1180"
@@ -79,7 +79,7 @@
       "include": "_includes/kups-notebooks/post-03/post03-error-control.html",
       "include_sha256": "6b0ccd3f11575adc40efca4a929f05d882bdfc2e182240a32eb6f8676ba50c9c",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
       "output_sha256": "5bb38c3a2fe69cb834133f4246cd368132b71a11cd7c6b58e56aaf45e46bb43d",
       "post": "03",
       "source_sha256": "ea1fe7b082ff0479875d47abc157eb74ec393a17f19f1a2ef85a02a6bb9d6eb8"
@@ -91,7 +91,7 @@
       "include": "_includes/kups-notebooks/post-03/post03-kups-errors.html",
       "include_sha256": "72d59f543c39e397f07a641ff92a6aa417c93634d6f4dc490dd1dc1c7f62d12e",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
       "output_sha256": "cf596beec4517ef0e7569a0b410ea46ed993cb6b633e5807840ba9642cdee739",
       "post": "03",
       "source_sha256": "c30e05b25483a56c5d799392b2063e6237239d8b1b48995fe04805ff32a376a6"
@@ -103,7 +103,7 @@
       "include": "_includes/kups-notebooks/post-03/post03-setup.html",
       "include_sha256": "3bf27d10b5da06478e292121d4c6496dfb5976198abb5c74118e603189a2e2d5",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "03",
       "source_sha256": "95f6b02b75918d5303c669e8b9b225e11f4bae9e02db1b2efe9f1fdca9c13206"
@@ -115,7 +115,7 @@
       "include": "_includes/kups-notebooks/post-04/a106b2a9.html",
       "include_sha256": "8366f3ca4ef5045ad302b7b455b1e6192b5609ea60238d93c18ebaa7da9c70dc",
       "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "73accad649d4b25caeafcea6a7d5add0cad2a012652c88d6c3f8baae877326dc",
+      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "04",
       "source_sha256": "bcd9c2a16a068e707e6b188604d7d6ae7d5e1d899034fe9fe9919203e93a0ebf"
@@ -127,7 +127,7 @@
       "include": "_includes/kups-notebooks/post-04/adc44d5e.html",
       "include_sha256": "99a12603d6a5930c001934a454587a85db0579565c13ba426bada65be994c7e7",
       "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "73accad649d4b25caeafcea6a7d5add0cad2a012652c88d6c3f8baae877326dc",
+      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
       "output_sha256": "a1694637b2287bc864526422ef0ad5874400212496ce9f331723321ef27b54e4",
       "post": "04",
       "source_sha256": "edf87c75098fefa035ecc31bc2b3bc5d4baecdd380e86cc51330dcf9a4f4affe"
@@ -137,10 +137,10 @@
       "cell_id": "bc8d26c8",
       "display": "blog-code-open",
       "include": "_includes/kups-notebooks/post-04/bc8d26c8.html",
-      "include_sha256": "e321f8416dc9c6c22f29bcc36c5fbe198b9c0a856a818b29966b37cc806749d3",
+      "include_sha256": "c92ff8851fc512ee13cac5c24126c22372236d053d563951e87cda2df603825d",
       "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "73accad649d4b25caeafcea6a7d5add0cad2a012652c88d6c3f8baae877326dc",
-      "output_sha256": "d778877cbaa0611427e25fb6eee317985a5e715b574bed317bb6d0a6d9433b04",
+      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
+      "output_sha256": "6410b65db605436c0b62dc44aecd7c8f7b05112ad5c1554ff5d5699bda93ebb9",
       "post": "04",
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
     },
@@ -151,7 +151,7 @@
       "include": "_includes/kups-notebooks/post-05/post05-kups-npt.html",
       "include_sha256": "fae0f362b55f719ec2e27e326fba78cc092642bbd39df1c3b3a8378d9f1bfeda",
       "notebook": "post-05-barostats.ipynb",
-      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "notebook_sha256": "c42c01b27faf65e19dd027deade09e5c21984b0f664721f6c8896c43eb5602d4",
       "output_sha256": "46efaf6df636f4135c17c241b01fa29abf8baff56a7324e6677a67cf1a637782",
       "post": "05",
       "source_sha256": "c7ec09aa19e7c501cb58842802e131ef17e74f67e10f07a30a0ef439570d7f3c"
@@ -163,7 +163,7 @@
       "include": "_includes/kups-notebooks/post-05/post05-scalar-control.html",
       "include_sha256": "0cdcd4c7d4fe37ee01370d048f6eb490c3ebdac2420eb087e1c8d738ae2946bf",
       "notebook": "post-05-barostats.ipynb",
-      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "notebook_sha256": "c42c01b27faf65e19dd027deade09e5c21984b0f664721f6c8896c43eb5602d4",
       "output_sha256": "195377f85341ced277464c730d8d71ee0a8cd26ea50459e44b2b347375982c7a",
       "post": "05",
       "source_sha256": "15035a75976ed96f3825901c8214d0b53e89835a988103e3e79137af36a63a53"
@@ -175,7 +175,7 @@
       "include": "_includes/kups-notebooks/post-05/post05-setup.html",
       "include_sha256": "7e72c44465333780b684a11c274ef039bb660ec2f29da73b58685ecb71b83335",
       "notebook": "post-05-barostats.ipynb",
-      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "notebook_sha256": "c42c01b27faf65e19dd027deade09e5c21984b0f664721f6c8896c43eb5602d4",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "05",
       "source_sha256": "fad70e13051ace1a998e911b8e83cbb32df081d254508cbd946c24c6c46c3e80"
@@ -187,7 +187,7 @@
       "include": "_includes/kups-notebooks/post-06/post06-kups-length.html",
       "include_sha256": "75bd2e40e3d477e711670d5c490ab1c5e9a37bb1ded9786f6f551ce05f165dce",
       "notebook": "post-06-trajectory-length.ipynb",
-      "notebook_sha256": "73104f72e533e4b95ab813ce210be7207ecbcd95cba57cbafad852cee23de065",
+      "notebook_sha256": "18bdadb73d69aa468c6ad703341b8f58c404c6b1bb06e82581795703c786301d",
       "output_sha256": "89b0723f54837ac0a7493af747d6fb8d3cc0c7b1b0af314b7d39028cc4eadbe7",
       "post": "06",
       "source_sha256": "1ed934ef221dc1f89168069ca597806773d90db3e4a4f8f1395ab330a54eebeb"
@@ -199,7 +199,7 @@
       "include": "_includes/kups-notebooks/post-06/post06-setup.html",
       "include_sha256": "392bee145f63a511ef812e83314f5bef9c514370f72f2bb389086e8065df401f",
       "notebook": "post-06-trajectory-length.ipynb",
-      "notebook_sha256": "73104f72e533e4b95ab813ce210be7207ecbcd95cba57cbafad852cee23de065",
+      "notebook_sha256": "18bdadb73d69aa468c6ad703341b8f58c404c6b1bb06e82581795703c786301d",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "06",
       "source_sha256": "aad6a24519e17a67d2e434a566a6e7d6185d0073ee0bc9de19fdbeabae9ef3de"
@@ -211,7 +211,7 @@
       "include": "_includes/kups-notebooks/post-06/post06-statistical-control.html",
       "include_sha256": "555f3399c4e53ab9839391f686229845fc00725a76352fe51a09bc98b8bd9792",
       "notebook": "post-06-trajectory-length.ipynb",
-      "notebook_sha256": "73104f72e533e4b95ab813ce210be7207ecbcd95cba57cbafad852cee23de065",
+      "notebook_sha256": "18bdadb73d69aa468c6ad703341b8f58c404c6b1bb06e82581795703c786301d",
       "output_sha256": "6d8e32e1e77a87d0bc965adead41ae52e5813b56aceb1a486ca674b18b935f6b",
       "post": "06",
       "source_sha256": "8ed7bb23aeb81cbb5fd24cc95d2e0ccbe5ac9226c197f22a59da6e0a7cc0d438"
@@ -223,7 +223,7 @@
       "include": "_includes/kups-notebooks/post-07/post07-estimator-control.html",
       "include_sha256": "5b9e6d051b20bd00bf4efbcb80cb2584b357bf812e4b0158d73c3cd981d698de",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "3f44d00378061c425369ff8f456ad6402e035308b6b5c420dc4920b853de84f1",
+      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
       "output_sha256": "634c773dde90f7e72107001876c70cd3c8c8974253a71c5fad0af6cb599ca6df",
       "post": "07",
       "source_sha256": "d3413860769b30301334fdd3ddb58377c7dd3412bd564881540b4e8559a0a527"
@@ -235,7 +235,7 @@
       "include": "_includes/kups-notebooks/post-07/post07-kups-observables.html",
       "include_sha256": "770e421adcdfb97fa719f5e06cc1299ead826db7f615aa9ef7815701338a1203",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "3f44d00378061c425369ff8f456ad6402e035308b6b5c420dc4920b853de84f1",
+      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
       "output_sha256": "5e88c8a360f22d666aad0f35d2000706b8fd7518da5cc1c292e73fbc80a0e4e8",
       "post": "07",
       "source_sha256": "57a4659e48731c6c38fb507fb1ed18e4f5ed20913e0665d7a5e65f21c00e3ac6"
@@ -247,7 +247,7 @@
       "include": "_includes/kups-notebooks/post-07/post07-setup.html",
       "include_sha256": "b4b63463d31f38a07a71430f207b916a6af1c41c9a82d84ed77cccf1f867305f",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "3f44d00378061c425369ff8f456ad6402e035308b6b5c420dc4920b853de84f1",
+      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "07",
       "source_sha256": "542ccdf22218d5a6faf75e351b67ddc13735a97e7a67f20226d5d5a22321ec75"
@@ -259,7 +259,7 @@
       "include": "_includes/kups-notebooks/post-08/post08-free-energy-control.html",
       "include_sha256": "8e249869f46646dc35a7fc4b7e163d613bda8abc24e4f2711138aa23f90840d9",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "7fc21432c4c70d66f3f15c558e32d99c8b1196ed8e20e4b94522acc37db9f155",
+      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
       "output_sha256": "c3748921996ff8a6f5e6f3f8b8c02fd1cf8e435a17c11b625221646d7fde8932",
       "post": "08",
       "source_sha256": "4ff7f306369b9ba9bfe65b4090abdf14449e4a27236dbc48ce1d1046f3952787"
@@ -271,7 +271,7 @@
       "include": "_includes/kups-notebooks/post-08/post08-kups-rdf-pmf.html",
       "include_sha256": "2209c7541dfcb3065deffffb01c987e3831b4ad8557647ed9c56dcc9ac40a927",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "7fc21432c4c70d66f3f15c558e32d99c8b1196ed8e20e4b94522acc37db9f155",
+      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
       "output_sha256": "b5bc5a8b8eeb630b583d53bc14cfee51e2643533a617b1cfacadf85ff02792ce",
       "post": "08",
       "source_sha256": "10762028548f83a51d79ed704fb2498fb2ad2f47ea1673320a4b1667c3c38941"
@@ -283,7 +283,7 @@
       "include": "_includes/kups-notebooks/post-08/post08-setup.html",
       "include_sha256": "4925fc3637d71bcada31c0187ebbcf05b698150588b54940050430b9d7f8b93a",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "7fc21432c4c70d66f3f15c558e32d99c8b1196ed8e20e4b94522acc37db9f155",
+      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "08",
       "source_sha256": "3bd07e5ed07653bb081534bfade6d85289e638c750d8252c0d23136e267f2cbb"
@@ -295,7 +295,7 @@
       "include": "_includes/kups-notebooks/post-09/post09-estimator-control.html",
       "include_sha256": "7bce75a6b3e9f794beb110582be8ee6fe2adfa1e90cef1532f2df42c6cc8cc54",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
       "output_sha256": "32b7c3a98a04dfdd0c73e8d6255fab5d2d315dd729228259bac9d0e6ffe4b45a",
       "post": "09",
       "source_sha256": "a67a9cc9f43d2d389febf2ad1c5399bd25960d5c55de87128659d3c1d31fea48"
@@ -307,7 +307,7 @@
       "include": "_includes/kups-notebooks/post-09/post09-setup.html",
       "include_sha256": "25baab3327a1efebc5664af07f70ab5936574864a04e31be7141d890c9447c90",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "09",
       "source_sha256": "88a150672a92019cd3b12275e0dc77b7f733c7f7bad15b5ab40ac982d4b3208d"
@@ -319,7 +319,7 @@
       "include": "_includes/kups-notebooks/post-09/post09-shared-kups.html",
       "include_sha256": "217fb5fd820c8fa796ac9ef78b21c969370e4f68b96577163a2434c666eb3c9f",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
       "output_sha256": "f08a972844da1f4ff86cd8a032bfe86f54e511d9f59621575c112b028d482b94",
       "post": "09",
       "source_sha256": "4ddc66521f40732db4d3faaf43a7751e43f0216cdc0d48413c491867fd2fb60d"
@@ -331,7 +331,7 @@
       "include": "_includes/kups-notebooks/post-10/harmonic-bias.html",
       "include_sha256": "d6812085a3285868faa589303e41d6bef5505314ad71f58551a9c5dca614fef5",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
       "output_sha256": "50b4fc957b122256c62523505191cd0a4f68e8de5be525199f2b3ea7a2151f2f",
       "post": "10",
       "source_sha256": "48b04c454300a07c857dd8b15a7032a9453c1744e6049a1a39b4d25e00872fc7"
@@ -343,7 +343,7 @@
       "include": "_includes/kups-notebooks/post-10/production-evidence.html",
       "include_sha256": "c7918abcc787aa9b52fbc20eaa09ad25d21aba25708535f4927440004fb20439",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
       "output_sha256": "e3aa31ea1d6a78984229be453dfe5d39b8d59ea0a09f74c5a7070171965ca3fd",
       "post": "10",
       "source_sha256": "26ab65d1b71be4656b524794291a9508216de435a743800763ffb53bce7e38f9"
@@ -353,12 +353,12 @@
       "cell_id": "setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-10/setup.html",
-      "include_sha256": "3a9a44d1fdb12d4f7a31d4020cca652180f085d88e2b224d71e1c2162854f967",
+      "include_sha256": "cf253562f81fcc22bf9c5c1e13cff7c757e5e42384170bd978470ded80f231bc",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "10",
-      "source_sha256": "0bcd266c7875b8c1d8d8f22c83c967b2b8f948eb718ef44ee007c30354a67e1c"
+      "source_sha256": "302945d7f2ece8f715a55ff60ade230e64587edf1ba2f49c6c495126aa5efa69"
     },
     {
       "assets": [],
@@ -367,7 +367,7 @@
       "include": "_includes/kups-notebooks/post-10/smoke-run.html",
       "include_sha256": "2d22586f2736c9a4920a43016184686449fc69ed7175a8dcc3d19d0d82d7ada5",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
       "output_sha256": "b09461278b6e99e57aca1c6be4f8224da071e1c8a17bb4e29222e9c60c31b517",
       "post": "10",
       "source_sha256": "8370b9408b257ae4859ce1d1956dd3f05ad95c10d7b2cf58d8484e66cc95b5fd"
@@ -379,7 +379,7 @@
       "include": "_includes/kups-notebooks/post-11/production-evidence.html",
       "include_sha256": "7a82543655b78a83e8bdea667df302fdbe0cde8361a13ae80f3b9670849ed81f",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
       "output_sha256": "a6a11340ec5e19be68355fbbf7374220dd956e9a83c674cd00e051c00ca41627",
       "post": "11",
       "source_sha256": "d8a042ab6bf08f223b65d6d2ee931b84e1aea38f0dca0f7d2ce5d5e19b020919"
@@ -389,12 +389,12 @@
       "cell_id": "setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-11/setup.html",
-      "include_sha256": "3dfcb57b39f195f61c89e62cac01e37692d86e699cb37d3fbf684128aec93761",
+      "include_sha256": "a075fa69a408630de7a2dc57d44e2d7e2ae01436cca4ccd026c1ad121fe4bfff",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "11",
-      "source_sha256": "51a88e316b0dfb797d6c5ed6a03b5ea74d9832f8d65d92e72984fb3b15a9aad6"
+      "source_sha256": "5dc52c129f994422134958f215f2ab758589e1c46202033a53a8da8daca7c1dc"
     },
     {
       "assets": [],
@@ -403,7 +403,7 @@
       "include": "_includes/kups-notebooks/post-11/smoke-run.html",
       "include_sha256": "e8e656359b403ca621b45a7daa78795876fe146cfe383e0ecf60a98e6d305c04",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
       "output_sha256": "7e896de4dd92d851c908f90d933d6fdc801d2e736058dafd1f7df838952187d0",
       "post": "11",
       "source_sha256": "b7c585cfba66377bc545ad5621c67e849ab7b0bdfc3c2e8968924f14763461df"
@@ -415,7 +415,7 @@
       "include": "_includes/kups-notebooks/post-11/work-definition.html",
       "include_sha256": "6795135cc7ab160ecba1ccba1ee532c26e1d3b328e503db2125f8a74830b5f7b",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
       "output_sha256": "ee953d00c97bcaff8ae296930e685ae46cafff09d717da2b3a086b188473e2b0",
       "post": "11",
       "source_sha256": "8f0a570c47d92ba456ca5aec6993a34e054bce6ffa8571aaf4097d32532ea207"
@@ -427,7 +427,7 @@
       "include": "_includes/kups-notebooks/post-12/production-evidence.html",
       "include_sha256": "1dd03c9d6d566f4581a20b00e8191b6ed6b020b18972cbb420977c0d40fdae73",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
       "output_sha256": "89324f9422fb38aebce53626b842662ace0c12340820a667e619d1f3dca6dffa",
       "post": "12",
       "source_sha256": "850dc051d9f16fe992823d28969a84ceb0f21cc5469e0aad8a9f86fbb6b79565"
@@ -439,7 +439,7 @@
       "include": "_includes/kups-notebooks/post-12/protocol.html",
       "include_sha256": "9ecc0300c8d6340ba7406dde36137457eecb0daffa15dd37da4e4d9fabdac281",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
       "output_sha256": "f89eea5948a652dbc610517155d6c879aac9980c7973228f0921df0fdda13004",
       "post": "12",
       "source_sha256": "b353fd71a0fbc8830df013e1cb74fe9bc0ed47805fbc300121a87cf61690243a"
@@ -451,7 +451,7 @@
       "include": "_includes/kups-notebooks/post-12/setup.html",
       "include_sha256": "dd64d80e4525fdecbd9f9c775ccde2a1ee6c3ff52a1dd7331559f8a9052a36d1",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "12",
       "source_sha256": "5e5753482e53f208c161196235586d6a38bb4e133239badab27312a6f4fee64e"
@@ -463,12 +463,12 @@
       "include": "_includes/kups-notebooks/post-12/smoke-run.html",
       "include_sha256": "493e2ac6e7f73eb6c96d63470d4959279f9e82cab9ababb55adafd47610bde76",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
       "output_sha256": "56a1637e04ea8de9752cae9412057e97a58c578b7d8b06b5b9f82fe6f951e5f2",
       "post": "12",
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "cf17fdce4ead278ff2770ac1be318330d4e08f2402496b1c4b59f4a84934f146",
-  "source_git_revision": "f5b981dd6187a3d5f1320e2f2ab3544dfb034f9f"
+  "execution_manifest_sha256": "46ebb9a3d0f5fda06a1dd5d663bba53e9b240763004c81ecb9af424574d3674c",
+  "source_git_revision": "14ca284bb5fca1614f3bf542102a2e393feb7dc8"
 }
