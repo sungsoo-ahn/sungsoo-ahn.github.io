@@ -37,26 +37,33 @@
       "temperature": 1.0
     },
     "pair_distance_umbrella": {
-      "bin_width": 0.025,
-      "domain_max": 2.4,
-      "domain_min": 0.92,
-      "epsilon": 1.0,
-      "force_constant": 45.0,
-      "grid_points": 801,
-      "sample_count_per_window": 12000,
+      "bin_width_angstrom": 0.1,
+      "block_size": 10,
+      "cell_length_angstrom": 30.0,
+      "cutoff_angstrom": 8.5,
+      "domain_max_angstrom": 8.8,
+      "domain_min_angstrom": 3.0,
+      "epsilon_ev": 0.010326,
+      "force_constant_ev_per_angstrom2": 0.015,
+      "friction_per_fs": 0.002,
+      "num_steps": 8000,
+      "num_warmup_steps": 3000,
+      "precision": "float32",
+      "replica_count": 2,
       "seed": 2026071810,
-      "sigma": 1.0,
-      "target_device": "cuda_or_cpu_fallback",
-      "temperature": 0.7,
-      "window_centers": [
-        0.98,
-        1.1,
-        1.25,
-        1.45,
-        1.65,
-        1.9,
-        2.15,
-        2.35
+      "sigma_angstrom": 3.405,
+      "target_device": "gpu",
+      "temperature_k": 100.0,
+      "time_step_fs": 1.0,
+      "window_centers_angstrom": [
+        3.4,
+        4.05,
+        4.7,
+        5.35,
+        6.0,
+        6.65,
+        7.3,
+        7.95
       ]
     },
     "post": "10",
@@ -64,15 +71,1606 @@
     "title": "What Does Umbrella Sampling Actually Sample?"
   },
   "curves_file": "umbrella_curves.csv",
+  "engine": "kups",
   "execution": {
-    "elapsed_seconds": 0.962,
+    "elapsed_seconds": 406.314,
     "max_full_profile_seconds": 3600,
     "measured_by": "kups_md_tutorials.workflows.run_post"
   },
+  "kups_execution": {
+    "bias_force_finite_difference_max_error_ev_per_angstrom": 2.38930806517601e-06,
+    "coordinate": "minimum-image Ar-Ar pair distance (angstrom)",
+    "engine": "kups",
+    "entry_point": "kups.application.md.simulation.make_md_propagator+kups.application.md.simulation.run_md",
+    "force_constant_ev_per_angstrom2": 0.015,
+    "forward_reverse_pmf_rmse": 0.004068138696682442,
+    "frames_per_run": 800,
+    "gpu_blocking_reason": null,
+    "kups_version": "1.0.3",
+    "max_replica_pmf_difference": 0.010065184217571438,
+    "mean_adjacent_overlap": 0.6322890805806859,
+    "min_adjacent_overlap": 0.455,
+    "min_effective_bins": 16,
+    "minimum_radius": 3.8500000000000005,
+    "observed_devices": [
+      "gpu:NVIDIA RTX A5000"
+    ],
+    "pmf_rmse_vs_true": 0.003592936213569701,
+    "production_gpu_ready": true,
+    "reconstructed_well_depth": 0.012846944154379217,
+    "replica_count": 2,
+    "runs": [
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6690464690327644e-06,
+        "center_angstrom": 3.4,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.02,
+        "frame_count": 800,
+        "hdf5_bytes": 349346,
+        "hdf5_sha256": "bbf86814732c2fa83b60f719fe0809db04634fb23a56a628ece2a86f2e91a1ca",
+        "input_sha256": "26f260a378138ef37f3856947f95b4a61ea2b2596c09fe822186e34c53022db5",
+        "kinetic_energy_ev": {
+          "mean": 0.013785208302424507,
+          "n_blocks": 4,
+          "sem": 0.0021440003307777885
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.0051923675062062104,
+          "n_blocks": 4,
+          "sem": 0.0006855358371927523
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026071810,
+        "temperature_k": {
+          "mean": 106.64716939668929,
+          "n_blocks": 4,
+          "sem": 16.586732772729007
+        },
+        "total_energy_ev": {
+          "mean": 0.008592840796218297,
+          "n_blocks": 4,
+          "sem": 0.0017597123698305664
+        },
+        "window_index": 0,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6476260498166084e-06,
+        "center_angstrom": 4.05,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.47,
+        "frame_count": 800,
+        "hdf5_bytes": 341495,
+        "hdf5_sha256": "a02865c254398f5e8fc800dd64a1abecea6c95d771f9ff63b07ee81cb0924836",
+        "input_sha256": "8b0fe1c2576a6ea35520c3e2a3d3a2c24a4018f80be4b7fba6d15e61107d0f7c",
+        "kinetic_energy_ev": {
+          "mean": 0.009519820893060568,
+          "n_blocks": 4,
+          "sem": 0.0010654341102897848
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.005692813031928381,
+          "n_blocks": 4,
+          "sem": 0.0012272787774688257
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026072819,
+        "temperature_k": {
+          "mean": 73.64864784932277,
+          "n_blocks": 4,
+          "sem": 8.242569072894378
+        },
+        "total_energy_ev": {
+          "mean": 0.003827007861132188,
+          "n_blocks": 4,
+          "sem": 0.0022229197511498895
+        },
+        "window_index": 1,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 2.38930806517601e-06,
+        "center_angstrom": 4.7,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.278,
+        "frame_count": 800,
+        "hdf5_bytes": 342336,
+        "hdf5_sha256": "ae25998a2e8bbce763cdc32d6ab6ae6d86601a91e46644fbe85e6df36169187f",
+        "input_sha256": "05a31d1bfd3bb0912e1b37ea9133151ab37c0477707f7c09462249bedc99b2be",
+        "kinetic_energy_ev": {
+          "mean": 0.011279558875494332,
+          "n_blocks": 4,
+          "sem": 0.002185893244803944
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.003253256381576648,
+          "n_blocks": 4,
+          "sem": 0.000774465783635715
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026073828,
+        "temperature_k": {
+          "mean": 87.26259327806414,
+          "n_blocks": 4,
+          "sem": 16.91083093063015
+        },
+        "total_energy_ev": {
+          "mean": 0.008026302493917684,
+          "n_blocks": 4,
+          "sem": 0.002797581406968643
+        },
+        "window_index": 2,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6696285456418991e-06,
+        "center_angstrom": 5.35,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.367,
+        "frame_count": 800,
+        "hdf5_bytes": 341865,
+        "hdf5_sha256": "969ce56dcb6029954b2e6284bd0e0e44a113f7fd73e84393ad50ec048010dd5e",
+        "input_sha256": "c609f861cc798aa872df9ce5c81c4fed6800c340671713430e5537a2dc48fc0e",
+        "kinetic_energy_ev": {
+          "mean": 0.013186487064813264,
+          "n_blocks": 4,
+          "sem": 0.0031026894326835032
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.0025586852441483645,
+          "n_blocks": 4,
+          "sem": 0.0016082286422314722
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026074837,
+        "temperature_k": {
+          "mean": 102.0152531665547,
+          "n_blocks": 4,
+          "sem": 24.003485238132633
+        },
+        "total_energy_ev": {
+          "mean": 0.01574517230896163,
+          "n_blocks": 4,
+          "sem": 0.0044100115682328515
+        },
+        "window_index": 3,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6620615497231483e-06,
+        "center_angstrom": 6.0,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.17,
+        "frame_count": 800,
+        "hdf5_bytes": 340622,
+        "hdf5_sha256": "3f6aeac28ba84da628938b7936698fa906d8e4178b772527822397dbfee1b682",
+        "input_sha256": "f861a1993cf857c2c17e1d7a3a3561c7a1fe02ab7fe2d5ef79adf13de8c8fe61",
+        "kinetic_energy_ev": {
+          "mean": 0.009633688709163835,
+          "n_blocks": 4,
+          "sem": 0.0007803741527820488
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.0020406048269796884,
+          "n_blocks": 4,
+          "sem": 0.00043138430263140544
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026075846,
+        "temperature_k": {
+          "mean": 74.52956882169312,
+          "n_blocks": 4,
+          "sem": 6.037246011718019
+        },
+        "total_energy_ev": {
+          "mean": 0.011674293536143522,
+          "n_blocks": 4,
+          "sem": 0.0008958098180479613
+        },
+        "window_index": 4,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6692792996764183e-06,
+        "center_angstrom": 6.65,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.583,
+        "frame_count": 800,
+        "hdf5_bytes": 340959,
+        "hdf5_sha256": "a916fbc14bdb7873c04895ef50837b7692f8a9569c242a6d0e4d090c45557a2f",
+        "input_sha256": "45c410e78885bab997e0ec907ab192e05483fc6742990a96df27833225a831c1",
+        "kinetic_energy_ev": {
+          "mean": 0.013894070112273766,
+          "n_blocks": 4,
+          "sem": 0.0011905873617535005
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.004177703562454553,
+          "n_blocks": 4,
+          "sem": 0.0014008122341810528
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026076855,
+        "temperature_k": {
+          "mean": 107.48936219707521,
+          "n_blocks": 4,
+          "sem": 9.210798099391525
+        },
+        "total_energy_ev": {
+          "mean": 0.01807177367472832,
+          "n_blocks": 4,
+          "sem": 0.0004088288613038582
+        },
+        "window_index": 5,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 9.345822036266327e-07,
+        "center_angstrom": 7.3,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.509,
+        "frame_count": 800,
+        "hdf5_bytes": 335191,
+        "hdf5_sha256": "7c090c4d1e4ecb9f3426d20886d1669f6109fb6cb928931848899bb8a8de5374",
+        "input_sha256": "c543b8c21063fd315e347b65bd2c0012354fbc8bd116b52d348c43f086a95a8f",
+        "kinetic_energy_ev": {
+          "mean": 0.009802369872868439,
+          "n_blocks": 4,
+          "sem": 0.0018604843801181597
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.003965398789896426,
+          "n_blocks": 4,
+          "sem": 0.0011929987478930672
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026077864,
+        "temperature_k": {
+          "mean": 75.83454482999396,
+          "n_blocks": 4,
+          "sem": 14.393354624727296
+        },
+        "total_energy_ev": {
+          "mean": 0.013767768662764865,
+          "n_blocks": 4,
+          "sem": 0.002717534439432729
+        },
+        "window_index": 6,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6617123037576675e-06,
+        "center_angstrom": 7.95,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.444,
+        "frame_count": 800,
+        "hdf5_bytes": 337181,
+        "hdf5_sha256": "4a815740c0c5e5c038725048a68547b215b8440c6f890eefbc2d712794532549",
+        "input_sha256": "14af103bbfeca5b72c3a4a87424a30129f856cd14ad925fe8c46d041792453b4",
+        "kinetic_energy_ev": {
+          "mean": 0.01712791427391494,
+          "n_blocks": 4,
+          "sem": 0.0035350692340209216
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.00708939508014737,
+          "n_blocks": 4,
+          "sem": 0.003405631051718998
+        },
+        "replica_index": 0,
+        "requested_device": "gpu",
+        "seed": 2026078873,
+        "temperature_k": {
+          "mean": 132.50750597283107,
+          "n_blocks": 4,
+          "sem": 27.348525888528247
+        },
+        "total_energy_ev": {
+          "mean": 0.02421730935406231,
+          "n_blocks": 4,
+          "sem": 0.004600170099384332
+        },
+        "window_index": 7,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6690464690327644e-06,
+        "center_angstrom": 3.4,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 24.982,
+        "frame_count": 800,
+        "hdf5_bytes": 346880,
+        "hdf5_sha256": "3183dfc6c557f53d7373e22036c4556a24f556b837b084b29b6f9ade6e6f0599",
+        "input_sha256": "26f260a378138ef37f3856947f95b4a61ea2b2596c09fe822186e34c53022db5",
+        "kinetic_energy_ev": {
+          "mean": 0.011427305176257506,
+          "n_blocks": 4,
+          "sem": 0.00147541589916309
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.0061066313563242144,
+          "n_blocks": 4,
+          "sem": 0.0009746259362057665
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027071813,
+        "temperature_k": {
+          "mean": 88.40561004077595,
+          "n_blocks": 4,
+          "sem": 11.414330907259393
+        },
+        "total_energy_ev": {
+          "mean": 0.00532067381993329,
+          "n_blocks": 4,
+          "sem": 0.0024274187310064648
+        },
+        "window_index": 0,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6476260498166084e-06,
+        "center_angstrom": 4.05,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.029,
+        "frame_count": 800,
+        "hdf5_bytes": 343604,
+        "hdf5_sha256": "c0463e55cb8803b6f3ff1207b36010e8505d4583be1c9586bab3279f1e451a40",
+        "input_sha256": "8b0fe1c2576a6ea35520c3e2a3d3a2c24a4018f80be4b7fba6d15e61107d0f7c",
+        "kinetic_energy_ev": {
+          "mean": 0.01811254385043867,
+          "n_blocks": 4,
+          "sem": 0.0016742650568901819
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.0021097187214763834,
+          "n_blocks": 4,
+          "sem": 0.0017390251988381633
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027072822,
+        "temperature_k": {
+          "mean": 140.1249432972202,
+          "n_blocks": 4,
+          "sem": 12.952697338340524
+        },
+        "total_energy_ev": {
+          "mean": 0.016002825128962287,
+          "n_blocks": 4,
+          "sem": 0.0018629486875677468
+        },
+        "window_index": 1,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 2.38930806517601e-06,
+        "center_angstrom": 4.7,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.434,
+        "frame_count": 800,
+        "hdf5_bytes": 342181,
+        "hdf5_sha256": "07ac91ed580c3c4f1cff2178b57ad405f02abe87de1f5c456403d6e6661d73c4",
+        "input_sha256": "05a31d1bfd3bb0912e1b37ea9133151ab37c0477707f7c09462249bedc99b2be",
+        "kinetic_energy_ev": {
+          "mean": 0.01671633346377348,
+          "n_blocks": 4,
+          "sem": 0.002965941357939476
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.0001485749009589199,
+          "n_blocks": 4,
+          "sem": 0.0030309166932183844
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027073831,
+        "temperature_k": {
+          "mean": 129.32337368020237,
+          "n_blocks": 4,
+          "sem": 22.945554547984877
+        },
+        "total_energy_ev": {
+          "mean": 0.016864908364732402,
+          "n_blocks": 4,
+          "sem": 0.005787566362015716
+        },
+        "window_index": 2,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6696285456418991e-06,
+        "center_angstrom": 5.35,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.317,
+        "frame_count": 800,
+        "hdf5_bytes": 343614,
+        "hdf5_sha256": "4fd3b29d728b839d008c9e7fb02f75776a49d7387ceb006707459922370260f7",
+        "input_sha256": "c609f861cc798aa872df9ce5c81c4fed6800c340671713430e5537a2dc48fc0e",
+        "kinetic_energy_ev": {
+          "mean": 0.016778788772289773,
+          "n_blocks": 4,
+          "sem": 0.002656733016824667
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -0.00020557599062158262,
+          "n_blocks": 4,
+          "sem": 0.0008912370032578476
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027074840,
+        "temperature_k": {
+          "mean": 129.8065495912507,
+          "n_blocks": 4,
+          "sem": 20.553411178776802
+        },
+        "total_energy_ev": {
+          "mean": 0.01657321278166819,
+          "n_blocks": 4,
+          "sem": 0.0029539098765611446
+        },
+        "window_index": 3,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6620615497231483e-06,
+        "center_angstrom": 6.0,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.348,
+        "frame_count": 800,
+        "hdf5_bytes": 344880,
+        "hdf5_sha256": "d14222dc9c25549ca7b07bcf5b271cf4cd477f652f16356ed285ca43e2255b0f",
+        "input_sha256": "f861a1993cf857c2c17e1d7a3a3561c7a1fe02ab7fe2d5ef79adf13de8c8fe61",
+        "kinetic_energy_ev": {
+          "mean": 0.011535824930069794,
+          "n_blocks": 4,
+          "sem": 0.001538981346477594
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.003832721376747941,
+          "n_blocks": 4,
+          "sem": 0.0021618225720669592
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027075849,
+        "temperature_k": {
+          "mean": 89.24515655121002,
+          "n_blocks": 4,
+          "sem": 11.906095237370304
+        },
+        "total_energy_ev": {
+          "mean": 0.015368546306817735,
+          "n_blocks": 4,
+          "sem": 0.0011414341367552124
+        },
+        "window_index": 4,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6692792996764183e-06,
+        "center_angstrom": 6.65,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.551,
+        "frame_count": 800,
+        "hdf5_bytes": 340953,
+        "hdf5_sha256": "09c2c43c3ac9c24553f7aa9af80743d14b25776410b123522968fa5d90b35f04",
+        "input_sha256": "45c410e78885bab997e0ec907ab192e05483fc6742990a96df27833225a831c1",
+        "kinetic_energy_ev": {
+          "mean": 0.013369931359902694,
+          "n_blocks": 4,
+          "sem": 0.001543090701237639
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.004330448822765902,
+          "n_blocks": 4,
+          "sem": 0.0017108921722240108
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027076858,
+        "temperature_k": {
+          "mean": 103.43444242202939,
+          "n_blocks": 4,
+          "sem": 11.937886767088298
+        },
+        "total_energy_ev": {
+          "mean": 0.017700380182668597,
+          "n_blocks": 4,
+          "sem": 0.0021496506828692042
+        },
+        "window_index": 5,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 9.345822036266327e-07,
+        "center_angstrom": 7.3,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.118,
+        "frame_count": 800,
+        "hdf5_bytes": 340633,
+        "hdf5_sha256": "6b3ed7aa889d5274b18043714e5489f2a9bda533fec423e637ee017da239f183",
+        "input_sha256": "c543b8c21063fd315e347b65bd2c0012354fbc8bd116b52d348c43f086a95a8f",
+        "kinetic_energy_ev": {
+          "mean": 0.00937223438959336,
+          "n_blocks": 4,
+          "sem": 0.0006693221305437602
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.002647747796781914,
+          "n_blocks": 4,
+          "sem": 0.0008877701763883861
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027077867,
+        "temperature_k": {
+          "mean": 72.50686713315548,
+          "n_blocks": 4,
+          "sem": 5.1781090238931355
+        },
+        "total_energy_ev": {
+          "mean": 0.012019982186375273,
+          "n_blocks": 4,
+          "sem": 0.000491005255995865
+        },
+        "window_index": 6,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      },
+      {
+        "atom_count": 2,
+        "bias_force_finite_difference_max_error_ev_per_angstrom": 1.6617123037576675e-06,
+        "center_angstrom": 7.95,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              2,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              2,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              800,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 25.2,
+        "frame_count": 800,
+        "hdf5_bytes": 339470,
+        "hdf5_sha256": "e58ce9236a1c6e3dc9bfff3cadf9c0a187362e4e52b925d917160e45d040ad90",
+        "input_sha256": "14af103bbfeca5b72c3a4a87424a30129f856cd14ad925fe8c46d041792453b4",
+        "kinetic_energy_ev": {
+          "mean": 0.00902535345871911,
+          "n_blocks": 4,
+          "sem": 0.0009201081890625659
+        },
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": 0.0033626303588062,
+          "n_blocks": 4,
+          "sem": 0.0014880634466295584
+        },
+        "replica_index": 1,
+        "requested_device": "gpu",
+        "seed": 2027078876,
+        "temperature_k": {
+          "mean": 69.82327550086464,
+          "n_blocks": 4,
+          "sem": 7.118277243928958
+        },
+        "total_energy_ev": {
+          "mean": 0.01238798381752531,
+          "n_blocks": 4,
+          "sem": 0.0019728003834507605
+        },
+        "window_index": 7,
+        "zero_bias_energy_error_ev": 0.0,
+        "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+      }
+    ],
+    "runtime_device": "gpu:NVIDIA RTX A5000",
+    "sample_count_per_window": 1600,
+    "target_device": "gpu",
+    "target_requests_gpu": true,
+    "temperature_k": 100.0,
+    "thermal_energy_ev": 0.008617330337217212,
+    "total_frames": 12800,
+    "well_depth": 0.00988563378113514,
+    "well_depth_error": 0.0029613103732440763,
+    "window_count": 8,
+    "windows": [
+      {
+        "center": 3.4,
+        "effective_bins": 16,
+        "replica_mean_difference": 0.06540826559950785,
+        "sample_mean": 3.9007835229274908,
+        "sample_std": 0.3214067620095358
+      },
+      {
+        "center": 4.05,
+        "effective_bins": 28,
+        "replica_mean_difference": 0.09582703154080896,
+        "sample_mean": 4.3211936497255765,
+        "sample_std": 0.5915294800645972
+      },
+      {
+        "center": 4.7,
+        "effective_bins": 36,
+        "replica_mean_difference": 0.03831128926514271,
+        "sample_mean": 4.71911052278959,
+        "sample_std": 0.7325239514170925
+      },
+      {
+        "center": 5.35,
+        "effective_bins": 39,
+        "replica_mean_difference": 0.3259490154317959,
+        "sample_mean": 5.272116479398934,
+        "sample_std": 0.7994202476640216
+      },
+      {
+        "center": 6.0,
+        "effective_bins": 32,
+        "replica_mean_difference": 0.05696495911498367,
+        "sample_mean": 6.285492780868817,
+        "sample_std": 0.6958628731800205
+      },
+      {
+        "center": 6.65,
+        "effective_bins": 34,
+        "replica_mean_difference": 0.19867655966951947,
+        "sample_mean": 6.7324591898900215,
+        "sample_std": 0.8264028585277818
+      },
+      {
+        "center": 7.3,
+        "effective_bins": 29,
+        "replica_mean_difference": 0.21847384558112726,
+        "sample_mean": 7.461547586624971,
+        "sample_std": 0.6886626418751141
+      },
+      {
+        "center": 7.95,
+        "effective_bins": 26,
+        "replica_mean_difference": 0.1997694378667365,
+        "sample_mean": 7.992781257228325,
+        "sample_std": 0.8563281838808655
+      }
+    ],
+    "zero_bias_energy_error_ev": 0.0,
+    "zero_bias_gradient_max_error_ev_per_angstrom": 0.0
+  },
+  "kups_umbrella_samples_file": "kups_umbrella_samples.csv",
+  "output_sha256": {
+    "kups_umbrella_samples.csv": "8e803d3f3e6ef44cf04e1cec68ba5d1d87ceac0140a5ee5876fb3d8257ede747",
+    "umbrella_curves.csv": "6b6596502f584b3119de568c84ed5a5047da2670b471968f9bca210dee5edf2f",
+    "umbrella_summary.json": "309284f7a75210563fa6e20ff497bb1c221ba531c1340214ce19c442d9ca0bd8",
+    "umbrella_windows.csv": "35b4156e4068b2d6c8ede5774298d678a90103132b6c0fd0062dbc10e98e6ced"
+  },
   "provenance": {
     "config_path": "configs/post-10/full.json",
-    "config_sha256": "c8b1a577d4708124388fb96d403982f600c892b327e522b052f806f8e6a1ec0f",
-    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
+    "config_sha256": "61b79bdba4332da16b6b694f82af94909bf0e902f5bf029e8e7393abb394164e",
+    "git_revision": "4fe6948433a4db5eed362d5779c5c5e627b91151",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",

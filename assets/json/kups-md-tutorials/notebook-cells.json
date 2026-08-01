@@ -323,8 +323,56 @@
       "output_sha256": "f08a972844da1f4ff86cd8a032bfe86f54e511d9f59621575c112b028d482b94",
       "post": "09",
       "source_sha256": "4ddc66521f40732db4d3faaf43a7751e43f0216cdc0d48413c491867fd2fb60d"
+    },
+    {
+      "assets": [],
+      "cell_id": "harmonic-bias",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-10/harmonic-bias.html",
+      "include_sha256": "d6812085a3285868faa589303e41d6bef5505314ad71f58551a9c5dca614fef5",
+      "notebook": "post-10-umbrella-sampling.ipynb",
+      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "output_sha256": "50b4fc957b122256c62523505191cd0a4f68e8de5be525199f2b3ea7a2151f2f",
+      "post": "10",
+      "source_sha256": "48b04c454300a07c857dd8b15a7032a9453c1744e6049a1a39b4d25e00872fc7"
+    },
+    {
+      "assets": [],
+      "cell_id": "production-evidence",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-10/production-evidence.html",
+      "include_sha256": "c7918abcc787aa9b52fbc20eaa09ad25d21aba25708535f4927440004fb20439",
+      "notebook": "post-10-umbrella-sampling.ipynb",
+      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "output_sha256": "e3aa31ea1d6a78984229be453dfe5d39b8d59ea0a09f74c5a7070171965ca3fd",
+      "post": "10",
+      "source_sha256": "26ab65d1b71be4656b524794291a9508216de435a743800763ffb53bce7e38f9"
+    },
+    {
+      "assets": [],
+      "cell_id": "setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-10/setup.html",
+      "include_sha256": "3a9a44d1fdb12d4f7a31d4020cca652180f085d88e2b224d71e1c2162854f967",
+      "notebook": "post-10-umbrella-sampling.ipynb",
+      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "10",
+      "source_sha256": "0bcd266c7875b8c1d8d8f22c83c967b2b8f948eb718ef44ee007c30354a67e1c"
+    },
+    {
+      "assets": [],
+      "cell_id": "smoke-run",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-10/smoke-run.html",
+      "include_sha256": "2d22586f2736c9a4920a43016184686449fc69ed7175a8dcc3d19d0d82d7ada5",
+      "notebook": "post-10-umbrella-sampling.ipynb",
+      "notebook_sha256": "f9606933c72403b51b108c81a770dcb9f308f0e26ca04aab855d02fbfd5e4ec3",
+      "output_sha256": "b09461278b6e99e57aca1c6be4f8224da071e1c8a17bb4e29222e9c60c31b517",
+      "post": "10",
+      "source_sha256": "8370b9408b257ae4859ce1d1956dd3f05ad95c10d7b2cf58d8484e66cc95b5fd"
     }
   ],
-  "execution_manifest_sha256": "35344ac86998a049f7de73cd6ba1f9d25b3201a22e6a7600999b59e33e7894f6",
-  "source_git_revision": "3fc285c9944ca333238dff3eba938c8852689d55"
+  "execution_manifest_sha256": "628a8b6b38d8bd5cbb4b766ccbec62bb5c5b7cfaaab0e38b0983fca6d125e154",
+  "source_git_revision": "e72704160f67b0ccf19f11b2f9542b4bed5f9101"
 }
