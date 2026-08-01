@@ -165,7 +165,7 @@
       "destination": "assets/json/kups-md-tutorials/post-04/full/manifest.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "bca4bde9a2056037bbf70d926c4291f27df5608106004d0fbac8cbd5070e5d59",
+      "sha256": "a05c782d8b6ad606a760ddd144c63600319e6de83c84a2f0de6169813359f9c2",
       "source": "results/post-04/full/manifest.json"
     },
     {
@@ -179,7 +179,7 @@
       "destination": "assets/json/kups-md-tutorials/post-04/full/thermostat_summary.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "e63684a7a875df8ecff6d0fa1372dcf594d5b2d48601e37d38f6fcb508a7de76",
+      "sha256": "0167858b8f4020385683eb115d27f369ccd38a7e28dfc846afd0f83a78daf3bb",
       "source": "results/post-04/full/thermostat_summary.json"
     },
     {
@@ -639,5 +639,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "f5b981dd6187a3d5f1320e2f2ab3544dfb034f9f"
+  "source_git_revision": "14ca284bb5fca1614f3bf542102a2e393feb7dc8"
 }

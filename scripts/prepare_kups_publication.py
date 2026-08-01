@@ -104,7 +104,7 @@ def rewrite_frontmatter(lines: list[str], *, publication_date: str) -> list[str]
 def rewrite_author_note(body: str, *, post: str) -> str:
     final_note = (
         '<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">\n'
-        f"<em>Part {int(post)} of the kUPS Molecular Dynamics Tutorials for ML "
+        f"<em>Note: Part {int(post)} of the kUPS Molecular Dynamics Tutorials for ML "
         "researchers who are new to simulation practice. The executable "
         "examples and data are maintained in "
         '<a href="https://github.com/sungsoo-ahn/kups-md-tutorials">'
