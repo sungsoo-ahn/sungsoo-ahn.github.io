@@ -14,7 +14,7 @@
       "sample_every": 20,
       "seed": 2026071808,
       "sigma": 1.0,
-      "target_device": "cuda_or_cpu_fallback",
+      "target_device": "cpu",
       "temperature": 0.7,
       "time_step": 0.002,
       "uncertainty_block_count": 4,
@@ -44,15 +44,399 @@
     "title": "How Do Equilibrium Samples Become Free Energies?"
   },
   "curves_file": "free_energy_curves.csv",
+  "engine": "kups",
   "execution": {
-    "elapsed_seconds": 57.46,
+    "elapsed_seconds": 213.583,
     "max_full_profile_seconds": 3600,
     "measured_by": "kups_md_tutorials.workflows.run_post"
   },
+  "kups_config": {
+    "cases": [
+      {
+        "block_size": 10,
+        "compressibility_per_pa": 4.5e-10,
+        "friction_per_fs": 0.01,
+        "initialize_momenta": true,
+        "integrator": "baoab_langevin",
+        "minimum_scale_factor": 1.0,
+        "name": "replica_0",
+        "num_steps": 800,
+        "num_warmup_steps": 200,
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_coupling_time_fs": 10000000000.0,
+        "seed": 2026080308,
+        "target_pressure_pa": 0.0,
+        "temperature_k": 100.0,
+        "thermostat_time_constant_fs": 100.0,
+        "time_step_fs": 2.0
+      },
+      {
+        "block_size": 10,
+        "compressibility_per_pa": 4.5e-10,
+        "friction_per_fs": 0.01,
+        "initialize_momenta": true,
+        "integrator": "baoab_langevin",
+        "minimum_scale_factor": 1.0,
+        "name": "replica_1",
+        "num_steps": 800,
+        "num_warmup_steps": 200,
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_coupling_time_fs": 10000000000.0,
+        "seed": 2026080309,
+        "target_pressure_pa": 0.0,
+        "temperature_k": 100.0,
+        "thermostat_time_constant_fs": 100.0,
+        "time_step_fs": 2.0
+      },
+      {
+        "block_size": 10,
+        "compressibility_per_pa": 4.5e-10,
+        "friction_per_fs": 0.01,
+        "initialize_momenta": true,
+        "integrator": "baoab_langevin",
+        "minimum_scale_factor": 1.0,
+        "name": "replica_2",
+        "num_steps": 800,
+        "num_warmup_steps": 200,
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_coupling_time_fs": 10000000000.0,
+        "seed": 2026080310,
+        "target_pressure_pa": 0.0,
+        "temperature_k": 100.0,
+        "thermostat_time_constant_fs": 100.0,
+        "time_step_fs": 2.0
+      }
+    ],
+    "number_density_per_angstrom3": 0.0275,
+    "potential": {
+      "cutoff_angstrom": 8.0,
+      "epsilon_ev": 0.010326,
+      "mixing_rule": "lorentz_berthelot",
+      "sigma_angstrom": 3.405
+    },
+    "protocol_label": "post-08-real-kups-rdf-pmf-full",
+    "repetitions": 4,
+    "target_device": "gpu"
+  },
+  "kups_entry_point": "kups.application.simulations.md.run",
+  "kups_execution": {
+    "cases": [
+      {
+        "atom_count": 256,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              256,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              256,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 53.398,
+        "energy_drift_ev_per_atom_step": 1.4920082902539921e-05,
+        "energy_drift_ev_per_step": 0.00381954122305022,
+        "energy_span_ev_per_atom": 0.0037805140018463135,
+        "frame_count": 80,
+        "hdf5_bytes": 658733,
+        "hdf5_sha256": "07d605fcf78fa8d14d697b214a2b6dfa6dc9f0b4767cbf626664d218c170e32e",
+        "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+        "integrator": "baoab_langevin",
+        "kinetic_energy_ev": {
+          "mean": 3.3118321508169175,
+          "n_blocks": 4,
+          "sem": 0.0326758707419051
+        },
+        "max_abs_relative_energy_error": 0.04952981099309122,
+        "name": "replica_0",
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -17.86831705570221,
+          "n_blocks": 4,
+          "sem": 0.038469517410080964
+        },
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_pa": {
+          "mean": 316599519.43136835,
+          "n_blocks": 4,
+          "sem": 3533824.2373341247
+        },
+        "production_gpu_ready": true,
+        "requested_device": "gpu",
+        "seed": 2026080308,
+        "temperature_k": {
+          "mean": 100.47641861203792,
+          "n_blocks": 4,
+          "sem": 0.9913424397018527
+        },
+        "total_energy_ev": {
+          "mean": -14.556484904885291,
+          "n_blocks": 4,
+          "sem": 0.06978750239506329
+        },
+        "volume_angstrom3": {
+          "mean": 9309.0908203125,
+          "n_blocks": 4,
+          "sem": 0.0
+        }
+      },
+      {
+        "atom_count": 256,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              256,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              256,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 50.17,
+        "energy_drift_ev_per_atom_step": -7.204646947612772e-06,
+        "energy_drift_ev_per_step": -0.0018443896185888697,
+        "energy_span_ev_per_atom": 0.0032703466713428497,
+        "frame_count": 80,
+        "hdf5_bytes": 661077,
+        "hdf5_sha256": "e4a1d621418ad4ec993b0cd6ae3dd8479c01ba2a6bb95b1afe43326fc64ab617",
+        "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+        "integrator": "baoab_langevin",
+        "kinetic_energy_ev": {
+          "mean": 3.2579313278198243,
+          "n_blocks": 4,
+          "sem": 0.02286268381367798
+        },
+        "max_abs_relative_energy_error": 0.034100675520266056,
+        "name": "replica_1",
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -17.941691398620605,
+          "n_blocks": 4,
+          "sem": 0.03792456615046227
+        },
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_pa": {
+          "mean": 310503855.7500318,
+          "n_blocks": 4,
+          "sem": 3424212.2708662255
+        },
+        "production_gpu_ready": true,
+        "requested_device": "gpu",
+        "seed": 2026080309,
+        "temperature_k": {
+          "mean": 98.84113860225484,
+          "n_blocks": 4,
+          "sem": 0.6936186409924514
+        },
+        "total_energy_ev": {
+          "mean": -14.683760070800782,
+          "n_blocks": 4,
+          "sem": 0.054597506095205944
+        },
+        "volume_angstrom3": {
+          "mean": 9309.0908203125,
+          "n_blocks": 4,
+          "sem": 0.0
+        }
+      },
+      {
+        "atom_count": 256,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              256,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              256,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float32",
+            "shape": [
+              80,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 50.756,
+        "energy_drift_ev_per_atom_step": 2.6740536505886153e-05,
+        "energy_drift_ev_per_step": 0.006845577345506855,
+        "energy_span_ev_per_atom": 0.0036515258252620697,
+        "frame_count": 80,
+        "hdf5_bytes": 662694,
+        "hdf5_sha256": "942f4c0281ed051f15620f12bc0096a3bb629b30b52ca61b16333e8387803deb",
+        "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+        "integrator": "baoab_langevin",
+        "kinetic_energy_ev": {
+          "mean": 3.2764143109321595,
+          "n_blocks": 4,
+          "sem": 0.06526068516273431
+        },
+        "max_abs_relative_energy_error": 0.046537583889863496,
+        "name": "replica_2",
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -17.901862335205077,
+          "n_blocks": 4,
+          "sem": 0.0549265529222051
+        },
+        "potential_scale": 1.0,
+        "precision": "float32",
+        "pressure_pa": {
+          "mean": 313461185.1387502,
+          "n_blocks": 4,
+          "sem": 4975369.100908243
+        },
+        "production_gpu_ready": true,
+        "requested_device": "gpu",
+        "seed": 2026080310,
+        "temperature_k": {
+          "mean": 99.40188598529164,
+          "n_blocks": 4,
+          "sem": 1.979917111331977
+        },
+        "total_energy_ev": {
+          "mean": -14.625448024272918,
+          "n_blocks": 4,
+          "sem": 0.09490296373414672
+        },
+        "volume_angstrom3": {
+          "mean": 9309.0908203125,
+          "n_blocks": 4,
+          "sem": 0.0
+        }
+      }
+    ],
+    "engine": "kups",
+    "entry_point": "kups.application.simulations.md.run",
+    "gpu_blocking_reason": null,
+    "kups_version": "1.0.3",
+    "production_gpu_ready": true,
+    "protocol_label": "post-08-real-kups-rdf-pmf-full",
+    "target_device": "gpu",
+    "target_requests_gpu": true
+  },
+  "kups_md_summary_file": "kups_md_summary.json",
+  "kups_rdf_pmf_summary_file": "kups_rdf_pmf_summary.json",
   "provenance": {
     "config_path": "configs/post-08/full.json",
-    "config_sha256": "7d98bc849d66ecd7769dca29ede00e593774fd47e4b1c2854ef4e7b428ed6703",
-    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
+    "config_sha256": "2e2cce597390f1364561492bacdaa62c9a2fd5885dc154a361cccf75b51b7fa1",
+    "git_revision": "e9ed996c39554d43771ccecbb25e5c508e02476d",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
