@@ -3,6 +3,7 @@
 % # FONTS
 
 \usepackage[T1]{fontenc}
+\usepackage{kotex}
 \renewcommand*\ttdefault{lmvtt}
 %\usepackage[bitstream-charter]{mathdesign}
 \usepackage{amsmath}
@@ -26,7 +27,7 @@
 \usepackage{pifont}     % needed for dingbats for colophon
 
 % # COLOR
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \definecolor{shadecolor}{gray}{0.9}
 \definecolor{WineRed}{rgb}{0.6,0,0}
 
@@ -45,11 +46,29 @@
 \pagestyle{fancy}
 \lhead{\textcolor{gray}{\emph{Sungsoo Ahn}}}
 \rhead{\textcolor{gray}{\thepage}}
+\setlength{\headheight}{14pt}
 \renewcommand{\headrulewidth}{0pt}
 
-% Renew section
-\renewcommand{\section}[1]
-{\vspace{1.0\baselineskip}{\Large\textbf{#1}}}
+\newcommand{\cventry}[3]{%
+  \item \textit{#1}, #2, #3.%
+}
+
+\newcommand{\cvunnumberedentry}[3]{%
+  \item[] \textit{#1}, #2, #3.%
+}
+
+\newcommand{\grantentry}[4]{%
+  \item \textit{#1}, #3, #2. #4.%
+}
+
+% Unnumbered section headings with consistent spacing and page-break behavior.
+\setcounter{secnumdepth}{0}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0pt}%
+  {1.0\baselineskip}%
+  {0.35\baselineskip}%
+  {\Large\bfseries}}
+\makeatother
 
 \begin{document}
 \thispagestyle{empty}
@@ -58,7 +77,7 @@
 \begin{center}
     {\Huge \bf Sungsoo Ahn} \vspace{.2in} \\
     %{\Large Sungsoo Ahn}\\
-    Korea Advanced Institute of Science and Technology (KAIST)\\
+    KAIST\\
     {E-mail:} \texttt{sungsoo.ahn@kaist.ac.kr}, {Mobile:} \texttt{(+82)10-9495-1392}, \\
     {Web:} \href{https://sungsoo-ahn.github.io}{\texttt{sungsoo-ahn.github.io}}
 \end{center}
@@ -67,141 +86,136 @@
 %}
 \section{Education}
 \begin{itemize}
-    \item[] MS/Ph.D Integrated Course in Electrical Engineering \hfill Mar. 2015 -- Mar. 2021\\
-    \textit{Korea Advanced Institute of Science and Technology (KAIST),
-    Daejeon, South Korea} \\
-    \textit{Advisor: Jinwoo Shin}
-    \item[] BS in Electrical Engineering \hfill Mar. 2011 -- Mar. 2015\\
-    \textit{Korea Advanced Institute of Science and Technology (KAIST), 
-    Daejeon, South Korea}
+  \cvunnumberedentry{Integrated M.S.--Ph.D. Program in Electrical Engineering}{KAIST, Daejeon, South Korea, Advisor: Jinwoo Shin}{Mar. 2015 -- Mar. 2021}
+  \cvunnumberedentry{B.S. in Electrical Engineering}{KAIST, Daejeon, South Korea}{Mar. 2011 -- Mar. 2015}
 \end{itemize}
 \section{Employment}
 \begin{itemize}
-\item[] Assistant Professor \hfill Jan. 2025 -- Present \\
-\textit{Korea Advanced Institute of Science and Technology (KAIST), Daejeon, South Korea}
-\item[] Assistant Professor \hfill Dec. 2021 -- Jan. 2025 \\
-\textit{Pohang University of Science and Technology (POSTECH), Pohang, South Korea}\\
-\textit{Graduate School of AI and Department of Computer Science and Engineering}
-\item[] Research Associate \hfill Mar. 2021 -- Nov. 2021 \\
-\textit{Mohamed Bin Zayed University of Artificial Intelligence (MBZUAI), \\
-Abu Dhabi, United Arab Emirates} \\
-\textit{Supervisors: Le Song and Eric Xing}
-\item[] Research Intern \hfill Jun. 2018 -- Aug. 2018 \\
-\textit{Amazon Cambridge Development Center, Cambridge, England} \\
-\textit{Supervisor: Zhenwen Dai}
-\item[] Visiting Student \hfill Mar. 2018 -- May 2018 \\
-\textit{University of Cambridge, Cambridge, England} \\
-\textit{Host: Adrian Weller}
-\item[] Research Intern \hfill Jun. 2017 -- Aug. 2017\\
-\textit{Los Alamos National Laboratory, New Mexico, United States}\\
-\textit{Host: Michael Chertkov}
-\item[] Research Intern \hfill Jun. 2016 -- Aug. 2016\\
-\textit{Los Alamos National Laboratory, New Mexico, United States}\\
-\textit{Host: Michael Chertkov}
+  \cvunnumberedentry{Assistant Professor}{KAIST, Graduate School of AI, Daejeon, South Korea}{Jan. 2025 -- Present}
+  \cvunnumberedentry{Assistant Professor}{POSTECH, Pohang, South Korea, Graduate School of AI and Department of Computer Science and Engineering}{Dec. 2021 -- Jan. 2025}
+  \cvunnumberedentry{Postdoctoral Research Associate}{Mohamed bin Zayed University of Artificial Intelligence (MBZUAI), Abu Dhabi, United Arab Emirates, Supervisors: Le Song and Eric Xing}{Mar. 2021 -- Nov. 2021}
+  \cvunnumberedentry{Research Intern}{Amazon Cambridge Development Center, Cambridge, England, Supervisor: Zhenwen Dai}{Jun. 2018 -- Aug. 2018}
+  \cvunnumberedentry{Visiting Student}{University of Cambridge, Cambridge, England, Host: Adrian Weller}{Mar. 2018 -- May 2018}
+  \cvunnumberedentry{Research Intern}{Los Alamos National Laboratory, Los Alamos, New Mexico, United States, Host: Michael Chertkov}{Jun. 2017 -- Aug. 2017}
+  \cvunnumberedentry{Research Intern}{Los Alamos National Laboratory, Los Alamos, New Mexico, United States, Host: Michael Chertkov}{Jun. 2016 -- Aug. 2016}
+  \cvunnumberedentry{Software Developer Intern}{Penta Security Systems, Seoul, South Korea}{Jan. 2014 -- Feb. 2014}
 \end{itemize}
 
-\newpage
 \section{Publications}
-{\small $^*$Equal contribution. $^\dagger$Corresponding author.}\par
+{\small $^*$Equal contribution. $^\dagger$Equal corresponding authors.}\par
+\begingroup
+\setlength{\emergencystretch}{2em}
 \input{publications}
+\endgroup
 
-\section{Services}
+\section{Service}
 
 \begin{enumerate}
-  \item Local Chair, Probabilistic Machine Learning Conference (ProbML) \hfill 2026
-  \item Workshop Organizer, International Conference on Machine Learning (ICML), AI4Science \hfill 2026
-  \item Area Chair, International Conference on Machine Learning (ICML) \hfill 2022 -- 2026
-  \item Area Chair, International Conference on Learning Representations (ICLR) \hfill 2024 -- 2026
-  \item Area Chair, Conference on Neural Information Processing Systems (NeurIPS) \hfill 2022 -- 2025
-  \item Area Chair, Intl. Conference on Artificial Intelligence and Statistics (AISTATS) \hfill 2022 -- 2024
-  \item Area Chair, Association for the Advancement of Artificial Intelligence (AAAI) \hfill 2024
-  \item Action Editor, Transactions of Machine Learning Research (TMLR) \hfill 2024 -- 2026
-  \item Workflow Chair, International Conference on Machine Learning (ICML) \hfill 2022
-  \item Board of Directors, Korean Society of AI Frontier (KSAIF) \hfill 2025 --
-  \item Reviewer, NeurIPS \hfill 2018 -- 2021
-  \item Reviewer, ICML \hfill 2019 -- 2021
-  \item Reviewer, ICLR \hfill 2019 -- 2024
-  \item Reviewer, AISTATS \hfill 2019 -- 2021
+  \cventry{Track Chair (AI Scientist / Agent Systems)}{\href{https://ai4scikorea.org/}{AI for Science Conference (AI4Sci Korea)}, Seoul, South Korea}{2026}
+  \cventry{Host}{\href{https://holymollyhao.github.io/ai4science-korea/}{Korea AI4Science Gathering @ ICML}, Seoul, South Korea}{2026}
+  \cventry{Local Chair}{\href{https://probml.cc/}{Symposium on Probabilistic Machine Learning (ProbML)}, Seoul, South Korea}{2026}
+  \cventry{Organizer}{\href{https://ai4sciencecommunity.github.io/icml26}{AI for Science: AI Scientists---Tools, Co-authors, or Founders?}, International Conference on Machine Learning (ICML)}{2026}
+  \cventry{Mentor}{AI Co-Research \& Education for Innovative Drug (AI-CRED) Institute, InnoCORE Program, Project N10250153}{2025 -- Present}
+  \cventry{Board of Directors}{Korean Society of AI Frontier (KSAIF)}{2025 -- Present}
+  \cventry{Area Chair}{International Conference on Machine Learning (ICML)}{2022 -- 2026}
+  \cventry{Area Chair}{International Conference on Learning Representations (ICLR)}{2024 -- 2026}
+  \cventry{Area Chair}{Conference on Neural Information Processing Systems (NeurIPS)}{2022 -- 2026}
+  \cventry{Area Chair}{International Conference on Artificial Intelligence and Statistics (AISTATS)}{2022 -- 2024}
+  \cventry{Area Chair}{AAAI Conference on Artificial Intelligence (AAAI)}{2024}
+  \cventry{Action Editor}{Transactions of Machine Learning Research (TMLR)}{2024 -- Present}
+  \cventry{Workflow Chair}{International Conference on Machine Learning (ICML)}{2022}
+  \cventry{Reviewer}{NeurIPS}{2018 -- 2021}
+  \cventry{Reviewer}{ICML}{2019 -- 2021}
+  \cventry{Reviewer}{ICLR}{2019 -- 2024}
+  \cventry{Reviewer}{AISTATS}{2019 -- 2021}
 \end{enumerate}
 
 \section{Talks}
 
+\begingroup
+\setlength{\emergencystretch}{2em}
 \begin{enumerate}
-\item Foundation Models for Material Discovery \hfill Jul. 2025\\
-\textit{Korea Institute of Material Science (KIMS), Changwon, South Korea}
-\item Generative Models for Molecular Discovery \hfill Jul. 2025\\
-\textit{Seoul National University, Seoul, South Korea}
-\item A Generative Model for Metal Organic Frameworks \hfill Jul. 2025\\
-\textit{KAIST-MILA Annual Workshop, Montreal, Canada}
-\item Machine Learning for Transition Path Sampling \hfill Jul. 2025\\
-\textit{Korean In silico bio Design and Discovery Society (KIDDS), Daejeon, South Korea}
-\item Generative Models for Molecular Discovery \hfill May. 2025\\
-\textit{LG AI Research, Seoul, South Korea}
-\item Optimization Methods for Material Science \hfill Dec. 2024\\
-\textit{POSCO Holdings, Seoul, South Korea}
-\item Structure- and Energy-Based Machine Learning for Molecules \hfill Dec. 2024\\
-\textit{KAIST-MILA Prefrontal AI Workshop, Montreal, Canada}
-\item Amortizing Intractable Inference for Molecular Discovery \hfill Nov. 2024\\
-\textit{Physics Informed Machine Learning Workshop, New Mexico, United States}
-\item Opportunities and Challenges in Deep Graph Generative Models \hfill Nov. 2023\\
-\textit{AI Korea, Seoul, South Korea}
-\item Machine Learning for Drug Discovery \hfill Oct. 2023\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST), Daejeon, South Korea}
-\item Graph Structured Prediction and Graph Generation with Deep Learning \hfill Jun. 2023\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST), Daejeon, South Korea}
-\item Deep Neural Networks for Graph Optimization \hfill Nov. 2022\\
-\textit{University of Arizona, Arizona, United States}
-\item Geometric Deep Learning for Drug Discovery \hfill Aug. 2022\\
-\textit{Korean Artificial Intelligence Association (KAIA), Jeju, South Korea}
-\item Machine Learning for Drug Discovery \hfill Jun. 2022\\
-\textit{Centre for Frontier AI Research, Singapore}
-\item Elimination Techniques in Probabilistic Graphical Models \hfill Jun. 2021\\
-\textit{Skolkovo Institute of Science and Technology (Skoltech), Moscow, Russia}
-\item Guiding Deep Molecular Optimization with Genetic Exploration \hfill Dec. 2020\\
-\textit{Samsung Advanced Institute of Technology (SAIT), Suwon, South Korea}
-\item Scaling Deep Reinforcement Learning to Large Combinatorial Problems \hfill Feb. 2020\\
-\textit{Pohang University of Science and Technology (POSTECH), Pohang, South Korea}
-\item Bucket Renormalization for Approximate Inference \hfill Jul. 2018\\
-\textit{University of Oxford, Oxford, England}
-\item Mini-Bucket Renormalization \hfill Feb. 2018\\
-\textit{Physics Informed Machine Learning Workshop, Santa Fe, New Mexico, United States}
-\item Gauge Transformation of Graphical Models \hfill Jul. 2017\\
-\textit{Los Alamos National Laboratory (LANL), New Mexico, United States}
-\item Optimizing Gauge Transformation for Inference in Graphical Models \hfill Feb. 2017\\
-\textit{Banff Workshop, Alberta, Canada}
-\item Synthesis of MCMC and Belief Propagation \hfill Jul. 2016\\
-\textit{Los Alamos National Laboratory (LANL), New Mexico, United States}
-\item Minimum Weight Perfect Matching via Blossom Belief Propagation \hfill Nov. 2015\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST), Daejeon, South Korea}
+\cventry{비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Daejeon, South Korea}{Nov. 2026}
+\cventry{From Atomistic Generative Models to Amortized Free-Energy Estimation}{Generative Models and Uncertainty Quantification (GenU), Copenhagen, Denmark}{Sep. 2026}
+\cventry{AI for Molecular and Materials Discovery}{KAIST College of AI Colloquium, Daejeon, South Korea}{Sep. 2026}
+\cventry{From Atomistic Generative Models to Amortized Free-Energy Estimation}{KAIST--Mila Prefrontal AI Workshop}{Aug. 2026}
+\cventry{K-Fold: Fast Biomolecular Complex Prediction without Evolutionary Signals}{Korean Society of Artificial Intelligence in Medicine (KoSAIM)}{Jul. 2026}
+\cventry{Machine Learning Hamiltonians}{22nd KIAS Workshop on Electronic Structure Calculations, Seoul, South Korea}{Jul. 2026}
+\cventry{Generative Approaches to Protein Conformational Landscapes}{2026 Korean Biomolecular Science Joint Conference, South Korea}{Jun. 2026}
+\cventry{Generative Approaches to Protein Conformational Landscapes}{Korea Institute for Advanced Study (KIAS), Seoul, South Korea}{Jun. 2026}
+\cventry{비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Daejeon, South Korea}{May 2026}
+\cventry{AI Methods for Generating Scientific Hypotheses}{Samsung Advanced Institute of Technology Scientific AI Workshop, Suwon, South Korea}{May 2026}
+\cventry{Generative Models for Molecular Discovery}{Korea Institute of Science and Technology Information (KISTI), Daejeon, South Korea}{Mar. 2026}
+\cventry{Foundation Models for Material Discovery}{Korea Institute of Materials Science (KIMS), Changwon, South Korea}{Jul. 2025}
+\cventry{Generative Models for Molecular Discovery}{Seoul National University, Seoul, South Korea}{Jul. 2025}
+\cventry{A Generative Model for Metal-Organic Frameworks}{KAIST--Mila Annual Workshop, Montreal, Canada}{Jul. 2025}
+\cventry{Machine Learning for Transition Path Sampling}{The Korea in Silico BioDesign and Discovery Society (KIDDS), Daejeon, South Korea}{Jul. 2025}
+\cventry{Generative Models for Molecular Discovery}{LG AI Research, Seoul, South Korea}{May 2025}
+\cventry{Optimization Methods for Materials Science}{POSCO Holdings, Seoul, South Korea}{Dec. 2024}
+\cventry{Structure- and Energy-Based Machine Learning for Molecules}{KAIST--Mila Prefrontal AI Workshop, Montreal, Canada}{Dec. 2024}
+\cventry{Amortizing Intractable Inference for Molecular Discovery}{Physics-Informed Machine Learning Workshop, New Mexico, United States}{Nov. 2024}
+\cventry{Opportunities and Challenges in Deep Graph Generative Models}{AI Korea, Seoul, South Korea}{Nov. 2023}
+\cventry{Machine Learning for Drug Discovery}{KAIST, Daejeon, South Korea}{Oct. 2023}
+\cventry{Graph Structured Prediction and Graph Generation with Deep Learning}{KAIST, Daejeon, South Korea}{Jun. 2023}
+\cventry{Deep Neural Networks for Graph Optimization}{University of Arizona, Tucson, Arizona, United States}{Nov. 2022}
+\cventry{Geometric Deep Learning for Drug Discovery}{Korean Artificial Intelligence Association (KAIA), Jeju, South Korea}{Aug. 2022}
+\cventry{Machine Learning for Drug Discovery}{Centre for Frontier AI Research, Singapore}{Jun. 2022}
+\cventry{Elimination Techniques in Probabilistic Graphical Models}{Skolkovo Institute of Science and Technology (Skoltech), Moscow, Russia}{Jun. 2021}
+\cventry{Guiding Deep Molecular Optimization with Genetic Exploration}{Seminar at Samsung Advanced Institute of Technology, Suwon, South Korea}{Dec. 2020}
+\cventry{Scaling Deep Reinforcement Learning to Large Combinatorial Problems}{AI \& CSE Seminar, POSTECH, Pohang, South Korea}{Feb. 2020}
+\cventry{Bucket Renormalization for Approximate Inference}{Robotics Seminar, University of Oxford, Oxford, England}{Jul. 2018}
+\cventry{Mini-Bucket Renormalization}{Physics-Informed Machine Learning Workshop, Santa Fe, New Mexico, United States}{Feb. 2018}
+\cventry{Gauge Transformation of Graphical Models}{CNLS Student Seminar, Los Alamos National Laboratory, Los Alamos, New Mexico, United States}{Jul. 2017}
+\cventry{Optimizing Gauge Transformation for Inference in Graphical Models}{Banff Workshop on Optimization and Inference for Physical Flows on Networks, Banff, Alberta, Canada}{Feb. 2017}
+\cventry{Synthesis of MCMC and Belief Propagation}{CNLS Student Seminar, Los Alamos National Laboratory, Los Alamos, New Mexico, United States}{Jul. 2016}
+\cventry{Minimum Weight Perfect Matching via Blossom Belief Propagation}{Discrete Math Seminar, KAIST, Daejeon, South Korea}{Nov. 2015}
 \end{enumerate}
+\endgroup
 
 \section{Courses}
-\begin{enumerate}
-\item Proteins and AI (CoE499) \hfill Spring 2026\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST)}
-\item Machine learning for molecules (AI899) \hfill Fall 2025\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST)}
-\item Geometric deep learning (AI810) \hfill Spring 2025\\
-\textit{Korea Advanced Institute of Science and Technology (KAIST)}
-\item Introduction to artificial intelligence (CSED105) \hfill Fall 2024\\
-\textit{Pohang University of Science and Technology (POSTECH)}
-\item Machine learning for graphs (CSED/AIGS703I) \hfill Spring 2024\\
-\textit{Pohang University of Science and Technology (POSTECH)}
-\item Introduction to artificial intelligence (CSED105) \hfill Fall 2023\\
-\textit{Pohang University of Science and Technology (POSTECH)}
-\item Probabilistic graphical models (CSED/AIGS524) \hfill Spring 2023\\
-\textit{Pohang University of Science and Technology (POSTECH)}
-\item Introduction to machine learning (CSED490B) \hfill Fall 2022\\
-\textit{Pohang University of Science and Technology (POSTECH)}
-\item Probabilistic graphical models (CSED/AIGS524) \hfill Spring 2022\\
-\textit{Pohang University of Science and Technology (POSTECH)}
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\cventry{Proteins and AI (CoE499)}{KAIST}{Spring 2026}
+\cventry{Machine Learning for Molecules (AI899)}{KAIST}{Fall 2025}
+\cventry{Geometric Deep Learning (AI810)}{KAIST}{Spring 2025}
+\cventry{Introduction to Artificial Intelligence (CSED105)}{POSTECH}{Fall 2024}
+\cventry{Machine Learning for Graphs (CSED/AIGS703I)}{POSTECH}{Spring 2024}
+\cventry{Introduction to Artificial Intelligence (CSED105)}{POSTECH}{Fall 2023}
+\cventry{Probabilistic Graphical Models (CSED/AIGS524)}{POSTECH}{Spring 2023}
+\cventry{Introduction to Machine Learning (CSED490B)}{POSTECH}{Fall 2022}
+\cventry{Probabilistic Graphical Models (CSED/AIGS524)}{POSTECH}{Spring 2022}
 \end{enumerate}
-\newpage
-\section{Awards and Grants}
-\begin{enumerate}
-\item KAIST Outstanding Teaching Award \hfill Spring 2026
-\item NVIDIA Academic Grant Program \hfill 2026
-\item NVIDIA Academic Grant Program \hfill 2025
-\item KAIST Q-Day Award \hfill Winter 2025
+\section{Awards}
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\cventry{Outstanding Teaching Award}{KAIST}{2026}
+\cventry{Q-Day Faculty Special Award, Research Division}{KAIST}{2025}
 \end{enumerate}
+
+\section{Grants}
+
+\begingroup
+\setlength{\emergencystretch}{2em}
+\noindent\textsc{Research}
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\grantentry{Developing a Highly Multimodal (Drug, Protein, Gene, Cell Imaging, Literature) Foundation Model for ADMET Property Prediction}{Jul. 2025 -- Dec. 2027}{Principal Investigator, K-MELLODDY, Korea Health Industry Development Institute}{KRW 750M total project funding, Project RS-2025-21063030}
+\grantentry{AI Star Fellowship: Virtual-Cell Foundation Models and Cell-Ontology Graphs}{Apr. 2025 -- Dec. 2030}{Project 3 Principal Investigator, Institute for Information \& Communications Technology Planning \& Evaluation}{KRW 11.5B total project funding, Project RS-2025-02304967}
+\grantentry{Geometric Deep Learning for Analysis of Unstructured Neuroimaging Data}{Jun. 2025 -- May 2028}{Co-Investigator, National Research Foundation of Korea, Global Basic Research Laboratory Program}{KRW 1.5B total project funding, Project RS-2025-02216257}
+\grantentry{KAIST--Mila Prefrontal AI Research Center}{Jul. 2024 -- Dec. 2028}{Co-Principal Investigator (2024), Co-Investigator (2025 -- Present), National Research Foundation of Korea}{KRW 2.0B total project funding, Project RS-2024-00436165}
+\grantentry{Three-Dimensional Graph Neural Networks for Long-Range Interactions in Crystals}{2023 -- 2024}{Principal Investigator, POSCO Holdings}{KRW 50M total project funding}
+\grantentry{Deep Learning for Molecules to Accelerate Drug Discovery}{2022 -- 2027}{Principal Investigator, National Research Foundation of Korea, Outstanding Young Researcher Program}{KRW 600M total direct costs, Project RS-2022-NR072184}
+\grantentry{AI-Based Recognition of Three-Dimensional Molecular Structures}{2022 -- 2023}{Principal Investigator, POSCO Holdings}{KRW 49.3M total project funding}
+\end{enumerate}
+
+\noindent\textsc{Computing}
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\grantentry{Towards a Unified Generative Model for Molecular Interactions in Materials}{Jul. 2026 -- Dec. 2026}{NVIDIA Academic Grant Program}{8 NVIDIA H100 GPUs}
+\grantentry{Development of a Materials Generative Foundation Model with Molecular-Materials Interactions}{Mar. 2026 -- Dec. 2026}{Advanced GPU Utilization Support Program, Ministry of Science and ICT}{56 NVIDIA H200 GPUs}
+\grantentry{An Architecture for DFT-Level General-Purpose Atomistic Simulation Based on Simultaneous Hamiltonian/Density Prediction}{Jan. 2026 -- Dec. 2026}{KISTI Supercomputing Resources, National Supercomputing Center}{36 Nurion KNL and 10 Neuron allocations, Project KSC-2025-CRE-0602}
+\grantentry{Generative Materials Foundation Models for Adsorbate Complex Design}{Jan. 2026 -- Feb. 2026}{Advanced GPU Utilization Support Program, Beta Service, Ministry of Science and ICT}{32 NVIDIA B200 GPUs}
+\grantentry{Integrated Representation Learning for Biomolecular Foundation Models}{Nov. 2025 -- Oct. 2026}{AI Specialized Foundation Model Project, National IT Industry Promotion Agency}{256 NVIDIA B200 GPUs, Project PJT-25-100009}
+\grantentry{Generative Models for Designing Metal-Organic Frameworks for Direct Air Capture}{Sep. 2025 -- Dec. 2025}{Regional Infrastructure-Based Computing Resources, AI Industry Convergence Agency}{8 NVIDIA H100 GPUs}
+\grantentry{Deep Generative Models for Simulation and Design of Metal-Organic Frameworks}{Apr. 2025 -- Sep. 2025}{NVIDIA Academic Grant Program}{16,000 NVIDIA A100 GPU-hours}
+\grantentry{Developing Universal Coarse-Grained Atomistic Foundation Models}{2025}{AI Research Computing Support Project, Institute for Information \& Communications Technology Planning \& Evaluation}{32 NVIDIA H100 GPUs, Project RS-2025-02653113}
+\grantentry{Chemical Language and Logic for Artificial Chemical Intelligence}{Jan. 2025 -- Dec. 2025}{KISTI Supercomputing Resources, National Supercomputing Center}{10 Neuron allocations, Project KSC-2024-CRE-0535}
+\end{enumerate}
+\endgroup
 \end{document}

@@ -1,0 +1,109 @@
+# Rendering-only exceptions for scripts/update_cv.py.
+# Keys are BibTeX citation keys. Supported fields include author, title_tex,
+# venue, details, annotation, and presentation.
+
+seo2025generative:
+  author: Seonghwan Seo and Minsu Kim and Tony Shen and Martin Ester and Jinkyoo Park and Sungsoo Ahn and Woo Youn Kim
+
+kim2026dnachunker:
+  author: Taewon Kim and Jihwan Shin and Hyomin Kim and Youngmok Jung and Jonghoon Lee and Won-Chul Lee and Sungsoo Ahn† and Insu Han†
+
+park2026learning:
+  author: Seonghyun Park and Kiyoung Seong and Soojung Yang and Rafael Gómez-Bombarelli and Sungsoo Ahn
+
+jang2025selftraining:
+  venue: "Findings of the Association for Computational Linguistics: EMNLP 2025"
+
+kim2025mtmol:
+  venue: "Findings of the Association for Computational Linguistics: EMNLP 2025"
+
+hahm2025enhancing:
+  venue: "Findings of the Association for Computational Linguistics: ACL 2025"
+
+kim2024hybrid:
+  title_tex: Hybrid Neural Representations for Spherical Data
+
+kim2025rebind:
+  title_tex: "REBIND: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring"
+
+kim2024improving:
+  arxiv: "2409.03303"
+
+kim2024enhancing:
+  title_tex: "Symmetric Replay Training: Enhancing Sample Efficiency in Deep Reinforcement Learning for Combinatorial Optimization"
+
+bu2024tackling:
+  title_tex: "Tackling Prevalent Conditions in Unsupervised Combinatorial Optimization: Cardinality, Minimum, Covering, and More"
+
+yoon2024breadthfirst:
+  title_tex: Breadth-First Exploration on Adaptive Grid for Reinforcement Learning
+  paper_url: https://proceedings.mlr.press/v235/yoon24d.html
+
+jang2024graph:
+  title_tex: Graph Generation with $K^2$-trees
+
+jang2024learning:
+  annotation: oral presentation (86 of 7,304 submissions, 1.2%)
+
+kim2024local:
+  annotation: spotlight presentation (366 of 7,304 submissions, 5.0%)
+
+ahn2022spanning:
+  annotation: spotlight presentation (174 of 3,422 submissions, 5.1%)
+
+lee2021retcl:
+  author: Hankook Lee and Sungsoo Ahn and Seung-Woo Seo and You Young Song and Eunho Yang and Sung-Ju Hwang and Jinwoo Shin
+
+ahn2019variational:
+  author: Sungsoo Ahn and Shell Xu Hu and Andreas Damianou and Neil D. Lawrence and Zhenwen Dai
+
+ahn2018bucketrenormalization:
+  title_tex: Bucket Renormalization for Approximate Inference
+
+ahn2019bucketrenormalization:
+  title_tex: Bucket Renormalization for Approximate Inference
+  details: 2019(12), 124015
+
+ahn2019gauging:
+  details: 2019(12), 124022
+
+ahn2018maximum:
+  details: 64(3), 1471--1480
+
+ahn2016synthesis:
+  annotation: oral presentation (46 of 2,500 submissions, 1.8%)
+
+ahn2015minimum:
+  annotation: spotlight presentation (82 of 1,838 submissions, 4.5%)
+
+jang2026boltz:
+  title_tex: A Systematic Evaluation of Co-folding Model Representations for Small-Molecule Learning
+  author: Hyosoon Jang and Hyunjin Seo and Honghui Kim and Seonghyun Park and Taewon Kim and Yunhui Jang and Sungsoo Ahn
+  sort_order: 202602020811
+
+seong2026discovering:
+  sort_order: 202606300000
+
+kim2026madfield:
+  sort_order: 202606290000
+
+kim2026atomlevel:
+  sort_order: 202605300000
+
+seo2026vibeproteinbench:
+  sort_order: 202605200000
+
+kim2026progressive:
+  sort_order: 202602070659
+
+kim2026atommof:
+  sort_order: 202602070423
+
+jang2026indibator:
+  sort_order: 202602020847
+
+jang2024can:
+  sort_order: 202410040000
+
+woo2024iterated:
+  sort_order: 202408300000
