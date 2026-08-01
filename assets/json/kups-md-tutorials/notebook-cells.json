@@ -38,6 +38,42 @@
     },
     {
       "assets": [],
+      "cell_id": "post02-kups-nve",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-02/post02-kups-nve.html",
+      "include_sha256": "1eca5d4fa2e8ed14ed245feedb2f9a5d55ef601931048de8f8f64681423102b2",
+      "notebook": "post-02-integrators.ipynb",
+      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
+      "output_sha256": "ffce606a3e547ef9297f93736dc6a6ff12cb2c5bec2c8034963ca80c3f76bcad",
+      "post": "02",
+      "source_sha256": "a8bdbcce3e491467d1dc629c9d51ed3340425b44c6c2eff9afd8adf8ae9d9e2d"
+    },
+    {
+      "assets": [],
+      "cell_id": "post02-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-02/post02-setup.html",
+      "include_sha256": "94162825edb0484afc6ba32bc8964a775ddb16d581b298dc72754fb52c1b7953",
+      "notebook": "post-02-integrators.ipynb",
+      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "02",
+      "source_sha256": "c21067714814fb06fa0f3b53c39ce3272a30786ed3bde161d7dee194a7152c04"
+    },
+    {
+      "assets": [],
+      "cell_id": "post02-verlet-control",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-02/post02-verlet-control.html",
+      "include_sha256": "771050b71cdb7e1c780a2853f5ee8c0fe3dfbafdf6333d65d072ddd9aeba5c99",
+      "notebook": "post-02-integrators.ipynb",
+      "notebook_sha256": "ca6dd3e15080fbff1c440fb094a78c3a2d7f6b0a7f205d4d2a6f571bb6238be6",
+      "output_sha256": "6f404976af97b3f9d2598a9c5aaba1614b5a0d62140238833cf248a5d289d253",
+      "post": "02",
+      "source_sha256": "6612a34ddaf83734277cb1d7132871a40355e8234324f41ab85c6f9577fc1180"
+    },
+    {
+      "assets": [],
       "cell_id": "a106b2a9",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-04/a106b2a9.html",
@@ -73,6 +109,6 @@
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
     }
   ],
-  "execution_manifest_sha256": "cb2755baec4dfe33f8a0b5312731f356d4902286ce21ee4dd75702c0201361dd",
-  "source_git_revision": "355eaffef2943234b0638827aa1e51756d65d062"
+  "execution_manifest_sha256": "3713893fd26fedc5534595ca0f8db38774aac7c0b7587554dc1c1ea2e05a183a",
+  "source_git_revision": "b5bcd0e34f25ef423bf77b967ef8ff0898b4cb89"
 }
