@@ -80,15 +80,15 @@
     ],
     "coordination_cutoff": 1.5,
     "gamma": 1.0,
-    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was jax:cpu;devices:cpu",
+    "gpu_blocking_reason": null,
     "number_density": 0.85,
     "observable": "potential_energy_per_atom",
     "production_gpu_ready": false,
     "replica_count": 5,
     "runtime_device": "jax:cpu;devices:cpu",
     "sample_every": 20,
-    "target_device": "cuda_or_cpu_fallback",
-    "target_requests_gpu": true,
+    "target_device": "cpu",
+    "target_requests_gpu": false,
     "temperature": 0.7,
     "time_step": 0.002,
     "warmup_steps": 1000
@@ -171,7 +171,7 @@
       "z_score": 0.3062476581825932
     }
   ],
-  "config_sha256": "6f78f4d49c0337b35ed454cab07e69b445423c1c8fba7fefc641370d4e539aa6",
+  "config_sha256": "49f3148e0a35da984e8b60c633befde1fa0079142340a1a1f96ad0b3d7e30501",
   "correlation_time": 30.0,
   "equilibration_time": 120.0,
   "initial_bias": 2.5,
