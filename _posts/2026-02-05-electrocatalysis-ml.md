@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -27,11 +27,11 @@ published: true
 
 The design problem is to find a catalyst[^catalyst] material that achieves a target adsorption energy[^adsenergy] for a given chemical reaction.
 
-This matters because the Sabatier principle says the best catalyst binds intermediates[^intermediate] at a specific strength: not too strongly, not too weakly. Scaling relations reduce the problem further. In many reaction families, one number, the adsorption energy of a key intermediate, largely determines catalyst performance. Theory identifies the optimal value; the open question is which material achieves it.
+The Sabatier principle says the best catalyst binds intermediates[^intermediate] at a specific strength: not too strongly, not too weakly. Scaling relations reduce the problem further. In many reaction families, one number, the adsorption energy of a key intermediate, largely determines catalyst performance. Theory identifies the optimal value; the open question is which material achieves it.
 
 The search space is too large for exhaustive DFT. Catalyst surfaces are built from ~40 candidate metals in alloys of 1–3 elements, cut along different crystal facets,[^facet] with multiple binding sites[^bindingsite] per surface. Combined with 82 relevant adsorbate[^adsorbate] molecules, the number of candidate configurations runs into the billions. The OC20 benchmark made this scale concrete for machine learning (<span id="cite-chanussot2021"></span>[Chanussot et al., 2021](#ref-chanussot2021)). Evaluating each one requires a DFT relaxation[^dftrelax] — an iterative quantum-mechanical simulation costing hours to days per candidate. Exhaustive evaluation is infeasible.
 
-For ML, the problem is direct: learn a surrogate from material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why the problem matters.
+For ML, the problem is direct: learn a surrogate from material structure to adsorption energy, then search or generate candidates that hit the target. The rest of this post explains where the target comes from, why the search space has this structure, and why exhaustive search fails.
 
 ## The Energy Storage Problem
 
@@ -165,7 +165,7 @@ Even with the simplification to a single descriptor, the space of candidate cata
 - **~40 metals** can appear in a catalyst, in combinations of 1–3 elements (yielding over 10,000 compositions before considering ratios).
 - Each composition can be cut along multiple crystal facets — (100), (110), (111), and others — exposing different surface arrangements.
 - Each surface has multiple binding sites: an adsorbate can bond to 1 atom (atop), 2 atoms (bridge), or 3 atoms (hollow).
-- **82 adsorbate molecules** are relevant intermediates of reactions important for renewable energy.
+- **82 adsorbate molecules** are relevant intermediates in renewable-energy reactions.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_catalyst_surface.png" class="img-fluid rounded z-depth-1" zoomable=true caption="3D rendering of a catalyst surface with adsorbate molecules (red and white atoms) bound at different sites on a close-packed metal surface (gray). The adsorbates are small compared to the surface — their binding energy depends on the local arrangement of surface atoms. Adapted from Zitnick et al. (2020)." %}
 
@@ -207,7 +207,7 @@ Oxide electrocatalysts introduce at least five layers of complexity absent from 
 
 On a metal surface, adsorbates bind to metal atoms at well-defined sites (atop, bridge, hollow). Oxides add a second class of binding interactions: adsorbates can bind to surface oxygen atoms rather than to metal atoms. This enables reactions that have no analogue on metals.
 
-The Mars-van Krevelen (MvK) mechanism[^mvk] is the most important example. In MvK, an incoming adsorbate reacts with a lattice oxygen atom on the surface, forming a new intermediate that desorbs and leaves behind an oxygen vacancy. The vacancy is later replenished by oxygen from the next adsorbate. The catalyst surface itself participates as a reactant, cycling between oxidized and reduced states.
+The Mars-van Krevelen (MvK) mechanism[^mvk] is the canonical example. In MvK, an incoming adsorbate reacts with a lattice oxygen atom on the surface, forming a new intermediate that desorbs and leaves behind an oxygen vacancy. The vacancy is later replenished by oxygen from the next adsorbate. The catalyst surface itself participates as a reactant, cycling between oxidized and reduced states.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/ec_oxide_adsorbates.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="Adsorbate placement strategies on oxide surfaces. Top row: adsorbates bind to undercoordinated surface metals at lattice oxygen positions (including vacancy sites). Bottom row: adsorbates bind to existing surface oxygen to form new intermediates — e.g., CO on surface O forms CO2, monatomic O on surface O forms a dimer. This second class of binding is unique to oxides. Adapted from Tran et al. (2023)." %}
 
@@ -231,7 +231,7 @@ The solvation energy captures these effects: it is the difference between a spec
 
 ### Compositional Complexity
 
-The design space grows dramatically beyond pure metals and binary alloys.
+The design space expands beyond pure metals and binary alloys.
 
 **Heteroatom doping.** Introducing foreign atoms — nitrogen, sulfur, phosphorus, boron — into a host material modifies the electronic structure of nearby active sites. Nitrogen-doped carbon catalysts are a well-known example. Dopant concentration, spatial distribution, and the specific coordination environment all affect activity. Even for a single host material, this creates a large combinatorial space.
 

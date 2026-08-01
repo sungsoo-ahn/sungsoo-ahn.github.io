@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -96,7 +96,7 @@ The target distribution is the grand canonical distribution:
 
 $$p(N,\mathbf{r}^N) \propto \frac{1}{N! \Lambda^{3N}}\exp[\beta \mu N - \beta U_N(\mathbf{r}^N)]$$
 
-where $$U_N$$ is the potential energy of the $$N$$-molecule configuration and $$\Lambda$$ is the thermal de Broglie wavelength. For most ML purposes, the important part is the energy-chemical-potential trade-off:
+where $$U_N$$ is the potential energy of the $$N$$-molecule configuration and $$\Lambda$$ is the thermal de Broglie wavelength. For most ML purposes, the relevant part is the energy-chemical-potential trade-off:
 
 $$p(N,\mathbf{r}^N) \propto \exp[-\beta(U_N(\mathbf{r}^N) - \mu N)]$$
 
@@ -140,7 +140,7 @@ High-throughput adsorption screening is expensive for this reason. One material,
 
 Classical DFT solves the same equilibrium problem without sampling particles. It treats $$\rho(\mathbf{r})$$ as the optimization variable. In the running example, $$\rho(\mathbf{r})$$ is the methane number density over the MOF-5 unit cell. Evans' review is the classic starting point for this density-functional view of non-uniform classical fluids (<span id="cite-evans1979"></span>[Evans, 1979](#ref-evans1979)).
 
-The word "classical" matters.[^cdft] This is not Kohn-Sham DFT for electrons. Quantum DFT uses the electron density to avoid the many-electron wavefunction. Classical DFT uses the molecular number density to avoid sampling many-particle configurations.
+Here "classical" means this is not Kohn-Sham DFT for electrons.[^cdft] Quantum DFT uses the electron density to avoid the many-electron wavefunction. Classical DFT uses the molecular number density to avoid sampling many-particle configurations.
 
 > **Classical density functional theory.** For a classical fluid at fixed $$T$$ and $$\mu$$, cDFT defines a grand-potential functional $$\Omega[\rho]$$. The equilibrium density is the density field that minimizes it:
 >
@@ -171,7 +171,7 @@ $$-\mu \int \rho(\mathbf{r})\,d\mathbf{r}$$
 
 rewards adding methane molecules when the reservoir chemical potential is high.
 
-**The excess term $$F_{\mathrm{exc}}[\rho]$$ contains fluid-fluid interactions.** This is the hard part. It accounts for excluded volume, dispersion attraction, chain connectivity, and other many-body effects. Unlike the ideal term, it is not known exactly for realistic fluids, so every practical cDFT method chooses an approximation, such as fundamental measure theory for hard-sphere structure (<span id="cite-roth2010"></span>[Roth, 2010](#ref-roth2010)).
+**The excess term $$F_{\mathrm{exc}}[\rho]$$ contains fluid-fluid interactions.** This is the approximation bottleneck. It accounts for excluded volume, dispersion attraction, chain connectivity, and other many-body effects. Unlike the ideal term, it is not known exactly for realistic fluids, so every practical cDFT method chooses an approximation, such as fundamental measure theory for hard-sphere structure (<span id="cite-roth2010"></span>[Roth, 2010](#ref-roth2010)).
 
 The structure should feel familiar if you have seen variational inference or energy-based models. We define an objective over distributions, split it into a tractable reference part plus an interaction correction, then optimize the object we want directly.
 
@@ -250,7 +250,7 @@ For the running example, this is $$(\text{MOF-5}, \text{methane}, T, P) \mapsto 
 
 ### Multi-Fidelity Density Learning
 
-The natural data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. Recent adsorption-property studies use cDFT in this spirit (<span id="cite-dufour2025"></span>[Dufour-Decieux et al., 2025](#ref-dufour2025); <span id="cite-thiele2026"></span>[Thiele et al., 2026](#ref-thiele2026)). After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
+The available data sources have different cost and fidelity. cDFT can generate many solver-converged density fields across materials, gases, and pressures, while GCMC provides more expensive particle-simulation references. Recent adsorption-property studies use cDFT in this spirit (<span id="cite-dufour2025"></span>[Dufour-Decieux et al., 2025](#ref-dufour2025); <span id="cite-thiele2026"></span>[Thiele et al., 2026](#ref-thiele2026)). After coarse-graining GCMC samples into density grids, the learning problem becomes a multi-fidelity correction: use broad cDFT coverage to learn the geometry-to-density map, then use sparse GCMC labels to correct toward particle-simulation behavior.
 
 In our group, we use this density-field view of adsorption. Predict $$\rho_{\mathrm{eq}}(\mathbf{r})$$ because it preserves uptake, binding-site information, and pressure-dependent behavior in one object. The prediction can also warm-start a cDFT solve rather than replace the physics solver outright. The force-field side of this workflow often starts from generic force fields such as UFF (<span id="cite-rappe1992"></span>[Rappe et al., 1992](#ref-rappe1992)).
 
@@ -260,7 +260,7 @@ In our group, we use this density-field view of adsorption. Predict $$\rho_{\mat
 
 Adsorption simulation has familiar ML structure. GCMC is MCMC on an open system whose particle number changes. cDFT is a variational solver that maps a potential field and thermodynamic condition to an optimal density. The density field is a richer supervised target than scalar uptake because uptake is just its integral.
 
-The hierarchy matters. Cheap approximate solvers provide broad coverage. Expensive simulations provide correction. The functional itself is an inductive bias, not a nuisance to ignore.
+Cheap approximate solvers provide broad coverage. Expensive simulations provide correction. The functional itself is an inductive bias, not a nuisance to ignore.
 
 ---
 
@@ -269,12 +269,12 @@ The hierarchy matters. Cheap approximate solvers provide broad coverage. Expensi
 Adsorption can be summarized this way:
 
 - Adsorption is an open-system equilibrium problem.
-- The natural ensemble is $$\mu VT$$ because particle number fluctuates.
+- The appropriate ensemble is $$\mu VT$$ because particle number fluctuates.
 - GCMC samples particles from the grand canonical distribution.
 - cDFT optimizes the density field that minimizes the grand potential.
 - Uptake is the integral of the density, not a separate physical object.
 
-The methane-in-MOF-5 example is only one instance. The methodological lesson is broader than adsorption. Whenever a scientific field reports a scalar observable, ask whether it is the projection of a richer object. In adsorption, that richer object is $$\rho(\mathbf{r})$$. Learning it gives the model more structure, more supervision, and a more natural bridge between simulation and prediction.
+The methane-in-MOF-5 example is only one instance. The methodological lesson is broader than adsorption. Whenever a scientific field reports a scalar observable, ask whether it is the projection of a richer object. In adsorption, that richer object is $$\rho(\mathbf{r})$$. Learning it gives the model more structure, more supervision, and a direct bridge between simulation and prediction.
 
 ## References
 

@@ -15,7 +15,7 @@ pagination:
 
   <h1>kUPS MD Tutorials</h1>
   <p class="blog-index-note">
-    Executable molecular-dynamics notes for ML researchers who already know MLIPs and the equations of motion, but want the practical details behind initialization, integrators, ensembles, observables, free energies, enhanced sampling, and reliability checks.
+    Executable molecular-dynamics tutorials for ML researchers who know basic mechanics and MLIPs but are new to simulation practice, from initialization and integration to free energies, enhanced sampling, and reliability checks.
   </p>
   <div class="blog-type-summary" aria-label="kUPS tutorial types">
     <span>Post types</span>
