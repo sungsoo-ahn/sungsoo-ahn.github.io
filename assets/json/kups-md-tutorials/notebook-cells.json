@@ -287,8 +287,44 @@
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "08",
       "source_sha256": "3bd07e5ed07653bb081534bfade6d85289e638c750d8252c0d23136e267f2cbb"
+    },
+    {
+      "assets": [],
+      "cell_id": "post09-estimator-control",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-09/post09-estimator-control.html",
+      "include_sha256": "7bce75a6b3e9f794beb110582be8ee6fe2adfa1e90cef1532f2df42c6cc8cc54",
+      "notebook": "post-09-estimators.ipynb",
+      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "output_sha256": "32b7c3a98a04dfdd0c73e8d6255fab5d2d315dd729228259bac9d0e6ffe4b45a",
+      "post": "09",
+      "source_sha256": "a67a9cc9f43d2d389febf2ad1c5399bd25960d5c55de87128659d3c1d31fea48"
+    },
+    {
+      "assets": [],
+      "cell_id": "post09-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-09/post09-setup.html",
+      "include_sha256": "25baab3327a1efebc5664af07f70ab5936574864a04e31be7141d890c9447c90",
+      "notebook": "post-09-estimators.ipynb",
+      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "09",
+      "source_sha256": "88a150672a92019cd3b12275e0dc77b7f733c7f7bad15b5ab40ac982d4b3208d"
+    },
+    {
+      "assets": [],
+      "cell_id": "post09-shared-kups",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-09/post09-shared-kups.html",
+      "include_sha256": "217fb5fd820c8fa796ac9ef78b21c969370e4f68b96577163a2434c666eb3c9f",
+      "notebook": "post-09-estimators.ipynb",
+      "notebook_sha256": "4aa01060fa4758bb5f11796e0a88e386065472f159a2241c6d79895ce4f4e0ae",
+      "output_sha256": "f08a972844da1f4ff86cd8a032bfe86f54e511d9f59621575c112b028d482b94",
+      "post": "09",
+      "source_sha256": "4ddc66521f40732db4d3faaf43a7751e43f0216cdc0d48413c491867fd2fb60d"
     }
   ],
-  "execution_manifest_sha256": "73d4f85fabf04ee161af158c850ea820d63222068ce76ee21b896041f0bf056d",
-  "source_git_revision": "bc9fcbdbe0a1c2027bfed1940906e23652464944"
+  "execution_manifest_sha256": "35344ac86998a049f7de73cd6ba1f9d25b3201a22e6a7600999b59e33e7894f6",
+  "source_git_revision": "3fc285c9944ca333238dff3eba938c8852689d55"
 }
