@@ -74,6 +74,42 @@
     },
     {
       "assets": [],
+      "cell_id": "post03-error-control",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-03/post03-error-control.html",
+      "include_sha256": "6b0ccd3f11575adc40efca4a929f05d882bdfc2e182240a32eb6f8676ba50c9c",
+      "notebook": "post-03-errors.ipynb",
+      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "output_sha256": "5bb38c3a2fe69cb834133f4246cd368132b71a11cd7c6b58e56aaf45e46bb43d",
+      "post": "03",
+      "source_sha256": "ea1fe7b082ff0479875d47abc157eb74ec393a17f19f1a2ef85a02a6bb9d6eb8"
+    },
+    {
+      "assets": [],
+      "cell_id": "post03-kups-errors",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-03/post03-kups-errors.html",
+      "include_sha256": "72d59f543c39e397f07a641ff92a6aa417c93634d6f4dc490dd1dc1c7f62d12e",
+      "notebook": "post-03-errors.ipynb",
+      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "output_sha256": "cf596beec4517ef0e7569a0b410ea46ed993cb6b633e5807840ba9642cdee739",
+      "post": "03",
+      "source_sha256": "c30e05b25483a56c5d799392b2063e6237239d8b1b48995fe04805ff32a376a6"
+    },
+    {
+      "assets": [],
+      "cell_id": "post03-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-03/post03-setup.html",
+      "include_sha256": "3bf27d10b5da06478e292121d4c6496dfb5976198abb5c74118e603189a2e2d5",
+      "notebook": "post-03-errors.ipynb",
+      "notebook_sha256": "3a3edd773588320f3693b53f05f6a6dc542186b8ad5ece310d09506fad88edae",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "03",
+      "source_sha256": "95f6b02b75918d5303c669e8b9b225e11f4bae9e02db1b2efe9f1fdca9c13206"
+    },
+    {
+      "assets": [],
       "cell_id": "a106b2a9",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-04/a106b2a9.html",
@@ -109,6 +145,6 @@
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
     }
   ],
-  "execution_manifest_sha256": "3713893fd26fedc5534595ca0f8db38774aac7c0b7587554dc1c1ea2e05a183a",
-  "source_git_revision": "b5bcd0e34f25ef423bf77b967ef8ff0898b4cb89"
+  "execution_manifest_sha256": "a5cf03f8027ebc4ce7f62b1acc99588f9af1c4575d8dd4036d42910e312dd88e",
+  "source_git_revision": "3cb0accd920f002f81d374817437c88d83bbe8bb"
 }
