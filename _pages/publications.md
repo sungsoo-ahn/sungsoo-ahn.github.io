@@ -12,6 +12,6 @@ nav_order: 2
 
 <p class="publication-note"><sup>*</sup> co-first authors; <sup>†</sup> co-corresponding authors.</p>
 
-{% bibliography %}
+{% include publication_list.liquid publications=site.data.publications group_by_year=true %}
 
 </div>

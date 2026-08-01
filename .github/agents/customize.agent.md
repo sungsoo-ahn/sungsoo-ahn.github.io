@@ -128,21 +128,21 @@ npx prettier . --write
 
 ### 4. CV/Resume
 
-**Files:** `assets/json/resume.json` OR `_data/cv.yml`
+**Files:** `_data/cv_content.yml`, `_data/publications.yml`, `cv/cv.tex`
 
-- Use JSON format (jsonresume.org standard) in `assets/json/resume.json`
-- Or use YAML format in `_data/cv.yml` (delete resume.json to use this)
-- Add education, work experience, skills, awards, publications
+- Maintain CV content in YAML and run `uv run python scripts/update_cv.py`
+- Do not edit content inside `SYNC` markers in `cv/cv.tex`
+- The generated PDF is copied to `assets/pdf/cv.pdf`
 
 ### 5. Publications
 
-**Files:** `_bibliography/papers.bib`, `_data/venues.yml`, `_data/coauthors.yml`
+**Files:** `_data/publications.yml`, `_includes/publication.liquid`
 
-- Add publications in BibTeX format to `papers.bib`
-- Configure author highlighting in `_config.yml` (`scholar:last_name`, `scholar:first_name`)
-- Add venue abbreviations and coauthor links
+- Add publications as YAML records in `_data/publications.yml`
+- Configure author highlighting with `publication_author` in `_config.yml`
+- Run `uv run python scripts/update_publications.py --check`
 - Include PDFs in `assets/pdf/`
-- Add custom fields: `abstract`, `pdf`, `code`, `website`, `slides`, `poster`, etc.
+- Add custom fields such as `abstract`, `pdf`, `code`, `website`, `video`, and `preview`
 
 ### 6. Blog Posts
 
@@ -218,22 +218,19 @@ categories: research
 Your content here in Markdown format.
 ```
 
-**BibTeX entries (in `_bibliography/papers.bib`):**
+**Publication entries (in `_data/publications.yml`):**
 
-```bibtex
-@article{einstein1905,
-  title={Zur Elektrodynamik bewegter K{\"o}rper},
-  author={Einstein, Albert},
-  journal={Annalen der Physik},
-  volume={322},
-  number={10},
-  pages={891--921},
-  year={1905},
-  publisher={Wiley Online Library},
-  pdf={relativity.pdf},
-  abstract={This paper introduces the theory of special relativity.},
-  selected={true}
-}
+```yaml
+- id: einstein1905
+  type: journal
+  title: Zur Elektrodynamik bewegter Körper
+  authors:
+    - Albert Einstein
+  venue: Annalen der Physik
+  year: 1905
+  abbr: Ann. Phys.
+  pdf: relativity.pdf
+  selected: true
 ```
 
 **Directory and file naming:**
@@ -395,14 +392,10 @@ Help users avoid these frequent errors:
   ```
 - **Incorrect date format** – Use `YYYY-MM-DD` in filename and `YYYY-MM-DD HH:MM:SS` (or just `YYYY-MM-DD`) in frontmatter.
 
-### Publications & BibTeX
+### Publications
 
-- **BibTeX syntax errors** – Common mistakes:
-  - Missing commas between fields
-  - Unmatched braces `{}`
-  - Invalid characters in entry keys
-  - Check existing entries in `_bibliography/papers.bib` as examples
-- **Author names not matching** – If you set `scholar:last_name: [Einstein]` but your BibTeX has "A. Einstein", it won't highlight. Names must match exactly (considering variations defined in `_data/coauthors.yml`)
+- **YAML syntax or schema errors** – Run `uv run python scripts/update_publications.py --check`.
+- **Author names not matching** – `publication_author` must exactly match the unmarked name in the YAML author list.
 
 ### Media & Assets
 
@@ -472,8 +465,8 @@ Help users avoid these frequent errors:
 | ----------------------- | ------------------------------------------- | --------------------------------- |
 | Change personal info    | `_config.yml`, `_pages/about.md`            | CUSTOMIZE.md § Configuration      |
 | Add profile picture     | `assets/img/prof_pic.jpg`                   | CUSTOMIZE.md § About page         |
-| Update CV               | `assets/json/resume.json` OR `_data/cv.yml` | CUSTOMIZE.md § CV information     |
-| Add publications        | `_bibliography/papers.bib`                  | CUSTOMIZE.md § Publications       |
+| Update CV               | `_data/cv_content.yml`, `_data/publications.yml` | README.md § CV Maintenance    |
+| Add publications        | `_data/publications.yml`                    | README.md § CV Maintenance        |
 | Add blog post           | `_posts/YYYY-MM-DD-title.md`                | CUSTOMIZE.md § Blog posts         |
 | Create project          | `_projects/name.md`                         | CUSTOMIZE.md § Projects           |
 | Add news item           | `_news/announcement.md`                     | CUSTOMIZE.md § News               |

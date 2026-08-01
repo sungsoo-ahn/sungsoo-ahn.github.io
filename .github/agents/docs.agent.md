@@ -120,8 +120,8 @@ For academics and non-technical readers, explain these terms briefly on first us
 
 **Publication-Related:**
 
-- **BibTeX** – A standardized format for storing publication metadata (title, authors, year, etc.). Used in `_bibliography/papers.bib`.
-- **Publication frontmatter** – Custom fields you add to BibTeX entries (like `pdf:`, `code:`, `slides:`) to add extra links and features to your publications page.
+- **Publication YAML** – Structured publication metadata in `_data/publications.yml`, consumed directly by Jekyll and by the CV generator.
+- **Publication fields** – Optional YAML fields such as `pdf`, `code`, `website`, and `preview` add links and features to the publications page.
 
 **When to explain:** If a document uses a technical term that readers might not know, briefly explain it in parentheses or a footnote the first time it appears:
 
