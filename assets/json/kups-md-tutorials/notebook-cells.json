@@ -143,8 +143,44 @@
       "output_sha256": "d778877cbaa0611427e25fb6eee317985a5e715b574bed317bb6d0a6d9433b04",
       "post": "04",
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
+    },
+    {
+      "assets": [],
+      "cell_id": "post05-kups-npt",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-05/post05-kups-npt.html",
+      "include_sha256": "fae0f362b55f719ec2e27e326fba78cc092642bbd39df1c3b3a8378d9f1bfeda",
+      "notebook": "post-05-barostats.ipynb",
+      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "output_sha256": "46efaf6df636f4135c17c241b01fa29abf8baff56a7324e6677a67cf1a637782",
+      "post": "05",
+      "source_sha256": "c7ec09aa19e7c501cb58842802e131ef17e74f67e10f07a30a0ef439570d7f3c"
+    },
+    {
+      "assets": [],
+      "cell_id": "post05-scalar-control",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-05/post05-scalar-control.html",
+      "include_sha256": "0cdcd4c7d4fe37ee01370d048f6eb490c3ebdac2420eb087e1c8d738ae2946bf",
+      "notebook": "post-05-barostats.ipynb",
+      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "output_sha256": "195377f85341ced277464c730d8d71ee0a8cd26ea50459e44b2b347375982c7a",
+      "post": "05",
+      "source_sha256": "15035a75976ed96f3825901c8214d0b53e89835a988103e3e79137af36a63a53"
+    },
+    {
+      "assets": [],
+      "cell_id": "post05-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-05/post05-setup.html",
+      "include_sha256": "7e72c44465333780b684a11c274ef039bb660ec2f29da73b58685ecb71b83335",
+      "notebook": "post-05-barostats.ipynb",
+      "notebook_sha256": "a0d47cae89eb570bd9b148d23f8577ae71e9ec1668ebacfcafb0aba1c0f6cf1d",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "05",
+      "source_sha256": "fad70e13051ace1a998e911b8e83cbb32df081d254508cbd946c24c6c46c3e80"
     }
   ],
-  "execution_manifest_sha256": "a5cf03f8027ebc4ce7f62b1acc99588f9af1c4575d8dd4036d42910e312dd88e",
-  "source_git_revision": "3cb0accd920f002f81d374817437c88d83bbe8bb"
+  "execution_manifest_sha256": "c48a2b92bcf6ae457821b9bca387e13f7d7b7d04f3b6387d9fc7d6fefb50401f",
+  "source_git_revision": "1d1b2f48a54e036d096cf0aa02a495bba51a6212"
 }

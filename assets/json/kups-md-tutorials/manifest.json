@@ -221,28 +221,42 @@
       "destination": "assets/json/kups-md-tutorials/post-05/full/barostat_summary.json",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "701dda5c3d617463335de391cd89b608123d8965ec6bfae35cf6dae41af8f9dd",
+      "sha256": "d6e642934078263f825d351bf1b302a8cbce6f0c495261c6efed40f10a4dc140",
       "source": "results/post-05/full/barostat_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-05/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "05",
+      "sha256": "1c350bba22679fcb71c3ac1101b149d8cc15b91d66201032814fe0a56a8ae9e2",
+      "source": "results/post-05/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-05/full/kups_npt_samples.csv",
+      "kind": "compact-result",
+      "post": "05",
+      "sha256": "9b99b3f141b24248af63caa22d5e1f35c3aea542a48d026d2f5ad5e0a4bbdba8",
+      "source": "results/post-05/full/kups_npt_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-05/full/manifest.json",
       "kind": "compact-result",
       "post": "05",
-      "sha256": "9e2fe1f3ccfcc67bbd64a784309c8d804f6d2a276fce38911eb99c5a9679b202",
+      "sha256": "e040feac3d8fbb523a1fe9c5049dcf4e4c1d3ae34b863c806cf9af09c7ff7c1d",
       "source": "results/post-05/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.png",
       "kind": "figure",
       "post": "05",
-      "sha256": "72422fda987d9e48aac4189e821d088a5455b3df7d93c7839142e85a5c07f3fd",
+      "sha256": "cc4494792294f76c45df3f9cf4da432a5bbef074c92d2e0300736751e2b511ce",
       "source": "figures/post-05/barostat_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.svg",
       "kind": "figure",
       "post": "05",
-      "sha256": "c2381ceb20035b3ed859db4dd504212af739fcad518c67df3ecd1d3cef1e8001",
+      "sha256": "f57caa95250f3db767087e80e3d5495530bd101a82fd9d967533b55d552e5afa",
       "source": "figures/post-05/barostat_diagnostics_full.svg"
     },
     {
@@ -541,5 +555,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "6cc601f5ae16b723b1878356bb10bfafea1d7cb7"
+  "source_git_revision": "1d1b2f48a54e036d096cf0aa02a495bba51a6212"
 }
