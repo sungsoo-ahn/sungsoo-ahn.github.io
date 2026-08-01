@@ -1,0 +1,46 @@
+{
+  "atom_count": 256,
+  "blocking_reason": null,
+  "engine": "kups",
+  "finite_pmf_bins": 60,
+  "frames_per_replica": 80,
+  "masked_low_rdf_bins": 40,
+  "max_replica_pmf_standard_deviation_ev": 0.0008543815962232505,
+  "mean_replica_pmf_standard_deviation_ev": 0.00022179241058235707,
+  "minimum_rdf": 0.05,
+  "number_density_per_angstrom3": 0.0275,
+  "observed_gpu": true,
+  "pmf_minimum_radius_angstrom": 3.64,
+  "pmf_range_ev": 0.0379758077388616,
+  "rdf_bin_width_angstrom": 0.08,
+  "rdf_first_peak_radius_angstrom": 3.64,
+  "rdf_first_peak_value": 4.6794019458407305,
+  "rdf_max_radius_angstrom": 8.0,
+  "replica_count": 3,
+  "requested_device": "gpu",
+  "support_threshold_finite_bins": [
+    61,
+    60,
+    57
+  ],
+  "support_threshold_minimum_radii_angstrom": [
+    3.64,
+    3.64,
+    3.64
+  ],
+  "support_threshold_pmf_ranges_ev": [
+    0.04550377496542136,
+    0.0379758077388616,
+    0.03126641630650666
+  ],
+  "support_threshold_range_span_ev": 0.0142373586589147,
+  "support_thresholds": [
+    0.02,
+    0.05,
+    0.1
+  ],
+  "temperature_k": 100.0,
+  "thermal_energy_ev": 0.008617330337217212,
+  "total_frames": 240,
+  "usable_radius_angstrom": 10.518143543880903
+}
