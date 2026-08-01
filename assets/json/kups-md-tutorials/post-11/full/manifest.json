@@ -70,7 +70,7 @@
     "force_constant_ev_per_angstrom2": 0.02,
     "forward_ess_fraction": 0.5456152584147314,
     "forward_jarzynski_delta_f": -0.01126171465469829,
-    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was gpu:NVIDIA RTX A5000",
+    "gpu_blocking_reason": null,
     "hysteresis_gap_ratio": 4.7243971799489755,
     "jarzynski_spread": 0.001123109030294507,
     "kups_version": "1.0.3",
@@ -1690,7 +1690,7 @@
   "kups_steering_samples_file": "kups_steering_samples.csv",
   "output_sha256": {
     "enhanced_sampling_curves.csv": "89f65ee23dc58624c0af318a9219fd3dc35b09485d04f364a61d6aeb8a0f4090",
-    "enhanced_sampling_summary.json": "3eadb49b3da516668049b414d8df4f7a2e581a9f5d2938209d44b7993f415d9b",
+    "enhanced_sampling_summary.json": "0721252d126861529fdce268b95bb92309fbae60c9e1e813fbb2f73a86e70062",
     "kups_steering_samples.csv": "9f492034af393e80a10364ff67d7a249b92316ccad8960aca0788cace1e366f0"
   },
   "provenance": {
