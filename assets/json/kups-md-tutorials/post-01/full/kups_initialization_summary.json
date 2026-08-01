@@ -1,0 +1,25 @@
+{
+  "atom_count": 500,
+  "center_of_mass_speed": 3.3221955741957743e-10,
+  "engine": "kups",
+  "entry_point": "kups.application.md.data.md_state_from_ase",
+  "input_sha256": "8486b85c6c0284b5bd1f807aa3e34c0bef868d03c84d6d74f6e88401b7405ebb",
+  "instantaneous_temperature_k": 95.36779747183236,
+  "kinetic_energy_ev": 6.151291370391846,
+  "kups_version": "1.0.3",
+  "momenta_sha256": "0b75ccf21b07ab5245e33a7614b3eb95116a27aa738e7e92410a65a1b13e2b27",
+  "momentum_shape": [
+    500,
+    3
+  ],
+  "observed_devices": [
+    "cpu:cpu"
+  ],
+  "position_shape": [
+    500,
+    3
+  ],
+  "positions_sha256": "1c37faaa80127f081a11fff2f33e15078e49024d663c817866615bef7ca69dbc",
+  "requested_device": "cpu",
+  "seed": 2026071401
+}

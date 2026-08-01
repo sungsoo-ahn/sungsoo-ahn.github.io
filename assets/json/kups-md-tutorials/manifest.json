@@ -8,24 +8,31 @@
       "source": "results/post-01/full/initialization_summary.json"
     },
     {
+      "destination": "assets/json/kups-md-tutorials/post-01/full/kups_initialization_summary.json",
+      "kind": "compact-result",
+      "post": "01",
+      "sha256": "d5fff3e6d4f0572779b9000353770c8c5b7dfe201139745fd4b29d9946b531be",
+      "source": "results/post-01/full/kups_initialization_summary.json"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-01/full/manifest.json",
       "kind": "compact-result",
       "post": "01",
-      "sha256": "4db199b58f759bfcfb26babec1b902254e2f52ea82e3537e86f6c5b485ffdc6b",
+      "sha256": "4bd46cb58ba6ff0570b18d446865cb40f41462379aa363c41b5bfc290ca77213",
       "source": "results/post-01/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.png",
       "kind": "figure",
       "post": "01",
-      "sha256": "f4fd02af3ceadb6c90db0aab70ca3d8ff85b755ee0ac656ca1c272125df24b5e",
+      "sha256": "d282561614a69cea5ab7319d8659978fd5d92bf8080a19df7b256efb41bac3d6",
       "source": "figures/post-01/initialization_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.svg",
       "kind": "figure",
       "post": "01",
-      "sha256": "47db77e3ea386f22c6eec167f3b1921f7507e9c1fddfe2c3120bc431d6e8237c",
+      "sha256": "b14293dd655bef261914d9ef38ae7204bbbaed94a7b6def43cd5c479f770a3d2",
       "source": "figures/post-01/initialization_diagnostics_full.svg"
     },
     {
@@ -506,5 +513,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf"
+  "source_git_revision": "355eaffef2943234b0638827aa1e51756d65d062"
 }
