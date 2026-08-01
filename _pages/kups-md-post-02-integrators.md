@@ -112,18 +112,19 @@ and stored-frame interval fixed at 10 ps and 20 fs, respectively:
 
 <div class="table-responsive" markdown="1">
 
-| Timestep | Steps / frames | Max stored-frame $$|\Delta E/E_0|$$ | Energy span | Observed device |
-|---:|---:|---:|---:|---|
-| 0.5 fs | 20,000 / 500 | 0.528% | 0.383 meV/atom | NVIDIA RTX A5000 |
-| 2 fs | 5,000 / 500 | 0.528% | 0.383 meV/atom | NVIDIA RTX A5000 |
-| 20 fs | 500 / 500 | 0.633% | 0.459 meV/atom | NVIDIA RTX A5000 |
+| Timestep | Steps / frames | Max stored-frame $$|\Delta E/E_0|$$ | Energy span |
+|---:|---:|---:|---:|
+| 0.5 fs | 20,000 / 500 | 0.528% | 0.383 meV/atom |
+| 2 fs | 5,000 / 500 | 0.528% | 0.383 meV/atom |
+| 20 fs | 500 / 500 | 0.633% | 0.459 meV/atom |
 
 </div>
 
-All three full manifests record `production_gpu_ready: true`. The 0.5 and 2 fs
-traces are nearly indistinguishable at this resolution; 20 fs produces a wider
-energy envelope. That is evidence for this initialized crystal and 10 ps
-window, not a universal safe-timestep table.
+All three full manifests record `production_gpu_ready: true` and eight observed
+NVIDIA RTX A5000 devices. The 0.5 and 2 fs traces are nearly indistinguishable
+at this resolution; 20 fs produces a wider energy envelope. That is evidence
+for this initialized crystal and 10 ps window, not a universal safe-timestep
+table.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post02_integrator_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The exact oscillator exposes phase-space geometry, scheme-dependent energy error, and velocity-Verlet reversibility; the lower-right panel is derived from real kUPS Lennard-Jones NVE HDF5 trajectories. Holding duration and output cadence fixed reveals a wider stored-frame energy envelope at 20 fs, while 0.5 and 2 fs are nearly coincident for this protocol." %}
 
