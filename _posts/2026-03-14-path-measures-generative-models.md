@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
 authors: ["Sungsoo Ahn"]
@@ -26,7 +26,7 @@ related_posts: false
 
 A diffusion model transforms noise into data by learning to reverse a noising process. The forward process (data $$\to$$ noise) and the reverse process (noise $$\to$$ data) are stochastic processes running in opposite directions: probability distributions over trajectories, not single points. The training loss can be viewed as the KL divergence between these trajectory distributions, and a perfectly trained model makes the forward and reverse trajectory distributions identical.
 
-This structure, two opposing processes whose ratio encodes useful information, is not unique to diffusion models. It is the same framework physicists developed in the 1990s to understand systems driven out of equilibrium. In physics, state A might be an unbound protein-drug system and state B the bound complex; in diffusion models, state A is the data distribution and state B is Gaussian noise. The mathematics is the same.
+Diffusion models are one instance of a broader pattern: two opposing stochastic processes whose path-measure ratio encodes useful information. Physicists developed the same framework in the 1990s to understand systems driven out of equilibrium. In physics, state A might be an unbound protein-drug system and state B the bound complex; in diffusion models, state A is the data distribution and state B is Gaussian noise. The mathematics is the same.
 
 My previous post on ensembles ended with a claim: free energy is hard to compute because it requires the partition function $$Z$$, an integral over the entire phase space. In practice, however, we usually need free energy *differences* between two states. The sign of $$\Delta F$$ determines which state nature prefers: does a protein fold, does a drug bind, is one crystal form more stable than another? Part 1 defines these precisely.
 
@@ -46,7 +46,7 @@ where $$\beta = 1/k_BT$$ is the inverse temperature. The ELBO becomes the second
 
 The variance problem that plagues AIS (rare high-weight samples dominating the estimate) is the same variance problem physicists have studied since 1997: most trajectories dissipate too much work, so the exponential average is dominated by rare low-work runs.
 
-Once you see AIS as Jarzynski, you notice the same mathematics appearing elsewhere — in diffusion models and GFlowNets. Part 6 makes these connections precise.
+Reading AIS as Jarzynski makes the same mathematics visible in diffusion models and GFlowNets. Part 6 makes these connections precise.
 
 Free-energy methods such as thermodynamic integration, free energy perturbation, metadynamics, and umbrella sampling are applications of the framework developed here. The focus is the framework itself: path measures, non-equilibrium equalities, and their translation to generative models.
 
@@ -132,7 +132,7 @@ This is exact but often useless in practice. The average is dominated by rare co
 
 {% include figure.liquid loading="eager" path="assets/img/blog/pm_boltzmann_overlap.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Two Boltzmann distributions with minimal overlap. The shaded region is where the Zwanzig estimator gets its signal — exponentially small when A and B are far apart." %}
 
-The core problem: we need a bridge between A and B that doesn't require direct overlap between their equilibrium distributions. Enter AIS.
+The core problem is to bridge A and B without requiring direct overlap between their equilibrium distributions. AIS supplies that bridge.
 
 ---
 
@@ -303,7 +303,7 @@ AIS introduced path measures in discrete time — products of MCMC kernels over 
 
 ### The Path Integral Picture
 
-Physicists have a powerful way to think about path measures: the Feynman-Kac path integral. Consider a particle diffusing in a time-dependent potential $$U(\mathbf{x}, \lambda(t))$$. The probability of observing a specific trajectory $$\mathbf{x}(\cdot)$$ is weighted by an exponential of the action along that path:
+Physicists often describe path measures through the Feynman-Kac path integral. Consider a particle diffusing in a time-dependent potential $$U(\mathbf{x}, \lambda(t))$$. The probability of observing a specific trajectory $$\mathbf{x}(\cdot)$$ is weighted by an exponential of the action along that path:
 
 $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp\left(-\frac{\beta}{4} \int_0^T \lvert \dot{\mathbf{x}}(t) + \nabla U(\mathbf{x}(t), \lambda(t)) \rvert^2 \, dt\right)$$
 
@@ -331,15 +331,15 @@ The path integral picture gives us a way to *assign weights* to individual traje
 
 ### Why the Path Integral Picture Is Not Enough
 
-The path integral formula $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp(-\text{action})$$ is a powerful heuristic, but it is not rigorous: there is no uniform measure on continuous path space. In finite dimensions, $$p(x) \propto e^{-U(x)}$$ makes sense because Lebesgue measure provides the reference. On $$C([0, T]; \mathbb{R}^d)$$, no such flat reference exists — the path integral $$\int \mathcal{D}[\mathbf{x}(\cdot)]$$ is formal notation, not a well-defined integral.[^pathrigorous]
+The path integral formula $$\mathcal{P}[\mathbf{x}(\cdot)] \propto \exp(-\text{action})$$ is useful but not rigorous: there is no uniform measure on continuous path space. In finite dimensions, $$p(x) \propto e^{-U(x)}$$ makes sense because Lebesgue measure provides the reference. On $$C([0, T]; \mathbb{R}^d)$$, no such flat reference exists — the path integral $$\int \mathcal{D}[\mathbf{x}(\cdot)]$$ is formal notation, not a well-defined integral.[^pathrigorous]
 
-The rigorous approach: never write down an individual path measure's density. Instead, work with ratios between path measures. This is the Radon-Nikodym derivative.
+The rigorous approach is to avoid writing an individual path measure's density and work only with ratios between path measures. This ratio is the Radon-Nikodym derivative.
 
 [^pathrigorous]: Physicists handle this by discretizing time ($$N$$ Gaussian steps) and taking $$N \to \infty$$. This produces correct results but requires justifying the interchange of limits and integrals — which is subtle and often swept under the rug.
 
 ### Radon-Nikodym Derivatives: The Right Way to Compare Path Measures
 
-The key insight is that while individual path measures have no density with respect to a flat reference, two path measures that share the same noise structure *do* have well-defined densities with respect to *each other*. This is the same idea as importance sampling: we don't need $$p(x)$$ and $$q(x)$$ individually — we need their ratio $$p(x)/q(x)$$.
+Individual path measures have no density with respect to a flat reference, but two path measures that share the same noise structure *do* have well-defined densities with respect to *each other*. This is the same idea as importance sampling: we don't need $$p(x)$$ and $$q(x)$$ individually — we need their ratio $$p(x)/q(x)$$.
 
 Given two probability measures $$\mathbb{P}$$ and $$\mathbb{Q}$$ on the same space, the Radon-Nikodym derivative $$d\mathbb{P}/d\mathbb{Q}$$ is the density of $$\mathbb{P}$$ with respect to $$\mathbb{Q}$$ — the function that reweights $$\mathbb{Q}$$-samples to produce $$\mathbb{P}$$-expectations:
 
@@ -364,7 +364,7 @@ Girsanov's theorem states that the Radon-Nikodym derivative between their path m
 > $$\ln \frac{d\mathbb{P}^a}{d\mathbb{P}^{\tilde{a}}}(X) = \frac{1}{\sigma^2} \int_0^T (a_t - \tilde{a}_t)(X_t) \cdot dX_t - \frac{1}{2\sigma^2} \int_0^T \lvert a_t - \tilde{a}_t \rvert^2(X_t) \, dt$$
 {: .block-definition }
 
-The first term is a stochastic integral (the "martingale part"); the second is a deterministic correction. The key property: the diffusion coefficient $$\sigma$$ must be the same for both processes — Girsanov changes the drift, not the noise. This is why the noise cancels in the forward/reverse ratio: both processes have the same $$\sigma$$.
+The first term is a stochastic integral (the "martingale part"); the second is a deterministic correction. Girsanov requires the diffusion coefficient $$\sigma$$ to be the same for both processes: it changes the drift, not the noise. The noise cancels in the forward/reverse ratio because both processes have the same $$\sigma$$.
 
 A full proof uses exponential martingales, Novikov's condition, and absolute continuity on path space. See Øksendal (Chapter 8) or Revuz & Yor (Chapter VIII) for the full treatment. In practice, the discrete derivation below verifies the result step by step; the theorem justifies taking the continuous limit.
 
@@ -421,7 +421,7 @@ with path measure $$\bwd{\mathbb{P}}^{\nu, b}[\mathbf{x}_0, \ldots, \mathbf{x}_N
 
 ### The Forward-Backward Radon-Nikodym Derivative
 
-The central question: what is the log-ratio between the forward and backward path measures? The answer is given by (Vargas et al., 2024, Proposition 2.2):
+The remaining object is the log-ratio between the forward and backward path measures. Vargas et al. (2024, Proposition 2.2) give it as:
 
 > **Forward-backward Radon-Nikodym derivative.** Given a reference path measure $$\fwd{\mathbb{P}}^{\Gamma_0, \gamma^+} = \bwd{\mathbb{P}}^{\Gamma_T, \gamma^-}$$:
 >
@@ -438,7 +438,7 @@ This generalizes Girsanov's theorem. The proof applies Girsanov twice — once f
 
 ### Nelson's Relation: When the RND Is Trivial
 
-A natural question: when does the forward-backward RND equal 1 (i.e., the two path measures are identical)? Nelson gave the answer (<span id="cite-nelson1967"></span>[Nelson, 1967](#ref-nelson1967)):
+Nelson's relation characterizes when the forward-backward RND equals 1, meaning the two path measures are identical (<span id="cite-nelson1967"></span>[Nelson, 1967](#ref-nelson1967)):
 
 > **Nelson's relation.** $$\fwd{\mathbb{P}}^{\mu, a} = \bwd{\mathbb{P}}^{\nu, b}$$ if and only if $$\nu = \fwd{\mathbb{P}}^{\mu, a}_T$$ and
 >
@@ -447,7 +447,7 @@ A natural question: when does the forward-backward RND equal 1 (i.e., the two pa
 > where $$\rho_t^{\mu, a}$$ is the time-marginal density of the forward process.
 {: .block-definition }
 
-This is the continuous-time analogue of detailed balance. When $$a_t = \frac{\sigma^2}{2} \nabla \log \pi_t$$, the natural reverse drift is $$b_t = -\frac{\sigma^2}{2} \nabla \log \pi_t$$. If $$\pi_t$$ is the true marginal at time $$t$$, the forward and reverse path measures coincide, so the process is reversible. In physics language, this is the quasistatic limit: the system stays in equilibrium at every instant, the work equals $$\Delta F$$ exactly, and the RND is $$e^0 = 1$$.
+This is the continuous-time analogue of detailed balance. When $$a_t = \frac{\sigma^2}{2} \nabla \log \pi_t$$, the reverse drift is $$b_t = -\frac{\sigma^2}{2} \nabla \log \pi_t$$. If $$\pi_t$$ is the true marginal at time $$t$$, the forward and reverse path measures coincide, so the process is reversible. In physics language, this is the quasistatic limit: the system stays in equilibrium at every instant, the work equals $$\Delta F$$ exactly, and the RND is $$e^0 = 1$$.
 
 *AIS parallel: Nelson's relation holds when each MCMC transition in the AIS chain runs long enough to reach equilibrium at $$p_k$$ before moving to $$p_{k+1}$$. In practice, we use a single (or few) MCMC step(s) per level — the chain never equilibrates, the forward and reverse path measures diverge, and the importance weights compensate with high variance.*
 
@@ -542,7 +542,7 @@ $$\left\langle e^{-\beta(W - \Delta F)} \right\rangle_F = 1$$
 > The exponential average of work over forward non-equilibrium trajectories gives the exact equilibrium free energy difference — regardless of protocol speed, number of steps, or how far from equilibrium the process is driven.
 {: .block-definition }
 
-Three properties make this remarkable:
+The equality has three useful consequences:
 
 1. $$\Delta F$$ is an equilibrium quantity. $$W$$ is measured from non-equilibrium trajectories. The equality holds for *any* protocol.
 2. The second law $$\langle W \rangle \geq \Delta F$$ follows from Jensen's inequality: $$e^{-\beta \Delta F} = \langle e^{-\beta W} \rangle \geq e^{-\beta \langle W \rangle}$$.
@@ -595,7 +595,7 @@ This is the ELBO gap identity from Part 2 in physics notation. The same informat
 
 $$D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R) = \left\langle \ln \frac{\mathcal{P}_F}{\mathcal{P}_R} \right\rangle_F = \left\langle \beta(W - \Delta F) \right\rangle_F = \beta \langle W_{\text{diss}} \rangle$$
 
-Irreversibility equals information loss, measured as KL divergence between forward and reverse path measures. A process with zero dissipation is perfectly reversible: every trajectory gives $$W = \Delta F$$, the forward and reverse path measures coincide, and the KL vanishes. Any departure from reversibility, such as running the protocol too fast, using too few MCMC steps, or learning an imperfect score function, creates nonzero dissipation. This makes $$D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ a universal diagnostic for generative model quality, as Part 6 makes concrete.
+Irreversibility equals information loss, measured as KL divergence between forward and reverse path measures. A process with zero dissipation is perfectly reversible: every trajectory gives $$W = \Delta F$$, the forward and reverse path measures coincide, and the KL vanishes. Any departure from reversibility, such as running the protocol too fast, using too few MCMC steps, or learning an imperfect score function, creates nonzero dissipation. For generative models, $$D_{\text{KL}}(\mathcal{P}_F \| \mathcal{P}_R)$$ becomes a diagnostic for mismatch between the learned path measure and the target reverse path measure.
 
 ---
 

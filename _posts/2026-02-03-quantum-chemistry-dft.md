@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -24,7 +24,7 @@ related_posts: false
 
 ## Introduction
 
-The central computational problem of chemistry is simple to state: given a collection of atoms, with their types and positions, predict the system's properties. Total energy, atomic forces, electron density, and vibrational frequencies are all, in principle, determined by one equation: the Schrödinger equation.
+Quantum chemistry asks a computational question: given a collection of atoms, with their types and positions, predict the system's properties. Total energy, atomic forces, electron density, and vibrational frequencies are all, in principle, determined by one equation: the Schrödinger equation.
 
 The difficulty is that the solution, the wavefunction, is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. Its domain grows exponentially with system size. The wavefunction cannot be observed directly; we only observe its consequences: energies, densities, and spectra. In ML terms, it is a latent variable.
 
@@ -33,13 +33,13 @@ Two families of methods tackle this problem, differing in what they approximate:
 - **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make the exponential-dimensional problem tractable.
 - **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
 
-More recently, deep learning methods have been applied to both families, parameterizing either the wavefunction or the density functional with neural networks. The rest of this post introduces these ideas from first principles.
+Deep learning methods now target both families, parameterizing either the wavefunction or the density functional with neural networks. The rest of this post introduces these ideas from first principles.
 
 ### Overview
 
 The computational target is a molecular system's energy and electron density from its atomic structure. The practical workhorse is Kohn-Sham DFT, which solves this through a fixed-point iteration called the self-consistent field (SCF) loop.
 
-The loop is simple to state: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate exchange-correlation term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
+The SCF loop follows a fixed sequence: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate exchange-correlation term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
 
 The route to the SCF loop is: define the problem with the Schrödinger equation, separate electrons from nuclei with the Born-Oppenheimer approximation, look at direct wavefunction approximation, and then use DFT as the density-based path that makes the SCF loop possible.
 
@@ -263,7 +263,7 @@ $$\mathbf{F} \in \mathbb{R}^{K \times K}$$ is the Fock matrix (also called the K
 
 The density matrix $$\mathbf{P} \in \mathbb{R}^{K \times K}$$ is the finite-basis counterpart of the electron density. Its elements are $$P_{\mu\nu} = \sum_{i=1}^{N} C_{\mu i} C_{\nu i}$$, or equivalently $$\mathbf{P} = \mathbf{C} \mathbf{C}^\top$$. The continuous density is recovered as $$\rho(\mathbf{r}) = \sum_{\mu\nu} P_{\mu\nu} \, \chi_\mu(\mathbf{r}) \chi_\nu(\mathbf{r})$$. Because the Fock matrix depends on the density (through the Coulomb and XC terms), and the density depends on the orbitals obtained from the Fock matrix, the equations must be solved iteratively.
 
-In practice, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain a new $$\mathbf{C}$$ → repeat until convergence.
+In finite-basis form, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain a new $$\mathbf{C}$$ → repeat until convergence.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
 

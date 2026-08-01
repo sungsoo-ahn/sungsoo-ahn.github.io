@@ -2,7 +2,7 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -31,7 +31,7 @@ The phrase "long enough" hides the entire problem.
 
 A femtosecond MD timestep resolves bond vibrations. Protein folding, ligand unbinding, conformational switching, and nucleation can take microseconds, milliseconds, or longer. The simulation spends nearly all its time vibrating inside one metastable basin and almost none of its time crossing the barrier that matters.
 
-The key point for ML is that molecular simulation is not limited only by force-field accuracy or neural network speed. It is limited by sampling. A better potential energy model helps only if the dynamics visits the states whose probabilities, pathways, or free energies we need.
+For ML, molecular simulation is limited by sampling as much as by force-field accuracy or neural network speed. A better potential energy model helps only if the dynamics visits the states whose probabilities, pathways, or free energies we need.
 
 The sampling problem connects four ideas:
 
@@ -124,7 +124,7 @@ For a molecular example, alanine dipeptide is the standard toy system. Its backb
 
 $$s(\mathbf{x}) = (\phi(\mathbf{x}), \psi(\mathbf{x}))$$
 
-The contrast matters: a CV is not just any low-dimensional projection. Random atom coordinates can be low-dimensional but still fail to organize the slow states you care about.
+A CV must organize the slow states, not only compress coordinates. Random atom coordinates can be low-dimensional but still fail to organize the slow states you care about.
 
 {% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) give a useful Ramachandran CV, while an arbitrary projection of hydrogen Cartesian coordinates shows what a poor CV can look like." %}
 
@@ -166,7 +166,7 @@ The same toy system makes the sampling effect visible. The next animations show 
 
 {% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
 
-The weakness is that umbrella sampling requires planning. You need a CV, window centers, force constants, and enough overlap. If the transition coordinate is unknown or curved, the windows can miss the important path.
+The weakness is that umbrella sampling requires planning. You need a CV, window centers, force constants, and enough overlap. If the transition coordinate is unknown or curved, the windows can miss the transition path.
 
 ## Metadynamics
 
@@ -227,7 +227,7 @@ The object to trust is not the biased trajectory itself. It is one of:
 - a transition-path ensemble with controlled path weights,
 - or a proposal distribution that improves sampling efficiency while preserving a correction formula.
 
-This distinction matters for ML papers. If a model generates plausible conformational transitions, ask what distribution those paths come from. Are they equilibrium samples? Transition paths conditioned on endpoints? Steered paths? Diffusion samples from a learned prior? The answer determines which physical claims are valid.
+For ML papers, plausible conformational transitions are not enough. Ask what distribution those paths come from. Are they equilibrium samples? Transition paths conditioned on endpoints? Steered paths? Diffusion samples from a learned prior? The answer determines which physical claims are valid.
 
 The same warning applies to CVs. A learned coordinate can separate states and still fail as an enhanced-sampling CV. The test is not visualization quality. The test is whether biasing that coordinate improves sampling and whether the resulting estimates agree after reweighting or independent validation.
 

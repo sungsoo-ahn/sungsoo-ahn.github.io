@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -39,7 +39,7 @@ Consider a stochastic process $$\{\mathbf{x}(t)\}_{t \in [0,T]}$$ in $$\mathbb{R
 > where $$\mathbf{f}: \mathbb{R}^D \times [0,T] \to \mathbb{R}^D$$ is the drift (a deterministic force pushing the particle), $$g: [0,T] \to \mathbb{R}$$ is the diffusion coefficient (the intensity of random noise), and $$\mathbf{w}(t)$$ is a standard $$D$$-dimensional Wiener process (Brownian motion). The initial condition is $$\mathbf{x}(0) \sim p_0$$.
 {: .block-definition }
 
-The SDE describes one particle path: at each instant, the particle drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is the PDE for the marginal density $$p_t(\mathbf{x})$$, the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$. The answer is the Fokker-Planck equation:
+The SDE describes one particle path: at each instant, the particle drifts by $$\mathbf{f}(\mathbf{x},t)\,dt$$ and receives a random kick of magnitude $$g(t)\,d\mathbf{w}$$. Our goal is the PDE for the marginal density $$p_t(\mathbf{x})$$, the probability of finding the particle at position $$\mathbf{x}$$ at time $$t$$. That PDE is the Fokker-Planck equation:
 
 > **Fokker-Planck Equation.** The density $$p_t(\mathbf{x})$$ evolves according to
 >
@@ -143,7 +143,7 @@ p_{t+\Delta t}(\mathbf{x}) = \int \mathcal{N}\!\left(\mathbf{x};\;\mathbf{u},\;g
 
 ### Step 3: Taylor-Gaussian Smoothing
 
-Each term in the bracket is now convolved against a Gaussian $$\mathcal{N}(\mathbf{x};\;\mathbf{u},\;\sigma^2\mathbf{I})$$ with $$\sigma^2 = g^2(t)\,\Delta t$$. This is the same Taylor expansion we used to build intuition in the previous section, now applied in $$D$$ dimensions.
+Each term in the bracket is now convolved against a Gaussian $$\mathcal{N}(\mathbf{x};\;\mathbf{u},\;\sigma^2\mathbf{I})$$ with $$\sigma^2 = g^2(t)\,\Delta t$$. The Taylor expansion from the intuition section now applies in $$D$$ dimensions.
 
 > **Taylor-Gaussian smoothing.** For any smooth function $$\phi: \mathbb{R}^D \to \mathbb{R}$$ and $$\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$:
 >
@@ -172,8 +172,6 @@ p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x}) = \;&{-}\Delta t\;\mathbf{f}(\mathb
 The first two terms combine via the product rule: $$\mathbf{f} \cdot \nabla p + (\nabla \cdot \mathbf{f})\,p = \nabla \cdot (\mathbf{f}\,p)$$. Dividing both sides by $$\Delta t$$ and taking $$\Delta t \to 0$$:
 
 $$\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr] + \frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})$$
-
-This is the Fokker-Planck equation.
 
 ---
 
@@ -281,7 +279,7 @@ $$\int \varphi(\mathbf{x})\bigl[p_{t+\Delta t}(\mathbf{x}) - p_t(\mathbf{x})\big
 
 $$\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl[\mathbf{f}(\mathbf{x},t)\,p_t(\mathbf{x})\bigr] + \frac{g^2(t)}{2}\,\Delta_{\mathbf{x}}\,p_t(\mathbf{x})$$
 
-This is the Fokker-Planck equation: the same result as the heuristic derivation, now established rigorously. The test-function approach works in the weak (distributional) sense: it avoids requiring $$p_t$$ to be classically differentiable and only requires the integrated identity to hold for all smooth test functions.
+We recover the same Fokker-Planck equation as in the heuristic derivation, now with a rigorous weak-form argument. The test-function approach works in the weak (distributional) sense: it avoids requiring $$p_t$$ to be classically differentiable and only requires the integrated identity to hold for all smooth test functions.
 
 ---
 

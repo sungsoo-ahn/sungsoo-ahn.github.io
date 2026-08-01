@@ -2,7 +2,7 @@
 layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
-last_updated: 2026-06-22
+last_updated: 2026-07-29
 description: "How HACO, a Human–AI Co-discovery system, produced MaskGXT, a competitive generative model for crystal structure prediction."
 post_type: research
 authors: ["Kiyoung Seong", "Sungsoo Ahn"]
@@ -59,9 +59,8 @@ Wyckoff Transformer (<span id="cite-kazeev2025"></span>[Kazeev et al., 2025](#re
 SymmCD (<span id="cite-levy2025"></span>[Levy et al., 2025](#ref-levy2025)),
 and CrystalFormer (<span id="cite-cao2025"></span>[Cao et al., 2025](#ref-cao2025)).
 This is only a selective snapshot; many relevant works remain outside this
-short list. The point is that MaskGXT was not improving an empty benchmark, but
-competing against several years of domain-specific architecture design and
-generative-model development.
+short list. MaskGXT was competing against several years of domain-specific
+architecture design and generative-model development.
 
 ## How HACO worked
 
@@ -83,15 +82,14 @@ HACO used familiar agent machinery: a tree of candidate methods, operators for
 idea generation, drafting, debugging, and improvement, executable experiments,
 and score-based selection. We did not ask it to tune a known CSP architecture.
 We asked it to search for a generative modeling principle that could transfer
-into CSP. Each node was not just a code patch or a hyperparameter setting. It
-was a complete CSP method, trained under a fixed budget and scored by validation
-METRe.
+into CSP. Each node represented a complete CSP method, trained under a fixed
+budget and scored by validation METRe.
 
 Most branches did not survive validation. Autoregressive formulations were easy
 to instantiate but did not give the polymorph coverage we needed. Several
 continuous-interpolant ideas looked plausible on paper but were too expensive or
 unstable under the search budget. The MaskGIT branch was not obvious at the
-start; it became compelling because it combined parallel generation, discrete
+start; under the budget it combined parallel generation, discrete
 symmetry-aware representations, and a clean validation signal.
 
 The exploration covered fourteen cross-domain frameworks, including
