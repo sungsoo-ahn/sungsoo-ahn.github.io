@@ -39,14 +39,28 @@
       "destination": "assets/json/kups-md-tutorials/post-02/full/integrator_summary.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "7e4f5ae8366879647a7f62ec3c4f314bffc0f81d49af38a15a8b1f2821cc9d12",
+      "sha256": "fd17ab61347fdb89e68e5c6c0d1998b338a1a5716c64bb7c03cc8f7397fee4e7",
       "source": "results/post-02/full/integrator_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-02/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "02",
+      "sha256": "1fb73035e13f0eeb48f59a3f80c5b964ee3d78ea95764f23deb857dda58562a7",
+      "source": "results/post-02/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-02/full/kups_nve_samples.csv",
+      "kind": "compact-result",
+      "post": "02",
+      "sha256": "a7a00144b507da2b0d8c3ab44e36ac6ec91fa8c6f40d4103253908b37ee4266a",
+      "source": "results/post-02/full/kups_nve_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/manifest.json",
       "kind": "compact-result",
       "post": "02",
-      "sha256": "4600702013be042cefc9fb2cfd3623e85c614f1e878bfb45f4b3e8f38a3f4a57",
+      "sha256": "e0960aadb4664a65bbf10dab1b8a10affed8bf23b7f549264988d7f61573ce90",
       "source": "results/post-02/full/manifest.json"
     },
     {
@@ -60,14 +74,14 @@
       "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.png",
       "kind": "figure",
       "post": "02",
-      "sha256": "990d64f829a3a8b8abaacb5e50417442438b7543f7a234b0f1318c6e0362aeb9",
+      "sha256": "d6a66767fdfc552f264dd2a193f4e21a8d8dae43c7732b9367dd9ceaa45ed6d6",
       "source": "figures/post-02/integrator_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.svg",
       "kind": "figure",
       "post": "02",
-      "sha256": "f01a07ff23fb79579542b04879a6254acf2ef4f775be003a223eac395c94921e",
+      "sha256": "6084e20ae0edd15009c0156ccfa9cc62c93054ff5d660799b6d3200832ab4bac",
       "source": "figures/post-02/integrator_diagnostics_full.svg"
     },
     {
@@ -513,5 +527,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "355eaffef2943234b0638827aa1e51756d65d062"
+  "source_git_revision": "b5bcd0e34f25ef423bf77b967ef8ff0898b4cb89"
 }
