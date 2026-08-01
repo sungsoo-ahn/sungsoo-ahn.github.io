@@ -410,35 +410,49 @@
       "destination": "assets/json/kups-md-tutorials/post-08/full/free_energy_curves.csv",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "95e61c464aad9a4853169848529f6830607be7a91ad494454c28d221d974ae94",
+      "sha256": "a97aa33b0687d4113a317930e350af7197d5f68781bc722082d909a1627c6cb1",
       "source": "results/post-08/full/free_energy_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/free_energy_summary.json",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "22e4440f6221d84e30643676169b84ac98ad2bf7f2c8cae8978f4ff0be534c7f",
+      "sha256": "8cfa58e1fa1bd483294ef760aa3407ca501d979834f54f0ef6b96d8d01301fd6",
       "source": "results/post-08/full/free_energy_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-08/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "08",
+      "sha256": "9afa03a220f5a9f9a21f6ae5d8e10ede7c0f8e0f23d9d327ce56ea2d39fbca63",
+      "source": "results/post-08/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-08/full/kups_rdf_pmf_summary.json",
+      "kind": "compact-result",
+      "post": "08",
+      "sha256": "3bf657d1e362d6b82ecb8bb0868fefc129fb3bbf7245e25ad62c4c46287283a3",
+      "source": "results/post-08/full/kups_rdf_pmf_summary.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/manifest.json",
       "kind": "compact-result",
       "post": "08",
-      "sha256": "056ba5c05203231bff3e639592a150ee01e1781f47228a964bf93e63a675e757",
+      "sha256": "fb71278a8abddd63a6208324a8a2ebd0ee18d7e418e992dded07bb5d8b67eeb1",
       "source": "results/post-08/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.png",
       "kind": "figure",
       "post": "08",
-      "sha256": "7ea837f3a16431898a5c8c6152574f3fb63c6d9e25813500cfde069033a655c8",
+      "sha256": "306d46d4b61bc4f1332be3bda9281fbf4a044a3c31b6ea8f53174f46ef09c8df",
       "source": "figures/post-08/free_energy_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.svg",
       "kind": "figure",
       "post": "08",
-      "sha256": "90896d680126761a5eea265c7c8e8131578657022638639cef94fac845601cdb",
+      "sha256": "dc9187896dd40898033936dc316bb031ed676a381616da265b9b01f80f7b660f",
       "source": "figures/post-08/free_energy_diagnostics_full.svg"
     },
     {
@@ -604,5 +618,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "7d4b03dc564f81510269d38eeb57c5ff8e036b67"
+  "source_git_revision": "bc9fcbdbe0a1c2027bfed1940906e23652464944"
 }
