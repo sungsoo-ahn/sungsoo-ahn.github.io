@@ -40,7 +40,12 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade jupyter nbconvert
+          pip3 install --upgrade jupyter nbconvert pyyaml
+
+      - name: Validate publications and CV drift
+        run: |
+          python3 scripts/update_publications.py --check
+          python3 scripts/update_cv.py --check --no-compile
 
       - name: Validate blog posts
         run: python3 scripts/validate_blog.py
