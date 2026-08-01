@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -84,7 +84,7 @@ For example, consider 3D vectors like position or velocity. The carrier space is
 
 For feature vectors to transform predictably, each feature type needs an associated representation. The simplest is the trivial representation, where every group element maps to the identity matrix; the carrier space is $\mathbb{R}^1$ (scalars), and rotations leave scalars unchanged. The standard representation of $SO(3)$ uses the $3 \times 3$ rotation matrices on the carrier space $\mathbb{R}^3$, describing how ordinary 3D vectors transform.
 
-These are only two examples from an infinite family. The natural next question is whether a representation can be broken into simpler pieces.
+These are only two examples from an infinite family. Irreducible representations formalize when a representation cannot be decomposed into simpler pieces.
 
 > **Irreducible representation.** A representation $D$ is reducible if there exists a change-of-basis matrix $P$ such that:
 >
@@ -311,7 +311,7 @@ $$\mathbf{h}^{(\ell)} \leftarrow \sigma(\lVert\mathbf{h}^{(\ell)}\rVert) \cdot \
 
 where $\sigma$ is a standard activation function such as sigmoid or SiLU. This preserves equivariance because the norm $\lVert\mathbf{h}^{(\ell)}\rVert$ is rotation-invariant, and multiplying by a scalar preserves the transformation properties.
 
-The output layer depends on the target quantity. For invariant quantities such as total energy, the model uses type-0 features and sums over atoms to obtain one scalar. For equivariant quantities such as atomic forces, the model can either use type-1 features directly or compute forces as the negative gradient of the predicted energy: $\mathbf{F} = -\nabla E$. The gradient approach guarantees conservative forces, which matters for molecular dynamics, but it requires backpropagation through the energy prediction.
+The output layer depends on the target quantity. For invariant quantities such as total energy, the model uses type-0 features and sums over atoms to obtain one scalar. For equivariant quantities such as atomic forces, the model can either use type-1 features directly or compute forces as the negative gradient of the predicted energy: $\mathbf{F} = -\nabla E$. The gradient approach guarantees conservative forces for molecular dynamics, but it requires backpropagation through the energy prediction.
 
 ```
 Input: Positions + Atom Types

@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-06-21
+last_updated: 2026-07-29
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -187,13 +187,13 @@ In practice, SubTB sums losses over all sub-trajectories of all lengths within a
 
 An alternative to the balance conditions is flow matching (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper ([Bengio et al., 2021](#ref-bengio2021)). It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
 
-### Why These Objectives Are Surprisingly Easy to Optimize
+### Why These Objectives Are Easy to Optimize
 
 GFlowNet training is simpler than the problem statement suggests. The TB loss is a squared log-ratio between two quantities we can compute for any given trajectory. This is a regression problem: fit the forward flow to the backward flow, using MSE in log-space.
 
 Compare this with on-policy RL, where you must collect fresh trajectories with the current policy, estimate advantages with high-variance baselines, and tune clipping ratios or entropy bonuses to keep training stable. GFlowNet training looks more like offline RL or behavioral cloning: given a dataset of trajectories from a replay buffer, minimize a well-defined regression loss. There is no policy gradient, no REINFORCE estimator, and no reward-to-go. The gradient of $$\mathcal{L}_\mathrm{TB}$$ with respect to policy parameters is straightforward backpropagation through log-probabilities, the same kind of computation used in a supervised sequence model.
 
-The underappreciated aspect of GFlowNets is where the difficulty moves. Sampling from an energy-based distribution over combinatorial objects sounds hard, but training reduces to something closer to supervised learning than to RL. The difficulty shifts from optimization to exploration: the loss is easy to minimize on any given trajectory, but the model needs useful trajectories to train on.
+GFlowNet training moves the difficulty from optimization to exploration. Sampling from an energy-based distribution over combinatorial objects sounds hard, but training reduces to something closer to supervised learning than to RL. The loss is easy to minimize on any given trajectory, but the model needs useful trajectories to train on.
 
 ---
 
@@ -242,15 +242,57 @@ A good GFlowNet achieves high reward *and* high diversity. A model that finds on
 
 ## Part V: Connections to Existing Frameworks
 
-GFlowNets are close to maximum-entropy RL, variational inference, and diffusion-style samplers, but the useful distinction is the target. Standard RL usually wants a high-reward action sequence. GFlowNets want a distribution over terminal objects, with probability proportional to reward. That small change explains why the backward policy matters: it accounts for the fact that many construction paths can lead to the same object.
+GFlowNets sit at the intersection of maximum-entropy RL, variational inference, and path-space generative modeling. Their target differs from standard RL: standard RL usually wants a high-reward action sequence, while GFlowNets want a distribution over terminal objects, with probability proportional to $$\exp R(x)$$.
 
-The VI and diffusion connections mostly help with translation. The forward policy is a variational sampler over trajectories. The trajectory-balance loss matches a log-ratio. Continuous-state variants start to look like stochastic-process samplers. The central idea is simpler: GFlowNets amortize sampling from an energy-like reward over structured discrete objects.
+### Maximum-Entropy RL
+
+The RL connection becomes precise once the backward policy is fixed. The backward policy lifts the terminal target over objects into a target over complete trajectories:
+
+$$q_\mathrm{B}(\tau) = \frac{\exp R(x)}{Z} \prod_{t=1}^{T} p_\mathrm{B}(s_{t-1} \mid s_t)$$
+
+where $$\tau = (s_0, \ldots, s_T = x)$$. The forward policy should match this path distribution. Equivalently, the forward policy solves a maximum-entropy RL problem whose terminal reward is $$R(x)$$ and whose intermediate shaped reward is
+
+$$r(s_{t-1}, s_t) = \log p_\mathrm{B}(s_{t-1} \mid s_t).$$
+
+Backward-policy probabilities define the dense reward shaping over construction paths. Tiapkin et al. make this entropy-regularized RL equivalence explicit (<span id="cite-tiapkin2024"></span>[Tiapkin et al., 2024](#ref-tiapkin2024)), and Deleu et al. develop the same control view for multi-path discrete inference (<span id="cite-deleu2024control"></span>[Deleu et al., 2024](#ref-deleu2024control)).
+
+Learning $$p_\mathrm{B}$$ changes the optimization problem. With fixed $$p_\mathrm{B}$$, the shaped reward is fixed. With learned $$p_\mathrm{B}$$, the dense reward changes during training.
+
+### Variational Inference
+
+In variational terms, the forward policy is a distribution over trajectories, and the backward policy plus reward defines the unnormalized target path measure. Trajectory balance trains the forward path measure by regressing a log-ratio:
+
+$$\Delta(\tau) = \log Z_\theta + \log p_\mathrm{F}(\tau) - R(x) - \log p_\mathrm{B}(\tau \mid x).$$
+
+VarGrad, or the log-variance objective, removes the additive normalizer by minimizing the variance of the same normalizer-free log-ratio:
+
+$$\mathcal{L}_\mathrm{LV} = \operatorname{Var}_{\tau \sim W}\left[\log p_\mathrm{F}(\tau) - R(x) - \log p_\mathrm{B}(\tau \mid x)\right].$$
+
+Here $$W$$ is the trajectory sampling distribution used to estimate the loss. Malkin et al. show the close relation between GFlowNets and VI, including the expected-gradient connection between on-policy TB with an optimal normalizer and VarGrad for fixed backward policies (<span id="cite-malkin2023vi"></span>[Malkin et al., 2023](#ref-malkin2023vi)). Zimmermann et al. place forward and reverse path-space KL objectives in the same variational family (<span id="cite-zimmermann2022"></span>[Zimmermann et al., 2022](#ref-zimmermann2022)).
+
+TB and log-variance are not the same scalar objective, and the equivalence does not automatically apply to gradients of a trainable backward policy.
+
+### Continuous-Time Generative Models
+
+The continuous-time analogue replaces products of transition probabilities with Radon-Nikodym derivatives between path measures. The log-variance loss becomes
+
+$$\mathcal{L}_\mathrm{LV}(P, Q) = \operatorname{Var}_{\tau \sim W}\left[\log \frac{dP}{dQ}(\tau)\right],$$
+
+where $$P$$ and $$Q$$ are forward and reverse path measures. Richter and Berner introduced this log-variance objective for learned diffusion samplers from unnormalized densities (<span id="cite-richter2024"></span>[Richter and Berner, 2024](#ref-richter2024)). Berner et al. later made the discrete-to-continuous connection explicit, showing how GFlowNet-style objectives converge to continuous-time path-measure objectives and PDE constraints under time refinement (<span id="cite-berner2026"></span>[Berner et al., 2026](#ref-berner2026)).
+
+The same path-measure view connects GFlowNets to diffusion samplers and stochastic optimal control. Diffusion GFlow samplers and off-policy diffusion-sampler training treat continuous trajectories as the object being balanced (<span id="cite-zhang2024dgfs"></span>[Zhang et al., 2024](#ref-zhang2024dgfs); <span id="cite-sendera2024"></span>[Sendera et al., 2024](#ref-sendera2024)). Stochastic-control methods such as Adjoint Matching and Adjoint Sampling attack the same reward-weighted sampling problem through controlled SDEs and regression-style training objectives (<span id="cite-domingo2025"></span>[Domingo i Enrich et al., 2025](#ref-domingo2025); <span id="cite-havens2025"></span>[Havens et al., 2025](#ref-havens2025)).
 
 ---
 
-## Part VI: Applications
+## Part VI: Practical Guide
 
-GFlowNets fit problems where one best answer is not enough: molecule design, biological sequence design, Bayesian structure learning, and combinatorial optimization. In each case, the reward is only a proxy. A useful sampler should return diverse high-reward candidates rather than collapse to one mode.
+Use GFlowNets as the simplest engineering-friendly tool for reward-based design problems with a constructive action space and a need for diverse high-reward samples. Molecule design, biological sequence design, Bayesian structure learning, and combinatorial optimization fit this pattern. In each case, the reward is only a proxy, so a sampler that returns many distinct candidates is more useful than a method that finds one top-scoring object.
+
+Start with the engineering-easy version: define a DAG, use a simple backward policy, train with TB or SubTB, keep a replay buffer, and add exploration noise. If the domain has cheap local edits, add local search and replay the improved samples. This baseline is often easier to debug than a custom RL objective because every sampled trajectory gives a supervised-looking log-ratio loss.
+
+Most practical tricks should come from reinforcement learning. Exploration schedules, replay sampling, prioritized buffers, temperature control, hard-example mining, and local search all transfer naturally. The GFlowNet objective tells you what distribution you want; RL tells you how to keep discovering useful trajectories while training the policy.
+
+For continuous-time combinations, look at stochastic optimal control and recent diffusion-sampler work. The common pattern is to view generation as a controlled path measure, then train by matching forward and reverse path probabilities, variances, or adjoint-derived regression targets. That literature is the relevant starting point when a discrete construction DAG is no longer the natural modeling choice.
 
 ---
 
@@ -283,3 +325,13 @@ The caveat is validation. Proxy rewards, docking scores, and learned oracles are
 - <span id="ref-deleu2022"></span>T. Deleu, A. Góis, C. Emezue, M. Rankawat, S. Lacoste-Julien, S. Bauer, and Y. Bengio, "Bayesian structure learning with generative flow networks," *UAI*, 2022. [PMLR](https://proceedings.mlr.press/v180/deleu22a.html). <a href="#cite-deleu2022" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-madan2023"></span>K. Madan, J. Rector-Brooks, M. Korablyov, E. Bengio, M. Jain, A. Nica, T. Bosc, Y. Bengio, and N. Malkin, "Learning GFlowNets from partial episodes for improved convergence and stability," *ICML*, 2023. [PMLR](https://proceedings.mlr.press/v202/madan23a.html). <a href="#cite-madan2023" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-kim2024gflownet"></span>M. Kim, T. Yun, E. Bengio, D. Zhang, Y. Bengio, S. Ahn, and J. Park, "Local Search GFlowNets," *ICLR*, 2024. [OpenReview](https://openreview.net/forum?id=6cFcw1RxGr). <a href="#cite-kim2024gflownet" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-malkin2023vi"></span>N. Malkin, S. Lahlou, T. Deleu, X. Ji, E. Hu, K. Everett, D. Zhang, and Y. Bengio, "GFlowNets and variational inference," *ICLR*, 2023. [arXiv](https://arxiv.org/abs/2210.00580). <a href="#cite-malkin2023vi" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-zimmermann2022"></span>H. Zimmermann, F. Lindsten, J.-W. van de Meent, and C. A. Naesseth, "A Variational Perspective on Generative Flow Networks," 2022. [arXiv](https://arxiv.org/abs/2210.07992). <a href="#cite-zimmermann2022" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-tiapkin2024"></span>D. Tiapkin, N. Morozov, A. Naumov, and D. P. Vetrov, "Generative Flow Networks as Entropy-Regularized RL," *AISTATS*, 2024. [PMLR](https://proceedings.mlr.press/v238/tiapkin24a.html). <a href="#cite-tiapkin2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-deleu2024control"></span>T. Deleu, P. Nouri, N. Malkin, D. Precup, and Y. Bengio, "Discrete Probabilistic Inference as Control in Multi-path Environments," *UAI*, 2024. [PMLR](https://proceedings.mlr.press/v244/deleu24a.html). <a href="#cite-deleu2024control" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-richter2024"></span>L. Richter and J. Berner, "Improved sampling via learned diffusions," *ICLR*, 2024. [arXiv](https://arxiv.org/abs/2307.01198). <a href="#cite-richter2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-zhang2024dgfs"></span>D. Zhang, R. T. Q. Chen, C.-H. Liu, A. Courville, and Y. Bengio, "Diffusion Generative Flow Samplers: Improving learning signals through partial trajectory optimization," *ICLR*, 2024. [arXiv](https://arxiv.org/abs/2310.02679). <a href="#cite-zhang2024dgfs" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-sendera2024"></span>M. Sendera, M. Kim, S. Mittal, P. Lemos, L. Scimeca, J. Rector-Brooks, A. Adam, Y. Bengio, and N. Malkin, "Improved off-policy training of diffusion samplers," *NeurIPS*, 2024. [arXiv](https://arxiv.org/abs/2402.05098). <a href="#cite-sendera2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-domingo2025"></span>C. Domingo i Enrich, M. Drozdzal, B. Karrer, and R. T. Q. Chen, "Adjoint Matching: Fine-tuning Flow and Diffusion Generative Models with Memoryless Stochastic Optimal Control," *ICLR*, 2025. [ICLR](https://proceedings.iclr.cc/paper_files/paper/2025/hash/852f50969a9e523ec41d26f2f68bd456-Abstract-Conference.html). <a href="#cite-domingo2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-havens2025"></span>A. J. Havens, B. K. Miller, B. Yan, C. Domingo-Enrich, A. Sriram, B. Wood, D. Levine, B. Hu, B. Amos, B. Karrer, X. Fu, G.-H. Liu, and R. T. Q. Chen, "Adjoint Sampling: Highly Scalable Diffusion Samplers via Adjoint Matching," 2025. [arXiv](https://arxiv.org/abs/2504.11713). <a href="#cite-havens2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-berner2026"></span>J. Berner, L. Richter, M. Sendera, J. Rector-Brooks, and N. Malkin, "From discrete-time policies to continuous-time diffusion samplers: Asymptotic equivalences and faster training," *TMLR*, 2026. [arXiv](https://arxiv.org/abs/2501.06148). <a href="#cite-berner2026" class="reversefootnote" role="doc-backlink">↩</a>
