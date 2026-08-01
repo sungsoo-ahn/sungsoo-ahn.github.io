@@ -606,38 +606,38 @@
       "destination": "assets/json/kups-md-tutorials/post-12/full/manifest.json",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "9646c5c6831d7bb4917f3878f1b18b3c9f4b6d7868ea5886e83efe323defdf5b",
+      "sha256": "29b4afe5d6c09f37a28b487c4ff2b4db7dd1ce97661e25815595e250f74ba3a8",
       "source": "results/post-12/full/manifest.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-12/full/mlip_samples.csv",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "4b7b3897ea95cf6f2ff4a9c90731818b18c0226a7911190f3d8c38dd216c397c",
+      "sha256": "b26f7e01fe1e6397fac0082101646e038edd737e4cec01dd1f8bdd9a32b6372d",
       "source": "results/post-12/full/mlip_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-12/full/mlip_summary.json",
       "kind": "compact-result",
       "post": "12",
-      "sha256": "f04e6f017c21adfd74e538cdae91178039c2ebfbea0087d7ddf0db010514106a",
+      "sha256": "721da8fa34269fe3b80aad51d8ce042a943207b0aadb09b2f44ed9abd2c70d4e",
       "source": "results/post-12/full/mlip_summary.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.png",
       "kind": "figure",
       "post": "12",
-      "sha256": "6bef4816a20b534dd6418e93a162b1889d3f6761dce8615cd13b97cfb135b318",
+      "sha256": "885e3dcb58a082343dada56a80612799b7acb3521e09ecebfe67becd52951729",
       "source": "figures/post-12/mlip_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.svg",
       "kind": "figure",
       "post": "12",
-      "sha256": "c21fc75d152adf8c47b625fa8b33304edc09ceadd5cc31e87029ae8123e5ae93",
+      "sha256": "3f851b08d23bb4626dbff8c673c5a36d0a216f6ec151436e3a1eb50a7003403a",
       "source": "figures/post-12/mlip_diagnostics_full.svg"
     }
   ],
   "profile": "full",
-  "source_git_revision": "7ac1a15dce791f62c8da135001dde8a45363643c"
+  "source_git_revision": "f5b981dd6187a3d5f1320e2f2ab3544dfb034f9f"
 }

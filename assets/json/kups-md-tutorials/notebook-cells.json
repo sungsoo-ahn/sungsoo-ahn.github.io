@@ -419,8 +419,56 @@
       "output_sha256": "ee953d00c97bcaff8ae296930e685ae46cafff09d717da2b3a086b188473e2b0",
       "post": "11",
       "source_sha256": "8f0a570c47d92ba456ca5aec6993a34e054bce6ffa8571aaf4097d32532ea207"
+    },
+    {
+      "assets": [],
+      "cell_id": "production-evidence",
+      "display": "blog-output-only",
+      "include": "_includes/kups-notebooks/post-12/production-evidence.html",
+      "include_sha256": "1dd03c9d6d566f4581a20b00e8191b6ed6b020b18972cbb420977c0d40fdae73",
+      "notebook": "post-12-mlip-capstone.ipynb",
+      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "output_sha256": "89324f9422fb38aebce53626b842662ace0c12340820a667e619d1f3dca6dffa",
+      "post": "12",
+      "source_sha256": "850dc051d9f16fe992823d28969a84ceb0f21cc5469e0aad8a9f86fbb6b79565"
+    },
+    {
+      "assets": [],
+      "cell_id": "protocol",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-12/protocol.html",
+      "include_sha256": "9ecc0300c8d6340ba7406dde36137457eecb0daffa15dd37da4e4d9fabdac281",
+      "notebook": "post-12-mlip-capstone.ipynb",
+      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "output_sha256": "f89eea5948a652dbc610517155d6c879aac9980c7973228f0921df0fdda13004",
+      "post": "12",
+      "source_sha256": "b353fd71a0fbc8830df013e1cb74fe9bc0ed47805fbc300121a87cf61690243a"
+    },
+    {
+      "assets": [],
+      "cell_id": "setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-12/setup.html",
+      "include_sha256": "dd64d80e4525fdecbd9f9c775ccde2a1ee6c3ff52a1dd7331559f8a9052a36d1",
+      "notebook": "post-12-mlip-capstone.ipynb",
+      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "12",
+      "source_sha256": "5e5753482e53f208c161196235586d6a38bb4e133239badab27312a6f4fee64e"
+    },
+    {
+      "assets": [],
+      "cell_id": "smoke-run",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-12/smoke-run.html",
+      "include_sha256": "493e2ac6e7f73eb6c96d63470d4959279f9e82cab9ababb55adafd47610bde76",
+      "notebook": "post-12-mlip-capstone.ipynb",
+      "notebook_sha256": "970b8f0ef688cb376d83454cf90310579c74e54a0d814ade89a2019b64f4844b",
+      "output_sha256": "56a1637e04ea8de9752cae9412057e97a58c578b7d8b06b5b9f82fe6f951e5f2",
+      "post": "12",
+      "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "946954499cb6b788ceffbef20c93b21222276e901e809af7bd88bec6eea4b953",
-  "source_git_revision": "e4a19eaeb7a4bdd4fc9bc3d33d1c3f1cc057bcf0"
+  "execution_manifest_sha256": "cf17fdce4ead278ff2770ac1be318330d4e08f2402496b1c4b59f4a84934f146",
+  "source_git_revision": "f5b981dd6187a3d5f1320e2f2ab3544dfb034f9f"
 }
