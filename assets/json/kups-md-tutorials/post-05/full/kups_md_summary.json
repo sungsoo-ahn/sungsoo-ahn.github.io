@@ -1,0 +1,309 @@
+{
+  "cases": [
+    {
+      "atom_count": 256,
+      "datasets": {
+        "group.init/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            256,
+            3
+          ]
+        },
+        "group.step/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            256,
+            3
+          ]
+        },
+        "group.step/array.kinetic_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.potential_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.stress_tensor": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1,
+            3,
+            3
+          ]
+        },
+        "group.step/array.volume": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        }
+      },
+      "elapsed_seconds": 70.562,
+      "energy_drift_ev_per_atom_step": 8.905717517536145e-05,
+      "energy_drift_ev_per_step": 0.02279863684489253,
+      "energy_span_ev_per_atom": 0.008686340413987637,
+      "frame_count": 80,
+      "hdf5_bytes": 659628,
+      "hdf5_sha256": "3add08d22d6f3997e6daf3510e24092ffa0824256971fca70ce7b4d341dbbb6f",
+      "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+      "integrator": "csvr_npt",
+      "kinetic_energy_ev": {
+        "mean": 3.1329144477844237,
+        "n_blocks": 4,
+        "sem": 0.07998983291451216
+      },
+      "max_abs_relative_energy_error": 0.135915800367768,
+      "name": "isotropic_tau_500fs",
+      "observed_devices": [
+        "gpu:NVIDIA RTX A5000"
+      ],
+      "potential_energy_ev": {
+        "mean": -16.817105984687807,
+        "n_blocks": 4,
+        "sem": 0.2483207474849323
+      },
+      "potential_scale": 1.0,
+      "precision": "float32",
+      "pressure_pa": {
+        "mean": 38172933.46780404,
+        "n_blocks": 4,
+        "sem": 14386418.55604662
+      },
+      "production_gpu_ready": true,
+      "requested_device": "gpu",
+      "seed": 2026080105,
+      "temperature_k": {
+        "mean": 95.04830380661495,
+        "n_blocks": 4,
+        "sem": 2.426778628011037
+      },
+      "total_energy_ev": {
+        "mean": -13.68419153690338,
+        "n_blocks": 4,
+        "sem": 0.32096960767367605
+      },
+      "volume_angstrom3": {
+        "mean": 10764.722033691407,
+        "n_blocks": 4,
+        "sem": 170.04375860204888
+      }
+    },
+    {
+      "atom_count": 256,
+      "datasets": {
+        "group.init/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            256,
+            3
+          ]
+        },
+        "group.step/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            256,
+            3
+          ]
+        },
+        "group.step/array.kinetic_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.potential_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.stress_tensor": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1,
+            3,
+            3
+          ]
+        },
+        "group.step/array.volume": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        }
+      },
+      "elapsed_seconds": 67.907,
+      "energy_drift_ev_per_atom_step": -3.22309002390253e-06,
+      "energy_drift_ev_per_step": -0.0008251110461190477,
+      "energy_span_ev_per_atom": 0.003476387821137905,
+      "frame_count": 80,
+      "hdf5_bytes": 658954,
+      "hdf5_sha256": "861626e1b4b0f8a28c9263513421f9daaa756b011782b8d43e88a0331761fa50",
+      "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+      "integrator": "csvr_npt",
+      "kinetic_energy_ev": {
+        "mean": 3.3159092873334886,
+        "n_blocks": 4,
+        "sem": 0.04090799331416648
+      },
+      "max_abs_relative_energy_error": 0.05534516131942711,
+      "name": "isotropic_tau_2000fs",
+      "observed_devices": [
+        "gpu:NVIDIA RTX A5000"
+      ],
+      "potential_energy_ev": {
+        "mean": -17.390143322944642,
+        "n_blocks": 4,
+        "sem": 0.09777999611914605
+      },
+      "potential_scale": 1.0,
+      "precision": "float32",
+      "pressure_pa": {
+        "mean": 139026826.36973912,
+        "n_blocks": 4,
+        "sem": 36953675.15403723
+      },
+      "production_gpu_ready": true,
+      "requested_device": "gpu",
+      "seed": 2026080106,
+      "temperature_k": {
+        "mean": 100.60011077489553,
+        "n_blocks": 4,
+        "sem": 1.241090111132991
+      },
+      "total_energy_ev": {
+        "mean": -14.074234035611152,
+        "n_blocks": 4,
+        "sem": 0.08472619906451805
+      },
+      "volume_angstrom3": {
+        "mean": 10079.104626464843,
+        "n_blocks": 4,
+        "sem": 137.81596639981385
+      }
+    },
+    {
+      "atom_count": 256,
+      "datasets": {
+        "group.init/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            256,
+            3
+          ]
+        },
+        "group.step/array.atoms.data.positions": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            256,
+            3
+          ]
+        },
+        "group.step/array.kinetic_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.potential_energy": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        },
+        "group.step/array.stress_tensor": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1,
+            3,
+            3
+          ]
+        },
+        "group.step/array.volume": {
+          "dtype": "float32",
+          "shape": [
+            80,
+            1
+          ]
+        }
+      },
+      "elapsed_seconds": 53.182,
+      "energy_drift_ev_per_atom_step": 6.0175803930538336e-05,
+      "energy_drift_ev_per_step": 0.015405005806217814,
+      "energy_span_ev_per_atom": 0.00683948677033186,
+      "frame_count": 80,
+      "hdf5_bytes": 660018,
+      "hdf5_sha256": "f1547496720493b56d0ea378c68251aca937ab1859df1c539fa8a2cec7ade558",
+      "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+      "integrator": "baoab_npt_langevin",
+      "kinetic_energy_ev": {
+        "mean": 3.2660737216472624,
+        "n_blocks": 4,
+        "sem": 0.03357803910014902
+      },
+      "max_abs_relative_energy_error": 0.11843443871011754,
+      "name": "flexible_tau_1000fs",
+      "observed_devices": [
+        "gpu:NVIDIA RTX A5000"
+      ],
+      "potential_energy_ev": {
+        "mean": -16.87828185558319,
+        "n_blocks": 4,
+        "sem": 0.2423841985404556
+      },
+      "potential_scale": 1.0,
+      "precision": "float32",
+      "pressure_pa": {
+        "mean": 3100345.6591957025,
+        "n_blocks": 4,
+        "sem": 8424326.929968495
+      },
+      "production_gpu_ready": true,
+      "requested_device": "gpu",
+      "seed": 2026080107,
+      "temperature_k": {
+        "mean": 99.08816822548144,
+        "n_blocks": 4,
+        "sem": 1.0187098906690577
+      },
+      "total_energy_ev": {
+        "mean": -13.612208133935928,
+        "n_blocks": 4,
+        "sem": 0.23254903295727458
+      },
+      "volume_angstrom3": {
+        "mean": 10903.381164550781,
+        "n_blocks": 4,
+        "sem": 142.18332916491914
+      }
+    }
+  ],
+  "engine": "kups",
+  "entry_point": "kups.application.simulations.md.run",
+  "gpu_blocking_reason": null,
+  "kups_version": "1.0.3",
+  "production_gpu_ready": true,
+  "protocol_label": "post-05-real-kups-npt-full",
+  "target_device": "gpu",
+  "target_requests_gpu": true
+}
