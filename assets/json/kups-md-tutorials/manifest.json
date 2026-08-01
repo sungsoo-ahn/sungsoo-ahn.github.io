@@ -267,10 +267,31 @@
       "source": "results/post-06/full/argon_observable_samples.csv"
     },
     {
+      "destination": "assets/json/kups-md-tutorials/post-06/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "06",
+      "sha256": "6962ac4027eee0e55fc6e84093ea539339dc7b9caaf3d9619902aa010d0dee05",
+      "source": "results/post-06/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-06/full/kups_observable_samples.csv",
+      "kind": "compact-result",
+      "post": "06",
+      "sha256": "1d2d4ca5b2194acdc70df5ab85be421ba4c009b232cf2d87d9b10d68eadc229b",
+      "source": "results/post-06/full/kups_observable_samples.csv"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-06/full/kups_trajectory_length_summary.json",
+      "kind": "compact-result",
+      "post": "06",
+      "sha256": "b9dcdc80373cc38286712c7e7ad5efd028be480f0470fa2bfc7a53d0133056f5",
+      "source": "results/post-06/full/kups_trajectory_length_summary.json"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-06/full/manifest.json",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "de02b0c26556beeae75583c4737eb284211fda0b99fcae0fbab5f70b916d4637",
+      "sha256": "a07a4c99938dc9958fe85c8e8ffe7bfb2c5b780f19c59b243b6e6d37a9bc61d0",
       "source": "results/post-06/full/manifest.json"
     },
     {
@@ -284,21 +305,21 @@
       "destination": "assets/json/kups-md-tutorials/post-06/full/trajectory_length_summary.json",
       "kind": "compact-result",
       "post": "06",
-      "sha256": "464b8211d5d4a27dcf35153d386b17389aef381ba33294f49db7eafe4cf1381d",
+      "sha256": "911d8e11be540dfb90fdafe206184b94ad960b8e1adf1d1c7daabbd351351fb1",
       "source": "results/post-06/full/trajectory_length_summary.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
       "kind": "figure",
       "post": "06",
-      "sha256": "ab0c81472fa8143710e93c84261b8840d177e3f75b645650fc82c9d63be3b648",
+      "sha256": "fcacf9f6023e74e39feb6b7d21a27c46bf9c1af2dca48127d6d38df219acc0cd",
       "source": "figures/post-06/trajectory_length_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg",
       "kind": "figure",
       "post": "06",
-      "sha256": "ad532014ef4ccc6cd7b84627948a09e13ef165f8a551796960a2a132d913f229",
+      "sha256": "c08348818e2f6c1654487500eb41a31e8786239e94c252e44b67408d5fe436da",
       "source": "figures/post-06/trajectory_length_diagnostics_full.svg"
     },
     {
@@ -555,5 +576,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "1d1b2f48a54e036d096cf0aa02a495bba51a6212"
+  "source_git_revision": "9aa3cc7c6004a1096b78129ac84f561b32242483"
 }
