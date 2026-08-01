@@ -102,28 +102,42 @@
       "destination": "assets/json/kups-md-tutorials/post-03/full/error_summary.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "d0c8cf6c8e1f1adab62be74eece5a4dec8f95b463d4e53e16e8522e4449cc94c",
+      "sha256": "d29cff16a0ec55921f89d8956242b2cdc765b7fa3b2e2436e8a984c7aeda42f5",
       "source": "results/post-03/full/error_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-03/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "03",
+      "sha256": "289dabc8a2b9de7f83961750cffabc1de5838f5d4345e2972b3df8faad7756c0",
+      "source": "results/post-03/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-03/full/kups_nve_samples.csv",
+      "kind": "compact-result",
+      "post": "03",
+      "sha256": "5d1c32604d0355a2bf6333d9360c19e8731bab43090e552692fbb4e9462413ae",
+      "source": "results/post-03/full/kups_nve_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-03/full/manifest.json",
       "kind": "compact-result",
       "post": "03",
-      "sha256": "4309624a96864067eb13faaa24908b44d8a5d98440225504479974bf43323d8d",
+      "sha256": "2cd4c7677e8567e970fd2cbfebf36adb212aa092a25722de1bbbfb333be2bea1",
       "source": "results/post-03/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post03_error_diagnostics.png",
       "kind": "figure",
       "post": "03",
-      "sha256": "4fcc6779df29865d705ccec8f4f0529f3753c95b1697f5c5de47f37156a6d959",
+      "sha256": "fd3a0ebe76177bafc51c4a673643154aea7b93f89186f847764744e0d7b9a5cd",
       "source": "figures/post-03/error_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post03_error_diagnostics.svg",
       "kind": "figure",
       "post": "03",
-      "sha256": "9a1f28c5f803e95490dc374e5fe74bf3a7cd5cdc20f32bee173276d509b8590c",
+      "sha256": "38429ace5162bf873eee5975dcdee0f1d100c1ec0753a7c7647e0f2ace827b79",
       "source": "figures/post-03/error_diagnostics_full.svg"
     },
     {
@@ -527,5 +541,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "b5bcd0e34f25ef423bf77b967ef8ff0898b4cb89"
+  "source_git_revision": "6cc601f5ae16b723b1878356bb10bfafea1d7cb7"
 }
