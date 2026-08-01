@@ -30,7 +30,7 @@
     "force_constant_ev_per_angstrom2": 0.02,
     "forward_ess_fraction": 0.5456152584147314,
     "forward_jarzynski_delta_f": -0.01126171465469829,
-    "gpu_blocking_reason": "target device requests CUDA/GPU, but generated artifact runtime was gpu:NVIDIA RTX A5000",
+    "gpu_blocking_reason": null,
     "hysteresis_gap_ratio": 4.7243971799489755,
     "jarzynski_spread": 0.001123109030294507,
     "kups_version": "1.0.3",

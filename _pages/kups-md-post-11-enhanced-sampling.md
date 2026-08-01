@@ -52,7 +52,7 @@ The executable artifacts are the
 [stored steering trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/kups_steering_samples.csv),
 [provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/manifest.json),
 [kUPS worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/kups_steering_worker.py),
-[figure source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/figures.py),
+[figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post11_figures.py),
 and [review record](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-11.md).
 
 Run and verify either committed profile with the same public commands used by
