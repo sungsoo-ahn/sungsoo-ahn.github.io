@@ -337,17 +337,45 @@
       "source": "results/post-07/full/argon_trajectory_vacf_samples.csv"
     },
     {
+      "destination": "assets/json/kups-md-tutorials/post-07/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "07",
+      "sha256": "2ad2b76fb9972d66c9f61152831455328e2282369a652d70a07ee1575bb73d99",
+      "source": "results/post-07/full/kups_md_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-07/full/kups_observable_summary.json",
+      "kind": "compact-result",
+      "post": "07",
+      "sha256": "f48a07f32519bca4b244243126a230da0d00d9fd8301813efed9d4271608d0bf",
+      "source": "results/post-07/full/kups_observable_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-07/full/kups_rdf_samples.csv",
+      "kind": "compact-result",
+      "post": "07",
+      "sha256": "9b63f89986f0bdf79614c5d75a7045786950e425e0a26d31d20d4b39cd5f4e39",
+      "source": "results/post-07/full/kups_rdf_samples.csv"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-07/full/kups_vacf_samples.csv",
+      "kind": "compact-result",
+      "post": "07",
+      "sha256": "fdd02498e9a31cf74721a6993d58e9c413936e4e8205f5f29f341387fe3e95d1",
+      "source": "results/post-07/full/kups_vacf_samples.csv"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-07/full/manifest.json",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "b50112784bd19de71ba3f5293243fcd01593f2d5281236a3dc50bc4d8c067f13",
+      "sha256": "1333be87fad2bb62d43f8a3d076d02ebcd61aaed2d81b95d085dd330e5680b06",
       "source": "results/post-07/full/manifest.json"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/observable_summary.json",
       "kind": "compact-result",
       "post": "07",
-      "sha256": "43e3b876875c02847fc919c5a0760296964d083c8143bc2a06c0747821343cc4",
+      "sha256": "cceb59796a7127f929b369d7f8609b7f4d8f266e345918a6aa6294c8b98cab50",
       "source": "results/post-07/full/observable_summary.json"
     },
     {
@@ -368,14 +396,14 @@
       "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.png",
       "kind": "figure",
       "post": "07",
-      "sha256": "48fc1780ef904e834f9abed60e74d87f854675ad8dabbce51c4bda7dc2173934",
+      "sha256": "5628dfb6a949977267d449270fa90597167a15c0516aa71a6a8f106fce4f2f30",
       "source": "figures/post-07/observable_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.svg",
       "kind": "figure",
       "post": "07",
-      "sha256": "c8c2da8b9c408608a20a3f3ba981882d9aee8b1bc6866d2e2ec59a95764855f9",
+      "sha256": "9aebd6941b2a3abd770962e6aa25de0117c61b56778c6127bba8c0ca7732788b",
       "source": "figures/post-07/observable_diagnostics_full.svg"
     },
     {
@@ -576,5 +604,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "9aa3cc7c6004a1096b78129ac84f561b32242483"
+  "source_git_revision": "7d4b03dc564f81510269d38eeb57c5ff8e036b67"
 }
