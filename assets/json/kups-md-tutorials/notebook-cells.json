@@ -371,8 +371,56 @@
       "output_sha256": "b09461278b6e99e57aca1c6be4f8224da071e1c8a17bb4e29222e9c60c31b517",
       "post": "10",
       "source_sha256": "8370b9408b257ae4859ce1d1956dd3f05ad95c10d7b2cf58d8484e66cc95b5fd"
+    },
+    {
+      "assets": [],
+      "cell_id": "production-evidence",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/production-evidence.html",
+      "include_sha256": "7a82543655b78a83e8bdea667df302fdbe0cde8361a13ae80f3b9670849ed81f",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "output_sha256": "a6a11340ec5e19be68355fbbf7374220dd956e9a83c674cd00e051c00ca41627",
+      "post": "11",
+      "source_sha256": "d8a042ab6bf08f223b65d6d2ee931b84e1aea38f0dca0f7d2ce5d5e19b020919"
+    },
+    {
+      "assets": [],
+      "cell_id": "setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-11/setup.html",
+      "include_sha256": "3dfcb57b39f195f61c89e62cac01e37692d86e699cb37d3fbf684128aec93761",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "11",
+      "source_sha256": "51a88e316b0dfb797d6c5ed6a03b5ea74d9832f8d65d92e72984fb3b15a9aad6"
+    },
+    {
+      "assets": [],
+      "cell_id": "smoke-run",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/smoke-run.html",
+      "include_sha256": "e8e656359b403ca621b45a7daa78795876fe146cfe383e0ecf60a98e6d305c04",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "output_sha256": "7e896de4dd92d851c908f90d933d6fdc801d2e736058dafd1f7df838952187d0",
+      "post": "11",
+      "source_sha256": "b7c585cfba66377bc545ad5621c67e849ab7b0bdfc3c2e8968924f14763461df"
+    },
+    {
+      "assets": [],
+      "cell_id": "work-definition",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/work-definition.html",
+      "include_sha256": "6795135cc7ab160ecba1ccba1ee532c26e1d3b328e503db2125f8a74830b5f7b",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "edb0025057b22862d3e258a5ffa1d31f5fd8cefcc650bb1c3ca66f25fa1997c0",
+      "output_sha256": "ee953d00c97bcaff8ae296930e685ae46cafff09d717da2b3a086b188473e2b0",
+      "post": "11",
+      "source_sha256": "8f0a570c47d92ba456ca5aec6993a34e054bce6ffa8571aaf4097d32532ea207"
     }
   ],
-  "execution_manifest_sha256": "628a8b6b38d8bd5cbb4b766ccbec62bb5c5b7cfaaab0e38b0983fca6d125e154",
-  "source_git_revision": "e72704160f67b0ccf19f11b2f9542b4bed5f9101"
+  "execution_manifest_sha256": "946954499cb6b788ceffbef20c93b21222276e901e809af7bd88bec6eea4b953",
+  "source_git_revision": "e4a19eaeb7a4bdd4fc9bc3d33d1c3f1cc057bcf0"
 }
