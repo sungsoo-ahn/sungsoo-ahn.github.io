@@ -1,20 +1,6 @@
 {
   "files": [
     {
-      "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.svg",
-      "kind": "figure",
-      "post": "01",
-      "sha256": "47db77e3ea386f22c6eec167f3b1921f7507e9c1fddfe2c3120bc431d6e8237c",
-      "source": "figures/post-01/initialization_diagnostics_full.svg"
-    },
-    {
-      "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.png",
-      "kind": "figure",
-      "post": "01",
-      "sha256": "f4fd02af3ceadb6c90db0aab70ca3d8ff85b755ee0ac656ca1c272125df24b5e",
-      "source": "figures/post-01/initialization_diagnostics_full.png"
-    },
-    {
       "destination": "assets/json/kups-md-tutorials/post-01/full/initialization_summary.json",
       "kind": "compact-result",
       "post": "01",
@@ -29,18 +15,18 @@
       "source": "results/post-01/full/manifest.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.png",
       "kind": "figure",
-      "post": "02",
-      "sha256": "f01a07ff23fb79579542b04879a6254acf2ef4f775be003a223eac395c94921e",
-      "source": "figures/post-02/integrator_diagnostics_full.svg"
+      "post": "01",
+      "sha256": "f4fd02af3ceadb6c90db0aab70ca3d8ff85b755ee0ac656ca1c272125df24b5e",
+      "source": "figures/post-01/initialization_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post01_initialization_diagnostics.svg",
       "kind": "figure",
-      "post": "02",
-      "sha256": "990d64f829a3a8b8abaacb5e50417442438b7543f7a234b0f1318c6e0362aeb9",
-      "source": "figures/post-02/integrator_diagnostics_full.png"
+      "post": "01",
+      "sha256": "47db77e3ea386f22c6eec167f3b1921f7507e9c1fddfe2c3120bc431d6e8237c",
+      "source": "figures/post-01/initialization_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/integrator_summary.json",
@@ -64,18 +50,18 @@
       "source": "results/post-02/full/trajectory_samples.csv"
     },
     {
-      "destination": "assets/img/blog/kups_md_post03_error_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.png",
       "kind": "figure",
-      "post": "03",
-      "sha256": "9a1f28c5f803e95490dc374e5fe74bf3a7cd5cdc20f32bee173276d509b8590c",
-      "source": "figures/post-03/error_diagnostics_full.svg"
+      "post": "02",
+      "sha256": "990d64f829a3a8b8abaacb5e50417442438b7543f7a234b0f1318c6e0362aeb9",
+      "source": "figures/post-02/integrator_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post03_error_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.svg",
       "kind": "figure",
-      "post": "03",
-      "sha256": "4fcc6779df29865d705ccec8f4f0529f3753c95b1697f5c5de47f37156a6d959",
-      "source": "figures/post-03/error_diagnostics_full.png"
+      "post": "02",
+      "sha256": "f01a07ff23fb79579542b04879a6254acf2ef4f775be003a223eac395c94921e",
+      "source": "figures/post-02/integrator_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-03/full/argon_nve_samples.csv",
@@ -106,18 +92,18 @@
       "source": "results/post-03/full/manifest.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post03_error_diagnostics.png",
       "kind": "figure",
-      "post": "04",
-      "sha256": "eb51bddc83422c2afa46e0482a6b4411f2530cdf9e628185e27f3a28a65d6355",
-      "source": "figures/post-04/thermostat_diagnostics_full.svg"
+      "post": "03",
+      "sha256": "4fcc6779df29865d705ccec8f4f0529f3753c95b1697f5c5de47f37156a6d959",
+      "source": "figures/post-03/error_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post03_error_diagnostics.svg",
       "kind": "figure",
-      "post": "04",
-      "sha256": "f3dacf93d097c29e6d55c3d6b4c026b98ab0dd80b742ae14c0f094b1ffbd8aab",
-      "source": "figures/post-04/thermostat_diagnostics_full.png"
+      "post": "03",
+      "sha256": "9a1f28c5f803e95490dc374e5fe74bf3a7cd5cdc20f32bee173276d509b8590c",
+      "source": "figures/post-03/error_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-04/full/argon_handoff_samples.csv",
@@ -134,10 +120,17 @@
       "source": "results/post-04/full/argon_langevin_samples.csv"
     },
     {
+      "destination": "assets/json/kups-md-tutorials/post-04/full/kups_md_summary.json",
+      "kind": "compact-result",
+      "post": "04",
+      "sha256": "306ad2e710419aebea78442f1a57604c8a881956d5efa1748d0efab053c25fc0",
+      "source": "results/post-04/full/kups_md_summary.json"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-04/full/manifest.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "bb61ba7a6bdc52623fdac1a531bc7b5d67309272a5cabf5aa71063a028db64f4",
+      "sha256": "bca4bde9a2056037bbf70d926c4291f27df5608106004d0fbac8cbd5070e5d59",
       "source": "results/post-04/full/manifest.json"
     },
     {
@@ -151,22 +144,22 @@
       "destination": "assets/json/kups-md-tutorials/post-04/full/thermostat_summary.json",
       "kind": "compact-result",
       "post": "04",
-      "sha256": "3daa37c42c104cf4498dcc84cfde8e60baad34fbf521e280a7904eae274a8f5b",
+      "sha256": "e63684a7a875df8ecff6d0fa1372dcf594d5b2d48601e37d38f6fcb508a7de76",
       "source": "results/post-04/full/thermostat_summary.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.png",
       "kind": "figure",
-      "post": "05",
-      "sha256": "c2381ceb20035b3ed859db4dd504212af739fcad518c67df3ecd1d3cef1e8001",
-      "source": "figures/post-05/barostat_diagnostics_full.svg"
+      "post": "04",
+      "sha256": "24a8e59628d5f0b9c3ca0a072f7d56eb3b5c80dc49e299d9981a6d03fcd0579c",
+      "source": "figures/post-04/thermostat_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post04_thermostat_diagnostics.svg",
       "kind": "figure",
-      "post": "05",
-      "sha256": "72422fda987d9e48aac4189e821d088a5455b3df7d93c7839142e85a5c07f3fd",
-      "source": "figures/post-05/barostat_diagnostics_full.png"
+      "post": "04",
+      "sha256": "1e17dbbb677600bca925b6ac8041e5e04591de7e17d4088fd090c63e6bdfee29",
+      "source": "figures/post-04/thermostat_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-05/full/argon_cell_response.csv",
@@ -204,18 +197,18 @@
       "source": "results/post-05/full/manifest.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.png",
       "kind": "figure",
-      "post": "06",
-      "sha256": "ad532014ef4ccc6cd7b84627948a09e13ef165f8a551796960a2a132d913f229",
-      "source": "figures/post-06/trajectory_length_diagnostics_full.svg"
+      "post": "05",
+      "sha256": "72422fda987d9e48aac4189e821d088a5455b3df7d93c7839142e85a5c07f3fd",
+      "source": "figures/post-05/barostat_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post05_barostat_diagnostics.svg",
       "kind": "figure",
-      "post": "06",
-      "sha256": "ab0c81472fa8143710e93c84261b8840d177e3f75b645650fc82c9d63be3b648",
-      "source": "figures/post-06/trajectory_length_diagnostics_full.png"
+      "post": "05",
+      "sha256": "c2381ceb20035b3ed859db4dd504212af739fcad518c67df3ecd1d3cef1e8001",
+      "source": "figures/post-05/barostat_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-06/full/argon_observable_samples.csv",
@@ -246,18 +239,18 @@
       "source": "results/post-06/full/trajectory_length_summary.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
       "kind": "figure",
-      "post": "07",
-      "sha256": "c8c2da8b9c408608a20a3f3ba981882d9aee8b1bc6866d2e2ec59a95764855f9",
-      "source": "figures/post-07/observable_diagnostics_full.svg"
+      "post": "06",
+      "sha256": "ab0c81472fa8143710e93c84261b8840d177e3f75b645650fc82c9d63be3b648",
+      "source": "figures/post-06/trajectory_length_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg",
       "kind": "figure",
-      "post": "07",
-      "sha256": "48fc1780ef904e834f9abed60e74d87f854675ad8dabbce51c4bda7dc2173934",
-      "source": "figures/post-07/observable_diagnostics_full.png"
+      "post": "06",
+      "sha256": "ad532014ef4ccc6cd7b84627948a09e13ef165f8a551796960a2a132d913f229",
+      "source": "figures/post-06/trajectory_length_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-07/full/argon_trajectory_rdf_samples.csv",
@@ -302,18 +295,18 @@
       "source": "results/post-07/full/vacf_samples.csv"
     },
     {
-      "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.png",
       "kind": "figure",
-      "post": "08",
-      "sha256": "90896d680126761a5eea265c7c8e8131578657022638639cef94fac845601cdb",
-      "source": "figures/post-08/free_energy_diagnostics_full.svg"
+      "post": "07",
+      "sha256": "48fc1780ef904e834f9abed60e74d87f854675ad8dabbce51c4bda7dc2173934",
+      "source": "figures/post-07/observable_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.svg",
       "kind": "figure",
-      "post": "08",
-      "sha256": "7ea837f3a16431898a5c8c6152574f3fb63c6d9e25813500cfde069033a655c8",
-      "source": "figures/post-08/free_energy_diagnostics_full.png"
+      "post": "07",
+      "sha256": "c8c2da8b9c408608a20a3f3ba981882d9aee8b1bc6866d2e2ec59a95764855f9",
+      "source": "figures/post-07/observable_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-08/full/free_energy_curves.csv",
@@ -337,18 +330,18 @@
       "source": "results/post-08/full/manifest.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.png",
       "kind": "figure",
-      "post": "09",
-      "sha256": "c339a79e7a74f9a3a21bd9663d05fd770556ff8b4f8cff12e36477dcf5eb4128",
-      "source": "figures/post-09/estimator_diagnostics_full.svg"
+      "post": "08",
+      "sha256": "7ea837f3a16431898a5c8c6152574f3fb63c6d9e25813500cfde069033a655c8",
+      "source": "figures/post-08/free_energy_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post08_free_energy_diagnostics.svg",
       "kind": "figure",
-      "post": "09",
-      "sha256": "ffb199a88f9de6526bb0669eeb4b9ab42a87f0c2d476ccc9003240fd12efd847",
-      "source": "figures/post-09/estimator_diagnostics_full.png"
+      "post": "08",
+      "sha256": "90896d680126761a5eea265c7c8e8131578657022638639cef94fac845601cdb",
+      "source": "figures/post-08/free_energy_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-09/full/estimator_summary.json",
@@ -386,18 +379,18 @@
       "source": "results/post-09/full/work_samples.csv"
     },
     {
-      "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.png",
       "kind": "figure",
-      "post": "10",
-      "sha256": "6551bc5c755fc728736691c507052142203c98b7b85313011b3872cfd88afd8b",
-      "source": "figures/post-10/umbrella_diagnostics_full.svg"
+      "post": "09",
+      "sha256": "ffb199a88f9de6526bb0669eeb4b9ab42a87f0c2d476ccc9003240fd12efd847",
+      "source": "figures/post-09/estimator_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post09_estimator_diagnostics.svg",
       "kind": "figure",
-      "post": "10",
-      "sha256": "aa5700fd62537b344daae1246d39ebd66e0d0c6c2b3d3685f6472a47bc1673c9",
-      "source": "figures/post-10/umbrella_diagnostics_full.png"
+      "post": "09",
+      "sha256": "c339a79e7a74f9a3a21bd9663d05fd770556ff8b4f8cff12e36477dcf5eb4128",
+      "source": "figures/post-09/estimator_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-10/full/manifest.json",
@@ -428,18 +421,18 @@
       "source": "results/post-10/full/umbrella_windows.csv"
     },
     {
-      "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.png",
       "kind": "figure",
-      "post": "11",
-      "sha256": "6ea56cd3fbb62ab133f33ad8fba447c174b23ce2503ff609ad0b9cb8f3158da4",
-      "source": "figures/post-11/enhanced_sampling_diagnostics_full.svg"
+      "post": "10",
+      "sha256": "aa5700fd62537b344daae1246d39ebd66e0d0c6c2b3d3685f6472a47bc1673c9",
+      "source": "figures/post-10/umbrella_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post10_umbrella_diagnostics.svg",
       "kind": "figure",
-      "post": "11",
-      "sha256": "ff5bb37dee63b28662435aedb123da0832527f2528c2b478134915ba61062332",
-      "source": "figures/post-11/enhanced_sampling_diagnostics_full.png"
+      "post": "10",
+      "sha256": "6551bc5c755fc728736691c507052142203c98b7b85313011b3872cfd88afd8b",
+      "source": "figures/post-10/umbrella_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
@@ -463,18 +456,18 @@
       "source": "results/post-11/full/manifest.json"
     },
     {
-      "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.svg",
+      "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
       "kind": "figure",
-      "post": "12",
-      "sha256": "c21fc75d152adf8c47b625fa8b33304edc09ceadd5cc31e87029ae8123e5ae93",
-      "source": "figures/post-12/mlip_diagnostics_full.svg"
+      "post": "11",
+      "sha256": "ff5bb37dee63b28662435aedb123da0832527f2528c2b478134915ba61062332",
+      "source": "figures/post-11/enhanced_sampling_diagnostics_full.png"
     },
     {
-      "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.png",
+      "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
       "kind": "figure",
-      "post": "12",
-      "sha256": "6bef4816a20b534dd6418e93a162b1889d3f6761dce8615cd13b97cfb135b318",
-      "source": "figures/post-12/mlip_diagnostics_full.png"
+      "post": "11",
+      "sha256": "6ea56cd3fbb62ab133f33ad8fba447c174b23ce2503ff609ad0b9cb8f3158da4",
+      "source": "figures/post-11/enhanced_sampling_diagnostics_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-12/full/manifest.json",
@@ -496,8 +489,22 @@
       "post": "12",
       "sha256": "f04e6f017c21adfd74e538cdae91178039c2ebfbea0087d7ddf0db010514106a",
       "source": "results/post-12/full/mlip_summary.json"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.png",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "6bef4816a20b534dd6418e93a162b1889d3f6761dce8615cd13b97cfb135b318",
+      "source": "figures/post-12/mlip_diagnostics_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.svg",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "c21fc75d152adf8c47b625fa8b33304edc09ceadd5cc31e87029ae8123e5ae93",
+      "source": "figures/post-12/mlip_diagnostics_full.svg"
     }
   ],
   "profile": "full",
-  "source_git_revision": "4d4cf7294d5a861e8683f3e3c1b2524d9a309e00"
+  "source_git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf"
 }

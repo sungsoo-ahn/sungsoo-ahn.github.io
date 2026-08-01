@@ -1503,6 +1503,77 @@ details.code-collapse {
   }
 }
 
+/* Static cells exported from cleanly executed tutorial notebooks. */
+.notebook-cell {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.45rem;
+  margin: 1.25rem 0 1.75rem;
+  overflow: hidden;
+
+  details.notebook-code {
+    margin: 0;
+
+    > summary {
+      background: var(--global-card-bg-color);
+      border-bottom: 1px solid transparent;
+      padding: 0.6rem 0.85rem;
+    }
+
+    &[open] > summary {
+      border-bottom-color: var(--global-divider-color);
+    }
+
+    .highlight {
+      border-radius: 0;
+      margin: 0;
+    }
+
+    pre {
+      margin: 0;
+      max-height: 32rem;
+      overflow: auto;
+      padding: 0.9rem 1rem;
+    }
+  }
+
+  .notebook-output {
+    background: var(--global-bg-color);
+    border-top: 1px solid var(--global-divider-color);
+    padding: 0.75rem 1rem 0.9rem;
+  }
+
+  .notebook-output-label {
+    color: var(--global-text-color-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  .notebook-output-text {
+    background: transparent;
+    border: 0;
+    color: var(--global-text-color);
+    margin: 0;
+    overflow-x: auto;
+    padding: 0;
+    white-space: pre;
+  }
+
+  .notebook-output-image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+.post-content mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 .btn-group.dropdown {
   .btn {
     box-shadow: none;
