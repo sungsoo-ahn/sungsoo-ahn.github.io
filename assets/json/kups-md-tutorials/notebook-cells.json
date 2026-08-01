@@ -2,6 +2,42 @@
   "cells": [
     {
       "assets": [],
+      "cell_id": "post01-finite-draw",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-01/post01-finite-draw.html",
+      "include_sha256": "b5a49c5d24495d04ec73fa3172e6a8d2033df45260b9407926fe67b3ba9af560",
+      "notebook": "post-01-initialization.ipynb",
+      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "output_sha256": "f2f03401077f1252cc1f2c7f21b2b2dc77d5e7e4a63b500937df5a8e541ac041",
+      "post": "01",
+      "source_sha256": "6b6dd90237950e30fafa9f5b222e78d850263d0865914e674a2c1f5be4c5b982"
+    },
+    {
+      "assets": [],
+      "cell_id": "post01-kups-state",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-01/post01-kups-state.html",
+      "include_sha256": "cdd6fab1ed44a9183dbe175db7488593f1788fcba42014f2cd35b425d6ecce14",
+      "notebook": "post-01-initialization.ipynb",
+      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "output_sha256": "3b497ea4ddd9ae2b911c3733f94760c83752c455446395148e42c23f2bcb3241",
+      "post": "01",
+      "source_sha256": "15adbb839f386cbb6b9ebbf5f7e7ff337f38b3500ba17f825fafe47ad76a9f17"
+    },
+    {
+      "assets": [],
+      "cell_id": "post01-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-01/post01-setup.html",
+      "include_sha256": "a86c92e272afa6b9faab3cd29dc160be33b764b337cd01270b7e6ff4f5759486",
+      "notebook": "post-01-initialization.ipynb",
+      "notebook_sha256": "d8e0ff4e0ebe37a8d4c831347a6d8228a35f72cc8465be57297b14ad83922d7c",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "01",
+      "source_sha256": "354904564048ab5961a2b17b9caa72e083ff18f1dcfdfd7eb35c78a4ba64decf"
+    },
+    {
+      "assets": [],
       "cell_id": "a106b2a9",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-04/a106b2a9.html",
@@ -37,6 +73,6 @@
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
     }
   ],
-  "execution_manifest_sha256": "0e5424d3714e3b62c2ef692eb25af8a188d17ab20cfc6d69aa4a9f30e8cb08f8",
-  "source_git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf"
+  "execution_manifest_sha256": "cb2755baec4dfe33f8a0b5312731f356d4902286ce21ee4dd75702c0201361dd",
+  "source_git_revision": "355eaffef2943234b0638827aa1e51756d65d062"
 }
