@@ -564,35 +564,42 @@
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "9cc803d2af86cc6cb0983dd688ec86625a502b0614b09db406462c7aa3130f5c",
+      "sha256": "89f65ee23dc58624c0af318a9219fd3dc35b09485d04f364a61d6aeb8a0f4090",
       "source": "results/post-11/full/enhanced_sampling_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_summary.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "3c58f9b2a601951222caa49f3a87f9c231aa3425e61b4d746425e61406324d4f",
+      "sha256": "3eadb49b3da516668049b414d8df4f7a2e581a9f5d2938209d44b7993f415d9b",
       "source": "results/post-11/full/enhanced_sampling_summary.json"
+    },
+    {
+      "destination": "assets/json/kups-md-tutorials/post-11/full/kups_steering_samples.csv",
+      "kind": "compact-result",
+      "post": "11",
+      "sha256": "9f492034af393e80a10364ff67d7a249b92316ccad8960aca0788cace1e366f0",
+      "source": "results/post-11/full/kups_steering_samples.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/manifest.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "a6537af165e55de0662119bfebfd052e8a05405b3cd27c164bb76c91d46f61b8",
+      "sha256": "2f8c43a6ddc088e6d731d9d859be92834410249fe2a9ab14b43a88337347e541",
       "source": "results/post-11/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
       "kind": "figure",
       "post": "11",
-      "sha256": "ff5bb37dee63b28662435aedb123da0832527f2528c2b478134915ba61062332",
+      "sha256": "b6b5454dd151b8b301d015f4b9cffc2a027253f75559824cc3c02689d1a0e107",
       "source": "figures/post-11/enhanced_sampling_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
       "kind": "figure",
       "post": "11",
-      "sha256": "6ea56cd3fbb62ab133f33ad8fba447c174b23ce2503ff609ad0b9cb8f3158da4",
+      "sha256": "30cd748f20824551755bd883b0fabc51bdab14220d916de9f7a8d96068128b7f",
       "source": "figures/post-11/enhanced_sampling_diagnostics_full.svg"
     },
     {
@@ -632,5 +639,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "e72704160f67b0ccf19f11b2f9542b4bed5f9101"
+  "source_git_revision": "e4a19eaeb7a4bdd4fc9bc3d33d1c3f1cc057bcf0"
 }
