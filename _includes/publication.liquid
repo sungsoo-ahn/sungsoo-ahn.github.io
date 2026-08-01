@@ -1,0 +1,112 @@
+{% assign entry = include.publication %}
+<div class="row">
+  {% if site.enable_publication_thumbnails %}
+    <div class="col col-sm-2 abbr">
+      {% if entry.abbr %}
+        {% if site.data.venues[entry.abbr] %}
+          {% assign venue_style = null %}
+          {% if site.data.venues[entry.abbr].color != blank %}
+            {% assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' %}
+          {% endif %}
+          <abbr class="badge rounded w-100" {% if venue_style %}{{ venue_style }}{% endif %}>
+            {% if site.data.venues[entry.abbr].url %}
+              <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
+            {% else %}
+              <div>{{ entry.abbr }}</div>
+            {% endif %}
+          </abbr>
+        {% else %}
+          <abbr class="badge rounded w-100">{{ entry.abbr }}</abbr>
+        {% endif %}
+      {% endif %}
+      {% if entry.preview %}
+        {% if entry.preview contains '://' %}
+          <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" alt="Preview for {{ entry.title | escape }}">
+        {% else %}
+          {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
+          {% include figure.liquid loading="eager" path=entry_path sizes="200px" class="preview z-depth-1 rounded" zoomable=true avoid_scaling=true alt=entry.title %}
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div id="{{ entry.id }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
+    <div class="title">{{ entry.title }}{% if entry.abbr and entry.abbr != '-' %} ({{ entry.abbr }} {{ entry.year }}){% endif %}</div>
+
+    <div class="author">
+      {% assign author_count = entry.authors | size %}
+      {% assign author_limit = author_count %}
+      {% if site.max_author_limit and author_count > site.max_author_limit %}
+        {% assign author_limit = site.max_author_limit %}
+      {% endif %}
+
+      {%- for author in entry.authors limit: author_limit -%}
+        {%- assign clean_author = author | regex_replace: '[*∗†‡§¶‖&^]', '' -%}
+        {%- assign author_html = author | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' -%}
+        {%- unless forloop.first -%}
+          {%- if forloop.last and author_limit == author_count -%}
+            {%- if author_count > 2 -%}, and {% else %} and {% endif -%}
+          {%- else -%}, {% endif -%}
+        {%- endunless -%}
+        {%- if clean_author == site.publication_author -%}<em>{{ author_html }}</em>{%- else -%}{{ author_html }}{%- endif -%}
+      {%- endfor -%}
+
+      {% assign more_authors = author_count | minus: author_limit %}
+      {% if more_authors > 0 %}
+        {% assign more_authors_label = more_authors | append: ' more author' %}
+        {% if more_authors > 1 %}{% assign more_authors_label = more_authors_label | append: 's' %}{% endif %}
+        {% assign more_authors_names = '' %}
+        {% for author in entry.authors offset: author_limit %}
+          {% assign author_html = author | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' %}
+          {% assign more_authors_names = more_authors_names | append: author_html %}
+          {% unless forloop.last %}{% assign more_authors_names = more_authors_names | append: ', ' %}{% endunless %}
+        {% endfor %}
+        , and
+        <span
+          class="more-authors"
+          title="click to view {{ more_authors_label }}"
+          data-collapsed="{{ more_authors_label | escape }}"
+          data-expanded="{{ more_authors_names | escape }}"
+          onclick="
+            var element = $(this);
+            element.attr('title', '');
+            var collapsed = element.attr('data-collapsed');
+            var expanded = element.attr('data-expanded');
+            var nextText = element.text() == collapsed ? expanded : collapsed;
+            element.html(nextText);
+          "
+        >{{ more_authors_label }}</span>
+      {% endif %}
+      {% if entry.annotation %}
+        <i class="fa-solid fa-circle-info ml-1" data-toggle="popover" data-placement="top" data-html="true" data-content="{{ entry.annotation | escape }}"></i>
+      {% endif %}
+    </div>
+
+    {% assign author_text = entry.authors | join: ' ' %}
+    {% assign has_cofirst_author = false %}
+    {% assign has_cocorresponding_author = false %}
+    {% if author_text contains '*' or author_text contains '∗' %}{% assign has_cofirst_author = true %}{% endif %}
+    {% if author_text contains '†' or author_text contains '‡' %}{% assign has_cocorresponding_author = true %}{% endif %}
+    {% if has_cofirst_author or has_cocorresponding_author %}
+      <div class="author-notes">
+        {% if has_cofirst_author %}<span><sup>*</sup> co-first authors</span>{% endif %}
+        {% if has_cocorresponding_author %}<span><sup>†</sup> co-corresponding authors</span>{% endif %}
+      </div>
+    {% endif %}
+
+    {% if entry.presentation %}
+      <div class="publication-badges">
+        <span class="presentation-badge presentation-{{ entry.presentation | downcase }}">
+          {{ entry.presentation }} presentation{% if entry.presentation_venue %} ({{ entry.presentation_venue }}){% endif %}
+        </span>
+      </div>
+    {% endif %}
+
+    <div class="links">
+      [{% if entry.html %}<a href="{{ entry.html }}">paper</a>{% endif %}{% if entry.html and entry.arxiv %} / {% endif %}{% if entry.arxiv %}<a href="https://arxiv.org/abs/{{ entry.arxiv }}">arxiv</a>{% endif %}{% if entry.pdf %}{% if entry.html or entry.arxiv %} / {% endif %}<a href="{% if entry.pdf contains '://' %}{{ entry.pdf }}{% else %}{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}{% endif %}">pdf</a>{% endif %}{% if entry.code %}{% if entry.html or entry.arxiv or entry.pdf %} / {% endif %}<a href="{{ entry.code }}">{% if entry.code_label %}{{ entry.code_label }}{% else %}code{% endif %}</a>{% endif %}{% if entry.code2 %}{% if entry.html or entry.arxiv or entry.pdf or entry.code %} / {% endif %}<a href="{{ entry.code2 }}">{% if entry.code2_label %}{{ entry.code2_label }}{% else %}code{% endif %}</a>{% endif %}{% if entry.website %}{% if entry.html or entry.arxiv or entry.pdf or entry.code or entry.code2 %} / {% endif %}<a href="{{ entry.website }}">project</a>{% endif %}{% if entry.video %}{% if entry.html or entry.arxiv or entry.pdf or entry.code or entry.code2 or entry.website %} / {% endif %}<a href="{{ entry.video }}">video</a>{% endif %}]
+    </div>
+
+    {% if entry.award %}<div class="award hidden d-print-inline"><p>{{ entry.award | markdownify }}</p></div>{% endif %}
+    {% if entry.abstract %}<div class="abstract hidden"><p>{{ entry.abstract }}</p></div>{% endif %}
+  </div>
+</div>

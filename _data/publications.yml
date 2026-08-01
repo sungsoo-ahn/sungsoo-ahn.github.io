@@ -1,0 +1,1151 @@
+# Canonical publication data for the website and CV.
+#
+# Keep entries in display order (newest first). Run:
+#   uv run python scripts/update_publications.py --check
+#   uv run python scripts/update_cv.py
+#
+# Author suffixes: * marks equal contribution; † marks equal corresponding authors.
+# Required fields: id, type (conference/journal/preprint), title, authors, venue,
+# year, and abbr. Website fields: selected, presentation, presentation_venue,
+# html, arxiv, code/code_label, code2/code2_label, website, pdf, video, preview,
+# annotation, award, and abstract. CV-only rendering fields start with `cv_`.
+- id: seong2026discovering
+  type: preprint
+  title: Discovering Crystal Structure Prediction Algorithms with an AI Co-Scientist
+  authors:
+  - Kiyoung Seong
+  - Nayoung Kim
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2606.22866'
+  code: https://github.com/kiyoung98/maskgxt
+  code_label: MaskGXT code
+  code2: https://github.com/kiyoung98/HACO
+  code2_label: HACO code
+  selected: true
+  cv_sort_order: 202606300000
+- id: kim2026madfield
+  type: preprint
+  title: 'MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials'
+  authors:
+  - Yoonho Kim
+  - Seongsu Kim
+  - Sungsoo Ahn
+  - Honghui Kim
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2606.21284'
+  selected: true
+  cv_sort_order: 202606290000
+- id: kim2026atomlevel
+  type: preprint
+  title: Atom-level Protein Representation Learning Improves Protein Structure Prediction
+  authors:
+  - Taewon Kim
+  - Hyosoon Jang
+  - Hyunjin Seo
+  - Seonghwan Seo
+  - Hyeongwoo Kim
+  - Wonho Zhung
+  - Mingyeong Shin
+  - Wooyoun Kim
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2605.22133'
+  website: https://holymollyhao.github.io/TriProRep/
+  selected: true
+  cv_sort_order: 202605300000
+- id: seo2026vibeproteinbench
+  type: preprint
+  title: 'VibeProteinBench: An Evaluation Benchmark for Language-interfaced Vibe Protein Design'
+  authors:
+  - Hyunjin Seo
+  - Hongjoon Ahn
+  - Jimin Park
+  - Sungjun Han
+  - Gyubok Lee
+  - Soojung Yang
+  - Joseph S Brown
+  - Leo Chen
+  - Gina El Nesr
+  - Feyisayo Eweje
+  - Sarah Gurev
+  - Hyejin Lee
+  - Cheng-Hao Liu
+  - Junlang Liu
+  - Zhihui Qi
+  - Gyu Rie Lee
+  - Sungsoo Ahn
+  - Jamin Shin
+  - Sangwon Jung
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2605.10978'
+  cv_sort_order: 202605200000
+- id: piao2026learning
+  type: conference
+  title: Learning Adaptive Perturbation-Conditioned Contexts for Robust Transcriptional Response Prediction
+  authors:
+  - Yinhua Piao
+  - Hyomin Kim
+  - Seonghwan Kim
+  - Yunhak Oh
+  - Junhyeok Jeon
+  - Sang-Yeon Hwang
+  - Jaechang Lim
+  - Woo Youn Kim
+  - Chanyoung Park
+  - Sungsoo Ahn
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2602.18885'
+- id: jang2026indibator
+  type: preprint
+  title: 'INDIBATOR: Diverse and Fact-Grounded Individuality for Multi-Agent Debate in Molecular Discovery'
+  authors:
+  - Yunhui Jang
+  - Seonghyun Park
+  - Jaehyung Kim
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2602.01815'
+  code: https://github.com/yunhuijang/INDIBATOR
+  website: https://yunhuijang.github.io/projects/INDIBATOR/
+  selected: true
+  cv_sort_order: 202602020847
+- id: seong2026multimodal
+  type: conference
+  title: 'Multimodal Crystal Flow: Any-to-Any Modality Generation for Unified Crystal Modeling'
+  authors:
+  - Kiyoung Seong
+  - Sungsoo Ahn
+  - Sehui Han
+  - Changyoung Park
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2602.20210'
+- id: kim2026progressive
+  type: preprint
+  title: Progressive Multi-Agent Reasoning for Biological Perturbation Prediction
+  authors:
+  - Hyomin Kim
+  - Sang-Yeon Hwang
+  - Jaechang Lim
+  - Yinhua Piao
+  - Yunhak Oh
+  - Woo Youn Kim
+  - Chanyoung Park
+  - Sungsoo Ahn
+  - Junhyeok Jeon
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2602.07408'
+  code: https://github.com/icecream126/LINCSQA-PBIOAGENT/tree/main
+  cv_sort_order: 202602070659
+- id: woo2026riemannian
+  type: conference
+  title: Riemannian MeanFlow
+  authors:
+  - Dongyeop Woo
+  - Marta Skreta
+  - Seonghyun Park
+  - Kirill Neklyudov†
+  - Sungsoo Ahn†
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2602.07744'
+  code: https://github.com/dongyeop3813/Riemannian-MeanFlow
+  selected: true
+- id: kim2026machine
+  type: conference
+  title: Machine Learning Hamiltonians are Accurate Energy-Force Predictors
+  authors:
+  - Seongsu Kim
+  - Chanhui Lee
+  - Yoonho Kim
+  - Seongjun Yun
+  - Honghui Kim
+  - Nayoung Kim
+  - Changyoung Park
+  - Sehui Han
+  - Sungbin Lim†
+  - Sungsoo Ahn†
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2602.16897'
+  code: https://github.com/seongsukim-ml/QHFlow2
+  selected: true
+- id: kim2026atommof
+  type: preprint
+  title: 'AtomMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction'
+  authors:
+  - Nayoung Kim
+  - Honghui Kim
+  - Sihyun Yu
+  - Minkyu Kim
+  - Seongsu Kim
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2602.07351'
+  code: https://github.com/nayoung10/AtomMOF
+  selected: true
+  cv_sort_order: 202602070423
+- id: kim2026catflow
+  type: conference
+  title: 'CatFlow: Co-generation of Slab-Adsorbate Systems via Flow Matching'
+  authors:
+  - Minkyu Kim
+  - Nayoung Kim
+  - Honghui Kim
+  - Sungsoo Ahn
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2602.05372'
+  code: https://github.com/minkyu1022/CatFlow
+  selected: true
+- id: jang2026boltz
+  type: preprint
+  title: Boltz is a Strong Baseline for Atom-level Representation Learning
+  authors:
+  - Hyosoon Jang
+  - Hyunjin Seo
+  - Honghui Kim
+  - Seonghyun Park
+  - Taewon Kim
+  - Yunhui Jang
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2602.13249'
+  code: https://github.com/hsjang0/boltz-as-FM
+  cv_title_tex: A Systematic Evaluation of Co-folding Model Representations for Small-Molecule Learning
+  cv_sort_order: 202602020811
+- id: kim2026latent
+  type: conference
+  title: Latent Veracity Inference for Identifying Errors in Stepwise Reasoning
+  authors:
+  - Minsu Kim
+  - Jean-Pierre R. Falet
+  - Oliver Ethan Richardson
+  - Xiaoyin Chen
+  - Moksh Jain
+  - Sungjin Ahn
+  - Sungsoo Ahn
+  - Yoshua Bengio
+  venue: ICLR
+  year: 2026
+  abbr: ICLR
+  arxiv: '2505.11824'
+  code: https://github.com/alstn12088/veracity_inference
+- id: seo2026learning
+  type: conference
+  title: Learning Flexible Forward Trajectories for Masked Molecular Diffusion
+  authors:
+  - Hyunjin Seo*
+  - Taewon Kim*
+  - Sihyun Yu
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2026
+  abbr: ICLR
+  arxiv: '2505.16790'
+  code: https://github.com/holymollyhao/MELD
+  website: https://holymollyhao.github.io/MELD/
+- id: park2026learning
+  type: conference
+  title: Learning Collective Variables from BioEmu with Time-Lagged Generation
+  authors:
+  - Seonghyun Park
+  - Kiyoung Seong
+  - Soojung Yang
+  - Rafael Gómez-Bombarelli
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2026
+  abbr: ICLR
+  arxiv: '2507.07390'
+  code: https://github.com/seonghyun26/bioemu-cv
+  selected: true
+- id: kim2026dnachunker
+  type: conference
+  title: 'DNACHUNKER: Learnable Tokenization for DNA Language Models'
+  authors:
+  - Taewon Kim
+  - Jihwan Shin
+  - Hyomin Kim
+  - Youngmok Jung
+  - Jonghoon Lee
+  - Won-Chul Lee
+  - Sungsoo Ahn†
+  - Insu Han†
+  venue: ICML
+  year: 2026
+  abbr: ICML
+  arxiv: '2601.03019'
+  website: https://holymollyhao.github.io/dnachunker/
+- id: berto2025rlco
+  type: conference
+  title: 'RL4CO: an Extensive Reinforcement Learning for Combinatorial Optimization Benchmark'
+  authors:
+  - Federico Berto
+  - Chuanbo Hua
+  - Junyoung Park
+  - Laurin Luttmann
+  - Yining Ma
+  - Fanchen Bu
+  - Jiarui Wang
+  - Haoran Ye
+  - Minsu Kim
+  - Sanghyeok Choi
+  - Nayeli Gast Zepeda
+  - André Hottung
+  - Jianan Zhou
+  - Jieyi Bi
+  - Yu Hu
+  - Fei Liu
+  - Hyeonah Kim
+  - Jiwoo Son
+  - Haeyeon Kim
+  - Davide Angioni
+  - Wouter Kool
+  - Zhiguang Cao
+  - Qingfu Zhang
+  - Joungho Kim
+  - Jie Zhang
+  - Kijung Shin
+  - Cathy Wu
+  - Sungsoo Ahn
+  - Guojie Song
+  - Changhyun Kwon
+  - Kevin Tierney
+  - Lin Xie
+  - Jinkyoo Park
+  venue: KDD
+  year: 2025
+  abbr: KDD
+  arxiv: '2306.17100'
+  code: https://github.com/ai4co/rl4co
+- id: woo2025energybased
+  type: conference
+  title: 'Energy-based Generator Matching: A Neural Sampler for General State Space'
+  authors:
+  - Dongyeop Woo
+  - Minsu Kim
+  - Minkyu Kim
+  - Kiyoung Seong
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2025
+  abbr: NeurIPS
+  arxiv: '2505.19646'
+  code: https://github.com/dongyeop3813/EGM
+- id: kim2025scalable
+  type: conference
+  title: On Scalable and Efficient Training of Diffusion Samplers
+  authors:
+  - Minkyu Kim
+  - Kiyoung Seong
+  - Dongyeop Woo
+  - Sungsoo Ahn
+  - Minsu Kim
+  venue: NeurIPS
+  year: 2025
+  abbr: NeurIPS
+  arxiv: '2505.19552'
+  code: https://github.com/minkyu1022/SGDS
+- id: kim2025flexible
+  type: conference
+  title: Flexible MOF Generation with Torsion-Aware Flow Matching
+  authors:
+  - Nayoung Kim
+  - Seongsu Kim
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2025
+  abbr: NeurIPS
+  arxiv: '2505.17914'
+  code: https://github.com/nayoung10/MOFFlow-2
+  selected: true
+- id: kim2025highorder
+  type: conference
+  title: High-order Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction
+  authors:
+  - Seongsu Kim
+  - Nayoung Kim
+  - Dongwoo Kim
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2025
+  abbr: NeurIPS
+  presentation: Spotlight
+  arxiv: '2505.18817'
+  code: https://github.com/seongsukim-ml/QHFlow
+  selected: true
+- id: jang2025selftraining
+  type: conference
+  title: Self-Training Large Language Models with Confident Reasoning
+  authors:
+  - Hyosoon Jang
+  - Yunhui Jang
+  - Sungjae Lee
+  - Jungseul Ok
+  - Sungsoo Ahn
+  venue: EMNLP
+  year: 2025
+  abbr: EMNLP
+  arxiv: '2505.17454'
+  code: https://github.com/hsjang0/CORE-PO
+  cv_venue: 'Findings of the Association for Computational Linguistics: EMNLP 2025'
+- id: kim2025mtmol
+  type: conference
+  title: 'MT-Mol: Multi Agent System with Tool-based Reasoning for Molecular Optimization'
+  authors:
+  - Hyomin Kim
+  - Yunhui Jang
+  - Sungsoo Ahn
+  venue: EMNLP
+  year: 2025
+  abbr: EMNLP
+  arxiv: '2505.20820'
+  code: https://github.com/icecream126/mt_mol
+  cv_venue: 'Findings of the Association for Computational Linguistics: EMNLP 2025'
+- id: jang2025improving
+  type: conference
+  title: Improving Chemical Understanding of LLMs via SMILES Parsing
+  authors:
+  - Yunhui Jang
+  - Jaehyung Kim
+  - Sungsoo Ahn
+  venue: EMNLP
+  year: 2025
+  abbr: EMNLP
+  arxiv: '2505.16340'
+  code: https://github.com/yunhuijang/CLEANMOL
+  website: https://yunhuijang.github.io/projects/CLEANMOL/
+- id: hahm2025enhancing
+  type: conference
+  title: Enhancing LLM Agent Safety via Causal Influence Prompting
+  authors:
+  - Dongyoon Hahm
+  - Woogyeol Jin
+  - June Suk Choi
+  - Sungsoo Ahn
+  - Kimin Lee
+  venue: ACL
+  year: 2025
+  abbr: ACL
+  arxiv: '2507.00979'
+  code: https://github.com/HahmDY/causal_influence_prompting
+  cv_venue: 'Findings of the Association for Computational Linguistics: ACL 2025'
+- id: jang2025structural
+  type: conference
+  title: Structural Reasoning Improves Molecular Understanding of LLM
+  authors:
+  - Yunhui Jang
+  - Jaehyung Kim
+  - Sungsoo Ahn
+  venue: ACL
+  year: 2025
+  abbr: ACL
+  arxiv: '2410.05610'
+  code: https://github.com/yunhuijang/MSR
+  website: https://yunhuijang.github.io/projects/MSR/
+- id: seo2025generative
+  type: conference
+  title: Generative Flows on Synthetic Pathway for Drug Design
+  authors:
+  - Seonghwan Seo
+  - Minsu Kim
+  - Tony Shen
+  - Martin Ester
+  - Jinkyoo Park
+  - Sungsoo Ahn
+  - Woo Youn Kim
+  venue: ICLR
+  year: 2025
+  abbr: ICLR
+  arxiv: '2410.04542'
+- id: kim2025mofflow
+  type: conference
+  title: 'MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks'
+  authors:
+  - Nayoung Kim
+  - Seongsu Kim
+  - Minsu Kim
+  - Jinkyoo Park
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2025
+  abbr: ICLR
+  arxiv: '2410.17270'
+  code: https://github.com/nayoung10/MOFFlow
+  selected: true
+- id: seong2025transition
+  type: conference
+  title: Transition Path Sampling with Improved Off-Policy Training of Diffusion Path Samplers
+  authors:
+  - Kiyoung Seong
+  - Seonghyun Park
+  - Seonghwan Kim
+  - Woo Youn Kim
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2025
+  abbr: ICLR
+  arxiv: '2405.19961'
+  code: https://github.com/kiyoung98/tps-dps
+  website: https://kiyoung98.github.io/tps-dps/
+- id: kim2025rebind
+  type: conference
+  title: 'ReBind: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring'
+  authors:
+  - Taewon Kim*
+  - Hyunjin Seo*
+  - Sungsoo Ahn
+  - Eunho Yang
+  venue: ICLR
+  year: 2025
+  abbr: ICLR
+  arxiv: '2410.14696'
+  code: https://github.com/holymollyhao/ReBIND
+  cv_title_tex: 'REBIND: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring'
+- id: kim2025adaptive
+  type: conference
+  title: Adaptive Teachers for Amortized Samplers
+  authors:
+  - Minsu Kim*
+  - Sanghyeok Choi*
+  - Taeyoung Yun
+  - Emmanuel Bengio
+  - Leo Feng
+  - Jarrid Rector-Brooks
+  - Sungsoo Ahn
+  - Jinkyoo Park
+  - Nikolay Malkin
+  - Yoshua Bengio
+  venue: ICLR
+  year: 2025
+  abbr: ICLR
+  arxiv: '2410.01432'
+  code: https://github.com/alstn12088/adaptive-teacher
+  html: https://openreview.net/forum?id=BdmVgLMvaf
+- id: kim2024decoupled
+  type: journal
+  title: Decoupled Sequence and Structure Generation for Realistic Antibody Design
+  authors:
+  - Nayoung Kim
+  - Minsu Kim
+  - Sungsoo Ahn
+  - Jinkyoo Park
+  venue: TMLR
+  year: 2024
+  abbr: TMLR
+  arxiv: '2402.05982'
+  code: https://github.com/nayoung10/ASSD
+  html: https://openreview.net/forum?id=CTkABQvnkm
+- id: jang2024can
+  type: preprint
+  title: Can LLMs Generate Diverse Molecules? Towards Alignment with Structural Diversity
+  authors:
+  - Hyosoon Jang
+  - Yunhui Jang
+  - Jaehyung Kim
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2024
+  abbr: '-'
+  arxiv: '2410.03138'
+  cv_sort_order: 202410040000
+- id: woo2024iterated
+  type: preprint
+  title: Iterated Energy-based Flow Matching for Sampling from Boltzmann Densities
+  authors:
+  - Dongyeop Woo
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2024
+  abbr: '-'
+  arxiv: '2408.16249'
+  cv_sort_order: 202408300000
+- id: park2024nonbacktracking
+  type: journal
+  title: Non-backtracking Graph Neural Networks
+  authors:
+  - Seonghyun Park*
+  - Narae Ryu*
+  - Gahee Kim
+  - Dongyeop Woo
+  - Se-Young Yun†
+  - Sungsoo Ahn†
+  venue: TMLR
+  year: 2024
+  abbr: TMLR
+  arxiv: '2310.07430'
+  code: https://github.com/seonghyun26/nba-gnn
+  html: https://openreview.net/forum?id=64HdQKnyTc
+- id: jang2024pessimistic
+  type: conference
+  title: Pessimistic Backward Policy for GFlowNets
+  authors:
+  - Hyosoon Jang
+  - Yunhui Jang
+  - Minsu Kim
+  - Jinkyoo Park
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2024
+  abbr: NeurIPS
+  arxiv: '2405.16012'
+  code: https://github.com/hsjang0/Pessimistic-Backward-Policy-for-GFlowNets
+  html: https://openreview.net/forum?id=L8Q21Qrjmd
+- id: kim2024hybrid
+  type: conference
+  title: Hybrid Neural Representation for Spherical Data
+  authors:
+  - Hyomin Kim
+  - Yunhui Jang
+  - Jaeho Lee
+  - Sungsoo Ahn
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  arxiv: '2402.05965'
+  code: https://github.com/icecream126/HNeR-S/tree/main
+  html: https://proceedings.mlr.press/v235/kim24i.html
+  cv_title_tex: Hybrid Neural Representations for Spherical Data
+- id: kim2024gaussian
+  type: conference
+  title: Gaussian Plane-Wave Neural Operator for Electron Density Estimation
+  authors:
+  - Seongsu Kim
+  - Sungsoo Ahn
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  arxiv: '2402.04278'
+  code: https://github.com/seongsukim-ml/GPWNO
+  html: https://proceedings.mlr.press/v235/kim24b.html
+- id: kim2024improving
+  type: conference
+  title: Improving Robustness to Multiple Spurious Correlations by Multi-Objective Optimization
+  authors:
+  - Nayeong Kim
+  - Juwon Kang
+  - Sungsoo Ahn
+  - Jungseul Ok
+  - Suha Kwak
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  arxiv: '2409.03303'
+  code: https://github.com/Nayeong-V-Kim/multiple_spurious_correlation_by_MOO
+  html: https://openreview.net/pdf/9f78a2f076c28d47f30480231e6908378b569466.pdf
+- id: kim2024enhancing
+  type: conference
+  title: Enhancing Sample Efficiency in Black-box Combinatorial Optimization via Symmetric Replay Training
+  authors:
+  - Hyeonah Kim
+  - Minsu Kim
+  - Sungsoo Ahn
+  - Jinkyoo Park
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  arxiv: '2306.01276'
+  code: https://github.com/kaist-silab/symmetric_replay
+  cv_title_tex: 'Symmetric Replay Training: Enhancing Sample Efficiency in Deep Reinforcement Learning for Combinatorial Optimization'
+- id: bu2024tackling
+  type: conference
+  title: Tackling Complex Conditions in Unsupervised Combinatorial Optimization
+  authors:
+  - Fanchen Bu
+  - Hyeonsoo Jo
+  - Soo Yong Lee
+  - Sungsoo Ahn
+  - Kijung Shin
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  arxiv: '2405.08424'
+  code: https://github.com/ai4co/unsupervised-CO-ucom2
+  html: https://openreview.net/forum?id=kbQIWi4ZiL
+  cv_title_tex: 'Tackling Prevalent Conditions in Unsupervised Combinatorial Optimization: Cardinality, Minimum, Covering,
+    and More'
+- id: yoon2024breadthfirst
+  type: conference
+  title: Breadth-First Exploration in Adaptive Grid-based Reinforcement Learning
+  authors:
+  - Youngsik Yoon
+  - Gangbok Lee
+  - Sungsoo Ahn
+  - Jungseul Ok
+  venue: ICML
+  year: 2024
+  abbr: ICML
+  code: https://github.com/ml-postech/BEAG
+  website: https://youngsikyoon.github.io/BEAG/
+  html: https://proceedings.mlr.press/v235/yoon24d.html
+  cv_title_tex: Breadth-First Exploration on Adaptive Grid for Reinforcement Learning
+- id: kim2024holistic
+  type: journal
+  title: Holistic Molecular Representation Learning via Multi-view Fragmentation
+  authors:
+  - Seojin Kim
+  - Jaehyun Nam
+  - Junsu Kim
+  - Hankook Lee
+  - Sungsoo Ahn
+  - Jinwoo Shin
+  venue: TMLR
+  year: 2024
+  abbr: TMLR
+  code: https://github.com/Seojin-Kim/HoliMol
+  html: https://openreview.net/forum?id=ufDh55J1ML
+- id: heo2024epic
+  type: conference
+  title: 'EPIC: Graph Augmentation with Edit Path Interpolation via Learnable Cost'
+  authors:
+  - Jaeseung Heo
+  - Seungbeom Lee
+  - Sungsoo Ahn
+  - Dongwoo Kim
+  venue: IJCAI
+  year: 2024
+  abbr: IJCAI
+  arxiv: '2306.01310'
+  html: https://www.ijcai.org/proceedings/2024/0455
+- id: jang2024learning
+  type: conference
+  title: Learning Energy Decompositions for Partial Inference in GFlowNets
+  authors:
+  - Hyosoon Jang
+  - Minsu Kim
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2024
+  abbr: ICLR
+  presentation: Oral
+  arxiv: '2310.03301'
+  code: https://github.com/hsjang0/LED-GFN
+  html: https://openreview.net/forum?id=P15CHILQlg
+  cv_annotation: oral presentation (86 of 7,304 submissions, 1.2%)
+- id: jang2024simple
+  type: conference
+  title: A Simple and Scalable Representation for Graph Generation
+  authors:
+  - Yunhui Jang
+  - Seul Lee
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2024
+  abbr: ICLR
+  arxiv: '2312.02230'
+  code: https://github.com/yunhuijang/GEEL
+  website: https://yunhuijang.github.io/projects/GEEL/
+  html: https://openreview.net/forum?id=nO344avRib
+- id: jang2024graph
+  type: conference
+  title: Graph Generation with K^2 Trees
+  authors:
+  - Yunhui Jang
+  - Dongwoo Kim
+  - Sungsoo Ahn
+  venue: ICLR
+  year: 2024
+  abbr: ICLR
+  arxiv: '2305.19125'
+  code: https://github.com/yunhuijang/hggt
+  website: https://yunhuijang.github.io/projects/HGGT/
+  html: https://openreview.net/forum?id=RIEW6M9YoV&noteId=u4TTrh9jWw
+  cv_title_tex: Graph Generation with $K^2$-trees
+- id: kim2024local
+  type: conference
+  title: Local Search GFlowNets
+  authors:
+  - Minsu Kim
+  - Taeyoung Yun
+  - Emmanuel Bengio
+  - Dinghuai Zhang
+  - Yoshua Bengio
+  - Sungsoo Ahn
+  - Jinkyoo Park
+  venue: ICLR
+  year: 2024
+  abbr: ICLR
+  presentation: Spotlight
+  arxiv: '2310.02710'
+  code: https://github.com/dbsxodud-11/ls_gfn
+  html: https://openreview.net/forum?id=6cFcw1Rxww
+  cv_annotation: spotlight presentation (366 of 7,304 submissions, 5.0%)
+- id: cho2023multiresolution
+  type: conference
+  title: Multi-resolution Spectral Coherence for Graph Generation with Score-based Diffusion
+  authors:
+  - Hyuna Cho
+  - Minjae Jeong
+  - Sooyeon Jeon
+  - Sungsoo Ahn
+  - Won Hwa Kim
+  venue: NeurIPS
+  year: 2023
+  abbr: NeurIPS
+  html: https://proceedings.neurips.cc/paper_files/paper/2023/hash/427f20d90386fd27804f1831d6a3d48f-Abstract-Conference.html
+- id: jang2023diffusion
+  type: conference
+  title: Diffusion Probabilistic Models for Structured Node Classification
+  authors:
+  - Hyosoon Jang
+  - Seonghyun Park
+  - Sangwoo Mo
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2023
+  abbr: NeurIPS
+  arxiv: '2302.10506'
+  code: https://github.com/hsjang0/DPM-SNC
+  html: https://proceedings.neurips.cc/paper_files/paper/2023/hash/65d32185f73cbf4535449a792c63926f-Abstract-Conference.html
+- id: kim2023bootstrapped
+  type: conference
+  title: Bootstrapped Training of Score-Conditioned Generator for Offline Design of Biological Sequences
+  authors:
+  - Minsu Kim
+  - Federico Berto
+  - Sungsoo Ahn
+  - Jinkyoo Park
+  venue: NeurIPS
+  year: 2023
+  abbr: NeurIPS
+  arxiv: '2306.03111'
+  code: https://github.com/kaist-silab/bootgen
+  html: https://openreview.net/forum?id=fj0ZeRtUTU&noteId=pI7h4pCa0P
+- id: shin2023closer
+  type: conference
+  title: A Closer Look at the Intervention Procedure of Concept Bottleneck Models
+  authors:
+  - Sungbin Shin
+  - Yohan Jo
+  - Sungsoo Ahn
+  - Namhoon Lee
+  venue: ICML
+  year: 2023
+  abbr: ICML
+  arxiv: '2302.14260'
+  code: https://github.com/ssbin4/Closer-Intervention-CBM
+  html: https://proceedings.mlr.press/v202/shin23a/shin23a.pdf
+- id: kim2023imitating
+  type: conference
+  title: Imitating Graph-Based Planning with Goal-Conditioned Policies
+  authors:
+  - Junsu Kim
+  - Younggyo Seo
+  - Sungsoo Ahn
+  - Kyunghwan Son
+  - Jinwoo Shin
+  venue: ICLR
+  year: 2023
+  abbr: ICLR
+  arxiv: '2303.11166'
+  code: https://github.com/junsu-kim97/PIG
+  html: https://openreview.net/forum?id=6lUEy1J5R7p
+- id: kim2022learning
+  type: conference
+  title: Learning Debiased Classifier with Biased Committee
+  authors:
+  - Nayeong Kim
+  - Sehyun Hwang
+  - Sungsoo Ahn
+  - Jaesik Park
+  - Suha Kwak
+  venue: NeurIPS
+  year: 2022
+  abbr: NeurIPS
+  arxiv: '2206.10843'
+  code: https://github.com/nayeong-v-kim/LWBC
+  html: https://openreview.net/forum?id=nOw2HiKmvk1
+- id: son2022disentangling
+  type: conference
+  title: Disentangling Sources of Risk for Distributional Multi-Agent Reinforcement Learning
+  authors:
+  - Kyunghwan Son
+  - Junsu Kim
+  - Sungsoo Ahn
+  - Roben Delos Reyes
+  - Yung Yi
+  - Jinwoo Shin
+  venue: ICML
+  year: 2022
+  abbr: ICML
+  html: https://proceedings.mlr.press/v162/son22a/son22a.pdf
+- id: kim2022what
+  type: conference
+  title: What Makes Better Augmentation Strategies? Augment Difficult but Not Too Different
+  authors:
+  - Jaehyung Kim
+  - Dongyeop Kang
+  - Sungsoo Ahn
+  - Jinwoo Shin
+  venue: ICLR
+  year: 2022
+  abbr: ICLR
+  code: https://github.com/bbuing9/DND
+  html: https://openreview.net/forum?id=Ucx3DQbC9GH
+- id: ahn2022spanning
+  type: conference
+  title: Spanning Tree-based Graph Generation for Molecules
+  authors:
+  - Sungsoo Ahn
+  - Binghong Chen
+  - Tianzhe Wang
+  - Le Song
+  venue: ICLR
+  year: 2022
+  abbr: ICLR
+  presentation: Spotlight
+  html: https://openreview.net/forum?id=w60btE_8T2m
+  cv_annotation: spotlight presentation (174 of 3,422 submissions, 5.1%)
+- id: yu2021roma
+  type: conference
+  title: 'RoMA: Robust Model Adaptation for Offline Model-based Optimization'
+  authors:
+  - Sihyun Yu
+  - Sungsoo Ahn
+  - Le Song
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2021
+  abbr: NeurIPS
+  arxiv: '2110.14188'
+  code: https://github.com/sihyun-yu/RoMA
+- id: kim2021selfimproved
+  type: conference
+  title: Self-Improved Retrosynthetic Planning
+  authors:
+  - Junsu Kim
+  - Sungsoo Ahn
+  - Hankook Lee
+  - Jinwoo Shin
+  venue: ICML
+  year: 2021
+  abbr: ICML
+  arxiv: '2106.04880'
+  code: https://github.com/junsu-kim97/self_improved_retro
+  html: https://proceedings.mlr.press/v139/kim21b/kim21b.pdf
+- id: lee2021retcl
+  type: conference
+  title: 'RetCL: A Selection-based Approach for Retrosynthesis via Contrastive Learning'
+  authors:
+  - Hankook Lee
+  - Sungsoo Ahn
+  - Seung-Woo Seo
+  - You Young Song
+  - Eunho Yang
+  - Sung-Ju Hwang
+  - Jinwoo Shin
+  venue: IJCAI
+  year: 2021
+  abbr: IJCAI
+  arxiv: '2105.00795'
+  code: https://github.com/hankook/RetCL
+  html: https://www.ijcai.org/proceedings/2021/0368.pdf
+- id: lee2021layeradaptive
+  type: conference
+  title: Layer-adaptive sparsity for the Magnitude-based Pruning
+  authors:
+  - Jaeho Lee
+  - Sejun Park
+  - Sangwoo Mo
+  - Sungsoo Ahn
+  - Jinwoo Shin
+  venue: ICLR
+  year: 2021
+  abbr: ICLR
+  arxiv: '2010.07611'
+  code: https://github.com/jaeho-lee/layer-adaptive-sparsity
+  html: https://openreview.net/forum?id=H6ATjJ0TKdf
+- id: nam2020learning
+  type: conference
+  title: 'Learning from Failure: Training Debiased Classifier from Biased Classifier'
+  authors:
+  - Junhyun Nam
+  - Hyuntak Cha
+  - Sungsoo Ahn
+  - Jaeho Lee
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2020
+  abbr: NeurIPS
+  arxiv: '2007.02561'
+  code: https://github.com/alinlab/LfF
+  html: https://proceedings.neurips.cc/paper/2020/file/eddc3427c5d77843c2253f1e799fe933-Paper.pdf
+- id: ahn2020guiding
+  type: conference
+  title: Guiding Deep Molecular Optimization with Genetic Exploration
+  authors:
+  - Sungsoo Ahn
+  - Junsu Kim
+  - Hankook Lee
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2020
+  abbr: NeurIPS
+  arxiv: '2007.04897'
+  code: https://github.com/sungsoo-ahn/genetic-expert-guided-learning
+  html: https://proceedings.neurips.cc/paper/2020/file/8ba6c657b03fc7c8dd4dff8e45defcd2-Paper.pdf
+- id: ahn2020learning
+  type: conference
+  title: Learning What to Defer for Maximum Independent Sets
+  authors:
+  - Sungsoo Ahn
+  - Younggyo Seo
+  - Jinwoo Shin
+  venue: ICML
+  year: 2020
+  abbr: ICML
+  arxiv: '2006.09607'
+  code: https://github.com/sungsoo-ahn/learning_what_to_defer
+  html: https://proceedings.mlr.press/v119/ahn20a/ahn20a.pdf
+- id: ahn2019variational
+  type: conference
+  title: Variational Information Distillation for Knowledge Transfer
+  authors:
+  - Sungsoo Ahn
+  - Shell Xu Hu
+  - Andreas Damianou
+  - Neil D. Lawrence
+  - Zhenwen Dai
+  venue: CVPR
+  year: 2019
+  abbr: CVPR
+  arxiv: '1904.05835'
+  code: https://github.com/amzn/xfer/tree/master/var_info_distil
+  html: https://openaccess.thecvf.com/content_CVPR_2019/papers/Ahn_Variational_Information_Distillation_for_Knowledge_Transfer_CVPR_2019_paper.pdf
+- id: ahn2019bucketrenormalization
+  type: journal
+  title: Bucket-Renormalization for Approximate Inference
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Adrian Weller
+  - Jinwoo Shin
+  venue: JSTAT
+  year: 2019
+  abbr: JSTAT
+  arxiv: '1803.05104'
+  code: https://github.com/sungsoo-ahn/bucket-renormalization
+  html: https://iopscience.iop.org/article/10.1088/1742-5468/ab3218
+  cv_title_tex: Bucket Renormalization for Approximate Inference
+  cv_details: 2019(12), 124015
+- id: ahn2019gauging
+  type: journal
+  title: Gauging Variational Inference
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Jinwoo Shin
+  venue: JSTAT
+  year: 2019
+  abbr: JSTAT
+  arxiv: '1703.01056'
+  html: https://iopscience.iop.org/article/10.1088/1742-5468/ab3217
+  cv_details: 2019(12), 124022
+- id: ahn2018bucketrenormalization
+  type: conference
+  title: Bucket-Renormalization for Approximate Inference
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Adrian Weller
+  - Jinwoo Shin
+  venue: ICML
+  year: 2018
+  abbr: ICML
+  arxiv: '1803.05104'
+  code: https://github.com/sungsoo-ahn/bucket-renormalization
+  html: https://proceedings.mlr.press/v80/ahn18a.html
+  cv_title_tex: Bucket Renormalization for Approximate Inference
+- id: ahn2018gauged
+  type: conference
+  title: Gauged Mini-Bucket Elimination for Approximate Inference
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Jinwoo Shin
+  - Adrian Weller
+  venue: AISTATS
+  year: 2018
+  abbr: AISTATS
+  arxiv: '1801.01649'
+  code: https://github.com/sungsoo-ahn/gauged-mbe
+  html: http://proceedings.mlr.press/v84/ahn18a.html
+- id: ahn2018maximum
+  type: journal
+  title: 'Maximum Weight Matching using Odd-sized Cycles: Max-Product Belief Propagation and Half-Integrality'
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Andrew E. Gelfand
+  - Sejun Park
+  - Jinwoo Shin
+  venue: IEEE TIT
+  year: 2018
+  abbr: IEEE TIT
+  html: https://ieeexplore.ieee.org/document/8241842
+  cv_details: 64(3), 1471--1480
+- id: ahn2017gauging
+  type: conference
+  title: Gauging Variational Inference
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2017
+  abbr: NeurIPS
+  arxiv: '1703.01056'
+  html: https://proceedings.neurips.cc/paper/2017/file/8d420fa35754d1f1c19969c88780314d-Paper.pdf
+- id: ahn2016synthesis
+  type: conference
+  title: Synthesis of MCMC and Belief Propagation
+  authors:
+  - Sungsoo Ahn
+  - Michael Chertkov
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2016
+  abbr: NeurIPS
+  presentation: Oral
+  arxiv: '1605.09042'
+  html: https://papers.nips.cc/paper/6318-synthesis-of-mcmc-and-belief-propagation.pdf
+  cv_annotation: oral presentation (46 of 2,500 submissions, 1.8%)
+- id: ahn2015minimum
+  type: conference
+  title: Minimum Weight Perfect Matching via Blossom Belief Propagation
+  authors:
+  - Sungsoo Ahn
+  - Sejun Park
+  - Michael Chertkov
+  - Jinwoo Shin
+  venue: NeurIPS
+  year: 2015
+  abbr: NeurIPS
+  presentation: Spotlight
+  arxiv: '1509.06849'
+  html: https://proceedings.neurips.cc/paper/2015/file/dc5689792e08eb2e219dce49e64c885b-Paper.pdf
+  cv_annotation: spotlight presentation (82 of 1,838 submissions, 4.5%)

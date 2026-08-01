@@ -5,16 +5,13 @@ import scripts.update_cv as update_cv
 
 
 def generated_output() -> str:
-    entries = update_cv.apply_overrides(
-        update_cv.parse_bib(update_cv.BIB_PATH),
-        update_cv.load_overrides(update_cv.OVERRIDES_PATH),
-    )
-    conferences = [e for e in entries if update_cv.get_abbr(e) in update_cv.CONFERENCE_ABBRS]
-    journals = [e for e in entries if update_cv.get_abbr(e) in update_cv.JOURNAL_ABBRS]
+    entries = update_cv.load_publications()
+    conferences = [e for e in entries if e["type"] == "conference"]
+    journals = [e for e in entries if e["type"] == "journal"]
     preprints = [
         e
         for e in entries
-        if update_cv.get_abbr(e) == update_cv.PREPRINT_ABBR and e.get("arxiv", "").strip()
+        if e["type"] == "preprint" and str(e.get("arxiv", "")).strip()
     ]
     conferences.sort(key=update_cv.sort_key)
     journals.sort(key=update_cv.sort_key)
@@ -31,6 +28,27 @@ def generated_output() -> str:
 
 
 class UpdateCvTest(unittest.TestCase):
+    def test_structured_sections_match_generated_cv_source(self):
+        cv_source = Path("cv/cv.tex").read_text(encoding="utf-8")
+        data = update_cv.load_cv_data()
+        self.assertEqual(update_cv.expected_cv_source(cv_source, data), cv_source)
+        for section in update_cv.render_cv_sections(data):
+            self.assertEqual(cv_source.count(f"% SYNC:{section}:BEGIN"), 1)
+            self.assertEqual(cv_source.count(f"% SYNC:{section}:END"), 1)
+
+    def test_committed_pdf_matches_sources_and_website_copy(self):
+        self.assertEqual(
+            Path("cv/source.sha256").read_text(encoding="utf-8").strip(),
+            update_cv.source_digest(),
+        )
+        self.assertEqual(Path("cv/cv.pdf").read_bytes(), Path("assets/pdf/cv.pdf").read_bytes())
+
+    def test_plain_text_is_safely_escaped_for_latex(self):
+        self.assertEqual(
+            update_cv.tex_escape_plain("KAIST–Mila & 50%"),
+            r"KAIST--Mila \& 50\%",
+        )
+
     def test_talk_titles_and_dates_are_consistent(self):
         cv_source = Path("cv/cv.tex").read_text(encoding="utf-8")
         caio_title = "비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례"
@@ -135,28 +153,22 @@ class UpdateCvTest(unittest.TestCase):
         self.assertNotIn("Pohang University of Science and Technology", cv_source)
 
     def test_publication_counts_and_icml_2026_acceptances(self):
-        entries = update_cv.apply_overrides(
-            update_cv.parse_bib(update_cv.BIB_PATH),
-            update_cv.load_overrides(update_cv.OVERRIDES_PATH),
-        )
-        conferences = [e for e in entries if update_cv.get_abbr(e) in update_cv.CONFERENCE_ABBRS]
-        journals = [e for e in entries if update_cv.get_abbr(e) in update_cv.JOURNAL_ABBRS]
+        entries = update_cv.load_publications()
+        conferences = [e for e in entries if e["type"] == "conference"]
+        journals = [e for e in entries if e["type"] == "journal"]
         preprints = [
             e
             for e in entries
-            if update_cv.get_abbr(e) == update_cv.PREPRINT_ABBR and e.get("arxiv", "").strip()
+            if e["type"] == "preprint" and str(e.get("arxiv", "")).strip()
         ]
         icml_2026 = [
-            e for e in conferences if update_cv.get_abbr(e) == "ICML" and e["year"] == "2026"
+            e for e in conferences if update_cv.get_abbr(e) == "ICML" and e["year"] == 2026
         ]
         self.assertEqual((len(conferences), len(journals), len(preprints)), (58, 6, 10))
         self.assertEqual(len(icml_2026), 6)
 
     def test_conferences_use_reverse_chronological_order(self):
-        entries = update_cv.apply_overrides(
-            update_cv.parse_bib(update_cv.BIB_PATH),
-            update_cv.load_overrides(update_cv.OVERRIDES_PATH),
-        )
+        entries = update_cv.load_publications()
         conferences_2024 = sorted(
             [
                 e
@@ -194,14 +206,11 @@ class UpdateCvTest(unittest.TestCase):
         self.assertIn("Rafael G\\'{o}mez-Bombarelli", output)
 
     def test_daggers_mark_equal_corresponding_authors(self):
-        entries = update_cv.apply_overrides(
-            update_cv.parse_bib(update_cv.BIB_PATH),
-            update_cv.load_overrides(update_cv.OVERRIDES_PATH),
-        )
-        daggered_entries = [entry for entry in entries if "†" in entry.get("author", "")]
+        entries = update_cv.load_publications()
+        daggered_entries = [entry for entry in entries if any("†" in author for author in entry["authors"])]
         self.assertGreater(len(daggered_entries), 0)
         for entry in daggered_entries:
-            self.assertGreaterEqual(entry["author"].count("†"), 2, entry["title"])
+            self.assertGreaterEqual(sum("†" in author for author in entry["authors"]), 2, entry["title"])
 
     def test_four_recent_preprints_are_present(self):
         output = generated_output()
@@ -226,7 +235,7 @@ class UpdateCvTest(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
 
     def test_publication_section_labels_and_links_are_consistent(self):
-        update_cv.main()
+        update_cv.main(["--no-compile"])
         rendered = Path("cv/publications.tex").read_text(encoding="utf-8")
         for heading in ("Conference Papers", "Journal Articles", "Preprints"):
             self.assertIn(f"\\textsc{{{heading}}}", rendered)

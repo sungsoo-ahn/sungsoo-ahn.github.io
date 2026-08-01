@@ -1,0 +1,18 @@
+{% assign publications = include.publications %}
+{% if include.group_by_year %}
+  {% assign publication_years = publications | group_by: 'year' %}
+  {% for publication_year in publication_years %}
+    <h2 class="bibliography">{{ publication_year.name }}</h2>
+    <ol class="bibliography">
+      {% for publication in publication_year.items %}
+        <li>{% include publication.liquid publication=publication %}</li>
+      {% endfor %}
+    </ol>
+  {% endfor %}
+{% else %}
+  <ol class="bibliography">
+    {% for publication in publications %}
+      <li>{% include publication.liquid publication=publication %}</li>
+    {% endfor %}
+  </ol>
+{% endif %}
