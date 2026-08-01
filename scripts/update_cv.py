@@ -8,10 +8,12 @@ import re
 from pathlib import Path
 
 import bibtexparser
+import yaml
 
 # Paths
 BIB_PATH = Path(__file__).parent.parent / "_bibliography/papers.bib"
 OUTPUT_PATH = Path(__file__).parent.parent / "cv/publications.tex"
+OVERRIDES_PATH = Path(__file__).parent.parent / "cv/publication_overrides.yml"
 
 # Which abbr values belong to which category
 CONFERENCE_ABBRS = {
@@ -26,12 +28,12 @@ CONFERENCE_FULL = {
     "NeurIPS": "Conference on Neural Information Processing Systems (NeurIPS)",
     "ICML": "International Conference on Machine Learning (ICML)",
     "ICLR": "International Conference on Learning Representations (ICLR)",
-    "CVPR": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "CVPR": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
     "IJCAI": "International Joint Conference on Artificial Intelligence (IJCAI)",
     "AISTATS": "International Conference on Artificial Intelligence and Statistics (AISTATS)",
     "EMNLP": "Empirical Methods in Natural Language Processing (EMNLP)",
     "ACL": "Annual Meeting of the Association for Computational Linguistics (ACL)",
-    "KDD": "Knowledge Discovery and Data Mining (KDD)",
+    "KDD": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
 }
 
 # Full venue names for journals
@@ -41,13 +43,18 @@ JOURNAL_FULL = {
     "IEEE TIT": "IEEE Transactions on Information Theory",
 }
 
-# Conference priority for sorting within the same year (lower = earlier)
+# Reverse calendar order within the same year (later conferences first).
 CONF_PRIORITY = {
-    "ICLR": 0, "ICML": 1, "ACL": 2, "IJCAI": 3, "KDD": 4,
-    "EMNLP": 5, "NeurIPS": 6, "CVPR": 7, "AISTATS": 8,
+    "NeurIPS": 0, "EMNLP": 1, "KDD": 2, "IJCAI": 3, "ACL": 4,
+    "ICML": 5, "CVPR": 6, "AISTATS": 7, "ICLR": 8,
 }
 
 MY_NAME = "Sungsoo Ahn"
+
+UNICODE_TEX = {
+    "André": r"Andr\'{e}",
+    "Gómez": r"G\'{o}mez",
+}
 
 
 def parse_bib(path: Path) -> list[dict]:
@@ -59,6 +66,31 @@ def parse_bib(path: Path) -> list[dict]:
     parser.ignore_nonstandard_types = False
     bib_db = bibtexparser.loads(text, parser=parser)
     return bib_db.entries
+
+
+def load_overrides(path: Path) -> dict[str, dict]:
+    """Load citation-keyed CV rendering overrides."""
+    if not path.exists():
+        return {}
+    data = yaml.safe_load(path.read_text()) or {}
+    if not isinstance(data, dict):
+        raise ValueError(f"Expected a mapping in {path}")
+    return data
+
+
+def apply_overrides(entries: list[dict], overrides: dict[str, dict]) -> list[dict]:
+    """Merge rendering-only overrides without changing the bibliography."""
+    known_ids = {entry["ID"] for entry in entries}
+    unknown_ids = sorted(set(overrides) - known_ids)
+    if unknown_ids:
+        raise ValueError(f"Unknown citation keys in {OVERRIDES_PATH}: {unknown_ids}")
+
+    for entry in entries:
+        override = overrides.get(entry["ID"], {})
+        if not isinstance(override, dict):
+            raise ValueError(f"Override for {entry['ID']} must be a mapping")
+        entry.update(override)
+    return entries
 
 
 def get_abbr(entry: dict) -> str:
@@ -79,8 +111,15 @@ def sort_key(entry: dict) -> tuple:
     return (-get_year(entry), priority)
 
 
+def preprint_sort_key(entry: dict) -> tuple:
+    """Sort preprints by year and then exact submission timestamp when supplied."""
+    return (-get_year(entry), -int(entry.get("sort_order", "0")))
+
+
 def tex_escape(s: str) -> str:
     """Escape special LaTeX characters in text (but not commands)."""
+    for source, target in UNICODE_TEX.items():
+        s = s.replace(source, target)
     s = s.replace("&", r"\&")
     s = s.replace("%", r"\%")
     return s
@@ -107,6 +146,7 @@ def format_author(name: str) -> str:
                 markers += r"$^\dagger$"
 
     # Check if this is our name
+    clean = tex_escape(clean)
     if clean == MY_NAME:
         return rf"\me{{{clean}}}{markers}"
     return f"{clean}{markers}"
@@ -131,25 +171,32 @@ def format_venue_conference(entry: dict) -> str:
     abbr = get_abbr(entry)
     booktitle = entry.get("booktitle", "").strip()
 
-    # ACL Findings special case: use booktitle directly
-    if "Findings" in booktitle:
-        full = "Annual Meeting of the Association for Computational Linguistics (ACL) Findings"
+    if entry.get("venue"):
+        full = entry["venue"].strip()
+    # ACL Findings special case: use the official anthology volume title.
+    elif "Findings" in booktitle:
+        full = f"Findings of the Association for Computational Linguistics: {abbr} {entry['year']}"
     elif abbr == "KDD":
-        full = "Knowledge Discovery and Data Mining (KDD) Datasets and Benchmarks"
+        full = "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), Datasets and Benchmarks Track"
     else:
         full = CONFERENCE_FULL.get(abbr, booktitle)
 
-    return rf"In \textit{{{full}}}"
+    return rf"in \textit{{{full}}}"
 
 
 def format_venue_journal(entry: dict) -> str:
     """Format venue string for a journal entry."""
     abbr = get_abbr(entry)
-    full = JOURNAL_FULL.get(abbr, entry.get("journal", abbr))
+    full = entry.get("venue", JOURNAL_FULL.get(abbr, entry.get("journal", abbr)))
 
-    parts = [rf"In \textit{{{full}}}"]
+    parts = [rf"\textit{{{full}}}"]
 
     # Add volume/number/pages if present
+    override_details = entry.get("details", "").strip()
+    if override_details:
+        parts.append(override_details)
+        return ", ".join(parts)
+
     vol = entry.get("volume", "")
     num = entry.get("number", "")
     pages = entry.get("pages", "")
@@ -169,9 +216,13 @@ def format_venue_preprint(entry: dict) -> str:
     return r"\textit{arXiv}"
 
 
-def format_arxiv_link(entry: dict) -> str:
-    """Format arxiv link if present."""
+def format_paper_link(entry: dict, category: str) -> str:
+    """Prefer an official paper page, falling back to arXiv."""
+    official = entry.get("paper_url", entry.get("html", "")).strip()
     arxiv = entry.get("arxiv", "").strip()
+    if category != "preprint" and official:
+        official = official.replace("&", r"\&")
+        return rf" \href{{{official}}}{{[paper]}}"
     if arxiv:
         return rf" \href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}"
     return ""
@@ -180,6 +231,8 @@ def format_arxiv_link(entry: dict) -> str:
 def format_annotation(entry: dict) -> str:
     """Format annotation (award) if present."""
     ann = entry.get("annotation", "").strip()
+    if not ann and entry.get("presentation", "").strip():
+        ann = f"{entry['presentation'].strip().lower()} presentation"
     if ann:
         ann = tex_escape(ann)
         return rf", \textcolor{{WineRed}}{{{ann}}}"
@@ -188,7 +241,7 @@ def format_annotation(entry: dict) -> str:
 
 def format_entry(entry: dict, category: str) -> str:
     """Format a single bib entry as a LaTeX \\item line."""
-    title = entry.get("title", "").strip()
+    title = entry.get("title_tex", entry.get("title", "")).strip()
     authors = format_authors(entry.get("author", ""))
     year = entry.get("year", "").strip()
 
@@ -199,14 +252,14 @@ def format_entry(entry: dict, category: str) -> str:
     else:
         venue = format_venue_preprint(entry)
 
-    arxiv = format_arxiv_link(entry)
+    paper_link = format_paper_link(entry, category)
     annotation = format_annotation(entry)
 
-    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{arxiv}"
+    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{paper_link}"
 
 
 def main():
-    entries = parse_bib(BIB_PATH)
+    entries = apply_overrides(parse_bib(BIB_PATH), load_overrides(OVERRIDES_PATH))
 
     conferences = []
     journals = []
@@ -224,13 +277,13 @@ def main():
 
     conferences.sort(key=sort_key)
     journals.sort(key=sort_key)
-    preprints.sort(key=sort_key)
+    preprints.sort(key=preprint_sort_key)
 
     lines = []
 
     # Conference section
     lines.append(r"\vspace{0.5\baselineskip}")
-    lines.append(r"\textsc{Conference}")
+    lines.append(r"\textsc{Conference Papers}")
     lines.append(r"\begin{enumerate}")
     for e in conferences:
         lines.append(format_entry(e, "conference"))
@@ -239,7 +292,7 @@ def main():
 
     # Journal section
     lines.append(r"\vspace{0.5\baselineskip}")
-    lines.append(r"\textsc{Journal}")
+    lines.append(r"\textsc{Journal Articles}")
     lines.append(r"\begin{enumerate}")
     for e in journals:
         lines.append(format_entry(e, "journal"))
@@ -248,7 +301,7 @@ def main():
 
     # Preprint section
     lines.append(r"\vspace{0.5\baselineskip}")
-    lines.append(r"\textsc{Preprint}")
+    lines.append(r"\textsc{Preprints}")
     lines.append(r"\begin{enumerate}")
     for e in preprints:
         lines.append(format_entry(e, "preprint"))
