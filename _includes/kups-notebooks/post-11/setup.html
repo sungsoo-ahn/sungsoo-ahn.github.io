@@ -4,6 +4,9 @@
 <summary><span>Python</span></summary>
 <div class="highlight"><pre class="highlight"><code class="language-python">from pathlib import Path
 import os
+import warnings
+
+warnings.filterwarnings(&quot;ignore&quot;, message=&quot;IProgress not found&quot;)
 
 import numpy as np
 from IPython.display import Image, display
