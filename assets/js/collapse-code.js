@@ -2,6 +2,11 @@
 // Targets the static .highlighter-rouge wrapper that kramdown generates,
 // so this script works regardless of copy_code.js execution order.
 document.querySelectorAll("div.highlighter-rouge").forEach(function (block) {
+  // Generated notebook cells already own their <details> wrapper.
+  if (block.closest("details.code-collapse")) {
+    return;
+  }
+
   // Extract language from the wrapper class, e.g. "language-python" → "Python"
   var lang = "Code";
   var match = block.className.match(/language-(\S+)/);

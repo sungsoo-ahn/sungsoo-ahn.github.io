@@ -70,15 +70,271 @@
     },
     "title": "How Do Thermostats Change Sampling and Dynamics?"
   },
+  "engine": "kups",
   "execution": {
-    "elapsed_seconds": 104.511,
+    "elapsed_seconds": 620.328,
     "max_full_profile_seconds": 3600,
     "measured_by": "kups_md_tutorials.workflows.run_post"
   },
+  "kups_entry_point": "kups.application.simulations.md.run",
+  "kups_config": {
+    "cases": [
+      {
+        "block_size": 20,
+        "friction_per_fs": 0.01,
+        "initialize_momenta": true,
+        "integrator": "baoab_langevin",
+        "name": "baoab_nvt",
+        "num_steps": 20000,
+        "num_warmup_steps": 20000,
+        "seed": 40401,
+        "temperature_k": 100.0,
+        "thermostat_time_constant_fs": 100.0,
+        "time_step_fs": 2.0
+      },
+      {
+        "block_size": 20,
+        "friction_per_fs": 0.0,
+        "initialize_momenta": true,
+        "integrator": "csvr",
+        "name": "csvr_nvt",
+        "num_steps": 20000,
+        "num_warmup_steps": 20000,
+        "seed": 40402,
+        "temperature_k": 100.0,
+        "thermostat_time_constant_fs": 100.0,
+        "time_step_fs": 2.0
+      }
+    ],
+    "number_density_per_angstrom3": 0.0275,
+    "potential": {
+      "cutoff_angstrom": 10.0,
+      "epsilon_ev": 0.010326,
+      "mixing_rule": "lorentz_berthelot",
+      "sigma_angstrom": 3.405
+    },
+    "protocol_label": "real_kups_nvt_gpu_production",
+    "repetitions": 4,
+    "target_device": "gpu"
+  },
+  "kups_execution": {
+    "cases": [
+      {
+        "atom_count": 256,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float64",
+            "shape": [
+              256,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              256,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 74.278,
+        "energy_drift_ev_per_atom_step": 1.2560737926980844e-07,
+        "energy_drift_ev_per_step": 3.215548909307096e-05,
+        "frame_count": 1000,
+        "hdf5_bytes": 51251880,
+        "hdf5_sha256": "79f8fe8099758552f5a781c841ac4a0936e246a9f8acacbef337b4414964439a",
+        "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+        "integrator": "baoab_langevin",
+        "kinetic_energy_ev": {
+          "mean": 3.2951496657180694,
+          "n_blocks": 4,
+          "sem": 0.009184602766198112
+        },
+        "name": "baoab_nvt",
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -18.800172761412902,
+          "n_blocks": 4,
+          "sem": 0.018535666825917774
+        },
+        "pressure_pa": {
+          "mean": 0.0017879783873319503,
+          "n_blocks": 4,
+          "sem": 9.912983160329537e-06
+        },
+        "production_gpu_ready": true,
+        "requested_device": "gpu",
+        "seed": 40401,
+        "temperature_k": {
+          "mean": 99.9702927794728,
+          "n_blocks": 4,
+          "sem": 0.2786481710231829
+        },
+        "total_energy_ev": {
+          "mean": -15.505023095694831,
+          "n_blocks": 4,
+          "sem": 0.017019141665212123
+        },
+        "volume_angstrom3": {
+          "mean": 9309.090909090903,
+          "n_blocks": 4,
+          "sem": 0.0
+        }
+      },
+      {
+        "atom_count": 256,
+        "datasets": {
+          "group.init/array.atoms.data.positions": {
+            "dtype": "float64",
+            "shape": [
+              256,
+              3
+            ]
+          },
+          "group.step/array.atoms.data.positions": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              256,
+              3
+            ]
+          },
+          "group.step/array.kinetic_energy": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          },
+          "group.step/array.potential_energy": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          },
+          "group.step/array.stress_tensor": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1,
+              3,
+              3
+            ]
+          },
+          "group.step/array.volume": {
+            "dtype": "float64",
+            "shape": [
+              1000,
+              1
+            ]
+          }
+        },
+        "elapsed_seconds": 467.892,
+        "energy_drift_ev_per_atom_step": -3.2884792182893356e-07,
+        "energy_drift_ev_per_step": -8.418506798820699e-05,
+        "frame_count": 1000,
+        "hdf5_bytes": 51270353,
+        "hdf5_sha256": "2d63432d3018fae1387a0c13ebbc2685e652bb41cd08faa037e377e734cdebcc",
+        "input_sha256": "11f4f43d162661a20527e977364df5f741316db175304d3661a8713a69b5eeba",
+        "integrator": "csvr",
+        "kinetic_energy_ev": {
+          "mean": 3.2912210169638807,
+          "n_blocks": 4,
+          "sem": 0.013982181403610851
+        },
+        "name": "csvr_nvt",
+        "observed_devices": [
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000",
+          "gpu:NVIDIA RTX A5000"
+        ],
+        "potential_energy_ev": {
+          "mean": -18.80070263354996,
+          "n_blocks": 4,
+          "sem": 0.012923894035070271
+        },
+        "pressure_pa": {
+          "mean": 0.0017874723159541984,
+          "n_blocks": 4,
+          "sem": 6.936260305257645e-06
+        },
+        "production_gpu_ready": true,
+        "requested_device": "gpu",
+        "seed": 40402,
+        "temperature_k": {
+          "mean": 99.85110299872625,
+          "n_blocks": 4,
+          "sem": 0.4242000850999432
+        },
+        "total_energy_ev": {
+          "mean": -15.509481616586083,
+          "n_blocks": 4,
+          "sem": 0.026903758336842203
+        },
+        "volume_angstrom3": {
+          "mean": 9309.090909090903,
+          "n_blocks": 4,
+          "sem": 0.0
+        }
+      }
+    ],
+    "engine": "kups",
+    "entry_point": "kups.application.simulations.md.run",
+    "kups_version": "1.0.3",
+    "protocol_label": "real_kups_nvt_gpu_production",
+    "target_device": "gpu"
+  },
+  "kups_md_summary_file": "kups_md_summary.json",
   "provenance": {
     "config_path": "configs/post-04/full.json",
-    "config_sha256": "f90d6f7c70eaa506e678c7fa9ee24b76795414e4e64980502815eeed4e3eb45d",
-    "git_revision": "29a90fd96269878bd5b0caf950f774c9979a2fb1",
+    "config_sha256": "fb304cebd34bb0df1e0cbfb5010810512520c209bf92d009356d68549c48d9f3",
+    "git_revision": "b6412899b9a117eca3fa051011bbbdd5b3db1faf",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
