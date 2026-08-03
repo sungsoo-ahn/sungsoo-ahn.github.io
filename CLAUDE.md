@@ -22,9 +22,10 @@ lsof -ti:4000 | xargs kill -9
 # Python package management (uses uv)
 uv sync                                # Install/update dependencies
 
-# Update content from Excel files
-uv run python scripts/update_publications.py  # From papers.xlsx
-uv run python scripts/update_members.py       # From members.xlsx
+# Update structured content
+uv run python scripts/update_publications.py --check  # Validate publication YAML
+uv run python scripts/update_members.py               # From members.xlsx
+uv run python scripts/update_cv.py                    # Sync YAML -> LaTeX -> website PDF
 ```
 
 **Note:** This project requires Bundler 4.x which is not compatible with macOS system Ruby. Use Homebrew Ruby (`/opt/homebrew/opt/ruby/bin/`) instead.
@@ -33,16 +34,15 @@ uv run python scripts/update_members.py       # From members.xlsx
 
 ## Data Sources
 
-Excel files synced from Dropbox:
+External Excel file synced from Dropbox:
 
-- `~/Sungsahn0215 Dropbox/SPML/administration/papers.xlsx` → Publications
 - `~/Sungsahn0215 Dropbox/SPML/administration/members.xlsx` → Lab members
 
 ## Key Files
 
 | File                       | Purpose                                     |
 | -------------------------- | ------------------------------------------- |
-| `_bibliography/papers.bib` | Publications (auto-generated)               |
+| `_data/publications.yml`   | Canonical publications for website and CV   |
 | `_pages/about.md`          | Homepage content                            |
 | `_pages/people.md`         | Lab members (auto-generated)                |
 | `_pages/publications.md`   | Publications page                           |
@@ -70,4 +70,4 @@ Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each wit
 
 - **Framework:** Jekyll with al-folio theme
 - **Hosting:** GitHub Pages (auto-deploy on push to main)
-- **Content updates:** Python scripts parse Excel → generate Markdown/BibTeX
+- **Content updates:** YAML drives publications/CV; Python imports members from Excel
