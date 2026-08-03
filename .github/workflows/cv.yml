@@ -1,0 +1,91 @@
+name: Validate publications and CV
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/cv.yml"
+      - "_config.yml"
+      - "_data/cv_content.yml"
+      - "_data/publications.yml"
+      - "_includes/publication.liquid"
+      - "_includes/publication_list.liquid"
+      - "_includes/selected_papers.liquid"
+      - "_layouts/page.liquid"
+      - "_layouts/post.liquid"
+      - "_pages/publications.md"
+      - "assets/pdf/cv.pdf"
+      - "cv/**"
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "scripts/update_cv.py"
+      - "scripts/update_publications.py"
+      - "tests/test_update_cv.py"
+      - "tests/test_update_publications.py"
+      - "pyproject.toml"
+      - "uv.lock"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/cv.yml"
+      - "_config.yml"
+      - "_data/cv_content.yml"
+      - "_data/publications.yml"
+      - "_includes/publication.liquid"
+      - "_includes/publication_list.liquid"
+      - "_includes/selected_papers.liquid"
+      - "_layouts/page.liquid"
+      - "_layouts/post.liquid"
+      - "_pages/publications.md"
+      - "assets/pdf/cv.pdf"
+      - "cv/**"
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "scripts/update_cv.py"
+      - "scripts/update_publications.py"
+      - "tests/test_update_cv.py"
+      - "tests/test_update_publications.py"
+      - "pyproject.toml"
+      - "uv.lock"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Install CV dependencies
+        run: python -m pip install pyyaml
+
+      - name: Validate publication data
+        run: python scripts/update_publications.py --check
+
+      - name: Run publication and CV regression tests
+        run: python -m unittest tests.test_update_publications tests.test_update_cv
+
+      - name: Check generated CV artifacts
+        run: python scripts/update_cv.py --check --no-compile
+
+      - name: Install site build dependency
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Build YAML-backed publication pages
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production

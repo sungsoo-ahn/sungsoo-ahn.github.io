@@ -15,3 +15,11 @@ vendor
 .agent/
 .omc/
 __pycache__/
+
+# LaTeX build byproducts (the CV PDF itself is committed)
+/cv/*.aux
+/cv/*.fdb_latexmk
+/cv/*.fls
+/cv/*.log
+/cv/*.out
+/cv/*.synctex.gz
