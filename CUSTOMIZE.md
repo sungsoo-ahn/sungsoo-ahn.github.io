@@ -1,5 +1,10 @@
 # Customize
 
+> **Repository-specific publication workflow:** This fork uses
+> `_data/publications.yml` directly for both the website and CV. The upstream
+> BibTeX/Jekyll Scholar instructions below do not apply here; use the CV
+> Maintenance section in `README.md` instead.
+
 Here we will give you some tips on how to customize the website. One important thing to note is that **ALL** the changes you make should be done on the **main** branch of your repository. The `gh-pages` branch is automatically overwritten every time you make a change to the main branch.
 
 > **Note for users without coding experience:** You do **not** need to understand the technology stack or have any coding background to create and customize your own website with al-folio. This template was specifically designed to be accessible to academics and researchers from all backgrounds. You can create a fully functional website by simply editing configuration files and adding content in Markdown, no coding required.

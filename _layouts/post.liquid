@@ -121,7 +121,12 @@ layout: default
   {% if page.related_publications %}
     <h2>References</h2>
     <div class="publications">
-      {% bibliography --group_by none --cited_in_order %}
+      <ol class="bibliography">
+        {% for publication_id in page.related_publications %}
+          {% assign related_publication = site.data.publications | where: 'id', publication_id | first %}
+          {% if related_publication %}<li>{% include publication.liquid publication=related_publication %}</li>{% endif %}
+        {% endfor %}
+      </ol>
     </div>
   {% endif %}
 
