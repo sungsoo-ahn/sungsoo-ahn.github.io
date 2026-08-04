@@ -274,6 +274,20 @@
       "source": "figures/post-04/thermostat_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post04_thermostat_mechanism.png",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "4006a2ea72ac6ee705ff9a2f7afea7ca4adb60188714a04c699ef6244bb78cef",
+      "source": "figures/post-04/thermostat_mechanism_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post04_thermostat_mechanism.svg",
+      "kind": "figure",
+      "post": "04",
+      "sha256": "57398a2115c2b4c45cb36dcd44997b2521b012b1011f822af61937eacd556c06",
+      "source": "figures/post-04/thermostat_mechanism_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-05/full/argon_cell_response.csv",
       "kind": "compact-result",
       "post": "05",
@@ -716,5 +730,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "e1f8387d0c8a27a69dac94a26f384a705d022b00"
+  "source_git_revision": "c63c3203d4a4c6dbef7b5ffeca425375f6fe7b34"
 }

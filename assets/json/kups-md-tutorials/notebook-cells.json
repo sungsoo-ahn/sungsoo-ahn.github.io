@@ -158,39 +158,39 @@
     },
     {
       "assets": [],
-      "cell_id": "a106b2a9",
-      "display": "blog-code-collapsed",
-      "include": "_includes/kups-notebooks/post-04/a106b2a9.html",
-      "include_sha256": "8366f3ca4ef5045ad302b7b455b1e6192b5609ea60238d93c18ebaa7da9c70dc",
+      "cell_id": "post04-jax-baoab",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-04/post04-jax-baoab.html",
+      "include_sha256": "f6fecff8cbbad1ae1dc5176f69d3999bc6aab36e5e050f56cd16d380fbeb05ef",
       "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
-      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "notebook_sha256": "d9e2c9f5bf98cb493b23ec61220aee3fac229f6283ef3fba24dd5b554e79f682",
+      "output_sha256": "f6324084ecc713ec3281e578328f9d62a06b1040ce5ad7d7a1f2b6259e68deb7",
       "post": "04",
-      "source_sha256": "bcd9c2a16a068e707e6b188604d7d6ae7d5e1d899034fe9fe9919203e93a0ebf"
+      "source_sha256": "e0635636ec93e62857d4fa774f4e70cd2dedd5dcb8ac41a9ef3130df780b5940"
     },
     {
       "assets": [],
-      "cell_id": "adc44d5e",
+      "cell_id": "post04-kups-thermostats",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-04/adc44d5e.html",
-      "include_sha256": "99a12603d6a5930c001934a454587a85db0579565c13ba426bada65be994c7e7",
-      "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
-      "output_sha256": "a1694637b2287bc864526422ef0ad5874400212496ce9f331723321ef27b54e4",
-      "post": "04",
-      "source_sha256": "edf87c75098fefa035ecc31bc2b3bc5d4baecdd380e86cc51330dcf9a4f4affe"
-    },
-    {
-      "assets": [],
-      "cell_id": "bc8d26c8",
-      "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-04/bc8d26c8.html",
+      "include": "_includes/kups-notebooks/post-04/post04-kups-thermostats.html",
       "include_sha256": "c92ff8851fc512ee13cac5c24126c22372236d053d563951e87cda2df603825d",
       "notebook": "post-04-thermostats.ipynb",
-      "notebook_sha256": "ea03677002a3dd6d3c33d4950e7b4fc2364a27870059f533bbdace39c70b35d0",
+      "notebook_sha256": "d9e2c9f5bf98cb493b23ec61220aee3fac229f6283ef3fba24dd5b554e79f682",
       "output_sha256": "6410b65db605436c0b62dc44aecd7c8f7b05112ad5c1554ff5d5699bda93ebb9",
       "post": "04",
       "source_sha256": "b6fb71e8d3755a09e6906f6282ac83250eafd2b0bb84e3027d69b85a82bf1d81"
+    },
+    {
+      "assets": [],
+      "cell_id": "post04-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-04/post04-setup.html",
+      "include_sha256": "47ef30eafa8c30f51f73fca298b95b5ee4fde1732d0b720a45034e471dfed80e",
+      "notebook": "post-04-thermostats.ipynb",
+      "notebook_sha256": "d9e2c9f5bf98cb493b23ec61220aee3fac229f6283ef3fba24dd5b554e79f682",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "04",
+      "source_sha256": "f56debf09307a56096f15247ed7892503507a6bac4c109148c08772b69fbc729"
     },
     {
       "assets": [],
@@ -517,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "23dd2b2848dd5d957c8f7997340855e079a3dd219c2f686bbfc05f9026e37513",
-  "source_git_revision": "e1f8387d0c8a27a69dac94a26f384a705d022b00"
+  "execution_manifest_sha256": "b6c79b8946acdfbd9dc6cb6414c8ec141552be24cec8c049f6ebf7b87fa261a5",
+  "source_git_revision": "c63c3203d4a4c6dbef7b5ffeca425375f6fe7b34"
 }
