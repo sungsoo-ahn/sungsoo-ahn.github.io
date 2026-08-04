@@ -10,7 +10,13 @@ pagination:
 ---
 
 <div class="publications blog-index">
-  {% assign postlist = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+  {% assign published_tutorials = site.posts | where: "series", "kups-md-tutorials" %}
+  {% if published_tutorials.size > 0 %}
+    {% assign kups_foundations = site.pages | where: "permalink", "/kups-md-tutorials/foundations/" %}
+    {% assign postlist = kups_foundations | concat: published_tutorials | sort: "series_order" %}
+  {% else %}
+    {% assign postlist = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+  {% endif %}
   {% assign tutorial_count = postlist | size %}
 
   <h1>kUPS MD Tutorials</h1>

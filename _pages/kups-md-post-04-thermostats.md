@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -48,9 +48,9 @@ runs.
   static or dynamical observable.
 
 **Prerequisites:** the state and temperature estimator from
-[Post 01]({% link _pages/kups-md-post-01-initialization.md %}), the integrator
-map from [Post 02]({% link _pages/kups-md-post-02-integrators.md %}), and the
-error distinctions from [Post 03]({% link _pages/kups-md-post-03-errors.md %}).
+[Post 01]({{ '/kups-md-tutorials/post-01-initialization/' | relative_url }}), the integrator
+map from [Post 02]({{ '/kups-md-tutorials/post-02-integrators/' | relative_url }}), and the
+error distinctions from [Post 03]({{ '/kups-md-tutorials/post-03-errors/' | relative_url }}).
 </div>
 
 ## NVE and NVT answer different physical questions

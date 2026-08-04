@@ -1,4 +1,10 @@
-{% assign kups_lessons = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+{% assign kups_published_lessons = site.posts | where: "series", "kups-md-tutorials" %}
+{% if kups_published_lessons.size > 0 %}
+  {% assign kups_foundations = site.pages | where: "permalink", "/kups-md-tutorials/foundations/" %}
+  {% assign kups_lessons = kups_foundations | concat: kups_published_lessons | sort: "series_order" %}
+{% else %}
+  {% assign kups_lessons = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+{% endif %}
 {% assign kups_current_index = nil %}
 {% for kups_lesson in kups_lessons %}
   {% if kups_lesson.url == page.url %}

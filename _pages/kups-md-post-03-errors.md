@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -41,8 +41,8 @@ that an experiment can answer.
 - why conserving energy does not validate a potential;
 - how matched seeds and atom-level displacement reveal trajectory divergence.
 
-**Prerequisites:** the initialized state from [Post 01]({% link _pages/kups-md-post-01-initialization.md %})
-and the velocity-Verlet map from [Post 02]({% link _pages/kups-md-post-02-integrators.md %}).
+**Prerequisites:** the initialized state from [Post 01]({{ '/kups-md-tutorials/post-01-initialization/' | relative_url }})
+and the velocity-Verlet map from [Post 02]({{ '/kups-md-tutorials/post-02-integrators/' | relative_url }}).
 </div>
 
 ## "Trajectory error" is not one object

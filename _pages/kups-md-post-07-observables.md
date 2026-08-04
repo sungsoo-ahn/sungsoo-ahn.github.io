@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -51,10 +51,10 @@ HDF5 positions, while momenta and masses provide a velocity autocorrelation.
 - how support limits and replica uncertainty constrain every curve.
 
 **Prerequisites:** periodic cells from the
-[foundations lesson]({% link _pages/kups-md-foundations.md %}), real HDF5 state
-from [Post 01]({% link _pages/kups-md-post-01-initialization.md %}), and
+[foundations lesson]({{ '/kups-md-tutorials/foundations/' | relative_url }}), real HDF5 state
+from [Post 01]({{ '/kups-md-tutorials/post-01-initialization/' | relative_url }}), and
 observable-specific effective samples from
-[Post 06]({% link _pages/kups-md-post-06-trajectory-length.md %}).
+[Post 06]({{ '/kups-md-tutorials/post-06-trajectory-length/' | relative_url }}).
 </div>
 
 ## An observable is a rule applied to state
