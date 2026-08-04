@@ -5,13 +5,17 @@
 <div class="highlight"><pre class="highlight"><code class="language-python">from pathlib import Path
 import os
 
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
+
+import jax
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 
 from kups_md_tutorials.config import load_trajectory_length_spec
 from kups_md_tutorials.kups_engine import load_kups_result
 from kups_md_tutorials.trajectory_length import (
     load_kups_trajectory_length_summary,
-    load_trajectory_length_summary,
     write_trajectory_length_outputs,
 )
 

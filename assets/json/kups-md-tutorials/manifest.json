@@ -414,6 +414,20 @@
       "source": "results/post-06/full/trajectory_length_summary.json"
     },
     {
+      "destination": "assets/img/blog/kups_md_post06_correlated_frames.png",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "d81f7de4ba8d37681f75a08fffdc9fb22757be0154ffd6c66f45e88a89bdc1b1",
+      "source": "figures/post-06/correlated_frames_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post06_correlated_frames.svg",
+      "kind": "figure",
+      "post": "06",
+      "sha256": "797a338894da9b0c72b58984c62eed6f0c98f7ca7035513af680973daf7ec2e5",
+      "source": "figures/post-06/correlated_frames_full.svg"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post06_trajectory_length_diagnostics.png",
       "kind": "figure",
       "post": "06",
@@ -744,5 +758,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "cc3c0d227e2f2b09663c423df2e6d52a75a59f4d"
+  "source_git_revision": "4084421a8c236355cd9cf65bd50b9be5e31100f4"
 }
