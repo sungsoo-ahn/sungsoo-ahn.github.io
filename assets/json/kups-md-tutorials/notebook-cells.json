@@ -374,15 +374,27 @@
     },
     {
       "assets": [],
-      "cell_id": "harmonic-bias",
+      "cell_id": "post10-jax-pair-bias",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-10/harmonic-bias.html",
-      "include_sha256": "d6812085a3285868faa589303e41d6bef5505314ad71f58551a9c5dca614fef5",
+      "include": "_includes/kups-notebooks/post-10/post10-jax-pair-bias.html",
+      "include_sha256": "2e1e0d9e3691fe15be0d01ab63d3277591c77e2158820b67c43b03f682c4dd17",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
-      "output_sha256": "50b4fc957b122256c62523505191cd0a4f68e8de5be525199f2b3ea7a2151f2f",
+      "notebook_sha256": "6956dd907e4e594ba43816959cd5175f53877172edd52e8fd2ec2ecb758a3dd1",
+      "output_sha256": "b184cd2997a4b6ed9377876924b0e791bf22d076d2811d16e610966c4d60fb75",
       "post": "10",
-      "source_sha256": "48b04c454300a07c857dd8b15a7032a9453c1744e6049a1a39b4d25e00872fc7"
+      "source_sha256": "a71c08de8871be0507305474e672a211b2a8809a3d5cade0ab833d2aa22cfaf4"
+    },
+    {
+      "assets": [],
+      "cell_id": "post10-jax-wham",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-10/post10-jax-wham.html",
+      "include_sha256": "1d44769e6debde713a48aac6d4304ef794720c96eb95263357e14656a98250ab",
+      "notebook": "post-10-umbrella-sampling.ipynb",
+      "notebook_sha256": "6956dd907e4e594ba43816959cd5175f53877172edd52e8fd2ec2ecb758a3dd1",
+      "output_sha256": "745ec729eae910757a2964bafa670e063600804ef6ae0be6b2a4de5273f52720",
+      "post": "10",
+      "source_sha256": "e23fccb50781b40e8482491423df41708c6e14f3276e4b15bdb3b72293611676"
     },
     {
       "assets": [],
@@ -391,7 +403,7 @@
       "include": "_includes/kups-notebooks/post-10/production-evidence.html",
       "include_sha256": "c7918abcc787aa9b52fbc20eaa09ad25d21aba25708535f4927440004fb20439",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
+      "notebook_sha256": "6956dd907e4e594ba43816959cd5175f53877172edd52e8fd2ec2ecb758a3dd1",
       "output_sha256": "e3aa31ea1d6a78984229be453dfe5d39b8d59ea0a09f74c5a7070171965ca3fd",
       "post": "10",
       "source_sha256": "26ab65d1b71be4656b524794291a9508216de435a743800763ffb53bce7e38f9"
@@ -401,12 +413,12 @@
       "cell_id": "setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-10/setup.html",
-      "include_sha256": "cf253562f81fcc22bf9c5c1e13cff7c757e5e42384170bd978470ded80f231bc",
+      "include_sha256": "09c7a38730a5452a9797ec1854f3515e340357291d141bee7ce8d5906886a035",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
+      "notebook_sha256": "6956dd907e4e594ba43816959cd5175f53877172edd52e8fd2ec2ecb758a3dd1",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "10",
-      "source_sha256": "302945d7f2ece8f715a55ff60ade230e64587edf1ba2f49c6c495126aa5efa69"
+      "source_sha256": "167c051b094c7e974924ffea5f2b25f6ddaffda4bfe7ab401b643e0d9c572839"
     },
     {
       "assets": [],
@@ -415,7 +427,7 @@
       "include": "_includes/kups-notebooks/post-10/smoke-run.html",
       "include_sha256": "2d22586f2736c9a4920a43016184686449fc69ed7175a8dcc3d19d0d82d7ada5",
       "notebook": "post-10-umbrella-sampling.ipynb",
-      "notebook_sha256": "f158c8943b2704d46fb98a4d26eca9a7ba35fba638358006c1c2c04dc0b765c2",
+      "notebook_sha256": "6956dd907e4e594ba43816959cd5175f53877172edd52e8fd2ec2ecb758a3dd1",
       "output_sha256": "b09461278b6e99e57aca1c6be4f8224da071e1c8a17bb4e29222e9c60c31b517",
       "post": "10",
       "source_sha256": "8370b9408b257ae4859ce1d1956dd3f05ad95c10d7b2cf58d8484e66cc95b5fd"
@@ -517,6 +529,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "bf288698d8b4d75b8b3aa3fed91b02024f28f2eacfff8c17abd7fe3fbdd7728e",
-  "source_git_revision": "e9ea56ebd48002d32b9a15b21a67dc2fa264864a"
+  "execution_manifest_sha256": "c1726fbb6fbb6ac5cb5bc4b270749b3ebeba681f5190defb48588bf5509973b4",
+  "source_git_revision": "ce1f41234778677579389b67b35eb45cb139f404"
 }

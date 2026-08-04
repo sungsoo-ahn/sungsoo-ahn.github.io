@@ -722,6 +722,20 @@
       "source": "figures/post-10/umbrella_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post10_umbrella_windows.png",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "2b9a0bafa5f9fba2adcccedbe277a76a808df83dfa51d20c6726c755e8cf586a",
+      "source": "figures/post-10/umbrella_windows_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post10_umbrella_windows.svg",
+      "kind": "figure",
+      "post": "10",
+      "sha256": "9aae1f94b1f874fce89a2fa9621346fd1c72e754414ab095d865251fb11aa0cd",
+      "source": "figures/post-10/umbrella_windows_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
       "kind": "compact-result",
       "post": "11",
@@ -800,5 +814,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "e9ea56ebd48002d32b9a15b21a67dc2fa264864a"
+  "source_git_revision": "ce1f41234778677579389b67b35eb45cb139f404"
 }

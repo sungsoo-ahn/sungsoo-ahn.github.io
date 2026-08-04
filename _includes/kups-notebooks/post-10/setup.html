@@ -7,14 +7,16 @@ import os
 import warnings
 
 warnings.filterwarnings(&quot;ignore&quot;, message=&quot;IProgress not found&quot;)
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
 
-import numpy as np
+import jax
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 
 from kups_md_tutorials.config import load_umbrella_spec
 from kups_md_tutorials.umbrella_sampling import (
     load_umbrella_summary,
-    umbrella_bias,
     write_umbrella_outputs,
 )
 from kups_md_tutorials.workflows import verify_post
