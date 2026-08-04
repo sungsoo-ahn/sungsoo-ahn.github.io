@@ -266,15 +266,15 @@
     },
     {
       "assets": [],
-      "cell_id": "post07-estimator-control",
+      "cell_id": "post07-jax-rdf",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-07/post07-estimator-control.html",
-      "include_sha256": "5b9e6d051b20bd00bf4efbcb80cb2584b357bf812e4b0158d73c3cd981d698de",
+      "include": "_includes/kups-notebooks/post-07/post07-jax-rdf.html",
+      "include_sha256": "06d5993ef3e335d611e4aa1477a3323089ac91b009861380fa32167a623a6b1c",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
-      "output_sha256": "634c773dde90f7e72107001876c70cd3c8c8974253a71c5fad0af6cb599ca6df",
+      "notebook_sha256": "3478b80b151bda08413a0095810f3696799c7639abb66303425e5f08686979aa",
+      "output_sha256": "0fed5b02489165432d55bb2201c53f82b2f4a8ff1a114581e634f8c966ac01d1",
       "post": "07",
-      "source_sha256": "d3413860769b30301334fdd3ddb58377c7dd3412bd564881540b4e8559a0a527"
+      "source_sha256": "9f709f32cf676f8d59b896aad8f860f89497e304ecfb3be4d9b5fea8963eb796"
     },
     {
       "assets": [],
@@ -283,7 +283,7 @@
       "include": "_includes/kups-notebooks/post-07/post07-kups-observables.html",
       "include_sha256": "770e421adcdfb97fa719f5e06cc1299ead826db7f615aa9ef7815701338a1203",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
+      "notebook_sha256": "3478b80b151bda08413a0095810f3696799c7639abb66303425e5f08686979aa",
       "output_sha256": "5e88c8a360f22d666aad0f35d2000706b8fd7518da5cc1c292e73fbc80a0e4e8",
       "post": "07",
       "source_sha256": "57a4659e48731c6c38fb507fb1ed18e4f5ed20913e0665d7a5e65f21c00e3ac6"
@@ -293,12 +293,12 @@
       "cell_id": "post07-setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-07/post07-setup.html",
-      "include_sha256": "b4b63463d31f38a07a71430f207b916a6af1c41c9a82d84ed77cccf1f867305f",
+      "include_sha256": "2f435176d63910cc33a92a172253364d259c9f7f59ce4b1eadbf5e17634b4180",
       "notebook": "post-07-observables.ipynb",
-      "notebook_sha256": "0dc18e1aac4ec287a0555ec8756bbe3da01b4861bd225444b60d67569ea1c80e",
+      "notebook_sha256": "3478b80b151bda08413a0095810f3696799c7639abb66303425e5f08686979aa",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "07",
-      "source_sha256": "542ccdf22218d5a6faf75e351b67ddc13735a97e7a67f20226d5d5a22321ec75"
+      "source_sha256": "ecfc8258b846688a52ead4f34e9632d922c80bd0757c2b70cf4d3485d4a662db"
     },
     {
       "assets": [],
@@ -517,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "6eb2fba36989e30d73a5aec6b78ba7d6e15e907001b0fede4a9e3ab3beaaa6f1",
-  "source_git_revision": "4084421a8c236355cd9cf65bd50b9be5e31100f4"
+  "execution_manifest_sha256": "5894182a4387dfe0c08c39002206d6e51cb78b7e3206b9e5743f235992bde3b0",
+  "source_git_revision": "eb1fadacb8f76d9fab45b38d0a3d4ddb08d3c0c2"
 }
