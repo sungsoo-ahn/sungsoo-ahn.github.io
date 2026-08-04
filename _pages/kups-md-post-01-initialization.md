@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -44,7 +44,7 @@ produced the first measured frame?**
 - why a valid initial state is not yet an equilibrated sample.
 
 **Prerequisites:** atomic positions, momenta, masses, cells, JAX arrays, and
-explicit random keys from the [foundations lesson]({% link _pages/kups-md-foundations.md %}).
+explicit random keys from the [foundations lesson]({{ '/kups-md-tutorials/foundations/' | relative_url }}).
 </div>
 
 ## First choose atoms, coordinates, and a periodic cell

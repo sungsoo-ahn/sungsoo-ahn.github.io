@@ -83,7 +83,7 @@ def get_frontmatter_value(lines: list[str], key: str) -> str | None:
 
 def rewrite_frontmatter(lines: list[str], *, publication_date: str) -> list[str]:
     rewritten: list[str] = []
-    skip_keys = {"permalink", "nav", "nav_order", "publication_status"}
+    skip_keys = {"nav", "nav_order", "publication_status"}
     for line in lines:
         key = (
             line.split(":", 1)[0].strip()
@@ -213,9 +213,16 @@ def prepare_posts(
 
 
 def index_uses_hidden_pages() -> bool:
-    return 'assign postlist = site.pages | where: "series", "kups-md-tutorials"' in (
-        INDEX_PATH.read_text(encoding="utf-8")
+    text = INDEX_PATH.read_text(encoding="utf-8")
+    hidden_query = (
+        'assign postlist = site.pages | where: "series", "kups-md-tutorials"'
+        in text
     )
+    public_query = (
+        'assign published_tutorials = site.posts | where: "series", '
+        '"kups-md-tutorials"' in text
+    )
+    return hidden_query and not public_query
 
 
 def main() -> int:
@@ -252,8 +259,8 @@ def main() -> int:
         )
     if index_uses_hidden_pages():
         print(
-            "index update needed: change the kUPS index postlist assignment "
-            "from site.pages to site.posts after final posts are reviewed."
+            "index update needed: add a public-post query while retaining the "
+            "hidden-page fallback used before publication."
         )
     return 0
 

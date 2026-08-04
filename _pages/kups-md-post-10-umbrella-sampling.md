@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -50,10 +50,10 @@ trajectories, and the WHAM fixed-point equations that combine their histograms.
 - how an apparently successful sparse reconstruction fails a known-answer test.
 
 **Prerequisites:** biased reweighting from
-[Post 08]({% link _pages/kups-md-post-08-free-energies.md %}), estimator overlap
-from [Post 09]({% link _pages/kups-md-post-09-estimators.md %}), periodic
-distances from [Post 07]({% link _pages/kups-md-post-07-observables.md %}), and
-Langevin sampling from [Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+[Post 08]({{ '/kups-md-tutorials/post-08-free-energies/' | relative_url }}), estimator overlap
+from [Post 09]({{ '/kups-md-tutorials/post-09-estimators/' | relative_url }}), periodic
+distances from [Post 07]({{ '/kups-md-tutorials/post-07-observables/' | relative_url }}), and
+Langevin sampling from [Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}).
 </div>
 
 ## A window samples a modified Hamiltonian

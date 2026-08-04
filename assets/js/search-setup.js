@@ -1,4 +1,4 @@
-let searchTheme = determineComputedTheme();
+let searchTheme = typeof determineComputedTheme === "function" ? determineComputedTheme() : "light";
 const ninjaKeys = document.querySelector("ninja-keys");
 
 if (searchTheme === "dark") {

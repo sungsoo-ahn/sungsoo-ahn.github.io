@@ -131,6 +131,23 @@ def validate_page(post: str, path: Path) -> list[Finding]:
             )
         )
 
+    teaching_markers = {
+        'class="kups-learning-box"': "missing learning-objectives box",
+        "**Prerequisites:**": "missing explicit prerequisites",
+        "JAX": "missing equation-to-JAX explanation",
+        "kUPS": "missing JAX-to-kUPS mapping",
+        "Reproducibility": "missing collapsed reproducibility record",
+    }
+    for marker, message in teaching_markers.items():
+        if marker not in body:
+            findings.append(Finding(path, message))
+    if not re.search(
+        r"^##\s+.*(?:exercise|prediction|check)",
+        body,
+        re.IGNORECASE | re.MULTILINE,
+    ):
+        findings.append(Finding(path, "missing reader exercise, prediction, or check"))
+
     figures = list(FIGURE_RE.finditer(text))
     if not figures:
         findings.append(Finding(path, "missing figure include"))
@@ -153,6 +170,8 @@ def validate_page(post: str, path: Path) -> list[Finding]:
         caption = attrs.get("caption", "")
         if "$" in caption:
             findings.append(Finding(path, "figure caption uses dollar math delimiters"))
+        if not attrs.get("alt", "").strip():
+            findings.append(Finding(path, f"figure is missing meaningful alt text: {figure_path}"))
 
     return findings
 
@@ -194,6 +213,29 @@ def validate_foundations_page(path: Path) -> list[Finding]:
         findings.append(Finding(path, "foundations display math must use $$ delimiters"))
     if re.search(r"^#{1,6}\s+current\s+(?:status|state)\b", body, re.IGNORECASE | re.MULTILINE):
         findings.append(Finding(path, "foundations contains a development status heading"))
+    for marker, message in {
+        'class="kups-learning-box"': "missing learning-objectives box",
+        "JAX": "missing equation-to-JAX explanation",
+        "kUPS": "missing JAX-to-kUPS mapping",
+        "Reproducibility": "missing collapsed reproducibility record",
+    }.items():
+        if marker not in body:
+            findings.append(Finding(path, message))
+    if not re.search(
+        r"^##\s+.*(?:exercise|prediction|check)",
+        body,
+        re.IGNORECASE | re.MULTILINE,
+    ):
+        findings.append(Finding(path, "missing reader exercise, prediction, or check"))
+
+    for match in FIGURE_RE.finditer(text):
+        attrs = {
+            attr.group("key"): attr.group("value")
+            for attr in ATTR_RE.finditer(match.group("attrs"))
+        }
+        figure_path = attrs.get("path", "foundations figure")
+        if not attrs.get("alt", "").strip():
+            findings.append(Finding(path, f"figure is missing meaningful alt text: {figure_path}"))
 
     figure_path = BLOG_IMG_DIR / "kups_md_post00_atomic_trajectory.svg"
     if not figure_path.exists():

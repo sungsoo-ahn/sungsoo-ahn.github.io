@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -55,10 +55,10 @@ effective sample count and uncertainty target.
 - how to define “long enough” relative to an observable and error tolerance.
 
 **Prerequisites:** trajectories and saved state from the
-[foundations lesson]({% link _pages/kups-md-foundations.md %}), thermostatted
-dynamics from [Post 04]({% link _pages/kups-md-post-04-thermostats.md %}), and
+[foundations lesson]({{ '/kups-md-tutorials/foundations/' | relative_url }}), thermostatted
+dynamics from [Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}), and
 the distinction between response and equilibration from
-[Post 05]({% link _pages/kups-md-post-05-barostats.md %}).
+[Post 05]({{ '/kups-md-tutorials/post-05-barostats/' | relative_url }}).
 </div>
 
 ## A trajectory is a correlated time series

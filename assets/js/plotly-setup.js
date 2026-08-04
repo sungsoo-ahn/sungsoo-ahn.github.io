@@ -1,4 +1,4 @@
-let plotlyTheme = determineComputedTheme();
+let plotlyTheme = typeof determineComputedTheme === "function" ? determineComputedTheme() : "light";
 /* Create plotly chart as another node and hide the code block, appending the plotly node after it
        this is done to enable retrieving the code again when changing theme between light/dark */
 document.addEventListener("readystatechange", () => {

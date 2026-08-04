@@ -88,7 +88,11 @@
     integrity="{{ site.third_party_libraries.echarts.integrity.js.library }}"
     crossorigin="anonymous"
   ></script>
-  {% if site.enable_darkmode %}
+  {% assign enable_page_darkmode = site.enable_darkmode %}
+  {% if page.series == 'kups-md-tutorials' or page.url == '/kups-md-tutorials/' %}
+    {% assign enable_page_darkmode = true %}
+  {% endif %}
+  {% if enable_page_darkmode %}
     <script
       src="{{ site.third_party_libraries.echarts.url.js.dark_theme }}"
       integrity="{{ site.third_party_libraries.echarts.integrity.js.dark_theme }}"
