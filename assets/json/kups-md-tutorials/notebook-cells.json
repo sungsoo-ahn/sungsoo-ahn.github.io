@@ -338,27 +338,27 @@
     },
     {
       "assets": [],
-      "cell_id": "post09-estimator-control",
+      "cell_id": "post09-jax-estimators",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-09/post09-estimator-control.html",
-      "include_sha256": "7bce75a6b3e9f794beb110582be8ee6fe2adfa1e90cef1532f2df42c6cc8cc54",
+      "include": "_includes/kups-notebooks/post-09/post09-jax-estimators.html",
+      "include_sha256": "c01f157ea9cf8bbfff7b4018870d6724fefb2d4e941aafe031a06427423c3199",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
-      "output_sha256": "32b7c3a98a04dfdd0c73e8d6255fab5d2d315dd729228259bac9d0e6ffe4b45a",
+      "notebook_sha256": "016b5663d5f1ea75567bddfc708d0186c4224a47561410f0a07cc74883237dd0",
+      "output_sha256": "02978aa44addc7bb24abcefcf44216ad2655cd3d814b95c76122301d9bda1767",
       "post": "09",
-      "source_sha256": "a67a9cc9f43d2d389febf2ad1c5399bd25960d5c55de87128659d3c1d31fea48"
+      "source_sha256": "203b46a3a936c11eae6a351d5b8989b9045e7ea3f2b6f0c40c0ecc3425e4d057"
     },
     {
       "assets": [],
       "cell_id": "post09-setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-09/post09-setup.html",
-      "include_sha256": "25baab3327a1efebc5664af07f70ab5936574864a04e31be7141d890c9447c90",
+      "include_sha256": "87a18ef587a34f298343ee395a5b79225e5a712383f4b56e7ab6bd785c11e59b",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
+      "notebook_sha256": "016b5663d5f1ea75567bddfc708d0186c4224a47561410f0a07cc74883237dd0",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "09",
-      "source_sha256": "88a150672a92019cd3b12275e0dc77b7f733c7f7bad15b5ab40ac982d4b3208d"
+      "source_sha256": "827a8165f37fcce298897a92a52e128adba5e5f65b3a8b13ebf880b81d69e0f5"
     },
     {
       "assets": [],
@@ -367,7 +367,7 @@
       "include": "_includes/kups-notebooks/post-09/post09-shared-kups.html",
       "include_sha256": "217fb5fd820c8fa796ac9ef78b21c969370e4f68b96577163a2434c666eb3c9f",
       "notebook": "post-09-estimators.ipynb",
-      "notebook_sha256": "bc9b58acf490b7a2d03de411c8d4078c51e3cafcb87eab04b1bdb48d592cb12f",
+      "notebook_sha256": "016b5663d5f1ea75567bddfc708d0186c4224a47561410f0a07cc74883237dd0",
       "output_sha256": "f08a972844da1f4ff86cd8a032bfe86f54e511d9f59621575c112b028d482b94",
       "post": "09",
       "source_sha256": "4ddc66521f40732db4d3faaf43a7751e43f0216cdc0d48413c491867fd2fb60d"
@@ -517,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "8d7e9fe107f3d0496a1b4f0aecd9d0d4d3efb93bd820a54f5b4dfc9ad968f6b1",
-  "source_git_revision": "9147ad1cc9559b3906e968213115d4c2c9b5968f"
+  "execution_manifest_sha256": "bf288698d8b4d75b8b3aa3fed91b02024f28f2eacfff8c17abd7fe3fbdd7728e",
+  "source_git_revision": "e9ea56ebd48002d32b9a15b21a67dc2fa264864a"
 }
