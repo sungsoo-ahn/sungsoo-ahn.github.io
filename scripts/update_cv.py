@@ -169,12 +169,49 @@ def format_venue_preprint(entry: dict) -> str:
     return r"\textit{arXiv}"
 
 
-def format_arxiv_link(entry: dict) -> str:
-    """Format arxiv link if present."""
+def format_links(entry: dict) -> str:
+    """Format all available publication links with unambiguous labels."""
+    links = []
+
+    publication = entry.get("html", "").strip()
+    if publication:
+        if "openreview.net" in publication:
+            label = "OpenReview"
+        elif "proceedings.mlr.press" in publication:
+            label = "PMLR"
+        elif "neurips.cc" in publication or "nips.cc" in publication:
+            label = "NeurIPS"
+        elif "aclanthology.org" in publication:
+            label = "ACL Anthology"
+        elif "ijcai.org" in publication:
+            label = "IJCAI"
+        elif "ieeexplore.ieee.org" in publication:
+            label = "IEEE Xplore"
+        elif "iopscience.iop.org" in publication:
+            label = "Journal"
+        else:
+            label = "Published"
+        links.append(rf"\href{{{tex_escape(publication)}}}{{[{label}]}}")
+
     arxiv = entry.get("arxiv", "").strip()
     if arxiv:
-        return rf" \href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}"
-    return ""
+        links.append(rf"\href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}")
+
+    for field in ("code", "code2"):
+        url = entry.get(field, "").strip()
+        if url:
+            label = entry.get(f"{field}_label", "Code").strip()
+            links.append(rf"\href{{{tex_escape(url)}}}{{[{tex_escape(label)}]}}")
+
+    website = entry.get("website", "").strip()
+    if website:
+        links.append(rf"\href{{{tex_escape(website)}}}{{[Project]}}")
+
+    dataset = entry.get("dataset", "").strip()
+    if dataset:
+        links.append(rf"\href{{{tex_escape(dataset)}}}{{[Dataset]}}")
+
+    return " " + " ".join(links) if links else ""
 
 
 def format_annotation(entry: dict) -> str:
@@ -188,7 +225,7 @@ def format_annotation(entry: dict) -> str:
 
 def format_entry(entry: dict, category: str) -> str:
     """Format a single bib entry as a LaTeX \\item line."""
-    title = entry.get("title", "").strip()
+    title = tex_escape(entry.get("title", "").strip()).replace("K^2", r"$K^2$")
     authors = format_authors(entry.get("author", ""))
     year = entry.get("year", "").strip()
 
@@ -199,10 +236,10 @@ def format_entry(entry: dict, category: str) -> str:
     else:
         venue = format_venue_preprint(entry)
 
-    arxiv = format_arxiv_link(entry)
+    links = format_links(entry)
     annotation = format_annotation(entry)
 
-    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{arxiv}"
+    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{links}"
 
 
 def main():
