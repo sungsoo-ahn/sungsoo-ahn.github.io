@@ -2,6 +2,54 @@
   "cells": [
     {
       "assets": [],
+      "cell_id": "post00-energy-to-force",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-00/post00-energy-to-force.html",
+      "include_sha256": "a813eabb21988cae5c211c9c231ab6abf2b36b25e7c810f2b4a294715a3a3130",
+      "notebook": "post-00-md-jax-foundations.ipynb",
+      "notebook_sha256": "6b632b0061257a62da5b9d64a0c5e5b6ae4471279d834353c968c2052b8e3497",
+      "output_sha256": "7e772d755c4f1b064c0d636522bdc66d1075e5c1ea2f1c77214b0a70eb576d26",
+      "post": "00",
+      "source_sha256": "ae11137c697504d23f9ede4cac68c2e08e316429e3848181fb20fad766d1ee00"
+    },
+    {
+      "assets": [],
+      "cell_id": "post00-jax-trajectory",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-00/post00-jax-trajectory.html",
+      "include_sha256": "059ed18f9c20c3ccdbb204eafe247a0c0f626a1098e65d200ea8ac16dc81a0bf",
+      "notebook": "post-00-md-jax-foundations.ipynb",
+      "notebook_sha256": "6b632b0061257a62da5b9d64a0c5e5b6ae4471279d834353c968c2052b8e3497",
+      "output_sha256": "821f10a69a4be439d20bdad0eb4fc5ad7983eb80f4cf1b61c2beeab28289c4bb",
+      "post": "00",
+      "source_sha256": "320ceb175b5fc513831db47d72ee5924f1ad8cbedfb758fd30e2a0b2e2487dc6"
+    },
+    {
+      "assets": [],
+      "cell_id": "post00-kups-state",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-00/post00-kups-state.html",
+      "include_sha256": "2869f8c17e5578cccd0766e308260e568a548a323625ca1a88b93ef6879b8095",
+      "notebook": "post-00-md-jax-foundations.ipynb",
+      "notebook_sha256": "6b632b0061257a62da5b9d64a0c5e5b6ae4471279d834353c968c2052b8e3497",
+      "output_sha256": "2d9a244efce81c4fcc4dd86d240f9592fcd5e0945baf9f418abc861cae860230",
+      "post": "00",
+      "source_sha256": "7cb0f7923c585289e16b5e89fe9e47c1f90c5821a50dcb4910a0eb86d4e388f8"
+    },
+    {
+      "assets": [],
+      "cell_id": "post00-setup",
+      "display": "blog-code-collapsed",
+      "include": "_includes/kups-notebooks/post-00/post00-setup.html",
+      "include_sha256": "c68da6ee236bc1caa36c69d741890419fed3bfde717e869aca29e489fe797ca2",
+      "notebook": "post-00-md-jax-foundations.ipynb",
+      "notebook_sha256": "6b632b0061257a62da5b9d64a0c5e5b6ae4471279d834353c968c2052b8e3497",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "post": "00",
+      "source_sha256": "fa5e5acf9e04a4d61274bfdc72becf11ff221439b7fc1a395b7a9f188205e960"
+    },
+    {
+      "assets": [],
       "cell_id": "post01-finite-draw",
       "display": "blog-code-open",
       "include": "_includes/kups-notebooks/post-01/post01-finite-draw.html",
@@ -43,7 +91,7 @@
       "include": "_includes/kups-notebooks/post-02/post02-kups-nve.html",
       "include_sha256": "0ab4cfb332261d4e908fcf284ca7fccca5339ba5e83113976d389a5630524216",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
+      "notebook_sha256": "7ec8b7fd743ac1dee9f4bdce5a81b4169d5b6b01a88a516e7dc20e7a40ab1a71",
       "output_sha256": "4977dc76ac1f22287290c0125f298fefda9ceb14525fb8bcc2a3b5a4f47f1b64",
       "post": "02",
       "source_sha256": "a8bdbcce3e491467d1dc629c9d51ed3340425b44c6c2eff9afd8adf8ae9d9e2d"
@@ -53,24 +101,24 @@
       "cell_id": "post02-setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-02/post02-setup.html",
-      "include_sha256": "94162825edb0484afc6ba32bc8964a775ddb16d581b298dc72754fb52c1b7953",
+      "include_sha256": "7055716a2143b921266e155884d545011cec3fa516be3129dbaf5befdffbbbda",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
+      "notebook_sha256": "7ec8b7fd743ac1dee9f4bdce5a81b4169d5b6b01a88a516e7dc20e7a40ab1a71",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "02",
-      "source_sha256": "c21067714814fb06fa0f3b53c39ce3272a30786ed3bde161d7dee194a7152c04"
+      "source_sha256": "ce1a0b350383b873421ee7e9e6b4c6a63b5d6eb9b90b2bd700fe0751e600a4fe"
     },
     {
       "assets": [],
       "cell_id": "post02-verlet-control",
       "display": "blog-code-open",
       "include": "_includes/kups-notebooks/post-02/post02-verlet-control.html",
-      "include_sha256": "771050b71cdb7e1c780a2853f5ee8c0fe3dfbafdf6333d65d072ddd9aeba5c99",
+      "include_sha256": "8a66892a0f13c82cd4f34d1530d1701f24e8ea553856afd3055c08bf1cc9cd90",
       "notebook": "post-02-integrators.ipynb",
-      "notebook_sha256": "8689368a89450b86881b58c9ab560cb0cf90633e782f9ca1f0765518d3fab168",
-      "output_sha256": "6f404976af97b3f9d2598a9c5aaba1614b5a0d62140238833cf248a5d289d253",
+      "notebook_sha256": "7ec8b7fd743ac1dee9f4bdce5a81b4169d5b6b01a88a516e7dc20e7a40ab1a71",
+      "output_sha256": "f56123878ceb7e33406c5caaabdada2b9fc430ff6a6ec9a7069a8a288784d549",
       "post": "02",
-      "source_sha256": "6612a34ddaf83734277cb1d7132871a40355e8234324f41ab85c6f9577fc1180"
+      "source_sha256": "05dcda2004c3cf8771923100e5b56a90627146759a735f9b2e2a8504c1e1b068"
     },
     {
       "assets": [],
@@ -469,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "46ebb9a3d0f5fda06a1dd5d663bba53e9b240763004c81ecb9af424574d3674c",
-  "source_git_revision": "14ca284bb5fca1614f3bf542102a2e393feb7dc8"
+  "execution_manifest_sha256": "f3169364d0c67ceb0dddebeeeddcce306c7f7fd1b9ac4dd2e4f10213aaf2c4df",
+  "source_git_revision": "b6bb5b4197e11e00c36f89831fa83b2cfc94a025"
 }

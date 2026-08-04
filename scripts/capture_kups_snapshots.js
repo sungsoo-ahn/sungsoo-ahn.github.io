@@ -7,6 +7,7 @@ const { chromium } = require("playwright");
 
 const pages = [
   ["index", ""],
+  ["00", "foundations"],
   ["01", "post-01-initialization"],
   ["02", "post-02-integrators"],
   ["03", "post-03-errors"],

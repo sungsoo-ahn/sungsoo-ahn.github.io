@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-06-trajectory-length/
 title: "When Is a Trajectory Long Enough to Trust?"
 date: 2026-07-14
-last_updated: 2026-08-01
+last_updated: 2026-08-04
 description: "Use warmup, autocorrelation, effective sample size, and independent kUPS replicas to decide what a molecular-dynamics trajectory can support."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -75,11 +75,11 @@ four times too much precision.
 
 For a stationary series, a common schematic is
 
-\[
+$$
 N_{\mathrm{eff}} \approx \frac{N}{\tau_{\mathrm{int}}},
-\]
+$$
 
-where the precise convention for \(\tau_{\mathrm{int}}\) determines whether a
+where the precise convention for $$\tau_{\mathrm{int}}$$ determines whether a
 factor of two appears. The tutorial uses one convention consistently and
 records it with the results. The scientific point does not depend on notation:
 correlation reduces information.<sup id="cite-sokal"><a href="#ref-sokal">1</a></sup>

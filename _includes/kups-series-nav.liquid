@@ -1,0 +1,40 @@
+{% assign kups_lessons = site.pages | where: "series", "kups-md-tutorials" | sort: "series_order" %}
+{% assign kups_current_index = nil %}
+{% for kups_lesson in kups_lessons %}
+  {% if kups_lesson.url == page.url %}
+    {% assign kups_current_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{% if kups_current_index != nil %}
+  {% assign kups_previous_index = kups_current_index | minus: 1 %}
+  {% assign kups_next_index = kups_current_index | plus: 1 %}
+  <nav class="kups-series-nav" aria-label="kUPS MD tutorial sequence">
+    <div class="kups-series-nav__position">
+      {% if page.series_order == 0 %}
+        Foundations
+      {% else %}
+        Part {{ page.series_order }}
+      {% endif %}
+      of the <a href="{{ '/kups-md-tutorials/' | relative_url }}">kUPS MD tutorial</a>
+    </div>
+    <div class="kups-series-nav__links">
+      {% if kups_current_index > 0 %}
+        {% assign kups_previous = kups_lessons[kups_previous_index] %}
+        <a class="kups-series-nav__previous" href="{{ kups_previous.url | relative_url }}">
+          <span aria-hidden="true">←</span>
+          <span><small>Previous</small>{{ kups_previous.title }}</span>
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+      {% if kups_next_index < kups_lessons.size %}
+        {% assign kups_next = kups_lessons[kups_next_index] %}
+        <a class="kups-series-nav__next" href="{{ kups_next.url | relative_url }}">
+          <span><small>Next</small>{{ kups_next.title }}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      {% endif %}
+    </div>
+  </nav>
+{% endif %}

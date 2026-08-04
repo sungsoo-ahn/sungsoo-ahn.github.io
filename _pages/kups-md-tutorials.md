@@ -2,7 +2,7 @@
 layout: page
 permalink: /kups-md-tutorials/
 title: kUPS MD Tutorials
-description: Executable molecular-dynamics tutorials for MLIP-aware machine-learning researchers.
+description: An executable introduction to molecular dynamics, from physical ideas and JAX algorithms to production kUPS simulations.
 nav: false
 nav_order: 4
 pagination:
@@ -15,11 +15,11 @@ pagination:
 
   <h1>kUPS MD Tutorials</h1>
   <p class="blog-index-note">
-    Executable molecular-dynamics tutorials for ML researchers who know basic mechanics and MLIPs but are new to simulation practice, from initialization and integration to free energies, enhanced sampling, and reliability checks.
+    An executable introduction for readers who know Python and elementary calculus but may be new to molecular dynamics. Each lesson connects physical intuition, equations, a compact JAX implementation, the corresponding kUPS interface, and an interpreted simulation result.
   </p>
   <div class="blog-type-summary" aria-label="kUPS tutorial types">
-    <span>Post types</span>
-    <span>Tutorials {{ tutorial_count }}</span>
+    <span>Reading path</span>
+    <span>Lessons {{ tutorial_count }}</span>
   </div>
 
   <ol class="bibliography">
@@ -57,7 +57,7 @@ pagination:
             <div class="blog-list-description">{{ post.description }}</div>
           {% endif %}
           <div class="author">
-            <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read<span class="sr-only">; part {{ post.series_order }} of {{ tutorial_count }}</span>
+            <span class="blog-post-type blog-post-type-{{ post_type }}">{% if post.series_order == 0 %}Start here{% else %}{{ post_type_label }}{% endif %}</span>{% if post_author_text %}; {{ post_author_text }}{% endif %}; {{ post.date | date: '%B %d, %Y' }}; {{ read_time }} min read<span class="sr-only">; lesson {{ forloop.index }} of {{ tutorial_count }}</span>
           </div>
         </div>
       </div>

@@ -1568,6 +1568,91 @@ details.code-collapse {
   }
 }
 
+/* Learning structure and sequence navigation for the executable MD book. */
+.kups-learning-box {
+  background: color-mix(in srgb, var(--global-theme-color) 7%, var(--global-bg-color));
+  border-left: 0.25rem solid var(--global-theme-color);
+  border-radius: 0.35rem;
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.15rem 0.8rem;
+
+  .kups-learning-box__title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.55rem;
+    text-transform: uppercase;
+  }
+
+  ul {
+    margin-bottom: 0.8rem;
+  }
+}
+
+details.kups-reproducibility {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.45rem;
+  margin: 2.25rem 0 1rem;
+
+  > summary {
+    background: var(--global-card-bg-color);
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+  }
+
+  > div {
+    border-top: 1px solid var(--global-divider-color);
+    padding: 1rem 1rem 0.25rem;
+  }
+}
+
+.kups-series-nav {
+  border-top: 1px solid var(--global-divider-color);
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+
+  .kups-series-nav__position {
+    color: var(--global-text-color-light);
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+  }
+
+  .kups-series-nav__links {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .kups-series-nav__previous,
+  .kups-series-nav__next {
+    align-items: center;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 0.45rem;
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .kups-series-nav__next {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  small {
+    color: var(--global-text-color-light);
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .kups-series-nav .kups-series-nav__links {
+    grid-template-columns: 1fr;
+  }
+}
+
 .post-content mjx-container[display="true"] {
   max-width: 100%;
   overflow-x: auto;

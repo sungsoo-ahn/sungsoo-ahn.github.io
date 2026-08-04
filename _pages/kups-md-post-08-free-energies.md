@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-08-free-energies/
 title: "How Do Equilibrium Samples Become Free Energies?"
 date: 2026-07-14
-last_updated: 2026-08-01
+last_updated: 2026-08-04
 description: "Turn probabilities and real kUPS radial distribution functions into free-energy profiles without hiding binning, reweighting, support, or replica uncertainty."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -29,7 +29,7 @@ collapse_code: true
 ## A Free-Energy Curve Is a Claim About Probability
 
 Free energy amplifies weak sampling. If a probability estimate is too small by
-a factor of two, the error becomes an additive (k_B Tlog 2). If a histogram
+a factor of two, the error becomes an additive $$k_{B}T\log 2$$. If a histogram
 bin is empty, its logarithm is not “a very high barrier.” It is undefined from
 the available samples.
 
@@ -42,8 +42,8 @@ This post uses two layers:
 
 1. a double well with a known answer to test histograms, bootstrap uncertainty,
    and bias removal;
-2. independent kUPS argon trajectories to test (W(r)=-k_B Tlog g(r)),
-   low-(g(r)) support, and replica uncertainty.
+2. independent kUPS argon trajectories to test
+   $$W(r)=-k_{B}T\log g(r)$$, low-$$g(r)$$ support, and replica uncertainty.
 
 The executable artifacts are the
 [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-08/smoke.json),
@@ -60,14 +60,14 @@ and [review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/rev
 
 ## Calibrate the Logarithm on a Known Answer
 
-For a coordinate (s) sampled from an equilibrium density (p(s)), the
+For a coordinate $$s$$ sampled from an equilibrium density $$p(s)$$, the
 relative free energy is
 
-\[
-F(s) = -k_B T\log p(s) + C.
-\]
+$$
+F(s) = -k_{B}T\log p(s) + C.
+$$
 
-The constant (C) is arbitrary. The tutorial shifts each finite profile so
+The constant $$C$$ is arbitrary. The tutorial shifts each finite profile so
 its minimum is zero. It does not fill empty bins with an invented energy.
 
 {% include kups-notebooks/post-08/post08-setup.html %}
@@ -94,17 +94,17 @@ regions. Bin width is part of the estimator, not a plotting preference.
 
 ## Reweighting Must Undo the Bias
 
-Suppose sampling used a bias (V_b(s)), so the observed density is
+Suppose sampling used a bias $$V_b(s)$$, so the observed density is
 
-\[
+$$
 p_b(s) \propto \exp\{-\beta[F(s)+V_b(s)]\}.
-\]
+$$
 
 Recovering the unbiased density therefore weights samples by
 
-\[
+$$
 w(s)=\exp\{+\beta V_b(s)\}.
-\]
+$$
 
 The sign is easy to reverse and difficult to diagnose from a pretty curve. In
 the known-answer control, reweighting gives a barrier of 1.123: useful, but not
@@ -116,12 +116,12 @@ reweighting cannot manufacture.<sup id="cite-torrie"><a href="#ref-torrie">1</a>
 For an isotropic homogeneous system, the radial distribution function removes
 the spherical-shell reference measure. Its pair potential of mean force is
 
-\[
-W(r) = -k_B T\log g(r) + C.
-\]
+$$
+W(r) = -k_{B}T\log g(r) + C.
+$$
 
 This is not the bare pair potential. It is an equilibrium, many-body quantity
-for the selected state point. It also becomes unstable as (g(r)) approaches
+for the selected state point. It also becomes unstable as $$g(r)$$ approaches
 zero. The code therefore declares a minimum supported RDF value and masks
 smaller bins. Replacing zero with a tiny epsilon would create a finite number,
 but that number would be controlled by the epsilon rather than the data.
@@ -150,14 +150,14 @@ range lies below the 10.52 Å half-box limit. Every worker observed
 </div>
 
 The mean RDF peak is 4.679 at 3.64 Å, so the shifted PMF minimum is also at
-3.64 Å. Under the primary (g(r)\ge 0.05) rule, 60 radial bins remain finite
+3.64 Å. Under the primary $$g(r)\ge 0.05$$ rule, 60 radial bins remain finite
 and the displayed PMF range is 37.98 meV. The maximum between-replica PMF
 standard deviation is only 0.85 meV.
 
 That narrow replica band is not the whole uncertainty story. Changing only the
 low-RDF support rule gives:
 
-| Minimum supported (g(r)) | Finite bins | Shifted PMF range (meV) | PMF minimum (Å) |
+| Minimum supported $$g(r)$$ | Finite bins | Shifted PMF range (meV) | PMF minimum (Å) |
 |---:|---:|---:|---:|
 | 0.02 | 61 | 45.50 | 3.64 |
 | 0.05 | 60 | 37.98 | 3.64 |
@@ -173,7 +173,7 @@ that reports only the 0.05 curve would hide the dominant analysis sensitivity.
 
 The controlled double well proves that the implementation can recover a known
 barrier and reveal binning bias. The kUPS layer proves that real HDF5 positions
-can flow through periodic RDF normalization, a physical (k_B T), support
+can flow through periodic RDF normalization, a physical $$k_{B}T$$, support
 masking, and replica uncertainty.
 
 It does not prove a converged argon PMF. Eighty stored frames are deliberately
