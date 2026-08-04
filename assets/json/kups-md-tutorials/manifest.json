@@ -589,6 +589,20 @@
       "source": "figures/post-08/free_energy_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post08_pair_pmf.png",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "7fe5a669225fa090063ea17da9baad10a8055080eb9a97de6af90fedc6c7191b",
+      "source": "figures/post-08/pair_pmf_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post08_pair_pmf.svg",
+      "kind": "figure",
+      "post": "08",
+      "sha256": "16b84361c6b2042a7546ca4f8878a7e69e1ee66a430c30c390c4238e6e9c4b34",
+      "source": "figures/post-08/pair_pmf_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-09/full/estimator_summary.json",
       "kind": "compact-result",
       "post": "09",
@@ -772,5 +786,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "eb1fadacb8f76d9fab45b38d0a3d4ddb08d3c0c2"
+  "source_git_revision": "9147ad1cc9559b3906e968213115d4c2c9b5968f"
 }
