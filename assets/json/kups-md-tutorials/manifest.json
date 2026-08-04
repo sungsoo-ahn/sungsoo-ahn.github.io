@@ -659,6 +659,20 @@
       "source": "figures/post-09/estimator_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post09_overlap_weights.png",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "5553fed01c8ae2996d92123ed36ee98c599d852b3786d0ec2608628781303c94",
+      "source": "figures/post-09/overlap_weights_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post09_overlap_weights.svg",
+      "kind": "figure",
+      "post": "09",
+      "sha256": "d8d4596b497115f493f7dd673619c1afeb224dcfb51bdd1ead63aee99c9ea674",
+      "source": "figures/post-09/overlap_weights_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-10/full/kups_umbrella_samples.csv",
       "kind": "compact-result",
       "post": "10",
@@ -786,5 +800,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "9147ad1cc9559b3906e968213115d4c2c9b5968f"
+  "source_git_revision": "e9ea56ebd48002d32b9a15b21a67dc2fa264864a"
 }
