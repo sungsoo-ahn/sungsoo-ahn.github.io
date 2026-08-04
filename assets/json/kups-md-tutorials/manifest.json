@@ -351,6 +351,20 @@
       "source": "figures/post-05/barostat_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post05_cell_response.png",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "7d021fbb0482b4fe61e3c6e0f8fd7fd1fa5e6449779813ace05be4f6fa5aae77",
+      "source": "figures/post-05/cell_response_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post05_cell_response.svg",
+      "kind": "figure",
+      "post": "05",
+      "sha256": "072b9fd14256afdba99dabd74c718c8d4331e3a5f4e49ca28a4453ff11dc8286",
+      "source": "figures/post-05/cell_response_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-06/full/argon_observable_samples.csv",
       "kind": "compact-result",
       "post": "06",
@@ -730,5 +744,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "c63c3203d4a4c6dbef7b5ffeca425375f6fe7b34"
+  "source_git_revision": "cc3c0d227e2f2b09663c423df2e6d52a75a59f4d"
 }
