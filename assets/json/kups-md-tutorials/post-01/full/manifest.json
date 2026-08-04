@@ -17,7 +17,7 @@
     "title": "How Do You Initialize an MD Simulation Without Biasing the Result?"
   },
   "execution": {
-    "elapsed_seconds": 4.016,
+    "elapsed_seconds": 4.034,
     "max_full_profile_seconds": 3600,
     "measured_by": "kups_md_tutorials.workflows.run_post"
   },
@@ -47,10 +47,11 @@
     "seed": 2026071401
   },
   "kups_initialization_file": "kups_initialization_summary.json",
+  "kups_state_file": "kups_initial_state.json",
   "provenance": {
     "config_path": "configs/post-01/full.json",
     "config_sha256": "97f10e793ad6e7993963660d5886b2b34251f12f53bcba4e5bcb9f629fbc54e3",
-    "git_revision": "9f8c6d98266a2ca9fb87a47e2a2e0e3686f4149c",
+    "git_revision": "dbb677e4ddc1133828154562856ad783e86dcbf7",
     "lock_path": "uv.lock",
     "lock_sha256": "1e3d7f63e177a6a9a753cdb7a62667b8dc1c9d6bb5563b1deebdd70de4168844",
     "platform": "Linux-5.15.0-134-generic-x86_64-with-glibc2.35",
