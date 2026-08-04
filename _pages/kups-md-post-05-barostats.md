@@ -1,240 +1,359 @@
 ---
 layout: post
 permalink: /kups-md-tutorials/post-05-barostats/
-title: "How Should Pressure and Cell Degrees of Freedom Be Coupled?"
+title: "How Does a Barostat Move the Simulation Cell?"
 date: 2026-07-14
 last_updated: 2026-08-04
-description: "Run isotropic and fully flexible NPT paths in kUPS, then inspect pressure, temperature, and moving-cell response from recorded HDF5 trajectories."
+description: "Derive stochastic cell rescaling in JAX, then interpret isotropic and flexible-cell NPT trajectories run through kUPS."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 5
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 5
 categories: [science]
-tags: [molecular-dynamics, npt, pressure, barostat, kups]
+tags: [molecular-dynamics, npt, pressure, barostat, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable draft is hidden from site navigation until the full kUPS MD series passes its release review. Every numerical claim below comes from committed smoke or GPU-profile artifacts. The short runs test implementation and response; they do not establish converged argon thermodynamics.</em>
-</p>
+A barostat does not push an instantaneous-pressure display toward a target. It
+changes the simulation cell. Atomic coordinates must move with that cell, the
+new density changes forces and virial stress, and the next pressure estimate
+feeds back into another cell update.
 
-## A Pressure Target Is Not a Flat Pressure Trace
+This feedback is noisy by design. Pressure fluctuates strongly in a small
+atomistic system, and the NPT ensemble also requires volume fluctuations. A
+flat pressure trace or a rigidly controlled volume can be evidence of the
+wrong algorithm.
 
-If an NPT trajectory sits exactly at its target pressure, be suspicious.
-Pressure in a small atomistic box is noisy. The barostat controls a distribution
-by moving the cell; it does not clamp each frame to one number.
+We will expose the isotropic stochastic-cell-rescaling update used by the kUPS
+`csvr_npt` path, implement its core in JAX, and then inspect real isotropic and
+fully flexible kUPS trajectories. The goal is to separate three questions:
+does the cell respond, has the NPT ensemble equilibrated, and is the force
+model's stress physically valid?
 
-That distinction changes the review question. “Did the pressure reach 10 MPa?”
-is too weak. We need to ask:
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-- Did the cell move in the expected direction?
-- Did the thermostat keep the kinetic temperature plausible?
-- How fast did each pressure-coupling choice respond?
-- Are volume and pressure still fluctuating after the transient?
-- Does the stored evidence support an isotropic-volume claim, a cell-shape
-  claim, or only an implementation check?
+- where kinetic and virial terms enter instantaneous pressure;
+- why NPT sampling needs volume fluctuations rather than pressure clamping;
+- how stochastic cell rescaling updates log volume and affine coordinates;
+- how isotropic and flexible-cell barostats represent different degrees of
+  freedom;
+- how to distinguish a short response test from an equilibrated NPT result.
 
-The last question matters especially for ML potentials. An NPT integrator can
-run perfectly while the learned stress is wrong outside its training domain.
-Energy conservation cannot validate a pressure model, and a moving box cannot
-validate an MLIP under strain.
+**Prerequisites:** periodic cells and units from
+[Post 01]({% link _pages/kups-md-post-01-initialization.md %}), force-driven
+integration from [Post 02]({% link _pages/kups-md-post-02-integrators.md %}),
+and thermostat coupling from
+[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+</div>
 
-The executable artifacts are the
-[smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/smoke.json),
-[full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/full.json),
-[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-05-barostats.ipynb),
-[smoke kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/smoke/kups_md_summary.json),
-[full kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/kups_md_summary.json),
-[full NPT trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/kups_npt_samples.csv),
-[full manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/manifest.json),
-[figure generator](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post05_figures.py),
-and [review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-05.md).
+## Pressure is a force response of the whole cell
 
-## First Calibrate the Statistic
+For a cubic system with pairwise forces, the scalar instantaneous pressure can
+be written schematically as
 
-Before touching atomistic NPT, the notebook checks a scalar stochastic process
-whose volume variance is known. All three control runs have the same target
-distribution. Only the relaxation time changes. The variance ratios stay near
-one, while the integrated autocorrelation time grows from about 2 to 23 stored
-samples.
+$$
+P_{\mathrm{inst}}
+= \frac{1}{3V}
+  \left(2K + \sum_{i<j}\mathbf r_{ij}\cdot\mathbf F_{ij}\right).
+$$
+
+The first term is kinetic. The second is the configurational virial: how
+interatomic forces respond to separation inside the cell. Production codes
+evaluate a full stress tensor and must handle periodic geometry, many-body
+potentials, and their own stress sign convention. The scalar pressure is
+related to the trace of that tensor.
+
+Several consequences follow immediately:
+
+- pressure fluctuates when momenta and configurations fluctuate;
+- pressure has much larger frame-to-frame noise than temperature in many
+  small systems;
+- changing the volume changes density, pair separations, forces, and the next
+  pressure;
+- a learned potential must predict strain derivatives or stress accurately,
+  not only energies at fixed cells.
+
+The barostat consumes this noisy observable. It does not make the observable
+noise disappear.
+
+## The NPT target is a distribution over volume
+
+At target pressure $$P_0$$ and temperature $$T$$, the isothermal--isobaric
+ensemble weights a state through the enthalpy-like quantity
+$$H+P_0V$$. In a common shorthand,
+
+$$
+\pi(\mathbf R,\mathbf P,V)
+\propto
+\exp\!\left[-\beta\left(H(\mathbf R,\mathbf P;V)+P_0V\right)\right].
+$$
+
+The exact coordinate measure depends on how positions and the cell are
+parameterized, but the central point is simple: volume is a sampled variable.
+At equilibrium its variance is related to the isothermal compressibility,
+
+$$
+\operatorname{Var}(V)
+= k_{\mathrm B}T\,\kappa_T\langle V\rangle,
+\qquad
+\kappa_T=-\frac{1}{V}\left(\frac{\partial V}{\partial P}\right)_T.
+$$
+
+Suppressing volume fluctuations can therefore corrupt the ensemble even when
+the average pressure looks plausible
+(<span id="cite-frenkel"></span>[Frenkel & Smit,
+2001](#ref-frenkel)).
+
+## Stochastic cell rescaling is pressure feedback plus noise
+
+The isotropic kUPS path follows stochastic cell rescaling
+(<span id="cite-bernetti2020"></span>[Bernetti & Bussi,
+2020](#ref-bernetti2020)). Define the log-volume increment
+$$d\epsilon=d\ln V$$. A discrete update has the form
+
+$$
+d\epsilon
+= \frac{\kappa_T\Delta t}{\tau_P}(P_{\mathrm{inst}}-P_0)
++ \sqrt{\frac{2k_{\mathrm B}T\kappa_T\Delta t}{\tau_PV}}\,\xi,
+\qquad
+\xi\sim\mathcal N(0,1).
+$$
+
+The sign is physically transparent. If internal pressure exceeds the target,
+the deterministic term is positive and the cell expands. If pressure is too
+low, it contracts. The random term restores NPT volume fluctuations; deleting
+it produces a relaxation controller rather than the intended sampler.
+
+Because $$d\epsilon$$ changes volume, the linear scale factor in three
+dimensions is
+
+$$
+\mu=\exp\!\left(\frac{d\epsilon}{3}\right),
+\qquad
+\mathbf h' = \mu\mathbf h,
+\qquad
+\mathbf r_i' = \mu\mathbf r_i.
+$$
+
+Scaling both the cell matrix $$\mathbf h$$ and all positions preserves
+fractional coordinates. Scaling only one would instantaneously change where
+atoms sit relative to the periodic box. kUPS also clamps $$\mu$$ to a safe
+per-step range; a repeatedly active clamp indicates that the timestep,
+coupling, pressure, or initial state needs review.
+
+## Put the kUPS cell update into JAX
+
+The collapsed setup selects a CPU backend and imports the configuration and
+real kUPS runner.
 
 {% include kups-notebooks/post-05/post05-setup.html %}
 
-{% include kups-notebooks/post-05/post05-scalar-control.html %}
+The open cell below mirrors the core operations of kUPS stochastic cell
+rescaling without its table/lens abstractions. A linear pressure--volume law
+provides a known equilibrium. The JAX state contains both positions and the
+cell, and a single random key controls each log-volume update.
 
-This control is not molecular dynamics. It is a ruler. It makes one lesson
-unambiguous: the number of stored frames is not the number of independent cell
-samples. A slow barostat can produce a smooth, long trajectory with very little
-statistical information.
+{% include kups-notebooks/post-05/post05-jax-cell-rescaling.html %}
 
-For a real NPT ensemble, volume fluctuations are related to the isothermal
-compressibility. The exact estimator and finite-size corrections depend on the
-system, but suppressing volume fluctuations merely because they look noisy is
-not a valid stability fix.<sup id="cite-frenkel"><a href="#ref-frenkel">1</a></sup>
+All three coupling times recover a mean volume near 1,000 and a variance close
+to the analytic target of 10. Their variance ratios are 1.054, 1.086, and
+0.957. The slowest run has a mean pressure of 1.051 rather than 1.000 even
+after the same number of steps because its cell retains more memory.
 
-## kUPS Exposes Two Different Cell Models
+The longer committed control quantifies that memory. Increasing
+$$\tau_P$$ from 0.5 to 8 raises the volume integrated autocorrelation time from
+1.99 to 22.53 saved samples. Effective volume samples fall from about 1,256 to
+111. A smooth slow response is not the same as efficient sampling.
 
-kUPS 1.0.3 provides two NPT paths used here:
+## kUPS exposes scalar and tensor cell dynamics
+
+The two production paths in this lesson do not represent the same cell:
 
 <div class="table-responsive" markdown="1">
 
-| kUPS integrator | Cell motion | Thermostat/barostat idea |
+| kUPS integrator | Cell degrees of freedom | Per-step structure |
 |---|---|---|
-| `csvr_npt` | isotropic scaling | CSVR thermostat plus stochastic cell rescaling |
-| `baoab_npt_langevin` | fully flexible cell | atom and cell Langevin dynamics with BAOAB splitting |
+| `csvr_npt` | one isotropic volume mode | CSVR thermostat → velocity Verlet → stochastic cell rescaling → new forces/stress |
+| `baoab_npt_langevin` | lower-triangular flexible cell and cell momentum | coupled atom/cell kicks, drifts, and Langevin refreshes in a BAOAB palindrome |
 
 </div>
 
-The fully flexible path follows the extended-variable formulation described by
-Gao, Fang, and Wang.<sup id="cite-gao"><a href="#ref-gao">2</a></sup> These
-are not interchangeable switches. Isotropic scaling assumes one scalar cell
-mode. A fully flexible cell can represent shear and anisotropic strain, which
-is useful for solids but also exposes more ways for a bad stress model to fail.
+Isotropic rescaling can change density but not angles or relative edge ratios.
+The flexible formulation introduces a cell-momentum tensor and can respond to
+anisotropic stress and shear. kUPS implements the Gao--Fang--Wang extended-cell
+Langevin scheme for that path
+(<span id="cite-gao2016"></span>[Gao et al., 2016](#ref-gao2016)).
 
-The experiment uses Lennard-Jones argon in physical units:
+More degrees of freedom are not automatically better. Liquids often need only
+isotropic pressure control. Crystals may require anisotropic relaxation, but a
+flexible cell also exposes shear instabilities and weaknesses in a potential's
+stress predictions.
 
-<div class="table-responsive" markdown="1">
+## Pressure units must cross the API boundary correctly
 
-| Parameter | Full-profile value |
-|---|---:|
-| atoms | 256 |
-| initial number density | 0.0275 Å$$^{-3}$$ |
-| temperature target | 100 K |
-| pressure target | 10 MPa |
-| timestep | 2 fs |
-| warmup | 200 steps |
-| production | 800 steps |
-| stored frames | 80 per case |
-| compressibility parameter | $$5\times10^{-10}$$ Pa$$^{-1}$$ |
-| pressure-coupling times | 0.5, 1.0, and 2.0 ps |
-| target runtime | GPU |
+kUPS stores virial stress in its internal $$\mathrm{eV}/\mathring{A}^3$$
+units. The analysis layer converts before naming a value `pressure_pa`:
 
-</div>
+$$
+1\ \mathrm{Pa}
+=6.241509\times10^{-12}\ \mathrm{eV}/\mathring{A}^3.
+$$
 
-Ten MPa is deliberately high enough for a short response test. This is not a
-one-bar equation-of-state calculation. The starting FCC cell is dense, the
-trajectory is only 1.6 ps after warmup, and no result below is presented as an
-equilibrium argon property.
+A unit test injects a one-pascal diagonal stress and requires a one-pascal
+pressure result. Without that boundary test, a plausible-looking trace could
+be wrong by eleven orders of magnitude.
 
-## Run the Moving Cell
+## Run both moving-cell paths through kUPS
 
-The open notebook cell runs both NPT implementations through
-`kups.application.simulations.md.run`. Each case executes in a separate process
-because JAX donates buffers during kUPS propagation. kUPS writes the trajectory
-to HDF5; the tutorial then extracts volume, virial stress, kinetic temperature,
-and total energy.
+The next cell runs 32-atom CPU smoke cases through
+`kups.application.simulations.md.run`, writes separate HDF5 files, and derives
+volume and pressure traces from those files.
 
 {% include kups-notebooks/post-05/post05-kups-npt.html %}
 
-There is an easy unit bug here. kUPS stores the virial stress in its internal
-eV/Å³ units. The tutorial converts by
-$$1\ \mathrm{Pa}=6.241509\times10^{-12}\ \mathrm{eV}/\text{Å}^3$$ before a
-column is named `pressure_pa`. The wrapper tests this boundary explicitly; it
-does not attach SI labels to raw internal values.
+The 16-frame smoke runs establish execution, not equilibration. The isotropic
+cell grows by 7.83% relative to its first stored volume and ends at 142.7 MPa;
+the flexible case grows by 5.73% and ends at 109.2 MPa. Both are still in a
+large transient.
 
-The smoke result is intentionally small: 32 atoms, 16 stored frames, and a CPU
-backend. Its job is to prove that both algorithms compile, move the cell, and
-produce finite HDF5 datasets. The full profile is the evidence used for the
-scientific interpretation.
-
-## What the GPU Run Actually Showed
-
-All three full-profile workers observed `gpu:NVIDIA RTX A5000`. Each wrote 80
-frames for 256 atoms. The HDF5 hashes differ across cases, so the table is tied
-to three distinct raw trajectories.
+The full profile uses 256 atoms, 200 warmup steps, 800 production steps, and
+80 stored frames over 1.6 ps. All three workers observed an NVIDIA RTX A5000:
 
 <div class="table-responsive" markdown="1">
 
-| Case | Mean $$T$$ (K) | Mean $$P$$ (MPa) | Final $$V/V_{\mathrm{first}}$$ | Final $$P$$ (MPa) |
+| Full kUPS case | Mean $$T$$ | Mean $$P$$ | Final $$V/V_{\mathrm{first}}$$ | Final $$P$$ |
 |---|---:|---:|---:|---:|
-| CSVR–NPT, $$\tau_P=0.5$$ ps | 95.0 | 38.2 | 1.0970 | 30.8 |
-| CSVR–NPT, $$\tau_P=2.0$$ ps | 100.6 | 139.0 | 1.0915 | 61.6 |
-| BAOAB–NPT, $$\tau_P=1.0$$ ps | 99.1 | 3.1 | 1.0921 | 7.6 |
+| CSVR--NPT, $$\tau_P=0.5$$ ps | 95.0 K | 38.2 MPa | 1.0970 | 30.8 MPa |
+| CSVR--NPT, $$\tau_P=2.0$$ ps | 100.6 K | 139.0 MPa | 1.0915 | 61.6 MPa |
+| flexible BAOAB--NPT, $$\tau_P=1.0$$ ps | 99.1 K | 3.1 MPa | 1.0921 | 7.6 MPa |
 
 </div>
 
-The mean pressure is not expected to equal the target in this transient. The
-slow isotropic case still remembers its high-pressure starting state. The
-faster isotropic case responds more quickly. The flexible-cell trajectory
-crosses the target and fluctuates on both sides, giving a mean below 10 MPa but
-a final stored pressure near it. These are response-time observations, not a
-ranking of integrators and not evidence that the flexible algorithm has
-equilibrated better.
+The target is 10 MPa. These means do not rank integrators because the stored
+window begins during response from a dense high-pressure cell. The slow
+isotropic run retains more of that initial condition. The flexible case
+crosses the target, but one crossing and a nearby final frame do not establish
+equilibrium.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Real kUPS NPT evidence from the committed full GPU profile. The cell expands from the first stored production frame, instantaneous pressure remains noisy, temperature is checked independently, and the short-run volume response is separated from the span of stored fluctuations." %}
+Temperature and pressure must also be read separately. The slow isotropic case
+has a reasonable mean temperature while its pressure remains far from the
+target. Thermostat equilibration does not imply barostat equilibration.
 
-The figure also explains why reporting only a mean pressure is dangerous. The
-2 ps case has a reasonable temperature but remains far from the pressure target
-over the bounded window. A stable thermostat does not imply an equilibrated
-barostat.
+## Watch the periodic cell expand around real atoms
 
-## What This Does Not Validate
+The next figure puts the feedback equation above actual positions from the
+full fast-isotropic HDF5 trajectory. The same physical scale is used in both
+atom panels, so the cell-edge change is not a drawing trick.
 
-The run exercises the fully flexible kUPS code path, but the stable per-step
-HDF5 surface currently stores positions, energies, virial stress, and volume—not
-the full cell matrix. Therefore this article validates moving-cell volume
-response for that path. It does not claim to have measured cell angles, shear
-relaxation, or a flexible-cell shape distribution.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post05_cell_response.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Stochastic barostat feedback loop above first and final atom layers from an expanding kUPS periodic cell" caption="High internal pressure produces a positive log-volume drift; the cubic-root factor scales the cell and coordinates before forces and virial generate the next pressure. The lower panels show 32 actual atoms near z=0 in the fast isotropic full trajectory. From 0.02 to 1.60 ps, stored volume grows from 10,042 to 11,016 cubic angstrom and pressure falls from 129.0 to 30.8 MPa. The dashed square in the final panel is the first stored edge. This is a response visualization, not evidence that the 10 MPa NPT target has equilibrated." %}
 
-The trajectory is also too short for a compressibility estimate. Eighty stored
-frames can show motion and fluctuations, but an NPT ensemble claim needs longer
-runs, warmup sensitivity, multiple seeds, autocorrelation-aware uncertainty,
-and usually finite-size checks. In a crystal, it also needs a direct review of
-cell vectors and stress anisotropy. In an MLIP workflow, it needs stress
-validation against reference calculations in the strained configurations the
-barostat visits.
+The cubic edge grows only about 3.1% because volume scales as length cubed. The
+atomic layer becomes less dense, which weakens the high internal pressure. The
+final 30.8 MPa remains above target: feedback is working, but the bounded run
+has not finished relaxing.
 
-The useful hierarchy is:
+The flexible-cell HDF5 evidence surface records volume but not the full cell
+matrix at every stored step. This article therefore makes no visual or
+quantitative claim about cell angles, shear, or shape distributions for that
+case.
 
-1. **Smoke:** both NPT paths compile and write finite HDF5 evidence.
-2. **Response:** the cell moves in a physically interpretable direction while
-   temperature remains controlled.
-3. **Sampling:** longer replicas recover stable means, variances, and effective
-   sample counts.
-4. **Model validity:** reference forces and stresses support the thermodynamic
-   interpretation.
+## A successful NPT study needs four gates
 
-This post completes the first two gates. It deliberately leaves the latter two
-as requirements for a material-specific production study.
+1. **Execution:** every intended NPT path compiles, writes finite cells and
+   stress, and records its actual device.
+2. **Response:** starting from controlled compressed and expanded cells, volume
+   moves in the physically expected direction while temperature remains
+   plausible.
+3. **Sampling:** longer independent replicas give stable volume/pressure
+   statistics with autocorrelation-aware uncertainty and warmup sensitivity.
+4. **Model validity:** reference calculations support energies, forces, and
+   stress over the strained configurations visited by the cell.
 
-## Reproduce It
+This chapter completes the first two for a bounded Lennard-Jones
+implementation test. Eighty frames cannot establish compressibility, an argon
+equation of state, or a production NPT uncertainty.
+
+For a crystal, the third gate also needs stored cell vectors, shape and angle
+distributions, and anisotropic stress. For an MLIP, the fourth gate is often
+the hardest: an NPT run can be numerically stable while the model extrapolates
+under strain.
+
+## Check your understanding
+
+1. If $$P_{\mathrm{inst}}>P_0$$, what is the sign of the deterministic
+   $$d\epsilon$$ term, and why does that reduce pressure in a compressed cell?
+2. Why must atomic positions and the cell matrix use the same linear scale
+   $$\mu$$?
+3. What ensemble error appears if the stochastic term is deleted but the mean
+   pressure still reaches the target?
+4. Which stored data are missing if you want to validate a flexible-cell shear
+   claim?
+
+The third question distinguishes relaxation from sampling. Reaching a target
+mean is not enough when the target ensemble specifies fluctuations.
+
+## A barostat controls a distribution by changing geometry
+
+Pressure is not an independent knob. It is computed from kinetic motion,
+forces, and cell geometry. A barostat changes geometry, the potential responds,
+and the feedback repeats. Stochastic cell rescaling makes that loop explicit;
+the flexible-cell method generalizes it to tensor degrees of freedom.
+
+A defensible NPT result reports the cell model, pressure and temperature
+couplings, compressibility, timestep, warmup, cell response, volume and stress
+fluctuations, effective samples, replicas, stored cell surface, and validation
+domain of the potential. Post 06 will ask how long such a correlated
+trajectory must run before its averages become informative.
+
+<details class="kups-reproducibility" markdown="1">
+<summary>Reproducibility record and complete NPT dashboard</summary>
+
+Run and verify the CPU profile from the locked environment:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
 cd kups-md-tutorials
-uv sync
+uv sync --locked
 
 uv run kups-tutorial run 05 --profile smoke
 uv run kups-tutorial verify 05 --profile smoke
-
-# Requires a working JAX GPU backend; CPU fallback does not satisfy this profile.
-uv run kups-tutorial run 05 --profile full
-uv run kups-tutorial verify 05 --profile full
-
-uv run kups-tutorial verify-notebooks --posts 05
-uv run python scripts/generate_post05_figures.py
+uv run kups-tutorial verify-notebooks --posts 05 --output-dir notebook-runs
+uv run kups-tutorial export-notebook-cells \
+  --executed-notebooks-dir notebook-runs \
+  --site-root ../sungsoo-ahn.github.io --posts 05 --check
 ```
 
-The verifier requires the configured integrator set, at least eight frames per
-case, finite positive volumes, the expected HDF5 evidence surface, and an
-observed GPU for the GPU-targeted profile. The manifest records the config hash,
-kUPS version, entry point, runtime device, per-case HDF5 SHA-256 digest, and
-elapsed time.
+The full audit dashboard retains volume, pressure, temperature, and
+response-versus-fluctuation traces for all three full kUPS cases:
 
-The practical rule is simple: do not call NPT successful because the code ran
-or because one pressure average looks plausible. Show the cell response, keep
-temperature and pressure diagnostics separate, estimate cell memory, and state
-exactly which cell degrees of freedom the stored data can support.
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post05_barostat_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Four-panel real kUPS NPT dashboard showing volume, pressure, temperature, and stored response" caption="All panels are derived from the three real full-profile kUPS HDF5 trajectories. They support a short moving-cell response study; they do not establish converged NPT averages." %}
+
+Source and evidence:
+
+- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/smoke.json)
+- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-05/full.json)
+- [smoke compact summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/smoke/kups_md_summary.json)
+- [full compact summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/kups_md_summary.json)
+- [full NPT trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/kups_npt_samples.csv)
+- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-05/full/manifest.json)
+- [executed notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-05-barostats.ipynb)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post05_figures.py)
+- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-05.md)
+- [source repository](https://github.com/sungsoo-ahn/kups-md-tutorials)
+
+</details>
 
 ## References
 
-1. <span id="ref-frenkel"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel" class="reversefootnote" role="doc-backlink">↩</a>
-2. <span id="ref-gao"></span>Gao, X., Fang, J. & Wang, H. (2016). Sampling the isothermal-isobaric ensemble by Langevin dynamics. *Journal of Chemical Physics*, 144, 124113. [arXiv:1601.01044](https://arxiv.org/abs/1601.01044). <a href="#cite-gao" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-frenkel"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-bernetti2020"></span>Bernetti, M. & Bussi, G. (2020). Pressure control using stochastic cell rescaling. *Journal of Chemical Physics*, 153, 114107. <a href="#cite-bernetti2020" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-gao2016"></span>Gao, X., Fang, J. & Wang, H. (2016). Sampling the isothermal--isobaric ensemble by Langevin dynamics. *Journal of Chemical Physics*, 144, 124113. <a href="#cite-gao2016" class="reversefootnote" role="doc-backlink">↩</a>
