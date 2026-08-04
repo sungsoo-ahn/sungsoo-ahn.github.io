@@ -739,14 +739,14 @@
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_curves.csv",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "89f65ee23dc58624c0af318a9219fd3dc35b09485d04f364a61d6aeb8a0f4090",
+      "sha256": "89a4abfde4f2da28be53088144b6286c048620e4690c9a54afb57b13c19e9a94",
       "source": "results/post-11/full/enhanced_sampling_curves.csv"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-11/full/enhanced_sampling_summary.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "0721252d126861529fdce268b95bb92309fbae60c9e1e813fbb2f73a86e70062",
+      "sha256": "f58d957b5dd20b5e560a3617afcc7ff7073b40e4f1fd02c2730c8f6f90c8339c",
       "source": "results/post-11/full/enhanced_sampling_summary.json"
     },
     {
@@ -760,22 +760,36 @@
       "destination": "assets/json/kups-md-tutorials/post-11/full/manifest.json",
       "kind": "compact-result",
       "post": "11",
-      "sha256": "7ae0142199b4ab38eb6985b27ad66ca75c81874eeb44f1cc1292ba068462c44f",
+      "sha256": "fcd2f67a67a514dd9db9994a4fd7aafe5ad6e29ba613a3383c4f1282ae7e92aa",
       "source": "results/post-11/full/manifest.json"
     },
     {
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.png",
       "kind": "figure",
       "post": "11",
-      "sha256": "b6b5454dd151b8b301d015f4b9cffc2a027253f75559824cc3c02689d1a0e107",
+      "sha256": "9093acfc108d671ab2bbfd252ffd8cf6b25b8b0dba26a8a407650b2b716a5d8e",
       "source": "figures/post-11/enhanced_sampling_diagnostics_full.png"
     },
     {
       "destination": "assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg",
       "kind": "figure",
       "post": "11",
-      "sha256": "30cd748f20824551755bd883b0fabc51bdab14220d916de9f7a8d96068128b7f",
+      "sha256": "44eb44c849333b4c735546940989fa84d0f0eea7a4f5ae5b2ff498db91f16c04",
       "source": "figures/post-11/enhanced_sampling_diagnostics_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_steered_atom_path.png",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "137e03366ff9ea3793b5304e9d8d7cc5f829b8b6014361a09b00f3547977ca70",
+      "source": "figures/post-11/steered_atom_path_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post11_steered_atom_path.svg",
+      "kind": "figure",
+      "post": "11",
+      "sha256": "df6b7b0c054f215959f670c0330d4a9901477fd0f42fc6331758645928f8e2a4",
+      "source": "figures/post-11/steered_atom_path_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-12/full/manifest.json",
@@ -814,5 +828,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "ce1f41234778677579389b67b35eb45cb139f404"
+  "source_git_revision": "76f70f232726982f8b7654e6b37ed902782405cd"
 }

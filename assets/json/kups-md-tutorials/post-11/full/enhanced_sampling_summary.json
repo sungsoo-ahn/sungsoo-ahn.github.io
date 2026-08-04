@@ -3,18 +3,18 @@
   "domain_max": 2.5,
   "domain_min": -2.5,
   "metadynamics": {
-    "barrier_visit_fraction": 0.13466666666666666,
-    "basin_visit_fraction_left": 0.3596666666666667,
+    "barrier_visit_fraction": 0.13433333333333333,
+    "basin_visit_fraction_left": 0.36,
     "basin_visit_fraction_right": 0.3616666666666667,
     "bias_factor": 10.0,
     "deposit_count": 3000,
-    "final_bias_range": 6.533895225463827,
-    "final_histogram_flatness": 0.6635071090047393,
+    "final_bias_range": 6.377966136746434,
+    "final_histogram_flatness": 0.6619718309859155,
     "hill_height": 0.03,
     "hill_width": 0.12,
     "initial_barrier_height": 0.9555062500000001,
-    "reconstructed_barrier_error": 0.09221638638705165,
-    "reconstructed_barrier_height": 1.0477226363870518
+    "reconstructed_barrier_error": 0.07493572276445615,
+    "reconstructed_barrier_height": 1.0304419727644563
   },
   "pair_distance_steered": {
     "coordinate": "Ar-Ar minimum-image pair distance (angstrom)",

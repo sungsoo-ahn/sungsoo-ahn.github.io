@@ -1,331 +1,477 @@
 ---
 layout: post
 permalink: /kups-md-tutorials/post-11-enhanced-sampling/
-title: "How Do Adaptive and Nonequilibrium Enhanced-Sampling Methods Work?"
+title: "Bias the Landscape or Drive the System?"
 date: 2026-07-14
-last_updated: 2026-08-01
-description: "Build a state-dependent restraint into kUPS, reconstruct protocol work from stored frames, and test whether slower pulling reduces hysteresis."
+last_updated: 2026-08-04
+description: "Separate adaptive metadynamics bias from nonequilibrium steering, implement both central updates in JAX, and interpret real kUPS Ar-pair paths."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 11
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 11
 categories: [science]
-tags: [molecular-dynamics, enhanced-sampling, nonequilibrium-work, jarzynski, kups]
+tags: [molecular-dynamics, enhanced-sampling, metadynamics, nonequilibrium-work, jarzynski, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable draft is hidden from site navigation until the full kUPS MD series passes its release review. The double-well examples are known-answer controls. The Ar-pair result comes from real kUPS trajectories on the devices reported below.</em>
-</p>
+A molecular-dynamics trajectory can remain trapped in one free-energy basin
+for far longer than we can afford to simulate. Enhanced sampling changes the
+calculation so that rare regions become easier to visit. The dangerous leap is
+to confuse *visiting a region* with *measuring its equilibrium probability*.
 
-## A Transition Is Not Yet an Estimate
+This chapter studies two ways of changing the calculation:
 
-Enhanced sampling can make an impressive movie and a bad measurement.
+- **adaptive bias** changes the energy landscape according to the trajectory's
+  accumulated history;
+- **nonequilibrium steering** prescribes a time-dependent protocol and records
+  the work performed along each path.
 
-A history-dependent bias can push a trajectory out of a free-energy basin. A
-moving restraint can drag a coordinate from A to B. Neither observation says
-how probable A or B is in equilibrium. The simulation has changed its own
-sampling distribution; the estimator must remember exactly how.
+They solve related sampling problems, but they generate different data and
+require different estimators. A metadynamics bias history is not a work path.
+A steered path is not a biased equilibrium histogram. We will implement the
+central update for each method in JAX, then use real kUPS trajectories to see
+what a moving restraint actually does to two atoms.
 
-This post separates three claims that are often blurred together:
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-1. an analytic metadynamics-style control shows what history-dependent bias
-   does to a known double well;
-2. analytic work ensembles test Jarzynski and Crooks identities without an MD
-   implementation in the loop;
-3. a physical Ar--Ar coordinate is driven by a state-dependent harmonic
-   restraint inside kUPS, with work reconstructed from the stored trajectory.
+- how a collective variable compresses atomic configurations into a coordinate;
+- why well-tempered Gaussian hills become shorter as local bias accumulates;
+- why adaptive bias and nonequilibrium steering are distinct sampling procedures;
+- how a discrete restraint-center change performs work at a fixed coordinate;
+- how kUPS makes the restraint center depend on the MD step;
+- why slower pulling can reduce lag and hysteresis without becoming equilibrium;
+- how Jarzynski's equality turns a path ensemble into a tail-sensitive estimate;
+- why effective sample size and forward--reverse agreement do not prove convergence.
 
-The executable artifacts are the
+**Prerequisites:** biased distributions from
+[Post 08]({% link _pages/kups-md-post-08-free-energies.md %}), overlap and
+exponential weights from
+[Post 09]({% link _pages/kups-md-post-09-estimators.md %}), harmonic restraints
+from [Post 10]({% link _pages/kups-md-post-10-umbrella-sampling.md %}), and
+Langevin dynamics from
+[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+</div>
+
+The collapsed setup selects JAX CPU for the teaching kernels and imports the
+same workflow that launches the real kUPS smoke experiment later.
+
+{% include kups-notebooks/post-11/setup.html %}
+
+## Part I: adaptive bias remembers where the path has been
+
+Let $$\mathbf R$$ collect all atomic positions. A **collective variable**
+
+$$
+s=\xi(\mathbf R)
+$$
+
+maps that high-dimensional configuration to a smaller coordinate. It could be
+an atom-pair distance, a torsion angle, a coordination number, or a learned
+descriptor. Choosing $$s$$ is a scientific assumption: motion hidden from
+$$s$$ can remain slow even when $$s$$ appears to move freely.
+
+Metadynamics builds a history-dependent bias by depositing Gaussian hills at
+previously visited values $$s_i=s(t_i)$$:
+
+$$
+V_t(s)
+=
+\sum_{t_i<t}
+w_i
+\exp\left[-\frac{(s-s_i)^2}{2\sigma^2}\right].
+$$
+
+Here $$V_t$$ is the accumulated bias at time $$t$$, $$w_i$$ is the height of
+hill $$i$$, and $$\sigma$$ is its width in collective-variable units. A new
+positive hill makes the visited neighborhood less favorable. Repeated hills
+therefore encourage the path to leave an already explored basin.
+
+The time subscript matters. A fixed umbrella samples one stationary modified
+Hamiltonian. Metadynamics changes its Hamiltonian while sampling. The path at
+time $$t$$ depends on every earlier deposition event.
+
+### Well tempering slows the deposition
+
+Depositing hills of constant height forever would keep forcing the landscape
+away from a steady limit. Well-tempered metadynamics reduces a new hill using
+the bias already present at the sampled point:<sup id="cite-metadynamics"><a href="#ref-metadynamics">1</a></sup>
+
+$$
+w_i
+=
+w_0
+\exp\left[
+-\frac{V_{t_i}(s_i)}{k_{\mathrm B}\Delta T}
+\right],
+\qquad
+\gamma=\frac{T+\Delta T}{T}.
+$$
+
+The initial height is $$w_0$$, the physical temperature is $$T$$, and
+$$\Delta T=(\gamma-1)T$$ sets how quickly hills shrink. Large accumulated
+bias means a smaller next hill. The dimensionless bias factor $$\gamma$$ must
+exceed one.
+
+The JAX function below performs exactly one deposition event. `jnp.interp`
+reads the current local bias, the exponential tempers the height, and the final
+line adds a Gaussian across the grid.
+
+{% include kups-notebooks/post-11/post11-jax-adaptive-bias.html %}
+
+With no accumulated bias, the deposited height equals the requested 0.03000.
+When the local bias is already $$2k_{\mathrm B}T$$ and $$\gamma=10$$, the same
+request deposits only 0.02402. This is the adaptive mechanism—not yet a
+free-energy estimate.
+
+In the long-time well-tempered limit, the standard reconstruction is
+
+$$
+F(s)
+=
+-\frac{\gamma}{\gamma-1}V(s)+C,
+$$
+
+where $$C$$ is an arbitrary additive constant. The relation is asymptotic. It
+does not excuse a poor collective variable, an unconverged bias history, or
+missing support in a hidden slow coordinate.
+
+### Test adaptive bias against an answer key
+
+The full analytic control uses a one-dimensional double well whose barrier is
+known before sampling. It deposits 3,000 hills with $$\gamma=10$$. The final
+bias range is 6.378 reduced-energy units, both basins receive nearly equal
+support, and the reconstructed barrier differs from the answer by 0.0749.
+
+<div class="table-responsive" markdown="1">
+
+| Adaptive-bias check | Full value | Interpretation |
+|---|---:|---|
+| deposited hills | 3,000 | length of the history |
+| final bias range | 6.378 | the landscape changed substantially |
+| left / right basin visits | 0.360 / 0.362 | both basins were explored |
+| barrier-region visits | 0.134 | the barrier region gained support |
+| barrier-height error | 0.0749 | known-answer reconstruction error |
+
+</div>
+
+Equal basin counts alone would not validate the method. The answer-key error
+does. On a molecular problem without an answer key, repeatability across
+independent bias histories and stability to hill height, width, bias factor,
+and deposition interval become essential.
+
+This metadynamics example is an analytic teaching control. The physical kUPS
+experiment below performs steered MD, not metadynamics. Keeping that boundary
+explicit prevents evidence from one method being borrowed to support another.
+
+## Part II: steering prescribes a protocol
+
+For the kUPS experiment, the collective variable is the minimum-image distance
+$$r(\mathbf R)$$ between two argon atoms. A harmonic restraint has a center
+$$c(t)$$ that moves from 3.8 Å to 7.5 Å:
+
+$$
+U_{\mathrm{bias}}(\mathbf R,t)
+=
+\frac{K}{2}\left[r(\mathbf R)-c(t)\right]^2.
+$$
+
+The restraint center is an energetic preference, not a position constraint.
+At every MD step, Lennard--Jones forces, thermal noise, inertia, and the bias
+force jointly determine the next atomic state. The realized distance can lag,
+overshoot, or fluctuate around the center.
+
+### Work occurs when the protocol changes
+
+The implementation keeps the center fixed within each stored MD block. At a
+block boundary it changes the center from $$c_i$$ to $$c_{i+1}$$ while holding
+the stored coordinate $$r_i$$ fixed. Work is the instantaneous energy change
+caused by that parameter update:
+
+$$
+\Delta W_i
+=
+U_{\mathrm{bias}}(r_i,c_{i+1})
+-U_{\mathrm{bias}}(r_i,c_i)
+=
+\frac{K}{2}
+\left[
+(r_i-c_{i+1})^2-(r_i-c_i)^2
+\right].
+$$
+
+The atoms do not move during this accounting event. Coordinate propagation at
+a fixed center contributes heat and internal-energy change, but not protocol
+work. The last stored frame has no following center change, so its increment
+is zero.
+
+{% include kups-notebooks/post-11/post11-jax-work.html %}
+
+For the three-event control, the two center changes contribute 0.0096 and
+0.0725 eV. The final zero is not padding; it encodes the fact that no later
+protocol value exists. Summing this array reconstructs the total work from the
+stored distances and center schedule.
+
+### Map that definition to kUPS
+
+The real worker implements the same event sequence:
+
+1. read the kUPS MD step counter and select the corresponding center;
+2. evaluate the harmonic pair restraint with that center;
+3. add it to the Lennard--Jones energy with `sum_potentials`;
+4. obtain forces from the combined energy inside the kUPS propagator;
+5. advance BAOAB Langevin dynamics with `run_md`;
+6. store positions, reconstruct minimum-image distances, and evaluate the JAX
+   work formula above at block boundaries.
+
+kUPS defines its harmonic bond as $$k(r-r_0)^2$$, whereas this chapter writes
+$$K(r-r_0)^2/2$$. The worker therefore passes $$k=K/2$$. Before production, it
+compares the dynamic first-center potential with an independently built static
+restraint in both energy and gradient. It also verifies that zero drive gives
+zero work and that a kUPS energy difference matches the analytic increment.
+
+Those checks establish the implemented Hamiltonian and accounting convention.
+They do not show that the protocol is slow or that the path ensemble is large
+enough.
+
+## Run actual steering trajectories
+
+The fresh-kernel notebook launches four CPU-sized kUPS paths: fast and slow
+protocols in both forward and reverse directions. Each isolated worker
+constructs the combined potential, propagates real MD, writes HDF5 positions,
+and returns a compact work trace. The notebook then invokes the same verifier
+used by the command-line workflow.
+
+{% include kups-notebooks/post-11/smoke-run.html %}
+
+The new smoke run stores 160 frames. Its fast hysteresis gap is 0.2032 eV and
+its slow gap is 0.0230 eV. Zero drive gives exactly zero work, and the largest
+kUPS-versus-analytic increment error is $$3.90\times10^{-9}$$ eV. This is
+bounded execution evidence on CPU; the independent-replica GPU record carries
+the quantitative comparison.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_steered_atom_path.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A moving restraint guides rather than prescribes the atomic path. Left: 50 frames selected from one real 200-frame slow-forward kUPS trajectory, with atom 0 fixed at the origin and atom 1 shown by its minimum-image x-y displacement. Right: mean Ar--Ar distance and one-standard-deviation ribbons from all four forward replicas at each speed. The gray dashed line is the prescribed center." %}
+
+The left panel is an actual atomic trajectory, not a schematic interpolation
+between the endpoints. The three-dimensional pair displacement is projected
+onto the x-y plane, so radial pulling and rotational diffusion both appear.
+The dashed circles show only the initial and final restraint centers.
+
+The right panel separates the protocol from the response. Across the four
+forward paths, the mean absolute distance-to-center lag is 0.74 Å for fast
+pulling and 0.52 Å for slow pulling. Slowing the schedule lets the coordinate
+track its moving preference more closely, but the shaded replica spread makes
+clear that thermal fluctuations remain.
+
+## Hysteresis asks whether slower was actually gentler
+
+For a forward path, the second law implies
+
+$$
+\langle W_{\mathrm F}\rangle\geq\Delta F.
+$$
+
+For the reverse direction,
+
+$$
+\langle W_{\mathrm R}\rangle\geq-\Delta F.
+$$
+
+Their sum defines a loop-width diagnostic,
+
+$$
+H
+=
+\langle W_{\mathrm F}\rangle
++\langle W_{\mathrm R}\rangle.
+$$
+
+An ideal quasistatic pair of protocols has $$H=0$$. Finite-speed driving,
+coordinate lag, and relaxation hidden from the chosen coordinate make the loop
+wider. Hysteresis is not itself a free-energy estimator; it answers a more
+limited question: did allocating more MD steps reduce dissipation?
+
+The full experiment uses two Ar atoms in a periodic 30 Å cube at 100 K,
+Lennard--Jones parameters $$\sigma=3.405$$ Å and $$\epsilon=0.010326$$ eV,
+and $$K=0.02$$ eV/Å$$^2$$. Four independent replicas are run for every
+speed--direction combination, giving 16 GPU paths and 2,000 stored frames.
+
+{% include kups-notebooks/post-11/production-evidence.html %}
+
+<div class="table-responsive" markdown="1">
+
+| Production check | Full-profile value | What it supports |
+|---|---:|---|
+| observed device | NVIDIA RTX A5000 | required GPU execution |
+| fast hysteresis | 0.05258 ± 0.02600 eV | four-path mean and path SEM |
+| slow hysteresis | 0.01113 ± 0.00866 eV | smaller than fast |
+| fast / slow ratio | 4.72 | slower protocol narrows this loop |
+| static energy / gradient error | 0 / 0 | dynamic first center matches static bias |
+| zero-drive work error | 0 eV | no parameter change means no work |
+| maximum work-increment error | $$6.82\times10^{-10}$$ eV | stored-frame accounting matches kUPS |
+
+</div>
+
+The uncertainty is not decorative. One fast-forward replica records 0.0848 eV
+of work while another records -0.0205 eV. Four paths support the limited claim
+that this slower protocol reduces the loop width in this teaching system. They
+do not determine the tails of a work distribution precisely.
+
+## Jarzynski is exact and tail-sensitive
+
+Jarzynski's equality relates a nonequilibrium path ensemble to the equilibrium
+free-energy difference:<sup id="cite-jarzynski"><a href="#ref-jarzynski">2</a></sup>
+
+$$
+e^{-\beta\Delta F}
+=
+\left\langle e^{-\beta W}\right\rangle,
+\qquad
+\beta=\frac{1}{k_{\mathrm B}T}.
+$$
+
+The average is over independently initialized paths generated by the same
+protocol. Taking the logarithm gives the finite-sample estimator
+
+$$
+\widehat{\Delta F}
+=
+-k_{\mathrm B}T
+\log\left[
+\frac{1}{N}\sum_{n=1}^{N}
+e^{-W_n/(k_{\mathrm B}T)}
+\right].
+$$
+
+Low-work paths receive exponentially larger weights. Numerically, the JAX
+implementation uses `logsumexp` so tiny weights do not underflow. It also
+reports the normalized effective sample size
+
+$$
+\frac{N_{\mathrm{eff}}}{N}
+=
+\frac{\left(\sum_n a_n\right)^2}
+{N\sum_n a_n^2},
+\qquad
+a_n=e^{-W_n/(k_{\mathrm B}T)}.
+$$
+
+{% include kups-notebooks/post-11/post11-jax-work-estimator.html %}
+
+When all 12 control paths have the same work, Jarzynski must return that work
+and every path carries equal weight. The output recovers 0.070 eV and an ESS
+fraction of 1.000. Real nonequilibrium work is neither constant nor so kind.
+
+For the radial Ar-pair answer key, $$\Delta F=-0.00570$$ eV between the two
+restrained endpoints. Only four slow paths per direction give forward and
+reverse Jarzynski estimates of -0.01126 and -0.01238 eV. They agree with each
+other to 0.00112 eV, yet both miss the answer by roughly 0.006--0.007 eV. The
+ESS fractions are 0.546 and 0.672.
+
+This is the central warning: directional agreement and a moderate ESS do not
+manufacture an unsampled exponential tail. A defensible free-energy claim
+would need more independent equilibrated starting states, path-count and tail
+stability tests, and preferably a bidirectional estimator using forward--reverse
+overlap.<sup id="cite-crooks"><a href="#ref-crooks">3</a></sup>
+
+## A prediction to test
+
+Before changing code, predict the effect of each intervention:
+
+1. Halve the metadynamics hill width while keeping its height fixed. Which
+   parts of the reconstructed free energy should become noisier?
+2. Double the number of MD steps in the slow steering protocol without changing
+   its endpoints. Should the restraint-center lag, hysteresis, and thermal
+   trajectory spread all decrease in the same way?
+3. Add many typical-work paths but no unusually low-work paths. Can the ordinary
+   work mean stabilize while the Jarzynski estimate remains biased?
+
+The useful answer to the second question is “not necessarily.” Slower driving
+should reduce systematic lag and dissipation, but it does not remove equilibrium
+thermal fluctuations. For the third, Jarzynski can remain unstable because its
+information lives in a different tail than the ordinary mean.
+
+<details class="kups-code-block kups-code-block--collapsed">
+<summary>Reproducibility record and full diagnostic dashboard</summary>
+<div markdown="1">
+
+The committed source of truth includes the
 [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-11/smoke.json),
 [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-11/full.json),
 [notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-11-enhanced-sampling.ipynb),
 [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/smoke/enhanced_sampling_summary.json),
 [production summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/enhanced_sampling_summary.json),
 [stored steering trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/kups_steering_samples.csv),
-[provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/manifest.json),
+[manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-11/full/manifest.json),
 [kUPS worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/kups_steering_worker.py),
-[figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post11_figures.py),
+[JAX reference algorithms](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/jax_reference.py),
+[figure source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/steering_visuals.py),
+[figure-generation entry point](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post11_figures.py),
 and [review record](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-11.md).
-
-Run and verify either committed profile with the same public commands used by
-the review gate:
 
 ```bash
 uv run kups-tutorial run 11 --profile smoke
 uv run kups-tutorial verify 11 --profile smoke
 uv run kups-tutorial run 11 --profile full
 uv run kups-tutorial verify 11 --profile full
+uv run kups-tutorial verify-notebooks --posts 11 --timeout 180
 ```
 
-{% include kups-notebooks/post-11/setup.html %}
+Each of the 16 production paths records the input CIF and HDF5 SHA-256, raw
+byte count and dataset schema, seed, speed, direction, replica, frame count,
+observed device, runtime, block thermodynamics, and work controls. The compact
+CSV retains every center, distance, work increment, and cumulative work value.
+The figure provenance records the selected HDF5 hash, frame indices,
+minimum-image convention, projection, and all-forward-replica trace hash.
 
-## Adaptive Bias Changes During Sampling
+The multi-panel dashboard below preserves the analytic work controls, complete
+metadynamics reconstruction, driven-coordinate traces, and cumulative work.
+It is useful for audit, but the two-panel atomic figure carries the main
+physical argument.
 
-Suppose a collective variable $$s=\xi(\mathbf{x})$$ compresses the atomic
-configuration into a coordinate we can bias. Metadynamics deposits Gaussian
-hills along that coordinate:
-
-$$
-V_t(s)=\sum_{t_i<t} w_i
-\exp\left[-\frac{(s-s_{t_i})^2}{2\sigma^2}\right].
-$$
-
-The important subscript is $$t$$. The potential used tomorrow depends on where
-the trajectory went yesterday. Unlike a fixed umbrella window, this is not a
-stationary biased ensemble while hills are still being deposited.
-
-The known-answer control uses a one-dimensional double well. In the full
-profile, 3,000 well-tempered hills produce these diagnostics:
-
-<div class="table-responsive" markdown="1">
-
-| Check | Full value | What it establishes |
-|---|---:|---|
-| final bias range | 6.534 | the procedure substantially changed the landscape |
-| reconstructed barrier error | 0.092 | the final bias recovers the controlled barrier reasonably |
-| left / right basin visits | 0.360 / 0.362 | both basins received support |
-| barrier-region visits | 0.135 | the barrier is no longer invisible |
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Full Post 11 diagnostic dashboard. The analytic metadynamics, work-identity, and finite-speed controls are separated from the real kUPS Ar-pair coordinate and cumulative protocol work." %}
 
 </div>
+</details>
 
-A large bias range is not an accurate PMF. It proves only that the adaptive
-policy acted strongly. Accuracy comes from a reconstruction test, repeated
-runs, and stability with respect to hill height, width, and bias factor. In a
-real molecular system without an answer key, disagreement between repeats is
-evidence, not nuisance variation to average away.<sup id="cite-metadynamics"><a href="#ref-metadynamics">1</a></sup>
+## What this chapter establishes—and what it does not
 
-## A Moving Restraint Defines Protocol Work
+The adaptive control shows that the standard well-tempered update can fill and
+approximately reconstruct a known double well. It does not show that kUPS ran
+metadynamics on an atomistic system.
 
-For the physical experiment, the collective variable is the minimum-image
-distance $$r(\mathbf{x})$$ between two argon atoms. A harmonic restraint has a
-center $$c(t)$$ that moves according to a prescribed schedule:
+The physical experiment shows that kUPS ran a time-dependent harmonic
+restraint on real Ar-pair trajectories, that work is reconstructible at the
+actual discrete parameter changes, and that a slower schedule reduced lag and
+forward--reverse hysteresis. It does not show that four paths converge an
+exponential-work free energy or that pair distance is a challenging reaction
+coordinate.
 
-$$
-U_{\mathrm{bias}}(\mathbf{x},t)
-=\frac{K}{2}\left[r(\mathbf{x})-c(t)\right]^2.
-$$
-
-kUPS defines its harmonic bond as $$k(r-r_0)^2$$, so the worker passes
-$$k=K/2$$. More importantly, the worker does not generate a path in NumPy and
-attach a device label afterward. It creates a parameter view that reads the MD
-step counter, selects the current center, composes the restraint with the kUPS
-Lennard--Jones potential through `sum_potentials`, and integrates BAOAB
-Langevin dynamics through `run_md`.
-
-The center remains fixed within each stored block. At the boundary after frame
-$$i$$, it changes from $$c_i$$ to $$c_{i+1}$$ while the coordinate is held at
-the stored value $$r_i$$. The work increment is therefore
-
-$$
-\Delta W_i
-=\frac{K}{2}
-\left[
-(r_i-c_{i+1})^2-(r_i-c_i)^2
-\right].
-$$
-
-The last frame has no following center change, so its increment is zero. This
-definition makes total work exactly reconstructible from the HDF5 positions
-and committed center schedule:
-
-{% include kups-notebooks/post-11/work-definition.html %}
-
-Before any trajectory runs, the worker checks that the dynamic schedule at its
-first center matches an independently constructed static restraint in both
-energy and gradient. It also checks that a zero-length center move gives zero
-work and that the kUPS energy difference across one center change matches the
-analytic expression above.
-
-These are Hamiltonian and accounting tests. They do not prove that the pulling
-protocol is slow enough.
-
-## The Notebook Launches Real kUPS Paths
-
-The fresh-kernel notebook launches four CPU-sized paths: fast and slow
-protocols in both forward and reverse directions. Each isolated worker writes
-a real kUPS HDF5 trajectory. The parent process reads minimum-image distances,
-reconstructs every work increment, and invokes the same verification gate used
-by the command-line workflow:
-
-{% include kups-notebooks/post-11/smoke-run.html %}
-
-The smoke profile stores 160 frames in total. Its fast hysteresis gap is
-0.2032 eV, while the slow gap is 0.0230 eV. The zero-drive error is exactly
-zero, and the maximum kUPS-versus-analytic work error is
-$$3.90\times10^{-9}$$ eV. This run proves that the executable path works on a
-CPU. Publication evidence has a separate GPU-only gate and independent
-replicas.
-
-## Hysteresis Tests Protocol Speed
-
-For a forward protocol, equilibrium thermodynamics gives the free-energy
-difference $$\Delta F$$ and nonequilibrium work satisfies
-
-$$
-\langle W_{\mathrm F}\rangle \geq \Delta F.
-$$
-
-For the reverse protocol,
-
-$$
-\langle W_{\mathrm R}\rangle \geq -\Delta F.
-$$
-
-Their sum is a useful loop-width diagnostic:
-
-$$
-H=\langle W_{\mathrm F}\rangle+
-\langle W_{\mathrm R}\rangle.
-$$
-
-An ideally quasistatic pair of protocols has $$H=0$$. Finite-speed driving,
-coordinate lag, and hidden relaxation produce positive hysteresis. This scalar
-does not reconstruct a free energy, but it asks a sharp engineering question:
-does spending more MD steps actually make the driven ensemble less
-dissipative?
-
-The production experiment uses the following physical protocol:
-
-<div class="table-responsive" markdown="1">
-
-| Parameter | Full profile |
-|---|---:|
-| system | two Ar atoms in a periodic 30 Å cube |
-| temperature | 100 K |
-| Lennard--Jones $$\sigma / \epsilon$$ | 3.405 Å / 0.010326 eV |
-| restraint path | 3.8 Å $$\leftrightarrow$$ 7.5 Å |
-| restraint strength $$K$$ | 0.02 eV/Å$$^2$$ |
-| integrator | BAOAB Langevin, 1 fs |
-| warmup | 2,000 steps per path |
-| fast / slow production | 2,000 / 8,000 steps |
-| independent paths | 4 per speed and direction |
-| stored frames | 2,000 across 16 paths |
-
-</div>
-
-{% include kups-notebooks/post-11/production-evidence.html %}
-
-The full results pass the production gates:
-
-<div class="table-responsive" markdown="1">
-
-| Check | Full-profile value | Gate |
-|---|---:|---:|
-| observed device | NVIDIA RTX A5000 | GPU required |
-| fast hysteresis gap | 0.05258 ± 0.02600 eV | reported with path SEM |
-| slow hysteresis gap | 0.01113 ± 0.00866 eV | less than fast |
-| fast / slow gap ratio | 4.72 | > 1.10 |
-| static-schedule energy / gradient error | 0 / 0 | near zero |
-| zero-drive work error | 0 eV | ≤ $$10^{-12}$$ eV |
-| kUPS work-increment error | $$6.82\times10^{-10}$$ eV | ≤ $$10^{-6}$$ eV |
-
-</div>
-
-The path-level spread is visible in the uncertainty. One fast forward replica
-did 0.0848 eV of work; another did -0.0205 eV. Four replicas are enough to
-demonstrate a slower-protocol improvement in this teaching system, but not
-enough to pretend the work distribution has a precisely known tail.
-
-## Jarzynski Is Exact and Still Data-Hungry
-
-Jarzynski's equality converts a nonequilibrium work ensemble into an
-equilibrium free-energy difference:<sup id="cite-jarzynski"><a href="#ref-jarzynski">2</a></sup>
-
-$$
-e^{-\beta\Delta F}=\left\langle e^{-\beta W}\right\rangle.
-$$
-
-The exponential gives rare low-work paths enormous leverage. Exactness of the
-identity does not imply low variance of its finite-sample estimator. Crooks'
-forward--reverse relation makes the overlap problem more visible, but it also
-needs supported work distributions.<sup id="cite-crooks"><a href="#ref-crooks">3</a></sup>
-
-The radial known-answer calculation gives
-$$\Delta F=-0.00570$$ eV between the two restrained endpoints. From only four
-slow paths per direction, the forward and reverse Jarzynski estimates are
--0.01126 and -0.01238 eV. They agree with each other to 0.00112 eV, yet both
-remain roughly 0.006--0.007 eV from the answer key. That is the lesson in one
-line: directional agreement does not manufacture a sampled exponential tail.
-
-The corresponding exponential-weight ESS fractions are 0.546 and 0.672. They
-are useful diagnostics, not certificates of convergence. The article reports
-the Jarzynski values because hiding an imperfect small ensemble would teach
-the wrong habit. A production free-energy claim would require more independent
-equilibrated starting configurations, tail-stability checks, and preferably a
-bidirectional estimator.<sup id="cite-hummer"><a href="#ref-hummer">4</a></sup>
-
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Post 11 diagnostics. The top row contains known-answer metadynamics and work-identity controls. The lower-left panel is an analytic finite-speed control. The lower-middle and lower-right panels show the actual Ar--Ar coordinate and discrete cumulative work from real kUPS GPU trajectories." %}
-
-The physical distance does not track the dashed restraint center exactly. It
-lags, overshoots, and relaxes stochastically. That is precisely why a steered
-trajectory is path data rather than a table of target coordinates.
-
-## What the Evidence Chain Preserves
-
-Raw HDF5 trajectories are too large for the site repository, but each of the
-16 production runs leaves an identifiable record:
-
-- input CIF and raw HDF5 SHA-256 hashes;
-- raw HDF5 byte count, dataset names, shapes, and dtypes;
-- seed, speed, direction, replica, frame count, and atom count;
-- observed JAX device and elapsed time;
-- thermodynamic block summaries and all four work controls.
-
-The committed steering CSV retains every center, distance, work increment, and
-cumulative work value used in the analysis. The manifest hashes that CSV, the
-summary, and the plotting curves. Verification rejects a malformed raw hash,
-missing HDF5 schema field, frame-count drift, output-hash mismatch, CPU full
-run, failed zero-drive test, failed kUPS work check, or a slow protocol that
-does not improve hysteresis.
-
-A hash does not validate the physics. It prevents the figure, summary, and raw
-trajectory identity from quietly drifting apart.
-
-## What to Report
-
-A defensible time-dependent enhanced-sampling result should answer these
-questions:
-
-- What coordinate was biased, in what units, and with what periodic-image
-  convention?
-- How does the simulation code select the time-dependent parameter?
-- At what instant is work evaluated relative to coordinate propagation and
-  parameter changes?
-- Can total work be reconstructed from stored frames and the schedule?
-- Does zero drive give zero work, and does the energy change match the work
-  formula?
-- How were endpoint configurations equilibrated and independent paths seeded?
-- Do slower protocols reduce forward--reverse hysteresis?
-- Are Jarzynski or Crooks estimates supported by work-space overlap and tail
-  diagnostics?
-- Which device ran each trajectory, and which compact artifacts identify the
-  raw data?
-
-The method name is not the evidence. The path ensemble and its accounting are.
+That separation is the point. Enhanced sampling is trustworthy when the
+modified dynamics, stored evidence, and estimator correspond to the same
+mathematical experiment.
 
 ## Closing
 
-Adaptive bias and nonequilibrium driving solve a sampling problem by changing
-the measure. That trade is useful only when the change is explicit.
+Adaptive bias and steering both make rare motion easier by changing the
+measure that generates trajectories. The correction must match the change.
 
-In metadynamics, preserve the bias history. In steered MD, define work at the
-same discrete events the code executes. In both cases, compare independent
-runs and expose the support of the estimator. A trajectory that crosses a
-barrier is a beginning. A result starts when you can say what distribution
-generated it and how the correction was tested.
+For metadynamics, preserve and test the bias history. For steered MD, define
+work at the same protocol events the code executes and collect an ensemble of
+independent paths. In both cases, a visually successful crossing is only the
+beginning. The result starts when you can explain what distribution generated
+the data and why the estimator has support there.
 
 ## References
 
-1. <span id="ref-metadynamics"></span>Laio, A. & Parrinello, M. (2002). Escaping free-energy minima. [PNAS 99, 12562](https://doi.org/10.1073/pnas.202427399). <a href="#cite-metadynamics" class="reversefootnote" role="doc-backlink">↩</a>
+1. <span id="ref-metadynamics"></span>Barducci, A., Bussi, G. & Parrinello, M. (2008). Well-tempered metadynamics: A smoothly converging and tunable free-energy method. [Physical Review Letters 100, 020603](https://doi.org/10.1103/PhysRevLett.100.020603). <a href="#cite-metadynamics" class="reversefootnote" role="doc-backlink">↩</a>
 2. <span id="ref-jarzynski"></span>Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. [Physical Review Letters 78, 2690](https://doi.org/10.1103/PhysRevLett.78.2690). <a href="#cite-jarzynski" class="reversefootnote" role="doc-backlink">↩</a>
 3. <span id="ref-crooks"></span>Crooks, G. E. (1999). Entropy production fluctuation theorem and the nonequilibrium work relation for free energy differences. [Physical Review E 60, 2721](https://doi.org/10.1103/PhysRevE.60.2721). <a href="#cite-crooks" class="reversefootnote" role="doc-backlink">↩</a>
-4. <span id="ref-hummer"></span>Hummer, G. & Szabo, A. (2001). Free energy reconstruction from nonequilibrium single-molecule pulling experiments. [PNAS 98, 3658](https://doi.org/10.1073/pnas.071034098). <a href="#cite-hummer" class="reversefootnote" role="doc-backlink">↩</a>
