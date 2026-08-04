@@ -6,9 +6,19 @@
 import csv
 import os
 
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
+import jax
+from jax import Array
+import jax.numpy as jnp
+
 from IPython.display import Image, display
 
-from kups_md_tutorials.barostats import load_barostat_summary
+from kups_md_tutorials.config import load_barostat_spec
+from kups_md_tutorials.jax_reference import (
+    BOLTZMANN_EV_PER_K,
+    IsotropicCellState,
+)
+from kups_md_tutorials.barostat_visuals import generate_post05_cell_response_visual
 from kups_md_tutorials.kups_engine import (
     load_kups_md_experiment,
     run_kups_md_experiment,
