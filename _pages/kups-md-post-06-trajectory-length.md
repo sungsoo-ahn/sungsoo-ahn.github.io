@@ -4,152 +4,269 @@ permalink: /kups-md-tutorials/post-06-trajectory-length/
 title: "When Is a Trajectory Long Enough to Trust?"
 date: 2026-07-14
 last_updated: 2026-08-04
-description: "Use warmup, autocorrelation, effective sample size, and independent kUPS replicas to decide what a molecular-dynamics trajectory can support."
+description: "Derive autocorrelation and effective sample size in JAX, then apply them to independent kUPS trajectories and actual atom motion."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 6
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 6
 categories: [science]
-tags: [molecular-dynamics, autocorrelation, effective-sample-size, uncertainty, kups]
+tags: [molecular-dynamics, autocorrelation, effective-sample-size, uncertainty, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable draft is hidden from site navigation until the full kUPS MD series passes its release review. The physical examples are bounded trajectory-length diagnostics, not converged argon thermodynamics.</em>
-</p>
+A saved MD frame is not a new experiment. It is the next state of the same
+trajectory. Positions have moved only a little, velocities retain memory, and
+collective structures may remain unchanged for much longer. Saving ten times
+more often can therefore make a file ten times larger without adding ten times
+more information.
 
-## Frame Count Is the Wrong Question
+That is why “we ran one million steps” is not a precision statement. To decide
+whether a trajectory supports a reported average, we need to separate three
+failures:
 
-A million MD frames can contain less information than a thousand independent
-samples. Adjacent states share positions, velocities, and local structure. If
-an observable relaxes slowly, saving it more often makes a larger file—not a
-more precise estimate.
+1. **initial-condition bias:** early frames still remember how the system was
+   prepared;
+2. **temporal correlation:** retained frames are not independent draws;
+3. **replica disagreement:** one trajectory may remain in a region that other
+   independent runs visit differently.
 
-“How many steps did you run?” is therefore incomplete. The useful questions are:
+This chapter turns those ideas into an explicit JAX estimator, runs independent
+kUPS trajectories, and follows actual atoms through their stored frames. The
+answer will not be a universal step count. It will be an observable-specific
+effective sample count and uncertainty target.
 
-- Which early frames were discarded, and why?
-- What is the autocorrelation time of the reported observable?
-- How many effective samples remain?
-- Do independent replicas agree?
-- Does the uncertainty shrink when the trajectory is extended?
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-The last question has a subtle answer. Uncertainty should shrink in the
-long-run limit, but finite checkpoint estimates need not improve monotonically.
-A longer prefix can reveal slower correlation or larger replica disagreement
-that the shorter prefix missed. That is information, not a failed diagnostic.
+- why MD frames are time-correlated samples rather than independent data;
+- how to compute a normalized autocorrelation function and integrated
+  autocorrelation time;
+- how raw frame count becomes an effective sample size;
+- why warmup, within-run correlation, and independent replicas diagnose
+  different problems;
+- how to define “long enough” relative to an observable and error tolerance.
 
-The executable artifacts are the
-[smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-06/smoke.json),
-[full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-06/full.json),
-[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-06-trajectory-length.ipynb),
-[smoke kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/smoke/kups_trajectory_length_summary.json),
-[full kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/kups_trajectory_length_summary.json),
-[full observable trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/kups_observable_samples.csv),
-[full manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/manifest.json),
-[figure generator](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post06_figures.py),
-and [review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-06.md).
+**Prerequisites:** trajectories and saved state from the
+[foundations lesson]({% link _pages/kups-md-foundations.md %}), thermostatted
+dynamics from [Post 04]({% link _pages/kups-md-post-04-thermostats.md %}), and
+the distinction between response and equilibration from
+[Post 05]({% link _pages/kups-md-post-05-barostats.md %}).
+</div>
 
-## Calibrate the Statistics Before the Physics
+## A trajectory is a correlated time series
 
-The notebook begins with a correlated process whose equilibrium mean is known.
-It starts from a deliberate bias, relaxes toward the target, and retains
-temporal memory after warmup. This is not molecular dynamics. It is an answer
-key for the uncertainty machinery.
+Let $$A_t$$ be an observable evaluated at stored frame $$t$$. It could be
+potential energy per atom, coordination number, density, or a molecular
+distance. From $$N$$ retained frames, its sample mean is
+
+$$
+\bar A = \frac{1}{N}\sum_{t=0}^{N-1} A_t.
+$$
+
+If the frames were independent, the familiar standard error would be
+$$s_A/\sqrt{N}$$. MD violates that assumption. A particle at frame $$t+1$$
+starts from the position and momentum at frame $$t$$, so nearby observable
+values tend to move together.
+
+The normalized lag-$$k$$ autocorrelation estimates that memory:
+
+$$
+\rho_k
+=
+\frac{
+  \sum_{t=0}^{N-k-1}(A_t-\bar A)(A_{t+k}-\bar A)
+}{
+  \sum_{t=0}^{N-1}(A_t-\bar A)^2
+}.
+$$
+
+At zero lag, $$\rho_0=1$$. If $$\rho_1$$ is close to one, a frame and its
+immediate successor contain strongly overlapping information. As the lag
+grows, memory usually decays, although finite trajectories make the tail noisy.
+
+The integrated autocorrelation time used in this tutorial is
+
+$$
+\tau_{\mathrm{int}}
+= 1 + 2\sum_{k=1}^{K}\rho_k,
+$$
+
+where $$K$$ stops at the first nonpositive correlation. This simple
+positive-sequence window prevents a noisy long-lag tail from dominating the
+sum. Other window rules exist, so a reported autocorrelation time should always
+state its convention
+(<span id="cite-sokal"></span>[Sokal, 1997](#ref-sokal)).
+
+Our convention measures $$\tau_{\mathrm{int}}$$ in stored frames. The
+corresponding effective sample size is
+
+$$
+N_{\mathrm{eff}} = \frac{N}{\tau_{\mathrm{int}}},
+\qquad
+\operatorname{SE}_{\mathrm{corr}}(\bar A)
+\approx \frac{s_A}{\sqrt{N_{\mathrm{eff}}}}.
+$$
+
+Correlation therefore enlarges the naive error bar by approximately
+$$\sqrt{\tau_{\mathrm{int}}}$$. It does not change how many frames are stored;
+it changes how much independent information those frames carry.
+
+## Compute the estimator in JAX
+
+The collapsed setup selects a CPU backend and imports the real kUPS runner.
 
 {% include kups-notebooks/post-06/post06-setup.html %}
 
-{% include kups-notebooks/post-06/post06-statistical-control.html %}
+The open cell below implements the equations directly. `jnp.correlate` forms
+all lagged dot products; a cumulative positive mask stops the integrated sum
+at the first nonpositive value. No tutorial summary is loaded to obtain the
+answer.
 
-At 24,000 steps, the control has 34,500 retained values across six replicas but
-only about 2,296 effective samples. Its naive standard error is 0.0054; the
-review error is 0.0208. Treating frames as independent would report roughly
-four times too much precision.
+{% include kups-notebooks/post-06/post06-jax-autocorrelation.html %}
 
-For a stationary series, a common schematic is
+The control is an autoregressive process,
 
 $$
-N_{\mathrm{eff}} \approx \frac{N}{\tau_{\mathrm{int}}},
+X_{t+1}=\phi X_t + \sqrt{1-\phi^2}\,\xi_t,
+\qquad \xi_t\sim\mathcal N(0,1).
 $$
 
-where the precise convention for $$\tau_{\mathrm{int}}$$ determines whether a
-factor of two appears. The tutorial uses one convention consistently and
-records it with the results. The scientific point does not depend on notation:
-correlation reduces information.<sup id="cite-sokal"><a href="#ref-sokal">1</a></sup>
+For $$\phi=0.9$$, its exact correlation is $$\rho_k=\phi^k$$ and its
+infinite-run integrated time is
 
-## Warmup Solves Only One Problem
+$$
+\tau_{\mathrm{int}}
+=1+2\sum_{k=1}^{\infty}\phi^k
+=\frac{1+\phi}{1-\phi}
+=19.
+$$
 
-Discarding warmup can reduce initial-condition bias. It does not make the
-remaining frames independent, prove that every slow coordinate equilibrated,
-or force replicas into the same metastable basin.
+The finite JAX realization estimates 21.88. Its 5,000 retained values become
+only 228.6 effective samples. The naive standard error is 0.0147; accounting
+for correlation raises it to 0.0687. The estimate is not supposed to equal 19
+exactly: autocorrelation itself is estimated from finite correlated data.
 
-Equilibration is observable-specific. Temperature can settle while density,
-defect populations, coordination, or a conformational coordinate continues to
-drift. A reliable review varies the discard moderately and checks whether the
-conclusion survives. Automated truncation methods can help, but their job is to
-balance bias against lost effective samples—not to certify the physics by
-themselves.<sup id="cite-chodera"><a href="#ref-chodera">2</a></sup>
+This is a deliberately simple estimator. Near a phase transition or in a
+multimodal system, the first-zero window can miss a slow positive tail. A
+production analysis should compare window choices, block estimates, trajectory
+lengths, and independent replicas rather than treating one ESS number as a
+certificate.
 
-Independent replicas are especially useful here. One long trajectory may look
-smooth because it remains trapped. Several replicas expose between-run
-disagreement that no within-run autocorrelation estimate can recover.
+## Warmup removes bias, not correlation
 
-## Run the Same Review on Real kUPS Data
+Autocorrelation analysis assumes that the retained time series is reasonably
+stationary: its distribution is no longer changing systematically with time.
+An MD trajectory usually violates that assumption near initialization. A hot
+start may cool, a compressed cell may expand, or a structure may relax before
+the production distribution becomes plausible.
 
-The physical protocol uses Lennard-Jones argon at 100 K and fixed volume. Each
-replica runs the kUPS `baoab_langevin` integrator with a 2 fs timestep and an
-independent seed. kUPS writes positions and potential energy to HDF5. The
-tutorial derives two observables from those stored frames:
+Discarding an initial segment—warmup or equilibration—can reduce this bias. It
+does not make the later frames independent. It also cannot prove that an
+unobserved slow variable has equilibrated.
+
+Warmup is observable-specific. Temperature can settle while density,
+coordination, defects, or a conformational coordinate continues to drift. A
+defensible analysis therefore:
+
+- plots each important observable against time;
+- repeats the estimate under moderately earlier and later discard points;
+- checks independent replicas for compatible post-warmup behavior;
+- never counts discarded frames in $$N$$ or $$N_{\mathrm{eff}}$$.
+
+Automated truncation methods can balance initial bias against the loss of
+effective samples, but they diagnose a supplied time series; they do not certify
+all of the system's physics
+(<span id="cite-chodera"></span>[Chodera, 2016](#ref-chodera)).
+
+## Independent replicas expose missing exploration
+
+Suppose we run $$R$$ trajectories from independently seeded momenta and obtain
+one post-warmup mean $$\bar A_r$$ from each. Their between-replica standard
+error is
+
+$$
+\operatorname{SE}_{\mathrm{rep}}
+=
+\frac{\operatorname{SD}(\bar A_1,\ldots,\bar A_R)}{\sqrt{R}}.
+$$
+
+This quantity asks a different question from autocorrelation. A within-run
+estimate can look precise while every replica remains trapped in a different
+metastable basin. Replica disagreement exposes that failure. Splitting one
+trajectory into pieces is useful for blocking, but those pieces are not
+independent initializations.
+
+This tutorial reports a conservative standard error: the largest of the naive,
+autocorrelation-aware, and replica-based estimates. That is a review rule, not
+a new statistical identity. With only three replicas, the between-run estimate
+is itself noisy, so its purpose here is to reveal disagreement rather than to
+claim a high-precision confidence interval.
+
+## Run independent trajectories through kUPS
+
+The physical example is fixed-volume Lennard-Jones argon at 100 K. Each replica
+uses the kUPS `baoab_langevin` path with a 2 fs timestep and an independent
+seed. The workflow calls `kups.application.simulations.md.run`, writes positions
+and energies to a separate HDF5 file, and then derives two observables:
 
 - potential energy in eV per atom;
 - mean coordination inside a 5.1 Å cutoff.
 
-The full profile runs three 256-atom replicas, discards 200 warmup steps, and
-stores 80 production frames per replica at 20 fs spacing. The smoke profile is
-smaller and runs on CPU. Its open notebook cell actually launches kUPS; it does
-not load committed JSON as proof of execution.
+The next cell actually launches two 32-atom CPU smoke replicas. The HDF5 writer
+stores one frame every ten MD steps, so adjacent saved frames are separated by
+20 fs.
 
 {% include kups-notebooks/post-06/post06-kups-length.html %}
 
-Potential energy and coordination do not have to share an autocorrelation time.
-That is why “the trajectory ESS” is not a complete concept. Effective sample
-size belongs to an observable and estimator.
+At the final smoke checkpoint, 32 raw frames give 10.7 effective
+potential-energy samples but only 6.3 effective coordination samples. The two
+observables come from the same coordinates and still have different memory.
+There is no single “trajectory ESS” independent of the reported quantity.
 
-## What the GPU Checkpoints Showed
+The smoke run establishes executable CPU behavior. Its short prefixes are not
+thermodynamic evidence.
 
-Every full worker observed `gpu:NVIDIA RTX A5000`. The three HDF5 files have
-distinct SHA-256 digests and contain 80 frames for 256 atoms. Checkpoints reuse
-the first 20, 40, and 80 frames of each replica.
+## The full kUPS prefixes reveal finite-run surprises
+
+The full profile has three 256-atom replicas. Each performs 200 warmup steps
+and 800 production steps, stores 80 frames over 1.6 ps, and records an NVIDIA
+RTX A5000. The checkpoint analysis reuses the first 20, 40, and 80 stored
+frames per replica:
 
 <div class="table-responsive" markdown="1">
 
-| Frames per replica | Time (fs) | Raw frames | PE ESS | PE 95% half-width (eV/atom) | Coord. ESS | Coord. 95% half-width |
+| Frames / replica | Simulated time | Raw frames | PE ESS | PE 95% half-width | Coordination ESS | Coordination 95% half-width |
 |---:|---:|---:|---:|---:|---:|---:|
-| 20 | 400 | 60 | 12.1 | 0.000311 | 22.6 | 0.0498 |
-| 40 | 800 | 120 | 14.3 | 0.000360 | 16.5 | 0.0382 |
-| 80 | 1600 | 240 | 36.9 | 0.000199 | 32.8 | 0.0238 |
+| 20 | 0.4 ps | 60 | 12.1 | 0.000311 eV/atom | 22.6 | 0.0498 |
+| 40 | 0.8 ps | 120 | 14.3 | 0.000360 eV/atom | 16.5 | 0.0382 |
+| 80 | 1.6 ps | 240 | 36.9 | 0.000199 eV/atom | 32.8 | 0.0238 |
 
 </div>
 
-The final prefix contains 240 raw frames but only about 37 effective
-potential-energy samples and 33 effective coordination samples. Both final
-uncertainties are smaller than at the first checkpoint, but the middle prefix
-is not uniformly better: the energy interval grows slightly, and the estimated
-coordination ESS falls. The longer prefix revealed more memory and replica
-variation before the final checkpoint accumulated enough information to win.
+The final prefix contains 240 raw frames but only about 37 effective energy
+samples and 33 effective coordination samples. Both final uncertainties are
+smaller than at 0.4 ps, but the middle checkpoint is not uniformly better. Its
+energy interval grows slightly, and its estimated coordination ESS falls.
 
-The checkpoint means remain compact:
+That behavior is not paradoxical. A short prefix can miss slow variation and
+look overconfident. Adding data can reveal more correlation or larger
+between-replica differences before the eventual increase in information wins.
+Finite estimates need not improve monotonically even though long-run precision
+should.
+
+The checkpoint means are:
 
 <div class="table-responsive" markdown="1">
 
-| Frames per replica | Mean PE (eV/atom) | Mean coordination |
+| Frames / replica | Mean PE (eV/atom) | Mean coordination |
 |---:|---:|---:|
 | 20 | -0.069983 | 13.513 |
 | 40 | -0.069810 | 13.548 |
@@ -157,67 +274,129 @@ The checkpoint means remain compact:
 
 </div>
 
-Those stable-looking means do not erase the ESS result. A mean can change
-little while its uncertainty estimate changes substantially.
+These means look stable to a few displayed digits, but their uncertainty and
+effective sample count still change substantially. Visual stability of a mean
+is not a replacement for an error analysis.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory-length diagnostics for the committed full profile. The first three panels calibrate warmup, correlation-aware uncertainty, and effective sample size on a process with a known mean. The final panel shows checkpointed potential-energy and coordination uncertainty derived from three real kUPS GPU HDF5 replicas." %}
+## Watch correlated frames follow the same atoms
 
-## What Counts as “Long Enough”?
+The left panel below follows 20 actual atoms from the first full kUPS replica.
+Positions are minimum-image unwrapped over all 80 stored frames. Displacements
+are enlarged fourfold so the 1.6 ps paths are visible; the cell and final atom
+locations remain at their physical scale.
 
-There is no universal step count. A trajectory is long enough only relative to
-a claim and tolerance. A mean potential energy may converge before a rare
-transition rate. Coordination may decorrelate faster than a collective phase
-coordinate. A static average may be usable while a diffusion coefficient is
-not.
+The right panel computes potential-energy autocorrelation from all three full
+replicas. Light curves are individual runs; the orange line is their mean. The
+shaded early lags show the mean positive-sequence window. The reported
+$$\tau_{\mathrm{int}}$$ and ESS are calculated per replica and then combined
+using the same convention as the committed analysis.
 
-A defensible stopping rule states four things:
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post06_correlated_frames.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Actual kUPS atom trails beside potential-energy autocorrelation from three replicas" caption="Consecutive frames trace continuous atomic motion rather than independent redraws. The left panel uses 20 atoms near one plane in the first full HDF5 replica; periodic displacements are unwrapped and enlarged fourfold for visibility. The right panel shows potential-energy autocorrelation from three real replicas. A mean integrated time of 6.51 stored frames reduces 240 raw frames to 36.9 effective energy samples. Atom trails provide the physical intuition; the quantitative ESS is computed from energy, not displacement." %}
 
-1. the observable and estimator;
-2. the warmup rule;
-3. an autocorrelation- or block-aware uncertainty target;
-4. a replica-agreement check.
+Saving more sparsely would make adjacent stored values less correlated, but it
+would not create new physics between them. It can reduce storage and analysis
+cost. For a fixed simulated duration, it usually discards information rather
+than increasing the total effective information. The cure for inadequate ESS
+is more independent physical time or better sampling, not a different output
+stride alone.
 
-Blocking is useful because block means become less correlated as the block size
-grows. A plateau in the estimated error is evidence that blocks are long enough
-to capture memory.<sup id="cite-flyvbjerg"><a href="#ref-flyvbjerg">3</a></sup>
-It is not magic: too few blocks produce a noisy error estimate, and metastable
-replica disagreement can dominate any within-run block calculation.
+## Define “long enough” from the claim
 
-This Post 06 run is intentionally bounded. Eighty stored frames are enough to
-show that raw count and ESS diverge, to compare two observables, and to prove an
-observed GPU kUPS path. They are not enough to claim a converged argon equation
-of state, long-time dynamics, or a universal 5.1 Å coordination definition.
+No trajectory is long enough for every observable. A mean potential energy may
+converge before a diffusion coefficient. Local coordination may decorrelate
+before a phase label. A static average can be useful while a rare transition
+rate remains completely unsupported.
 
-## Reproduce It
+A practical stopping rule states:
+
+1. **observable:** the exact quantity and estimator being reported;
+2. **warmup:** the discarded interval and sensitivity to that choice;
+3. **precision:** a target such as
+   $$1.96\operatorname{SE}_{\mathrm{review}}<\epsilon$$;
+4. **replicas:** agreement of independently initialized runs;
+5. **stability:** compatible conclusions after extending every replica.
+
+Block averaging provides a complementary view. As block length exceeds the
+correlation time, the standard error of block means should approach a plateau.
+Blocks that are too short retain correlation; blocks that are too long leave
+too few means for a stable estimate
+(<span id="cite-flyvbjerg"></span>[Flyvbjerg & Petersen,
+1989](#ref-flyvbjerg)).
+
+Even these gates cannot rescue missing rare events. If replicas never cross the
+relevant barrier, the measured autocorrelation time describes only motion
+inside the visited basin. Enhanced sampling or much longer trajectories may be
+needed; Posts 10 and 11 will address that problem.
+
+## Check your understanding
+
+1. A trajectory stores 10,000 frames and has
+   $$\tau_{\mathrm{int}}=25$$ under this convention. What are
+   $$N_{\mathrm{eff}}$$ and the factor multiplying the naive standard error?
+2. Why can deleting every ninth stored frame reduce the measured lag-one
+   correlation without increasing the information in the simulated path?
+3. If temperature replicas agree but coordination replicas do not, which
+   observable has failed the convergence check?
+4. Why can an uncertainty estimate temporarily grow after a trajectory is
+   extended?
+
+For the first question, the answers are 400 effective samples and a fivefold
+standard-error inflation. The other questions test whether frame storage,
+observable-specific convergence, and finite-estimator behavior remain
+distinct.
+
+## Simulated time becomes evidence only through an observable
+
+Warmup addresses initialization bias. Autocorrelation measures memory within a
+retained series. Independent replicas expose between-run disagreement. None can
+replace the others, and none produces a universal number of MD steps.
+
+A defensible trajectory-length claim names the observable, discard rule,
+storage interval, integrated-time convention, effective samples, uncertainty,
+replica spread, and extension test. Post 07 will use that discipline to turn
+atomic frames into radial, coordination, and dynamical observables.
+
+<details class="kups-reproducibility" markdown="1">
+<summary>Reproducibility record and complete trajectory-length dashboard</summary>
+
+Run and verify the CPU profile from the locked environment:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
 cd kups-md-tutorials
-uv sync
+uv sync --locked
 
 uv run kups-tutorial run 06 --profile smoke
 uv run kups-tutorial verify 06 --profile smoke
-
-# Requires an observed JAX GPU backend; CPU fallback fails this profile.
-uv run kups-tutorial run 06 --profile full
-uv run kups-tutorial verify 06 --profile full
-
-uv run kups-tutorial verify-notebooks --posts 06
-uv run python scripts/generate_post06_figures.py
+uv run kups-tutorial verify-notebooks --posts 06 --output-dir notebook-runs
+uv run kups-tutorial export-notebook-cells \
+  --executed-notebooks-dir notebook-runs \
+  --site-root ../sungsoo-ahn.github.io --posts 06 --check
 ```
 
-The verifier requires matched kUPS replica counts, finite HDF5 evidence, at
-least eight stored frames per case, increasing checkpoint sizes, positive
-observable ESS, and an observed GPU for the full profile. The manifest records
-the config, entry point, seeds, dataset schemas, device evidence, raw HDF5
-hashes, and compact output names.
+The complete audit dashboard retains the known-mean warmup control,
+correlation-aware versus naive uncertainty, effective samples across control
+checkpoints, and both real kUPS observables:
 
-The practical rule is blunt: report effective samples and replica agreement,
-not just trajectory length. Warmup removes selected history. It does not turn a
-correlated simulation into independent data.
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post06_trajectory_length_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Four-panel trajectory-length audit dashboard with warmup, uncertainty, effective sample size, and real kUPS checkpoints" caption="The first three panels calibrate the statistical machinery on a process with a known stationary mean. The fourth uses potential energy and coordination derived from three full-profile kUPS HDF5 replicas. The bounded runs demonstrate diagnostics, not converged argon thermodynamics." %}
+
+Source and evidence:
+
+- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-06/smoke.json)
+- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-06/full.json)
+- [smoke kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/smoke/kups_trajectory_length_summary.json)
+- [full kUPS summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/kups_trajectory_length_summary.json)
+- [full observable trace](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/kups_observable_samples.csv)
+- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-06/full/manifest.json)
+- [executed notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-06-trajectory-length.ipynb)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post06_figures.py)
+- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-06.md)
+- [source repository](https://github.com/sungsoo-ahn/kups-md-tutorials)
+
+</details>
 
 ## References
 
-1. <span id="ref-sokal"></span>Sokal, A. D. (1997). Monte Carlo methods in statistical mechanics: foundations and new algorithms. In *Functional Integration*. <a href="#cite-sokal" class="reversefootnote" role="doc-backlink">↩</a>
-2. <span id="ref-chodera"></span>Chodera, J. D. (2016). A simple method for automated equilibration detection in molecular simulations. *Journal of Chemical Theory and Computation*, 12, 1799–1805. [doi:10.1021/acs.jctc.5b00784](https://doi.org/10.1021/acs.jctc.5b00784). <a href="#cite-chodera" class="reversefootnote" role="doc-backlink">↩</a>
-3. <span id="ref-flyvbjerg"></span>Flyvbjerg, H. & Petersen, H. G. (1989). Error estimates on averages of correlated data. *Journal of Chemical Physics*, 91, 461–466. [doi:10.1063/1.457480](https://doi.org/10.1063/1.457480). <a href="#cite-flyvbjerg" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-sokal"></span>Sokal, A. D. (1997). *Monte Carlo Methods in Statistical Mechanics: Foundations and New Algorithms*. In *Functional Integration*. <a href="#cite-sokal" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-chodera"></span>Chodera, J. D. (2016). A simple method for automated equilibration detection in molecular simulations. *Journal of Chemical Theory and Computation*, 12, 1799–1805. <a href="#cite-chodera" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-flyvbjerg"></span>Flyvbjerg, H. & Petersen, H. G. (1989). Error estimates on averages of correlated data. *Journal of Chemical Physics*, 91, 461–466. <a href="#cite-flyvbjerg" class="reversefootnote" role="doc-backlink">↩</a>
