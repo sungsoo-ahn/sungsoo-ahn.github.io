@@ -12,13 +12,17 @@ if not (repo_root / &quot;configs&quot;).exists():
 os.chdir(repo_root)
 os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
 
-from IPython.display import Image, display
+from ase import Atoms
 import jax
 import jax.numpy as jnp
-from kups_md_tutorials.jax_reference import EnergyFunction, ParticleState
-from kups_md_tutorials.kups_engine import (
-    load_kups_md_experiment,
-    run_kups_md_experiment,
+from kups.application.md.data import MdParameters, md_state_from_ase
+
+from kups_md_tutorials.jax_reference import (
+    ParticleState,
+    forces_from_energy,
+    harmonic_pair_energy,
+    kinetic_energy,
+    simulate_velocity_verlet,
 )</code></pre></div>
 </details>
 </div>

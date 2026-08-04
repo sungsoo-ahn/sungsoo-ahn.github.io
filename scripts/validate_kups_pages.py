@@ -16,6 +16,7 @@ BLOG_IMG_DIR = ROOT / "assets" / "img" / "blog"
 EXPORT_DIR = ROOT / "assets" / "json" / "kups-md-tutorials"
 SERIES = "kups-md-tutorials"
 POSTS = tuple(f"{post:02d}" for post in range(1, 13))
+FOUNDATIONS_PAGE = PAGES_DIR / "kups-md-foundations.md"
 PUBLICATION_STATUSES = {"draft", "ready"}
 
 FIGURE_RE = re.compile(r'{%\s*include\s+figure\.liquid\b(?P<attrs>.*?)%}')
@@ -114,6 +115,22 @@ def validate_page(post: str, path: Path) -> list[Finding]:
         if fragment not in body:
             findings.append(Finding(path, f"missing source link fragment: {fragment}"))
 
+    if "\\[" in body or "\\]" in body:
+        findings.append(
+            Finding(
+                path,
+                "display math uses raw \\[...\\] delimiters; use $$...$$ so Jekyll preserves it",
+            )
+        )
+
+    if re.search(r"^#{1,6}\s+current\s+(?:status|state)\b", body, re.IGNORECASE | re.MULTILINE):
+        findings.append(
+            Finding(
+                path,
+                "reader-facing article contains a development 'Current Status/State' heading",
+            )
+        )
+
     figures = list(FIGURE_RE.finditer(text))
     if not figures:
         findings.append(Finding(path, "missing figure include"))
@@ -137,6 +154,52 @@ def validate_page(post: str, path: Path) -> list[Finding]:
         if "$" in caption:
             findings.append(Finding(path, "figure caption uses dollar math delimiters"))
 
+    return findings
+
+
+def validate_foundations_page(path: Path) -> list[Finding]:
+    if not path.exists():
+        return [Finding(path, "missing MD/JAX foundations lesson")]
+    text = path.read_text(encoding="utf-8")
+    parsed = parse_frontmatter(text)
+    if parsed is None:
+        return [Finding(path, "missing YAML frontmatter")]
+
+    frontmatter, body = parsed
+    expected = {
+        "layout": "post",
+        "post_type": "tutorial",
+        "series": SERIES,
+        "series_order": "0",
+        "related_posts": "false",
+        "nav": "false",
+        "permalink": f"/{SERIES}/foundations/",
+    }
+    findings = [
+        Finding(path, f"{key} must be {value!r}")
+        for key, value in expected.items()
+        if frontmatter.get(key) != value
+    ]
+    if frontmatter.get("publication_status") not in PUBLICATION_STATUSES:
+        findings.append(Finding(path, "foundations publication_status must be draft or ready"))
+    for fragment in (
+        "https://github.com/sungsoo-ahn/kups-md-tutorials",
+        "verify-notebooks --posts 00",
+        "kups-notebooks/post-00/",
+        "kups_md_post00_atomic_trajectory.svg",
+    ):
+        if fragment not in body:
+            findings.append(Finding(path, f"missing foundations fragment: {fragment}"))
+    if "\\[" in body or "\\]" in body:
+        findings.append(Finding(path, "foundations display math must use $$ delimiters"))
+    if re.search(r"^#{1,6}\s+current\s+(?:status|state)\b", body, re.IGNORECASE | re.MULTILINE):
+        findings.append(Finding(path, "foundations contains a development status heading"))
+
+    figure_path = BLOG_IMG_DIR / "kups_md_post00_atomic_trajectory.svg"
+    if not figure_path.exists():
+        findings.append(Finding(figure_path, "missing foundations SVG"))
+    if not figure_path.with_suffix(".png").exists():
+        findings.append(Finding(figure_path.with_suffix(".png"), "missing foundations PNG poster"))
     return findings
 
 
@@ -165,11 +228,37 @@ def validate_exported_assets() -> list[Finding]:
             findings.append(Finding(BLOG_IMG_DIR, f"missing SVG figure for post {post}"))
         if not any(BLOG_IMG_DIR.glob(f"kups_md_post{post}_*.png")):
             findings.append(Finding(BLOG_IMG_DIR, f"missing PNG figure for post {post}"))
+
+    notebook_manifest = EXPORT_DIR / "notebook-cells.json"
+    if not notebook_manifest.exists():
+        findings.append(Finding(notebook_manifest, "missing notebook-cell manifest"))
+    else:
+        notebook_data = json.loads(notebook_manifest.read_text(encoding="utf-8"))
+        foundation_cells = {
+            cell.get("cell_id")
+            for cell in notebook_data.get("cells", [])
+            if cell.get("post") == "00"
+        }
+        expected_cells = {
+            "post00-setup",
+            "post00-energy-to-force",
+            "post00-jax-trajectory",
+            "post00-kups-state",
+        }
+        if foundation_cells != expected_cells:
+            findings.append(
+                Finding(
+                    notebook_manifest,
+                    "foundations notebook cells are missing or stale: "
+                    f"expected {sorted(expected_cells)}, found {sorted(foundation_cells)}",
+                )
+            )
     return findings
 
 
 def main() -> int:
     findings: list[Finding] = []
+    findings.extend(validate_foundations_page(FOUNDATIONS_PAGE))
     for post in POSTS:
         page = page_for_post(post)
         if page is None:
