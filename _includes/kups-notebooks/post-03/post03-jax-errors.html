@@ -56,10 +56,17 @@ def simulate_force_driven_verlet(
 
 spec = load_error_spec(&quot;03&quot;, &quot;full&quot;)
 initial = ParticleState(jnp.array([[1.0]]), jnp.array([[0.0]]), jnp.array([1.0]))
-physical_energy = lambda q: 0.5 * jnp.sum(q**2)
-weak_energy = lambda q: 0.98 * physical_energy(q)
-exact_force = lambda q: -jax.grad(physical_energy)(q)
-weak_force = lambda q: -jax.grad(weak_energy)(q)
+def physical_energy(q):
+    return 0.5 * jnp.sum(q**2)
+
+def weak_energy(q):
+    return 0.98 * physical_energy(q)
+
+def exact_force(q):
+    return -jax.grad(physical_energy)(q)
+
+def weak_force(q):
+    return -jax.grad(weak_energy)(q)
 
 def diagnose(label, force_fn, measured_energy, quantum=None):
     _, trajectory = simulate_force_driven_verlet(

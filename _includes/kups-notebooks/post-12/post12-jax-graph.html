@@ -51,7 +51,7 @@ initial = ParticleState(
 )
 next_state = velocity_verlet_step(energy_fn, initial, time_step=0.5)
 
-print(f&quot;graph nodes / directed edges=32 / 384&quot;)
+print(&quot;graph nodes / directed edges=32 / 384&quot;)
 print(f&quot;learned graph energy={float(energy):.6f} eV&quot;)
 print(f&quot;force on displaced atom={forces[0].round(6).tolist()} eV/angstrom&quot;)
 print(f&quot;net force={jnp.sum(forces, axis=0).round(7).tolist()} eV/angstrom&quot;)
