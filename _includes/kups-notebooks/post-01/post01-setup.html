@@ -9,15 +9,16 @@ repo_root = Path.cwd()
 if not (repo_root / &quot;configs&quot;).exists():
     repo_root = repo_root.parent
 os.chdir(repo_root)
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
 
+import jax
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 from kups_md_tutorials.config import load_tutorial_spec
 from kups_md_tutorials.initialization import (
-    initialize_atoms,
     load_kups_initialization_evidence,
-    summarize_initialization,
     write_initialization_outputs,
-)
-from kups_md_tutorials.provenance import provenance</code></pre></div>
+)</code></pre></div>
 </details>
 </div>
