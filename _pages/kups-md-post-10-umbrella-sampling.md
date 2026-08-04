@@ -3,120 +3,227 @@ layout: post
 permalink: /kups-md-tutorials/post-10-umbrella-sampling/
 title: "What Does Umbrella Sampling Actually Sample?"
 date: 2026-07-14
-last_updated: 2026-08-01
-description: "Build a harmonic umbrella into a kUPS potential, run biased Ar-pair trajectories, and reject PMFs without connected windows or replica agreement."
+last_updated: 2026-08-04
+description: "Apply a harmonic bias to atomic coordinates in JAX, reconstruct connected windows with WHAM, and interpret real kUPS Ar-pair trajectories."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 10
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 10
 categories: [science]
-tags: [molecular-dynamics, umbrella-sampling, free-energy, wham, kups]
+tags: [molecular-dynamics, umbrella-sampling, free-energy, wham, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable draft is hidden from site navigation until the full kUPS MD series passes its release review. The double-well example is a known-answer control. The Ar-pair result comes from real kUPS trajectories on the devices reported below.</em>
-</p>
+An ordinary trajectory spends most of its time in low-free-energy basins. If a
+distance, angle, or other collective variable rarely crosses the region we
+care about, waiting longer may be an expensive way to collect almost no new
+information there.
 
-## A Smooth PMF Is Not the Result
+Umbrella sampling changes the Hamiltonian on purpose. Several simulations add
+different harmonic biases, so each one visits a local range of the collective
+variable. A reconstruction such as WHAM then removes the known biases and
+aligns the windows through their shared probability.
 
-Umbrella sampling makes a hard trajectory easier by changing the ensemble. It
-does not make the sampling problem disappear.
+The word *shared* is the entire method. A smooth reconstructed PMF can still be
+unsupported if one adjacent pair of windows does not overlap. We will make the
+complete chain visible: a minimum-image atom-pair distance, its harmonic bias,
+forces from `jax.grad`, the equivalent kUPS potential composition, real biased
+trajectories, and the WHAM fixed-point equations that combine their histograms.
 
-Each window sees a different biased potential. A reconstruction such as WHAM
-can align those windows only where their sampled distributions overlap. If one
-neighboring pair does not share probability mass, no estimator can invent the
-missing bridge. Twenty thousand frames in every disconnected window are still
-disconnected data.
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-This post makes that failure concrete in two stages:
+- why an umbrella window samples a biased ensemble rather than a target value;
+- how a pair-distance bias acts on two atomic positions under periodic boundaries;
+- how JAX differentiates the bias into equal-and-opposite atomic forces;
+- how kUPS composes the restraint with the physical potential and propagates MD;
+- how WHAM solves for one unbiased density and one offset per window;
+- why adjacent overlap, replica agreement, and coordinate measure are separate checks;
+- how an apparently successful sparse reconstruction fails a known-answer test.
 
-1. a double-well answer key holds the target PMF fixed and removes windows;
-2. a physical Ar--Ar coordinate composes a harmonic restraint with a kUPS
-   Lennard--Jones potential and runs 16 independent GPU trajectories.
+**Prerequisites:** biased reweighting from
+[Post 08]({% link _pages/kups-md-post-08-free-energies.md %}), estimator overlap
+from [Post 09]({% link _pages/kups-md-post-09-estimators.md %}), periodic
+distances from [Post 07]({% link _pages/kups-md-post-07-observables.md %}), and
+Langevin sampling from [Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+</div>
 
-The executable artifacts are the
-[smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-10/smoke.json),
-[full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-10/full.json),
-[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-10-umbrella-sampling.ipynb),
-[smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/smoke/umbrella_summary.json),
-[production summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/umbrella_summary.json),
-[stored distance samples](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/kups_umbrella_samples.csv),
-[provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/manifest.json),
-[kUPS worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/kups_umbrella_worker.py),
-[figure source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/figures.py),
-and [review record](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-10.md).
+## A window samples a modified Hamiltonian
+
+Let $$s(\mathbf R)$$ be a collective variable computed from all atomic
+positions $$\mathbf R$$. Window $$i$$ adds a harmonic bias centered at $$s_i$$,
+
+$$
+V_i(s)=\frac{K}{2}(s-s_i)^2,
+$$
+
+where $$K$$ is the force constant. If the unbiased free energy along the
+coordinate is $$F(s)$$, the window samples
+
+$$
+p_i(s)\propto
+\exp\left\{-\beta\left[F(s)+V_i(s)\right]\right\},
+\qquad
+\beta=\frac{1}{k_{\mathrm B}T}.
+$$
+
+The center $$s_i$$ is not a command that the coordinate equal $$s_i$$. It is
+the minimum of the added bias. The slope of the underlying free energy, thermal
+fluctuations, boundaries, and hidden slow coordinates all move or distort the
+sampled distribution. Window centers describe the protocol; the resulting
+histograms describe the evidence.
+
+The bias also changes the ensemble. A histogram from one window is not the
+unbiased probability. Because $$V_i$$ is known, its effect can be removed—but
+only where that window actually generated samples.
+
+## Put the harmonic restraint on atoms
+
+This tutorial biases the minimum-image distance between two argon atoms. For a
+cubic box of length $$L$$, first wrap their displacement component by component,
+
+$$
+\mathbf d
+=\mathbf R_1-\mathbf R_0
+-L\,\operatorname{round}\!\left(\frac{\mathbf R_1-\mathbf R_0}{L}\right),
+\qquad
+r=\lVert\mathbf d\rVert.
+$$
+
+The umbrella energy is $$V_i(r)=K(r-r_i)^2/2$$. Away from $$r=0$$, its forces
+are
+
+$$
+\mathbf F_1^{\mathrm{bias}}
+=-K(r-r_i)\frac{\mathbf d}{r},
+\qquad
+\mathbf F_0^{\mathrm{bias}}=-\mathbf F_1^{\mathrm{bias}}.
+$$
+
+If the atoms are farther apart than the center, the bias pulls them together.
+If they are closer, it pushes them apart. The net internal bias force is zero,
+so this restraint does not accelerate the pair's center of mass.
+
+The collapsed setup selects JAX CPU and imports the real kUPS workflow used
+later.
 
 {% include kups-notebooks/post-10/setup.html %}
 
-## A Window Samples the Biased Ensemble
+The next cell implements the energy exactly as written above. `jax.grad`
+differentiates with respect to both atomic positions; no hand-coded force is
+used by the teaching control.
 
-Let $$r$$ be the collective variable and $$F(r)$$ its unbiased free energy. A
-window centered at $$r_i$$ adds
+{% include kups-notebooks/post-10/post10-jax-pair-bias.html %}
+
+The atoms are 3.6 Å apart, 0.2 Å beyond a 3.4 Å center, with
+$$K=0.015$$ eV/Å$$^2$$. The reported bias is therefore
+$$K(0.2)^2/2=0.000300$$ eV. Atom 1 feels $$-0.0030$$ eV/Å along the pair axis,
+atom 0 feels the opposite force, and their sum is exactly zero in the output.
+
+## Match the kUPS energy convention
+
+The production calculation uses the same physics through kUPS. The worker:
+
+1. builds the Lennard--Jones base potential with `LjPotentialConfig`;
+2. builds a fixed-edge harmonic bond between particle IDs 0 and 1;
+3. combines them with `sum_potentials`;
+4. passes the combined potential to `make_md_propagator` with
+   `baoab_langevin`;
+5. runs warmup and production through `run_md` and stores HDF5 trajectories.
+
+There is one convention worth testing explicitly. The tutorial equation uses
+$$K(r-r_i)^2/2$$, while the kUPS harmonic bond uses $$k(r-r_i)^2$$. The worker
+therefore passes
 
 $$
-U_i^{\mathrm{bias}}(r)=\frac{K}{2}(r-r_i)^2.
+k=\frac{K}{2}.
 $$
 
-The window therefore samples
+A factor-of-two error would still produce smooth trajectories and a smooth
+PMF. The workflow guards against that kind of silent implementation mistake in
+two ways. At zero restraint strength, composing the bias must change neither
+the base energy nor its position gradient. At nonzero strength, the analytic
+kUPS gradient must agree with a central finite difference. These controls test
+the Hamiltonian that was implemented; overlap and replicas later test the
+sampling it produced.
+
+## WHAM aligns histograms through shared support
+
+Divide the coordinate into bins $$b$$ of width $$\Delta s$$. Let $$n_{ib}$$ be
+the count from window $$i$$ in bin $$b$$, $$N_i=\sum_b n_{ib}$$, and
+$$V_{ib}=V_i(s_b)$$. WHAM solves two coupled equations:
 
 $$
-p_i(r) \propto
-\exp\left[-\beta\left(F(r)+U_i^{\mathrm{bias}}(r)\right)\right].
+P_b
+=
+\frac{\sum_i n_{ib}}
+{\sum_i N_i\exp\left[\beta(f_i-V_{ib})\right]},
 $$
 
-The center $$r_i$$ is a parameter, not the expected sample mean. The underlying
-free-energy slope pulls the distribution away from the center; boundaries and
-hidden slow coordinates can distort it further. A table of window centers is a
-protocol description, not coverage evidence.
+and
 
-kUPS defines its harmonic bond energy as $$k(r-r_0)^2$$. The tutorial defines
-the more common $$K(r-r_0)^2/2$$ form, so the worker passes $$k=K/2$$. The
-notebook evaluates that convention directly:
+$$
+e^{-\beta f_i}
+=\sum_b P_b e^{-\beta V_{ib}}\Delta s.
+$$
 
-{% include kups-notebooks/post-10/harmonic-bias.html %}
+Here $$P_b$$ is the reconstructed unbiased probability density and $$f_i$$ is
+the free-energy offset that normalizes window $$i$$ relative to the global
+density. Adding the same constant to all offsets changes nothing, so the code
+sets the first offset to zero after every update.
 
-That factor of two is small enough to miss in prose and large enough to change
-every sampled distribution. It belongs in executable code.
+These are the standard weighted-histogram self-consistency equations
+(<span id="cite-wham"></span>[Kumar et al., 1992](#ref-wham)).
 
-## Composition Needs Force Tests
+These equations form a fixed point. Start with offsets, compute $$P_b$$, update
+the offsets from $$P_b$$, and repeat. The implementation below performs the
+calculation in log space. `logsumexp` prevents overflow in the denominator and
+normalizations. Bins with zero total counts remain unsupported rather than
+becoming an arbitrary high PMF.
 
-The production worker builds the base Lennard--Jones potential with kUPS,
-builds a fixed-edge harmonic potential for particles 0 and 1, and combines the
-two with `sum_potentials`. It then asks two questions before running MD:
+{% include kups-notebooks/post-10/post10-jax-wham.html %}
 
-- Does a zero-strength restraint leave the base energy and position gradient
-  unchanged?
-- Does the nonzero restraint gradient agree with a central finite difference?
+The exact-count control uses nine harmonic windows over the known double well
+$$F(s)=(s^2-1)^2$$. All 81 bins are supported, and the reconstructed PMF agrees
+with the answer to $$2.86\times10^{-6}$$ in reduced units. This near-exact
+result validates the equations and their JAX translation. It does not validate
+a finite trajectory, whose histogram counts are noisy and may be disconnected.
 
-The full GPU run reports zero energy error and zero maximum gradient error for
-the first check. The nonzero-bias finite-difference error is
-$$2.39\times10^{-6}$$ eV/Å. These are implementation tests, not convergence
-diagnostics. Passing them says that the intended Hamiltonian was composed
-correctly; it says nothing yet about whether the windows sampled it well.
+Production WHAM implementations may add convergence tolerances, statistical
+inefficiency corrections, unequal sample handling, uncertainty estimates, and
+more robust solvers. The fixed-iteration teaching function exposes the central
+calculation without claiming to replace those features.
 
-The fresh-kernel notebook goes further than loading a JSON file. Its smoke cell
-launches eight isolated kUPS workers, reads minimum-image pair distances from
-their HDF5 trajectories, runs WHAM, and invokes the same verification gate used
-by the command-line workflow:
+## Run actual biased trajectories with kUPS
+
+The smoke profile is a bounded execution test. It launches eight isolated CPU
+kUPS workers, composes the real base and harmonic potentials, integrates BAOAB
+Langevin dynamics, reads minimum-image distances from the new HDF5 files, runs
+the tutorial WHAM analysis, and invokes the same verifier used by the command
+line.
 
 {% include kups-notebooks/post-10/smoke-run.html %}
 
-The smoke profile is deliberately CPU-sized. It proves the path executes. The
-publication record below must pass a separate GPU-only gate.
+The fresh run records 2,400 frames. Its minimum adjacent overlap is 0.143 and
+its radial-PMF RMSE is 0.01075 eV. Those values are useful execution
+diagnostics, not the physical result: the short CPU profile has one replica
+and a deliberately small sampling budget. It proves that the current kUPS path
+runs; the full profile below carries the scientific gates.
 
-## Sparse Windows Fail with Plenty of Samples
+## Sparse windows can fail with many samples
 
-The answer-key control uses the same double-well PMF, temperature, force
-constant, and sample count for two protocols. Only the window grid changes.
+Before interpreting argon, the workflow tests window placement on the same
+known double well used above. Dense and sparse protocols share the target PMF,
+temperature, restraint strength, and 20,000 samples per window. Only their
+centers differ.
 
 <div class="table-responsive" markdown="1">
 
@@ -127,56 +234,83 @@ constant, and sample count for two protocols. Only the window grid changes.
 
 </div>
 
-The sparse protocol jumps from $$-0.8$$ to $$0.8$$ across the barrier. Its
-weakest overlap is essentially zero. WHAM still returns a curve, but the
-barrier is underestimated by 0.255. The estimator did not fail to run. The
-sampling design failed to identify the relative offset across the gap.
+The sparse grid jumps directly from $$-0.8$$ to $$0.8$$ across the barrier.
+Its weakest adjacent overlap is essentially zero. WHAM still returns a finite,
+smooth curve, but its barrier is too low by 0.255. The code did not crash
+because disconnected offsets are an identifiability failure, not necessarily a
+numerical failure.
 
-This is why a single global error is not enough. The sparse PMF RMSE is only
-about 29% worse than the dense value, while its barrier error is 24 times
-larger. The overlap plot identifies the cause and location of the failure.
-WHAM and MBAR are powerful ways to combine connected states; neither can
-recover probability mass that no state sampled.<sup id="cite-wham"><a href="#ref-wham">1</a></sup>
-<sup id="cite-mbar"><a href="#ref-mbar">2</a></sup>
+WHAM and its multistate relative MBAR can combine connected states efficiently;
+neither supplies probability across an unsampled edge
+(<span id="cite-mbar"></span>[Shirts & Chodera, 2008](#ref-mbar)).
 
-## The Physical Coordinate Has a Measure
+The global PMF RMSE makes this look milder than it is: sparse RMSE is about 29%
+worse, while the barrier error is about 24 times larger. A local overlap
+diagnostic identifies both the cause and the location of the failure.
 
-For the physical experiment, two argon atoms occupy a periodic 30 Å cube. The
-base interaction is Lennard--Jones with
-$$\sigma=3.405$$ Å and $$\epsilon=0.010326$$ eV. Eight harmonic windows span
-3.40--7.95 Å at 100 K with $$K=0.015$$ eV/Å$$^2$$.
+## Watch the atom pair move through connected shells
 
-There is an important trap here. A histogram of three-dimensional pair distance
-does not reconstruct the bare pair potential $$U_{\mathrm{LJ}}(r)$$. Spherical
-shells contribute a factor of $$r^2$$, so
+The physical system is deliberately minimal: two Ar atoms in a periodic 30 Å
+cube at 100 K, with Lennard--Jones parameters $$\sigma=3.405$$ Å and
+$$\epsilon=0.010326$$ eV. Eight umbrella centers span 3.40--7.95 Å with
+$$K=0.015$$ eV/Å$$^2$$.
+
+The left panel below uses 100 stored frames from full replica 0 at centers
+3.40, 5.35, and 7.95 Å. Atom 0 is placed at the origin and atom 1 is shown at
+its actual minimum-image displacement, projected from three dimensions into
+the page. Dashed circles mark the requested bias centers. The arcs rather than
+perfect circles are real finite-trajectory orientation sampling, not schematic
+decoration.
+
+The right panel uses all 12,800 pair distances from all eight windows and both
+replicas. Each ridge is normalized only for visual height; overlap values are
+computed from the recorded normalized histograms. The weakest edge still has
+0.455 shared probability, so the chain remains connected.
+
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_windows.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Actual biased kUPS argon-pair positions and the connected umbrella-window distance distributions" caption="Actual full-profile kUPS umbrella trajectories. Left: minimum-image positions of atom 1 relative to atom 0 for three selected centers in replica 0; dashed rings show the harmonic centers. Right: all 12,800 recorded pair distances from eight windows and two replicas, displayed as ridges. Every adjacent pair overlaps; the weakest coefficient is 0.455 between the 5.35- and 6.00-angstrom windows." %}
+
+The selected atom clouds explain what the restraint does. They are not the
+WHAM input by themselves. The reconstruction uses every recorded distance from
+both replicas and every window.
+
+## A radial coordinate carries a geometric measure
+
+For two particles in three dimensions, the number of displacement vectors with
+length between $$r$$ and $$r+dr$$ grows as the spherical shell area
+$$4\pi r^2$$. Even if the bare interaction is $$U_{\mathrm{LJ}}(r)$$, the
+scalar distance probability satisfies
 
 $$
-p(r) \propto r^2 e^{-\beta U_{\mathrm{LJ}}(r)}
+p(r)\propto r^2e^{-\beta U_{\mathrm{LJ}}(r)}.
 $$
 
-and the radial PMF is
+The corresponding radial PMF is
 
 $$
 F_r(r)=U_{\mathrm{LJ}}(r)-2k_{\mathrm B}T\log r+C.
 $$
 
-The workflow compares WHAM to this radial answer key. To assess the recovered
-Lennard--Jones well, it adds the $$2k_{\mathrm B}T\log r$$ measure term back
-before measuring the well depth. Comparing the raw radial PMF directly with
-the bare interaction would mix statistical error with a known coordinate
-Jacobian.
+WHAM reconstructs this radial PMF because its histograms count scalar pair
+distances. It should therefore be compared with the radial answer key, not
+directly with the bare Lennard--Jones interaction. To assess the interaction
+well, the workflow adds $$2k_{\mathrm B}T\log r$$ back, shifts the result, and
+then measures the recovered well depth.
 
-## The Production Record
+This distinction is the same Jacobian issue encountered in Post 08: probability
+in a coordinate and correlation relative to its geometric measure are not the
+same free-energy convention.
 
-Each full-profile window has two independently seeded BAOAB Langevin
-trajectories. Every trajectory uses 3,000 warmup steps followed by 8,000
-production steps at 1 fs; storing every tenth step leaves 800 frames per run.
-The complete record therefore contains 8 windows × 2 replicas × 800 frames =
-12,800 stored frames.
+## Require overlap and independent replicas
+
+Each full-profile window has two independently seeded trajectories. Every run
+uses 3,000 warmup steps followed by 8,000 production steps at 1 fs and stores
+every tenth step, giving 800 frames per run. The complete record contains
+8 windows × 2 replicas × 800 frames = 12,800 frames. Every worker observed the
+required GPU device.
 
 {% include kups-notebooks/post-10/production-evidence.html %}
 
-The acceptance numbers are:
+The full evidence passes all declared gates:
 
 <div class="table-responsive" markdown="1">
 
@@ -193,119 +327,142 @@ The acceptance numbers are:
 
 </div>
 
-Those gates were not chosen after viewing only the final curve. The first
-smoke protocol exposed a zero-overlap bridge. A later full run passed the loose
-numerical gates but showed a large replica-mean shift in one soft window. The
-Langevin friction was reduced from 0.01 to 0.002 fs$$^{-1}$$ to improve
-coordinate relaxation, and both profiles were rerun. Minimum overlap increased
-to 0.455 and independent-replica PMF disagreement fell to 0.00407 eV. The
-failed pilots changed the protocol; they were not polished out of the story.
+The reconstructed radial PMF minimum is at 3.85 Å. Its RMSE against the
+analytic two-particle radial answer is 3.59 meV, and reconstructing the two
+replica groups separately changes the PMF by 4.07 meV RMS. After removing the
+radial measure, the Lennard--Jones well-depth error is 2.96 meV.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Post 10 diagnostics. The top and lower-left panels are known-answer controls showing how a disconnected sparse grid corrupts a PMF. The lower-middle panel reconstructs the radial Ar-pair PMF from 16 real kUPS GPU trajectories. The final panel records the execution and force-test evidence." %}
+These are controlled two-atom results, not a claim that 12,800 frames would
+converge a complex molecular reaction coordinate. In a larger system, slow
+orthogonal coordinates can remain trapped even when the one-dimensional
+umbrella histograms overlap.
 
-The physical reconstruction is intentionally plotted beside the analytic
-radial PMF, not as an isolated attractive curve. The overlap bars, replica
-difference, device, frame count, and force checks are part of the result.
+## Failed pilots are part of the protocol design
 
-## What the Hashes Prove
+The final centers and friction were not assumed to work. An early smoke grid
+contained a zero-overlap edge. A later GPU protocol met loose scalar PMF gates
+but showed an approximately 1 Å difference between replica means in one soft
+window. That disagreement revealed incomplete coordinate relaxation.
 
-Raw HDF5 trajectories are too large for the site repository, but they do not
-vanish from the evidence chain. The production summary contains one record per
-window and replica with:
+Reducing the Langevin friction from 0.01 to 0.002 fs$$^{-1}$$ and rerunning
+both profiles produced the accepted evidence: minimum overlap increased to
+0.455 and independent-replica PMF disagreement fell to 0.00407 eV.
 
-- input CIF SHA-256;
-- raw kUPS HDF5 SHA-256 and byte count;
-- stable dataset names, shapes, and dtypes;
-- seed, window center, frame count, and atom count;
-- observed JAX device and elapsed time;
-- thermodynamic block summaries and force-test results.
+This does not mean “lower friction is always better.” It means the diagnostic
+identified a specific relaxation problem, the protocol changed, and every
+affected run was regenerated. Failed pilots should change the sampling design,
+not disappear behind the final curve.
 
-The compact distance CSV retains every stored pair distance used by WHAM. The
-manifest hashes that CSV, the summary, the PMF curves, and the window table.
-Verification rejects a malformed raw hash, missing HDF5 schema field, frame
-count drift, output hash mismatch, CPU full run, broken overlap, failed force
-test, or excessive replica disagreement.
-
-A hash does not make a simulation correct. It makes the evidence identifiable.
-
-## When a Window Grid Fails
-
-Low overlap is a protocol problem before it is an estimator problem. The
-response depends on the diagnostic:
+## Respond to the diagnostic that actually failed
 
 <div class="table-responsive" markdown="1">
 
 | Symptom | Likely issue | Useful response |
 |---|---|---|
-| adjacent overlap near zero | windows too far apart or too stiff | add/move windows or broaden restraints |
-| mean far from center | strong PMF slope, boundary, or poor relaxation | inspect the distribution; retune center, bias, or equilibration |
-| replicas have shifted means | slow relaxation or hidden states | extend/revise equilibration and inspect orthogonal coordinates |
-| local histograms look stable but PMFs disagree | offsets are weakly identified | improve the overlap network; do not average away the conflict |
-| statistical checks pass but forces are wrong | bias composition bug | stop; fix zero-bias and finite-difference tests |
-| biased structures leave the MLIP domain | model extrapolation | add model checks or change the scientific scope |
+| adjacent overlap near zero | windows too far apart or too stiff | add or move windows; consider broader restraints |
+| mean far from its center | strong PMF slope or a boundary | inspect the full distribution before moving the center |
+| replica means disagree | slow relaxation or hidden states | extend or redesign equilibration; inspect orthogonal coordinates |
+| local histograms look stable but PMFs disagree | offsets are weakly identified | improve the overlap network rather than averaging the conflict |
+| statistical checks pass but forces are wrong | bias composition bug | stop and fix zero-bias and finite-difference controls |
+| biased structures leave the MLIP domain | model extrapolation | evaluate model validity on those structures or narrow the claim |
 
 </div>
 
 Longer sampling helps when overlapping tails exist but are noisy. It does not
-repair a geometric gap between biased ensembles. A weaker spring is not always
-the answer either: it broadens windows but can reduce local control and expose
-new slow modes. Window spacing, restraint strength, initialization, warmup,
-and production length form one design.
+repair a geometric gap between ensembles. A weaker spring broadens a window,
+but it may also reduce local control and expose a hidden slow mode. Centers,
+force constants, initialization, warmup, friction, and production length are
+one coupled design.
 
-## What to Report
+This emphasis on coordinate choice, window design, reconstruction, and
+convergence evidence is also central to practical umbrella-sampling reviews
+(<span id="cite-kaestner"></span>[Kästner, 2011](#ref-kaestner)).
 
-A defensible umbrella result should let a reader answer these questions:
+## Check your understanding
 
-- What coordinate was biased, in what units, and with what periodic-image
-  convention?
-- What bias function, centers, and force constants were used?
-- How were starting structures generated, and which frames were discarded as
-  warmup?
-- Do adjacent windows form a connected overlap network?
-- Do independent replicas agree locally and after reconstruction?
-- Was the radial or configurational measure handled correctly?
-- Which configurations carry the free-energy inference, and is the MLIP
-  credible there?
-- Can every compact result be traced to a config, device record, and raw-file
-  hash?
+1. If a pair lies 0.2 Å beyond its umbrella center, what happens to the two
+   atomic bias forces?
+2. Why is a window's sample mean generally different from its bias center?
+3. In the WHAM equations, what physical role do the offsets $$f_i$$ play?
+4. Why can WHAM return a smooth curve across a nearly zero-overlap edge?
+5. Why must a distance PMF include a radial-measure correction before it is
+   compared with a bare pair potential?
 
-The PMF line is the last item produced by that evidence chain, not a substitute
-for it. Practical umbrella reviews make the same point: coordinate choice,
-window protocol, reconstruction, and convergence evidence belong together.<sup id="cite-kaestner"><a href="#ref-kaestner">3</a></sup>
+The first answer is that the two forces have equal magnitude, point toward
+restoring the target distance, and sum to zero. The others distinguish biased
+equilibrium, window normalization, identifiability, and coordinate geometry.
 
-## Reproduce It
+## An umbrella is a sampling rule, not evidence of coverage
+
+Umbrella sampling replaces one rare transition with several biased local
+sampling problems. JAX makes the two core operations explicit: differentiate
+the bias on atomic coordinates, then solve the WHAM normalization equations.
+kUPS supplies the actual biased trajectories to which those equations apply.
+
+Trust the reconstructed PMF only when the implemented bias preserves the base
+Hamiltonian it claims to augment, neighboring windows form a connected overlap
+network, independent replicas agree, the coordinate measure is handled
+correctly, and the sampled configurations remain physically and
+model-theoretically credible.
+
+<details class="kups-reproducibility" markdown="1">
+<summary>Reproducibility record and complete umbrella dashboard</summary>
+
+Run and verify the bounded CPU profile from the locked environment:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
 cd kups-md-tutorials
-uv sync
+uv sync --locked
 
 uv run kups-tutorial run 10 --profile smoke
 uv run kups-tutorial verify 10 --profile smoke
+uv run kups-tutorial verify-notebooks --posts 10 --output-dir notebook-runs
+uv run kups-tutorial export-notebook-cells \
+  --executed-notebooks-dir notebook-runs \
+  --site-root ../sungsoo-ahn.github.io --posts 10 --check
+```
 
-# Requires a working JAX GPU runtime and launches 16 kUPS trajectories.
+The full profile requires a working JAX GPU runtime and launches 16 kUPS
+trajectories:
+
+```bash
 uv run kups-tutorial run 10 --profile full
 uv run kups-tutorial verify 10 --profile full
-
-uv run kups-tutorial verify-notebooks --posts 10
 uv run python scripts/generate_post10_figures.py
 ```
 
-The notebook completed from a fresh kernel in 106.5 seconds without changing
-its source. Its five code cells all executed and produced four outputs. The
-full production workflow observed `gpu:NVIDIA RTX A5000`; there is no CPU
-fallback accepted for this post.
+Raw HDF5 files remain outside the site repository, but each run record retains
+its input hash, HDF5 hash and byte count, dataset names/shapes/dtypes, seed,
+center, frame count, devices, elapsed time, block thermodynamics, and force
+controls. The compact distance table retains every sample used by WHAM, and the
+manifest hashes it together with the summary, curves, and window table.
 
-## Takeaway
+The complete diagnostic dashboard keeps the dense/sparse double-well controls,
+barrier error, replica disagreement, physical radial PMF, analytic answer, and
+runtime/force evidence:
 
-An umbrella is not evidence of coverage. It is a rule for collecting biased
-evidence. Trust the reconstruction only when the implemented bias preserves the
-base force field, neighboring windows connect, independent replicas agree, the
-coordinate measure is handled correctly, and the sampled configurations remain
-scientifically credible.
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post10_umbrella_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Five-panel umbrella-sampling audit dashboard with overlap controls, PMF reconstructions, and kUPS runtime evidence" caption="Full Post 10 audit. Known-answer controls expose the disconnected sparse grid, while the physical panels compare the aggregate and independent-replica kUPS reconstructions with the analytic radial PMF and retain the GPU, frame-count, and force-composition checks." %}
+
+Source and evidence:
+
+- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-10/smoke.json)
+- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-10/full.json)
+- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/smoke/umbrella_summary.json)
+- [full summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/umbrella_summary.json)
+- [stored full distances](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/kups_umbrella_samples.csv)
+- [full curves](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/umbrella_curves.csv)
+- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-10/full/manifest.json)
+- [kUPS umbrella worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/kups_umbrella_worker.py)
+- [executed notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-10-umbrella-sampling.ipynb)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post10_figures.py)
+- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-10.md)
+- [source repository](https://github.com/sungsoo-ahn/kups-md-tutorials)
+
+</details>
 
 ## References
 
-1. <span id="ref-wham"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011--1021. <a href="#cite-wham" class="reversefootnote" role="doc-backlink">↩</a>
-2. <span id="ref-mbar"></span>Shirts, M. R. & Chodera, J. D. (2008). Statistically optimal analysis of samples from multiple equilibrium states. *The Journal of Chemical Physics*, 129, 124105. <a href="#cite-mbar" class="reversefootnote" role="doc-backlink">↩</a>
-3. <span id="ref-kaestner"></span>Kästner, J. (2011). Umbrella sampling. *WIREs Computational Molecular Science*, 1, 932--942. <a href="#cite-kaestner" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-wham"></span>Kumar, S., Rosenberg, J. M., Bouzida, D., Swendsen, R. H. & Kollman, P. A. (1992). The weighted histogram analysis method for free-energy calculations on biomolecules. *Journal of Computational Chemistry*, 13, 1011--1021. <a href="#cite-wham" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-mbar"></span>Shirts, M. R. & Chodera, J. D. (2008). Statistically optimal analysis of samples from multiple equilibrium states. *The Journal of Chemical Physics*, 129, 124105. <a href="#cite-mbar" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kaestner"></span>Kästner, J. (2011). Umbrella sampling. *WIREs Computational Molecular Science*, 1, 932--942. <a href="#cite-kaestner" class="reversefootnote" role="doc-backlink">↩</a>
