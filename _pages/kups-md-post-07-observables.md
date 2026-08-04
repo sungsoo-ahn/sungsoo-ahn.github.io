@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-07-observables/
 title: "How Do Trajectories Become Physical Observables?"
 date: 2026-07-14
-last_updated: 2026-08-01
+last_updated: 2026-08-04
 description: "Estimate RDF, coordination, and velocity autocorrelation from real kUPS trajectories without losing normalization, periodic support, or uncertainty."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -82,19 +82,19 @@ that point does not create information.
 ## An RDF Is a Normalized Pair Estimator
 
 A pair histogram counts separations. An RDF asks how the observed pair density
-compares with the bulk density. For a bin bounded by (r_i) and (r_{i+1}),
+compares with the bulk density. For a bin bounded by $$r_i$$ and $$r_{i+1}$$,
 the tutorial uses the shell volume directly:
 
-\[
+$$
 \Delta V_i = \frac{4\pi}{3}\left(r_{i+1}^3-r_i^3\right).
-\]
+$$
 
 If each unordered pair is counted once, a schematic finite-sample estimator is
 
-\[
+$$
 g_i = \frac{n_i}
 {\tfrac{1}{2}N\rho\,\Delta V_i\,N_{\mathrm{frames}}}.
-\]
+$$
 
 The factor of one half changes if pairs are counted twice. The convention is
 less important than using it consistently. Omitting the shell volume makes
@@ -103,9 +103,9 @@ makes otherwise identical systems incomparable.<sup id="cite-allen"><a href="#re
 
 Coordination then inherits every RDF choice:
 
-\[
+$$
 n_c(r_c) = 4\pi\rho \int_0^{r_c} r^2 g(r)\,dr.
-\]
+$$
 
 The cutoff is part of the observable. Moving it across a minimum or the next
 shell changes the reported coordination even when the trajectory is unchanged.
@@ -160,11 +160,11 @@ replicas attach uncertainty.
 
 The VACF is estimated from velocities obtained as momentum divided by mass:
 
-\[
+$$
 C_v(t) =
 \frac{\left\langle \mathbf{v}(0)\!\cdot\!\mathbf{v}(t)\right\rangle}
 {\left\langle \mathbf{v}(0)\!\cdot\!\mathbf{v}(0)\right\rangle}.
-\]
+$$
 
 At the first stored lag, 20 fs, the mean correlation is 0.799. It crosses zero
 near 140 fs. Integrating the displayed 0–600 fs window gives 7.06 fs with a

@@ -3,7 +3,7 @@ layout: post
 permalink: /kups-md-tutorials/post-05-barostats/
 title: "How Should Pressure and Cell Degrees of Freedom Be Coupled?"
 date: 2026-07-14
-last_updated: 2026-08-01
+last_updated: 2026-08-04
 description: "Run isotropic and fully flexible NPT paths in kUPS, then inspect pressure, temperature, and moving-cell response from recorded HDF5 trajectories."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -106,14 +106,14 @@ The experiment uses Lennard-Jones argon in physical units:
 | Parameter | Full-profile value |
 |---|---:|
 | atoms | 256 |
-| initial number density | 0.0275 Å\(^{-3}\) |
+| initial number density | 0.0275 Å$$^{-3}$$ |
 | temperature target | 100 K |
 | pressure target | 10 MPa |
 | timestep | 2 fs |
 | warmup | 200 steps |
 | production | 800 steps |
 | stored frames | 80 per case |
-| compressibility parameter | \(5\times10^{-10}\) Pa\(^{-1}\) |
+| compressibility parameter | $$5\times10^{-10}$$ Pa$$^{-1}$$ |
 | pressure-coupling times | 0.5, 1.0, and 2.0 ps |
 | target runtime | GPU |
 
@@ -136,7 +136,7 @@ and total energy.
 
 There is an easy unit bug here. kUPS stores the virial stress in its internal
 eV/Å³ units. The tutorial converts by
-\(1\ \mathrm{Pa}=6.241509\times10^{-12}\ \mathrm{eV}/\text{Å}^3\) before a
+$$1\ \mathrm{Pa}=6.241509\times10^{-12}\ \mathrm{eV}/\text{Å}^3$$ before a
 column is named `pressure_pa`. The wrapper tests this boundary explicitly; it
 does not attach SI labels to raw internal values.
 
@@ -153,11 +153,11 @@ to three distinct raw trajectories.
 
 <div class="table-responsive" markdown="1">
 
-| Case | Mean \(T\) (K) | Mean \(P\) (MPa) | Final \(V/V_{first}\) | Final \(P\) (MPa) |
+| Case | Mean $$T$$ (K) | Mean $$P$$ (MPa) | Final $$V/V_{\mathrm{first}}$$ | Final $$P$$ (MPa) |
 |---|---:|---:|---:|---:|
-| CSVR–NPT, \(\tau_P=0.5\) ps | 95.0 | 38.2 | 1.0970 | 30.8 |
-| CSVR–NPT, \(\tau_P=2.0\) ps | 100.6 | 139.0 | 1.0915 | 61.6 |
-| BAOAB–NPT, \(\tau_P=1.0\) ps | 99.1 | 3.1 | 1.0921 | 7.6 |
+| CSVR–NPT, $$\tau_P=0.5$$ ps | 95.0 | 38.2 | 1.0970 | 30.8 |
+| CSVR–NPT, $$\tau_P=2.0$$ ps | 100.6 | 139.0 | 1.0915 | 61.6 |
+| BAOAB–NPT, $$\tau_P=1.0$$ ps | 99.1 | 3.1 | 1.0921 | 7.6 |
 
 </div>
 

@@ -1,6 +1,20 @@
 {
   "files": [
     {
+      "destination": "assets/img/blog/kups_md_post00_atomic_trajectory.png",
+      "kind": "figure",
+      "post": "00",
+      "sha256": "b17803ea675c1b9cece0f390e1b28da8d52ed7b8ac6143cda42a3f83a477c6cd",
+      "source": "figures/post-00/atomic_trajectory.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post00_atomic_trajectory.svg",
+      "kind": "figure",
+      "post": "00",
+      "sha256": "7a8ccdd75297d26adaab43a313353a4ac19f1073a26af6cc3564bdca9380d251",
+      "source": "figures/post-00/atomic_trajectory.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-01/full/initialization_summary.json",
       "kind": "compact-result",
       "post": "01",
@@ -71,6 +85,20 @@
       "source": "results/post-02/full/trajectory_samples.csv"
     },
     {
+      "destination": "assets/img/blog/kups_md_post02_atomic_trajectory.png",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "6dc526a843d88c35812b522f7b69b1593645c99bed42334b6bfe4e79a4942bbe",
+      "source": "figures/post-02/atomic_trajectory_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_atomic_trajectory.svg",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "9ef884c5fe8350a18c7b21d419fbe249d4f75845cb9794ee472e223d91727209",
+      "source": "figures/post-02/atomic_trajectory_full.svg"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post02_integrator_diagnostics.png",
       "kind": "figure",
       "post": "02",
@@ -83,6 +111,20 @@
       "post": "02",
       "sha256": "6084e20ae0edd15009c0156ccfa9cc62c93054ff5d660799b6d3200832ab4bac",
       "source": "figures/post-02/integrator_diagnostics_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_integrator_energy.png",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "8b1fa5764cf3bacb17b5e93be412bac3806d17e67c8932af135edf0bb4d08d48",
+      "source": "figures/post-02/integrator_energy_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post02_integrator_energy.svg",
+      "kind": "figure",
+      "post": "02",
+      "sha256": "c8de1885c84ee946107c0e8927990f4bd4d3f1e5f00d424fe9b4cda3f20b7f3d",
+      "source": "figures/post-02/integrator_energy_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-03/full/argon_nve_samples.csv",
@@ -639,5 +681,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "14ca284bb5fca1614f3bf542102a2e393feb7dc8"
+  "source_git_revision": "b6bb5b4197e11e00c36f89831fa83b2cfc94a025"
 }
