@@ -2,12 +2,18 @@
 <div class="notebook-cell notebook-cell--code-collapsed">
 <details class="code-collapse notebook-code">
 <summary><span>Python</span></summary>
-<div class="highlight"><pre class="highlight"><code class="language-python">from pathlib import Path
+<div class="highlight"><pre class="highlight"><code class="language-python">from functools import partial
+from pathlib import Path
 import os
 import warnings
 
 warnings.filterwarnings(&quot;ignore&quot;, message=&quot;IProgress not found&quot;)
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
 
+from ase.build import bulk
+import jax
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 
 from kups_md_tutorials.config import load_mlip_spec
@@ -15,6 +21,7 @@ from kups_md_tutorials.mlip_capstone import (
     load_mlip_summary,
     write_mlip_outputs,
 )
+from kups_md_tutorials.jax_reference import ParticleState, velocity_verlet_step
 from kups_md_tutorials.workflows import verify_post
 
 repo_root = Path.cwd()

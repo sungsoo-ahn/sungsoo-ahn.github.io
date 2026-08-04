@@ -813,6 +813,20 @@
       "source": "results/post-12/full/mlip_summary.json"
     },
     {
+      "destination": "assets/img/blog/kups_md_post12_mlip_atomic_forces.png",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "ed30c9f8881e8b6ee8f27bbd6689e77a1ec9e4d0ee95b824edbce485bc87875c",
+      "source": "figures/post-12/mlip_atomic_forces_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post12_mlip_atomic_forces.svg",
+      "kind": "figure",
+      "post": "12",
+      "sha256": "81b70fa93538456c87cbedc575195f74211568243721c35a9e75f328cb4dc2b1",
+      "source": "figures/post-12/mlip_atomic_forces_full.svg"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post12_mlip_diagnostics.png",
       "kind": "figure",
       "post": "12",
@@ -828,5 +842,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "76f70f232726982f8b7654e6b37ed902782405cd"
+  "source_git_revision": "0cb3207f5fce72ba28ee8faf7f9a1262926720a7"
 }
