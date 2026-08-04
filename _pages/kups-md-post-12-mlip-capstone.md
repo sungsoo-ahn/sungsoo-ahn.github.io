@@ -1,235 +1,327 @@
 ---
 layout: post
 permalink: /kups-md-tutorials/post-12-mlip-capstone/
-title: "What Changes When the Potential Is a Machine-Learned Interatomic Potential?"
+title: "From Atomic Graph to Learned-Force MD"
 date: 2026-07-14
-last_updated: 2026-08-01
-description: "Run a hash-pinned MACE-MPA-0 export through kUPS, inspect real NVT and NVE trajectories, and separate execution evidence from model-validity claims."
+last_updated: 2026-08-04
+description: "Build a differentiable atomic graph in JAX, map it to a pinned Tojax MACE potential in kUPS, and separate numerical stability from model accuracy."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 12
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 12
 categories: [science]
-tags: [molecular-dynamics, machine-learned-potentials, mace, aluminum, kups]
+tags: [molecular-dynamics, machine-learned-potentials, mace, aluminum, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable article is hidden from site navigation until the twelve-part series is staged for publication. Its numbers come from real kUPS trajectories using a revision- and hash-pinned Tojax export of MACE-MPA-0. The page does not claim reference accuracy or model uncertainty because this experiment has neither reference labels nor a model ensemble.</em>
-</p>
+A machine-learned interatomic potential changes the function that supplies
+energy and forces. It does not change what molecular dynamics needs from that
+function.
 
-## A Learned Potential Is Still Part of the MD Method
+At each step, the program still starts from atomic species, positions, and a
+periodic cell. It still evaluates one scalar potential energy. It still takes
+the negative position gradient to obtain forces. An integrator still turns
+those forces into the next state. A thermostat can still be under-equilibrated,
+a timestep can still be too large, and a short trajectory can still produce a
+precise-looking but unsupported average.
 
-Replacing Lennard--Jones with a neural network changes the force provider. It
-does not repeal molecular dynamics.
+The learned model adds another failure surface: the energy now depends on
+external parameters and an exported computation. “We used MACE” does not
+identify either one. This capstone follows the complete path from an atomic
+graph to JAX forces to kUPS trajectories, then draws a hard boundary between
+three claims:
 
-The initial state can still be biased. A timestep can still be unstable. A
-thermostat can still hide poor equilibration. A short trajectory can still
-give a precise-looking but unsupported mean. An umbrella estimator can still
-fail from weak overlap, and nonequilibrium work can still fail from missing
-tails. On top of those familiar problems, a learned potential adds a new
-dependency: the answer now depends on an external model artifact whose
-behavior is not summarized by its filename.
+1. the intended model bytes executed;
+2. the selected MD protocol was numerically stable over the tested horizon;
+3. the learned energy is accurate for the configurations and observable of
+   interest.
 
-That is the capstone lesson. An MLIP is not an oracle passed into an otherwise
-finished workflow. The exported computation, integration settings, sampled
-configurations, and downstream estimator form one method. They must be
-reviewed together.<sup id="cite-validation"><a href="#ref-validation">1</a></sup>
+The evidence here establishes the first two for a small aluminum experiment.
+It does not establish the third.
 
-This post therefore makes a deliberately narrow claim. I ran a pinned Tojax
-export of `mace-mpa-0-medium.model` inside the public kUPS MD application for
-three fcc-Al deployment regimes. The CPU smoke path and GPU production path
-both executed the same model bytes. The resulting trajectories have sensible
-short-run temperature, force, geometry, and energy-conservation diagnostics.
-That establishes an executable and inspectable simulation path. It does not
-establish density-functional-theory accuracy, training-domain support,
-long-time stability, transport properties, or uncertainty calibration.
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-The distinction is easy to say and easy to lose. A job that returns an HDF5
-file proves that software ran. A small NVE drift proves that one numerical
-setup conserved its own learned Hamiltonian for the tested time. Neither fact
-proves that the learned Hamiltonian is the right physical one.
+- how positions, species, a cell, and a cutoff define a periodic atomic graph;
+- how invariant graph features reduce to a scalar learned energy;
+- why `jax.grad` turns that scalar into conservative, equal-and-opposite forces;
+- where the learned energy enters the same Verlet or Langevin update used earlier;
+- how a serialized Tojax MACE model supplies the real kUPS potential;
+- why artifact identity, execution, stability, sampling, accuracy, and uncertainty are separate claims;
+- how real NVT and NVE trajectory diagnostics test a deployed model without becoming reference errors;
+- what additional evidence an MLIP-based scientific claim would require.
 
-## Freeze the Computation That Actually Ran
+**Prerequisites:** state, energy, force, and JAX transformations from
+[Foundations]({% link _pages/kups-md-foundations.md %}); velocity Verlet from
+[Post 02]({% link _pages/kups-md-post-02-integrators.md %}); numerical versus
+model error from [Post 03]({% link _pages/kups-md-post-03-errors.md %}); and
+ensemble control from
+[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}) and trajectory
+diagnostics from
+[Posts 06]({% link _pages/kups-md-post-06-trajectory-length.md %}) and
+[07]({% link _pages/kups-md-post-07-observables.md %}).
+</div>
 
-"We used MACE" is incomplete provenance. MACE names an architecture and
-software ecosystem, not a unique force function.<sup id="cite-mace"><a href="#ref-mace">2</a></sup>
-The deployed object in this tutorial is a serialized Tojax archive. Its
-repository, revision, and content hash are part of the scientific method:
+The collapsed setup fixes the teaching calculations to JAX CPU and imports the
+real model-deployment workflow used later.
+
+{% include kups-notebooks/post-12/setup.html %}
+
+## An MLIP is a differentiable energy function
+
+Let an atomic state contain atomic numbers $$\mathbf Z=(Z_1,\ldots,Z_N)$$,
+positions $$\mathbf R\in\mathbb R^{N\times3}$$, and periodic cell
+$$\mathbf H\in\mathbb R^{3\times3}$$. A learned potential with parameters
+$$\theta$$ returns a scalar
+
+$$
+E_\theta(\mathbf Z,\mathbf R,\mathbf H).
+$$
+
+Molecular dynamics does not consume a class name such as MACE. It consumes
+forces,
+
+$$
+\mathbf F_i
+=
+-\frac{\partial E_\theta}{\partial\mathbf R_i}.
+$$
+
+If the cell is dynamic, stress also comes from an energy derivative with
+respect to cell deformation. The scalar-energy design is powerful because one
+autodifferentiated computation makes the force field conservative up to
+numerical precision. It does not make the learned energy physically accurate;
+that is a property of data, training, architecture, and deployment support.
+
+### From atoms to a periodic graph
+
+Most local MLIPs avoid processing every atom pair. They connect atom $$i$$ to
+atom $$j$$ only when their minimum-image distance is inside a cutoff
+$$r_{\mathrm c}$$. For a displacement $$\mathbf d_{ij}=\mathbf R_i-\mathbf R_j$$,
+
+$$
+\mathbf s_{ij}=\mathbf d_{ij}\mathbf H^{-1},
+\qquad
+\widetilde{\mathbf s}_{ij}
+=
+\mathbf s_{ij}-\operatorname{round}(\mathbf s_{ij}),
+\qquad
+r_{ij}=\left\lVert\widetilde{\mathbf s}_{ij}\mathbf H\right\rVert.
+$$
+
+The nodes carry element identities and learned features. The directed edges
+carry distance-dependent features and, for an equivariant model, directional
+information. Message-passing layers update each local atomic environment. A
+readout then sums atomic contributions,
+
+$$
+E_\theta
+=
+\sum_{i=1}^{N}\varepsilon_\theta\!\left(\mathbf h_i^{(L)}\right),
+$$
+
+where $$\mathbf h_i^{(L)}$$ is the final feature of atom $$i$$ after $$L$$
+interaction layers. Summation makes the total energy independent of atom
+ordering and extensive with system size.
+
+MACE builds rotationally equivariant many-body messages from tensor products.
+The teaching function below is intentionally smaller: it is a single-species,
+pairwise radial graph with ten coefficients. It cannot represent the MACE
+architecture or claim aluminum accuracy. It does expose the actual JAX
+operations that the previous chapters left hidden.
+
+For each active edge, the code expands $$r_{ij}$$ in Gaussian radial features,
+multiplies by a smooth cosine envelope that reaches zero at the cutoff, and
+uses coefficient vector $$\mathbf a$$ to produce an edge energy:
+
+$$
+\phi_k(r)
+=
+\exp\left[-\frac{(r-\mu_k)^2}{2\sigma^2}\right],
+\qquad
+f_{\mathrm c}(r)
+=
+\frac{1}{2}\left[\cos\left(\frac{\pi r}{r_{\mathrm c}}\right)+1\right],
+$$
+
+and
+
+$$
+E
+=
+\frac{1}{2}
+\sum_{i\ne j,\,r_{ij}<r_{\mathrm c}}
+f_{\mathrm c}(r_{ij})
+\sum_k a_k\phi_k(r_{ij}).
+$$
+
+The factor one half removes double counting because both $$i\to j$$ and
+$$j\to i$$ appear in the directed graph.
+
+{% include kups-notebooks/post-12/post12-jax-graph.html %}
+
+The control constructs a 32-atom fcc cell, moves atom 0 by 0.08 Å, and finds
+384 directed nearest-neighbor edges. The coefficients are illustrative values
+with an eV scale, not fitted MACE parameters. `jax.value_and_grad` returns a
+0.689460 eV scalar and its position gradient in one call. Negating that
+gradient gives a -0.140067 eV/Å x-force on the displaced atom. The summed
+force is zero to the printed precision because translating every atom leaves
+the energy unchanged.
+
+The final call passes the same energy closure into the tested velocity-Verlet
+step from Post 02. In one teaching update, atom 0 moves by -0.0006489 Å—along
+the computed force. That is the complete algorithmic chain:
+
+$$
+(\mathbf Z,\mathbf R,\mathbf H)
+\longrightarrow
+\text{graph}
+\longrightarrow
+E
+\xrightarrow{-\nabla_{\mathbf R}}
+\mathbf F
+\longrightarrow
+\mathbf R'.
+$$
+
+This small model also exposes what a production implementation must add:
+multiple species, expressive many-body messages, neighbor-list capacity and
+updates, batching, parameter loading, cell gradients, precision choices, and
+careful physical-unit conventions.
+
+## kUPS replaces the teaching coefficients with a pinned MACE export
+
+The real experiment does not run the radial toy model. Its kUPS worker builds
+a `TojaxPotentialConfig` from a serialized MACE-MPA-0 archive. Internally, the
+backend:
+
+1. deserializes the exported JAX computation and parameter arrays;
+2. reads the model cutoff and constructs an adaptive periodic neighbor list;
+3. converts the current kUPS state to the atom-graph input expected by Tojax;
+4. evaluates the exported scalar energy and its geometry gradients;
+5. returns those values to the same kUPS MD machinery that implements Verlet
+   or BAOAB Langevin propagation.
+
+The conceptual arrows are the same as in the visible JAX control. The learned
+representation inside the scalar-energy box is much richer.
+
+### Freeze the computation that actually ran
+
+“MACE” identifies an architecture family, not a unique force function. This
+tutorial pins the repository revision and the bytes of the exported object:
+
+{% include kups-notebooks/post-12/protocol.html %}
 
 <div class="table-responsive" markdown="1">
 
-| Field | Production value |
+| Deployed field | Full-profile value |
 |---|---|
-| upstream model | `mace-mpa-0-medium.model` |
-| deployed artifact | `mace-mpa-0-medium_32.zip` |
+| upstream checkpoint | `mace-mpa-0-medium.model` |
+| deployed archive | `mace-mpa-0-medium_32.zip` |
 | artifact repository | `CuspAI/kUPS-mace-jax` |
-| repository revision | `aa54c05695b6509f588d04d664be70b28cf3138c` |
+| immutable revision | `aa54c05695b6509f588d04d664be70b28cf3138c` |
 | artifact SHA-256 | `728762228338782ab961e9dc689ffbe7b51690fcf7cd8b4ef3c63c37ec6cd78c` |
-| exporter / kUPS backend | Tojax / `TojaxPotentialConfig` |
+| exporter / backend | Tojax / `TojaxPotentialConfig` |
 | kUPS entry point | `kups.application.simulations.md.run` |
 | kUPS / JAX versions | 1.0.3 / 0.10.2 |
 
 </div>
 
-The runner downloads that exact Hugging Face revision and computes SHA-256
-before launching MD. A mismatch stops the run. The `32` archive is the
-float32 model export; the isolated worker also enables JAX x64 because the
-serialized graph uses int64 indices. That detail is not cosmetic: disabling
-x64 truncates the graph-index type and the serialized computation rejects the
-call. The produced HDF5 arrays record their actual dtypes independently of the
-model-export label.
+The runner downloads that exact revision and recomputes SHA-256 before
+execution. A mismatch stops the workflow. The archive name records a float32
+export, while the worker enables JAX x64 because the serialized graph declares
+int64 indices. The model's arithmetic precision and its index dtype are
+different implementation facts; the HDF5 evidence records actual output
+dtypes rather than inferring them from a filename.
 
-The model identity is exposed directly in the notebook rather than buried in
-a setup file:
+Artifact identity proves which function was requested. It does not prove that
+the function was called on the intended device or that its predictions were
+good.
 
-{% include kups-notebooks/post-12/setup.html %}
+## The CPU smoke run proves the end-to-end path
 
-{% include kups-notebooks/post-12/protocol.html %}
-
-The compact artifacts behind this page are all public-reviewable:
-
-- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/smoke.json)
-- [production configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/full.json)
-- [executable notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-12-mlip-capstone.ipynb)
-- [smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/smoke/mlip_summary.json)
-- [production summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/mlip_summary.json)
-- [production sample table](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/mlip_samples.csv)
-- [provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/manifest.json)
-- [kUPS/Tojax worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/mlip_capstone_worker.py)
-- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post12_figures.py)
-- [review record](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-12.md)
-
-This provenance is more specific than a model card citation, but it answers a
-different question. A model card describes a release. The revision and hash
-identify the bytes that supplied every force in this experiment.
-
-## The CPU Smoke Run Is an Execution Test
-
-A smoke test should be cheap enough to run in a clean notebook and strict
-enough to catch a fake execution path. Here it uses one conventional four-atom
-fcc Al cell at 300 K. It launches one BAOAB Langevin trajectory and one
-velocity-Verlet NVE trajectory through kUPS, storing eight frames from each.
-The model download and SHA check are identical to production, but JAX is
-forced to the CPU.
-
-The notebook does not load the committed smoke JSON and call that execution.
-It creates fresh outputs under `notebook-runs/`, invokes both isolated workers,
-and then runs the same verifier used by the command line:
+The smoke profile uses one four-atom fcc Al cell at 300 K. It launches one
+BAOAB Langevin trajectory and one velocity-Verlet NVE trajectory, with eight
+stored frames from each. It is deliberately too short for thermodynamics. Its
+job is to catch download, hash, deserialization, graph, kUPS interface, HDF5,
+and verification failures in a clean CPU environment.
 
 {% include kups-notebooks/post-12/smoke-run.html %}
 
-The committed smoke record contains two real runs and 16 stored frames. The
-observed backend is CPU, the potential backend is Tojax, and the artifact hash
-matches the production artifact. Its short temperature trace is not useful
-for thermodynamics—the NVT warmup is only one femtosecond—but that is not the
-smoke test's job. It proves that a clean CPU environment can download,
-deserialize, execute, store, read, and verify the model.
+The fresh notebook run reports two real kUPS/Tojax trajectories, 16 stored
+frames, the CPU backend, and the same artifact hash used by production. It
+does not load a committed JSON file and call that execution.
 
-This separation prevents two common mistakes. First, a CPU smoke run is not
-silently relabeled as GPU evidence. Second, production is not made notebook
-interactive just to prove reproducibility. The small path is for rapid
-interface checks; the larger path is separately recorded and reviewed on the
-hardware required by its claim.
+Keeping smoke and production separate prevents two common substitutions. A
+small CPU run is not relabeled as GPU evidence, and a long GPU experiment is
+not forced into an interactive notebook merely to appear reproducible.
 
-## Three Regimes Are Tests, Not Domain Labels
+## The production experiment probes three constructed regimes
 
-The production system is a 2 by 2 by 2 repetition of the conventional fcc Al
-cell: 32 atoms at a reference lattice constant of 4.05 Å. I test three initial
-cells:
+Production uses a 2 by 2 by 2 repetition of the conventional fcc Al cell: 32
+atoms at a 4.05 Å reference lattice constant. It constructs:
 
-1. `ambient_fcc`: zero strain at a 300 K thermostat setpoint;
-2. `compressed_fcc`: isotropic strain of -0.08 at 300 K;
-3. `hot_expanded_fcc`: isotropic strain of +0.06 at 900 K.
+1. ambient fcc at zero strain and a 300 K thermostat setpoint;
+2. compressed fcc at -8% isotropic strain and 300 K;
+3. hot expanded fcc at +6% isotropic strain and 900 K.
 
-These names describe what was constructed. They do not say that one case is
-"in domain" or another is "extrapolative." Making that claim would require a
-defined support metric, suitable calibration data, or an ensemble of models.
-This tutorial has none of those. Renaming a large displacement
-"extrapolation" would create evidence by vocabulary.
+These are protocol names, not training-domain labels. Calling the compressed
+or hot cell “extrapolative” would require a calibrated support metric, explicit
+training-data coverage, or a model ensemble. This experiment has none of
+those.
 
-Each regime has three independent random seeds. For each seed, the workflow
-launches one NVT and one NVE simulation, giving 18 trajectories in total. The
-NVT branch uses BAOAB Langevin dynamics, a 0.5 fs timestep, friction
-coefficient 0.01 fs$$^{-1}$$, 500 fs of warmup, and 120 fs of measured
-production. The NVE branch uses velocity Verlet for 120 fs at the same 0.5 fs
-timestep. Both store a frame every 5 fs, so each trajectory contributes 24
-frames and the full experiment contributes 432.
+Each regime uses three independent random seeds. For every seed, the workflow
+runs one NVT and one independently initialized NVE trajectory: 18 GPU runs in
+total. Both branches use a 0.5 fs timestep. NVT uses BAOAB Langevin dynamics,
+500 fs of warmup, and 120 fs of measured production. NVE uses velocity Verlet
+for 120 fs. A frame is stored every 5 fs, producing 432 compact sample rows.
 
-The NVE branch is independently initialized. It is not a continuation of the
-NVT endpoint. That choice keeps the integration diagnostic simple, but it
-also narrows its meaning. This experiment does not ask whether a particular
-thermostatted configuration retains its energy after handoff. It asks whether
-independently initialized trajectories in each constructed cell show a trend
-in total energy under the learned force provider and the selected timestep.
-
-Every worker reported `gpu:NVIDIA RTX A5000`; none fell back to CPU. The full
-workflow took 560.464 seconds. A successful run requires more than a zero exit
-code: the verifier checks the requested and observed device, model metadata,
-number of trajectories, frame counts, required HDF5 datasets, raw trajectory
-hashes, replica uncertainty fields, compact-file hashes, and absence of any
-GPU blocking reason.
-
-## A Thermostat Setpoint Is Not an Equilibrium Result
-
-The first production attempt used only 50 fs of NVT warmup with a 100 fs
-Langevin relaxation scale. The temperatures were predictably low: about 241 K,
-260 K, and 693 K for targets of 300 K, 300 K, and 900 K. Nothing had crashed.
-The thermostat field in the configuration said the desired temperatures. The
-trajectories simply had not relaxed long enough.
-
-That failure was useful because it exposed a bad protocol before prose turned
-it into a result. The final run uses 500 fs of warmup—five relaxation times—
-before the 120 fs measurement window. The resulting replica-aggregated
-temperatures are:
-
-<div class="table-responsive" markdown="1">
-
-| Regime | Target (K) | Measured NVT mean ± replica SEM (K) | Absolute difference (K) |
-|---|---:|---:|---:|
-| ambient fcc | 300 | 304.4 ± 14.5 | 4.4 |
-| compressed fcc | 300 | 304.4 ± 19.0 | 4.4 |
-| hot expanded fcc | 900 | 831.9 ± 39.1 | 68.1 |
-
-</div>
-
-The two 300 K means are close to their setpoints relative to their
-three-replica spread. The hot case remains lower than 900 K by about 68 K,
-roughly 1.7 reported SEMs. I do not "fix" that difference by reporting the
-setpoint in place of the measurement. Three short replicas are too little data
-for a tight ensemble claim, and 120 fs is especially short for a production
-materials calculation. The honest conclusion is narrower: longer warmup
-removed the obvious transient, while the hot regime still deserves a longer
-equilibration and sampling study before any temperature-dependent observable
-is trusted.
-
-The shaded bands in the temperature panel are frame-wise SEM across the three
-replicas. They are useful for seeing disagreement between independent seeds,
-but they do not correct for time correlation or turn 24 frames into 24
-independent samples. Post 6's lesson still applies: stored-frame count and
-effective sample count are different quantities.
+All workers observed `gpu:NVIDIA RTX A5000`; none fell back to CPU. The full
+workflow took 560.464 seconds. Verification checks the device, model metadata,
+trajectory count, frame count, HDF5 schema, raw hashes, replica uncertainty
+fields, compact-file hashes, and absence of a GPU blocking reason.
 
 {% include kups-notebooks/post-12/production-evidence.html %}
 
-## NVE Drift Answers One Narrow Numerical Question
+## See learned forces on atoms before reducing them to metrics
 
-For an autonomous NVE system, the total energy should have bounded numerical
-error when the force is conservative and the timestep is appropriate. For
-each replica I fit a straight line to total energy per atom against time, take
-the absolute slope, and report the mean and SEM across replicas. I also report
-the full energy span. The production diagnostics are:
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_mlip_atomic_forces.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="From learned forces to MD evidence. Left: an actual stored frame from hot-expanded fcc Al, with atoms colored by force magnitude and orange arrows showing the negative position gradients recorded by kUPS. Gray edges use a 3.35 Å nearest-neighbor teaching subset for legibility, not the complete deployed MACE graph. Right: NVE total-energy changes from every stored frame, averaged across three independent replicas with replica-SEM bands." %}
+
+The left panel is not a lattice redrawn from the input CIF. It uses stored frame
+23 from the real hot-expanded, replica-0 NVT HDF5 file. Positions are wrapped
+into the primary cell and shown with an oblique projection so the atomic layers
+remain visible. The orange vectors come from
+$$-\texttt{position\_gradients}$$, and the color scale reports their full
+three-dimensional magnitudes in eV/Å.
+
+The gray lines need a careful label. They show pairs within 3.35 Å to make the
+local graph idea visible. The deployed MACE model has its own serialized cutoff
+and a richer message-passing graph. The figure does not claim that every gray
+line—or only those gray lines—was a MACE edge.
+
+The right panel follows what happens after forces enter the integrator. For
+each NVE replica, total energy per atom is shifted by its first stored value.
+All three regime means remain within 0.01 meV/atom over 0.12 ps. This is strong
+short-horizon numerical self-consistency for the selected timestep and visited
+states. It is not a comparison with density-functional theory.
+
+## A stable learned Hamiltonian can still be wrong
+
+For an autonomous NVE system, a conservative force and suitable integrator
+should produce bounded total-energy error. A line fit to each replica's total
+energy per atom gives the following absolute slopes:
 
 <div class="table-responsive" markdown="1">
 
-| Regime | Absolute drift ± SEM (meV/atom/ps) | Energy span ± SEM (meV/atom) |
+| Regime | Absolute NVE drift ± replica SEM (meV/atom/ps) | Energy span ± replica SEM (meV/atom) |
 |---|---:|---:|
 | ambient fcc | 0.00126 ± 0.00045 | 0.00321 ± 0.00007 |
 | compressed fcc | 0.00446 ± 0.00289 | 0.00819 ± 0.00045 |
@@ -237,40 +329,63 @@ the full energy span. The production diagnostics are:
 
 </div>
 
-All three drifts are small on this 0.12 ps horizon. The compressed and hot
-cases have larger mean absolute slopes than ambient fcc, but three replicas
-and a very short time series do not support a precise ordering. More
-importantly, these are self-consistency numbers. They compare the numerical
-trajectory with conservation of the Tojax MACE Hamiltonian that generated it.
-They do not compare that Hamiltonian with density-functional theory or an
-experiment.
+These numbers test whether the discrete trajectory approximately conserves
+the Tojax MACE energy that generated it. A smooth but biased learned energy can
+conserve itself perfectly. Conversely, a good model can show bad drift when
+the timestep is too large, precision is mishandled, or a neighbor-list update
+is discontinuous.
 
-This is why "the NVE drift is small" and "the potential is accurate" are
-different sentences. A smooth but biased potential can conserve its own
-energy perfectly. Conversely, a good potential can appear unstable when a
-timestep is too large, precision is mishandled, or a neighbor update creates a
-discontinuity. Energy drift is an excellent deployment diagnostic precisely
-because it catches several numerical failures. It is not a reference-error
-metric.
+The 0.12 ps horizon is part of the result. A slope measured here must not be
+extrapolated to nanoseconds. Longer paths can enter configurations absent from
+this test or reveal slow trends that 24 frames cannot show. A timestep scan is
+also required before calling 0.5 fs converged.
 
-The short horizon matters too. A slope of 0.005 meV/atom/ps estimated over
-0.12 ps should not be extrapolated linearly to nanoseconds. Longer trajectories
-can encounter geometries absent from this test, reveal slow systematic trends,
-or change the apparent slope as bounded oscillations average out. The capstone
-keeps the duration beside the number so the unit does not imply evidence at a
-timescale that was never simulated.
+## A thermostat setpoint is not a measured temperature
 
-## Forces and Geometry Describe the Trajectory, Not Its Accuracy
+The first production attempt used only 50 fs of NVT warmup with a 100 fs
+Langevin relaxation scale. Its measured means were about 241, 260, and 693 K
+for setpoints of 300, 300, and 900 K. Nothing crashed. The trajectories were
+simply still relaxing.
 
-The remaining diagnostics come directly from the NVT HDF5 arrays. The maximum
-force is computed per frame from kUPS `position_gradients` and then averaged.
-The nearest-neighbor distance uses the periodic minimum-image convention. RMS
-displacement is measured from the initial lattice with the same minimum-image
-wrapping. Potential energy is reported per atom.
+The accepted protocol warms up for 500 fs—five relaxation times—before its
+120 fs measurement window:
 
 <div class="table-responsive" markdown="1">
 
-| Regime | Potential energy ± SEM (eV/atom) | Mean max force ± SEM (eV/Å) | Mean nearest neighbor ± SEM (Å) | RMS displacement ± SEM (Å) |
+| Regime | Setpoint (K) | Measured NVT mean ± replica SEM (K) | Difference (K) |
+|---|---:|---:|---:|
+| ambient fcc | 300 | 304.4 ± 14.5 | 4.4 |
+| compressed fcc | 300 | 304.4 ± 19.0 | 4.4 |
+| hot expanded fcc | 900 | 831.9 ± 39.1 | 68.1 |
+
+</div>
+
+The two 300 K means are close to their setpoints relative to their three-path
+spread. The hot mean remains 68 K low, about 1.7 reported SEMs. Replacing that
+measurement with the 900 K input would turn a request into a result. The
+appropriate conclusion is that the obvious warmup transient was reduced and
+the hot regime still needs a longer equilibration and sampling study.
+
+Replica SEM also has a narrow meaning. For a per-replica scalar $$m_r$$,
+
+$$
+\operatorname{SEM}(m)
+=
+\frac{s(m_1,m_2,m_3)}{\sqrt{3}}.
+$$
+
+It measures variation among three initialized paths under one model and one
+protocol. It does not correct time correlation within a path and it does not
+measure uncertainty in the learned energy.
+
+## Force scale and displacement are not force errors
+
+The NVT trajectories also provide potential energy, maximum force, periodic
+nearest-neighbor distance, and minimum-image RMS displacement:
+
+<div class="table-responsive" markdown="1">
+
+| Regime | Potential energy ± SEM (eV/atom) | Mean max force ± SEM (eV/Å) | Nearest neighbor ± SEM (Å) | RMS displacement ± SEM (Å) |
 |---|---:|---:|---:|---:|
 | ambient fcc | -3.70402 ± 0.00048 | 1.086 ± 0.052 | 2.6906 ± 0.0002 | 0.1903 ± 0.0004 |
 | compressed fcc | -3.37802 ± 0.00194 | 1.703 ± 0.074 | 2.5345 ± 0.0011 | 0.1136 ± 0.0059 |
@@ -278,184 +393,97 @@ wrapping. Potential energy is reported per atom.
 
 </div>
 
-The trends are physically interpretable at the level of the simulated model.
-Compression shortens the measured nearest-neighbor distance and raises the
-force scale relative to ambient fcc. The hot expanded trajectory has the
-largest displacement and largest mean maximum force. These observations help
-identify which regimes exercise the deployed computation differently.
+Within this learned Hamiltonian, compression shortens the measured nearest-
+neighbor distance and increases the force scale relative to ambient fcc. The
+hot expanded trajectories have the largest displacement and mean maximum
+force. These metrics describe the configurations the model generated.
 
-They are not force errors. There are no reference forces in the table. The
-potential energy values are not energy errors for the same reason. Calling the
-largest force a failure would also be unjustified: high forces may be a
-reasonable response to a compressed or thermally displaced structure. A
-reference comparison on selected trajectory frames is the next validation
-step, not an interpretation that can be recovered from the trajectory alone.
+They are not errors because no reference energy or force appears in their
+definition. Large forces can be a reasonable response to distorted atoms.
+Small forces can be consistently biased. Reference accuracy requires selected
+trajectory frames labeled by a higher-level calculation or experiment.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_mlip_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Post 12 production diagnostics from 18 real kUPS/Tojax MACE trajectories on NVIDIA RTX A5000 GPUs. Lines are means across three independent replicas and shaded bands show frame-wise replica SEM. The force, displacement, and drift panels describe this deployed model and protocol; they are not reference-accuracy or model-uncertainty estimates." %}
+## One checkpoint cannot produce epistemic uncertainty
 
-The figure is regenerated from the committed 432-row CSV and summary JSON.
-The notebook only displays that canonical asset, so re-executing a presentation
-cell cannot silently replace the reviewed plot with notebook-local state.
+The workflow uses one serialized MACE checkpoint. It has no committee,
+posterior sample, calibrated representation distance, or residual model. The
+summary therefore records `epistemic_uncertainty_available: false`.
 
-## One Checkpoint Cannot Give Epistemic Uncertainty
+The ± values above are replica SEMs. If all three replicas share the same model
+bias, their SEM can be tiny while the energy surface is wrong. Difficulty is
+not uncertainty either: a compressed or hot cell may be challenging, but its
+name is not an extrapolation score.
 
-The earlier draft of this tutorial plotted synthetic "uncertainty" beside
-synthetic force error. That panel was easy to draw and scientifically empty.
-The production workflow uses one serialized MACE checkpoint. There is no
-committee, posterior sample, calibrated distance score, or reference residual
-model. The summary therefore records
-`epistemic_uncertainty_available: false`.
+A defensible support or uncertainty statement could use a calibrated model
+ensemble, explicit coverage in a relevant local-environment representation,
+or reference residuals on deployment frames. The calibration target matters.
+Detecting unusual local geometry, predicting force error, and covering an
+observable are different tasks.
 
-The ± values in this article are independent-replica SEMs. For a scalar metric
-$$m_r$$ from replica $$r$$, the reported value is
+For this experiment, the next validation set should draw frames from all three
+regimes. It should be stratified by time, local coordination, and force scale
+rather than filled with adjacent ambient frames. Reference energies, forces,
+and stresses would then support actual error metrics and expose whether the
+distorted regimes fail differently.<sup id="cite-validation"><a href="#ref-validation">1</a></sup>
 
-$$
-\operatorname{SEM}(m)
-=\frac{s(m_1,m_2,m_3)}{\sqrt{3}},
-$$
+## The capstone validation ladder
 
-where $$s$$ is the sample standard deviation. This quantifies variation across
-three random initializations under one model and one protocol. It does not
-quantify uncertainty in the potential-energy surface. If all three replicas
-share the same model bias, their SEM can be tiny while the prediction is
-wrong.
+Every earlier chapter fits into one ordered set of questions:
 
-The same discipline applies to extrapolation. A hot or compressed cell may be
-more challenging, but difficulty is not a numerical extrapolation score. A
-defensible support claim could come from a calibrated model ensemble, a
-distance in an appropriate local-environment representation, explicit
-training-set coverage analysis, or reference labels on selected frames. Each
-choice answers a slightly different question and must itself be validated.
+1. **Identity and execution:** Which artifact, revision, hash, backend, engine,
+   and device produced the force calls?
+2. **Numerical method:** Do initialization, units, precision, neighbor updates,
+   and timestep produce stable trajectories?
+3. **Ensemble and sampling:** Did warmup finish, are paths independent, and is
+   the effective sample count adequate for the observable?
+4. **Model validity:** Are energies, forces, and stresses accurate on the
+   configurations that control the claim?
+5. **Estimator validity:** Do histogram support, overlap, bias removal, or work
+   tails support the final observable?
 
-For a real application, I would sample frames from all three regimes—not just
-the ambient trajectory—and obtain reference energies, forces, and stresses.
-I would stratify by force magnitude, local coordination, and time rather than
-randomly selecting adjacent frames. I would compare more than one model or
-checkpoint where possible. Only then would force RMSE, energy error, stress
-error, or uncertainty coverage belong in this article.
+The weakest supported link limits the conclusion. Skipping directly to model
+RMSE ignores the MD protocol. Stopping after a successful HDF5 write ignores
+the model and the science.
 
-## The Earlier Eleven Posts Still Apply
+Enhanced sampling makes this ladder especially important. An umbrella or
+adaptive bias deliberately visits rare configurations. The estimator can be
+implemented correctly while reconstructing the free energy of a learned
+Hamiltonian that has never been validated in the barrier region.
 
-The capstone does not replace the earlier tutorials. It turns each one into a
-question about the learned force provider.
+## Exercises: decide what each test can prove
 
-Initialization still defines the ensemble you can reach. A periodic fcc cell,
-cell strain, initial positions, masses, momenta, seed, and center-of-mass
-treatment all precede the first neural-network evaluation. If two MLIP runs
-start from different distributions, model comparison is already confounded.
+For each proposed change, state which rung of the ladder it strengthens:
 
-Integrator analysis still separates discretization from force error. The 0.5
-fs timestep used here produces small short-run NVE drift, but a timestep scan
-would be needed to show convergence. A model that is more accurate but much
-stiffer may require a smaller step. Runtime per step and stable timestep belong
-in the same deployment discussion.
+1. Halve the timestep and compare NVE energy spans.
+2. Run ten replicas of the same checkpoint.
+3. Evaluate DFT forces on high-force frames from all three regimes.
+4. Compare two independently trained checkpoints and calibrate their
+   disagreement against the DFT subset.
+5. Extend the hot NVT run until its temperature mean and autocorrelation-based
+   uncertainty stabilize.
 
-Error decomposition becomes more important, not less. Precision, timestep,
-finite sampling, initialization, and potential bias can all move a reported
-observable. "MLIP error" is not a useful residual bucket when the simulation
-protocol itself has not been tested.
+The trap is item 2. More replicas reduce sampling uncertainty under the same
+learned Hamiltonian. They do not expose a bias shared by that checkpoint. Item
+3 tests reference accuracy; item 4 can begin an epistemic-uncertainty study;
+items 1 and 5 test numerical and sampling claims.
 
-Thermostats and barostats control distributions generated by the supplied
-forces. They cannot make an inaccurate Hamiltonian physically correct. The
-warmup failure in this post is the simplest example: even a valid setpoint did
-not make the short transient an equilibrated sample. For NPT work, pressure
-and cell distributions would need the same scrutiny, plus reference stress and
-equation-of-state checks.
+<details class="kups-code-block kups-code-block--collapsed">
+<summary>Reproducibility record and full diagnostic dashboard</summary>
+<div markdown="1">
 
-Trajectory length still controls effective information. Neural-network force
-evaluation may make long runs expensive, but expense does not reduce
-autocorrelation. Three short replicas are useful engineering evidence. They are
-not a substitute for a convergence study matched to the slow observable.
-
-Observable estimation still begins with a definition and an estimator. An RDF,
-coordination number, diffusion coefficient, or spectrum can be estimated with
-tiny statistical error for the wrong potential. The trajectory must support
-both the statistical estimator and the model-validity claim in the regions
-that dominate it.
-
-Free-energy methods add another layer. WHAM, MBAR, or reweighting can be
-implemented correctly while reconstructing the free energy of a biased learned
-Hamiltonian. Reference checks matter especially in barriers and low-probability
-regions because a small energy bias changes probabilities exponentially.
-
-Umbrella and enhanced-sampling methods actively visit configurations that an
-unbiased trajectory may rarely see. That is their purpose and their MLIP risk.
-Zero-bias parity, force-gradient checks, overlap, work accounting, and model
-support all belong in the same record. A bias can accelerate a trajectory out
-of the region where the force provider has been checked.
-
-The resulting hierarchy is simple:
-
-1. prove that the intended model bytes ran through the intended engine;
-2. prove numerical stability and ensemble behavior for the chosen protocol;
-3. quantify sampling error for the observable;
-4. validate model accuracy on configurations relevant to that observable;
-5. narrow the claim to the weakest supported link.
-
-Skipping directly to step four is a mistake, but so is stopping after step one.
-This tutorial completes the first two links for a small teaching protocol and
-leaves the missing reference/model-support evidence explicit.
-
-## Raw Trajectories Can Stay Large Without Becoming Untraceable
-
-The 18 HDF5 files live under ignored `runs/` directories. They are not copied
-into the website repository. Instead, the production manifest records, for
-every trajectory:
-
-- regime, replica, ensemble, integrator, and seed;
-- requested device, observed JAX devices, and default backend;
-- input CIF path and SHA-256;
-- raw HDF5 path, SHA-256, byte count, frame count, and atom count;
-- required dataset names, shapes, and dtypes;
-- elapsed worker time and the scalar diagnostics derived from that file.
-
-The compact CSV retains every stored frame's time, temperature, potential and
-total energy per atom, maximum force, nearest-neighbor distance, and RMS
-displacement. The manifest hashes both the CSV and summary. Verification
-therefore detects a changed compact result even when the large raw trajectory
-is unavailable in a fresh checkout.
-
-This is not archival magic. A hash cannot reconstruct a deleted HDF5 file.
-It does make the evidence chain falsifiable: a retained raw file can be checked
-against the manifest, and a compact table cannot drift without failing its
-recorded digest. For long-term scientific preservation, raw trajectories or a
-documented subset should also be stored in an appropriate data repository.
-
-## What This Experiment Does Not Establish
-
-The strongest part of a validation report is often the boundary around its
-claim. This capstone leaves several boundaries in place:
-
-- No DFT or experimental labels were evaluated, so there is no accuracy claim.
-- One model checkpoint ran, so there is no epistemic-uncertainty claim.
-- No support metric was calibrated, so there is no in-domain/extrapolation
-  classification.
-- The NVE horizon is 0.12 ps, so there is no long-time stability claim.
-- The NVT measurement is 0.12 ps with three replicas, so there is no converged
-  thermodynamic or transport observable.
-- NVE starts independently rather than from equilibrated NVT endpoints, so
-  there is no thermostat-to-microcanonical handoff result.
-- Only fcc Al cells with isotropic strain were tested. Defects, surfaces,
-  liquids, multiple elements, reactions, and extreme coordination are outside
-  this experiment.
-- The run records adaptive neighbor-capacity handling through the actual kUPS
-  execution, but this article does not turn that runtime mechanism into a
-  calibrated model-risk score.
-
-None of these limits makes the run pointless. They locate the next experiment.
-For a melting-temperature claim, extend cell size and time, test phase-specific
-equilibration, validate liquid and solid configurations, and quantify finite-
-size and sampling error. For a defect migration barrier, validate forces and
-energies along the transition region and combine that with window overlap. For
-mechanical response, include stress references and strain-path convergence.
-
-The claim should determine the validation set. A universal checklist can
-prevent omissions, but it cannot decide which configurations matter.
-
-## Reproduce the Evidence
-
-Install the GPU and model-download extras on a CUDA machine, then run the two
-profiles separately:
+The public-reviewable artifacts are the
+[smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/smoke.json),
+[full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-12/full.json),
+[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-12-mlip-capstone.ipynb),
+[smoke summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/smoke/mlip_summary.json),
+[production summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/mlip_summary.json),
+[432-row sample table](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/mlip_samples.csv),
+[manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-12/full/manifest.json),
+[kUPS/Tojax worker](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/mlip_capstone_worker.py),
+[JAX reference algorithms](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/jax_reference.py),
+[atomic-visual source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/src/kups_md_tutorials/mlip_visuals.py),
+[figure-generation entry point](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post12_figures.py),
+and [review record](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-12.md).
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -464,47 +492,61 @@ uv sync --locked --extra gpu --extra mlff
 
 uv run kups-tutorial run 12 --profile smoke
 uv run kups-tutorial verify 12 --profile smoke
-
 uv run kups-tutorial run 12 --profile full
 uv run kups-tutorial verify 12 --profile full
-
 uv run python scripts/generate_post12_figures.py
 uv run kups-tutorial verify-notebooks --posts 12 --timeout 240
 ```
 
-The smoke command forces CPU execution. The full configuration requests GPU,
-and verification rejects it if any trajectory reports a non-GPU default
-backend. Both paths reject an artifact whose SHA-256 differs from the pinned
-value.
+The 18 raw HDF5 files remain outside the website repository. For each one, the
+manifest preserves regime, replica, ensemble, integrator, seed, requested and
+observed devices, input CIF hash, raw HDF5 hash and byte count, frame and atom
+counts, dataset names and dtypes, worker time, and derived metrics. The compact
+CSV retains every stored frame used above.
 
-When adapting the workflow to another MLIP, freeze the following before
-interpreting a trajectory:
+The multi-panel figure below preserves the full temperature, energy-drift,
+force-scale, and displacement dashboard. It is an audit view, not the main
+atomic explanation.
 
-<div class="table-responsive" markdown="1">
-
-| Question | Minimum evidence |
-|---|---|
-| Which force function ran? | artifact repository, immutable revision, file hash, exporter, backend |
-| Did the intended engine run? | entry point, engine version, raw trajectory schema and hashes |
-| Which hardware executed it? | requested and observed devices; explicit fallback failure |
-| Is integration stable? | timestep scan, NVE drift and span at relevant configurations |
-| Is the ensemble equilibrated? | warmup study, trace review, replica agreement, effective samples |
-| Is the model accurate where used? | reference labels selected from deployment trajectories |
-| Does uncertainty mean model uncertainty? | defined estimator, calibration target, coverage test |
-| Does the observable converge? | estimator diagnostics, autocorrelation, replica/length stability |
-| Did biasing change the support problem? | overlap/work checks plus validation in biased regions |
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post12_mlip_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Full Post 12 deployment dashboard from 18 real kUPS/Tojax MACE trajectories. Lines and bands summarize three independent replicas. The plotted quantities are execution, ensemble, geometry, and numerical-stability diagnostics—not DFT errors or model uncertainty." %}
 
 </div>
+</details>
 
-The learned potential changes what must be frozen and validated. It does not
-change the standard of evidence. A trustworthy MLIP simulation is still a
-chain of explicit, testable claims—from bytes, to forces, to dynamics, to
-sampling, to the observable that appears in the paper.
+## What this experiment does not establish
+
+- No DFT or experimental labels were evaluated, so there is no accuracy claim.
+- One checkpoint ran, so there is no epistemic-uncertainty claim.
+- No support metric was calibrated, so there is no in-domain/extrapolation label.
+- The NVE horizon is 0.12 ps, so there is no long-time stability claim.
+- The NVT measurement is 0.12 ps with three replicas, so there is no converged
+  material or transport observable.
+- NVE starts independently rather than from equilibrated NVT endpoints, so
+  there is no thermostat-to-microcanonical handoff result.
+- Only strained fcc Al cells were tested. Defects, surfaces, liquids,
+  multicomponent systems, reactions, and extreme coordination remain outside
+  the evidence.
+
+These boundaries locate the next experiment. A defect barrier needs reference
+checks along the transition region plus window overlap. A melting claim needs
+larger cells, longer phase-specific sampling, and validation in both phases. A
+mechanical-response claim needs stress references and strain-path convergence.
+
+## Closing
+
+A learned potential does not enter MD as a picture of a neural network. It
+enters as a scalar function whose gradients move atoms.
+
+Make that chain visible. Freeze the exported computation. Verify the device
+and raw trajectory. Test the timestep, ensemble, and sample count. Then obtain
+reference evidence on the configurations that matter to the final observable.
+Only after all of those steps should a stable learned trajectory become a
+physical claim.
 
 ## References
 
 1. <span id="ref-validation"></span>Morrow, J. D., Gardner, J. L. A. & Deringer, V. L. (2023). How to validate machine-learned interatomic potentials. *The Journal of Chemical Physics*, 158, 121501. [DOI](https://doi.org/10.1063/5.0139611) <a href="#cite-validation" class="reversefootnote" role="doc-backlink">↩</a>
-2. <span id="ref-mace"></span>Batatia, I. et al. (2022). MACE: Higher order equivariant message passing neural networks for fast and accurate force fields. *NeurIPS Workshop*. [arXiv](https://arxiv.org/abs/2206.07697) <a href="#cite-mace" class="reversefootnote" role="doc-backlink">↩</a>
+2. Batatia, I. et al. (2022). MACE: Higher order equivariant message passing neural networks for fast and accurate force fields. [arXiv](https://arxiv.org/abs/2206.07697)
 3. Batatia, I. et al. (2025). A foundation model for atomistic materials chemistry. *The Journal of Chemical Physics*, 163, 184110. [DOI](https://doi.org/10.1063/5.0291759)
-4. CuspAI. *kUPS documentation*. [Project documentation](https://cusp-ai-oss.github.io/kUPS/)
-5. CuspAI. *Tojax: Export JAX computations and load them anywhere*. [Source repository](https://github.com/cusp-ai-oss/tojax)
+4. CuspAI. [kUPS documentation](https://cusp-ai-oss.github.io/kUPS/).
+5. CuspAI. [Tojax source repository](https://github.com/cusp-ai-oss/tojax).
