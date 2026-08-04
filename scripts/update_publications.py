@@ -32,7 +32,9 @@ CO_CORRESPONDING_MARK = "†"
 HIGHLIGHT_PRESENTATION_TYPES = {"spotlight", "oral"}
 AUTHOR_OVERRIDES = {
     "DNACHUNKER: Learnable Tokenization for DNA Language Models": "Taewon Kim, Jihwan Shin, Hyomin Kim, Youngmok Jung, Jonghoon Lee, Won-Chul Lee, Insu Han, Sungsoo Ahn",
+    "Generative Flows on Synthetic Pathway for Drug Design": "Seonghwan Seo, Minsu Kim, Tony Shen, Martin Ester, Jinkyoo Park, Sungsoo Ahn, Woo Youn Kim",
     "Non-backtracking Graph Neural Networks": "Seonghyun Park, Narae Ryu, Gahee Kim, Dongyeop Woo, Se-Young Yun, Sungsoo Ahn",
+    "VibeProteinBench: An Evaluation Benchmark for Language-interfaced Vibe Protein Design": "Hyunjin Seo, Hongjoon Ahn, Jimin Park, Sungjun Han, Gyubok Lee, Soojung Yang, Joseph S Brown, Leo Chen, Gina El Nesr, Feyisayo Eweje, Sarah Gurev, Hyejin Lee, Cheng-Hao Liu, Junlang Liu, Zhihui Qi, Jason Yang, Gyu Rie Lee, Sungsoo Ahn, Sangwon Jung, Jamin Shin",
 }
 CO_CORRESPONDING_OVERRIDES = {
     "Machine Learning Hamiltonians are Accurate Energy-Force Predictors": ["Sungbin Lim", "Sungsoo Ahn"],
@@ -59,8 +61,38 @@ FIELD_OVERRIDES = {
     ("Graph Generation with K^2 Trees", "ICLR"): {
         "code": "https://github.com/yunhuijang/hggt",
     },
+    ("Generative Flows on Synthetic Pathway for Drug Design", "ICLR"): {
+        "html": "https://openreview.net/forum?id=pB1XSj2y4X",
+        "code": "https://github.com/SeonghwanSeo/RxnFlow",
+    },
+    ("Improving Robustness to Multiple Spurious Correlations by Multi-Objective Optimization", "ICML"): {
+        "arxiv": "2409.03303",
+        "html": "https://proceedings.mlr.press/v235/kim24l.html",
+    },
+    ("Latent Veracity Inference for Identifying Errors in Stepwise Reasoning", "ICLR"): {
+        "html": "https://openreview.net/forum?id=eux1cp8GqC",
+    },
+    ("Learning Flexible Forward Trajectories for Masked Molecular Diffusion", "ICLR"): {
+        "html": "https://openreview.net/forum?id=raVuVPbnQL",
+    },
     ("Learning Collective Variables from BioEmu with Time-Lagged Generation", "ICLR"): {
+        "html": "https://openreview.net/forum?id=1PYj4fMeLe",
         "website": None,
+    },
+    ("MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks", "ICLR"): {
+        "html": "https://openreview.net/forum?id=dNT3abOsLo",
+    },
+    ("Multi-resolution Spectral Coherence for Graph Generation with Score-based Diffusion", "NeurIPS"): {
+        "html": "https://papers.neurips.cc/paper_files/paper/2023/hash/427f20d90386fd27804f1831d6a3d48f-Abstract-Conference.html",
+    },
+    ("ReBind: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring", "ICLR"): {
+        "html": "https://openreview.net/forum?id=WNIEr5kydF",
+    },
+    ("Transition Path Sampling with Improved Off-Policy Training of Diffusion Path Samplers", "ICLR"): {
+        "html": "https://openreview.net/forum?id=WQV9kB1qSU",
+    },
+    ("VibeProteinBench: An Evaluation Benchmark for Language-interfaced Vibe Protein Design", "-"): {
+        "dataset": "https://huggingface.co/datasets/vibepdbench/VibeProteinBench",
     },
 }
 
@@ -248,6 +280,7 @@ def paper_to_bibtex(row, seen_keys, highlighted_presentations):
     arxiv_link = get_field(row, 'arxiv', row.get('Arxiv link'))
     code_link = get_field(row, 'code', row.get('Code link'))
     website_link = get_field(row, 'website', row.get('Project page link'))
+    dataset_link = get_field(row, 'dataset')
 
     if pd.notna(paper_link) and paper_link:
         lines.append(f'  html={{{paper_link}}},')
@@ -257,6 +290,8 @@ def paper_to_bibtex(row, seen_keys, highlighted_presentations):
         lines.append(f'  code={{{code_link}}},')
     if pd.notna(website_link) and website_link and website_link != '-':
         lines.append(f'  website={{{website_link}}},')
+    if pd.notna(dataset_link) and dataset_link:
+        lines.append(f'  dataset={{{dataset_link}}},')
 
     # Mark selected papers (from "Selected" column in Excel)
     selected = row.get('Selected', '')
