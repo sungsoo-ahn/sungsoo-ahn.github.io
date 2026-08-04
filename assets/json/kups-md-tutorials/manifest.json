@@ -512,6 +512,20 @@
       "source": "results/post-07/full/vacf_samples.csv"
     },
     {
+      "destination": "assets/img/blog/kups_md_post07_neighbor_shell.png",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "7766d263fb2a72345ff9cd52e24f59ecba32f5a513aeb73a74fa696d82bc48cf",
+      "source": "figures/post-07/neighbor_shell_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post07_neighbor_shell.svg",
+      "kind": "figure",
+      "post": "07",
+      "sha256": "87d1859dc5af585cfcb84f15107ba91a085eea057f57c92eeff642f817a123e1",
+      "source": "figures/post-07/neighbor_shell_full.svg"
+    },
+    {
       "destination": "assets/img/blog/kups_md_post07_observable_diagnostics.png",
       "kind": "figure",
       "post": "07",
@@ -758,5 +772,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "4084421a8c236355cd9cf65bd50b9be5e31100f4"
+  "source_git_revision": "eb1fadacb8f76d9fab45b38d0a3d4ddb08d3c0c2"
 }

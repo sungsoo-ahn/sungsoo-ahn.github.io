@@ -5,15 +5,19 @@
 <div class="highlight"><pre class="highlight"><code class="language-python">from pathlib import Path
 import os
 
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
+
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 
 from kups_md_tutorials.config import load_observable_spec
 from kups_md_tutorials.kups_engine import load_kups_result
 from kups_md_tutorials.observables import (
     load_kups_observable_summary,
-    load_observable_summary,
     write_observable_outputs,
 )
+from kups_md_tutorials.systems import argon_fcc
 
 repo_root = Path.cwd()
 if not (repo_root / &quot;configs&quot;).exists():
