@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -49,9 +49,9 @@ force (PMF).
 - how support choices can dominate replica uncertainty.
 
 **Prerequisites:** canonical sampling from
-[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}), effective samples
-from [Post 06]({% link _pages/kups-md-post-06-trajectory-length.md %}), and RDF
-normalization from [Post 07]({% link _pages/kups-md-post-07-observables.md %}).
+[Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}), effective samples
+from [Post 06]({{ '/kups-md-tutorials/post-06-trajectory-length/' | relative_url }}), and RDF
+normalization from [Post 07]({{ '/kups-md-tutorials/post-07-observables/' | relative_url }}).
 </div>
 
 ## Probability determines relative free energy

@@ -1,4 +1,4 @@
-let echartsTheme = determineComputedTheme();
+let echartsTheme = typeof determineComputedTheme === "function" ? determineComputedTheme() : "light";
 
 /* Create echarts chart as another node and hide the code block, appending the echarts node after it
        this is done to enable retrieving the code again when changing theme between light/dark */

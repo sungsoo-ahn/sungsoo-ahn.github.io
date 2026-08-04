@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 

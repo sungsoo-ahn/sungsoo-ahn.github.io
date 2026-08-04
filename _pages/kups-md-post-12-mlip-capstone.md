@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -60,14 +60,14 @@ It does not establish the third.
 - what additional evidence an MLIP-based scientific claim would require.
 
 **Prerequisites:** state, energy, force, and JAX transformations from
-[Foundations]({% link _pages/kups-md-foundations.md %}); velocity Verlet from
-[Post 02]({% link _pages/kups-md-post-02-integrators.md %}); numerical versus
-model error from [Post 03]({% link _pages/kups-md-post-03-errors.md %}); and
+[Foundations]({{ '/kups-md-tutorials/foundations/' | relative_url }}); velocity Verlet from
+[Post 02]({{ '/kups-md-tutorials/post-02-integrators/' | relative_url }}); numerical versus
+model error from [Post 03]({{ '/kups-md-tutorials/post-03-errors/' | relative_url }}); and
 ensemble control from
-[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}) and trajectory
+[Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}) and trajectory
 diagnostics from
-[Posts 06]({% link _pages/kups-md-post-06-trajectory-length.md %}) and
-[07]({% link _pages/kups-md-post-07-observables.md %}).
+[Posts 06]({{ '/kups-md-tutorials/post-06-trajectory-length/' | relative_url }}) and
+[07]({{ '/kups-md-tutorials/post-07-observables/' | relative_url }}).
 </div>
 
 The collapsed setup fixes the teaching calculations to JAX CPU and imports the
@@ -293,7 +293,7 @@ fields, compact-file hashes, and absence of a GPU blocking reason.
 
 ## See learned forces on atoms before reducing them to metrics
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_mlip_atomic_forces.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="From learned forces to MD evidence. Left: an actual stored frame from hot-expanded fcc Al, with atoms colored by force magnitude and orange arrows showing the negative position gradients recorded by kUPS. Gray edges use a 3.35 Å nearest-neighbor teaching subset for legibility, not the complete deployed MACE graph. Right: NVE total-energy changes from every stored frame, averaged across three independent replicas with replica-SEM bands." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post12_mlip_atomic_forces.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Atomic learned-force vectors beside short NVE energy-change curves for three aluminum regimes" caption="From learned forces to MD evidence. Left: an actual stored frame from hot-expanded fcc Al, with atoms colored by force magnitude and orange arrows showing the negative position gradients recorded by kUPS. Gray edges use a 3.35 Å nearest-neighbor teaching subset for legibility, not the complete deployed MACE graph. Right: NVE total-energy changes from every stored frame, averaged across three independent replicas with replica-SEM bands." %}
 
 The left panel is not a lattice redrawn from the input CIF. It uses stored frame
 23 from the real hot-expanded, replica-0 NVT HDF5 file. Positions are wrapped
@@ -508,7 +508,7 @@ The multi-panel figure below preserves the full temperature, energy-drift,
 force-scale, and displacement dashboard. It is an audit view, not the main
 atomic explanation.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post12_mlip_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Full Post 12 deployment dashboard from 18 real kUPS/Tojax MACE trajectories. Lines and bands summarize three independent replicas. The plotted quantities are execution, ensemble, geometry, and numerical-stability diagnostics—not DFT errors or model uncertainty." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post12_mlip_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Deployment diagnostics across 18 kUPS Tojax MACE trajectories" caption="Full Post 12 deployment dashboard from 18 real kUPS/Tojax MACE trajectories. Lines and bands summarize three independent replicas. The plotted quantities are execution, ensemble, geometry, and numerical-stability diagnostics—not DFT errors or model uncertainty." %}
 
 </div>
 </details>

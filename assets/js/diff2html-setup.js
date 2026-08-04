@@ -1,4 +1,4 @@
-let diff2HtmlTheme = determineComputedTheme();
+let diff2HtmlTheme = typeof determineComputedTheme === "function" ? determineComputedTheme() : "light";
 
 /* Create diff2html as another node and hide the code block, appending the diff2html node after it
     this is done to enable retrieving the code again when changing theme between light/dark */

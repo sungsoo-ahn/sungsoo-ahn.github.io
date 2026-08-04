@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -49,10 +49,10 @@ model's stress physically valid?
 - how to distinguish a short response test from an equilibrated NPT result.
 
 **Prerequisites:** periodic cells and units from
-[Post 01]({% link _pages/kups-md-post-01-initialization.md %}), force-driven
-integration from [Post 02]({% link _pages/kups-md-post-02-integrators.md %}),
+[Post 01]({{ '/kups-md-tutorials/post-01-initialization/' | relative_url }}), force-driven
+integration from [Post 02]({{ '/kups-md-tutorials/post-02-integrators/' | relative_url }}),
 and thermostat coupling from
-[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+[Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}).
 </div>
 
 ## Pressure is a force response of the whole cell

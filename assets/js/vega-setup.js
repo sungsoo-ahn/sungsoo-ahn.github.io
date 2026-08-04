@@ -1,4 +1,4 @@
-let vegaTheme = determineComputedTheme();
+let vegaTheme = typeof determineComputedTheme === "function" ? determineComputedTheme() : "light";
 
 /* Create vega lite chart as another node and hide the code block, appending the vega lite node after it
        this is done to enable retrieving the code again when changing theme between light/dark */

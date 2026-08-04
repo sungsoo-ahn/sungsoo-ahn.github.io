@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -51,9 +51,9 @@ hash-pinned GPU trajectories reused from Post 08.
 - why a chain of intermediate states fails when even one link is disconnected.
 
 **Prerequisites:** relative free energy and reweighting from
-[Post 08]({% link _pages/kups-md-post-08-free-energies.md %}), effective sample
-size from [Post 06]({% link _pages/kups-md-post-06-trajectory-length.md %}), and
-canonical sampling from [Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+[Post 08]({{ '/kups-md-tutorials/post-08-free-energies/' | relative_url }}), effective sample
+size from [Post 06]({{ '/kups-md-tutorials/post-06-trajectory-length/' | relative_url }}), and
+canonical sampling from [Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}).
 </div>
 
 ## Two states mean two probability distributions

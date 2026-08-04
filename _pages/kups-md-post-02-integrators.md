@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -43,7 +43,7 @@ then watch atoms move in a recorded kUPS trajectory
 - how to compare timesteps without changing the simulated duration or output cadence.
 
 **Prerequisites:** the MD state, force as a negative energy gradient, and JAX
-PyTrees from the [foundations lesson]({% link _pages/kups-md-foundations.md %}).
+PyTrees from the [foundations lesson]({{ '/kups-md-tutorials/foundations/' | relative_url }}).
 Post 01 supplies the controlled many-atom initial state used here.
 </div>
 

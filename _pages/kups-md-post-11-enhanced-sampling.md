@@ -18,7 +18,7 @@ toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: draft
+publication_status: ready
 collapse_code: true
 ---
 
@@ -53,12 +53,12 @@ what a moving restraint actually does to two atoms.
 - why effective sample size and forward--reverse agreement do not prove convergence.
 
 **Prerequisites:** biased distributions from
-[Post 08]({% link _pages/kups-md-post-08-free-energies.md %}), overlap and
+[Post 08]({{ '/kups-md-tutorials/post-08-free-energies/' | relative_url }}), overlap and
 exponential weights from
-[Post 09]({% link _pages/kups-md-post-09-estimators.md %}), harmonic restraints
-from [Post 10]({% link _pages/kups-md-post-10-umbrella-sampling.md %}), and
+[Post 09]({{ '/kups-md-tutorials/post-09-estimators/' | relative_url }}), harmonic restraints
+from [Post 10]({{ '/kups-md-tutorials/post-10-umbrella-sampling/' | relative_url }}), and
 Langevin dynamics from
-[Post 04]({% link _pages/kups-md-post-04-thermostats.md %}).
+[Post 04]({{ '/kups-md-tutorials/post-04-thermostats/' | relative_url }}).
 </div>
 
 The collapsed setup selects JAX CPU for the teaching kernels and imports the
@@ -258,7 +258,7 @@ kUPS-versus-analytic increment error is $$3.90\times10^{-9}$$ eV. This is
 bounded execution evidence on CPU; the independent-replica GPU record carries
 the quantitative comparison.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_steered_atom_path.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A moving restraint guides rather than prescribes the atomic path. Left: 50 frames selected from one real 200-frame slow-forward kUPS trajectory, with atom 0 fixed at the origin and atom 1 shown by its minimum-image x-y displacement. Right: mean Ar--Ar distance and one-standard-deviation ribbons from all four forward replicas at each speed. The gray dashed line is the prescribed center." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post11_steered_atom_path.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Projected atomic path and restraint-tracking curves from real steered kUPS trajectories" caption="A moving restraint guides rather than prescribes the atomic path. Left: 50 frames selected from one real 200-frame slow-forward kUPS trajectory, with atom 0 fixed at the origin and atom 1 shown by its minimum-image x-y displacement. Right: mean Ar--Ar distance and one-standard-deviation ribbons from all four forward replicas at each speed. The gray dashed line is the prescribed center." %}
 
 The left panel is an actual atomic trajectory, not a schematic interpolation
 between the endpoints. The three-dimensional pair displacement is projected
@@ -437,7 +437,7 @@ metadynamics reconstruction, driven-coordinate traces, and cumulative work.
 It is useful for audit, but the two-panel atomic figure carries the main
 physical argument.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Full Post 11 diagnostic dashboard. The analytic metadynamics, work-identity, and finite-speed controls are separated from the real kUPS Ar-pair coordinate and cumulative protocol work." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post11_enhanced_sampling_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Diagnostic plots for metadynamics controls, steered coordinates, and protocol work" caption="Full Post 11 diagnostic dashboard. The analytic metadynamics, work-identity, and finite-speed controls are separated from the real kUPS Ar-pair coordinate and cumulative protocol work." %}
 
 </div>
 </details>
