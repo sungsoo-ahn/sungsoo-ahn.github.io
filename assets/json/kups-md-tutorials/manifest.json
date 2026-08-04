@@ -204,6 +204,20 @@
       "source": "figures/post-03/error_diagnostics_full.svg"
     },
     {
+      "destination": "assets/img/blog/kups_md_post03_trajectory_divergence.png",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "bf5d63553054b039f8e96a29898357ee0fcdbd4a12ea3a335b9d19e400fdf2cb",
+      "source": "figures/post-03/trajectory_divergence_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post03_trajectory_divergence.svg",
+      "kind": "figure",
+      "post": "03",
+      "sha256": "049ab9441a974a13a262780d5e95d32de9d5df7b1410dd6f486008e65fd30cb8",
+      "source": "figures/post-03/trajectory_divergence_full.svg"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-04/full/argon_handoff_samples.csv",
       "kind": "compact-result",
       "post": "04",
@@ -702,5 +716,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "dbb677e4ddc1133828154562856ad783e86dcbf7"
+  "source_git_revision": "e1f8387d0c8a27a69dac94a26f384a705d022b00"
 }

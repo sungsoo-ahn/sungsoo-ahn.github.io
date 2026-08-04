@@ -9,10 +9,16 @@ repo_root = Path.cwd()
 if not (repo_root / &quot;configs&quot;).exists():
     repo_root = repo_root.parent
 os.chdir(repo_root)
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
 
+from collections.abc import Callable
+import jax
+jax.config.update(&quot;jax_enable_x64&quot;, True)
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 from kups_md_tutorials.config import load_error_spec
-from kups_md_tutorials.error_diagnostics import summarize_error_run
+from kups_md_tutorials.jax_reference import ParticleState, kinetic_energy
 from kups_md_tutorials.kups_engine import (
     load_kups_md_experiment,
     run_kups_md_experiment,
