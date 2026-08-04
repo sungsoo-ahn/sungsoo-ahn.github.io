@@ -434,12 +434,48 @@
     },
     {
       "assets": [],
+      "cell_id": "post11-jax-adaptive-bias",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/post11-jax-adaptive-bias.html",
+      "include_sha256": "f615ebf95c346d5011464b6f8f32fdd50c7b0997ff666738b6b3de15788d391c",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
+      "output_sha256": "20f2fd81d9a2992004fbfe12e7ab540f1e28aa9c4e2394fa3a8831510b649770",
+      "post": "11",
+      "source_sha256": "9bcc52df63e25346b4150bb8e6c0cf1e6d57ffd68ec91f12bd02cba4d386d91c"
+    },
+    {
+      "assets": [],
+      "cell_id": "post11-jax-work",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/post11-jax-work.html",
+      "include_sha256": "a0972f2a35fc9cd89e6b34def1cdc757129c53594c605d8ef316ea8819303079",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
+      "output_sha256": "ee953d00c97bcaff8ae296930e685ae46cafff09d717da2b3a086b188473e2b0",
+      "post": "11",
+      "source_sha256": "acf1b1732a3463c4acb82b31a90e3f6657d46b3c41daee08f67d824d1e0b708e"
+    },
+    {
+      "assets": [],
+      "cell_id": "post11-jax-work-estimator",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-11/post11-jax-work-estimator.html",
+      "include_sha256": "1c15146f63e1a6b4d8ad31b8af80d4f24cbe4327e12987a8dd7dc72cf89c4419",
+      "notebook": "post-11-enhanced-sampling.ipynb",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
+      "output_sha256": "8258e20accea35418a0d26ad19711d6a684b2afa3634105f13986795caae4a59",
+      "post": "11",
+      "source_sha256": "962f3bf4612217a02ae188605ed816538e3a83fe3499d9d64315a6ac35ed513b"
+    },
+    {
+      "assets": [],
       "cell_id": "production-evidence",
       "display": "blog-code-open",
       "include": "_includes/kups-notebooks/post-11/production-evidence.html",
       "include_sha256": "7a82543655b78a83e8bdea667df302fdbe0cde8361a13ae80f3b9670849ed81f",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
       "output_sha256": "a6a11340ec5e19be68355fbbf7374220dd956e9a83c674cd00e051c00ca41627",
       "post": "11",
       "source_sha256": "d8a042ab6bf08f223b65d6d2ee931b84e1aea38f0dca0f7d2ce5d5e19b020919"
@@ -449,12 +485,12 @@
       "cell_id": "setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-11/setup.html",
-      "include_sha256": "a075fa69a408630de7a2dc57d44e2d7e2ae01436cca4ccd026c1ad121fe4bfff",
+      "include_sha256": "a1ee91dcb8a987c9677101ffe5d4210b2af49c8a954da6d7e7d092ce038a45da",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "11",
-      "source_sha256": "5dc52c129f994422134958f215f2ab758589e1c46202033a53a8da8daca7c1dc"
+      "source_sha256": "831ab38ea4ef1bb0c0abb291204584c4e819d3f73124de429a86ec743226c9d5"
     },
     {
       "assets": [],
@@ -463,22 +499,10 @@
       "include": "_includes/kups-notebooks/post-11/smoke-run.html",
       "include_sha256": "e8e656359b403ca621b45a7daa78795876fe146cfe383e0ecf60a98e6d305c04",
       "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
+      "notebook_sha256": "bf8f985f36e526d235cbeeb3ad60afdecc5d362be7f7fb172f279b2df3287f89",
       "output_sha256": "7e896de4dd92d851c908f90d933d6fdc801d2e736058dafd1f7df838952187d0",
       "post": "11",
       "source_sha256": "b7c585cfba66377bc545ad5621c67e849ab7b0bdfc3c2e8968924f14763461df"
-    },
-    {
-      "assets": [],
-      "cell_id": "work-definition",
-      "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-11/work-definition.html",
-      "include_sha256": "6795135cc7ab160ecba1ccba1ee532c26e1d3b328e503db2125f8a74830b5f7b",
-      "notebook": "post-11-enhanced-sampling.ipynb",
-      "notebook_sha256": "6637399f83c95a738fddd77039b034446eb6edc4d17e40878a9fe4dde52ffdd6",
-      "output_sha256": "ee953d00c97bcaff8ae296930e685ae46cafff09d717da2b3a086b188473e2b0",
-      "post": "11",
-      "source_sha256": "8f0a570c47d92ba456ca5aec6993a34e054bce6ffa8571aaf4097d32532ea207"
     },
     {
       "assets": [],
@@ -529,6 +553,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "c1726fbb6fbb6ac5cb5bc4b270749b3ebeba681f5190defb48588bf5509973b4",
-  "source_git_revision": "ce1f41234778677579389b67b35eb45cb139f404"
+  "execution_manifest_sha256": "4dba8de67a254c1e24867ec99ade6e14d5fcf2bd78e5ddafba42a20cabccc646",
+  "source_git_revision": "76f70f232726982f8b7654e6b37ed902782405cd"
 }
