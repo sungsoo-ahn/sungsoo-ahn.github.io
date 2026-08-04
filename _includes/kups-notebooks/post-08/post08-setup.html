@@ -5,11 +5,15 @@
 <div class="highlight"><pre class="highlight"><code class="language-python">from pathlib import Path
 import os
 
+os.environ.setdefault(&quot;JAX_PLATFORMS&quot;, &quot;cpu&quot;)
+
+import jax
+from jax import Array
+import jax.numpy as jnp
 from IPython.display import Image, display
 
 from kups_md_tutorials.config import load_free_energy_spec
 from kups_md_tutorials.free_energies import (
-    load_free_energy_summary,
     load_kups_rdf_pmf_summary,
     write_free_energy_outputs,
 )
