@@ -506,12 +506,24 @@
     },
     {
       "assets": [],
+      "cell_id": "post12-jax-graph",
+      "display": "blog-code-open",
+      "include": "_includes/kups-notebooks/post-12/post12-jax-graph.html",
+      "include_sha256": "3fcba647e470b89eaed98f71732ff968aea57c46b33e7798079332fe3a8aa5b2",
+      "notebook": "post-12-mlip-capstone.ipynb",
+      "notebook_sha256": "4fad9592c209caccd6ba1e21929e3279867e6cc773d81d29412b220a327fa543",
+      "output_sha256": "828d122569d8d51ffa9a909757ea35a627517f5d9d62b3eb16524cf3a475bb4b",
+      "post": "12",
+      "source_sha256": "d58310a34ecd42051699b57bdec79ea7450e3ba9ea7ab8ec2d2d1112fedd061a"
+    },
+    {
+      "assets": [],
       "cell_id": "production-evidence",
       "display": "blog-output-only",
       "include": "_includes/kups-notebooks/post-12/production-evidence.html",
       "include_sha256": "1dd03c9d6d566f4581a20b00e8191b6ed6b020b18972cbb420977c0d40fdae73",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
+      "notebook_sha256": "4fad9592c209caccd6ba1e21929e3279867e6cc773d81d29412b220a327fa543",
       "output_sha256": "89324f9422fb38aebce53626b842662ace0c12340820a667e619d1f3dca6dffa",
       "post": "12",
       "source_sha256": "850dc051d9f16fe992823d28969a84ceb0f21cc5469e0aad8a9f86fbb6b79565"
@@ -523,7 +535,7 @@
       "include": "_includes/kups-notebooks/post-12/protocol.html",
       "include_sha256": "9ecc0300c8d6340ba7406dde36137457eecb0daffa15dd37da4e4d9fabdac281",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
+      "notebook_sha256": "4fad9592c209caccd6ba1e21929e3279867e6cc773d81d29412b220a327fa543",
       "output_sha256": "f89eea5948a652dbc610517155d6c879aac9980c7973228f0921df0fdda13004",
       "post": "12",
       "source_sha256": "b353fd71a0fbc8830df013e1cb74fe9bc0ed47805fbc300121a87cf61690243a"
@@ -533,12 +545,12 @@
       "cell_id": "setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-12/setup.html",
-      "include_sha256": "dd64d80e4525fdecbd9f9c775ccde2a1ee6c3ff52a1dd7331559f8a9052a36d1",
+      "include_sha256": "d88a3a7b092bc5227d85edcc3c196d581d6de21477c08f151e6cfa0e5ecab030",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
+      "notebook_sha256": "4fad9592c209caccd6ba1e21929e3279867e6cc773d81d29412b220a327fa543",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "12",
-      "source_sha256": "5e5753482e53f208c161196235586d6a38bb4e133239badab27312a6f4fee64e"
+      "source_sha256": "0d14b2fee488b34c8113117e75a7b5973f1eac4af62935607a104c17bcc6a154"
     },
     {
       "assets": [],
@@ -547,12 +559,12 @@
       "include": "_includes/kups-notebooks/post-12/smoke-run.html",
       "include_sha256": "493e2ac6e7f73eb6c96d63470d4959279f9e82cab9ababb55adafd47610bde76",
       "notebook": "post-12-mlip-capstone.ipynb",
-      "notebook_sha256": "a178a0c9059d6afe821a483a8ffcbe823405e79334019f243a5b0361190e9d77",
+      "notebook_sha256": "4fad9592c209caccd6ba1e21929e3279867e6cc773d81d29412b220a327fa543",
       "output_sha256": "56a1637e04ea8de9752cae9412057e97a58c578b7d8b06b5b9f82fe6f951e5f2",
       "post": "12",
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "4dba8de67a254c1e24867ec99ade6e14d5fcf2bd78e5ddafba42a20cabccc646",
-  "source_git_revision": "76f70f232726982f8b7654e6b37ed902782405cd"
+  "execution_manifest_sha256": "c153f0920971ab16a220672db92e7f12ff7bcededdd7983f895c250442bf2bfb",
+  "source_git_revision": "0cb3207f5fce72ba28ee8faf7f9a1262926720a7"
 }
