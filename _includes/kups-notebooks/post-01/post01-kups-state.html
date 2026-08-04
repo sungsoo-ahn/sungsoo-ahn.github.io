@@ -2,7 +2,8 @@
 <div class="notebook-cell notebook-cell--code-open">
 <details class="code-collapse notebook-code" open>
 <summary><span>Python</span></summary>
-<div class="highlight"><pre class="highlight"><code class="language-python">result_dir = write_initialization_outputs(
+<div class="highlight"><pre class="highlight"><code class="language-python">smoke = load_tutorial_spec(&quot;01&quot;, &quot;smoke&quot;)
+result_dir = write_initialization_outputs(
     smoke, output_root=Path(&quot;runs/notebook-post-01&quot;)
 )
 evidence = load_kups_initialization_evidence(

@@ -22,6 +22,13 @@
       "source": "results/post-01/full/initialization_summary.json"
     },
     {
+      "destination": "assets/json/kups-md-tutorials/post-01/full/kups_initial_state.json",
+      "kind": "compact-result",
+      "post": "01",
+      "sha256": "373853986ce64efb57b2d0b1033748e12842cfbf0f8f6020f57c5a9e509a5b39",
+      "source": "results/post-01/full/kups_initial_state.json"
+    },
+    {
       "destination": "assets/json/kups-md-tutorials/post-01/full/kups_initialization_summary.json",
       "kind": "compact-result",
       "post": "01",
@@ -32,7 +39,7 @@
       "destination": "assets/json/kups-md-tutorials/post-01/full/manifest.json",
       "kind": "compact-result",
       "post": "01",
-      "sha256": "4bd46cb58ba6ff0570b18d446865cb40f41462379aa363c41b5bfc290ca77213",
+      "sha256": "77699135017b14c2faa6d65ca0b9567dfd25e675e8cdb3073e9a9c13e73a5c2f",
       "source": "results/post-01/full/manifest.json"
     },
     {
@@ -48,6 +55,20 @@
       "post": "01",
       "sha256": "b14293dd655bef261914d9ef38ae7204bbbaed94a7b6def43cd5c479f770a3d2",
       "source": "figures/post-01/initialization_diagnostics_full.svg"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_initialization_state.png",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "c9bbca55c2ab2798bd7c54d69f4df074dcb4fcd3b1ad9fc9c95155ac4b54e1b2",
+      "source": "figures/post-01/initialization_state_full.png"
+    },
+    {
+      "destination": "assets/img/blog/kups_md_post01_initialization_state.svg",
+      "kind": "figure",
+      "post": "01",
+      "sha256": "3220844cedae06ec2bff244c53f082633045291bc6267324504a65cd8bf124a4",
+      "source": "figures/post-01/initialization_state_full.svg"
     },
     {
       "destination": "assets/json/kups-md-tutorials/post-02/full/integrator_summary.json",
@@ -681,5 +702,5 @@
     }
   ],
   "profile": "full",
-  "source_git_revision": "b6bb5b4197e11e00c36f89831fa83b2cfc94a025"
+  "source_git_revision": "dbb677e4ddc1133828154562856ad783e86dcbf7"
 }
