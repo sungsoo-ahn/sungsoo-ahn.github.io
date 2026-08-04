@@ -122,15 +122,15 @@
     },
     {
       "assets": [],
-      "cell_id": "post03-error-control",
+      "cell_id": "post03-jax-errors",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-03/post03-error-control.html",
-      "include_sha256": "6b0ccd3f11575adc40efca4a929f05d882bdfc2e182240a32eb6f8676ba50c9c",
+      "include": "_includes/kups-notebooks/post-03/post03-jax-errors.html",
+      "include_sha256": "46a824f7cd611e432b0bc66efa96249064eaf77d2677b24b210f8f24b575096f",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
-      "output_sha256": "5bb38c3a2fe69cb834133f4246cd368132b71a11cd7c6b58e56aaf45e46bb43d",
+      "notebook_sha256": "2837af7955e0385d21b0a86bbe681cb9e68c38c37255ddb54c6b6af6da364264",
+      "output_sha256": "8573700fa1cfd41c7e8c24c9fc6d7b4c31f3c80b02437909d2ae70f1f1b63527",
       "post": "03",
-      "source_sha256": "ea1fe7b082ff0479875d47abc157eb74ec393a17f19f1a2ef85a02a6bb9d6eb8"
+      "source_sha256": "9d95c7139eeecf8e6dcfdbbc9337c278b88ca9bd2101fe8ee46b3456277d3c78"
     },
     {
       "assets": [],
@@ -139,7 +139,7 @@
       "include": "_includes/kups-notebooks/post-03/post03-kups-errors.html",
       "include_sha256": "72d59f543c39e397f07a641ff92a6aa417c93634d6f4dc490dd1dc1c7f62d12e",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
+      "notebook_sha256": "2837af7955e0385d21b0a86bbe681cb9e68c38c37255ddb54c6b6af6da364264",
       "output_sha256": "cf596beec4517ef0e7569a0b410ea46ed993cb6b633e5807840ba9642cdee739",
       "post": "03",
       "source_sha256": "c30e05b25483a56c5d799392b2063e6237239d8b1b48995fe04805ff32a376a6"
@@ -149,12 +149,12 @@
       "cell_id": "post03-setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-03/post03-setup.html",
-      "include_sha256": "3bf27d10b5da06478e292121d4c6496dfb5976198abb5c74118e603189a2e2d5",
+      "include_sha256": "5649fe8c64b7db185421a1a20563a0c3f80de1b7e2ca954942ec49640338e0fb",
       "notebook": "post-03-errors.ipynb",
-      "notebook_sha256": "4eaba6a9c38a48fca2148a72ea79ab45bcc39d3dfc7b8bd7466ea763ca5d5acd",
+      "notebook_sha256": "2837af7955e0385d21b0a86bbe681cb9e68c38c37255ddb54c6b6af6da364264",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "03",
-      "source_sha256": "95f6b02b75918d5303c669e8b9b225e11f4bae9e02db1b2efe9f1fdca9c13206"
+      "source_sha256": "386324b6cab635b2904d418eb0c02731de383219671cc703d0bec1dd06390a5b"
     },
     {
       "assets": [],
@@ -517,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "c2e2560154b979cebf0aa1160cd76f2caa1f537b8c9a942bf60fd83726c153f8",
-  "source_git_revision": "dbb677e4ddc1133828154562856ad783e86dcbf7"
+  "execution_manifest_sha256": "23dd2b2848dd5d957c8f7997340855e079a3dd219c2f686bbfc05f9026e37513",
+  "source_git_revision": "e1f8387d0c8a27a69dac94a26f384a705d022b00"
 }

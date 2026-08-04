@@ -1,113 +1,196 @@
 ---
 layout: post
 permalink: /kups-md-tutorials/post-03-errors/
-title: "How Do Timestep, Precision, and Force Error Become Simulation Error?"
+title: "Where Does Error Enter an MD Trajectory?"
 date: 2026-07-14
-last_updated: 2026-08-01
-description: "Separate integration, arithmetic, replica, and force-model error with an exact control and real kUPS Lennard-Jones NVE trajectories."
+last_updated: 2026-08-04
+description: "Separate timestep, arithmetic, initial-condition, and force-model error with transparent JAX controls and matched kUPS trajectories."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
 order: 3
 series: kups-md-tutorials
 series_title: "kUPS Molecular Dynamics Tutorials"
-series_description: "Executable molecular-dynamics practice for MLIP-aware machine-learning researchers."
+series_description: "An executable introduction from physical ideas to JAX algorithms and kUPS simulations."
 series_order: 3
 categories: [science]
-tags: [molecular-dynamics, timestep, precision, force-error, kups]
+tags: [molecular-dynamics, timestep, precision, force-error, jax, kups]
 toc:
   sidebar: left
 related_posts: false
 nav: false
-publication_status: ready
+publication_status: draft
 collapse_code: true
 ---
 
-<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This executable draft remains hidden while the full series is being
-validated. It assumes the velocity-Verlet map from Part 2. Corrections and
-replication issues belong in
-<a href="https://github.com/sungsoo-ahn/kups-md-tutorials">sungsoo-ahn/kups-md-tutorials</a>.</em>
-</p>
+An energy trace is evidence, not a verdict. A wider trace can come from a large
+timestep, accumulated arithmetic error, or forces that do not match the
+reported energy. A flat trace can belong to the wrong conservative potential.
+One number called "energy drift" cannot distinguish those mechanisms.
 
-An NVE energy trace is not a diagnosis. A wider envelope can come from the
-timestep, an arithmetic floor, or a discontinuous force. A beautifully flat
-trace can still come from the wrong conservative potential. If those cases are
-collapsed into one “energy drift” number, the number answers very little.
+We will separate them on a harmonic oscillator whose exact trajectory is
+known. Then we will compare matched kUPS trajectories atom by atom. The goal is
+to replace the question "is the simulation accurate?" with smaller questions
+that an experiment can answer.
 
-This tutorial separates the mechanisms twice. An exactly solvable oscillator
-lets us change one assumption at a time. Real kUPS Lennard-Jones trajectories
-then test timestep, precision, velocity seeds, and a perturbed potential on an
-atomic system.
+<div class="kups-learning-box" markdown="1">
+<div class="kups-learning-box__title">What you will learn</div>
 
-## Three errors, three questions
+- how timestep, arithmetic, initial-state, and force-model errors differ;
+- why velocity Verlet can have bounded energy error but growing phase error;
+- how to expose the force function and arithmetic policy in JAX;
+- why conserving energy does not validate a potential;
+- how matched seeds and atom-level displacement reveal trajectory divergence.
 
-Write one velocity-Verlet step abstractly as
+**Prerequisites:** the initialized state from [Post 01]({% link _pages/kups-md-post-01-initialization.md %})
+and the velocity-Verlet map from [Post 02]({% link _pages/kups-md-post-02-integrators.md %}).
+</div>
 
-$$z_{n+1}=\Phi_{\Delta t, p, \widetilde{U}}(z_n),$$
+## "Trajectory error" is not one object
 
-where $$\Delta t$$ is the timestep, $$p$$ denotes the arithmetic policy, and
-$$\widetilde{U}$$ is the potential evaluated by the code. These axes answer
-different questions:
+Let $$z(t)=(\mathbf{R}(t),\mathbf{P}(t))$$ be the exact trajectory under a
+chosen potential $$U$$. A program produces discrete states
 
-- **Timestep:** how well does the discrete map approximate the continuous flow?
-- **Precision:** how much does finite arithmetic perturb that discrete map?
-- **Force model:** is the simulated vector field the one the scientific claim
-  requires?
+$$
+z_{n+1}=\Phi_{\Delta t,p,\widetilde U}(z_n).
+$$
 
-Replica variation is a fourth axis. It does not change the method, but it tells
-us whether a conclusion depends on one draw of the initial velocities.
+Here $$\Phi$$ is the implemented update, $$\Delta t$$ is the timestep, $$p$$
+denotes the arithmetic policy, and $$\widetilde U$$ is the energy model used by
+the program. Each subscript creates a different comparison:
 
-The notebook setup only imports the analytic control and public kUPS runner, so
-it stays collapsed.
+- **Timestep error:** compare the discrete map with continuous dynamics under
+  the same $$U$$.
+- **Arithmetic error:** compare implementations of the same discrete map under
+  different dtypes or rounding policies.
+- **Force-model error:** compare trajectories under $$\widetilde U$$ and the
+  scientifically intended $$U$$.
+- **Initial-state variation:** compare independent draws from the same stated
+  initialization distribution.
+
+The first three change the computed dynamics. The fourth does not indicate a
+fault; it measures how much the protocol depends on one sampled state.
+
+We also need to choose **what** is compared. Position error, energy error, a
+radial distribution, and a diffusion coefficient can rank two methods
+differently. Accuracy only has meaning relative to an observable and a time
+window.
+
+## Timestep error changes the discrete flow
+
+Velocity Verlet approximates a continuous path with finite kick–drift–kick
+updates. For a smooth system, reducing $$\Delta t$$ usually reduces local
+truncation error. After many steps, the numerical trajectory can still move
+out of phase with the exact one.
+
+The unit harmonic oscillator makes that phase error visible:
+
+$$
+\ddot q=-q,
+\qquad
+q(t)=\cos t,
+\qquad
+E(q,p)=\frac{q^2+p^2}{2},
+$$
+
+for $$q(0)=1$$ and $$p(0)=0$$. The exact energy is $$1/2$$ at every time. A
+symplectic method such as velocity Verlet usually oscillates around that value
+instead of producing monotonic loss or gain. It follows the flow of a nearby
+modified Hamiltonian
+(<span id="cite-hairer2006"></span>[Hairer et al.,
+2006](#ref-hairer2006)).
+
+Bounded energy therefore does not imply a small position error at late times.
+The numerical oscillator can have the right amplitude and the wrong phase.
+
+## Arithmetic error perturbs every update
+
+Floating-point numbers keep a finite number of significant bits. Each force,
+sum, and state update is rounded to a representable value. The effect depends
+on dtype, hardware, operation order, system size, and the number of steps
+(<span id="cite-higham2002"></span>[Higham,
+2002](#ref-higham2002)).
+
+Roundoff is not equivalent to a larger timestep:
+
+- timestep error changes the mathematical map before arithmetic is applied;
+- roundoff perturbs the evaluation of that chosen map;
+- reducing $$\Delta t$$ increases the number of updates needed for a fixed
+  physical duration, so smaller steps do not monotonically remove roundoff.
+
+JAX defaults and accelerator support matter here. Enabling float64 in Python
+does not guarantee that every deployed kernel has the same throughput or
+reduction order. Precision is part of the execution contract, not a cosmetic
+array property.
+
+## Force error can be conservative or inconsistent
+
+Suppose the intended energy is $$U$$ but the program uses
+$$\widetilde U=0.98U$$. If forces are computed consistently,
+
+$$
+\widetilde{\mathbf F}(\mathbf R)
+=-\nabla_{\mathbf R}\widetilde U(\mathbf R),
+$$
+
+the simulation can conserve $$\widetilde U+K$$ extremely well. It still
+follows the wrong Hamiltonian for a claim about $$U$$.
+
+A different failure occurs when the code reports $$U$$ but propagates with a
+force that is not $$-\nabla U$$. Energy exchange between potential and kinetic
+terms is then inconsistent. An NVE trace can expose that mismatch, but it
+cannot prove that a consistently differentiated model is physically accurate.
+
+This distinction is central for machine-learned interatomic potentials. Force
+consistency is a software and differentiation property. Agreement with
+reference quantum mechanics is a model-validation property.
+
+## Put the error sources into JAX
+
+The setup chooses a CPU backend, enables float64 for the analytic control, and
+imports the real kUPS workflow. It begins collapsed.
 
 {% include kups-notebooks/post-03/post03-setup.html %}
 
-## Use an exact control before interpreting atoms
+The open cell makes the force function an explicit input to Verlet. An optional
+quantizer rounds positions and momenta after every step. This quantizer is
+deliberately crude; it creates an arithmetic floor large enough to inspect in
+a short example.
 
-For the unit harmonic oscillator,
+{% include kups-notebooks/post-03/post03-jax-errors.html %}
 
-$$\ddot q=-q, \qquad E(q,v)=\frac{1}{2}q^2+\frac{1}{2}v^2,$$
+At dimensionless timestep 0.18, the exact-force run keeps its maximum energy
+excursion at 0.784% but accumulates an RMS position error of 0.295 over 540
+time units. Rounding the state to a $$10^{-3}$$ grid expands the energy envelope
+to 7.32%.
 
-the exact position is known at every time. We can therefore report both energy
-error and position error, rather than trusting energy alone. The control below
-holds the timestep at 0.18 and compares exact float64 arithmetic, deliberately
-coarse rounding, and a force scaled by 0.98.
+The weak force produces the most useful contrast. Judged against the original
+physical energy, its maximum energy mismatch is 2.69%. Judged against its own
+matching $$0.98U$$ energy, the envelope returns to 0.769%. Both measurements
+come from the same wrong trajectory, whose RMS position error is 1.10. A flat
+trace certifies internal consistency with the simulated Hamiltonian—not the
+choice of Hamiltonian.
 
-{% include kups-notebooks/post-03/post03-error-control.html %}
+## Ask the same questions of real kUPS trajectories
 
-The exact-force float64 run has a maximum relative energy error near 0.81%, but
-its energy remains bounded. Rounding the state to a $$10^{-3}$$ grid raises the
-maximum error to about 2.0%. The 0.98 force scale raises the RMS position error
-from about 0.295 to 1.10 and changes the normalized drift by more than an order
-of magnitude.
-
-Those are intentionally artificial controls. Their value is that the expected
-answer is unambiguous. Across exact-force float64 runs, reducing the
-dimensionless timestep from 0.18 to 0.02 lowers the maximum energy error from
-about $$8.1\times10^{-3}$$ to $$1.0\times10^{-4}$$. That is the signature of
-discretization error. Coarse rounding instead produces an arithmetic floor
-(<span id="cite-higham2002"></span>[Higham, 2002](#ref-higham2002)).
-
-## Now ask kUPS the same questions
-
-The next cell calls `kups.application.simulations.md.run` for five 32-atom CPU
-smoke cases. It runs two velocity replicas, a 20 fs comparison, a float64
-comparison, and a Lennard-Jones epsilon scaled by 0.98. Each case writes a raw
-kUPS HDF5 trajectory; the notebook reopens it and prints its frame count,
-device, energy error, and hash.
+The next cell runs five 32-atom CPU cases through
+`kups.application.simulations.md.run`. It reopens each raw HDF5 trajectory and
+reports frames, observed device, energy excursion, and content hash.
 
 {% include kups-notebooks/post-03/post03-kups-errors.html %}
 
-Eight stored frames are an executable check, not production evidence. The full
-profile uses 256 atoms, three independent 2 fs replicas, and 1 ps,
-fixed-duration timestep comparisons on GPUs. The perturbed-potential case
-reuses the first replica's seed. The float64 case uses the same seed, but dtype
-can also change random-number generation, so it is a deployment comparison
-rather than a bitwise-identical initial-state test.
+The smoke run is an execution check. Its eight stored frames already show the
+20 fs case widening from a roughly $$10^{-6}$$ baseline envelope to
+$$1.52\times10^{-3}$$, while the 0.98 potential conserves its own energy at the
+$$10^{-6}$$ level.
+
+The quantitative comparison uses the committed full GPU profile: 256 atoms,
+50 stored frames over 1 ps, three 2 fs replicas, and matched-seed timestep,
+precision, and potential cases. Every full trajectory records an NVIDIA RTX
+A5000 device and hashes of its input and HDF5 output.
 
 <div class="table-responsive" markdown="1">
 
-| Run | Max stored-frame $$\lvert\Delta E/E_0\rvert$$ | Energy span |
+| Full kUPS case | Maximum stored-frame $$\lvert\Delta E/E_0\rvert$$ | Energy span |
 |---|---:|---:|
 | 2 fs, float32, replica 0 | 0.528% | 0.385 meV/atom |
 | 2 fs, float32, replica 1 | 0.544% | 0.392 meV/atom |
@@ -119,70 +202,98 @@ rather than a bitwise-identical initial-state test.
 
 </div>
 
-Every full case records `production_gpu_ready: true`, observed NVIDIA RTX A5000
-devices, the kUPS entry point, input and HDF5 hashes, dataset shapes, frame
-counts, and HDF5-derived energy traces. The table reports the maximum deviation
-from the first stored total energy. It is a diagnostic for this initialized
-crystal and time window, not a universal timestep limit.
+All cases share an early rise near 0.5%, so the absolute envelope contains a
+common initialization transient. The comparisons still carry information:
+20 fs is wider than the matched 2 fs run, float64 lies inside replica
+variation, and the altered potential conserves its own total energy.
 
-All traces share an early rise near 0.5%, so the absolute envelope is dominated
-by a common initialization transient. The 20 fs case is visibly wider. The 0.5
-and 2 fs cases are nearly coincident, the float64 result lies inside replica
-variation, and the altered conservative potential conserves its own energy just
-as well. Those are the useful comparisons; none justifies assigning the shared
-transient to timestep truncation alone.
+The float64 case uses the same integer seed, but dtype can change random-number
+generation and initialization. Treat it as a deployment comparison, not a
+bitwise-identical initial state.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The first three panels are exact harmonic-oscillator controls for timestep, arithmetic, and inconsistent-force error. The lower-right panel is derived from real kUPS Lennard-Jones NVE HDF5 trajectories, including independent replicas, precision, timestep, and conservative potential-scale comparisons." %}
+## Watch matched atoms separate
 
-## A flat trace can certify the wrong Hamiltonian
+Energy compresses an atomic trajectory into one scalar per frame. The next
+figure returns to positions. The 20 fs and 0.98-potential cases reuse the
+baseline seed and storage times, so each atom can be compared with its baseline
+counterpart using the periodic minimum-image displacement.
 
-The oscillator's scaled force is deliberately inconsistent with the energy
-used for diagnosis: it integrates $$-0.98q$$ but reports
-$$E=(q^2+v^2)/2$$. Drift is expected because the force is not the gradient of
-the reported energy.
+{% include figure.liquid loading="eager" path="assets/img/blog/kups_md_post03_trajectory_divergence.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Atomic displacement vectors from matched kUPS trajectories beside RMS trajectory separation over one picosecond" caption="Blue points show one layer of the final 2 fs baseline, while orange and red arrows show matched-atom differences for the 20 fs and 0.98-potential trajectories. Arrow lengths are magnified 100 times for visibility; the right panel reports unscaled periodic minimum-image RMS separation. After 1 ps, the timestep case differs by 0.005 angstrom RMS and the altered-potential case by 0.017 angstrom RMS, so a similarly flat energy trace does not imply the same atomic path." %}
 
-The real kUPS perturbation is different. Scaling Lennard-Jones epsilon changes
-both energy and force consistently. Velocity Verlet can conserve that altered
-Hamiltonian extremely well. The trajectory may therefore have a flat energy
-trace while representing the wrong material model.
+The 2 fs baseline is not an exact solution. The plot measures **separation from
+that reference trajectory**, not absolute truth. Its value is causal control:
+the same initial seed and observation times isolate the changed timestep or
+potential.
 
-This matters directly for machine-learned potentials. NVE conservation tests
-whether energy and force are numerically consistent along the sampled path. It
-does **not** establish that either is accurate relative to reference quantum
-mechanics. Static energy/force validation, extrapolation diagnostics, and
-observable checks remain separate obligations.
+The altered potential separates atoms more than the 20 fs map over this 1 ps
+window, even though its energy span is slightly smaller. That is the atom-level
+version of the JAX oscillator result: conserving the wrong Hamiltonian can look
+numerically cleaner while producing a less relevant trajectory.
 
-## Read envelopes, slopes, and replicas separately
+## Replicas test conclusions, not pointwise paths
 
-A symplectic integrator need not conserve the reported physical energy at every
-step. It often follows a nearby modified Hamiltonian, giving a bounded energy
-envelope rather than monotonic drift
-(<span id="cite-hairer2006"></span>[Hairer et al., 2006](#ref-hairer2006)).
-That is why this workflow records both maximum excursion and a fitted drift.
+Two velocity seeds should not produce matching coordinates. Chaotic dynamics
+makes pointwise agreement a poor expectation even when both trajectories are
+valid. Replicas instead test whether a protocol-level conclusion survives
+initial-state variation.
 
-Replicas answer another question. Two trajectories with different initial
-velocities will not agree point by point, and chaotic separation makes that an
-unhelpful target. What should agree are protocol-level conclusions: whether the
-energy envelope is bounded, whether its scale changes under timestep reduction,
-and eventually whether observable estimates agree within uncertainty.
+For the full 2 fs float32 runs, maximum energy excursions range from 0.528% to
+0.545%. The float64 result at 0.540% sits inside that range. On this metric and
+time window, changing precision does not exceed ordinary replica variation.
+That statement is narrower than "float32 is accurate." A longer run or a
+different observable may resolve another effect.
 
-A defensible error audit therefore proceeds in this order:
+## Build an error audit in the right order
 
-1. Verify the update rule against an exact or otherwise controlled problem.
-2. Sweep timesteps while holding initial state, duration, and output cadence
-   fixed.
-3. Repeat the relevant cases under the deployed precision policy.
-4. Change velocity seeds before treating one trace as typical.
-5. Validate the force model against an external reference; do not infer model
-   accuracy from energy conservation.
-6. Repeat the comparison for the observable that supports the scientific
+Use controls that isolate one mechanism:
+
+1. Test the update against an exact or high-accuracy reference problem.
+2. Sweep timesteps at fixed initial state, duration, and storage cadence.
+3. Compare deployed precision policies on the target hardware.
+4. Repeat independent seeds before treating one envelope as typical.
+5. Check that reported energies and propagated forces are differentiably
+   consistent.
+6. Validate energy and force predictions against an external reference.
+7. Repeat the convergence study for the observable supporting the scientific
    claim.
 
-The last step prevents a common shortcut. A timestep acceptable for mean
-potential energy is not automatically acceptable for a diffusion coefficient,
-vibrational spectrum, or rare-event rate.
+The final step prevents a common shortcut. A timestep acceptable for mean
+potential energy need not resolve a vibrational spectrum, diffusion
+coefficient, or rare-event rate.
 
-## Reproduce the result
+## Check your understanding
+
+Before changing the notebook, predict each outcome:
+
+1. Halve the timestep while doubling the number of steps so final time remains
+   fixed. Which error should decrease first?
+2. Keep the weak force but switch the measured energy between $$U$$ and
+   $$0.98U$$. Which energy trace is flatter, and why is the trajectory unchanged?
+3. Change only the velocity key. Should matched-atom RMS separation remain a
+   useful error metric?
+4. Replace the artificial quantizer with float32 arrays. What additional
+   hardware and reduction-order evidence would you record?
+
+The second prediction separates dynamics from diagnosis. The same propagated
+states can appear inconsistent or conservative depending on which Hamiltonian
+is measured.
+
+## Error claims need a named mechanism and observable
+
+Post 02 showed that an integrator defines a discrete path. This chapter adds
+three more facts: arithmetic perturbs that path, a potential selects the vector
+field, and initial states create legitimate variation. No single energy number
+identifies all three.
+
+A defensible result states what changed, what stayed fixed, which observable
+was compared, and which reference supports the conclusion. That is the error
+contract the remaining chapters will use for thermostats, barostats, sampling,
+and learned potentials.
+
+<details class="kups-reproducibility" markdown="1">
+<summary>Reproducibility record and complete diagnostic dashboard</summary>
+
+Run and verify the CPU profile from a locked environment:
 
 ```bash
 git clone https://github.com/sungsoo-ahn/kups-md-tutorials
@@ -197,16 +308,25 @@ uv run kups-tutorial export-notebook-cells \
   --site-root ../sungsoo-ahn.github.io --posts 03 --check
 ```
 
-The compact [smoke](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/smoke/kups_md_summary.json)
-and [full](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/kups_md_summary.json)
-kUPS summaries contain the values above. The
-[smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/smoke.json),
-[full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/full.json),
-[full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/manifest.json),
-[notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-03-errors.ipynb),
-[figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post03_figures.py),
-and [review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-03.md)
-complete the chain.
+The complete four-panel audit retains the analytic timestep sweep, artificial
+rounding cases, force-consistency control, energy traces, drift fits, and
+replica comparisons:
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/kups_md_post03_error_diagnostics.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Four-panel error validation dashboard for oscillator controls and kUPS trajectories" caption="The audit dashboard separates oscillator timestep, arithmetic, and force-consistency checks before showing all real kUPS energy traces. These panels support numerical validation, while the main figure explains trajectory separation at atomic resolution." %}
+
+Source and evidence:
+
+- [smoke configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/smoke.json)
+- [full configuration](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/configs/post-03/full.json)
+- [smoke compact summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/smoke/error_summary.json)
+- [full compact summary](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/error_summary.json)
+- [full provenance manifest](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/results/post-03/full/manifest.json)
+- [executed notebook](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/notebooks/post-03-errors.ipynb)
+- [figure-generation source](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/scripts/generate_post03_figures.py)
+- [self-review note](https://github.com/sungsoo-ahn/kups-md-tutorials/blob/main/reviews/post-03.md)
+- [source repository](https://github.com/sungsoo-ahn/kups-md-tutorials)
+
+</details>
 
 ## References
 
