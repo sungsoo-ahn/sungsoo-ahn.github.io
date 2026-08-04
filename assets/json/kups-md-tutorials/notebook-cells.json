@@ -302,15 +302,15 @@
     },
     {
       "assets": [],
-      "cell_id": "post08-free-energy-control",
+      "cell_id": "post08-jax-free-energy",
       "display": "blog-code-open",
-      "include": "_includes/kups-notebooks/post-08/post08-free-energy-control.html",
-      "include_sha256": "8e249869f46646dc35a7fc4b7e163d613bda8abc24e4f2711138aa23f90840d9",
+      "include": "_includes/kups-notebooks/post-08/post08-jax-free-energy.html",
+      "include_sha256": "0ec1e861f104f7d9e732cc5cf2402ff1f0045b4a656d95ae647cecee4a783d63",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
-      "output_sha256": "c3748921996ff8a6f5e6f3f8b8c02fd1cf8e435a17c11b625221646d7fde8932",
+      "notebook_sha256": "f7a3d610077f33a3530a12b4af8192082dda42731350f962907430096aad3b5f",
+      "output_sha256": "ca2e70d4ff526bf48118c569cd8d800442cbdb3ab803372f1b4ec6e2bf6f0368",
       "post": "08",
-      "source_sha256": "4ff7f306369b9ba9bfe65b4090abdf14449e4a27236dbc48ce1d1046f3952787"
+      "source_sha256": "6d6e5959471cb8b7dcf0e1ff9fe29b76255394b3a5b0e0b293b9ccf827f6ce34"
     },
     {
       "assets": [],
@@ -319,7 +319,7 @@
       "include": "_includes/kups-notebooks/post-08/post08-kups-rdf-pmf.html",
       "include_sha256": "2209c7541dfcb3065deffffb01c987e3831b4ad8557647ed9c56dcc9ac40a927",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
+      "notebook_sha256": "f7a3d610077f33a3530a12b4af8192082dda42731350f962907430096aad3b5f",
       "output_sha256": "b5bc5a8b8eeb630b583d53bc14cfee51e2643533a617b1cfacadf85ff02792ce",
       "post": "08",
       "source_sha256": "10762028548f83a51d79ed704fb2498fb2ad2f47ea1673320a4b1667c3c38941"
@@ -329,12 +329,12 @@
       "cell_id": "post08-setup",
       "display": "blog-code-collapsed",
       "include": "_includes/kups-notebooks/post-08/post08-setup.html",
-      "include_sha256": "4925fc3637d71bcada31c0187ebbcf05b698150588b54940050430b9d7f8b93a",
+      "include_sha256": "cb9ec38e4930905a180d4d91a24b5b02d0451a1ce24b4f4d0a1b38072179ca35",
       "notebook": "post-08-free-energies.ipynb",
-      "notebook_sha256": "28ca1fccabb612983bb715bba1a7bae43c09168b804edb9f4cd7a0ff85b4ac9b",
+      "notebook_sha256": "f7a3d610077f33a3530a12b4af8192082dda42731350f962907430096aad3b5f",
       "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "post": "08",
-      "source_sha256": "3bd07e5ed07653bb081534bfade6d85289e638c750d8252c0d23136e267f2cbb"
+      "source_sha256": "1ef10d97f8f4e6951ad78c80c97a58c7d69d4085fc6b13866af634b6fbe2044c"
     },
     {
       "assets": [],
@@ -517,6 +517,6 @@
       "source_sha256": "9a9965de8f197e65cf1a3977c7037689de57e9deef9a95a752e965666bb80638"
     }
   ],
-  "execution_manifest_sha256": "5894182a4387dfe0c08c39002206d6e51cb78b7e3206b9e5743f235992bde3b0",
-  "source_git_revision": "eb1fadacb8f76d9fab45b38d0a3d4ddb08d3c0c2"
+  "execution_manifest_sha256": "8d7e9fe107f3d0496a1b4f0aecd9d0d4d3efb93bd820a54f5b4dfc9ad968f6b1",
+  "source_git_revision": "9147ad1cc9559b3906e968213115d4c2c9b5968f"
 }
