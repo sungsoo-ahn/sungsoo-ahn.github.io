@@ -40,3 +40,37 @@ Post-specific observations remain here rather than becoming universal rules.
   Citation bijection, primary links, LaTeX audit, blog validation, diff check,
   and a clean rendered Jekyll page passed. No additional general skill rule was
   needed after applying the promoted criteria.
+
+## 02. How Drug Discovery Turns Biological Hypotheses into Molecules
+
+- **Post:** `_posts/2026-08-08-drug-discovery-target-to-clinic.md`
+- **Topic-matched reference:** `_posts/2026-03-03-protein-design-for-ml.md`
+  for its molecular-design funnel and experiment-facing argument.
+- **Before:** The post has a strong four-claim thesis and useful PK/PD equations,
+  but at 2,230 substantive words it reads as a compressed map. Target
+  validation, occupancy, assay potency, multi-objective SAR, oral exposure,
+  therapeutic margin, and clinical inference are introduced independently.
+  Compared with the references, no running candidate exposes how evidence and
+  uncertainty propagate across the chain, and several equations are stated
+  without a worked calculation.
+- **Criteria promoted:** Application tutorials benefit from a running scientific
+  scenario; model evaluation must name the decision, filtered population, and
+  denominator rather than stopping at a benchmark metric.
+- **Planned revision:** Preserve all H2s. Add a running target/candidate example,
+  occupancy and residence-time calculations, a small SAR/Pareto decision,
+  oral one-compartment exposure and free-concentration calculations, a
+  therapeutic-window example, and a biomarker-based clinical inference tree.
+- **After:** Expanded to 5,991 substantive body words while preserving all nine
+  H2s and their order. A single KX/A2 program now carries the argument from a
+  causal intervention claim through occupancy, assay correction, binding
+  kinetics, SAR/Pareto selection, oral PK, free site exposure, therapeutic
+  margin, clinical outcomes, and prospective ML evaluation. New derivations
+  include mass-balance occupancy, Cheng--Prusoff, matched-affinity residence
+  times, the Bateman concentration curve and steady-state trough, dose-dependent
+  benefit versus harm, risk differences, Bayesian updating, and biomarker
+  interaction. Added one reproducible quantitative exposure-window figure and
+  three references. Figure regeneration, independent arithmetic checks,
+  citation bijection and link verification, LaTeX/caption audit, blog validation,
+  diff check, and a clean rendered Jekyll build passed. The two promoted skill
+  rules directly shaped the running scenario and denominator-aware evaluation;
+  no further general rule was needed after revision.

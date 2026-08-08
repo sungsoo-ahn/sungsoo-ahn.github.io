@@ -94,6 +94,13 @@ from one comparison can improve the criteria used for the next.
   make the result operational.
 - Preserve the lecture's scientific order when requested, but make the links
   between sections explicit so the post reads as one argument.
+- In an application-domain tutorial, use a running scientific scenario when
+  several stages act on the same object. Carrying one molecule, material, or
+  experiment through the chain makes assumptions and lost information visible;
+  unrelated examples can leave a long post feeling like an abstract survey.
+- Whenever a model score changes a scientific workflow, identify the decision,
+  the population being filtered, and the denominator behind the reported
+  success rate. A benchmark metric alone does not complete the argument.
 
 ## Quality Checklist (apply before finalizing)
 
