@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #665A75; stroke-width: 2.3; fill: none; stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="500" y="42" text-anchor="middle" class="title">The path sets the geometry; the solver decides how faithfully to follow it</text>
+      <rect x="35" y="88" width="450" height="370" rx="20" fill="#F6F2FA" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="260" y="126" text-anchor="middle" class="label">schedule changes path difficulty</text>
+      <line x1="92" y1="365" x2="430" y2="365" stroke="#C8BBD8" stroke-width="2"/>
+      <line x1="92" y1="365" x2="92" y2="165" stroke="#C8BBD8" stroke-width="2"/>
+      <path d="M 95 350 C 165 345, 230 320, 275 265 C 330 197, 380 180, 425 175" stroke="#7A53EC" stroke-width="5" fill="none"/>
+      <path d="M 95 350 C 155 310, 210 280, 260 252 C 320 218, 375 190, 425 175" stroke="#16877F" stroke-width="5" fill="none" stroke-dasharray="8 7"/>
+      <text x="111" y="390" class="small">noise</text>
+      <text x="396" y="390" class="small">data</text>
+      <text x="112" y="185" class="small">signal</text>
+      <line x1="110" y1="424" x2="156" y2="424" stroke="#7A53EC" stroke-width="5"/>
+      <text x="166" y="430" class="small">uneven change</text>
+      <line x1="285" y1="424" x2="331" y2="424" stroke="#16877F" stroke-width="5" stroke-dasharray="8 7"/>
+      <text x="341" y="430" class="small">straighter path</text>
+
+      <rect x="515" y="88" width="450" height="370" rx="20" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="740" y="126" text-anchor="middle" class="label">step size trades cost for error</text>
+      <path d="M 565 350 C 635 320, 635 205, 710 205 C 785 205, 800 158, 916 175" stroke="#665A75" stroke-width="3" fill="none"/>
+      <polyline points="565,350 650,285 735,210 820,183 916,175" fill="none" stroke="#C7506B" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="565" cy="350" r="8" fill="#C7506B"/><circle cx="650" cy="285" r="8" fill="#C7506B"/><circle cx="735" cy="210" r="8" fill="#C7506B"/><circle cx="820" cy="183" r="8" fill="#C7506B"/><circle cx="916" cy="175" r="8" fill="#C7506B"/>
+      <text x="740" y="385" text-anchor="middle" class="body">few evaluations: fast, larger discretization error</text>
+      <text x="740" y="417" text-anchor="middle" class="small">more/adaptive steps improve fidelity but call the network more often</text>
+
+      <rect x="145" y="492" width="710" height="48" rx="14" fill="#E4F4F2"/>
+      <text x="500" y="522" text-anchor="middle" class="body">Training target, time weighting, parameterization, and numerical solver are coupled design choices.</text>
+    
+</svg>
