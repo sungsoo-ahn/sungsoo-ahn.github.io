@@ -13,6 +13,15 @@ Use these posts as the quality bar for new technical tutorials:
 
 Match their top-down prose, depth, equation-to-explanation rhythm, figure quality, and self-contained captions. New lecture-derived posts should read as coherent blog arguments, not as lesson plans: do not add learning objectives, concept checks, exercises, prerequisite blocks, or agenda-style scaffolding.
 
+For lecture-derived tutorial revisions, work through posts sequentially and
+compare each one with both house references plus an older topic-matched post
+when a fair analogue exists. Target a 30--45 minute technical read, usually
+4,500--6,500 substantive words. This is an editorial depth range rather than a
+validator threshold: equations, figures, and the complexity of the argument
+matter more than raw length. Preserve the requested H2 storyline, but add H3
+derivations, worked examples, and case studies wherever the draft is only an
+abstract survey.
+
 ## Post Frontmatter
 
 Every post must include this frontmatter block:

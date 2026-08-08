@@ -41,6 +41,19 @@ Create publication-quality blog figures. Treat figures as explanatory objects, n
 - Keep Matplotlib base plots sparse. Add complex labels or callouts in SVG coordinates when needed.
 - Use at most 2-3 callouts per figure. Prefer a stronger caption over crowded in-plot text.
 
+## Explanatory Role
+
+- A figure earns its place by resolving a conceptual step that prose or algebra
+  alone leaves hard to see. Do not use a diagram as a decorative summary of a
+  section that already explains the same list.
+- Introduce the question the figure answers before the figure appears. Continue
+  the argument after it by referring to a visible mark, comparison, or path.
+- For derivation-led posts, prefer figures that expose a sign, conservation law,
+  limiting case, geometric transformation, or worked numerical construction.
+- Let figure count follow conceptual pivots rather than a quota. A long tutorial
+  may need an additional figure when several abstract transitions otherwise
+  share one generic pipeline diagram.
+
 ## House Style
 
 Use `bfs.use_blog_style()` before plotting, where `import blog_figure_style as bfs`.

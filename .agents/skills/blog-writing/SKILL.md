@@ -63,6 +63,38 @@ explicitly asks for one.
 - **Figures near their discussion.** Place figures immediately after the text that introduces them, not paragraphs later.
 - **Notation introductions need breathing room.** Don't introduce 3+ new symbols in one paragraph with no prose between equations.
 
+## Comparative Tutorial Revision
+
+For long technical tutorials, compare the draft against the site's named house
+references before revising it. Review the posts one at a time so that lessons
+from one comparison can improve the criteria used for the next.
+
+1. State the draft's central question and section-level argument in one short
+   outline. If the outline is only a list of topics, the post is still a survey.
+2. Compare the draft with the reference posts on argument, derivation depth,
+   examples, equation-to-prose rhythm, figures, evidence, and voice.
+3. Promote only topic-independent lessons into this skill. Keep post-specific
+   findings in an agent-facing audit log.
+4. Revise with the updated criteria, then repeat the comparison until no major
+   explanatory gap remains.
+
+### Depth Without Padding
+
+- A 30--45 minute technical tutorial usually needs 4,500--6,500 substantive
+  words, adjusted for mathematical density. Treat this range as a diagnostic,
+  not a reason to add background or repeated summaries.
+- Preserve a coherent H2 storyline. Add H3 subsections when a derivation,
+  worked example, or case study needs room; do not add headings merely to make
+  a post longer.
+- Replace compressed surveys with explanatory sequences: motivate the object,
+  define it, derive the central relation, work through a concrete case, and
+  state the approximation or failure boundary.
+- A displayed equation is not depth by itself. Show the non-obvious steps and
+  use at least one limiting case, numerical calculation, or toy construction to
+  make the result operational.
+- Preserve the lecture's scientific order when requested, but make the links
+  between sections explicit so the post reads as one argument.
+
 ## Quality Checklist (apply before finalizing)
 
 ### Substance
