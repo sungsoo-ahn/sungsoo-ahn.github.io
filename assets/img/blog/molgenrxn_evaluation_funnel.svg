@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="500" y="42" text-anchor="middle" class="title">Evaluation should narrow toward the experiment, not stop at validity</text><rect x="80" y="92" width="840" height="58" rx="16" fill="#EEF0FF" stroke="white" stroke-width="2"/><text x="102" y="117" class="label">1  Parse and sanitize</text><text x="898" y="130" text-anchor="end" class="small">syntax, valence, charge, connectivity</text><rect x="125" y="169" width="750" height="58" rx="16" fill="#F6F2FA" stroke="white" stroke-width="2"/><text x="147" y="194" class="label">2  Audit diversity</text><text x="853" y="207" text-anchor="end" class="small">uniqueness, novelty, scaffold and mode coverage</text><rect x="170" y="246" width="660" height="58" rx="16" fill="#E4F4F2" stroke="white" stroke-width="2"/><text x="192" y="271" class="label">3  Test the design claim</text><text x="808" y="284" text-anchor="end" class="small">held-out property models, uncertainty, multi-objective tradeoffs</text><rect x="215" y="323" width="570" height="58" rx="16" fill="#FFF4DC" stroke="white" stroke-width="2"/><text x="237" y="348" class="label">4  Plan a synthesis</text><text x="763" y="361" text-anchor="end" class="small">available building blocks, route length, conditions and precedent</text><rect x="260" y="400" width="480" height="58" rx="16" fill="#FCE8EE" stroke="white" stroke-width="2"/><text x="282" y="425" class="label">5  Make and measure</text><text x="718" y="438" text-anchor="end" class="small">yield, purity, stability and experimental property</text>
+      <path d="M 500 151 L 500 165" class="arrow"/><path d="M 500 228 L 500 242" class="arrow"/>
+      <path d="M 500 305 L 500 319" class="arrow"/><path d="M 500 382 L 500 396" class="arrow"/>
+      <rect x="180" y="492" width="640" height="46" rx="14" fill="white" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="500" y="521" text-anchor="middle" class="body">Every lower stage is costlier—and closer to the scientific claim.</text>
+    
+</svg>
