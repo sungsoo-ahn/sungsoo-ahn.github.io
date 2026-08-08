@@ -313,3 +313,41 @@ Post-specific observations remain here rather than becoming universal rules.
   clean build, and rendered checks passed. The promoted completeness-versus-
   accessibility rule shaped the controlled comparison; no further general
   criterion was needed after revision.
+
+## 09. Steerable Features and Tensor Products
+
+- **Post:** `_posts/2026-08-08-steerable-features-tensor-products.md`
+- **Topic-matched reference:** The spherical-equivariant permanent anchor
+  overlaps directly and therefore sets both the quality bar and the boundary:
+  this chapter should own low-order algebra and one typed layer, while the anchor
+  owns broader Wigner conventions, implementation, and architecture families.
+- **Before:** The chapter has a good type-system thesis and the correct
+  $$1\otimes1=0\oplus1\oplus2$$ decomposition, but at roughly 2,200 substantive
+  words it closely shadows the companion anchor's vocabulary. Irreducible linear
+  maps, spherical-harmonic typing, Clebsch--Gordan projection, selection rules,
+  nonlinearities, and the final layer are each stated once. The low-order
+  Cartesian example is not numerically worked or reconstructed, and the cost
+  section does not count representation dimensions or coupling paths.
+- **Criteria promoted:** Overlapping companion posts must declare a division of
+  labor and earn separate existence through a distinct derivation or running
+  example; cross-link shared machinery rather than paraphrasing it.
+- **Planned revision:** Preserve every H2 and its order. Make this the concrete
+  low-order algebra chapter: derive type-preserving linear maps with channel
+  multiplicity, evaluate low-degree harmonics on simple directions, reconstruct
+  the full vector outer product from trace/cross/STF blocks, carry a numerical
+  vector pair through rotations and parity, enumerate selection paths, and work
+  one typed edge message through aggregation/readout. Quantify feature storage,
+  allowed coupling paths, and channel-cost growth with $$L_{\max}$$. Keep Wigner
+  basis conventions and modern architecture survey in the companion anchor;
+  reuse existing figures unless a genuine gap appears.
+- **After:** Expanded from 2,307 to 4,604 substantive body words while
+  preserving all nine H2s and their order. The revision now derives the scoped
+  Schur-lemma channel map, evaluates low-degree Cartesian harmonics, reconstructs
+  a numerical outer product from its scalar/axial/quadrupole blocks, checks
+  rotation and inversion, and carries two neighbors through a parity-safe typed
+  update. The final section counts feature storage and allowed coupling paths and
+  distinguishes angular degree from depth. The opening now assigns Wigner
+  conventions and architecture coverage to the mature companion, so no new
+  figures were needed. Arithmetic, citations, validator, clean build, and
+  rendered checks passed. The division-of-labor criterion prevented duplication
+  and no further general rule was required after revision.
