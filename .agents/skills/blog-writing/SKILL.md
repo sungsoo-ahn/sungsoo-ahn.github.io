@@ -101,6 +101,11 @@ from one comparison can improve the criteria used for the next.
 - Whenever a model score changes a scientific workflow, identify the decision,
   the population being filtered, and the denominator behind the reported
   success rate. A benchmark metric alone does not complete the argument.
+- When comparing related architectures, carry one controlled input through the
+  alternatives and compute the intermediate outputs. Hold the task and data
+  fixed so the reader can see exactly which normalization, aggregation,
+  parameterization, or information loss caused the difference; separate toy
+  examples for each model often reproduce a catalog rather than an argument.
 
 ## Quality Checklist (apply before finalizing)
 
