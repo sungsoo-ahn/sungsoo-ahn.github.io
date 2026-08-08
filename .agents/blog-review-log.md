@@ -112,3 +112,41 @@ Post-specific observations remain here rather than becoming universal rules.
   Jekyll build, and rendered-page checks passed. The promoted fidelity-hierarchy
   rule directly produced several visible decision reversals; no further general
   criterion was needed after revision.
+
+## 04. Graph Neural Networks as Learnable Message Passing
+
+- **Post:** `_posts/2026-08-08-graph-neural-networks-message-passing.md`
+- **Topic-matched reference:** No additional older post is close enough to be a
+  fair comparator; the spherical-equivariant permanent anchor supplies the
+  relevant architecture-building comparison.
+- **Before:** The post has a sharp symmetry-first thesis and a clean five-node
+  update, but at roughly 3,000 substantive words it becomes an architecture
+  catalog after the shared message-passing equation. GCN, GraphSAGE, GAT, and
+  GIN are each described correctly on separate abstractions, so the reader never
+  sees their different normalization and information loss on the same input.
+  Equivariance, receptive-field growth, graph readout, structural attention,
+  and computational scaling are stated more often than derived or checked.
+- **Criteria promoted:** In a comparative architecture tutorial, run the same
+  controlled input through each alternative and expose intermediate outputs;
+  holding data and task fixed turns a model list into a causal comparison.
+- **Planned revision:** Preserve every H2 and its order. Prove the layer's
+  permutation equivariance, deepen the five-node example into a shared
+  architecture comparison, derive normalized GCN weights and receptive-field
+  propagation, contrast sum/mean/attention multiplicity and degree behavior,
+  make graph-level extensivity explicit, work a structural-attention example,
+  and quantify sparse/local versus dense/global computation. Keep limitations
+  concise and cross-link the dedicated expressivity and failure-mode chapters
+  rather than duplicating them. Add a figure only for a real explanatory gap.
+- **After:** Expanded from 2,859 to 5,401 substantive body words while
+  preserving all eight H2s and their exact order. One fixed five-node graph now
+  supports the explicit layer equivariance proof, receptive-field matrix
+  powers, extensive versus intensive readout, normalized GCN coefficients,
+  GraphSAGE sampling variance, a concrete GAT softmax, GIN, and a controlled
+  multiset-information comparison. A shortest-path structural-attention example
+  and sparse-versus-dense complexity calculation complete the local/global
+  argument, while the limitations now cross-link the dedicated expressivity and
+  failure-mode chapters. The three existing figures were sufficient. Arithmetic,
+  math/scaffolding, nine-way citation bijection and primary-link resolution,
+  blog validation, diff, clean Jekyll build, and parsed rendered-page checks
+  passed. The promoted controlled-input rule shaped the entire architecture
+  comparison; no further general criterion was needed after revision.
