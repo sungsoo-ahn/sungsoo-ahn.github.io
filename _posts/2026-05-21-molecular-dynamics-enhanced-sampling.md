@@ -2,7 +2,7 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
 series_description: "A reading path from stochastic dynamics to statistical mechanics, path measures, and generative modeling."
 series_order: 4
-categories: [science]
+categories: [molecular-science]
 tags: [molecular-dynamics, enhanced-sampling, collective-variables, free-energy]
 toc:
   sidebar: left

@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: ml-for-science
 series_title: "ML for Science Foundations"
 series_description: "A guided route through scientific ML topics: quantum chemistry, equivariant molecular models, electrocatalysis, and protein design."
 series_order: 5
-categories: [science]
+categories: [materials-science]
 tags: [adsorption, grand-canonical-monte-carlo, classical-density-functional-theory, molecular-simulation, machine-learning]
 toc:
   sidebar: left
