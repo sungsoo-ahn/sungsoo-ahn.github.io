@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/>
+    </marker>
+    <marker id="purple-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7A53EC"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 24px; font-weight: 700; }
+      .label { font-size: 19px; font-weight: 600; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; fill: #665A75; }
+      .edge { stroke: #C8BBD8; stroke-width: 5; stroke-linecap: round; }
+      .arrow { stroke: #665A75; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="70" y="52" class="title" text-anchor="start">A graph filter reshapes a signal in the Laplacian eigenbasis</text>
+<line x1="120" y1="240" x2="205" y2="140" class="edge"/>
+<line x1="205" y1="140" x2="305" y2="180" class="edge"/>
+<line x1="305" y1="180" x2="390" y2="305" class="edge"/>
+<line x1="390" y1="305" x2="250" y2="355" class="edge"/>
+<line x1="250" y1="355" x2="120" y2="240" class="edge"/>
+<line x1="205" y1="140" x2="250" y2="355" class="edge"/>
+<circle cx="120" cy="240" r="32" fill="#F2EDFF" stroke="#7A53EC" stroke-width="4"/><text x="120" y="247" class="label" text-anchor="middle">1.0</text>
+<circle cx="205" cy="140" r="32" fill="#F2EDFF" stroke="#7A53EC" stroke-width="4"/><text x="205" y="147" class="label" text-anchor="middle">0.2</text>
+<circle cx="305" cy="180" r="32" fill="#FFF4DC" stroke="#B7791F" stroke-width="4"/><text x="305" y="187" class="label" text-anchor="middle">−0.8</text>
+<circle cx="390" cy="305" r="32" fill="#FFF4DC" stroke="#B7791F" stroke-width="4"/><text x="390" y="312" class="label" text-anchor="middle">−0.4</text>
+<circle cx="250" cy="355" r="32" fill="#F2EDFF" stroke="#7A53EC" stroke-width="4"/><text x="250" y="362" class="label" text-anchor="middle">0.7</text>
+<text x="250" y="430" class="label" text-anchor="middle">node signal f</text>
+<path d="M 435 250 L 525 250" stroke="#7A53EC" stroke-width="3" fill="none" marker-end="url(#purple-arrow)"/>
+<text x="480" y="225" class="label" text-anchor="middle">Uᵀ</text>
+<text x="480" y="282" class="small" text-anchor="middle">graph FT</text>
+<rect x="565" y="298" width="30" height="72" rx="8" fill="#7A53EC"/>
+<text x="580" y="396" class="small" text-anchor="middle">λ0</text>
+<rect x="617" y="220" width="30" height="150" rx="8" fill="#7A53EC"/>
+<text x="632" y="396" class="small" text-anchor="middle">λ1</text>
+<rect x="669" y="275" width="30" height="95" rx="8" fill="#C8BBD8"/>
+<text x="684" y="396" class="small" text-anchor="middle">λ2</text>
+<rect x="721" y="315" width="30" height="55" rx="8" fill="#C8BBD8"/>
+<text x="736" y="396" class="small" text-anchor="middle">λ3</text>
+<rect x="773" y="258" width="30" height="112" rx="8" fill="#C8BBD8"/>
+<text x="788" y="396" class="small" text-anchor="middle">λ4</text>
+<text x="675" y="155" class="label" text-anchor="middle">Fourier coefficients f̂</text>
+<rect x="555" y="414" width="250" height="55" rx="18" fill="#EEF0FF" stroke="#5F6ED8" stroke-width="3"/>
+<text x="680" y="449" class="label" text-anchor="middle">multiply by h(λ)</text>
+<path d="M 825 250 L 905 250" stroke="#7A53EC" stroke-width="3" fill="none" marker-end="url(#purple-arrow)"/>
+<text x="865" y="225" class="label" text-anchor="middle">U</text>
+<text x="865" y="282" class="small" text-anchor="middle">inverse FT</text>
+<line x1="940" y1="240" x2="1000" y2="160" class="edge"/>
+<line x1="1000" y1="160" x2="1080" y2="195" class="edge"/>
+<line x1="1080" y1="195" x2="1120" y2="300" class="edge"/>
+<line x1="1120" y1="300" x2="1025" y2="350" class="edge"/>
+<line x1="1025" y1="350" x2="940" y2="240" class="edge"/>
+<line x1="1000" y1="160" x2="1025" y2="350" class="edge"/>
+<circle cx="940" cy="240" r="30" fill="#E5F3EA" stroke="#3C8F63" stroke-width="4"/><text x="940" y="247" class="label" text-anchor="middle">0.6</text>
+<circle cx="1000" cy="160" r="30" fill="#E5F3EA" stroke="#3C8F63" stroke-width="4"/><text x="1000" y="167" class="label" text-anchor="middle">0.3</text>
+<circle cx="1080" cy="195" r="30" fill="#FFF4DC" stroke="#B7791F" stroke-width="4"/><text x="1080" y="202" class="label" text-anchor="middle">−0.2</text>
+<circle cx="1120" cy="300" r="30" fill="#FFF4DC" stroke="#B7791F" stroke-width="4"/><text x="1120" y="307" class="label" text-anchor="middle">−0.1</text>
+<circle cx="1025" cy="350" r="30" fill="#E5F3EA" stroke="#3C8F63" stroke-width="4"/><text x="1025" y="357" class="label" text-anchor="middle">0.4</text>
+<text x="1030" y="430" class="label" text-anchor="middle">filtered signal g</text>
+<text x="600" y="500" class="body" text-anchor="middle">Low-pass filtering suppresses large-eigenvalue modes, so adjacent nodes become more similar.</text>
+</svg>
