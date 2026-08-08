@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
+      <text x="500" y="42" text-anchor="middle" class="title">Confidence qualifies a structural hypothesis; it does not widen the claim</text>
+      <rect x="35" y="90" width="280" height="360" rx="20" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="175" y="130" text-anchor="middle" class="label">pLDDT: local confidence</text>
+      <path d="M 78 260 C 110 170, 165 195, 190 260 C 215 330, 260 300, 280 205" fill="none" stroke="#5F6ED8" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="110" cy="213" r="10" fill="#16877F"/><circle cx="190" cy="260" r="10" fill="#B7791F"/><circle cx="255" cy="282" r="10" fill="#C7506B"/>
+      <text x="175" y="350" text-anchor="middle" class="body">which residues are locally reliable?</text>
+      <text x="175" y="388" text-anchor="middle" class="small">low confidence can mean missing evidence,</text>
+      <text x="175" y="411" text-anchor="middle" class="small">disorder, flexibility, or model uncertainty</text>
+
+      <rect x="345" y="90" width="280" height="360" rx="20" fill="#F6F2FA" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="485" y="130" text-anchor="middle" class="label">PAE: relative placement</text>
+      <rect x="405" y="170" width="160" height="160" fill="white" stroke="#C8BBD8" stroke-width="2"/>
+      <rect x="405" y="170" width="72" height="72" fill="#16877F" opacity=".8"/><rect x="493" y="258" width="72" height="72" fill="#16877F" opacity=".8"/>
+      <rect x="493" y="170" width="72" height="72" fill="#FFF4DC"/><rect x="405" y="258" width="72" height="72" fill="#FFF4DC"/>
+      <text x="485" y="365" text-anchor="middle" class="body">are domains or chains placed reliably?</text>
+      <text x="485" y="402" text-anchor="middle" class="small">confident domains can still have an</text>
+      <text x="485" y="425" text-anchor="middle" class="small">uncertain relative orientation</text>
+
+      <rect x="655" y="90" width="310" height="360" rx="20" fill="#FCE8EE" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="810" y="130" text-anchor="middle" class="label">claims requiring more evidence</text>
+      <rect x="700" y="165" width="220" height="48" rx="13" fill="white"/><text x="810" y="195" text-anchor="middle" class="body">state populations and kinetics</text>
+      <rect x="700" y="231" width="220" height="48" rx="13" fill="white"/><text x="810" y="261" text-anchor="middle" class="body">binding affinity and selectivity</text>
+      <rect x="700" y="297" width="220" height="48" rx="13" fill="white"/><text x="810" y="327" text-anchor="middle" class="body">catalysis and cellular function</text>
+      <text x="810" y="385" text-anchor="middle" class="small">need ensembles, energetics, context,</text>
+      <text x="810" y="408" text-anchor="middle" class="small">and ultimately experimental tests</text>
+
+      <path d="M 318 270 L 340 270" class="arrow"/><path d="M 628 270 L 650 270" class="arrow"/>
+      <rect x="80" y="495" width="840" height="42" rx="13" fill="#E4F4F2"/>
+      <text x="500" y="521" text-anchor="middle" class="body">High coordinate confidence supports structural interpretation—not thermodynamics or mechanism by itself.</text>
+
+</svg>
