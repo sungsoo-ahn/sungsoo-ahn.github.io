@@ -15,8 +15,9 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post treats molecule generation and reaction prediction as two
-    sides of constrained graph modeling. The first proposes chemical objects;
+  <em>Note: This post develops the molecule-generation and reaction storyline
+    from my Machine Learning for Molecules lecture, treating the two as sides
+    of constrained graph modeling. The first proposes chemical objects;
     the second asks how those objects can change or be made. The emphasis is on
     the representations, symmetries, and evaluation decisions that connect the
     two.</em>

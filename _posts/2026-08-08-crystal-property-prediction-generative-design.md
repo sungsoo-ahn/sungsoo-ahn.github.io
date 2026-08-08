@@ -15,7 +15,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post focuses on the geometric learning problem inside crystalline materials discovery: how an infinite periodic solid becomes a finite representation, how predictors preserve its symmetries, how generators move composition, lattice, and atomic sites, and why a generated crystal is only the beginning of validation.</em>
+  <em>Note: This post develops the crystal-design storyline from my Geometric Deep Learning lecture. It focuses on how an infinite periodic solid becomes a finite representation, how predictors preserve its symmetries, how generators move composition, lattice, and atomic sites, and why a generated crystal is only the beginning of validation.</em>
 </p>
 
 ## A Crystal Is Infinite, but Its Description Should Not Be

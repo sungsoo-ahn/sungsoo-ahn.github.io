@@ -46,7 +46,8 @@ pagination:
           <a href="{{ category.slug | prepend: '/blog/category/' | relative_url }}">
             <strong>{{ category.title }}</strong>
             <span>{{ category.description }}</span>
-            <small>{{ category_posts.size | default: 0 }} posts</small>
+            {% assign category_post_count = category_posts.size | default: 0 %}
+            <small>{{ category_post_count }} {% if category_post_count == 1 %}post{% else %}posts{% endif %}</small>
           </a>
         {% endfor %}
       </div>

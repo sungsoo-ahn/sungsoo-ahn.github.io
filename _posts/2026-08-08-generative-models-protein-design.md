@@ -15,7 +15,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post treats protein design as a chain of conditional inference problems rather than a catalog of generators. The central question is not whether a model can draw a plausible protein, but which constraints survive generation and which claims remain for computation and experiment to test.</em>
+  <em>Note: This post develops the protein-design storyline from my Machine Learning for Molecules and Geometric Deep Learning lectures. It treats design as a chain of conditional inference problems rather than a catalog of generators: the central question is which constraints survive generation and which claims remain for computation and experiment to test.</em>
 </p>
 
 ## Protein Design Is Not Structure Prediction in Reverse
