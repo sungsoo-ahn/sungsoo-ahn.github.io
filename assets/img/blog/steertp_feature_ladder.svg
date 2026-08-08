@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="500" y="42" text-anchor="middle" class="title">Irreducible feature types are the rotation-equivariant channels</text>
+      <rect x="45" y="90" width="275" height="360" rx="20" fill="#F6F2FA" stroke="#C8BBD8" stroke-width="2"/>
+      <rect x="362" y="90" width="275" height="360" rx="20" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/>
+      <rect x="680" y="90" width="275" height="360" rx="20" fill="#E4F4F2" stroke="#C8BBD8" stroke-width="2"/>
+
+      <text x="182" y="132" text-anchor="middle" class="label">type ℓ = 0</text>
+      <circle cx="182" cy="245" r="62" fill="white" stroke="#7A53EC" stroke-width="4"/>
+      <text x="182" y="254" text-anchor="middle" font-size="30" font-weight="700">s</text>
+      <path d="M 125 340 C 150 370, 215 370, 240 340" class="arrow"/>
+      <text x="182" y="407" text-anchor="middle" class="body">dimension 1</text>
+      <text x="182" y="432" text-anchor="middle" class="small">scalar stays fixed</text>
+
+      <text x="500" y="132" text-anchor="middle" class="label">type ℓ = 1</text>
+      <circle cx="500" cy="260" r="6" fill="#231533"/>
+      <path d="M 500 260 L 500 165" stroke="#5F6ED8" stroke-width="6" marker-end="url(#arrow)"/>
+      <path d="M 500 260 L 575 205" stroke="#16877F" stroke-width="6" marker-end="url(#arrow)"/>
+      <path d="M 515 180 A 85 85 0 0 1 563 214" fill="none" stroke="#665A75" stroke-width="2"/>
+      <text x="500" y="407" text-anchor="middle" class="body">dimension 3</text>
+      <text x="500" y="432" text-anchor="middle" class="small">ordinary vector rotates</text>
+
+      <text x="818" y="132" text-anchor="middle" class="label">type ℓ = 2</text>
+      <ellipse cx="818" cy="245" rx="92" ry="48" fill="#16877F" opacity=".20" stroke="#16877F" stroke-width="4"/>
+      <ellipse cx="818" cy="245" rx="48" ry="92" fill="#7A53EC" opacity=".16" stroke="#7A53EC" stroke-width="4" transform="rotate(35 818 245)"/>
+      <circle cx="818" cy="245" r="8" fill="#231533"/>
+      <text x="818" y="407" text-anchor="middle" class="body">dimension 5</text>
+      <text x="818" y="432" text-anchor="middle" class="small">quadrupolar pattern rotates</text>
+
+      <rect x="185" y="480" width="630" height="46" rx="13" fill="#FFF4DC"/>
+      <text x="500" y="509" text-anchor="middle" class="body">f⁽ℓ⁾ → D⁽ℓ⁾(R) f⁽ℓ⁾, with 2ℓ + 1 coupled components</text>
+    
+</svg>
