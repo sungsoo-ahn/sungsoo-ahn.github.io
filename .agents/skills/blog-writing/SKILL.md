@@ -106,6 +106,11 @@ from one comparison can improve the criteria used for the next.
   maximization or ranking, and independent evaluation; report the query budget
   and best-so-far curve rather than only the winner. Random-test accuracy does
   not establish accuracy on the adaptively selected tail.
+- When a tutorial explains confidence or uncertainty scores, define the random
+  variable being predicted, the conditioning or alignment convention, the
+  spatial or statistical granularity, the calibration population, and the
+  decision the score supports. Construct a case where two legitimate confidence
+  summaries disagree. “High confidence” is incomplete without its scope.
 - When constraints are imposed by action masks, projection, repair, rejection,
   canonicalization, or downstream filters, distinguish the raw model
   distribution, the transformed or accepted distribution, and the physical
