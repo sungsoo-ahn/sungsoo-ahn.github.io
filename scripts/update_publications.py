@@ -16,7 +16,7 @@ import yaml
 PUBLICATIONS_PATH = Path(__file__).parent.parent / "_data/publications.yml"
 PUBLICATION_TYPES = {"conference", "journal", "preprint"}
 REQUIRED_FIELDS = {"id", "type", "title", "authors", "venue", "year", "abbr"}
-URL_FIELDS = {"html", "code", "code2", "website", "video"}
+URL_FIELDS = {"html", "code", "code2", "website", "dataset", "video"}
 OPTIONAL_FIELDS = {
     "presentation",
     "presentation_venue",

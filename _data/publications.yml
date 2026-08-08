@@ -79,14 +79,16 @@
   - Cheng-Hao Liu
   - Junlang Liu
   - Zhihui Qi
+  - Jason Yang
   - Gyu Rie Lee
   - Sungsoo Ahn
-  - Jamin Shin
   - Sangwon Jung
+  - Jamin Shin
   venue: arXiv
   year: 2026
   abbr: '-'
   arxiv: '2605.10978'
+  dataset: https://huggingface.co/datasets/vibepdbench/VibeProteinBench
   cv_sort_order: 202605200000
 - id: piao2026learning
   type: conference
@@ -252,6 +254,7 @@
   venue: ICLR
   year: 2026
   abbr: ICLR
+  html: https://openreview.net/forum?id=eux1cp8GqC
   arxiv: '2505.11824'
   code: https://github.com/alstn12088/veracity_inference
 - id: seo2026learning
@@ -265,6 +268,7 @@
   venue: ICLR
   year: 2026
   abbr: ICLR
+  html: https://openreview.net/forum?id=raVuVPbnQL
   arxiv: '2505.16790'
   code: https://github.com/holymollyhao/MELD
   website: https://holymollyhao.github.io/MELD/
@@ -280,6 +284,7 @@
   venue: ICLR
   year: 2026
   abbr: ICLR
+  html: https://openreview.net/forum?id=1PYj4fMeLe
   arxiv: '2507.07390'
   code: https://github.com/seonghyun26/bioemu-cv
   selected: true
@@ -338,6 +343,7 @@
   - Lin Xie
   - Jinkyoo Park
   venue: KDD
+  cv_venue: KDD, Datasets and Benchmarks Track
   year: 2025
   abbr: KDD
   arxiv: '2306.17100'
@@ -412,7 +418,7 @@
   abbr: EMNLP
   arxiv: '2505.17454'
   code: https://github.com/hsjang0/CORE-PO
-  cv_venue: 'Findings of the Association for Computational Linguistics: EMNLP 2025'
+  cv_venue: Findings of EMNLP
 - id: kim2025mtmol
   type: conference
   title: 'MT-Mol: Multi Agent System with Tool-based Reasoning for Molecular Optimization'
@@ -425,7 +431,7 @@
   abbr: EMNLP
   arxiv: '2505.20820'
   code: https://github.com/icecream126/mt_mol
-  cv_venue: 'Findings of the Association for Computational Linguistics: EMNLP 2025'
+  cv_venue: Findings of EMNLP
 - id: jang2025improving
   type: conference
   title: Improving Chemical Understanding of LLMs via SMILES Parsing
@@ -453,7 +459,7 @@
   abbr: ACL
   arxiv: '2507.00979'
   code: https://github.com/HahmDY/causal_influence_prompting
-  cv_venue: 'Findings of the Association for Computational Linguistics: ACL 2025'
+  cv_venue: Findings of ACL
 - id: jang2025structural
   type: conference
   title: Structural Reasoning Improves Molecular Understanding of LLM
@@ -481,7 +487,9 @@
   venue: ICLR
   year: 2025
   abbr: ICLR
+  html: https://openreview.net/forum?id=pB1XSj2y4X
   arxiv: '2410.04542'
+  code: https://github.com/SeonghwanSeo/RxnFlow
 - id: kim2025mofflow
   type: conference
   title: 'MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks'
@@ -494,6 +502,7 @@
   venue: ICLR
   year: 2025
   abbr: ICLR
+  html: https://openreview.net/forum?id=dNT3abOsLo
   arxiv: '2410.17270'
   code: https://github.com/nayoung10/MOFFlow
   selected: true
@@ -509,6 +518,7 @@
   venue: ICLR
   year: 2025
   abbr: ICLR
+  html: https://openreview.net/forum?id=WQV9kB1qSU
   arxiv: '2405.19961'
   code: https://github.com/kiyoung98/tps-dps
   website: https://kiyoung98.github.io/tps-dps/
@@ -523,6 +533,7 @@
   venue: ICLR
   year: 2025
   abbr: ICLR
+  html: https://openreview.net/forum?id=WNIEr5kydF
   arxiv: '2410.14696'
   code: https://github.com/holymollyhao/ReBIND
   cv_title_tex: 'REBIND: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring'
@@ -656,7 +667,7 @@
   abbr: ICML
   arxiv: '2409.03303'
   code: https://github.com/Nayeong-V-Kim/multiple_spurious_correlation_by_MOO
-  html: https://openreview.net/pdf/9f78a2f076c28d47f30480231e6908378b569466.pdf
+  html: https://proceedings.mlr.press/v235/kim24l.html
 - id: kim2024enhancing
   type: conference
   title: Enhancing Sample Efficiency in Black-box Combinatorial Optimization via Symmetric Replay Training
