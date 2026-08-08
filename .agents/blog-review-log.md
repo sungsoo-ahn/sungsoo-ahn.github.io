@@ -150,3 +150,44 @@ Post-specific observations remain here rather than becoming universal rules.
   blog validation, diff, clean Jekyll build, and parsed rendered-page checks
   passed. The promoted controlled-input rule shaped the entire architecture
   comparison; no further general criterion was needed after revision.
+
+## 05. What Graph Neural Networks Can and Cannot Distinguish
+
+- **Post:** `_posts/2026-08-08-graph-neural-network-expressivity.md`
+- **Topic-matched reference:** No additional older post is a fair expressivity
+  analogue. The two permanent anchors set the quality standard, and the newly
+  polished message-passing chapter is used only as a continuity check.
+- **Before:** The post has the right representation-to-WL-to-remedy storyline,
+  a clean five-node refinement, and the useful $$C_6$$ versus $$2C_3$$ witness.
+  At roughly 2,700 substantive words, however, the ceiling theorem compresses
+  its quantifiers into prose, the path refinement omits its actual signatures,
+  and the four remedies are introduced on different abstractions rather than
+  tested against the same collision. The final cost/generalization tradeoff is
+  qualitative.
+- **Criteria promoted:** State the quantifiers in an impossibility or
+  expressivity result, give a concrete witness pair, separate architectural
+  collision from optimization failure, and say which theorem assumption each
+  remedy changes.
+- **Planned revision:** Preserve every H2 and its order. Formalize the quotient
+  induced by a representation, derive multiset collisions and an injective
+  bounded encoding, work the full 1-WL signatures on the path, prove the MPNN
+  ceiling by induction with explicit quantifiers, and carry $$C_6$$ versus
+  $$2C_3$$ through tuple, motif, subgraph, and spectral remedies. Quantify the
+  state/computation costs and close with task-dependent approximation examples.
+  Cross-link message passing rather than re-explaining its architecture survey;
+  add a figure only for a genuine gap.
+- **After:** Expanded from 2,763 to 4,790 substantive body words while
+  preserving all eight H2s and their exact order. The revision formalizes the
+  representation quotient and target-approximation lower bound, derives
+  elementary multiset collisions and a bounded injective sum, works every
+  $$P_5$$ refinement signature, and states/proves the MPNN ceiling with explicit
+  assumptions and quantifiers. The fixed $$C_6$$ versus $$2C_3$$ witness now
+  passes through precisely named folklore 2-WL/2-FWL common-neighbor
+  refinement, triangle counts, vertex-deletion decks, and Laplacian spectra,
+  with computation and target-relative tradeoffs. Added the Maron et al.
+  primary citation after resolving the coordinate-wise versus folklore-WL
+  nomenclature; reused all four figures. Arithmetic/math/scaffolding, 7/7/7
+  citation bijection and link resolution, blog validation, diff, clean Jekyll
+  build, and rendered checks passed. The promoted quantifier/witness/assumption
+  rule directly shaped the theorem and remedies; no further general criterion
+  was needed after revision.
