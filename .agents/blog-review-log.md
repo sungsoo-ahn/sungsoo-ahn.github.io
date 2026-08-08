@@ -191,3 +191,42 @@ Post-specific observations remain here rather than becoming universal rules.
   build, and rendered checks passed. The promoted quantifier/witness/assumption
   rule directly shaped the theorem and remedies; no further general criterion
   was needed after revision.
+
+## 06. Depth, Over-Smoothing, and Over-Squashing in Graph Networks
+
+- **Post:** `_posts/2026-08-08-deep-graph-network-failure-modes.md`
+- **Topic-matched reference:** No additional older post is a fair analogue.
+  The permanent anchors set the quality standard; the revised message-passing
+  and expressivity chapters are continuity checks only.
+- **Before:** The chapter makes the essential conceptual separation among
+  under-reaching, over-smoothing, and over-squashing, and its spectral and
+  binary-tree equations are correct. At roughly 2,400 substantive words,
+  however, most mechanisms are demonstrated only once and the remedy sections
+  read as parallel lists. There is no controlled calculation showing a residual
+  path preserve contrast while leaving a topological bottleneck intact, or a
+  shortcut improve sensitivity while accelerating diffusion. Diagnostics are
+  named but not calibrated on the same graphs.
+- **Criteria promoted:** Tutorials about similar-looking failures should use a
+  differential diagnosis: mechanism-specific observable, matched intervention,
+  and a counterfactual where the wrong remedy fails or worsens another mode.
+- **Planned revision:** Preserve every H2 and its order. Work an explicit
+  under-reaching task, derive spectral smoothing and Dirichlet-energy decay on a
+  small graph, analyze residual/initial-feature paths as graph filters, deepen
+  the tree Jacobian and effective-resistance calculations, quantify how a
+  shortcut changes resistance and mixing, and finish with a diagnostic matrix
+  that maps measurements to remedies and falsifying outcomes. Cross-link the
+  preceding graph chapters rather than repeating them; add a figure only for a
+  genuine explanatory gap.
+- **After:** Expanded from 2,431 to 4,674 substantive body words while
+  preserving all seven content H2s and their exact order. The chapter now works
+  an exact six-layer under-reaching task, derives the spectral limit and a
+  $$C_4$$ Dirichlet-energy decay, compares residual, initial-injection, and
+  Jumping-Knowledge filters on the same mode, deepens the binary-tree Jacobian
+  bound, and follows $$P_5\to C_5$$ through resistance, commute time, and mixing.
+  Residual and rewiring counterfactuals, task-sensitive curvature, and a
+  diagnostic/falsification matrix make the failure modes operational. Added the
+  primary Chandra et al. commute-time reference and reused all four figures.
+  Arithmetic, LaTeX/scaffolding, 9/9/9 citation bijection and links, blog
+  validation, diff, clean Jekyll build, and rendered checks passed. The promoted
+  differential-diagnosis rule shaped both the controlled counterfactuals and
+  final matrix; no further general criterion was needed after revision.
