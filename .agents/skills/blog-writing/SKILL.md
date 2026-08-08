@@ -118,6 +118,11 @@ from one comparison can improve the criteria used for the next.
   message-passing steps, or reconstruction operations are needed to expose it
   to the predictor. “The information is present” does not mean it is locally or
   efficiently available to the architecture being discussed.
+- When a mature companion post already covers nearby material, declare the
+  division of labor near the opening and make the new post earn its place through
+  a different organizing question, derivation, or running example. Cross-link
+  prerequisite machinery instead of re-teaching it, and audit the pair for
+  duplicated exposition; a series should deepen by composition, not paraphrase.
 
 ## Quality Checklist (apply before finalizing)
 
