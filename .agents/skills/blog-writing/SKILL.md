@@ -112,6 +112,12 @@ from one comparison can improve the criteria used for the next.
   counterfactual where a remedy for one mechanism leaves another unchanged or
   makes it worse. A remedy list without these contrasts encourages readers to
   treat distinct causes as synonyms.
+- When comparing representations, separate information-theoretic completeness
+  from computational accessibility. State whether the encoded variables
+  determine the desired quantity in principle, then show how many interactions,
+  message-passing steps, or reconstruction operations are needed to expose it
+  to the predictor. “The information is present” does not mean it is locally or
+  efficiently available to the architecture being discussed.
 
 ## Quality Checklist (apply before finalizing)
 
