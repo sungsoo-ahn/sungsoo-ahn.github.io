@@ -538,3 +538,47 @@ Post-specific observations remain here rather than becoming universal rules.
   Existing figures remained sufficient. Geometry/arithmetic/citation audits,
   validation, clean build, and rendered checks passed. The promoted primitive-
   audit rule shaped the full revision; no further general criterion was needed.
+
+## 14. Discrete Flow and Generator Matching
+
+- **Post:** `_posts/2026-08-08-discrete-flow-generator-matching.md`
+- **Topic-matched reference:** The Fokker--Planck anchor provides the continuous
+  inflow/outflow and conservation standard. The older GFlowNet post is a fair
+  discrete companion but owns flow conservation on directed construction DAGs;
+  this chapter should distinguish physical-time CTMC rates, cycles, and event
+  simulation. The polished conditional-regression chapters provide the target-
+  marginalization comparison without needing repetition.
+- **Before:** At 2,356 substantive words, the post correctly declares a
+  destination-first column convention and includes a useful mask-to-token
+  example. It does not instantiate the full generator or short-time transition
+  matrix, check positivity and mass conservation in matrix form, or carry the
+  same example through the observable generator, reverse rates, hazard-time
+  sampling, and invalid-step boundary. The Bregman conditional-mean claim and
+  factorized-event tradeoff remain mostly abstract. Generator superposition and
+  sampler choice are described without a finite-state witness or numerical cost.
+- **Criteria promoted:** Competing operator conventions must be verified with a
+  minimal executable matrix whose sign, normalization, conservation, and finite-
+  update invariants are all explicit.
+- **Planned revision:** Preserve all eight H2s and their order. Carry the
+  three-state mask example through $$Q_t$$, $$I+hQ_t$$, mass/positivity checks, an
+  observable expectation, integrated hazard, exact jump-time sampling, squared-
+  loss/Bregman marginalization, and reverse-clock rates. Quantify when a fixed
+  step becomes invalid. Expand single-coordinate factorization with a sequence-
+  size calculation and a coupled-edit counterexample; derive permutation
+  equivariance for graph rates. Use a three-state circulation to show generator
+  nonuniqueness at fixed marginals, then distinguish CTMC generator matching from
+  GFlowNet trajectory balance. Quantify event-driven versus fixed-step network
+  evaluations on the running schedule. Reuse the four existing figures unless a
+  genuine missing mechanism justifies another.
+- **After:** Expanded from 2,356 to 4,542 substantive body words while
+  preserving all eight H2s and their order. The mask example now supplies an
+  explicit column-convention generator, finite transition matrix, mass and
+  positivity checks, observable duality, integrated hazard, inverse event-time
+  sample, conditional-rate regression, and reverse-clock rates. Sequence-size
+  arithmetic and a coupled-edit witness expose factorization; graph-rate
+  equivariance, multimodal generator validity, and a stationary circulation
+  separate marginal behavior from paths. Event, fixed-step, and tau-leap costs
+  are quantified, with GFlowNet DAG balance assigned to its companion post.
+  Existing figures remained sufficient. Matrix/arithmetic/citation audits,
+  validation, clean build, and rendered checks passed. The promoted executable-
+  convention rule caught the core risk; no further general criterion was needed.
