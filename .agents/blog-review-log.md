@@ -351,3 +351,51 @@ Post-specific observations remain here rather than becoming universal rules.
   figures were needed. Arithmetic, citations, validator, clean build, and
   rendered checks passed. The division-of-labor criterion prevented duplication
   and no further general rule was required after revision.
+
+## 10. Equivariant Transformers and Machine-Learned Potentials
+
+- **Post:** `_posts/2026-08-08-equivariant-transformers-machine-learned-potentials.md`
+- **Topic-matched reference:** The spherical-equivariant permanent anchor is the
+  closest architectural reference and sets the standard for deriving a complete
+  legal layer. The polished molecular-dynamics post is a fair application-side
+  comparator: it consistently states the sampled object, downstream quantity,
+  and operational failure boundary. The new chapter should bridge these two
+  levels without duplicating either.
+- **Before:** At 2,220 substantive words, the post states the right thesis—
+  invariant routing, equivariant content, and a simulation contract—but the two
+  halves remain adjacent summaries. The attention proof stops before a complete
+  block and the architecture comparison changes several design choices at once.
+  The potential half lists extensivity, conservative forces, force supervision,
+  smooth cutoffs, range, and cost without carrying one controlled system through
+  them. Equivariance, conservation, smoothness, locality, and rollout validity
+  therefore read as related virtues rather than distinct guarantees and
+  empirical conditions.
+- **Criteria promoted:** Architecture-to-workflow tutorials must expose an
+  interface contract: the object supplied, downstream assumptions, guarantees
+  that transfer, and properties that remain contingent on data, numerical
+  methods, or physical approximations.
+- **Planned revision:** Preserve all seven H2s and their order. Complete the
+  typed-attention closure argument through normalization, softmax, values,
+  aggregation, residual/gating, and readout; extend the current rotation example
+  to actual vector values and a declared output. Compare architecture families
+  against one fixed geometric-computation contract rather than by names alone.
+  On the potential side, derive force covariance and zero force/torque from a
+  scalar energy, give an explicit nonconservative direct-force witness, quantify
+  what energy and force labels constrain on a small potential, and derive cutoff
+  regularity with a concrete envelope. Add a locality counterexample, a sparse-
+  versus-global cost calculation, and a claim-matched simulation contract that
+  cross-links the molecular-simulation chapter. Reuse the four existing figures
+  unless a new quantitative figure closes a genuine explanatory gap.
+- **After:** Expanded from 2,220 to 5,243 substantive body words while
+  preserving all seven H2s and their order. The architectural half now proves a
+  complete typed attention block, rotates actual values numerically, and holds
+  the representation/cutoff budget fixed while separating routing, angular
+  degree, correlation order, and edge-aligned computation. The potential half
+  derives force covariance and balance laws, gives a three-atom $$SO(3)$$-
+  equivariant but nonconservative witness, quantifies energy-versus-force
+  supervision, proves $$C^2$$ cutoff regularity, and constructs an exact locality
+  failure with cost arithmetic. A claim-matched table closes the interface from
+  symmetry through rollout and observable validity. All four existing figures
+  remained sufficient. Arithmetic, citations, validator, clean build, and
+  rendered checks passed. The promoted interface-contract rule supplied the
+  organizing spine; no additional general criterion was needed after revision.
