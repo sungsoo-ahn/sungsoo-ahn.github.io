@@ -124,6 +124,13 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   intrinsic or explicitly qualified extrinsic operation, and carry one example
   through the full replacement chain. Changing one headline formula does not
   validate the surrounding loss, measure, symmetry, or solver.
+- When a matrix or operator admits competing row/column, source/destination, or
+  forward/reverse conventions, declare the convention in words and indexed
+  notation before using matrix shorthand. Instantiate a minimal matrix and
+  verify its admissibility invariants—such as sign constraints, normalization,
+  mass conservation, or positivity—under one finite update. A convention note
+  without an executable check does not protect the derivation from a transpose
+  or sign error.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
