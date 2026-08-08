@@ -795,3 +795,56 @@ Post-specific observations remain here rather than becoming universal rules.
   Independent review caught and corrected one Pareto arithmetic typo before
   commit. Arithmetic/citation audits, validation, clean build, and rendered
   checks passed.
+
+## 19. Machine Learning Meets Quantum Chemistry
+
+- **Post:** `_posts/2026-08-08-machine-learning-quantum-chemistry.md`
+- **Topic-matched reference:** The polished quantum-chemistry/DFT post owns the
+  derivation from the many-electron Hamiltonian through Hartree--Fock and the
+  Kohn--Sham SCF loop. The spherical-equivariant anchor supplies the standard for
+  typed angular objects, while the revised equivariant-potential and simulation
+  companions own force-field deployment. This chapter should own the
+  intervention boundary: what ML outputs, which solver consumes it, and how its
+  errors propagate to the scientific observable and cost claim.
+- **Before:** At 2,640 substantive words, the post is conceptually well
+  organized by learned object and correctly identifies the computation that
+  remains. Its equations are mostly endpoint definitions. VMC has no trial-state
+  energy/variance calculation. The learned-functional section draws the SCF loop
+  but does not show how a derivative perturbation changes fixed-point stability.
+  The Hamiltonian warning about near degeneracy has no matrix witness. Density,
+  delta-learning, fidelity, transfer, and cost claims likewise remain
+  qualitative. The result reads as a high-quality boundary map rather than a
+  30--45 minute calculation-led argument.
+- **Criteria promoted:** When ML predicts an intermediate object used by a
+  downstream solver, inject a controlled perturbation and carry it through the
+  derivative, diagonalization, fixed point, or estimator; quantify conditioning
+  and final-observable error rather than treating entrywise fit as sufficient.
+- **Planned revision:** Preserve all eleven H2s and their order. Use a compact
+  two-level electronic example to compute a variational energy, local-energy
+  variance, and finite-sample error. Build a scalar SCF fixed-point model whose
+  learned derivative changes contraction into divergence, including the role of
+  mixing. Carry a small off-diagonal error through a near-degenerate $$2\times2$$
+  Hamiltonian to eigenvalues and orbital rotation; pair it with a density
+  normalization/dipole witness. Connect potentials/properties to their narrower
+  output contracts without duplicating companion posts. Quantify two equal-MAE
+  baselines with different residual structure for delta learning, a fidelity-
+  dependent candidate ranking, and an out-of-domain dissociation or charge
+  example. End with an amortized break-even calculation that includes reference
+  data, training, remaining solver work, hardware/output contract, and fallback
+  rate. Reuse the four existing figures unless a genuine missing relationship
+  warrants another.
+- **After:** Expanded from 2,640 to 4,580 substantive body words while
+  preserving all eleven H2s and their order. A two-level trial state now carries
+  variational energy, local-energy variance, autocorrelation, and effective
+  sample error. A scalar learned SCF map preserves the correct fixed point while
+  changing contraction into divergence, then shows what mixing repairs. A
+  near-degenerate Hamiltonian propagates small matrix MAE to gap error and a
+  22.5-degree orbital rotation; density examples separate normalization from
+  dipole accuracy. Delta residual structure, omitted charge and dissociation
+  tails, fidelity-dependent ranking, and a fallback-aware amortization
+  calculation complete the intervention hierarchy. A final interface table maps
+  each learned object to its downstream operation, sensitive diagnostic, and
+  remaining cost. Existing figures remained sufficient. The promoted
+  intermediate-perturbation rule shaped the chapter. Independent review caught
+  and corrected two dropped LaTeX slashes before commit. Arithmetic/citation
+  audits, validation, clean builds, and rendered checks passed.
