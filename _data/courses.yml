@@ -24,3 +24,13 @@
     - 'Watson et al. (2023). "De novo design of protein structure and function with RFdiffusion." *Nature*.'
     - 'Dauparas et al. (2022). "Robust deep learning-based protein sequence design using ProteinMPNN." *Science*.'
     - 'Lin et al. (2023). "Evolutionary-scale prediction of atomic-level protein structure with a language model." *Science*.'
+
+- id: "2026-fall-machine-learning-for-molecules"
+  title: "Machine Learning for Molecules"
+  semester: "Fall 2026"
+  institution: "KAIST"
+  permalink: "/teaching/2026-fall-machine-learning-for-molecules/"
+  description: >-
+    A discussion-based course on machine learning for molecular science.
+    Students watch the uploaded lecture videos before class, then use class time
+    to ask questions, clarify difficult ideas, and discuss the material.
