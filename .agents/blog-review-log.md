@@ -633,3 +633,56 @@ Post-specific observations remain here rather than becoming universal rules.
   reunites the argument. Existing figures remained sufficient. The promoted
   split-semantics rule drove the central revision. Arithmetic/citation audits,
   validation, clean builds, and rendered checks passed.
+
+## 16. Molecular Simulation with Machine-Learned Force Fields
+
+- **Post:** `_posts/2026-08-08-molecular-simulation-machine-learned-force-fields.md`
+- **Topic-matched reference:** The Fokker--Planck anchor derives how one
+  stochastic update induces an ensemble-density evolution and repeatedly checks
+  the limiting algebra. The quantum-chemistry post owns the electronic
+  reference hierarchy and Born--Oppenheimer surface. The revised equivariant-
+  potentials companion owns architectural symmetry, conservative-force
+  construction, and cutoff parameterization; this chapter should own the
+  closed-loop numerical and statistical consequences.
+- **Before:** At 2,307 substantive words, the post correctly distinguishes a
+  potential, integrator, ensemble, trajectory, and observable, and it names the
+  major failure modes. It never executes Velocity Verlet on a solvable surface,
+  tests its stability boundary, or carries a small learned curvature bias into
+  equilibrium weights. Correlated trajectory frames, rollout divergence,
+  cutoff regularity, free-energy estimation, diffusion estimation, and block
+  uncertainty remain qualitative. The validation hierarchy is accurate but
+  does not expose which error source each convergence test can eliminate.
+- **Criteria promoted:** A feedback-driven numerical workflow must separate
+  model/surface, discretization, mixing/transient, and estimator errors, then
+  vary model parameters, step size, and trajectory length on one solvable system
+  so static accuracy, stability, integration convergence, and observable
+  correctness cannot be conflated.
+- **Planned revision:** Preserve all seven H2s and their order. Carry a
+  one-dimensional harmonic system through force, exact frequency, a complete
+  Velocity-Verlet step, update-matrix stability, and time-step comparison; then
+  perturb the learned spring constant to show how a small force bias changes
+  the canonical variance despite stable dynamics. Connect energy/force loss and
+  reference fidelity to the same surface. Quantify trajectory autocorrelation
+  and effective sample size, then show what ensemble disagreement can and cannot
+  detect in active learning. Contrast path divergence with distributional error
+  and separate integrator failure from model failure. Derive cutoff smoothness
+  obligations and retain a nonlocal-physics witness. Carry basin counts through
+  free energy, block uncertainty, and a transport estimate, distinguishing
+  equilibrium from kinetic claims. End with an error-budget/convergence matrix.
+  Reuse the four existing figures unless a genuine missing quantitative
+  relationship warrants another.
+- **After:** Expanded from 2,307 to 4,568 substantive body words while
+  preserving all seven H2s and their order. One harmonic coordinate now carries
+  exact force/frequency, a full Velocity-Verlet step, update-matrix stability,
+  phase error, and step-size diagnosis. Perturbing the learned curvature shows
+  stable integration converging to the wrong frequency and canonical variance,
+  while the associated energy/force losses expose what supervision constrains.
+  Autocorrelation and ensemble examples quantify effective sample size and
+  shared-bias blindness. Path divergence, cutoff differentiability, and a
+  nonlocal-information collision sharpen rollout and locality claims. Basin
+  counts, block errors, and a diffusion estimate separate equilibrium from
+  kinetic evidence. A final matrix assigns reference, surface, discretization,
+  mixing, estimator, and finite-size errors to matched convergence tests. The
+  four existing figures remained sufficient. The promoted feedback error-budget
+  rule shaped the chapter. Arithmetic/citation audits, validation, clean build,
+  and rendered checks passed.
