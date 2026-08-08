@@ -16,11 +16,7 @@ published: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em
-    >Note: This article develops the chemistry and physics storyline behind my
-    Machine Learning for Molecules lectures. It is written as a standalone
-    account; the lecture slides are not required.</em
-  >
+<em>Note: This article develops the chemistry and physics storyline behind my Machine Learning for Molecules lectures. It is written as a standalone account; the lecture slides are not required.</em>
 </p>
 
 Molecular machine learning has an unusual constraint: its inputs are human-made descriptions, but its targets belong to a physical system that does not care how we describe it. Water has the same energy if we rotate the laboratory, rename its atoms, or translate it across the room. A crystal remains the same infinite solid if we choose a different but equivalent unit cell. A drug can have the same bond graph as its mirror image and still interact differently with a protein.
@@ -41,6 +37,26 @@ Each arrow removes detail while preserving the quantities needed at the next sca
 
 A molecule is a set of nuclei and electrons, but most datasets do not store its quantum state. They store a **representation** chosen for a particular prediction problem. The useful question is not which representation is most realistic. It is which distinctions the target depends on.
 
+### A representation is a controlled loss of information
+
+Let $$x$$ denote a physical molecular state and let $$\phi(x)$$ be the representation passed to a model. Any representation groups together all states that produce the same encoded value:
+
+$$
+[x]_{\phi}=\{x' : \phi(x')=\phi(x)\}.
+$$
+
+The set $$[x]_{\phi}$$ is the representation's ambiguity class. A target $$y(x)$$ can be predicted exactly from $$\phi(x)$$ only if it is constant on every such class. If two states satisfy $$\phi(x_1)=\phi(x_2)$$ but $$y(x_1)\neq y(x_2)$$, no larger network or longer training run can repair the missing distinction. The best deterministic predictor must compromise between incompatible labels.
+
+This statement separates representation error from model error. Suppose a dataset contains two conformers with the same molecular graph but energies $$0$$ and $$8$$ kJ/mol. A graph-only model receives the same input for both. Under squared loss with the two conformers weighted equally, its optimal prediction is their conditional mean, $$4$$ kJ/mol, and the irreducible mean squared error is
+
+$$
+\frac{(0-4)^2+(8-4)^2}{2}=16\;\text{(kJ/mol)}^2.
+$$
+
+The calculation does not say graphs are poor representations. It says a graph is insufficient for a conformation-specific energy. The same graph may be entirely adequate for a label that depends only on connectivity.
+
+### Strings, graphs, and coordinates discard different distinctions
+
 A string representation such as SMILES records a traversal of a molecular graph (<span id="cite-weininger1988"></span>[Weininger, 1988](#ref-weininger1988)). For example, ethanol can be written as `CCO`. The same graph admits many valid SMILES strings because graph traversal is not unique. Canonicalization chooses one string by an algorithmic convention; it does not create a physical ordering of the atoms. InChI takes a different route: it constructs standardized layers for connectivity, charge, stereochemistry, isotopes, and related information (<span id="cite-heller2015"></span>[Heller et al., 2015](#ref-heller2015)). Both formats are compact and searchable. Both expose a molecule to a sequence model through a serialization that nature never supplied.
 
 A molecular graph removes most of that serialization. Let $$G=(V,E)$$ denote a graph with atoms $$i\in V$$ and bonds $$(i,j)\in E$$. Node features can store atomic number, formal charge, and aromaticity; edge features can store bond order. A message-passing network then has a natural permutation symmetry: relabeling the atoms should relabel the hidden states but should not change a molecular property. Graphs work well when connectivity carries most of the signal. They are weaker when geometry controls the target.
@@ -52,6 +68,17 @@ The hierarchy in the following figure is a modeling tradeoff, not a ranking. Ric
 {% include figure.liquid loading="eager" path="assets/img/blog/cpml_representation_tradeoff.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Molecular representations retain different amounts of physical structure and impose different modeling burdens. The vertical values are conceptual rather than measured: the intended point is that the representation should preserve the distinctions on which the target depends. Original figure; no external data." %}
 
 Chirality gives a sharp example of lost information. A chiral molecule and its mirror image are called **enantiomers** when no rotation and translation can superimpose them. They have the same ordinary bond graph and nearly all the same bulk scalar properties in an achiral environment. Yet a chiral receptor can distinguish them because reflection changes the handed arrangement of binding groups. Stereochemical annotations such as `@` and `@@` in isomeric SMILES recover this distinction at specified centers. A graph without those annotations does not.
+
+Coordinates do not automatically preserve chirality if the model reduces them to pairwise distances. Consider three displacement vectors from a tetrahedral center, $$\mathbf{a}$$, $$\mathbf{b}$$, and $$\mathbf{c}$$. Their handedness is measured by the signed volume
+
+$$
+\chi=\det[\mathbf{a}\;\mathbf{b}\;\mathbf{c}]
+=\mathbf{a}\cdot(\mathbf{b}\times\mathbf{c}).
+$$
+
+For the simple coordinates $$\mathbf{a}=(1,0,0)$$, $$\mathbf{b}=(0,1,0)$$, and $$\mathbf{c}=(0,0,1)$$, we obtain $$\chi=+1$$. Reflecting through the $$yz$$ plane sends $$\mathbf{a}$$ to $$(-1,0,0)$$ and gives $$\chi=-1$$. Every pairwise distance remains unchanged because an orthogonal reflection preserves norms. A distance-only representation therefore places the two configurations in the same ambiguity class even though a chiral environment can assign them different binding energies.
+
+### Periodic structure adds equivalences of its own
 
 Crystals require one more piece of structure: periodicity. A periodic crystal can be represented by a lattice matrix $$\mathbf{L}\in\mathbb{R}^{3\times 3}$$, fractional coordinates $$\mathbf{s}_i\in[0,1)^3$$, and atomic numbers $$z_i$$. The corresponding infinite set of nuclear positions is
 
@@ -82,6 +109,42 @@ f(g\cdot x)=g\cdot f(x).
 $$
 
 Forces are equivariant to rotations: rotate every coordinate and every predicted force should rotate by the same matrix. This distinction is the organizing principle behind geometric deep learning (<span id="cite-bronstein2021"></span>[Bronstein et al., 2021](#ref-bronstein2021)).
+
+### An invariant energy forces an equivariant gradient
+
+The energy-to-force relation turns a symmetry statement into a testable differential constraint. Let $$\mathbf{Q}\in SO(3)$$ be a rotation and apply it to every atomic coordinate. Rotational invariance requires
+
+$$
+E(\mathbf{Q}\mathbf{R})=E(\mathbf{R}),
+$$
+
+where $$\mathbf{Q}\mathbf{R}$$ denotes the coordinate list $$(\mathbf{Q}\mathbf{r}_1,\ldots,\mathbf{Q}\mathbf{r}_N)$$. Differentiate both sides with respect to $$\mathbf{r}_i$$. The chain rule introduces $$\mathbf{Q}^{\top}$$:
+
+$$
+\mathbf{Q}^{\top}\nabla_{\mathbf{Q}\mathbf{r}_i}E(\mathbf{Q}\mathbf{R})
+=\nabla_{\mathbf{r}_i}E(\mathbf{R}).
+$$
+
+Multiplying by $$\mathbf{Q}$$ and using $$\mathbf{F}_i=-\nabla_{\mathbf{r}_i}E$$ gives
+
+$$
+\mathbf{F}_i(\mathbf{Q}\mathbf{R})
+=\mathbf{Q}\mathbf{F}_i(\mathbf{R}).
+$$
+
+Force equivariance is therefore not an additional preference when forces come from an invariant energy. It follows from the chain rule. A ninety-degree rotation around the $$z$$ axis maps a force $$(2,0,0)$$ to $$(0,2,0)$$; an architecture that instead returns $$(2,0,0)$$ in both orientations violates the derivative of its own supposed energy law.
+
+Translation invariance yields another exact check. Translate all atoms by the same vector $$\mathbf{t}$$ and differentiate $$E(\mathbf{r}_1+\mathbf{t},\ldots,\mathbf{r}_N+\mathbf{t})=E(\mathbf{R})$$ at $$\mathbf{t}=\mathbf{0}$$:
+
+$$
+\sum_{i=1}^{N}\nabla_{\mathbf{r}_i}E(\mathbf{R})=\mathbf{0},
+\qquad
+\sum_{i=1}^{N}\mathbf{F}_i(\mathbf{R})=\mathbf{0}.
+$$
+
+An isolated molecule cannot acquire a net internal force. Rotation invariance similarly implies zero net internal torque, $$\sum_i \mathbf{r}_i\times\mathbf{F}_i=\mathbf{0}$$, when coordinates are measured from a common origin. These identities are useful numerical diagnostics for learned potentials, not merely aesthetic properties.
+
+### Output type determines the constraint
 
 The transformation law depends on the object being predicted. A molecular energy belongs to the trivial representation: every rotation acts as the number $$1$$. A dipole moment belongs to the ordinary three-dimensional vector representation. A polarizability is a rank-two tensor and transforms as $$\boldsymbol{\alpha}\mapsto\mathbf{Q}\boldsymbol{\alpha}\mathbf{Q}^{\top}$$ under a rotation matrix $$\mathbf{Q}$$. Calling all three outputs "rotation-aware" hides the essential difference. The network must know not only that a symmetry exists, but also how each feature type transforms under it. The [spherical equivariant layers article]({% post_url 2026-02-02-spherical-equivariant-layers %}) develops this representation-theoretic construction in detail.
 
@@ -115,7 +178,38 @@ $$
 
 Here $$\mathbf{r}_i$$ and $$\mathbf{R}_A$$ denote electron and nuclear positions, while $$Z_A$$ is a nuclear charge. The four terms are electron kinetic energy, electron--nucleus attraction, electron--electron repulsion, and nucleus--nucleus repulsion. Electron--electron repulsion couples all electron coordinates, which prevents the equation from separating into independent one-electron problems.
 
-The fixed nuclei in this Hamiltonian reflect the **Born--Oppenheimer approximation** (<span id="cite-born1927"></span>[Born & Oppenheimer, 1927](#ref-born1927)). Nuclei move much more slowly than electrons because nuclei are much heavier. We therefore solve the electronic problem at each nuclear geometry $$\mathbf{R}$$ and define the ground-state electronic energy
+The fixed nuclei in this Hamiltonian reflect the **Born--Oppenheimer approximation** (<span id="cite-born1927"></span>[Born & Oppenheimer, 1927](#ref-born1927)). Nuclei move much more slowly than electrons because nuclei are much heavier. The approximation turns that qualitative statement into a separation between electronic and nuclear motion.
+
+### Why mass produces a timescale separation
+
+The mass argument can be made quantitative with the harmonic oscillator. For a coordinate with effective stiffness $$k$$ and mass $$m$$, the angular frequency is
+
+$$
+\omega=\sqrt{\frac{k}{m}}.
+$$
+
+If an electronic and a nuclear coordinate experienced comparable curvature, their frequency ratio would scale as $$\omega_e/\omega_n\sim\sqrt{M/m_e}$$. For a proton, $$M/m_e\approx1836$$, so the ratio is about $$43$$. The electronic coordinate responds through dozens of oscillations during one comparable nuclear period. Carbon nuclei increase the ratio by another factor of $$\sqrt{12}$$. This is a scale estimate rather than a proof: electronic and nuclear curvatures are not generally equal, but the square-root mass dependence explains why an adiabatic separation is often plausible.
+
+To see where the approximation enters, expand the full molecular wavefunction in electronic eigenstates that depend parametrically on nuclear geometry:
+
+$$
+\Psi_{\mathrm{mol}}(\mathbf{r},\mathbf{R})
+=\sum_n \chi_n(\mathbf{R})\,\psi_n(\mathbf{r};\mathbf{R}).
+$$
+
+Here $$\mathbf{r}$$ collects electronic coordinates, $$\psi_n$$ is the $$n$$th electronic state at fixed nuclei, and $$\chi_n$$ is its nuclear amplitude. Applying the nuclear kinetic operator differentiates both factors. The product rule produces terms containing the derivative coupling
+
+$$
+\mathbf{d}_{mn,A}(\mathbf{R})
+=\left\langle\psi_m(\mathbf{R})
+\middle|
+\nabla_{\mathbf{R}_A}\psi_n(\mathbf{R})
+\right\rangle.
+$$
+
+The Born--Oppenheimer approximation neglects couplings between different electronic surfaces and keeps one term, usually the ground state. This is the non-obvious step: fixed nuclei are not an exact property of the Hamiltonian but the result of dropping nuclear-derivative couplings. Those couplings become large when electronic energy gaps shrink, which is why conical intersections, photochemistry, and charge-transfer events can require nonadiabatic dynamics.
+
+With one electronic surface retained, the nuclear state evolves under the scalar energy below.
 
 $$
 E_0(\mathbf{R})
@@ -145,6 +239,48 @@ $$
 The one-dimensional bond curve below shows this connection. Near equilibrium, a stretched bond has a restoring force because the energy increases with distance. At large separation, the energy approaches the dissociation limit and the force vanishes.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/cpml_energy_force.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A toy diatomic potential connects electronic energy to nuclear force. The tangent gives \(dE/dr\), so the force \(F=-dE/dr\) points downhill toward equilibrium; the curve flattens as the bond dissociates. Original Morse-type curve with dimensionless parameters; no external data." %}
+
+### A worked bond curve: energy, force, and curvature
+
+The Morse potential makes all three derivative levels visible without solving an electronic problem:
+
+$$
+U(r)=D_e\left(1-e^{-a(r-r_e)}\right)^2-D_e.
+$$
+
+The parameters are the dissociation energy $$D_e>0$$, equilibrium distance $$r_e$$, and inverse length scale $$a>0$$. The subtraction makes the separated-atom limit zero. Differentiating once gives
+
+$$
+\frac{dU}{dr}
+=2D_ea\left(1-e^{-a(r-r_e)}\right)e^{-a(r-r_e)},
+$$
+
+and the radial force is
+
+$$
+F(r)=-2D_ea\left(1-e^{-a(r-r_e)}\right)e^{-a(r-r_e)}.
+$$
+
+The signs pass three limiting checks. At $$r=r_e$$, the parenthesis vanishes and $$F=0$$. If $$r>r_e$$, both factors in parentheses are positive, so $$F<0$$ pulls the atoms together. As $$r\to\infty$$, the exponential vanishes and so does the force. Compression gives $$r<r_e$$, hence $$1-e^{-a(r-r_e)}<0$$ and $$F>0$$, pushing the atoms apart.
+
+Take $$D_e=400$$ kJ/mol, $$a=2$$ Å$$^{-1}$$, and stretch the bond by $$0.10$$ Å. Then $$e^{-a(r-r_e)}=e^{-0.2}\approx0.819$$, so
+
+$$
+F\approx
+-2(400)(2)(1-0.819)(0.819)
+\approx-237\;\text{kJ mol}^{-1}\text{Å}^{-1}.
+$$
+
+The number is a restoring force, not an energy difference. Near equilibrium, set $$q=r-r_e$$ and use $$e^{-aq}\approx1-aq$$. Substitution gives
+
+$$
+U(r)\approx-D_e+D_ea^2q^2
+=-D_e+\frac{1}{2}kq^2,
+\qquad
+k=2D_ea^2.
+$$
+
+For the numerical parameters, $$k=3200$$ kJ mol$$^{-1}$$ Å$$^{-2}$$. The local vibrational frequency is $$\omega=\sqrt{k/\mu}$$ for reduced mass $$\mu$$. The potential's asymmetric dissociation tail disappears in this quadratic approximation, so a Hessian describes small vibrations but not bond breaking.
 
 This gradient relation imposes a useful consistency condition on machine-learned force fields. A model that predicts a scalar energy and differentiates it produces a conservative force field by construction. A model that predicts forces directly can fit local vectors accurately while violating energy conservation unless the architecture or loss controls the curl. The right choice depends on whether long trajectories, energy conservation, or only local relaxation matters.
 
@@ -248,6 +384,36 @@ $$
 
 At room temperature, $$k_{B}T$$ is about $$2.5$$ kJ/mol. A state only $$5$$ kJ/mol higher in potential energy therefore receives roughly $$e^{-2}\approx0.14$$ times the probability density of the lower state, before accounting for how much configuration-space volume surrounds either state.
 
+### From microscopic energies to basin populations
+
+The probability of a macrostate is a sum over its microstates, so multiplicity competes directly with energy. Consider a discrete toy system in which basin $$A$$ contains one microstate of energy $$0$$ and basin $$B$$ contains $$100$$ microstates, each with energy $$5$$ kJ/mol. At $$300$$ K, using $$RT\approx2.49$$ kJ/mol for molar energies, their partition-function contributions are
+
+$$
+Z_A=1,
+\qquad
+Z_B=100\exp\!\left(-\frac{5}{2.49}\right)
+\approx13.4.
+$$
+
+Basin $$B$$ is higher in potential energy at every one of its microstates, yet its equilibrium population is
+
+$$
+P(B)=\frac{Z_B}{Z_A+Z_B}
+\approx\frac{13.4}{14.4}
+\approx0.93.
+$$
+
+Its larger volume wins. The same result can be written as a free-energy difference. The hundredfold multiplicity contributes an entropy difference $$\Delta S=R\log100$$, so
+
+$$
+\Delta G_{A\to B}
+=5\;\text{kJ/mol}-RT\log100
+\approx5-11.5
+=-6.5\;\text{kJ/mol}.
+$$
+
+Substituting into $$P(B)/P(A)=e^{-\Delta G/(RT)}$$ gives $$e^{6.5/2.49}\approx13.6$$, consistent with direct counting up to rounding. If the temperature approached zero, the entropy term $$T\Delta S$$ would vanish and the lower-energy basin would dominate. This limiting check separates energetic preference from finite-temperature population.
+
 The last clause is where entropy enters. A broad basin can outweigh a narrow, deeper minimum because many microstates contribute to it. The figure below holds the energy landscape fixed while changing temperature. The low-temperature distribution concentrates near the deeper minimum. At higher temperature, the distribution spreads and the shallower basin gains population.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/cpml_boltzmann_landscape.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The same two-basin potential produces different equilibrium populations at different temperatures. Lower temperature concentrates probability near the deeper minimum, while higher temperature broadens both basins and increases access to higher-energy configurations. Original dimensionless toy model; no external data." %}
@@ -273,6 +439,17 @@ $$
 $$
 
 This equation explains why free-energy prediction is harder than evaluating the energy of two optimized structures. Each probability integrates over an entire basin of solvent arrangements, conformations, protonation states, and other degrees of freedom. Endpoint energies alone omit that volume.
+
+The conversion is also useful in reverse. A measured population ratio of $$P(B):P(A)=9:1$$ at $$300$$ K implies
+
+$$
+\Delta G_{A\to B}
+=-RT\log9
+\approx-(2.49)(2.20)
+\approx-5.5\;\text{kJ/mol}.
+$$
+
+A probability close to one does not require a large molar free-energy gap. Thermal energy is only a few kJ/mol, so errors that appear small beside a covalent bond energy can substantially distort conformer or binding populations.
 
 The same integration defines a free-energy surface along a reduced coordinate. Let $$\xi(\mathbf{R})$$ be a reaction coordinate such as a bond distance, torsion angle, or protein folding descriptor. Its equilibrium density is
 
@@ -352,6 +529,36 @@ e^{-\Delta G^{\ddagger}/(k_{B}T)},
 $$
 
 where $$h$$ is Planck's constant (<span id="cite-eyring1935"></span>[Eyring, 1935](#ref-eyring1935)). The exponential makes a small barrier error a large rate error. At $$300$$ K, lowering a barrier by about $$5.7$$ kJ/mol changes this exponential factor by roughly tenfold.
+
+### Barrier errors become clock errors
+
+The prefactor at $$300$$ K is approximately
+
+$$
+\frac{k_{B}T}{h}\approx6.25\times10^{12}\;\text{s}^{-1}.
+$$
+
+For an activation free energy of $$75$$ kJ/mol, transition-state theory predicts
+
+$$
+k
+\approx
+(6.25\times10^{12})
+\exp\!\left(-\frac{75}{2.49}\right)
+\approx0.52\;\text{s}^{-1}.
+$$
+
+Now suppose a learned potential overestimates only the transition region by $$4$$ kJ/mol while fitting both minima exactly. The new rate is related to the old one without recomputing the prefactor:
+
+$$
+\frac{k_{\mathrm{pred}}}{k_{\mathrm{true}}}
+=\exp\!\left(-\frac{4}{2.49}\right)
+\approx0.20.
+$$
+
+The predicted process is about five times too slow. An error of $$5.7$$ kJ/mol gives a factor near $$0.10$$, and an error of $$11.4$$ kJ/mol gives a factor near $$0.01$$. These are transition-region errors: a benchmark dominated by low-energy equilibrium structures may barely measure them.
+
+Transition-state theory also has a boundary. It assumes near-equilibrium populations within the reactant basin, a dividing surface near the bottleneck, and negligible repeated recrossing. Strong dynamical recrossing, tunneling, solvent memory, or a poor reaction coordinate changes the prefactor or invalidates the reduction to one barrier. The exponential sensitivity remains a useful warning, but the formula is an approximation to dynamics, not its definition.
 
 Two pathways can therefore have identical reactant and product free energies yet proceed at vastly different rates, as shown below. A catalyst changes the pathway and lowers the barrier; it does not need to change the equilibrium free-energy difference.
 
