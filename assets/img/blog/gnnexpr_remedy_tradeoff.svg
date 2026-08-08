@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="594.72pt" height="250.02pt" viewBox="0 0 594.72 250.02" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-08-08T18:26:58.273848</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 250.02 
+L 594.72 250.02 
+L 594.72 0 
+L 0 0 
+L 0 250.02 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 20.592 179.427 
+L 141.678 179.427 
+Q 150.606 179.427 150.606 170.451 
+L 150.606 71.154 
+Q 150.606 62.178 141.678 62.178 
+L 20.592 62.178 
+Q 11.664 62.178 11.664 71.154 
+L 11.664 170.451 
+Q 11.664 179.427 20.592 179.427 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #f2edff; stroke: #7a53ec; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 41.796 109.863 
+C 45.495583 109.863 49.044139 108.385238 51.66014 105.755173 
+C 54.27614 103.125108 55.746 99.557473 55.746 95.838 
+C 55.746 92.118527 54.27614 88.550892 51.66014 85.920827 
+C 49.044139 83.290762 45.495583 81.813 41.796 81.813 
+C 38.096417 81.813 34.547861 83.290762 31.93186 85.920827 
+C 29.31586 88.550892 27.846 92.118527 27.846 95.838 
+C 27.846 99.557473 29.31586 103.125108 31.93186 105.755173 
+C 34.547861 108.385238 38.096417 109.863 41.796 109.863 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #ffffff; stroke: #7a53ec; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 162.882 179.427 
+L 283.968 179.427 
+Q 292.896 179.427 292.896 170.451 
+L 292.896 71.154 
+Q 292.896 62.178 283.968 62.178 
+L 162.882 62.178 
+Q 153.954 62.178 153.954 71.154 
+L 153.954 170.451 
+Q 153.954 179.427 162.882 179.427 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #fff4dc; stroke: #b7791f; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 184.086 109.863 
+C 187.785583 109.863 191.334139 108.385238 193.95014 105.755173 
+C 196.56614 103.125108 198.036 99.557473 198.036 95.838 
+C 198.036 92.118527 196.56614 88.550892 193.95014 85.920827 
+C 191.334139 83.290762 187.785583 81.813 184.086 81.813 
+C 180.386417 81.813 176.837861 83.290762 174.22186 85.920827 
+C 171.60586 88.550892 170.136 92.118527 170.136 95.838 
+C 170.136 99.557473 171.60586 103.125108 174.22186 105.755173 
+C 176.837861 108.385238 180.386417 109.863 184.086 109.863 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #ffffff; stroke: #b7791f; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 305.172 179.427 
+L 426.258 179.427 
+Q 435.186 179.427 435.186 170.451 
+L 435.186 71.154 
+Q 435.186 62.178 426.258 62.178 
+L 305.172 62.178 
+Q 296.244 62.178 296.244 71.154 
+L 296.244 170.451 
+Q 296.244 179.427 305.172 179.427 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #eef0ff; stroke: #5f6ed8; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 326.376 109.863 
+C 330.075583 109.863 333.624139 108.385238 336.24014 105.755173 
+C 338.85614 103.125108 340.326 99.557473 340.326 95.838 
+C 340.326 92.118527 338.85614 88.550892 336.24014 85.920827 
+C 333.624139 83.290762 330.075583 81.813 326.376 81.813 
+C 322.676417 81.813 319.127861 83.290762 316.51186 85.920827 
+C 313.89586 88.550892 312.426 92.118527 312.426 95.838 
+C 312.426 99.557473 313.89586 103.125108 316.51186 105.755173 
+C 319.127861 108.385238 322.676417 109.863 326.376 109.863 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #ffffff; stroke: #5f6ed8; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 447.462 179.427 
+L 568.548 179.427 
+Q 577.476 179.427 577.476 170.451 
+L 577.476 71.154 
+Q 577.476 62.178 568.548 62.178 
+L 447.462 62.178 
+Q 438.534 62.178 438.534 71.154 
+L 438.534 170.451 
+Q 438.534 179.427 447.462 179.427 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #e4f4f2; stroke: #16877f; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 468.666 109.863 
+C 472.365583 109.863 475.914139 108.385238 478.53014 105.755173 
+C 481.14614 103.125108 482.616 99.557473 482.616 95.838 
+C 482.616 92.118527 481.14614 88.550892 478.53014 85.920827 
+C 475.914139 83.290762 472.365583 81.813 468.666 81.813 
+C 464.966417 81.813 461.417861 83.290762 458.80186 85.920827 
+C 456.18586 88.550892 454.716 92.118527 454.716 95.838 
+C 454.716 99.557473 456.18586 103.125108 458.80186 105.755173 
+C 461.417861 108.385238 464.966417 109.863 468.666 109.863 
+z
+" clip-path="url(#pe4edaa0e73)" style="fill: #ffffff; stroke: #16877f; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 37.89 209.16 
+L 554.04 209.16 
+" clip-path="url(#pe4edaa0e73)" style="fill: none; stroke: #c8bbd8; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 600; font-size: 12.5px; font-family: 'Arial'; text-anchor: start; fill: #231533" x="18.36" y="26.397609" transform="rotate(-0 18.36 26.397609)">Every remedy gives the model a larger unit of comparison</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9.8px; font-family: 'Arial'; text-anchor: start; fill: #665a75" x="18.36" y="43.506094" transform="rotate(-0 18.36 43.506094)">The extra information is useful only when it matches the task.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; text-anchor: middle; fill: #7a53ec" x="41.796" y="98.948625" transform="rotate(-0 41.796 98.948625)">k-WL</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 600; font-size: 10.5px; font-family: 'Arial'; text-anchor: start; fill: #231533" x="32.31" y="119.4" transform="rotate(-0 32.31 119.4)">Node tuples</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(32.31 144.844453)">track relations</text>
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(32.31 154.894917)">among k nodes</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; text-anchor: middle; fill: #b7791f" x="184.086" y="98.948625" transform="rotate(-0 184.086 98.948625)">3</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 600; font-size: 10.5px; font-family: 'Arial'; text-anchor: start; fill: #231533" x="174.6" y="119.4" transform="rotate(-0 174.6 119.4)">Motif counts</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(174.6 144.844453)">attach cycles</text>
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(174.6 154.999214)">or patterns</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; text-anchor: middle; fill: #5f6ed8" x="326.376" y="98.948625" transform="rotate(-0 326.376 98.948625)">S</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 600; font-size: 10.5px; font-family: 'Arial'; text-anchor: start; fill: #231533" x="316.89" y="119.4" transform="rotate(-0 316.89 119.4)">Subgraph views</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(316.89 144.844453)">run a model on</text>
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(316.89 154.894917)">perturbed graphs</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; text-anchor: middle; fill: #16877f" x="468.666" y="98.869875" transform="rotate(-0 468.666 98.869875)">eig</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 600; font-size: 10.5px; font-family: 'Arial'; text-anchor: start; fill: #231533" x="459.18" y="119.4" transform="rotate(-0 459.18 119.4)">Positions</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(459.18 144.844453)">add spectral or</text>
+    <text style="font-size: 8.9px; font-family: 'Arial'; fill: #665a75" transform="translate(459.18 154.894917)">distance coordinates</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 9.4px; font-family: 'Arial'; text-anchor: middle; fill: #665a75" x="297.36" y="230.10525" transform="rotate(-0 297.36 230.10525)">Different costs: tuple states · motif matching · repeated views · coordinate construction</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe4edaa0e73">
+   <rect x="7.2" y="7.2" width="580.32" height="235.62"/>
+  </clipPath>
+ </defs>
+</svg>
