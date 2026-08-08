@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="500" y="42" text-anchor="middle" class="title">Generation strategy chooses where consistency is enforced</text>
+      <rect x="35" y="86" width="440" height="380" rx="20" fill="#F6F2FA" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="255" y="126" text-anchor="middle" class="label">autoregressive construction</text>
+      <text x="255" y="158" text-anchor="middle" class="small">choose one action given the partial molecule</text>
+      <circle cx="90" cy="205" r="20" fill="#231533" stroke="white" stroke-width="3"/><text x="90" y="211" text-anchor="middle" fill="white" font-size="17" font-weight="700">C</text><line x1="114" y1="205" x2="136" y2="205" stroke="#665A75" stroke-width="5" stroke-linecap="round"/><circle cx="160" cy="205" r="20" fill="#231533" stroke="white" stroke-width="3"/><text x="160" y="211" text-anchor="middle" fill="white" font-size="17" font-weight="700">C</text><line x1="184" y1="205" x2="206" y2="205" stroke="#665A75" stroke-width="5" stroke-linecap="round"/><circle cx="230" cy="205" r="20" fill="#C7506B" stroke="white" stroke-width="3"/><text x="230" y="211" text-anchor="middle" fill="white" font-size="17" font-weight="700">O</text>
+      <path d="M 265 205 L 325 205" class="arrow"/>
+      <rect x="337" y="173" width="105" height="64" rx="16" fill="#FFF4DC" stroke="#B7791F" stroke-width="2"/>
+      <text x="389" y="199" text-anchor="middle" class="body">STOP</text>
+      <text x="389" y="221" text-anchor="middle" class="small">or extend</text>
+      <text x="255" y="285" text-anchor="middle" class="body">p(G, pi) = product of action probabilities</text>
+      <rect x="75" y="318" width="360" height="112" rx="16" fill="white"/>
+      <text x="255" y="348" text-anchor="middle" class="body">strength: constrain each intermediate step</text>
+      <text x="255" y="378" text-anchor="middle" class="body">cost: serial decoding and exposure bias</text>
+      <text x="255" y="408" text-anchor="middle" class="small">the same graph admits many action orders pi</text>
+
+      <rect x="525" y="86" width="440" height="380" rx="20" fill="#E4F4F2" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="745" y="126" text-anchor="middle" class="label">one-shot or discrete denoising</text>
+      <text x="745" y="158" text-anchor="middle" class="small">update many categorical node and edge variables together</text>
+      <line x1="620" y1="230" x2="700" y2="190" stroke="#665A75" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 6"/><line x1="620" y1="230" x2="700" y2="275" stroke="#665A75" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 6"/><line x1="700" y1="190" x2="795" y2="240" stroke="#665A75" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 6"/><line x1="700" y1="275" x2="795" y2="240" stroke="#665A75" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 6"/>
+      <circle cx="620" cy="230" r="19" fill="#665A75" stroke="white" stroke-width="3"/><text x="620" y="236" text-anchor="middle" fill="white" font-size="17" font-weight="700">?</text><circle cx="700" cy="190" r="19" fill="#665A75" stroke="white" stroke-width="3"/><text x="700" y="196" text-anchor="middle" fill="white" font-size="17" font-weight="700">?</text><circle cx="700" cy="275" r="19" fill="#665A75" stroke="white" stroke-width="3"/><text x="700" y="281" text-anchor="middle" fill="white" font-size="17" font-weight="700">?</text><circle cx="795" cy="240" r="19" fill="#665A75" stroke="white" stroke-width="3"/><text x="795" y="246" text-anchor="middle" fill="white" font-size="17" font-weight="700">?</text>
+      <path d="M 806 240 L 835 240" class="arrow"/>
+      <line x1="820" y1="190" x2="890" y2="240" stroke="#665A75" stroke-width="5" stroke-linecap="round"/><line x1="820" y1="290" x2="890" y2="240" stroke="#665A75" stroke-width="5" stroke-linecap="round"/><circle cx="820" cy="190" r="19" fill="#231533" stroke="white" stroke-width="3"/><text x="820" y="196" text-anchor="middle" fill="white" font-size="17" font-weight="700">C</text><circle cx="820" cy="290" r="19" fill="#231533" stroke="white" stroke-width="3"/><text x="820" y="296" text-anchor="middle" fill="white" font-size="17" font-weight="700">C</text><circle cx="890" cy="240" r="19" fill="#C7506B" stroke="white" stroke-width="3"/><text x="890" y="246" text-anchor="middle" fill="white" font-size="17" font-weight="700">O</text>
+      <text x="745" y="320" text-anchor="middle" class="body">permutation-equivariant parallel prediction</text>
+      <rect x="565" y="342" width="360" height="96" rx="16" fill="white"/>
+      <text x="745" y="369" text-anchor="middle" class="body">strength: no canonical construction order</text>
+      <text x="745" y="396" text-anchor="middle" class="body">cost: global consistency emerges jointly</text>
+      <text x="745" y="422" text-anchor="middle" class="small">size, valence, and connectivity can disagree</text>
+
+      <rect x="167" y="495" width="666" height="42" rx="13" fill="#EEF0FF"/>
+      <text x="500" y="522" text-anchor="middle" class="body">Motif grammars move the boundary: fewer steps, stronger priors, less access to unseen motifs.</text>
+    
+</svg>
