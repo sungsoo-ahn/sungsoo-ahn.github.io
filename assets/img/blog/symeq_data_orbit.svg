@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 600; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="480" y="42" text-anchor="middle" class="title">One object, many coordinate descriptions</text>
+      <line x1="130" y1="255" x2="185" y2="195" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><line x1="185" y1="195" x2="245" y2="245" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><circle cx="130" cy="255" r="17" fill="#7A53EC" stroke="white" stroke-width="3"/><text x="130" y="260" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">A</text><circle cx="185" cy="195" r="17" fill="#5F6ED8" stroke="white" stroke-width="3"/><text x="185" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">B</text><circle cx="245" cy="245" r="17" fill="#16877F" stroke="white" stroke-width="3"/><text x="245" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">C</text>
+      <line x1="420" y1="260" x2="360" y2="205" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><line x1="360" y1="205" x2="405" y2="145" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><circle cx="420" cy="260" r="17" fill="#7A53EC" stroke="white" stroke-width="3"/><text x="420" y="265" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">A</text><circle cx="360" cy="205" r="17" fill="#5F6ED8" stroke="white" stroke-width="3"/><text x="360" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">B</text><circle cx="405" cy="145" r="17" fill="#16877F" stroke="white" stroke-width="3"/><text x="405" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">C</text>
+      <line x1="665" y1="245" x2="725" y2="190" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><line x1="725" y1="190" x2="785" y2="250" stroke="#C8BBD8" stroke-width="7" stroke-linecap="round"/><circle cx="665" cy="245" r="17" fill="#7A53EC" stroke="white" stroke-width="3"/><text x="665" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">C</text><circle cx="725" cy="190" r="17" fill="#5F6ED8" stroke="white" stroke-width="3"/><text x="725" y="195" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">B</text><circle cx="785" cy="250" r="17" fill="#16877F" stroke="white" stroke-width="3"/><text x="785" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="white" style="fill:white">A</text>
+      <path d="M 270 220 C 315 175, 335 175, 355 195" class="arrow"/>
+      <text x="312" y="160" text-anchor="middle" class="small">rotate + translate</text>
+      <path d="M 455 175 C 520 125, 590 150, 650 210" class="arrow"/>
+      <text x="548" y="125" text-anchor="middle" class="small">relabel vertices</text>
+      <rect x="90" y="330" width="700" height="72" rx="18" fill="#F6F2FA" stroke="#7A53EC" stroke-width="2"/>
+      <text x="440" y="359" text-anchor="middle" class="label">same orbit under the symmetry group</text>
+      <text x="440" y="384" text-anchor="middle" class="body">an invariant target assigns the same value to every configuration above</text>
+      <path d="M 190 286 L 190 326" class="arrow"/><path d="M 395 286 L 395 326" class="arrow"/><path d="M 725 286 L 725 326" class="arrow"/>
+    
+</svg>
