@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img"><defs>
+<marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#665A75"/></marker>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:2.5;marker-end:url(#arr)}</style></defs><rect width="100%" height="100%" fill="white"/>
+<text x="500" y="40" text-anchor="middle" class="title">A tangent vector field transports probability without leaving the manifold</text>
+<rect x="45" y="80" width="910" height="395" rx="20" fill="#E4F4F2" stroke="#C8BBD8" stroke-width="2"/>
+<path d="M105 340C260 145 700 155 895 330" fill="none" stroke="#16877F" stroke-width="5"/><path d="M105 340C290 430 690 440 895 330" fill="none" stroke="#16877F" stroke-width="3" opacity=".45"/>
+<g fill="#7A53EC" opacity=".75"><circle cx="205" cy="292" r="34"/><circle cx="250" cy="250" r="26"/><circle cx="288" cy="292" r="21"/></g><g fill="#5F6ED8" opacity=".75"><circle cx="690" cy="250" r="28"/><circle cx="735" cy="285" r="36"/><circle cx="785" cy="264" r="22"/></g>
+<path d="M330 265C410 215 505 215 580 250" class="arrow"/><path d="M405 348C490 313 570 320 635 348" class="arrow"/><path d="M585 202L635 215" class="arrow"/>
+<text x="245" y="372" text-anchor="middle" class="body">density p(t)</text><text x="735" y="372" text-anchor="middle" class="body">transported density p(t + dt)</text>
+<rect x="255" y="405" width="490" height="44" rx="14" fill="white" stroke="#16877F" stroke-width="2"/><text x="500" y="433" text-anchor="middle" class="body">d p / d t + div_M(p u) = 0</text>
+<rect x="140" y="498" width="720" height="38" rx="13" fill="#FFF4DC"/><text x="500" y="523" text-anchor="middle" class="body">div_M measures local expansion using the Riemannian volume form</text></svg>
