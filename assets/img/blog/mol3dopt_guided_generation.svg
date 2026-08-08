@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker><marker id="parrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:24px;font-weight:700}.label{font-size:19px;font-weight:600}.body{font-size:17px}.small{font-size:15px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:3;stroke-linecap:round;marker-end:url(#arrow)}.parrow{fill:none;stroke:#7A53EC;stroke-width:4;stroke-linecap:round;marker-end:url(#parrow)}</style></defs><rect width="100%" height="100%" fill="white"/><text x="55" y="48" class="title" text-anchor="start">Guidance bends a learned molecular prior toward a condition</text>
+<rect x="45" y="90" width="1110" height="370" rx="30" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+<circle cx="150" cy="270" r="65" fill="white" stroke="#B9AEC7" stroke-width="4"/>
+<text x="150" y="365" class="label" text-anchor="middle">noise</text>
+<circle cx="470" cy="270" r="65" fill="white" stroke="#5F6ED8" stroke-width="4"/>
+<text x="470" y="365" class="label" text-anchor="middle">plausible</text>
+<circle cx="800" cy="270" r="65" fill="white" stroke="#3C8F63" stroke-width="4"/>
+<text x="800" y="365" class="label" text-anchor="middle">conditioned</text>
+<circle cx="1060" cy="270" r="65" fill="white" stroke="#B7791F" stroke-width="4"/>
+<text x="1060" y="365" class="label" text-anchor="middle">candidate</text>
+<path d="M220,270 C280,220 335,220 395,260" class="arrow"/>
+<path d="M540,260 C610,220 670,225 725,265" class="parrow"/>
+<path d="M870,270 L985,270" class="arrow"/>
+<circle cx="125" cy="250" r="13" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="165" cy="290" r="13" fill="#C7506B" stroke="white" stroke-width="4"/>
+<circle cx="485" cy="240" r="13" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="445" cy="290" r="13" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="785" cy="245" r="13" fill="#3C8F63" stroke="white" stroke-width="4"/>
+<circle cx="825" cy="295" r="13" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="1040" cy="240" r="13" fill="#B7791F" stroke="white" stroke-width="4"/>
+<circle cx="1080" cy="290" r="13" fill="#3C8F63" stroke="white" stroke-width="4"/>
+<text x="625" y="190" class="label" text-anchor="middle">property / pocket / scaffold</text>
+<path d="M625,205 L650,240" class="parrow"/>
+<text x="600" y="505" class="body" text-anchor="middle">Stronger guidance improves the surrogate condition but can reduce diversity and leave the training distribution.</text></svg>
