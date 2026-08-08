@@ -107,6 +107,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   survives or changes when the omitted term, competing reference, boundary
   condition, or measurement protocol is restored; a list of possible
   corrections is less informative than a demonstrated change of conclusion.
+- For an impossibility, identifiability, or expressivity ceiling, make the
+  quantifiers explicit: say what holds for every parameter choice, depth, or
+  observation in the stated input family. Give a concrete witness pair or
+  counterexample, distinguish an architectural collision from failed training,
+  and identify exactly which theorem assumption each proposed remedy changes.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
