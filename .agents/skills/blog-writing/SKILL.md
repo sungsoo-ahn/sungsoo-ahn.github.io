@@ -148,6 +148,11 @@ from one comparison can improve the criteria used for the next.
   data coverage, numerical choices, or physical approximations. Carry one case
   across the boundary; do not let an architectural symmetry claim silently turn
   into a claim of simulation, experimental, or decision validity.
+- When a model predicts an intermediate object consumed by a solver, propagate
+  a controlled prediction perturbation through the downstream derivative,
+  diagonalization, fixed point, or estimator. Quantify conditioning and compare
+  the final observable or convergence behavior. Small entrywise or pointwise
+  error does not establish correctness after an ill-conditioned computation.
 - When model outputs are fed back through an iterative numerical process,
   separate model or surface error, discretization error, transient or mixing
   error, and estimator variance. Carry one solvable system through changes in
