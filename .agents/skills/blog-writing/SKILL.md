@@ -101,6 +101,12 @@ from one comparison can improve the criteria used for the next.
 - Whenever a model score changes a scientific workflow, identify the decision,
   the population being filtered, and the denominator behind the reported
   success rate. A benchmark metric alone does not complete the argument.
+- When constraints are imposed by action masks, projection, repair, rejection,
+  canonicalization, or downstream filters, distinguish the raw model
+  distribution, the transformed or accepted distribution, and the physical
+  target distribution. Work a finite sample through the transformation and
+  report every denominator, collision, and unreachable mode. Postprocessing is
+  part of the generative method, not a metric-neutral cleanup step.
 - When a tutorial compares dataset splits or generalization claims, define the
   independent unit, the equivalence relation that makes records dependent or
   near-duplicate, and the deployment population before naming a split. Carry
