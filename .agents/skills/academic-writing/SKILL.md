@@ -117,6 +117,13 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   composition preserves the property, name at least one safe nonlinear or
   aggregation operation, and contrast it with an apparently natural operation
   that breaks the constraint. A definition alone does not explain how to build.
+- When extending a familiar method to a constrained or non-Euclidean domain,
+  audit every primitive the original method uses: differences, updates, inner
+  products, densities, derivatives, interpolation, and numerical steps. Give
+  each object its domain and base point, replace the primitive with a valid
+  intrinsic or explicitly qualified extrinsic operation, and carry one example
+  through the full replacement chain. Changing one headline formula does not
+  validate the surrounding loss, measure, symmetry, or solver.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 

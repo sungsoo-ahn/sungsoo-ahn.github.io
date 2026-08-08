@@ -492,3 +492,49 @@ Post-specific observations remain here rather than becoming universal rules.
   remained sufficient. Math/citation audits, validation, clean build, and render
   checks passed. The promoted objective-equivalence rule supplied the necessary
   distinctions; no further general criterion was needed after revision.
+
+## 13. Geometric Flow Matching on Manifolds
+
+- **Post:** `_posts/2026-08-08-geometric-flow-matching-manifolds.md`
+- **Topic-matched reference:** The spherical-equivariant permanent anchor sets
+  the standard for typed geometric objects, while the Fokker--Planck anchor sets
+  the standard for densities and differential operators. The newly polished
+  diffusion/flow-matching chapter supplies the conditional-regression logic.
+  This chapter should own the primitive-by-primitive geometric replacement and
+  its numerical consequences rather than repeat those references.
+- **Before:** At 2,127 substantive words, the post identifies all of the right
+  replacements—tangent vectors, metric, Exp/Log, geodesics, volume divergence,
+  product spaces, and manifold-aware solvers—but usually states each once. The
+  SO(3) and torsion examples verify endpoint interpolation without carrying one
+  state through tangent projection, target evaluation, metric loss, density
+  change, and a numerical step. Base-point mismatches, coordinate-volume error,
+  metric-weight effects, cut-locus target jumps, and retraction error remain
+  qualitative. The result is accurate but reads as a map of abstractions rather
+  than a 30--45 minute derivation-led chapter.
+- **Criteria promoted:** A non-Euclidean generalization must audit and retype
+  every primitive used by the Euclidean method, including the loss, reference
+  measure, symmetry action, and numerical update—not only its interpolation
+  formula.
+- **Planned revision:** Preserve all nine H2s and their order. Add a compact
+  Euclidean-to-manifold primitive table, then carry a quarter-circle path on
+  $$S^2$$ through explicit Log, Exp, tangent velocity, midpoint target, ambient
+  projection, metric loss, and intrinsic versus projected Euler updates. Deepen
+  the existing rotation and torsion calculations with an invalid matrix
+  interpolation and a quantified branch jump. Work one sphere-coordinate
+  divergence example to show the volume factor, and prove equivariant flow-map
+  commutation from vector-field equivariance. Quantify product-metric units and
+  clarify which choices alter paths, loss weighting, and endpoint coupling. End
+  with a solver/base/cut-locus/representation contract and cross-link the
+  Euclidean chapter. Reuse the four existing figures unless a new figure is
+  needed for a genuine geometric step.
+- **After:** Expanded from 2,127 to 4,652 substantive body words while
+  preserving all nine H2s and their order. A primitive table now retypes the
+  Euclidean construction, and one quarter-circle on $$S^2$$ carries Log, Exp,
+  tangent projection, metric loss, and intrinsic versus ambient/retracted steps
+  through explicit arithmetic. Matrix interpolation and circular branch examples
+  quantify constraint and cut-locus failures. A sphere volume-form calculation,
+  flow-map equivariance proof, product-metric/coupling reversal, and
+  quaternion/chart/base/solver contract complete the system beyond interpolation.
+  Existing figures remained sufficient. Geometry/arithmetic/citation audits,
+  validation, clean build, and rendered checks passed. The promoted primitive-
+  audit rule shaped the full revision; no further general criterion was needed.
