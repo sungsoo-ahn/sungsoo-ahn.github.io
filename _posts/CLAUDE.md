@@ -4,6 +4,15 @@ Instructions for writing and editing blog posts in `_posts/`.
 
 **Skills:** `/blog-writing` for prose style, `/jekyll-writing` for rendering rules.
 
+## House References
+
+Use these posts as the quality bar for new technical tutorials:
+
+- `2026-02-04-fokker-planck-equation.md` for a compact intuition-to-derivation arc.
+- `2026-02-02-spherical-equivariant-layers.md` for a longer mathematical chapter that connects foundations, architecture, and modern models.
+
+Match their top-down prose, depth, equation-to-explanation rhythm, figure quality, and self-contained captions. New lecture-derived posts should read as coherent blog arguments, not as lesson plans: do not add learning objectives, concept checks, exercises, prerequisite blocks, or agenda-style scaffolding.
+
 ## Post Frontmatter
 
 Every post must include this frontmatter block:
@@ -80,6 +89,7 @@ Posts begin with an author note immediately after the frontmatter:
 - If the SVG becomes a huge path dump for 3D surfaces, dense contours, raster-like heatmaps, or image composites, embed the PNG preview instead and keep the source code.
 - For sourced figures, keep the original useful format and document source URL, license, and any modifications in agent-facing notes, figure-generation scripts, or asset metadata. Do not add a rendered figure-source appendix to the post body.
 - Use a consistent color palette across generated figures with matching text colors for equation-figure correspondence.
+- For custom explanatory illustrations, use a flat-icon visual language: simple geometric silhouettes, rounded forms, restrained solid colors, consistent strokes, and minimal visual noise. This is an aesthetic direction only; do not copy Flaticon assets or substitute decorative icons for exact technical content.
 - Captions should usually have two sentences: one saying what the figure shows, one explaining the mechanism or interpretation. Add concise provenance wording for sourced or adapted figures.
 - Embed figures using the Liquid include:
 

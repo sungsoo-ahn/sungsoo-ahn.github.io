@@ -4,8 +4,9 @@ layout: default
 <div class="post">
   <header class="post-header">
     {% if page.type == 'categories' %}
-      <h1 class="post-title"><i class="fa-solid fa-tag fa-sm"></i> {{ page.title }}</h1>
-      <p class="post-description">an archive of {{ page.collection_name }} in this category</p>
+      {% assign category_data = site.data.blog_categories | where: 'slug', page.title | first %}
+      <h1 class="post-title"><i class="fa-solid fa-tag fa-sm"></i> {% if category_data %}{{ category_data.title }}{% else %}{{ page.title }}{% endif %}</h1>
+      <p class="post-description">{% if category_data %}{{ category_data.description }}{% else %}An archive of {{ page.collection_name }} in this category.{% endif %}</p>
     {% elsif page.type == 'year' %}
       <h1 class="post-title"><i class="fa-solid fa-calendar fa-sm"></i> {{ page.date | date: '%Y' }}</h1>
       <p class="post-description">an archive of {{ page.collection_name }} from this year</p>
@@ -15,25 +16,29 @@ layout: default
     {% endif %}
   </header>
 
-  <article class="archive">
-    <div class="table-responsive">
-      <table class="table table-sm table-borderless">
-        {% assign sorted_documents = page.documents | sort: "order" %}
-        {% for document in sorted_documents %}
-          <tr>
-            <th scope="row">{% if document.last_updated %}{{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}</th>
-            <td>
-              {% if document.redirect == blank %}
-                <a class="post-link" href="{{ document.url | relative_url }}">{{ document.title }}</a>
-              {% elsif document.redirect contains '://' %}
-                <a class="post-link" href="{{ document.redirect }}" target="_blank">{{ document.title }}</a>
-              {% else %}
-                <a class="post-link" href="{{ document.redirect | relative_url }}">{{ document.title }}</a>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-      </table>
-    </div>
+  <article class="archive publications blog-index">
+    {% assign sorted_documents = page.documents | sort: 'date' | reverse %}
+    <ol class="bibliography">
+      {% for document in sorted_documents %}
+        {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
+        <li>
+          <div class="title">
+            {% if document.redirect == blank %}
+              <a href="{{ document.url | relative_url }}">{{ document.title }}</a>
+            {% elsif document.redirect contains '://' %}
+              <a href="{{ document.redirect }}" target="_blank" rel="noopener">{{ document.title }}</a>
+            {% else %}
+              <a href="{{ document.redirect | relative_url }}">{{ document.title }}</a>
+            {% endif %}
+          </div>
+          {% if document.description %}
+            <div class="blog-list-description">{{ document.description }}</div>
+          {% endif %}
+          <div class="author">
+            {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
   </article>
 </div>

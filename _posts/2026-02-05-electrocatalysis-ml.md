@@ -2,7 +2,7 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: ml-for-science
 series_title: "ML for Science Foundations"
 series_description: "A guided route through scientific ML topics: quantum chemistry, equivariant molecular models, electrocatalysis, and protein design."
 series_order: 3
-categories: [science]
+categories: [materials-science]
 tags: [electrocatalysis, renewable-energy, machine-learning, density-functional-theory]
 toc:
   sidebar: left

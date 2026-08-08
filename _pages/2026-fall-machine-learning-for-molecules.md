@@ -10,6 +10,8 @@ nav_order: 3
 
 This course studies machine learning methods for molecular science. It covers the scientific foundations, neural architectures, and generative models used in applications such as drug and materials discovery.
 
+The reusable written material is collected in the [Machine Learning for Molecules lecture-note path]({{ '/teaching/machine-learning-for-molecules/' | relative_url }}).
+
 ## Course format
 
 This is a discussion-based course. Students watch the uploaded lecture videos before each class. Class time is reserved for questions, clarification, and discussion rather than a repetition of the videos.
