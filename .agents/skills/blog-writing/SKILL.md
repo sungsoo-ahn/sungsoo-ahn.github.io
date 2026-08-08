@@ -136,6 +136,13 @@ from one comparison can improve the criteria used for the next.
   the claimed equality on one controlled process and give a witness for a level
   that does not agree. Similar samples at each time do not imply the same
   coupling, path measure, likelihood, or dynamics.
+- When calling learning targets, objectives, or parameterizations equivalent,
+  state the exact equivalence: invertible target information, a shared
+  population minimizer, identical gradients up to a parameter-independent
+  constant, or identical weighted losses. Derive the conversion and transform
+  the time-dependent loss weight with it. Then identify what finite capacity,
+  sampling, conditioning, optimization, or numerical integration can still make
+  different; algebraic convertibility does not imply equal training behavior.
 
 ## Quality Checklist (apply before finalizing)
 

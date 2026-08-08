@@ -445,3 +445,50 @@ Post-specific observations remain here rather than becoming universal rules.
   sufficient. Sign/arithmetic/citation audits, validation, clean build, and
   rendered checks passed. The promoted equality-level criterion determined the
   post's spine; no further general criterion was needed after revision.
+
+## 12. Diffusion Models and Flow Matching
+
+- **Post:** `_posts/2026-08-08-diffusion-models-flow-matching.md`
+- **Topic-matched reference:** The Fokker--Planck anchor supplies the density
+  mechanics and the now-polished probability-flow chapter supplies reverse-time
+  and marginal/path distinctions. The older path-measure post remains the fair
+  comparator for defining exactly which distribution an objective averages over.
+  This chapter should own conditional regression and target conversion, not
+  restate stochastic-calculus machinery.
+- **Before:** At 2,379 substantive words, the post has the correct unifying
+  thesis and both conditional-expectation identities. The MSE decomposition is
+  only asserted, however, and the score, noise, data, and velocity
+  parameterizations are called algebraically convertible without transforming
+  their losses. Diffusion probability flow and conditional flow matching are
+  placed side by side but never computed on the same non-Gaussian data mixture.
+  Schedules and solvers are listed as interacting choices without a numerical
+  target-conditioning or time-reparameterization example. The chapter therefore
+  establishes vocabulary more strongly than operational equivalence.
+- **Criteria promoted:** Claims of equivalent targets or objectives must name
+  the equivalence level, derive the target and loss-weight conversion, and state
+  which finite-model or numerical effects remain unequal.
+- **Planned revision:** Preserve all nine H2s and their order. Carry a symmetric
+  two-point data distribution through one affine Gaussian path. Derive its
+  posterior mean, conditional and marginal score, conditional and marginal
+  velocity, and compute both regressions at one numerical $$(x,t)$$. Prove the
+  squared-error orthogonal decomposition rather than citing conditional means.
+  Derive score/noise/data conversions and the loss weights required to preserve
+  an objective. For the same $$(\alpha_t,\sigma_t)$$ path, derive the linear SDE
+  coefficients and show algebraically that its probability-flow velocity equals
+  the flow-matching velocity; qualify the conditions and endpoint singularities.
+  Add a time-reparameterization/stiffness calculation and separate exact target,
+  finite-capacity, time-sampling, solver, and terminal-prior errors. Reuse the
+  four existing figures unless the worked mixture creates a real visual gap.
+- **After:** Expanded from 2,379 to 4,566 substantive body words while
+  preserving all nine H2s and their order. A symmetric binary mixture now yields
+  closed-form posterior odds, score targets, flow targets, and a numerical point
+  where posterior averaging and probability-flow conversion agree. The weighted
+  MSE decomposition distinguishes exact conditional-versus-marginal loss
+  equality from score/noise/data/VP-velocity target conversion; the required
+  loss weights and endpoint failures are explicit. The same affine path is
+  realized by a derived linear SDE, whose probability-flow field equals the
+  flow-matching field pointwise. Time reparameterization, log-SNR arithmetic,
+  and a five-layer error contract close the practical argument. Existing figures
+  remained sufficient. Math/citation audits, validation, clean build, and render
+  checks passed. The promoted objective-equivalence rule supplied the necessary
+  distinctions; no further general criterion was needed after revision.
