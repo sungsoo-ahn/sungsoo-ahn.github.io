@@ -130,6 +130,12 @@ from one comparison can improve the criteria used for the next.
   data coverage, numerical choices, or physical approximations. Carry one case
   across the boundary; do not let an architectural symmetry claim silently turn
   into a claim of simulation, experimental, or decision validity.
+- When comparing stochastic processes or generative transports, name the level
+  at which two objects agree: sample paths, conditional transition kernels,
+  finite-dimensional joint laws, one-time marginals, or endpoints. Demonstrate
+  the claimed equality on one controlled process and give a witness for a level
+  that does not agree. Similar samples at each time do not imply the same
+  coupling, path measure, likelihood, or dynamics.
 
 ## Quality Checklist (apply before finalizing)
 
