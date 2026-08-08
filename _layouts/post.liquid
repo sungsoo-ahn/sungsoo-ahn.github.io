@@ -50,6 +50,22 @@ layout: default
           <span>{{ page.meta }}</span>
         {% endif %}
       </p>
+      {% if categories != '' or tags != '' %}
+        <p class="blog-post-taxonomy">
+          {% for category in page.categories %}
+            {% assign category_data = site.data.blog_categories | where: 'slug', category | first %}
+            <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}">
+              <i class="fa-solid fa-tag fa-sm"></i>
+              {% if category_data %}{{ category_data.title }}{% else %}{{ category }}{% endif %}
+            </a>
+          {% endfor %}
+          {% for tag in page.tags %}
+            <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}">
+              <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
+            </a>
+          {% endfor %}
+        </p>
+      {% endif %}
       {% if page.abstract %}
         <section class="blog-post-abstract" aria-labelledby="blog-post-abstract-title">
           <h2 id="blog-post-abstract-title">Abstract</h2>
@@ -115,6 +131,9 @@ layout: default
 
     {% if page.series == 'kups-md-tutorials' %}
       {% include kups-series-nav.liquid %}
+    {% endif %}
+    {% if page.lecture_paths %}
+      {% include lecture-series-nav.liquid %}
     {% endif %}
   </article>
 

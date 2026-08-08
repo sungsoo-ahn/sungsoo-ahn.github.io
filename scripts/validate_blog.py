@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "_posts"
 PAGES_DIR = ROOT / "_pages"
 BLOG_IMG_DIR = ROOT / "assets" / "img" / "blog"
+BLOG_CATEGORIES_PATH = ROOT / "_data" / "blog_categories.yml"
+LECTURE_PATHS_PATH = ROOT / "_data" / "lecture_paths.yml"
 
 REQUIRED_FRONTMATTER = {
     "layout",
@@ -33,6 +35,15 @@ ATTR_RE = re.compile(r'(?P<key>[\w-]+)="(?P<value>[^"]*)"')
 FOOTNOTE_USE_RE = re.compile(r"\[\^([^\]]+)\](?!:)")
 FOOTNOTE_DEF_RE = re.compile(r"^\[\^([^\]]+)\]:", re.MULTILINE)
 DATE_PREFIX_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-")
+CATEGORY_SLUG_RE = re.compile(r"^- slug:\s*([a-z0-9-]+)\s*$", re.MULTILINE)
+LECTURE_PATH_ID_RE = re.compile(r"^([a-z0-9-]+):\s*$", re.MULTILINE)
+LECTURE_SCAFFOLD_RE = re.compile(
+    r"^#{1,4}\s+(learning objectives?|concept checks?|exercises?|prerequisites?|today'?s lecture|agenda)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+KNOWN_CATEGORIES = set(CATEGORY_SLUG_RE.findall(BLOG_CATEGORIES_PATH.read_text(encoding="utf-8")))
+KNOWN_LECTURE_PATHS = set(LECTURE_PATH_ID_RE.findall(LECTURE_PATHS_PATH.read_text(encoding="utf-8")))
 
 
 @dataclass
@@ -52,6 +63,13 @@ def parse_scalar(value: str) -> str:
     if value.startswith("'") and value.endswith("'"):
         return value[1:-1]
     return value
+
+
+def parse_inline_list(value: str) -> list[str]:
+    value = value.strip()
+    if not (value.startswith("[") and value.endswith("]")):
+        return []
+    return [parse_scalar(item.strip()) for item in value[1:-1].split(",") if item.strip()]
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str] | None:
@@ -113,6 +131,30 @@ def validate_post(path: Path) -> list[Finding]:
         findings.append(Finding(path, "series posts must define series_order"))
     if "series_order" in frontmatter and "series" not in frontmatter:
         findings.append(Finding(path, "series_order requires series"))
+
+    categories = parse_inline_list(frontmatter.get("categories", ""))
+    if len(categories) != 1:
+        findings.append(Finding(path, "categories must contain exactly one primary topic"))
+    elif categories[0] not in KNOWN_CATEGORIES:
+        findings.append(Finding(path, f"unknown primary category: {categories[0]}"))
+
+    if "lecture_paths" in frontmatter:
+        lecture_paths = parse_inline_list(frontmatter["lecture_paths"])
+        if not lecture_paths:
+            findings.append(Finding(path, "lecture_paths must be a non-empty inline list"))
+        unknown_paths = sorted(set(lecture_paths) - KNOWN_LECTURE_PATHS)
+        if unknown_paths:
+            findings.append(Finding(path, f"unknown lecture paths: {', '.join(unknown_paths)}"))
+
+        figure_count = len(FIGURE_RE.findall(body))
+        if figure_count < 2:
+            findings.append(Finding(path, f"lecture-derived post needs at least two explanatory figures: found {figure_count}"))
+
+        if LECTURE_SCAFFOLD_RE.search(body):
+            findings.append(Finding(path, "lecture-derived post contains lesson-plan scaffolding"))
+
+        if '<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">' not in body:
+            findings.append(Finding(path, "lecture-derived post is missing the standard author note"))
 
     for match in FIGURE_RE.finditer(text):
         attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}

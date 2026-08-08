@@ -2,11 +2,11 @@
 layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "How HACO, a Human–AI Co-discovery system, produced MaskGXT, a competitive generative model for crystal structure prediction."
 post_type: research
 authors: ["Kiyoung Seong", "Sungsoo Ahn"]
-categories: [machine-learning]
+categories: [materials-science]
 tags: [ai-scientist, generative-models, crystal-structure-prediction, materials, masked-generative-models]
 toc:
   sidebar: left

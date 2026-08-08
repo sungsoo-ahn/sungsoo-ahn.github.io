@@ -2,7 +2,7 @@
 layout: post
 title: "From Jarzynski's Equality to Diffusion Models"
 date: 2026-03-14
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "From Jarzynski's equality to diffusion models — path measures unify free energy estimation, AIS, diffusion models, and GFlowNets as instances of the same mathematics."
 post_type: technical-note
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
 series_description: "A reading path from stochastic dynamics to statistical mechanics, path measures, and generative modeling."
 series_order: 3
-categories: [machine-learning]
+categories: [generative-modeling]
 tags: [non-equilibrium-statistical-mechanics, path-measures, free-energy, generative-models]
 toc:
   sidebar: left

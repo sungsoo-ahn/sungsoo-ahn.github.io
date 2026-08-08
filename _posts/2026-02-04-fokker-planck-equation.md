@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
 series_description: "A reading path from stochastic dynamics to statistical mechanics, path measures, and generative modeling."
 series_order: 1
-categories: [machine-learning]
+categories: [generative-modeling]
 tags: [fokker-planck, stochastic-differential-equations, diffusion-models]
 toc:
   sidebar: left

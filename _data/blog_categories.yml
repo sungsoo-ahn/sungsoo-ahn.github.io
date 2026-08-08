@@ -1,0 +1,31 @@
+- slug: foundations
+  title: Foundations
+  description: Mathematical, physical, chemical, and biological ideas that scientific machine learning builds on.
+
+- slug: graph-learning
+  title: Graph Learning
+  description: Message passing, graph convolutions, expressivity, scaling, and the limits of graph neural networks.
+
+- slug: geometric-deep-learning
+  title: Geometric Deep Learning
+  description: Neural architectures that encode symmetry, geometry, equivariance, and three-dimensional structure.
+
+- slug: generative-modeling
+  title: Generative Modeling
+  description: Diffusion, flow matching, stochastic processes, discrete generation, and related sampling methods.
+
+- slug: molecular-science
+  title: Molecular Science
+  description: Molecular representations, property prediction, simulation, quantum chemistry, and molecular design.
+
+- slug: protein-science
+  title: Protein Science
+  description: Protein representation learning, structure prediction, dynamics, and generative protein design.
+
+- slug: genomics-cell
+  title: Genomics & Cell
+  description: Sequence models for genomes, RNA structure, cellular perturbations, and virtual-cell modeling.
+
+- slug: materials-science
+  title: Materials Science
+  description: Crystals, catalysts, adsorption, materials discovery, and generative models for atomic structures.

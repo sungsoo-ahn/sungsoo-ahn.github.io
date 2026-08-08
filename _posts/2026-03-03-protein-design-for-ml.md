@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: ml-for-science
 series_title: "ML for Science Foundations"
 series_description: "A guided route through scientific ML topics: quantum chemistry, equivariant molecular models, electrocatalysis, and protein design."
 series_order: 4
-categories: [science]
+categories: [protein-science]
 tags: [protein-design, structural-biology, machine-learning, generative-models]
 toc:
   sidebar: left

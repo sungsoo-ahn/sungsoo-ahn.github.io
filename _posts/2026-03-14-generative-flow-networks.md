@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-07-29
+last_updated: 2026-08-08
 description: "An introduction to GFlowNets from the perspective of probabilistic ML — sampling proportionally to rewards, training objectives, and connections to MaxEnt RL, variational inference, and diffusion models."
 post_type: tutorial
 authors: ["Sungsoo Ahn"]
@@ -11,7 +11,7 @@ series: stochastic-generative-models
 series_title: "Stochastic Processes and Generative Models"
 series_description: "A reading path from stochastic dynamics to statistical mechanics, path measures, and generative modeling."
 series_order: 4
-categories: [machine-learning]
+categories: [generative-modeling]
 tags: [generative-models, reinforcement-learning, variational-inference, sampling]
 toc:
   sidebar: left
