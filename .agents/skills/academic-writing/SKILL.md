@@ -102,6 +102,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   formula, not merely repeat it.
 - Distinguish an exact identity, a modeling assumption, an approximation, and a
   learned surrogate in the surrounding prose.
+- When an argument uses a hierarchy of physical models, carry one quantity or
+  candidate through at least two fidelity levels. Show whether the conclusion
+  survives or changes when the omitted term, competing reference, boundary
+  condition, or measurement protocol is restored; a list of possible
+  corrections is less informative than a demonstrated change of conclusion.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
