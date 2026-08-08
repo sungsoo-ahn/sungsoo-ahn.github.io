@@ -101,6 +101,11 @@ from one comparison can improve the criteria used for the next.
 - Whenever a model score changes a scientific workflow, identify the decision,
   the population being filtered, and the denominator behind the reported
   success rate. A benchmark metric alone does not complete the argument.
+- When an optimizer selects candidates by a noisy learned score, quantify
+  selection-induced optimism. Carry one finite pool through oracle scoring,
+  maximization or ranking, and independent evaluation; report the query budget
+  and best-so-far curve rather than only the winner. Random-test accuracy does
+  not establish accuracy on the adaptively selected tail.
 - When constraints are imposed by action masks, projection, repair, rejection,
   canonicalization, or downstream filters, distinguish the raw model
   distribution, the transformed or accepted distribution, and the physical

@@ -741,3 +741,57 @@ Post-specific observations remain here rather than becoming universal rules.
   existing figures remained sufficient. The promoted constraint-transformation
   rule shaped the central examples. Arithmetic/citation audits, validation,
   clean builds, and rendered checks passed.
+
+## 18. Three-Dimensional Molecular Generation and Optimization
+
+- **Post:** `_posts/2026-08-08-molecular-generation-3d-optimization.md`
+- **Topic-matched reference:** The geometric-flow companion owns manifold
+  transport primitives, and the property-prediction chapter owns representation,
+  split, and uncertainty calibration. The older protein-design post supplies a
+  fair generate--filter--experiment comparison with fixed downstream capacity.
+  The just-revised graph/reaction chapter owns representation-level validity and
+  route-funnel denominators. This chapter should own the distinction between
+  conformer probability and molecule search, plus selection-induced oracle bias.
+- **Before:** At 2,480 substantive words, the post correctly separates
+  $$p(R\mid G)$$ from $$p(G,R)$$, Cartesian from torsional state spaces, prior
+  sampling from goal-directed search, and validity from experiment. The
+  conformer section has no populated ensemble or observable calculation. Rigid-
+  motion and torsion constraints are stated without a numerical state. Guidance,
+  GFlowNet temperature, Pareto tradeoffs, oracle budget, and exploitation remain
+  qualitative. In particular, the equation $$\widehat R=R+\epsilon$$ never shows
+  how maximizing over a pool preferentially selects positive error or how
+  independent rescoring changes the winner.
+- **Criteria promoted:** An optimization tutorial using a noisy learned oracle
+  must quantify selection-induced optimism by carrying one finite candidate pool
+  through scoring, adaptive selection, and independent evaluation under an
+  explicit query budget; random-test accuracy does not validate the selected
+  tail.
+- **Planned revision:** Preserve all nine H2s and their order. Use n-butane as a
+  fixed-graph conformer example, compute anti/gauche Boltzmann populations and a
+  population-dependent observable, and contrast this with changing molecular
+  identity. Give centering/equivariant-score checks without duplicating the
+  manifold chapter. Quantify the $$179^\circ/-179^\circ$$ torsion wrap and what
+  Cartesian/internal coordinates hold fixed. Use a finite guided prior and a
+  GFlowNet-temperature calculation to expose diversity/selectivity. Carry a
+  small candidate table and a larger noisy-pool estimate through oracle
+  maximization, independent rescoring, uncertainty penalties, and best-so-far
+  query curves. Work a Pareto table whose scalar optimum flips with weights and
+  include conformer-aware scoring. Cross-link the reaction chapter for route
+  mechanics, then close with a prospective batch and feedback contract. Reuse
+  the four existing figures unless a genuine missing relationship warrants
+  another.
+- **After:** Expanded from 2,480 to 4,774 substantive body words while
+  preserving all nine H2s and their order. An n-butane ensemble now quantifies
+  basin degeneracy, Boltzmann populations, and observable aggregation. Numerical
+  centering, score equivariance, and torsion-wrap checks make the geometric
+  state spaces operational. Finite prior tilting and GFlowNet temperatures show
+  selectivity/diversity changes. A Pareto table makes scalar-policy dependence
+  and conformer aggregation alter the winner. Most importantly, a Gaussian
+  extreme-value estimate and five-candidate ledger carry noisy-oracle selection
+  through independent rescoring, uncertainty penalties, an explicit query
+  budget, and best-so-far outcomes. The route companion is cross-linked and a
+  prospective-batch contract closes the feedback loop. Existing figures remained
+  sufficient. The promoted selection-optimism rule shaped the central revision.
+  Independent review caught and corrected one Pareto arithmetic typo before
+  commit. Arithmetic/citation audits, validation, clean build, and rendered
+  checks passed.
