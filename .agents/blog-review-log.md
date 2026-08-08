@@ -230,3 +230,44 @@ Post-specific observations remain here rather than becoming universal rules.
   validation, diff, clean Jekyll build, and rendered checks passed. The promoted
   differential-diagnosis rule shaped both the controlled counterfactuals and
   final matrix; no further general criterion was needed after revision.
+
+## 07. Symmetry and Equivariance for Geometric Data
+
+- **Post:** `_posts/2026-08-08-symmetry-equivariance-geometric-data.md`
+- **Topic-matched reference:** The spherical-equivariant permanent anchor is
+  already the direct mature comparator; no additional older post is needed.
+  The revised message-passing chapter is used only for permutation continuity.
+- **Before:** The chapter has a clean orbit-to-group-to-representation-to-
+  equivariance argument and good task-specific cautions. At roughly 2,600
+  substantive words, it still moves quickly from definitions to conclusions.
+  The semidirect rigid-motion law, representation homomorphism, safe feature
+  operations, force transformation, group averaging, and risk restriction are
+  mostly stated once. The reader learns what equivariance means but sees little
+  of how equivariant primitives compose into an architecture or how a natural
+  nonlinear operation violates a feature type.
+- **Criteria promoted:** When an abstract property is supposed to constrain an
+  entire architecture, prove closure under composition, demonstrate safe
+  primitives, and contrast them with a plausible operation that breaks the
+  property.
+- **Planned revision:** Preserve every H2 and its order. Carry one small
+  geometric object through orbit/stabilizer and canonicalization, derive rigid
+  motion composition and inverses, verify permutation/vector/tensor
+  representations, include parity-sensitive feature types, prove equivariant
+  composition and force-from-energy transformation, work safe versus unsafe
+  nonlinearities and readouts, derive finite/compact group averaging, and make
+  the augmentation-versus-exact-symmetry and wrong-symmetry tradeoffs numerical.
+  Cross-link later geometric chapters rather than previewing all their machinery;
+  add a figure only for a real gap.
+- **After:** Expanded from 2,685 to 4,867 substantive body words while
+  preserving all six H2s and their exact order. One typed V-shaped object now
+  grounds orbit, stabilizer, quotient, and a narrowly qualified PCA-frame
+  discontinuity. The chapter derives the rigid-motion law and inverse,
+  distinguishes parity/chirality and feature representations, proves composition
+  closure, contrasts safe and unsafe nonlinearities, derives energy-based force
+  equivariance and conservation identities, proves group averaging, and works
+  finite-augmentation and wrong-symmetry error counterexamples. Fixed a dropped
+  `\qquad`, normalized three primary citations, and reused all four figures.
+  Arithmetic/LaTeX/scaffolding, citation bijection and links, blog validation,
+  diff, clean Jekyll build, rendered HTML, and full-page visual checks passed.
+  The promoted closure/safe-primitive rule directly shaped the architecture
+  section; no further general criterion was needed after revision.
