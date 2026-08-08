@@ -848,3 +848,54 @@ Post-specific observations remain here rather than becoming universal rules.
   intermediate-perturbation rule shaped the chapter. Independent review caught
   and corrected two dropped LaTeX slashes before commit. Arithmetic/citation
   audits, validation, clean builds, and rendered checks passed.
+
+## 20. Protein Structure Prediction from AlphaFold 1 to 3
+
+- **Post:** `_posts/2026-08-08-protein-structure-prediction-alphafold.md`
+- **Topic-matched reference:** The older protein-design chapter translates
+  structural outputs into a fixed computational and experimental funnel, while
+  the spherical-equivariant anchor sets the standard for frame-aware geometry.
+  The Fokker--Planck anchor supplies the derivation/check rhythm for probabilistic
+  claims. This chapter should own the changing AlphaFold representation and the
+  exact scope of structural confidence, without becoming a catalog of modules.
+- **Before:** At 2,531 substantive words, the post has a coherent AF1-to-AF3
+  representation thesis and accurately distinguishes coevolution, distograms,
+  pair states, residue frames, confidence, and all-atom diffusion. The MSA
+  discussion does not calculate indirect correlation. The AF1 energy has no
+  candidate structures or inconsistent distance witness. Evoformer and IPA
+  equations are not instantiated numerically. pLDDT and PAE are described well,
+  but no two-domain example shows why high local confidence can coexist with an
+  uncertain assembly. Complexity, stochastic-sample semantics, and the gap from
+  coordinates to affinity/function remain mostly qualitative.
+- **Criteria promoted:** A confidence explanation must define its predicted
+  random variable, alignment/conditioning convention, granularity, calibration
+  population, and supported decision, then exhibit a case where two legitimate
+  confidence summaries disagree.
+- **Planned revision:** Preserve all ten H2s and their order, including the
+  existing H3 claim-boundary subsections. Build a small binary MSA example where
+  two positions correlate indirectly through a third, plus an effective-depth
+  calculation for redundant sequences. Score two coordinate candidates under a
+  finite distogram and show a triangle-inconsistent set of pair marginals. Work
+  a scalar outer-product/triangle update and quantify pair/triangle memory and
+  compute scaling. Carry residue-local points through one rigid transformation
+  to check IPA distance and FAPE invariance. Use a two-domain confidence matrix
+  with high pLDDT and high cross-domain PAE, stating exactly which structural
+  decisions each supports. Give an AF3 noisy-coordinate/augmentation check and
+  separate stochastic structural hypotheses from thermodynamic weights. Compute
+  one pose-versus-affinity example and finish with a claim-scope contract from
+  coordinates to dynamics, binding, and function. Reuse the four existing
+  figures unless a genuine missing relationship warrants another.
+- **After:** Expanded from 2,531 to 4,759 substantive body words while
+  preserving all ten H2s and the existing claim-boundary H3s. A binary MSA now
+  separates marginal from conditionally indirect correlation and quantifies
+  redundancy-adjusted depth. Finite distograms score two realizable candidates
+  and expose an unrealizable modal triangle. Scalar outer-product and triangle
+  updates lead into explicit MSA/pair memory and cubic triangle arithmetic.
+  Residue-local points verify IPA distance and FAPE invariance numerically. A
+  two-domain pLDDT--PAE matrix implements the promoted confidence-scope rule by
+  supporting local folds while withholding relative placement. AF3 corruption
+  is checked under a rigid transform, and a 70:30 sample frequency is explicitly
+  denied a thermodynamic interpretation. A two-kcal/mol binding example and
+  final object/claim contract separate coordinates from affinity, dynamics, and
+  function. Existing figures remained sufficient. Arithmetic/citation audits,
+  validation, clean build, and rendered checks passed.
