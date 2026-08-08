@@ -123,6 +123,13 @@ from one comparison can improve the criteria used for the next.
   a different organizing question, derivation, or running example. Cross-link
   prerequisite machinery instead of re-teaching it, and audit the pair for
   duplicated exposition; a series should deepen by composition, not paraphrase.
+- When a post connects an ML architecture to a downstream scientific workflow,
+  expose the interface contract between them. State exactly what mathematical
+  object the architecture supplies, what the downstream calculation assumes,
+  which guarantees cross the boundary, and which properties still depend on
+  data coverage, numerical choices, or physical approximations. Carry one case
+  across the boundary; do not let an architectural symmetry claim silently turn
+  into a claim of simulation, experimental, or decision validity.
 
 ## Quality Checklist (apply before finalizing)
 
