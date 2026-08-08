@@ -106,6 +106,12 @@ from one comparison can improve the criteria used for the next.
   fixed so the reader can see exactly which normalization, aggregation,
   parameterization, or information loss caused the difference; separate toy
   examples for each model often reproduce a catalog rather than an argument.
+- When a tutorial distinguishes failure modes with similar symptoms, organize
+  the explanation as a differential diagnosis. Give each mechanism an
+  observable diagnostic and a matched intervention, then include at least one
+  counterfactual where a remedy for one mechanism leaves another unchanged or
+  makes it worse. A remedy list without these contrasts encourages readers to
+  treat distinct causes as synonyms.
 
 ## Quality Checklist (apply before finalizing)
 
