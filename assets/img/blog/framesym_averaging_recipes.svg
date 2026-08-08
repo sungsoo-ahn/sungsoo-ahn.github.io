@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker>
+    <marker id="purpleArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 24px; font-weight: 700; }
+      .label { font-size: 19px; font-weight: 600; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; fill: #665A75; }
+      .edge { fill: none; stroke: #C8BBD8; stroke-width: 4; stroke-linecap: round; }
+      .axis { fill: none; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .arrow { fill: none; stroke: #665A75; stroke-width: 3; marker-end: url(#arrow); }
+      .parrow { fill: none; stroke: #7A53EC; stroke-width: 3; marker-end: url(#purpleArrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="60" y="48" class="title" text-anchor="start">Symmetrization trades backbone evaluations for fewer pose choices</text>
+<rect x="35" y="88" width="350" height="370" rx="28" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+<text x="210" y="130" class="label" text-anchor="middle">group average</text>
+<text x="210" y="157" class="small" text-anchor="middle">all poses</text>
+<rect x="150" y="245" width="120" height="65" rx="20" fill="white" stroke="#7A53EC" stroke-width="3"/>
+<text x="210" y="284" class="label" text-anchor="middle">backbone φ</text>
+<polygon points="303.96,286.4 327.48,283.52 313.8,265.28" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="303.96" cy="286.4" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="327.48" cy="283.52" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="313.8" cy="265.28" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M315.0,278.0 L282,278" class="arrow"/>
+<polygon points="281.07784067221326,332.3828367783482 301.79874190651435,343.87757696846734 301.45259242527976,321.08020473970726" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="281.07784067221326" cy="332.3828367783482" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="301.79874190651435" cy="343.87757696846734" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="301.45259242527976" cy="321.08020473970726" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M294.94678440936946,332.07624321090753 L282,278" class="arrow"/>
+<polygon points="231.0463620545908,357.5932783120052 241.0534845292196,379.07215863146735 254.1734029033939,360.4252355111506" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="231.0463620545908" cy="357.5932783120052" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="241.0534845292196" cy="379.07215863146735" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="254.1734029033939" cy="360.4252355111506" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M242.44678440936949,365.49719949915414 L282,278" class="arrow"/>
+<polygon points="172.97588847165068,352.4017928065061 168.44685153088196,375.6606110135679 190.02147487115482,368.2866278480493" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="172.97588847165068" cy="352.4017928065061" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="168.44685153088196" cy="375.6606110135679" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="190.02147487115482" cy="368.2866278480493" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M177.55321559063054,365.49719949915414 L138,278" class="arrow"/>
+<polygon points="129.04736708927317,318.79135127284906 111.71210890817673,334.94602935056787 133.50066439304072,341.6615970766059" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="129.04736708927317" cy="318.79135127284906" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="111.71210890817673" cy="334.94602935056787" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="133.50066439304072" cy="341.6615970766059" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M125.05321559063053,332.07624321090753 L138,278" class="arrow"/>
+<polygon points="116.03999999999999,269.6 92.52,272.48 106.2,290.72" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="116.03999999999999" cy="269.6" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="92.52" cy="272.48" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="106.2" cy="290.72" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M105.0,278.0 L138,278" class="arrow"/>
+<polygon points="138.92215932778672,223.61716322165182 118.20125809348562,212.1224230315327 118.5474075747202,234.91979526029277" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="138.92215932778672" cy="223.61716322165182" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="118.20125809348562" cy="212.1224230315327" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="118.5474075747202" cy="234.91979526029277" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M125.05321559063051,223.92375678909247 L138,278" class="arrow"/>
+<polygon points="188.9536379454092,198.4067216879948 178.9465154707804,176.92784136853263 165.8265970966061,195.57476448884938" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="188.9536379454092" cy="198.4067216879948" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="178.9465154707804" cy="176.92784136853263" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="165.8265970966061" cy="195.57476448884938" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M177.55321559063051,190.50280050084586 L138,278" class="arrow"/>
+<polygon points="247.02411152834932,203.59820719349392 251.55314846911804,180.33938898643206 229.97852512884518,187.71337215195072" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="247.02411152834932" cy="203.59820719349392" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="251.55314846911804" cy="180.33938898643206" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="229.97852512884518" cy="187.71337215195072" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M242.44678440936946,190.50280050084586 L282,278" class="arrow"/>
+<polygon points="290.95263291072683,237.20864872715092 308.28789109182327,221.0539706494321 286.4993356069593,214.3384029233941" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="290.95263291072683" cy="237.20864872715092" r="2" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="308.28789109182327" cy="221.0539706494321" r="2" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="286.4993356069593" cy="214.3384029233941" r="2" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M294.94678440936946,223.92375678909247 L282,278" class="arrow"/>
+<text x="210" y="425" class="small" text-anchor="middle">exact but expensive</text>
+<rect x="420" y="88" width="350" height="370" rx="28" fill="#EEF0FF" stroke="#5F6ED8" stroke-width="3"/>
+<text x="595" y="130" class="label" text-anchor="middle">frame average</text>
+<text x="595" y="157" class="small" text-anchor="middle">finite equivariant set</text>
+<rect x="535" y="245" width="120" height="65" rx="20" fill="white" stroke="#5F6ED8" stroke-width="3"/>
+<text x="595" y="284" class="label" text-anchor="middle">backbone φ</text>
+<polygon points="484.36,231.9 517.68,227.82 498.3,201.98" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="484.36" cy="231.9" r="4" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="517.68" cy="227.82" r="4" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="498.3" cy="201.98" r="4" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M500,220 L523,278" class="arrow"/>
+<polygon points="678.1,204.36 682.18,237.68 708.02,218.3" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="678.1" cy="204.36" r="4" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="682.18" cy="237.68" r="4" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="708.02" cy="218.3" r="4" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M690,220 L667,278" class="arrow"/>
+<polygon points="515.64,338.1 482.32,342.18 501.7,368.02" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="515.64" cy="338.1" r="4" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="482.32" cy="342.18" r="4" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="501.7" cy="368.02" r="4" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M500,350 L523,278" class="arrow"/>
+<polygon points="701.9,365.64 697.82,332.32 671.98,351.7" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="701.9" cy="365.64" r="4" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="697.82" cy="332.32" r="4" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="671.98" cy="351.7" r="4" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M690,350 L667,278" class="arrow"/>
+<text x="595" y="425" class="small" text-anchor="middle">exact if the frame law holds</text>
+<rect x="805" y="88" width="350" height="370" rx="28" fill="#E5F3EA" stroke="#3C8F63" stroke-width="3"/>
+<text x="980" y="130" class="label" text-anchor="middle">canonicalize</text>
+<text x="980" y="157" class="small" text-anchor="middle">one selected pose</text>
+<rect x="920" y="245" width="120" height="65" rx="20" fill="white" stroke="#3C8F63" stroke-width="3"/>
+<text x="980" y="284" class="label" text-anchor="middle">backbone φ</text>
+<polygon points="953.9893794796919,205.01096122841162 992.3646815866799,227.40082920920605 992.6425072300692,184.65173199169894" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="953.9893794796919" cy="205.01096122841162" r="5" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="992.3646815866799" cy="227.40082920920605" r="5" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="992.6425072300692" cy="184.65173199169894" r="5" fill="#16877F" stroke="white" stroke-width="3"/>
+<path d="M980,230 L980,243" class="parrow"/>
+<polygon points="959.3,385.75 1003.4,380.35 977.75,346.15" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="959.3" cy="385.75" r="5" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="1003.4" cy="380.35" r="5" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="977.75" cy="346.15" r="5" fill="#16877F" stroke="white" stroke-width="3"/>
+<text x="980" y="425" class="small" text-anchor="middle">fast but can be discontinuous</text>
+<text x="600" y="505" class="body" text-anchor="middle">Each recipe evaluates an arbitrary backbone on transformed inputs, then averages or restores the output pose.</text>
+</svg>

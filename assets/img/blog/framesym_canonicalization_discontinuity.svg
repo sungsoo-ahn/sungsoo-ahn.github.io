@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="545" viewBox="0 0 1200 545">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker>
+    <marker id="purpleArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 24px; font-weight: 700; }
+      .label { font-size: 19px; font-weight: 600; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; fill: #665A75; }
+      .edge { fill: none; stroke: #C8BBD8; stroke-width: 4; stroke-linecap: round; }
+      .axis { fill: none; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .arrow { fill: none; stroke: #665A75; stroke-width: 3; marker-end: url(#arrow); }
+      .parrow { fill: none; stroke: #7A53EC; stroke-width: 3; marker-end: url(#purpleArrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="60" y="48" class="title" text-anchor="start">A canonical frame becomes unstable near symmetric shapes</text>
+<rect x="45" y="88" width="340" height="355" rx="28" fill="#E5F3EA" stroke="#3C8F63" stroke-width="3"/>
+<text x="215" y="127" class="label" text-anchor="middle">distinct eigenvalues</text>
+<text x="215" y="153" class="small" text-anchor="middle">stable principal axis</text>
+<circle cx="325.0" cy="280.0" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="319.3768536532157" cy="299.55740337392024" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="285.2070107236535" cy="316.5102392575463" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="238.43345950514316" cy="329.0832277893693" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="191.56654049485684" cy="329.0832277893693" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="144.79298927634653" cy="316.5102392575463" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="110.62314634678434" cy="299.55740337392024" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="105.0" cy="280.0" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="121.16370271468345" cy="257.90456441863466" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="148.0392543147321" cy="241.45441694061543" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="189.47885403475397" cy="235.4901482199142" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="240.5211459652459" cy="235.4901482199142" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="281.96074568526785" cy="241.4544169406154" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="308.83629728531656" cy="257.90456441863466" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<line x1="90.0" y1="280.0" x2="340.0" y2="280.0" stroke="#3C8F63" stroke-width="5" stroke-linecap="round"/>
+<line x1="215.0" y1="205.0" x2="215.0" y2="355.0" stroke="#665A75" stroke-width="3" stroke-linecap="round"/>
+<rect x="430" y="88" width="340" height="355" rx="28" fill="#FFF4DC" stroke="#B7791F" stroke-width="3"/>
+<text x="600" y="127" class="label" text-anchor="middle">nearly repeated</text>
+<text x="600" y="153" class="small" text-anchor="middle">tiny perturbation</text>
+<circle cx="682.0" cy="280.0" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="679.149725351948" cy="311.70614806921185" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="652.749296271609" cy="338.4015207666511" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="617.2028733543664" cy="356.3812093304603" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="582.7971266456336" cy="356.3812093304603" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="547.250703728391" cy="338.4015207666511" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="520.850274648052" cy="311.70614806921185" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="518.0" cy="280.0" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="531.3908310159512" cy="245.75581972334302" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="550.4969687667766" cy="219.5631354315106" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="580.7094401855308" cy="208.19216667882313" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="619.2905598144691" cy="208.19216667882313" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="649.5030312332234" cy="219.56313543151057" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="668.6091689840488" cy="245.75581972334305" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<line x1="475.0" y1="280.0" x2="725.0" y2="280.0" stroke="#B7791F" stroke-width="5" stroke-linecap="round"/>
+<line x1="600.0" y1="205.0" x2="600.0" y2="355.0" stroke="#665A75" stroke-width="3" stroke-linecap="round"/>
+<rect x="815" y="88" width="340" height="355" rx="28" fill="#FCE8EE" stroke="#C7506B" stroke-width="3"/>
+<text x="985" y="127" class="label" text-anchor="middle">nearly repeated</text>
+<text x="985" y="153" class="small" text-anchor="middle">axis switches</text>
+<circle cx="985.0" cy="365.86530612342614" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="953.1820270825821" cy="358.6853119720113" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="924.9977936594363" cy="330.19628797328244" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="907.9817453464898" cy="296.9120704786125" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="910.3313010916584" cy="262.01538798828625" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="927.7205378106971" cy="225.46108001598617" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="952.8088386764898" cy="202.86455544839515" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="985.0" cy="201.86530612342614" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="1019.132355428451" cy="210.92641763601455" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="1043.8361789945768" cy="227.94396046845014" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="1056.170787998127" cy="260.41863730977695" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="1058.5203437432956" cy="298.5088211571217" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<circle cx="1046.5589231458378" cy="327.71340752081846" r="9" fill="#7A53EC" stroke="white" stroke-width="3"/>
+<circle cx="1018.7591670223587" cy="350.62344978439194" r="9" fill="#5F6ED8" stroke="white" stroke-width="3"/>
+<line x1="985.0" y1="155.0" x2="985.0" y2="405.0" stroke="#C7506B" stroke-width="5" stroke-linecap="round"/>
+<line x1="1060.0" y1="280.0" x2="910.0" y2="280.0" stroke="#665A75" stroke-width="3" stroke-linecap="round"/>
+<path d="M390,270 L422,270" class="arrow"/>
+<path d="M775,270 L807,270" class="arrow"/>
+<text x="600" y="480" class="body" text-anchor="middle">At an exact eigenvalue tie, every basis of the repeated eigenspace is valid.</text>
+<text x="600" y="510" class="label" text-anchor="middle">A deterministic choice must jump somewhere as the shape crosses the degeneracy.</text>
+</svg>
