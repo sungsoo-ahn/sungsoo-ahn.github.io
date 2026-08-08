@@ -91,6 +91,20 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
 - Use descriptive subscripts: $$\theta_{\text{enc}}$$ not $$\theta_1$$.
 - Follow every equation with an explanation of its terms.
 
+### 6.1 Derivation-Led Exposition
+
+- State what a derivation will establish before starting the algebra.
+- Do not jump from a definition to a final formula when the omitted step carries
+  the physical or algorithmic idea. Expand the step where the approximation,
+  cancellation, marginalization, or symmetry constraint enters.
+- After a derivation, test the result on a small numerical example, a limiting
+  case, or a dimensional/symmetry check. The check should reveal how to use the
+  formula, not merely repeat it.
+- Distinguish an exact identity, a modeling assumption, an approximation, and a
+  learned surrogate in the surrounding prose.
+- Reuse notation across neighboring sections when the same object persists.
+  If the mathematical object changes, say so before reusing a familiar symbol.
+
 ### 7. Figures and Tables
 
 - **Self-contained captions.** A reader should understand a figure or table from its caption alone, without reading the main text.
@@ -146,4 +160,3 @@ When asked to **write** a section: Follow all rules above. Use top-down structur
 When asked to **edit** or **review** a draft: Identify violations of the rules above. Suggest concrete fixes. Prioritize issues in this order: (1) structural problems, (2) terminology issues, (3) sentence-level clarity, (4) minor polish.
 
 When asked to **give feedback**: Point out the most important issues first. Give specific examples of the problem and the fix. Don't just say "this is unclear" — explain *why* and show a rewrite.
-
