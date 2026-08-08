@@ -10,6 +10,9 @@ accompanying blog post.
 from pathlib import Path
 import sys
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import blog_figure_style as bfs
@@ -96,8 +99,71 @@ def funnel_feedback():
     write("funnel_feedback", body)
 
 
+def exposure_window():
+    """Plot the worked A2 exposure and therapeutic-window calculations."""
+    bfs.use_blog_style()
+    fig, (ax_pk, ax_pd) = plt.subplots(1, 2, figsize=(10.2, 4.5))
+    fig.patch.set_facecolor("white")
+
+    # Single-dose oral one-compartment profile used in the worked example.
+    t = np.linspace(0.01, 24, 500)
+    dose, bioavailability, volume = 200.0, 0.50, 40.0
+    clearance, ka = 4.0, 1.0
+    ke = clearance / volume
+    coefficient = bioavailability * dose * ka / (volume * (ka - ke))
+    total_mg_l = coefficient * (np.exp(-ke * t) - np.exp(-ka * t))
+    total_nm = 2_000 * total_mg_l  # molecular weight 500 g/mol
+    site_nm = 0.50 * 0.02 * total_nm
+    ax_pk.plot(t, total_nm, color=B, label="total plasma")
+    ax_pk.plot(t, site_nm, color=P, label="free at site")
+    ax_pk.axhline(20, color=A, linestyle="--", linewidth=2, label=r"$K_d=20$ nM")
+    ax_pk.set_yscale("log")
+    ax_pk.set_xlim(0, 24)
+    ax_pk.set_ylim(3, 8_000)
+    ax_pk.set_xticks([0, 6, 12, 18, 24])
+    ax_pk.set_xlabel("hours after daily dose")
+    ax_pk.set_ylabel("concentration (nM, log scale)")
+    ax_pk.set_title("A. Total concentration is not target-site exposure", loc="left", fontweight="semibold")
+    ax_pk.legend(frameon=False, loc="upper right")
+    bfs.clean_axes(ax_pk, grid=False)
+
+    concentration = np.linspace(0, 130, 500)
+    benefit = concentration / (25 + concentration)
+    harm = concentration**2 / (200**2 + concentration**2)
+    ax_pd.plot(concentration, benefit, color=G, label="KX benefit")
+    ax_pd.plot(concentration, harm, color=R, label="off-target response")
+    for x, label in [(38.7, "200 mg"), (77.4, "400 mg")]:
+        ax_pd.axvline(x, color=M, linestyle=":" if x < 50 else "--", linewidth=1.8)
+        ax_pd.text(x + 2, 0.93 if x < 50 else 0.82, label, color=M, fontsize=9.5)
+    ax_pd.scatter([38.7, 77.4], [38.7 / 63.7, 77.4 / 102.4], color=G, edgecolor="white", s=65, zorder=5)
+    ax_pd.scatter(
+        [38.7, 77.4],
+        [38.7**2 / (200**2 + 38.7**2), 77.4**2 / (200**2 + 77.4**2)],
+        color=R,
+        edgecolor="white",
+        s=65,
+        zorder=5,
+    )
+    ax_pd.set_xlim(0, 130)
+    ax_pd.set_ylim(0, 1.02)
+    ax_pd.set_xlabel("free concentration at site (nM)")
+    ax_pd.set_ylabel("fraction of maximum response")
+    ax_pd.set_title("B. More exposure has unequal benefit and harm", loc="left", fontweight="semibold")
+    ax_pd.legend(frameon=False, loc="center right")
+    bfs.clean_axes(ax_pd, grid=False)
+
+    fig.tight_layout(w_pad=2.2)
+    svg_path = OUT / "drugdisc_exposure_window.svg"
+    bfs.save_svg_png(fig, svg_path, dpi=240, transparent=False)
+    # Matplotlib emits trailing spaces in multiline SVG path data. Normalize the
+    # source so regenerated assets remain friendly to repository diff checks.
+    normalized_svg = "\n".join(line.rstrip() for line in svg_path.read_text(encoding="utf-8").splitlines()) + "\n"
+    svg_path.write_text(normalized_svg, encoding="utf-8")
+
+
 if __name__ == "__main__":
     evidence_chain()
     optimization_frontier()
     pkpd_bridge()
+    exposure_window()
     funnel_feedback()
