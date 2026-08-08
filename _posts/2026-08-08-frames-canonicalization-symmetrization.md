@@ -246,7 +246,7 @@ The number of evaluations is also direct computational overhead. A three-dimensi
 Canonicalization, finite frame averaging, and group averaging can be written with one conditional distribution over poses. Let $$q(dg\mid x)$$ be a probability measure on $$G$$ that transforms by pushforward:
 
 $$
-q(\,cdot\mid h\cdot x)=h_{\#}q(\,\cdot\mid x).
+q(\,\cdot\mid h\cdot x)=h_{\#}q(\,\cdot\mid x).
 $$
 
 This means that transforming the input by $$h$$ left-multiplies every sampled pose by $$h$$. The symmetrized function is

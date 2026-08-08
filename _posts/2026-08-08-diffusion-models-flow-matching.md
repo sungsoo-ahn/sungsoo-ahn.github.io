@@ -15,8 +15,9 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops diffusion and flow matching from a common
-    conditional-regression principle. For the density equations underneath the
+  <em>Note: This post develops the diffusion and flow-matching storyline from my
+    Machine Learning for Molecules and Geometric Deep Learning lectures, using a
+    common conditional-regression principle. For the density equations underneath the
     construction, see <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The
     Fokker–Planck Equation</a>; for a closer comparison of deterministic and
     stochastic dynamics, see <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs,

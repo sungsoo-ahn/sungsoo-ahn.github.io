@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What Can a Graph Neural Network Distinguish?"
+title: "What Graph Neural Networks Can and Cannot Distinguish"
 date: 2026-08-08
 last_updated: 2026-08-08
 description: "Graph neural network expressivity through graph isomorphism, multiset aggregation, the Weisfeiler--Leman test, its blind spots, and the tradeoffs behind stronger models."
