@@ -70,6 +70,26 @@ class UpdateCvTest(unittest.TestCase):
         ):
             self.assertNotIn(inconsistent_name, cv_source)
 
+    def test_small_cv_consistency_edits_are_preserved(self):
+        cv_source = Path("cv/cv.tex").read_text(encoding="utf-8")
+        self.assertIn("\\section{Invited Talks and Seminars}", cv_source)
+        self.assertNotIn("\\section{Talks}", cv_source)
+        self.assertIn("\\section{Teaching}", cv_source)
+        self.assertNotIn("\\section{Courses}", cv_source)
+        self.assertIn("pdftitle={Curriculum Vitae - Sungsoo Ahn}", cv_source)
+        self.assertIn("pdfauthor={Sungsoo Ahn}", cv_source)
+        self.assertIn("{Email:}", cv_source)
+        self.assertIn("+82 10-9495-1392", cv_source)
+
+        data = update_cv.load_cv_data()
+        courses = data["courses"]
+        intro_ai = [course for course in courses if course["title"].startswith("Introduction to Artificial Intelligence")]
+        pgm = [course for course in courses if course["title"].startswith("Probabilistic Graphical Models")]
+        self.assertEqual(len(intro_ai), 1)
+        self.assertEqual(intro_ai[0]["date"], "Fall 2023 and Fall 2024")
+        self.assertEqual(len(pgm), 1)
+        self.assertEqual(pgm[0]["date"], "Spring 2022 and Spring 2023")
+
     def test_sections_use_single_line_entry_format(self):
         cv_source = Path("cv/cv.tex").read_text(encoding="utf-8")
         self.assertIn("\\newcommand{\\cventry}", cv_source)
@@ -98,7 +118,9 @@ class UpdateCvTest(unittest.TestCase):
 
         grants = cv_source.split("\\section{Grants}", 1)[1]
         self.assertNotIn("{\\small", grants)
-        research_grants, computing_grants = grants.split("\\noindent\\textsc{Computing}", 1)
+        research_grants, computing_grants = grants.split(
+            "\\noindent\\textsc{Research Computing Awards}", 1
+        )
         self.assertIn("\\noindent\\textsc{Research}", research_grants)
         self.assertNotIn(" million", research_grants)
         self.assertNotIn("PI;", grants)
@@ -189,8 +211,17 @@ class UpdateCvTest(unittest.TestCase):
         output = generated_output()
         self.assertIn("Martin Ester, Jinkyoo Park", output)
         self.assertNotIn("and et al.", output)
-        self.assertIn("Findings of the Association for Computational Linguistics: ACL 2025", output)
-        self.assertIn("Findings of the Association for Computational Linguistics: EMNLP 2025", output)
+        self.assertIn("in \\textit{Findings of ACL}", output)
+        self.assertIn("in \\textit{Findings of EMNLP}", output)
+        self.assertIn("in \\textit{KDD, Datasets and Benchmarks Track}", output)
+        for venue in ("ICML", "ICLR", "NeurIPS", "AISTATS", "IJCAI"):
+            self.assertIn(f"in \\textit{{{venue}}}", output)
+        for verbose_venue in (
+            "International Conference on Machine Learning",
+            "International Conference on Learning Representations",
+            "Conference on Neural Information Processing Systems",
+        ):
+            self.assertNotIn(verbose_venue, output)
         self.assertIn("Graph Generation with $K^2$-trees", output)
         self.assertIn("2019(12), 124015", output)
         self.assertIn("64(3), 1471--1480", output)
@@ -242,6 +273,19 @@ class UpdateCvTest(unittest.TestCase):
         for old_heading in ("\\textsc{Conference}", "\\textsc{Journal}", "\\textsc{Preprint}"):
             self.assertNotIn(old_heading, rendered)
         self.assertIn("{[paper]}", rendered)
+        self.assertNotIn("{[OpenReview]}", rendered)
+        self.assertNotIn("{[PMLR]}", rendered)
+        self.assertNotIn("{[NeurIPS]}", rendered)
+        self.assertIn("{[arXiv]}", rendered)
+        self.assertIn("{[code]}", rendered)
+        self.assertIn("{[project]}", rendered)
+        self.assertIn("{[dataset]}", rendered)
+
+        latent_veracity = next(
+            line for line in rendered.splitlines() if "Latent Veracity Inference" in line
+        )
+        for label in ("paper", "arXiv", "code"):
+            self.assertIn(f"{{[{label}]}}", latent_veracity)
 
 
 if __name__ == "__main__":

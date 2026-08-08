@@ -33,19 +33,6 @@ CONFERENCE_ABBRS = {
 JOURNAL_ABBRS = {"TMLR", "JSTAT", "IEEE TIT"}
 PREPRINT_ABBR = "-"
 
-# Full venue names for conferences
-CONFERENCE_FULL = {
-    "NeurIPS": "Conference on Neural Information Processing Systems (NeurIPS)",
-    "ICML": "International Conference on Machine Learning (ICML)",
-    "ICLR": "International Conference on Learning Representations (ICLR)",
-    "CVPR": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    "IJCAI": "International Joint Conference on Artificial Intelligence (IJCAI)",
-    "AISTATS": "International Conference on Artificial Intelligence and Statistics (AISTATS)",
-    "EMNLP": "Empirical Methods in Natural Language Processing (EMNLP)",
-    "ACL": "Annual Meeting of the Association for Computational Linguistics (ACL)",
-    "KDD": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
-}
-
 # Full venue names for journals
 JOURNAL_FULL = {
     "TMLR": "Transactions of Machine Learning Research (TMLR)",
@@ -168,14 +155,7 @@ def format_authors(authors: list[str]) -> str:
 def format_venue_conference(entry: dict) -> str:
     """Format venue string for a conference entry."""
     abbr = get_abbr(entry)
-    venue = entry.get("venue", "").strip()
-
-    if entry.get("cv_venue"):
-        full = entry["cv_venue"].strip()
-    elif abbr == "KDD":
-        full = "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), Datasets and Benchmarks Track"
-    else:
-        full = CONFERENCE_FULL.get(abbr, venue)
+    full = entry.get("cv_venue", abbr).strip()
 
     return rf"in \textit{{{full}}}"
 
@@ -201,16 +181,30 @@ def format_venue_preprint(entry: dict) -> str:
     return r"\textit{arXiv}"
 
 
-def format_paper_link(entry: dict, category: str) -> str:
-    """Prefer an official paper page, falling back to arXiv."""
-    official = entry.get("html", "").strip()
-    arxiv = entry.get("arxiv", "").strip()
-    if category != "preprint" and official:
-        official = official.replace("&", r"\&")
-        return rf" \href{{{official}}}{{[paper]}}"
+def format_links(entry: dict) -> str:
+    """Format every available publication link with a consistent type label."""
+    links: list[str] = []
+
+    official = str(entry.get("html", "")).strip()
+    if official:
+        links.append(rf"\href{{{tex_escape(official)}}}{{[paper]}}")
+
+    arxiv = str(entry.get("arxiv", "")).strip()
     if arxiv:
-        return rf" \href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}"
-    return ""
+        links.append(rf"\href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}")
+
+    for field in ("code", "code2"):
+        url = str(entry.get(field, "")).strip()
+        if url:
+            label = str(entry.get(f"{field}_label", "code")).strip()
+            links.append(rf"\href{{{tex_escape(url)}}}{{[{tex_escape(label)}]}}")
+
+    for field, label in (("website", "project"), ("dataset", "dataset")):
+        url = str(entry.get(field, "")).strip()
+        if url:
+            links.append(rf"\href{{{tex_escape(url)}}}{{[{label}]}}")
+
+    return " " + " ".join(links) if links else ""
 
 
 def format_annotation(entry: dict) -> str:
@@ -237,10 +231,10 @@ def format_entry(entry: dict, category: str) -> str:
     else:
         venue = format_venue_preprint(entry)
 
-    paper_link = format_paper_link(entry, category)
+    links = format_links(entry)
     annotation = format_annotation(entry)
 
-    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{paper_link}"
+    return rf"\item {authors}, {title}, {venue}, {year}{annotation}.{links}"
 
 
 def build_publications() -> tuple[str, tuple[int, int, int]]:
@@ -380,7 +374,7 @@ def render_talks(entries: list[dict]) -> str:
 def render_grants(grants: dict[str, list[dict]]) -> str:
     lines = [r"\begingroup", r"\setlength{\emergencystretch}{2em}"]
     options = "[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]"
-    for group, label in (("research", "Research"), ("computing", "Computing")):
+    for group, label in (("research", "Research"), ("computing", "Research Computing Awards")):
         lines.extend((rf"\noindent\textsc{{{label}}}", rf"\begin{{enumerate}}{options}"))
         for entry in grants[group]:
             lines.append(
