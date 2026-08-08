@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker>
+    <marker id="purpleArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 24px; font-weight: 700; }
+      .label { font-size: 19px; font-weight: 600; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; fill: #665A75; }
+      .edge { fill: none; stroke: #C8BBD8; stroke-width: 4; stroke-linecap: round; }
+      .axis { fill: none; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .arrow { fill: none; stroke: #665A75; stroke-width: 3; marker-end: url(#arrow); }
+      .parrow { fill: none; stroke: #7A53EC; stroke-width: 3; marker-end: url(#purpleArrow); }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="60" y="48" class="title" text-anchor="start">Canonicalization chooses one representative from an orbit</text>
+<ellipse cx="340" cy="275" rx="250" ry="155" fill="none" stroke="#E4DDEC" stroke-width="5" stroke-dasharray="10 10"/>
+<polygon points="150.00244727708986,271.3158428061408 192.96411606325398,214.67965106351093 125.11754741762442,205.99615389855046" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="150.00244727708986" cy="271.3158428061408" r="8" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="192.96411606325398" cy="214.67965106351093" r="8" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="125.11754741762442" cy="205.99615389855046" r="8" fill="#16877F" stroke="white" stroke-width="3"/>
+<polygon points="291.6750408197295,146.22257389659845 362.1790715035916,155.3079939380176 335.95285036699426,92.13564773420552" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="291.6750408197295" cy="146.22257389659845" r="8" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="362.1790715035916" cy="155.3079939380176" r="8" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="335.95285036699426" cy="92.13564773420552" r="8" fill="#16877F" stroke="white" stroke-width="3"/>
+<polygon points="469.5113262053585,228.26228088557764 503.1321070639894,290.8961877927467 539.2621236043933,232.81708737968813" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="469.5113262053585" cy="228.26228088557764" r="8" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="503.1321070639894" cy="290.8961877927467" r="8" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="539.2621236043933" cy="232.81708737968813" r="8" fill="#16877F" stroke="white" stroke-width="3"/>
+<polygon points="345.38952094167865,356.33299798037564 289.3813823565032,400.11029360520587 352.7563318608353,425.84306989000174" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="345.38952094167865" cy="356.33299798037564" r="8" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="289.3813823565032" cy="400.11029360520587" r="8" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="352.7563318608353" cy="425.84306989000174" r="8" fill="#16877F" stroke="white" stroke-width="3"/>
+<text x="340" y="495" class="label" text-anchor="middle">one object, many coordinate descriptions</text>
+<text x="340" y="520" class="small" text-anchor="middle">orbit G·x</text>
+<path d="M590,275 L735,275" class="parrow"/>
+<text x="660" y="245" class="small" text-anchor="middle">quotient</text>
+<text x="660" y="300" class="small" text-anchor="middle">choose a section</text>
+<rect x="780" y="120" width="330" height="310" rx="32" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+<polygon points="889.8,307.0 1007.4,292.6 939.0,201.4" fill="#F2EDFF" stroke="#C8BBD8" stroke-width="4" stroke-linejoin="round"/><circle cx="889.8" cy="307.0" r="14" fill="#7A53EC" stroke="white" stroke-width="3"/><circle cx="1007.4" cy="292.6" r="14" fill="#B7791F" stroke="white" stroke-width="3"/><circle cx="939.0" cy="201.4" r="14" fill="#16877F" stroke="white" stroke-width="3"/>
+<text x="945" y="160" class="label" text-anchor="middle">canonical representative</text>
+<text x="945" y="385" class="label" text-anchor="middle">c(x) = h(x)⁻¹·x</text>
+<text x="945" y="463" class="body" text-anchor="middle">Invariant predictions can be made on the representative.</text>
+<text x="945" y="490" class="small" text-anchor="middle">Equivariant predictions restore the original pose.</text>
+</svg>
