@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker><marker id="parrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:24px;font-weight:700}.label{font-size:19px;font-weight:600}.body{font-size:17px}.small{font-size:15px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:3;stroke-linecap:round;marker-end:url(#arrow)}.parrow{fill:none;stroke:#7A53EC;stroke-width:4;stroke-linecap:round;marker-end:url(#parrow)}</style></defs><rect width="100%" height="100%" fill="white"/><text x="55" y="48" class="title" text-anchor="start">A credible optimization loop narrows candidates through independent gates</text>
+<rect x="45" y="110" width="210" height="190" rx="26" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+<text x="150.0" y="152" class="label" text-anchor="middle">generate</text>
+<rect x="315" y="135" width="210" height="190" rx="26" fill="#EEF0FF" stroke="#5F6ED8" stroke-width="3"/>
+<text x="420.0" y="177" class="label" text-anchor="middle">score &amp; Pareto</text>
+<rect x="585" y="160" width="210" height="190" rx="26" fill="#E5F3EA" stroke="#3C8F63" stroke-width="3"/>
+<text x="690.0" y="202" class="label" text-anchor="middle">synthesis</text>
+<rect x="855" y="185" width="300" height="190" rx="26" fill="#FFF4DC" stroke="#B7791F" stroke-width="3"/>
+<text x="1005.0" y="227" class="label" text-anchor="middle">experiment</text>
+<path d="M255,210 L310,218" class="arrow"/>
+<path d="M525,230 L580,238" class="arrow"/>
+<path d="M795,250 L850,258" class="arrow"/>
+<circle cx="90" cy="220" r="13" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="150" cy="255" r="13" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="205" cy="205" r="13" fill="#3C8F63" stroke="white" stroke-width="4"/>
+<text x="420" y="210" class="small" text-anchor="middle">potency</text>
+<text x="420" y="245" class="small" text-anchor="middle">toxicity</text>
+<text x="420" y="280" class="small" text-anchor="middle">uncertainty</text>
+<text x="690" y="230" class="small" text-anchor="middle">route found?</text>
+<text x="690" y="270" class="small" text-anchor="middle">yield / cost</text>
+<rect x="915" y="275" width="28" height="45" rx="8" fill="#7A53EC"/>
+<rect x="960" y="245" width="28" height="75" rx="8" fill="#3C8F63"/>
+<rect x="1005" y="262" width="28" height="58" rx="8" fill="#B7791F"/>
+<path d="M1010,385 C770,470 410,465 160,335" class="parrow"/>
+<text x="590" y="465" class="small" text-anchor="middle">failed assays update the model and the search distribution</text>
+<text x="600" y="520" class="body" text-anchor="middle">A high oracle score is a proposal; synthesis and experiment decide whether it is a discovery.</text></svg>
