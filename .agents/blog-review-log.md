@@ -271,3 +271,45 @@ Post-specific observations remain here rather than becoming universal rules.
   diff, clean Jekyll build, rendered HTML, and full-page visual checks passed.
   The promoted closure/safe-primitive rule directly shaped the architecture
   section; no further general criterion was needed after revision.
+
+## 08. Scalar and Vector Geometric Graph Networks
+
+- **Post:** `_posts/2026-08-08-scalar-vector-geometric-gnns.md`
+- **Topic-matched reference:** The spherical-equivariant permanent anchor is
+  the direct mature comparator. The revised symmetry chapter supplies only the
+  transformation-law prerequisites.
+- **Before:** The chapter has the correct scalar-to-angle-to-vector storyline,
+  a useful bent-versus-linear example, and concise EGNN/PaiNN equations. At
+  roughly 2,300 substantive words, the four named designs still read mostly as
+  separate descriptions. The text says complete distances can determine a
+  geometry but does not derive reconstruction, and it does not quantify why a
+  sparse radial layer cannot access the same angle locally. Vector channels are
+  motivated but not carried through the same controlled neighborhood or cost
+  comparison.
+- **Criteria promoted:** Distinguish information-theoretic completeness from
+  computational accessibility: prove what a representation determines in
+  principle, then show the interactions or depth needed to make that information
+  available to the stated architecture.
+- **Planned revision:** Preserve every H2 and its order. Reconstruct a centered
+  Gram matrix from complete distances, contrast that global result with a
+  sparse one-layer radial neighborhood, carry one controlled geometry through
+  SchNet-like radial, angle-aware scalar, EGNN, and PaiNN-style updates, derive
+  central energy forces and transformation/centroid conditions, quantify
+  triplet and vector-channel costs, and close with a decision table separating
+  representation completeness, locality, output type, and conservation. Reuse
+  the preceding symmetry proofs by cross-link rather than repeating them; add a
+  figure only for a genuine gap.
+- **After:** Expanded from 2,392 to 4,883 substantive body words while
+  preserving all nine content H2s and their exact order. The chapter reconstructs
+  centered coordinates from complete distances, works explicit Gram spectra and
+  reflection ambiguity, and then carries the same 60-degree/180-degree
+  neighborhood through radial, angle-aware, EGNN, and PaiNN-like updates. A
+  two-layer radial calculation separates global completeness from local access;
+  pair-force signs, zero force/torque, EGNN centroid conditions, an equivariant
+  but nonconservative cross-Jacobian witness, and direct-vector conservation
+  failure separate output law from physics. Added numerical cost comparisons and
+  the Torgerson citation; reused all four figures. Arithmetic/Gram/vector/cost,
+  LaTeX/scaffolding, 6/6/6 citation bijection and links, blog validation, diff,
+  clean build, and rendered checks passed. The promoted completeness-versus-
+  accessibility rule shaped the controlled comparison; no further general
+  criterion was needed after revision.
