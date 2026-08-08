@@ -112,6 +112,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   observation in the stated input family. Give a concrete witness pair or
   counterexample, distinguish an architectural collision from failed training,
   and identify exactly which theorem assumption each proposed remedy changes.
+- When an abstract constraint is meant to govern a whole architecture, prove
+  the closure step that turns valid primitives into a valid system. Show why
+  composition preserves the property, name at least one safe nonlinear or
+  aggregation operation, and contrast it with an apparently natural operation
+  that breaks the constraint. A definition alone does not explain how to build.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
