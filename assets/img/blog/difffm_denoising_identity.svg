@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #665A75; stroke-width: 2.3; fill: none; stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="500" y="42" text-anchor="middle" class="title">A conditional Gaussian target reveals the unknown marginal score</text>
+      <rect x="35" y="88" width="220" height="280" rx="20" fill="#F6F2FA" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="145" y="126" text-anchor="middle" class="label">clean sample x_0</text>
+      <ellipse cx="140" cy="210" rx="74" ry="62" fill="white" stroke="#7A53EC" stroke-width="3"/>
+      <circle cx="105" cy="192" r="8" fill="#7A53EC" stroke="white" stroke-width="2"/><circle cx="132" cy="172" r="8" fill="#7A53EC" stroke="white" stroke-width="2"/><circle cx="151" cy="207" r="8" fill="#7A53EC" stroke="white" stroke-width="2"/><circle cx="123" cy="233" r="8" fill="#7A53EC" stroke="white" stroke-width="2"/><circle cx="173" cy="240" r="8" fill="#7A53EC" stroke="white" stroke-width="2"/>
+      <text x="145" y="302" text-anchor="middle" class="body">x_0 ~ p_data</text>
+      <text x="145" y="332" text-anchor="middle" class="small">sampled from the dataset</text>
+
+      <path d="M 260 208 L 302 208" class="arrow"/>
+      <text x="282" y="190" text-anchor="middle" class="small">corrupt</text>
+      <rect x="310" y="88" width="220" height="280" rx="20" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="420" y="126" text-anchor="middle" class="label">noisy state x_t</text>
+      <ellipse cx="410" cy="226" rx="82" ry="76" fill="white" stroke="#5F6ED8" stroke-width="3" stroke-dasharray="7 6"/>
+      <circle cx="390" cy="153" r="8" fill="#5F6ED8" stroke="white" stroke-width="2"/><circle cx="342" cy="208" r="8" fill="#5F6ED8" stroke="white" stroke-width="2"/><circle cx="426" cy="219" r="8" fill="#5F6ED8" stroke="white" stroke-width="2"/><circle cx="366" cy="268" r="8" fill="#5F6ED8" stroke="white" stroke-width="2"/><circle cx="435" cy="280" r="8" fill="#5F6ED8" stroke="white" stroke-width="2"/>
+      <text x="420" y="310" text-anchor="middle" class="body">x_t = alpha_t x_0</text>
+      <text x="420" y="333" text-anchor="middle" class="body">+ sigma_t epsilon</text>
+      <text x="420" y="355" text-anchor="middle" class="small">epsilon ~ N(0, I)</text>
+
+      <path d="M 390 153 L 560 270" stroke="#16877F" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/><path d="M 342 208 L 560 270" stroke="#16877F" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/><path d="M 426 219 L 560 270" stroke="#16877F" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/><path d="M 366 268 L 560 270" stroke="#16877F" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/><path d="M 435 280 L 560 270" stroke="#16877F" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+      <circle cx="600" cy="270" r="64" fill="#E4F4F2" stroke="#16877F" stroke-width="3"/>
+      <text x="600" y="258" text-anchor="middle" class="label">conditional</text>
+      <text x="600" y="282" text-anchor="middle" class="body">score target</text>
+      <text x="600" y="307" text-anchor="middle" class="small">-epsilon / sigma_t</text>
+
+      <path d="M 669 270 L 727 270" class="arrow"/>
+      <rect x="745" y="158" width="220" height="220" rx="20" fill="#FFF4DC" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="855" y="200" text-anchor="middle" class="label">conditional mean</text>
+      <text x="855" y="237" text-anchor="middle" class="body">E[-epsilon/sigma_t | x_t=x]</text>
+      <line x1="785" y1="262" x2="925" y2="262" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="855" y="300" text-anchor="middle" class="label">marginal score</text>
+      <text x="855" y="335" text-anchor="middle" class="body">grad_x log p_t(x)</text>
+
+      <rect x="110" y="430" width="780" height="70" rx="16" fill="#F6F2FA"/>
+      <text x="500" y="458" text-anchor="middle" class="body">The individual arrow depends on the hidden clean example.</text>
+      <text x="500" y="485" text-anchor="middle" class="small">Squared-error regression averages those arrows at each noisy location and recovers the field needed for reversal.</text>
+    
+</svg>

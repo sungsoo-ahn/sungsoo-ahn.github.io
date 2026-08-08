@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#665A75"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #231533; }
+      .title { font-size: 22px; font-weight: 700; }
+      .label { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; fill: #665A75; }
+      .arrow { stroke: #665A75; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #665A75; stroke-width: 2.3; fill: none; stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  
+      <text x="500" y="42" text-anchor="middle" class="title">Conditional flows combine into one marginal probability current</text>
+      <rect x="35" y="90" width="260" height="385" rx="20" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="165" y="130" text-anchor="middle" class="label">tractable conditional paths</text>
+      <circle cx="95" cy="210" r="18" fill="#7A53EC"/>
+      <circle cx="95" cy="280" r="18" fill="#16877F"/>
+      <circle cx="95" cy="350" r="18" fill="#B7791F"/>
+      <path d="M 120 210 C 178 185, 214 205, 250 235" stroke="#7A53EC" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+      <path d="M 120 280 C 170 280, 205 275, 250 275" stroke="#16877F" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+      <path d="M 120 350 C 178 375, 214 350, 250 315" stroke="#B7791F" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+      <text x="165" y="410" text-anchor="middle" class="body">u_t(x | z), p_t(x | z)</text>
+      <text x="165" y="438" text-anchor="middle" class="small">condition z is sampled directly</text>
+
+      <path d="M 312 280 L 380 280" class="arrow"/>
+      <circle cx="448" cy="280" r="62" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+      <text x="448" y="266" text-anchor="middle" class="label">average</text>
+      <text x="448" y="291" text-anchor="middle" class="body">at fixed x,t</text>
+      <text x="448" y="315" text-anchor="middle" class="small">posterior weights</text>
+
+      <path d="M 514 280 L 575 280" class="arrow"/>
+      <rect x="595" y="90" width="370" height="385" rx="20" fill="#E4F4F2" stroke="#C8BBD8" stroke-width="2"/>
+      <text x="780" y="130" text-anchor="middle" class="label">marginal path and field</text>
+      <ellipse cx="780" cy="225" rx="108" ry="67" fill="white" stroke="#16877F" stroke-width="3"/>
+      <circle cx="730" cy="232" r="12" fill="#7A53EC"/>
+      <circle cx="780" cy="194" r="12" fill="#16877F"/>
+      <circle cx="829" cy="236" r="12" fill="#B7791F"/>
+      <path d="M 730 232 L 757 211" stroke="#7A53EC" stroke-width="4" marker-end="url(#arrow)"/>
+      <path d="M 780 194 L 809 184" stroke="#16877F" stroke-width="4" marker-end="url(#arrow)"/>
+      <path d="M 829 236 L 850 210" stroke="#B7791F" stroke-width="4" marker-end="url(#arrow)"/>
+      <text x="780" y="335" text-anchor="middle" class="body">p_t(x) = E_z[p_t(x | z)]</text>
+      <text x="780" y="376" text-anchor="middle" class="body">u_t(x) = E[u_t(x | Z) | X_t=x]</text>
+      <text x="780" y="420" text-anchor="middle" class="small">the average current satisfies the same continuity equation</text>
+
+      <rect x="215" y="502" width="570" height="40" rx="12" fill="#FFF4DC"/>
+      <text x="500" y="528" text-anchor="middle" class="body">Regress the conditional arrows; obtain the marginal field without evaluating the posterior.</text>
+    
+</svg>
