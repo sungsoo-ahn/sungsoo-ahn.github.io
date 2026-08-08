@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Graph Convolution from Spectra to Symmetry"
+title: "Two Routes to Graph Convolution"
 date: 2026-08-08
 last_updated: 2026-08-08
 description: "Two principled derivations of graph convolution—from Laplacian spectral filters and from permutation-equivariant linear maps—and what each viewpoint reveals and hides."

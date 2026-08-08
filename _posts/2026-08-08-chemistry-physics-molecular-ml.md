@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "From Molecular Structure to Chemical Change"
+title: "Chemistry and Physics for Molecular Machine Learning"
 date: 2026-08-08
 last_updated: 2026-08-08
 description: "A physics-first account of molecular representation, electronic structure, forces, statistical mechanics, and dynamics for molecular machine learning."

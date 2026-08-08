@@ -15,7 +15,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post follows the changing representation of the structure problem across AlphaFold 1, 2, and 3. The goal is not a chronology of model releases, but an account of how evolutionary constraints become pair geometry, how geometry becomes coordinates, and how far those coordinates support biological conclusions.</em>
+  <em>Note: This post develops the protein-structure storyline from my Machine Learning for Molecules and Geometric Deep Learning lectures. It follows the changing representation of the problem across AlphaFold 1, 2, and 3: how evolutionary constraints become pair geometry, how geometry becomes coordinates, and how far those coordinates support biological conclusions.</em>
 </p>
 
 ## Structure Prediction Is Inference Under Constraints

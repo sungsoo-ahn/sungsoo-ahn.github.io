@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Symmetry and Equivariance: How Geometry Constrains Learning"
+title: "Symmetry and Equivariance for Geometric Data"
 date: 2026-08-08
 last_updated: 2026-08-08
 description: "A concrete account of group actions, invariance, equivariance, and feature types for geometric machine learning."
