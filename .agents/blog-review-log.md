@@ -74,3 +74,41 @@ Post-specific observations remain here rather than becoming universal rules.
   diff check, and a clean rendered Jekyll build passed. The two promoted skill
   rules directly shaped the running scenario and denominator-aware evaluation;
   no further general rule was needed after revision.
+
+## 03. Materials Discovery Connects Structure, Properties, and Synthesis
+
+- **Post:** `_posts/2026-08-08-materials-discovery-structure-properties-synthesis.md`
+- **Topic-matched reference:** `_posts/2026-02-05-electrocatalysis-ml.md` for
+  its physical through-line from an application constraint to a descriptor,
+  search space, failure of idealized surfaces, and an ML decision.
+- **Before:** The chapter has the right eight-stage argument and a useful AB3
+  convex-hull calculation, but at 2,666 substantive words most consequences are
+  named only once. Composition, state-dependent properties, hull stability,
+  defects, periodic learning, inverse design, synthesis, and characterization
+  remain adjacent abstractions. Compared with the references, the same
+  candidate is not carried across fidelity levels, so finite-temperature,
+  defect, process, and measurement corrections never visibly change a decision.
+- **Criteria promoted:** When a scientific argument uses nested physical
+  approximations, carry the same quantity through multiple fidelity levels and
+  show whether restoring a neglected term or reference changes the conclusion.
+- **Planned revision:** Preserve every H2 and its order. Carry the hypothetical
+  AB3 candidate from equivalent periodic descriptions through state-specific
+  electronic/mechanical targets, hull uncertainty and finite-temperature phase
+  competition, defect populations, periodic-graph prediction, constrained
+  inverse design, a process window, and claim-matched characterization. Add
+  derivations and numerical checks where they change the candidate decision;
+  add a figure only if the existing four cannot support that reasoning.
+- **After:** Expanded from 2,666 to 4,611 substantive words while preserving all
+  nine H2s and their exact order. The hypothetical $$\alpha$$-AB$$_3$$ candidate
+  now passes through primitive/supercell equivalence, state-specific electronic
+  and elastic targets, an expanded hull, correlated energy uncertainty,
+  finite-temperature reranking, reservoir-dependent defect populations and
+  conductivity, periodic graph construction, joint design feasibility, a
+  temperature-dependent synthesis window, and claim-matched characterization.
+  The revision explicitly distinguishes Figure 1's generic A$$_2$$B$$_2$$
+  illustration and reuses all four existing figures. It adds primary references
+  for defect thermodynamics and Rietveld refinement. Independent arithmetic,
+  LaTeX/scaffolding, citation bijection and DOI, blog validation, diff, clean
+  Jekyll build, and rendered-page checks passed. The promoted fidelity-hierarchy
+  rule directly produced several visible decision reversals; no further general
+  criterion was needed after revision.
