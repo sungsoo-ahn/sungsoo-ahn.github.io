@@ -582,3 +582,54 @@ Post-specific observations remain here rather than becoming universal rules.
   Existing figures remained sufficient. Matrix/arithmetic/citation audits,
   validation, clean build, and rendered checks passed. The promoted executable-
   convention rule caught the core risk; no further general criterion was needed.
+
+## 15. Molecular Data and Property Prediction
+
+- **Post:** `_posts/2026-08-08-molecular-data-property-prediction.md`
+- **Topic-matched reference:** The electrocatalysis post is the stronger
+  application companion because it carries one physical screening target from
+  thermodynamics through a constrained search space and repeatedly quantifies
+  why an apparently simple descriptor succeeds or fails. The quantum-chemistry
+  post supplies the fidelity hierarchy between physical object, approximation,
+  and surrogate. The permanent anchors remain the standard for worked
+  derivations and visual pacing.
+- **Before:** At 2,495 substantive words, the post has the right outside-in
+  thesis and covers representations, conformers, splits, pretraining, metrics,
+  and uncertainty. Most sections nevertheless stop after naming the tradeoff.
+  The conditional-variance equation has no collision witness; the conformer
+  average has no energies, populations, or changed ranking; and random versus
+  scaffold or temporal splitting has no finite record family showing exactly
+  which dependence crosses the boundary. Metric and calibration advice is also
+  detached from a concrete screening decision. The result reads as a precise
+  checklist rather than a 30--45 minute argument.
+- **Criteria promoted:** A split/generalization discussion must define the
+  independent unit, the equivalence relation that induces dependence, and the
+  deployment population, then carry one related record family through competing
+  partitions and identify the changed estimand and residual leakage.
+- **Planned revision:** Preserve all eight H2s and their order. Use one small
+  analogue series and one flexible molecule as running examples. Quantify a
+  representation collision and Bayes-risk floor; compute a Boltzmann conformer
+  average and show how lowest-conformer and uniform aggregation reverse a
+  decision. Connect task regimes to label fidelity and inference-time
+  availability. Build an explicit molecule/conformer/assay record table and
+  carry it through row, molecule, scaffold, and temporal splits, stating the
+  deployment claim each estimates. Deepen pretraining with positive-pair
+  invariance and overlap arithmetic. Compute MAE/RMSE, tail enrichment, interval
+  coverage/sharpness, and an uncertainty-driven acquisition or abstention
+  decision on one prediction set. End with a claim contract linking object,
+  representation, independent unit, split, metric, and action. Reuse the four
+  existing figures unless a missing quantitative relationship genuinely needs
+  a new one.
+- **After:** Expanded from 2,495 to 4,773 substantive body words while
+  preserving all eight H2s and their order. A conformer collision now gives an
+  explicit Bayes-risk floor, and a three-state Boltzmann calculation shows how
+  lowest-state, uniform, and population-weighted aggregation reverse a screening
+  decision. The same six records are carried through row, molecule, scaffold,
+  and temporal splits, with the independent unit, residual dependence, and
+  deployment risk stated for each. Pretraining exposure is divided into exact,
+  analogue, and distant regimes. A six-candidate prediction set connects
+  MAE/RMSE, tail enrichment, interval coverage and sharpness, upper-confidence
+  acquisition, and abstention to actual experimental actions; a final contract
+  reunites the argument. Existing figures remained sufficient. The promoted
+  split-semantics rule drove the central revision. Arithmetic/citation audits,
+  validation, clean builds, and rendered checks passed.
