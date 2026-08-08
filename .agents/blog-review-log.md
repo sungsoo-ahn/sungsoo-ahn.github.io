@@ -399,3 +399,49 @@ Post-specific observations remain here rather than becoming universal rules.
   remained sufficient. Arithmetic, citations, validator, clean build, and
   rendered checks passed. The promoted interface-contract rule supplied the
   organizing spine; no additional general criterion was needed after revision.
+
+## 11. ODEs, SDEs, and Probability Flow
+
+- **Post:** `_posts/2026-08-08-odes-sdes-probability-flow.md`
+- **Topic-matched reference:** The Fokker--Planck permanent anchor owns the
+  physical intuition and two density-equation derivations. The polished path-
+  measure post is the fair companion for the distinction between endpoint,
+  marginal, and trajectory distributions. This chapter should own the bridge
+  from a particle dynamics to probability flow and reverse-time sampling rather
+  than repeat either reference.
+- **Before:** At 1,869 substantive words, the post contains the correct main
+  equations and responsibly states that the probability-flow ODE matches only
+  one-time marginals. Most steps, however, are verified only symbolically. The
+  constant-velocity example disappears before the SDE sections, the Gaussian
+  example arrives late, and no calculation compares conditional kernels,
+  quadratic variation, path laws, or reverse-clock moments. The two reverse-time
+  sign conventions are stated but not derived from one canonical clock. The
+  result is accurate but too compressed to make the factor of two, ensemble
+  dependence, or exact scope of marginal equivalence operational.
+- **Criteria promoted:** Any claim that stochastic processes match must identify
+  the exact equality level and exhibit both a matching calculation and a witness
+  for a stronger level that fails.
+- **Planned revision:** Preserve all eight H2s and their order. Assign the full
+  Fokker--Planck proof to the anchor and path-measure identities to the companion.
+  Carry one one-dimensional Gaussian family through ODE pushforward and density
+  change, Brownian variance growth, score/current, probability-flow scaling,
+  reverse SDE, and reverse ODE. Derive reverse dynamics first in the increasing
+  clock $$\tau=T-t$$, then translate once to decreasing $$t$$ and verify the
+  factor of two with mean/variance ODEs. Contrast one-time marginals using
+  conditional variance, quadratic variation, and joint/path laws; state the
+  ensemble dependence and nonuniqueness of continuity velocities. Add numerical
+  step-size and CNF likelihood calculations plus an explicit model-error/solver
+  contract. Reuse the four existing figures unless a genuinely new equality-
+  level figure is necessary.
+- **After:** Expanded from 1,869 to 4,589 substantive body words while
+  preserving all eight H2s and their order. One $$\mathcal N(2,1)$$ ensemble now
+  connects the affine flow map, Jacobian and CNF density change, Brownian
+  variance, score/current, probability-flow scaling, and both reverse samplers.
+  Conditional variance, two-time covariance, and quadratic variation show
+  exactly where marginal agreement stops. The reverse-clock signs and factor of
+  two are derived and checked with moment equations; ensemble dependence,
+  continuity-velocity nonuniqueness, score support, biased-score error, and Euler
+  error set the approximation boundary. The four existing figures remained
+  sufficient. Sign/arithmetic/citation audits, validation, clean build, and
+  rendered checks passed. The promoted equality-level criterion determined the
+  post's spine; no further general criterion was needed after revision.
