@@ -899,3 +899,55 @@ Post-specific observations remain here rather than becoming universal rules.
   final object/claim contract separate coordinates from affinity, dynamics, and
   function. Existing figures remained sufficient. Arithmetic/citation audits,
   validation, clean build, and rendered checks passed.
+
+## 21. Protein Representation Learning Across Sequence and Structure
+
+- **Post:** `_posts/2026-08-08-protein-representation-learning.md`
+- **Topic-matched reference:** The polished protein-design chapter gives every
+  representation an operational place in a finite design workflow. The revised
+  AlphaFold chapter owns coevolution, pair geometry, residue frames, and
+  confidence semantics. The spherical-equivariant anchor owns general geometric
+  transformation theory. This chapter should instead own representation
+  neighborhoods, pretraining-induced invariances, leakage, probing, and the
+  evidentiary ladder behind claims that an embedding “captures” biology.
+- **Before:** At 2,870 substantive words, the post has a strong thesis and broad
+  coverage of sequence, MSA, graphs, frames, surfaces, objectives, pooling,
+  provenance, splits, and probes. It rarely carries one protein or controlled
+  record set across these views. Mutation log odds, contrastive loss, pooling,
+  frame pose, graph locality, and homology thresholds have no numerical
+  consequence. The final probing section correctly warns that decodability can
+  reflect shortcuts but does not exhibit a family-matched functional
+  counterexample or distinguish decodability, probe accessibility, fine-tuned
+  use, and intervention-stable mechanism.
+- **Criteria promoted:** A claim that a representation captures a concept must
+  separate decodability, restricted-probe accessibility, downstream use, and
+  intervention stability, then compare nuisance baselines on matched
+  counterfactuals where family or metadata is fixed and mechanism changes.
+- **Planned revision:** Preserve all thirteen H2s and their order. Carry one
+  small protein/family example through sequence, spatial graph, frame, surface,
+  and pooled views, quantifying which neighborhoods and mechanisms each exposes.
+  Compute an MLM mutation log-odds without misreading it as free energy. Cross-
+  link AlphaFold for coevolution rather than duplicate it, but quantify deep
+  versus orphan MSA availability. Work a relative-frame/chirality example and a
+  surface-resolution/probe-radius tradeoff. Evaluate one finite InfoNCE batch to
+  show how positive and false-negative choices declare invariance. Quantify
+  motif dilution under mean/sum/attention pooling. Trace a dated sequence--
+  template--predicted-structure provenance path and carry a small record family
+  through random, homology-cluster, and temporal splits. Finish with a matched
+  homolog/convergent-function quartet, nuisance baseline ladder, probe-capacity
+  comparison, and deployment contract. Reuse the four existing figures unless
+  a genuine missing relationship warrants another.
+- **After:** Expanded from 2,870 to 5,486 substantive body words while
+  preserving all thirteen H2s and their order. A controlled 60-residue protein
+  now moves through sequence, spatial graph, frame, surface, and pooled views,
+  with numerical locality and dilution consequences. MLM log odds are explicitly
+  separated from free energy, and deep/orphan MSA regimes are quantified.
+  Relative-pose and chirality witnesses, surface resolution/probe radius, and a
+  finite InfoNCE batch expose what each representation or objective preserves.
+  A dated provenance chain and related-record family distinguish temporal from
+  homology-aware splitting. Finally, a matched homolog/convergent-function
+  quartet and nuisance/probe ladder implement the promoted distinction among
+  decodability, restricted accessibility, downstream use, and intervention
+  stability. A deployment contract reunites those claims. Existing figures
+  remained sufficient. Arithmetic/citation audits, validation, clean build, and
+  rendered checks passed.
