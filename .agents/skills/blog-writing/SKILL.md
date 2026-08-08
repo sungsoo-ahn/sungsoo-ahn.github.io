@@ -101,6 +101,13 @@ from one comparison can improve the criteria used for the next.
 - Whenever a model score changes a scientific workflow, identify the decision,
   the population being filtered, and the denominator behind the reported
   success rate. A benchmark metric alone does not complete the argument.
+- When a tutorial compares dataset splits or generalization claims, define the
+  independent unit, the equivalence relation that makes records dependent or
+  near-duplicate, and the deployment population before naming a split. Carry
+  one small family of related records through row-wise and group-, structure-,
+  or time-aware partitions, then state which estimand changes and where leakage
+  remains. A split label such as “random” or “scaffold” is not a generalization
+  argument by itself.
 - When comparing related architectures, carry one controlled input through the
   alternatives and compute the intermediate outputs. Hold the task and data
   fixed so the reader can see exactly which normalization, aggregation,
