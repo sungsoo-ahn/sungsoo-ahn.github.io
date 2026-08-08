@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#665A75"/></marker>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:2.5;marker-end:url(#arr)}</style></defs><rect width="100%" height="100%" fill="white"/>
+<text x="500" y="40" text-anchor="middle" class="title">Rotating query, keys, and values leaves attention weights unchanged</text>
+<rect x="45" y="80" width="400" height="375" rx="18" fill="#EEF0FF" stroke="#C8BBD8" stroke-width="2"/><rect x="555" y="80" width="400" height="375" rx="18" fill="#E4F4F2" stroke="#C8BBD8" stroke-width="2"/>
+<text x="245" y="116" text-anchor="middle" class="head">original frame</text><text x="755" y="116" text-anchor="middle" class="head">all vectors rotated 90°</text>
+<circle cx="245" cy="270" r="6" fill="#231533"/><path d="M245 270L355 270" stroke="#7A53EC" stroke-width="6" marker-end="url(#arr)"/><text x="365" y="275" class="body">q, k₁</text>
+<path d="M245 270L245 160" stroke="#5F6ED8" stroke-width="6" marker-end="url(#arr)"/><text x="255" y="157" class="body">k₂</text>
+<text x="245" y="340" text-anchor="middle" class="body">q·k₁ = 1, q·k₂ = 0</text><text x="245" y="375" text-anchor="middle" class="body">(α₁, α₂) = (0.73, 0.27)</text><text x="245" y="410" text-anchor="middle" class="small">output points mostly right</text>
+<circle cx="755" cy="270" r="6" fill="#231533"/><path d="M755 270L755 160" stroke="#7A53EC" stroke-width="6" marker-end="url(#arr)"/><text x="768" y="157" class="body">Rq, Rk₁</text>
+<path d="M755 270L645 270" stroke="#5F6ED8" stroke-width="6" marker-end="url(#arr)"/><text x="610" y="275" class="body">Rk₂</text>
+<text x="755" y="340" text-anchor="middle" class="body">(Rq)·(Rk₁) = 1, (Rq)·(Rk₂) = 0</text><text x="755" y="375" text-anchor="middle" class="body">(α₁, α₂) = (0.73, 0.27)</text><text x="755" y="410" text-anchor="middle" class="small">output rotates upward</text>
+<path d="M455 270L535 270" class="arrow"/><text x="495" y="245" text-anchor="middle" class="small">R</text>
+<rect x="172" y="488" width="656" height="46" rx="14" fill="#FFF4DC"/><text x="500" y="517" text-anchor="middle" class="body">orthogonality gives (Rq)ᵀ(Rk) = qᵀk</text></svg>
