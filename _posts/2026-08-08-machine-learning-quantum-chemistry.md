@@ -1,0 +1,336 @@
+---
+layout: post
+title: "Machine Learning Meets Quantum Chemistry"
+date: 2026-08-08
+last_updated: 2026-08-08
+description: "Where machine learning enters electronic-structure theory, from neural wavefunctions and learned functionals to densities, Hamiltonians, corrections, and surrogate potential-energy surfaces."
+post_type: tutorial
+authors: ["Sungsoo Ahn"]
+categories: [molecular-science]
+lecture_paths: [ml4mol]
+tags: [quantum-chemistry, electronic-structure, density-functional-theory, neural-wavefunctions, surrogate-models]
+toc:
+  sidebar: left
+related_posts: false
+---
+
+<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
+  <em>Note: This post develops the machine-learning and quantum-chemistry
+  storyline from my Machine Learning for Molecules lecture. It is organized by
+  what the model approximates—wavefunction, density, Hamiltonian, energy
+  surface, property, or correction—because that boundary determines both the
+  physical guarantees and the computational claim.</em>
+</p>
+
+Quantum chemistry is expensive for a structural reason. The electronic state of $$N_e$$ electrons is not a function of one point in three-dimensional space; it is a function over all electron coordinates at once. Machine learning can avoid, accelerate, or reparameterize parts of that computation, but these interventions are not interchangeable.
+
+A neural wavefunction still solves a variational many-electron problem for each system. A learned exchange-correlation functional remains inside a self-consistent density-functional calculation. A Hamiltonian or density surrogate predicts an electronic object directly. An interatomic potential skips the electronic variables and learns the Born–Oppenheimer energy surface. A property model goes further and predicts one observable.
+
+Moving down this ladder usually makes inference cheaper. It also narrows what can be reused and weakens the connection to first-principles constraints. The central question is therefore not whether machine learning “solves quantum chemistry,” but **which quantum-chemical map it replaces, under which fidelity and domain, and what computation remains after the network returns**.
+
+## The many-electron problem creates the bottleneck
+
+Under the Born–Oppenheimer approximation, nuclear positions $$\mathbf{R}=(\mathbf{R}_1,\ldots,\mathbf{R}_{N_n})$$ are fixed while the electronic problem is solved:
+
+$$
+\widehat H_{\mathbf R}\,\Psi(\mathbf r_1,\ldots,\mathbf r_{N_e})
+=
+E(\mathbf R)\,\Psi(\mathbf r_1,\ldots,\mathbf r_{N_e}).
+$$
+
+In atomic units, the electronic Hamiltonian contains
+
+$$
+\widehat H_{\mathbf R}
+=
+-\frac12\sum_{i=1}^{N_e}\nabla_i^2
+-\sum_{i,A}\frac{Z_A}{\lVert\mathbf r_i-\mathbf R_A\rVert}
++\sum_{i<j}\frac{1}{\lVert\mathbf r_i-\mathbf r_j\rVert}
++E_{\mathrm{nn}}(\mathbf R).
+$$
+
+The first term is electronic kinetic energy, the second is electron–nuclear attraction, the third is electron–electron repulsion, and the last is nuclear repulsion. The electron–electron term prevents the equation from separating into independent one-electron problems.
+
+The wavefunction lives on a $$3N_e$$-dimensional configuration space and must be antisymmetric under exchange of same-spin electrons:
+
+$$
+\Psi(\ldots,\mathbf r_i,\ldots,\mathbf r_j,\ldots)
+=
+-\Psi(\ldots,\mathbf r_j,\ldots,\mathbf r_i,\ldots).
+$$
+
+This sign change is not optional structure that more data can teach reliably. It encodes fermionic statistics and creates nodes where the wavefunction vanishes. Classical approximations trade accuracy for tractability: Hartree–Fock uses a mean-field Slater determinant, post-Hartree–Fock methods recover electron correlation at rapidly increasing cost, and density functional theory replaces the high-dimensional wavefunction with the three-dimensional electron density.
+
+Common formal scaling labels—roughly cubic for conventional Kohn–Sham DFT, quartic for Hartree–Fock, and seventh power for canonical CCSD(T)—are useful warnings, not runtime laws. Basis size, sparsity, system geometry, implementation, memory, convergence, and desired precision can dominate the observed cost.
+
+## Machine learning can target different objects
+
+{% include figure.liquid loading="eager" path="assets/img/blog/mlqc_target_boundaries.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Machine learning can parameterize a many-electron wavefunction, predict electronic fields such as density or Hamiltonian, approximate a potential-energy surface, or map directly to one property. Moving toward narrower outputs usually reduces inference cost but discards information that could support other observables. Original diagram." %}
+
+These targets define distinct method boundaries:
+
+| Learned object | Model output | Computation that remains | Typical transfer boundary |
+|---|---|---|---|
+| Wavefunction | $$\Psi_\theta(\mathbf r;\mathbf R)$$ | Monte Carlo sampling and variational optimization | New system often needs optimization |
+| Exchange-correlation functional | $$E_{\mathrm{xc},\theta}[\rho]$$ | Functional differentiation and self-consistent Kohn–Sham solve | Densities and chemistry covered by training |
+| Hamiltonian / density | Matrix elements or $$\rho(\mathbf r)$$ | Diagonalization, observables, or validation | Basis, elements, geometries, level of theory |
+| Energy surface | $$E_\theta(\mathbf R)$$ and derivatives | Geometry optimization or dynamics | Composition and configuration coverage |
+| Property | One or several observables | Usually only a forward pass | Exact label definition and data domain |
+| Correction | $$\Delta_\theta=Y_{\mathrm{high}}-Y_{\mathrm{low}}$$ | Low-fidelity baseline plus correction | Stability of the residual across domain |
+
+A model at one row should not inherit the claims of another. Predicting energies accurately does not imply accurate electron density. Predicting a Hamiltonian matrix does not remove the cost of solving its eigenproblem. A neural wavefunction is not an amortized property predictor if it must be reoptimized for each molecular geometry.
+
+## Neural wavefunctions keep the variational problem
+
+For any normalized trial wavefunction $$\Psi_\theta$$, the variational principle gives
+
+$$
+E_\theta
+=
+\frac{\langle\Psi_\theta\vert\widehat H\vert\Psi_\theta\rangle}
+{\langle\Psi_\theta\vert\Psi_\theta\rangle}
+\ge E_0,
+$$
+
+where $$E_0$$ is the exact ground-state energy in the chosen Hamiltonian. This inequality gives neural wavefunctions a physical training objective and an interpretable direction of improvement.
+
+Variational Monte Carlo rewrites the energy as an expectation under
+
+$$
+p_\theta(\mathbf r)
+=
+\frac{\lvert\Psi_\theta(\mathbf r)\rvert^2}
+{\int\lvert\Psi_\theta(\mathbf r')\rvert^2d\mathbf r'}.
+$$
+
+Define the local energy
+
+$$
+E_{\mathrm L}(\mathbf r)
+=
+\frac{\widehat H\Psi_\theta(\mathbf r)}
+{\Psi_\theta(\mathbf r)}.
+$$
+
+Then
+
+$$
+E_\theta
+=
+\mathbb E_{\mathbf r\sim p_\theta}
+\left[E_{\mathrm L}(\mathbf r)\right].
+$$
+
+The network is optimized using electron configurations sampled from its own squared amplitude. A perfect eigenstate has constant local energy wherever its probability is nonzero, so local-energy variance is also a useful diagnostic.
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/mlqc_vmc_loop.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Variational Monte Carlo samples electron configurations from the neural wavefunction, evaluates their local energies, and updates the wavefunction parameters. The variational upper bound is physical, while finite sampling, autocorrelation, optimization, and ansatz error remain numerical limitations. Original diagram." %}
+
+FermiNet builds antisymmetry through determinants of learned, many-electron-dependent orbitals and demonstrated highly accurate first-principles energies (<span id="cite-pfau2020"></span>[Pfau et al., 2020](#ref-pfau2020)). Its neural network is not merely regressing against energy labels: the Hamiltonian supplies the objective. This avoids a precomputed energy dataset, but it does not make the calculation free. Sampling high-dimensional electron configurations, evaluating derivatives in the kinetic-energy operator, and optimizing a noisy nonconvex objective remain expensive.
+
+The variational bound also needs careful interpretation. It holds for the expectation represented by the trial state and Hamiltonian. A noisy Monte Carlo estimate can fluctuate below a reference value. Comparisons can also be limited by pseudopotentials, basis or boundary choices, relativistic effects, and imperfect reference energies. “Lower is better” is meaningful only when these choices match.
+
+## Density functional theory moves the unknown into a functional
+
+The Hohenberg–Kohn result establishes that the ground-state density determines the external potential, and therefore ground-state observables, under its assumptions (<span id="cite-hk1964"></span>[Hohenberg & Kohn, 1964](#ref-hk1964)). Kohn–Sham DFT writes the energy schematically as
+
+$$
+E[\rho]
+=
+T_s[\rho]
++E_{\mathrm H}[\rho]
++\int v_{\mathrm{ext}}(\mathbf r)\rho(\mathbf r)d\mathbf r
++E_{\mathrm{xc}}[\rho]
++E_{\mathrm{nn}}.
+$$
+
+The noninteracting kinetic energy $$T_s$$ is evaluated through Kohn–Sham orbitals, the Hartree term $$E_{\mathrm H}$$ is classical Coulomb repulsion, and the exchange-correlation functional $$E_{\mathrm{xc}}$$ absorbs the remaining many-body effects.
+
+Learning $$E_{\mathrm{xc},\theta}[\rho]$$ is attractive because one learned object can improve many systems and observables while preserving the Kohn–Sham machinery. But the functional is used through its derivative
+
+$$
+v_{\mathrm{xc},\theta}(\mathbf r)
+=
+\frac{\delta E_{\mathrm{xc},\theta}[\rho]}
+{\delta\rho(\mathbf r)}.
+$$
+
+The derivative enters the effective Hamiltonian, which produces new orbitals and a new density. The model therefore participates in a fixed-point iteration:
+
+$$
+\rho_k
+\longrightarrow
+\widehat H_{\mathrm{KS}}[\rho_k]
+\longrightarrow
+\{\phi_i^{(k)}\}
+\longrightarrow
+\rho_{k+1}.
+$$
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/mlqc_scf_loop.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A learned exchange-correlation functional sits inside the self-consistent Kohn–Sham loop and affects both the converged energy and the path to convergence. Directly predicting a converged density or Hamiltonian is faster, but matching final outputs alone does not guarantee a stable self-consistent fixed point. Original diagram." %}
+
+This explains why fitting energies on converged reference densities is not enough. The learned functional will encounter its own intermediate densities at deployment. Its derivatives must be sensible, the SCF iteration must converge, and exact constraints outside the energy training set may matter. DM21 illustrates how incorporating fractional-electron constraints can address known functional failures rather than relying only on benchmark fitting (<span id="cite-kirkpatrick2021"></span>[Kirkpatrick et al., 2021](#ref-kirkpatrick2021)).
+
+There is a crucial distinction between a model that **learns a functional** and one that **learns energies from density descriptors**. Only the former is intended to be differentiated and used self-consistently. The latter may be an accurate correction at a fixed density without defining a stable Kohn–Sham procedure.
+
+## Density, orbitals, and Hamiltonians preserve reusable structure
+
+Instead of learning the functional, a model can predict the output of an electronic-structure calculation.
+
+A density model maps nuclear geometry and a query point to
+
+$$
+\rho_\theta(\mathbf r\mid\mathbf R,\mathbf Z).
+$$
+
+The basic constraints include nonnegativity and electron count,
+
+$$
+\rho_\theta(\mathbf r)\ge0,
+\qquad
+\int\rho_\theta(\mathbf r)d\mathbf r=N_e.
+$$
+
+DeepDFT treats query locations as graph nodes and predicts charge density around molecules and materials (<span id="cite-jorgensen2022"></span>[Jørgensen & Bhowmik, 2022](#ref-jorgensen2022)). Pointwise prediction is flexible but expensive on a dense grid. Predicting coefficients in atom-centered basis functions or using a neural operator amortizes spatial evaluation, at the cost of committing to a basis and resolution.
+
+A Hamiltonian model instead predicts matrix elements in a chosen orbital basis:
+
+$$
+H_{\mu\nu,\theta}(\mathbf R)
+\approx
+\langle\chi_\mu\vert\widehat H_{\mathrm{KS}}\vert\chi_\nu\rangle.
+$$
+
+These blocks transform nontrivially when the molecule rotates because atomic orbitals carry angular momentum. Equivariant architectures such as QHNet encode that transformation law directly (<span id="cite-yu2023"></span>[Yu et al., 2023](#ref-yu2023)). The predicted matrix can initialize SCF, produce orbitals after diagonalization, or support downstream electronic observables.
+
+But a small matrix-element MAE is not automatically a small orbital or energy error. Near degeneracies, small perturbations can rotate eigenvectors strongly. A Hamiltonian tied to one basis set, pseudopotential, and functional is not a basis-independent electronic truth. Evaluation should therefore include derived eigenvalues, densities, forces, SCF iterations, and target observables—not only entrywise error.
+
+## Surrogate potentials and properties skip electronic variables
+
+For fixed nuclear charges, the electronic calculation defines a Born–Oppenheimer energy surface $$E(\mathbf R)$$. A machine-learned interatomic potential approximates this map and obtains forces by differentiation:
+
+$$
+\mathbf F_A
+=
+-\nabla_{\mathbf R_A}E_\theta(\mathbf R).
+$$
+
+This is the right boundary for long molecular-dynamics trajectories when electronic densities are unnecessary. It can provide orders-of-magnitude faster force evaluations after training. It does not discover new electronic states beyond its reference data, and it inherits the level of theory used for the labels. The companion post on [equivariant Transformers and machine-learned potentials]({% post_url 2026-08-08-equivariant-transformers-machine-learned-potentials %}) develops the conservation, cutoff, and scaling requirements.
+
+A direct property model is narrower still:
+
+$$
+y_\theta=f_\theta(\mathbf Z,\mathbf R)
+$$
+
+for an orbital gap, dipole, excitation energy, or reaction barrier. Such a model can be extremely efficient and may need fewer outputs than a universal potential. Its label must be defined precisely: method, basis, charge, spin state, geometry, environment, and thermodynamic corrections are part of the target. A model cannot be “DFT accurate” when different functionals disagree materially and the reference functional is unnamed.
+
+## Learned corrections exploit a cheaper baseline
+
+Often the most data-efficient target is a discrepancy:
+
+$$
+\Delta(\mathbf x)
+=
+Y_{\mathrm{high}}(\mathbf x)
+-Y_{\mathrm{low}}(\mathbf x),
+$$
+
+so that
+
+$$
+Y_{\mathrm{pred}}(\mathbf x)
+=
+Y_{\mathrm{low}}(\mathbf x)
++\Delta_\theta(\mathbf x).
+$$
+
+If the inexpensive method already captures most variation, the residual can be smoother and smaller than the full high-fidelity target. Delta machine learning demonstrated this strategy across chemical space (<span id="cite-ramakrishnan2015"></span>[Ramakrishnan et al., 2015](#ref-ramakrishnan2015)).
+
+The benefit depends on correlation, not merely on the baseline being cheap. Consider two low-fidelity methods with the same MAE. One makes a nearly constant systematic error; its residual is easy to learn. The other has geometry-dependent sign changes; its residual may be as difficult as the original target. Baseline cost remains at inference, and any catastrophic baseline failure passes into the corrected prediction unless the model learns that regime.
+
+Multi-fidelity training also creates bookkeeping risks. Geometries must correspond across methods. Atomization energies, total energies, and thermal corrections cannot be mixed casually. A reference computed on a geometry optimized at another level includes both electronic and geometry discrepancies.
+
+## Transfer across chemical space is a coverage problem
+
+Electronic-structure models face several axes of extrapolation at once:
+
+- new elements and oxidation states;
+- larger electron counts and molecular sizes;
+- bond breaking, stretched geometries, and transition states;
+- charge and spin multiplicity;
+- excited states and near degeneracies;
+- intermolecular interactions and long-range charge transfer;
+- molecules versus periodic materials;
+- basis sets, pseudopotentials, and reference methods.
+
+Pretraining can amortize representations or initialize wavefunctions and Hamiltonians across related systems. It does not remove these axes. A model trained on neutral equilibrium organic molecules may interpolate impressively while failing on an ion, radical, or dissociation curve.
+
+Size extensivity and locality help some outputs. Energy may be decomposed approximately into local contributions for insulating systems, enabling transfer to larger structures. Orbitals, response properties, charged excitations, and metallic systems can remain globally coupled. The architecture should not impose locality more aggressively than the physics allows.
+
+## Data fidelity is part of the target
+
+Quantum-chemical labels are computed, but they are not ground truth in an absolute sense. They depend on a hierarchy of choices:
+
+$$
+\text{Hamiltonian}
+\rightarrow
+\text{relativistic/pseudopotential approximation}
+\rightarrow
+\text{electronic method}
+\rightarrow
+\text{basis and thresholds}
+\rightarrow
+\text{numerical convergence}.
+$$
+
+A model can reproduce its labels more accurately than those labels reproduce experiment. This is not paradoxical; it is emulation. Reported error against CCSD(T) measures imitation of that protocol, not error against the exact Schrödinger solution. Experimental comparison adds nuclear quantum effects, temperature, environment, and measurement uncertainty.
+
+Physical constraints can prevent some failures:
+
+- antisymmetry for fermionic wavefunctions;
+- normalization and cusp/asymptotic behavior;
+- nonnegative density with correct electron count;
+- Hermitian, rotation-covariant Hamiltonian matrices;
+- invariant extensive energy and conservative forces;
+- exact or known limiting constraints for density functionals.
+
+Constraints narrow the hypothesis class but do not certify chemical accuracy. An antisymmetric wavefunction can still have a poor nodal surface. A normalized density can be spatially wrong. A conservative potential can conserve the wrong energy surface.
+
+## Accuracy-versus-cost claims need a denominator
+
+{% include figure.liquid loading="lazy" path="assets/img/blog/mlqc_fidelity_cost.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Higher-fidelity electronic-structure methods usually cost more per system, while learned surrogates move repeated inference toward the inexpensive region after reference data are generated. Delta corrections retain the baseline calculation, and neither approach makes training data, fallbacks, or extrapolation failures free. Original diagram." %}
+
+“A thousand times faster than DFT” can describe several different comparisons. Is the baseline one SCF energy, a geometry optimization, or an entire trajectory? Does ML timing include neighbor construction, force derivatives, diagonalization, and uncertainty checks? Is the reference running on CPU while the network uses a GPU? Is data generation and training amortized over ten predictions or ten million?
+
+Accuracy needs the same specificity. Report energy per atom and total energy when extensivity matters. Report forces if dynamics are claimed. Test relative conformer energies, reaction barriers, density integrals, eigenvalues, and SCF convergence according to the use case. Stratify by system size and chemical novelty. Compare at matched geometries and units.
+
+A useful cost statement has the form:
+
+> For this chemical domain, reference protocol, hardware, batch size, and required outputs, the trained model reaches this error distribution at this wall-clock and memory cost, including the remaining numerical steps.
+
+That sentence is less dramatic than “quantum accuracy at ML speed,” but it is scientifically transferable.
+
+## Where machine learning genuinely changes the calculation
+
+Machine learning contributes in three distinct ways. It can **amortize** a repeated map, as in property, energy, density, or Hamiltonian surrogates. It can **improve an approximation within a physical solver**, as in learned exchange-correlation functionals. Or it can **enlarge the variational ansatz**, as in neural wavefunctions.
+
+Each route has a different source of truth. Supervised surrogates are bounded by data coverage and fidelity. Learned functionals are judged by self-consistent behavior and physical constraints, not only label fit. Neural wavefunctions retain a first-principles variational objective but pay system-specific sampling and optimization cost.
+
+The most useful boundary is often not the deepest one. If a molecular-dynamics trajectory needs only energies and forces, predicting a wavefunction is unnecessarily expensive. If many electronic observables are needed, a one-property model is too narrow. If extrapolation into new correlation regimes matters, a direct surrogate may be risky even when its interpolation error is tiny.
+
+Machine learning meets quantum chemistry productively when it makes that boundary explicit. The network should replace exactly the part whose repeated cost dominates, preserve the constraints required downstream, and expose when the system has left the chemical and numerical regime represented by its training or variational family.
+
+## References
+
+<ol class="bibliography">
+  <li id="ref-pfau2020">Pfau, D., Spencer, J. S., Matthews, A. G. D. G., & Foulkes, W. M. C. (2020). <a href="https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033429">Ab Initio Solution of the Many-Electron Schrödinger Equation with Deep Neural Networks</a>. <em>Physical Review Research</em>. <a href="#cite-pfau2020">↩</a></li>
+  <li id="ref-hk1964">Hohenberg, P., & Kohn, W. (1964). <a href="https://journals.aps.org/pr/abstract/10.1103/PhysRev.136.B864">Inhomogeneous Electron Gas</a>. <em>Physical Review</em>. <a href="#cite-hk1964">↩</a></li>
+  <li id="ref-kirkpatrick2021">Kirkpatrick, J. et al. (2021). <a href="https://www.science.org/doi/10.1126/science.abj6511">Pushing the Frontiers of Density Functionals by Solving the Fractional Electron Problem</a>. <em>Science</em>. <a href="#cite-kirkpatrick2021">↩</a></li>
+  <li id="ref-jorgensen2022">Jørgensen, P. B., & Bhowmik, A. (2022). <a href="https://arxiv.org/abs/2011.03346">DeepDFT: Neural Message Passing Network for Accurate Charge Density Prediction</a>. <em>Frontiers in Materials</em>. <a href="#cite-jorgensen2022">↩</a></li>
+  <li id="ref-yu2023">Yu, H., Xu, Z., Qian, X., Qian, X., & Ji, S. (2023). <a href="https://openreview.net/forum?id=pKNQRJZwnV">Efficient and Equivariant Graph Networks for Predicting Quantum Hamiltonian</a>. <em>ICML</em>. <a href="#cite-yu2023">↩</a></li>
+  <li id="ref-ramakrishnan2015">Ramakrishnan, R., Dral, P. O., Rupp, M., & von Lilienfeld, O. A. (2015). <a href="https://arxiv.org/abs/1503.04987">Big Data Meets Quantum Chemistry Approximations: The Delta-Machine Learning Approach</a>. <em>Journal of Chemical Theory and Computation</em>. <a href="#cite-ramakrishnan2015">↩</a></li>
+</ol>
+
+---
+
+*Figure provenance.* All four `mlqc_` diagrams are original SVG illustrations generated by `scripts/generate_mlqc_figures.py`. They synthesize standard electronic-structure and machine-learning workflows described in the cited primary literature; no third-party artwork is reproduced.
