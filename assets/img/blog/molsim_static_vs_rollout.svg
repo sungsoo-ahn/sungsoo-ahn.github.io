@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550">
+ <defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker>
+  <marker id="purpleArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker>
+  <style>text {font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:24px;font-weight:700}.label{font-size:19px;font-weight:600}.body{font-size:17px}.small{font-size:15px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:3;stroke-linecap:round;marker-end:url(#arrow)}.parrow{fill:none;stroke:#7A53EC;stroke-width:4;stroke-linecap:round;marker-end:url(#purpleArrow)}</style>
+ </defs><rect width="100%" height="100%" fill="white"/><text x="55" y="48" class="title" text-anchor="start">A small static error can still create a catastrophic rollout</text>
+<rect x="45" y="90" width="530" height="370" rx="28" fill="#EEF0FF" stroke="#5F6ED8" stroke-width="3"/>
+<text x="310" y="132" class="label" text-anchor="middle">held-out snapshots</text>
+<line x1="110" y1="395" x2="510" y2="395" stroke="#C8BBD8" stroke-width="3"/>
+<line x1="110" y1="395" x2="110" y2="180" stroke="#C8BBD8" stroke-width="3"/>
+<rect x="625" y="90" width="530" height="370" rx="28" fill="#FCE8EE" stroke="#C7506B" stroke-width="3"/>
+<text x="890" y="132" class="label" text-anchor="middle">closed-loop dynamics</text>
+<line x1="690" y1="395" x2="1090" y2="395" stroke="#C8BBD8" stroke-width="3"/>
+<line x1="690" y1="395" x2="690" y2="180" stroke="#C8BBD8" stroke-width="3"/>
+<circle cx="120" cy="355.05249265430405" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="125" cy="350.05249265430405" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="172" cy="330.63662134784215" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="177" cy="325.63662134784215" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="224" cy="286.4733777494231" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="229" cy="281.4733777494231" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="276" cy="246.29269460630258" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="281" cy="241.29269460630258" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="328" cy="246.29269460630258" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="333" cy="241.29269460630258" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="380" cy="286.4733777494231" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="385" cy="281.4733777494231" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="432" cy="330.63662134784215" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="437" cy="325.63662134784215" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<circle cx="484" cy="355.05249265430405" r="8" fill="#5F6ED8" stroke="white" stroke-width="4"/>
+<circle cx="489" cy="350.05249265430405" r="7" fill="#7A53EC" stroke="white" stroke-width="4"/>
+<text x="310" y="425" class="small" text-anchor="middle">low energy / force error</text>
+<path d="M690,350 C760,320 810,345 855,292 C900,242 925,305 960,260 C1000,210 1030,235 1090,155" fill="none" stroke="#C7506B" stroke-width="6" stroke-linecap="round"/>
+<line x1="945" y1="180" x2="945" y2="395" stroke="#B7791F" stroke-width="3" stroke-dasharray="8 7"/>
+<text x="945" y="420" class="small" text-anchor="middle">first extrapolative state</text>
+<text x="600" y="515" class="body" text-anchor="middle">Deployment tests must measure conservation, geometry, uncertainty, and observables over long rollouts.</text></svg>

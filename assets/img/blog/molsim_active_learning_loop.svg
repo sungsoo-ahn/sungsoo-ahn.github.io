@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+ <defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#665A75"/></marker>
+  <marker id="purpleArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A53EC"/></marker>
+  <style>text {font-family:Arial,Helvetica,sans-serif;fill:#231533}.title{font-size:24px;font-weight:700}.label{font-size:19px;font-weight:600}.body{font-size:17px}.small{font-size:15px;fill:#665A75}.arrow{fill:none;stroke:#665A75;stroke-width:3;stroke-linecap:round;marker-end:url(#arrow)}.parrow{fill:none;stroke:#7A53EC;stroke-width:4;stroke-linecap:round;marker-end:url(#purpleArrow)}</style>
+ </defs><rect width="100%" height="100%" fill="white"/><text x="55" y="48" class="title" text-anchor="start">Reliable training data are discovered in a simulation loop</text>
+<rect x="55" y="175" width="220" height="105" rx="24" fill="#EEF0FF" stroke="#5F6ED8" stroke-width="3"/>
+<text x="165.0" y="222" class="label" text-anchor="middle">reference labels</text>
+<rect x="360" y="95" width="250" height="105" rx="24" fill="#F6F2FA" stroke="#7A53EC" stroke-width="3"/>
+<text x="485.0" y="142" class="label" text-anchor="middle">fit potential</text>
+<rect x="360" y="310" width="250" height="105" rx="24" fill="#E5F3EA" stroke="#3C8F63" stroke-width="3"/>
+<text x="485.0" y="357" class="label" text-anchor="middle">explore dynamics</text>
+<rect x="700" y="175" width="220" height="105" rx="24" fill="#FFF4DC" stroke="#B7791F" stroke-width="3"/>
+<text x="810.0" y="222" class="label" text-anchor="middle">uncertainty gate</text>
+<path d="M280,208 C320,180 330,165 352,155" class="arrow"/>
+<path d="M485,205 L485,300" class="arrow"/>
+<path d="M620,360 C680,345 710,310 760,285" class="arrow"/>
+<path d="M700,218 C565,215 350,275 285,245" class="parrow"/>
+<text x="485" y="265" class="small" text-anchor="middle">model rollout</text>
+<text x="640" y="88" class="small" text-anchor="middle">query only informative states</text>
+<rect x="980" y="135" width="175" height="250" rx="25" fill="white" stroke="#C8BBD8" stroke-width="3"/>
+<text x="1067" y="175" class="label" text-anchor="middle">monitor</text>
+<circle cx="1010" cy="225" r="10" fill="#7A53EC"/>
+<text x="1035" y="231" class="small" text-anchor="start">committee</text>
+<circle cx="1010" cy="285" r="10" fill="#5F6ED8"/>
+<text x="1035" y="291" class="small" text-anchor="start">distance</text>
+<circle cx="1010" cy="345" r="10" fill="#3C8F63"/>
+<text x="1035" y="351" class="small" text-anchor="start">physics</text>
+<text x="600" y="475" class="body" text-anchor="middle">Uncertainty is an acquisition signal, not a guarantee that the true error is small.</text></svg>
