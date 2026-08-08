@@ -686,3 +686,58 @@ Post-specific observations remain here rather than becoming universal rules.
   four existing figures remained sufficient. The promoted feedback error-budget
   rule shaped the chapter. Arithmetic/citation audits, validation, clean build,
   and rendered checks passed.
+
+## 17. Generating Molecular Graphs and Chemical Reactions
+
+- **Post:** `_posts/2026-08-08-molecular-generation-graphs-reactions.md`
+- **Topic-matched reference:** The older protein-design post earns its length by
+  following a generated object through a quantitative candidate funnel and
+  experimental endpoint. The spherical-equivariant anchor supplies the standard
+  for quotienting irrelevant symmetries, while the Fokker--Planck anchor supplies
+  the standard for marginalizing alternative histories. The discrete-generator
+  companion owns CTMC rate mechanics; this chapter should own chemical validity,
+  sparse reaction edits, route search, and the distribution induced by filters.
+- **Before:** At 2,731 substantive words, the chapter has a strong unifying
+  thesis and covers autoregressive, parallel, conditional, reaction, mapping,
+  planning, and evaluation viewpoints. It states the graph-likelihood sum but
+  never computes how two construction histories change a molecule probability.
+  Constraint masks, valence repair, canonicalization, and route filters are
+  described without showing the accepted distribution they induce. The
+  bromoethane edit is not carried through atom-indexed adjacency or alternative
+  mappings. Route branching, compounded yield, and the final evaluation funnel
+  have no budget arithmetic, so the post remains closer to a careful survey than
+  a 30--45 minute structured-generation argument.
+- **Criteria promoted:** Whenever masks, repair, rejection, canonicalization, or
+  downstream filters impose validity, distinguish the raw proposal distribution,
+  the transformed/accepted distribution, and the target chemical distribution;
+  carry a finite sample through every denominator and expose collisions or
+  unreachable modes.
+- **Planned revision:** Preserve all nine H2s and their order. Carry one small
+  molecular candidate and the existing bromoethane substitution through the
+  chapter. Quantify permutation/serialization equivalence and compute a graph
+  likelihood by summing construction histories. Use a finite categorical sample
+  to compare action masking with parallel valence repair/rejection and show how
+  the accepted distribution changes. Turn conditional guidance into a numerical
+  prior/proxy tradeoff and separate exact constraints from uncertain oracles.
+  Write the substitution as explicit atom-indexed bond edits, carry equivalent
+  atom maps through quotient-aware scoring, and show how product-informed maps
+  leak the answer. Quantify branching/search budget and route-level yield. Pass a
+  generated batch through sanitization, canonical uniqueness, novelty, route,
+  synthesis, and measurement with all denominators, then close the generation--
+  reaction--planning loop. Reuse the four existing figures unless a genuine
+  missing relationship warrants another.
+- **After:** Expanded from 2,731 to 5,016 substantive body words while
+  preserving all nine H2s and their order. A 2-fluoroethanol example now
+  quantifies tensor representatives and alternative construction histories. A
+  finite five-outcome decoder distinguishes rejection, deterministic repair,
+  and action-mask support, including their induced probability shifts and
+  unreachable modes. Numerical guidance exposes prior/proxy/uncertainty tension.
+  The bromoethane substitution is written as indexed bond and charge edits;
+  equivalent atom maps are marginalized and product-informed mapping leakage is
+  made explicit. Route branching, search budget, and compounded yields connect
+  one-step prediction to planning. Finally, 1,000 raw graphs pass through every
+  canonicalization, novelty, route, synthesis, and measurement denominator to
+  five hits, making the selected distribution and feedback loop explicit. The
+  existing figures remained sufficient. The promoted constraint-transformation
+  rule shaped the central examples. Arithmetic/citation audits, validation,
+  clean builds, and rendered checks passed.
