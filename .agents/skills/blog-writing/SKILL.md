@@ -137,6 +137,12 @@ from one comparison can improve the criteria used for the next.
   data coverage, numerical choices, or physical approximations. Carry one case
   across the boundary; do not let an architectural symmetry claim silently turn
   into a claim of simulation, experimental, or decision validity.
+- When model outputs are fed back through an iterative numerical process,
+  separate model or surface error, discretization error, transient or mixing
+  error, and estimator variance. Carry one solvable system through changes in
+  model parameters, step size, and trajectory length, and show which diagnostic
+  responds to each change. Static accuracy, bounded trajectories, converged
+  integration, and a correct observable are distinct claims.
 - When comparing stochastic processes or generative transports, name the level
   at which two objects agree: sample paths, conditional transition kernels,
   finite-dimensional joint laws, one-time marginals, or endpoints. Demonstrate
