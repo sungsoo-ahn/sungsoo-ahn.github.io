@@ -2,12 +2,84 @@
   "schema_version": 1,
   "reuse_basis": "Figures are republished from author-cleared lecture decks. Original-source licenses are recorded separately and do not replace that deck-level reuse authority.",
   "sources": {
+    "adepu-ramakrishna-2021-drug-delivery": {
+      "label": "Adepu & Ramakrishna (2021), Fig. 17",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8512302/",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "aiffinity-hit-identification": {
+      "label": "AI|ffinity, Hit Identification",
+      "url": "https://www.aiffinity.com/platform/hit-identification",
+      "kind": "official-project-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "algor-clinical-trial-phases": {
+      "label": "Algor Library page containing the clinical-trial phases graphic",
+      "url": "https://library.algoreducation.com/it/docs/24718/introduzione-concetti-ricerca-scientifica",
+      "kind": "secondary-publication",
+      "license_status": "unknown",
+      "license": "Original illustrator and reuse license not stated",
+      "verified_on": "2026-08-09"
+    },
+    "biorender-atac-sequencing": {
+      "label": "BioRender, ATAC Sequencing template",
+      "url": "https://www.biorender.com/template/atac-sequencing",
+      "kind": "figure-template",
+      "license_status": "restricted",
+      "license": "BioRender platform terms",
+      "verified_on": "2026-08-09"
+    },
+    "biosynth-biocatalysis": {
+      "label": "Biosynth, Biocatalysis",
+      "url": "https://www.biosynth.com/chemicals/biocatalysis",
+      "kind": "official-project-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "byui-muscle-pharmacology": {
+      "label": "BYU–Idaho, Muscle Pharmacology",
+      "url": "https://books.byui.edu/bio_461_principles_o/muscle_pharmacology",
+      "kind": "open-textbook",
+      "license_status": "unknown",
+      "license": "No figure-level reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "cademix-heterogeneous-catalysis": {
+      "label": "Cademix, Applications of Heterogeneous Catalysis in Industry",
+      "url": "https://www.cademix.org/applications-of-heterogeneous-catalysis-in-industry/",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
     "callister-hcp-figure": {
       "label": "Callister & Rethwisch, Materials Science and Engineering, Fig. 3.3",
       "url": "https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498",
       "kind": "book",
       "license_status": "restricted",
       "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "cbinsights-direct-air-capture": {
+      "label": "CB Insights, Direct Air Capture Explained",
+      "url": "https://www.cbinsights.com/research/direct-air-capture-corporate-carbon-reduction/",
+      "kind": "industry-report",
+      "license_status": "restricted",
+      "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "chemdunn-paramagnetism-diamagnetism": {
+      "label": "ChemDunn, Paramagnetism and Diamagnetism",
+      "url": "https://www.chemdunn.com/paramagnestism-diamagnetism",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
     "chemistry-learner-dipole-dipole": {
@@ -26,6 +98,22 @@
       "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
+    "depositphotos-cell-types": {
+      "label": "interactimages / Depositphotos, Diagram of common cell types",
+      "url": "https://depositphotos.com/vector/diagram-of-common-cell-types-115174296.html",
+      "kind": "stock-illustration",
+      "license_status": "restricted",
+      "license": "Depositphotos stock license",
+      "verified_on": "2026-08-09"
+    },
+    "derry-2022-protein-structure-data": {
+      "label": "Derry, Carpenter & Altman (2022), Fig. 1",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8669736/",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY-NC 4.0",
+      "verified_on": "2026-08-09"
+    },
     "devriendt-thermodynamics-notes": {
       "label": "Devriendt, Thermodynamics & Statistical Mechanics, Fig. 2.2",
       "url": "https://studylib.net/doc/27659869/all-thermo-notes",
@@ -34,12 +122,36 @@
       "license": "© 2021 Julien Devriendt",
       "verified_on": "2026-08-09"
     },
+    "electronics-and-you-semiconductor": {
+      "label": "Electronics and You, How Semiconductor Works",
+      "url": "https://www.electronicsandyou.com/blog/how-semiconductor-works.html",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "eupati-adme": {
+      "label": "EUPATI, The principles of ADME, Fig. 3",
+      "url": "https://learning.eupati.eu/mod/book/view.php?chapterid=351&id=357",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No figure-level reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
     "fry-essential-biochemistry": {
       "label": "Fry, Essential Biochemistry for Medicine, Fig. 9.2",
       "url": "https://openlibrary.org/books/OL39891834M/Essential_Biochemistry_for_Medicine",
       "kind": "book",
       "license_status": "restricted",
       "license": "© 2010 John Wiley & Sons",
+      "verified_on": "2026-08-09"
+    },
+    "genosalut-personalised-medicine": {
+      "label": "Genosalut, What is personalised medicine?",
+      "url": "https://www.genosalut.com/en/news/healthy-lifestyle/what-is-personalised-medicine/",
+      "kind": "official-project-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
     "gill-ecfp-presentation": {
@@ -58,12 +170,44 @@
       "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
+    "habr-cell-signaling": {
+      "label": "Habr, cell-signaling article containing the diagram",
+      "url": "https://habr.com/ru/articles/507512/",
+      "kind": "secondary-publication",
+      "license_status": "unknown",
+      "license": "Original illustrator and reuse license not stated",
+      "verified_on": "2026-08-09"
+    },
+    "hasegawa-2012-xray-crystallography": {
+      "label": "Hasegawa (2012), Introduction to single crystal X-ray analysis I",
+      "url": "https://rigaku.com/resources/rigaku-journal/issues/volume-28-1-winter-2012?hsLang=en",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Rigaku Journal copyright",
+      "verified_on": "2026-08-09"
+    },
     "hou-2016-p2n3": {
       "label": "Hou et al. (2016)",
       "url": "https://doi.org/10.1039/C5SC04667J",
       "kind": "paper",
       "license_status": "open",
       "license": "CC BY-NC 3.0",
+      "verified_on": "2026-08-09"
+    },
+    "hussein-2015-pockdrug": {
+      "label": "PockDrug server",
+      "url": "https://pockdrug.rpbs.univ-paris-diderot.fr/cgi-bin/index.py?page=Home",
+      "kind": "official-project-page",
+      "license_status": "unknown",
+      "license": "No figure-level reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "iwatani-carbon-neutrality": {
+      "label": "Iwatani Corporation, Initiatives to achieve carbon neutrality",
+      "url": "https://www.iwatani.co.jp/eng/sustainability/environment/climate/",
+      "kind": "official-project-page",
+      "license_status": "restricted",
+      "license": "Corporate copyright",
       "verified_on": "2026-08-09"
     },
     "jackel-2005-molecular-electronics": {
@@ -74,12 +218,84 @@
       "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
+    "katzung-drug-receptors": {
+      "label": "Katzung, Basic & Clinical Pharmacology, drug–receptor interactions",
+      "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=3382&sectionid=281746891",
+      "kind": "book",
+      "license_status": "restricted",
+      "license": "McGraw Hill copyright",
+      "verified_on": "2026-08-09"
+    },
+    "labster-dose-response": {
+      "label": "Labster, Dose response curve",
+      "url": "https://theory.labster.com/dose-response/",
+      "kind": "educational-page",
+      "license_status": "restricted",
+      "license": "Labster copyright; no reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "labster-signal-transduction": {
+      "label": "Labster, Signal Transduction, Fig. 1",
+      "url": "https://theory.labster.com/es/signal-transduction/",
+      "kind": "educational-page",
+      "license_status": "restricted",
+      "license": "Labster copyright; no reuse license stated",
+      "verified_on": "2026-08-09"
+    },
     "libretexts-bonding-antibonding": {
       "label": "Chemistry LibreTexts, bonding and antibonding orbitals",
       "url": "https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/09%3A_Chemical_Bonding_in_Diatomic_Molecules/9.05%3A_Bonding_and_Antibonding_Orbitals",
       "kind": "educational-page",
       "license_status": "open",
       "license": "CC BY-NC-SA (version not stated)",
+      "verified_on": "2026-08-09"
+    },
+    "mateti-2017-bn-biocompatibility": {
+      "label": "Mateti et al. (2017), Fig. 5",
+      "url": "https://doi.org/10.1007/s12274-017-1635-y",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "© Tsinghua University Press and Springer-Verlag Berlin Heidelberg 2017",
+      "verified_on": "2026-08-09"
+    },
+    "medillsb-beta-blockers": {
+      "label": "Fran Milner, How Beta Blockers Work",
+      "url": "https://www.medillsb.com/illustration_image_details.aspx?AID=335&IID=209517",
+      "kind": "commercial-illustration",
+      "license_status": "restricted",
+      "license": "Commercial illustration license",
+      "verified_on": "2026-08-09"
+    },
+    "mrcet-cvd-notes": {
+      "label": "MRCET, Advanced Material Chemistry notes, CVD diagram",
+      "url": "https://mrcet.com/downloads/digital_notes/HS/R20/Advanced%20material%20chemistry%20digital%20notes%281%29.pdf",
+      "kind": "lecture-notes",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "nih-hiv-glossary": {
+      "label": "NIH ClinicalInfo, Glossary of HIV/AIDS-Related Terms, Fig. 10",
+      "url": "https://clinicalinfo.hiv.gov/themes/custom/aidsinfo/documents/glossaryhivrelatedterms_english.pdf",
+      "kind": "government-publication",
+      "license_status": "unknown",
+      "license": "U.S. government publication; figure-level status not separately stated",
+      "verified_on": "2026-08-09"
+    },
+    "nobel-2017-cryoem": {
+      "label": "Royal Swedish Academy of Sciences, 2017 Chemistry Prize popular information",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2017/popular-information/",
+      "kind": "institutional-publication",
+      "license_status": "restricted",
+      "license": "© Martin Högbom/The Royal Swedish Academy of Sciences",
+      "verified_on": "2026-08-09"
+    },
+    "oncodesign-target-validation": {
+      "label": "Oncodesign Services, Target identification and validation",
+      "url": "https://www.oncodesign-services.com/explore/target-identification-validation/",
+      "kind": "official-project-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
       "verified_on": "2026-08-09"
     },
     "openstax-hydrogen-bonding": {
@@ -98,12 +314,44 @@
       "license": "Publisher copyright",
       "verified_on": "2026-08-09"
     },
+    "park-2025-text-guided-crystals": {
+      "label": "Park, Onwuli & Walsh (2025), Fig. 5d",
+      "url": "https://www.nature.com/articles/s41467-025-59636-y",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "perkins-mineralogy-crystal-growth": {
+      "label": "Perkins et al., Mineralogy, Fig. 4.7",
+      "url": "https://utc.pressbooks.pub/mineralogy/chapter/crystals-and-crystallization/",
+      "kind": "open-textbook",
+      "license_status": "open",
+      "license": "CC BY-NC-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
     "rogers-hahn-2010-ecfp": {
       "label": "Rogers & Hahn (2010)",
       "url": "https://doi.org/10.1021/ci100050t",
       "kind": "paper",
       "license_status": "restricted",
       "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "roy-2019-fe3o4-core-shell": {
+      "label": "Roy et al. (2019), Fig. 1",
+      "url": "https://www.nature.com/articles/s41598-019-43116-7",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "schenone-2013-target-identification": {
+      "label": "Schenone et al. (2013), Target identification and mechanism of action",
+      "url": "https://www.nature.com/articles/nchembio.1199",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Nature Publishing Group copyright",
       "verified_on": "2026-08-09"
     },
     "schlegel-2011-geometry-optimization": {
@@ -114,12 +362,52 @@
       "license": "© 2011 John Wiley & Sons",
       "verified_on": "2026-08-09"
     },
+    "schlisske-2021-oled": {
+      "label": "Schlisske et al. (2021), Fig. 2",
+      "url": "https://pubs.rsc.org/en/content/articlehtml/2021/ma/d0ma00903b",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "Open Access article; exact Creative Commons version not confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "shindengen-semiconductor-basics": {
+      "label": "Shindengen, Semiconductor Basics",
+      "url": "https://www.shindengen.com/products/semi/column/basic/semi/semi_basic.html",
+      "kind": "educational-page",
+      "license_status": "restricted",
+      "license": "Corporate copyright",
+      "verified_on": "2026-08-09"
+    },
+    "shiratake-suzuki-2016-omics": {
+      "label": "Shiratake & Suzuki (2016), Fig. 1",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4780796/",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
     "simons-bands-of-orbitals": {
       "label": "Simons/LibreTexts, bands of orbitals in solids",
       "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Theoretical_Chemistry_%28Simons%29/02%3A_Model_Problems_That_Form_Important_Starting_Points/2.02%3A_Bands_of_Orbitals_in_Solids",
       "kind": "open-textbook",
       "license_status": "open",
       "license": "CC BY-NC-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "simply-psych-pk-pd": {
+      "label": "Simply Psych, Pharmacokinetics and Pharmacodynamics Explained",
+      "url": "https://www.simplypsychedu.com/community/public/posts/370579-pharmacokinetics-and-pharmacodynamics-explained",
+      "kind": "secondary-publication",
+      "license_status": "unknown",
+      "license": "Original illustrator and reuse license not stated",
+      "verified_on": "2026-08-09"
+    },
+    "singh-2022-computational-materials": {
+      "label": "Singh et al. (2022), Fig. 9",
+      "url": "https://pubs.rsc.org/en/content/articlehtml/2022/ma/d2ma00067a",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 3.0",
       "verified_on": "2026-08-09"
     },
     "slideserve-crystal-lattice-basis": {
@@ -138,12 +426,68 @@
       "license": "CC BY-NC-SA 3.0",
       "verified_on": "2026-08-09"
     },
+    "sulfide-electrolytes-2023": {
+      "label": "Toward Scalable Liquid-Phase Synthesis of Sulfide Solid Electrolytes (2023), Fig. 1",
+      "url": "https://www.mdpi.com/2313-0105/9/7/355",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "taylor-francis-plant-proteins": {
+      "label": "Plant-based proteins review, Fig. 1",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/10408398.2023.2279696",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "No figure-level reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "ultrathin-molybdenum-boride-2017": {
+      "label": "Ultrathin molybdenum boride films (2017), Fig. 1",
+      "url": "https://pubs.rsc.org/en/content/articlehtml/2017/ta/c7ta08597d",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "No reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
     "uwisc-hydrogen-orbitals": {
       "label": "UW–Madison Chemistry 109, atomic orbitals",
       "url": "https://wisc.pb.unizin.org/chem109fall2020ver03/chapter/unit-1-day-2/",
       "kind": "open-course",
       "license_status": "open",
       "license": "CC BY-NC-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "vib-xray-crystallography": {
+      "label": "VIB e-learning, X-ray crystallography graphic",
+      "url": "https://elearning.bits.vib.be/wp-content/uploads/2020/08/PSA01_00_X-ray-crystallography-1.png",
+      "kind": "institutional-media",
+      "license_status": "unknown",
+      "license": "Parent lesson and reuse license not located",
+      "verified_on": "2026-08-09"
+    },
+    "wellcome-monoclonal-antibodies": {
+      "label": "Wellcome, How monoclonal antibodies work",
+      "url": "https://wellcome.org/news/what-are-monoclonal-antibodies-can-they-treat-covid-19",
+      "kind": "institutional-publication",
+      "license_status": "restricted",
+      "license": "Wellcome copyright; no reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-aspirin-balls": {
+      "label": "Ben Mills, Aspirin-3D-balls",
+      "url": "https://commons.wikimedia.org/wiki/File:Aspirin-3D-balls.png",
+      "kind": "open-media",
+      "license_status": "open",
+      "license": "Public domain",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-band-gap-comparison": {
+      "label": "Inductiveload, Band gap comparison",
+      "url": "https://commons.wikimedia.org/wiki/File:Band_gap_comparison.svg",
+      "kind": "open-media",
+      "license_status": "open",
+      "license": "CC BY-SA 2.5",
       "verified_on": "2026-08-09"
     },
     "wikimedia-inchi": {
@@ -34346,12 +34690,16 @@
       "content_sha256": "5a65da665d678954e1df3100b571ec5f75e2df2b554472afd1b2dfc825e5f7fe",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "depositphotos-cell-types"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Image search returns the same cell silhouettes, labels, arrangement, and color palette on the stock-illustration page."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact stock illustration; preservation here does not imply a transferable stock license."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34368,12 +34716,16 @@
       "content_sha256": "8b70de521036082ba141695623f1bd965fce28f7065976f48dc7e81bb7d05f7a",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "taylor-francis-plant-proteins"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The central-dogma layout and plant protein-synthesis artwork match Fig. 1 of the review."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact visual match located by semantic image search."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s07-image4.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34392,12 +34744,17 @@
       "content_sha256": "b18922e53bf1d809d17c9a05cb77bf1604ac22885d8bafe746f314a76399f64f",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "ambiguous",
+      "source_ids": [
+        "habr-cell-signaling"
+      ],
+      "confidence": "low",
+      "evidence": [
+        "The Habr article contains the exact numbered extracellular/membrane/cytosol signaling diagram.",
+        "The article does not identify the diagram's original illustrator or an earlier source."
+      ],
+      "reader_note": "An exact published occurrence was found, but the original illustrator is unclear.",
+      "notes": "Do not describe the Habr page as the original creator."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s08-image7.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34414,12 +34771,15 @@
       "content_sha256": "3a2818ce57ae1fb8aadff89d270640559d72eb8c607bfdcb5643d7b9495fcc6e",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched the exact phrases Fast release energy, Slow release energy, Whole foods, Encoding information, and Fundamental unit together and separately.",
+        "Only conceptually similar educational tables were found; none matched the rows, columns, typography, and examples."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "The table may be lecture-authored, but the deck contains no authorship metadata proving that."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34436,12 +34796,16 @@
       "content_sha256": "936125d501c2ff316dbd42ebe9d2ab487fd77b3d3d7995a88f975791f77d9337",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-aspirin-balls"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The atom positions, ball colors, shadows, and viewing angle match the Commons PNG by Ben Mills."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact public-domain image."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s12-image15.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34458,12 +34822,16 @@
       "content_sha256": "b725662230f857ad5dd9592671c413b5f481119a9fc6d1483fc1631f17e13327",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "wellcome-monoclonal-antibodies"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Wellcome's article contains the exact How monoclonal antibodies work illustration."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact institutional graphic; no reuse license is stated."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s14-image19.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34480,12 +34848,16 @@
       "content_sha256": "7abe1705225c14bcabc127f9ab371240c41cee1a7a6fb82f8480331938a47ee3",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "eupati-adme"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The EUPATI lesson contains the exact absorption, distribution, metabolism, and excretion diagram as Fig. 3."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact visual match."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s20-image23.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34502,12 +34874,16 @@
       "content_sha256": "bfc5564d0c46cd195f971a4c9c46ca9abf2a79d260458b3c48d555f094e59920",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "nih-hiv-glossary"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The HIV life-cycle artwork and labels match Figure 10 in the NIH glossary PDF."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact government-publication figure; no separate figure-level rights statement was located."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s21-image24.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34524,12 +34900,17 @@
       "content_sha256": "d44cdb2c7b7dd968baac0f76b9988ddf0102adcb09a9f5dd23d15b3704e95d82",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "ambiguous",
+      "source_ids": [
+        "simply-psych-pk-pd"
+      ],
+      "confidence": "low",
+      "evidence": [
+        "The Simply Psych page contains the exact pharmacokinetics/pharmacodynamics infographic.",
+        "The page does not identify an illustrator or demonstrate that it is the original publication."
+      ],
+      "reader_note": "An exact published occurrence was found, but the original illustrator is unclear.",
+      "notes": "Exact downstream occurrence only."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s22-image25.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34546,12 +34927,16 @@
       "content_sha256": "5bd042b182e87a557d2de9c7bd7c3c372a18de4681c9b89b26a75d18bd1407c5",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "byui-muscle-pharmacology"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The textbook page contains the exact Natural chemical / Agonist drug / Antagonist drug three-panel diagram."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact educational figure; no figure-specific license was confirmed."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s23-image27.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34568,12 +34953,16 @@
       "content_sha256": "4149efdba950226a2c9dce62037ec5a40d3440009afad27182fb3604e263db23",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "labster-dose-response"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Labster's theory page contains the same blue sigmoidal dose-response curve, labels, and spacing."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official Labster graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s24-image28.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34590,12 +34979,16 @@
       "content_sha256": "ea6298e456d0ae2599a7002d28970a4c2d365e228b4053c0bfda66f2877e0d17",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "adepu-ramakrishna-2021-drug-delivery"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Drug Safety – Therapeutic Index curve is Figure 17 of the open-access review."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s25-image29.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34612,12 +35005,16 @@
       "content_sha256": "32d9ff50acb4d1041928bf5ad70a6f654a4b9f5332004ccc5de1c2c12cad9475",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "medillsb-beta-blockers"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The commercial illustration listing shows the exact How Beta Blockers Work artwork and credits Fran Milner."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact commercial illustration."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s26-image30.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34634,12 +35031,16 @@
       "content_sha256": "600f32b492a3e65984e719ecd07deea6dfc6e95c9f7bc580c2e0bab50b6e8435",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "labster-signal-transduction"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Labster's Signal Transduction page contains the exact receptor-to-nucleus pathway as Fig. 1."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official Labster graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s28-image33.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34656,12 +35057,17 @@
       "content_sha256": "570c6bc9e0379ec236843ac494c40782958ff465878252bca497cf32ad3586fd",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "katzung-drug-receptors"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The equality-pattern receptor diagram matches the Katzung & Trevor pharmacology figure reproduced from Basic & Clinical Pharmacology.",
+        "The official AccessMedicine chapter is retained instead of an unauthorized textbook mirror."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "The exact crop comes from an older edition; the official current chapter is the authoritative publisher source."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s30-image34.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34678,12 +35084,16 @@
       "content_sha256": "9b6aa7dd26f88f27c46f93dc2cc625268fa62dced34706a23d0ac2db374d70da",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "oncodesign-target-validation"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The official Oncodesign page contains the exact Target / Hit / Lead / Preclinical Candidate / IND timeline graphic."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact corporate graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s31-image36.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34700,12 +35110,16 @@
       "content_sha256": "eb599404fd70f14183dddb1f2dd5a7a33a542fb4dd256cbf6486cfe500b39fb7",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "schenone-2013-target-identification"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The target-identification workflow is Figure 1 of the Nature Chemical Biology review."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s32-image38.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34722,12 +35136,16 @@
       "content_sha256": "b522fa32c451eda2a511d572352dc4153379cea73abdfa0a2556bcdb839dbdc8",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "hussein-2015-pockdrug"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The PockDrug server home page displays the exact protein-pocket graphic."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official server graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s33-image39.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34744,12 +35162,15 @@
       "content_sha256": "350c96de32ae3aad9afa4002f132794eb07ef52c035d17572b87e755e008f2eb",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched the combined labels iron levels, blood sugar, inflammation, and cholesterol with the blood-drop layout.",
+        "Only later or conceptually related blood-test infographics were found, not the exact icon arrangement."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "Do not attribute this to a generic blood-testing page."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s34-image41.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34766,12 +35187,16 @@
       "content_sha256": "a92ae31b53f121d8773bfd952eeca03a5f81b40dc80bb58b9891f54b8dde6de9",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "aiffinity-hit-identification"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "AI|ffinity's official platform page contains the exact hit-identification graphic."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact corporate graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s36-image43.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34788,12 +35213,15 @@
       "content_sha256": "f65bab2f8a2e33b61c2c32c18d9179cec87b77ffc50b7b77df2877ca05bee74a",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched exact phrases including LEAD OPTIMIZATION, false positive in in vitro tests, insolubility, low specificity, and inefficiency.",
+        "No pre-lecture exact visual or authoritative creator page was located."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "Related lead-optimization articles do not establish visual provenance."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s37-image44.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34810,12 +35238,17 @@
       "content_sha256": "2889eab1974375cc66df1ef8896c072a83d31c03bbd9c2adee909a59576b83ec",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "ambiguous",
+      "source_ids": [
+        "algor-clinical-trial-phases"
+      ],
+      "confidence": "low",
+      "evidence": [
+        "The Algor page reproduces the exact purple five-phase graphic and its participant ranges.",
+        "The page does not identify the illustrator or an original publication."
+      ],
+      "reader_note": "An exact published occurrence was found, but the original illustrator is unclear.",
+      "notes": "Exact secondary occurrence only."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s38-image45.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34832,12 +35265,15 @@
       "content_sha256": "b11320509682c42e1a7e81811d63a4b7d21f78c51c40f78050fd17b15e9d5dee",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched the distinctive 20,000+, 5,000–20,000, 250, 5, 1 funnel together with Predictive Toxicology and Virtual Screening.",
+        "Exact copies located in 2026 secondary posts postdate the lecture and do not identify the original creator."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "The numerical funnel is widely recopied; provenance remains unresolved."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s39-image46.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34854,12 +35290,16 @@
       "content_sha256": "982b3f1429e230a8c636d7d24fbd920dd075658d2f25000790f99c21067fbe30",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "genosalut-personalised-medicine"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Genosalut's official article contains the exact personalised-medicine graphic and matching image asset."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official-site occurrence."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s41-image48.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34876,12 +35316,16 @@
       "content_sha256": "4c037bf7a7f0da89f3b120403ddf36b53772130893649dcbff27c1e3c3f46585",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "shiratake-suzuki-2016-omics"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The genes-to-phenotypes sequence, pear photographs, and seven omics labels match Fig. 1 of the paper."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact open-access paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s42-image50.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34898,12 +35342,15 @@
       "content_sha256": "c90129a32029523f2b11c5d376526e3e296474e90c30fec9a627329a340144ac",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched the exact six RNA-sequencing step labels, including Map sequencing reads to the transcriptome/genome.",
+        "The same wording appears in a 2026 paper that postdates the lecture; no earlier original template or creator page was located."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "The visual resembles a scientific-illustration template, but resemblance is not authorship evidence."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s43-image51.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34920,12 +35367,17 @@
       "content_sha256": "8630bec3080b3ba27ccd52b44b60ec743630f41273279df3b18116c3d4bea08f",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "composite",
+      "source_ids": [
+        "biorender-atac-sequencing"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The right-hand four-step workflow matches BioRender's ATAC Sequencing template.",
+        "The enlarged title and nucleosome/transposase illustration on the left are arranged as an additional lecture composite."
+      ],
+      "reader_note": "The workflow uses a BioRender template; the lecture adds the left-hand overview.",
+      "notes": "Template provenance is exact for the workflow but not for every element of the composite."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s44-image52.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34942,12 +35394,16 @@
       "content_sha256": "cc72ecc4545dd03b241f08217112b9813903602737ed3088877d445a3491813e",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "derry-2022-protein-structure-data"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The annual stacked distribution of PDB structure-deposition methods from 1990–2020 matches Fig. 1."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact paper figure under CC BY-NC 4.0."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s45-image54.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34964,12 +35420,17 @@
       "content_sha256": "4c9c333f4efb3ce724d3ff44b061303fc617f41fa9d09974821b59dfd4fd9e7a",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "ambiguous",
+      "source_ids": [
+        "vib-xray-crystallography"
+      ],
+      "confidence": "low",
+      "evidence": [
+        "The VIB e-learning server hosts the exact X-ray-crystallography graphic.",
+        "The parent lesson, original illustrator, and reuse license could not be located."
+      ],
+      "reader_note": "The exact image is hosted by VIB, but its original illustrator is unclear.",
+      "notes": "Direct institutional asset is retained as a candidate source, not asserted as original authorship."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s46-image56.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -34986,12 +35447,17 @@
       "content_sha256": "ae76ad43b5ee5aa9a9722f11a19d130b0acd896defe671451ea687babb5ddd72",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "status": "ambiguous",
+      "source_ids": [
+        "nobel-2017-cryoem"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The before-2013/present resolution comparison is Figure 6 of the Royal Swedish Academy's 2017 popular information.",
+        "The left cryo-EM apparatus panel is visibly credited ©nature, but its original Nature page was not located."
+      ],
+      "reader_note": "The resolution comparison is from the 2017 Nobel material; the ©nature apparatus panel remains untraced.",
+      "notes": "Partial composite provenance; do not imply that the Nobel source created the entire image."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s48-image57.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35008,12 +35474,16 @@
       "content_sha256": "0e8cede125ce76c48ad0b2e22c252b8cef7962fb13636175da3a7012eb0035e9",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "shindengen-semiconductor-basics"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Shindengen's semiconductor-basics page contains the same p-type silicon and moving-hole diagram."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official-site occurrence."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s49-image60.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35030,12 +35500,16 @@
       "content_sha256": "f0a583bfe96f24c8ba3a043e40eae6e29ec5ba0caa712b0928b45da78f2bd067",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "singh-2022-computational-materials"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The materials-modeling workflow is Figure 9 of the RSC review."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact open-access paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s50-image62.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35052,12 +35526,15 @@
       "content_sha256": "f60c7e743078acef63b4c65eca20fbb1a8dac4929204bc717b6beefcfb671da3",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Searched distinctive row text including Band gap (0 K DFT), Typical elements, and Close-packed (fcc, hcp, bcc).",
+        "No matching external table or publication was found."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "This may be a lecture-created comparison table, but no embedded authorship evidence confirms that."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s51-image63.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35074,12 +35551,16 @@
       "content_sha256": "fc895ebbdd3160a2fc746eeda8772b043a0531ad76242106b8188b10f74a1843",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-band-gap-comparison"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The metal/insulator/semiconductor band layouts and labels match the Commons SVG by Inductiveload."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact CC BY-SA 2.5 image."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s52-image64.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35096,12 +35577,16 @@
       "content_sha256": "d1281bab81e727b3fa09b1400fb6019fe201d36070d368df8aab04b8a2cff0e1",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "schlisske-2021-oled"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The OLED layer stack and paired HOMO/LUMO energy diagram match Fig. 2 of the RSC article."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact open-access paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s53-image66.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35118,12 +35603,15 @@
       "content_sha256": "9ca24a0d4fc147166e6f893178bf25a7f63d25e9d7f2c6eca09f4d2e4c173bf7",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
+      "status": "unresolved",
       "source_ids": [],
       "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
+      "evidence": [
+        "Compared semantic and reverse-image results for the two-panel lattice, spring, and thermal-wave diagram.",
+        "Only conceptually similar phonon and thermal-conductivity illustrations were found."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "No source assigned because a conceptual match is insufficient."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s54-image67.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35140,12 +35628,16 @@
       "content_sha256": "4fbd902602dd8f0839062063e589b5c9413b56792936cbc70ebbb23ba7cdba67",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "chemdunn-paramagnetism-diamagnetism"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "ChemDunn's comparison chart has the exact headings, iconography, and color scheme."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact educational graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s55-image69.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35162,12 +35654,16 @@
       "content_sha256": "5b43810dbf185a8598172a6748cb0a4f1301fa314ae7d788cd9b16e38e402675",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "mateti-2017-bn-biocompatibility"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The two TEM panels and three boron-nitride active-site models match Fig. 5 of the paper."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact restricted paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s57-image71.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35184,12 +35680,16 @@
       "content_sha256": "5fc7d58fc5f54bc951cfb56ea6e1a63feda7b50c0a0ec085fd806c7648dc97b0",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "perkins-mineralogy-crystal-growth"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The separate atoms through euhedral-crystal growth sequence matches Fig. 4.7 of the open textbook."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact open-textbook figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s59-image73.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35206,12 +35706,16 @@
       "content_sha256": "a1c8599ba229f2fd79b3425f213ce2d2740a84802664623516c2a60db6f35e04",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "roy-2019-fe3o4-core-shell"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The solid-state synthesis sequence and Fe3O4@M core–shell nanostructures match Fig. 1."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact Scientific Reports figure under CC BY 4.0."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s60-image74.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35228,12 +35732,16 @@
       "content_sha256": "93b6ccbbf6e626639c204af1d9a9232c21a1126604324942e759ba5cc5e68579",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "sulfide-electrolytes-2023"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The liquid-phase synthesis workflow for sulfide solid electrolytes matches Fig. 1 of the Batteries review."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact MDPI figure under CC BY 4.0."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s61-image75.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35250,12 +35758,16 @@
       "content_sha256": "4d433db29dbc2842b65afbb26dc1f5ffd399a905a53851d1878e656142815c7c",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "mrcet-cvd-notes"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The institutional notes contain the same Other reactants / vapour / Nucleation / Growth / Nanoparticles / Heat labels and CVD sequence."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact educational-note occurrence; no separate image credit is supplied."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s62-image76.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35272,12 +35784,16 @@
       "content_sha256": "a837ee8397b56cd4d660e9faf03f4748872fb64120c0e5d4077812efe8ed1610",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "hasegawa-2012-xray-crystallography"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The slide's embedded tooltip cites Rigaku Journal 28(1), 2012, and the issue contains the exact single-crystal X-ray analysis figure."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Source is identified both by deck metadata and exact visual comparison."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s63-image78.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35294,12 +35810,16 @@
       "content_sha256": "ab412440eae80aeff8fb1dda6bc0276bd3f50668f5c499a0a855a07aedffdfd0",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "ultrathin-molybdenum-boride-2017"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Mo3B film photograph and top/side crystal views match Fig. 1 of the RSC paper."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact paper figure."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s65-image80.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35316,12 +35836,16 @@
       "content_sha256": "7a5a5583a248246d8d8298aedbc511068d231e5e7d97a0398c6abea795870165",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "iwatani-carbon-neutrality"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Iwatani's official climate page contains the exact carbon-neutrality process graphic."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact corporate graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s66-image82.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35338,12 +35862,16 @@
       "content_sha256": "b6bf95375506657e5f1e92963b7b8f131729e028026f3e228d4a6ec7d6735073",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "park-2025-text-guided-crystals"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Li5PS4Cl, Li3PS3Cl, Li6PS4Cl, and Li4PS4Cl structures match Fig. 5d of the paper."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact Nature Communications figure under CC BY 4.0."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s67-image84.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35360,12 +35888,17 @@
       "content_sha256": "0717f31c822c3fa1582feac47771b922fa440569240686fa8ab3956d4d0535a1",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "electronics-and-you-semiconductor"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The official page shows the same N Type / extra electrons / P Type / holes / depletion zone layout.",
+        "Minor palette differences indicate the lecture may use an earlier site version."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Layout and labels are exact; color version differs slightly."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s68-image87.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35382,12 +35915,16 @@
       "content_sha256": "90495d4079f05a15b64240e73109c33632a746b5a102b99eb1a8f6b4a38ccdd3",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "cademix-heterogeneous-catalysis"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Cademix article contains the exact heterogeneous-catalysis mechanism image."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact official-site occurrence."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s69-image89.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35404,12 +35941,16 @@
       "content_sha256": "22ed57777a3973a409a162750a66fd144487d6e6f2beba72f3f21a0ab8db5c9e",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "biosynth-biocatalysis"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Biosynth's official Biocatalysis page contains the exact enzyme, molecular-structure, and product graphic."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact corporate graphic."
     },
     "assets/img/blog/lectures/ml4mol-2025-03/s70-image91.webp": {
       "deck_id": "ml4mol-2025-03",
@@ -35426,12 +35967,16 @@
       "content_sha256": "d7c1cb1375aa22a72f52d437b648a253085a0561cbc08474cd4f76f1df01363b",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "cbinsights-direct-air-capture"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "CB Insights' official research page contains the exact direct-air-capture graphic and branding."
+      ],
       "reader_note": "",
-      "notes": ""
+      "notes": "Exact corporate infographic."
     },
     "assets/img/blog/lectures/ml4mol-2025-04/s04-image4.webp": {
       "deck_id": "ml4mol-2025-04",
@@ -37105,13 +37650,19 @@
       "content_sha256": "936125d501c2ff316dbd42ebe9d2ab487fd77b3d3d7995a88f975791f77d9337",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-aspirin-balls"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Byte-for-byte duplicate of assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp; source audit inherited.",
+        "The atom positions, ball colors, shadows, and viewing angle match the Commons PNG by Ben Mills."
+      ],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp"
+      "notes": "Exact public-domain image.",
+      "exact_duplicate_of": "assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp",
+      "source_audit_inherited_from": "assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp"
     },
     "assets/img/blog/lectures/ml4mol-2025-05/s05-equivariance-language.webp": {
       "deck_id": "ml4mol-2025-05",
@@ -49711,13 +50262,19 @@
       "content_sha256": "8b70de521036082ba141695623f1bd965fce28f7065976f48dc7e81bb7d05f7a",
       "candidate_urls": [],
       "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
+      "status": "verified",
+      "source_ids": [
+        "taylor-francis-plant-proteins"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Byte-for-byte duplicate of assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp; source audit inherited.",
+        "The central-dogma layout and plant protein-synthesis artwork match Fig. 1 of the review."
+      ],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp"
+      "notes": "Exact visual match located by semantic image search.",
+      "exact_duplicate_of": "assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp",
+      "source_audit_inherited_from": "assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp"
     },
     "assets/img/blog/lectures/ml4mol-2025-14/s07-image7.webp": {
       "deck_id": "ml4mol-2025-14",
