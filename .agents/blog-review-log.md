@@ -217,7 +217,35 @@ requirements for the replacement deck-level articles.
 - **General lesson promoted:** PowerPoint media inventory is not identical to
   conceptual figure inventory. When one visual is assembled from dozens of
   equation or text fragments, preserve it as one high-resolution canonical-PDF
-  composite; publishing the fragments separately destroys the source argument
+  composite; publishing the fragments separately destroys the source argument.
+
+### ML4Mol 2025 Lecture 11: Quantum Chemistry
+
+- **Source:** `lec11_quantum.pdf` (41 pages), with media extracted from the
+  corresponding PowerPoint and four equation-heavy diagrams cropped from the
+  canonical PDF because their PowerPoint representation was split into small
+  text, equation, orbital, and arrow fragments.
+- **Coverage:** 36 substantive slides covered; the cover and four part-title
+  slides omitted. The source sequence remains the quantum many-body problem,
+  Hartree--Fock and self-consistency, antisymmetry and neural wavefunctions,
+  variational Monte Carlo, Kohn--Sham DFT, the Skala learned XC functional, and
+  supervised prediction of Hamiltonians and electron densities.
+- **Figures:** 36 of 43 unique substantive visuals reused (83.72%). Seven
+  omitted visuals are paper title cards, decorative media, or secondary panels
+  whose scientific content appears in a retained visual. Forty-three unused
+  extraction candidates were removed after the composite crops replaced their
+  fragmented representations. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous quantum-chemistry chapter's
+  two-level VMC calculation, scalar SCF contraction example, near-degenerate
+  Hamiltonian witness, delta-learning comparison, fidelity-ranking case, and
+  amortized break-even analysis were absent from this deck. The replacement
+  instead follows the lecture's own chain from the Schrödinger equation through
+  WFT and DFT to learned wavefunctions, functionals, operators, and densities.
+- **General lesson promoted:** related quantum objects are not interchangeable
+  prediction targets. Preserve the source's hierarchy from state to functional,
+  operator, field, and basis coefficients, and state which numerical solve or
+  query remains downstream of each learned object. The blog-writing skill now
+  records this target-and-solver contract.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
