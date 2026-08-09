@@ -108,6 +108,10 @@ new thesis, a reordered curriculum, or additional technical branches.
    If a historical survey ends in a methodological critique, open question, or
    author judgment, do not stop the article at the last architecture or equation.
    That change of register is part of the source argument.
+9. Distinguish literal repetition from deliberate structural analogy. When a
+   deck re-derives the same construction in Euclidean, manifold, and discrete
+   settings, retain each version and make the shared roles explicit. The repeated
+   pattern is the lesson; it is not a recap to collapse.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute

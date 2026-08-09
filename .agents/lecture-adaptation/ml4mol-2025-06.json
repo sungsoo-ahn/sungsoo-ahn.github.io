@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec6_prelim5.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec6_prelim5.pptx",
   "slide_count": 63,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Preliminaries:",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Preliminaries:",
         "Diffusion and Flow Matching",
@@ -26,7 +26,7 @@
       "pptx_slide": 2,
       "title": "Today’s Lecture",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today’s Lecture",
         "• Fast recap of diffusion models and flow matching models",
@@ -43,7 +43,7 @@
       "pptx_slide": 3,
       "title": "Part 1. ODEs and SDEs",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 1. ODEs and SDEs",
         "3"
@@ -56,7 +56,7 @@
       "pptx_slide": 4,
       "title": "Ordinary Differential Equation (ODE)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Ordinary Differential Equation (ODE)",
         "An ODE is an equation that involves differentials of the function of interest.",
@@ -77,7 +77,7 @@
       "pptx_slide": 5,
       "title": "Stochastic Differential Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Stochastic Differential Equation",
         "A SDE is an equation that express differentials using a stochastic process.",
@@ -102,7 +102,7 @@
       "pptx_slide": 6,
       "title": "Weiner Process (or Brownian Motions)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Weiner Process (or Brownian Motions)",
         "Our SDE depends on the definition of Weiner process 𝑊! ,",
@@ -130,7 +130,7 @@
       "pptx_slide": 7,
       "title": "Fokker-Planck Kolmogorov (FPK) Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fokker-Planck Kolmogorov (FPK) Equation",
         "We are interested in the probability density function 𝑋! ∼ 𝑝 𝑥, 𝑡 ,",
@@ -152,7 +152,7 @@
       "pptx_slide": 8,
       "title": "Fokker-Planck Kolmogorov (FPK) Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fokker-Planck Kolmogorov (FPK) Equation",
         "The FPK equation can be described in term of the",
@@ -182,7 +182,7 @@
       "pptx_slide": 9,
       "title": "Fokker-Planck Kolmogorov (FPK) Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fokker-Planck Kolmogorov (FPK) Equation",
         "We just described that the probability current is described by:",
@@ -212,7 +212,7 @@
       "pptx_slide": 10,
       "title": "Fokker-Planck Kolmogorov (FPK) Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fokker-Planck Kolmogorov (FPK) Equation",
         "We just described that the probability current is described by:",
@@ -247,7 +247,7 @@
       "pptx_slide": 11,
       "title": "Langevin Dynamics",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Langevin Dynamics",
         "Given an energy function 𝑈(𝑥), Langevin dynamics is a SDE described as:",
@@ -270,7 +270,7 @@
       "pptx_slide": 12,
       "title": "Continuity Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuity Equation",
         "Consider an ODE described as:",
@@ -297,7 +297,7 @@
       "pptx_slide": 13,
       "title": "Part 1. Diffusion Models",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 1. Diffusion Models",
         "13"
@@ -310,7 +310,7 @@
       "pptx_slide": 14,
       "title": "Diffusion Models",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Diffusion Models",
         "Consider the following SDE that “encodes” the data distribution:",
@@ -332,7 +332,7 @@
       "pptx_slide": 15,
       "title": "Diffusion Models",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Diffusion Models",
         "Key idea: find a “reverse-time” neural SDE that can generate data",
@@ -351,7 +351,7 @@
       "pptx_slide": 16,
       "title": "Forward and Reverse SDEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Forward and Reverse SDEs",
         "Consider a pair of forward and the reverse SDEs with “reverse-time”",
@@ -376,7 +376,7 @@
       "pptx_slide": 17,
       "title": "Forward and Reverse SDEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Forward and Reverse SDEs",
         "The reverse time SDE can also be defined using 𝑌! = 𝑋HOP! :",
@@ -409,7 +409,7 @@
       "pptx_slide": 18,
       "title": "Nelson’s Identity",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Nelson’s Identity",
         "Nelson’s identity states the relation between forward",
@@ -431,7 +431,7 @@
       "pptx_slide": 19,
       "title": "Nelson’s Identity (Proof)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Nelson’s Identity (Proof)",
         "\"#(%,!)   \" ̅",
@@ -470,7 +470,7 @@
       "pptx_slide": 20,
       "title": "Score Matching Objective",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Score Matching Objective",
         "Returning to the original problem, we want to estimate",
@@ -490,7 +490,7 @@
       "pptx_slide": 21,
       "title": "Score Matching Objective",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Score Matching Objective",
         "A simple “denoising” score identity:",
@@ -509,7 +509,7 @@
       "pptx_slide": 22,
       "title": "Part 2. Flow Matching Models",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 2. Flow Matching Models",
         "22"
@@ -522,7 +522,7 @@
       "pptx_slide": 23,
       "title": "Continuous Normalizing Flow (CNF)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Normalizing Flow (CNF)",
         "We want to find an ODE 𝑑𝑋! = 𝑢Q 𝑋! , 𝑡 𝑑𝑡",
@@ -546,7 +546,7 @@
       "pptx_slide": 24,
       "title": "Conditional Probability Path",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Conditional Probability Path",
         "The target distribution is a marginalization over a tractable conditional",
@@ -564,7 +564,7 @@
       "pptx_slide": 25,
       "title": "Marginal Probability Path",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Marginal Probability Path",
         "The target probability path is called the marginal probability path:",
@@ -585,7 +585,7 @@
       "pptx_slide": 26,
       "title": "Example: Gaussian Conditional Probability Paths",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Gaussian Conditional Probability Paths",
         "Linear paths between data and a Gaussian prior.",
@@ -608,7 +608,7 @@
       "pptx_slide": null,
       "title": "Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Flow Matching",
         "Relation between marginal probability path, marginal velocity field,",
@@ -629,7 +629,7 @@
       "pptx_slide": 28,
       "title": "Marginalization Trick",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Marginalization Trick",
         "How to describe the marginal velocity field 𝑢6 (𝑥) in terms of 𝑢! (𝑥|𝑥> )?",
@@ -657,7 +657,7 @@
       "pptx_slide": 29,
       "title": "Marginalization Trick",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Marginalization Trick",
         "The marginalization trick can be generalized to other types of",
@@ -673,7 +673,7 @@
       "pptx_slide": 30,
       "title": "Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Flow Matching Loss",
         "How to estimate the marginal flow?",
@@ -695,7 +695,7 @@
       "pptx_slide": 31,
       "title": "Conditional Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Conditional Flow Matching Loss",
         "There exists a conditional flow matching loss with identical gradient:",
@@ -717,7 +717,7 @@
       "pptx_slide": 32,
       "title": "Gaussian Conditional Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Gaussian Conditional Flow Matching"
       ],
@@ -735,7 +735,7 @@
       "pptx_slide": null,
       "title": "Part 3. Geometric Flow Matching",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 3. Geometric Flow Matching",
         "33"
@@ -748,7 +748,7 @@
       "pptx_slide": 34,
       "title": "Why Geometric Flow Matching?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Why Geometric Flow Matching?",
         "For protein structure prediction,",
@@ -771,7 +771,7 @@
       "pptx_slide": 35,
       "title": "Why Geometric Flow Matching?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Why Geometric Flow Matching?",
         "Almost all structure design models follow the framework of AlphaFold2.",
@@ -791,7 +791,7 @@
       "pptx_slide": 36,
       "title": "Manifolds",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Manifolds",
         "Manifold ℳ: A topological space that locally",
@@ -813,7 +813,7 @@
       "pptx_slide": 37,
       "title": "Smooth Manifolds",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Smooth Manifolds",
         "Smooth manifold ℳ satisfies the chart condition:",
@@ -832,7 +832,7 @@
       "pptx_slide": 38,
       "title": "Tangent Space",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Tangent Space",
         "𝑇$ 𝕊!",
@@ -863,7 +863,7 @@
       "pptx_slide": 39,
       "title": "Riemannian Metric",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Riemannian Metric",
         "Riemannian metric 𝑔Z ∶ 𝑇Z ℳ × 𝑇Z ℳ → ℝ",
@@ -885,7 +885,7 @@
       "pptx_slide": 40,
       "title": "Riemannian Manifold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Riemannian Manifold",
         "Riemannian manifold ℳ, 𝑔 is a smooth",
@@ -906,7 +906,7 @@
       "pptx_slide": 41,
       "title": "Exponential Map",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Exponential Map",
         "Exponential map takes a tangent vector 𝜈 ∈ 𝑇Z ℳ and transports it along",
@@ -927,7 +927,7 @@
       "pptx_slide": 42,
       "title": "Logarithmic Map",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Logarithmic Map",
         "Logarithmic map log Z : ℳ → 𝑇Z ℳ takes a point on ℳ back",
@@ -948,7 +948,7 @@
       "pptx_slide": 43,
       "title": "Riemannian Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Riemannian Flow Matching",
         "An ODE defined on an Riemannian manifold that generates the data.",
@@ -969,7 +969,7 @@
       "pptx_slide": 44,
       "title": "Generalizing ODEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing ODEs",
         "ODE in a manifold ℳ is defined as:",
@@ -992,7 +992,7 @@
       "pptx_slide": 45,
       "title": "Generalizing ODEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing ODEs",
         "ODE in a manifold ℳ is defined as:",
@@ -1016,7 +1016,7 @@
       "pptx_slide": 46,
       "title": "Generalizing Conditional Velocity Fields",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Velocity Fields",
         "How to generalize the conditional velocity field 𝑢! 𝑥! 𝑧 ,",
@@ -1040,7 +1040,7 @@
       "pptx_slide": 47,
       "title": "Generalizing Conditional Velocity Fields",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Velocity Fields",
         "Then for straight lines with velocity 𝑢! 𝑥! |𝑥> , the conditional flow",
@@ -1061,7 +1061,7 @@
       "pptx_slide": 48,
       "title": "Generalizing Conditional Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Flow Matching Loss",
         "The conditional flow matching loss is simply generalized using",
@@ -1084,7 +1084,7 @@
       "pptx_slide": 49,
       "title": "SO(3) Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SO(3) Flow Matching",
         "Given correct parameterization of the manifold (along with exponential /",
@@ -1101,7 +1101,7 @@
       "pptx_slide": 50,
       "title": "Fisher Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fisher Flow Matching",
         "We can also relax discrete data onto a probability simplex (also a manifold)",
@@ -1119,7 +1119,7 @@
       "pptx_slide": null,
       "title": "Part 4. Discrete Diffusion",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 4. Discrete Diffusion",
         "and Flow Matching",
@@ -1133,7 +1133,7 @@
       "pptx_slide": 52,
       "title": "Discrete Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching",
         "How to generate discrete data using a continuous-time Markov chain?",
@@ -1151,7 +1151,7 @@
       "pptx_slide": 53,
       "title": "Continuous Time Markov Chain (CTMC)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain (CTMC)",
         "Formally, discrete data and space are defined as follows:",
@@ -1173,7 +1173,7 @@
       "pptx_slide": 54,
       "title": "Continuous Time Markov Chain (CTMC)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain (CTMC)",
         "CTMC describes a random process 𝑋! CD!D>",
@@ -1196,7 +1196,7 @@
       "pptx_slide": 55,
       "title": "Continuous Time Markov Chain",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain",
         "The probabilities path of a CTMC is described",
@@ -1227,7 +1227,7 @@
       "pptx_slide": 56,
       "title": "Discrete Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching",
         "Similar to the continuous case, we aim to:",
@@ -1247,7 +1247,7 @@
       "pptx_slide": 57,
       "title": "Marginalization Trick",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Marginalization Trick",
         "Consider a conditional velocity field 𝑢6 (𝑦, 𝑥|𝑧) generating cond. prob. path 𝑝6|> 𝑥 𝑧 .",
@@ -1272,7 +1272,7 @@
       "pptx_slide": 58,
       "title": "Discrete Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching Loss",
         "The discrete flow matching loss to train the CTMC model is defined as:",
@@ -1291,7 +1291,7 @@
       "pptx_slide": 59,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "To implement discrete flow matching, one needs parameterization of the",
@@ -1314,7 +1314,7 @@
       "pptx_slide": 60,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "To handle high-dimensional problems,",
@@ -1333,7 +1333,7 @@
       "pptx_slide": 61,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "For factorized velocities, ODE is solved by coordinate-wise Euler method:",
@@ -1357,7 +1357,7 @@
       "pptx_slide": 62,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "In practice, the conditional probability path is",
@@ -1384,7 +1384,7 @@
       "pptx_slide": 63,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "How to parameterize the marginal velocity 𝑢!Q (𝑦, 𝑥)?",
@@ -1415,7 +1415,9 @@
       "bytes": 95915,
       "slides": [
         4
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s04-image1.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "cf994d60ed57eec5bacad20624a8ab3826da5717e8aa1264a39f20c511bfb16a",
@@ -1424,7 +1426,8 @@
       "bytes": 18478,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "adf0f5b9ef5a36652b35799054a06598ef5658593226f354f5bc44408c3f2e3d",
@@ -1433,7 +1436,8 @@
       "bytes": 16754,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "66afcd1d943330bb6a23b571bceba4cba28ae5783c6df2f267383d44a08615a6",
@@ -1442,7 +1446,9 @@
       "bytes": 1764588,
       "slides": [
         11
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s11-image11.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "5af97352534b722331cf7dc7eeffc55e56b55e4fce7d0adde249558e5e22fca7",
@@ -1451,7 +1457,8 @@
       "bytes": 16591,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b94940e56028c6082c00e5bb08563e9bcdb3cc885a82b00d8a0bbef78c3142b1",
@@ -1460,7 +1467,9 @@
       "bytes": 122048,
       "slides": [
         12
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s12-image12.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0610267025cc22b4ac700e98d891ece5cd38795197ec6dde727988ab94b75687",
@@ -1469,7 +1478,8 @@
       "bytes": 3184,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8d5a5012de742a14399d94800fba28f110fcfa09fd3c2ff2d63d481b3c7e3ea9",
@@ -1478,7 +1488,8 @@
       "bytes": 15530,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b91368f2854c319b4303fafcc2363158febd0fef0dae292bd9e21e936e5fd60e",
@@ -1487,7 +1498,9 @@
       "bytes": 417683,
       "slides": [
         14
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s14-image13.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4e382c73b3b4f69f84340d5a379e513134fc4329f24c992616ea8824aa916824",
@@ -1496,7 +1509,8 @@
       "bytes": 2202,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734",
@@ -1508,7 +1522,9 @@
         16,
         17,
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s15-image14.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4fdbfb06b0b7c40d6660dce14957dbe28aa2e65882847ae0e4ce52214a66542e",
@@ -1517,7 +1533,8 @@
       "bytes": 2173,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f34165a1cbb797935ee89cd9b7cf3bddfdbc40e6ef9c32a725f7522dd0efb20c",
@@ -1526,7 +1543,9 @@
       "bytes": 109511,
       "slides": [
         18
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s18-image15.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "85380b65b7f95b360cc424416ba6f8017fd0782a96875f58019b56e3cb6ecf44",
@@ -1535,7 +1554,8 @@
       "bytes": 1232,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "07503c4d96f4462c54261a51f37249dfb6e9ab016216d02506990cbd580bbc24",
@@ -1544,7 +1564,8 @@
       "bytes": 93632,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2886118e676a0a61cea69a9b7c0a283b78a02f373b5a377ac5b4a8380c35ddb3",
@@ -1553,7 +1574,9 @@
       "bytes": 135123,
       "slides": [
         19
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s19-image17.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "41f4a314b7414e3726472b6440e86ee9fe794c7e73015627cfe5618f14d0b826",
@@ -1562,7 +1585,9 @@
       "bytes": 97897,
       "slides": [
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s20-image18.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a47688a940c64dd6307e9dd9b8b7feac48f8a17c20a8aec03384a9af5121b418",
@@ -1571,7 +1596,9 @@
       "bytes": 94611,
       "slides": [
         21
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s21-image19.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b53d4a282306a02fbea66418c88cebeee610c014a39cf815458344561275459e",
@@ -1580,7 +1607,8 @@
       "bytes": 3435,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0803fa3887cfec9e821338b0b0ab7b48767e800eea4d3f2705f98a37a67e98f3",
@@ -1589,7 +1617,9 @@
       "bytes": 136009,
       "slides": [
         5
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s05-image2.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "88dd173872983a0e9f2ef54049132e79d29ac3993a21ae3d88857168e98b247f",
@@ -1598,7 +1628,8 @@
       "bytes": 118673,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6189d3c2d1a0746af1f3c3018139ba8649830fbe0c502c93366e62a9f533cf1b",
@@ -1607,7 +1638,8 @@
       "bytes": 16576,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
@@ -1616,7 +1648,9 @@
       "bytes": 78744,
       "slides": [
         23
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s23-image21.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e386bfb12bd1eb717055ad80ad3a769eaeef8ed9838c50be3aacea3f0db3116f",
@@ -1625,7 +1659,8 @@
       "bytes": 4326,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9950b90dc31e4c401a4cea6d4acec28976491ad631c90f5281ced1bf75c16f43",
@@ -1634,7 +1669,8 @@
       "bytes": 85287,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b87f895135db83e94d9e0e67f221646d1fc6dc4493454026ed82deb2feb8ba86",
@@ -1643,7 +1679,8 @@
       "bytes": 4519,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8",
@@ -1653,7 +1690,9 @@
       "slides": [
         24,
         24
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s24-image23.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "93dd0677b229b98cbed78d5296f57899fdebf576c0ed97da07a90001eb0112cf",
@@ -1662,7 +1701,8 @@
       "bytes": 4042,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d15ca1948c8b51f3ed194f8ab6d9a118d84ff93e1c668eb002765de4c79d026e",
@@ -1671,7 +1711,9 @@
       "bytes": 127245,
       "slides": [
         25
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s25-image24.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4be06f0e366ecd05066e3226d2c66bbe1ff4290d64c34c7ab929140838bd6fdb",
@@ -1680,7 +1722,8 @@
       "bytes": 3945,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9dfdad6fa18b2f1ff658afb2be28838ed102b50d64e300bcbe8419f8d4b81794",
@@ -1689,7 +1732,9 @@
       "bytes": 60452,
       "slides": [
         26
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s26-image25.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2e5e20517159faecf22f2efd560129919a9676867e3a84e8c166357734f4af54",
@@ -1698,7 +1743,8 @@
       "bytes": 83381,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6acbd56d8c13244168b7d1dd28ac209a8a9a249e621e4bfb3863fd85340f9916",
@@ -1708,7 +1754,8 @@
       "slides": [
         27,
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3057faecf77ecd5c32e308bc7d05d29ec69ea955ff79e1182420fccda2d9eea9",
@@ -1719,7 +1766,8 @@
         8,
         9,
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b14bb617d6f39e673bfc7c9df8339dbbe052488ea6e0a85c6dbd69509f6dd140",
@@ -1730,7 +1778,8 @@
         8,
         9,
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d650db8c5538dba75911011636c32d5f4ed1d39cb5c8f9da7eb114c098b4e3dc",
@@ -1739,7 +1788,9 @@
       "bytes": 175880,
       "slides": [
         6
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s06-image3.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "da6afe15ae4a48de10a56ea93c133cd4699fddb75fb1019ff67bfc335ab6299a",
@@ -1750,7 +1801,8 @@
         8,
         9,
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4e1d05985ae18da76060f9738e2691ba13827d49a1b7a50b9088ba2308d03006",
@@ -1760,7 +1812,8 @@
       "slides": [
         27,
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b144e61495e5b575172883ccecf86073c45cdf170a594633b8fe7fb347b4c247",
@@ -1769,7 +1822,9 @@
       "bytes": 106822,
       "slides": [
         30
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s30-image311.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "d326a0f9c6ddc01d30f35bb5908fc2f25f3fdc06092d9a897c7cddc438bbe956",
@@ -1778,7 +1833,8 @@
       "bytes": 2684,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "aea14e2f88e43ad606285f091b4b04cc50fa9944c9a7ab2d477936a23c19b106",
@@ -1787,7 +1843,8 @@
       "bytes": 77912,
       "slides": [
         45
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e5d5a6b8d0f0d50a69ba159117bdd777c6fceaddcd9c433e838d9389967e1d7b",
@@ -1796,7 +1853,8 @@
       "bytes": 3446,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a196a1c188154e028e861bc154663c280a82deb81b537fc9a7f3e1032e5a2f98",
@@ -1805,7 +1863,8 @@
       "bytes": 3454,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d72b4d99012153b69adea3df89bbe7502d89449ea56585011196181f817a9e87",
@@ -1814,7 +1873,8 @@
       "bytes": 2736,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9ad8eb86f6845587da81f4152a00e644c003351959bf99534a357e92eded46f2",
@@ -1823,7 +1883,8 @@
       "bytes": 2691,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1081653191941a79cd3162765393c3789d8401d0dc6cedc7556ca63fff0aac7f",
@@ -1832,7 +1893,8 @@
       "bytes": 2884,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5fcb97c855ad36579ed4731fc1e0b7cfe7a7af4f33afb7aee9c4264287ffc5ac",
@@ -1842,7 +1904,8 @@
       "slides": [
         27,
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bfba94ca1f59e1c5190b4a76266103ee7aaf253ceeba407586b35e7f09ae6145",
@@ -1852,7 +1915,8 @@
       "slides": [
         27,
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8cc23720db0f3c8875271bfc3ccf15c681e716e7a80db245ecf83afa30d239e6",
@@ -1861,7 +1925,9 @@
       "bytes": 103618,
       "slides": [
         48
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s48-image390.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a7b5b5b88b5d6351281809ff0e4e97fdd58d796878edc827a8a489efbddbb230",
@@ -1870,7 +1936,9 @@
       "bytes": 117233,
       "slides": [
         28
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s28-image391.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "5dbe730def8c18324512bda7b274920a94edc70a6d76f0695ab2d2a7fec58ee5",
@@ -1879,7 +1947,9 @@
       "bytes": 108095,
       "slides": [
         7
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s07-image4.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "50dcea5e828e680a2579bc30d75b49714d8ea88c3ede72504b2c373357f142a3",
@@ -1888,7 +1958,9 @@
       "bytes": 75421,
       "slides": [
         29
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s29-image40.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "eb5b58be57e5eea6eeae4d76f8f0ebd68429749dbf0b0d9431c43e7d5bd1921d",
@@ -1897,7 +1969,9 @@
       "bytes": 112802,
       "slides": [
         31
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s31-image41.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b04880d4ddbcee76ba90f2d30f249a7416bc4fffc238ba32db1fdfe4e4f43327",
@@ -1906,7 +1980,8 @@
       "bytes": 100862,
       "slides": [
         53
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6eb9475fefd90e2de2dcb4fbdf37fc226ed7dcd558b5bcfd09f0f2cb8a5f99db",
@@ -1915,7 +1990,9 @@
       "bytes": 136991,
       "slides": [
         32
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s32-image42.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4ef8a585c6890e03a22e8aa0b209a921fcbe052326859867e7513da4fddcab84",
@@ -1925,7 +2002,8 @@
       "slides": [
         34,
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3083db117bbfdbf47c0428db45aa705b8790e6dae05ad511538e4a8017511647",
@@ -1934,7 +2012,8 @@
       "bytes": 90288,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "10759dd65d9b9ecab523e9632d53eda27d9fbff79d57e2f089f8c129fe32a682",
@@ -1943,7 +2022,8 @@
       "bytes": 95137,
       "slides": [
         54
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b1ef819f4482de9a9fa3c76ef1492315d9d263f6b624004a09f59d2a215c18ef",
@@ -1952,7 +2032,9 @@
       "bytes": 187603,
       "slides": [
         34
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s34-image44.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0c85c08759abfafd37de276720fffac525fbe0dd5d9efc4d18ac381c1ad1936e",
@@ -1961,7 +2043,8 @@
       "bytes": 1351680,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "344c893fa7c77604fa9f3c226b5da408c28d3b2911264e7669e2ad0d81366152",
@@ -1970,7 +2053,8 @@
       "bytes": 99789,
       "slides": [
         55
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bc7f64bf8415ef86d1c53fdf23202b4cec5e29e33277b320589654b9923788a8",
@@ -1979,7 +2063,9 @@
       "bytes": 4118,
       "slides": [
         35
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s35-image46.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2d530148aff9f9b0715f794b906211cdd8b9738b77b28dffbc1cd18862c639ae",
@@ -1988,7 +2074,9 @@
       "bytes": 460356,
       "slides": [
         36
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s36-image47.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "9f566ec308332fc021b42f2755625766acaeae1763aa6ed67b1219cb7ad742e3",
@@ -1997,7 +2085,8 @@
       "bytes": 104284,
       "slides": [
         56
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8cd0feed73cd0d6d5ee291af7d122f9dfcb576e9566a6c40a41d89df4e86055d",
@@ -2006,7 +2095,8 @@
       "bytes": 96411,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "31a63007228e91e1fd3ed562b41dfda67c76624df9d53b3345f2c1ff6bb55ef6",
@@ -2015,7 +2105,9 @@
       "bytes": 71239,
       "slides": [
         37
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s37-image49.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7d4aea11144a9c497db53763e3417e30db2b42e78f864da6b07d1fe9e5b0b959",
@@ -2024,7 +2116,9 @@
       "bytes": 100963,
       "slides": [
         58
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s58-image490.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "421f1cd87c8506e5244a546e3f66affb97b03f15438125d280e15ceb41e334b9",
@@ -2033,7 +2127,9 @@
       "bytes": 121057,
       "slides": [
         8
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s08-image5.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "9daed18cfea336038e88d3527113da3bafb6c0f11d38de2be229665a3ed70239",
@@ -2042,7 +2138,8 @@
       "bytes": 72615,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "002e8508f8959df9f61450091fa7ffb2302f455a1e5856f0299fac31bbeed496",
@@ -2052,7 +2149,9 @@
       "slides": [
         38,
         39
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s38-image51.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "63015ba885e7fc3ae1828ba04dc6bd79f2b295d9823c5e290c6dda3f547eee26",
@@ -2061,7 +2160,8 @@
       "bytes": 98294,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e587e3db2f79143bcc71d91f417a9d0ef0bedf0d28335b8379473f5b736713d9",
@@ -2070,7 +2170,9 @@
       "bytes": 58802,
       "slides": [
         39
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s39-image53.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "d11cfcee1fcfd1e3fa3192f6b1c09a8965de03660609d4b36a7a0c7c62d134c0",
@@ -2079,7 +2181,9 @@
       "bytes": 122466,
       "slides": [
         61
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s61-image530.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "630101d86a55eaa9083400bf7bcf82cf892bbede83ae32bb819c62b112015a83",
@@ -2088,7 +2192,8 @@
       "bytes": 70887,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b027663303042f065a47c8e6c30d3ecf791e1e8679a4d77d8a23eca7a7fb38dd",
@@ -2097,7 +2202,8 @@
       "bytes": 95052,
       "slides": [
         43
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c2a7f5ca2c81adad62e3090e4b633aa8c791cde1f39fcab45d920ed89a5664c5",
@@ -2106,7 +2212,9 @@
       "bytes": 121497,
       "slides": [
         40
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s40-image55.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "19c98f13a792b59db987425eeb68d17a9d9e2dcf4013f875310c40af061b9959",
@@ -2115,7 +2223,8 @@
       "bytes": 94652,
       "slides": [
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d1539acff8434e33d6dbdd2a0ada011c27d6a482d8238076fc5e9f502e9e4f90",
@@ -2124,7 +2233,8 @@
       "bytes": 92551,
       "slides": [
         44
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "327c183d1351dfafb1b8494444bb1e793dc2415e153469c6fe401d2d5bc10724",
@@ -2133,7 +2243,9 @@
       "bytes": 155801,
       "slides": [
         41
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s41-image57.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c3b2b81b904059e5a10a4ee465dc199b139a1b6d02b6ceeb1044d9e7a48751bd",
@@ -2142,7 +2254,8 @@
       "bytes": 115124,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1d632848f82f7f93f2ec902d0d6ed5dba8a31dfe60e3b3bcc1eeccbd385ef8f9",
@@ -2151,7 +2264,9 @@
       "bytes": 153960,
       "slides": [
         42
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s42-image59.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "1e122a9c761aae1807623441777863982753d0555ce293f0f00c8a0ad431057b",
@@ -2160,7 +2275,9 @@
       "bytes": 93436,
       "slides": [
         9
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s09-image6.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "3118cc47f6b136badb414abae7e02028f9be225f27c3f88f7ec4ae26183ec431",
@@ -2169,7 +2286,8 @@
       "bytes": 67594,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c6158a56ce3bfecdbf900a6236013d1524fa82d488708c30f17ba64ad549cc0a",
@@ -2178,7 +2296,8 @@
       "bytes": 100662,
       "slides": [
         42
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b981699674593c425018f375e0d219b938b6015fa579e183a36edc65e64e17bc",
@@ -2187,7 +2306,9 @@
       "bytes": 105081,
       "slides": [
         46
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s46-image610.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "84a451df92b5c1f22764e51729442a688d3d3091c98694b190574c09948512da",
@@ -2197,7 +2318,9 @@
       "slides": [
         43,
         44
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s43-image62.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e53af52e8d6118221b61076c4e39068bbf58b914a12072fa1fd710397f2233d9",
@@ -2206,7 +2329,8 @@
       "bytes": 132539,
       "slides": [
         47
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "53d6352bf4dc69c0a366b62be27dba20d5f5e22884dc5a66aca3bcc1f9f354f5",
@@ -2215,7 +2339,9 @@
       "bytes": 149022,
       "slides": [
         45
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s45-image63.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "6722b0ef7732b647a8d6b5af1bea1cebcadc2399451d9a15a8f1d6ea789ca562",
@@ -2224,7 +2350,9 @@
       "bytes": 133575,
       "slides": [
         57
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s57-image630.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "ecdc00d3e38ac4eaa0718f7e57c9aec2f9b741c2415bb03d7b66e2e7fc33b58a",
@@ -2234,7 +2362,8 @@
       "slides": [
         45,
         46
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "91cfa320623482d2375e1dbe5fb03e5e288ba0070a229da83a3a470a82704e1c",
@@ -2243,7 +2372,8 @@
       "bytes": 16668,
       "slides": [
         45
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2cd366b7601d391291122c50d703952dbd5962fe71a417e4516efdbf445cbdc4",
@@ -2252,7 +2382,8 @@
       "bytes": 96025,
       "slides": [
         47
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cf3b9197694e68fd05c9239cf99cd3e82a5ac134b6c7bcffde258476e9823bf7",
@@ -2261,7 +2392,9 @@
       "bytes": 173203,
       "slides": [
         49
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s49-image67.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c53f84a784d041942a52c9134f9e91287b2a1a5153dab0c0c6dce145c89db12b",
@@ -2270,7 +2403,9 @@
       "bytes": 61591,
       "slides": [
         50
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s50-image68.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f7f32da2d581944d9ff42eb25466a8be52478df750ae3f79945d73555eea33eb",
@@ -2279,7 +2414,8 @@
       "bytes": 40262,
       "slides": [
         50
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "52cc8e0566e667618a6ee062351686bf59251c8af112d70ed2c9af9fa4ff36aa",
@@ -2288,7 +2424,8 @@
       "bytes": 113520,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "990f77794f525a30f58f051292c53b63b3573e74347a2f7135731039c1a1d47f",
@@ -2297,7 +2434,9 @@
       "bytes": 487233,
       "slides": [
         52
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s52-image70.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "19062e5b66367924c59d3baf4a143a71d9d5874f7ddce2ad40046dc1554d28a8",
@@ -2306,7 +2445,9 @@
       "bytes": 33089,
       "slides": [
         53
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s53-image71.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "cad9600e346eaaf97eb8ba2048651d382d40313563becc475ddc4d27db5e0ca4",
@@ -2315,7 +2456,9 @@
       "bytes": 131169,
       "slides": [
         59
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s59-image710.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f8f5959cac639992926882f9424daf5eebd03ccd6d3de7589caa2e0b8d7adfe6",
@@ -2324,7 +2467,9 @@
       "bytes": 44086,
       "slides": [
         54
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s54-image72.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8bf6c3a5ba6016b9646d08060ef2cc19c78e00a537c148191ef100b686370c57",
@@ -2333,7 +2478,8 @@
       "bytes": 64708,
       "slides": [
         60
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2e26fa401760386c05e1bc1031005b882a9eff3851fb39051fcf3b65096c5037",
@@ -2342,7 +2488,9 @@
       "bytes": 9735,
       "slides": [
         55
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s55-image73.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "af7670c3b5762f1ad054744dfa18608c92143236f78333354b8c4462dab38d78",
@@ -2351,7 +2499,9 @@
       "bytes": 175676,
       "slides": [
         60
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s60-image74.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "3227a086909d2ce18d9e9610835844d516e19d14a72d7eb2a8857149c5a23569",
@@ -2360,7 +2510,8 @@
       "bytes": 146074,
       "slides": [
         62
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b143586014beedbff03c57b2acb8b83054d4f710550ec756f8c08d539f8e7c90",
@@ -2369,7 +2520,9 @@
       "bytes": 135429,
       "slides": [
         63
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s63-image75.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "20b6dfc33fc071aa0d1dee4b6dbc8abb3c5ba2cdf15b392e25227436d504b40c",
@@ -2378,7 +2531,9 @@
       "bytes": 93927,
       "slides": [
         10
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-06/s10-image8.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a915d1b05195df5b00e6ced7ae703851469060bbe6bb9a4650671e8c98da3802",
@@ -2387,7 +2542,8 @@
       "bytes": 86463,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "90209d35cef6a35f6ef948deb5b0c7002ef4e878b99fd5d082f6a7ec7822de93",
@@ -2396,7 +2552,8 @@
       "bytes": 99363,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "caa1dd1bdd8641368af13a194a2542c2f668fd85bddda50305d37250e758950d",
@@ -2405,14 +2562,15 @@
       "bytes": 82972,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 58,
+    "reused": 49,
+    "scientifically_redundant": 9,
+    "reuse_ratio": 0.8448
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-06.md"
 }
