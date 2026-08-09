@@ -137,6 +137,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   and state which longitudinal measurements, lineage information,
   randomization, or structural assumptions would identify the desired dynamic
   or counterfactual quantity.
+- When presenting multiple derivations of one method, evaluate them on the same
+  finite object and keep an explicit ledger of assumptions. Prove the exact
+  common case, then locate every approximation, restriction, or additional
+  input that makes their conclusions differ. A shared final formula does not
+  imply shared guarantees or scope.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
