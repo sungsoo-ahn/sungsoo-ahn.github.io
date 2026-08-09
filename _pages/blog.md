@@ -25,32 +25,20 @@ pagination:
       <span>Technical notes {{ technical_note_count }}</span>
     </div>
 
-    <section class="blog-course-paths" aria-labelledby="blog-course-paths-title">
-      <h2 id="blog-course-paths-title">Course reading paths</h2>
-      <div class="blog-course-paths__links">
-        {% for path_pair in site.data.lecture_paths %}
-          {% assign path = path_pair[1] %}
-          <a href="{{ path.permalink | relative_url }}">
-            <span>{{ path.title }}</span>
-            <small>{{ path.chapters.size }} chapters</small>
-          </a>
-        {% endfor %}
-      </div>
-    </section>
-
     <nav class="blog-topic-nav" aria-labelledby="blog-topic-nav-title">
       <h2 id="blog-topic-nav-title">Browse by topic</h2>
-      <div class="blog-topic-nav__links">
-        {% for category in site.data.blog_categories %}
-          {% assign category_posts = site.categories[category.slug] %}
-          <a href="{{ category.slug | prepend: '/blog/category/' | relative_url }}">
-            <strong>{{ category.title }}</strong>
-            <span>{{ category.description }}</span>
-            {% assign category_post_count = category_posts.size | default: 0 %}
-            <small>{{ category_post_count }} {% if category_post_count == 1 %}post{% else %}posts{% endif %}</small>
-          </a>
+      <ul class="blog-topic-list">
+        {% for path_pair in site.data.lecture_paths %}
+          {% assign path = path_pair[1] %}
+          <li>
+            <a href="{{ path.permalink | relative_url }}">
+              <span>{{ path.title }}</span>
+              <small>{{ path.chapters.size }} chapters</small>
+            </a>
+            <p>{{ path.description }}</p>
+          </li>
         {% endfor %}
-      </div>
+      </ul>
     </nav>
 
     <h2 class="blog-latest-title">All posts</h2>

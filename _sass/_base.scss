@@ -1305,7 +1305,6 @@ footer.sticky-bottom {
     font-weight: 600;
   }
 
-  .blog-course-paths,
   .blog-topic-nav {
     margin: 1.75rem 0 2rem;
 
@@ -1315,43 +1314,50 @@ footer.sticky-bottom {
     }
   }
 
-  .blog-course-paths__links,
-  .blog-topic-nav__links {
-    display: grid;
-    gap: 0.65rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .blog-topic-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border-top: 1px solid var(--global-divider-color);
+      padding: 0.75rem 0;
+
+      &:last-child {
+        border-bottom: 1px solid var(--global-divider-color);
+      }
+    }
 
     a {
-      border: 1px solid var(--global-divider-color);
-      border-radius: 0.45rem;
+      align-items: baseline;
       color: var(--global-text-color);
       display: flex;
-      flex-direction: column;
-      padding: 0.8rem 0.9rem;
+      gap: 1rem;
+      justify-content: space-between;
       text-decoration: none;
 
       &:hover {
-        border-color: var(--global-theme-color);
         color: var(--global-theme-color);
       }
+    }
+
+    a > span {
+      font-weight: 600;
     }
 
     small {
       color: var(--global-text-color-light);
       font-size: 0.75rem;
-      margin-top: 0.15rem;
+      white-space: nowrap;
     }
-  }
 
-  .blog-topic-nav__links a > span {
-    color: var(--global-text-color-light);
-    font-size: 0.8rem;
-    line-height: 1.35;
-    margin-top: 0.2rem;
-  }
-
-  .blog-topic-nav__links {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    p {
+      color: var(--global-text-color-light);
+      font-size: 0.82rem;
+      line-height: 1.45;
+      margin: 0.2rem 0 0;
+      max-width: 760px;
+    }
   }
 
   .blog-latest-title {
@@ -1807,17 +1813,6 @@ details.kups-reproducibility {
   .kups-series-nav .kups-series-nav__links,
   .lecture-series-nav .lecture-series-nav__links {
     grid-template-columns: 1fr;
-  }
-
-  .blog-index .blog-course-paths__links,
-  .blog-index .blog-topic-nav__links {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 991.98px) {
-  .blog-index .blog-topic-nav__links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
