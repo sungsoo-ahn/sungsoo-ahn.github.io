@@ -1,0 +1,1837 @@
+{
+  "deck_id": "gdl-2025-15",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec15_geogen.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec15_geogen.pptx",
+  "slide_count": 54,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Geometric Flow Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometric Flow Matching",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Part 2: Geometric Generative Models",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Part 2: Geometric Generative Models",
+        "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
+        "Lec 2 (April 30th): Preliminaries on diffusion and flow matching",
+        "Lec 3 (May 7th): Geometric flow matching",
+        "Lec 4 (May 12th): Geometric / discrete flow matching",
+        "Lec 5 (May 14nd): Discrete flow / generator matching",
+        "Lec 6 (May 19th): Discrete diffusion models"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Reference",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Reference",
+        "Today’s lecture is a summary of two recent lectures (with personal notes)",
+        "Geometric Generative Models (Tutorial@LoG 2024):",
+        "• https://sites.google.com/view/ggm-log-tutorial/home",
+        "Flow Matching for Generative Modeling (Tutorial@NeurIPS 2024):",
+        "• https://neurips.cc/virtual/2024/tutorial/99531",
+        "• https://neurips.cc/media/neurips-2024/Slides/99531.pdf",
+        "• https://github.com/facebookresearch/flow_matching"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "How to generalize diffusion models to ODEs?",
+        "We want to find an ODE 𝑑𝑋! = 𝑢\" 𝑋! , 𝑡 𝑑𝑡 described by",
+        "velocity field 𝑢\" with probability path 𝑝! #$!$%.",
+        "The ODE is also described by 𝑋! = 𝜓! (𝑋#), where",
+        "the flow 𝜓! is a one-to-one mapping.",
+        "Important: 𝑋! is the noise distribution, while it",
+        "The flow 𝜓! is also associated with                was the data distribution for diffusion models…",
+        "a push-forward operator 𝜓# 𝑝# = 𝑝! ."
+      ],
+      "media_sha256": [
+        "b23830d92288395ee42ae430734ce5a7b5b453cae90c3f70b0e65c8cf0884592",
+        "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
+        "6189d3c2d1a0746af1f3c3018139ba8649830fbe0c502c93366e62a9f533cf1b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "Similar to diffusion model, the target distribution is a marginalization",
+        "over a tractable conditional probability path 𝑝!|% 𝑥 𝑥% ,",
+        "expressed by a conditional velocity field 𝑢 𝑋! 𝑥% and its ODE.",
+        "The target path is called the marginal probability path:",
+        "𝑝! 𝑥 = ∫ 𝑝!|% 𝑥 𝑥% 𝑝 𝑥% 𝑑𝑥%,",
+        "𝑝% 𝑥 = 𝑝)*+*,       𝑝# 𝑥 = 𝒩 0,1 .",
+        "where 𝑝!|% 𝑥 𝑥% the conditional probability path induced",
+        "by conditional velocity fields:",
+        "𝑑𝑋! = 𝑢 𝑋! 𝑥% 𝑑𝑡"
+      ],
+      "media_sha256": [
+        "494b057aa5bd1f7d05eed9dfd684a9f388d71201548aba18e10c6130d9c3e631",
+        "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": null,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "It is important to think about the relation between marginal probability path, marginal",
+        "velocity field, conditional probability path, and conditional velocity field:",
+        "intractable",
+        "𝑢(𝑥! )     generates",
+        "𝑝! (𝑥)",
+        "???                              marginalization",
+        "generates",
+        "𝑢 𝑥! 𝑥\"                      𝑝! 𝑥 𝑥\"",
+        "tractable"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "How to estimate the marginal flow?",
+        "𝑢! 𝑥 = 2 𝑢! 𝑥 𝑥% 𝑝%|! 𝑥% 𝑥 𝑑𝑥%",
+        ",!",
+        "One could consider the flow matching loss:",
+        "ℒ-. 𝜃 = 𝔼!,,∼1\" 𝑢\" 𝑥, 𝑡 − 2 𝑢! 𝑥 𝑥% 𝑝%|! 𝑥% 𝑥 𝑑𝑥%",
+        ",!",
+        "There exists a tractable conditional flow matching loss ℒ2-.",
+        "with identical gradient to the flow matching loss ∇\" ℒ2-. 𝜃 = ∇\" ℒ-. 𝜃 :",
+        "ℒ2-. 𝜃 = 𝔼!,,! ,,∼1\"|! (,\" |,! ) 𝑢\" 𝑥, 𝑡 − 𝑢! 𝑥 𝑥% ,"
+      ],
+      "media_sha256": [
+        "ce19246d314b97117011086b9943ca2eb107ecb218cf5306982e2461e8be8380"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Slight Generalization of Flow Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Slight Generalization of Flow Matching",
+        "The conditional flow 𝜓(𝑥|𝑥%) and velocities 𝜓(𝑥|𝑥%) can be genaralized to",
+        "arbitrary conditions, e.g., 𝜓(𝑥|𝑧) and 𝜓(𝑥|𝑧) where 𝑧 = 𝑥#, 𝑥% ."
+      ],
+      "media_sha256": [
+        "ce21872e56817ff5b215d8c0ac4dd375b5f99a5b773ab688201301907444d93c",
+        "95487beb0bb99838f2e8faa2f0dc6f5f95446c27dd2745d0f3e6fdaa8f12ddee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Generative Models on Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generative Models on Manifolds",
+        "How to handle data in non-Euclidean space?"
+      ],
+      "media_sha256": [
+        "d04ccd4e0f22b55205d976dc71111780f6ec6b53c3def9a765096af1b31f4a2c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Generative Models on Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generative Models on Manifolds",
+        "How to handle data in non-Euclidean space?"
+      ],
+      "media_sha256": [
+        "c2605a08a8879631fa4fe7787b2f5f05df83f8509d46055aab6cefe3a3973e80"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Generative Models on Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generative Models on Manifolds",
+        "Given: samples 𝑥% ∼ 𝑞                           How to represent 𝑥% on a manifold?",
+        "Construct: 𝑝! s.t. 𝑝# = 𝑝, 𝑝% ≈ 𝑞                  There is no “Gaussian” on manifold,",
+        "via conditional flows 𝜓! (𝑥|𝑧)",
+        "𝛼! 𝑥% + 𝜎𝑥# : Can’t do addition!",
+        "No vector space structure!",
+        "Learn: velocity field 𝑢! with conditional flow matching loss",
+        "s.t. 𝜓! 𝑥# ∼ 𝑝! where 𝑥# ∼ 𝑝.                             The notion of velocity/vector fields",
+        "needs to be generalized."
+      ],
+      "media_sha256": [
+        "c0a933a91768b27a5f813a05c9ed5fd7c7825f7284b12ce3d287c3ba991b0697",
+        "d048dbb7ab928539208f542a3bcea8b90c8f3c7e52e1642cd885a864dfe48a15",
+        "abfd7424c98153577ac0524e01595b623a8627e70554429401fd79863b23b2e7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "High-Level Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "High-Level Overview"
+      ],
+      "media_sha256": [
+        "bf8ba6a5bcb90898c6a7a25848f0f3e930db0c79f2df9fd60e2ffd7b896ea1ec"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "High-Level Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "High-Level Overview"
+      ],
+      "media_sha256": [
+        "ce38c77cc10c6e37266c2e2afbf22bf1e21b85d8feef65288031f0b1b5a528ad"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "High-Level Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "High-Level Overview"
+      ],
+      "media_sha256": [
+        "4ced65d56d6b91dc5bb8ed2a459bdd37ccb2e5cc58732281a50f2e41a3695338"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "High-Level Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "High-Level Overview"
+      ],
+      "media_sha256": [
+        "84a451df92b5c1f22764e51729442a688d3d3091c98694b190574c09948512da"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "High-Level Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "High-Level Overview"
+      ],
+      "media_sha256": [
+        "e656284321fb2c1c7d02f7e2066b8412b6489ccc575d033babcd1537c2f54356"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Smooth Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Smooth Manifolds",
+        "Informally, a smooth topological space that locally looks like patches of a vector space that",
+        "resembles the Euclidean space when glued together look globally different.",
+        "Points living on the topological space, e.g., 𝑥% ∼ ℳ"
+      ],
+      "media_sha256": [
+        "b07a66a79a7cfb7dffdb9b2d16d5c1a112540a6b5a8eb3546eac6a5f83d29224",
+        "586d00f4dc526ced6d61ae943690deb12313f114feaafc3f68f2a9f43d1a7807"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Smooth Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Smooth Manifolds",
+        "Informally, a smooth topological space that locally looks like patches of a vector space that",
+        "resembles the Euclidean space when glued together look globally different.",
+        "A chart {𝑈5 , 𝜙5 |𝑖 ∈ 𝒜} maps each patch 𝑈5 ⊆ ℳ",
+        "to a vector space 𝜙5 : 𝑈5 → ℝ6 .",
+        "We added “smoothness” i.e., 𝐶 7",
+        "differentiability and continuity to ℳ"
+      ],
+      "media_sha256": [
+        "b1fcb03a5ef5f8416b43e2c5cf5339e757a8fccfb87f976693d7dd07e291ae82",
+        "97b85b5788362f9d806b53b3d7c867de13e66b5e0334c5332411c6ec3c8d8ea6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Smooth Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Smooth Manifolds",
+        "A chart {𝑈5 , 𝜙5 |𝑖 ∈ 𝒜} maps each patch 𝑈5 ⊆ ℳ",
+        "to a vector space 𝜙5 : 𝑈5 → ℝ6 .",
+        "Stitching charts together requires satisfying a",
+        "compatibility condition if 𝑈5 ∩ 𝑈8 ≠ 𝜙"
+      ],
+      "media_sha256": [
+        "974888a972592858ac730c445ecc852da81195509c57815848d06c3ce149e762",
+        "86e803672b577b25d44902cd137c5be620bfadd5af7cf6ba1862a10a23f6b4ef"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Manifold Representations",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Manifold Representations",
+        "Multiple ways of representing the same geometry.",
+        "• Extrinsic: high-dimensional embedding",
+        "• Intrinsic: chart-based",
+        "Extrinsic: A manifold is embedded in",
+        "an ambient space ℝ6 , 𝑛 > 𝑑 if",
+        "there exists an inclusion map:",
+        "𝜄 𝑥 = 𝑥 9 ∈ ℝ6 , ∀𝑥 ∈ ℳ."
+      ],
+      "media_sha256": [
+        "bc450decc26aa6803f9bfb8caec39d7632a8ec3d707809e152b464318a38e7e6",
+        "b53fdd68fe0ca50684375e8364320c2334c258faecfbefe7044980a8404574be"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Manifold Representations",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Manifold Representations",
+        "Intrinsic coordinate system is a “choice”",
+        "of charts that cover the manifold.",
+        "Computation in “local coordinates” mean using",
+        "coordinate charts to put it in subsets of ℝ6",
+        "instead of a manifold."
+      ],
+      "media_sha256": [
+        "54ccb0c1726d85cf5e6c91a34a08d6f7b615b5b6e05ec18a7f41246685203cf6",
+        "45969602950ffc6e2bc93fe036e807aa3c41ae2f253f0be598dbc610e123fe09",
+        "d446bf43c57f28dcf30b130dbe364cc7210787d1e15aba15c889594400ae7c72"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Manifold Representations",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Manifold Representations",
+        "Global coordinates: A coordinate chart that covers the entire manifold."
+      ],
+      "media_sha256": [
+        "8a077200e20100ef8d272ce35b932388657b5fe50019fcbd87ae9d3e54ca172d",
+        "c343e5d27cd0081b5b896aeafe2e4bffc6aec0ca672257c9cb7a47081a4bcc22"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Tangent Vectors",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Tangent Vectors",
+        "How to come up with the notion of “direction” in manifolds?",
+        "First, it is relatively easy to define a curve 𝛾: ℝ → ℳ",
+        "as a function of time.",
+        "𝛾̇ 0",
+        "𝛾 0",
+        "In Euclidean space, we derive tangent vector",
+        "< : =< #",
+        "at point 𝑝 = 𝛾 0 as 𝛾̇ 0 = lim        :",
+        ",",
+        ":→#",
+        "but we do not have addition/substraction",
+        "available for manifolds…"
+      ],
+      "media_sha256": [
+        "1aedd0c116ae3135aef94c2feb5727609ff0646980e171a8792a31e71cb6fbcd",
+        "60737017f244dbcd9a1c78fd9764a0a5f5895ac72af85d372c58630f27bc9442",
+        "862ff943d83ab9d0be74de015591bdd393ce293608fab9f834adc1621746ba7e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Tangent Vectors",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Tangent Vectors",
+        "We can use a test function 𝑓: ℳ → ℝ to measure the infinitesimal change,",
+        ")",
+        "i.e., measure directional derivative along the curve 𝑋<,1 𝑓(𝑡) = )+ 𝑓 ∘ 𝛾 𝑡",
+        "The operator 𝑋<,1 is called the tangent vector",
+        "and the space of these vectors is called the",
+        "tangent space 𝑇1 ℳ = 𝑋<,1 |𝛾 0 = 𝑝, 𝛾 is a curve .",
+        "For intuition, think of 𝑓 as a mapping from",
+        "a manifold to the extrinsic coordinate."
+      ],
+      "media_sha256": [
+        "339844cd5d0caf562f7c89a892f6ca924f0c8addcd1c733fdbe7a4401cdaa41e",
+        "39bbd39ed7c347caca636fd3f4cd4776b5af4db2823930ed65bf72dbc8b7d5b7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "A Bit More on Tangent Spaces",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "A Bit More on Tangent Spaces",
+        "Tangent basis: Any 𝑣 ∈ 𝑇1 ℳ can be expressed as a linear combination of basis vectors",
+        "which are taken from the chart (𝑈5 , 𝜙5 ) by pulling them back via 𝜙5=%",
+        "d          d                                      𝑓 0   𝑓 ℎ",
+        "𝑋<,1 𝑓 𝑡 =    𝑓∘𝛾 𝑡 =    𝑓 ∘ 𝜙 =% ∘ 𝜙 ∘ 𝛾 𝑡",
+        "dt         dt",
+        "Think of decomposing the curve 𝛾 into “basis curves” 𝛾5                      𝑈\"",
+        "that move along the 𝑖-th coordinate direction in the chart.",
+        "d     =%",
+        "d                                 𝜕",
+        "𝑓∘𝜙 ∘𝜙∘𝛾 𝑡 =e    𝜙∘𝛾 𝑡                             𝑓 ∘ 𝜙 =% 𝜙 𝑝",
+        "dt               dt                               𝜕𝑥5",
+        "5                5",
+        "tangent basis 𝑒\""
+      ],
+      "media_sha256": [
+        "3b3b7a0774fc9842851b872edfd97ce5497caf4d3ede08a00992a6107f8eaf4a",
+        "6656b0ff093aafaf18c167fe7bca6ab21ca2952825b10c92afa9f1eb50d8c168",
+        "2be7b17be84798fb0afc2196ecc79ec28393d74e889bbe99af74eec00b081f6f",
+        "07ee1c59107d9c56532edf5157ad2e6544eb5f3f520a4b8460d84a6355ce2f9a",
+        "1d0df8211f605275c9d17f1d21005a5515802dc1886673161129ce5525db929f",
+        "dc9b387345cf4febe30d2441969ae247f3ecea5734a7c0e19d2d5aa815477ec2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Defining Vectors in Ambient Space",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Defining Vectors in Ambient Space",
+        "Extrinsic: inclusion map 𝜄 𝑥 = 𝑥 ∈ ℝ6 , ∀ℳ.",
+        "A tangent vector in extrinsic coordinates by",
+        "“pulling back” the local tangent space basis.",
+        "𝜄 ∘ (𝜙 =%) is a map from ℝE → ℝ6 .",
+        "Think of doing something similar as previous, but for:",
+        "d",
+        "𝑓 ∘ 𝜄=% ∘ 𝜄 ∘ 𝜙 =% ∘ 𝜙 ∘ 𝛾 𝑡",
+        "dt"
+      ],
+      "media_sha256": [
+        "6610c6ea5ea0f3e64377afc3fb8fc47672bd34563a85344aac6c3719f42e8eb6",
+        "ff701f8baf324dbcc73ed58e0057f407f7a461daa6b330c2ec6bfd407993eed3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Design Choices for Velocity Fields",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Design Choices for Velocity Fields",
+        "Local charts: directly output on 𝑇1 ℳ",
+        "Extrinsic: output in ambient coordinates",
+        "Project: velocity field 𝜈 in ℝE then",
+        "project to 𝑇1 ℳ with a matrix Π1 ."
+      ],
+      "media_sha256": [
+        "432351487aa6ada072d81a7cbb4005b963e9125966066dd5d224575dd5b58924",
+        "e4c7b5f5b8ecc9087705c1a0e9c79fed3998a592f1f139acf0af3d975b73d3ff"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Riemannian Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Riemannian Manifolds",
+        "Tangent space: For each 𝑝 ∈ ℳ, a tangent vector is a smooth map 𝜈: ℱ → ℝ6 .",
+        "Riemannian metric: Inner product 𝑔1 = ⋅,⋅, 1 on each tangent space that varies smoothly.",
+        "We add more structure to",
+        "ℳ by choosing a “metric”."
+      ],
+      "media_sha256": [
+        "a162ea97290992becee2c8a4288d94a472b3933166d048cdccf4f1f45f62f720",
+        "d137fccd5d934bbc39273af57f889f1c7d12385ac35596ce39dba2c4d00483a5",
+        "51d98122ee89b00c9558d696efe3c5deba6b54f8923ff0c3cf5f507faa785bed",
+        "1f615ceb45f376c46c3e712a2243f6ac62d41afe74ea5cc2b554963bbb46487c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Riemannian Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Riemannian Manifolds",
+        "Tangent space: For each 𝑝 ∈ ℳ, a tangent vector is a smooth map 𝜈: ℱ → ℝ6 .",
+        "Riemannian metric: Inner product 𝑔1 = ⋅,⋅, 1 on each tangent space that varies smoothly.",
+        "Riemannian manifold: A smooth manifold equipped with an inner product (ℳ, 𝑔)"
+      ],
+      "media_sha256": [
+        "733148ebf26165f513ac13dfc190d397493c73d9723723363adf75cf4a6245e9",
+        "b23556f14ba6cdc0c97e2c525e3e241f85e63c33ac4945d2dbe39480ba2d7454"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Why Are Metrics Important?",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Why Are Metrics Important?",
+        "Riemanninan metric is not the same as saying “metric space”",
+        "𝑔1 = ⋅,⋅, 1 can be used to describe lengths of vectors, distances, and angles.",
+        "Coefficients for the",
+        "vectors in the tangent space."
+      ],
+      "media_sha256": [
+        "78a2dc7a0d49a510317d60874dc3780af58d5521805de5201d56a76be0cd97ed",
+        "e587e3db2f79143bcc71d91f417a9d0ef0bedf0d28335b8379473f5b736713d9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Why Are Metrics Important?",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Why Are Metrics Important?",
+        "Riemanninan metric is not the same as saying “metric space”",
+        "A Riemannian metric allows us to measure many things: distances, lengths of vectors, and",
+        "angles. It is the main gadget that allows actual computation."
+      ],
+      "media_sha256": [
+        "f795a9b08217091531fcea9db69d3c473900214465fef34d93b1f3e9486df413"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Measuring Distances and Geodesics",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Measuring Distances and Geodesics",
+        "A curve: A smooth map 𝛾: 0,1 → ℳ, 𝛾 −1 = 𝑝, 𝛾 1 = 𝑞.",
+        "How do we measure the distance between two points 𝑝, 𝑞 ∈ ℳ linked by 𝛾?"
+      ],
+      "media_sha256": [
+        "8e78097431163c91b9de766643bc773958485f01ea826c44bb4093f2a80a2067",
+        "7bcb99841e49300bb7b6483805d9a030618e06edb3045fceedad51d8c8aa7743"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Measuring Distances and Geodesics",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Measuring Distances and Geodesics",
+        "Main idea: Measure the norm of the tangent vector ̇𝛾(𝑡) along the curve:"
+      ],
+      "media_sha256": [
+        "6adf7e721a299b2f80b7bb43879ea21ff4459736a9bf8b6ee69d84d56ceb78bf",
+        "6dd1b8e263f54667a8cf30daa89c46b9ef853525a422aa69297563091b97a765",
+        "6f00123f923728c55a925a86072e683e96380b7ee07821f0a487b6edcd69ab49"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "Geodesics",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geodesics",
+        "Different metrics induce different geodesics on the same space.",
+        "Examples: Geodesics on the probability simplex:",
+        "• Euclidean metric “linear”",
+        "• Fisher-Rao metric:",
+        "𝜕 $ log 𝑝 𝑥 𝜃",
+        "𝑔!\" 𝜃 = − '                𝑝 𝑥 𝜃 𝑑𝑥",
+        "𝒳     𝜕𝜃! 𝜕𝜃\""
+      ],
+      "media_sha256": [
+        "cf177e1fb6feed735358acefce580ee0de0ff8b5244166b2a0afe78317aec634",
+        "57ef9834938aa99d73e60f6261bcff1513d5fc45e665927a3c1dd4b65d5957fe"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "Distances Allow us to…",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Distances Allow us to…"
+      ],
+      "media_sha256": [
+        "5403d9e6f9ada3d7d09ea53f42a71661ac85be5878610b493752932c75947a0c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "Inference on Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Inference on Manifolds"
+      ],
+      "media_sha256": [
+        "6df76eccfc05dfab54e121d6965f960f49edfa1dfc23a404f157a1ca0354aabd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "title": "Manifold Operators",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Manifold Operators"
+      ],
+      "media_sha256": [
+        "59250323fc404f4a415afd827a25c6fad190b06ed9ebeeb0b01a7d3be0fb6c85"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "Exponential Map",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Exponential Map",
+        "Exponential map: Takes a tangent vector 𝜈 ∈ 𝑇1 ℳ and transports it along the unique",
+        "geodesic which satisfies 𝛾 0 = 𝑝 and 𝛾̇ 0 = 𝜈 to the point exp1 𝜈 = 𝛾(1).",
+        "Output of the exponential map is a point on ℳ.",
+        "Conceptually like “addition” in a Euclidean space,",
+        "case in point exp1 𝜈 = 𝑝 + 𝑣, ∀𝑝 ∈ ℝ6 ."
+      ],
+      "media_sha256": [
+        "b157a7fae860eb96978064f04f03e5e87cd8099ceebafa2338560b04e40ac807",
+        "327c183d1351dfafb1b8494444bb1e793dc2415e153469c6fe401d2d5bc10724",
+        "144b436d1a28f48ac80b150e6e22814c081dbaf7e1d03c076fb7d7422a74d254"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "Logarithmic Map",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Logarithmic Map",
+        "Logarithmic map: log 1 : ℳ → 𝑇1 ℳ. Takes a point on ℳ back",
+        "to the tangent space of a base point by following 𝛾.",
+        "Output of a logarithmic map is 𝜈 ∈ 𝑇1 ℳ",
+        "Usually, inverse of the exponential map.",
+        "The log map is well-defined only in a neighbourhood",
+        "of 𝑝 where exp1 is a diffeomorphism."
+      ],
+      "media_sha256": [
+        "bce7ee90d255bf3673cc762122efe02ebc124156f80fbb0dc3f7a7f55f26ef14",
+        "1d632848f82f7f93f2ec902d0d6ed5dba8a31dfe60e3b3bcc1eeccbd385ef8f9",
+        "7be5a1de57dded9a868cf66a1e54e7b9e62f05e20714b81f2acff4fac24fb044"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "title": "Parallel Transport",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Parallel Transport",
+        "Parallel transport: PT1→F : 𝑇1 → 𝑇F . Moves a tangent vector 𝜈 along a curve 𝛾(𝑡) such that the",
+        "vector remains “parallel” to it and lands at another tangent space.",
+        "Lengths and angles between parallel transported",
+        "vectors are preserved, i.e., 𝑣 𝑡 , 𝑤 𝑡 G = const.",
+        "Parallel transport is unique and reversible",
+        "(along the same curve)."
+      ],
+      "media_sha256": [
+        "86481af9b82c6c3c5566bbfd440d3905a6dfca6192b2beac9f4dcc084ba41871",
+        "497b52937fac399ba4323415344f033ffb46e6cea0a3ce1003c99fe44a39193d",
+        "a96c340324b323e49d6006751d96b995077f21985f170c3327fbfee73fdc1648"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "title": "Manifold Operations in Action",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Manifold Operations in Action"
+      ],
+      "media_sha256": [
+        "acaa9f689e80c6c1694f9971ae883b27bacd6374583cb5b1e0d7f545a5b36b39"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "Inference on Manifolds",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Inference on Manifolds"
+      ],
+      "media_sha256": [
+        "264a9799ec8f35842b2b5298a36581faee2104a81674e1698bc7661454259b05"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "title": "Today: Geometric Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Geometric Flow Matching",
+        "1. Recap: Flow Matching",
+        "2. Definition of Smooth Manifold",
+        "3. Tangent Vectors and Tangent Space",
+        "4. Riemannian Manifolds, Riemannian Metrics and Geodesics",
+        "5. Exponential & Logarithmic Maps and Parallel Transport",
+        "6. Probabilistic Inference in Riemannian Manifolds"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "title": "Computing the Score",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Computing the Score"
+      ],
+      "media_sha256": [
+        "b3564327277106913b6a8ab08e7216f547eef4975e987b3c816462e1698b02ee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "title": "Riemannian Gradient",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Riemannian Gradient",
+        "Main idea: For smooth 𝑓: ℳ → ℝ the Riemannian gradient ∇G 𝑓",
+        "is the direction of steepest ascent using 𝑔."
+      ],
+      "media_sha256": [
+        "5bfbf9bda866f0cca30668feff5448af16ec3aa643458955beceeab170384eca",
+        "078cf2bf147df69fe29f17837dcf4d4bea8040fc1df437ba8f84e762780dbcb5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "title": "Computing the Log Density",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Computing the Log Density"
+      ],
+      "media_sha256": [
+        "1c19a88206fd0fe34af568b8dc33fadc6cea81822737d1febd27c4740e48977f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": 52,
+      "title": "Riemannian Divergence",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Riemannian Divergence",
+        "Main idea as Euclidean Divergence but now with a metric 𝑔.",
+        "In ML we prefer this version which is most practical"
+      ],
+      "media_sha256": [
+        "fa8eddafd7630352c0c112584044d12e84c74e16ae74c815adcb909184fa2027",
+        "4076ecd1763933761acd1fddb9ac64a73dd9e6a66782aa72b5fefaa0b4e8157f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": 53,
+      "title": "Summary: Geometric Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Summary: Geometric Flow Matching"
+      ],
+      "media_sha256": [
+        "be5280ce39fdf9cd62f38405a104cb0f3cceb8cbaa0df43d82ad60553c23f23a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 54,
+      "title": "Summary: Geometric Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Summary: Geometric Flow Matching"
+      ],
+      "media_sha256": [
+        "cc0d3f142548482ef2069b95e6a0a337ab8d3c035415c8655e537ecfacafb220"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 78744,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "d04ccd4e0f22b55205d976dc71111780f6ec6b53c3def9a765096af1b31f4a2c",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 620296,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "c2605a08a8879631fa4fe7787b2f5f05df83f8509d46055aab6cefe3a3973e80",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 432977,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "c0a933a91768b27a5f813a05c9ed5fd7c7825f7284b12ce3d287c3ba991b0697",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 78789,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "d048dbb7ab928539208f542a3bcea8b90c8f3c7e52e1642cd885a864dfe48a15",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 15338,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "abfd7424c98153577ac0524e01595b623a8627e70554429401fd79863b23b2e7",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 24299,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "bf8ba6a5bcb90898c6a7a25848f0f3e930db0c79f2df9fd60e2ffd7b896ea1ec",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 290595,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "ce38c77cc10c6e37266c2e2afbf22bf1e21b85d8feef65288031f0b1b5a528ad",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 348928,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "4ced65d56d6b91dc5bb8ed2a459bdd37ccb2e5cc58732281a50f2e41a3695338",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 359854,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "b23830d92288395ee42ae430734ce5a7b5b453cae90c3f70b0e65c8cf0884592",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 118467,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "84a451df92b5c1f22764e51729442a688d3d3091c98694b190574c09948512da",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 372148,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 77386,
+      "slides": [
+        6,
+        6
+      ]
+    },
+    {
+      "sha256": "6189d3c2d1a0746af1f3c3018139ba8649830fbe0c502c93366e62a9f533cf1b",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 16576,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "494b057aa5bd1f7d05eed9dfd684a9f388d71201548aba18e10c6130d9c3e631",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 161266,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "e386bfb12bd1eb717055ad80ad3a769eaeef8ed9838c50be3aacea3f0db3116f",
+      "pptx_path": "ppt/media/image210.png",
+      "extension": ".png",
+      "bytes": 4326,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "e656284321fb2c1c7d02f7e2066b8412b6489ccc575d033babcd1537c2f54356",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 145763,
+      "slides": [
+        18
+      ]
+    },
+    {
+      "sha256": "b87f895135db83e94d9e0e67f221646d1fc6dc4493454026ed82deb2feb8ba86",
+      "pptx_path": "ppt/media/image220.png",
+      "extension": ".png",
+      "bytes": 4519,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "b07a66a79a7cfb7dffdb9b2d16d5c1a112540a6b5a8eb3546eac6a5f83d29224",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 85988,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "93dd0677b229b98cbed78d5296f57899fdebf576c0ed97da07a90001eb0112cf",
+      "pptx_path": "ppt/media/image230.png",
+      "extension": ".png",
+      "bytes": 4042,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "586d00f4dc526ced6d61ae943690deb12313f114feaafc3f68f2a9f43d1a7807",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 73008,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "4be06f0e366ecd05066e3226d2c66bbe1ff4290d64c34c7ab929140838bd6fdb",
+      "pptx_path": "ppt/media/image240.png",
+      "extension": ".png",
+      "bytes": 3945,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "b1fcb03a5ef5f8416b43e2c5cf5339e757a8fccfb87f976693d7dd07e291ae82",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 117220,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "97b85b5788362f9d806b53b3d7c867de13e66b5e0334c5332411c6ec3c8d8ea6",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 81747,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "974888a972592858ac730c445ecc852da81195509c57815848d06c3ce149e762",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 76346,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "86e803672b577b25d44902cd137c5be620bfadd5af7cf6ba1862a10a23f6b4ef",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 112671,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "bc450decc26aa6803f9bfb8caec39d7632a8ec3d707809e152b464318a38e7e6",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 92317,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "1aedd0c116ae3135aef94c2feb5727609ff0646980e171a8792a31e71cb6fbcd",
+      "pptx_path": "ppt/media/image290.png",
+      "extension": ".png",
+      "bytes": 108221,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "6acbd56d8c13244168b7d1dd28ac209a8a9a249e621e4bfb3863fd85340f9916",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 24044,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "b53fdd68fe0ca50684375e8364320c2334c258faecfbefe7044980a8404574be",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 73045,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "60737017f244dbcd9a1c78fd9764a0a5f5895ac72af85d372c58630f27bc9442",
+      "pptx_path": "ppt/media/image300.png",
+      "extension": ".png",
+      "bytes": 2171,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "54ccb0c1726d85cf5e6c91a34a08d6f7b615b5b6e05ec18a7f41246685203cf6",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 77341,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "862ff943d83ab9d0be74de015591bdd393ce293608fab9f834adc1621746ba7e",
+      "pptx_path": "ppt/media/image310.png",
+      "extension": ".png",
+      "bytes": 2250,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "45969602950ffc6e2bc93fe036e807aa3c41ae2f253f0be598dbc610e123fe09",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 89214,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "339844cd5d0caf562f7c89a892f6ca924f0c8addcd1c733fdbe7a4401cdaa41e",
+      "pptx_path": "ppt/media/image320.png",
+      "extension": ".png",
+      "bytes": 130535,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "d446bf43c57f28dcf30b130dbe364cc7210787d1e15aba15c889594400ae7c72",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 42810,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "8a077200e20100ef8d272ce35b932388657b5fe50019fcbd87ae9d3e54ca172d",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 79146,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "3b3b7a0774fc9842851b872edfd97ce5497caf4d3ede08a00992a6107f8eaf4a",
+      "pptx_path": "ppt/media/image340.png",
+      "extension": ".png",
+      "bytes": 108702,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "c343e5d27cd0081b5b896aeafe2e4bffc6aec0ca672257c9cb7a47081a4bcc22",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 46054,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "6656b0ff093aafaf18c167fe7bca6ab21ca2952825b10c92afa9f1eb50d8c168",
+      "pptx_path": "ppt/media/image350.png",
+      "extension": ".png",
+      "bytes": 41291,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "39bbd39ed7c347caca636fd3f4cd4776b5af4db2823930ed65bf72dbc8b7d5b7",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 316874,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "2be7b17be84798fb0afc2196ecc79ec28393d74e889bbe99af74eec00b081f6f",
+      "pptx_path": "ppt/media/image360.png",
+      "extension": ".png",
+      "bytes": 2191,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "07ee1c59107d9c56532edf5157ad2e6544eb5f3f520a4b8460d84a6355ce2f9a",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 2160,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "1d0df8211f605275c9d17f1d21005a5515802dc1886673161129ce5525db929f",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 1224,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "dc9b387345cf4febe30d2441969ae247f3ecea5734a7c0e19d2d5aa815477ec2",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 4536,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "4e1d05985ae18da76060f9738e2691ba13827d49a1b7a50b9088ba2308d03006",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 23293,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "6610c6ea5ea0f3e64377afc3fb8fc47672bd34563a85344aac6c3719f42e8eb6",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 82028,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "ff701f8baf324dbcc73ed58e0057f407f7a461daa6b330c2ec6bfd407993eed3",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 73412,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "432351487aa6ada072d81a7cbb4005b963e9125966066dd5d224575dd5b58924",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 71176,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "e4c7b5f5b8ecc9087705c1a0e9c79fed3998a592f1f139acf0af3d975b73d3ff",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 241733,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "a162ea97290992becee2c8a4288d94a472b3933166d048cdccf4f1f45f62f720",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 75417,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "d137fccd5d934bbc39273af57f889f1c7d12385ac35596ce39dba2c4d00483a5",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 44015,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "51d98122ee89b00c9558d696efe3c5deba6b54f8923ff0c3cf5f507faa785bed",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 160986,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "1f615ceb45f376c46c3e712a2243f6ac62d41afe74ea5cc2b554963bbb46487c",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 17974,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "733148ebf26165f513ac13dfc190d397493c73d9723723363adf75cf4a6245e9",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 98647,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "b23556f14ba6cdc0c97e2c525e3e241f85e63c33ac4945d2dbe39480ba2d7454",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 247745,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "5fcb97c855ad36579ed4731fc1e0b7cfe7a7af4f33afb7aee9c4264287ffc5ac",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 28851,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "78a2dc7a0d49a510317d60874dc3780af58d5521805de5201d56a76be0cd97ed",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 57143,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "e587e3db2f79143bcc71d91f417a9d0ef0bedf0d28335b8379473f5b736713d9",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 58802,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "f795a9b08217091531fcea9db69d3c473900214465fef34d93b1f3e9486df413",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 152451,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "8e78097431163c91b9de766643bc773958485f01ea826c44bb4093f2a80a2067",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 63238,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "7bcb99841e49300bb7b6483805d9a030618e06edb3045fceedad51d8c8aa7743",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 145707,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "6adf7e721a299b2f80b7bb43879ea21ff4459736a9bf8b6ee69d84d56ceb78bf",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 45025,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "6dd1b8e263f54667a8cf30daa89c46b9ef853525a422aa69297563091b97a765",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 44975,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "6f00123f923728c55a925a86072e683e96380b7ee07821f0a487b6edcd69ab49",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 238924,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "cf177e1fb6feed735358acefce580ee0de0ff8b5244166b2a0afe78317aec634",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 75177,
+      "slides": [
+        38
+      ]
+    },
+    {
+      "sha256": "57ef9834938aa99d73e60f6261bcff1513d5fc45e665927a3c1dd4b65d5957fe",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 30123,
+      "slides": [
+        38
+      ]
+    },
+    {
+      "sha256": "bfba94ca1f59e1c5190b4a76266103ee7aaf253ceeba407586b35e7f09ae6145",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 19292,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "5403d9e6f9ada3d7d09ea53f42a71661ac85be5878610b493752932c75947a0c",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 203279,
+      "slides": [
+        39
+      ]
+    },
+    {
+      "sha256": "6df76eccfc05dfab54e121d6965f960f49edfa1dfc23a404f157a1ca0354aabd",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 317775,
+      "slides": [
+        40
+      ]
+    },
+    {
+      "sha256": "59250323fc404f4a415afd827a25c6fad190b06ed9ebeeb0b01a7d3be0fb6c85",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 148961,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "b157a7fae860eb96978064f04f03e5e87cd8099ceebafa2338560b04e40ac807",
+      "pptx_path": "ppt/media/image620.png",
+      "extension": ".png",
+      "bytes": 104129,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "327c183d1351dfafb1b8494444bb1e793dc2415e153469c6fe401d2d5bc10724",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 155801,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "144b436d1a28f48ac80b150e6e22814c081dbaf7e1d03c076fb7d7422a74d254",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 21454,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "bce7ee90d255bf3673cc762122efe02ebc124156f80fbb0dc3f7a7f55f26ef14",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 101030,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "1d632848f82f7f93f2ec902d0d6ed5dba8a31dfe60e3b3bcc1eeccbd385ef8f9",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 153960,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "7be5a1de57dded9a868cf66a1e54e7b9e62f05e20714b81f2acff4fac24fb044",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 22832,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "86481af9b82c6c3c5566bbfd440d3905a6dfca6192b2beac9f4dcc084ba41871",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 104107,
+      "slides": [
+        45
+      ]
+    },
+    {
+      "sha256": "497b52937fac399ba4323415344f033ffb46e6cea0a3ce1003c99fe44a39193d",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 161160,
+      "slides": [
+        45
+      ]
+    },
+    {
+      "sha256": "ce19246d314b97117011086b9943ca2eb107ecb218cf5306982e2461e8be8380",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 143439,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "a96c340324b323e49d6006751d96b995077f21985f170c3327fbfee73fdc1648",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 21306,
+      "slides": [
+        45
+      ]
+    },
+    {
+      "sha256": "acaa9f689e80c6c1694f9971ae883b27bacd6374583cb5b1e0d7f545a5b36b39",
+      "pptx_path": "ppt/media/image71.png",
+      "extension": ".png",
+      "bytes": 210039,
+      "slides": [
+        46
+      ]
+    },
+    {
+      "sha256": "264a9799ec8f35842b2b5298a36581faee2104a81674e1698bc7661454259b05",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 211504,
+      "slides": [
+        47
+      ]
+    },
+    {
+      "sha256": "b3564327277106913b6a8ab08e7216f547eef4975e987b3c816462e1698b02ee",
+      "pptx_path": "ppt/media/image73.png",
+      "extension": ".png",
+      "bytes": 91318,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "5bfbf9bda866f0cca30668feff5448af16ec3aa643458955beceeab170384eca",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 55630,
+      "slides": [
+        50
+      ]
+    },
+    {
+      "sha256": "078cf2bf147df69fe29f17837dcf4d4bea8040fc1df437ba8f84e762780dbcb5",
+      "pptx_path": "ppt/media/image75.png",
+      "extension": ".png",
+      "bytes": 164678,
+      "slides": [
+        50
+      ]
+    },
+    {
+      "sha256": "1c19a88206fd0fe34af568b8dc33fadc6cea81822737d1febd27c4740e48977f",
+      "pptx_path": "ppt/media/image76.png",
+      "extension": ".png",
+      "bytes": 95677,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "fa8eddafd7630352c0c112584044d12e84c74e16ae74c815adcb909184fa2027",
+      "pptx_path": "ppt/media/image77.png",
+      "extension": ".png",
+      "bytes": 44793,
+      "slides": [
+        52
+      ]
+    },
+    {
+      "sha256": "4076ecd1763933761acd1fddb9ac64a73dd9e6a66782aa72b5fefaa0b4e8157f",
+      "pptx_path": "ppt/media/image78.png",
+      "extension": ".png",
+      "bytes": 65315,
+      "slides": [
+        52
+      ]
+    },
+    {
+      "sha256": "be5280ce39fdf9cd62f38405a104cb0f3cceb8cbaa0df43d82ad60553c23f23a",
+      "pptx_path": "ppt/media/image79.png",
+      "extension": ".png",
+      "bytes": 454544,
+      "slides": [
+        53
+      ]
+    },
+    {
+      "sha256": "ce21872e56817ff5b215d8c0ac4dd375b5f99a5b773ab688201301907444d93c",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 61934,
+      "slides": [
+        9
+      ]
+    },
+    {
+      "sha256": "cc0d3f142548482ef2069b95e6a0a337ab8d3c035415c8655e537ecfacafb220",
+      "pptx_path": "ppt/media/image80.png",
+      "extension": ".png",
+      "bytes": 126534,
+      "slides": [
+        54
+      ]
+    },
+    {
+      "sha256": "95487beb0bb99838f2e8faa2f0dc6f5f95446c27dd2745d0f3e6fdaa8f12ddee",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 109050,
+      "slides": [
+        9
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}

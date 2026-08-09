@@ -78,11 +78,41 @@ from one comparison can improve the criteria used for the next.
 4. Revise with the updated criteria, then repeat the comparison until no major
    explanatory gap remains.
 
+### Source-Faithful Lecture Adaptation
+
+When the author asks for a post to follow an existing lecture deck, the deck is
+the content authority. The house references set the standard for prose,
+captions, equation-to-explanation rhythm, and rendering; they do not authorize a
+new thesis, a reordered curriculum, or additional technical branches.
+
+1. Inventory every slide before outlining the post. Mark each slide as
+   substantive, logistical, transition-only, or repeated recap.
+2. Preserve every substantive concept, equation, example, method, caveat,
+   historical item, and comparison in the deck's scientific order. Collapse
+   only literal repetition.
+3. Derive H2 and H3 order from the deck's section and topic sequence. Do not
+   preserve a previous synthetic post's headings merely because they are
+   polished.
+4. Reuse existing prose only when it can be traced to the deck. Delete running
+   examples, calculations, claims, and conclusions introduced by an earlier
+   draft when they are absent from the source.
+5. Add only the connective prose and local definitions needed to turn slide
+   fragments into a readable article. Do not add content to meet a word-count,
+   figure-count, or derivation-depth target.
+6. Maintain an agent-facing slide coverage record. Every substantive slide must
+   map to prose, an equation, a table, or a figure before the post is complete.
+
+In this mode, source fidelity overrides the general depth heuristics below. A
+short deck may produce a shorter article; a long deck may exceed a 45-minute
+read. Completeness means faithful coverage, not convergence toward a standard
+tutorial length.
+
 ### Depth Without Padding
 
 - A 30--45 minute technical tutorial usually needs 4,500--6,500 substantive
   words, adjusted for mathematical density. Treat this range as a diagnostic,
-  not a reason to add background or repeated summaries.
+  not a reason to add background or repeated summaries. Do not apply this range
+  to a source-faithful lecture adaptation when the deck determines the scope.
 - Preserve a coherent H2 storyline. Add H3 subsections when a derivation,
   worked example, or case study needs room; do not add headings merely to make
   a post longer.

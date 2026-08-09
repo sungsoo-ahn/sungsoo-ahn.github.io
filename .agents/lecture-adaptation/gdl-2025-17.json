@@ -1,0 +1,994 @@
+{
+  "deck_id": "gdl-2025-17",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec17_geogen3.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec17_geogen3.pptx",
+  "slide_count": 28,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Geometric Flow Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometric Flow Matching",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Part 2: Geometric Generative Models",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Part 2: Geometric Generative Models",
+        "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
+        "Lec 2 (April 30th): Preliminaries on diffusion and flow matching",
+        "Lec 3 (May 7th): Geometric flow matching",
+        "Lec 4 (May 12th): Geometric / discrete flow matching",
+        "Lec 5 (May 14nd): Generator matching and equivariant flow matching"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Today",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today",
+        "Generator Matching",
+        "Equivariant Flow Matching"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Contents So Far",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Contents So Far",
+        "We focused on defining flow matching (continuous time Markov process)",
+        "for various domains."
+      ],
+      "media_sha256": [
+        "4618f03d0536e93be056b9b965f0853e0e568c74241428cf128e863367951d61"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Generator Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Matching",
+        "A unifying framework to train general continuous time Markov processes,",
+        "for arbitrary data modalities."
+      ],
+      "media_sha256": [
+        "aa7573254ba7b7faf6943facae79fc67de05f9366e0ed518930941dc15f5a41f",
+        "7335e11c0f694a7eaf2c95c36fb3df8abf847593bfcf2551e3e23a23ab3dbf67"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Parameterization of Markov Process",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Parameterization of Markov Process",
+        "Our key idea is to utilize the generator ℒ! as a general representation",
+        "for describing the continuous-time Markov processes.",
+        "Just like flow matching, we will define conditional",
+        "prob. path via conditional generators ℒ!|#",
+        "and train by conditional generator matching loss functions."
+      ],
+      "media_sha256": [
+        "7117e71608c22cbfb532928b4a08b5e15e73afdf479b70f7cb5420d107a60e0e",
+        "d3387c72f13366f1b3c8c054624fb97be84fc996c828b9ca26cd87ad119a5adf"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Continuous Time Markov Process (CTMP)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Continuous Time Markov Process (CTMP)",
+        "Let 𝒮 denote the general state space and 𝑋! ∈ 𝒮 denote a random variable for 𝑡 ∈ [0,1].",
+        "We call 𝑋! $%!%# a Markov process if it satisfies:",
+        "ℙ 𝑋!!\"# ∈ 𝐴|𝑋!# , … , 𝑋!! = ℙ 𝑋!!\"# ∈ 𝐴|𝑋!!",
+        "Informally, the above condition implies a memory-less system."
+      ],
+      "media_sha256": [
+        "65c9242865a81d88b7d132c8245d331397cfc4ec7d98ce212783491eb96ae945"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Continuous Time Markov Process (CTMP)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Continuous Time Markov Process (CTMP)",
+        "Each Markov process is associated with a transition kernel 𝑝!&'|! :",
+        "𝑝!&'|! 𝐴 𝑥 ≔ ℙ 𝑋!&' ∈ 𝐴 𝑋! = 𝑥 .",
+        "Due to the Markov assumption, there exists a one-to-one correspondance"
+      ],
+      "media_sha256": [
+        "1cd22070b14eafd9d22086f0a45e01cb396298ea38e55dd8ec6219e81e5c6b9a",
+        "9c994a83d2e996a453cb82dd4b4561ec2a125f2d9e3513e82686998ae2eb4ec5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Generator",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator",
+        "We use the generator for infinitesimal description of the transition kernel.",
+        "Recap: The generator ℒ! is defined using a test function 𝑓:",
+        "𝑑                       𝑝!&'|! , 𝑓 𝑥 − 𝑓 𝑥",
+        "ℒ! 𝑓 𝑥 ≔   7    𝑝!&' , 𝑓 𝑥 = lim",
+        "𝑑ℎ '($              '→$           ℎ",
+        "CTMP model satisfies:",
+        "𝑝!&' , 𝑓 (𝑥) = 𝑓(𝑥) + ℎℒ! 𝑓 𝑥 + 𝑜 ℎ"
+      ],
+      "media_sha256": [
+        "7cf873691f069d9055dc8a8dfb5fcf7506169b5c39c4734c37f4532e0449b91a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Generator Example: Flow",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Example: Flow",
+        "*+",
+        "What is the generator ℒ! that corresponds to the ODE *!$ = 𝑢(𝑋! , 𝑡)?",
+        "𝑝!&'|! , 𝑓 𝑥 − 𝑓 𝑥",
+        "ℒ! 𝑓 𝑥 ≔ lim",
+        "'→$             ℎ",
+        "𝔼+$\"% ∼-$\"%|$ 𝑓(𝑋!&' ) − 𝑓(𝑥)",
+        "= lim",
+        "'→$                ℎ",
+        "𝔼+$\"% ∼-$\"%|$ 𝑓 𝑋! + ℎ𝑢! 𝑋! + 𝑜 ℎ     − 𝑓(𝑥)",
+        "= lim",
+        "'→$                        ℎ",
+        "𝑓 𝑥 + ℎ𝑢! 𝑥 + 𝑜 ℎ − 𝑓(𝑥)",
+        "= lim",
+        "'→$             ℎ",
+        "𝑓 𝑥 + ℎ∇𝑓 𝑥 .𝑢! 𝑥 + 𝑜 ℎ − 𝑓(𝑥)",
+        "= lim                                = ∇𝑓 𝑥 .𝑢! 𝑥 .",
+        "'→$                ℎ"
+      ],
+      "media_sha256": [
+        "97e956b3335149a15fe1ea49bcb2a167680a7944d907fea2050ce7edd4647cb7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Generator Example: Diffusion",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Example: Diffusion",
+        "What is the generator ℒ! that corresponds to the SDE 𝑑𝑋! = 𝜎! 𝑋! 𝑑𝑊! ?",
+        "𝑝!&'|! , 𝑓 𝑥 − 𝑓 𝑥",
+        "ℒ! 𝑓 𝑥 ≔ lim",
+        "'→$              ℎ",
+        "𝔼+$\"% ∼-$\"%|$ 𝑓(𝑋!&' ) − 𝑓(𝑥)",
+        "= lim",
+        "'→$                ℎ",
+        "𝔼*/$ 𝑓 𝑥 + 𝜎! 𝑥 𝑑𝑊! − 𝑓(𝑥)",
+        "= lim",
+        "'→$                 ℎ",
+        "ℎ",
+        "𝑓 𝑥 + 2 𝜎! 𝑥 0∇0𝑓 𝑥 + 𝑜 ℎ − 𝑓(𝑥)",
+        "= lim",
+        "'→$                       ℎ",
+        "1",
+        "= 𝜎! 𝑥 0∇0𝑓 𝑥 .",
+        "2"
+      ],
+      "media_sha256": [
+        "e9e64671d6098501ded1b5daafc1d3ee483519557e0537a3cb129809aa4d0482"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Generator Example: Jump Model",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Example: Jump Model",
+        "A jump process 𝑋! $%!%# with kernel 𝑄! (𝑑𝑦, 𝑥)",
+        "and jump intensity 𝜆! 𝑥 = ∫ 𝑄! 𝑦, 𝑥 𝑑𝑦.",
+        "Then the infinitesimal transitions are defined as:",
+        "𝑋!         with probability 1 − ℎ𝜆! 𝑋!",
+        "𝑋!&' = J 𝑄! (𝑑𝑦, 𝑥)",
+        "∼             with probability ℎ𝜆! 𝑋!",
+        "𝜆! (𝑥)"
+      ],
+      "media_sha256": [
+        "8933e207fae96e9e37642180b9283940f21e1744bdfb552bca31e1a248491daf",
+        "ed53bef86ffd124045bc8785a3949ffaf01856a357d3151333f15267127decf6",
+        "811f2304a4ae89e8cd5f9ad997851e125ee99cd8f20dc8d4cd0945d68733234a",
+        "aa7573254ba7b7faf6943facae79fc67de05f9366e0ed518930941dc15f5a41f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Generator Example: Jump Model",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Example: Jump Model",
+        "𝑋!       with prob. 1 − ℎ𝜆! 𝑋!",
+        "What is the generator ℒ! that corresponds to kernel 𝑄! ?        𝑋!\"# = < 𝑄! (𝑑𝑦, 𝑥)",
+        "∼",
+        "𝜆! (𝑥) with prob. ℎ𝜆 𝑋",
+        "!   !",
+        "𝔼+$\"% ∼-$\"%|$ 𝑓(𝑋!&' ) − 𝑓(𝑥)",
+        "ℒ! 𝑓 𝑥 ≔ lim lim",
+        "'→$ '→$                ℎ",
+        "𝔼+$\"% ∼-$\"%|$ 𝑓 𝑋!&' |𝑋! = 𝑥, Jump ℙ Jump|𝑋! = 𝑥 − 𝑓(𝑥)",
+        "= lim",
+        "'→$                                 ℎ",
+        "𝔼      6 *7,9   𝑓 𝑋!&' − 𝑓 𝑥 ℎ𝜆! 𝑥",
+        "+$\"% ∼ $",
+        ":$ 9",
+        "= lim                                            = O 𝑓 𝑦 − 𝑓 𝑥 𝑄! 𝑦 𝑥 𝑑𝑦 .",
+        "'→$                       ℎ                       7"
+      ],
+      "media_sha256": [
+        "c0c43917a5865c9b0113afcab0499312e78d85dd65d0370bc5a3c8f8b58a4d4a",
+        "82857359445329142c7fa92602476a1ba46834964d498fd374e6b1a17a38da69",
+        "f052fb12f7c73b60e5807ab89226272d84a445f76757b821a3c71b1500d98517",
+        "51a46078c0e253eece9a1aeec902c9f797f049922d3df21eb09d53f1151d40c9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Universal Characterization for Generators",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Universal Characterization for Generators",
+        "All the CTMP on discrete space is continuous-time Markov chain.",
+        "All the CTMP on Euclidean space can be described by:",
+        "1 0",
+        "ℒ! 𝑓 𝑥   = ∇𝑓 𝑥 .𝑢! 𝑥   + ∇ 𝑓 𝑥 ⋅ 𝜎!0 𝑥 + ∫ 𝑓 𝑦 − 𝑓 𝑥 𝑄! 𝑦, 𝑥 𝑑𝑦.",
+        "2",
+        "In other words, CTMP on an Euclidean space is always",
+        "a composition of flow, diffusion, and jump."
+      ],
+      "media_sha256": [
+        "8c06ed209cee9de0a7cc79ee0b02c81779bf646ea8d0f0c262a83a5ca37f5e74"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Parameterizing Generators",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Parameterizing Generators",
+        "Since generator is an operator, direct parameterization is hard.",
+        "We use the following linear parameterization:",
+        "ℒ! 𝑓 𝑥 = 𝒦𝑓 𝑥 , 𝐹! 𝑥 ,",
+        "where 𝐹! is later learned using a neural network."
+      ],
+      "media_sha256": [
+        "dde55ec034a17730fd55dd526f9b46621e594b0a9f22aa564061c32d64bcfd75",
+        "08103f0922f4239ec91cba47744f6cb7c890a52dfa4669bbab485a4c8afdca90"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Generator Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Matching",
+        "Similar to flow matching, we aim to:",
+        "1. Define a conditional generator ℒ!|# associated with a probability path 𝑝!|#.",
+        "2. Derive the marginalization trick to express ℒ!",
+        "3. Derive the conditional flow matching loss",
+        "to estimate the gradient of the true (intractable) objective.",
+        "Actually, there exist one more layer of complexity: How to parameterize ℒ! ?"
+      ],
+      "media_sha256": [
+        "94f00e22d65a89d41f4eb853fd216e439b45ec5b2fe36de1957d8b3bf82e8b69"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Marginalization Trick",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Marginalization Trick",
+        "Consider a conditional generator ℒ!|# 𝑥|𝑥# generating a cond. prob. path 𝑝!|#(𝑥|𝑧).",
+        "The marginal generator ℒ! for the marginal distribution",
+        "𝑝! = ∫ 𝑝!|# 𝑥|𝑧 𝑝 𝑧 𝑑𝑧 is expressed as:",
+        "ℒ! 𝑓 𝑥 = 𝔼C∼-#|$ ℒ!|#𝑓 𝑥 𝑥# ."
+      ],
+      "media_sha256": [
+        "911a0dc6afbfbd8f89674f716d93a918742cba4309ffa582e78a813d204ea51b",
+        "afaaac6b4b15e06dd57913b4f3eff18ab264f0b5ac39053fe46fee48b8cb7c3a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Generator Matching Loss",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Generator Matching Loss",
+        "The same equation also holds for parameterization of the generators:",
+        "𝐹! 𝑥 = 𝔼C∼-#|$ (⋅|9) 𝐹!C 𝑥",
+        "Intractable generator matching loss:",
+        "𝐿EF 𝜃 ≔ 𝔼!,C∼-'()( ,9∼-$ ⋅ 𝑧 𝐷 𝐹! 𝑥 , 𝐹!G 𝑥",
+        "Tractable conditional generator matching loss:",
+        "𝐿HIJ 𝜃 ≔ 𝔼!,C∼-'()( ,9∼-$ ⋅ 𝑧 𝐷 𝐹!C 𝑥 , 𝐹!G 𝑥"
+      ],
+      "media_sha256": [
+        "3c4e58013e64664be106db95c1651f0d40c3a84383bd910e9c75bedb3b374149"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Applications",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Applications"
+      ],
+      "media_sha256": [
+        "69914972ed3d808fcd63adfcace7232b0c221200b69f06bf6c2aeffa86e681f4",
+        "00e080139d3781d0cb34d43719fb8d48d95e5016479d08cd5d01307044e9a094",
+        "f960680a4efc59b933167e99cda3f2beb70297d37c35742665e8770879285516"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Today",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today",
+        "Generator Matching",
+        "Equivariant Flow Matching"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "We want to find an ODE 𝑑𝑥! = 𝑢!G 𝑥! 𝑑𝑡",
+        "that generates the data 𝑞(𝑥#).",
+        "1. Construct a cond. velocity field 𝑢! (𝑥|𝑧) with an ODE",
+        "& cond. probability path 𝑝! 𝑥 𝑧 .",
+        "2. Express the marginal velocity field 𝑢! (𝑥) for the",
+        "marginal probability path ∫ 𝑝! 𝑥 𝑧 𝑞 𝑧 ,",
+        "using marginalization trick 𝑢! 𝑥 = 𝔼C|9 𝑢! 𝑥 𝑧 .",
+        "0",
+        "3.   To minimize flow matching loss 𝔼9 𝑢!G 𝑥     − 𝑢! 𝑥    0",
+        ",",
+        "0",
+        "minimize the conditional flow matching loss: 𝔼!,K C ,-$ (9|C) 𝑢!G 𝑥   − 𝑢! 𝑥 𝑧   0",
+        "."
+      ],
+      "media_sha256": [
+        "b81167b4b967be3e5a1088d850398187579fcf51404835b41ed1e50b6b628ff6",
+        "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Recap: Flow Matching",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Flow Matching",
+        "Importantly, the conditioning variable 𝑧 and the associated probability path 𝑝! 𝑥 𝑧",
+        "only needs to satisfy boundary conditions:",
+        "O𝑝# 𝑥 𝑧 𝑝 𝑧 𝑑𝑧 = 𝑝#,         O𝑝$ 𝑥 𝑧 𝑝 𝑧 𝑑𝑧 = 𝑝$",
+        "This means that we can select 𝑧 = 𝑥$, 𝑧 = 𝑥#, 𝑧 = 𝑥$, 𝑥# .",
+        "Now we can even pair",
+        "with an intractable prior!"
+      ],
+      "media_sha256": [
+        "087ddc2faba2b846efdd80097739dfcfe9007c503101499fc0708e45af94fa8c",
+        "95487beb0bb99838f2e8faa2f0dc6f5f95446c27dd2745d0f3e6fdaa8f12ddee",
+        "92516c364d5d8b473d65dfc765f84eadc0750cad9decb1db5211e8e931c92c5c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Multisample Couplings",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multisample Couplings",
+        "Consider the conditional flow matching loss for 𝑧 = (𝑥$, 𝑥#):",
+        "0",
+        "𝔼!,K 9* ,9# ,-$ (9|9* ,9# ) 𝑢!G 𝑥   − 𝑢! 𝑥 𝑥$, 𝑥#   0",
+        ".",
+        "The only constraint: 𝑞 𝑥$, 𝑥# is a coupling which satisfies:",
+        "𝑝$ 𝑥$ = O𝑞 𝑥$, 𝑥# 𝑑𝑥#",
+        "𝑝# 𝑥# = O𝑞 𝑥$, 𝑥# 𝑑𝑥$",
+        "What is the best choice of 𝑞(𝑥$, 𝑥#)?"
+      ],
+      "media_sha256": [
+        "5e30f2a5ec96abbec109f6ffb7cb77658567d8193ff469dc8d3b27eed61f4f08",
+        "0544313061399bbeb61265fc0dd6c84adbbd462ad5e561e9d802066206acd7b8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Multisample Couplings",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multisample Couplings",
+        "A principle: Find a coupling that induces “straight” paths.",
+        "0                                   0",
+        "min ∫ 𝑢! 𝑥!     0 𝑑𝑡 = min ∫ 𝔼-    𝑢! 𝑥! |𝑥$, 𝑥#    0 𝑑𝑡",
+        "-                      -",
+        "Why? Straight flows induce ODEs",
+        "with small discretization error.",
+        "How? Approximate the coupling (between prior and data)",
+        "using minibatch of prior samples and data."
+      ],
+      "media_sha256": [
+        "cd62b0893ab061ed8a0883eaf086dac2799b4ef8473700c816c0326f29014e55",
+        "06a6584a764bc3dcfcdfeec11b911065ac01e8dd0ed918f765af1b96045a9bab"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Multisample Couplings",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multisample Couplings",
+        "Instead of minimizing the intractable expected length,",
+        "we minimize the upper bound:",
+        "0",
+        "min ∫ 𝑢! 𝑥!     0 𝑑𝑡 ≤ min ∫     𝑥$ − 𝑥# 00𝑑𝑡 .",
+        "-                     -",
+        "This reduces to solving the perfect matching problem."
+      ],
+      "media_sha256": [
+        "1308594accf2303afc22c236b97c4a023d5e9d3eff7365e38903c88a91f2557e",
+        "f948d61e3fd8161414dc757751be82f9a7138f60a212561f2d3f5077cce5fc83"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Multisample Couplings",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multisample Couplings"
+      ],
+      "media_sha256": [
+        "791c60a72d581737dc6f49c6f83f0eb7521fb1df61442d2a6fea789d09050bfa"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Equivariant Flow Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Equivariant Flow Matching",
+        "How to design multisample couplings under equivariance?",
+        "Think about generation of atom-wise 3D coordinates for molecules;",
+        "any rotation or permutation of atoms do not change the distribution.",
+        "noise                                                              data"
+      ],
+      "media_sha256": [
+        "0543090df7b68a10aebc9dc969d866289005c371400a183d35b058b3b6ca9a54",
+        "46487136235c1b87e24d556b46cd520fcbe187335f3d7c1958488348a89afa3a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Equivariant Flow Matching",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Equivariant Flow Matching",
+        "Instead of solving perfect matching inside a mini-batch,",
+        "solve it for the whole set of group actions.",
+        "1. Sample a data 𝑥# and a noise 𝑥$.",
+        "2. Minimize the distance with respect to group element:",
+        "min 𝑥$ − 𝜌 𝑔 𝑥# 00 .      For permutation, Hungarian algorithm",
+        "M∈E                       For rotation, Kabsch algorithm",
+        "3. Set 𝑥$, 𝜌 𝑔 𝑥# as a sample from the coupling",
+        "and minimize conditional flow matching loss:",
+        "0",
+        "min ] 𝔼-(9|9* ,9# ) 𝑢!G 𝑥 O   − 𝑢! 𝑥 O 𝑥$O , 𝑥#O   0",
+        "G",
+        "O"
+      ],
+      "media_sha256": [
+        "b8e9f0f3aea5e9e19b016bd9c05cae4bd97ecf82983ddaea3995f0cddacd2399"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "4618f03d0536e93be056b9b965f0853e0e568c74241428cf128e863367951d61",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 285769,
+      "slides": [
+        4
+      ]
+    },
+    {
+      "sha256": "97e956b3335149a15fe1ea49bcb2a167680a7944d907fea2050ce7edd4647cb7",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 125321,
+      "slides": [
+        10
+      ]
+    },
+    {
+      "sha256": "e9e64671d6098501ded1b5daafc1d3ee483519557e0537a3cb129809aa4d0482",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 111966,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "8933e207fae96e9e37642180b9283940f21e1744bdfb552bca31e1a248491daf",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 104669,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "ed53bef86ffd124045bc8785a3949ffaf01856a357d3151333f15267127decf6",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 7611,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "811f2304a4ae89e8cd5f9ad997851e125ee99cd8f20dc8d4cd0945d68733234a",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 7436,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "c0c43917a5865c9b0113afcab0499312e78d85dd65d0370bc5a3c8f8b58a4d4a",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 113222,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "82857359445329142c7fa92602476a1ba46834964d498fd374e6b1a17a38da69",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 22869,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "f052fb12f7c73b60e5807ab89226272d84a445f76757b821a3c71b1500d98517",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 6482,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "51a46078c0e253eece9a1aeec902c9f797f049922d3df21eb09d53f1151d40c9",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 6047,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "8c06ed209cee9de0a7cc79ee0b02c81779bf646ea8d0f0c262a83a5ca37f5e74",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 104722,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "aa7573254ba7b7faf6943facae79fc67de05f9366e0ed518930941dc15f5a41f",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 256061,
+      "slides": [
+        5,
+        12
+      ]
+    },
+    {
+      "sha256": "dde55ec034a17730fd55dd526f9b46621e594b0a9f22aa564061c32d64bcfd75",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 73503,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "08103f0922f4239ec91cba47744f6cb7c890a52dfa4669bbab485a4c8afdca90",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 95788,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "94f00e22d65a89d41f4eb853fd216e439b45ec5b2fe36de1957d8b3bf82e8b69",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 109309,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "911a0dc6afbfbd8f89674f716d93a918742cba4309ffa582e78a813d204ea51b",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 79772,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "afaaac6b4b15e06dd57913b4f3eff18ab264f0b5ac39053fe46fee48b8cb7c3a",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 251601,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "3c4e58013e64664be106db95c1651f0d40c3a84383bd910e9c75bedb3b374149",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 107423,
+      "slides": [
+        18
+      ]
+    },
+    {
+      "sha256": "69914972ed3d808fcd63adfcace7232b0c221200b69f06bf6c2aeffa86e681f4",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 101756,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "b81167b4b967be3e5a1088d850398187579fcf51404835b41ed1e50b6b628ff6",
+      "pptx_path": "ppt/media/image260.png",
+      "extension": ".png",
+      "bytes": 212667,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "00e080139d3781d0cb34d43719fb8d48d95e5016479d08cd5d01307044e9a094",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 105792,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "f960680a4efc59b933167e99cda3f2beb70297d37c35742665e8770879285516",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 180149,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "087ddc2faba2b846efdd80097739dfcfe9007c503101499fc0708e45af94fa8c",
+      "pptx_path": "ppt/media/image280.png",
+      "extension": ".png",
+      "bytes": 97627,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 77386,
+      "slides": [
+        21,
+        21
+      ]
+    },
+    {
+      "sha256": "7335e11c0f694a7eaf2c95c36fb3df8abf847593bfcf2551e3e23a23ab3dbf67",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 178857,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "95487beb0bb99838f2e8faa2f0dc6f5f95446c27dd2745d0f3e6fdaa8f12ddee",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 109050,
+      "slides": [
+        22,
+        22
+      ]
+    },
+    {
+      "sha256": "92516c364d5d8b473d65dfc765f84eadc0750cad9decb1db5211e8e931c92c5c",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 264192,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "5e30f2a5ec96abbec109f6ffb7cb77658567d8193ff469dc8d3b27eed61f4f08",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 99444,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "0544313061399bbeb61265fc0dd6c84adbbd462ad5e561e9d802066206acd7b8",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 63070,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "cd62b0893ab061ed8a0883eaf086dac2799b4ef8473700c816c0326f29014e55",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 103862,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "06a6584a764bc3dcfcdfeec11b911065ac01e8dd0ed918f765af1b96045a9bab",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 165960,
+      "slides": [
+        24,
+        24
+      ]
+    },
+    {
+      "sha256": "1308594accf2303afc22c236b97c4a023d5e9d3eff7365e38903c88a91f2557e",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 81052,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "f948d61e3fd8161414dc757751be82f9a7138f60a212561f2d3f5077cce5fc83",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 165441,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "791c60a72d581737dc6f49c6f83f0eb7521fb1df61442d2a6fea789d09050bfa",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 225142,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "0543090df7b68a10aebc9dc969d866289005c371400a183d35b058b3b6ca9a54",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 23946,
+      "slides": [
+        27,
+        27,
+        27,
+        27
+      ]
+    },
+    {
+      "sha256": "7117e71608c22cbfb532928b4a08b5e15e73afdf479b70f7cb5420d107a60e0e",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 107332,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "46487136235c1b87e24d556b46cd520fcbe187335f3d7c1958488348a89afa3a",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 28064,
+      "slides": [
+        27,
+        27,
+        27,
+        27
+      ]
+    },
+    {
+      "sha256": "b8e9f0f3aea5e9e19b016bd9c05cae4bd97ecf82983ddaea3995f0cddacd2399",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 139673,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "d3387c72f13366f1b3c8c054624fb97be84fc996c828b9ca26cd87ad119a5adf",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 34621,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "65c9242865a81d88b7d132c8245d331397cfc4ec7d98ce212783491eb96ae945",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 81705,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "1cd22070b14eafd9d22086f0a45e01cb396298ea38e55dd8ec6219e81e5c6b9a",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 67175,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "9c994a83d2e996a453cb82dd4b4561ec2a125f2d9e3513e82686998ae2eb4ec5",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 40627,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "7cf873691f069d9055dc8a8dfb5fcf7506169b5c39c4734c37f4532e0449b91a",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 104332,
+      "slides": [
+        9
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}

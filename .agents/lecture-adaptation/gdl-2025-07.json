@@ -1,0 +1,2139 @@
+{
+  "deck_id": "gdl-2025-07",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec7_geognn1.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec7_geognn1.pptx",
+  "slide_count": 61,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Geometric Graph Neural Networks",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometric Graph Neural Networks",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Project Announcement",
+      "classification": "logistical",
+      "coverage": "pending",
+      "text": [
+        "Project Announcement",
+        "We will soon open up the survey for choosing blog topics. Deadline: March 26th, 6:00 PM",
+        "Choose your preferred blog topic from the given options.",
+        "If selecting Paper Review, make sure to participate in Paper Selection on March 20th.",
+        "More details will be announced by the TA soon."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Project Announcement",
+      "classification": "logistical",
+      "coverage": "pending",
+      "text": [
+        "Project Announcement",
+        "Paper Selection Details:",
+        "• The spreadsheet will be open for editing on March 20th from 2:00 PM to 3:00 PM.",
+        "• Enter your student number and name in the spreadsheet during this time.",
+        "• Google Spreadsheet Link: [Click here]",
+        "• The final list of selected papers will be announced on March 21st at 5:00 PM.",
+        "How to Apply:",
+        "• Submit your topic preference using the application form [Click here]"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Project Announcement",
+      "classification": "logistical",
+      "coverage": "pending",
+      "text": [
+        "Project Announcement",
+        "1. Course Content Summary:",
+        "• Choose between “Geometric GNNs” or “Geometric Generative Models.”",
+        "• Provide a summary incorporating your own insights and additional research.",
+        "2. Paper Review:",
+        "• Review at least two recent papers.",
+        "• One paper must be from the predefined list.",
+        "• Paper selection follows a first-come, first-served system.",
+        "3. Research Project:",
+        "• Must be related to the course content.",
+        "• Requires prior approval from the instructor."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Lecture Overview: Geometric GNNs",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Lecture Overview: Geometric GNNs",
+        "Lec 1 (Mar 19th): Scalar- and vector- based geometric GNNs",
+        "Lec X (March 24th): No class due to business trip",
+        "Lec 2 (March 26th): Frame-based geometric GNNs",
+        "Lec 3 (March 31th): Steerable geometric GNNs - 1",
+        "Lec 4 (April 2nd): Steerable geometric GNNs - 2",
+        "Lec 5 (April 7th): Advanced Steerable geometric GNNs"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Geometric Grpahs",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometric Grpahs",
+        "A geometric graph is a graph                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              associated with",
+        "3D point cloud data in Euclidean space.",
+        "• set of vertices",
+        "• vertex-wise 3D coordinates",
+        "• vertex-wise features H = {hi }i2V",
+        "<latexit sha1_base64=\"iLzqMZXxrdSVbe6RvQkxDx24+lo=\">AAACCHicbVBNS8NAEJ3Ur1q/qh49uFgETyWRol6EgpceK9haaELYbDft0s0m7G6EEnL04l/x4kERr/4Eb/4bt20O2vpgl8d7M8zMCxLOlLbtb6u0srq2vlHerGxt7+zuVfcPuipOJaEdEvNY9gKsKGeCdjTTnPYSSXEUcHofjG+m/v0DlYrF4k5PEupFeChYyAjWRvKrxy10jdxs5Gcsd3Pzu0y4EdYjgnnWzXO/WrPr9gxomTgFqUGBtl/9cgcxSSMqNOFYqb5jJ9rLsNSMcJpX3FTRBJMxHtK+oQJHVHnZ7JAcnRplgMJYmic0mqm/OzIcKTWJAlM53VEtelPxP6+f6vDKy5hIUk0FmQ8KU450jKapoAGTlGg+MQQTycyuiIywxESb7ComBGfx5GXSPa87F/XGbaPWbBRxlOEITuAMHLiEJrSgDR0g8AjP8Apv1pP1Yr1bH/PSklX0HMIfWJ8/9xGZ8A==</latexit>",
+        "Usually, the graph structure is determined by",
+        "the cut-off radius, i.e., neighbouring vertices",
+        "have small Euclidean distances."
+      ],
+      "media_sha256": [
+        "480ee1f10a097bb97b26f73cb7b45c82cedbca54c876712fa2d34943946f4d53",
+        "3e7a0f0ff7fc248b3722446342864f693e27942ee533f6261bf8dbf42efe9dab",
+        "26086f7dfd0f84f623c3deb926e89b7f71b25e536f956f74b25f91e680320d92",
+        "94394dfba12afa3fce00d797835917426534390b352394277c442ca7568c6275",
+        "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+        "60119f74fe4dfa4d118cfeacc1b5800c45eb60c3b18dcbaff2d8a05622673170"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Recap: Geometric GNNs",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Recap: Geometric GNNs",
+        "How to design geometric GNNs for representation learning of molecules?",
+        "X = {xi }i2V",
+        "<latexit sha1_base64=\"Hbgf12jeDIiwRUMRqK4YDBecXok=\">AAACB3icbVDLSsNAFL2pr1pfUZeCDBbBVUmkaDdCwY3LCvYBTQiT6bQdOpmEmYlYQnZu/BU3LhRx6y+482+cPhbaemCGwzn3cu89YcKZ0o7zbRVWVtfWN4qbpa3tnd09e/+gpeJUEtokMY9lJ8SKciZoUzPNaSeRFEchp+1wdD3x2/dUKhaLOz1OqB/hgWB9RrA2UmAfd66Qlz0EGcu93PweE16E9ZBgnrXyPLDLTsWZAi0Td07KMEcjsL+8XkzSiApNOFaq6zqJ9jMsNSOc5iUvVTTBZIQHtGuowBFVfja9I0enRumhfizNExpN1d8dGY6UGkehqZzsqBa9ifif1011v+ZnTCSppoLMBvVTjnSMJqGgHpOUaD42BBPJzK6IDLHERJvoSiYEd/HkZdI6r7gXlepttVyvzeMowhGcwBm4cAl1uIEGNIHAIzzDK7xZT9aL9W59zEoL1rznEP7A+vwB0nCZ6g==</latexit>",
+        "In particular, we are interested in",
+        "invariance / equivariance to",
+        "Euclidean transformations.",
+        "rotation",
+        "• Euclidean group = E(n): Euclidean-distance preserving",
+        "X ! RX",
+        "<latexit sha1_base64=\"bH3Y8WclxoOpiGN//CrTWv8hj8s=\">AAAB+XicbVBNSwMxEJ2tX7V+rXr0EiyCp7IrRXssePFYxX5Au5Rsmm1Ds8mSZCtl6T/x4kERr/4Tb/4b03YP2vpg4PHeDDPzwoQzbTzv2ylsbG5t7xR3S3v7B4dH7vFJS8tUEdokkkvVCbGmnAnaNMxw2kkUxXHIaTsc38799oQqzaR4NNOEBjEeChYxgo2V+q7bQT3FhiODlZJP6KHTd8texVsArRM/J2XI0ei7X72BJGlMhSEca931vcQEGVaGEU5npV6qaYLJGA9p11KBY6qDbHH5DF1YZYAiqWwJgxbq74kMx1pP49B2xtiM9Ko3F//zuqmJakHGRJIaKshyUZRyZCSax4AGTFFi+NQSTBSztyIywgoTY8Mq2RD81ZfXSeuq4l9XqvfVcr2Wx1GEMziHS/DhBupwBw1oAoEJPMMrvDmZ8+K8Ox/L1oKTz5zCHzifP/EFkzE=</latexit>",
+        "transformations in N-dimension.",
+        "• Special Euclidean group = SE(n): subgroup of",
+        "E(n) that preserves the “handedness”.",
+        "reflection",
+        "X !X +b",
+        "<latexit sha1_base64=\"Fsd1IPNYpOlUtxwXS/gUjBfCGTI=\">AAAB+nicbVBNS8NAEJ3Ur1q/Uj16WSyCIJREivZY8OKxgm0DbSib7aZdutmE3Y2lxP4ULx4U8eov8ea/cdvmoK0PBh7vzTAzL0g4U9pxvq3CxubW9k5xt7S3f3B4ZJeP2ypOJaEtEvNYegFWlDNBW5ppTr1EUhwFnHaC8e3c7zxSqVgsHvQ0oX6Eh4KFjGBtpL5d9lBPsuFIYynjCfIug75dcarOAmiduDmpQI5m3/7qDWKSRlRowrFSXddJtJ9hqRnhdFbqpYommIzxkHYNFTiiys8Wp8/QuVEGKIylKaHRQv09keFIqWkUmM4I65Fa9ebif1431WHdz5hIUk0FWS4KU450jOY5oAGTlGg+NQQTycytiIywxESbtEomBHf15XXSvqq619Xafa3SqOdxFOEUzuACXLiBBtxBE1pAYALP8Apv1pP1Yr1bH8vWgpXPnMAfWJ8/dWeTdg==</latexit>"
+      ],
+      "media_sha256": [
+        "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+        "f8d95bf1d452e22bffbdccaaf2d5441facdb4f08eec63e99611c4ca5d1ee28c1",
+        "9b3f68cee9987e7e670dc181a8e3b657d8af61ec95ef7061fb51ffb0c8419d34",
+        "69a10186c5ec0ee96202ff3b5e3a53f177fa92e0ef2a5d78238f64193b76f97f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Molecular Property Prediction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Molecular Property Prediction",
+        "Quantum Machines 9 (QM9) dataset consists",
+        "of 134k stable organic molecules made up",
+        "of CHONF atoms.",
+        "Experimentally measured geometric, energetic,",
+        "electronic, and thermodynamic properties.",
+        "Targets are invariant to",
+        "Euclidean transformations."
+      ],
+      "media_sha256": [
+        "875302685c8c00a93965140a0b05bdd026431fc3a5c7cb040dbcdaf02b16f96f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Molecular Dynamics Simulation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Molecular Dynamics Simulation",
+        "Molecule Dynamics 17 (MD17) is a dataset consisting of samples from",
+        "ab initio molecular dynamics (AIMD) computations.",
+        "molecule      size",
+        "Trajectory simulated using expensive",
+        "density functional theory (DFT) computations.",
+        "Properties (targets) are equivariant to the",
+        "Euclidean transformation."
+      ],
+      "media_sha256": [
+        "8e40ffe07ba3adb311860c84e02f4b4823a99fd7e131357a9449952d801a9bb1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Molecular Dynamics Simulation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Molecular Dynamics Simulation",
+        "Molecular dynamics (MD) simulation requires",
+        "• potential energy functions",
+        "• force fields (derivative of potentials).",
+        "force fields act on atoms",
+        "Potential energies are decomposed into…",
+        "E = Ebondlen + Eangle + Etorsion + Enon-bonded",
+        "<latexit sha1_base64=\"BdqJmh9n+dALpy0dv3OSxZ2qbTg=\">AAACPXicbVBNSwMxEM36bf2qevQSLIIgll3xoxdBEMGjglWhLSWbndZgNlmSWbEs+8e8+B+8efPiQRGvXs3W4veDwOPNm5nMCxMpLPr+vTc0PDI6Nj4xWZqanpmdK88vnFqdGg51rqU25yGzIIWCOgqUcJ4YYHEo4Sy83C/qZ1dgrNDqBHsJtGLWVaIjOEMntcsnB3SXHrSzJsI1ZqFWkQSV53TtU2OqKyHP175cqPvzCteXqLRaL9ohyvN2ueJX/T7oXxIMSIUMcNQu3zUjzdMYFHLJrG0EfoKtjBkU3C0vNVMLCeOXrAsNRxWLwbay/vU5XXFKRDvauKeQ9tXvHRmLre3FoXPGDC/s71oh/ldrpNiptTKhkhRB8Y9FnVRS1LSIkkbCAEfZc4RxI9xfKb9ghnF0gZdcCMHvk/+S041qsF3dOt6s7NUGcUyQJbJMVklAdsgeOSRHpE44uSEP5Ik8e7feo/fivX5Yh7xBzyL5Ae/tHRK0sGU=</latexit>",
+        "various potential types"
+      ],
+      "media_sha256": [
+        "a74ade1a1df13942f5b712b068f94f68e04df9fdf100ede1e19f007f3a1cb8e1",
+        "5d9399de38ef7cbd204512d4793e4a059f9c6ae99e47e819acab8c89455a7cc6",
+        "dce32d0c92acb95e5a62dd28a01124eafdef2b0da7667eaf81b4540247a5e27f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": null,
+      "title": "Part 1. Scalar-based",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Part 1. Scalar-based",
+        "Geometric GNNs"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Here, we study geometric GNNs that are invariant to Euclidean transformations.",
+        "Publications:",
+        "• [Schütt et al., 2017] SchNet: A Continuous-Filter Convolutional Neural Network",
+        "for Modeling Quantum Interactions (SchNet)",
+        "• [Gasteiger et al., 2020] Directional Message Passing for Molecular Graphs (DimeNet)",
+        "• [Liu et al., 2021] Spherical Message Passing for 3D Graph Networks (SphereNet)",
+        "• [Wang et al., 2022] ComENet: Towards Complete and Efficient Message Passing",
+        "for 3D Molecular Graphs (ComENet)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Scalarization for Geometric GNNs",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Scalarization for Geometric GNNs",
+        "Scalarization: encoding Euclidean transformation-senstive features",
+        "into invariant features.",
+        "For example, distance, bond angle, and torsion (dihedral) angles can be",
+        "obtained via scalarization of positional information."
+      ],
+      "media_sha256": [
+        "4c0d85a1c538da2f7ed6f82be38cf32c7e906d2c8a8e8ca7d10b34b842174b8d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "SchNet: Continuous Filter CNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SchNet: Continuous Filter CNN",
+        "SchNet is a GNN with distance information",
+        "as edge-wise feature.",
+        "X",
+        "<latexit sha1_base64=\"js4K1t+u3HBtAaH+2kCEmE/8g8Q=\">AAACa3icbVFBa9swGJW9buuyrcvaw0q3g1goJJQFe6xbL4VCLz2VDpakECVGVuRYqSwb6fNoEL70J/a2f7DL/sNkJ4Wu3QeCp/e+90l6igspDATBL89/svH02fPNF62Xr15vvWm/3R6avNSMD1guc30ZU8OlUHwAAiS/LDSnWSz5KL46rfXRT66NyNUPWBZ8ktG5EolgFBwVtW/SyIpqarvyIOxVx0TyBLoko5DGiU2dICtMqAE8mkqixTyFXm04JqbMIrsgQjXNjEp7XnVFr8JptJhKTJjQrDGtJsoh14CvI/HpOlpgouvt3bx2J+gHTeHHIFyDDlrXRdS+JbOclRlXwCQ1ZhwGBUws1SCY5FWLlIYXlF3ROR87qGjGzcQ2WVV43zEznOTaLQW4Ye87LM2MWWax66wfZh5qNfk/bVxCcjSxQhUlcMVWByWlxJDjOng8E5ozkEsHKNPC3RWzlGrKwH1Py4UQPnzyYzD83A+/9g+/f+mcHK3j2ETv0UfURSH6hk7QGbpAA8TQb2/Le+ften/8HX/P/7Bq9b21Zwf9U/7+X3lOu0o=</latexit>",
+        "(l+1)",
+        "hi     = hl ⇤ W l i =        hlj W l (kxi                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        xj k)",
+        "j2N (i)",
+        "• Hidden features are initialized by atom types.",
+        "• The distance information is encoded by",
+        "radial basis functions.",
+        "X",
+        "l     l",
+        "h ⇤ W •i =      hlj W l (kxi",
+        "The weight                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        xj k) be seen as “continuous filters”",
+        "compared",
+        "j2N (i)",
+        "to the CNNs where weights depend on",
+        "relative position of pixels."
+      ],
+      "media_sha256": [
+        "c06fc357e29a3e464bfcc9598081e6ad90e19ccf670f83a148db253fa1a8cb90",
+        "6f4082852f54ef22d0ff0e3a664afd63f3b3832e3e9e261e91f97a4e68381430"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "SchNet: Continuous Filter CNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SchNet: Continuous Filter CNN",
+        "Ellaboration on discrete vs. continuous filters",
+        "CNNs have finite cases of relative positions,   SchNet assigns filter weights conditioned on",
+        "hence associated filter weights are discrete.   distance, hence the filter is continuous."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "SchNet: Continuous Filter CNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SchNet: Continuous Filter CNN",
+        "Since the SchNet is conditioned on invariant features, its output is also E(3) invariant.",
+        "How to make equivariant predictions from invariant layers?",
+        "Use gradient of the invariant layer, which is equivariant!",
+        "<latexit sha1_base64=\"qtoZyMg6Z3YIra45I7sCx1UYS40=\">AAACZXicfVFLS8QwEE7ra11f6wMvHgwugoIurfi6CIIoHhVcFTZLSbPpbjBNSzIVl9o/6c2rF/+G6dqDLxwIfHwz883MlzCVwoDnvTru2PjE5FRtuj4zOze/0FhcujVJphlvs0Qm+j6khkuheBsESH6fak7jUPK78OGszN89cm1Eom5gmPJuTPtKRIJRsFTQeCYDCjmJKQzCKL8oikAQySPYegr8HUxkLwGzg58CRbToD2D7ZJdEmrKcpFSDoBKP+s+L4gtTiWmrVfwrFjSaXssbBf4N/Ao0URVXQeOF9BKWxVwBk9SYju+l0M3LwUzyok4yw1PKHmifdyxUNOamm49cKvCmZXo4SrR9CvCI/dqR09iYYRzayvIC8zNXkn/lOhlEx91cqDQDrtjnoCiTGBJcWo57QnMGcmgBZVrYXTEbUOsi2I+pWxP8nyf/Brd7Lf+wdXC93zw9ruyooTW0gbaQj47QKbpEV6iNGHpzas6is+S8u3Puirv6Weo6Vc8y+hbu+gcNgrlb</latexit>",
+        "@ Ê",
+        "F̂i (x1 , . . . , xn ) =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (x1 , . . . , xn )",
+        "@ri",
+        "For molecular dynamics simulation, train via",
+        "matching gradient with the force fields."
+      ],
+      "media_sha256": [
+        "c3b6bad7056f5db3d4e4456bf32750c6ac24c889a45fec5cdc71862a3a544193",
+        "faac4318aa2a405caa1e635e33e54aefd0821ab008fc058674093ba41905172d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "SchNet: Continuous Filter CNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SchNet: Continuous Filter CNN",
+        "Experiments on QM9 and MD17",
+        "shows performance better than",
+        "non-GNN and discrete filter-based",
+        "baselines."
+      ],
+      "media_sha256": [
+        "ac64a1661a88e5a03cfda98d4d67d725dba14b3c8e2c7133155cf2999896fc3d",
+        "50ab70ff53b17c6fe9bc334c20dd0718741366a79abcff01c037f2cac4dfea61"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "Motivation: potential energy is typically decomposed into four parts:",
+        "E = Ebondlen + Eangle + Etorsion + Enon-bonded",
+        "<latexit sha1_base64=\"BdqJmh9n+dALpy0dv3OSxZ2qbTg=\">AAACPXicbVBNSwMxEM36bf2qevQSLIIgll3xoxdBEMGjglWhLSWbndZgNlmSWbEs+8e8+B+8efPiQRGvXs3W4veDwOPNm5nMCxMpLPr+vTc0PDI6Nj4xWZqanpmdK88vnFqdGg51rqU25yGzIIWCOgqUcJ4YYHEo4Sy83C/qZ1dgrNDqBHsJtGLWVaIjOEMntcsnB3SXHrSzJsI1ZqFWkQSV53TtU2OqKyHP175cqPvzCteXqLRaL9ohyvN2ueJX/T7oXxIMSIUMcNQu3zUjzdMYFHLJrG0EfoKtjBkU3C0vNVMLCeOXrAsNRxWLwbay/vU5XXFKRDvauKeQ9tXvHRmLre3FoXPGDC/s71oh/ldrpNiptTKhkhRB8Y9FnVRS1LSIkkbCAEfZc4RxI9xfKb9ghnF0gZdcCMHvk/+S041qsF3dOt6s7NUGcUyQJbJMVklAdsgeOSRHpE44uSEP5Ik8e7feo/fivX5Yh7xBzyL5Ae/tHRK0sGU=</latexit>",
+        "How to design geometric GNNs that incorporate directional information",
+        "such as bond angles and rotations?",
+        "Key idea: use embeddings associated with the directions",
+        "(instead of atom-wise embeddings as in SchNet)."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "Directional embedding 𝒎!\" associated with the atom pair (𝑖, 𝑗)",
+        "can be thought of as a message being sent from",
+        "atom 𝑗 to atom 𝑖.",
+        "<latexit sha1_base64=\"nE+PmYhz8ud8qiecdkVAtPfxNn4=\">AAAC+HicdVJNj9MwEHXC11Jg6cKRi0WF1IpV1az42AvSCiTECS0f3V2pLpHjOK1bO4nsCaJY/iVcOIAQV34KN/4NTjbSli47UuSneW/G8yZOSikMjEZ/gvDS5StXr21d79y4eWv7dnfnzpEpKs34mBWy0CcJNVyKnI9BgOQnpeZUJZIfJ8sXNX/8kWsjivw9rEo+VXSWi0wwCj4V7wTbJClkalbKH1a52C6wcB9sXz6MBu5ZFlsC/BNgW5UpBY6dI5Jn0L+oauB2MTGViu0SE5FjoijMGZX2tYsXmCSULY2kZk6sIM7hs/4ihwubL/HirPkaxz3XXKCVffv8patFfpBNGV2TvWtlvuUubrREi9kcBu0Rd3uj4agJfB5ELeihNg7j7m+SFqxSPAfmjZlJNCphaqkGwSR3HVIZXnrXdMYnHuZUcTO1zY9z+IHPpDgrtP+8/ya7XmGpMrUJr6znN5tcnfwfN6kg25/6nZYV8JydXpRVEkOB61eAU6E5A7nygDIt/KyYzammDPxb6fglRJuWz4OjvWH0ZPj4zaPewX67ji10D91HfRShp+gAvUKHaIxYUAVfgm/B9/Bz+DX8Ef48lYZBW3MX/RPhr7/nL/Rh</latexit>",
+        "0                distance embedding                     1",
+        "X                ⇣                            ⌘",
+        "(l+1)             (l)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   (l) (ji)     (kj,ji)",
+        "mji    = fupdate @mji ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      fint       mkj , eRBF , aSBF            A",
+        "k2Nj \\{i}",
+        "angle embedding",
+        "The message passing happens between 𝑘𝑗 to 𝑗𝑖,",
+        "similar to belief propagation."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "How to encode interatomic distances?",
+        "• Prior works used Gaussian radial basis functions (RBFs)",
+        "• DimeNet proposes to use orthogonal basis represenation based on",
+        "spherical Bessel functions and spherical harmonics.",
+        "Why? Solution to the Schrödinger equation yields is decomposed into product",
+        "of spherical Bessel functions and spherical harmonics:",
+        "✓                   ◆",
+        "~ 2",
+        "<latexit sha1_base64=\"U7WA238+RlQlbKR+h1nCNn2iO2Q=\">AAACUXicbVFNaxsxEB1vvxInbd32mIuoCTiUml3Tj1wCgVLo0YHaCViOmdVqvSJa7SLNFsyyfzGH5JT/kUsPLZUdH1InD4Qe780wo6e41MpRGN60gidPnz1/sbXd3tl9+ep1583bsSsqK+RIFLqwZzE6qZWRI1Kk5VlpJeaxlqfxxbelf/pLWqcK85MWpZzmODcqVQLJS7NOxrVMqfeRpxZFzbMY7fmgqQcsbxg3GGs8H3wY93hc6MQtcn/VSXPArZpndMD40KlN7+j7o/Ks0w374QrsIYnWpAtrDGedK54UosqlIaHRuUkUljSt0ZISWjZtXjlZorjAuZx4ajCXblqvEmnYvlcSlhbWH0Nspd7vqDF3y918ZY6UuU1vKT7mTSpKD6e1MmVF0oi7QWmlGRVsGS9LlJWC9MITFFb5XZnI0GdL/hPaPoRo88kPyXjQj770P5986h4fruPYgj14Dz2I4Cscww8YwggEXMIt/IG/revW7wCC4K40aK173sF/CHb+AR53tAo=</latexit>",
+        "r2 + V (d)     (d) = E (d)",
+        "2m                                             spherical Bessel functions   spherical harmonics",
+        "1     l",
+        "<latexit sha1_base64=\"TZtlIcKjI67EJkm7YjNTVmM3+/E=\">AAACaHicbZFLi9swEMdl97XN9uHtg1J6ERsKDm2DvfSxl8BCLz2m0OxuiRMzluVYjWQbabxgjOl37K0foJd+iiqJD222A0J/fjPDjP5KKikMBsFPx71x89btOwd3B4f37j946B09OjdlrRmfsVKW+jIBw6Uo+AwFSn5ZaQ4qkfwiWX/c5C+uuDaiLL5gU/GFglUhMsEALYq979HUCD99TSOQVQ72vgJd5WI0iUyt4lZOgm7ZRqLIsOnojqnJG9ktZSR5hj7YGqo6+i2W/pqmo1dJD5oeRFqschzRr7FcKn9/TOwNg3GwDXpdhL0Ykj6msfcjSktWK14gk2DMPAwqXLSgUTDJu0FUG14BW8OKz60sQHGzaLdGdfSlJSnNSm1PgXRL/+5oQRnTqMRWKsDc7Oc28H+5eY3Z6aIVRVUjL9huUFZLiiXduE5ToTlD2VgBTAu7K2U5aGBo/2ZgTQj3n3xdnJ+Mw/fjd5/fDs9OezsOyAtyTHwSkg/kjHwiUzIjjPxyDp0nzlPnt+u5z9znu1LX6Xsek3/CPf4DVgG3gQ==</latexit>",
+        "X X",
+        "(d, ↵, ') =          (alm jl (kd) + blm yl (kd)) Ylm (↵, ')",
+        "l=0 m= l"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "The embeddings are not twice continuously differentiable",
+        "due to the step function cutoff, i.e., we ignore",
+        "distances larger than a certain threshold.",
+        "Using an envelope function with root at the cutoff radius resolve this issue.",
+        "<latexit sha1_base64=\"RuM7WjuxJxC1SW40sPL8EniTsfE=\">AAACN3icbVDLSgMxFM3UV62vUZdugkWomzIjProRioK4kir2AZ1hyGTSNjTzIMkIZZi/cuNvuNONC0Xc+gdm2lnYx4Ukh3PPJeceN2JUSMN40wpLyyura8X10sbm1vaOvrvXEmHMMWnikIW84yJBGA1IU1LJSCfiBPkuI213eJ3120+ECxoGj3IUEdtH/YD2KEZSUY5+Z7kh88TIV0+CUiexfCQH3E8erm7StOIdX8bqgpakzCPJtHiB2tHLRtUYF5wHZg7KIK+Go79aXohjnwQSMyRE1zQiaSeIS4oZSUtWLEiE8BD1SVfBAPlE2Ml47xQeKcaDvZCrE0g4Zv9PJMgXmVulzHyK2V5GLup1Y9mr2QkNoliSAE8+6sUMyhBmIUKPcoIlGymAMKfKK8QDxBGWKuqSCsGcXXketE6q5nn17P60XK/lcRTBATgEFWCCC1AHt6ABmgCDZ/AOPsGX9qJ9aN/az0Ra0PKZfTBV2u8faDWuAg==</latexit>                         <latexit sha1_base64=\"pM0RcqW19hKhzu8SR0ohNKLedGs=\">AAACO3ichVC7SgNBFJ31GeNr1dJmMAixCbviI40QFMQyBvOAbAizszfJkNkHM7NCWPa/bPwJOxsbC0Vs7Z1NUmgieGC4h3PvZc49bsSZVJb1bCwsLi2vrObW8usbm1vb5s5uQ4axoFCnIQ9FyyUSOAugrpji0IoEEN/l0HSHV1m/eQ9CsjC4U6MIOj7pB6zHKFFa6pq1xHFD7smRr0sCadpNHJ+ogfCT2uV1mha9I3yB46w4inEP/p/vmgWrZI2B54k9JQU0RbVrPjleSGMfAkU5kbJtW5HqJEQoRjmkeSeWEBE6JH1oaxoQH2QnGd+e4kOteLgXCv0Chcfqz42E+DJzqyczn3K2l4l/9dqx6pU7CQuiWEFAJx/1Yo5ViLMgsccEUMVHmhAqmPaK6YAIQpWOO69DsGdPnieN45J9Vjq9PSlUytM4cmgfHaAistE5qqAbVEV1RNEDekFv6N14NF6ND+NzMrpgTHf20C8YX99Xbq9q</latexit>",
+        "aRBF (d) = u(d)ãRBF (d)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   eRBF (d) = u(d)ẽRBF (d)",
+        "<latexit sha1_base64=\"O4hs5CiAD2c3vHicty72Aw1Z6o0=\">AAACMHicbVDLSgMxFM34rPVVdekmWISWYpkZfHQjFFzosoJ9QFtLJpNpQzMzIckIZZhPcuOn6EZBEbd+hel0Ftp6IeHknHO5ucfhjEplmm/G0vLK6tp6biO/ubW9s1vY22/JMBKYNHHIQtFxkCSMBqSpqGKkwwVBvsNI2xlfTfX2AxGShsGdmnDS99EwoB7FSGlqULiOSm750jrpeQLhuMQrVllfdjmJ7QS697zC06eGsdaSzMdTY+bRgp0MCkWzaqYFF4GVgSLIqjEoPPfcEEc+CRRmSMquZXLVj5FQFDOS5HuRJBzhMRqSroYB8onsx+nCCTzWjAu9UOgTKJiyvzti5Es58R3t9JEayXltSv6ndSPl1foxDXikSIBng7yIQRXCaXrQpYJgxSYaICyo/ivEI6QjUTrjvA7Bml95EbTsqnVePbs9LdZrWRw5cAiOQAlY4ALUwQ1ogCbA4BG8gHfwYTwZr8an8TWzLhlZzwH4U8b3D49opbc=</latexit>",
+        "(p + 1)(p + 2) p                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   p(p + 1) p+2",
+        "u(d) = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               d + p(p + 2)dp+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             d",
+        "2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               2"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "The wavefunction can be decomposed",
+        "(with approximations) into the",
+        "Fourier-Bessel basis:",
+        "s",
+        "⇣z ⌘",
+        "<latexit sha1_base64=\"tajhtNWDePL1sN1rZM3wMrXO2zA=\">AAACdnicbVHLahsxFNVM+kjdl5OuSqGImFCHBjPjPDeF0EDJMqF1kmLZg0ajsZVoNBPpTsEV+oT+XHf9jm6yrGzPok16QXB0zj1c6dy0ksJAFP0KwpUHDx89Xn3Sevrs+YuX7bX1c1PWmvEBK2WpL1NquBSKD0CA5JeV5rRIJb9Ir4/n+sU3ro0o1ReYVXxU0IkSuWAUPJW0fxAQMuOWusSSgsJUF/bzx09uG0usXDfbxoTKakq3PhBzo8GSXFNm+86y8Q6+Sqx8H7txn0ieQ/e7v3oT0WIyhS3nvC6XytLV6N7rcNZ04a+JHEfdZkjS7kS9aFH4Pogb0EFNnSbtnyQrWV1wBUxSY4ZxVMHIUg2CSe5apDa8ouyaTvjQQ0ULbkZ2EZvDm57JcF5qfxTgBfu3w9LCmFmR+s55MuauNif/pw1ryA9HVqiqBq7YclBeSwwlnu8AZ0JzBnLmAWVa+LdiNqU+IvCbavkQ4rtfvg/O+714v7d3tts5OmziWEVv0AbqohgdoCN0gk7RADH0O3gdbASd4DZ8G26G75atYdB4XqF/Koz+AHatvzg=</latexit>",
+        "2              ln      0",
+        "ãSBF,ln (d, ↵) =    3 2          j l      d Y l (↵)",
+        "c jl+1 (zln )       c",
+        "and the radial basis:",
+        "r",
+        "2 sin n⇡",
+        "<latexit sha1_base64=\"QwX7izwYb3pkQTr35yPeNHwzunQ=\">AAACSHicbVBNaxsxENW6aZO4X2577EXEFBwoZjc0aS6F0ELpMS1xErDMotXO2iJa7UaaLRihn5dLjr31N/TSQ0vILVrbhzTpA8Gb92YYzctqJS3G8c+o82Dt4aP1jc3u4ydPnz3vvXh5bKvGCBiJSlXmNOMWlNQwQokKTmsDvMwUnGRnn1r/5DsYKyt9hPMaJiWfallIwTFIaS9lKFUODnzqWMlxZkr37eNn/5ZqP8i3PzB7btCxwnDhdrwT3tNlwazUlCkocLAUQlXLtoPmzMjpDLe9y33a68fDeAF6nyQr0icrHKa9HyyvRFOCRqG4teMkrnHiuEEpFPguayzUXJzxKYwD1bwEO3GLIDx9E5ScFpUJTyNdqLcnHC+tnZdZ6GxvtXe9VvyfN26w2J84qesGQYvloqJRFCvapkpzaUCgmgfChZHhr1TMeIgFQ/bdEEJy9+T75HhnmOwNd7++6x/sr+LYIK/JFhmQhLwnB+QLOSQjIsgF+UX+kL/RZfQ7uoqul62daDXzivyDTucGw2C0GA==</latexit>",
+        "c d",
+        "ẽRBF,n (d) =",
+        "c     d"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": null,
+      "title": "DimeNet: Directional Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DimeNet: Directional Message Passing",
+        "Good performance in general."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Directional Message Passing NN (DimeNet)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Directional Message Passing NN (DimeNet)",
+        "Good performance on MD17 dataset.",
+        "Note that DimeNet layers are invariant",
+        "with respect to the Euclidean transformations,",
+        "hence we use the gradient matching",
+        "similar to SchNet."
+      ],
+      "media_sha256": [
+        "5d1fe2532754a53947f36f23a4ada4ce70922cdd68d41a9cc9d24988217487d5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Motivation: torsion angles are required for a molecule’s complete representation:",
+        "the representation that identifies a unique structure.",
+        "How to design geometric GNNs that incorporate",
+        "torsion information?",
+        "Key idea: similar to DimeNet, but",
+        "incorporate torsion angle as an angle",
+        "between reference frames."
+      ],
+      "media_sha256": [
+        "3916d1aa7f7fe34b7ab34b91118702d981e53e3d4f6cf2692a22aa64d131216a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "SphereNet updates atom-wise embedding via aggregating over",
+        "two-hop neighbors, incorporating the associated distance, angule and",
+        "torsion angule information."
+      ],
+      "media_sha256": [
+        "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Consider updating an embedding associated with an atom 𝑟# using an edge 𝐞# = (𝑠# , 𝑟# ).",
+        "To encode torsion angle (angle between a pair of planes),",
+        "SphereNet sets the edge 𝐞# = 𝑠# , 𝑟# as the z-axis and",
+        "an atom 𝑜 to determine the reference plane.",
+        "Each two-hop neighbor atom 𝑞 is associated with",
+        "a plane and the torsion angle 𝜑."
+      ],
+      "media_sha256": [
+        "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd",
+        "2c487e431c52cacb4afdb4423f494ee8d54ab0cb7c8c7bf4864706db03bf7ee5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Consider updating an embedding associated with an atom 𝑟# using an edge 𝐞# .",
+        "To encode angle between a pair of edges,",
+        "SphereNet encodes angle with respect to",
+        "nearest edge in a clock-wise direction.",
+        "For example, atom 𝑞$ is associated with",
+        "angle 𝜑$ with respect to another atom 𝑞%."
+      ],
+      "media_sha256": [
+        "4df53114622b30bcc338e7652ef35c26a7b7676e1ef80b1b79d511f466e437bc",
+        "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd",
+        "459005d48b9ec23eeb4ceda20d22029c8fd695df147cdc64531c12750e1637da"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Overall, the message passing structure is defined as follows:",
+        "edge-wise embedding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     aggregation over 2-hop",
+        "<latexit sha1_base64=\"jIMzSj5JkHzsT0/DiyRHpSFdScs=\">AAADonicdVLbjtMwEHUTLku5bBceecCigBYJVS3isi8rrYQqIR6WXUG7K9Vt5LiTxqpzke0UVZb/i+/gjb/BadPSdGEkx0czZ+bMOBPmgivd7f5ueP6t23fuHtxr3n/w8NFh6+jxUGWFZDBgmcjkdUgVCJ7CQHMt4DqXQJNQwFU4/1TGrxYgFc/S73qZwzihs5RHnFHtXMFR4ycJYcZTQwWfpTC1zVeYJFTHYWTABvOJIbnkCdhTksd8AkRApI93GW+2/IUNjAzmtu5RK09/A4iMs4nJ3c1nsaZSZj8w2Kps+SVmky1tEK9pxNWJT11tTFiRY7UBKyajwpxXQnbNf11dmJCdeVw3fG+eRX2ekrFpEWotLqoW+zsl6lp/py7snkpRVym2z7CoaRSVxvA/Ck0C6XT7o4JWu9vprgzfBL0KtFFlF0HrF5lmrEgg1UxQpUa9bq7HhkrNmQDbJIWCnLI5ncHIwZQmoMZmtWIWv3SeKY4y6U6q8cq7m2FootQyCR2znFLtx0rnv2KjQkcnY8PTvNCQsrVQVAisM1zuK55yCUyLpQOUSe56xSymkjLttrrpHqG3P/JNMHzb6X3ovL981z47qZ7jAD1Fz9Ex6qGP6Ax9RhdogJj3zOt7595X/4X/xb/0v62pXqPKeYJq5pM/AXs1Ew==</latexit>",
+        "⇣                              ⇣                        ⌘⌘",
+        "e0k =   e",
+        "ek , vrk , vsk , Esk , ⇢p!e {rh }h=rk [sk [Ns",
+        "k",
+        "vi0 = v (vi , ⇢e!v (Ei0 )) , u0 = u (u, ⇢v!u (V 0 ))",
+        "In addition, the node-wise and graph-wise embedding",
+        "is updated as⇣follows:                ⇣                    ⌘⌘",
+        "<latexit sha1_base64=\"jIMzSj5JkHzsT0/DiyRHpSFdScs=\">AAADonicdVLbjtMwEHUTLku5bBceecCigBYJVS3isi8rrYQqIR6WXUG7K9Vt5LiTxqpzke0UVZb/i+/gjb/BadPSdGEkx0czZ+bMOBPmgivd7f5ueP6t23fuHtxr3n/w8NFh6+jxUGWFZDBgmcjkdUgVCJ7CQHMt4DqXQJNQwFU4/1TGrxYgFc/S73qZwzihs5RHnFHtXMFR4ycJYcZTQwWfpTC1zVeYJFTHYWTABvOJIbnkCdhTksd8AkRApI93GW+2/IUNjAzmtu5RK09/A4iMs4nJ3c1nsaZSZj8w2Kps+SVmky1tEK9pxNWJT11tTFiRY7UBKyajwpxXQnbNf11dmJCdeVw3fG+eRX2ekrFpEWotLqoW+zsl6lp/py7snkpRVym2z7CoaRSVxvA/Ck0C6XT7o4JWu9vprgzfBL0KtFFlF0HrF5lmrEgg1UxQpUa9bq7HhkrNmQDbJIWCnLI5ncHIwZQmoMZmtWIWv3SeKY4y6U6q8cq7m2FootQyCR2znFLtx0rnv2KjQkcnY8PTvNCQsrVQVAisM1zuK55yCUyLpQOUSe56xSymkjLttrrpHqG3P/JNMHzb6X3ovL981z47qZ7jAD1Fz9Ex6qGP6Ax9RhdogJj3zOt7595X/4X/xb/0v62pXqPKeYJq5pM/AXs1Ew==</latexit>",
+        "e0k =   e",
+        "ek , vrk , vsk , Esk , ⇢p!e {rh }h=rk [sk [Ns",
+        "k",
+        "vi0 =   v",
+        "(vi , ⇢e!v (Ei0 )) , u0 =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      u",
+        "(u, ⇢v!u (V 0 ))",
+        "set of edges pointing 𝑖"
+      ],
+      "media_sha256": [
+        "24baa6d07134928d1f782c39b0f0b7e97272ef4d266320977894a3994aa183f2",
+        "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd",
+        "a6c7b6d9202a99d27c00a12b85f5ee56cebcb0f0adf3016b61e208a026161ba4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Caveat: SphereNet is not complete, i.e., there exist structrures",
+        "that SphereNet fails to distinguish.",
+        "chiral, SphereNet can distinguish    SphereNet cannot distinguish"
+      ],
+      "media_sha256": [
+        "fb2195669cd77112123c93d0a402f149b59742d78b8c34917534078e2351d902"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Experiments on QM9, MD17, and OC20 shows good performance."
+      ],
+      "media_sha256": [
+        "5b8e47b8441b20ab805fe7756b4b1c0c79066ac55411359a863cfa39a7dd41cb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Experiments on QM9, MD17, and OC20 shows good performance."
+      ],
+      "media_sha256": [
+        "f0125040b91461974c09bb697e49d6b090c1a1349df1c4ce14e9e97176711152"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Experiments on QM9, MD17, and OC20 shows good performance."
+      ],
+      "media_sha256": [
+        "650298c9c9053eeab5cf0f582953d3c4d46b6ff0e1b5f3406f1624068ebfdf65"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "SphereNet: Spherical Message Passing",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "SphereNet: Spherical Message Passing",
+        "Ablation studies confirm effectiveness of each component."
+      ],
+      "media_sha256": [
+        "c2f38687ca8281e3a23de59efcef58911f55d4ec9a231eeb9bb70cceed0a5dfd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "Improves over SphereNet via being complete and more efficient.",
+        "Key idea: achieve completeness for",
+        "2-hop local structure via incorporating",
+        "torsion angle for each edge."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "There can be more than two planes and one torsion angles",
+        "associated with an edge.",
+        "How to choose a specific torsion angle that is",
+        "associated with an edge?",
+        "Choose the torsion angle based on the",
+        "atoms 𝑓\"∖! and 𝑓!∖\" , where 𝑓\"∖! is the",
+        "nearest neighbor of atom 𝑖 except the atom 𝑗."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "After associating an torsion angle for each edge, ComENet follows",
+        "the directional message passing structure of DimeNet.",
+        "<latexit sha1_base64=\"JswWs+AwhXYaaksjoTDaqKtCKuY=\">AAACf3icbZHPahsxEMa126RN3bRx22MvIqY0pcbslv5JD4VALjmFBOIk4HUXrTzrlSNpF2k2YMS+Rh+st7xLDpHtpU3iDgh9+n4zSDPKKiksRtFNED7Z2Hz6bOt558X2y1c73ddvzm1ZGw5DXsrSXGbMghQahihQwmVlgKlMwkV2dbjgF9dgrCj1Gc4rGCs21SIXnKG30u7vRDEsstxdN6n45ZLKCAXNz2kiIce9+7BPE1ur1M1oIjRdEs6kO/aoofla/qxPJ6kTdNb4QiwA2d9TVYh/hNUrnRgxLfBju6XdXjSIlkHXRdyKHmnjJO3+SSYlrxVo5JJZO4qjCseOGRRcQtNJagsV41dsCiMvNVNgx245v4a+986E5qXxSyNduvcrHFPWzlXmMxcN2sdsYf6PjWrM98dO6KpG0Hx1UV5LiiVdfAadCAMc5dwLxo3wb6W8YIZx9F/W8UOIH7e8Ls4/D+Jvg6+nX3oH++04tsg7skv2SEy+kwNyRE7IkHByG+wGn4J+GIQfwkEYrVLDoK15Sx5E+OMOBsvDHw==</latexit>",
+        "0                                             1",
+        "X",
+        "vi0 = g @vi ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       f (vj , dij , ✓ij ,   ij , ⌧ij )",
+        "A",
+        "j2Ni",
+        "The complexity is 𝑂(𝑛𝑘) where 𝑛, 𝑘 are",
+        "the # of nodes and the max. # of neighbors,",
+        "respectively."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "Experiments on OC20 and QM9 shows improvement over baselines,",
+        "in particular SphereNet."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "Experiments on OC20 and QM9 shows improvement over baselines,",
+        "in particular SphereNet."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "Ablation studies verify",
+        "the training efficiency."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": null,
+      "title": "ComENet: Complete and Efficient GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ComENet: Complete and Efficient GNN",
+        "Ablation studies verify",
+        "training efficiency and",
+        "ability to identify",
+        "conformers."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": null,
+      "title": "GemNet: Universal Directional GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "GemNet: Universal Directional GNN",
+        "Another popular geometric GNN architecture based on invariant features.",
+        "Kernel functions are defined by combination of Fourier-Bessel functions",
+        "and spherical harmonics similar to DimeNet."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": null,
+      "title": "GemNet: Universal Directional GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "GemNet: Universal Directional GNN",
+        "GemNet paper also shows that rotation-invariant functions can universally",
+        "approximate rotation-equivariant functions with scalar-vector products:"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": null,
+      "title": "GemNet: Universal Directional GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "GemNet: Universal Directional GNN"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "title": "End of Section",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "End of Section",
+        "More related publications:",
+        "• [Unke & Meuwly, 2019] PhysNet: A Neural Network for Predicting Energies,",
+        "Forces, Dipole Moments and Partial Charges",
+        "(Improvement over SchNet using distance information)",
+        "• [Gasteiger et al., 2020] Fast and Uncertainty-Aware Directional Message Passing",
+        "for Non-Equilibrium Molecules",
+        "(DimeNet++, improved DimeNet to be faster and more accurate)",
+        "• [Hu et al., 2021] ForceNet: A Graph Neural Network for Large-Scale Quantum Calculations",
+        "(ForceNet , Extends SchNet to condition on directional information, no longer invariant)",
+        "• [Li et al., 2023] Is Distance Matrix Enough for Geometric Deep Learning?",
+        "(Distance plus powerful GNNs show strong performance)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "title": "Part 2. Vector-based",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Part 2. Vector-based",
+        "Geometric GNNs"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "Overview of Part 2",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview of Part 2",
+        "Here, we study geometric GNNs that build equivariance",
+        "from the most simple ideas.",
+        "Publications:",
+        "• [Satorras et al., 2021] E(n) Equivariant Graph Neural Networks",
+        "• [Schütt et al., 2021] Equivariant Message Passing for the Prediction of",
+        "Tensorial Properties and Molecular Spectra",
+        "• [Thölke and Fabritiis, 2022] TorchMD-NET: Equivariant Transformers",
+        "for Neural Network based Molecular Potentials"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "title": "EGNN: Equivariant Graph Neural Network",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "EGNN: Equivariant Graph Neural Network",
+        "How to design an E(n) equivariant layer, in the most simplest form?",
+        "Key ideas:",
+        "1.   Difference between positions is E(n) equivariant:",
+        "(x1 , x2 ) 7! x1",
+        "<latexit sha1_base64=\"DRyFjTUduniE/PKDLM4yop73avw=\">AAACB3icbVDLSgMxFM3UV62vUZeCBItQQctM8dFlwY3LCvYB7TBk0kwbTDJDkpGWoTs3/oobF4q49Rfc+Tem7Sy09ULCyTn3cnNOEDOqtON8W7ml5ZXVtfx6YWNza3vH3t1rqiiRmDRwxCLZDpAijArS0FQz0o4lQTxgpBXcX0/01gORikbiTo9i4nHUFzSkGGlD+fZhaei7p3DoV05gl6NY6cg8Und8Zu7K2LeLTtmZFlwEbgaKIKu6b391exFOOBEaM6RUx3Vi7aVIaooZGRe6iSIxwveoTzoGCsSJ8tKpjzE8NkwPhpE0R2g4ZX9PpIgrNeKB6eRID9S8NiH/0zqJDqteSkWcaCLwbFGYMGjMTkKBPSoJ1mxkAMKSmr9CPEASYW2iK5gQ3HnLi6BZKbuX5Yvb82KtmsWRBwfgCJSAC65ADdyAOmgADB7BM3gFb9aT9WK9Wx+z1pyVzeyDP2V9/gCdTZfj</latexit>",
+        "x2",
+        "2.   Multiplying by an invariant weight is E(n) equivariant.",
+        "x2 7! w(x1",
+        "<latexit sha1_base64=\"0bYuA/aw0RMSADp05RaitiIOl+U=\">AAACC3icbVA7T8MwGHTKq5RXgJHFaoVUBqqk4tGxEgtjkehDaqPIcZ3Wqu1EtgNUUXcW/goLAwix8gfY+De4bQZoOcnW6e77ZN8FMaNKO863lVtZXVvfyG8WtrZ3dvfs/YOWihKJSRNHLJKdACnCqCBNTTUjnVgSxANG2sHoauq374hUNBK3ehwTj6OBoCHFSBvJt4sPfupOTs1dncAeR7HSEbwv/1JPfLvkVJwZ4DJxM1ICGRq+/dXrRzjhRGjMkFJd14m1lyKpKWZkUuglisQIj9CAdA0ViBPlpbMsE3hslD4MI2mO0HCm/t5IEVdqzAMzyZEeqkVvKv7ndRMd1ryUijjRROD5Q2HCoMk7LQb2qSRYs7EhCEtq/grxEEmEtamvYEpwFyMvk1a14l5Uzm/OSvVaVkceHIEiKAMXXII6uAYN0AQYPIJn8ArerCfrxXq3PuajOSvbOQR/YH3+APBrmlM=</latexit>",
+        "x1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 x2 )",
+        "3.   Non-linear transformation of invariant features can generate the invariant weights:",
+        "x2 7! w(x1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       x2 k)",
+        "<latexit sha1_base64=\"wL4tFzdWpjuJm9Tb1OSEdCPEfpA=\">AAACOHicbVDJTgIxGO7ghriNevTSSEwgETJDXLiYkHjxJiayJMxk0ikFGjoLbUckEx7Li4/hzXjxoDFefQILzAHBP2nz5VvS/p8bMiqkYbxqqZXVtfWN9GZma3tnd0/fP6iLIOKY1HDAAt50kSCM+qQmqWSkGXKCPJeRhtu/nuiNB8IFDfx7OQqJ7aGuTzsUI6koR799dGJzXFB3aQwtD4VCBnCYm2Pzp9AaDCLUhkN4ZYU9mrNYnXAJpx5YgEmWT8i8o2eNojEduAzMBGRBMlVHf7HaAY484kvMkBAt0wilHSMuKWZknLEiQUKE+6hLWgr6yCPCjqeLj+GJYtqwE3B1fAmn7HwiRp4QI89VTg/JnljUJuR/WiuSnbIdUz+MJPHx7KFOxKAqZ9IibFNOsGQjBRDmVP0V4h7iCEvVdUaVYC6uvAzqpaJ5UTy/O8tWykkdaXAEjkEOmOASVMANqIIawOAJvIEP8Kk9a+/al/Y9s6a0JHMI/oz28wv6UKtB</latexit>",
+        "x1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        x2 ),   w = (kx1"
+      ],
+      "media_sha256": [
+        "a10354c24821835345edaa0190be297ce9c5cc779eee39f5ab3fe7d89c0c5708",
+        "dbf7472a8112b4b57b83a327e0eb1f543e92b6f6dccf2e9d2c48ed82740fedf6",
+        "c1422a008dc95e6d75c3e02bfe5d7894a5b6c487dd9554c7e6545eb6cedd862e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "title": "EGNN: Equivariant Graph Neural Network",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "EGNN: Equivariant Graph Neural Network",
+        "EGNN sequentially updates the",
+        "invariant node embeddings 𝐡(\" and",
+        "equivariant coordinates 𝐱 \"( .",
+        "⇣                                        ⌘      (invariant)",
+        "l 2",
+        "<latexit sha1_base64=\"yelUz9LosNusOfG5v0lrs2cWdg8=\">AAADinicfVJNb9NAEN3YQIspkNIjlxURqKhtZEfQDyGkSuXAsUikrZRNrfVmbG+6XhvvGjUy/i/8Jm78G9ZOguKm6kiWZt7M+L2ZnSATXGnX/dux7EePn2xsPnWebT1/8bK7/epCpUXOYMhSkeZXAVUguISh5lrAVZYDTQIBl8HNWZ2//Am54qn8rmcZjBMaSR5yRrWB/O3ObxJAxGVJBY8kTCqHJFTHQVgmlV9yPK3wO/yZZDH3gQgI9e4yH1c+vxb7eCWemrgpIr+W6G1TdbASmiKS8yg2RdeDfUznLHPoPSbEabWWYs+bS2j9cO8ME1UkfjnFRMIPzKu2uAdoDUc9zW27YTntPTpMijcK2oR4bVErPXFbe00YP7y+mmVB7hCQk/8P4nd7bt9tDK873sLpoYWd+90/ZJKyIgGpmaBKjTw30+OS5pozAeaBCwUZZTc0gpFxJU1AjcvmlCr81iATHKa5+aTGDbraUdJEqVkSmMpauLqbq8H7cqNCh8fjksus0CDZnCgsBNYpru8ST3gOTIuZcSjLudGKWUxzyrS5Xscswbs78rpzMeh7h/2P3z70To8X69hEr9EbtIs8dIRO0Vd0joaIWRvWgXVoHdlb9sA+sT/NS63OomcHtcz+8g8/PCZ8</latexit>",
+        "edge feature",
+        "mij =    e       hli , hlj ,   xli       xj , aij",
+        "X",
+        "xl+1",
+        "i   = x l",
+        "i+C                   xli       xlj    x (mij )",
+        "j6=i",
+        "X                            Difference between",
+        "mi =          mij                   equivariant features",
+        "j6=i",
+        "hl+1",
+        "i   =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            h     hli , mi"
+      ],
+      "media_sha256": [
+        "00684e3c86f104904573ad97ab7ac8ca8e4352b256171afd3c4b49eac01dc122",
+        "0cd56cbe919113c01b6f1f2aefcfc82c226d67d2fcce9e38295211e1f3f8f44e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "title": "EGNN: Equivariant Graph Neural Network",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "EGNN: Equivariant Graph Neural Network",
+        "EGNN does not show the best performance, but surprisingly powerful",
+        "given simplicity of the implementation!"
+      ],
+      "media_sha256": [
+        "5763fc36dd82bc8d31b5160a523318cff6c5d7507afe97e667e19fc3fe16d327"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "Similar to EGNN, but further considered the following operations:",
+        "1. Any non-linear function of E(3) invariant scalars: f (s)",
+        "<latexit sha1_base64=\"3+GuD0jivrwWP7H+SI+JWzouW9k=\">AAAB/3icbVDLSsNAFL3xWesrKrhxM1iEuimJ+Oiy4MZlBfuANpTJdNIOnUzCzEQosQt/xY0LRdz6G+78GydtBG09MHA4517umePHnCntOF/W0vLK6tp6YaO4ubW9s2vv7TdVlEhCGyTikWz7WFHOBG1opjltx5Li0Oe05Y+uM791T6VikbjT45h6IR4IFjCCtZF69mE3xHroB2kwKf9QNTnt2SWn4kyBFombkxLkqPfsz24/IklIhSYcK9VxnVh7KZaaEU4nxW6iaIzJCA9ox1CBQ6q8dJp/gk6M0kdBJM0TGk3V3xspDpUah76ZzCKqeS8T//M6iQ6qXspEnGgqyOxQkHCkI5SVgfpMUqL52BBMJDNZERliiYk2lRVNCe78lxdJ86ziXlYubs9LtWpeRwGO4BjK4MIV1OAG6tAAAg/wBC/waj1az9ab9T4bXbLynQP4A+vjG0Kklj0=</latexit>",
+        "scalar",
+        "2.   Scaling of E(3) equivariant vectors: s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ~v",
+        "<latexit sha1_base64=\"UtMC2VYwBpnxJ9J+lealpFvKHAo=\">AAACCnicbVDLSsNAFL2pr1pfUZduRovgqiTio8uCG5cV7AOaUCbTSTt08mBmUighazf+ihsXirj1C9z5N07aCNp64MLhnHu59x4v5kwqy/oySiura+sb5c3K1vbO7p65f9CWUSIIbZGIR6LrYUk5C2lLMcVpNxYUBx6nHW98k/udCRWSReG9msbUDfAwZD4jWGmpbx47AVYjz09lhhzCBEHOhJL0R51kWd+sWjVrBrRM7IJUoUCzb346g4gkAQ0V4VjKnm3Fyk2xUIxwmlWcRNIYkzEe0p6mIQ6odNPZKxk61coA+ZHQFSo0U39PpDiQchp4ujM/US56ufif10uUX3dTFsaJoiGZL/ITjlSE8lzQgAlKFJ9qgolg+lZERlhgonR6FR2CvfjyMmmf1+yr2uXdRbVRL+IowxGcwBnYcA0NuIUmtIDAAzzBC7waj8az8Wa8z1tLRjFzCH9gfHwDNnqbOQ==</latexit>",
+        "vector",
+        "3.   Linear combination of vectors: W~",
+        "v",
+        "<latexit sha1_base64=\"hicxn/A/aroeNOYy7sMlwXQQlhs=\">AAACBHicbVDLSsNAFJ3UV62vqMtuBovgqiTio8uCG5cV7AOaUCbTm3bo5MHMpFBCFm78FTcuFHHrR7jzb5y0EbT1wMCZc+7l3nu8mDOpLOvLKK2tb2xulbcrO7t7+wfm4VFHRomg0KYRj0TPIxI4C6GtmOLQiwWQwOPQ9SY3ud+dgpAsCu/VLAY3IKOQ+YwSpaWBWXUCosaen3Yz7EyBpj//aZYNzJpVt+bAq8QuSA0VaA3MT2cY0SSAUFFOpOzbVqzclAjFKIes4iQSYkInZAR9TUMSgHTT+REZPtXKEPuR0C9UeK7+7khJIOUs8HRlvqJc9nLxP6+fKL/hpiyMEwUhXQzyE45VhPNE8JAJoIrPNCFUML0rpmMiCFU6t4oOwV4+eZV0zuv2Vf3y7qLWbBRxlFEVnaAzZKNr1ES3qIXaiKIH9IRe0KvxaDwbb8b7orRkFD3H6A+Mj2+0q5jE</latexit>",
+        "6. Gradient of invariant function:",
+        "r~v W(~v)",
+        "<latexit sha1_base64=\"jhb/ICkzgcTzA2RomkcJnUpIaZ8=\">AAACIHicbVDLSsNAFJ34rPVVdelmsAh1UxJR22XBjcsK9gFNCDfTSTt0Mgkzk0IJ+RQ3/oobF4roTr/G6WOhrQcGzpxzL/feEyScKW3bX9ba+sbm1nZhp7i7t39wWDo6bqs4lYS2SMxj2Q1AUc4EbWmmOe0mkkIUcNoJRrdTvzOmUrFYPOhJQr0IBoKFjIA2kl+quQICDn7mjinJ3Aj0MAizcZ7nePYhwLNOXll2L/xS2a7aM+BV4ixIGS3Q9Eufbj8maUSFJhyU6jl2or0MpGaE07zopoomQEYwoD1DBURUednswByfG6WPw1iaJzSeqb87MoiUmkSBqZzuqJa9qfif10t1WPcyJpJUU0Hmg8KUYx3jaVq4zyQlmk8MASKZ2RWTIUgg2mRaNCE4yyevkvZl1bmpXt9flRv1RRwFdIrOUAU5qIYa6A41UQsR9Iie0St6s56sF+vd+piXrlmLnhP0B9b3D5rDpRQ=</latexit>",
+        "vk2 , s = h~v1 , ~v2 i                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    e.g., force is gradient of energy.",
+        "<latexit sha1_base64=\"uLlUoyimbNtmNX96WCXOxfWQU3c=\">AAACVnicbVFLqxoxFM6MtXq9fUzb5d2EyoUuisxIH24KQjddWqgPMFYy8YwGM5khOSPIOH+y3bQ/pZvS+ChY7YHAx/cgJ1/iXEmLYfjT82sP6g8bzZvW7aPHT54Gz56PbFYYAUORqcxMYm5BSQ1DlKhgkhvgaaxgHK8/7vXxBoyVmf6C2xxmKV9qmUjB0VHzIGUpx1WclLb6wHZsA6L8y2yqiu2+dl/Tc4uCBJnieqng0jyPnPWS6zIjlytk5hCZB+2wEx6GXoPoBNrkNIN58I0tMlGkoFEobu00CnOcldygFAqqFiss5Fys+RKmDmqegp2Vh1oqeu+YBU0y445GemDPEyVPrd2msXPuN7aX2p78nzYtMOnNSqnzAkGL40VJoShmdN8xXUgDAtXWAS6MdLtSseKGC3Q/0XIlRJdPvgajbid613n7+U273zvV0SR35CV5RSLynvTJJzIgQyLId/LL872a98P77df9xtHqe6fMC/LP+MEf5uy3Zg==</latexit>",
+        "4.   Scalar products: s = k~",
+        "5.                    v1 ⇥ ~v2",
+        "Vector products: ~",
+        "<latexit sha1_base64=\"acbNpEhxDs5+CnSrS8NZtkjNTwU=\">AAACGXicbVDLSsNAFL3xWesr6tLNYBFclaT46LLgxmUF+4AmhMl00g6dPJiZFErIb7jxV9y4UMSlrvwbJ20W2nrgwuGce7n3Hj/hTCrL+jbW1jc2t7YrO9Xdvf2DQ/PouCvjVBDaITGPRd/HknIW0Y5iitN+IigOfU57/uS28HtTKiSLowc1S6gb4lHEAkaw0pJnWs6UkswJsRr7QTbNcy+zc+QoFlKJVr1G7pk1q27NgVaJXZIalGh75qczjEka0kgRjqUc2Fai3AwLxQinedVJJU0wmeARHWgaYb3Zzeaf5ehcK0MUxEJXpNBc/T2R4VDKWejrzuJMuewV4n/eIFVB081YlKSKRmSxKEg5UjEqYkJDJihRfKYJJoLpWxEZY4GJ0mFWdQj28surpNuo29f1q/vLWqtZxlGBUziDC7DhBlpwB23oAIFHeIZXeDOejBfj3fhYtK4Z5cwJ/IHx9QOyUqH2</latexit>"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "Claims the downside of scalarization-based geometric GNNs (SchNet, DimeNet, …):",
+        "• computational efficiency",
+        "• ability to propagate directional information",
+        "beyond the neighborhood."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "Updates scalar feature 𝐬\" = 𝐬\") , 𝐬\"* and equivariant vector feature 𝐯\" = 𝐯\") , 𝐯\"*",
+        "using residual updates, e.g., 𝐬\")+$ = 𝐬\") + Δ𝐬\") , 𝐯\")+𝟏 = 𝐯\") + Δ𝐯\") .",
+        "The residuals are computed as follows:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      invariant",
+        "filter function",
+        "positional   <latexit sha1_base64=\"OBZCSAMes10A3aiAKJ5xkn2ny94=\">AAADNHicjVJdi9QwFE3r11q/ZvXRl+DgsiIM08WPfREW9EF8WsHZWZiMJU1vO9lN05KkhSH2R/niD/FFBB8U8dXfYDrTEWdG0AsJh3POzb25SVwKrs1w+NnzL1y8dPnKztXg2vUbN2/1dm+f6KJSDEasEIU6jakGwSWMDDcCTksFNI8FjOPz560+rkFpXsg3Zl7CNKeZ5Cln1Dgq2vVekRgyLi0VPJOQNAF5AcJQTGpgluTUzOLU1k0T8bc53sPPiK7y6GxbdhTjimFSznhka1w3REBq9lce7SxE8WxmHqycrcKosONmLaHdybtFAeUUjs+aZaIjVweQYA8/XLXSVdT/rihpLGhk185uNhvR/99IQEAmv0cX9frDwXAReBuEHeijLo6j3keSFKzKQRomqNaTcFiaqaXKcCbAPUWloaTsnGYwcVDSHPTULh69wfcdk+C0UG5JgxfsnxmW5lrP89g52/vpTa0l/6ZNKpMeTi2XZWVAsmWhtBLYFLj9QTjhCpgRcwcoU9z1itmMKsqM+2eBG0K4eeVtcHIwCJ8MHr9+1D867Maxg+6ie2gfhegpOkIv0TEaIea99z55X71v/gf/i//d/7G0+l6Xcwethf/zF9/NDsQ=</latexit>",
+        "X",
+        "difference                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ~vim =       ~vj    vv (sj )      Wvv (k~rij k)",
+        "sm",
+        "i = ( s (s) ⇤ Ws )i",
+        "<latexit sha1_base64=\"MQoRIxKErhWOdqYuncOeHpTdVmM=\">AAACu3icbVFda9swFJW9r9b7ytbHvYiFjXQPwS5bm5dCYX3YYwdLU4hSI8vXtlJZNpJcCJr/5N72bybHpt3SXZA4nHvOte9RUguuTRj+9vxHj588fba3Hzx/8fLV69Gbt5e6ahSDOatEpa4SqkFwCXPDjYCrWgEtEwGL5OZr11/cgtK8kj/MpoZVSXPJM86ocVQ8+kUSyLm0VPBcQtoG5ByEoZiU1BRJZnUb8+sSf8SnREBmJqQueKwn9+1D/KkXMyrsoo01UTwvzGHMMSFB59NNGa9xbxyG3A9fD3JMGFdsZ1Iv7m7yk9wCs6qNLcfrtjc5sjcHBGR6t0I8GofTcFv4IYgGMEZDXXQhpBVrSpCGCar1Mgprs7JUGc4EuEgaDTVlNzSHpYOSlqBXdpt9iz84JsVZpdyRBm/Zvx2WllpvysQpu930bq8j/9dbNiabrSyXdWNAsv5DWSOwqXD3kDjlCpgRGwcoU9z9K2YFVZQZ99yBCyHaXfkhuDyaRsfTL98/j89mQxx76B16jyYoQifoDH1DF2iOmDfzrr3cK/xTn/lrX/RS3xs8B+if8ps/quza2A==</latexit>",
+        "j",
+        "X                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 X",
+        "=       s (sj )      Ws (k~rij k)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               +          vs (sj )    rr~ij Wvs (k~rij k)",
+        "j                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 j",
+        "invariant filter                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     equivariant filter derived as",
+        "function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         gradient of invariant function"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "Updates scalar feature 𝐬\" = 𝐬\") , 𝐬\"* and equivariant vector feature 𝐯\" = 𝐯\") , 𝐯\"*",
+        "using residual updates, e.g., 𝐬\")+$ = 𝐬\") + Δ𝐬\") , 𝐯\")+𝟏 = 𝐯\") + Δ𝐯\") .",
+        "The residuals are computed as follows:",
+        "equivariant linear",
+        "transformation",
+        "sui = ass (si , kV~vi k)",
+        "<latexit sha1_base64=\"wDy74B808IFBXKZXry9fUm4Kz+U=\">AAADK3icrVJLj9MwEHbCawmP7cKRi0XFahGrKkE89oK0CA4cF4l2V6pLNHEnqbWOE9lOpSrk/3Dhr3CAAw9x5X/gpC3a14EDI1n+/M03Y894klIKY8Pwh+dfunzl6rWN68GNm7dub/a27oxMUWmOQ17IQh8lYFAKhUMrrMSjUiPkicTD5PhV6z+cozaiUO/sosRJDpkSqeBgHRVveS9ZgplQNUiRKZw2AXuN0gJlOdhZktamicX7im7TF2sGmrg21DRMYmp3Tup2O4p9WHOjhrI58np9njdOxLTIZq2o2x9SxoJt+uh08vl/Sr4MkaAyiWvd8KK4XfovaXWXiA4Chmr6t2Nxrx8Ows7oeRCtQJ+s7CDufWHTglc5KsslGDOOwtJOatBWcInuByqDJfBjyHDsoIIczaTu/rqhDxwzpWmh3VKWduzJiBpyYxZ54pRtBeasryUv8o0rm+5NaqHKyqLiy4vSSlJb0HZw6FRo5FYuHACuhXsr5TPQwK0br8A1ITpb8nkwejyIng2evn3S399btWOD3CP3yQ6JyHOyT96QAzIk3Pvoffa+ed/9T/5X/6f/ayn1vVXMXXLK/N9/AEfWDJk=</latexit>",
+        "~viu = avv (si , kV~vi k) U~vi",
+        "<latexit sha1_base64=\"39Ml0Y+UjZKnS7qqHVCbwUXzp60=\">AAACeXicbVFNT9tAEF27UGhoSyhHetgSgdIKRTbfFyQkeuAIUhOQ4tRab8bJKusP7Y4tRcb/gd/GjT/CpRfWJpEKZKTVvn3vze7sTJBKodFxHi37w9Lyx5XVT421z1++rjc3vvV0kikOXZ7IRN0GTIMUMXRRoITbVAGLAgk3weSi0m9yUFok8R+cpjCI2CgWoeAMDeU3773fIJFRLwdeeBHDcRAWeVn64m92Nj+z0i9ympeehBDbc1Yb015NeXdzrlcuuMlTYjSuTPX+k87F7iKz32w5HacO+h64M9Ais7jymw/eMOFZBDFyybTuu06Kg4IpFFxC2fAyDSnjEzaCvoExi0APirpzJd0xzJCGiTIrRlqz/2cULNJ6GgXGWRWp32oVuUjrZxieDgoRpxlCzF8eCjNJMaHVGOhQKOAopwYwroSplfIxU4yjGVbDNMF9++X3oLffcY87R9eHrfPTWTtWyRbZJm3ikhNyTi7JFekSTp6s79aOtWv9s3/YbfvXi9W2Zjmb5FXYB8/wr8Tb</latexit>",
+        "+ asv (si , kV~vi k) hU~vi , V~vi i .",
+        "invariant norm &",
+        "inner product"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 55,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "For QM9, performs better than EGNN, other invariant geometric GNNs,",
+        "and more complicated architectures."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 56,
+      "pptx_slide": null,
+      "title": "PaiNN: Polarizable Atom Interaction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "PaiNN: Polarizable Atom Interaction",
+        "For MD17, performs better than EGNN, other invariant geometric GNNs,",
+        "and more complicated architectures."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 57,
+      "pptx_slide": null,
+      "title": "TorchMD-NET: An Equivariant Transformer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "TorchMD-NET: An Equivariant Transformer",
+        "How to extend EGNN to use attention layers?",
+        "Key ideas:",
+        "• define attention as a scalar-conditioned non-linear function.",
+        "• incorporate edge information via adding bond features into the attention matrix."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 58,
+      "pptx_slide": null,
+      "title": "TorchMD-NET: An Equivariant Transformer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "TorchMD-NET: An Equivariant Transformer",
+        "TorchMD-NET updates scalar feature 𝑥\"",
+        "and equivariant feature 𝑣⃗\" using residual updates,",
+        "i.e., 𝑥\" ← 𝑥\" + Δ𝑥\" , 𝑣⃗\" ← 𝑣⃗\" + Δ𝑣\" .",
+        "The updates are defined as follows:",
+        "(scalar) bond-wise attention",
+        "N",
+        "<latexit sha1_base64=\"obfqYRCioHwuvC6wwIqOrpWAc3M=\">AAACwHicbVFdb9MwFHXCx0b4WIFHXiwqENJElWwD9jJpGjzwhIZEt0l1GznOTerOsTPbKSohf3IviH+Dm6YDtl3J0tE59/p+nKQU3Ngw/O35d+7eu7+x+SB4+Ojxk63e02cnRlWawZApofRZQg0ILmFouRVwVmqgRSLgNDn/uNRP56ANV/KbXZQwLmguecYZtY6Ke79IAjmXNRU8l5A2AZkDq783Mcev8QExVRHPJl+wiWuOZ80kwkSlyuI2a97Es+21srNWMk1Z3era/fJ2jWZNTQRklvy8RSOa51MnNZiQgHwCYelVi9Ug66m2L2I+2e16DePdv2kBAZle7RH3+uEgbAPfBFEH+qiL47h3SVLFqgKkZYIaM4rC0o5rqi1nAtxdKgMlZec0h5GDkhZgxnVrQINfOSbFmdLuSYtb9t+KmhbGLIrEZRbUTs11bUnepo0qm+2Pay7LyoJkq0ZZJbBVeOkmTrkGZsXCAco0d7NiNqXOAes8D9wRousr3wQnO4Po/eDd173+4X53jk30Ar1Eb1CEPqBD9BkdoyFi3oHHPOEV/pE/9ZV/sUr1va7mOfov/B9/AIGN3Pw=</latexit>",
+        "X                         ~ri   ~rj",
+        "w",
+        "~i =       s1ij   ~vj + s2ij",
+        "j",
+        "k~ri   ~rj k",
+        "~ i + qi3",
+        "~vi = w            U3~vi",
+        "xi = qi1 + qi2",
+        "<latexit sha1_base64=\"zbLSWCQKGry6j9jgxV0Bl2b3tto=\">AAACO3icbVBNTxsxEPVSKGlKS1qOvVhElSq1inYjoLlUilQOHAGRDymbrrzObGLFay/2bNRolf/VC3+CGxcuHFohrtxxQiTa0JE8evPmjcbz4kwKi75/5a29WN94uVl6VX699ebtduXd+7bVueHQ4lpq042ZBSkUtFCghG5mgKWxhE48/j7vdyZgrNDqDKcZ9FM2VCIRnKGjosppeAgSGf0ZiW/nkfgRfJ7nOg31QGMoIXGJqaEE2ooCGk6AF5NZJL64sv5UhkYMRxiahTKqVP2avwj6HARLUCXLOI4ql+FA8zwFhVwya3uBn2G/YAYFlzArh7mFjPExG0LPQcVSsP1icfuMfnTMgCbauKeQLti/JwqWWjtNY6dMGY7sam9O/q/XyzFp9AuhshxB8cdFSS4pajo3kg6EAY5y6gDjRri/Uj5ihnF0dpedCcHqyc9Bu14LDmr7J3vVZmNpR4l8ILvkEwnIV9IkR+SYtAgnv8g1+U3+eBfejXfr3T1K17zlzA75J7z7B6iRrew=</latexit>",
+        "hU1~vi , U2~vi i",
+        "(scalar) inner",
+        "product of vectors"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 59,
+      "pptx_slide": null,
+      "title": "TorchMD-NET: An Equivariant Transformer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "TorchMD-NET: An Equivariant Transformer",
+        "TorchMD-NET also proposes a new attention mechanism to",
+        "incorporate distance information 𝑑\"! .",
+        "Gaussian radial",
+        "basis function",
+        "⇣    K                  K",
+        "⌘                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <latexit sha1_base64=\"PNZ3vnk+qTnzlaI6NIHocKwrQNw=\">AAACpXiclVFbi9QwFE7rZdd6G/XRl7CDuiIMrbi6L8KiIgsi7C47nYXJTEnT007cJC1JKgyh/8xf4Zv/xsxMFd3xxQOB73zfOSfnkjeCGxvHP4Lw2vUbN3d2b0W379y9d3/w4GFq6lYzGLNa1PoipwYEVzC23Aq4aDRQmQuY5JfvV/rkK2jDa3Vulw3MJK0ULzmj1lPZ4BvJoeLKUcErBUUXPcUf5p/eEsMrSYmA0u5P5s5THYa5I5LahZbu7N3HrtuoOnMcf+mI5tXCPn+Rb4J7FxOyLphuF0z/p2D6y40IqOJ3s9lgGI/iteFtkPRgiHo7yQbfSVGzVoKyTFBjpknc2Jmj2nImoItIa6Ch7JJWMPVQUQlm5tZb7vATzxS4rLV/yuI1+2eGo9KYpcx95Goqc1Vbkf/Spq0tD2eOq6a1oNjmo7IV2NZ4dTJccA3MiqUHlGnue8VsQTVl1h828ktIro68DdKXo+T16OD01fDosF/HLnqM9tA+StAbdISO0QkaIxbsBcfBaXAWPgs/h+dhugkNgz7nEfrLwuwnxDbQIQ==</latexit>",
+        "WDDK eRBF",
+        "<latexit sha1_base64=\"FWA1PHSXSsAg9wqpP7LUQP0cnRA=\">AAACUnicbVLLSgMxFE3rq9ZX1aWbYBEUpMyIr41Q0YWgC0WrQqeWTOZOG81MhuSOUIZ+oyBu/BA3LtS0nYWvCyGHc84lNyfxEykMOs5roTg2PjE5VZouz8zOzS9UFpeujUo1hwZXUulbnxmQIoYGCpRwm2hgkS/hxn84Gug3j6CNUPEV9hJoRawTi1BwhpZqV8ThgacS0AyVjlkE2aU4a/Q9CSGu/xQChTl/sUlPN+nx3amnRaeLG/lGPW491Eu6YuQL2pmg9/1cbleqTs0ZFv0L3BxUSV7n7cqzFyieRhAjl8yYpusk2MqYRsEl9MteaiBh/IF1oGnhYEjTyoaR9OmaZQIaKm1XjHTIfu/IWGRML/KtM2LYNb+1Afmf1kwx3G9lIk5ShJiPDgpTSVHRQb40EBo4yp4FjGthZ6W8yzTjaF+hbENwf1/5L7jeqrm7tZ2L7Wp9P4+jRFbIKlknLtkjdXJCzkmDcPJE3sgH+Sy8FN6L9peMrMVC3rNMflRx9gvZWrTU</latexit>",
+        "K",
+        "A = SiLU Ddot =Q, K,          (rij ) + bD",
+        "· (d",
+        "⇣    V                 V",
+        "⌘",
+        "V      QW D eRBF (rij ) + bDK",
+        "DQ  =",
+        "<latexit sha1_base64=\"x6yx1roDVO9xidapc/CNZeWLFH0=\">AAAChXicbVFda9swFJW9j3beV7Y97kUsDDLoQly6ri9lhZUx8EsDS1OIEiPLN46ILHnS9Wgw+Sf7VXvbv5mSmH20uyA4nHMu9+jerFLS4WDwMwjv3L13f2//QfTw0eMnTzvPnl86U1sBI2GUsVcZd6CkhhFKVHBVWeBlpmCcLT9u9PE3sE4a/QVXFUxLXmg5l4Kjp9LOd5ZBIXVTcFyAhXwdDU/HsyG9TiVlX2ueU4ZwjbShXOd03XKJ9yQ7D4uYqcByNFbzEprc4JopmGNveECTA3o+S5iVxQLfnDJXl+ly9okO0yVlxjtp8hudeyWJGOj8T5a00x30B9uit0Hcgi5p6yLt/GC5EXUJGoXizk3iQYXThluUQsE6YrWDioslL2Di4SawmzbbLa7pa8/kdG6sfxrplv27o+Glc6sy887SJ3Q3tQ35P21S4/xk2khd1Qha7AbNa0XR0M1JaC4tCFQrD7iw0melYsEtF+gPF/klxDe/fBtcHvbj4/674VH37KRdxz55SV6RHonJe3JGPpMLMiIiCINeEAeH4V74NjwKj3fWMGh7XpB/KvzwC2XFwOY=</latexit>",
+        "= W xi and K = W xi",
+        "F",
+        "X       K",
+        "<latexit sha1_base64=\"FWA1PHSXSsAg9wqpP7LUQP0cnRA=\">AAACUnicbVLLSgMxFE3rq9ZX1aWbYBEUpMyIr41Q0YWgC0WrQqeWTOZOG81MhuSOUIZ+oyBu/BA3LtS0nYWvCyGHc84lNyfxEykMOs5roTg2PjE5VZouz8zOzS9UFpeujUo1hwZXUulbnxmQIoYGCpRwm2hgkS/hxn84Gug3j6CNUPEV9hJoRawTi1BwhpZqV8ThgacS0AyVjlkE2aU4a/Q9CSGu/xQChTl/sUlPN+nx3amnRaeLG/lGPW491Eu6YuQL2pmg9/1cbleqTs0ZFv0L3BxUSV7n7cqzFyieRhAjl8yYpusk2MqYRsEl9MteaiBh/IF1oGnhYEjTyoaR9OmaZQIaKm1XjHTIfu/IWGRML/KtM2LYNb+1Afmf1kwx3G9lIk5ShJiPDgpTSVHRQb40EBo4yp4FjGthZ6W8yzTjaF+hbENwf1/5L7jeqrm7tZ2L7Wp9P4+jRFbIKlknLtkjdXJCzkmDcPJE3sgH+Sy8FN6L9peMrMVC3rNMflRx9gvZWrTU</latexit>",
+        "A = SiLU",
+        "dot Q, K, D         Qk Kk· (d",
+        "Kdot Q, K, D",
+        "=              K)",
+        "Dkij",
+        "k",
+        "Replacement of Softmax"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 60,
+      "pptx_slide": null,
+      "title": "TorchMD-NET: An Equivariant Transformer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "TorchMD-NET: An Equivariant Transformer",
+        "Outperforms both EGNN and PaiNN at the cost of slower running time."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 61,
+      "pptx_slide": 61,
+      "title": "End of Slide",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "End of Slide",
+        "More related publications:",
+        "• [Deng et al., 2021] Vector Neurons: A General Framework for SO(3)-Equivariant Networks",
+        "(VN, similar to EGNN but for computer vision)",
+        "• [Gasteiger et al., 2021] GemNet: Universal Directional Graph Neural Networks for Molecules",
+        "(GemNet, two-hop message passing to recognize torsional information)",
+        "• [Haghighatlari et al., 2022] NewtonNet: a Newtonian message passing network",
+        "for deep learning of interatomic potentials and forces",
+        "(NewtonNet, architecture inspired from Newton’s rule)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "480ee1f10a097bb97b26f73cb7b45c82cedbca54c876712fa2d34943946f4d53",
+      "pptx_path": "ppt/media/image1.gif",
+      "extension": ".gif",
+      "bytes": 4744534,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "875302685c8c00a93965140a0b05bdd026431fc3a5c7cb040dbcdaf02b16f96f",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 743383,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "8e40ffe07ba3adb311860c84e02f4b4823a99fd7e131357a9449952d801a9bb1",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 216022,
+      "slides": [
+        9
+      ]
+    },
+    {
+      "sha256": "a74ade1a1df13942f5b712b068f94f68e04df9fdf100ede1e19f007f3a1cb8e1",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 24349,
+      "slides": [
+        10
+      ]
+    },
+    {
+      "sha256": "5d9399de38ef7cbd204512d4793e4a059f9c6ae99e47e819acab8c89455a7cc6",
+      "pptx_path": "ppt/media/image13.jpeg",
+      "extension": ".jpeg",
+      "bytes": 33503,
+      "slides": [
+        10
+      ]
+    },
+    {
+      "sha256": "dce32d0c92acb95e5a62dd28a01124eafdef2b0da7667eaf81b4540247a5e27f",
+      "pptx_path": "ppt/media/image14.emf",
+      "extension": ".emf",
+      "bytes": 70016,
+      "slides": [
+        10,
+        18
+      ]
+    },
+    {
+      "sha256": "4c0d85a1c538da2f7ed6f82be38cf32c7e906d2c8a8e8ca7d10b34b842174b8d",
+      "pptx_path": "ppt/media/image15.jpeg",
+      "extension": ".jpeg",
+      "bytes": 9936,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "c06fc357e29a3e464bfcc9598081e6ad90e19ccf670f83a148db253fa1a8cb90",
+      "pptx_path": "ppt/media/image16.emf",
+      "extension": ".emf",
+      "bytes": 113380,
+      "slides": [
+        14,
+        14
+      ]
+    },
+    {
+      "sha256": "6f4082852f54ef22d0ff0e3a664afd63f3b3832e3e9e261e91f97a4e68381430",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 232654,
+      "slides": [
+        14,
+        14
+      ]
+    },
+    {
+      "sha256": "c3b6bad7056f5db3d4e4456bf32750c6ac24c889a45fec5cdc71862a3a544193",
+      "pptx_path": "ppt/media/image18.emf",
+      "extension": ".emf",
+      "bytes": 92796,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "faac4318aa2a405caa1e635e33e54aefd0821ab008fc058674093ba41905172d",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 97836,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "3e7a0f0ff7fc248b3722446342864f693e27942ee533f6261bf8dbf42efe9dab",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 7024,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "ac64a1661a88e5a03cfda98d4d67d725dba14b3c8e2c7133155cf2999896fc3d",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 273653,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "50ab70ff53b17c6fe9bc334c20dd0718741366a79abcff01c037f2cac4dfea61",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 78689,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "cc2dcd10936f299d87d628ff581ce815b3c5ae1be478799e7d7ef9d1f2cf6cd5",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 78278,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "ce9aa1799f0b92bbe5ba854be67fc82145eec1050e7d0f20eacd975a17bfcb2a",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 57516,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "22aa58dc381cdd05a2046a51ec510bf28ff13633e2ff371c77533bb046c111cf",
+      "pptx_path": "ppt/media/image24.emf",
+      "extension": ".emf",
+      "bytes": 133412,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "a830f2d063c9829b99cd4a60c2f76018cbaef0ab94dab85f2cbed0af2f2474b3",
+      "pptx_path": "ppt/media/image25.emf",
+      "extension": ".emf",
+      "bytes": 95788,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "321b11f86d68ecc4987b8f72c2ba7f82b95edd4e6a83aab18ce348feda2c3e39",
+      "pptx_path": "ppt/media/image26.emf",
+      "extension": ".emf",
+      "bytes": 114384,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "d5cbb80c6f5c73aab7c5a6d388058282b29194508c9da5f92943424033387001",
+      "pptx_path": "ppt/media/image27.emf",
+      "extension": ".emf",
+      "bytes": 65844,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "a2f5959dac696bebef02f643f6446952bbdd1430f4e0126b307dd86c8d0cb194",
+      "pptx_path": "ppt/media/image28.emf",
+      "extension": ".emf",
+      "bytes": 65496,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "3ed1ddd2fc75b768486a6427f38f47b5d469301e4e4944c825e7da6c0a6568a0",
+      "pptx_path": "ppt/media/image29.emf",
+      "extension": ".emf",
+      "bytes": 82848,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "26086f7dfd0f84f623c3deb926e89b7f71b25e536f956f74b25f91e680320d92",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 6288,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "3ce38a2e00403cfd94988935cc2581a7ff0b5078e57781a96aad6b8c5cbf6f3f",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 220760,
+      "slides": [
+        22,
+        22
+      ]
+    },
+    {
+      "sha256": "3bec9328d352fd32e08b21d4d65842044192f5471059a594005c1a0c722b1fb3",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 56808,
+      "slides": [
+        22,
+        22
+      ]
+    },
+    {
+      "sha256": "c428d036eb37b45436c294440876773de86bd5556bef1de7be59deabc2c2e17f",
+      "pptx_path": "ppt/media/image32.emf",
+      "extension": ".emf",
+      "bytes": 96568,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "0d4f37b510da269df6c6897ddc259006dc5e968d98fc13a75d0af155aa53dd7c",
+      "pptx_path": "ppt/media/image33.emf",
+      "extension": ".emf",
+      "bytes": 86700,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "a6c7b6d9202a99d27c00a12b85f5ee56cebcb0f0adf3016b61e208a026161ba4",
+      "pptx_path": "ppt/media/image330.png",
+      "extension": ".png",
+      "bytes": 7383,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "df7bddfd6666044bf7ab48cbbeaa8ece63284b2b36c6c6d8da4489115c5097a8",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 217281,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "5d1fe2532754a53947f36f23a4ada4ce70922cdd68d41a9cc9d24988217487d5",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 195861,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "3916d1aa7f7fe34b7ab34b91118702d981e53e3d4f6cf2692a22aa64d131216a",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 47937,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 187182,
+      "slides": [
+        26,
+        27,
+        28,
+        29
+      ]
+    },
+    {
+      "sha256": "2c487e431c52cacb4afdb4423f494ee8d54ab0cb7c8c7bf4864706db03bf7ee5",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 132782,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "4df53114622b30bcc338e7652ef35c26a7b7676e1ef80b1b79d511f466e437bc",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 116516,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "94394dfba12afa3fce00d797835917426534390b352394277c442ca7568c6275",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 6776,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "459005d48b9ec23eeb4ceda20d22029c8fd695df147cdc64531c12750e1637da",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 7049,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "24baa6d07134928d1f782c39b0f0b7e97272ef4d266320977894a3994aa183f2",
+      "pptx_path": "ppt/media/image41.emf",
+      "extension": ".emf",
+      "bytes": 155576,
+      "slides": [
+        29,
+        29
+      ]
+    },
+    {
+      "sha256": "fb2195669cd77112123c93d0a402f149b59742d78b8c34917534078e2351d902",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 71945,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "5b8e47b8441b20ab805fe7756b4b1c0c79066ac55411359a863cfa39a7dd41cb",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 137761,
+      "slides": [
+        31
+      ]
+    },
+    {
+      "sha256": "f0125040b91461974c09bb697e49d6b090c1a1349df1c4ce14e9e97176711152",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 227539,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "650298c9c9053eeab5cf0f582953d3c4d46b6ff0e1b5f3406f1624068ebfdf65",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 223197,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "c2f38687ca8281e3a23de59efcef58911f55d4ec9a231eeb9bb70cceed0a5dfd",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 74637,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "e80785ac0cf3171dcc21e4da67598cae05b4e65b9097b757711499cec4e43091",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 56412,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "0e2050d7c9bcebef16fd9a3e494a1182c01b7d4a696f43f1c1530d09939b722a",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 176048,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "aa9bdb3c861d00af3f430edbda39fd486b02c0e399478a44cfd57eb23675836b",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 95919,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 175128,
+      "slides": [
+        6,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "sha256": "50208b1df0cda3c238b9df6fc8e46868d9c71ededfa499367e37bd370014db93",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 87790,
+      "slides": [
+        36,
+        37
+      ]
+    },
+    {
+      "sha256": "634c93e4c432c530afccac566a9b7c27973b15a0fec8999fdf9b2ffab93d7115",
+      "pptx_path": "ppt/media/image51.emf",
+      "extension": ".emf",
+      "bytes": 114200,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "852f47dfd6ca6a76632d7eb8d04a597af159c5c68055da69b0920067c838ddbf",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 83058,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "e8801905551b80f90e12cfb5d6a25559256c0a9240b05ced47c78f606de0d323",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 163740,
+      "slides": [
+        38
+      ]
+    },
+    {
+      "sha256": "45fe850e740d0a0a52feeaed2486ba0863bfbeef6b433bee6899452f5b2ad4e4",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 170230,
+      "slides": [
+        39
+      ]
+    },
+    {
+      "sha256": "e8fee298a234733f76c09f8e3ece8942f5ac46f7491c0c1b1e58b8f45a6ce3d6",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 97057,
+      "slides": [
+        40
+      ]
+    },
+    {
+      "sha256": "cc26468f228d1b51e8835618e17795f6caca62689f4d8cec8784ddda67734b47",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 66229,
+      "slides": [
+        41
+      ]
+    },
+    {
+      "sha256": "3f1709a03f20dfd011f8b1049a0251981b6e90fe758392fb4a7ddcba3f709a72",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 21606,
+      "slides": [
+        41
+      ]
+    },
+    {
+      "sha256": "3254c635c26669be9d83cf7ef815bb461ea2031f60546f7ac7a51b7aabdeebd8",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 86181,
+      "slides": [
+        41
+      ]
+    },
+    {
+      "sha256": "7e6172c5df0a9bb6dfc3cb54effeaaf246859e8030dc1446c6e9d00a6e3f7f04",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 46352,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "0493eef87ae03bf0d2c7f9c94c80fe62fed654fb12314c885fece4bde6f884b3",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 46649,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "60119f74fe4dfa4d118cfeacc1b5800c45eb60c3b18dcbaff2d8a05622673170",
+      "pptx_path": "ppt/media/image6.emf",
+      "extension": ".emf",
+      "bytes": 73372,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "c0b93e71239f184ef3bc5ea9242287e89cd556a14410a027223d9d25bad23a3a",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 75722,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "3d1886d86e98bc4f6d00adc51c2ee74830d94885cfcec75820e428f99a9ae6f3",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 105338,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "beef3c615960ac2897fe2cd4031609f930cfcca6407096828dc1bf19600a7dfe",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 190987,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "a10354c24821835345edaa0190be297ce9c5cc779eee39f5ab3fe7d89c0c5708",
+      "pptx_path": "ppt/media/image63.emf",
+      "extension": ".emf",
+      "bytes": 58340,
+      "slides": [
+        48
+      ]
+    },
+    {
+      "sha256": "dbf7472a8112b4b57b83a327e0eb1f543e92b6f6dccf2e9d2c48ed82740fedf6",
+      "pptx_path": "ppt/media/image64.emf",
+      "extension": ".emf",
+      "bytes": 58908,
+      "slides": [
+        48
+      ]
+    },
+    {
+      "sha256": "c1422a008dc95e6d75c3e02bfe5d7894a5b6c487dd9554c7e6545eb6cedd862e",
+      "pptx_path": "ppt/media/image65.emf",
+      "extension": ".emf",
+      "bytes": 74680,
+      "slides": [
+        48
+      ]
+    },
+    {
+      "sha256": "0cd56cbe919113c01b6f1f2aefcfc82c226d67d2fcce9e38295211e1f3f8f44e",
+      "pptx_path": "ppt/media/image66.emf",
+      "extension": ".emf",
+      "bytes": 146748,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "00684e3c86f104904573ad97ab7ac8ca8e4352b256171afd3c4b49eac01dc122",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 64686,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "5763fc36dd82bc8d31b5160a523318cff6c5d7507afe97e667e19fc3fe16d327",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 181402,
+      "slides": [
+        50
+      ]
+    },
+    {
+      "sha256": "5bed1cf16f1f00635e915900f1da90bce48f6798ced490e798642f143cb1be51",
+      "pptx_path": "ppt/media/image69.emf",
+      "extension": ".emf",
+      "bytes": 38044,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "f8d95bf1d452e22bffbdccaaf2d5441facdb4f08eec63e99611c4ca5d1ee28c1",
+      "pptx_path": "ppt/media/image7.emf",
+      "extension": ".emf",
+      "bytes": 39456,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "bdcc76d83c32d8c33f8b21642c4d79b8d580d80e03f4362601d9f57efc459920",
+      "pptx_path": "ppt/media/image70.emf",
+      "extension": ".emf",
+      "bytes": 78636,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "b5783133ede4de51886abcf986f1768a34f4914c426bd06f2fd5be1170dc3a7a",
+      "pptx_path": "ppt/media/image71.emf",
+      "extension": ".emf",
+      "bytes": 55420,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "7a59f96c6102fc7edd23dd72c01dcfd2f14de5e8d26ab160804b1396bc0853b9",
+      "pptx_path": "ppt/media/image72.emf",
+      "extension": ".emf",
+      "bytes": 79360,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "f43b568ae261d29a672ab658698f9f1a52fac9876edd850614caa533cd088ff5",
+      "pptx_path": "ppt/media/image73.emf",
+      "extension": ".emf",
+      "bytes": 38952,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "c9fad1c91712f523159d151ff4f0fdfe382665238e18040e0f109472ba3f65b2",
+      "pptx_path": "ppt/media/image74.emf",
+      "extension": ".emf",
+      "bytes": 47752,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "c392938ccc9c3bb5ed1c6df2bb9b49ba13a88a8b6a9a142d3d8cdc2bc1077522",
+      "pptx_path": "ppt/media/image75.png",
+      "extension": ".png",
+      "bytes": 91593,
+      "slides": [
+        52
+      ]
+    },
+    {
+      "sha256": "bae8627997cdc49289b358fb981f29186942cab91691729b3383edaaae77e878",
+      "pptx_path": "ppt/media/image76.png",
+      "extension": ".png",
+      "bytes": 84655,
+      "slides": [
+        52
+      ]
+    },
+    {
+      "sha256": "a390bf4d626517ec9f37ba838135095bdf90bcc32f8989a79f033395b7b18ef9",
+      "pptx_path": "ppt/media/image77.emf",
+      "extension": ".emf",
+      "bytes": 142792,
+      "slides": [
+        53
+      ]
+    },
+    {
+      "sha256": "87fa0a7a573bdf0e992e3177aaaf6d9dd0a65078e97d154bd180268d16b466e0",
+      "pptx_path": "ppt/media/image78.emf",
+      "extension": ".emf",
+      "bytes": 114256,
+      "slides": [
+        53
+      ]
+    },
+    {
+      "sha256": "427e14977f057253029ea378689728bded477e7ea53da6cf7a919ea7c67e7cc9",
+      "pptx_path": "ppt/media/image78.png",
+      "extension": ".png",
+      "bytes": 69676,
+      "slides": [
+        53,
+        54
+      ]
+    },
+    {
+      "sha256": "3f86a116a04ea251e28ca71c1457e6a79a38b579eb20e70d95d96c6490113110",
+      "pptx_path": "ppt/media/image79.emf",
+      "extension": ".emf",
+      "bytes": 102440,
+      "slides": [
+        54
+      ]
+    },
+    {
+      "sha256": "9b3f68cee9987e7e670dc181a8e3b657d8af61ec95ef7061fb51ffb0c8419d34",
+      "pptx_path": "ppt/media/image8.emf",
+      "extension": ".emf",
+      "bytes": 47168,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "f19bc2d9a45393d9e91d2f96ba5ea6d0263f064c3288bf1259ad7464ca161879",
+      "pptx_path": "ppt/media/image80.emf",
+      "extension": ".emf",
+      "bytes": 91104,
+      "slides": [
+        54
+      ]
+    },
+    {
+      "sha256": "219be9fa94f6db3fa4b9384a3c576f8a3abd7acb35d2d705d565241b987cf5f5",
+      "pptx_path": "ppt/media/image81.png",
+      "extension": ".png",
+      "bytes": 196194,
+      "slides": [
+        55
+      ]
+    },
+    {
+      "sha256": "7b48fb92eb93eef13808f7913dbe9b4e680903ef2bae845ad4f65285697f2935",
+      "pptx_path": "ppt/media/image82.png",
+      "extension": ".png",
+      "bytes": 253722,
+      "slides": [
+        56
+      ]
+    },
+    {
+      "sha256": "6e290f9837144529c79e0c2cd5b2527db595a4d50330552ed92d081749bc9d2d",
+      "pptx_path": "ppt/media/image83.png",
+      "extension": ".png",
+      "bytes": 80076,
+      "slides": [
+        58
+      ]
+    },
+    {
+      "sha256": "cdd4974b7fa9dd336958199f2c3212cdfb88d11f807d1953fe19ff98624c6757",
+      "pptx_path": "ppt/media/image84.emf",
+      "extension": ".emf",
+      "bytes": 115344,
+      "slides": [
+        58
+      ]
+    },
+    {
+      "sha256": "9405bd60a48e5624f16e0969886c50805c3452c9e9d8ac2ef762c821eea7d97f",
+      "pptx_path": "ppt/media/image85.emf",
+      "extension": ".emf",
+      "bytes": 91192,
+      "slides": [
+        58
+      ]
+    },
+    {
+      "sha256": "ae4b6914b41eb6eca31a353addfb47db3466788b877f96644a4dc2fba7e90626",
+      "pptx_path": "ppt/media/image85.png",
+      "extension": ".png",
+      "bytes": 76901,
+      "slides": [
+        58
+      ]
+    },
+    {
+      "sha256": "3bff8eb651857ee66a4be584bb78de4e81e86f3d297756f4adaaa5ede1f9e163",
+      "pptx_path": "ppt/media/image86.png",
+      "extension": ".png",
+      "bytes": 76466,
+      "slides": [
+        59
+      ]
+    },
+    {
+      "sha256": "0877535ff15f380944e3669610cd970d5461eb13e0e60a217e05033869318891",
+      "pptx_path": "ppt/media/image87.emf",
+      "extension": ".emf",
+      "bytes": 107244,
+      "slides": [
+        59
+      ]
+    },
+    {
+      "sha256": "6345c6718e269eb830f708a89b5fb445c33e0233a2c3f333f662d42de55fb40e",
+      "pptx_path": "ppt/media/image88.emf",
+      "extension": ".emf",
+      "bytes": 91092,
+      "slides": [
+        59
+      ]
+    },
+    {
+      "sha256": "380d118e876ba2f56ee286aaf857cc0a2f9a061524a54e83cfb9f3257afa3926",
+      "pptx_path": "ppt/media/image89.emf",
+      "extension": ".emf",
+      "bytes": 88408,
+      "slides": [
+        59,
+        59
+      ]
+    },
+    {
+      "sha256": "893f75a303bef2460ac51f3d8195e0e1982d81aff80486d5f123fa3e3c0cfb49",
+      "pptx_path": "ppt/media/image89.png",
+      "extension": ".png",
+      "bytes": 51854,
+      "slides": [
+        59
+      ]
+    },
+    {
+      "sha256": "69a10186c5ec0ee96202ff3b5e3a53f177fa92e0ef2a5d78238f64193b76f97f",
+      "pptx_path": "ppt/media/image9.emf",
+      "extension": ".emf",
+      "bytes": 73244,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "4b4a3636734f54926920dc2bc4c99bad542df975860dfab694f57c138e0a7cb7",
+      "pptx_path": "ppt/media/image90.png",
+      "extension": ".png",
+      "bytes": 142226,
+      "slides": [
+        60
+      ]
+    },
+    {
+      "sha256": "ddb17a77e6f9d74843da7ef527e1485cd5394cee4cdcfdd8c8e4077fad1be81f",
+      "pptx_path": "ppt/media/image91.png",
+      "extension": ".png",
+      "bytes": 199008,
+      "slides": [
+        60
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}
