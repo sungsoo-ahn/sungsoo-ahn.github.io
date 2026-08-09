@@ -17,6 +17,9 @@ layout: default
   </header>
 
   <article class="archive publications blog-index">
+    {% if page.type == 'categories' %}
+      {% include blog-category-nav.liquid %}
+    {% endif %}
     {% assign sorted_documents = page.documents | sort: 'date' | reverse %}
     <ol class="bibliography">
       {% for document in sorted_documents %}
