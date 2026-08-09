@@ -194,6 +194,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     problems. State what selects each object, what it acts on, and where it is
     averaged or reconstructed; shared terminology does not make the roles
     interchangeable.
+24. Do not detach a representation-theory prelude from the architecture it
+    enables. Carry group, action, representation, irrep type, basis function,
+    tensor-product coefficient, and selection rule into the model's actual
+    feature indices, filters, nonlinearities, and outputs. The abstract sequence
+    is substantive because it determines which learned operations are legal.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute

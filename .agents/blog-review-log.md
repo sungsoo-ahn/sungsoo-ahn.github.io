@@ -545,6 +545,30 @@ requirements for the replacement deck-level articles.
   identify what indexes each frame and what operation consumes it rather than
   merging the two halves into a general canonicalization essay. The
   blog-writing skill now records this scope-tracking rule.
+
+### GDL 2025 Lecture 9: Steerable Features, Tensor Products, TFN, and NequIP
+
+- **Source:** `lec9_geognn3.pdf` (54 pages), represented by 49 canonical PDF
+  composites preserving harmonic plots, representation decompositions,
+  Clebsch--Gordan equations, TFN layers, NequIP parity rules, and experiments.
+- **Coverage:** 49 scientific slides covered; the cover, course schedule,
+  bibliography card, and two part-title transitions omitted. Four overview
+  slides were retained because they define the three questions answered by the
+  lecture. The nominal end slide was retained because its Cormorant, 3D
+  steerable-CNN, and Fourier-space CG-network map is scientific content.
+- **Figures:** all 49 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous tensor-product tutorial's
+  feature ladder, vector dot--cross--STF worked decomposition, compact selection
+  diagram, and self-contained typed-message pipeline were absent from this
+  deck. The replacement restores the source's full path through groups,
+  circular and spherical harmonics, Cartesian reducibility, Wigner blocks,
+  Clebsch--Gordan coefficients, TFN, NequIP, parity, and early experiments.
+- **General lesson promoted:** the group-theory half is not detachable
+  background. Its objects reappear as the type, representation, channel, and
+  parity indices of the network and as the triangle and parity constraints on
+  each message. The blog-writing skill now requires an adaptation to carry that
+  abstract dependency chain into the concrete architecture.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
