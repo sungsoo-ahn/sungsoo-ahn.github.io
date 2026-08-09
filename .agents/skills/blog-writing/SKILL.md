@@ -160,6 +160,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     definition of the field, and architectural question when they form a
     coherent scientific argument. “Introduction” is not itself a reason to omit
     a slide.
+18. Preserve a source's formal dependency chain. When a sequence such as group,
+    action, stabilizer, coset, quotient, representation, and equivariance is
+    cumulative, each definition is substantive because it supplies an object
+    used by the next construction. Explain that role in the surrounding prose;
+    do not compress the sequence into a glossary or retain only its endpoint.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
