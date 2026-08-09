@@ -112,6 +112,13 @@ new thesis, a reordered curriculum, or additional technical branches.
    deck re-derives the same construction in Euclidean, manifold, and discrete
    settings, retain each version and make the shared roles explicit. The repeated
    pattern is the lesson; it is not a recap to collapse.
+10. Treat a source-ordered dataset or benchmark survey as substantive when it
+    establishes changing scientific contracts. If the sequence moves from
+    scalar labels to forces, spectra, periodic structures, trajectories, or
+    other distinct inputs and outputs, retain those transitions and explain
+    what each dataset makes observable. Do not compress the survey into a short
+    preamble merely because it contains fewer derivations than later method
+    slides.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
