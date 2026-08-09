@@ -201,6 +201,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     tensor-product coefficient, and selection rule into the model's actual
     feature indices, filters, nonlinearities, and outputs. The abstract sequence
     is substantive because it determines which learned operations are legal.
+25. Preserve a method survey's bottleneck--remedy pairs. Adaptive neighbor
+    selection, explicit body order, sparse tensor products, richer activations,
+    and cross-type normalization improve different axes even when their
+    benchmark tables look comparable. Name the exact operation changed, retain
+    its cost or stability motivation, and attach the reported evidence to that
+    change rather than to a generic claim of architectural progress.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
