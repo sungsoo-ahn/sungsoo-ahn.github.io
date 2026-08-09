@@ -200,6 +200,12 @@ from one comparison can improve the criteria used for the next.
   prove the exact overlap, and mark the approximation, restriction, or added
   input where the formulas diverge. Similar-looking final updates do not make
   their premises, guarantees, transfer behavior, or failure modes equivalent.
+- When symmetry, conservation, or consistency is obtained through randomized
+  averaging, separate per-sample, coupled-sample, distributional, and
+  expectation-level guarantees. Work one finite estimator, compute its residual
+  and variance as sample count changes, and state whether transformed inputs
+  share randomness. An exact expectation does not make one independent Monte
+  Carlo evaluation exactly equivariant or conservative.
 
 ## Quality Checklist (apply before finalizing)
 
