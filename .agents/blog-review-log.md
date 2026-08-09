@@ -1,5 +1,33 @@
 # Tutorial Comparison and Revision Log
 
+## Source-Faithful Deck Migration (supersedes the synthetic-storyline pass)
+
+The 2026-08-09 migration treats each 2025 lecture deck as the content authority.
+The polished house posts remain references for prose, caption, equation, and
+rendering quality only. The earlier entries below are retained as historical
+records; their synthetic running examples and preserved H2 storylines are not
+requirements for the replacement deck-level articles.
+
+### ML4Mol 2025 Lecture 2: Chemistry and Physics
+
+- **Source:** `lec2_prelim1.pdf` (57 pages), with media extracted from the
+  corresponding PowerPoint.
+- **Coverage:** 49 substantive slides covered; one disclaimer and seven title or
+  part-transition slides omitted. The six scientific parts remain in source
+  order: representations and symmetry, quantum mechanics, electronic
+  properties, forces, statistical mechanics, and chemical change.
+- **Figures:** 24 of 29 unique substantive slide visuals reused (82.76%). The
+  five omitted visuals repeat information already present in a reused slide
+  figure. No new explanatory figure was drawn.
+- **Synthetic material removed:** the representation-error calculation,
+  symmetry-derived force example, Born--Oppenheimer timescale calculation,
+  Morse-potential case, basin-population calculation, and barrier-sensitivity
+  example from the previous post were absent from the lecture source.
+- **General lesson promoted:** source-faithful mode must inventory slides before
+  outlining, derive section order from the deck, treat word count as irrelevant,
+  and use house references only as an editorial quality check. The blog-writing
+  and figure skills now encode this rule.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 

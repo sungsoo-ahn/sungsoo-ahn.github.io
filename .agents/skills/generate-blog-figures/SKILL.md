@@ -15,6 +15,25 @@ Create publication-quality blog figures. Treat figures as explanatory objects, n
 - Draw a custom figure only when the post needs a new abstraction, a simplified toy plot, a synthesis across sources, or a figure whose existing versions are legally unusable or visually unsuitable.
 - Record source URL, license, asset path, and any modifications in agent-facing notes, a figure-generation script, or a figure manifest. Do not add a rendered source appendix to the post body.
 
+### Slide-First Adaptation Rule
+
+When a source-faithful lecture adaptation requests reuse of the slide figures,
+the deck is the visual source of record. Inventory every unique substantive
+figure and reuse it in the deck's order. Prefer extracting the original media
+from the PowerPoint package; crop a high-resolution rendered slide only when
+the figure is assembled from slide-native shapes, text, or equations.
+
+- Do not draw, redraw, simplify, or image-generate replacement figures.
+- Do not impose a figure quota. Track every unique substantive slide figure as
+  reused, duplicate, decorative, or scientifically redundant.
+- Store optimized web assets under a course/lecture directory, deduplicate by
+  content hash, and retain enough resolution for labels to remain readable when
+  zoomed.
+- Record deck path, slide number, crop/extraction method, attribution, output
+  asset, and caption in a figure manifest.
+- Use the house references to judge placement, caption clarity, and rendering,
+  not to replace the deck's visual language.
+
 ## Image-Generation Rule
 
 - Use ChatGPT/image-generation for physical device or process schematics when a polished illustrative rendering communicates better than boxes and arrows. Good candidates include PEM fuel cells, electrolyzers, catalyst reactors, lab workflows, instruments, and molecular scenes where spatial appearance matters.
