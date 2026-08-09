@@ -2680,617 +2680,574 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 55,
-    "reused": 55,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 51,
+    "reused_figures": 51,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+  "pptx_figures": [
     {
       "slide": 5,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s05-image1.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image1.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-5.webp",
       "reuse_status": "reused"
     },
     {
-      "slide": 6,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s05-image2.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image2.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s05-image3.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image3.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 7,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s07-image6.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image6.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-7.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 8,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-8.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 9,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s09-image10.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image10.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-9.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 10,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-10.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 11,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-11.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 12,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-12.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 13,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-13.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 15,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-15.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 16,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s16-image18.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image18.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-16.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s17-image20.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-17.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s19-image22.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image22.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-19.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 20,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s20-image24.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image24.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-20.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 21,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s21-image26.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image26.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-21.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 22,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s22-image27.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image27.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-22.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 23,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s23-image29.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image29.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-23.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s24-image31.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image31.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-24.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 25,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s25-image32.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image32.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-25.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s27-image36.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image36.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-27.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 28,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s28-image38.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image38.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-28.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 29,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s29-image39.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image39.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-29.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 30,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s30-image42.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image42.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-30.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 31,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s31-image46.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image46.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-31.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 32,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s32-image49.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-32.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 33,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s33-image52.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image52.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-33.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 34,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s34-image56.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image56.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-34.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 35,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-35.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 36,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s36-image59.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image59.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s36-image60.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image60.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s37-image61.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image61.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-37.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 38,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s38-image66.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image66.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-38.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 39,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s39-image68.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image68.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-39.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 40,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-40.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 41,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s41-image73.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image73.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-41.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 42,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-42.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 43,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s43-image78.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image78.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-43.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 44,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s44-image80.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image80.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-44.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 45,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s45-image81.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image81.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-45.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s45-image84.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image84.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 46,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s46-image86.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image86.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-46.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s46-image88.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image88.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 47,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s47-image90.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image90.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-47.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 48,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s48-image91.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image91.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-48.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 49,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s49-image95.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image95.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-49.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s49-image96.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image96.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 50,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s50-image97.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image97.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-50.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 51,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 51,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s51-image100.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image100.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-51.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s51-image101.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image101.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 52,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 52,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s52-image102.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image102.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-52.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 53,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 53,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s53-image108.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image108.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-53.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 54,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 54,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s54-image34.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image34.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-54.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 56,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-56.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 57,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 57,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s57-image111.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image111.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-57.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 58,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-58.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 59,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 59,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s59-image114.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image114.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-59.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 60,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 60,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s60-image118.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image118.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-60.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 60,
+      "pptx_slide": 60,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s60-image119.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image119.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 61,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 61,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s61-image122.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image122.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-61.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 62,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-62.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 63,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 63,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s63-image125.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image125.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-03/slide-63.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 63,
+      "pptx_slide": 63,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-03/s63-image126.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image126.png"
+      ],
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-03.md"
+  "asset_migration_status": "pptx-native-complete"
 }

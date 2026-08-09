@@ -5,24 +5,14 @@ from __future__ import annotations
 
 import argparse
 import json
-import posixpath
 import shutil
 import subprocess
 import tempfile
 import zipfile
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
 PASSTHROUGH = {".gif", ".svg", ".webp"}
-NS = {
-    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
-    "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
-    "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-    "pr": "http://schemas.openxmlformats.org/package/2006/relationships",
-}
-
-
 def parse_slides(value: str) -> set[int]:
     slides: set[int] = set()
     for part in value.split(","):
@@ -35,108 +25,6 @@ def parse_slides(value: str) -> set[int]:
         else:
             slides.add(int(part))
     return slides
-
-
-def render_pdf_crop(
-    *,
-    archive: zipfile.ZipFile,
-    manifest: dict,
-    media_path: str,
-    canonical_page: int,
-    output_path: Path,
-    temp_root: Path,
-) -> bool:
-    """Recover unsupported legacy media by cropping its rendered PDF slide."""
-
-    slide_record = next(item for item in manifest["slides"] if item["slide"] == canonical_page)
-    pptx_slide = slide_record["pptx_slide"]
-    slide_path = f"ppt/slides/slide{pptx_slide}.xml"
-    rels_path = f"ppt/slides/_rels/slide{pptx_slide}.xml.rels"
-    slide_root = ET.fromstring(archive.read(slide_path))
-    rels_root = ET.fromstring(archive.read(rels_path))
-    rels = {item.attrib["Id"]: item.attrib["Target"] for item in rels_root}
-
-    boxes: list[tuple[int, int, int, int]] = []
-    for picture in slide_root.findall(".//p:pic", NS):
-        blip = picture.find(".//a:blip", NS)
-        if blip is None:
-            continue
-        rel_id = blip.attrib.get(f"{{{NS['r']}}}embed")
-        target = rels.get(rel_id, "")
-        resolved = posixpath.normpath(posixpath.join("ppt/slides", target))
-        if resolved != media_path:
-            continue
-        offset = picture.find(".//a:xfrm/a:off", NS)
-        extent = picture.find(".//a:xfrm/a:ext", NS)
-        if offset is None or extent is None:
-            continue
-        boxes.append(
-            (
-                int(offset.attrib["x"]),
-                int(offset.attrib["y"]),
-                int(extent.attrib["cx"]),
-                int(extent.attrib["cy"]),
-            )
-        )
-    if not boxes:
-        return False
-
-    presentation = ET.fromstring(archive.read("ppt/presentation.xml"))
-    slide_size = presentation.find("p:sldSz", NS)
-    if slide_size is None:
-        return False
-    slide_width = int(slide_size.attrib["cx"])
-    slide_height = int(slide_size.attrib["cy"])
-    x, y, width, height = max(boxes, key=lambda item: item[2] * item[3])
-
-    page_root = temp_root / f"pdf-page-{canonical_page:03d}"
-    page_png = page_root.with_suffix(".png")
-    subprocess.run(
-        [
-            "pdftoppm",
-            "-f",
-            str(canonical_page),
-            "-l",
-            str(canonical_page),
-            "-r",
-            "180",
-            "-singlefile",
-            "-png",
-            manifest["source_pdf"],
-            str(page_root),
-        ],
-        check=True,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    dimensions = subprocess.run(
-        ["magick", "identify", "-format", "%w %h", str(page_png)],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.split()
-    page_width, page_height = map(int, dimensions)
-    crop_x = round(x / slide_width * page_width)
-    crop_y = round(y / slide_height * page_height)
-    crop_width = max(1, round(width / slide_width * page_width))
-    crop_height = max(1, round(height / slide_height * page_height))
-    subprocess.run(
-        [
-            "magick",
-            str(page_png),
-            "-crop",
-            f"{crop_width}x{crop_height}+{crop_x}+{crop_y}",
-            "+repage",
-            "-strip",
-            "-quality",
-            "88",
-            str(output_path),
-        ],
-        check=True,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    return True
 
 
 def main() -> int:
@@ -194,23 +82,10 @@ def main() -> int:
                     )
                 except subprocess.CalledProcessError:
                     output_path.unlink(missing_ok=True)
-                    recovered = render_pdf_crop(
-                        archive=archive,
-                        manifest=manifest,
-                        media_path=item["pptx_path"],
-                        canonical_page=first_page[digest],
-                        output_path=output_path,
-                        temp_root=temp_root,
-                    )
-                    if not recovered:
-                        print(
-                            f"warning: unsupported deck media {item['pptx_path']} "
-                            f"({source_suffix}); keeping it in the inventory but not publishing it"
-                        )
-                        continue
-                    print(
-                        f"recovered unsupported deck media {item['pptx_path']} "
-                        f"from PDF slide {first_page[digest]}"
+                    raise SystemExit(
+                        f"unsupported deck media {item['pptx_path']} ({source_suffix}); "
+                        "export the corresponding PowerPoint shape with "
+                        "scripts/extract_lecture_pptx_figure.py --shape"
                     )
             item["asset_path"] = str(output_path.relative_to(args.repo_root))
             item["reuse_status"] = "candidate"

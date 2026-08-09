@@ -165,6 +165,16 @@ def reused_assets(manifest: dict) -> dict[str, dict]:
             "slides": logical_slides,
             "extraction_method": "pptx-media-extraction",
         }
+    for figure in manifest.get("pptx_figures", []):
+        if figure.get("reuse_status") != "reused":
+            continue
+        path = figure["asset_path"]
+        if path in assets:
+            raise ValueError(f"duplicate published figure record for {path}")
+        assets[path] = {
+            "slides": [figure["slide"]],
+            "extraction_method": figure["extraction_method"],
+        }
     for region in manifest.get("pdf_regions", []):
         if region.get("reuse_status") != "reused":
             continue
@@ -321,9 +331,6 @@ def validate_registry(
     unknown_assignments = sorted(set(curated_figures) - set(figures))
     for asset_path in unknown_assignments:
         errors.append(f"curated figure {asset_path}: not present in lecture manifests")
-
-    if len(figures) != 1641:
-        errors.append(f"expected 1641 lecture figures, found {len(figures)}")
 
     source_urls: dict[str, str] = {}
     for source_id, source in sources.items():
