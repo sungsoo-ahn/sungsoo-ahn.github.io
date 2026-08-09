@@ -28,6 +28,25 @@ extraction method in an agent-facing figure manifest.
 This exception applies only to the confirmed deck and its embedded figures. It
 does not establish a general license for the same source elsewhere.
 
+#### PowerPoint-native extraction
+
+- Never publish a full-slide screenshot or a region cropped from the lecture
+  PDF. The editable PPTX is the source of truth for visual extraction.
+- Inspect the slide's actual object tree. Presentation manifests and PPTX media
+  archives can contain unused, hidden, duplicated, or alternate resources that
+  are not visible on the slide.
+- Copy an unmodified browser-safe picture directly from `ppt/media` to preserve
+  its original pixels. If PowerPoint applies a crop, mask, rotation, grouped
+  composition, or native-shape construction, export the exact picture or
+  semantic group with PowerPoint's `save as picture` command.
+- Do not rasterize text boxes, equations, paper title cards, citations, or
+  tables merely because they appeared on a slide. Recreate those as reader-
+  facing HTML/Markdown/MathJax and retain only the scientific visual object.
+- Record each published asset with `slide`, `pptx_slide`, `asset_path`,
+  `source_media_paths` or `source_shape_name`, `extraction_method`,
+  `content_role`, and `reuse_status`. A completed migration must have an exact
+  manifest-to-post asset match and no reused PDF-region records.
+
 ### Auditing Existing Lecture Figures
 
 - Treat **visual provenance** and **method provenance** as different claims. A

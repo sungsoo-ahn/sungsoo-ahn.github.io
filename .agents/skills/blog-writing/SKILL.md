@@ -266,6 +266,16 @@ new thesis, a reordered curriculum, or additional technical branches.
     experiment, and which physical observable is finally evaluated. The
     application often defines the scientific purpose and limitations of the
     upstream model output.
+35. Do not publish a whole-slide screenshot as a blog figure. Transcribe slide
+    prose as prose, equations as MathJax, and tables as Markdown or HTML. Keep
+    only the visual object that carries information which text cannot replace:
+    a plot, scientific image, architecture, photograph, or semantic diagram.
+    Extract that object from the source PPTX rather than cropping the PDF or a
+    rendered slide. When several native PowerPoint shapes form one comparison,
+    export the deliberate semantic group; do not preserve the title, footer,
+    or surrounding slide canvas. Verify every retained image against the actual
+    PPTX object tree and record its slide, source media or shape, extraction
+    method, and role in the lecture manifest.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
