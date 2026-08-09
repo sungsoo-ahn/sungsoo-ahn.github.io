@@ -1207,3 +1207,56 @@ Post-specific observations remain here rather than becoming universal rules.
   diagnostic table complete the evidence chain. Existing figures remained
   sufficient. Matrix, probability, citation, skill, blog, build, and rendered
   audits passed.
+
+## 27. Crystal Property Prediction and Generative Design
+
+- **Post:** `_posts/2026-08-08-crystal-property-prediction-generative-design.md`
+- **Topic-matched reference:** The polished spherical-equivariant chapter
+  supplies the standard for deriving a symmetry constraint and checking the
+  transformation law. The revised materials-discovery chapter owns the broader
+  composition-to-synthesis pipeline, convex-hull thermodynamics, defects, and
+  experimental closure. This chapter should instead own the periodic
+  representation contract that connects unit cells, crystal graphs, property
+  predictors, joint generators, relaxation, and post-relaxation evaluation.
+- **Before:** At 2,346 substantive words, the post has a coherent nine-section
+  spine and correctly distinguishes property prediction, generation, symmetry,
+  oracle guidance, relaxation, and scientific validation. It says that
+  primitive and conventional cells can encode the same crystal but its stated
+  invariance law checks only permutation, rigid rotation, and lattice wrapping.
+  No finite lattice-basis transformation is carried through fractional sites
+  or periodic edges. The graph, generation, space-group, guidance, and
+  relaxation sections likewise remain schematic: there is no neighbor-image
+  calculation, Wyckoff multiplicity example, guided finite pool, many-to-one
+  relaxation witness, or complete finite validation funnel.
+- **Criteria promoted:** When coordinates contain an arbitrary basis, gauge, or
+  unit-cell choice, define the full equivalence action and carry one nontrivial
+  basis change through every dependent object. Transform coordinates,
+  neighborhoods, features, densities, and tensor outputs together, then verify
+  the claimed invariant or covariant result numerically.
+- **Planned revision:** Preserve all nine content H2s and their order. Carry one
+  small two-dimensional crystal embedded in three dimensions through an integer
+  unimodular lattice-basis change, transformed fractional coordinates, and an
+  explicit nearest periodic image. Distinguish intensive, extensive, vector,
+  and tensor output laws; compute one periodic message-passing update and state
+  the locality boundary. Follow a fixed-composition candidate through wrapped
+  coordinate diffusion, lattice validity, Wyckoff multiplicity, a finite
+  guidance/Pareto choice, and two raw proposals that relax into one basin.
+  Finish with a denominator-preserving raw-to-relaxed-to-stable funnel and a
+  claim table that separates proposal coverage, relaxed outcomes, stability,
+  and synthesis. Cross-link the materials chapter for the wider physical
+  pipeline and reuse the four existing figures unless a real explanatory gap
+  remains.
+- **After:** Expanded from 2,346 to 4,599 substantive body words while
+  preserving all nine content H2s and their order. A single layered AB crystal
+  now instantiates the full fixed-site-count action: permutation, rotation,
+  common origin shift, integer images, and a nontrivial unimodular basis change
+  are carried through Cartesian sites, fractional components, a periodic edge,
+  one message update, forces, stress, and model density. Wrapped site noise,
+  lattice conditioning, and a Wyckoff-multiplicity calculation make the joint
+  generator constraints operational. A three-candidate guidance calculation
+  exposes prior tilting, Pareto policy choices, uncertainty, and correlated
+  oracle error. Three raw proposals then collapse to two relaxed basins and
+  reverse their property ranking before a 10,000-proposal campaign preserves
+  every validity, collision, selection, DFT, synthesis, and characterization
+  denominator. The four existing figures remained sufficient. Matrix,
+  arithmetic, citation, skill, blog, build, and rendered-page audits passed.

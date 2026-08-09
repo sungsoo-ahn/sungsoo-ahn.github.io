@@ -141,6 +141,12 @@ from one comparison can improve the criteria used for the next.
   message-passing steps, or reconstruction operations are needed to expose it
   to the predictor. “The information is present” does not mean it is locally or
   efficiently available to the architecture being discussed.
+- When coordinates contain an arbitrary basis, gauge, or unit-cell choice,
+  name the full equivalence action and carry one nontrivial change of basis
+  through every dependent object. Transform coordinates, neighborhoods,
+  features, densities, and tensor outputs together, then verify the claimed
+  invariant or covariant quantity numerically. Periodic wrapping or rotation
+  invariance alone does not establish independence from the stored basis.
 - When claiming that a representation “captures” a concept, separate
   decodability, accessibility to a capacity-controlled probe, use by a
   fine-tuned predictor, and stability under a matched intervention. Compare
