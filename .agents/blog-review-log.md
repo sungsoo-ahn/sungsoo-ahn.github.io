@@ -640,6 +640,32 @@ requirements for the replacement deck-level articles.
   dynamics, and discovery ranking. The blog-writing skill's dataset-survey rule
   now explicitly requires scaling and simulation claims to remain attached to
   the data and target regime that supports them.
+
+### GDL 2025 Lecture 13: ODEs, SDEs, Itô Calculus, and Fokker--Planck
+
+- **Source:** `lec13_prelim2 (revised).pdf` (37 pages), represented by 30
+  canonical PDF composites preserving the stochastic-sum calculations, Itô
+  expansions, probability-current diagrams, generator equations, and weak
+  Fokker--Planck proof.
+- **Coverage:** 30 scientific slides covered; the cover, updated syllabus, part
+  and agenda cards, and bibliography card omitted. The source order remains
+  ODEs and SDEs, Brownian motion, stochastic integral conventions, Itô's
+  formula, probability-density evolution, infinitesimal generators, and the
+  test-function/adjoint proof of the Fokker--Planck equation. The nominal end
+  slide was retained for its multidimensional and related-theorem map.
+- **Figures:** all 30 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous ODE/SDE tutorial's constant-flow
+  example, CNF log-density derivation, reverse-time sign-convention comparison,
+  score-based probability-flow construction, and exact Gaussian example were
+  absent from this deck. The replacement restores the source's stochastic
+  integration and generator derivation rather than jumping directly to
+  diffusion-model formulas.
+- **General lesson promoted:** a proof-faithful adaptation must retain the
+  sequence of mathematical objects, not only its endpoint. Here trajectory
+  increments lead to Itô observables, conditional expectations, the generator,
+  its adjoint, and finally density evolution. The blog-writing skill now records
+  this proof-strategy rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
