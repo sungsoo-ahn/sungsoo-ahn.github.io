@@ -2,9 +2,10 @@
 layout: post
 title: "Diffusion Models and Flow Matching"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "A unified derivation of diffusion and flow matching through conditional probability paths, marginalization identities, and simulation-free regression."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [generative-modeling]
 lecture_paths: [ml4mol, gdl]
@@ -15,15 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the diffusion and flow-matching storyline from my
-    Machine Learning for Molecules and Geometric Deep Learning lectures. The division
-    of labor is deliberate. <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The
-    Fokker–Planck Equation</a> owns the density PDE, while <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs,
-    SDEs, and Probability Flow</a> owns reverse-time signs, the factor of two, and the
-    distinction between marginal and path-law equality. <a href="{% post_url 2026-03-14-path-measures-generative-models %}">From
-    Jarzynski's Equality to Diffusion Models</a> owns path-measure ratios. This chapter
-    instead owns conditional regression: how score, noise, data, and velocity targets
-    encode the same affine Gaussian path, and exactly when their losses are equivalent.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. This article shows how score, noise, clean-data, and velocity prediction encode the same conditional path; the <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker–Planck</a> and <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">probability-flow</a> chapters provide the density and reverse-time background.</em>
 </p>
 
 ## Two Ways to Learn Motion Through Probability Space

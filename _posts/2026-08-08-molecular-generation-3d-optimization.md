@@ -3,10 +3,11 @@ layout: post
 title: "Three-Dimensional Molecular Generation and Optimization"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "How generative models respect molecular geometry, how conditional guidance turns sampling into design, and why oracle scores must survive synthesis and experiment."
+description: "How generative models respect molecular geometry, how guidance turns sampling into design, and why oracle scores must survive experiment."
 abstract: >
   Three-dimensional molecular design couples a symmetric geometric sampling problem to a constrained, multi-objective optimization problem. A credible workflow must preserve chemical structure, control oracle exploitation, and close the loop with synthesis and measurement.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the three-dimensional generation and molecular-optimization storyline from my 2025 Machine Learning for Molecules lecture. The geometry of diffusion and flow on symmetric spaces is developed in <a href="{% post_url 2026-08-08-geometric-flow-matching-manifolds %}">Geometric Flow Matching on Manifolds</a>, while molecular property oracles are discussed in <a href="{% post_url 2026-08-08-molecular-data-property-prediction %}">Molecular Data and Property Prediction Across 1D, 2D, and 3D</a>.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. The article separates conformer generation from joint molecular design, then examines how guidance and optimization behave when geometry, property oracles, and experimental budgets all matter. Related foundations appear in <a href="{% post_url 2026-08-08-geometric-flow-matching-manifolds %}">Geometric Flow Matching on Manifolds</a> and <a href="{% post_url 2026-08-08-molecular-data-property-prediction %}">Molecular Data and Property Prediction</a>.</em>
 </p>
 
 Generating a plausible molecule and optimizing a useful molecule are different problems. A generative model learns where molecular data live. An optimizer deliberately searches toward rare regions with high predicted reward. The first problem punishes leaving the data distribution; the second problem often demands it.
@@ -407,7 +408,7 @@ Representation-level validity asks whether a graph satisfies formal valence rule
 
 A heuristic synthetic-accessibility score is useful for filtering, but it is only a proxy. Stronger approaches generate through known fragments or reaction templates, query a retrosynthesis planner during optimization, or construct a sequence of reactions whose terminal product is the candidate. Reaction-constrained generation narrows chemical space, yet every generated object comes with at least one proposed route. The remaining questions—yield, selectivity, reagent availability, protection chemistry, and scale—still require evaluation.
 
-The [graph generation and reaction modeling chapter]({% post_url 2026-08-08-molecular-generation-graphs-reactions %}) develops the mechanics of reaction edits, atom mapping, multistep search, route yields, and route-level denominators. The division of labor matters here. A 3D optimizer may propose a stereochemically precise conformer because it scores well in a pocket; a synthesis planner operates on molecular identity and must find a route that produces the intended stereoisomer. A route to the correct connectivity but an unresolved racemate is not necessarily a route to the optimized object.
+The [graph generation and reaction modeling chapter]({% post_url 2026-08-08-molecular-generation-graphs-reactions %}) develops the mechanics of reaction edits, atom mapping, multistep search, route yields, and route-level denominators. The distinction matters here. A 3D optimizer may propose a stereochemically precise conformer because it scores well in a pocket; a synthesis planner operates on molecular identity and must find a route that produces the intended stereoisomer. A route to the correct connectivity but an unresolved racemate is not necessarily a route to the optimized object.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/mol3dopt_optimization_funnel.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A realistic design loop applies independent gates: generate diverse structures, balance property and uncertainty objectives, establish a plausible synthesis route, and test compounds experimentally. Failed assays are information that should update both the oracle and the proposal distribution. Original diagram." %}
 

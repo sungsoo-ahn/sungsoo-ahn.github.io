@@ -2,12 +2,13 @@
 layout: post
 title: "Symmetry and Equivariance for Geometric Data"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "A concrete account of group actions, invariance, equivariance, and feature types for geometric machine learning."
 abstract: >
   Geometry tells us which transformations preserve the identity of a data point.
   Equivariant models turn that statement into a constraint on the functions they can learn.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 order: 1
 categories: [foundations]
@@ -19,7 +20,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the storyline of my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. It focuses on the general principle behind equivariant models; the later machinery for spherical equivariant layers is developed in <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">a separate post</a>.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. This article develops the general principle behind equivariant models; <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">Spherical Equivariant Layers</a> carries that principle into three-dimensional architectures.</em>
 </p>
 
 A geometric model should not spend parameters learning that a rotated molecule is still the same molecule. The coordinates have changed, but the object has not. If the target is energy, the prediction should stay fixed. If the target is force, the prediction should rotate with the atoms.

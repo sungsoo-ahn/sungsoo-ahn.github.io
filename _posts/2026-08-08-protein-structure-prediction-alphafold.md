@@ -5,6 +5,7 @@ date: 2026-08-08
 last_updated: 2026-08-09
 description: "How coevolutionary constraints, pairwise geometric reasoning, residue frames, and all-atom diffusion shaped AlphaFold—and where structure prediction stops."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [protein-science]
 lecture_paths: [ml4mol, gdl]
@@ -15,7 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the protein-structure storyline from my Machine Learning for Molecules and Geometric Deep Learning lectures. It follows the changing representation of the problem across AlphaFold 1, 2, and 3: how evolutionary constraints become pair geometry, how geometry becomes coordinates, and how far those coordinates support biological conclusions. The <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">symmetry chapter</a> owns the general theory of rigid-motion equivariance, and <a href="{% post_url 2026-08-08-diffusion-models-flow-matching %}">Diffusion Models and Flow Matching</a> owns denoising objectives and reverse sampling. The <a href="{% post_url 2026-03-03-protein-design-for-ml %}">protein-design chapter</a> carries structural predictions into a design funnel. Here the organizing question is narrower: what object does each AlphaFold generation infer, and which scientific claims survive the interface from that object to coordinates?</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Across AlphaFold 1, 2, and 3, evolutionary constraints become pair geometry and then coordinates in different ways; this article asks what each generation actually infers and which biological claims those coordinates can support.</em>
 </p>
 
 ## Structure Prediction Is Inference Under Constraints

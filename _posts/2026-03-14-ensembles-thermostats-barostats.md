@@ -2,9 +2,10 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 post_type: tutorial
+selected: true
 authors: ["Sungsoo Ahn"]
 order: 1
 series: stochastic-generative-models

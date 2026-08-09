@@ -2,9 +2,10 @@
 layout: post
 title: "MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials"
 date: 2026-06-22
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "MADField predicts the full 3D adsorbate density field in nanoporous materials, turning slow gas-adsorption simulation into a single forward pass."
 post_type: research
+selected: true
 authors: ["Yoonho Kim", "Seongsu Kim", "Sungsoo Ahn", "Honghui Kim"]
 categories: [materials-science]
 tags: [adsorption, materials, grand-canonical-monte-carlo, classical-density-functional-theory, multi-fidelity]

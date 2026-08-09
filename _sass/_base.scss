@@ -1245,7 +1245,7 @@ footer.sticky-bottom {
     font-size: 0.82rem;
     gap: 0.3rem 0.75rem;
     line-height: 1.4;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.45rem;
 
     span:first-child {
       color: var(--global-text-color);
@@ -1260,7 +1260,9 @@ footer.sticky-bottom {
   }
 
   .blog-category-summary {
-    margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     a {
       color: var(--global-text-color-light);
@@ -1338,7 +1340,8 @@ footer.sticky-bottom {
   gap: 0.35rem 0.8rem;
   margin: 0.55rem 0 0;
 
-  a {
+  a,
+  span {
     color: var(--global-text-color-light);
   }
 }
@@ -1390,6 +1393,84 @@ footer.sticky-bottom {
 
   .lecture-path__chapter--forthcoming {
     color: var(--global-text-color-light);
+  }
+}
+
+.course-schedule {
+  margin-top: 2.4rem;
+
+  .course-schedule-intro {
+    color: var(--global-text-color-light);
+    max-width: 760px;
+  }
+
+  table {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    min-width: 840px;
+  }
+
+  th {
+    white-space: nowrap;
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  .course-schedule-dates {
+    min-width: 175px;
+    width: 20%;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    .course-schedule-date {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .course-schedule-date-note {
+      color: var(--global-text-color-light);
+      display: block;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      margin-top: 0.05rem;
+    }
+
+    .course-schedule-date-cancelled .course-schedule-date {
+      color: var(--global-text-color-light);
+      text-decoration: line-through;
+    }
+  }
+
+  .course-schedule-topic {
+    font-weight: 600;
+    width: 17%;
+  }
+
+  .course-schedule-readings {
+    margin: 0;
+    padding-left: 1.05rem;
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -2372,7 +2453,7 @@ article {
     line-height: 1.45;
     margin-bottom: 0;
 
-    span:not(:last-child)::after {
+    > *:not(:last-child)::after {
       color: var(--spml-paper-block-border);
       content: "\00a0\00b7\00a0";
       font-style: normal;
@@ -2382,6 +2463,46 @@ article {
       color: var(--spml-paper-block-heading);
       font-style: normal;
       font-weight: 600;
+    }
+
+    .blog-post-status {
+      color: var(--spml-paper-block-muted);
+      font-style: normal;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--global-theme-color);
+      }
+    }
+  }
+
+  .blog-post-toc {
+    border-bottom: 1px solid var(--global-divider-color);
+    border-top: 1px solid var(--global-divider-color);
+    margin: 0 0 2rem;
+    padding: 0.7rem 0;
+
+    summary {
+      color: var(--global-text-color);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    nav {
+      margin-top: 0.65rem;
+    }
+
+    ul {
+      margin-bottom: 0.3rem;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 0.25rem;
     }
   }
 

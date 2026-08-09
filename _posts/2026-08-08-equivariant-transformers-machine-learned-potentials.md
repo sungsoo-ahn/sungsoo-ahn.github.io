@@ -2,9 +2,10 @@
 layout: post
 title: "Equivariant Transformers and Machine-Learned Potentials"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "How invariant attention scores, equivariant values, and energy-based force prediction turn geometric Transformers into practical interatomic potentials."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [geometric-deep-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,18 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the equivariant-attention and interatomic-potential
-  storyline from my Machine Learning for Molecules and Geometric Deep Learning
-  lectures. The central distinction is between architectural symmetry and a
-  simulation-ready potential: the former constrains transformations, while the
-  latter must also be conservative, smooth, scalable, and physically adequate
-  over the configurations it will visit. The
-  <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">spherical-layers post</a>
-  develops Wigner matrices and implementation conventions, and the
-  <a href="{% post_url 2026-08-08-steerable-features-tensor-products %}">tensor-product post</a>
-  owns the low-order coupling algebra. Here I take those typed operations as
-  given and follow one complete interface: attention block, scalar energy,
-  force derivative, and finally the contract required by a simulator.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Symmetry is only the beginning: a simulation-ready potential must also be conservative, smooth, scalable, and reliable on the configurations it will visit. The <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">spherical-layers</a> and <a href="{% post_url 2026-08-08-steerable-features-tensor-products %}">tensor-product</a> chapters develop the typed operations used here.</em>
 </p>
 
 Attention has an appealing interpretation for atomistic systems: an atom should decide which neighbors matter before combining what they say. Geometry makes that sentence harder than it sounds. A Transformer's attention weight is a scalar, while its hidden features may be vectors and higher-order spherical tensors. An arbitrary query–key comparison can silently destroy rotation equivariance.
@@ -321,7 +311,7 @@ components per atom, a 47% increase from 240 to 352 even before counting the add
 
 Correlation order creates a third, distinct bill. A pairwise message examines $$O(k)$$ edge objects at a center. A literal enumeration of unordered neighbor pairs would expose $$k(k-1)/2=496$$ pairs when $$k=32$$. MACE-style constructions avoid naively materializing every tuple by forming and contracting aggregated neighbor densities, but their wider products still pay for the requested correlation channels. It would therefore be wrong to infer that one higher-order layer costs exactly 496 times one pairwise layer; the controlled calculation only identifies the combinatorial object being compressed.
 
-These numbers sharpen the division of labor. Attention can redistribute a fixed edge budget. Higher $$L$$ allocates more storage and contractions to directional resolution. Higher correlation order allocates computation to joint neighbor structure. Edge alignment changes how angular contractions are executed. Depth repeats whichever choice was made and expands the graph receptive field only along existing edges. A fair ablation holds the other axes fixed; otherwise an apparent gain from “attention” may actually come from more typed components, a larger cutoff, or a different body-order budget.
+These numbers sharpen the architectural tradeoff. Attention can redistribute a fixed edge budget. Higher $$L$$ allocates more storage and contractions to directional resolution. Higher correlation order allocates computation to joint neighbor structure. Edge alignment changes how angular contractions are executed. Depth repeats whichever choice was made and expands the graph receptive field only along existing edges. A fair ablation holds the other axes fixed; otherwise an apparent gain from “attention” may actually come from more typed components, a larger cutoff, or a different body-order budget.
 
 ## A force field is an energy model with derivatives
 

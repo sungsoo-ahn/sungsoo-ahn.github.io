@@ -2,9 +2,10 @@
 layout: post
 title: "What Graph Neural Networks Can and Cannot Distinguish"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "Graph neural network expressivity through graph isomorphism, multiset aggregation, the Weisfeiler--Leman test, its blind spots, and the tradeoffs behind stronger models."
+last_updated: 2026-08-09
+description: "Graph neural network expressivity through multiset aggregation, the Weisfeiler--Leman test, its blind spots, and the cost of stronger models."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [graph-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,11 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the expressivity storyline from my Machine
-  Learning for Molecules and Geometric Deep Learning lectures. The central
-  question is not which graph architecture has the longest list of features.
-  It is which graph distinctions a representation preserves, which ones it
-  erases, and whether the distinctions it preserves are useful for the task.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. The useful question is not which graph architecture has the longest feature list, but which distinctions its representation preserves, which it erases, and whether the surviving distinctions matter for the task.</em>
 </p>
 
 A graph neural network can fail after optimization has done everything right. Two different graphs may receive exactly the same representation for every possible parameter setting. More data, wider hidden states, and longer training cannot recover information that the representation erased before prediction began.

@@ -3,10 +3,11 @@ layout: post
 title: "Two Routes to Graph Convolution"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "Two principled derivations of graph convolution—from Laplacian spectral filters and from permutation-equivariant linear maps—and what each viewpoint reveals and hides."
+description: "Two derivations of graph convolution—from Laplacian spectral filters and permutation-equivariant linear maps—and what each reveals and hides."
 abstract: >
   Graph convolution is often introduced as neighborhood averaging. Its deeper structure appears when we derive it twice: first as a filter in the graph Fourier basis, then as a linear map constrained by permutation symmetry.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [graph-learning]
 lecture_paths: [gdl]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the storyline of my 2025 Geometric Deep Learning lecture on principled derivations of graph neural networks. It complements the message-passing view in <a href="{% post_url 2026-08-08-graph-neural-networks-message-passing %}">Graph Neural Networks as Learnable Message Passing</a>: here the question is not how to implement a graph layer, but why graph convolution takes the forms that it does. General group actions and equivariant composition are developed in <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">Symmetry and Equivariance for Geometric Data</a>; this chapter owns the two commutant calculations and their exact overlap.</em>
+  <em>Adapted from my 2025 Geometric Deep Learning lectures. Rather than asking how to implement <a href="{% post_url 2026-08-08-graph-neural-networks-message-passing %}">message passing</a>, this article derives graph convolution twice—through spectral filtering and permutation equivariance—and shows exactly where the two routes meet.</em>
 </p>
 
 A convolution is not defined by sliding a small window. The sliding-window formula is a consequence of a stronger statement: **convolution is a linear map that commutes with translation**. Shift the input and then convolve, or convolve and then shift; either route gives the same output.
@@ -535,7 +536,7 @@ $$
 =\mathbf P(\mathbf A\mathbf X).
 $$
 
-The order-2 adjacency supplies a relation; the shared contraction supplies equivariance. The [message-passing chapter]({% post_url 2026-08-08-graph-neural-networks-message-passing %}) owns the architectural choices that follow—learned messages, attention, aggregation, and controlled model comparisons. Here $$\mathbf A\mathbf X$$ marks the exact algebraic bridge between tensor fixed points and a local graph operator.
+The order-2 adjacency supplies a relation; the shared contraction supplies equivariance. The [message-passing chapter]({% post_url 2026-08-08-graph-neural-networks-message-passing %}) develops the architectural choices that follow—learned messages, attention, aggregation, and controlled model comparisons. Here $$\mathbf A\mathbf X$$ marks the exact algebraic bridge between tensor fixed points and a local graph operator.
 
 This explains why permutation symmetry alone cannot discover local neighborhoods. Under the full permutation group, no pair of distinct node indices is privileged. The adjacency matrix supplies the relational structure, and simultaneous relabeling ensures that structure is used consistently. The spectral route encodes the same structure inside $$\mathbf{L}$$; the equivariant route keeps it visible as an input.
 

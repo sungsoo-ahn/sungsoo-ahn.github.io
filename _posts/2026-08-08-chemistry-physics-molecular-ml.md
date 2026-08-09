@@ -2,9 +2,10 @@
 layout: post
 title: "Chemistry and Physics for Molecular Machine Learning"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "A physics-first account of molecular representation, electronic structure, forces, statistical mechanics, and dynamics for molecular machine learning."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [foundations]
 tags: [molecular-representations, symmetry, quantum-chemistry, statistical-mechanics, molecular-dynamics]
@@ -16,7 +17,7 @@ published: true
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-<em>Note: This article develops the chemistry and physics storyline behind my Machine Learning for Molecules lectures. It is written as a standalone account; the lecture slides are not required.</em>
+<em>Adapted from my 2025 Machine Learning for Molecules lectures. This article explains the physical choices that determine what a molecular model can represent, predict, and conserve.</em>
 </p>
 
 Molecular machine learning has an unusual constraint: its inputs are human-made descriptions, but its targets belong to a physical system that does not care how we describe it. Water has the same energy if we rotate the laboratory, rename its atoms, or translate it across the room. A crystal remains the same infinite solid if we choose a different but equivalent unit cell. A drug can have the same bond graph as its mirror image and still interact differently with a protein.

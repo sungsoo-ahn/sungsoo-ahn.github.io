@@ -7,10 +7,14 @@ layout: default
 {% assign url_beginning = page.url | slice: 0, 6 %}
 {% assign kups_url_beginning = page.url | slice: 0, 18 %}
 {% assign is_blog_style_post = false %}
+{% assign is_canonical_blog_post = false %}
 {% if url_beginning == '/blog/' or kups_url_beginning == '/kups-md-tutorials' %}
   {% assign is_blog_style_post = true %}
 {% endif %}
-{% assign read_time = content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+{% if url_beginning == '/blog/' %}
+  {% assign is_canonical_blog_post = true %}
+{% endif %}
+{% assign read_time = content | strip_html | number_of_words | divided_by: 150 | plus: 1 %}
 {% assign post_type = page.post_type | default: 'tutorial' %}
 {% assign post_type_label = post_type | replace: '-', ' ' | capitalize %}
 {% if post_type == 'technical-note' %}
@@ -38,18 +42,29 @@ layout: default
       {% endif %}
       <p class="blog-post-meta">
         <span class="blog-post-type blog-post-type-{{ post_type }}">{{ post_type_label }}</span>
+        {% if page.selected %}
+          <a class="blog-post-status blog-post-status-selected" href="{{ '/blog/selected/' | relative_url }}">Selected</a>
+        {% endif %}
+        {% if page.editorial_status == 'human-reviewed' %}
+          <a class="blog-post-status blog-post-status-reviewed" href="{{ '/blog/human-reviewed/' | relative_url }}">Human-reviewed</a>
+        {% elsif page.editorial_status == 'ai-generated' %}
+          <a class="blog-post-status blog-post-status-ai" href="{{ '/blog/ai-generated/' | relative_url }}">AI-generated</a>
+        {% endif %}
         {% if author_text %}
           <span>{{ author_text }}</span>
         {% endif %}
         <span>{{ page.date | date: '%B %d, %Y' }}</span>
         <span>{{ read_time }} min read</span>
-        {% if page.last_updated %}
+        {% assign published_day = page.date | date: '%Y-%m-%d' %}
+        {% assign updated_day = page.last_updated | date: '%Y-%m-%d' %}
+        {% if page.last_updated and updated_day != published_day %}
           <span>updated {{ page.last_updated | date: '%B %d, %Y' }}</span>
         {% endif %}
         {% if page.meta %}
           <span>{{ page.meta }}</span>
         {% endif %}
       </p>
+      {% if is_canonical_blog_post %}
       {% if categories != '' or tags != '' %}
         <p class="blog-post-taxonomy">
           {% for category in page.categories %}
@@ -60,11 +75,10 @@ layout: default
             </a>
           {% endfor %}
           {% for tag in page.tags %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}">
-              <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
-            </a>
+            <span><i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</span>
           {% endfor %}
         </p>
+      {% endif %}
       {% endif %}
       {% if page.abstract %}
         <section class="blog-post-abstract" aria-labelledby="blog-post-abstract-title">
@@ -119,6 +133,12 @@ layout: default
   {% endif %}
 
   <article class="post-content">
+    {% if is_canonical_blog_post and page.toc and page.toc.sidebar %}
+      <details class="blog-post-toc">
+        <summary>On this page</summary>
+        <nav aria-label="Table of contents">{% toc %}</nav>
+      </details>
+    {% endif %}
     {% if page.toc and page.toc.beginning %}
       <div id="table-of-contents">
         {% toc %}

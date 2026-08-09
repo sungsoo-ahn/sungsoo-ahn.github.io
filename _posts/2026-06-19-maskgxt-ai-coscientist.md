@@ -2,9 +2,10 @@
 layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "How HACO, a Human–AI Co-discovery system, produced MaskGXT, a competitive generative model for crystal structure prediction."
 post_type: research
+selected: true
 authors: ["Kiyoung Seong", "Sungsoo Ahn"]
 categories: [materials-science]
 tags: [ai-scientist, generative-models, crystal-structure-prediction, materials, masked-generative-models]
@@ -215,20 +216,20 @@ decisions still require human judgment.
 - <span id="ref-jiao2023"></span>Jiao, R., et al. (2023). Crystal Structure Prediction by Joint Equivariant Diffusion (DiffCSP). [NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/38b787fc530d0b31825827e2cc306656-Abstract-Conference.html). <a href="#cite-jiao2023" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-jiao2024"></span>Jiao, R., Huang, W., Liu, Y., Zhao, D. & Liu, Y. (2024). Space Group Constrained Crystal Generation (DiffCSP++). [ICLR 2024](https://openreview.net/forum?id=jkvZ7v4OmP). <a href="#cite-jiao2024" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-kazeev2025"></span>Kazeev, N., et al. (2025). Wyckoff Transformer: Generation of Symmetric Crystals (WyFormer). [ICML 2025](https://proceedings.mlr.press/v267/kazeev25a.html). <a href="#cite-kazeev2025" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-kelvinius2025"></span>Kelvinius, F. E., et al. (2025). WyckoffDiff: A Generative Diffusion Model for Crystal Symmetry. [ICML 2025](https://proceedings.mlr.press/v267/ekstrom-kelvinius25a.html). <a href="#cite-kelvinius2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-kelvinius2025"></span>Kelvinius, F. E., et al. (2025). WyckoffDiff: A Generative Diffusion Model for Crystal Symmetry. [ICML 2025](https://proceedings.mlr.press/v267/ekstrom-kelvinius25a.html).
 - <span id="ref-levy2025"></span>Levy, D., et al. (2025). SymmCD: Symmetry-Preserving Crystal Generation with Diffusion Models. [ICLR 2025](https://openreview.net/forum?id=xnssGv9rpW). <a href="#cite-levy2025" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-lu2024"></span>Lu, C., Lu, C., Lange, R. T., Foerster, J., Clune, J. & Ha, D. (2024). The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery. [arXiv:2408.06292](https://arxiv.org/abs/2408.06292). <a href="#cite-lu2024" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-luo2025"></span>Luo, X., Wang, Z., Lv, J., Wang, L., Wang, Y. & Ma, Y. (2025). CrystalFlow: A Flow-Based Generative Model for Crystalline Materials. [Nature Communications](https://doi.org/10.1038/s41467-025-64364-4). <a href="#cite-luo2025" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-luo2025"></span>Luo, X., Wang, Z., Lv, J., Wang, L., Wang, Y. & Ma, Y. (2025). CrystalFlow: A Flow-Based Generative Model for Crystalline Materials. [Nature Communications](https://doi.org/10.1038/s41467-025-64364-4).
 - <span id="ref-martirossyan2025"></span>Martirossyan, M. M., et al. (2025). All That Structure Matches Does Not Glitter (METRe). [NeurIPS 2025](https://proceedings.neurips.cc/paper_files/paper/2025/hash/390a00871e5593fcf8717f83b2c1395f-Abstract-Datasets_and_Benchmarks_Track.html). <a href="#cite-martirossyan2025" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-miller2024"></span>Miller, B. K., Chen, R. T. Q., Sriram, A. & Wood, B. M. (2024). FlowMM: Generating Materials with Riemannian Flow Matching. [ICML 2024](https://proceedings.mlr.press/v235/miller24a.html). <a href="#cite-miller2024" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-novikov2025"></span>Novikov, A., et al. (2025). AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery. [arXiv:2506.13131](https://arxiv.org/abs/2506.13131). <a href="#cite-novikov2025" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-romeraparedes2024"></span>Romera-Paredes, B., et al. (2024). Mathematical Discoveries from Program Search with Large Language Models. [Nature](https://doi.org/10.1038/s41586-023-06924-6). <a href="#cite-romeraparedes2024" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-seong2026"></span>Seong, K., Ahn, S., Han, S. & Park, C. (2026). Multimodal Crystal Flow: Any-to-Any Modality Generation for Unified Crystal Modeling (MCFlow). [arXiv:2602.20210](https://arxiv.org/abs/2602.20210). <a href="#cite-seong2026" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-veljkovic2026"></span>Veljković, T. H., Rosenthal, J., Lončarić, I. & van de Meent, J.-W. (2026). Crystalite: A Lightweight Transformer for Efficient Crystal Modeling. [arXiv:2604.02270](https://arxiv.org/abs/2604.02270). <a href="#cite-veljkovic2026" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-veljkovic2026"></span>Veljković, T. H., Rosenthal, J., Lončarić, I. & van de Meent, J.-W. (2026). Crystalite: A Lightweight Transformer for Efficient Crystal Modeling. [arXiv:2604.02270](https://arxiv.org/abs/2604.02270).
 - <span id="ref-xie2022"></span>Xie, T., Fu, X., Ganea, O.-E., Barzilay, R. & Jaakkola, T. (2022). Crystal Diffusion Variational Autoencoder for Periodic Material Generation (CDVAE). [ICLR 2022](https://openreview.net/forum?id=03RLpj-tc_). <a href="#cite-xie2022" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-yamada2025"></span>Yamada, Y., Lange, R. T., Lu, C., Hu, S., Lu, C., Foerster, J., Clune, J. & Ha, D. (2025). The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search. [arXiv:2504.08066](https://arxiv.org/abs/2504.08066). <a href="#cite-yamada2025" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-zeni2025"></span>Zeni, C., et al. (2025). MatterGen: A Generative Model for Inorganic Materials Design. [Nature](https://doi.org/10.1038/s41586-025-08628-5). <a href="#cite-zeni2025" class="reversefootnote" role="doc-backlink">↩</a>
-- <span id="ref-zhu2024"></span>Zhu, R., Nong, W., Yamazaki, S. & Hippalgaonkar, K. (2024). WyCryst: Wyckoff Inorganic Crystal Generator Framework. [Matter](https://doi.org/10.1016/j.matt.2024.05.042). <a href="#cite-zhu2024" class="reversefootnote" role="doc-backlink">↩</a>
+- <span id="ref-zeni2025"></span>Zeni, C., et al. (2025). MatterGen: A Generative Model for Inorganic Materials Design. [Nature](https://doi.org/10.1038/s41586-025-08628-5).
+- <span id="ref-zhu2024"></span>Zhu, R., Nong, W., Yamazaki, S. & Hippalgaonkar, K. (2024). WyCryst: Wyckoff Inorganic Crystal Generator Framework. [Matter](https://doi.org/10.1016/j.matt.2024.05.042).
 
 ---
 

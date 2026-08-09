@@ -5,6 +5,7 @@ date: 2026-08-08
 last_updated: 2026-08-09
 description: "Molecular graph generation and reaction modeling viewed as constrained structured prediction, from representation and symmetry to synthesis-aware evaluation."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -15,12 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the molecule-generation and reaction storyline
-    from my Machine Learning for Molecules lecture, treating the two as sides
-    of constrained graph modeling. The first proposes chemical objects;
-    the second asks how those objects can change or be made. The emphasis is on
-    the representations, symmetries, and evaluation decisions that connect the
-    two. The companion <a href="{% post_url 2026-08-08-discrete-flow-generator-matching %}">discrete generator chapter</a> develops continuous-time Markov rates, reverse chains, and event simulation. Here I treat autoregressive and parallel generators as proposal mechanisms and focus on the chemical distribution produced after constraints, reaction models, route search, and experiments act on those proposals.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. Molecular generation proposes chemical objects; reaction modeling asks how they can change or be made. This article follows the resulting distribution through constraints, route search, and experiments, while <a href="{% post_url 2026-08-08-discrete-flow-generator-matching %}">Discrete Flow and Generator Matching</a> develops the underlying continuous-time machinery.</em>
 </p>
 
 ## A Molecule Is Not an Arbitrary Graph

@@ -2,9 +2,10 @@
 layout: post
 title: "Graph Neural Networks as Learnable Message Passing"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "Why permutation symmetry leads to message passing, how GCN, GraphSAGE, GAT, and GIN instantiate it, and why graph Transformers still need structural information."
+last_updated: 2026-08-09
+description: "Why permutation symmetry leads to message passing, how familiar GNNs instantiate it, and why graph Transformers still need structure."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [graph-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,11 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the common abstraction behind the graph neural
-  networks that appear in my Machine Learning for Molecules and Geometric Deep
-  Learning lectures. The focus is not a chronology of architectures. It is the
-  design constraint that makes them graph networks in the first place, and the
-  limits that remain after we satisfy it.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. The focus is the symmetry constraint that makes a neural network a graph network, the familiar architectures that follow from it, and the limitations that remain.</em>
 </p>
 
 An image is an array before it enters a neural network. Its row and column indices tell us which pixels are adjacent, and the same small filter can be applied at every location. A graph gives us no such coordinate system. It gives us entities, relations, and an arbitrary choice of indices used to store them.
