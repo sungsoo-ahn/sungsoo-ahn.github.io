@@ -666,6 +666,31 @@ requirements for the replacement deck-level articles.
   increments lead to Itô observables, conditional expectations, the generator,
   its adjoint, and finally density evolution. The blog-writing skill now records
   this proof-strategy rule.
+
+### GDL 2025 Lecture 14: Diffusion Models and Flow Matching
+
+- **Source:** `lec14_prelim3.pdf` (29 pages), represented by 24 canonical PDF
+  composites preserving the reverse-SDE equations, conditional/marginal path
+  diagrams, loss derivations, and affine parameterizations.
+- **Coverage:** 24 scientific slides covered; the cover, part and agenda cards,
+  and final reference card omitted. The Fokker--Planck recap was retained
+  because it derives both Nelson's reverse-drift identity and the zero-diffusion
+  continuity equation. The source order remains Langevin dynamics, forward and
+  reverse diffusion, score matching, ODE flows, marginalization, conditional
+  flow matching, Gaussian and affine paths, and velocity parameterization.
+- **Figures:** all 24 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous diffusion/flow tutorial's added
+  schedule tradeoff figure, separate denoising and marginalization diagrams,
+  solver discussion, and expanded conditional-expectation identities were not
+  source figures or source-ordered branches. The replacement follows the deck's
+  compact paired derivation.
+- **General lesson promoted:** conditional and marginal paths and vector fields
+  must remain separate. Diffusion learns a marginal score from conditional
+  corruption scores; flow matching learns a marginal velocity from conditional
+  velocities. The blog-writing skill now requires the posterior expectation or
+  gradient identity connecting these levels and the deck's endpoint convention
+  to remain explicit.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
