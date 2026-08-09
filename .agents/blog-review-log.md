@@ -569,6 +569,29 @@ requirements for the replacement deck-level articles.
   parity indices of the network and as the triangle and parity constraints on
   each message. The blog-writing skill now requires an adaptation to carry that
   abstract dependency chain into the concrete architecture.
+
+### GDL 2025 Lecture 10: Steerable Attention and Nonlinear Message Passing
+
+- **Source:** `lec10_geognn4.pdf` (44 pages), represented by 42 canonical PDF
+  composites preserving the recap equations, TFN and NequIP layers,
+  SE(3)-Transformer attention, SEGNN steerable MLPs, and benchmark tables.
+- **Coverage:** 42 scientific slides covered; only the cover and dated course
+  schedule omitted. The steerable-feature, TFN, and NequIP recap remains in the
+  article because SE(3)-Transformer is expressed as an attention-weighted TFN
+  value update and SEGNN is contrasted with TFN's linear aggregation. The end
+  slide's related-architecture map was also retained.
+- **Figures:** all 42 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** no prior synthetic article matched this deck
+  exactly; its material had been split between the tensor-product and
+  equivariant-potential tutorials. Their standalone typed-layer derivations,
+  rotation arithmetic, conservative-force counterexample, locality analysis,
+  and architecture ledger were absent from the source and were not imported.
+- **General lesson promoted:** repeated preliminaries remain substantive when
+  the new architecture is stated as a precise modification of their notation.
+  Here the recap fixes the typed TFN kernel that attention weights and the
+  linear aggregation that SEGNN replaces. The recap rule in the blog-writing
+  skill now names this baseline-delta case explicitly.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 

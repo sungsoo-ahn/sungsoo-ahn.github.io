@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec10_geognn4.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec10_geognn4.pptx",
   "slide_count": 44,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Geometric Graph Neural Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Geometric Graph Neural Networks",
         "AI.810 Geometric Deep Learning",
@@ -24,7 +24,7 @@
       "pptx_slide": 2,
       "title": "Lecture Overview: Geometric GNNs",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Lecture Overview: Geometric GNNs",
         "Lec 1 (Mar 19th): Scalar- and vector- based geometric GNNs",
@@ -44,7 +44,7 @@
       "pptx_slide": 3,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Overview",
         "We are studying steerable networks that operate",
@@ -71,7 +71,7 @@
       "pptx_slide": 4,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Overview",
         "The new neural networks linearly combine steerable features of different types",
@@ -93,7 +93,7 @@
       "pptx_slide": 5,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Overview",
         "Here, we begin with geometric GNNs with the simplest form,",
@@ -116,7 +116,7 @@
       "pptx_slide": 6,
       "title": "Recap: Circular Harmonics",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Circular Harmonics",
         "Example of steerable vectors and group representations:",
@@ -150,7 +150,7 @@
       "pptx_slide": null,
       "title": "Q. How does the area",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Q. How does the area",
         "Recap: Circular Harmonics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 change to rotations?",
@@ -174,7 +174,7 @@
       "pptx_slide": 7,
       "title": "Recap: Spherical Harmonics",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Spherical Harmonics",
         "Spherical harmonics form an orthonormal basis of",
@@ -205,7 +205,7 @@
       "pptx_slide": null,
       "title": "Recap: Spherical Harmonics",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Spherical Harmonics",
         "Degree-𝑙 spherical harmonics are steerable vectors associated",
@@ -223,7 +223,7 @@
       "pptx_slide": 10,
       "title": "Recap: Spherical Harmonics",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Spherical Harmonics",
         "We are going to use spherical harmonics to encode relative distance information:"
@@ -238,7 +238,7 @@
       "pptx_slide": 11,
       "title": "Recap: Irredicible Representation (IrRep)",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Irredicible Representation (IrRep)",
         "It is desirable to think of a concept that linearly decomposes a steerable vector such that:",
@@ -260,7 +260,7 @@
       "pptx_slide": 12,
       "title": "Recap: Irredicible Representation (IrRep)",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Irredicible Representation (IrRep)",
         "A representation is called reducible if it can be written as:",
@@ -285,7 +285,7 @@
       "pptx_slide": 13,
       "title": "Recap: Irredicible Representation (IrRep)",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Irredicible Representation (IrRep)",
         "Example of steerable vectors associated with irreps of 𝑆𝑂(2):",
@@ -318,7 +318,7 @@
       "pptx_slide": 14,
       "title": "Recap: Irredicible Representation (IrRep)",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Irredicible Representation (IrRep)",
         "The irreducible representations of 𝑆𝑂(3) are called",
@@ -361,7 +361,7 @@
       "pptx_slide": null,
       "title": "Recap: Clebsch-Gordan Tensor Product",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Clebsch-Gordan Tensor Product",
         "It turns out that “vectorized” tensor products are steerable:",
@@ -389,7 +389,7 @@
       "pptx_slide": null,
       "title": "Recap: Clebsch-Gordan Tensor Product",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Clebsch-Gordan Tensor Product",
         "The Clebsch-Gordan tensor product includes change of basis",
@@ -414,7 +414,7 @@
       "pptx_slide": null,
       "title": "Recap: Clebsch-Gordan Tensor Product",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Clebsch-Gordan Tensor Product",
         "To describe the Clebsch-Gordan tensor product, reconsider",
@@ -449,7 +449,7 @@
       "pptx_slide": null,
       "title": "Recap: Clebsch-Gordan Tensor Product",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Clebsch-Gordan Tensor Product",
         "(&,+)",
@@ -474,7 +474,7 @@
       "pptx_slide": 19,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "One of the first papers to propose neural network that",
@@ -497,7 +497,7 @@
       "pptx_slide": 20,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "(&)",
@@ -521,7 +521,7 @@
       "pptx_slide": 21,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "(& ,& )",
@@ -549,7 +549,7 @@
       "pptx_slide": 22,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "The message passing layer consists of:",
@@ -584,7 +584,7 @@
       "pptx_slide": 23,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "The TFN applies order-wise non-linearities via scalar transformation.",
@@ -615,7 +615,7 @@
       "pptx_slide": 24,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "Overall architecture (self-interaction layers are 1x1 convolutions):"
@@ -630,7 +630,7 @@
       "pptx_slide": 25,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "Experiments are proof-of-concept types.",
@@ -648,7 +648,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Applies TFN-like architecture to learn interatomic potentials:",
@@ -670,7 +670,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "(&,1)",
@@ -693,7 +693,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "The filter 𝑆+& 𝑟⃗/3 is expressed as:",
@@ -720,7 +720,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "The layers update similar to TFN by Clebsch-Gordan tensor products:",
@@ -748,7 +748,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Experiments confirm the superiority of NequIP over",
@@ -762,7 +762,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Experiments confirm the superiority of NequIP over",
@@ -776,7 +776,7 @@
       "pptx_slide": 32,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "How to design attention layers using the steerable features?",
@@ -794,7 +794,7 @@
       "pptx_slide": null,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "Recall the TFN layer:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Clebsch-Gordan             type-𝑙#   type-𝑙$",
@@ -833,7 +833,7 @@
       "pptx_slide": 34,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "<latexit sha1_base64=\"eO0h56HrlLkhI57qIYJTN4xAFAM=\">AAAChnicbVFba9swFJbdbc2yW7Y97kUsDFrYgt319lII7GWPHSxNIU6NrBwniiXZlY7HgtFP6Z/a2/7NlMSFru0BwXe+7xydW1ZJYTGK/gbhzpOnz3Y7z7svXr56/ab39t2FLWvDYcRLWZrLjFmQQsMIBUq4rAwwlUkYZ8W3tT7+BcaKUv/EVQVTxeZa5IIz9FTau0kUw0WWN7lLmw02qilrdJ+pcFdNAlK6s8TWKm0KmszhmkaObv0lTbT3fZimt7+M2xxauERCjnu3wm+XLr/ccURixHyB+/Sx+kL78kt3VaS9fjSINkYfgrgFfdLaedr7k8xKXivQyCWzdhJHFU4bZlBwCa6b1BYqxgs2h4mHmimw02azRkc/eWZG89L4p5Fu2LsZDVPWrlTmI9eN2vvamnxMm9SYn079VFWNoPm2UF5LiiVd34TOhAGOcuUB40b4XilfMMM4+st1/RLi+yM/BBcHg/h4cPTjsD88bdfRIR/IR7JHYnJChuQ7OScjwoOdYD84CL6GnXAQHoUn29AwaHPek/8sHP4DAAnHKw==</latexit>",
@@ -871,7 +871,7 @@
       "pptx_slide": 35,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "The attention weight 𝛼/3 is computed using inner products of type-ℓ features,",
@@ -902,7 +902,7 @@
       "pptx_slide": 36,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "Non-linear self-interaction layers for mixing different channels:",
@@ -936,7 +936,7 @@
       "pptx_slide": 37,
       "title": "SE(3)-Transformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SE(3)-Transformer",
         "Experiments show improvement over the TFN layers."
@@ -951,7 +951,7 @@
       "pptx_slide": 38,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "Proposes steerable multi-linear perceptron (MLP) as",
@@ -970,7 +970,7 @@
       "pptx_slide": 39,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "Key idea: the following weighted Clebsch-Gordan tensor product can be seen as",
@@ -1007,7 +1007,7 @@
       "pptx_slide": 40,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "Then the steerable MLP can be defined by",
@@ -1029,7 +1029,7 @@
       "pptx_slide": 41,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "Overall architecture using steerable MLPs 𝜙+ , 𝜙. :",
@@ -1061,7 +1061,7 @@
       "pptx_slide": 42,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "SEGNN achieved competitive performance on QM9."
@@ -1076,7 +1076,7 @@
       "pptx_slide": 43,
       "title": "SEGNN: Steerable E(3) Equivariant GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SEGNN: Steerable E(3) Equivariant GNNs",
         "SEGNN achieved SOTA performance on the OC IS2RE tasks."
@@ -1091,7 +1091,7 @@
       "pptx_slide": 44,
       "title": "End of Section",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "End of Section",
         "More related publications:",
@@ -1117,7 +1117,8 @@
         3,
         10,
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2ed7aa958770fa7af411ccccf449e286ae7374e3d986bb6c42d5114db87c8468",
@@ -1126,7 +1127,8 @@
       "bytes": 59314,
       "slides": [
         3
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
@@ -1135,7 +1137,8 @@
       "bytes": 89312,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
@@ -1144,7 +1147,8 @@
       "bytes": 81752,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
@@ -1154,7 +1158,8 @@
       "slides": [
         9,
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a",
@@ -1163,7 +1168,8 @@
       "bytes": 50131,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "232c6ed9278960f1b2e1b3a76ae4319c28a93378b198c9178ee6bc891aa05d48",
@@ -1172,7 +1178,8 @@
       "bytes": 96244,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13d96e767c3c6036ccd7e90cc3fffedd54976f2a21e580527e4b6f10e5b24723",
@@ -1181,7 +1188,8 @@
       "bytes": 155244,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "27bd0232e2d44991ba582aeb852ca263669288b67a73ef28cdaf8d048ed13ff8",
@@ -1190,7 +1198,8 @@
       "bytes": 99024,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af56e01f7edff1e1bf61aae474161729d62090e2abf8af6f3eab18236f7c529a",
@@ -1199,7 +1208,8 @@
       "bytes": 94796,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "aae42b36f61ac4179e075edab2d5c761ea5a7d85a2e56b49a0b02979ce170d48",
@@ -1208,7 +1218,8 @@
       "bytes": 132752,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d3e1bc608c3a5dbf186fdfb865aca5ec8de860f20347ca7d946e119e514984b4",
@@ -1217,7 +1228,8 @@
       "bytes": 113384,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "79886af82ca1ac4c49cd7d49f1c7b3d0ae0441c4b12547cf8d00d5a56247b0a8",
@@ -1226,7 +1238,8 @@
       "bytes": 140706,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a13ee44e1efe1ac8eba7af1ef66d20ffc3e858e6215bc9f7e1e50004ba935db6",
@@ -1235,7 +1248,8 @@
       "bytes": 117052,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "007e3bf26a069fa927088d96fc0f48839dccb12fe07eebc087b7c9b7ab29ca97",
@@ -1244,7 +1258,8 @@
       "bytes": 6236,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13d7e21f60c9c4954475c74760bd83a14710636dc2960e6630d86406fc57a2a7",
@@ -1253,7 +1268,8 @@
       "bytes": 111980,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6",
@@ -1263,7 +1279,8 @@
       "slides": [
         17,
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "724e9bafcffdec825f00d048d8493dbdf19796cdf39fc3a8b0ce35ac589670ad",
@@ -1272,7 +1289,8 @@
       "bytes": 45786,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d7a776bf412d0de2392afb78f265a1ac20a11c4e197fdeb706a801511a8e0717",
@@ -1281,7 +1299,8 @@
       "bytes": 5691,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1",
@@ -1290,7 +1309,8 @@
       "bytes": 161125,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "dfd30cf6d1fc986bcd790f23d6493f195c7b067d69b6937568f841d98e2e1cc5",
@@ -1299,7 +1319,8 @@
       "bytes": 100640,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "07955ecae91146dd51c4c9e3fb66a71618d993d1d247c65dc25ba3f235e2d26f",
@@ -1308,7 +1329,8 @@
       "bytes": 4406,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bd6225263c56a0657013307d5b6ea2edc49f9ab92a5be07b09a2ffa5cbd71911",
@@ -1318,7 +1340,8 @@
       "slides": [
         22,
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7294605f657f47c1ecec63d1e04abd8661f604c93d9ebcbff928a691345df327",
@@ -1327,7 +1350,8 @@
       "bytes": 4133,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ca1be4d8026217924df9a346765458dbac47ddadf86911075592dbb7849c080c",
@@ -1336,7 +1360,8 @@
       "bytes": 111124,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8f217e780bcc35cdaec301a886242a361b21202d0012f8bce51b758def4eab9d",
@@ -1345,7 +1370,8 @@
       "bytes": 237426,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1c2ecb12ce5440d8babf590120f9bde1da5b59797388e1a8ae438a2ac673f51e",
@@ -1354,7 +1380,8 @@
       "bytes": 87624,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f1a01b71153f0aee4ce8a03d8911c57f3e3ca440f15a1763c73e663d2fe8812b",
@@ -1363,7 +1390,8 @@
       "bytes": 6580,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "48b1139b6e6d797397da0be26875a93cd876cd650a762c9aa5854c27443e36c1",
@@ -1372,7 +1400,8 @@
       "bytes": 50249,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d39ab775bd9c73fde1b9c9d68a7461fa96afc664fdc1ecc135ee292c53d70ed5",
@@ -1381,7 +1410,8 @@
       "bytes": 123116,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bfad0227dc7c138ded59472a4f4c23744936d7c6f4510098eb646b3078c1ad79",
@@ -1390,7 +1420,8 @@
       "bytes": 116144,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cbe107f0c62dd465d32ae1050458d8c3c3e6205647ae1499467050a9ea35425a",
@@ -1399,7 +1430,8 @@
       "bytes": 139556,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3d97576a018c288094519bea7935734dfc8086b33ded71501c5203022a211cc4",
@@ -1408,7 +1440,8 @@
       "bytes": 1608,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e3466ffe13cb158087bbe048a5cba6900b404c2b7315cb62453126d903644100",
@@ -1417,7 +1450,8 @@
       "bytes": 76460,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "315eb7c939c64aef25dcc0984b9ad7dac0c796896898c8d4411381551ae20fba",
@@ -1426,7 +1460,8 @@
       "bytes": 2113,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6d351b0d2f68a1f61b94e30af1641fc36b872ff9258f4f09a5a22b4f34f9e7c1",
@@ -1435,7 +1470,8 @@
       "bytes": 77020,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "89de0ae41f78429141ed0f1907140b74ca4936bab60cb09aca11c7b54798216b",
@@ -1444,7 +1480,8 @@
       "bytes": 4968,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "56a0458ae46fd7b92255b274eb41798d8e95ff29f6bccb1ab7f884086650793a",
@@ -1453,7 +1490,8 @@
       "bytes": 93456,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "df93a8e2708dcfcf08cc1879501b927313b25a34f720d27f4b7a4859165b33ed",
@@ -1462,7 +1500,8 @@
       "bytes": 7174,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d3e3b18abd6768680997404e104ae59f3f6434dbf70e2f71bf8d3eeb813f7a07",
@@ -1471,7 +1510,8 @@
       "bytes": 146984,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2c7b6f5f6f20b491b963653b736c17eab30845d8fea22c4d19fa6e30ac321bc1",
@@ -1480,7 +1520,8 @@
       "bytes": 7130,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5982a175a7473beb5cdc9620a117d994ff4d3f66ffee650ad3e772db106e928f",
@@ -1489,7 +1530,8 @@
       "bytes": 223715,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b3c2e040d61324239fc1839b38cc2147d0436224fd3d5576ed16d17becff7266",
@@ -1498,7 +1540,8 @@
       "bytes": 11192,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3841cedd37bdc8fd49304f015b27610b5e841709d8fc480e7f1a16f9b245ef28",
@@ -1507,7 +1550,8 @@
       "bytes": 298689,
       "slides": [
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e66986efb3bc6c8e9800f32c9c0093a58b41988c548f888f8cacc15de50cb54b",
@@ -1516,7 +1560,8 @@
       "bytes": 3083,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5cd82a015a28c1d4282c8ba2239cee49623a6b18d3031180ea84e031ab901df1",
@@ -1526,7 +1571,8 @@
       "slides": [
         33,
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "048579d722abc5c595841af15daca9dd9991c30b7e3c58cc7e6f5dc13021af6f",
@@ -1535,7 +1581,8 @@
       "bytes": 70878,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
@@ -1544,7 +1591,8 @@
       "bytes": 101240,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a2fa9f2cb6d7365ad97b5151cceb738f21070d882251a96a1d17e31cd9ffbad2",
@@ -1553,7 +1601,8 @@
       "bytes": 136904,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af4701b2db8532b83bff1af607f5e3801fed0d8f3c50c94d954c694968022a70",
@@ -1562,7 +1611,8 @@
       "bytes": 6418,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "75b949506f3769be67f401a65e13b5069f7850de52e9683dba2f417a69233309",
@@ -1571,7 +1621,8 @@
       "bytes": 180304,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
@@ -1580,7 +1631,8 @@
       "bytes": 7128,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8f3eba23b6e80dedc216488f9e93870649bf7530e0a6599f625b91ca311fada2",
@@ -1589,7 +1641,8 @@
       "bytes": 116688,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4894971f871530503010156667bf81bf8b23953b1646b2faefe53d954e563520",
@@ -1598,7 +1651,8 @@
       "bytes": 88670,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
@@ -1607,7 +1661,8 @@
       "bytes": 11485,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a767ea19858e377c7b6facd7ea90eb30e543587b036e6b7cdd88b6e62cccce14",
@@ -1616,7 +1671,8 @@
       "bytes": 128112,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
@@ -1625,7 +1681,8 @@
       "bytes": 3095,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8ddc8ef108cf7fe465cc797ad9396bf2429d27ab2ca38a93d9e4e7319a1c9471",
@@ -1634,7 +1691,8 @@
       "bytes": 126460,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "69f037db0d16cf30ce760ee822132c8d28db5eb6765fc3e3b0b62ef62bc1ca09",
@@ -1643,7 +1701,8 @@
       "bytes": 113983,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "69f1d18731e3832cd69dd611c85c1aa30bdc59522d20f524ac737007e3f0488f",
@@ -1652,7 +1711,8 @@
       "bytes": 75016,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4d91b2a220c6e7da8a74d50c61fa6e04f075afa1874bcb11177072ba87d9f568",
@@ -1661,7 +1721,8 @@
       "bytes": 102986,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4efd5e3fbfccbecb7dad69dba840a0c1c546d9ae1a329802152b2cfb725ba65c",
@@ -1670,7 +1731,8 @@
       "bytes": 114985,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e2414e6a127129a00b63aab9bc00eb84adaebf57fd570a2f2ae4a92b3988a631",
@@ -1679,7 +1741,8 @@
       "bytes": 103374,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "11555cc6120c699c80691d76f1c41c19e18884c33c0f706fce4cb25ef75f7edf",
@@ -1688,7 +1751,8 @@
       "bytes": 5270,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
@@ -1700,7 +1764,8 @@
         7,
         7,
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "706c7590e4cedb211a91e330ddcbecd69b2a758785510ef616b22c8186d80983",
@@ -1709,7 +1774,8 @@
       "bytes": 5227,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1b7dffe7952197d9f4e42972c97f519eeb5ae243b35536f9095d664a6c3ecc3f",
@@ -1718,7 +1784,8 @@
       "bytes": 5422,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0b37c1d5477a286353b4d6089354eb0b236d9851c6d4a4affd3824214afbaebd",
@@ -1727,7 +1794,8 @@
       "bytes": 4993,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e0b4746917d87f917d068bf1cc3fcab8c6c05ac17deaefbbedfa56e0a5d8d852",
@@ -1736,7 +1804,8 @@
       "bytes": 82081,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a6de3bbb22bedfc71cd83d2d29cdbe35340a086661b1d1c95718886bcf08dcb3",
@@ -1745,7 +1814,8 @@
       "bytes": 159863,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fb66cb3e881ebfefc95d333b8e11d7bee5f3fdb31b4fb36b3b1eaac1d755d3cf",
@@ -1754,7 +1824,8 @@
       "bytes": 119142,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6733ab793f19afb415ecf7cc82013ade211f0759d3a7bce404f92109b1436743",
@@ -1763,7 +1834,8 @@
       "bytes": 90549,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7b192d6f475ebe3e9056bb3113dc85837df09332a0ce784541d4c993222aea91",
@@ -1772,7 +1844,8 @@
       "bytes": 136420,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "932092f3d3856a6786b6cdda78b843b9b51a23f8294fde1873c5cf43ef894a69",
@@ -1781,7 +1854,8 @@
       "bytes": 101144,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c67f03ecb5d76c1388bea6b52f842431a4fe61da11ac1a1809c62d133c2b1dcd",
@@ -1790,7 +1864,8 @@
       "bytes": 97664,
       "slides": [
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
@@ -1799,7 +1874,8 @@
       "bytes": 1041453,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1785a06a2209c4eced31a0b81515a4f6100abc4953d583bf07c65524df0734e4",
@@ -1808,7 +1884,8 @@
       "bytes": 5297,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "85690a462b63170dde786b3d231ab65c07f661ffd7b353ab84447a8615e8bef1",
@@ -1817,7 +1894,8 @@
       "bytes": 61746,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "29d4c5aa682073509e6a4b004b619ec06f881b4b9c13ad3478682481fdc5b214",
@@ -1826,7 +1904,8 @@
       "bytes": 137288,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "316fe9acae97aee65a78d0f20d66567b9e4f5afe3da1981087d628683003330e",
@@ -1835,7 +1914,8 @@
       "bytes": 118404,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f58bab44156177653869b15c52e1ee91c0e0f8b0684cd8601c4abbd44ad9f3ac",
@@ -1844,7 +1924,8 @@
       "bytes": 193648,
       "slides": [
         42
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f5a66f19494f2c1e97b334e871e6b40bb6698ca51b62536d2a4e117598902152",
@@ -1853,7 +1934,8 @@
       "bytes": 75028,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "01847e033ec812454fc2c2d7fc5a1fa7c74b970210732e3e7bf3a27f798ca768",
@@ -1862,7 +1944,8 @@
       "bytes": 117887,
       "slides": [
         43
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36",
@@ -1871,7 +1954,8 @@
       "bytes": 75172,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3c21a688a399ebe64be9a58b56dee8f67e1cb00c1f9d1e9c8c59a9192086d7cc",
@@ -1880,7 +1964,8 @@
       "bytes": 5219,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f10331e95ead9898e2611f49e480881955af9b654f5c50d52683406ecb271f6d",
@@ -1889,7 +1974,8 @@
       "bytes": 3939,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "012011bb64e43d032b54c70770ac78d7f64828958e72c711075a7911834b59df",
@@ -1898,7 +1984,8 @@
       "bytes": 74496,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f087e4990ae0915d7828d89a0c7f26dc604eabb93b6c22d5e77b6b3ef5addccc",
@@ -1907,7 +1994,8 @@
       "bytes": 4271,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a50430f073dcc75e77467dce273c4bfc81f3e8a53aeb7567b38aabeb3573a6af",
@@ -1916,7 +2004,8 @@
       "bytes": 90977,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e35f7e79752c06b18edc7fd5f94762bfeb73d664dc4045cfc107d2b1bc307503",
@@ -1925,7 +2014,8 @@
       "bytes": 126175,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b4dcd36d21ff5644c99936b0efa68fdd8beb3fe7882795077f26920158bac242",
@@ -1934,7 +2024,8 @@
       "bytes": 93060,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ee47a6a7b707b37acc5f169c8c796ed7acb32afe59ec55745bc1da400cb4f311",
@@ -1943,7 +2034,8 @@
       "bytes": 38599,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "07514c9fe340dab3f2ccf89570ff0314b800ea0183c8555bbafb9c43523fc2c9",
@@ -1952,7 +2044,8 @@
       "bytes": 79613,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ab0541861e44493eceb7907fc75bc3cfc52679a9be74759f7cba1961419cbf06",
@@ -1961,7 +2054,8 @@
       "bytes": 104455,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0f061aa7fd4cea5e46f89a88c0b7fad194d369d61749fac5ec5b03baa4093e1a",
@@ -1970,7 +2064,8 @@
       "bytes": 67161,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b7f858f1b6f1e9b56b38ff960a84067b1e91e86a6535a05ec3a4b0bfaa8c6261",
@@ -1979,7 +2074,8 @@
       "bytes": 6290,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
@@ -1988,7 +2084,8 @@
       "bytes": 71363,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fb855be1eaaafd4c44005da2388b5fc750fc921a96916bed5e031f1459b32e0c",
@@ -1997,7 +2094,8 @@
       "bytes": 42265,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8de6dd7a92cee0dadcb277b2adff307f42afa8d3cbd131554f7a354a9b21fff8",
@@ -2006,7 +2104,8 @@
       "bytes": 87648,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "79a4c148f4403d444b4b5f75f914177ba944aa4b007b9e2baf26fc7a2924bcd4",
@@ -2015,7 +2114,8 @@
       "bytes": 73655,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
@@ -2024,14 +2124,479 @@
       "bytes": 73135,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 42,
+    "reused": 42,
+    "scientifically_redundant": 0,
+    "reuse_ratio": 1.0
+  },
+  "pdf_regions": [
+    {
+      "slide": 3,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-3.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-4.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-5.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-9.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-10.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-18.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-25.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-29.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-30.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-37.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-39.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-40.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-41.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-42.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-43.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 44,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-10/slide-44.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-10.md"
 }
