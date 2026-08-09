@@ -438,6 +438,33 @@ requirements for the replacement deck-level articles.
   graph Laplacian, while the commutant route fixes a transformation group; the
   lecture's varying-graph critique is the reason for the pivot. The blog-writing
   skill now records this alternate-derivation rule.
+
+### GDL 2025 Lecture 5: Expressive Power of Graph Neural Networks
+
+- **Source:** `lec5_gnn3.pdf` (69 pages), represented by 66 canonical PDF
+  composites preserving the graph pairs, refinement steps, theorem statements,
+  architecture diagrams, and comparison landscapes on every scientific slide.
+- **Coverage:** all 66 substantive slides covered; only the cover, course
+  overview, and external reading-list slide omitted. The source order remains
+  graph discrimination and approximation, 1-WL and GIN, the k-WL hierarchy,
+  sparse local and tuple-restricted variants, IGNs, motif encodings and GSNs,
+  cellular lifts and CWNs, subgraph selection policies, DS-GNN and GNN-AK,
+  coupled bag symmetries, k-OSAN, and the final proposal to learn rather than
+  impose equivariance.
+- **Figures:** all 66 source-native substantive visual composites reused (100%).
+  The two recap slides were retained because they compare representation
+  families and establish the next section's question. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** the previous expressivity tutorial's fixed P5
+  refinement, C6-versus-two-triangles collision, explicit spectra and deletion
+  decks, bounded injective encoding proof, and remedy cost ledger were absent
+  from this deck. The replacement restores the lecture's much broader sequence
+  of formal test--architecture pairs and substructure or subgraph constructions.
+- **General lesson promoted:** a slide titled “recap” can be the argumentative
+  hinge of a lecture. Here the first recap compares higher-order tensors with
+  stochastic identifiers, and the second locates subgraph bags among structural
+  encodings and lifts. The blog-writing skill now distinguishes such synthesis
+  slides from literal repeated recap.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
