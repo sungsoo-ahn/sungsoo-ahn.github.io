@@ -691,8 +691,35 @@ requirements for the replacement deck-level articles.
   velocities. The blog-writing skill now requires the posterior expectation or
   gradient identity connecting these levels and the deck's endpoint convention
   to remain explicit.
-  and inflates the apparent figure denominator. The figure skill now records
-  this rule.
+
+### GDL 2025 Lecture 15: Geometric Flow Matching
+
+- **Source:** `lec15_geogen.pdf` (54 pages), represented by 45 canonical PDF
+  composites preserving the conditional-flow recap, chart and tangent-space
+  diagrams, metric and geodesic construction, manifold operators, and
+  Riemannian score and likelihood formulas.
+- **Coverage:** 45 scientific slides covered; the cover, course map, reference
+  card, and six repeated agenda cards omitted. Slides 5--8 were retained even
+  though they are titled as a recap because their conditional/marginal
+  distinction is the baseline that the lecture generalizes. The source order
+  remains flow matching, manifold motivation, smooth charts, tangent vectors,
+  Riemannian metrics and geodesics, Exp--Log--transport operations, and
+  Riemannian score and density computation.
+- **Figures:** all 45 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous geometric-flow tutorial's
+  worked sphere quarter-circle, rotation interpolation failure, circle branch
+  jump, Euler/retraction error, product-metric bookkeeping, and solver contract
+  were not part of this deck. The replacement follows the source's geometric
+  replacement sequence and retains its intrinsic-versus-extrinsic design
+  choices.
+- **General lesson promoted:** when a source generalizes an algorithm to a new
+  geometry, preserve its replacement dictionary and operational order. Here
+  ambient vectors become tangent vectors, straight lines become geodesics,
+  subtraction and addition become Log and Exp, Euclidean norms become metric
+  norms, and ordinary gradients and divergences become Riemannian operators.
+  The blog-writing skill now requires each replacement to remain attached to
+  the coordinate or embedding representation that implements it.
 
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
