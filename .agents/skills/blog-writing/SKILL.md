@@ -220,6 +220,13 @@ new thesis, a reordered curriculum, or additional technical branches.
     convention whenever the source uses them. Preserve the expectation or
     gradient identity that connects the levels; shared notation or Gaussian
     examples do not make the conditional and marginal objects interchangeable.
+28. When a source generalizes an algorithm to a new geometry, preserve its
+    replacement dictionary and operational sequence. State which Euclidean
+    primitive becomes a tangent-space, metric, geodesic, exponential-map,
+    logarithmic-map, transport, gradient, or divergence operation, and retain
+    the intrinsic-coordinate or ambient-embedding choice that makes each
+    operation implementable. Do not present a manifold algorithm as the same
+    formula with renamed symbols.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
