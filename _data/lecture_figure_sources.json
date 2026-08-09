@@ -20976,1052 +20976,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-09/slide-10.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        10
-      ],
-      "slide_keys": [
-        "gdl-2025-09:10"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The determinant distinguishes rotations from the reflection-containing orthogonal group. Cropped from the 2025 GDL steerable-GNN lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d41de6192a5c72d12d1ce21d4b1cd90f214444e070f0a5fa6d18957cb3672c80",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-11.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        11
-      ],
-      "slide_keys": [
-        "gdl-2025-09:11"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A group action specifies how one symmetry element transforms the complete data object. Cropped from the 2025 GDL steerable-GNN lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "009c4718b3688320c533a36ef966904052ddad1a8619ef48ca98d8c3e5f951f9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-12.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-09:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A representation turns group composition into matrix multiplication on features. Cropped from the 2025 GDL steerable-GNN lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1952c6d088afa60cae58213c472b6cdc558e527242f63802bba7fd11ff226824",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "[1] Cohen et al., Steerable CNNs, ICLR 2017"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-13.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-09:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Circular harmonics turn a shift of the input angle into a known matrix action on two coefficients. Cropped from the 2025 GDL steerable-GNN lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e50baba0ea6de1ff77effc5710c23ed72657effe7f44c2ec1b49611ea5ec71f2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-14.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        14
-      ],
-      "slide_keys": [
-        "gdl-2025-09:14"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The harmonic degree determines both spatial frequency and the associated representation. Cropped from the 2025 GDL steerable-GNN lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "93b8a0973297d93ddb0c404d9d649cdb220c7e1bd09e29b550e7fadd7d0fecf4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-15.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        15
-      ],
-      "slide_keys": [
-        "gdl-2025-09:15"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Degree controls angular frequency, while order indexes the basis elements within one degree. Cropped from the 2025 GDL steerable-GNN lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2a6bba0d1dd753a5d1ba44f9c27ff3c3d021056954c89ecc8adf759d56b00041",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-16.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        16
-      ],
-      "slide_keys": [
-        "gdl-2025-09:16"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A fixed degree is closed under rotation and therefore forms one steerable feature vector. Cropped from the 2025 GDL steerable-GNN lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9459d3ac974cf3cf680902aa015155613bca1f6f8c3a2e25572482ff801d1d25",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-17.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        17
-      ],
-      "slide_keys": [
-        "gdl-2025-09:17"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Type-1 spherical harmonics recover the familiar three Cartesian vector components. Cropped from the 2025 GDL steerable-GNN lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "61f6d4f1f145c02c8d1fc0dfd03822f92b51d7386211b83bb886622406be7c34",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-18.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-09:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Evaluating spherical harmonics on an edge direction creates typed geometric filter features. Cropped from the 2025 GDL steerable-GNN lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0102ebd8753aa951c17d62867975f2b0b594d0eacfc24ada60ddcf8ff5392515",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-19.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-09:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Cartesian tensor order and spherical irrep type are two organizations of higher-order transformation structure. Cropped from the 2025 GDL steerable-GNN lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4b3f6aae6c08a7c33760e8761a439f29c3481d34918f0ab23421a27eda333d7a",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "Duval et al., A Hitchhiker’s Guide to Geometric GNNs for 3D Atomic Systems, 2023"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-20.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        20
-      ],
-      "slide_keys": [
-        "gdl-2025-09:20"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Repeated outer products create steerable Cartesian tensors of increasing order. Cropped from the 2025 GDL steerable-GNN lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b98a1bf72bfbbe2f2f3c170393199bd935856721fe3abf86080b0536d891e900",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-21.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-09:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A Cartesian tensor is steerable, with one rotation matrix acting on each index. Cropped from the 2025 GDL steerable-GNN lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5f16a8ff456297d58ebd202c85f5b4945da47596f7ae5b640ecd98d79ba60200",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-22.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-09:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Cartesian tensor order does not provide the most compact classification by rotational response. Cropped from the 2025 GDL steerable-GNN lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a299b416c9219ac8a60ca891b42509772c5afe912bb09638dc5ecb5141da7d30",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-23.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        23
-      ],
-      "slide_keys": [
-        "gdl-2025-09:23"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Irreps categorize features by how they respond to rotation rather than by how they were constructed. Cropped from the 2025 GDL steerable-GNN lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "206d921475486785e188e0031ddbb5fb75fc9391157d5ff9d99a7745bf8f7b91",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-24.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-09:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Representation equivalence is a change of feature basis, not a change of symmetry content. Cropped from the 2025 GDL steerable-GNN lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f0d46bee265656f5d8a25b4db8ddd0ad7028720b262376cac68e01329e15243b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-25.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-09:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Block diagonalization separates a mixed feature space into independently transforming irreducible types. Cropped from the 2025 GDL steerable-GNN lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4c58024d38a1772524d41e6cffbe7a493b95c62798ff579244a60d9572bd90c4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-26.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-09:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Each circular frequency transforms within its own two-dimensional irrep block. Cropped from the 2025 GDL steerable-GNN lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6bf7f95059ae2618073e8253be6a046bf1201796522cdfd6a55ba2e1c9de2aee",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-27.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        27
-      ],
-      "slide_keys": [
-        "gdl-2025-09:27"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Type <i>l</i> denotes the (2<i>l</i> + 1)-dimensional irreducible representation of three-dimensional rotations. Cropped from the 2025 GDL steerable-GNN lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "de39374b90f5bec18a28c7c91d413ca334c5652bd2574d9a71ea0de802c4c6b0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-28.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        28
-      ],
-      "slide_keys": [
-        "gdl-2025-09:28"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Scalars, vectors, and spherical-harmonic coefficient vectors share one type system. Cropped from the 2025 GDL steerable-GNN lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b86a172ba7d5da286bd5c31a293d27f15dd33bddb1080403b468b3f2ec2be979",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-29.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-09:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Spherical harmonics are concrete functions whose coefficients realize the abstract irreducible representation. Cropped from the 2025 GDL steerable-GNN lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d9a74f3799bbaecf86698817ae175078c0baeff179403d4cbca5e8e0771ad69d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-3.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        3
-      ],
-      "slide_keys": [
-        "gdl-2025-09:3"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Scalars and ordinary vectors are the first two steerable feature types. Cropped from the 2025 GDL steerable-GNN lecture, slide 3.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5507e47a9868247cd2ba97e2aa475919028fa52eb104095d7cf4291b9152540e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-30.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-09:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The familiar vector transformation law is the degree-one case of the Wigner family. Cropped from the 2025 GDL steerable-GNN lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "dd39f1146b4361d38414ad3b6d7774827f6b57575fa062457a7c8588c293a921",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-31.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-09:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Clebsch--Gordan coupling generalizes scalar gates, dot products, and cross products to arbitrary types. Cropped from the 2025 GDL steerable-GNN lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0ed01ae678605e0a11a76d4e4cf680f1cee173db9a040d81e3acfe8eeae82cf4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-32.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-09:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The raw tensor product is equivariant but does not yet expose irreducible output types. Cropped from the 2025 GDL steerable-GNN lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1b32e58c7753756a3ea12e906971b2367ddc5841e428f8dbe242df7fa04636df",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-33.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-09:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A raw product carries several irreducible rotational responses at once. Cropped from the 2025 GDL steerable-GNN lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e4bdfb5ba740123d551c9ac1e38bd4f4d16a3008ff471ae03dbd4625364bf1e2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-34.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-09:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Clebsch--Gordan coefficients project a tensor product onto typed irreducible components. Cropped from the 2025 GDL steerable-GNN lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "474b87225d5e5bba47e59cacf6a6cb48e83a93eeeb209af6ce2f665a49200e59",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-35.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-09:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Each coefficient maps a pair of input representation indices to one output type and index. Cropped from the 2025 GDL steerable-GNN lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2f32b7e6aa9f8c43ad54d9fb6a232b811a65c7669288eff2a1889763a9b8c97e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-36.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        36
-      ],
-      "slide_keys": [
-        "gdl-2025-09:36"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The triangle rule makes the coupling sparse and recovers familiar invariant and equivariant operations. Cropped from the 2025 GDL steerable-GNN lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "dc7b325c0ff8208f8bda1516a9a48e4ee3a2a647947b0013794aca8a41fbaece",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-37.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        37
-      ],
-      "slide_keys": [
-        "gdl-2025-09:37"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Products of angular basis functions decompose into a finite set of output degrees. Cropped from the 2025 GDL steerable-GNN lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "15d863e80bf85eb4cd8924dab00f045e9bd85061ce81e1938958193ec4d2eba1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-38.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-09:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A Clebsch--Gordan coefficient links one admissible pair of input elements to an output element. Cropped from the 2025 GDL steerable-GNN lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1d3187ca8550630bbb2434c063aaedb93d206a47bcd8570121631b0a8c4b8e0a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-4.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        4
-      ],
-      "slide_keys": [
-        "gdl-2025-09:4"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A steerable layer carries multiple feature types rather than only scalars and Cartesian vectors. Cropped from the 2025 GDL steerable-GNN lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "00ba47b2ebdb6310fa1a8bd8ab92575a94f8b3ac74e71d717ebc6c7976bca05a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-40.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-09:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The architecture section begins with TFN and then specializes its construction to interatomic potentials in NequIP. Cropped from the 2025 GDL steerable-GNN lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2e479cbebf640f3737431a9cd549dc8d62f7a31ba8a1cb6f43b63d68feb27469",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Thomas et al., 2018] Tensor field networks: Rotation- and translation-equivariant",
-        "• [Schütt et al., 2021] E(3)-equivariant graph neural networks for data-efficient"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-41.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-09:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "TFN featurizes relative directions with spherical harmonics and couples them to typed hidden features. Cropped from the 2025 GDL steerable-GNN lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "af864da7a9e859cf0abf9b6ce616309206ba732e75081722a0500ef77d1e6cdc",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-42.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-09:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Separating channel multiplicity from representation indices is essential to typed equivariant computation. Cropped from the 2025 GDL steerable-GNN lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "067174c842e05381ca004e651fab2c720b2fd9e297d25d9394a8950fc0876ec6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-43.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-09:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "TFN separates learnable distance dependence from fixed equivariant angular dependence. Cropped from the 2025 GDL steerable-GNN lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "217ed65685cc67f766f94a78523bce9cf6c37ea95e98d4a8b1920d5be7d847fd",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-44.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-09:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A TFN message is a neighbor sum of typed filter--feature Clebsch--Gordan products. Cropped from the 2025 GDL steerable-GNN lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ac5506ac2aa8af3df84214bacd78fcd39c9cdfe62364f58a21b563be434c29d1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-45.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        45
-      ],
-      "slide_keys": [
-        "gdl-2025-09:45"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A scalar norm gate changes feature magnitude without changing its rotational transformation law. Cropped from the 2025 GDL steerable-GNN lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f16cb03227109d223017debbc8e14d292d520ddc81989f83e882e0a6227f1054",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-46.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        46
-      ],
-      "slide_keys": [
-        "gdl-2025-09:46"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "TFN alternates typed convolution, channel mixing, and order-wise nonlinearities. Cropped from the 2025 GDL steerable-GNN lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "66b51d2d4444075cf59215039d211ddcd7c276573b96b9f8287c41b99799648b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-47.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        47
-      ],
-      "slide_keys": [
-        "gdl-2025-09:47"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "TFN's early experiments test whether typed features preserve the geometry needed for classification and equivariant reconstruction. Cropped from the 2025 GDL steerable-GNN lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "58445e08b93f7f9db6af7ce310fca078f87a110aeefdb3c6e908eae345ea17d4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-48.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        48
-      ],
-      "slide_keys": [
-        "gdl-2025-09:48"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "NequIP turns typed equivariant layers into an invariant energy and its equivariant forces. Cropped from the 2025 GDL steerable-GNN lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3fd9989c6cf9010b090c25ac782a21a622b25c9c633e32f91b512b2f9f00a71a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-49.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        49
-      ],
-      "slide_keys": [
-        "gdl-2025-09:49"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Parity records the reflection law that rotation degree alone cannot distinguish. Cropped from the 2025 GDL steerable-GNN lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e5ad8e12500dc588109ad47cc685329387b00eccfbfb29145ecec259d3ef7160",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-5.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        5
-      ],
-      "slide_keys": [
-        "gdl-2025-09:5"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Clebsch--Gordan products couple typed inputs into typed outputs. Cropped from the 2025 GDL steerable-GNN lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5af75635405f984d1885ec37d0ea787201b458d40715aa4db3e72318b2c2c424",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-50.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        50
-      ],
-      "slide_keys": [
-        "gdl-2025-09:50"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "A smooth learned radial function multiplies the fixed typed angular filter. Cropped from the 2025 GDL steerable-GNN lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f9ae195a8e7a1ac7bb3131aa7ddffc9c34abc92cb359011a70c28e5e736d4892",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-51.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        51
-      ],
-      "slide_keys": [
-        "gdl-2025-09:51"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "NequIP couples only degree and parity combinations allowed by the O(3) representation product. Cropped from the 2025 GDL steerable-GNN lecture, slide 51.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "accc13d67309362259999cde9fcc4aaf4ed049fc6ce1da1c8df1c4e051cc0587",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-52.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        52
-      ],
-      "slide_keys": [
-        "gdl-2025-09:52"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "NequIP compares equivariant learned potentials with the sGDML kernel model. Cropped from the 2025 GDL steerable-GNN lecture, slide 52.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "38645c7713af1a430f9e7b13d8586f76ef7fdd0ff38d84af09853db35ac47439",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-53.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        53
-      ],
-      "slide_keys": [
-        "gdl-2025-09:53"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Further benchmarks compare NequIP with FCHL and other molecular force models. Cropped from the 2025 GDL steerable-GNN lecture, slide 53.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6690ff86f700dbffa07db65a9a94fe68615625dc7bcbfa369bf58c206046d29e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-54.webp": {
-      "deck_id": "gdl-2025-09",
-      "slides": [
-        54
-      ],
-      "slide_keys": [
-        "gdl-2025-09:54"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "The lecture closes by locating TFN and NequIP within a broader family of typed equivariant architectures. Cropped from the 2025 GDL steerable-GNN lecture, slide 54.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b37ebf864efa15d1b4664c68d4de22722498ae9e6d519cf6be85a0756b4326f7",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Anderson et al., 2019] Cormorant: Covariant Molecular Neural Networks",
-        "• [Weiler et al., 2018] 3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumetric Data",
-        "• [Kondor et al., 2018] Clebsch-Gordan Nets: a Fully Fourier Space Spherical Convolutional Neural"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-09/slide-6.webp": {
+    "assets/img/blog/lectures/gdl-2025-09/s06-steerable-type-pipeline.png": {
       "deck_id": "gdl-2025-09",
       "slides": [
         6
@@ -22030,10 +20985,10 @@
         "gdl-2025-09:6"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Group representations, irreducible representations, and Clebsch--Gordan products supply the three required objects. Cropped from the 2025 GDL steerable-GNN lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The lecture's PowerPoint-native overview of a steerable network. Every hidden layer carries several representation types, and Clebsch--Gordan products couple them without breaking their transformation laws.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d4b5f8bb4ce1797de5ef2fbd264a83cb8f212a6b872dd3e281dfa197067ed14b",
+      "content_sha256": "fb66cb3e881ebfefc95d333b8e11d7bee5f3fdb31b4fb36b3b1eaac1d755d3cf",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22043,19 +20998,351 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-09/slide-9.webp": {
+    "assets/img/blog/lectures/gdl-2025-09/s11-group-action-composition.png": {
       "deck_id": "gdl-2025-09",
       "slides": [
-        9
+        11
       ],
       "slide_keys": [
-        "gdl-2025-09:9"
+        "gdl-2025-09:11"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
-      "caption": "Closure, associativity, identity, and inverses define the algebra of symmetry operations. Cropped from the 2025 GDL steerable-GNN lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A PowerPoint-native action diagram retained from the lecture. The two paths express the compatibility condition <i>g</i> · (<i>g</i>' · <i>x</i>) = (<i>gg</i>') · <i>x</i>.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f7cc1a848e64aef4a2a2b5743ef24d0809f9c4eef35c87e90c1bd08c2e098269",
+      "content_sha256": "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s14-circular-harmonics.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        14
+      ],
+      "slide_keys": [
+        "gdl-2025-09:14"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The lecture's native circular-harmonic plot. Increasing the degree increases angular frequency; each pair of sine and cosine curves is closed under planar rotations.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s15-spherical-harmonics.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        15
+      ],
+      "slide_keys": [
+        "gdl-2025-09:15"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The spherical-harmonic basis chart retained as a native image from the lecture PowerPoint. A degree-<i>l</i> row contains 2<i>l</i> + 1 basis elements.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-02/s47-spherical-harmonics.png"
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s16-spherical-harmonic-steerability.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        16
+      ],
+      "slide_keys": [
+        "gdl-2025-09:16"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The lecture's PowerPoint-native steerability illustration. Rotating the direction changes the whole coefficient vector through a fixed Wigner <i>D</i> matrix.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-02/s48-wigner-steerability.png"
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s18-edge-harmonic-encoding.jpeg": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        18
+      ],
+      "slide_keys": [
+        "gdl-2025-09:18"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "A PowerPoint-native figure retained from the lecture's Tensor Field Network discussion; see Thomas et al., <a href='https://arxiv.org/abs/1802.08219'>Tensor Field Networks</a>. The radial branch sees distance while the harmonic branch sees direction.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s20-cartesian-tensor-orders.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        20
+      ],
+      "slide_keys": [
+        "gdl-2025-09:20"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The lecture's native Cartesian-tensor illustration, following the organization used in Duval et al.'s <a href='https://arxiv.org/abs/2312.07511'>Hitchhiker's Guide</a>. Tensor order counts Cartesian indices, not irreducible rotation type.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "7afe96b5ee3848c437ba54b956c35a69fb68560c7983255581a2d056c3f20a17",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s22-rank-two-decomposition.jpeg": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        22
+      ],
+      "slide_keys": [
+        "gdl-2025-09:22"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The rank-two decomposition retained from the lecture PowerPoint; compare Duval et al.'s <a href='https://arxiv.org/abs/2312.07511'>Cartesian and spherical tensor discussion</a>. The nine Cartesian entries reorganize into dimensions 1, 3, and 5.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s24-representation-bases.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        24
+      ],
+      "slide_keys": [
+        "gdl-2025-09:24"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "A PowerPoint-native basis-change illustration from the lecture. Similar matrices describe one representation in different coordinates; a suitable basis also exposes irreducible blocks.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3ffa76026cdae019a536ded72721011a03a4d1bedf95f596198d53bddc2f8a4f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s29-wigner-harmonic-equivariance.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        29
+      ],
+      "slide_keys": [
+        "gdl-2025-09:29"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The lecture's native Wigner--harmonic commuting diagram. Transforming the direction first or applying the Wigner matrix to its coefficients gives the same result.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "2a931a37458528925f5b960854d2a59b4dc2228b6a9851ccbb2f3bfd0301e5f0",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s37-clebsch-gordan-coupling.jpeg": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        37
+      ],
+      "slide_keys": [
+        "gdl-2025-09:37"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The coupling visualization retained from the lecture PowerPoint. The lecture used Sophia Tang's <a href='https://alchemybio.substack.com/p/spherical-equivariant-graph-transformer'>spherical-equivariant transformer guide</a> to connect harmonic products with the Clebsch--Gordan decomposition.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "81ca0b83683c8e82700f0b908433c28a4d05f88f8a855949b1b8983fe5e16615",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s38-clebsch-gordan-index-map.jpeg": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        38
+      ],
+      "slide_keys": [
+        "gdl-2025-09:38"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "A PowerPoint-native coefficient-map illustration retained from the lecture. The fixed tensor links input indices (<i>l</i><sub>1</sub>, <i>m</i><sub>1</sub>) and (<i>l</i><sub>2</sub>, <i>m</i><sub>2</sub>) to an admissible output (<i>l</i>, <i>m</i>).",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "724e9bafcffdec825f00d048d8493dbdf19796cdf39fc3a8b0ce35ac589670ad",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s42-tfn-feature-indices.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-09:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "A native excerpt retained from Thomas et al.'s <a href='https://arxiv.org/abs/1802.08219'>Tensor Field Networks</a>. The point, channel, type, and representation indices play different computational roles.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s46-tfn-architecture.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        46
+      ],
+      "slide_keys": [
+        "gdl-2025-09:46"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The TFN architecture excerpt retained directly from the lecture PowerPoint and sourced to <a href='https://arxiv.org/abs/1802.08219'>Thomas et al.</a> Equivariant convolutions alternate with type-wise channel mixing and nonlinearities.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "8f217e780bcc35cdaec301a886242a361b21202d0012f8bce51b758def4eab9d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s47-tfn-missing-point.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        47
+      ],
+      "slide_keys": [
+        "gdl-2025-09:47"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "TFN's missing-point experiment, retained from the source PowerPoint and linked to the <a href='https://arxiv.org/abs/1802.08219'>original paper</a>. The output vector must rotate with the input.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "d39ab775bd9c73fde1b9c9d68a7461fa96afc664fdc1ecc135ee292c53d70ed5",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s47-tfn-tetris.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        47
+      ],
+      "slide_keys": [
+        "gdl-2025-09:47"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "TFN's 3D Tetris classification shapes, retained as a native PowerPoint image from <a href='https://arxiv.org/abs/1802.08219'>Thomas et al.</a>",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "48b1139b6e6d797397da0be26875a93cd876cd650a762c9aa5854c27443e36c1",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-09/s49-parity-reflection.png": {
+      "deck_id": "gdl-2025-09",
+      "slides": [
+        49
+      ],
+      "slide_keys": [
+        "gdl-2025-09:49"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+      "caption": "The PowerPoint-native reflection illustration retained from the lecture. Rotation type alone cannot distinguish polar and axial behavior; parity records the missing reflection law.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ffc79a5b64e41ca66c3749bdf4b3950068dfb7c26ef09a26c1a082ef1204d157",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22305,8 +21592,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-42.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-21.webp": {
       "deck_id": "gdl-2025-10",
@@ -22328,8 +21614,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-43.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-22.webp": {
       "deck_id": "gdl-2025-10",
@@ -22351,8 +21636,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-44.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-23.webp": {
       "deck_id": "gdl-2025-10",
@@ -22374,8 +21658,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-45.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-24.webp": {
       "deck_id": "gdl-2025-10",
@@ -22397,8 +21680,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-46.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-25.webp": {
       "deck_id": "gdl-2025-10",
@@ -22420,8 +21702,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-47.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-26.webp": {
       "deck_id": "gdl-2025-10",
@@ -22443,8 +21724,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-48.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-27.webp": {
       "deck_id": "gdl-2025-10",
@@ -22488,8 +21768,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-50.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-29.webp": {
       "deck_id": "gdl-2025-10",
@@ -22511,8 +21790,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-51.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-3.webp": {
       "deck_id": "gdl-2025-10",
@@ -22556,8 +21834,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-52.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-31.webp": {
       "deck_id": "gdl-2025-10",
@@ -22579,8 +21856,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-53.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-32.webp": {
       "deck_id": "gdl-2025-10",
@@ -22892,8 +22168,7 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": "",
-      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/slide-54.webp"
+      "notes": ""
     },
     "assets/img/blog/lectures/gdl-2025-10/slide-5.webp": {
       "deck_id": "gdl-2025-10",
