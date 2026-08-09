@@ -246,6 +246,35 @@ requirements for the replacement deck-level articles.
   operator, field, and basis coefficients, and state which numerical solve or
   query remains downstream of each learned object. The blog-writing skill now
   records this target-and-solver contract.
+
+### ML4Mol 2025 Lecture 12: Protein Structure Prediction
+
+- **Source:** `lec12_protein1.pdf` (80 pages), with 95 published media assets
+  extracted directly from the corresponding PowerPoint.
+- **Coverage:** 77 substantive slides covered; the cover, attribution notice,
+  and one part-title slide omitted. The source progression remains the protein
+  sequence--structure--dynamics--design task map, AlphaFold1 learned potentials,
+  AlphaFold2 Evoformer and structure module, AlphaFold3 all-atom diffusion,
+  open implementations, alternative folding and packing models, affinity
+  prediction, protein generation, ensemble prediction, and open data questions.
+- **Figures:** 95 of 100 unique substantive visuals reused (95%). The five
+  omitted visuals are duplicated overview fragments, logos, or title cards.
+  Ten unused extraction candidates were removed. No explanatory figure was
+  drawn and no PDF crop was needed because the deck's architecture diagrams
+  were preserved as coherent embedded media.
+- **Synthetic material removed:** the prior AlphaFold chapter's binary
+  common-cause MSA calculation, realizability counterexample, memory arithmetic,
+  rigid-transform numerical example, confidence matrix, sample-frequency
+  warning, binding-free-energy calculation, and claim-scope table were absent
+  from this deck. The replacement retains the much broader source survey from
+  protein representations through AlphaFold and into affinity and ensemble
+  models.
+- **General lesson promoted:** an opening task map is substantive when the later
+  storyline crosses its boundaries. Retaining sequence learning, folding,
+  ensemble prediction, sequence design, and structure design makes it possible
+  to see AlphaFold3, Proteina, Boltz-2, and BioEmu as changes of target rather
+  than a flat list of structure architectures. The blog-writing skill now
+  records this rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
