@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title"><i class="fa-solid fa-layer-group fa-sm"></i> {{ page.title }}</h1>
+    <p class="post-description">{{ page.description }}</p>
+  </header>
+
+  <article class="archive publications blog-index">
+    {% assign type_documents = site.posts | where: "post_type", page.post_type | sort: "date" | reverse %}
+    <ol class="bibliography">
+      {% for document in type_documents %}
+        {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
+        <li>
+          <div class="title">
+            {% if document.redirect == blank %}
+              <a href="{{ document.url | relative_url }}">{{ document.title }}</a>
+            {% elsif document.redirect contains '://' %}
+              <a href="{{ document.redirect }}" target="_blank" rel="noopener">{{ document.title }}</a>
+            {% else %}
+              <a href="{{ document.redirect | relative_url }}">{{ document.title }}</a>
+            {% endif %}
+          </div>
+          {% if document.description %}
+            <div class="blog-list-description">{{ document.description }}</div>
+          {% endif %}
+          <div class="author">
+            {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  </article>
+</div>

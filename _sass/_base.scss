@@ -1242,6 +1242,54 @@ footer.sticky-bottom {
     max-width: 760px;
   }
 
+  .blog-highlights {
+    margin: 1.5rem 0;
+
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.7rem;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      align-items: baseline;
+      border-top: 1px solid var(--global-divider-color);
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      padding: 0.45rem 0;
+
+      &:last-child {
+        border-bottom: 1px solid var(--global-divider-color);
+      }
+    }
+
+    a {
+      color: var(--global-text-color);
+      line-height: 1.35;
+      text-decoration: underline;
+      text-decoration-color: var(--global-divider-color);
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--global-theme-color);
+        text-decoration-color: var(--global-theme-color);
+      }
+    }
+
+    time {
+      color: var(--global-text-color-light);
+      flex: 0 0 auto;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+  }
+
   .blog-index-filters {
     margin-bottom: 1.5rem;
   }
