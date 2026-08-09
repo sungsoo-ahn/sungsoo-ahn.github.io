@@ -29,6 +29,10 @@ the figure is assembled from slide-native shapes, text, or equations.
 - Store optimized web assets under a course/lecture directory, deduplicate by
   content hash, and retain enough resolution for labels to remain readable when
   zoomed.
+- Treat an unsupported legacy format such as EMF as an extraction problem, not
+  as permission to omit or redraw the figure. Recover the displayed region from
+  a high-resolution rendering of the canonical PDF page and record the page and
+  normalized crop so the asset remains reproducible.
 - Record deck path, slide number, crop/extraction method, attribution, output
   asset, and caption in a figure manifest.
 - Use the house references to judge placement, caption clarity, and rendering,

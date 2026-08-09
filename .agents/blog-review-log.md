@@ -73,6 +73,27 @@ requirements for the replacement deck-level articles.
   critique should not be adapted into an architecture tutorial that ends before
   the critique. The blog-writing skill now records this rule.
 
+### ML4Mol 2025 Lecture 5: Geometric Graph Neural Networks
+
+- **Source:** `lec5_prelim4.pdf` (64 pages), with media extracted from the
+  corresponding PowerPoint and six source regions recovered from the canonical
+  PDF for slide-native diagrams and tables.
+- **Coverage:** 58 substantive slides covered; six cover or part-transition
+  slides omitted. The original four-part progression remains intact: geometric
+  graphs and group language, scalar invariant networks, scalar--vector
+  networks, and spherical-tensor networks culminating in TFN and NequIP.
+- **Figures:** 47 of 56 unique substantive visuals reused (83.93%). Nine omitted
+  visuals duplicate equations or decompositions already represented by a
+  reused visual from the same sequence. No explanatory figure was drawn.
+- **Synthetic material removed:** the prior posts' orbit and stabilizer running
+  example, representation-completeness derivation, numerical EGNN coordinate
+  update, nonconservative-force counterexample, fixed-budget architecture
+  comparison, and typed-attention calculation were absent from the source deck.
+- **General lesson promoted:** legacy PowerPoint formats and slide-native shapes
+  are extraction cases, not reasons to omit or redraw scientific visuals. The
+  figure skill now requires a reproducible high-resolution canonical-PDF crop
+  when direct media extraction fails.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 

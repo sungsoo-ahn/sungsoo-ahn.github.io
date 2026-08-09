@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec5_prelim4.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec5_prelim4.pptx",
   "slide_count": 64,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Preliminaries: Geometric",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Preliminaries: Geometric",
         "Graph Neural Networks",
@@ -26,7 +26,7 @@
       "pptx_slide": 2,
       "title": "Today’s Lecture",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today’s Lecture",
         "• Roto-translation equivariant neural networks.",
@@ -42,7 +42,7 @@
       "pptx_slide": 3,
       "title": "Part 1. Geometric Graphs, Groups,",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 1. Geometric Graphs, Groups,",
         "and Equivariance",
@@ -56,7 +56,7 @@
       "pptx_slide": 4,
       "title": "Geometric Graphs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometric Graphs",
         "A geometric graph is a graph 𝒢 = (𝒱, ℰ) associated with",
@@ -80,7 +80,7 @@
       "pptx_slide": 5,
       "title": "Language of Equivariance",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Language of Equivariance",
         "How to describe geometric GNNs that satisfy the",
@@ -110,7 +110,7 @@
       "pptx_slide": 6,
       "title": "Applications: Molecular Property Prediction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Applications: Molecular Property Prediction",
         "Quantum Machines 9 (QM9) dataset:",
@@ -131,7 +131,7 @@
       "pptx_slide": 7,
       "title": "Applications: Molecular Dynamics Simulation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Applications: Molecular Dynamics Simulation",
         "Molecule Dynamics 17 (MD17) dataset:",
@@ -152,7 +152,7 @@
       "pptx_slide": 8,
       "title": "Applications: Molecular Dynamics Simulation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Applications: Molecular Dynamics Simulation",
         "Molecular dynamics (MD) simulation requires",
@@ -176,7 +176,7 @@
       "pptx_slide": 9,
       "title": "Group",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Group",
         "A group (𝐺,⋅) is a set of elements 𝐺 equipped with a group product ⋅",
@@ -198,7 +198,7 @@
       "pptx_slide": 10,
       "title": "Example: Euclidean Group",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Euclidean Group",
         "The Euclidean group E(𝑛) is",
@@ -221,7 +221,7 @@
       "pptx_slide": 11,
       "title": "Example: Euclidean Group",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Euclidean Group",
         "Each group element 𝑔 ∈ SE(𝑛) is associated with (𝐑 3 , 𝐭)",
@@ -251,7 +251,7 @@
       "pptx_slide": 12,
       "title": "Group Action",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Group Action",
         "Given the group to describe the set of symmetries, we now formalize",
@@ -272,7 +272,7 @@
       "pptx_slide": 13,
       "title": "Group Action",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Group Action",
         "A group element 𝑔 ∈ 𝐺 operates on a domain 𝑋, i.e., a (left) 𝐺-set, by",
@@ -306,7 +306,7 @@
       "pptx_slide": 14,
       "title": "Group Representation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Group Representation",
         "A group representation 𝜌 maps a group element 𝑔 to an invertible matrix",
@@ -329,7 +329,7 @@
       "pptx_slide": 15,
       "title": "Example: Graphs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Graphs",
         "For a graph 𝐺 = (𝐴, 𝑋) and the symmetric group 𝑔 ∈ Sym(𝑛) :",
@@ -351,7 +351,7 @@
       "pptx_slide": 17,
       "title": "Example: Circular Harmonics",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Circular Harmonics",
         "Example of steerable vectors and group representations:",
@@ -383,7 +383,7 @@
       "pptx_slide": null,
       "title": "Q. How does the area",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Q. How does the area",
         "Example: Circular Harmonics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            change to rotations?",
@@ -407,7 +407,7 @@
       "pptx_slide": 18,
       "title": "Example: Spherical Harmonics",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Spherical Harmonics",
         "Spherical harmonics form an orthonormal basis of",
@@ -435,7 +435,7 @@
       "pptx_slide": 19,
       "title": "Example: Spherical Harmonics",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Spherical Harmonics",
         "Degree-𝑙 spherical harmonics are steerable vectors associated",
@@ -458,7 +458,7 @@
       "pptx_slide": 20,
       "title": "Equivariance",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Equivariance",
         "Equivariance is a property of an operator Φ: 𝑋 →",
@@ -484,7 +484,7 @@
       "pptx_slide": null,
       "title": "Part 2. Invariant Neural Networks",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 2. Invariant Neural Networks",
         "21"
@@ -497,7 +497,7 @@
       "pptx_slide": 22,
       "title": "Scalarization for Geometric GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Scalarization for Geometric GNNs",
         "Scalarization: encoding Euclidean transformation-senstive features",
@@ -515,7 +515,7 @@
       "pptx_slide": 23,
       "title": "SchNet: Continuous Filter CNN",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "SchNet: Continuous Filter CNN",
         "SchNet is a GNN with distance information",
@@ -550,7 +550,7 @@
       "pptx_slide": null,
       "title": "DimeNet: Directional Message Passing",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "DimeNet: Directional Message Passing",
         "Motivation: potential energy is typically decomposed into four parts:",
@@ -568,7 +568,7 @@
       "pptx_slide": null,
       "title": "DimeNet: Directional Message Passing",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "DimeNet: Directional Message Passing",
         "Directional embedding 𝒎UV associated with the atom pair (𝑖, 𝑗)",
@@ -592,7 +592,7 @@
       "pptx_slide": null,
       "title": "GemNet: Including Torsion Angles",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "GemNet: Including Torsion Angles",
         "Motivation: torsion angles are required for a molecule’s complete",
@@ -611,7 +611,7 @@
       "pptx_slide": null,
       "title": "GemNet: Universal Directional GNN",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "GemNet: Universal Directional GNN",
         "Message-passing is defined over two-hop neighbors.",
@@ -626,7 +626,7 @@
       "pptx_slide": 28,
       "title": "Part 3. Vector-based",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 3. Vector-based",
         "Equivariant Neural Networks",
@@ -640,7 +640,7 @@
       "pptx_slide": 29,
       "title": "Vector-based Equivariant Neural Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Vector-based Equivariant Neural Networks",
         "How to design neural networks using non-scalar hidden layers?",
@@ -668,7 +668,7 @@
       "pptx_slide": 30,
       "title": "EGNN: Equivariant Graph Neural Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "EGNN: Equivariant Graph Neural Network",
         "How to design an E(n) equivariant layer, in the most simplest form?",
@@ -698,7 +698,7 @@
       "pptx_slide": 31,
       "title": "EGNN: Equivariant Graph Neural Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "EGNN: Equivariant Graph Neural Network",
         "EGNN sequentially updates the",
@@ -731,7 +731,7 @@
       "pptx_slide": null,
       "title": "PaiNN: Polarizable Atom Interaction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "PaiNN: Polarizable Atom Interaction",
         "Similar to EGNN, but further considered the following operations:",
@@ -762,7 +762,7 @@
       "pptx_slide": null,
       "title": "PaiNN: Polarizable Atom Interaction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "PaiNN: Polarizable Atom Interaction",
         "Updates scalar feature 𝐬V = 𝐬V[ , 𝐬V\\ and equivariant vector feature 𝐯V =",
@@ -793,7 +793,7 @@
       "pptx_slide": null,
       "title": "PaiNN: Polarizable Atom Interaction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "PaiNN: Polarizable Atom Interaction",
         "Updates scalar feature 𝐬V = 𝐬V[ , 𝐬V\\ and equivariant vector feature 𝐯V =",
@@ -816,7 +816,7 @@
       "pptx_slide": null,
       "title": "Part 4. Spherical Tensor-based",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 4. Spherical Tensor-based",
         "Equivariant Neural Networks",
@@ -830,7 +830,7 @@
       "pptx_slide": 36,
       "title": "Spherical Tensor-based Neural Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Spherical Tensor-based Neural Networks",
         "Most modern geometric GNNs are steerable networks that operate on",
@@ -854,7 +854,7 @@
       "pptx_slide": 37,
       "title": "Spherical Tensor-based Neural Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Spherical Tensor-based Neural Networks",
         "The new neural networks linearly combine steerable features of via the",
@@ -876,7 +876,7 @@
       "pptx_slide": 38,
       "title": "Irredicible Representation (IrRep)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Irredicible Representation (IrRep)",
         "To assign types, it is desirable to think of a concept that linearly",
@@ -899,7 +899,7 @@
       "pptx_slide": 39,
       "title": "Irredicible Representation (IrRep)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Irredicible Representation (IrRep)",
         "A representation is called reducible if it can be written as:",
@@ -924,7 +924,7 @@
       "pptx_slide": 40,
       "title": "Irredicible Representation (IrRep)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Irredicible Representation (IrRep)",
         "Example of steerable vectors associated with irreps of 𝑆𝑂(2):",
@@ -958,7 +958,7 @@
       "pptx_slide": 41,
       "title": "Irredicible Representation (IrRep)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Irredicible Representation (IrRep)",
         "The irreducible representations of 𝑆𝑂(3) are called",
@@ -1001,7 +1001,7 @@
       "pptx_slide": 42,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "It turns out that “vectorized” tensor products are steerable:",
@@ -1032,7 +1032,7 @@
       "pptx_slide": 43,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "The Clebsch-Gordan tensor product includes change of basis",
@@ -1059,7 +1059,7 @@
       "pptx_slide": 44,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "To describe the Clebsch-Gordan tensor product, reconsider",
@@ -1108,7 +1108,7 @@
       "pptx_slide": 45,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "(Z,[)",
@@ -1137,7 +1137,7 @@
       "pptx_slide": 46,
       "title": "Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Tensor Product",
         "Tensor product is a way to “multiply” two vectors into another one.",
@@ -1155,7 +1155,7 @@
       "pptx_slide": 47,
       "title": "Example: Cartesian Tensors",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Example: Cartesian Tensors",
         "Cartesian tensors are obtained from “tensor products”:",
@@ -1175,7 +1175,7 @@
       "pptx_slide": 48,
       "title": "Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Tensor Product",
         "Let 𝐱 denote a type-1 Cartesian steerable vector",
@@ -1196,7 +1196,7 @@
       "pptx_slide": 49,
       "title": "Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Tensor Product",
         "We can similarly generalize to higher-order (Cartesian) tensor products.",
@@ -1217,7 +1217,7 @@
       "pptx_slide": 50,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "Clebsh-Gordan (CG) tensor products are used for spherical tensors.",
@@ -1245,7 +1245,7 @@
       "pptx_slide": 51,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "To describe the Clebsch-Gordan tensor product, reconsider",
@@ -1294,7 +1294,7 @@
       "pptx_slide": 52,
       "title": "Clebsch-Gordan Tensor Product",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Clebsch-Gordan Tensor Product",
         "(Z,[)",
@@ -1323,7 +1323,7 @@
       "pptx_slide": 53,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "One of the first papers to propose neural network that",
@@ -1348,7 +1348,7 @@
       "pptx_slide": 54,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "(Z)",
@@ -1372,7 +1372,7 @@
       "pptx_slide": 55,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "(Z ,Z )",
@@ -1401,7 +1401,7 @@
       "pptx_slide": 56,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "The message passing layer consists of:",
@@ -1434,7 +1434,7 @@
       "pptx_slide": 57,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "The TFN applies order-wise non-linearities via scalar transformation.",
@@ -1463,7 +1463,7 @@
       "pptx_slide": 58,
       "title": "TFN: Tensor Field Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TFN: Tensor Field Network",
         "Overall architecture (self-interaction layers are 1x1 convolutions):"
@@ -1478,7 +1478,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Applies TFN-like architecture to learn interatomic potentials:",
@@ -1500,7 +1500,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "(Z,q)",
@@ -1524,7 +1524,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Z",
@@ -1552,7 +1552,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "The layers update similar to TFN by Clebsch-Gordan tensor products:",
@@ -1580,7 +1580,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Experiments confirm the superiority of NequIP over",
@@ -1594,7 +1594,7 @@
       "pptx_slide": null,
       "title": "NequIP: Neural Equivariant Interatomic Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "NequIP: Neural Equivariant Interatomic Potentials",
         "Experiments confirm the superiority of NequIP over",
@@ -1612,7 +1612,8 @@
       "bytes": 4744534,
       "slides": [
         4
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a74ade1a1df13942f5b712b068f94f68e04df9fdf100ede1e19f007f3a1cb8e1",
@@ -1621,7 +1622,9 @@
       "bytes": 24349,
       "slides": [
         8
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s08-image10.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "3841cedd37bdc8fd49304f015b27610b5e841709d8fc480e7f1a16f9b245ef28",
@@ -1630,7 +1633,8 @@
       "bytes": 298689,
       "slides": [
         64
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5d9399de38ef7cbd204512d4793e4a059f9c6ae99e47e819acab8c89455a7cc6",
@@ -1639,7 +1643,9 @@
       "bytes": 33503,
       "slides": [
         8
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s08-image11.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2ab4c8807a337f9468fd2f0516c8f066496361d903f074f380e95ecce73e8024",
@@ -1648,7 +1654,9 @@
       "bytes": 105314,
       "slides": [
         10
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s10-image110.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "dce32d0c92acb95e5a62dd28a01124eafdef2b0da7667eaf81b4540247a5e27f",
@@ -1658,7 +1666,8 @@
       "slides": [
         8,
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "87cba7a30541e34b70f6fbc6cfcdc829d495e1f730e60395747a7ac618d2ee0d",
@@ -1668,7 +1677,9 @@
       "slides": [
         9,
         10
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s09-image13.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "958dd822b332d96d008349784bfee34c7296b6baf94c3b70dab7e430f8b6011d",
@@ -1677,7 +1688,8 @@
       "bytes": 78565,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "79919f64a221fb06a5f52e3179dc3fae29e5c822a2230270200dedfcb36ce9d4",
@@ -1686,7 +1698,8 @@
       "bytes": 124152,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6e91a510ba563abfaf82f26c087d92a42c5c39f52de959663a52996cd33cb1a6",
@@ -1695,7 +1708,9 @@
       "bytes": 116856,
       "slides": [
         11
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s11-image15.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8a5afe415e824b5693cc376c7b93333f7b2e990b57875213ef90534a6021d9fb",
@@ -1704,7 +1719,9 @@
       "bytes": 6606,
       "slides": [
         12
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s12-image16.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "ad5ba2dda1531bbb00c2592a8fa764e1bcef059bb03293b9f1cea311ca0389d4",
@@ -1713,7 +1730,8 @@
       "bytes": 7992,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a632000b777b502afe5a1615aebe991b958c4e4729d1fedda09639c1865cadc3",
@@ -1722,7 +1740,8 @@
       "bytes": 7265,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "021a6131a9908004cfb3113fe6afe418cfb5e5aa8fc1adc54b7d4fa7d7c2f70b",
@@ -1731,7 +1750,8 @@
       "bytes": 1842,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2764ac090468a92a7abdfbd77aa68ae4c3887677699e3eac71889fa86e427622",
@@ -1740,7 +1760,8 @@
       "bytes": 144679,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a52cb1212112eda20a8e2f47f666afd37ca7d571f4970240e3346d53c25be9df",
@@ -1749,7 +1770,9 @@
       "bytes": 113469,
       "slides": [
         4
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s04-image2.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "21ff546ec7d4b91db594d91ed573685fbacb2a281da6df92f935d115248ac6aa",
@@ -1758,7 +1781,8 @@
       "bytes": 2209,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5cff7d63fa486cb35ff41c89832ce06a204e2eedec30944eb1d9315a26f0b720",
@@ -1767,7 +1791,8 @@
       "bytes": 2281,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "09f19989784d4abcce04db646c34d15b49e71f36299407c36bcc399a39483abb",
@@ -1776,7 +1801,8 @@
       "bytes": 4232,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cc2dcd10936f299d87d628ff581ce815b3c5ae1be478799e7d7ef9d1f2cf6cd5",
@@ -1785,7 +1811,8 @@
       "bytes": 78278,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "aefb43d7f96739219d0c2056d0dc6aa09ffdf0819d61e9ff1373e5aacc62f550",
@@ -1794,7 +1821,8 @@
       "bytes": 3866,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "897abf7260232c248b0957d7029184889173a4fcee600caa74bfa491cdbd9151",
@@ -1803,7 +1831,8 @@
       "bytes": 4360,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "31f9ff216e63e9d437d0cd7c2e46a8a605656440cc8615ad9f8febc7002212aa",
@@ -1812,7 +1841,8 @@
       "bytes": 5376,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "687a5524849558dcf3136da871d828f7de23198878aa16b4e73dc9b803e12df0",
@@ -1821,7 +1851,8 @@
       "bytes": 81776,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
@@ -1830,7 +1861,8 @@
       "bytes": 36687,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6cf6aee3536d85081a36f602a0d568a9d8e308350b225a57588cfbb4ae2c375b",
@@ -1839,7 +1871,8 @@
       "bytes": 44864,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3eb8f993f4f1d213ee8b0191ea6f58bbe9a5381fffaf88383d0d99266a65d6b2",
@@ -1848,7 +1881,8 @@
       "bytes": 53790,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1c2ecb12ce5440d8babf590120f9bde1da5b59797388e1a8ae438a2ac673f51e",
@@ -1857,7 +1891,8 @@
       "bytes": 87624,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0f0678f82bd3e9ec1779e07cf4adcbc3e2e64e952b8bded5a0fa1d5f708d4b1f",
@@ -1866,7 +1901,9 @@
       "bytes": 101674,
       "slides": [
         15
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s15-image29.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
@@ -1879,7 +1916,9 @@
         5,
         5,
         5
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s04-image3.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
@@ -1888,7 +1927,9 @@
       "bytes": 101240,
       "slides": [
         17
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s16-image30.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
@@ -1900,7 +1941,8 @@
         17,
         17,
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
@@ -1909,7 +1951,9 @@
       "bytes": 1041453,
       "slides": [
         18
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s18-image32.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "3d97576a018c288094519bea7935734dfc8086b33ded71501c5203022a211cc4",
@@ -1918,7 +1962,8 @@
       "bytes": 1608,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36",
@@ -1927,7 +1972,8 @@
       "bytes": 75172,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "571b4cc079fed2d727c4cc6ed8fb00c51c28c78d8681508e1dc0195e599665b3",
@@ -1936,7 +1982,8 @@
       "bytes": 5635,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "315eb7c939c64aef25dcc0984b9ad7dac0c796896898c8d4411381551ae20fba",
@@ -1945,7 +1992,8 @@
       "bytes": 2113,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
@@ -1954,7 +2002,8 @@
       "bytes": 89312,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "89de0ae41f78429141ed0f1907140b74ca4936bab60cb09aca11c7b54798216b",
@@ -1963,7 +2012,8 @@
       "bytes": 4968,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
@@ -1972,7 +2022,8 @@
       "bytes": 81752,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "df93a8e2708dcfcf08cc1879501b927313b25a34f720d27f4b7a4859165b33ed",
@@ -1981,7 +2032,8 @@
       "bytes": 7174,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
@@ -1991,7 +2043,9 @@
       "slides": [
         19,
         19
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s19-image36.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2c7b6f5f6f20b491b963653b736c17eab30845d8fea22c4d19fa6e30ac321bc1",
@@ -2000,7 +2054,8 @@
       "bytes": 7130,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "226a42868161ecc44e6b63263770cb1caa9675ff28a26e985c43d2a844578e70",
@@ -2009,7 +2064,8 @@
       "bytes": 79900,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b3c2e040d61324239fc1839b38cc2147d0436224fd3d5576ed16d17becff7266",
@@ -2018,7 +2074,8 @@
       "bytes": 11192,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af40c7f27d0a78c5b2213f67466d0d3d8fcc0e4a86699b4b8333fadf18e6f510",
@@ -2027,7 +2084,9 @@
       "bytes": 102940,
       "slides": [
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s20-image38.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e66986efb3bc6c8e9800f32c9c0093a58b41988c548f888f8cacc15de50cb54b",
@@ -2036,7 +2095,8 @@
       "bytes": 3083,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f7fe2e1e368fb84f3b172102e25f7a3dbd37dcf81b783a9245cf7821bd329b72",
@@ -2045,7 +2105,8 @@
       "bytes": 69324,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ef45921182c8f6b5ea1f528ecf43854b11cb722e59cfc45099e712eb55702852",
@@ -2054,7 +2115,8 @@
       "bytes": 70664,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f8d95bf1d452e22bffbdccaaf2d5441facdb4f08eec63e99611c4ca5d1ee28c1",
@@ -2063,7 +2125,8 @@
       "bytes": 39456,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4c0d85a1c538da2f7ed6f82be38cf32c7e906d2c8a8e8ca7d10b34b842174b8d",
@@ -2072,7 +2135,9 @@
       "bytes": 9936,
       "slides": [
         22
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s22-image40.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c06fc357e29a3e464bfcc9598081e6ad90e19ccf670f83a148db253fa1a8cb90",
@@ -2082,7 +2147,8 @@
       "slides": [
         23,
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
@@ -2091,7 +2157,8 @@
       "bytes": 7128,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6f4082852f54ef22d0ff0e3a664afd63f3b3832e3e9e261e91f97a4e68381430",
@@ -2101,7 +2168,9 @@
       "slides": [
         23,
         23
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s23-image42.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
@@ -2110,7 +2179,8 @@
       "bytes": 11485,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "08126ecb09d26da2c7b76c083ca2ba60f1a879613314f72c3237ac787ee61474",
@@ -2119,7 +2189,8 @@
       "bytes": 37254,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
@@ -2128,7 +2199,8 @@
       "bytes": 3095,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fd07c8ab3552c932f37647e20b8fafda7260a50a8cc96b964ca236286cdfec5e",
@@ -2137,7 +2209,8 @@
       "bytes": 19262,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "deabac9937cc7cdf60e351f500d68b85345b190d0b3cb1a4c2afb3f70b40e37b",
@@ -2146,7 +2219,8 @@
       "bytes": 86656,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ce9aa1799f0b92bbe5ba854be67fc82145eec1050e7d0f20eacd975a17bfcb2a",
@@ -2155,7 +2229,8 @@
       "bytes": 57516,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "22aa58dc381cdd05a2046a51ec510bf28ff13633e2ff371c77533bb046c111cf",
@@ -2164,7 +2239,8 @@
       "bytes": 133412,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3916d1aa7f7fe34b7ab34b91118702d981e53e3d4f6cf2692a22aa64d131216a",
@@ -2173,7 +2249,8 @@
       "bytes": 47937,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7e6172c5df0a9bb6dfc3cb54effeaaf246859e8030dc1446c6e9d00a6e3f7f04",
@@ -2182,7 +2259,8 @@
       "bytes": 46352,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0493eef87ae03bf0d2c7f9c94c80fe62fed654fb12314c885fece4bde6f884b3",
@@ -2191,7 +2269,8 @@
       "bytes": 46649,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9b3f68cee9987e7e670dc181a8e3b657d8af61ec95ef7061fb51ffb0c8419d34",
@@ -2200,7 +2279,8 @@
       "bytes": 47168,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3d1886d86e98bc4f6d00adc51c2ee74830d94885cfcec75820e428f99a9ae6f3",
@@ -2209,7 +2289,8 @@
       "bytes": 105338,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a10354c24821835345edaa0190be297ce9c5cc779eee39f5ab3fe7d89c0c5708",
@@ -2218,7 +2299,8 @@
       "bytes": 58340,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "dbf7472a8112b4b57b83a327e0eb1f543e92b6f6dccf2e9d2c48ed82740fedf6",
@@ -2227,7 +2309,8 @@
       "bytes": 58908,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ff294eda893fe60634da95bc27a3f2c1be2c22d651499abe15e44bcddcf58256",
@@ -2236,7 +2319,8 @@
       "bytes": 116025,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c1422a008dc95e6d75c3e02bfe5d7894a5b6c487dd9554c7e6545eb6cedd862e",
@@ -2245,7 +2329,9 @@
       "bytes": 74680,
       "slides": [
         30
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s30-image53.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0cd56cbe919113c01b6f1f2aefcfc82c226d67d2fcce9e38295211e1f3f8f44e",
@@ -2254,7 +2340,9 @@
       "bytes": 146748,
       "slides": [
         31
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s31-image54.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "13964cb760f8343e66c24ad416197c337339515250a0073f5842b4b78383f16c",
@@ -2264,7 +2352,8 @@
       "slides": [
         33,
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5bed1cf16f1f00635e915900f1da90bce48f6798ced490e798642f143cb1be51",
@@ -2273,7 +2362,8 @@
       "bytes": 38044,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bdcc76d83c32d8c33f8b21642c4d79b8d580d80e03f4362601d9f57efc459920",
@@ -2282,7 +2372,8 @@
       "bytes": 78636,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2e117aa8266ddc0e7d185e6f3248ea2f50c79632ac14af0dcd308d2a15d926b5",
@@ -2291,7 +2382,8 @@
       "bytes": 98822,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b5783133ede4de51886abcf986f1768a34f4914c426bd06f2fd5be1170dc3a7a",
@@ -2300,7 +2392,8 @@
       "bytes": 55420,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3bade60c1437ce2ea2c71754aca6bd0625cc5ada5758c3f30159d8cad586acc7",
@@ -2309,7 +2402,8 @@
       "bytes": 2934,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7a59f96c6102fc7edd23dd72c01dcfd2f14de5e8d26ab160804b1396bc0853b9",
@@ -2318,7 +2412,8 @@
       "bytes": 79360,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9c8afab8f2d1af80fd3827d539f48413efff502f08d3cecb702dca6ffee1e2e1",
@@ -2327,7 +2422,8 @@
       "bytes": 2796,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f43b568ae261d29a672ab658698f9f1a52fac9876edd850614caa533cd088ff5",
@@ -2336,7 +2432,8 @@
       "bytes": 38952,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b87b95200b75fc07f9c728f12af8d639395b70c8094233bbdffe0af5112e6c9f",
@@ -2345,7 +2442,8 @@
       "bytes": 3050,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "69a10186c5ec0ee96202ff3b5e3a53f177fa92e0ef2a5d78238f64193b76f97f",
@@ -2354,7 +2452,8 @@
       "bytes": 73244,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c9fad1c91712f523159d151ff4f0fdfe382665238e18040e0f109472ba3f65b2",
@@ -2363,7 +2462,8 @@
       "bytes": 47752,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7c6fb09d3cbd0bd5d1f3147cbf06d9768abe63ea4d92ce2cb7f323f1b3c3399b",
@@ -2372,7 +2472,8 @@
       "bytes": 3111,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a390bf4d626517ec9f37ba838135095bdf90bcc32f8989a79f033395b7b18ef9",
@@ -2381,7 +2482,8 @@
       "bytes": 142792,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "63906c932738c27889c9696262ca8e5972a1a024e7474a85310c49147cce0534",
@@ -2390,7 +2492,8 @@
       "bytes": 120115,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "87fa0a7a573bdf0e992e3177aaaf6d9dd0a65078e97d154bd180268d16b466e0",
@@ -2399,7 +2502,8 @@
       "bytes": 114256,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3f86a116a04ea251e28ca71c1457e6a79a38b579eb20e70d95d96c6490113110",
@@ -2408,7 +2512,8 @@
       "bytes": 102440,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b9cf54dedcfa244778209d857b8b5f86539672e47ce23aa57157e8c9dbaf93d9",
@@ -2417,7 +2522,8 @@
       "bytes": 95780,
       "slides": [
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f19bc2d9a45393d9e91d2f96ba5ea6d0263f064c3288bf1259ad7464ca161879",
@@ -2426,7 +2532,8 @@
       "bytes": 91104,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cf590a67b06dc1d87876620f765f2560e6f4444ab256ae3e57e7cca414fc6997",
@@ -2435,7 +2542,8 @@
       "bytes": 129377,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a",
@@ -2444,7 +2552,9 @@
       "bytes": 50131,
       "slides": [
         38
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s38-image65.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "fb2a53cf943fc5787bd9b24742ff7bc61503c615c94182f7c3c19a44a6bb2218",
@@ -2453,7 +2563,9 @@
       "bytes": 114747,
       "slides": [
         41
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s41-image65.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f5a66f19494f2c1e97b334e871e6b40bb6698ca51b62536d2a4e117598902152",
@@ -2463,7 +2575,8 @@
       "slides": [
         44,
         51
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "232c6ed9278960f1b2e1b3a76ae4319c28a93378b198c9178ee6bc891aa05d48",
@@ -2472,7 +2585,9 @@
       "bytes": 96244,
       "slides": [
         39
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s39-image66.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a23a645ec870902bd623ff8c547b69b5f47791024736a2dafad6343166c78564",
@@ -2481,7 +2596,8 @@
       "bytes": 90569,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13d96e767c3c6036ccd7e90cc3fffedd54976f2a21e580527e4b6f10e5b24723",
@@ -2490,7 +2606,9 @@
       "bytes": 155244,
       "slides": [
         40
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s40-image67.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "00684e3c86f104904573ad97ab7ac8ca8e4352b256171afd3c4b49eac01dc122",
@@ -2499,7 +2617,8 @@
       "bytes": 64686,
       "slides": [
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c096184821a68fc535ced61f329d70d712d3a894e432a35cc717d795483300a0",
@@ -2508,7 +2627,8 @@
       "bytes": 4428,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "27bd0232e2d44991ba582aeb852ca263669288b67a73ef28cdaf8d048ed13ff8",
@@ -2517,7 +2637,8 @@
       "bytes": 99024,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7cf856d2b01644f0ab7aa0c98d9328e7702b94f7d3f4a15fbee6130787ac3c11",
@@ -2526,7 +2647,8 @@
       "bytes": 5652,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9228a17093bbebb75a51756fe40fdd42ca7e9e84cb50a85491ea287df85b8388",
@@ -2535,7 +2657,8 @@
       "bytes": 4138,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af56e01f7edff1e1bf61aae474161729d62090e2abf8af6f3eab18236f7c529a",
@@ -2544,7 +2667,8 @@
       "bytes": 94796,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cfa207612e4d980057b2c13efee6eef8a27c482fb0ff77f19dc091641c6d8fe4",
@@ -2553,7 +2677,8 @@
       "bytes": 5600,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "875302685c8c00a93965140a0b05bdd026431fc3a5c7cb040dbcdaf02b16f96f",
@@ -2562,7 +2687,9 @@
       "bytes": 743383,
       "slides": [
         6
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s06-image7.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "aae42b36f61ac4179e075edab2d5c761ea5a7d85a2e56b49a0b02979ce170d48",
@@ -2571,7 +2698,8 @@
       "bytes": 132752,
       "slides": [
         42
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b3372aa181c4fc55e4672213624f33c1cf6e397c1d4ef96ad8d1ecf6f286ffbe",
@@ -2580,7 +2708,8 @@
       "bytes": 5810,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d3e1bc608c3a5dbf186fdfb865aca5ec8de860f20347ca7d946e119e514984b4",
@@ -2589,7 +2718,9 @@
       "bytes": 113384,
       "slides": [
         42
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s42-image71.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f10331e95ead9898e2611f49e480881955af9b654f5c50d52683406ecb271f6d",
@@ -2598,7 +2729,8 @@
       "bytes": 3939,
       "slides": [
         56
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a13ee44e1efe1ac8eba7af1ef66d20ffc3e858e6215bc9f7e1e50004ba935db6",
@@ -2607,7 +2739,9 @@
       "bytes": 117052,
       "slides": [
         43
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s43-image72.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "012011bb64e43d032b54c70770ac78d7f64828958e72c711075a7911834b59df",
@@ -2617,7 +2751,8 @@
       "slides": [
         45,
         52
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f087e4990ae0915d7828d89a0c7f26dc604eabb93b6c22d5e77b6b3ef5addccc",
@@ -2626,7 +2761,8 @@
       "bytes": 4271,
       "slides": [
         56
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13d7e21f60c9c4954475c74760bd83a14710636dc2960e6630d86406fc57a2a7",
@@ -2636,7 +2772,9 @@
       "slides": [
         44,
         51
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s44-image73.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6",
@@ -2648,7 +2786,9 @@
         45,
         51,
         52
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s44-image74.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "724e9bafcffdec825f00d048d8493dbdf19796cdf39fc3a8b0ce35ac589670ad",
@@ -2658,7 +2798,8 @@
       "slides": [
         45,
         52
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ef1c7247e3b086d05810c7d637ff04d8a3abb446c1ac2ba2b7978e5c804d38bd",
@@ -2667,7 +2808,8 @@
       "bytes": 63977,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a50430f073dcc75e77467dce273c4bfc81f3e8a53aeb7567b38aabeb3573a6af",
@@ -2676,7 +2818,8 @@
       "bytes": 90977,
       "slides": [
         54
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6f13830bd3ecfbfdcd89b3a2313e1c64ce01b91ebf63f994ade811da7a1ff747",
@@ -2685,7 +2828,9 @@
       "bytes": 77634,
       "slides": [
         47
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s47-image76.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "904d2c48b51898d83c130b8af90d4d1a33b79c81cbb6140a09916dba6e2bf2b6",
@@ -2694,7 +2839,8 @@
       "bytes": 34428,
       "slides": [
         47
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c079c9d84b244e51a678fd2db6524241ad49b2071c846a68d1878a4cee34ad64",
@@ -2703,7 +2849,8 @@
       "bytes": 109579,
       "slides": [
         50
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "058c9082cb28af05205fd2137300f3c0d8263a0abf21f32816ff599ca2477077",
@@ -2712,7 +2859,8 @@
       "bytes": 61359,
       "slides": [
         47
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b4dcd36d21ff5644c99936b0efa68fdd8beb3fe7882795077f26920158bac242",
@@ -2721,7 +2869,8 @@
       "bytes": 93060,
       "slides": [
         56
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8e40ffe07ba3adb311860c84e02f4b4823a99fd7e131357a9449952d801a9bb1",
@@ -2730,7 +2879,9 @@
       "bytes": 216022,
       "slides": [
         7
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s07-image8.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "17d1f88a738c7699dd5804a0b9abd94fbb486ffdf668c22dd10030338d180f1a",
@@ -2739,7 +2890,8 @@
       "bytes": 72910,
       "slides": [
         50
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63",
@@ -2748,7 +2900,9 @@
       "bytes": 68382,
       "slides": [
         53
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s53-image81.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "07514c9fe340dab3f2ccf89570ff0314b800ea0183c8555bbafb9c43523fc2c9",
@@ -2757,7 +2911,8 @@
       "bytes": 79613,
       "slides": [
         57
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8cc4c162c922d96b3d60fc9af04cfd5164e2a8cafcb73cfe12b6a9fc46946b53",
@@ -2766,7 +2921,9 @@
       "bytes": 96516,
       "slides": [
         48
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s48-image82.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "1af362691512bbb6ea53992d94c55ea435af7b1fc9426d9ec6d5383f958de2b2",
@@ -2775,7 +2932,8 @@
       "bytes": 110416,
       "slides": [
         49
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "86e3b35b689c109dfc359a12dc469b2d4f55bfecc33d60d07b3cf9db71575c42",
@@ -2784,7 +2942,8 @@
       "bytes": 136563,
       "slides": [
         50
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1",
@@ -2793,7 +2952,9 @@
       "bytes": 161125,
       "slides": [
         54
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s54-image85.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "dfd30cf6d1fc986bcd790f23d6493f195c7b067d69b6937568f841d98e2e1cc5",
@@ -2802,7 +2963,9 @@
       "bytes": 100640,
       "slides": [
         55
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s55-image86.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "bd6225263c56a0657013307d5b6ea2edc49f9ab92a5be07b09a2ffa5cbd71911",
@@ -2811,7 +2974,9 @@
       "bytes": 138364,
       "slides": [
         56
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s56-image87.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "ca1be4d8026217924df9a346765458dbac47ddadf86911075592dbb7849c080c",
@@ -2820,7 +2985,9 @@
       "bytes": 111124,
       "slides": [
         57
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s57-image88.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0f061aa7fd4cea5e46f89a88c0b7fad194d369d61749fac5ec5b03baa4093e1a",
@@ -2829,7 +2996,8 @@
       "bytes": 67161,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2657dcc260b0c3c7940860d5882b171abf99e5863962ca6ccc86b6320d0056f2",
@@ -2838,7 +3006,8 @@
       "bytes": 237163,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8f217e780bcc35cdaec301a886242a361b21202d0012f8bce51b758def4eab9d",
@@ -2847,7 +3016,9 @@
       "bytes": 237426,
       "slides": [
         58
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s58-image90.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "13102ddca583e21cefa8959fc68237c3a7c324286629b1c36f1727ea480bbf64",
@@ -2856,7 +3027,8 @@
       "bytes": 138870,
       "slides": [
         55
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bfad0227dc7c138ded59472a4f4c23744936d7c6f4510098eb646b3078c1ad79",
@@ -2865,7 +3037,8 @@
       "bytes": 116144,
       "slides": [
         59
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
@@ -2874,7 +3047,8 @@
       "bytes": 71363,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e3466ffe13cb158087bbe048a5cba6900b404c2b7315cb62453126d903644100",
@@ -2883,7 +3057,8 @@
       "bytes": 76460,
       "slides": [
         61
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6d351b0d2f68a1f61b94e30af1641fc36b872ff9258f4f09a5a22b4f34f9e7c1",
@@ -2892,7 +3067,8 @@
       "bytes": 77020,
       "slides": [
         61
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fb855be1eaaafd4c44005da2388b5fc750fc921a96916bed5e031f1459b32e0c",
@@ -2901,7 +3077,8 @@
       "bytes": 42265,
       "slides": [
         61
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "56a0458ae46fd7b92255b274eb41798d8e95ff29f6bccb1ab7f884086650793a",
@@ -2910,7 +3087,8 @@
       "bytes": 93456,
       "slides": [
         61
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d3e3b18abd6768680997404e104ae59f3f6434dbf70e2f71bf8d3eeb813f7a07",
@@ -2919,7 +3097,8 @@
       "bytes": 146984,
       "slides": [
         62
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2cb7d2948529110fee76964af01a2cc59cc03687f5a8af01637baf3215716082",
@@ -2928,7 +3107,8 @@
       "bytes": 107354,
       "slides": [
         59
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "79a4c148f4403d444b4b5f75f914177ba944aa4b007b9e2baf26fc7a2924bcd4",
@@ -2937,7 +3117,8 @@
       "bytes": 73655,
       "slides": [
         62
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
@@ -2946,7 +3127,8 @@
       "bytes": 73135,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5982a175a7473beb5cdc9620a117d994ff4d3f66ffee650ad3e772db106e928f",
@@ -2955,7 +3137,8 @@
       "bytes": 223715,
       "slides": [
         63
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ce63bcff5f802ba537e3526343927fd6acd4f3c0644bcd94a17fd1b4f4e69490",
@@ -2964,14 +3147,149 @@
       "bytes": 147996,
       "slides": [
         60
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 56,
+    "reused": 47,
+    "scientifically_redundant": 9,
+    "reuse_ratio": 0.8393
+  },
+  "pdf_regions": [
+    {
+      "slide": 5,
+      "crop": [
+        0.02,
+        0.12,
+        0.96,
+        0.78
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s05-equivariance-language.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.02,
+        0.14,
+        0.96,
+        0.72
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s13-action-compatibility.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.02,
+        0.13,
+        0.96,
+        0.68
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s14-group-representation.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.54,
+        0.29,
+        0.44,
+        0.6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s24-directional-design.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "crop": [
+        0.54,
+        0.22,
+        0.44,
+        0.64
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s25-directed-edge-update.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.48,
+        0.29,
+        0.5,
+        0.54
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s26-torsion-neighborhood.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.52,
+        0.22,
+        0.46,
+        0.62
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s27-two-hop-message.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "crop": [
+        0.54,
+        0.34,
+        0.4,
+        0.5
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s29-scalar-vector-channels.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.08,
+        0.34,
+        0.84,
+        0.52
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s36-spherical-feature-types.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 50,
+      "crop": [
+        0.52,
+        0.34,
+        0.44,
+        0.5
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s50-cartesian-spherical-decomposition.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 63,
+      "crop": [
+        0.38,
+        0.32,
+        0.6,
+        0.56
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s63-sgdml-results.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 64,
+      "crop": [
+        0.38,
+        0.32,
+        0.6,
+        0.56
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-05/s64-fchl-results.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-05.md"
 }
