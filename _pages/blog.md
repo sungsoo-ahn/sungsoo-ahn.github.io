@@ -18,11 +18,23 @@ pagination:
     <p class="blog-index-note">
       Research updates, tutorials, and technical notes from SPML Lab for ML researchers entering scientific domains.
     </p>
-    <div class="blog-type-summary" aria-label="Blog post types">
-      <span>Post types</span>
-      <span>Research {{ research_count }}</span>
-      <span>Tutorials {{ tutorial_count }}</span>
-      <span>Technical notes {{ technical_note_count }}</span>
+    <div class="blog-index-filters">
+      <div class="blog-type-summary" aria-label="Blog post types">
+        <span>Post types</span>
+        <span>Research {{ research_count }}</span>
+        <span>Tutorials {{ tutorial_count }}</span>
+        <span>Technical notes {{ technical_note_count }}</span>
+      </div>
+      <nav class="blog-type-summary blog-category-summary" aria-label="Blog categories">
+        <span>Categories</span>
+        {% for category in site.data.blog_categories %}
+          {% assign category_posts = site.categories[category.slug] %}
+          {% assign category_post_count = category_posts.size | default: 0 %}
+          <span>
+            <a href="{{ category.slug | prepend: '/blog/category/' | relative_url }}">{{ category.title }} {{ category_post_count }}</a>
+          </span>
+        {% endfor %}
+      </nav>
     </div>
 
     <h2 class="blog-latest-title">All posts</h2>

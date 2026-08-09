@@ -1242,6 +1242,10 @@ footer.sticky-bottom {
     max-width: 760px;
   }
 
+  .blog-index-filters {
+    margin-bottom: 1.5rem;
+  }
+
   .blog-type-summary {
     color: var(--global-text-color-light);
     display: flex;
@@ -1249,7 +1253,7 @@ footer.sticky-bottom {
     font-size: 0.82rem;
     gap: 0.3rem 0.75rem;
     line-height: 1.4;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.3rem;
 
     span:first-child {
       color: var(--global-text-color);
@@ -1260,6 +1264,22 @@ footer.sticky-bottom {
       color: var(--global-divider-color);
       content: "·";
       margin-left: 0.75rem;
+    }
+  }
+
+  .blog-category-summary {
+    margin-bottom: 0;
+
+    a {
+      color: var(--global-text-color-light);
+      text-decoration: underline;
+      text-decoration-color: var(--global-divider-color);
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: var(--global-theme-color);
+        text-decoration-color: var(--global-theme-color);
+      }
     }
   }
 
