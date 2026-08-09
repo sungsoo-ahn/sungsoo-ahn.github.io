@@ -275,6 +275,35 @@ requirements for the replacement deck-level articles.
   to see AlphaFold3, Proteina, Boltz-2, and BioEmu as changes of target rather
   than a flat list of structure architectures. The blog-writing skill now
   records this rule.
+
+### ML4Mol 2025 Lecture 13: Protein Representation Learning and Design
+
+- **Source:** `lec13_protein2.pdf` (62 pages), with 70 published media assets
+  extracted from the corresponding PowerPoint and four slide-native diagrams
+  cropped from the canonical PDF.
+- **Coverage:** 59 substantive slides covered; the cover and attribution notice
+  omitted, and one antibody-anatomy slide collapsed as a literal recap. The
+  source order remains sequence and structure representation learning,
+  multimodal and fitness pretraining, antibody affinity maturation, sequence
+  design and inverse folding, backbone generation, joint co-design, de novo
+  antibody design, complete design pipelines, and affinity-based experimental
+  filtering.
+- **Figures:** 74 of 78 unique substantive visuals reused (94.87%). Four omitted
+  visuals are duplicate token examples, title media, or decorative animation.
+  Three unused extraction candidates were removed. No explanatory figure was
+  drawn; canonical-PDF crops recover DiffPreT and the three DSMBind slides whose
+  scientific diagrams were built from native slide shapes.
+- **Synthetic material removed:** the prior protein-design chapter's abstract
+  variable-choice taxonomy, motif-scaffolding derivation, oracle-failure
+  argument, evaluation funnel, and selection-bias discussion were absent from
+  this deck. The replacement retains the source's extensive method chronology
+  and its reported Chai-2, BoltzGen, antibody maturation, and DSMBind laboratory
+  validations.
+- **General lesson promoted:** a design lecture can distribute its scientific
+  claim across a pipeline. Preserve generation, inverse folding, folding,
+  confidence or affinity ranking, filtering, synthesis, and wet-lab measurement
+  as separate stages with explicit handoffs. The blog-writing skill now records
+  this pipeline-fidelity rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
