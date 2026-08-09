@@ -465,6 +465,33 @@ requirements for the replacement deck-level articles.
   stochastic identifiers, and the second locates subgraph bags among structural
   encodings and lifts. The blog-writing skill now distinguishes such synthesis
   slides from literal repeated recap.
+
+### GDL 2025 Lecture 6: Failure Modes of Graph Neural Networks
+
+- **Source:** `lec6_gnn4.pdf` (50 pages), represented by 48 canonical PDF
+  composites preserving the diagnostic diagrams, energy and sensitivity
+  equations, curvature examples, rewiring sequences, benchmark plots, and final
+  research-practice evidence.
+- **Coverage:** all 48 scientific slides covered; only the cover and course
+  overview omitted. The source order remains under-reaching, over-smoothing and
+  its competing measures, mitigation families and their risks, over-squashing
+  sensitivity, binary-tree and curvature analysis, rewiring, width, graph
+  distance versus commute time, dynamic delayed rewiring, long-range benchmarks,
+  and the closing critique of application relevance, graph meaning, evaluation
+  culture, and graph foundation models.
+- **Figures:** all 48 source-native substantive visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous failure-modes tutorial's custom
+  three-failure summary, exact tree sensitivity calculation, Dirichlet numerical
+  example, effective-resistance derivation, molecular computation-graph case,
+  and architecture remedy table were absent from this deck. The replacement
+  retains the lecture's empirical comparisons and its unusually long
+  research-practice critique.
+- **General lesson promoted:** the final nine slides are not an optional opinion
+  appendix. They define when a better information-flow architecture supports a
+  meaningful claim at all: the graph must encode a defensible relation and the
+  evaluation must survive matched baselines and tuning. The blog-writing skill's
+  rhetorical-destination rule now names this form of claim-boundary audit.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
