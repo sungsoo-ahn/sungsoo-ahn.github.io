@@ -18548,673 +18548,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-05/slide-10.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        10
-      ],
-      "slide_keys": [
-        "gdl-2025-05:10"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Regular graphs with the same size can defeat MPNNs because every node receives the same local evidence. Cropped from the 2025 GDL GNN-expressivity lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fd33c436a7d9476904e3625c96151bbd940acabc1f830d77538f24890d36f292",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-11.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        11
-      ],
-      "slide_keys": [
-        "gdl-2025-05:11"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Universal approximation motivates an analogous function-class question for graph networks. Cropped from the 2025 GDL GNN-expressivity lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3a19aaf6a3a5cd1b9be36ce260f1387e5f071f603ee74e0871c95519ac9f6756",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-12.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-05:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Graph approximation power is limited by which isomorphism classes the representation can separate. Cropped from the 2025 GDL GNN-expressivity lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4bf9b789aa54beb2e49348fcd8b405f02b90f890f61ea7f12dbf98247fc8b9a5",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-13.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-05:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "MPNNs approximate only invariant functions that are constant on their representation collisions. Cropped from the 2025 GDL GNN-expressivity lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "49dc472c9121f30bb3bc493abb7cc7e0e53577fc245cadd15b68523c9c87fa86",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-14.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        14
-      ],
-      "slide_keys": [
-        "gdl-2025-05:14"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Substructure counts provide invariant graph functions that ordinary message passing cannot always represent. Cropped from the 2025 GDL GNN-expressivity lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cc8a9a54b9f7105c3c33d86983d246f9aa9d2b564539b03e9ece9250e2a05ed1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-15.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        15
-      ],
-      "slide_keys": [
-        "gdl-2025-05:15"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The lecture turns from identifying MPNN collisions to constructing stronger graph tests and matching neural architectures. Cropped from the 2025 GDL GNN-expressivity lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "28cc0fabf806df3e68f28a9dff292cda5885697fecd0c4affe36f0607ab5ea67",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-16.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        16
-      ],
-      "slide_keys": [
-        "gdl-2025-05:16"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "WL supplies a computable graph-discrimination hierarchy with a one-sided isomorphism guarantee. Cropped from the 2025 GDL GNN-expressivity lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6b7c8b1a0d49a665202a12c10c318863ef3d3987bfe65a5f50a976e3085da1ad",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-17.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        17
-      ],
-      "slide_keys": [
-        "gdl-2025-05:17"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "WL begins with node labels before incorporating neighborhood structure. Cropped from the 2025 GDL GNN-expressivity lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "020b3c49caebfe5809de3dbe052f8bed272b9f1593ad1c5a2c6e547b22dfddce",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-18.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-05:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Each WL update observes a node's current color together with the multiset of neighbor colors. Cropped from the 2025 GDL GNN-expressivity lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "23c845d59a6cfaa48fece3e9520e3c51bc1dd78b216b525709e5585496e748a3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-19.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-05:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Injective hashing refines node colors whenever their local colored neighborhoods differ. Cropped from the 2025 GDL GNN-expressivity lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "710315dc0786b0b0d69ceddaed85722340898ff0ad8157dcabbf575b80d16aea",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-20.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        20
-      ],
-      "slide_keys": [
-        "gdl-2025-05:20"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Different stable color counts certify that the graphs are non-isomorphic. Cropped from the 2025 GDL GNN-expressivity lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "14e6fcaaa5664efb41f46ac5a633f6f4aef20f68a319da51444cfd015a6970ba",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-21.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-05:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "GIN reaches the 1-WL ceiling by making neighborhood aggregation and update sufficiently injective. Cropped from the 2025 GDL GNN-expressivity lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8aea9c4add99149e8f2d70321850e4be03b58e97f1440c1e35668e740c0949f3",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "How Powerful Are Graph Neural Networks?, ICLR 2018"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-22.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-05:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Higher-order models enlarge the represented object from nodes to tuples of nodes. Cropped from the 2025 GDL GNN-expressivity lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d0ccf0f92b09bda31db6fad131d5e0a8797ce883602b09cd102b4bf942e6547b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-23.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        23
-      ],
-      "slide_keys": [
-        "gdl-2025-05:23"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Provably stronger GNNs are often obtained by matching a stronger combinatorial refinement procedure. Cropped from the 2025 GDL GNN-expressivity lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0d3312edf5d18b895e09d7f035d89ff15582e7879cf5054210bffbc98d9ddd05",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-24.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-05:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "k-WL gains distinguishing power by refining colors on all ordered vertex tuples. Cropped from the 2025 GDL GNN-expressivity lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5cec3bbe0b278b8975e95e8b2597157aaa43737ae798babc3e82636775080ff0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-25.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-05:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "A k-WL neighborhood varies one tuple coordinate at a time across the full vertex set. Cropped from the 2025 GDL GNN-expressivity lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "978755b60a9ad8cc6f926fca7af88e5e183f0d2df8e8fa35daab6167b7b52faa",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-26.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-05:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Initial tuple colors record the isomorphism type induced by their selected vertices. Cropped from the 2025 GDL GNN-expressivity lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "54375c5bd4c0eff3e76182eed1d346269b9da466c70aa3b6d1d673d244e39511",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-27.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        27
-      ],
-      "slide_keys": [
-        "gdl-2025-05:27"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Higher tuple order yields a hierarchy of stronger WL tests and aligned higher-order GNNs. Cropped from the 2025 GDL GNN-expressivity lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d34e214d48beeaa957033170ff53c35d00ba365778b1d0bbf93e6eab8ef306fc",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-28.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        28
-      ],
-      "slide_keys": [
-        "gdl-2025-05:28"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "k-GNNs have controlled expressive power but combinatorial tuple and neighborhood costs. Cropped from the 2025 GDL GNN-expressivity lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a6afe8650eb955cc012b5a19e5d3f6fbf34f993d5a2b6e01cbbfdd01bbcedbff",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-29.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-05:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The higher-order storyline alternates between a more efficient WL variant and the architecture that realizes it. Cropped from the 2025 GDL GNN-expressivity lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "163d8f23cfb37de9aa948c09d0297224efd77292787234075ee5dad4f882aa53",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "[Morris et al., 2019]: design GNNs that can mimic the 𝑘-WL test.",
-        "[Morris et al., 2020]: improve by using sparse neighbourhoods.",
-        "[Morris et al., 2022]: improve by using a sparse set of 𝑘-tupes."
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-30.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-05:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "WL Go Sparse modifies the tuple test before constructing its neural counterpart. Cropped from the 2025 GDL GNN-expressivity lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "94b65347f0404143e7e87f61117f604f9a21dca80f346b5b700ea18cabe10d08",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-31.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-05:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Sparse connectivity reduces each tuple update from global replacements to local graph neighbors. Cropped from the 2025 GDL GNN-expressivity lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3848d46c160a37d54a4924167ca132050735e2a30f4ca9bf711b78b95f6f7f31",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-32.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-05:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The plus variant augments local tuple refinement with global multiplicity information. Cropped from the 2025 GDL GNN-expressivity lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "dbf72d5560103dbc343efc9e49cb7e4b1641e43cb4f32b3b1199362720bebd26",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-33.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-05:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The sparse higher-order GNN mirrors the neighborhoods and aggregation defined by the sparse test. Cropped from the 2025 GDL GNN-expressivity lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5b4ebcabffe9978f1b693d1816d81256228b6cd3ea7a0f9116799853ef967fb9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-34.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-05:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "SpeqNets reduce the higher-order state space by selecting structurally sparse tuples. Cropped from the 2025 GDL GNN-expressivity lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "79c0e07f03070a903c25dab967b5fa3446582a8880d3b228025f85fc214a6b67",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-35.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-05:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The tuple sparsity parameter controls which higher-order relations are represented. Cropped from the 2025 GDL GNN-expressivity lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "71da7afd0d362479f71d743d9db60708ac1154eb80cf8abbe8da63a3e9851c3a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-36.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        36
-      ],
-      "slide_keys": [
-        "gdl-2025-05:36"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Sparsity-aware higher-order models exchange discriminative power for computational efficiency. Cropped from the 2025 GDL GNN-expressivity lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "911e11e8a0f133c5cb75b997de4bb302311257d3cdf8afed42a1d828a764e898",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-37.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        37
-      ],
-      "slide_keys": [
-        "gdl-2025-05:37"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "IGNs construct the full permutation-equivariant linear basis at a chosen tensor order. Cropped from the 2025 GDL GNN-expressivity lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "75deba8e355d963895c178a372a6ff388b6741c4996b42ff9f93e35b3de0959d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-38.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-05:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "IGN expressivity is compared formally with the WL hierarchy rather than only through benchmark accuracy. Cropped from the 2025 GDL GNN-expressivity lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b87d28ca2ab03a5bfe5f7f6bd3b35d4232a9988ef41a9bfcab86f69fb89014e7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-39.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        39
-      ],
-      "slide_keys": [
-        "gdl-2025-05:39"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Substructure-aware models change what structural evidence is provided to message passing. Cropped from the 2025 GDL GNN-expressivity lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d6a2ac7bb40055aff734b137deae1082848f5fe98f4a54cca66d22c6ae205295",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-4.webp": {
+    "assets/img/blog/lectures/gdl-2025-05/s04-graph-representations.png": {
       "deck_id": "gdl-2025-05",
       "slides": [
         4
@@ -19223,10 +18557,10 @@
         "gdl-2025-05:4"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Graphs combine relational structure and features while admitting arbitrary vertex indexing. Cropped from the 2025 GDL GNN-expressivity lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Graph structure and node features admit several equivalent tensor representations. Original PowerPoint figure from slide 4.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7fb7333873f7b93116003e0177bcf5bb41341cc4d2683e87306d83f1164cd125",
+      "content_sha256": "29e45a368dbd1e6c0f6ebed0f70f498888b4a18191e3997ee8624d40f6b59a2f",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19236,711 +18570,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-05/slide-40.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-05:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The first recap separates exact higher-order equivariance from stochastic node-identification strategies. Cropped from the 2025 GDL GNN-expressivity lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0ad9022643fe0f2265d37159b9b42cc59cd0f9b43d45a856216ebe577db09ad7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-41.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-05:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Matched substructures identify nodes through graph structure rather than external labels. Cropped from the 2025 GDL GNN-expressivity lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2eb35ce548bbbe89d076f48e9d56b9c8ec20e24bec8a8f1afbce718b12d057dc",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-42.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-05:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "A structure encoding turns motif matches into additional node features. Cropped from the 2025 GDL GNN-expressivity lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2f47b49aab17495fc1a86b85b4b57b1bd6e59c6658d6dc2cf4064075139a9cc8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-43.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-05:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Molecular motifs provide domain-relevant structural evidence that atom-wise neighborhoods may miss. Cropped from the 2025 GDL GNN-expressivity lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "538b8b41cfd29aa0429e22efaaa35d1cab71334c85d48bfa094c2192b04f2d7d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-44.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-05:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Substructure matching defines the exact maps counted by structural encodings. Cropped from the 2025 GDL GNN-expressivity lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1d49f23f76a0e6cb97f5c6da1778a872c14c14dd0c40e8cc2c8cbe9c6d9d77e5",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-45.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        45
-      ],
-      "slide_keys": [
-        "gdl-2025-05:45"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "GSNs augment message passing with motif counts whose preprocessing controls the additional expressive power. Cropped from the 2025 GDL GNN-expressivity lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "613c67ee458da1cb8d8bfe7a8374c270b81be6fdf99a199cb959f51d930bf30e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-46.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        46
-      ],
-      "slide_keys": [
-        "gdl-2025-05:46"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The ZINC experiment connects structural expressivity to molecular generalization rather than treating them as identical. Cropped from the 2025 GDL GNN-expressivity lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "89c9df13d4d1a2aec6168c5366bbb371f0429cfc79d619bbfe21f46bc3ab35fe",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-47.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        47
-      ],
-      "slide_keys": [
-        "gdl-2025-05:47"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Structural encodings trade preprocessing and inductive bias against expressivity and symmetry guarantees. Cropped from the 2025 GDL GNN-expressivity lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9273cbb953863512e424705c1185205a8d602b4087422e850bcb65a0f735622f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-48.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        48
-      ],
-      "slide_keys": [
-        "gdl-2025-05:48"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Cellular complexes make selected higher-order structures explicit elements of the domain. Cropped from the 2025 GDL GNN-expressivity lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "655f6d676d5d371631615649ed565ec6a946161e9dd497f43e676e09615fcd68",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-49.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        49
-      ],
-      "slide_keys": [
-        "gdl-2025-05:49"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Graph lifting adds higher cells without deleting the original graph skeleton. Cropped from the 2025 GDL GNN-expressivity lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b19a9b7143f6af9cb48bd00501fb9adc529db3b2fe999b3ed36497789f9d5414",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-5.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        5
-      ],
-      "slide_keys": [
-        "gdl-2025-05:5"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "A GNN maps a graph representation to outputs with the permutation behavior required by the task. Cropped from the 2025 GDL GNN-expressivity lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "bf98eb7f48d550255b1165c4413e40ac9b46a2fd5fec5cd6817dedcfbf152afb",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-50.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        50
-      ],
-      "slide_keys": [
-        "gdl-2025-05:50"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "CWNs perform message passing on lifted cells and gain power from which graph structures become cells. Cropped from the 2025 GDL GNN-expressivity lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2b84a5cdbcd95274a9ca95babc39ddd87c67516e6612b7a021f9d70dba0c86da",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-51.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        51
-      ],
-      "slide_keys": [
-        "gdl-2025-05:51"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "CWNs pair formal structural lifts with empirical molecular and graph benchmarks. Cropped from the 2025 GDL GNN-expressivity lecture, slide 51.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5e48a1685477386eec7617727f000d58c28fdf431066d3e3ff3244f55c0401b4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-52.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        52
-      ],
-      "slide_keys": [
-        "gdl-2025-05:52"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Structural information can enter as features, preprocessing, or a lifted message-passing domain. Cropped from the 2025 GDL GNN-expressivity lecture, slide 52.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "970ae4f92dc153fdaab3bd345fafb849887e27976db6174a4a2d6d218514e028",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-53.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        53
-      ],
-      "slide_keys": [
-        "gdl-2025-05:53"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Subgraph GNNs represent one graph through a collection of related graph views. Cropped from the 2025 GDL GNN-expressivity lecture, slide 53.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "607de5ac838c5b584eeee790c3c0262a240155fa9df7cdd7c2ff71cc9a999ef7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-54.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        54
-      ],
-      "slide_keys": [
-        "gdl-2025-05:54"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The second recap prepares the transition from fixed encodings to bags of subgraphs. Cropped from the 2025 GDL GNN-expressivity lecture, slide 54.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "92418d4dcca3f362e24e7cb81d9d808f622db669be80671a7a24916a8f3973b7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-55.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        55
-      ],
-      "slide_keys": [
-        "gdl-2025-05:55"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Subgraph GNNs exploit structural distinctions that appear only after decomposing the graph into views. Cropped from the 2025 GDL GNN-expressivity lecture, slide 55.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "214961eaca4c214f764258a692161d06ce2b736ee0e988788d45fcbcd157040f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-56.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        56
-      ],
-      "slide_keys": [
-        "gdl-2025-05:56"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Subgraph GNNs seek additional discrimination without committing to a domain-specific motif bank. Cropped from the 2025 GDL GNN-expressivity lecture, slide 56.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "56af69aa5c913a20b4ca956f53307e2d960befa4afd030273ab7f6e4aef64bd5",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-57.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        57
-      ],
-      "slide_keys": [
-        "gdl-2025-05:57"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The subgraph policy, within-view model, and across-view aggregation are separate design choices. Cropped from the 2025 GDL GNN-expressivity lecture, slide 57.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "caa18ea123c6d01c46e68bb71c3310cb008c8bab91a248d3b641e990df2e953a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-58.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        58
-      ],
-      "slide_keys": [
-        "gdl-2025-05:58"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Node-based subgraph policies generate an ordered family of views indexed by original vertices. Cropped from the 2025 GDL GNN-expressivity lecture, slide 58.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a6a10eca0f2a50637871166eb5aca9c7f453e803c9b9d0bb5fc9d85efe6a8028",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-59.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        59
-      ],
-      "slide_keys": [
-        "gdl-2025-05:59"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Several subgraph architectures share the bag-of-views template but differ in policy and aggregation. Cropped from the 2025 GDL GNN-expressivity lecture, slide 59.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e5ac2a5bf2611e06bb75717d51bb57e32387ca3468d0394088da1b44a050c3d8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-6.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        6
-      ],
-      "slide_keys": [
-        "gdl-2025-05:6"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "MPNNs build graph representations by local aggregation followed by a symmetric readout. Cropped from the 2025 GDL GNN-expressivity lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c7e39d37320f4b9855a4ea19766ec2ac420ca3ef2e4e70f9ff6bcbbc36f6891b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-60.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        60
-      ],
-      "slide_keys": [
-        "gdl-2025-05:60"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "DS-GNN applies a shared equivariant model to systematically selected subgraphs and aggregates the results. Cropped from the 2025 GDL GNN-expressivity lecture, slide 60.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ee4608a3907a0ee7469f7901ec043e04874a3457bc07dae01031f66905e7c363",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-61.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        61
-      ],
-      "slide_keys": [
-        "gdl-2025-05:61"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "GNN-AK uplifts a base GNN by running it on structurally richer local subgraphs. Cropped from the 2025 GDL GNN-expressivity lecture, slide 61.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e821412df4ebdc9caa9ee76ca6e57478758b16b483fbd1709628c3d632437a12",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-62.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        62
-      ],
-      "slide_keys": [
-        "gdl-2025-05:62"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "GNN-AK updates a node using its representations across subgraphs centered at other nodes. Cropped from the 2025 GDL GNN-expressivity lecture, slide 62.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b254361bed620970df69c49861f3a0889d552fa7bc85c90bc20d98bf45b2df1e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-63.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        63
-      ],
-      "slide_keys": [
-        "gdl-2025-05:63"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "A node-based bag is a tensor whose subgraph and node axes transform together under the original graph permutation. Cropped from the 2025 GDL GNN-expressivity lecture, slide 63.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d3b274c05dc19b56a8d8974f63e19f20f9e46f99f0fdda26717fd34bc039f590",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-64.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        64
-      ],
-      "slide_keys": [
-        "gdl-2025-05:64"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Node-based subgraph GNNs occupy a formal region between ordinary message passing and the 3-WL ceiling. Cropped from the 2025 GDL GNN-expressivity lecture, slide 64.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2335b01e2d1e7ee91ae85ae549d74119cb42b4eefd56842f0c2678a1a4e5f668",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-65.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        65
-      ],
-      "slide_keys": [
-        "gdl-2025-05:65"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "The fixed 3-WL ceiling motivates higher-order markings and ordered subgraph aggregation. Cropped from the 2025 GDL GNN-expressivity lecture, slide 65.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a1b050e50d82f886768710b07b6cd85764525b9638a0cd7115934516460563f9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-66.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        66
-      ],
-      "slide_keys": [
-        "gdl-2025-05:66"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "k-OSAN generalizes node marking to ordered k-tuples before shared graph processing. Cropped from the 2025 GDL GNN-expressivity lecture, slide 66.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3614c2c747057141623013c19845d6531af31173e71ae1e52402652d4097302e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-67.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        67
-      ],
-      "slide_keys": [
-        "gdl-2025-05:67"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Ordered subgraph aggregation creates a distinct hierarchy rather than simply reproducing the next WL level. Cropped from the 2025 GDL GNN-expressivity lecture, slide 67.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6a9bd074d7e1f1d5bc064260ad7c0412ed9c63d073914516a8f21989de712db6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-68.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        68
-      ],
-      "slide_keys": [
-        "gdl-2025-05:68"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Subgraph GNN expressivity remains coupled to the number and order of generated views. Cropped from the 2025 GDL GNN-expressivity lecture, slide 68.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "74f3079c4c816a0cd9e808a8ad877b7c17ff6f504dc59ec56d704b260795008d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-69.webp": {
-      "deck_id": "gdl-2025-05",
-      "slides": [
-        69
-      ],
-      "slide_keys": [
-        "gdl-2025-05:69"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "TokenGT trades built-in permutation equivariance for a Transformer representation that can learn it from data. Cropped from the 2025 GDL GNN-expressivity lecture, slide 69.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0bd26b119bbe81114672e7bb53866abf909a9ea46844a57f0630cc656fdf33aa",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-05/slide-7.webp": {
+    "assets/img/blog/lectures/gdl-2025-05/s07-graph-isomorphism.png": {
       "deck_id": "gdl-2025-05",
       "slides": [
         7
@@ -19949,10 +18579,10 @@
         "gdl-2025-05:7"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Graph discrimination uses isomorphism as the equivalence relation that a valid representation must respect. Cropped from the 2025 GDL GNN-expressivity lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Graph isomorphism preserves adjacency and features under a vertex bijection. Original PowerPoint figure from slide 7.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "27a437d6e6c008f8b93dd470e25bc2e2c62fb6af65a2ebbedbf8cd7e47d23e23",
+      "content_sha256": "65c61648e5bd1092222649488aa13099ac0c775bdcf33144ed194340b89c1025",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19962,7 +18592,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-05/slide-8.webp": {
+    "assets/img/blog/lectures/gdl-2025-05/s08-isomorphic-commuting-diagram.png": {
       "deck_id": "gdl-2025-05",
       "slides": [
         8
@@ -19971,10 +18601,10 @@
         "gdl-2025-05:8"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Permutation equivariance ensures that isomorphic graphs remain indistinguishable after message passing. Cropped from the 2025 GDL GNN-expressivity lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Permutation equivariance makes the MPNN representation invariant to graph relabeling. Original PowerPoint figure from slide 8.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "39dc568f7528c096e27c6d97e63a2d6a3decd2683925a07e28ab832156324c40",
+      "content_sha256": "a8a2966cbaf057ed2c50fcb04f16b33e739f81e3366af9507771c5bb149cda18",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19984,7 +18614,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-05/slide-9.webp": {
+    "assets/img/blog/lectures/gdl-2025-05/s09-representation-collapse.png": {
       "deck_id": "gdl-2025-05",
       "slides": [
         9
@@ -19993,10 +18623,868 @@
         "gdl-2025-05:9"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
-      "caption": "Some non-isomorphic graphs are indistinguishable to every ordinary MPNN. Cropped from the 2025 GDL GNN-expressivity lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Permutation validity does not prevent non-isomorphic graphs from colliding in representation space. Original PowerPoint figure from slide 9.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a380cf4a80f12029d7e1534eb1f199c337cdb3f56003d75abd534272937f052b",
+      "content_sha256": "2d12da6719903a80709c368719fb70c4082ed78da2ce71c42829993af5cc13b2",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s10-molecular-collision.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        10
+      ],
+      "slide_keys": [
+        "gdl-2025-05:10"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "The same limitation appears in chemically meaningful graph pairs.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "e1ea83141b3b82a5e012d3dabf274312ece248d4b3db15fa00829f8ec24983ee",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s10-regular-graph-collision.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        10
+      ],
+      "slide_keys": [
+        "gdl-2025-05:10"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Same-size regular graphs can remain indistinguishable because every node receives identical local multisets.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "67db4a91edfaeadfd9d6b19141ae478afefcf85972da7a89c58fbe8c89b05bc6",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s11-universal-approximation.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        11
+      ],
+      "slide_keys": [
+        "gdl-2025-05:11"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Universal approximation asks whether a model class can approach every continuous target arbitrarily closely. Original PowerPoint figure from slide 11.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "85416d0150643716abf2ebc92745bcbb6b4c5214215116fc2bc88f0b1bbc553e",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s13-function-class-inclusion.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        13
+      ],
+      "slide_keys": [
+        "gdl-2025-05:13"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "MPNNs cover only the invariant functions that are constant on their graph-representation collisions. Original PowerPoint figure from slide 13.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "9b2efdba6f307a8102e85fa0f4191ef163aefc1610f272e3504529d1ee78f529",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s14-substructure-function-class.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        14
+      ],
+      "slide_keys": [
+        "gdl-2025-05:14"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Induced-substructure counts are invariant functions that ordinary message passing cannot always represent. Original PowerPoint figure from slide 14.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "47da868cc47283cec78ad4063f8015e37e619e49f62c201684f157d6700c817d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s15-expressivity-gap.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        15
+      ],
+      "slide_keys": [
+        "gdl-2025-05:15"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "More expressive architectures aim to fill graph distinctions left outside the MPNN class. Original PowerPoint figure from slide 15.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c8a04b760fe642e84b86cf4d7843cd6682788b5e0d4484238194402a04f95766",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s17-wl-initialization.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        17
+      ],
+      "slide_keys": [
+        "gdl-2025-05:17"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "One-dimensional WL begins from node labels or a common initial color. Original PowerPoint figure from slide 17.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "df680a4d4465c0f8e0f4b73b8b72ea1b56f04b953ecf62c342e5e74e3cd68eea",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s18-wl-neighborhoods.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        18
+      ],
+      "slide_keys": [
+        "gdl-2025-05:18"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "A WL round refines each color from the current color and the multiset of neighbor colors. Original PowerPoint figure from slide 18.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "31cab153a4c5aaa66974a07d6316efea03a2eca6b2438b215c1d3e10042a1083",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s19-wl-stable-coloring.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        19
+      ],
+      "slide_keys": [
+        "gdl-2025-05:19"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "If stable color histograms remain equal, one-dimensional WL reaches no isomorphism conclusion. Original PowerPoint figure from slide 19.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "df672ec98ebdfeb4a0e8e7c5c42aed82084608f6784211b79a2380fff0286e10",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s24-k-tuple-space.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        24
+      ],
+      "slide_keys": [
+        "gdl-2025-05:24"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Higher-order WL colors all ordered tuples, not only edges. Original PowerPoint figure from slide 24.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "1e8a94566afe308b1f50864eeeda119f8fb9ca38f300b0f2ec591787a390b5c7",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s25-k-coordinate-neighborhood.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        25
+      ],
+      "slide_keys": [
+        "gdl-2025-05:25"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "For a pair, replacing one coordinate sweeps a row or column of the tuple space. Original PowerPoint figure from slide 25.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "93e3a6dcc40cbd8f4e925ea08465a8e58b854b74e57ce2af1773954cfb103d78",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s28-wl-gnn-hierarchy.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        28
+      ],
+      "slide_keys": [
+        "gdl-2025-05:28"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "The higher-order GNN hierarchy tracks the corresponding WL hierarchy, with indexing conventions stated in the text. Original PowerPoint figure from slide 28.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "2e6841c5d4df90146b82987e6b6249ba29802bdbe6694f75a820bc6bd91a0597",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s30-sparse-wl-hierarchy.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        30
+      ],
+      "slide_keys": [
+        "gdl-2025-05:30"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "WL Go Sparse reorganizes the higher-order hierarchy around local tuple neighborhoods. Original PowerPoint figure from slide 30.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0611cc1c9070fa79c010f7130bcc4aa292e769a35cd96e93208d24d7e5b3eab8",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s36-speqnet-hierarchy.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        36
+      ],
+      "slide_keys": [
+        "gdl-2025-05:36"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "SpeqNets trade tuple sparsity against the set of invariant functions they can approximate. Original PowerPoint figure from slide 36.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4e1c651f389c03282da05946a8382397b5fc8a938abcc3193814bbc2381531c8",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s37-ign-equivariance.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        37
+      ],
+      "slide_keys": [
+        "gdl-2025-05:37"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Invariant Graph Network layers commute with the simultaneous permutation of tensor indices. Original PowerPoint figure from slide 37.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f35a0d390d7ba58afbfdfa4a781f69e45e5ab20e9d74d2fc58cea74d00da708f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s40-model-spectrum.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        40
+      ],
+      "slide_keys": [
+        "gdl-2025-05:40"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Higher-order tensor models and identifier-based MPNNs make different symmetry and complexity compromises. Original PowerPoint figure from slide 40.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "35d34681189e7693e94b7f84deab0ce51ff27838b4df38060e95d296acdf03d9",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s41-substructure-node-identification.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        41
+      ],
+      "slide_keys": [
+        "gdl-2025-05:41"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Substructures identify nodes through graph structure rather than arbitrary external labels. Original PowerPoint figure from slide 41.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "91dbcf744b25204151e3f8d468d866c683eb26af209ab970f527724bf761e2f1",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s42-motif-bank.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-05:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "The motif bank determines which structural evidence is supplied to message passing.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c4f895871ccd8f6e8313134c0f687a35d4f4b935cf7f1a8f6c246e8de44cdd34",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s42-motif-matches.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-05:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "A structural encoding counts every occurrence of each bank motif that contains a node.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "8fa1462e97465aea01779c863226f1b46d7f5f1b458fcc3530de1e60340423ab",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s43-molecular-structural-encoding.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        43
+      ],
+      "slide_keys": [
+        "gdl-2025-05:43"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Ring participation separates molecular graphs whose ordinary local environments collide.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "50a23a6cae328d0622eb22a3e67d91fd6217d7ae98e9399fde8606a48a687098",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s43-motif-legend.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        43
+      ],
+      "slide_keys": [
+        "gdl-2025-05:43"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "The example uses separate counts for six- and five-membered rings.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "74eebd246aaa24d110c48b0b59a7097ea21505d546f6f5dfa701fd051197454a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s44-substructure-matching.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        44
+      ],
+      "slide_keys": [
+        "gdl-2025-05:44"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Induced matching preserves both adjacency and non-adjacency among matched vertices. Original PowerPoint figure from slide 44.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c475a5fabcfda4ab900192d581acee00f9051ae60a68a3d4dbf06864ab96d251",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s46-zinc-results.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        46
+      ],
+      "slide_keys": [
+        "gdl-2025-05:46"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "On ZINC-12k, the motif bank changes both predictive accuracy and the train-test gap. Original PowerPoint figure from slide 46.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3d20b5c7649f7528cd8d2992b46a619f67a18d85b090c33f80c840d9b54dfccb",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s48-cellular-complex.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        48
+      ],
+      "slide_keys": [
+        "gdl-2025-05:48"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Cellular complexes make higher-dimensional cells and their boundary relations explicit. Original PowerPoint figure from slide 48.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b29ccae6fd896ff5066faa711dc289b55e6839f6d6cc50ee3617efdd9ea45c5f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s49-complex-lifts.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        49
+      ],
+      "slide_keys": [
+        "gdl-2025-05:49"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Skeleton-preserving lifts add cells for cliques or rings without deleting the original graph. Original PowerPoint figure from slide 49.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ccd9967ab7a013df1282b3f410cef4d5c48aafebae7d656c31f5f58b4af4877c",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s50-cwn-message-passing.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        50
+      ],
+      "slide_keys": [
+        "gdl-2025-05:50"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "CW Networks exchange messages across incident cells in a lifted complex. Original PowerPoint figure from slide 50.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "16fb5ceccd464d5387810bb00857c440048dfcf071b752179df5faafdff4f24d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s55-subgraph-intuition.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        55
+      ],
+      "slide_keys": [
+        "gdl-2025-05:55"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Derived subgraphs can expose distinctions that remain invisible on the original graphs. Original PowerPoint figure from slide 55.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4ab971cca72b0717b74c00af399d06a332e867087a49f6e2f07f089f94fb627c",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s56-subgraph-gnn.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        56
+      ],
+      "slide_keys": [
+        "gdl-2025-05:56"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "A subgraph GNN applies a shared encoder to a systematically constructed bag of graph views. Original PowerPoint figure from slide 56.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "78aa1050b2a0f27fdd74a1ea8512d3c289a2d3976ae849659057ed6f112fc17f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s57-subgraph-components.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        57
+      ],
+      "slide_keys": [
+        "gdl-2025-05:57"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Selection, within-view encoding, and across-view aggregation are separate architectural choices. Original PowerPoint figure from slide 57.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "40ecf10423c03b75c7500452e3ac07fee433e815eff89408e2b059affe36e71c",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s58-ego-subgraphs.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        58
+      ],
+      "slide_keys": [
+        "gdl-2025-05:58"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "A node-based policy creates one indexed subgraph view per original vertex. Original PowerPoint figure from slide 58.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ad522c28d917d2038b854f62dc6cedab2ae9b486fd1008103fb59fc0846ae9bc",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s59-subgraph-policies.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        59
+      ],
+      "slide_keys": [
+        "gdl-2025-05:59"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "DS-GNN, reconstruction GNNs, and nested GNNs differ primarily in their view policy and aggregation. Original PowerPoint figure from slide 59.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f12e3ae389fee1daccb5faa571f63470d4ad0a43562f3b64bb114d78db7d07d7",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s60-ds-gnn.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        60
+      ],
+      "slide_keys": [
+        "gdl-2025-05:60"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "DS-GNN processes several selected subgraphs with shared equivariant layers before invariant aggregation. Original PowerPoint figure from slide 60.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "30c11b9d09066ebf967feb8ab769bbc7fcf920e6175e9d3f702522cb90420544",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s61-gnn-ak-context.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        61
+      ],
+      "slide_keys": [
+        "gdl-2025-05:61"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "GNN-AK lets each node combine its representations across several centered subgraphs. Original PowerPoint figure from slide 61.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3961a9253990c00dc0a67c0e28c7c3c31e2fd7ba54b6bc58ccb5794e63dbd6af",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s62-gnn-ak-pipeline.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        62
+      ],
+      "slide_keys": [
+        "gdl-2025-05:62"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "GNN-AK replaces a star-neighborhood kernel with richer induced subgraph computations. Original PowerPoint figure from slide 62.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "a554a38f32f9d25924fe688addd4a830f0325d664ea4599c6c2d0ae3dcaa7a29",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s63-node-bag-symmetry.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        63
+      ],
+      "slide_keys": [
+        "gdl-2025-05:63"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Node and subgraph axes in a node-based bag transform together under the original graph permutation. Original PowerPoint figure from slide 63.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f25f4706cea9644a693047683540274997c7325fa5965bb03beea2991ad807a2",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s64-expressiveness-landscape.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        64
+      ],
+      "slide_keys": [
+        "gdl-2025-05:64"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Node-based subgraph GNNs lie between ordinary message passing and the third-order upper bound. Original PowerPoint figure from slide 64.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "dce5ab5b6f4f24dd0e9731319aa5b5e55b0f95a44bdebf53f0dd1242165984a0",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s65-beyond-3wl.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        65
+      ],
+      "slide_keys": [
+        "gdl-2025-05:65"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "Higher-order markings or stronger base encoders can move beyond the node-based 3-WL ceiling. Original PowerPoint figure from slide 65.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "bb1a80fdaa2e6640212ab8029cef49118fbd376bfe9e0e3443d547155c72fdcd",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s66-k-osan.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        66
+      ],
+      "slide_keys": [
+        "gdl-2025-05:66"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "k-OSAN exposes ordered marked tuples before applying a shared graph encoder. Original PowerPoint figure from slide 66.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "42d4c3e280a519edfa6302ee3515ef260dd54b6c5a616ff22d193d444d45fee4",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-05/s69-tokengt.png": {
+      "deck_id": "gdl-2025-05",
+      "slides": [
+        69
+      ],
+      "slide_keys": [
+        "gdl-2025-05:69"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+      "caption": "TokenGT learns permutation behavior from tokenized graph elements rather than enforcing it in every layer. Original PowerPoint figure from slide 69.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3bb69815b744c8ff439760878264421e448e1967729d7f7a8ffd1ea8f6e39519",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
