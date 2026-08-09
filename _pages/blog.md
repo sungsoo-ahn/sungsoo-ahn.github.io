@@ -18,15 +18,35 @@ pagination:
     <p class="blog-index-note">
       Research updates, tutorials, and technical notes from SPML Lab for ML researchers entering scientific domains.
     </p>
+
+    {% assign lecture_notes_start = "2026-08-08" | date: "%s" | plus: 0 %}
+    <section class="blog-highlights" aria-labelledby="blog-highlights-title">
+      <h2 id="blog-highlights-title">Selected highlights</h2>
+      <ul>
+        {% for post in postlist %}
+          {% assign post_timestamp = post.date | date: "%s" | plus: 0 %}
+          {% if post_timestamp < lecture_notes_start %}
+            <li>
+              {% if post.redirect == blank %}
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              {% elsif post.redirect contains '://' %}
+                <a href="{{ post.redirect }}" target="_blank" rel="noopener">{{ post.title }}</a>
+              {% else %}
+                <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
+              {% endif %}
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %Y" }}</time>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+
     <div class="blog-index-filters">
-      <div class="blog-type-summary" aria-label="Blog post types">
-        <span>Post types</span>
-        <span>Research {{ research_count }}</span>
-        <span>Tutorials {{ tutorial_count }}</span>
-        <span>Technical notes {{ technical_note_count }}</span>
-      </div>
       <nav class="blog-type-summary blog-category-summary" aria-label="Blog categories">
         <span>Categories</span>
+        <span><a href="{{ '/blog/type/research/' | relative_url }}">Research {{ research_count }}</a></span>
+        <span><a href="{{ '/blog/type/tutorial/' | relative_url }}">Tutorials {{ tutorial_count }}</a></span>
+        <span><a href="{{ '/blog/type/technical-note/' | relative_url }}">Technical notes {{ technical_note_count }}</a></span>
         {% for category in site.data.blog_categories %}
           {% assign category_posts = site.categories[category.slug] %}
           {% assign category_post_count = category_posts.size | default: 0 %}
