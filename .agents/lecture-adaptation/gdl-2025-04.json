@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec4_gnn2.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec4_gnn2.pptx",
   "slide_count": 43,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Graph Neural Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Graph Neural Network",
         "Sungsoo Ahn, KAIST",
@@ -24,7 +24,7 @@
       "pptx_slide": 2,
       "title": "Lecture Overview: GNNs",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Lecture Overview: GNNs",
         "Lec 1 (Mar 5th): Overview of graph neural networks (GNNs)",
@@ -41,7 +41,7 @@
       "pptx_slide": 3,
       "title": "Today",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today",
         "How to derive graph convolutional networks (GCNs) in a principled way?",
@@ -58,7 +58,7 @@
       "pptx_slide": 4,
       "title": "From MLPs to CNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "From MLPs to CNNs",
         "Multi-layer perceptrons (MLPs) use the most general form:",
@@ -84,7 +84,7 @@
       "pptx_slide": 5,
       "title": "Outline",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Outline",
         "1. Graph convolution from graph signal processing",
@@ -100,7 +100,7 @@
       "pptx_slide": 6,
       "title": "References",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "References"
       ],
@@ -117,7 +117,7 @@
       "pptx_slide": 7,
       "title": "Towards Graph Convolutional Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Towards Graph Convolutional Networks",
         "Convolution is a fundamental operator on two functions (signals) 𝐟 and 𝐠",
@@ -136,7 +136,7 @@
       "pptx_slide": 8,
       "title": "The Big Picture",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "The Big Picture",
         "Signal processing deals with discrete-time signal 𝐟 = [𝑓 0 , … , 𝑓 𝑁 − 1 ].",
@@ -156,7 +156,7 @@
       "pptx_slide": 9,
       "title": "The Big Picture",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "The Big Picture",
         "Fourier transformation is a mapping from the “real” space to the frequency space,",
@@ -176,7 +176,7 @@
       "pptx_slide": 10,
       "title": "Towards Graph Fourier Analysis",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Towards Graph Fourier Analysis",
         "Classical Fourier analysis decomposes a time signal 𝐟 = [𝑓 0 , … , 𝑓 𝑁 − 1 ]",
@@ -211,7 +211,7 @@
       "pptx_slide": 11,
       "title": "More About Laplacian Operator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "More About Laplacian Operator",
         "The Laplacian operator Δ captures smoothness.",
@@ -237,7 +237,7 @@
       "pptx_slide": 12,
       "title": "More About Laplacian Operator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "More About Laplacian Operator",
         "The notion of smoothness extends to higher dimensions.",
@@ -258,7 +258,7 @@
       "pptx_slide": 13,
       "title": "More About Laplacian Operator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "More About Laplacian Operator",
         "We can gain more intuition from physical equations.",
@@ -279,7 +279,7 @@
       "pptx_slide": 14,
       "title": "Graph Laplacian Operator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Laplacian Operator",
         "Graph Laplacian is defined by 𝐿 = 𝐷 − 𝐴,",
@@ -304,7 +304,7 @@
       "pptx_slide": 15,
       "title": "Fourier Basis",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fourier Basis",
         "Given the Laplacian operator Δ, the Fourier basis is defined",
@@ -328,7 +328,7 @@
       "pptx_slide": 16,
       "title": "Graph Fourier Basis",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Fourier Basis",
         "Similarly, we can define Fourier basis as eigenvectors of the Laplacian matrix 𝐿:",
@@ -356,7 +356,7 @@
       "pptx_slide": 17,
       "title": "Graph Fourier Basis",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Fourier Basis",
         "𝐟>           𝐟?>"
@@ -374,7 +374,7 @@
       "pptx_slide": 18,
       "title": "Graph Fourier Transformation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Fourier Transformation",
         "Recall: Fourier transformation refers to computing the coefficients",
@@ -402,7 +402,7 @@
       "pptx_slide": 19,
       "title": "Fourier Transformation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fourier Transformation",
         "One-to-one comparison with classical and graph Fourier transformation (FT).",
@@ -443,7 +443,7 @@
       "pptx_slide": 20,
       "title": "Fourier Transformation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fourier Transformation",
         "Two cases:"
@@ -458,7 +458,7 @@
       "pptx_slide": 21,
       "title": "Fourier Transformation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fourier Transformation",
         "Two cases:"
@@ -473,7 +473,7 @@
       "pptx_slide": 22,
       "title": "Filtering",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Filtering",
         "Recall: filtering is modification of frequency components, e.g.,",
@@ -500,7 +500,7 @@
       "pptx_slide": 23,
       "title": "Convolution and Convolution Theorem",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Convolution and Convolution Theorem",
         "In discrete time, convolution is defined as:",
@@ -524,7 +524,7 @@
       "pptx_slide": 24,
       "title": "Convolution and Convolution Theorem",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Convolution and Convolution Theorem",
         "In graph signal processing, convolution is defined by:",
@@ -548,7 +548,7 @@
       "pptx_slide": 25,
       "title": "Connection to Spectral GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Connection to Spectral GNNs",
         "Spectral GNNs (e.g., ChebNet and GCN) follow the graph signal processing frameworks",
@@ -569,7 +569,7 @@
       "pptx_slide": 26,
       "title": "Graph Convolutional Network (GCN)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Convolutional Network (GCN)",
         "Chebyshev polynomials can approximate an arbitrary function as follows:",
@@ -595,7 +595,7 @@
       "pptx_slide": 27,
       "title": "Graph Convolutional Network",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Graph Convolutional Network",
         "As a result, GCN results in a simple update rule:",
@@ -613,7 +613,7 @@
       "pptx_slide": 28,
       "title": "Laplacian Eigenvector Positional Encodings",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Laplacian Eigenvector Positional Encodings",
         "Laplacian eigenvectors generalize the notion of 1D Fourier basis",
@@ -638,7 +638,7 @@
       "pptx_slide": 29,
       "title": "Outline",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Outline",
         "1. Graph convolution from graph signal processing",
@@ -654,7 +654,7 @@
       "pptx_slide": 30,
       "title": "References",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "References"
       ],
@@ -670,7 +670,7 @@
       "pptx_slide": 31,
       "title": "Limits of Graph Signal Processing Perspective",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Limits of Graph Signal Processing Perspective",
         "Deriving graph convolution from the signal processing perspective is persuasive,",
@@ -686,7 +686,7 @@
       "pptx_slide": 32,
       "title": "Equivariant Linear Operators",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Equivariant Linear Operators",
         "An alterantive definition of convolution: equivariant linear operators.",
@@ -706,7 +706,7 @@
       "pptx_slide": 33,
       "title": "Shift Equivariant Linear Operators",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Shift Equivariant Linear Operators",
         "Let’s start again by the 1D discrete-time convolution case.",
@@ -730,7 +730,7 @@
       "pptx_slide": 34,
       "title": "Shift Equivariant Linear Operators",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Shift Equivariant Linear Operators",
         "A matrix commutes with the time-shift operator",
@@ -751,7 +751,7 @@
       "pptx_slide": 35,
       "title": "Permutation Equivariant Linear Operators",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Permutation Equivariant Linear Operators",
         "Now, let’s extend to the whole permutation group.",
@@ -772,7 +772,7 @@
       "pptx_slide": 36,
       "title": "Extension to High-Order Tensors",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Extension to High-Order Tensors",
         "Until now, we have been discussing about linear transformation of node features.",
@@ -793,7 +793,7 @@
       "pptx_slide": 37,
       "title": "Extension to High-Order Tensors",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Extension to High-Order Tensors",
         ".ℓ",
@@ -814,7 +814,7 @@
       "pptx_slide": 38,
       "title": "Linear Equivariant Functions",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Linear Equivariant Functions",
         ".# ×.#                .#",
@@ -837,7 +837,7 @@
       "pptx_slide": 39,
       "title": "Fixed Point Equations",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Fixed Point Equations",
         "What is the solution to the fixed point equation?",
@@ -860,7 +860,7 @@
       "pptx_slide": 40,
       "title": "Linear Equivariant Functions",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Linear Equivariant Functions",
         "One can derive that he linear operator consists of bell 2ℓ basis elements.",
@@ -880,7 +880,7 @@
       "pptx_slide": 41,
       "title": "More Interpretable Results",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "More Interpretable Results",
         "Any equivariant linear map",
@@ -901,7 +901,7 @@
       "pptx_slide": 42,
       "title": "More Interpretable Results",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "More Interpretable Results"
       ],
@@ -915,7 +915,7 @@
       "pptx_slide": 43,
       "title": "Comparison with GNNs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Comparison with GNNs",
         "For node features, the only possible linear operator is pooling and broadcasting.",
@@ -940,7 +940,8 @@
       "bytes": 105107,
       "slides": [
         4
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "07a6871f7b613a0f196979de2f46bcbe3ea657d1ec0fcc6cb844b59f4340246a",
@@ -949,7 +950,8 @@
       "bytes": 58320,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a6e6e8395eba22b9dd5f21c8ab999c4c41eb94c18532616e8d81de73179ef6bd",
@@ -958,7 +960,8 @@
       "bytes": 231094,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0faa84a56dd961d41f76565a1c8377a7a970ebf6f77adc57660a57f51ef2c055",
@@ -967,7 +970,8 @@
       "bytes": 81323,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f220f3696b9339b73cce956cf00ca173f35b68ec1d6427bbf7bb1a603219ebf3",
@@ -976,7 +980,8 @@
       "bytes": 140545,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6a78a098625d5c86c860a638f58bb4cfbfcf21e0614c028933964e347f5648b9",
@@ -985,7 +990,8 @@
       "bytes": 2107,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7176f543ba82b9bade895a24ebf157e97eca9a32020f6ace837305fe2e10dfb9",
@@ -994,7 +1000,8 @@
       "bytes": 2899,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "56053c9043ad2f97f4ac7946a123ad1c81244b7ea82559e4bb82826094229ac6",
@@ -1003,7 +1010,8 @@
       "bytes": 106747,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5b5399e9b6f2bee2fca05ac3a317239a8a0d5416320817ada854aa13f4e15530",
@@ -1012,7 +1020,8 @@
       "bytes": 107135,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9bd8d09acd741e1fdc598a2ec2a54ec2f58fcac9248059db12b28f03e231a56d",
@@ -1021,7 +1030,8 @@
       "bytes": 90663,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b766fd00ba173dbc75bc2f6bc03536aeafd738dd90c98c9e533f77375dafbff7",
@@ -1030,7 +1040,8 @@
       "bytes": 77861,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4f7ce7e65a6d4ea8c98f4ff2f6f509db624e947687b4ef4856b09f490de58e05",
@@ -1040,7 +1051,8 @@
       "slides": [
         12,
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "02d522accabac6dacc91c7199000a36f222f4697a587d25a08b278aa0315016a",
@@ -1049,7 +1061,8 @@
       "bytes": 23094,
       "slides": [
         4
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bbcd41d669bc0b1720718bece83eff9e66d93563ab5e34cba1dba1601ce8b22f",
@@ -1058,7 +1071,8 @@
       "bytes": 159674,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9d2673e78eb573aa858d2ace4b81206c6074781fde656879f0cc6f7e780cb416",
@@ -1067,7 +1081,8 @@
       "bytes": 40474,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e9b485ee57a7a0740b5dcbae76d824085dbccebf1f1ec4a64720727ba76be775",
@@ -1076,7 +1091,8 @@
       "bytes": 173059,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "758ee4855a86a5e88daba0bc021ad58c695b322e095eedf379d3be1a72acfa10",
@@ -1085,7 +1101,8 @@
       "bytes": 82358,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a0def352e5ced36be052f38efb06fe1a74f664b1f104efd911c262a177aa1859",
@@ -1094,7 +1111,8 @@
       "bytes": 227242,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "924c0179cefad6287bbdb799f2b9dd102b32b50a068805b1385060b0413fa489",
@@ -1103,7 +1121,8 @@
       "bytes": 78397,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0410c4eede57e3ed0c14098b96570d4a7a3a823a604253f62c4f59e4e09b6224",
@@ -1112,7 +1131,8 @@
       "bytes": 119021,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bd7feba50c905967dfc88416286035147fd645534ba2eda99007d4d445f6bfe7",
@@ -1121,7 +1141,8 @@
       "bytes": 70352,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "09d7b5ba9d83579c2f72e0542d992dde2bb3cb5830e1543457cce7281c587594",
@@ -1130,7 +1151,8 @@
       "bytes": 406643,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f51dd23948772ce55474244ce0dd8ee2ea128ef7bbd1a47de2bd3b107c6f25b2",
@@ -1139,7 +1161,8 @@
       "bytes": 37129,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "974d07ddb7641d8764f656623f6dbc1ad141128758df4dc87125e9200c21c1bb",
@@ -1148,7 +1171,8 @@
       "bytes": 497585,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f44939882115a6263315ffc6cddb829c9f0ef302abd5a6d6c86b48fa18ff3485",
@@ -1157,7 +1181,8 @@
       "bytes": 905112,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "02aa604eb2b4823f6cebc48285d43ef32ad88a14f5ca3b4f110820a30abba976",
@@ -1166,7 +1191,8 @@
       "bytes": 44164,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "deea8b1a29b50c85fe8715f9426bcaef1639cf9188c1a8c1ff3afcd1233a698a",
@@ -1175,7 +1201,8 @@
       "bytes": 1695,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "02056432bb4b1feed2f2fce30cdc459c33aee111d202db5ca0ee287dfa2f9670",
@@ -1184,7 +1211,8 @@
       "bytes": 2065,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "747ab6c2357646c947d086534599000dbb586f689a4c6424993d3f79266f3fa6",
@@ -1193,7 +1221,8 @@
       "bytes": 129162,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fb23ff1b8c8360675e8e795bdd20eb249e01001a9afd9700f506be6db8c3513b",
@@ -1202,7 +1231,8 @@
       "bytes": 9409,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "60e4def8fe1bffd03ed83e8fbdc6092992ec74c64c4485eef17b10a9dbb3e940",
@@ -1211,7 +1241,8 @@
       "bytes": 7959,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "08097e65c563a4ddf62b0971e059d459ef98980892545378e7753da0b7caf063",
@@ -1220,7 +1251,8 @@
       "bytes": 5227,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "073e2c978b42ad1d2d72237b219a2e6a09fb77e7f946886e8902cf3f78d2f00f",
@@ -1229,7 +1261,8 @@
       "bytes": 7155,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a4fbaa8a448088a7652e1dccd7d2facd7faf2596e27ea89da02dbf2280310008",
@@ -1238,7 +1271,8 @@
       "bytes": 18841,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d06041bbce72e8e916f77f23d5d19fd1df032ea44590edb83091663d7d3b3d3c",
@@ -1247,7 +1281,8 @@
       "bytes": 61328,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6b9304bcf9a9115154ed1d3c4627c867a98c4ffc1a78705ade75a32d4c8c29d5",
@@ -1256,7 +1291,8 @@
       "bytes": 11840,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ac7e2ca1fef341102bba33751b8f7256a4ec9ceceff13010b8c7593a70a72a3d",
@@ -1265,7 +1301,8 @@
       "bytes": 116118,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1dc1b08afb03f89515fe044aaeeb8fcbffb1bcc291e6f313756cf1bd80c927b9",
@@ -1274,7 +1311,8 @@
       "bytes": 18860,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "be31547b95b5f608d0bc016f23e09dcefb3d62f392f257da60c2dfd2504e5f59",
@@ -1283,7 +1321,8 @@
       "bytes": 18315,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "71b67254244eb8f298cdcbf258ff96bf39b5faa1c3c13bc16ca47a66396d470e",
@@ -1292,7 +1331,8 @@
       "bytes": 359883,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7b7872b56bc6fd5e479f2c2ec3e32c2e40caf2fa223ef60dd2471f5fb458aa17",
@@ -1301,7 +1341,8 @@
       "bytes": 665205,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3d472cb682f89b34875fe83c105388d173cff6771dc58e8009ca2d7871187799",
@@ -1310,7 +1351,8 @@
       "bytes": 106048,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f366c379a2b3113d98a060b108230915d84ef5cf962db45ef46c308d463eda4b",
@@ -1319,7 +1361,8 @@
       "bytes": 6239,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af75b3413bee5895a18b06049fcc0773cef09359d10edfdf575f81675e271fa6",
@@ -1329,7 +1372,8 @@
       "slides": [
         22,
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "eb3db7531cbd7545726ad8529e77c7ecfc45e5c9fde7efbfcd2866d9c194ad7b",
@@ -1338,7 +1382,8 @@
       "bytes": 81050,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "06ffed582e111b464db32acb97e25c5b386ee92a84c2ccbb751e5d04befd7d0e",
@@ -1347,7 +1392,8 @@
       "bytes": 116418,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5487028cf0b3d23d7a235e486f7f0225012e6c252741e420f0ab8a34f25471ee",
@@ -1356,7 +1402,8 @@
       "bytes": 40585,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cdc2e91e4e662a4f6fbf62eb97fd18761b011a06cd4f7eb35d3a22f5e4f86470",
@@ -1365,7 +1412,8 @@
       "bytes": 90969,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d4c73695c57d72639c2c8313fcd6a330d8b33a834d14d78f3f44b4345937118a",
@@ -1374,7 +1422,8 @@
       "bytes": 124694,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "67fee51f6e94ed7a40aec9fd12f6b024a1fedda82505bb010fc923da80e9578e",
@@ -1383,7 +1432,8 @@
       "bytes": 75594,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "eb92141ecd6980ed4fdb6e188df4edd87a5441487050cc4b96df0137d6f520b1",
@@ -1392,7 +1442,8 @@
       "bytes": 108035,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9c161b9af420a7ee62bb3c4db66e82e4c43f35ed61e3df8de4d8841b2b5fba01",
@@ -1401,7 +1452,8 @@
       "bytes": 151891,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5cc80595235afcc132455b1fc236c7286a07e4ff98a149ce796380c59a0ce5c5",
@@ -1410,7 +1462,8 @@
       "bytes": 59215,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0406d4b5d567fdb83516a9dca9d457e4265b4e3d17b650ab29824df43e2a3c52",
@@ -1419,7 +1472,8 @@
       "bytes": 53661,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "029b44316ac24713a140717ba4646a2b0a0a6be400e3e45bae0e6cd59bfdffff",
@@ -1428,7 +1482,8 @@
       "bytes": 134680,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "502f4efe7fd2967b7604dced7a6aed4671e2151be8ae5a00b801326b395b2928",
@@ -1437,7 +1492,8 @@
       "bytes": 348630,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ef9d9a1140d803ee9c86f947e7ad4e50aab44d0fe6f4ce16bbcd496021c7dd95",
@@ -1446,7 +1502,8 @@
       "bytes": 200667,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "425b92cc6756291f6037665ba0256b1d6ade965104293e20af4297a8dfeedf54",
@@ -1455,7 +1512,8 @@
       "bytes": 36103,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6acbe7972c3f19807f8cbfb168a612c463ee92176c73b2330f7d1e714963e866",
@@ -1464,7 +1522,8 @@
       "bytes": 100140,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d835ac4e16e0a0df867c32bad179bb6c7b5c03cc798b6d5b869a1c2908b21546",
@@ -1473,7 +1532,8 @@
       "bytes": 3129,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "de1f9ece1c10141cc2cbda35f52622b3ade2678ebdb655a3269cd2ad7af60baa",
@@ -1482,7 +1542,8 @@
       "bytes": 84824,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e31a853793d85d9a3a7d5c6ea3ba19e99ce5d7052aa4df9549616ed85adc61e4",
@@ -1491,7 +1552,8 @@
       "bytes": 73211,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1fe89095e5bd2cd9460c819f8130d1d30b1fa2b4b8d28eb54b44f8368642f8d3",
@@ -1500,7 +1562,8 @@
       "bytes": 60761,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d12250b12c05cac364f74215f38a6e39900be480d275c8fd7da28cfd165ed217",
@@ -1509,7 +1572,8 @@
       "bytes": 329090,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6d23bfafc0b718ddc8b58a582a5b41e6d1dbeaf650e95b69382c04a81651f97d",
@@ -1518,7 +1582,8 @@
       "bytes": 83537,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a5f3b456d9f1e52999abddb52b79c03f2ff506a1519b34da50829a35b23aaa54",
@@ -1527,7 +1592,8 @@
       "bytes": 130616,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "644b1abdd6e4fdcea3343d90eb8a68add31e358867aee62b321ca8bba19cdae5",
@@ -1536,7 +1602,8 @@
       "bytes": 530803,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "81b0b8c2bbfb1eaa84a251a6fe31b183fbfe70670ec4b736ac504785522dc9fe",
@@ -1545,7 +1612,8 @@
       "bytes": 105152,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9e8664291feeb8923606baf384eb18cc0af9d6b4a42f1dbb11bd470554f3a96a",
@@ -1554,7 +1622,8 @@
       "bytes": 95531,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f28fa7e6ee4af3be1284cc93ac62f1b89b3aba1fa26b9e1e181b3758686a0bdc",
@@ -1563,7 +1632,8 @@
       "bytes": 113153,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5de51f6cbd258cbfe1507625cb9ae352984db332d5cc1493e3fc76813eb73b56",
@@ -1573,7 +1643,8 @@
       "slides": [
         40,
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e55180f271c9dbb2ea85a7807954dfba516a7d76474da76429583f0f42174860",
@@ -1582,7 +1653,8 @@
       "bytes": 85507,
       "slides": [
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ac27d5f99ec2894067797f70fada8e49a20f1dfbaa0bf2a917e24117332545e0",
@@ -1591,7 +1663,8 @@
       "bytes": 77378,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ad7a78ac2cd7e96a707c5ee73e800d8c9b6d00198a594db3aca90aa45bc028fc",
@@ -1600,7 +1673,8 @@
       "bytes": 21456,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "946b362a29a9a9d9cf5ebbd17121421693f9478f2db53b08255914c769173daf",
@@ -1609,7 +1683,8 @@
       "bytes": 19915,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "98ef559b22c3c48296860b922364e2d0a4794ee0cd25fb69a69d95f08f341d61",
@@ -1618,7 +1693,8 @@
       "bytes": 272188,
       "slides": [
         42
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "781fbd1e91ddc90dda55acdb569498ca57f1fd1ac0019447b66b382e187dc3a1",
@@ -1627,7 +1703,8 @@
       "bytes": 109872,
       "slides": [
         43
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d7971fb463dafcffcf85a3c6d92a40f33532f930f07e6329f122c8b0ab45a36e",
@@ -1636,7 +1713,8 @@
       "bytes": 120216,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e569e0c113a93ed12cc109446d41df3e8f90852c7a7b6c7d527cec42c4ccee66",
@@ -1646,14 +1724,413 @@
       "slides": [
         8,
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 36,
+    "reused": 36,
+    "scientifically_redundant": 0,
+    "reuse_ratio": 1.0
+  },
+  "pdf_regions": [
+    {
+      "slide": 4,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-4.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-9.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-10.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-18.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-25.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-37.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-39.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-40.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-41.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-42.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-43.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-04.md"
 }

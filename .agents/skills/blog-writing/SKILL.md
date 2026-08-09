@@ -170,6 +170,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     expressivity, depth, long-range communication, evaluation, and scale rather
     than merely list papers by year. Retain the source's comparisons and author
     judgments, and connect each method to the limitation or question it changes.
+20. When a deck derives one operator through two different principles, preserve
+    both routes and the source's pivot between them. State the object held fixed,
+    the assumptions and limitations of each route, and why the second viewpoint
+    is introduced. Do not merge the formulas into one polished derivation or
+    omit the critique that makes their comparison meaningful.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
