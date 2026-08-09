@@ -20156,1050 +20156,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-07/slide-10.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        10
-      ],
-      "slide_keys": [
-        "gdl-2025-07:10"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Energy decomposition and differentiation connect invariant property models to equivariant molecular dynamics. Cropped from the 2025 GDL geometric-GNN lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "78760cc6a73f782b47e264f03ef50517df833191f0e06428e1f8824bacdcc8a3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-12.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-07:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Scalar geometric GNNs differ mainly in which invariant geometric relations they construct and how they enter message passing. Cropped from the 2025 GDL geometric-GNN lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fb569bd5f66ac9b89bc6b625195ad82bf7bb0aa4839277bdd948841e11af73ee",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Schütt et al., 2017] SchNet: A Continuous-Filter Convolutional Neural Network",
-        "• [Gasteiger et al., 2020] Directional Message Passing for Molecular Graphs (DimeNet)",
-        "• [Liu et al., 2021] Spherical Message Passing for 3D Graph Networks (SphereNet)",
-        "• [Wang et al., 2022] ComENet: Towards Complete and Efficient Message Passing"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-13.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-07:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Invariant scalarization converts geometric relations into rotation-independent model inputs. Cropped from the 2025 GDL geometric-GNN lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d6ef18a81b887b1489cfb8383fea56a261286c0667ab06a1145a15b87569ba47",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-14.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        14
-      ],
-      "slide_keys": [
-        "gdl-2025-07:14"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "SchNet conditions messages on a learned continuous function of interatomic distance. Cropped from the 2025 GDL geometric-GNN lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f662837273ee08d625180277b77f56f2f0a742cb32b0969399f37479f4195b7a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-15.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        15
-      ],
-      "slide_keys": [
-        "gdl-2025-07:15"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Radial basis expansion turns one distance into a smooth bank of localized scalar features. Cropped from the 2025 GDL geometric-GNN lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "78b58bfb6329bafcca22774cf6aacfb7084d342c8fdd1c85900f6dcbae989270",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-16.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        16
-      ],
-      "slide_keys": [
-        "gdl-2025-07:16"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A distance-based invariant energy can supply equivariant forces through coordinate gradients. Cropped from the 2025 GDL geometric-GNN lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "818a57bf67b907a7209d92c2f31c8df2b36cacaf43ddc857e7603fe19a9f1aa1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-17.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        17
-      ],
-      "slide_keys": [
-        "gdl-2025-07:17"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "SchNet's experiments established continuous-filter message passing as a practical molecular architecture. Cropped from the 2025 GDL geometric-GNN lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "57b7017838a57a5732fbf32d95a6372f831a9ef1234f80bc105966f437d41975",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-18.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-07:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "DimeNet resolves directional geometry by adding angles between neighboring bonds. Cropped from the 2025 GDL geometric-GNN lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "311ec11d2bf9f8758621408a02292d219342abd3e39a4e05924715e06a83820e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-19.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-07:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Directional message passing lifts atom edges into states that interact through bond triplets. Cropped from the 2025 GDL geometric-GNN lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d86c774ae06935c8a8de9f2ce68629bb80a534d5764d823eb32278eb24e26a7a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-20.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        20
-      ],
-      "slide_keys": [
-        "gdl-2025-07:20"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "DimeNet separates radial and angular dependence through analytic basis expansions. Cropped from the 2025 GDL geometric-GNN lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a1e5f65b91d58d7ed0e3403bd6d20d9ff8a4eb0f9be13b9c7d895a3f4ed19322",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-21.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-07:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "The directional basis inherits its radial--angular separation from spherical eigenfunctions. Cropped from the 2025 GDL geometric-GNN lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5a4fb1baf4097a0ed5a404cf62cc86927bf5a932622af11c9cb1b345b586a52d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-22.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-07:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A smooth envelope controls boundary regularity of the radial filter and derived forces. Cropped from the 2025 GDL geometric-GNN lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8f833784af4a26366f1d4a1db25eff157c787597fb605596720bc20d5925f2d2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-23.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        23
-      ],
-      "slide_keys": [
-        "gdl-2025-07:23"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Analytic basis functions expose radius and angle to the learned directional update. Cropped from the 2025 GDL geometric-GNN lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9e7a028802e1ee86b6d263717bcc1114045b0f712fb4e3b8837332d2325fde24",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-24.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-07:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Directional triplet information improves accuracy on several molecular properties and forces. Cropped from the 2025 GDL geometric-GNN lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1d923bf415963d4f90ebca8ffa758e80f34224ca0a092c84807c3e448c2f037d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-25.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-07:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "SphereNet introduces four-body orientation to resolve configurations that share radial and angular features. Cropped from the 2025 GDL geometric-GNN lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3b4aed10ff57db53eaad8279509f89d26f8bbeb1805e9703b1a76f7b9b1e7145",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-26.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-07:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A local spherical frame converts nearby three-dimensional geometry into invariant coordinates. Cropped from the 2025 GDL geometric-GNN lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8e1c8520ff397a2d8b675403c922058ef5eabda3dd86baaf230ae2b34645d8c4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-27.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        27
-      ],
-      "slide_keys": [
-        "gdl-2025-07:27"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A neighboring bond fixes the azimuthal reference needed to define a local torsion. Cropped from the 2025 GDL geometric-GNN lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b25b2c3f02ea1a24fae101ea9cc96b9a52d9fdc007d5bd3cf6c44a96a204e7ba",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-28.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        28
-      ],
-      "slide_keys": [
-        "gdl-2025-07:28"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Radius and polar angle constrain a neighbor to a circle before torsion resolves its location. Cropped from the 2025 GDL geometric-GNN lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3761cc0f91c2f79774995daae21fae92f598f1bc9386c5b942d4ce54fd36fde2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-29.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-07:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Azimuthal information selects one position from the circle left by radius and angle. Cropped from the 2025 GDL geometric-GNN lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cbbab6231748347648b86ec618ac0d26ce5551e041826ec79f0e012d430226c2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-30.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-07:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "SphereNet's basis represents the full local spherical coordinate triple. Cropped from the 2025 GDL geometric-GNN lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "386233c7444a0ca456b4a5be06135976e7a1d7e04d1400f17350fb8f7ec9cb63",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-31.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-07:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Complete local scalar coordinates condition directional message updates. Cropped from the 2025 GDL geometric-GNN lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d21d9152147b974c49cb1faf629f5664b0e5e80c09284391b1123c7072f8f86a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-32.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-07:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Adding torsion separates local structures that distances and angles alone can conflate. Cropped from the 2025 GDL geometric-GNN lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e9ce96d97df56f4113f8d68c52439d5647347100d3d88fbe07c558086d7f7dbe",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-33.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-07:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "SphereNet evaluates complete local scalar geometry on properties, forces, and catalyst structures. Cropped from the 2025 GDL geometric-GNN lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b9e6297a8e011469053f5cf5355107facdf4b794e25d03098515a43968366c7b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-34.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-07:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "The source compares the geometric construction with empirical accuracy and computational cost. Cropped from the 2025 GDL geometric-GNN lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "87214ed48cc5e738b99740a5e73c1fe21c6bdff959855523450025dc1663e137",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-35.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-07:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "ComENet seeks a complete invariant coordinate system with a lower message-passing cost. Cropped from the 2025 GDL geometric-GNN lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3046671ced6fd022191325004c2acc926256588102b42ecf8d17fa3a572fcabb",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-36.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        36
-      ],
-      "slide_keys": [
-        "gdl-2025-07:36"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A locally selected reference frame converts neighboring coordinates into invariant spherical variables. Cropped from the 2025 GDL geometric-GNN lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b80f469d32351fc413ec9c37ad0ec2d094860962f56682d1b161a76bb8fcfc01",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-37.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        37
-      ],
-      "slide_keys": [
-        "gdl-2025-07:37"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Endpoint-local frames summarize the geometry on both sides of a molecular edge. Cropped from the 2025 GDL geometric-GNN lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fdf6decd2723486c93c7e51948d4b46cbb6f786fc3f0450624ead7199fa68537",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-38.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-07:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "ComENet injects complete local geometry into a comparatively efficient message update. Cropped from the 2025 GDL geometric-GNN lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "72b272bfc23a2bccc651e9e190088056057aa64f487e37031522d6ff4d26c5b9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-39.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        39
-      ],
-      "slide_keys": [
-        "gdl-2025-07:39"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "ComENet tests whether a complete frame construction can retain accuracy with fewer geometric operations. Cropped from the 2025 GDL geometric-GNN lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d8de2844b832717c8198273d88c4d83ca18a7e942d2f657677d59b8d63915d14",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-40.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-07:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Force benchmarks evaluate the derivative quality of the learned invariant energy surface. Cropped from the 2025 GDL geometric-GNN lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "39f1bfe7467bbce935ca54ed9342734d621708c53e80d4afa4a65e5ff44c44bb",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-41.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-07:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Complete geometry is compared with wall-clock training and convergence behavior. Cropped from the 2025 GDL geometric-GNN lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "45d4ba8006498569ede61dc9fb501397035d53f8a25b894444a34cae4fe7ada4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-42.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-07:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "GemNet expands the directional interaction pattern while retaining invariant scalar geometry. Cropped from the 2025 GDL geometric-GNN lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "89fe5ae6f718840a6405911b05edf1babc4cc8674a22c78016d4c8ef25cf255f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-43.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-07:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "GemNet's universality result depends on a sufficiently rich directional representation and interaction graph. Cropped from the 2025 GDL geometric-GNN lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "29f032eb5d6c502c5a1ae515904494e6ee3f96d4caa1416e2bee4498f42d2015",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-44.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-07:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "GemNet closes the scalar-based section with empirical energy and force comparisons. Cropped from the 2025 GDL geometric-GNN lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ce6b576f286c72ba448ae608ea1762df684f7ed8c03cc08609fc578f7f306414",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-47.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        47
-      ],
-      "slide_keys": [
-        "gdl-2025-07:47"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Vector-based models differ in whether geometry is carried by coordinates, vector channels, or equivariant attention. Cropped from the 2025 GDL geometric-GNN lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3835f3afe9f7980507778b7df4128af450ac26cb1e98696d2d8449e9410b3793",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Satorras et al., 2021] E(n) Equivariant Graph Neural Networks",
-        "• [Schütt et al., 2021] Equivariant Message Passing for the Prediction of",
-        "• [Thölke and Fabritiis, 2022] TorchMD-NET: Equivariant Transformers"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-48.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        48
-      ],
-      "slide_keys": [
-        "gdl-2025-07:48"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "EGNN obtains an equivariant displacement by weighting relative position vectors with invariant learned scalars. Cropped from the 2025 GDL geometric-GNN lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "102a6ef55fdd340a16eefd9ac047c05cc63d28cb73cd917280b97e734f7b84ca",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-49.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        49
-      ],
-      "slide_keys": [
-        "gdl-2025-07:49"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "An EGNN layer alternates invariant message computation with equivariant coordinate motion and scalar feature updates. Cropped from the 2025 GDL geometric-GNN lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "25ef98e0804897823fbdf44405d54282a776c633e2390e14f2709eebd79504e3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-50.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        50
-      ],
-      "slide_keys": [
-        "gdl-2025-07:50"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "EGNN evaluates coordinate equivariance across dynamics and molecular prediction tasks. Cropped from the 2025 GDL geometric-GNN lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4c2d4627e48573b6ce871ee69b3c17db6b0b733bd0455c9660a4db4049e0c161",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-51.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        51
-      ],
-      "slide_keys": [
-        "gdl-2025-07:51"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "PaiNN assigns explicit transformation laws to invariant scalar and equivariant vector channels. Cropped from the 2025 GDL geometric-GNN lecture, slide 51.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4d2fa03cbd118b54cceeba73d483f54455cfccf290562c6cbc190da27f2ac505",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-52.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        52
-      ],
-      "slide_keys": [
-        "gdl-2025-07:52"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Vector channels represent directional responses such as local polarization and dipole-related effects. Cropped from the 2025 GDL geometric-GNN lecture, slide 52.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "baaff79ec76146cc6bc2ab3c7fbf4cefda49b9ed7a7ab3e4e3a0314d9c7359d5",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-53.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        53
-      ],
-      "slide_keys": [
-        "gdl-2025-07:53"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "PaiNN couples scalar and vector channels through operations with known rotation behavior. Cropped from the 2025 GDL geometric-GNN lecture, slide 53.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7d288af8c1d0283318f4247d71a737556858757673dfd695ed4a886115bad213",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-54.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        54
-      ],
-      "slide_keys": [
-        "gdl-2025-07:54"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Invariant radial coefficients weight equivariant vector features and relative directions. Cropped from the 2025 GDL geometric-GNN lecture, slide 54.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c6d5cf909a2cc799ec06d1deeb52750afa7bbe70e04890cbe5c6eb9471feeb39",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-55.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        55
-      ],
-      "slide_keys": [
-        "gdl-2025-07:55"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Norms and inner products safely transfer information from vector channels back into invariant scalar features. Cropped from the 2025 GDL geometric-GNN lecture, slide 55.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5834b89fdfc93b5d17534c29007dd314994460d55b30d8858cdb24cb12b9b30c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-56.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        56
-      ],
-      "slide_keys": [
-        "gdl-2025-07:56"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "PaiNN tests directional feature channels through molecular energy and force prediction. Cropped from the 2025 GDL geometric-GNN lecture, slide 56.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "670daefb7b580b60e8620aac5e6be0cb9a0dd1dfd9cdf65be51f9b98444eae68",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-57.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        57
-      ],
-      "slide_keys": [
-        "gdl-2025-07:57"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "TorchMD-Net brings equivariant scalar--vector interactions into a Transformer-like molecular model. Cropped from the 2025 GDL geometric-GNN lecture, slide 57.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "060c0df73e5b6f0ea6a53a61c111db25847a74247a53b8a411213ad898ace6e0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-58.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        58
-      ],
-      "slide_keys": [
-        "gdl-2025-07:58"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Invariant attention scores can modulate equivariant values without breaking rotation symmetry. Cropped from the 2025 GDL geometric-GNN lecture, slide 58.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b43154658223340c79639d3bb1076ba2c04e323497d6392483b110944aa09711",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-59.webp": {
-      "deck_id": "gdl-2025-07",
-      "slides": [
-        59
-      ],
-      "slide_keys": [
-        "gdl-2025-07:59"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "The output block reduces equivariant hidden features to an invariant potential energy. Cropped from the 2025 GDL geometric-GNN lecture, slide 59.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7ec3b553971bf61c88b0e83d0353f5b57a5bb7b5ff7f167d128e5f33e9d60503",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-07/slide-6.webp": {
+    "assets/img/blog/lectures/gdl-2025-07/s06-aspirin-molecule.png": {
       "deck_id": "gdl-2025-07",
       "slides": [
         6
@@ -21208,10 +20165,33 @@
         "gdl-2025-07:6"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "A geometric graph combines relational structure with coordinates that transform under rigid motion. Cropped from the 2025 GDL geometric-GNN lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A molecule supplies atom identities together with three-dimensional coordinates. Aspirin model retained from slide 6 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9a2c13fa44cf68f721b57ae5300c7a8c668e0ca4d33343e86de3065b8d449a65",
+      "content_sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-02/s21-equivariant-property.png"
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s06-geometric-point-cloud.gif": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        6
+      ],
+      "slide_keys": [
+        "gdl-2025-07:6"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "A cutoff graph turns a point cloud into local neighborhoods by connecting nearby vertices. Figure retained from slide 6 of the 2025 GDL lecture deck.",
+      "extraction_method": "pptx-picture-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f654f9736d56098a0825be53afc6bd4a486acc238667ef32368397625e5ca5f9",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21221,19 +20201,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-07/slide-60.webp": {
+    "assets/img/blog/lectures/gdl-2025-07/s10-force-vectors.png": {
       "deck_id": "gdl-2025-07",
       "slides": [
-        60
+        10
       ],
       "slide_keys": [
-        "gdl-2025-07:60"
+        "gdl-2025-07:10"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "TorchMD-Net closes the lecture by comparing equivariant attention on both accuracy and computational cost. Cropped from the 2025 GDL geometric-GNN lecture, slide 60.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A molecular configuration carries a vector force on every atom. Illustration retained from slide 10 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "892e7a4a2c29f4e6b286ee084ab00f0f543291e6f1ca9209f975ad22c5686cc6",
+      "content_sha256": "a74ade1a1df13942f5b712b068f94f68e04df9fdf100ede1e19f007f3a1cb8e1",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21243,19 +20223,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-07/slide-7.webp": {
+    "assets/img/blog/lectures/gdl-2025-07/s10-potential-components.jpeg": {
       "deck_id": "gdl-2025-07",
       "slides": [
-        7
+        10
       ],
       "slide_keys": [
-        "gdl-2025-07:7"
+        "gdl-2025-07:10"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "The output type determines whether a geometric model should be invariant or equivariant. Cropped from the 2025 GDL geometric-GNN lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Classical potentials separate bond stretching, angle bending, torsion, and nonbonded terms. Illustration retained from slide 10 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "116edb0d966398f437cc9e69c28fcf2cb26975eec0d267880e391af656d5469c",
+      "content_sha256": "5d9399de38ef7cbd204512d4793e4a059f9c6ae99e47e819acab8c89455a7cc6",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21265,19 +20245,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-07/slide-8.webp": {
+    "assets/img/blog/lectures/gdl-2025-07/s13-scalarized-geometry.jpeg": {
       "deck_id": "gdl-2025-07",
       "slides": [
-        8
+        13
       ],
       "slide_keys": [
-        "gdl-2025-07:8"
+        "gdl-2025-07:13"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Many molecular benchmarks pair a three-dimensional structure with invariant scalar properties. Cropped from the 2025 GDL geometric-GNN lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Distances, bond angles, and dihedral angles are invariant under rigid translation and rotation. Geometry illustration retained from slide 13 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4c680e6652cbacac987cf49d844dcc01961608ce0ab74b3ae90ed6ea9d959023",
+      "content_sha256": "4c0d85a1c538da2f7ed6f82be38cf32c7e906d2c8a8e8ca7d10b34b842174b8d",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21287,19 +20267,349 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-07/slide-9.webp": {
+    "assets/img/blog/lectures/gdl-2025-07/s14-continuous-filter.png": {
       "deck_id": "gdl-2025-07",
       "slides": [
-        9
+        14
       ],
       "slide_keys": [
-        "gdl-2025-07:9"
+        "gdl-2025-07:14"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
-      "caption": "Molecular simulation evaluates a potential energy and forces repeatedly along a trajectory. Cropped from the 2025 GDL geometric-GNN lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A grid convolution chooses weights from discrete offsets, whereas a molecular continuous filter varies smoothly with atom position. Figure retained from slide 14 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b1cab57499ee792f95a7eb2604265a2145ea4e9808d84bb5649799e6e0a280b9",
+      "content_sha256": "6f4082852f54ef22d0ff0e3a664afd63f3b3832e3e9e261e91f97a4e68381430",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s19-directional-aggregation.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        19
+      ],
+      "slide_keys": [
+        "gdl-2025-07:19"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "DimeNet updates a directed edge state by aggregating the other directed messages entering its source atom. Method diagram retained from slide 19 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ce9aa1799f0b92bbe5ba854be67fc82145eec1050e7d0f20eacd975a17bfcb2a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s22-fourier-bessel-basis.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        22
+      ],
+      "slide_keys": [
+        "gdl-2025-07:22"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "The spherical Fourier--Bessel basis separates angular order from radial order. Plot retained from slide 22 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3ce38a2e00403cfd94988935cc2581a7ff0b5078e57781a96aad6b8c5cbf6f3f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s22-radial-bessel-basis.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        22
+      ],
+      "slide_keys": [
+        "gdl-2025-07:22"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "Radial Bessel functions resolve different distance frequencies inside the cutoff. Plot retained from slide 22 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3bec9328d352fd32e08b21d4d65842044192f5471059a594005c1a0c722b1fb3",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s25-hydrogen-peroxide-torsion.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        25
+      ],
+      "slide_keys": [
+        "gdl-2025-07:25"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "Hydrogen peroxide requires a torsion angle in addition to bond lengths and bond angles to identify its conformation. Figure retained from slide 25 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3916d1aa7f7fe34b7ab34b91118702d981e53e3d4f6cf2692a22aa64d131216a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s26-spherical-message-passing.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        26
+      ],
+      "slide_keys": [
+        "gdl-2025-07:26"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "SphereNet associates each two-hop interaction with a radius, polar angle, and torsion in an edge-local frame. Method diagram retained from slide 26 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "38649595d04de5c856e29d6e9946e2ebe4cc6ec4a532793d35d084e19b32eacd",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s30-spherenet-ambiguity.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        30
+      ],
+      "slide_keys": [
+        "gdl-2025-07:30"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "SphereNet distinguishes the chiral pair on the left but conflates the two structures on the right. PowerPoint-native comparison retained from slide 30 of the lecture deck.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ba12202a5c65f6d7a247fe6c6a79364d33ffb2fba7ce1823fa6661e70676ecb9",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s35-comenet-local-structure.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        35
+      ],
+      "slide_keys": [
+        "gdl-2025-07:35"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "ComENet selects local reference neighbors to describe a complete two-hop structure around an edge. Method diagram retained from slide 35 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0e2050d7c9bcebef16fd9a3e494a1182c01b7d4a696f43f1c1530d09939b722a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s36-comenet-edge-torsion.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        36
+      ],
+      "slide_keys": [
+        "gdl-2025-07:36"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "The edge-local torsion compares the planes selected at the two endpoints. Method diagram retained from slide 36 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "50208b1df0cda3c238b9df6fc8e46868d9c71ededfa499367e37bd370014db93",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s40-comenet-training-time.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        40
+      ],
+      "slide_keys": [
+        "gdl-2025-07:40"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "ComENet reaches a low validation error much earlier than the directional baselines in the reported Molecule3D run. Plot retained from slide 40 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "e8fee298a234733f76c09f8e3ece8942f5ac46f7491c0c1b1e58b8f45a6ce3d6",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s41-conformers.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        41
+      ],
+      "slide_keys": [
+        "gdl-2025-07:41"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "Bond rotation changes a conformer while preserving the molecular graph. Conformer illustration retained from slide 41 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3f1709a03f20dfd011f8b1049a0251981b6e90fe758392fb4a7ddcba3f709a72",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s41-oc20-distributions.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        41
+      ],
+      "slide_keys": [
+        "gdl-2025-07:41"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "OC20 is compositionally imbalanced across both adsorbates and catalyst materials. Distribution plots retained from slide 41 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3254c635c26669be9d83cf7ef815bb461ea2031f60546f7ac7a51b7aabdeebd8",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s42-gemnet-interaction.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-07:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "GemNet's two-hop interaction pattern exposes the directional relations needed to reconstruct equivariant outputs from invariant coefficients. Method diagram retained from slide 42 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0493eef87ae03bf0d2c7f9c94c80fe62fed654fb12314c885fece4bde6f884b3",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s52-angle-direction-ambiguity.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        52
+      ],
+      "slide_keys": [
+        "gdl-2025-07:52"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "Angle multisets can coincide while the vector sum of bond directions differs, letting vector channels distinguish the two neighborhoods. Figure retained from slide 52 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "bae8627997cdc49289b358fb981f29186942cab91691729b3383edaaae77e878",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s58-torchmd-update.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        58
+      ],
+      "slide_keys": [
+        "gdl-2025-07:58"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "TorchMD-Net couples scalar attention, neighbor vectors, bond directions, and vector inner products in one equivariant update. Architecture diagram retained from slide 58 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "6e290f9837144529c79e0c2cd5b2527db595a4d50330552ed92d081749bc9d2d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-07/s59-torchmd-attention.png": {
+      "deck_id": "gdl-2025-07",
+      "slides": [
+        59
+      ],
+      "slide_keys": [
+        "gdl-2025-07:59"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-07.md",
+      "caption": "Distance-filtered keys modify an invariant attention score before scalar and vector values are aggregated. Architecture diagram retained from slide 59 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3bff8eb651857ee66a4be584bb78de4e81e86f3d297756f4adaaa5ede1f9e163",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
