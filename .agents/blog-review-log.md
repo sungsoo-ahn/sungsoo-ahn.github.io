@@ -167,6 +167,30 @@ requirements for the replacement deck-level articles.
   generation, altered exploration, and learned bias forces accelerate different
   objects and should not be flattened into a generic list of efficiency methods.
 
+### ML4Mol 2025 Lecture 9: Molecular Generation
+
+- **Source:** `lec9_molgen.pdf` (38 pages), with media extracted from the
+  corresponding PowerPoint and two composite diagrams cropped from the
+  canonical PDF.
+- **Coverage:** 37 substantive slides covered; the lecture cover omitted. The
+  article preserves the source sequence from autoregressive graph models and
+  GraphRNN through graph grammars, motifs, SMILES, continuous and discrete graph
+  diffusion, reaction prediction, organic and inorganic retrosynthesis,
+  multistep planning, electron flow, and chemistry language models.
+- **Figures:** 56 of 65 unique substantive visuals reused (86.15%). Nine omitted
+  panels are duplicate examples or secondary panels already represented by a
+  retained visual from the same method. Paper title cards and decomposed icon
+  fragments were treated as non-substantive. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous generation chapter's fixed
+  five-outcome validity calculation, two-history likelihood comparison,
+  guidance ratios, atom-mapping quotient, route-tree arithmetic, compounded
+  yield calculation, and 1,000-candidate funnel were absent from the source.
+- **General lesson:** representation grammar is not a preliminary encoding
+  detail when it determines the model's actions. The adjacency, motif, string,
+  diffusion, reaction-edit, and electron-flow representations must remain in
+  the source order because each changes the construction or translation problem
+  inherited by the next method.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
