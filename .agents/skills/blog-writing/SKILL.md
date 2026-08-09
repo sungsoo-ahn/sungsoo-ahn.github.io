@@ -188,6 +188,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     channels, explain which geometric ambiguity each construction resolves and
     retain the source's accuracy, force, and efficiency comparisons. Do not
     compress the sequence into a binary scalar-versus-vector taxonomy.
+23. Track the scope and index set of a construction when the source reuses one
+    name at several scales. An edge-local frame, an atom-wise frame, and a
+    global input-dependent frame solve different transport or symmetrization
+    problems. State what selects each object, what it acts on, and where it is
+    averaged or reconstructed; shared terminology does not make the roles
+    interchangeable.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
