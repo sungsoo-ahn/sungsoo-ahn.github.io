@@ -107,7 +107,10 @@ new thesis, a reordered curriculum, or additional technical branches.
 8. Preserve the deck's rhetorical destination as well as its technical topics.
    If a historical survey ends in a methodological critique, open question, or
    author judgment, do not stop the article at the last architecture or equation.
-   That change of register is part of the source argument.
+   That change of register is part of the source argument. In particular, a
+   closing audit of real-world relevance, graph or data semantics, benchmark
+   culture, or foundation-model evidence sets the claim boundary for the methods
+   that precede it and remains scientific content even without new equations.
 9. Distinguish literal repetition from deliberate structural analogy. When a
    deck re-derives the same construction in Euclidean, manifold, and discrete
    settings, retain each version and make the shared roles explicit. The repeated
