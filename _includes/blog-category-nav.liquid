@@ -1,15 +1,15 @@
 {% assign all_count = site.posts | size %}
 {% assign selected_before = "2026-08-08" | date: "%s" | plus: 0 %}
 {% assign selected_count = 0 %}
-{% assign human_gated_count = 0 %}
+{% assign human_reviewed_count = 0 %}
 {% assign ai_generated_count = 0 %}
 {% for post in site.posts %}
   {% assign post_timestamp = post.date | date: "%s" | plus: 0 %}
-  {% if post_timestamp < selected_before %}
+  {% if post_timestamp < selected_before and post.human_reviewed != true %}
     {% assign selected_count = selected_count | plus: 1 %}
   {% endif %}
-  {% if post.human_gated %}
-    {% assign human_gated_count = human_gated_count | plus: 1 %}
+  {% if post.human_reviewed %}
+    {% assign human_reviewed_count = human_reviewed_count | plus: 1 %}
   {% elsif post.lecture_paths %}
     {% assign ai_generated_count = ai_generated_count | plus: 1 %}
   {% endif %}
@@ -28,7 +28,7 @@
       <a href="{{ '/blog/selected/' | relative_url }}"{% if page.url == '/blog/selected/' %} class="is-active" aria-current="page"{% endif %}>Selected {{ selected_count }}</a>
     </span>
     <span>
-      <a href="{{ '/blog/human-gated/' | relative_url }}"{% if page.url == '/blog/human-gated/' %} class="is-active" aria-current="page"{% endif %}>Human-gated {{ human_gated_count }}</a>
+      <a href="{{ '/blog/human-reviewed/' | relative_url }}"{% if page.url == '/blog/human-reviewed/' %} class="is-active" aria-current="page"{% endif %}>Human-reviewed {{ human_reviewed_count }}</a>
     </span>
     <span>
       <a href="{{ '/blog/ai-generated/' | relative_url }}"{% if page.url == '/blog/ai-generated/' %} class="is-active" aria-current="page"{% endif %}>AI-generated {{ ai_generated_count }}</a>

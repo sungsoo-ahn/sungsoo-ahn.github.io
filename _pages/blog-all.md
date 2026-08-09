@@ -2,7 +2,7 @@
 layout: post-type-archive
 permalink: /blog/all/
 title: All posts
-description: Every research article, tutorial, and technical note on the blog.
+description: Browse every research article, tutorial, and technical note.
 icon: fa-layer-group
 nav: false
 ---
