@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 import json
 from dataclasses import dataclass
@@ -19,6 +20,7 @@ BLOG_CATEGORIES_PATH = ROOT / "_data" / "blog_categories.yml"
 LECTURE_PATHS_PATH = ROOT / "_data" / "lecture_paths.yml"
 LECTURE_SOURCES_PATH = ROOT / "_data" / "lecture_sources.yml"
 LECTURE_MANIFEST_DIR = ROOT / ".agents" / "lecture-adaptation"
+LECTURE_FIGURE_SOURCE_VALIDATOR = ROOT / "scripts" / "update_lecture_figure_sources.py"
 
 REQUIRED_FRONTMATTER = {
     "layout",
@@ -326,11 +328,35 @@ def validate_assets() -> list[Finding]:
     return findings
 
 
+def validate_lecture_figure_sources() -> list[Finding]:
+    """Keep generated figure provenance synchronized with its curated audit."""
+
+    if not LECTURE_FIGURE_SOURCE_VALIDATOR.exists():
+        return []
+    result = subprocess.run(
+        [sys.executable, str(LECTURE_FIGURE_SOURCE_VALIDATOR), "--check"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout).strip().replace("\n", "; ")
+    return [
+        Finding(
+            LECTURE_FIGURE_SOURCE_VALIDATOR,
+            f"lecture figure source registry validation failed: {detail}",
+        )
+    ]
+
+
 def main() -> int:
     findings: list[Finding] = []
     for path in sorted(POSTS_DIR.glob("[0-9][0-9][0-9][0-9]-*.md")):
         findings.extend(validate_post(path))
     findings.extend(validate_assets())
+    findings.extend(validate_lecture_figure_sources())
 
     errors = [finding for finding in findings if finding.severity == "error"]
     warnings = [finding for finding in findings if finding.severity == "warning"]
