@@ -254,6 +254,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     targets even when each uses diffusion or flow matching. State what is
     conditioned, what one sample contains, and whether temporal order is part
     of the learned law.
+33. Preserve the changing axes in a foundation-model chronology. For every
+    consequential step, retain the tokenization, context length, training
+    corpus and species coverage, measurement modalities, learning objective,
+    and evaluated task that the source uses to distinguish it. Model names and
+    parameter counts alone do not explain what was scaled or what new claim the
+    model supports.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
