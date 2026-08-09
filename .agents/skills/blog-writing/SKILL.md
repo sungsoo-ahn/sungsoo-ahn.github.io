@@ -159,6 +159,12 @@ from one comparison can improve the criteria used for the next.
   data coverage, numerical choices, or physical approximations. Carry one case
   across the boundary; do not let an architectural symmetry claim silently turn
   into a claim of simulation, experimental, or decision validity.
+- When one learned model validates or filters another, audit the independence of
+  evidence. Name shared training data, architectures, representations, and
+  physical assumptions, then construct a correlated-error case where both
+  models agree but an orthogonal check fails. Internal self-consistency,
+  independent computational evidence, and experimental evidence support
+  different claims and should not be counted as interchangeable votes.
 - When a model predicts an intermediate object consumed by a solver, propagate
   a controlled prediction perturbation through the downstream derivative,
   diagonalization, fixed point, or estimator. Quantify conditioning and compare
