@@ -175,6 +175,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     the assumptions and limitations of each route, and why the second viewpoint
     is introduced. Do not merge the formulas into one polished derivation or
     omit the critique that makes their comparison meaningful.
+21. Do not classify a slide as disposable merely because it is titled “recap.”
+    A recap is substantive when it compares guarantees, costs, or representation
+    families and uses that comparison to motivate the next part. Collapse only
+    literal repetition; retain synthesis slides that change the organizing axis
+    or pose the next scientific question.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
