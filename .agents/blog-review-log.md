@@ -412,6 +412,32 @@ requirements for the replacement deck-level articles.
   derivation would erase the deck's progression through locality, pooling,
   expressivity, depth, long-range propagation, fair comparison, and scaling.
   The blog-writing skill now records this chronological-survey rule.
+
+### GDL 2025 Lecture 4: Two Routes to Graph Convolution
+
+- **Source:** `lec4_gnn2.pdf` (43 pages), represented by 36 canonical PDF
+  composites preserving the equations, signal diagrams, operator bases, and
+  annotations assembled on each scientific slide.
+- **Coverage:** 36 substantive slides covered; five cover, overview, and outline
+  transitions plus two reference-list slides omitted. The source order remains
+  MLP versus convolutional linear maps, graph signals and the Laplacian, graph
+  Fourier bases and transforms, spectral filtering, Chebyshev and GCN
+  approximations, the varying-graph limitation, shift and permutation
+  equivariance, higher-order fixed-point equations, Bell-number bases, and the
+  comparison with adjacency-conditioned GNNs.
+- **Figures:** all 36 source-native substantive visual composites reused (100%).
+  Full-slide crops preserve the relationship between equations and diagrams in
+  the deck; no explanatory figure was drawn.
+- **Synthetic material removed:** the previous graph-convolution tutorial's
+  controlled graph example, coefficient ledger, four-index equality-pattern
+  correction, basis/sign/scale failure analysis, and cost comparison were absent
+  from this deck. The replacement keeps the source's spectral derivation and its
+  explicit critique before beginning the independent equivariant-operator route.
+- **General lesson promoted:** two derivations of the same operator are not
+  redundant when their assumptions differ. The signal-processing route fixes a
+  graph Laplacian, while the commutant route fixes a transformation group; the
+  lecture's varying-graph critique is the reason for the pivot. The blog-writing
+  skill now records this alternate-derivation rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
