@@ -1729,408 +1729,290 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 36,
-    "reused": 36,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 25,
+    "reused_figures": 25,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
-    {
-      "slide": 4,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-4.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 7,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-7.webp",
-      "reuse_status": "reused"
-    },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+  "pptx_figures": [
     {
       "slide": 8,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s08-cycle-signal.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-8.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 9,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s09-fourier-transform.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.gif"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-9.webp",
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s09-filter-types.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 10,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s10-frequency-decomposition.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image12.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-10.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 11,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s11-laplacian-curvature.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image17.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-11.webp",
+      "source_shape_name": "Picture 3",
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s11-local-average.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
+      ],
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 12,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s12-higher-dimensional-laplacian.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-12.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 13,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s13-heat-equation.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-13.webp",
+      "source_shape_name": "Picture 4",
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s13-neighbor-averaging.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s13-laplace-equation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
+      ],
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 14,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s14-graph-laplacian.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image23.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-14.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 15,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-15.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 16,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-16.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s17-graph-fourier-modes.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-17.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 18,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-18.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 19,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-19.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 20,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-20.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 21,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s21-path-dct-modes.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image44.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-21.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 22,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s22-noise-filtering.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image46.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-22.webp",
+      "content_role": "illustration",
       "reuse_status": "reused"
     },
     {
-      "slide": 23,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s22-fourier-filter-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image47.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-23.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s24-graph-filter-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image50.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-24.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 25,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-25.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 26,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-26.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 27,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-27.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 28,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s28-laplacian-positional-encoding.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image54.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-28.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 31,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-31.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 32,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s32-connectivity-weight-sharing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image58.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-32.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
-      "slide": 33,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s32-translation-equivariance.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image59.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-33.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 34,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-34.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 35,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-35.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 36,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s36-node-edge-features.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image64.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-36.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s36-higher-order-features.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image65.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s37-permutation-actions.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image67.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-37.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
-      "slide": 38,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s37-tensor-permutation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image68.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-38.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 39,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-39.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 40,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s40-bell-basis.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image71.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-40.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 41,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-41.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 42,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-04/s42-pooling-broadcasting.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image76.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-42.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 43,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-04/slide-43.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-04.md"
+  "asset_migration_status": "pptx-native-complete"
 }

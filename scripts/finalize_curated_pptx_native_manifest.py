@@ -111,6 +111,7 @@ def main() -> int:
     with ZipFile(pptx_path) as archive:
         archive_names = set(archive.namelist())
         for record in records:
+            record["reuse_status"] = "reused"
             slide = int(record["slide"])
             pptx_slide = logical_to_pptx.get(slide)
             if pptx_slide is None or int(record["pptx_slide"]) != pptx_slide:
