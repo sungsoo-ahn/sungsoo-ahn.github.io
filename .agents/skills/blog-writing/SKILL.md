@@ -227,6 +227,13 @@ new thesis, a reordered curriculum, or additional technical branches.
     the intrinsic-coordinate or ambient-embedding choice that makes each
     operation implementable. Do not present a manifold algorithm as the same
     formula with renamed symbols.
+29. When a source presents continuous and discrete versions of one generative
+    construction, preserve the analogy between their mathematical objects and
+    equations. Map vector fields to jump-rate vectors, continuity equations to
+    Kolmogorov equations, and conditional-to-marginal posterior expectations to
+    their discrete counterparts. Introduce coordinate factorization at the
+    source's computational bottleneck rather than treating the two versions as
+    unrelated method summaries.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
