@@ -2,9 +2,10 @@
 layout: post
 title: "Protein Design"
 date: 2026-03-03
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "An introduction to protein structure, function, and computational design — from amino acids to the RFDiffusion/ProteinMPNN pipeline."
 post_type: tutorial
+human_reviewed: true
 authors: ["Sungsoo Ahn"]
 order: 1
 series: ml-for-science
