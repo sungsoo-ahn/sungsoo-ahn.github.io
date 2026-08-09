@@ -518,6 +518,33 @@ requirements for the replacement deck-level articles.
   ambiguity each step resolves and preserve the empirical evidence attached to
   that representational claim. The blog-writing skill now records this
   representational-sufficiency rule.
+
+### GDL 2025 Lecture 8: Local Frames, Frame Averaging, and Canonicalization
+
+- **Source:** `lec8_geognn2.pdf` (48 pages), represented by 43 canonical PDF
+  composites preserving local-frame definitions, scalarize--vectorize blocks,
+  isomorphism diagrams, averaging proofs, PCA constructions, and experiments.
+- **Coverage:** 43 scientific slides covered; five cover, part-title, or end
+  transitions omitted. The group, representation, and permutation recaps were
+  retained because they supply the notation used immediately by group and frame
+  averaging. The source order remains ClofNet, LEFTNet, AlphaNet, group and
+  frame averaging, FAENet, learned canonicalization, and probabilistic
+  symmetrization.
+- **Figures:** all 43 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous frames tutorial's quotient-space
+  derivation, V-shaped running object, PCA discontinuity calculation, local
+  Gram--Schmidt example, Haar proof, Monte Carlo residual example, and
+  universality/continuity decision table were absent from this deck. The
+  replacement restores the source's full architecture chronology, local
+  isometry hierarchy, exact finite averaging proofs, materials implementation,
+  and pretrained-backbone experiment.
+- **General lesson promoted:** “frame” changes meaning across the lecture. An
+  edge-local basis moves features between interacting neighborhoods; a global
+  input-dependent set symmetrizes an entire backbone. A faithful article must
+  identify what indexes each frame and what operation consumes it rather than
+  merging the two halves into a general canonicalization essay. The
+  blog-writing skill now records this scope-tracking rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
