@@ -142,6 +142,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     orientation, yet later architectures can change from one target to another.
     Use the map to make those shifts legible instead of deleting it as generic
     background and presenting the later models as a single task lineage.
+15. Preserve a source-defined design pipeline when different models occupy
+    successive stages. Generation, inverse prediction, forward validation,
+    affinity or property scoring, filtering, synthesis, and experiment are not
+    interchangeable benchmarks. Name the object passed at each boundary and
+    retain the source's reported experimental endpoint; do not extract only the
+    generative architecture and discard the selection or validation chain.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
