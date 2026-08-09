@@ -124,6 +124,13 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   intrinsic or explicitly qualified extrinsic operation, and carry one example
   through the full replacement chain. Changing one headline formula does not
   validate the surrounding loss, measure, symmetry, or solver.
+- When a representation depends on a coordinate basis, gauge, or unit-cell
+  convention, define its complete equivalence action before claiming
+  invariance. Carry one nontrivial basis change through coordinates,
+  neighborhoods, features, probability densities, and tensor outputs, and
+  verify the invariant or covariant result on a finite example. Checking only
+  periodic wrapping, permutation, or rigid rotation leaves the basis choice
+  unaudited.
 - When a matrix or operator admits competing row/column, source/destination, or
   forward/reverse conventions, declare the convention in words and indexed
   notation before using matrix shorthand. Instantiate a minimal matrix and
