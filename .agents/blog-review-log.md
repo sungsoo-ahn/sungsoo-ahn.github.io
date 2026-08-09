@@ -116,6 +116,32 @@ requirements for the replacement deck-level articles.
   velocities to Riemannian tangent fields and discrete CTMC rates. The
   blog-writing skill now protects such structural analogies from over-editing.
 
+### ML4Mol 2025 Lecture 7: Molecular Property Prediction and Simulation
+
+- **Source:** `lec7_mpp.pdf` (60 pages), with media extracted from the
+  corresponding PowerPoint and three wide model diagrams cropped from the
+  canonical PDF where the slide inventory omitted grouped media.
+- **Coverage:** 54 substantive slides covered; six cover or part-transition
+  slides omitted. The article keeps the deck's five-part progression from 1D
+  and 2D benchmarks through 3D datasets, molecular representation learning,
+  structure generation, and machine-learning force fields.
+- **Figures:** 85 of 100 unique substantive visuals reused (85%). The fifteen
+  omitted visuals are duplicate tables, paper title cards, or secondary panels
+  whose scientific content is already shown by a retained visual from the same
+  slide sequence. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous property-prediction chapter's
+  representation Bayes-risk example, conformer-population calculation,
+  related-record split family, pretraining-overlap arithmetic, six-candidate
+  calibration example, and claim-contract table were absent from this deck.
+  The replacement instead retains the lecture's named benchmark lineage,
+  2D-pretraining and LLM sequence, conformer/docking/crystal generators, four
+  architecture families, and MACE--MatterSim--Orb--UMA progression.
+- **General lesson:** a deck can use a dataset survey to establish the changing
+  input and output contracts of later methods. Do not compress such a survey
+  into a benchmark preamble: the sequence from scalar labels to forces,
+  spectra, periodic structures, and trajectories is part of the scientific
+  argument.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
