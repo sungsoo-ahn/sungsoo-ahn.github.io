@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec12_protein1.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec12_protein1.pptx",
   "slide_count": 80,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Protein Structure Prediction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Protein Structure Prediction",
         "AI810 Machine Learning for Molecules",
@@ -25,7 +25,7 @@
       "pptx_slide": 2,
       "title": "References for Today’s Slides",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "References for Today’s Slides",
         "Today’s slides are heavily based on contents created from others.",
@@ -43,7 +43,7 @@
       "pptx_slide": 3,
       "title": "Why Proteins Matter",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Why Proteins Matter"
       ],
@@ -57,7 +57,7 @@
       "pptx_slide": 4,
       "title": "Major Break Throughs in Protein Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Major Break Throughs in Protein Design"
       ],
@@ -71,7 +71,7 @@
       "pptx_slide": 5,
       "title": "The Goal of Programmable Protein Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "The Goal of Programmable Protein Design"
       ],
@@ -85,7 +85,7 @@
       "pptx_slide": 6,
       "title": "Proteins 101",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proteins 101"
       ],
@@ -100,7 +100,7 @@
       "pptx_slide": 7,
       "title": "From Sequence to Structure",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "From Sequence to Structure"
       ],
@@ -114,7 +114,7 @@
       "pptx_slide": 8,
       "title": "Protein Geometry = Backbone + Side Chains",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Geometry = Backbone + Side Chains",
         "Backbone: Repeating N-C-C chain.",
@@ -132,7 +132,7 @@
       "pptx_slide": 9,
       "title": "Structures are Dynamic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structures are Dynamic",
         "Proteins are not rigid – they fluctuate across",
@@ -154,7 +154,7 @@
       "pptx_slide": 10,
       "title": "Traditional Protein Modeling Approaches",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Traditional Protein Modeling Approaches"
       ],
@@ -168,7 +168,7 @@
       "pptx_slide": 11,
       "title": "Modern Approaches are Powered by Large Datasets",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Modern Approaches are Powered by Large Datasets"
       ],
@@ -182,7 +182,7 @@
       "pptx_slide": 12,
       "title": "Reasoning Across Protein Representation Types",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Reasoning Across Protein Representation Types"
       ],
@@ -196,7 +196,7 @@
       "pptx_slide": 13,
       "title": "Learning on Protein Sequences (1D)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Learning on Protein Sequences (1D)",
         "Protein representations",
@@ -214,7 +214,7 @@
       "pptx_slide": 14,
       "title": "Learning on Protein Structures (3D)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Learning on Protein Structures (3D)",
         "Advancements in geometric/graph deep learning have",
@@ -230,7 +230,7 @@
       "pptx_slide": 15,
       "title": "Predicting Protein Structures (1D+2D → 3D)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Predicting Protein Structures (1D+2D → 3D)",
         "AlphaFold2 revolutionized protein structure prediction,",
@@ -247,7 +247,7 @@
       "pptx_slide": 16,
       "title": "Predicting Protein Ensembles (1D → 4D)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Predicting Protein Ensembles (1D → 4D)",
         "Ensemble/dynamics prediction leverages advancements",
@@ -264,7 +264,7 @@
       "pptx_slide": 17,
       "title": "Protein Sequence Design (1D, 3D → 1)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Sequence Design (1D, 3D → 1)",
         "Design sequence from scratch or from",
@@ -285,7 +285,7 @@
       "pptx_slide": 18,
       "title": "Protein Structure Design (3D)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Structure Design (3D)",
         "Revolutionized by advancements in 3D generative",
@@ -301,7 +301,7 @@
       "pptx_slide": 19,
       "title": "Protein Structure Prediction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Protein Structure Prediction",
         "19"
@@ -314,7 +314,7 @@
       "pptx_slide": 20,
       "title": "Protein Structure and Dynamics",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Structure and Dynamics",
         "Structures and dynamics are important for their functions"
@@ -329,7 +329,7 @@
       "pptx_slide": 21,
       "title": "Protein Structure Prediction - AlphaFolds",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Structure Prediction - AlphaFolds",
         "Sparks initiated by by AlphaFold models.",
@@ -345,7 +345,7 @@
       "pptx_slide": 22,
       "title": "AlphaFold1: Task Formulation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Task Formulation",
         "Simplifying the task as much as possible",
@@ -365,7 +365,7 @@
       "pptx_slide": 23,
       "title": "AlphaFold1: Architecture",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Architecture",
         "Architecture: CNNs on amino acid pair-wise features.",
@@ -381,7 +381,7 @@
       "pptx_slide": 24,
       "title": "AlphaFold1: Pair-wise Representation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Pair-wise Representation",
         "More about input features:",
@@ -397,7 +397,7 @@
       "pptx_slide": 25,
       "title": "AlphaFold1: Multiple Sequence Alignment",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Multiple Sequence Alignment",
         "Incorporates MSA (multiple sequence alignment) features",
@@ -416,7 +416,7 @@
       "pptx_slide": 26,
       "title": "AlphaFold1: Multiple Sequence Alignment",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Multiple Sequence Alignment",
         "MSA reveals evolutionary constraints and co-evolving residues which",
@@ -433,7 +433,7 @@
       "pptx_slide": 27,
       "title": "AlphaFold1: Gradient Descent on Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Gradient Descent on Potentials",
         "AlphaFold is a neural-net + solver hybrid appraoch.",
@@ -453,7 +453,7 @@
       "pptx_slide": 28,
       "title": "AlphaFold1: Gradient Descent on Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Gradient Descent on Potentials",
         "AlphaFold is a neural-net + solver hybrid appraoch.",
@@ -469,7 +469,7 @@
       "pptx_slide": 29,
       "title": "AlphaFold1: Gradient Descent on Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Gradient Descent on Potentials",
         "Spoiler: AlphaFold2, 3 relies on coordinate-wise predictions.",
@@ -485,7 +485,7 @@
       "pptx_slide": 30,
       "title": "AlphaFold1: Gradient Descent on Potentials",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Gradient Descent on Potentials",
         "Additionally, AF1 incorporates physics constraints",
@@ -502,7 +502,7 @@
       "pptx_slide": 31,
       "title": "AlphaFold1: Evaluation in CASP13",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold1: Evaluation in CASP13",
         "31"
@@ -517,7 +517,7 @@
       "pptx_slide": 32,
       "title": "AlphaFold2: End-to-End Structure Prediction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: End-to-End Structure Prediction",
         "Protein structure prediction (from amino acid sequence to 3D structure)",
@@ -537,7 +537,7 @@
       "pptx_slide": 33,
       "title": "AlphaFold2",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2",
         "33"
@@ -552,7 +552,7 @@
       "pptx_slide": 34,
       "title": "AlphaFold2",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2",
         "Predict relative positions, not just the distance matrix.",
@@ -568,7 +568,7 @@
       "pptx_slide": 35,
       "title": "AlphaFold2: Overview",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Overview",
         "Jumper, John, et al. \"Highly accurate protein structure prediction with AlphaFold.\" nature 596.7873 (2021): 583-589."
@@ -583,7 +583,7 @@
       "pptx_slide": 36,
       "title": "AlphaFold2: Initialization",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Initialization"
       ],
@@ -597,7 +597,7 @@
       "pptx_slide": 37,
       "title": "AlphaFold2: Initialization",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Initialization"
       ],
@@ -611,7 +611,7 @@
       "pptx_slide": 38,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -626,7 +626,7 @@
       "pptx_slide": 39,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -641,7 +641,7 @@
       "pptx_slide": 40,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -655,7 +655,7 @@
       "pptx_slide": 41,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -669,7 +669,7 @@
       "pptx_slide": 42,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -683,7 +683,7 @@
       "pptx_slide": 43,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -698,7 +698,7 @@
       "pptx_slide": 44,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -712,7 +712,7 @@
       "pptx_slide": 45,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -727,7 +727,7 @@
       "pptx_slide": 46,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -741,7 +741,7 @@
       "pptx_slide": 47,
       "title": "AlphaFold2: Evoformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Evoformer"
       ],
@@ -756,7 +756,7 @@
       "pptx_slide": 48,
       "title": "AlphaFold2: Structure Module",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Structure Module"
       ],
@@ -770,7 +770,7 @@
       "pptx_slide": 49,
       "title": "AlphaFold2: Structure Module",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Structure Module"
       ],
@@ -784,7 +784,7 @@
       "pptx_slide": 50,
       "title": "AlphaFold2: Structure Module",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Structure Module"
       ],
@@ -798,7 +798,7 @@
       "pptx_slide": 51,
       "title": "AlphaFold2: Training",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Training",
         "Defines losses by aligning predicted and true structures in each residue’s",
@@ -814,7 +814,7 @@
       "pptx_slide": 52,
       "title": "AlphaFold2: SE(3)-Equivariance",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: SE(3)-Equivariance",
         "The model is SE(3)-equivariant with respect to the inputs",
@@ -830,7 +830,7 @@
       "pptx_slide": 53,
       "title": "AlphaFold2: Recycling",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: Recycling"
       ],
@@ -844,7 +844,7 @@
       "pptx_slide": 54,
       "title": "AlphaFold2: CASP14",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold2: CASP14",
         "54"
@@ -859,7 +859,7 @@
       "pptx_slide": 55,
       "title": "AlphaFold-Multimer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold-Multimer",
         "Generalization to predicting protein complexes",
@@ -875,7 +875,7 @@
       "pptx_slide": 56,
       "title": "AlphaFold3",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3",
         "Innovations:",
@@ -897,7 +897,7 @@
       "pptx_slide": 57,
       "title": "AlphaFold3: Generative Modeling",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Generative Modeling",
         "AlphaFold3 is generative modeling to learn distribution",
@@ -914,7 +914,7 @@
       "pptx_slide": 58,
       "title": "AlphaFold3: Protein-Ligand Co-Structures",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Protein-Ligand Co-Structures",
         "AlphaFold3 predicts protein-ligand co-structure given protein",
@@ -930,7 +930,7 @@
       "pptx_slide": 59,
       "title": "AlphaFold3: Atom Attention Module",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Atom Attention Module"
       ],
@@ -944,7 +944,7 @@
       "pptx_slide": 60,
       "title": "AlphaFold3: Pair Representations",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Pair Representations"
       ],
@@ -958,7 +958,7 @@
       "pptx_slide": 61,
       "title": "AlphaFold3: Pairformer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Pairformer"
       ],
@@ -972,7 +972,7 @@
       "pptx_slide": 62,
       "title": "AlphaFold3: Diffusion Module",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Diffusion Module"
       ],
@@ -986,7 +986,7 @@
       "pptx_slide": 63,
       "title": "AlphaFold3: Training",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Training"
       ],
@@ -1000,7 +1000,7 @@
       "pptx_slide": 64,
       "title": "AlphaFold3: Auxiliary Diagram Heads",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: Auxiliary Diagram Heads",
         "AlphaFold3 incorporates auxiliary distogram heads as a regularization.",
@@ -1016,7 +1016,7 @@
       "pptx_slide": 65,
       "title": "AlphaFold3: FK Steering",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFold3: FK Steering",
         "65"
@@ -1031,7 +1031,7 @@
       "pptx_slide": 66,
       "title": "Summary of AlphaFold 1-3",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Summary of AlphaFold 1-3",
         "Advancements (2018~2024) aligns with trends at that time:",
@@ -1048,7 +1048,7 @@
       "pptx_slide": 67,
       "title": "Open-source Practices with Training Code",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Open-source Practices with Training Code",
         "Boltz-1 (AF3, 2024/11)",
@@ -1068,7 +1068,7 @@
       "pptx_slide": 68,
       "title": "Other Models: RoseTTAFold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: RoseTTAFold",
         "Three-track model: sequence (MSA), pair (distance), 3D coordinates",
@@ -1085,7 +1085,7 @@
       "pptx_slide": 69,
       "title": "Other Models: RoseTTAFold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: RoseTTAFold",
         "Three-track model: sequence (MSA), pair (distance), 3D coordinates",
@@ -1102,7 +1102,7 @@
       "pptx_slide": 70,
       "title": "Other Models: OmegaFold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: OmegaFold",
         "Single sequence as input without (expensive) MSA features"
@@ -1117,7 +1117,7 @@
       "pptx_slide": 71,
       "title": "Other Models: ESMFold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: ESMFold",
         "Single sequence folding model based on pre-trained protein LM.",
@@ -1134,7 +1134,7 @@
       "pptx_slide": 72,
       "title": "Other Models: AttnPacker",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: AttnPacker",
         "Packing: Predict the side-chain coordinates given their backbone",
@@ -1152,7 +1152,7 @@
       "pptx_slide": 73,
       "title": "Other Models: DiffPack",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: DiffPack",
         "Zhang, Yangtian, et al. \"Diffpack: A torsional diffusion model for autoregressive protein side-chain packing.\"",
@@ -1168,7 +1168,7 @@
       "pptx_slide": 74,
       "title": "Other Models: RoseTTAFold All-Atom",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: RoseTTAFold All-Atom",
         "Tokenize residue,",
@@ -1192,7 +1192,7 @@
       "pptx_slide": 75,
       "title": "Other Models: Proteina",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: Proteina",
         "Flow-based architecture for protein",
@@ -1212,7 +1212,7 @@
       "pptx_slide": 76,
       "title": "Other Models: Boltz-2",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: Boltz-2",
         "Not only of predicting protein-ligand structures but also binding affinities!",
@@ -1234,7 +1234,7 @@
       "pptx_slide": 77,
       "title": "Other Models: Boltz-2",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: Boltz-2",
         "Binding affinity – how tightly a molecule",
@@ -1262,7 +1262,7 @@
       "pptx_slide": 78,
       "title": "Other Models: Boltz-2",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: Boltz-2",
         "Paired with SynFlowNet, Boltz-2 enables large-scale virtual screening.",
@@ -1284,7 +1284,7 @@
       "pptx_slide": 79,
       "title": "Other Models: BioEmu",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Other Models: BioEmu",
         "Predict the ensemble (multiple conformers) instead of single state.",
@@ -1305,7 +1305,7 @@
       "pptx_slide": 80,
       "title": "What’s Next?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "What’s Next?",
         "Researchers generally agree that, models exploit all",
@@ -1328,7 +1328,8 @@
       "bytes": 428089,
       "slides": [
         2
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "89ee7fa137f465f5e53e89cc1d82d651cdecd309aa92ca244b51ff62a4984835",
@@ -1337,7 +1338,9 @@
       "bytes": 323900,
       "slides": [
         8
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s08-image10.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "277760147c2c92c4a32bbdf6e88159c126b8ad06fe9f3d59d0f4f94b2f33e39d",
@@ -1346,7 +1349,9 @@
       "bytes": 105656,
       "slides": [
         77
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s77-image100.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "34aa4d4167003db59357193ee1cc735d29ca4fa8367e986564aff54ecca27331",
@@ -1355,7 +1360,8 @@
       "bytes": 221373,
       "slides": [
         78
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b8d655d2dee136fe67295bb89ed99d8550e7e8566b910ecc6c44774089f49cd9",
@@ -1364,7 +1370,9 @@
       "bytes": 178467,
       "slides": [
         78
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s78-image102.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "003441a04640e9ab23d5864a5e4439a3c691f11bd9504b36eade4b87fa01f3ec",
@@ -1373,7 +1381,9 @@
       "bytes": 155558,
       "slides": [
         79
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s79-image103.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0b57ae63634cfa72217f2fa991a23cd1da033a033699ba47ca8abee50791e512",
@@ -1382,7 +1392,9 @@
       "bytes": 79243,
       "slides": [
         79
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s79-image104.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "509519699cd498a66db1b5e99ff9610f0acd8196fa916c899ed947dbf151dac8",
@@ -1391,7 +1403,9 @@
       "bytes": 39582,
       "slides": [
         79
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s79-image105.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "bc7dcd2b71eca737d5b6898e0dfdc217003e3a3e7902b84f0c7dfd91fb7a1ec5",
@@ -1400,7 +1414,9 @@
       "bytes": 912745,
       "slides": [
         9
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s09-image11.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f0a79ecb5607979382c9298965f6e620421d4509a3be7886abcc12dc6ae33d54",
@@ -1409,7 +1425,9 @@
       "bytes": 215104,
       "slides": [
         9
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s09-image12.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a73c89a773e2ae8efc1b412e3cc47c9afd569e0f77455cfd0a35fd66ef31f7f1",
@@ -1418,7 +1436,9 @@
       "bytes": 555558,
       "slides": [
         10
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s10-image13.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b251d27607df8bca21c350732b0af01e1e5ac09f93e6d149b46de6b02ead450b",
@@ -1427,7 +1447,9 @@
       "bytes": 604419,
       "slides": [
         11
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s11-image14.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e0da610ce484a03d209f1bdbe2992a8f482333ed9e9286e52109884c72a10074",
@@ -1436,7 +1458,8 @@
       "bytes": 37263,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "275129c026cbcc0bb4418e7fcb9ce0280b00537a91d9db029d4b8961a5792c59",
@@ -1445,7 +1468,9 @@
       "bytes": 737017,
       "slides": [
         12
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s12-image15.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e4d8e6cdd8e698dfce331d3d0be3400688a2105117f4b0636a7b6d6a2645f644",
@@ -1454,7 +1479,9 @@
       "bytes": 251512,
       "slides": [
         13
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s13-image16.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "6f289cc89acac434667092eb5e3f997931a200168e5f935ba0cc12f04eacfc8c",
@@ -1463,7 +1490,8 @@
       "bytes": 35125,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "11bbc31677a011273795fdf6bef11f285e5bcd976d848bd36d35beebf62930d3",
@@ -1472,7 +1500,9 @@
       "bytes": 705777,
       "slides": [
         14
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s14-image17.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e8d685fae01aeaea5a5c2a82a06b53ecef9f95fa3bbf41d9d95f15aa3e986dd1",
@@ -1481,7 +1511,9 @@
       "bytes": 558677,
       "slides": [
         15
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s15-image18.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e46fe0070f45b0c99e6de5ef8694798c2527564eb477b493d38d1ec9417efa97",
@@ -1490,7 +1522,8 @@
       "bytes": 35286,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "dcdcb1b98be0e081b14d71b592cbbeaab99809df3679451edde6bd25d3b93950",
@@ -1500,7 +1533,9 @@
       "slides": [
         16,
         16
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s16-image19.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "74030e7f7fe898b44af2c0f664a5c05897f3934dd12ab7f942b94d8c5b422ef3",
@@ -1509,7 +1544,8 @@
       "bytes": 344766,
       "slides": [
         2
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "92961d335cc68b9987b36fabe764fa4414ede8685725a594afc3a970ad1746c0",
@@ -1518,7 +1554,9 @@
       "bytes": 317803,
       "slides": [
         17
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s17-image20.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b16773604d81b5c574296e4f1111d6514f050efb061bbe43893bdf106a8a5c61",
@@ -1527,7 +1565,9 @@
       "bytes": 175538,
       "slides": [
         17
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s17-image21.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "86826c38afef6cbbcdd94e99a4352156bbc2da405fe8a93caf293a4c99748ad9",
@@ -1536,7 +1576,9 @@
       "bytes": 561719,
       "slides": [
         18
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s18-image22.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e092845de3084f5a47a7064dc1cf849e8eac479d9c3d21866109e308d361c32e",
@@ -1545,7 +1587,9 @@
       "bytes": 268886,
       "slides": [
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s20-image23.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "62e4244c152d0297e2fa8f56206ae094819e2b633aa70060555c18e550d708e6",
@@ -1554,7 +1598,9 @@
       "bytes": 65311,
       "slides": [
         21
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s21-image24.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c737c7334eb5af3ed12fe80f54ad5f3dddf40ee215cea804c1ea1ecf6521cdf6",
@@ -1563,7 +1609,9 @@
       "bytes": 340211,
       "slides": [
         22
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s22-image25.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "238442f91bfb76722b07baed3180c27aa9d047e4c2e09f6c611cd3472406e6ef",
@@ -1572,7 +1620,9 @@
       "bytes": 244202,
       "slides": [
         22
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s22-image26.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "16e03ac6fa7a76c00fecca3b95d8c0963058b9f7dfefc56c4ad60b04c7e9dfc4",
@@ -1581,7 +1631,8 @@
       "bytes": 155965,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "39964ef537825ec560af8f32fe9b8c505bcdb177cc8cbcc7877824e8c5d116f6",
@@ -1590,7 +1641,9 @@
       "bytes": 730722,
       "slides": [
         23
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s23-image28.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7c7c10bf6ab46387c400f9646c04311135c7d97ddcd360cda6cbe3def40f9416",
@@ -1599,7 +1652,9 @@
       "bytes": 146683,
       "slides": [
         24
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s24-image29.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "03969a3aa8c294710c11f1ae94eebb1ce3bad087450df3e78b2a962e53bee89e",
@@ -1608,7 +1663,8 @@
       "bytes": 61945,
       "slides": [
         2
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2c6dece1870863999eb9b0bcc06818240fa1245173dab63d69ea52c50a389488",
@@ -1617,7 +1673,9 @@
       "bytes": 101175,
       "slides": [
         25
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s25-image30.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4566da31a9410e7509602ead8aabc764f410cda83e6b753745c6ef9aa562d715",
@@ -1626,7 +1684,9 @@
       "bytes": 112602,
       "slides": [
         25
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s25-image31.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8ad8132b93ad9f8f2c3b45268c6cb47290ec2041ccdd2f77fa890b8aebb2db6d",
@@ -1635,7 +1695,9 @@
       "bytes": 164749,
       "slides": [
         26
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s26-image32.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "775c9d8d2d05ba43fc021f598de8dd75e8cb705cdcf7f7578dce71d34db7ba71",
@@ -1644,7 +1706,9 @@
       "bytes": 51049,
       "slides": [
         26
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s26-image33.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b7a76d41982bb7dbf0b4c454e49aca951298ddcf2329340876d385c622d47d92",
@@ -1653,7 +1717,9 @@
       "bytes": 211928,
       "slides": [
         27
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s27-image34.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2d1ff34d1a1c07a2d3225ed81dd10a85407af2f2b05c0c58c7854f61ccbce7b8",
@@ -1662,7 +1728,9 @@
       "bytes": 108910,
       "slides": [
         27
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s27-image35.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8e33ca5efdc50d7b0157945c74dc143c36e269bbc4d96935a8c44564af4a375e",
@@ -1671,7 +1739,9 @@
       "bytes": 173535,
       "slides": [
         28
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s28-image36.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f9a39164ca74792a5313c40fe1327c489e8ab1b906aab4cf821154dcb81f983a",
@@ -1680,7 +1750,9 @@
       "bytes": 94851,
       "slides": [
         29
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s29-image37.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "610aff749b1ddbf2c486b899274d1befe084dd727eca5e5f20003106505289d8",
@@ -1689,7 +1761,9 @@
       "bytes": 344080,
       "slides": [
         30
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s30-image38.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "47a80068c7be2cbc80f3a1c76c4cf766052514e101b09df11ada908a853f6283",
@@ -1698,7 +1772,9 @@
       "bytes": 627992,
       "slides": [
         31
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s31-image39.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f063bc1bd7172b4231df8f8ba646300b438cc759ba34b165e560eb4632808d02",
@@ -1707,7 +1783,9 @@
       "bytes": 992944,
       "slides": [
         3
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s03-image4.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b5f6c1be299ee2d47d0480a2765c8251e77e6f42a049722f09fde3eaff75fd11",
@@ -1716,7 +1794,9 @@
       "bytes": 91760,
       "slides": [
         32
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s32-image40.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "bf347ba72edb087b9e453621ef880aa5db7a4608de4adecc07d2ff2ba687c6b8",
@@ -1725,7 +1805,9 @@
       "bytes": 10767,
       "slides": [
         32
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s32-image41.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f98fc3ba6caf4ec8927842e12c4b26b20c25560b165f385ad89680ddcfbcfa02",
@@ -1734,7 +1816,8 @@
       "bytes": 3212211,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "92b683f23da372402b76d7cd5c733fd9995723013d44d2179dfa1c86ca505ee3",
@@ -1743,7 +1826,9 @@
       "bytes": 334084,
       "slides": [
         33
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s33-image43.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "f34784a07dd6898ff55c5ce291797c97b80dd030d623884a3d3cef12102b8010",
@@ -1752,7 +1837,9 @@
       "bytes": 165522,
       "slides": [
         34
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s34-image44.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b2c9db00cef41c27b6152c6324b14b6174d29b017304b73d7869b8bce0334a98",
@@ -1761,7 +1848,9 @@
       "bytes": 372191,
       "slides": [
         35
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s35-image45.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4845d0700739f0aa1386da5f5c3240b0ca170b5e8b0bbd500af25ea36c5f70ba",
@@ -1770,7 +1859,9 @@
       "bytes": 175441,
       "slides": [
         36
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s36-image46.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "79e1db8615e200aff745d4554b2c922e65d9684d23d210e6d1b0eedbc5a5d203",
@@ -1779,7 +1870,9 @@
       "bytes": 167110,
       "slides": [
         37
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s37-image47.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "41ae28ac31646c35a8e4fbd01121ae4c59d286f222c5dbb47ee820e821c5a37c",
@@ -1788,7 +1881,9 @@
       "bytes": 235686,
       "slides": [
         38
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s38-image48.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7d3f5500340858dcc7ab83d9a3a90dbd88526aae34939e019f5211474092fd3c",
@@ -1797,7 +1892,9 @@
       "bytes": 166793,
       "slides": [
         38
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s38-image49.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8d6d2164d42e1d5695cae22eb4e3fa623e532ab6325cb7e524b6969dd1cc6fee",
@@ -1806,7 +1903,9 @@
       "bytes": 1009927,
       "slides": [
         4
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s04-image5.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a2c19079cd825a0092c3f9d2d9b528f99737509f17aeec64ddb1e996ac7b1048",
@@ -1815,7 +1914,9 @@
       "bytes": 73138,
       "slides": [
         39
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s39-image50.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "3aee88851033abf155fb0fc50c157459fcd52bb68f0045b59435f9afab6c66ee",
@@ -1824,7 +1925,9 @@
       "bytes": 110544,
       "slides": [
         39
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s39-image51.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e0c340937cf5e206e34321b22799c097de1cf1bb25079c78693bec003e07c77a",
@@ -1833,7 +1936,9 @@
       "bytes": 155743,
       "slides": [
         40
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s40-image52.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a68903ddc27efad48e10af1472d7827e4a5dd18737a42f3dbd4c0c445e9230d5",
@@ -1842,7 +1947,9 @@
       "bytes": 385004,
       "slides": [
         41
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s41-image53.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "ba185bc254063ac97cb6f196c29297ad7c2f4885e463dd61f7a318192e588034",
@@ -1851,7 +1958,9 @@
       "bytes": 225345,
       "slides": [
         42
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s42-image54.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "24b42d74e8328ede1e4d6b485d60c08c8160e94e5c68669d25431fa2c09d8240",
@@ -1860,7 +1969,9 @@
       "bytes": 248640,
       "slides": [
         43
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s43-image55.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c7fc8bd1906898a7cb2b1394b81522476a2b1a6636409f4028982a03b6771e09",
@@ -1869,7 +1980,9 @@
       "bytes": 52663,
       "slides": [
         43
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s43-image56.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "13a8febde37c2e7de2665777ec3bdba94783e7177eb25af817cfd775f06b84e6",
@@ -1878,7 +1991,9 @@
       "bytes": 250093,
       "slides": [
         44
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s44-image57.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "1c41879feaf20686570f242e6d15c0e9a04f109ad94dbef24aea859a72f32fea",
@@ -1887,7 +2002,9 @@
       "bytes": 274686,
       "slides": [
         45
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s45-image58.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2f1540a36cb078a5e0c887f5d023783c7ce5aca99ae5c661fd4c69074da734cd",
@@ -1896,7 +2013,9 @@
       "bytes": 108708,
       "slides": [
         45
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s45-image59.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4bf7cdb6365652ca69034c9ef31981b8b0cf8d353020d2647712eddc01063077",
@@ -1905,7 +2024,9 @@
       "bytes": 82603,
       "slides": [
         5
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s05-image6.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "ae236f81672fa4bfa79c4cea9b5a72c710ac7887317b39eaa0a518624af025f7",
@@ -1914,7 +2035,9 @@
       "bytes": 280275,
       "slides": [
         46
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s46-image60.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "175911c309df3ca7d37f9ffa1eb3c7bd60727ca3e489b771fcc9cea28fe20f9d",
@@ -1923,7 +2046,9 @@
       "bytes": 177747,
       "slides": [
         47
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s47-image61.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8c9cb987f79fb8847984eaf72e777439d7c474214eccf17ab3ded6d5bd6c4e1f",
@@ -1932,7 +2057,9 @@
       "bytes": 157435,
       "slides": [
         47
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s47-image62.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "6abc1a38efc06f6c387f9652621172c2d49f8ff7e2b441bc2b009cecee218a6f",
@@ -1941,7 +2068,9 @@
       "bytes": 260751,
       "slides": [
         48
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s48-image63.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "76dc21c2e62395edbdceb345ce289b92e4e401816a4acea616c3814a40668100",
@@ -1950,7 +2079,9 @@
       "bytes": 229862,
       "slides": [
         49
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s49-image64.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8980cc82f33d1b7da143b1a4965256ae74a5d59107f664b183bbf74227bbc5b0",
@@ -1959,7 +2090,9 @@
       "bytes": 86979,
       "slides": [
         50
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s50-image65.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "179692fdef7a93efe50354bc3b9cfd72455a8530eaf310bad4f5dfc77d60ad11",
@@ -1968,7 +2101,9 @@
       "bytes": 202620,
       "slides": [
         51
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s51-image66.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "5c377d99fd5d67f522b8ea82d93c8a9971bbd1654c6f0a1cb18825b0f5a1cfbf",
@@ -1977,7 +2112,9 @@
       "bytes": 117807,
       "slides": [
         52
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s52-image67.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c86d8bffe0947ec10926f31dc7d615f3f26a76d9c646954ea2174b86a191cf8a",
@@ -1986,7 +2123,9 @@
       "bytes": 287345,
       "slides": [
         53
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s53-image68.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "11ff5f62044abe8fd217a60ff9a9689baad5f7729306ce86b94a10451dd8d356",
@@ -1995,7 +2134,9 @@
       "bytes": 807776,
       "slides": [
         54
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s54-image69.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "586d01a50495cf3cd21f6a419f2f2826ec8ebb0d64423bc66321788fbc8e2ac3",
@@ -2004,7 +2145,9 @@
       "bytes": 171118,
       "slides": [
         6
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s06-image7.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "14a87da9625ad8d0c38846f34a59a1ed19062457e88f87f6fa458f2b373169a7",
@@ -2013,7 +2156,9 @@
       "bytes": 441761,
       "slides": [
         55
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s55-image70.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "16c0d73581b1ca6115b746793abf218eff5f73938e58d03a4eee8e4587eb1c1e",
@@ -2022,7 +2167,9 @@
       "bytes": 380522,
       "slides": [
         56
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s56-image71.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "232ad8e8ff72b0db3371d420c6b5f347c53188f2f78e2854ae1abd19ebe36c38",
@@ -2031,7 +2178,9 @@
       "bytes": 192718,
       "slides": [
         57
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s57-image72.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "80d8c55db9b8bc27b57edaa9c3ff8961af3be3fe06704df55728b6f26213a561",
@@ -2040,7 +2189,9 @@
       "bytes": 317868,
       "slides": [
         58
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s58-image73.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0b2848dd5cba6f8b8adecf6ca0bc2c8ad9825b1638abea2c9dfe0ad1ac8aedbc",
@@ -2049,7 +2200,9 @@
       "bytes": 131253,
       "slides": [
         59
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s59-image74.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4aafbc81a65035aa40f5fff54737db9125b3a8f88891fe657ba5bef4dbb76d5b",
@@ -2058,7 +2211,9 @@
       "bytes": 133357,
       "slides": [
         60
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s60-image75.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2cf5ae02f07c83247e78c575d347d93fb02958a7cfec863ae39f67da2f5c354f",
@@ -2067,7 +2222,9 @@
       "bytes": 215506,
       "slides": [
         61
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s61-image76.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "88041bb27f586c2a5ca1400245f8816bcd8f39c68887aa495c3b8f8dfcf115c3",
@@ -2076,7 +2233,9 @@
       "bytes": 237969,
       "slides": [
         62
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s62-image77.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "84d9d6e4a165fcd1fb944cabfbfff8e1c9d89fb56190d036eaf2813eb449654f",
@@ -2085,7 +2244,9 @@
       "bytes": 333093,
       "slides": [
         63
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s63-image78.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "13cbccaf24d46ddb010918fd1b4aa12ea72b79e946f39b172a68d486601fe976",
@@ -2094,7 +2255,9 @@
       "bytes": 126272,
       "slides": [
         64
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s64-image79.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "fef70d868b5effe5d7f2bd0144b3ccabfb0fac796ca2249333232e830a559ffb",
@@ -2103,7 +2266,9 @@
       "bytes": 390942,
       "slides": [
         6
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s06-image8.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "54b5775b6ac11d4acb04acf4cbcd8cc7c75df2ca5d548711b544c49e6afc1bd5",
@@ -2112,7 +2277,9 @@
       "bytes": 391500,
       "slides": [
         65
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s65-image80.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "93301eebcb842dfb07bc39b2293dd73620d3ba01bc98ac190b9219c5f7d91bb4",
@@ -2121,7 +2288,9 @@
       "bytes": 110831,
       "slides": [
         66
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s66-image81.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e4fe7022cdcc6140484d324a6eeeee3487dde745738e139af8f91c06ea72b990",
@@ -2130,7 +2299,9 @@
       "bytes": 547004,
       "slides": [
         67
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s67-image82.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "65185bf422c24f7a9de6736d7df018364226669ecb35594d8266cb9af3bcc2e4",
@@ -2139,7 +2310,9 @@
       "bytes": 410585,
       "slides": [
         67
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s67-image83.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "d69ecbf05abc34264dbb9f2ff6e0b62c12882f0ef0ba257932caa1da6e6af0a8",
@@ -2148,7 +2321,9 @@
       "bytes": 532644,
       "slides": [
         68
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s68-image84.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "019ebb895ce53c0aacf46c2e41506f39d9291ecda95ed633cc8e265653cf8752",
@@ -2157,7 +2332,9 @@
       "bytes": 463332,
       "slides": [
         69
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s69-image85.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "fdbcbf437d912e1756cacc9bc81dea296b01e87254368672913775e2217e6079",
@@ -2166,7 +2343,9 @@
       "bytes": 335147,
       "slides": [
         70
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s70-image86.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "05fc0cd9dc8549eeeafae6828a0eb9f262b43c9824feb18bf5c07f4c8a8934df",
@@ -2175,7 +2354,9 @@
       "bytes": 243294,
       "slides": [
         71
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s71-image87.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "95dea1b2a1f0d994e1e53ad3ed28f3e7ea721410eff564d4c58fc4eeeb144ef1",
@@ -2184,7 +2365,9 @@
       "bytes": 308418,
       "slides": [
         72
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s72-image88.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "01315aacbb0c7db53fe750247e555f994e94fe2787b26bf257e22ff130cc6745",
@@ -2194,7 +2377,9 @@
       "slides": [
         73,
         73
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s73-image89.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "164327330978c7cb24fe7b6e6a1eafcc896b6314fba94ba586d3a864d20e6593",
@@ -2203,7 +2388,9 @@
       "bytes": 1120574,
       "slides": [
         7
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s07-image9.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "65b2dcf9f7362bbd11d30482a2763936375475b4048a501eef4787fa52fa71f5",
@@ -2212,7 +2399,9 @@
       "bytes": 357521,
       "slides": [
         74
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s74-image90.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "67df367a9fbf67b94b9524bb132740b28369e0884110d798a1b3f0e3dc9de07f",
@@ -2221,7 +2410,8 @@
       "bytes": 291144,
       "slides": [
         74
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2736b32fd0cf3d8dfa18e19e176672f58eeb34eccbd0bc71066597c6032bdb4c",
@@ -2230,7 +2420,9 @@
       "bytes": 30019,
       "slides": [
         74
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s74-image92.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "19c1271bd673372ef20b453b763d477ee1f2147b3a8e76d504c8be3da9de131c",
@@ -2239,7 +2431,9 @@
       "bytes": 345921,
       "slides": [
         75
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s75-image93.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "4e3163c9e1d3234a1e74c50f2afbb86cda912305a8c673eb05f89101d5b563d0",
@@ -2248,7 +2442,9 @@
       "bytes": 28428,
       "slides": [
         75
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s75-image94.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7e4ee0e9acaa579b0d34a14e1fbff65f3ba5bde2f1d02b08ca9c4358ea1d211c",
@@ -2257,7 +2453,8 @@
       "bytes": 19114256,
       "slides": [
         76
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a5ebb897029949a50a51a6a04501494742e2b9b18d5cae59ef326cc0cfeb23af",
@@ -2268,7 +2465,8 @@
         76,
         77,
         78
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f3352d52eebecadf3b62e6ebc477b2abc617acaf29bcafe7ffaf8a733f9da204",
@@ -2279,7 +2477,9 @@
         76,
         77,
         78
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s76-image97.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2438924ac9d0dccb88b1d27f20e34924238c2701cf44fb83386da8147ee86c8a",
@@ -2288,7 +2488,9 @@
       "bytes": 298821,
       "slides": [
         76
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-12/s76-image98.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "1aff9e53b3881e9584c196f6e8e5386587de054e23a244f968cc8d9a18fe26b8",
@@ -2297,14 +2499,15 @@
       "bytes": 150435,
       "slides": [
         77
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 100,
+    "reused": 95,
+    "scientifically_redundant": 5,
+    "reuse_ratio": 0.95
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-12.md"
 }
