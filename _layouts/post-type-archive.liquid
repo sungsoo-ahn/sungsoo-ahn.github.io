@@ -3,33 +3,68 @@ layout: default
 ---
 <div class="post">
   <header class="post-header">
-    <h1 class="post-title"><i class="fa-solid fa-layer-group fa-sm"></i> {{ page.title }}</h1>
+    {% assign archive_icon = page.icon | default: "fa-layer-group" %}
+    <h1 class="post-title"><i class="fa-solid {{ archive_icon }} fa-sm"></i> {{ page.title }}</h1>
     <p class="post-description">{{ page.description }}</p>
   </header>
 
   <article class="archive publications blog-index">
-    {% assign type_documents = site.posts | where: "post_type", page.post_type | sort: "date" | reverse %}
+    {% include blog-category-nav.liquid %}
+    {% if page.post_type %}
+      {% assign type_documents = site.posts | where: "post_type", page.post_type | sort: "date" | reverse %}
+    {% else %}
+      {% assign type_documents = site.posts | sort: "date" | reverse %}
+    {% endif %}
+    {% if page.before_date %}
+      {% assign before_timestamp = page.before_date | date: "%s" | plus: 0 %}
+    {% endif %}
+    {% assign archive_count = 0 %}
     <ol class="bibliography">
       {% for document in type_documents %}
-        {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
-        <li>
-          <div class="title">
-            {% if document.redirect == blank %}
-              <a href="{{ document.url | relative_url }}">{{ document.title }}</a>
-            {% elsif document.redirect contains '://' %}
-              <a href="{{ document.redirect }}" target="_blank" rel="noopener">{{ document.title }}</a>
-            {% else %}
-              <a href="{{ document.redirect | relative_url }}">{{ document.title }}</a>
-            {% endif %}
-          </div>
-          {% if document.description %}
-            <div class="blog-list-description">{{ document.description }}</div>
+        {% assign include_document = true %}
+        {% if page.before_date %}
+          {% assign document_timestamp = document.date | date: "%s" | plus: 0 %}
+          {% if document_timestamp >= before_timestamp %}
+            {% assign include_document = false %}
           {% endif %}
-          <div class="author">
-            {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
-          </div>
-        </li>
+        {% endif %}
+        {% if page.editorial_status == 'human-gated' %}
+          {% unless document.human_gated %}
+            {% assign include_document = false %}
+          {% endunless %}
+        {% elsif page.editorial_status == 'ai-generated' %}
+          {% unless document.lecture_paths %}
+            {% assign include_document = false %}
+          {% endunless %}
+          {% if document.human_gated %}
+            {% assign include_document = false %}
+          {% endif %}
+        {% endif %}
+        {% if include_document %}
+          {% assign archive_count = archive_count | plus: 1 %}
+          {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
+          <li>
+            <div class="title">
+              {% if document.redirect == blank %}
+                <a href="{{ document.url | relative_url }}">{{ document.title }}</a>
+              {% elsif document.redirect contains '://' %}
+                <a href="{{ document.redirect }}" target="_blank" rel="noopener">{{ document.title }}</a>
+              {% else %}
+                <a href="{{ document.redirect | relative_url }}">{{ document.title }}</a>
+              {% endif %}
+            </div>
+            {% if document.description %}
+              <div class="blog-list-description">{{ document.description }}</div>
+            {% endif %}
+            <div class="author">
+              {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
+            </div>
+          </li>
+        {% endif %}
       {% endfor %}
     </ol>
+    {% if archive_count == 0 %}
+      <p class="blog-empty-state">{{ page.empty_message | default: "No posts are in this category yet." }}</p>
+    {% endif %}
   </article>
 </div>
