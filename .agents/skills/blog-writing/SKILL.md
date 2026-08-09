@@ -182,7 +182,9 @@ new thesis, a reordered curriculum, or additional technical branches.
     A recap is substantive when it compares guarantees, costs, or representation
     families and uses that comparison to motivate the next part. Collapse only
     literal repetition; retain synthesis slides that change the organizing axis
-    or pose the next scientific question.
+    or pose the next scientific question. When a new method is defined as a
+    modification of the recapped baseline, retain enough of the baseline's
+    notation and layer structure to state that architectural delta exactly.
 22. Preserve a source's progression of representational sufficiency. When
     successive methods add distances, angles, torsions, local frames, or vector
     channels, explain which geometric ambiguity each construction resolves and
