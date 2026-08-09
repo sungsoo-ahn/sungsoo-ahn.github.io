@@ -206,6 +206,13 @@ from one comparison can improve the criteria used for the next.
   and variance as sample count changes, and state whether transformed inputs
   share randomness. An exact expectation does not make one independent Monte
   Carlo evaluation exactly equivariant or conservative.
+- When a learned or hand-built representation is used as the state of a
+  dynamical model, audit Markov sufficiency rather than geometric compactness or
+  reconstruction alone. Merge a finite pair of microstates with different
+  outgoing transition laws, compute how the coarse transition depends on the
+  hidden mixture or entry history, and show which state refinement, lag change,
+  or memory variable repairs the claim. A visually coherent cluster need not be
+  a valid dynamical state.
 
 ## Quality Checklist (apply before finalizing)
 

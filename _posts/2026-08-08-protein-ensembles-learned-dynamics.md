@@ -2,7 +2,7 @@
 layout: post
 title: "Protein Ensembles and Learned Molecular Dynamics"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "How metastable protein conformations become equilibrium ensembles and kinetic models, and what learned samplers must preserve beyond structural plausibility."
 abstract: >
   Proteins occupy distributions of conformations connected by rare transitions. Learning those distributions can accelerate equilibrium sampling, while learning the dynamics additionally requires the correct transition pathways and timescales.
@@ -17,7 +17,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the protein-ensemble and learned-dynamics storyline from my 2025 Geometric Deep Learning lecture, together with the simulation material from Machine Learning for Molecules. The mechanics of reliable trajectories are developed in <a href="{% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}">Molecular Simulation with Machine-Learned Force Fields</a>; the stochastic density view appears in <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The Fokker–Planck Equation</a>; geometric generative paths appear in <a href="{% post_url 2026-08-08-geometric-flow-matching-manifolds %}">Geometric Flow Matching on Manifolds</a>.</em>
+  <em>This post develops the protein-ensemble and learned-dynamics storyline from my 2025 Geometric Deep Learning lecture, together with the simulation material from Machine Learning for Molecules. The mechanics and error budgets of reliable trajectories belong to <a href="{% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}">Molecular Simulation with Machine-Learned Force Fields</a>. The <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker–Planck chapter</a> owns the path-to-density derivation, while <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs, SDEs, and Probability Flow</a> and <a href="{% post_url 2026-08-08-geometric-flow-matching-manifolds %}">Geometric Flow Matching on Manifolds</a> own generative path semantics. This chapter owns the interface among equilibrium weights, coarse transfer operators, and physical-time path laws: whether a structural representation is sufficient to serve as a dynamical state.</em>
 </p>
 
 A protein structure is not a single object. Even at fixed sequence, solvent, temperature, protonation, and binding partners, the atoms fluctuate. Flexible loops move, side chains exchange rotamers, domains open and close, and disordered regions occupy broad families of conformations. Some states exchange in picoseconds; others remain separated for milliseconds or longer.
@@ -53,6 +53,37 @@ $$
 
 Basins of $$F$$ correspond to frequently occupied conformational families. High barriers separate **metastable states**: the system mixes rapidly inside a state but leaves it rarely. The protein therefore has two scales at once—fast local fluctuations and slow state exchange.
 
+We will follow one protein switch through the chapter. States $$A_1$$ and $$A_2$$ are geometrically similar open conformations with different side-chain rotamers; state $$B$$ is closed. At a lag $$\tau=10$$ ns, suppose the microstate transition matrix is
+
+$$
+\mathbf T=
+\begin{pmatrix}
+0.90&0.09&0.01\\
+0.09&0.71&0.20\\
+0.01&0.20&0.79
+\end{pmatrix}.
+$$
+
+Rows are source states and columns are destination states, in the order $$(A_1,A_2,B)$$. Every entry is nonnegative and every row sums to one. The matrix is symmetric, so its stationary distribution is immediately
+
+$$
+\boldsymbol\pi
+=\left(\frac13,\frac13,\frac13\right),
+\qquad
+\boldsymbol\pi\mathbf T=\boldsymbol\pi.
+$$
+
+The two open rotamers together have equilibrium probability $$\pi_O=2/3$$, while the closed state has $$\pi_B=1/3$$. Aggregating their equilibrium weights gives
+
+$$
+F_B-F_O
+=-k_{\mathrm B}T\log\frac{\pi_B}{\pi_O}
+=k_{\mathrm B}T\log2
+\approx0.693\,k_{\mathrm B}T.
+$$
+
+The closed basin is therefore higher in aggregate free energy even though every microstate has equal stationary weight. State degeneracy matters: merging two equally populated open rotamers doubles the open basin's probability. The same merge will fail for dynamics because $$A_1$$ and $$A_2$$ do not have the same exit law.
+
 {% include figure.liquid loading="eager" path="assets/img/blog/protens_free_energy_landscape.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A protein ensemble concentrates in metastable free-energy basins. Basin depth controls equilibrium population, while barrier height and dynamical friction control how rarely the system crosses between states. Original diagram." %}
 
 Free energy alone does not determine kinetics. Two systems can share $$p(z)$$ but have different diffusivity along $$z$$, different hidden barriers orthogonal to $$z$$, and different transition mechanisms. Projecting onto a poor collective variable can even make a non-Markovian process look like motion on a simple landscape.
@@ -65,9 +96,31 @@ Molecular dynamics integrates forces from a molecular Hamiltonian or machine-lea
 
 The [molecular-simulation post]({% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}) develops initialization, integration, force-field error, and ensemble validation. Here the central limitation is timescale separation. A femtosecond step is needed to resolve fast atomic motion, while a biologically interesting conformational change may take milliseconds. One event can require roughly a trillion integration steps.
 
+The running model makes the scale explicit. With a $$2$$ fs integration step, one $$10$$ ns MSM lag contains
+
+$$
+\frac{10\ \mathrm{ns}}{2\ \mathrm{fs}}
+=5\times10^6
+$$
+
+force evaluations. A $$1$$ microsecond trajectory contains $$5\times10^8$$ steps but only 100 nonoverlapping 10-ns blocks. Saving coordinates every picosecond produces a million frames, not a million independent observations of the slow switch. Integrator resolution, stored-frame count, and transition-scale sample size are three different clocks.
+
 Running many shorter trajectories in parallel improves coverage, especially when seeded from diverse states, but it does not automatically solve rare-event sampling. Enhanced-sampling methods deliberately alter exploration. Replica exchange changes temperature or Hamiltonian across replicas. Umbrella sampling restrains chosen collective variables. Metadynamics deposits a history-dependent bias that discourages revisiting explored regions (<span id="cite-laio2002"></span>[Laio & Parrinello, 2002](#ref-laio2002)).
 
 Biased samples cannot be treated as ordinary equilibrium frames. Recovering unbiased populations requires the method's reweighting formula and adequate overlap. Kinetics is even more delicate: a bias that accelerates barrier crossing usually changes physical transition times. Enhanced sampling may give a reliable free-energy difference while destroying the natural path timing.
+
+Suppose an enhanced-sampling bias lowers state $$B$$ by $$k_{\mathrm B}T\log4$$ and leaves $$A_1,A_2$$ unchanged. Starting from the uniform target, the biased probabilities are proportional to $$(1,1,4)$$. An exact 600-frame sample then contains counts $$(100,100,400)$$. Raw counting reports closed probability $$2/3$$ rather than $$1/3$$. The unbiased importance factor is proportional to $$e^{\beta V}$$, so frames in $$B$$ receive weight $$1/4$$ and open frames receive weight 1. The weighted totals become $$(100,100,100)$$ and recover the uniform microstate distribution.
+
+Reweighting restores this equilibrium statistic under the assumed bias and overlap; it does not restore the 10-ns transition matrix. The effective sample size of the weighted frames is
+
+$$
+M_{\mathrm{eff}}
+=\frac{\left(\sum_m w_m\right)^2}{\sum_m w_m^2}
+=\frac{300^2}{100+100+400/16}
+=400.
+$$
+
+The bias produced 600 stored frames but only 400 weight-equivalent samples. Time correlation would reduce the effective size further.
 
 The force field remains another source of uncertainty. A perfectly converged simulation samples the equilibrium distribution of its chosen Hamiltonian, which may disagree with the real protein because of water balance, ion parameters, protonation, polarization, or missing chemistry. Longer sampling removes statistical error but not Hamiltonian bias.
 
@@ -110,11 +163,116 @@ $$
 
 Thus one compact object provides state populations, slow timescales, and transition-path statistics. Prinz et al. develop the construction and its validation in detail (<span id="cite-prinz2011"></span>[Prinz et al., 2011](#ref-prinz2011)).
 
+For the running chain, an exact finite count matrix with 1,000 outgoing transitions from each state is
+
+$$
+\mathbf C=
+\begin{pmatrix}
+900&90&10\\
+90&710&200\\
+10&200&790
+\end{pmatrix}.
+$$
+
+Row normalization recovers $$\mathbf T$$ exactly. The counts are symmetric, so the observed flux from $$i$$ to $$j$$ equals the reverse flux. With $$\pi_i=1/3$$,
+
+$$
+\pi_iT_{ij}=\frac13T_{ij}
+=\frac13T_{ji}=\pi_jT_{ji},
+$$
+
+which verifies detailed balance for every pair. Symmetry is sufficient here because the stationary weights are uniform; a reversible chain with nonuniform weights need not have a symmetric transition matrix.
+
+The eigenvalues are
+
+$$
+\lambda_1=1,
+\qquad
+\lambda_2\approx0.865227,
+\qquad
+\lambda_3\approx0.534773.
+$$
+
+At $$\tau=10$$ ns, the implied timescales are
+
+$$
+t_2=-\frac{10}{\log0.865227}\approx69.1\ \mathrm{ns},
+\qquad
+t_3=-\frac{10}{\log0.534773}\approx16.0\ \mathrm{ns}.
+$$
+
+These are relaxation times of ensemble modes, not mean dwell times of a named state. The unit eigenvalue carries the stationary distribution; the two decaying modes describe how deviations from equilibrium disappear.
+
+The exact count table is deliberately clean. With finite independent transitions, the row-wise standard error for a binomial entry is approximately $$\sqrt{T_{ij}(1-T_{ij})/N_i}$$. For 1,000 transitions from each source, this is about $$0.00315$$ for $$A_1\to B$$ and $$0.01265$$ for $$A_2\to B$$. Their difference of $$0.19$$ is far larger than either counting scale. Molecular transition counts are usually correlated and reversible estimators couple entries, so trajectory blocks or posterior intervals should replace this naive calculation in practice. The finite calculation only shows that sampling uncertainty and state-definition error are separate budgets.
+
 {% include figure.liquid loading="eager" path="assets/img/blog/protens_markov_state_model.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A Markov state model clusters molecular configurations, counts transitions separated by lag time tau, and estimates a transition matrix. Its stationary vector describes equilibrium weights; its slow eigenmodes describe long-timescale kinetics. Original diagram." %}
 
 The Markov approximation is not automatic. If a state combines configurations that relax slowly relative to $$\tau$$, the next-state distribution retains memory of where the trajectory entered. Increasing $$\tau$$ reduces this memory but discards temporal resolution and reduces the number of observed transitions. Implied timescales should plateau across a range of lag times, and Chapman–Kolmogorov tests should compare multi-step predictions $$T(\tau)^n$$ with directly observed transitions at $$n\tau$$.
 
 Clustering geometry is equally consequential. RMSD may split a kinetically coherent basin or merge distinct states separated by a hidden barrier. A useful representation emphasizes slow coordinates rather than merely large geometric variance.
+
+The proposed open state $$O=\{A_1,A_2\}$$ is a concrete bad merge. A partition is **strongly lumpable** when every microstate inside a macrostate has the same total probability of entering each macrostate. Here
+
+$$
+P(B\mid A_1)=0.01,
+\qquad
+P(B\mid A_2)=0.20.
+$$
+
+The two geometrically similar rotamers differ twentyfold in their chance of closing over one lag. No single open-to-closed transition probability can represent both initial conditions.
+
+At equilibrium, conditioning on being open gives the hidden mixture $$(1/2,1/2)$$ over $$(A_1,A_2)$$. Averaging with that particular mixture produces
+
+$$
+\mathbf T_{\mathrm{eq}}^{O/B}
+=
+\begin{pmatrix}
+0.895&0.105\\
+0.210&0.790
+\end{pmatrix}.
+$$
+
+This two-state matrix has stationary weights $$(2/3,1/3)$$ and satisfies coarse detailed balance because $$(2/3)(0.105)=(1/3)(0.210)=0.07$$. It correctly predicts one coarse step when the hidden open rotamer is equilibrium-conditioned. Those successes do not make the projected process Markov.
+
+History changes the hidden mixture. Immediately after a transition from $$B$$ into $$O$$, the probabilities of landing in $$A_1$$ and $$A_2$$ are proportional to $$T_{BA_1}=0.01$$ and $$T_{BA_2}=0.20$$. Thus
+
+$$
+P(A_1\mid B\to O)=\frac1{21},
+\qquad
+P(A_2\mid B\to O)=\frac{20}{21}.
+$$
+
+The probability of closing again on the next lag is then
+
+$$
+\frac1{21}(0.01)
++\frac{20}{21}(0.20)
+\approx0.19095,
+$$
+
+not the equilibrium-conditioned value $$0.105$$. The observed macrostate is $$O$$ in both cases, yet knowledge that the chain just entered from $$B$$ nearly doubles the next closing probability. The missing rotamer stores memory.
+
+A Chapman--Kolmogorov calculation exposes the same failure without conditioning on an entry event. Squaring the equilibrium-conditioned coarse matrix gives
+
+$$
+\left[\left(\mathbf T_{\mathrm{eq}}^{O/B}\right)^2\right]_{OB}
+=0.176925.
+$$
+
+Directly propagating the equilibrium open mixture through the microstate matrix for two lags gives
+
+$$
+\frac12
+\left[(\mathbf T^2)_{A_1B}+(\mathbf T^2)_{A_2B}\right]
+=\frac12(0.0349+0.3009)
+=0.1679.
+$$
+
+The discrepancy is exact, not sampling noise. Keeping $$A_1$$ and $$A_2$$ separate restores a Markov description for this chain. A history label such as “newly entered open” can also repair prediction at the cost of a larger state. Increasing lag may allow the rotamer mixture to relax before the next observation, but that is an empirical approximation: implied timescales and Chapman--Kolmogorov errors must stabilize at the chosen lag.
+
+Even survival inside $$O$$ changes the hidden mixture. Starting from the equilibrium mixture, one open-to-open step leaves unnormalized weights $$(0.495,0.400)$$ and therefore conditional mixture $$(0.553,0.447)$$. Its next closing probability falls to about $$0.0949$$. Starting from the entry-conditioned mixture $$(1/21,20/21)$$, one surviving open step gives conditional mixture $$(0.159,0.841)$$ and next closing probability $$0.1698$$. The apparent hazard depends on how long the process has been open and how it entered.
+
+The equilibrium-conditioned coarse matrix has nontrivial eigenvalue $$0.685$$, corresponding to implied time $$-10/\log0.685\approx26.4$$ ns. Neither microstate timescale, $$69.1$$ ns or $$16.0$$ ns, equals that value. Aggregation has mixed the two relaxation modes into a history-dependent process; fitting one exponential supplies a convenient summary, not an exact retained mode.
 
 ## Learned latent dynamics search for slow coordinates
 
@@ -132,6 +290,8 @@ This compression can pool many short trajectories into estimates of slow behavio
 
 Protein generalization adds a second challenge. A latent coordinate learned for one sequence may describe a particular loop motion; the analogous functional coordinate in another protein can involve different residues. Sequence-conditioned geometric encoders must align these motions without erasing protein-specific states.
 
+In the three-state switch, an encoder trained mainly on coordinate reconstruction may map $$A_1$$ and $$A_2$$ to one compact open cluster because their backbones are nearly identical. Once the decoder exposes only $$O$$, no downstream memoryless transition network can return both $$0.01$$ and $$0.20$$ for the same encoded input. This collision holds for every parameter choice of that downstream model. A time-lagged objective can separate the rotamers if their different futures are present in training, but the representation must retain the side-chain or history variable that makes those futures distinguishable.
+
 ## Equilibrium generators skip the physical path
 
 An equilibrium generator aims to draw independent samples from $$\mu(x)$$. Boltzmann generators use invertible flows to map a simple latent distribution into molecular configurations and correct the generated distribution with statistical-mechanical weights (<span id="cite-noe2019"></span>[Noé et al., 2019](#ref-noe2019)). If samples are independent, they can cross free-energy barriers without waiting for local dynamics.
@@ -148,6 +308,26 @@ $$
 \approx\frac{1}{M}\sum_{m=1}^M A(x^{(m)}).
 $$
 
+That unweighted average is valid only when the generator samples $$\mu$$ exactly. Suppose a generator instead proposes state probabilities
+
+$$
+q=(0.10,0.40,0.50)
+$$
+
+and returns exact counts $$(100,400,500)$$ in 1,000 independent samples. The target remains $$\mu=(1/3,1/3,1/3)$$. Importance weights $$w_i=\mu_i/q_i$$ are therefore $$10/3,5/6,2/3$$. Each state's total weight is $$1000/3$$, so the weighted closed-state indicator recovers $$1/3$$ rather than the raw $$1/2$$.
+
+The correction has a variance cost. Its effective sample size is
+
+$$
+M_{\mathrm{eff}}
+=\frac{(\sum_m w_m)^2}{\sum_m w_m^2}
+=\frac{1000^2}
+{100(10/3)^2+400(5/6)^2+500(2/3)^2}
+\approx621.
+$$
+
+This calculation assumes the target-to-proposal density ratio is known and that $$q$$ covers every target state. If the generator never produces $$A_1$$, no finite weight can recover its contribution. Structural diversity and valid importance weights are separate requirements.
+
 But the denoising or flow time used to generate $$x^{(m)}$$ is an algorithmic coordinate, not physical time. A path from Gaussian noise to a folded structure does not describe how the protein folds. Equilibrium generation can answer “which conformations and with what weights?” without answering “how do they interconvert?”
 
 ## Trajectory generators model ordered paths
@@ -161,6 +341,32 @@ $$
 or a joint path distribution conditioned on endpoints or partial frames. Autoregressive transition models repeatedly sample the next coarse time step. Conditional normalizing flows can learn large-lag transfer operators. Diffusion and flow models can treat a trajectory as a geometric time series and generate many frames jointly.
 
 MDGen demonstrates the joint-trajectory view for forward simulation, endpoint-conditioned transition paths, temporal upsampling, and inpainting (<span id="cite-mdgen2024"></span>[Jing et al., 2024](#ref-mdgen2024)). Joint generation reduces the accumulation of one-step errors and permits noncausal conditioning. It also creates a harder consistency problem: the sampled path must be geometrically valid at every frame and statistically compatible across time.
+
+Multi-lag consistency is an executable version of that requirement. Suppose a learned open/closed model predicts at 10 ns
+
+$$
+\widehat{\mathbf P}_{10}
+=
+\begin{pmatrix}0.90&0.10\\0.10&0.90\end{pmatrix},
+$$
+
+but a separately trained 20-ns head predicts
+
+$$
+\widehat{\mathbf P}_{20}
+=
+\begin{pmatrix}0.75&0.25\\0.25&0.75\end{pmatrix}.
+$$
+
+Both matrices are valid, reversible, and stationary at $$(1/2,1/2)$$. A time-homogeneous Markov process would require the semigroup relation
+
+$$
+\mathbf P_{20}=\mathbf P_{10}^2
+=
+\begin{pmatrix}0.82&0.18\\0.18&0.82\end{pmatrix},
+$$
+
+which the learned heads violate by $$0.07$$ in every entry. Their implied timescales also disagree: $$-10/\log0.8\approx44.8$$ ns versus $$-20/\log0.5\approx28.9$$ ns. Accurate held-out likelihood at each lag does not guarantee that the heads describe one physical clock. Joint training, an explicit generator, or a semigroup penalty can reduce the inconsistency; held-out multi-step propagation must still test it.
 
 Conditioning is scientifically useful. Given two metastable endpoints, a model can propose transition paths. Given sparse experimental restraints, it can generate compatible ensembles. Given the trajectory of one protein region, it can inpaint coupled motion elsewhere. But conditioning changes the target distribution. Endpoint-conditioned transition paths are rare-event bridges, not ordinary equilibrium trajectories; property-guided samples need correction before being interpreted as unbiased populations.
 
@@ -182,6 +388,41 @@ $$
 
 Both satisfy detailed balance and have the same equilibrium distribution. Their relaxation times differ by a factor of one thousand. A snapshot-based metric cannot tell them apart.
 
+The full transition kernel makes the clock visible. For symmetric rate $$k$$ and row-vector convention, the continuous-time generator is
+
+$$
+\mathbf Q_k
+=
+\begin{pmatrix}-k&k\\k&-k\end{pmatrix},
+\qquad
+\mathbf P_k(t)=e^{t\mathbf Q_k}.
+$$
+
+Rows of $$\mathbf Q_k$$ sum to zero, its off-diagonal entries are nonnegative, and $$(1/2,1/2)\mathbf Q_k=0$$. Diagonalizing into the stationary vector $$(1,1)$$ and difference vector $$(1,-1)$$ gives
+
+$$
+\mathbf P_k(t)
+=\frac12
+\begin{pmatrix}
+1+e^{-2kt}&1-e^{-2kt}\\
+1-e^{-2kt}&1+e^{-2kt}
+\end{pmatrix}.
+$$
+
+The difference mode decays as $$e^{-2kt}$$, so the relaxation time is $$t_{\mathrm{relax}}=1/(2k)$$. The reference rate $$10^{-3}\ \mathrm{ns}^{-1}$$ gives $$500$$ ns; the surrogate rate $$1\ \mathrm{ns}^{-1}$$ gives $$0.5$$ ns. At one nanosecond their switching probabilities are approximately
+
+$$
+P_{A\to B}^{\mathrm{slow}}(1)
+=\frac{1-e^{-0.002}}2
+\approx0.0010,
+\qquad
+P_{A\to B}^{\mathrm{fast}}(1)
+=\frac{1-e^{-2}}2
+\approx0.4323.
+$$
+
+Both kernels approach the same stationary distribution as $$t\to\infty$$. Equilibrium agreement erases the factor of one thousand because it sees only the zero eigenmode of the generator.
+
 {% include figure.liquid loading="eager" path="assets/img/blog/protens_equilibrium_vs_kinetics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Two models can assign identical stationary probability to states A and B while predicting radically different exchange rates. Equilibrium validation sees the same populations; kinetic validation sees different relaxation times and transition counts. Original diagram." %}
 
 The reverse failure also occurs. A local transition model can predict short-time fluctuations accurately while drifting toward the wrong stationary distribution after repeated rollout. Enforcing detailed balance or training against equilibrium data can help, but consistency must be tested rather than assumed.
@@ -200,6 +441,38 @@ Kinetic validation compares implied timescales, autocorrelation functions, mean 
 
 Experimental observables are ensemble averages filtered through a measurement model. NMR chemical shifts and order parameters, hydrogen–deuterium exchange, single-molecule FRET, SAXS, cryo-EM heterogeneity, and kinetic rate measurements each see different aspects of the ensemble. Agreement with one observable does not uniquely identify the full distribution. Forward models from structure to experiment have their own uncertainty, and several ensembles may fit the same low-dimensional measurement.
 
+The forward map is often nonlinear, so evaluating it on an average structure is incorrect. For a simple FRET model with Förster radius $$R_0=5$$ nm,
+
+$$
+E(r)=\frac{1}{1+(r/R_0)^6}.
+$$
+
+Suppose an ensemble has half its weight at donor--acceptor distance $$3$$ nm and half at $$7$$ nm. The measured ensemble average is
+
+$$
+\langle E\rangle
+=\frac12\left[E(3)+E(7)\right]
+=\frac12(0.9554+0.1172)
+\approx0.5363.
+$$
+
+The mean distance is $$5$$ nm, but $$E(\langle r\rangle)=E(5)=0.5$$. The two operations differ because $$E$$ is nonlinear. Agreement should compare the average of the forward model over generated structures with the experimental observable, while propagating uncertainty in distances, dye linkers, and the forward model itself.
+
+One average also remains nonidentifying even with an exact forward model. A single-distance ensemble concentrated near $$r=4.88$$ nm has $$E(r)\approx0.5363$$, matching the bimodal 3/7-nm ensemble above while having zero distance variance. Mean FRET cannot distinguish them. An efficiency distribution, another labeling geometry, or a complementary observable can constrain the missing heterogeneity; none turns one scalar average into a unique ensemble.
+
+Forward-model validation must therefore declare both the measured random variable and its aggregation. Matching a population mean supports that mean under the stated labeling model; it does not validate state populations, transition rates, or individual structural assignments that the measurement integrated out.
+
+The validation target can now be stated without using “realistic dynamics” as a catch-all:
+
+| Scientific claim | Mathematical object required | Matched diagnostic | Failure that can still remain |
+|---|---|---|---|
+| Plausible structures | Supported conformations and local geometry | Stereochemistry, clashes, coverage and precision | Wrong state weights |
+| Equilibrium ensemble | Stationary distribution $$\mu$$ | State populations, reweighted observables, free energies, ESS | Wrong transition law |
+| Transfer at lag $$\tau$$ | Kernel $$T(\tau)$$ on a declared state | Held-out transition counts and likelihood | Multi-lag inconsistency |
+| Markov coarse dynamics | Lumpable or approximately Markov state representation | Entry-history comparison, implied-time plateau, Chapman--Kolmogorov test | Hidden memory outside tested lags |
+| Physical-time paths | Consistent finite-dimensional path laws with calibrated clock | Autocorrelations, rates, first-passage and path statistics | Force-field or protocol bias shared by reference |
+| Experimental prediction | Ensemble plus named forward model | Prospective complementary observables not used for conditioning | Nonidentifiability and forward-model error |
+
 The strongest test combines complementary observables and predicts data not used for conditioning. If experimental restraints were supplied to the generator, reproducing them is a constraint-satisfaction check, not independent validation.
 
 ## Failure modes are usually category errors
@@ -213,6 +486,14 @@ Several recurring failures follow directly from confusing the target objects:
 - **A learned state hides memory.** The latent partition looks compact but fails lag-time and Chapman–Kolmogorov tests.
 - **Protein-level generalization is overstated.** Homologous sequences or nearly identical folds cross the split boundary.
 - **Force-field truth is confused with experimental truth.** A model perfectly emulates a simulation whose Hamiltonian is systematically wrong.
+
+The three-state switch turns that list into a diagnosis. A generator that returns one third $$A_1$$, one third $$A_2$$, and one third $$B$$ passes the stationary-population test. If the samples are independent, their order contains no estimate of $$\mathbf T$$. Randomly shuffling them and counting adjacent labels would create an artificial kernel with every row equal to $$\boldsymbol\pi$$. That kernel has the correct equilibrium distribution and erases both physical timescales.
+
+A trajectory model can fail in a different order. It may reproduce the 10-ns count matrix on held-out transitions yet violate the 20-ns semigroup relation. That result supports interpolation of one conditional kernel, not a physical-time process. If the same model first merges $$A_1$$ and $$A_2$$, its failure is upstream: no memoryless coarse kernel can reproduce the microstate dynamics for all histories. More trajectory data can shrink uncertainty around the equilibrium-conditioned value $$0.105$$ without making that value correct for a newly entered open state.
+
+Each failure has a matched intervention. Wrong equilibrium weights call for reweighting, broader support, or a corrected energy model. Semigroup failure calls for joint multi-lag training or an explicit continuous-time generator. Hidden-state memory calls for state refinement, a longer validated lag, or an explicit history variable. Numerical instability calls for solver refinement. Experimental disagreement calls for auditing both the ensemble and the named forward model. Applying one remedy everywhere can make the diagnosis worse: increasing lag may reduce hidden memory while discarding short-time kinetics, and stronger enhanced sampling may improve weights while further corrupting raw transition times.
+
+Data splitting follows the same claim. Random frames test interpolation among temporal neighbors. Held-out contiguous trajectory blocks test short-horizon rollout under familiar proteins and conditions. Independent simulation seeds test sensitivity to initialization. Holding out entire proteins tests sequence transfer, provided homologous and near-identical structural families do not cross the boundary. Experimental validation adds a different reference rather than another split of the same force-field trajectory.
 
 Uncertainty should be decomposed accordingly: finite sampling, force-field error, generative-model error, state-discretization error, and experimental forward-model error are not interchangeable confidence intervals.
 
