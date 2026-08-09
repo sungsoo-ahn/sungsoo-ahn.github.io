@@ -40,7 +40,8 @@ blog_blocks:
     content: >
       Optional named block shown before the post body.
 post_type: tutorial # tutorial | technical-note | research
-human_reviewed: true # optional; marks an AI-written post as having passed human editorial review
+selected: true # optional; includes the post in the independently curated Selected collection
+editorial_status: human-reviewed # human-reviewed | ai-generated; omit only for selected posts
 authors: ["Sungsoo Ahn"] # list all named authors shown in the post and blog index
 order: 1 # legacy field; blog index now sorts by date
 series: optional-series-id
@@ -61,7 +62,7 @@ The blog index sorts posts by date. Series metadata may be kept for organization
 
 Use `authors` for every post, even single-author posts. The blog layout also supports the older `author` field as a fallback, but new posts should use `authors`.
 
-Set `human_reviewed: true` only after an AI-written post has passed an explicit human editorial review. This moves a lecture-derived post from the AI-generated archive to the Human-reviewed archive. Selected highlights are a separate curated collection and do not imply that this review was completed.
+Use `selected: true` for the independently curated Selected collection. Otherwise, set `editorial_status` explicitly to `human-reviewed` or `ai-generated`; never infer it from the publication date or lecture metadata. Move an AI-generated post to `human-reviewed` only after an explicit human editorial review. A post must belong to exactly one of these three collections.
 
 Optional frontmatter blocks render between the post metadata and the post body. Use `abstract` for a single abstract-style block. Use `blog_blocks` for additional named blocks such as `Key points`, `Prerequisites`, or `Scope`. Keep these blocks short; Markdown is supported inside each block.
 
@@ -106,7 +107,7 @@ Posts begin with an author note immediately after the frontmatter:
 - Embed figures using the Liquid include:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="What the figure shows. Why it matters." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Concise description of the visible figure." caption="What the figure shows. Why it matters." %}
 ```
 
 Run `python3 scripts/validate_blog.py` before committing. It fails on broken metadata, missing figures, bad footnote IDs, and unsafe caption math; it warns on unused blog images and provenance wording that should be reviewed.

@@ -2,9 +2,10 @@
 layout: post
 title: "Geometric Flow Matching on Manifolds"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Flow matching beyond Euclidean space, from tangent velocity fields and geodesic conditional paths to product manifolds for molecular geometry."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [geometric-deep-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,20 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the geometric flow-matching storyline from my
-  Machine Learning for Molecules and Geometric Deep Learning lectures. The aim
-  is not to turn differential geometry into a checklist, but to identify the few
-  replacements that make ordinary flow matching valid on rotations, periodic
-  angles, and other curved state spaces. The division of labor is deliberate.
-  The preceding chapter on
-  <a href="{% post_url 2026-08-08-diffusion-models-flow-matching %}">diffusion models and flow matching</a>
-  owns conditional regression, target conversion, and Euclidean schedules. The
-  <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker--Planck chapter</a>
-  owns the density-PDE derivations, while the
-  <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">spherical-equivariance chapter</a>
-  owns representation theory. This post owns the interface between them: retype
-  every Euclidean primitive, then follow one state through geometry, loss,
-  density change, symmetry, and numerical integration.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. This article identifies the geometric replacements that make ordinary <a href="{% post_url 2026-08-08-diffusion-models-flow-matching %}">flow matching</a> valid on rotations, periodic angles, and other curved state spaces, then follows one state through loss, density change, symmetry, and numerical integration.</em>
 </p>
 
 Flow matching is unusually easy to describe in Euclidean space. Sample noise $$x_0$$ and data $$x_1$$, connect them by a straight line, and train a velocity field to follow that line. The construction depends on operations so familiar that they become invisible: subtracting two points, adding a vector to a point, and measuring a squared error with one global inner product.

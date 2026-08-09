@@ -5,7 +5,7 @@ date: 2026-05-21
 last_updated: 2026-08-09
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
-human_reviewed: true
+editorial_status: human-reviewed
 authors: ["Sungsoo Ahn"]
 order: 1
 series: ml-for-science

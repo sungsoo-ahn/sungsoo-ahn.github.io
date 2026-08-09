@@ -23,7 +23,7 @@ layout: default
     {% assign sorted_documents = page.documents | sort: 'date' | reverse %}
     <ol class="bibliography">
       {% for document in sorted_documents %}
-        {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
+        {% assign read_time = document.content | number_of_words | divided_by: 150 | plus: 1 %}
         <li>
           <div class="title">
             {% if document.redirect == blank %}
@@ -38,7 +38,13 @@ layout: default
             <div class="blog-list-description">{{ document.description }}</div>
           {% endif %}
           <div class="author">
-            {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
+            {% assign document_type = document.post_type | default: 'tutorial' | replace: '-', ' ' | capitalize %}
+            {% if document.post_type == 'technical-note' %}{% assign document_type = 'Technical note' %}{% endif %}
+            {{ document_type }} · Published {{ document.date | date: '%b %d, %Y' }}
+            {% assign published_day = document.date | date: '%Y-%m-%d' %}
+            {% assign updated_day = document.last_updated | date: '%Y-%m-%d' %}
+            {% if document.last_updated and updated_day != published_day %} · Updated {{ document.last_updated | date: '%b %d, %Y' }}{% endif %}
+            · {{ read_time }} min read
           </div>
         </li>
       {% endfor %}

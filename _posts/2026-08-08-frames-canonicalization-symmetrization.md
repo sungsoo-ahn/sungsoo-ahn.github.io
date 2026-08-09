@@ -3,10 +3,11 @@ layout: post
 title: "Frames, Canonicalization, and Symmetrization"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "How local frames, canonicalization, frame averaging, and probabilistic symmetrization turn arbitrary neural networks into geometric models—and why continuity is the central difficulty."
+description: "How canonicalization, local frames, frame averaging, and probabilistic symmetrization create geometric models—and why continuity is difficult."
 abstract: >
   A frame can express geometry in invariant coordinates, choose a canonical pose, or reduce an infinite symmetry average to a finite computation. These uses share one idea but have different failure modes.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [geometric-deep-learning]
 lecture_paths: [gdl]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the storyline of my 2025 Geometric Deep Learning lecture on frame-based models. <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">Symmetry and Equivariance for Geometric Data</a> owns the general language of group actions, stabilizers, representations, and equivariant composition. Here I focus on the operational choice that remains: choose one pose, build a local pose, average a finite frame, or sample a pose distribution.</em>
+  <em>Adapted from my 2025 Geometric Deep Learning lectures. After the general symmetry framework developed in <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">Symmetry and Equivariance for Geometric Data</a>, a practical choice remains: select one pose, construct local frames, average over finite frames, or sample a pose distribution.</em>
 </p>
 
 An equivariant network is usually built from equivariant layers. Every intermediate feature transforms according to a prescribed representation, and each operation preserves that rule. Frames offer another route: transform the input into one or more reference poses, apply an ordinary neural network there, then transform or average the outputs.

@@ -2,9 +2,10 @@
 layout: post
 title: "How Drug Discovery Turns Biological Hypotheses into Molecules"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Why drug discovery is a sequence of linked inference problems—from target validation and molecular binding to exposure, safety, and clinical benefit."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -15,7 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the drug-discovery storyline from my Machine Learning for Molecules lectures. It follows the chain of evidence from a disease mechanism to a clinical intervention, with particular attention to where molecular machine learning enters—and where a molecular prediction is not yet a drug-discovery result.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. The article follows the evidence chain from a disease mechanism to a clinical intervention, showing where molecular machine learning helps and why a molecular prediction is not yet a drug-discovery result.</em>
 </p>
 
 A drug begins as a claim about causality: changing some biological process will improve a disease. A molecule is one possible intervention on that process. Between the claim and a medicine lie several different questions. Is the proposed target causal in patients? Can it be modulated selectively? Can a compound reach the relevant tissue at a tolerable dose? Does changing the target produce clinical benefit?

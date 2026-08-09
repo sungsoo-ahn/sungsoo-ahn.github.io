@@ -7,6 +7,7 @@ description: "How metastable protein conformations become equilibrium ensembles 
 abstract: >
   Proteins occupy distributions of conformations connected by rare transitions. Learning those distributions can accelerate equilibrium sampling, while learning the dynamics additionally requires the correct transition pathways and timescales.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [protein-science]
 lecture_paths: [gdl]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the protein-ensemble and learned-dynamics storyline from my 2025 Geometric Deep Learning lecture, together with the simulation material from Machine Learning for Molecules. The mechanics and error budgets of reliable trajectories belong to <a href="{% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}">Molecular Simulation with Machine-Learned Force Fields</a>. The <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker–Planck chapter</a> owns the path-to-density derivation, while <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs, SDEs, and Probability Flow</a> and <a href="{% post_url 2026-08-08-geometric-flow-matching-manifolds %}">Geometric Flow Matching on Manifolds</a> own generative path semantics. This chapter owns the interface among equilibrium weights, coarse transfer operators, and physical-time path laws: whether a structural representation is sufficient to serve as a dynamical state.</em>
+  <em>Adapted from my 2025 Geometric Deep Learning and Machine Learning for Molecules lectures. The central question is whether a structural representation is sufficient to serve as a dynamical state, linking equilibrium weights, coarse transfer operators, and physical-time path laws. For trajectory mechanics and error budgets, see <a href="{% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}">Molecular Simulation with Machine-Learned Force Fields</a>.</em>
 </p>
 
 A protein structure is not a single object. Even at fixed sequence, solvent, temperature, protonation, and binding partners, the atoms fluctuate. Flexible loops move, side chains exchange rotamers, domains open and close, and disordered regions occupy broad families of conformations. Some states exchange in picoseconds; others remain separated for milliseconds or longer.

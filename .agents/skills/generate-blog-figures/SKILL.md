@@ -71,9 +71,10 @@ Use `bfs.use_blog_style()` before plotting, where `import blog_figure_style as b
 
 Every figure needs:
 
-1. One sentence saying what the figure shows.
-2. One sentence explaining the mechanism or interpretation.
-3. A short source/license note when the figure is downloaded or adapted.
+1. Concise `alt` text describing what is visibly present.
+2. One caption sentence saying what the figure shows.
+3. One caption sentence explaining the mechanism or interpretation.
+4. A short source/license note when the figure is downloaded or adapted.
 
 Inside `{% include figure.liquid %}` captions, use `\(...\)` for math, not `$...$`.
 
@@ -93,17 +94,17 @@ Inside `{% include figure.liquid %}` captions, use `\(...\)` for math, not `$...
 Generated static figure:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="One-sentence summary. One-sentence mechanism." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/your_figure.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Concise description of the visible diagram." caption="One-sentence summary. One-sentence mechanism." %}
 ```
 
 Sourced raster:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/your_source_figure.jpg" class="img-fluid rounded z-depth-1" zoomable=true caption="One-sentence summary. One-sentence interpretation. From Author et al. (Year), CC BY 4.0." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/your_source_figure.jpg" class="img-fluid rounded z-depth-1" zoomable=true alt="Concise description of the visible figure." caption="One-sentence summary. One-sentence interpretation. From Author et al. (Year), CC BY 4.0." %}
 ```
 
 Image-generated physical schematic:
 
 ```liquid
-{% include figure.liquid loading="eager" path="assets/img/blog/your_device_schematic.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="One-sentence summary. One-sentence mechanism. Base illustration generated with ChatGPT image generation; labels added as editable SVG." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/your_device_schematic.svg" class="img-fluid rounded z-depth-1" zoomable=true alt="Concise description of the visible device schematic." caption="One-sentence summary. One-sentence mechanism. Base illustration generated with ChatGPT image generation; labels added as editable SVG." %}
 ```

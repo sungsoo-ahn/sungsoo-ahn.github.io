@@ -11,41 +11,28 @@ layout: default
   <article class="archive publications blog-index">
     {% include blog-category-nav.liquid %}
     {% if page.post_type %}
-      {% assign type_documents = site.posts | where: "post_type", page.post_type | sort: "date" | reverse %}
+      {% assign type_documents = site.posts | where: "post_type", page.post_type %}
     {% else %}
-      {% assign type_documents = site.posts | sort: "date" | reverse %}
+      {% assign type_documents = site.posts %}
     {% endif %}
-    {% if page.before_date %}
-      {% assign before_timestamp = page.before_date | date: "%s" | plus: 0 %}
+    {% if page.sort_by == 'title' %}
+      {% assign type_documents = type_documents | sort: 'title' %}
+    {% else %}
+      {% assign type_documents = type_documents | sort: 'date' | reverse %}
     {% endif %}
     {% assign archive_count = 0 %}
     <ol class="bibliography">
       {% for document in type_documents %}
         {% assign include_document = true %}
-        {% if page.before_date %}
-          {% assign document_timestamp = document.date | date: "%s" | plus: 0 %}
-          {% if document_timestamp >= before_timestamp %}
-            {% assign include_document = false %}
-          {% endif %}
-        {% endif %}
-        {% if page.exclude_human_reviewed and document.human_reviewed %}
+        {% if page.collection_status == 'selected' and document.selected != true %}
           {% assign include_document = false %}
         {% endif %}
-        {% if page.editorial_status == 'human-reviewed' %}
-          {% unless document.human_reviewed %}
-            {% assign include_document = false %}
-          {% endunless %}
-        {% elsif page.editorial_status == 'ai-generated' %}
-          {% unless document.lecture_paths %}
-            {% assign include_document = false %}
-          {% endunless %}
-          {% if document.human_reviewed %}
-            {% assign include_document = false %}
-          {% endif %}
+        {% if page.editorial_status and document.editorial_status != page.editorial_status %}
+          {% assign include_document = false %}
         {% endif %}
         {% if include_document %}
           {% assign archive_count = archive_count | plus: 1 %}
-          {% assign read_time = document.content | number_of_words | divided_by: 180 | plus: 1 %}
+          {% assign read_time = document.content | number_of_words | divided_by: 150 | plus: 1 %}
           <li>
             <div class="title">
               {% if document.redirect == blank %}
@@ -60,7 +47,13 @@ layout: default
               <div class="blog-list-description">{{ document.description }}</div>
             {% endif %}
             <div class="author">
-              {% if document.last_updated %}Updated {{ document.last_updated | date: '%b %d, %Y' }}{% else %}{{ document.date | date: '%b %d, %Y' }}{% endif %}; {{ read_time }} min read
+              {% assign document_type = document.post_type | default: 'tutorial' | replace: '-', ' ' | capitalize %}
+              {% if document.post_type == 'technical-note' %}{% assign document_type = 'Technical note' %}{% endif %}
+              {{ document_type }} · Published {{ document.date | date: '%b %d, %Y' }}
+              {% assign published_day = document.date | date: '%Y-%m-%d' %}
+              {% assign updated_day = document.last_updated | date: '%Y-%m-%d' %}
+              {% if document.last_updated and updated_day != published_day %} · Updated {{ document.last_updated | date: '%b %d, %Y' }}{% endif %}
+              · {{ read_time }} min read
             </div>
           </li>
         {% endif %}

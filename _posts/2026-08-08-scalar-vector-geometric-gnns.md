@@ -2,9 +2,10 @@
 layout: post
 title: "Scalar and Vector Geometric Graph Networks"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "How geometric graph networks move from invariant distances and angles to equivariant coordinate updates and vector channels, and what directional information buys."
+last_updated: 2026-08-09
+description: "How geometric graph networks move from invariant distances and angles to equivariant coordinates and vector channels—and what directionality buys."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [geometric-deep-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,11 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the scalar-to-vector storyline from my Machine
-  Learning for Molecules and Geometric Deep Learning lectures. The distinction
-  is about hidden representations, not scientific ambition: scalar models can
-  encode rich geometry, while vector models keep selected directions explicit
-  throughout the computation.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. The scalar–vector distinction concerns hidden representations, not scientific ambition: scalar models can encode rich geometry, while vector models keep selected directions explicit throughout the computation.</em>
 </p>
 
 A geometric graph has two structures. Its edges say which entities interact, while its coordinates say how those entities are arranged in space. A useful network must exploit the coordinates without changing its answer when the entire object is translated, rotated, or---when the task permits---reflected.

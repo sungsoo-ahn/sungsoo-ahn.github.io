@@ -2,11 +2,12 @@
 layout: post
 title: "ODEs, SDEs, and Probability Flow"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "How deterministic and stochastic dynamics transport probability, why the score appears in reverse-time diffusion, and how a probability-flow ODE shares every marginal with an SDE."
+last_updated: 2026-08-09
+description: "How ODEs and SDEs transport probability, why scores appear in reverse-time diffusion, and how probability-flow ODEs match SDE marginals."
 abstract: >
   An ODE and an SDE can trace very different sample paths while producing the same probability density at every time. The bridge is probability flux, and the score converts diffusion into an equivalent deterministic velocity.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [generative-modeling]
 lecture_paths: [ml4mol, gdl]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the ODE and SDE storyline from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. The division of labor is deliberate: <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The Fokker–Planck Equation</a> owns the physical intuition and full PDE derivations, while <a href="{% post_url 2026-03-14-path-measures-generative-models %}">From Jarzynski's Equality to Diffusion Models</a> owns Radon–Nikodym derivatives and path-measure ratios. This chapter follows one particle ensemble from a flow map to a density, a probability current, and finally two reverse-time samplers.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. One particle ensemble is carried from a deterministic flow map to a density, a probability current, and two reverse-time samplers; <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The Fokker–Planck Equation</a> provides the full PDE derivation.</em>
 </p>
 
 Generative models need a way to move probability. A deterministic model can move every sample along a velocity field. A stochastic model can add random Brownian kicks while it moves. These mechanisms produce different trajectories, but trajectories are not the final object of interest. What matters for generation is the probability distribution reached at each time.

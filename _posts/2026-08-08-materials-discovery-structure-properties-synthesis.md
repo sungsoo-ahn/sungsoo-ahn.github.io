@@ -2,10 +2,11 @@
 layout: post
 title: "Materials Discovery Connects Structure, Properties, and Synthesis"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "A material is more than a chemical formula: discovery must connect periodic structure, competing phases, target properties, processing conditions, and experimental formation."
+last_updated: 2026-08-09
+description: "A material is more than a formula: discovery must connect periodic structure, competing phases, target properties, processing, and experimental formation."
 abstract: "Machine learning can screen and generate crystal structures quickly, but a predicted crystal is not yet a discovered material. This post follows the full argument from periodic representations and structure-dependent properties to convex-hull stability, defects, polymorphs, synthesis conditions, active learning, and experimental closure."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [materials-science]
 lecture_paths: [ml4mol, gdl]
@@ -16,7 +17,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the materials-discovery storyline from my Machine Learning for Molecules and Geometric Deep Learning lectures. It follows the chain from composition and periodic structure through stability, properties, synthesis, and experimental closure.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. The article follows a materials claim from composition and periodic structure through stability, properties, synthesis, and experimental closure.</em>
 </p>
 
 ## A formula is not a material

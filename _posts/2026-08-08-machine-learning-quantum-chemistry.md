@@ -3,8 +3,9 @@ layout: post
 title: "Machine Learning Meets Quantum Chemistry"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "Where machine learning enters electronic-structure theory, from neural wavefunctions and learned functionals to densities, Hamiltonians, corrections, and surrogate potential-energy surfaces."
+description: "Where machine learning enters electronic-structure theory, from neural wavefunctions and learned functionals to Hamiltonians and energy surfaces."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -15,16 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the machine-learning and quantum-chemistry
-  storyline from my Machine Learning for Molecules lecture. The division of
-  labor is deliberate. <a href="{% post_url 2026-02-03-quantum-chemistry-dft %}">Quantum
-  Chemistry and Density Functional Theory</a> owns the many-electron, Hartree–Fock,
-  and Kohn–Sham derivations. The <a href="{% post_url 2026-08-08-equivariant-transformers-machine-learned-potentials %}">equivariant-potential</a>
-  and <a href="{% post_url 2026-08-08-molecular-simulation-machine-learned-force-fields %}">simulation</a>
-  chapters own architecture and rollout validation. This chapter instead asks
-  what the model approximates—wavefunction, density, Hamiltonian, energy
-  surface, property, or correction—and propagates its error through the solver
-  or estimator that consumes it.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. Building on <a href="{% post_url 2026-02-03-quantum-chemistry-dft %}">Quantum Chemistry and DFT</a>, this article asks what a learned model actually approximates—wavefunction, density, Hamiltonian, energy surface, property, or correction—and how its error propagates through the solver or estimator that consumes it.</em>
 </p>
 
 Quantum chemistry is expensive for a structural reason. The electronic state of $$N_e$$ electrons is not a function of one point in three-dimensional space; it is a function over all electron coordinates at once. Machine learning can avoid, accelerate, or reparameterize parts of that computation, but these interventions are not interchangeable.

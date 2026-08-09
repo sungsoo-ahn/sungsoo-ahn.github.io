@@ -3,8 +3,9 @@ layout: post
 title: "Genomic Foundation Models and Virtual Cells"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "From genomic sequence models and noisy single-cell measurements to perturbation-conditioned prediction—and the stronger causal, dynamic, and evaluation requirements of a virtual cell."
+description: "From genomic sequence models and noisy single-cell measurements to perturbation prediction and the stronger requirements of a virtual cell."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [genomics-cell]
 lecture_paths: [ml4mol, gdl]
@@ -15,15 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the genomics and virtual-cell storyline from my
-  Machine Learning for Molecules and Geometric Deep Learning lectures. It
-  separates models of molecular sequence, measured cell state, and response to
-  intervention because their inputs, guarantees, and evaluation regimes are
-  fundamentally different. The <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker–Planck chapter</a>
-  develops the distinction between paths, transition kernels, and population
-  marginals for a specified stochastic process. This chapter asks the inverse
-  biological question: which of those objects can destructive genomic and
-  single-cell measurements actually identify?</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Sequence, measured cell state, and response to intervention are different modeling objects with different evidence requirements; the central question is which of them destructive genomic and single-cell measurements can actually identify.</em>
 </p>
 
 Calling DNA a language is productive, but incomplete. A genomic sequence has local motifs, long-range dependencies, repeated elements, and variation across organisms. These regularities make masked or autoregressive pretraining useful. Yet a cell is not the text of its genome. Cells with essentially the same DNA can occupy different states because transcription factors, chromatin, proteins, metabolites, spatial signals, developmental history, and environment differ.
