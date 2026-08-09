@@ -528,6 +528,278 @@
       "license_status": "open",
       "license": "CC BY 4.0",
       "verified_on": "2026-08-09"
+    },
+    "bechler-speicher-2025-poor-benchmarks": {
+      "label": "Bechler-Speicher et al. (2025)",
+      "url": "https://proceedings.mlr.press/v267/bechler-speicher25a.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "behrouz-hashemi-2024-graph-mamba": {
+      "label": "Behrouz & Hashemi (2024), Graph Mamba",
+      "url": "https://doi.org/10.1145/3637528.3672044",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "ACM publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "bevilacqua-2022-esan": {
+      "label": "Bevilacqua et al. (2022), ESAN",
+      "url": "https://openreview.net/forum?id=dFbKQaRk15w",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "bodnar-2021-cwn": {
+      "label": "Bodnar et al. (2021), CW Networks",
+      "url": "https://papers.nips.cc/paper/2021/hash/157792e4abb490f99dbd738483e0d2d4-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "bodnar-2021-mpsn": {
+      "label": "Bodnar et al. (2021), MPSN",
+      "url": "https://proceedings.mlr.press/v139/bodnar21a.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "bouritsas-2021-gsn": {
+      "label": "Bouritsas et al. (2021), GSN",
+      "url": "https://openreview.net/forum?id=LT0KSFnQDWF",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "bresson-laurent-2018-gatedgcn": {
+      "label": "Bresson & Laurent (2018), Residual Gated Graph ConvNets",
+      "url": "https://arxiv.org/abs/1711.07553",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "arXiv distribution license; no figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "chamberlain-2021-grand": {
+      "label": "Chamberlain et al. (2021), GRAND",
+      "url": "https://proceedings.mlr.press/v139/chamberlain21a.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "chen-2020-gcnii": {
+      "label": "Chen et al. (2020), GCNII",
+      "url": "https://proceedings.mlr.press/v119/chen20v.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "corso-2020-pna": {
+      "label": "Corso et al. (2020), PNA",
+      "url": "https://papers.nips.cc/paper_files/paper/2020/hash/99cad265a1768cc2dd013f0e740300ae-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "defferrard-2016-chebnet": {
+      "label": "Defferrard et al. (2016), ChebNet",
+      "url": "https://papers.nips.cc/paper_files/paper/2016/hash/04df4d434d481c5bb723be1b6df1ee65-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "dwivedi-bresson-2020-graph-transformer": {
+      "label": "Dwivedi & Bresson (2020), Graph Transformer",
+      "url": "https://arxiv.org/abs/2012.09699",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "arXiv distribution license; no figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "errica-2020-fair-comparison": {
+      "label": "Errica et al. (2020), A Fair Comparison of GNNs",
+      "url": "https://openreview.net/forum?id=4MvxSiG10uu",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "gilmer-2017-mpnn": {
+      "label": "Gilmer et al. (2017), MPNN",
+      "url": "https://proceedings.mlr.press/v70/gilmer17a.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "grover-leskovec-2016-node2vec": {
+      "label": "Grover & Leskovec (2016), node2vec",
+      "url": "https://www.kdd.org/kdd2016/subtopic/view/node2vec-scalable-feature-learning-for-networks",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "ACM publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "hamilton-2017-graphsage": {
+      "label": "Hamilton et al. (2017), GraphSAGE",
+      "url": "https://papers.nips.cc/paper_files/paper/2017/hash/5dd9db5e033da9c6fb5ba83c7a7ebea9-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "henaff-2015-graph-conv": {
+      "label": "Henaff et al. (2015), Deep Convolutional Networks on Graph-Structured Data",
+      "url": "https://arxiv.org/abs/1506.05163",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "arXiv distribution license; no figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "kim-2022-tokengt": {
+      "label": "Kim et al. (2022), TokenGT",
+      "url": "https://papers.nips.cc/paper_files/paper/2022/hash/5d84236751fe6d25dc06db055a3180b0-Abstract-Conference.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "kim-2025-rwnn": {
+      "label": "Kim et al. (2025), Random Walk Neural Networks",
+      "url": "https://openreview.net/forum?id=SG1R2H3fa1",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "luo-2024-classic-gnns": {
+      "label": "Luo et al. (2024), Classic GNNs Are Strong Baselines",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/hash/b10ed15ff1aa864f1be3a75f1ffc021b-Abstract-Datasets_and_Benchmarks_Track.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "masters-2023-gpspp": {
+      "label": "Masters et al. (2023), GPS++",
+      "url": "https://openreview.net/forum?id=moVEUgJaHO",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "rampasek-2022-graphgps": {
+      "label": "Rampasek et al. (2022), GraphGPS",
+      "url": "https://papers.nips.cc/paper_files/paper/2022/hash/5d4834a159f1547b267a05a4e2b7cf5e-Abstract-Conference.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "sato-2020-expressive-power": {
+      "label": "Sato (2020), expressive-power survey",
+      "url": "https://arxiv.org/abs/2003.04078",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "arXiv distribution license; no figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "schlichtkrull-2018-rgcn": {
+      "label": "Schlichtkrull et al. (2018), R-GCN",
+      "url": "https://arxiv.org/abs/1703.06103",
+      "kind": "paper",
+      "license_status": "unknown",
+      "license": "arXiv distribution license; no figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "stanford-cs224w-2020-traditional-ml": {
+      "label": "Stanford CS224W (2020), Traditional Methods for ML on Graphs",
+      "url": "https://snap.stanford.edu/class/cs224w-2020/slides/02-tradition-ml.pdf",
+      "kind": "lecture-slides",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "stanford-cs224w-2021-gnn1": {
+      "label": "Stanford CS224W (2021), Graph Neural Networks I",
+      "url": "https://web.stanford.edu/class/archive/cs/cs224w/cs224w.1222/slides/06-GNN1.pdf",
+      "kind": "lecture-slides",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "topping-2022-oversquashing": {
+      "label": "Topping et al. (2022), Understanding Over-Squashing via Curvature",
+      "url": "https://openreview.net/forum?id=7UmjRGzp-A",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "wu-2019-sgc": {
+      "label": "Wu et al. (2019), Simplifying Graph Convolutional Networks",
+      "url": "https://proceedings.mlr.press/v97/wu19e.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "xu-2018-jumping-knowledge": {
+      "label": "Xu et al. (2018), Jumping Knowledge Networks",
+      "url": "https://proceedings.mlr.press/v80/xu18c.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "xu-2019-gin": {
+      "label": "Xu et al. (2019), Graph Isomorphism Network",
+      "url": "https://openreview.net/forum?id=ryGs6iA5Km",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
+    },
+    "ying-2018-diffpool": {
+      "label": "Ying et al. (2018), DiffPool",
+      "url": "https://papers.nips.cc/paper_files/paper/2018/hash/e77dbaf6759253c7c6d0efc5690369c7-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "ying-2021-graphormer": {
+      "label": "Ying et al. (2021), Graphormer",
+      "url": "https://papers.nips.cc/paper/2021/hash/f1c1592588411002af340cbaedd6fc33-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "you-2020-graphgym": {
+      "label": "You et al. (2020), Design Space for GNNs / GraphGym",
+      "url": "https://papers.nips.cc/paper_files/paper/2020/hash/c5c3d4fe6b2cc463c7d7ecba17cc9de7-Abstract.html",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Copyright held by the authors; no figure-reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "zhao-2022-gnn-ak": {
+      "label": "Zhao et al. (2022), GNN-AK",
+      "url": "https://openreview.net/forum?id=Mspk_WYKoEH",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "No compatible figure-reuse license confirmed",
+      "verified_on": "2026-08-09"
     }
   },
   "figures": {
@@ -1421,6 +1693,827 @@
       ],
       "reader_note": "",
       "notes": "Exact corporate infographic."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s04-image4.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The notation, typography, and graph-to-target layout are internally consistent with the surrounding lecture-created slides, and exact-text/image searches found no external occurrence."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created definition panel; no external figure source is asserted."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s05-image1.webp": {
+      "status": "verified",
+      "source_ids": [
+        "stanford-cs224w-2020-traditional-ml"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Stanford slide contains the exact red-node graph and Node-level / Link-level / Graph-level labels."
+      ],
+      "reader_note": "",
+      "notes": "Exact lecture-slide crop located by distinctive label search."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s06-image2.webp": {
+      "status": "verified",
+      "source_ids": [
+        "stanford-cs224w-2021-gnn1"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Stanford slide contains the exact ENC(G) graphic and the phrase 'multiple layers of non-linear transformations based on graph structure'."
+      ],
+      "reader_note": "",
+      "notes": "Exact lecture-slide crop located by verbatim text search."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s07-image6.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The graph drawing, message arrows, and equation labels use the deck's own notation and visual system."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created MPNN update illustration."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s08-image7.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The pooling equations use the same notation and typesetting as adjacent deck-created derivations."
+      ],
+      "reader_note": "Lecture equations by the author.",
+      "notes": "Author-created comparison of sum, mean, and max pooling."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s09-image13.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The GCN equation and color annotations follow the deck's local notation rather than a reproduced publication panel."
+      ],
+      "reader_note": "Lecture equation by the author.",
+      "notes": "Author-created GCN equation panel."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s10-image14.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The matrix derivation, explanatory bullets, and color coding are a single deck-native composition."
+      ],
+      "reader_note": "Lecture derivation by the author.",
+      "notes": "Author-created matrix-form GCN panel."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s11-image15.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The method list is arranged around the lecture's own MPNN template and matches the surrounding slide design."
+      ],
+      "reader_note": "Lecture comparison by the author.",
+      "notes": "Author-created architecture comparison."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s13-image17.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The attention equations use the lecture's notation and are integrated with deck-native annotations."
+      ],
+      "reader_note": "Lecture derivation by the author.",
+      "notes": "Author-created graph-attention derivation."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s14-image11.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The concatenate-and-linear schematic is a deck-native construction using the lecture's symbols."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created GAT scoring schematic."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s14-image21.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The one-line query-key equation is typeset as a lecture annotation rather than extracted from a paper figure."
+      ],
+      "reader_note": "Lecture equation by the author.",
+      "notes": "Author-created comparison equation."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s15-image18.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The isomorphism conditions and graph labels share the deck's notation and composition style."
+      ],
+      "reader_note": "Lecture definition by the author.",
+      "notes": "Author-created graph-isomorphism definition panel."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s15-image19.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The graph pair and correspondence arrows form a deck-native companion to the adjacent definition."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created isomorphism example."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s16-image20.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The commuting diagram reuses the author-created graph pair from slide 15 and adds deck-native labels."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created MPNN/isomorphism diagram."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s18-image23.webp": {
+      "status": "unresolved",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [
+        "Semantic and image searches located many circular-skip-link examples but not this exact pair of graph drawings."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "Do not attribute the generic CSL drawings to a merely similar paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s18-image24.webp": {
+      "status": "ambiguous",
+      "source_ids": [
+        "sato-2020-expressive-power"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "Sato (2020) is the repeatedly cited source for the Decalin/Bicyclopentyl 1-WL counterexample, including in the GSN paper.",
+        "The simple chemical line drawings are too generic to establish that this exact rendering originated there."
+      ],
+      "reader_note": "The counterexample is credited to Sato (2020); the exact drawing origin is unclear.",
+      "notes": "Concept provenance is strong, but exact visual provenance remains ambiguous."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s20-image26.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The function-class diagram uses the deck's notation and visual language and has no matching external occurrence."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created universal-approximation diagram."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s21-image27.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The nested function classes extend the author-created slide-20 diagram in the same notation."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created function-class inclusion diagram."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s22-image28.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The substructure-counting panel extends the deck's own function-class diagram."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created substructure-counting diagram."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s25-image31.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The graph colors, numbered instructions, and typography form a deck-native WL walkthrough."
+      ],
+      "reader_note": "Lecture example by the author.",
+      "notes": "Author-created WL refinement step 1."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s26-image32.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "This is the second panel of the same deck-native WL walkthrough."
+      ],
+      "reader_note": "Lecture example by the author.",
+      "notes": "Author-created WL refinement step 2."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s27-image33.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "This is the concluding panel of the same deck-native WL walkthrough."
+      ],
+      "reader_note": "Lecture example by the author.",
+      "notes": "Author-created WL refinement conclusion."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s29-image35.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The GIN/GCN equations are reformatted into the lecture's notation and annotated as one deck-native comparison."
+      ],
+      "reader_note": "Lecture comparison by the author.",
+      "notes": "Author-created comparison based on the published GIN and GCN updates."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s30-image36.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The input/output graph Transformer question is composed in the lecture's own visual system."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created graph-Transformer motivation."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s31-image38.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "medium",
+      "evidence": [
+        "The sequence/graph positional-encoding comparison is integrated with the deck's Transformer blocks; no exact external match was found."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Treated as lecture-authored rather than assigning a conceptually similar Transformer slide."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s33-image40.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The eigenvector matrix and Transformer block use the deck's own notation and layout."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created Laplacian positional-encoding diagram."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s34-image41.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The degree/adjacency/Laplacian matrices are rendered as a worked lecture example."
+      ],
+      "reader_note": "Lecture example by the author.",
+      "notes": "Author-created Laplacian calculation."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s35-image44.webp": {
+      "status": "verified",
+      "source_ids": [
+        "ying-2021-graphormer"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The node-feature, centrality, spatial, and edge-encoding composition matches the Graphormer method figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact Graphormer architecture figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s36-image45.webp": {
+      "status": "verified",
+      "source_ids": [
+        "masters-2023-gpspp"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The hybrid local/global block diagram matches the GPS++ paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact GPS++ figure under CC BY 4.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s36-image47.webp": {
+      "status": "verified",
+      "source_ids": [
+        "masters-2023-gpspp"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The PCQM4Mv2 model-size/performance plot matches the GPS++ paper and is reused again on slide 71."
+      ],
+      "reader_note": "",
+      "notes": "Exact GPS++ result figure under CC BY 4.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s39-image51.webp": {
+      "status": "verified",
+      "source_ids": [
+        "henaff-2015-graph-conv"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Omega_0/Omega_1/Omega_2 graph-coarsening diagram and F-index labels match the paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s40-image53.webp": {
+      "status": "verified",
+      "source_ids": [
+        "defferrard-2016-chebnet"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The graph coarsening, pooling, and Chebyshev-filter architecture matches the ChebNet paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s41-image54.webp": {
+      "status": "verified",
+      "source_ids": [
+        "grover-leskovec-2016-node2vec"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The BFS/DFS walk-bias diagram is the canonical node2vec method figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s43-image61.webp": {
+      "status": "verified",
+      "source_ids": [
+        "gilmer-2017-mpnn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The DFT versus Message Passing Neural Net timing graphic is Fig. 1 of the paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s44-image63.webp": {
+      "status": "verified",
+      "source_ids": [
+        "hamilton-2017-graphsage"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The sampled-neighborhood and aggregate-combine pipeline matches the GraphSAGE paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s45-image65.webp": {
+      "status": "verified",
+      "source_ids": [
+        "schlichtkrull-2018-rgcn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The typed relational graph and relation-specific convolution pipeline match the R-GCN paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s46-image66.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The commuting-matrix derivation is reformatted in the lecture's notation and presentation style."
+      ],
+      "reader_note": "Lecture derivation by the author.",
+      "notes": "Author-created derivation of the Deep Sets equivariant linear basis."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s47-image70.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bresson-laurent-2018-gatedgcn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The residual gated graph-convolution architecture matches the paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact author-manuscript figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s48-image71.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The single GAT update equation is typeset in the lecture's notation rather than reproduced as a paper panel."
+      ],
+      "reader_note": "Lecture equation by the author.",
+      "notes": "Author-created equation based on the GAT method."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s49-image74.webp": {
+      "status": "verified",
+      "source_ids": [
+        "xu-2018-jumping-knowledge"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The multi-depth representations jumping to the output match the JK-Net architecture figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s50-image75.webp": {
+      "status": "verified",
+      "source_ids": [
+        "ying-2018-diffpool"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The successive soft node-to-cluster coarsening diagram matches the DiffPool paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s51-image81.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "high",
+      "evidence": [
+        "The graph permutation and matrix-row/column permutation example is composed in the lecture's visual style."
+      ],
+      "reader_note": "Lecture example by the author.",
+      "notes": "Author-created illustration of tensor permutation action."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s52-image85.webp": {
+      "status": "verified",
+      "source_ids": [
+        "xu-2019-gin"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The graph pairs contrasting sum, mean, and max aggregation match the GIN paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s54-image90.webp": {
+      "status": "lecture-original",
+      "source_ids": [],
+      "confidence": "medium",
+      "evidence": [
+        "The ordered-pair grid uses the deck's colors and labels; no exact paper panel was found."
+      ],
+      "reader_note": "Lecture diagram by the author.",
+      "notes": "Author-created higher-order WL illustration, informed by Morris et al. (2019)."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s55-image95.webp": {
+      "status": "verified",
+      "source_ids": [
+        "wu-2019-sgc"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The GCN-versus-SGC pipeline is Fig. 1 of the paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s56-image96.webp": {
+      "status": "verified",
+      "source_ids": [
+        "errica-2020-fair-comparison"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The benchmark table and caption match the fair-comparison paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s57-image100.webp": {
+      "status": "verified",
+      "source_ids": [
+        "corso-2020-pna"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The multiple aggregators and degree scalers diagram matches the PNA paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s58-image102.webp": {
+      "status": "verified",
+      "source_ids": [
+        "chen-2020-gcnii"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The depth comparison table matches the GCNII paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s59-image105.webp": {
+      "status": "verified",
+      "source_ids": [
+        "dwivedi-bresson-2020-graph-transformer"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The paired graph-Transformer architecture diagrams match the author manuscript."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s60-image107.webp": {
+      "status": "verified",
+      "source_ids": [
+        "you-2020-graphgym"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The design/task-space plot and GraphGym configuration screenshot match the paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper composite."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s61-image108.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bouritsas-2021-gsn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The annotated substructure-count comparison matches the GSN paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s61-image110.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bouritsas-2021-gsn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The graph pair is reproduced from the GSN paper's expressivity examples."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s62-image113.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bodnar-2021-cwn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The polygonal cell complex and incidence-message arrows match the CW Networks paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s62-image115.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bodnar-2021-mpsn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The adjacent simplices and higher-order messages match the MPSN paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s63-image117.webp": {
+      "status": "verified",
+      "source_ids": [
+        "ying-2021-graphormer"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The Graphormer encoding/attention architecture matches the paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s64-image120.webp": {
+      "status": "verified",
+      "source_ids": [
+        "chamberlain-2021-grand"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The continuous graph-diffusion equation is reproduced from the GRAND method presentation."
+      ],
+      "reader_note": "",
+      "notes": "Exact equation crop from the paper."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s65-image123.webp": {
+      "status": "verified",
+      "source_ids": [
+        "topping-2022-oversquashing"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The red/blue paths compressed through a graph bottleneck match the curvature/over-squashing paper figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s66-image125.webp": {
+      "status": "verified",
+      "source_ids": [
+        "zhao-2022-gnn-ak"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The base-GNN-on-local-subgraphs pipeline matches the GNN-AK paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s67-image128.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bevilacqua-2022-esan"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The node-deleted subgraph bags and WL histograms match the ESAN paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s68-image130.webp": {
+      "status": "verified",
+      "source_ids": [
+        "rampasek-2022-graphgps"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The GPS architecture and positional/structural encoding overview match the GraphGPS paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s69-image132.webp": {
+      "status": "verified",
+      "source_ids": [
+        "kim-2022-tokengt"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The node/edge tokenization and Transformer pipeline match the TokenGT paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s70-image139.webp": {
+      "status": "verified",
+      "source_ids": [
+        "masters-2023-gpspp"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The GPS++ local/global block diagram matches the TMLR paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact GPS++ figure under CC BY 4.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s73-image143.webp": {
+      "status": "verified",
+      "source_ids": [
+        "behrouz-hashemi-2024-graph-mamba"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The neighborhood tokenization, ordering, and bidirectional selective-SSM pipeline match the Graph Mamba paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s74-image144.webp": {
+      "status": "verified",
+      "source_ids": [
+        "luo-2024-classic-gnns"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The node-classification benchmark table matches the NeurIPS 2024 paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s75-image147.webp": {
+      "status": "verified",
+      "source_ids": [
+        "kim-2025-rwnn"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The random-walk record and pretrained language-model pipeline match the RWNN paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure under CC BY 4.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s76-image149.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The title banner is an exact crop from the position paper and is reused on slide 78."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper title crop."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s79-image151.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The chronological graph-learning overview matches the position paper's field overview."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s81-image152.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The image-to-graph construction examples are reproduced from the paper's benchmark critique."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s84-image153.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The controlled OGB model table matches the position paper appendix."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s85-image154.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The baseline/modified-GNN comparison table matches the position paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s85-image155.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The heterophilous-dataset comparison table matches the position paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s86-image156.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The upstream/downstream multi-task pretraining table matches the position paper."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-04/s86-image157.webp": {
+      "status": "verified",
+      "source_ids": [
+        "bechler-speicher-2025-poor-benchmarks"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The three downstream learning curves match the position paper appendix."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure."
     }
   }
 }
