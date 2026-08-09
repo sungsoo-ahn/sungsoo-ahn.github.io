@@ -260,6 +260,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     and evaluated task that the source uses to distinguish it. Model names and
     parameter counts alone do not explain what was scaled or what new claim the
     model supports.
+34. Preserve application sections as model-to-observable handoffs rather than
+    shortening them into a list of domains. State which generated or predicted
+    object enters which downstream calculation, relaxation, simulation, or
+    experiment, and which physical observable is finally evaluated. The
+    application often defines the scientific purpose and limitations of the
+    upstream model output.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
