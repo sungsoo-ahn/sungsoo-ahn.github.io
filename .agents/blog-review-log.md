@@ -385,6 +385,33 @@ requirements for the replacement deck-level articles.
   coset, quotient, representation, and equivariance each supply the object used
   next, so none should be compressed into glossary background. The blog-writing
   skill now records this dependency-chain rule.
+
+### GDL 2025 Lecture 3: Graph Neural Networks
+
+- **Source:** `lec3_gnn1.pdf` (63 pages), represented by 55 canonical PDF
+  composites that preserve the equations, diagrams, paper panels, and benchmark
+  tables assembled on each substantive slide.
+- **Coverage:** 55 substantive slides covered; the cover, overview, five repeated
+  agenda slides, and one study-resources slide omitted. The article retains the
+  source order: graph targets, message passing and GCN, graph attention, graph
+  Transformers and positional encoding, the 2013--2023 architecture survey, and
+  dataset regimes from TU collections to knowledge-graph reasoning.
+- **Figures:** all 55 source-native substantive visual composites reused (100%).
+  Full-slide crops were necessary because equations, annotations, paper
+  screenshots, and diagrams form one layout in the source. No extracted fragment
+  was substituted and no explanatory figure was drawn.
+- **Synthetic material removed:** the previous message-passing tutorial's fixed
+  five-node numerical example, layer equivariance proof, aggregation collision
+  table, structural-attention calculation, and sparse-versus-dense complexity
+  example were absent from this deck. The replacement restores the lecture's
+  long architecture and benchmark chronology, including its judgments about
+  graph pooling, fragile small-data comparisons, universal-best claims, and the
+  changing importance of data scale.
+- **General lesson promoted:** a chronological survey can carry an argument by
+  showing which limitation each method changes. Preserving only a modern MPNN
+  derivation would erase the deck's progression through locality, pooling,
+  expressivity, depth, long-range propagation, fair comparison, and scaling.
+  The blog-writing skill now records this chronological-survey rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
