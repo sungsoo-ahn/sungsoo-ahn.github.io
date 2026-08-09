@@ -1,0 +1,1803 @@
+{
+  "deck_id": "gdl-2025-18",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec18_proteins1.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec18_proteins1.pptx",
+  "slide_count": 64,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": null,
+      "title": "AI for Proteins",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AI for Proteins",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Announcement",
+      "classification": "logistical",
+      "coverage": "pending",
+      "text": [
+        "Announcement",
+        "• https://klms.kaist.ac.kr/mod/courseboard/article.php?id=1050709&bwid=395923",
+        "• The schedule for the blog post submission and review submission",
+        "has been rescheduled as follows:",
+        "• Original Schedule:",
+        "• May 25th: Blog posts submission",
+        "• June 1st: Review submission",
+        "• June 8th: Final blog revision (incorporating reviews)",
+        "• June 12th: Reviewer acknowledgement and score adjustment",
+        "• Updated Schedule:",
+        "• June 1st: Blog post submission",
+        "• June 13th: Review submission"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Introduction to proteins",
+        "Protein representation learning",
+        "Protein structure prediction",
+        "Protein dynamics (next lecture)",
+        "Protein design (next lecture)"
+      ],
+      "media_sha256": [
+        "6d7cbda3571e494a4659cffb09d2d95bd2aaffa0eb4702004cff47dab2ef8ba2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Why Proteins Matter",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Why Proteins Matter"
+      ],
+      "media_sha256": [
+        "f063bc1bd7172b4231df8f8ba646300b438cc759ba34b165e560eb4632808d02"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Major Break Throughs in Protein Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Major Break Throughs in Protein Design"
+      ],
+      "media_sha256": [
+        "8d6d2164d42e1d5695cae22eb4e3fa623e532ab6325cb7e524b6969dd1cc6fee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "The Goal of Programmable Protein Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "The Goal of Programmable Protein Design"
+      ],
+      "media_sha256": [
+        "4bf7cdb6365652ca69034c9ef31981b8b0cf8d353020d2647712eddc01063077"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Proteins 101",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proteins 101"
+      ],
+      "media_sha256": [
+        "586d01a50495cf3cd21f6a419f2f2826ec8ebb0d64423bc66321788fbc8e2ac3",
+        "fef70d868b5effe5d7f2bd0144b3ccabfb0fac796ca2249333232e830a559ffb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "From Sequence to Structure",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "From Sequence to Structure"
+      ],
+      "media_sha256": [
+        "164327330978c7cb24fe7b6e6a1eafcc896b6314fba94ba586d3a864d20e6593"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Protein Geometry = Backbone + Side Chains",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Geometry = Backbone + Side Chains",
+        "Backbone: Repeating N-C-C chain.",
+        "Side chains: unique chemical groups providing",
+        "specificity & function",
+        "Dihedral angles: determine local geometry"
+      ],
+      "media_sha256": [
+        "89ee7fa137f465f5e53e89cc1d82d651cdecd309aa92ca244b51ff62a4984835"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Structures are Dynamic",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structures are Dynamic",
+        "Proteins are not rigid – they fluctuate across",
+        "conformational space.",
+        "Primarily exist at local minima of energy",
+        "landscape.",
+        "Upon binding, protein interface can be",
+        "very flexible.",
+        "ATP-binding cassette (ABC) transporters"
+      ],
+      "media_sha256": [
+        "bc7dcd2b71eca737d5b6898e0dfdc217003e3a3e7902b84f0c7dfd91fb7a1ec5",
+        "f0a79ecb5607979382c9298965f6e620421d4509a3be7886abcc12dc6ae33d54"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Traditional Protein Modeling Approaches",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Traditional Protein Modeling Approaches"
+      ],
+      "media_sha256": [
+        "a73c89a773e2ae8efc1b412e3cc47c9afd569e0f77455cfd0a35fd66ef31f7f1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Modern Approaches are Powered by Large Datasets",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Modern Approaches are Powered by Large Datasets"
+      ],
+      "media_sha256": [
+        "b251d27607df8bca21c350732b0af01e1e5ac09f93e6d149b46de6b02ead450b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Reasoning Across Protein Representation Types",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Reasoning Across Protein Representation Types"
+      ],
+      "media_sha256": [
+        "275129c026cbcc0bb4418e7fcb9ce0280b00537a91d9db029d4b8961a5792c59"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Multiple Sequence Alignment (MSA)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multiple Sequence Alignment (MSA)",
+        "• MSA reveals evolutionary constraints and co-evolving residues which indicate structurally",
+        "or functionally important regions."
+      ],
+      "media_sha256": [
+        "8ad8132b93ad9f8f2c3b45268c6cb47290ec2041ccdd2f77fa890b8aebb2db6d",
+        "775c9d8d2d05ba43fc021f598de8dd75e8cb705cdcf7f7578dce71d34db7ba71"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Learning on Protein Sequences (1D)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Learning on Protein Sequences (1D)",
+        "• Advancements in langauge",
+        "modeling have improved",
+        "protein sequence representation",
+        "learning.",
+        "• Representations are useful for",
+        "downstream property prediction",
+        "+ design."
+      ],
+      "media_sha256": [
+        "e4d8e6cdd8e698dfce331d3d0be3400688a2105117f4b0636a7b6d6a2645f644"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Learning on Protein Structures (3D)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Learning on Protein Structures (3D)",
+        "• Advancements in geometric/graph deep learning have",
+        "improved protein structure representation learning."
+      ],
+      "media_sha256": [
+        "11bbc31677a011273795fdf6bef11f285e5bcd976d848bd36d35beebf62930d3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Predicting Protein Structures (1D+2D → 3D)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Predicting Protein Structures (1D+2D → 3D)",
+        "• AlphaFold2 revolutionized protein structure prediction,",
+        "leveraging several architectural advancements."
+      ],
+      "media_sha256": [
+        "e0da610ce484a03d209f1bdbe2992a8f482333ed9e9286e52109884c72a10074",
+        "e8d685fae01aeaea5a5c2a82a06b53ecef9f95fa3bbf41d9d95f15aa3e986dd1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Predicting Protein Ensembles (1D → 4D)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Predicting Protein Ensembles (1D → 4D)",
+        "• Ensemble/dynamics prediction leverages advancements",
+        "in generative modeling (e.g. diffusion + flow matching)"
+      ],
+      "media_sha256": [
+        "6f289cc89acac434667092eb5e3f997931a200168e5f935ba0cc12f04eacfc8c",
+        "dcdcb1b98be0e081b14d71b592cbbeaab99809df3679451edde6bd25d3b93950"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Protein Sequence Design (1D, 3D → 1)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Sequence Design (1D, 3D → 1)",
+        "• Design sequence from scratch or from given",
+        "motif using autoregression, discrete diffusion, etc.",
+        "• Inverse folding: design a protein sequence given",
+        "desired backbone structure"
+      ],
+      "media_sha256": [
+        "e46fe0070f45b0c99e6de5ef8694798c2527564eb477b493d38d1ec9417efa97",
+        "92961d335cc68b9987b36fabe764fa4414ede8685725a594afc3a970ad1746c0",
+        "b16773604d81b5c574296e4f1111d6514f050efb061bbe43893bdf106a8a5c61"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Protein Structure Design (3D)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Structure Design (3D)",
+        "• Revolutionized by advancements in 3D generative",
+        "approaches like diffusion and flow matching."
+      ],
+      "media_sha256": [
+        "86826c38afef6cbbcdd94e99a4352156bbc2da405fe8a93caf293a4c99748ad9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Introduction to proteins",
+        "Protein representation learning",
+        "Protein structure prediction"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "A Huge Dataset of Proteins are Available",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "A Huge Dataset of Proteins are Available",
+        "• How to represent protein sequences and structures?"
+      ],
+      "media_sha256": [
+        "c8964ab6bdf857d42f20dfce11face189eb9ab39b685c8244ba38333d505efca"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Protein Language Models",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Language Models",
+        "• Amino acids as basic tokenization units",
+        "• Transformer encoder for protein sequence",
+        "• Next or masked amino acid prediction for",
+        "learning protein representations"
+      ],
+      "media_sha256": [
+        "0200e629b18f5fd40584e3793583240bd4f23fdac6c8536c6c49b4e5a297ca16"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Protein Language Models",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Language Models",
+        "• Downstream tasks: predicting structure & functions.",
+        "• Predict 3D & secondary structures, functional annotations, protein families, variant effect, and so on…"
+      ],
+      "media_sha256": [
+        "f766dc7a4cd7e914f2a6703ed761764a87cc7b4168110ed8c4ba54e8bc4217ec"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Autoregressive LM",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Autoregressive LM",
+        "• ProGen: Autoregressive modeling for protein families",
+        "Madani et al. “Large language models generate functional protein sequences",
+        "across diverse families.” Nature Biotechnology, 2023."
+      ],
+      "media_sha256": [
+        "3ea38ba5f5e8347b4820753b640fb320ede9b368c9aca5674142729362814d31"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Evolutionary Scale Protein LM",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Evolutionary Scale Protein LM",
+        "• ESM: Masked language modeling",
+        "• Large improvement when scaling up model sizes",
+        "• Also propose ESMFold which use ESM embeddings",
+        "for 3D structure prediction.",
+        "Unsupervised contact prediction performance",
+        "Rives et al. “Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences.” PNAS, 2021.",
+        "Lin et al. “Language models of protein sequences at the scale of evolution enable accurate structure prediction.” Science, 2023"
+      ],
+      "media_sha256": [
+        "fb7f0d340f6b7a4c99965bb6199a5a3797a6f7ebba887509b16da4f1b416948b",
+        "aca17b2352586f7c0c8fcf3b350be9cf078c3c5250b72c133be24ea44b340834",
+        "a2294a942a22083e839b82a9f8c800882bec9d968d6648b9ffcaef6901af6163"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Diffusion Protein Language Model",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Diffusion Protein Language Model",
+        "• DPLM: Masked discrete diffusion language model",
+        "• Different timesteps correspond to different masking ratio",
+        "• Unify representation learning and sequence generation",
+        "Wang et al. “Diffusion Language Models Are Versatile Protein Learners.” ICML, 2024."
+      ],
+      "media_sha256": [
+        "40cf0c7754c6823d4367c824270a22dda8f41d36beb2b6e09cb2b9f5d888b6ae"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Language Model of Protein Family",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Language Model of Protein Family",
+        "• An MSA transformer with axial attention for protein family modeling",
+        "• Row attention: model the depdency within each protein sequence",
+        "• Column attention: model the depdency across homologous protein sequences",
+        "Rao et al. “MSA Transformer.” ICML, 2021."
+      ],
+      "media_sha256": [
+        "68056c6a8acd5591a97ca8ceb3ecbcac2cd208e9f2f8131640c8974440503c5d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Structure Representation Learning",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Representation Learning",
+        "• Structure determine functions"
+      ],
+      "media_sha256": [
+        "eafa2c5330fe71abe8b9febe29c949e407b505646a696d324934951f5aae5075"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Challenge for Structure Modeling",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Challenge for Structure Modeling",
+        "• Can we modle protein structures as point clouds?",
+        "• Yes, but will neglect residue arrangement."
+      ],
+      "media_sha256": [
+        "df84dacf589a2527b9dbab1fb23a07380341997a21272eceb551a25d2e61a4bb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Geometry-Aware Relational GNN",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometry-Aware Relational GNN",
+        "• Construct a multi-relational graph for each protein.",
+        "Zhang et al. “Protein Representation Learning by Geometric Structure Pretraining.” ICLR, 2023."
+      ],
+      "media_sha256": [
+        "3e2fcd6f2a85ca3661b0fb9e70d02d75c0d3ed19a348439b077fea8d629a9ad3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Geometric Pre-Training",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Geometric Pre-Training",
+        "Zhang et al. “Protein Representation Learning by Geometric Structure Pretraining.” ICLR, 2023."
+      ],
+      "media_sha256": [
+        "56a32a2cd3e13b64f4ba49c5a5234db402217be51e62df0e0259d02f913f66ab"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Diffusion Model for Pre-Training",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Diffusion Model for Pre-Training",
+        "Zhang et al. “Pre-Training Protein Encoder via Siamese Sequence-Structure Diffusion Trajectory Prediction.” NeurIPS, 2023."
+      ],
+      "media_sha256": [
+        "ab0fac09a9d4f1097530209c84f892586185f22e22cdf20c52b90113355e4d37"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Multi-Modality Representation Learning",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multi-Modality Representation Learning",
+        "• Can we combine protein LM with protein structure encoders?",
+        "Zhang et al. “A Systematic Study of Joint Representation",
+        "Learning on Protein Sequences and Structures.” arxiv, 2023."
+      ],
+      "media_sha256": [
+        "d22e2616f3846a6147bd80a590dfe82e07d86a001677cf8f18646514827d46da"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Protein LM with Structure-Aware Vocabulary",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein LM with Structure-Aware Vocabulary",
+        "• A VQ-VAE structure tokenizer from Foldseek (Search Engine for AlphaFoldDB and PDB)",
+        "and derive 20 structure tokens.",
+        "Su et al. “SaProt: Protein Language Modeling with Structure-Aware Vocabulary.” ICLR, 2025"
+      ],
+      "media_sha256": [
+        "37ef329ee5279915f7def3590179efa4fcf0ccce522d3907028db55d0b594ba3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Multimodal Diffusion Protein Language Model",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multimodal Diffusion Protein Language Model",
+        "• Discrete masked diffusion for 3D & sequence information.",
+        "Wang et al. “DPLM-2: A Multimodal Diffusion Protein Language Model.” ICLR, 2025."
+      ],
+      "media_sha256": [
+        "ced4e3ced3e4109cd7fcf4fa3a69261a50b7459ab3e4370551b031be23567395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Multimodal Diffusion Protein Language Model",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multimodal Diffusion Protein Language Model",
+        "• ESM-3: Tokenization everything! Sequence, secondary structure, structure,",
+        "SASA, function keywords…",
+        "• Masked diffusion language model enable complex conditional generation",
+        "Hayes et al. “Simulating 500 million years of evolution with a language model.” Science, 2024."
+      ],
+      "media_sha256": [
+        "d2b67137b4bf186d6d513d7da2b9bb9047772ced7687e7862df61db2c2787623",
+        "7fa74eab1b2804424cb682d365178a7682e8bb370438877e00c061ebbe55912b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "Combine Evolutionary and Textual Info",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Combine Evolutionary and Textual Info",
+        "Xu et al. “ProtST: Multi-Modality Learning of Protein Sequences and Biomedical Texts.” ICML, 2023."
+      ],
+      "media_sha256": [
+        "67344b17ecf2b765c354c14398b9c5997e76377a23eee7130983cb21cf223f21"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "Multi-Modal Pre-Training",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multi-Modal Pre-Training",
+        "• Paired sequence and text description data",
+        "• Masked prediction and contrastive learning loss",
+        "Xu et al. “ProtST: Multi-Modality Learning of Protein Sequences and Biomedical Texts.” ICML, 2023."
+      ],
+      "media_sha256": [
+        "85c7231b8249630df5cd2c7e71b1c1c2517c3831ef3696ff95da491cffc1c5e2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "Application: Protein Understanding",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Application: Protein Understanding",
+        "Xu et al. “PEER: A Comprehensive and Multi-Task Benchmark for Protein Sequence Understanding.” NeurIPS, 2022."
+      ],
+      "media_sha256": [
+        "e6fb235ffb2ff10bf758e36aa8d1c40749589b1708188eac283af6ee3d43f4d6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "Application: Protein Fitness Prediction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Application: Protein Fitness Prediction",
+        "• Fitness landscape: function change upon mutations on sequences"
+      ],
+      "media_sha256": [
+        "f766dc7a4cd7e914f2a6703ed761764a87cc7b4168110ed8c4ba54e8bc4217ec"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "title": "Multimodal Pre-Training for Zero-Shot Fitness",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multimodal Pre-Training for Zero-Shot Fitness",
+        "Zhang et al. “Multi-Scale Representation Learning for Protein Fitness Prediction.” NeurIPS, 2024."
+      ],
+      "media_sha256": [
+        "8c54c027dc3d4d1d60e3957514767bd2cfad9afc10c2a9065c279558642af6c7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "Multimodal Pre-Training for Zero-Shot Fitness",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Multimodal Pre-Training for Zero-Shot Fitness",
+        "• Small structure-based training induces large improvement over PLM",
+        "Zhang et al. “Multi-Scale Representation Learning for Protein Fitness Prediction.” NeurIPS, 2024."
+      ],
+      "media_sha256": [
+        "0601f7146b0cf7ae92ebe65f1c63e2b8287d751b723067ee71108e596b1554ee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "Application: Antibody Optimization",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Application: Antibody Optimization",
+        "• Given an antigen-antibody complex, how to optimize the antibody",
+        "to improve the binding affinity?",
+        "The key is to model the interactions between two proteins."
+      ],
+      "media_sha256": [
+        "29b5fc5ddb2d035d163af2ad206b384ba4643314ba5fe92935e0c094ad10252e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "title": "𝚫𝚫𝐆 Prediction with Geometric Pre- training",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "𝚫𝚫𝐆 Prediction with Geometric Pre- training",
+        "• Multi-level message passing with GearNet",
+        "• Contrastive learning",
+        "• Negative sample:",
+        "• random mutating residues",
+        "• sample torsional angles from a",
+        "rotamer library",
+        "Cai et al. “Pretrainable Geometric Graph Neural Network for Antibody Affinity Maturation.”",
+        "Nature Communications, 2024."
+      ],
+      "media_sha256": [
+        "2d6f68be19b80426d8d2dfbc5e7dc1a310a058ee0667a9d8637544a1539bb952",
+        "cda6f260df7f0091a6c17b776357e9d9bc8b85e50b40702efb9bdf5624094721"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "title": "𝚫𝚫𝐆 Prediction with Geometric Pre- training",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "𝚫𝚫𝐆 Prediction with Geometric Pre- training",
+        "• In-Silico & Wet lab Validation",
+        "Cai et al. “Pretrainable Geometric Graph Neural Network for Antibody Affinity Maturation.”",
+        "Nature Communications, 2024."
+      ],
+      "media_sha256": [
+        "2d6f68be19b80426d8d2dfbc5e7dc1a310a058ee0667a9d8637544a1539bb952",
+        "c2a6caa6e2b1b39d7cb1f7d1f9bff320b9de1ee99be59aec2b5840405f70377f",
+        "f4ee5b57061a434c6107d4279f9bbc044a7d4516f578c799427f2e53bf7f5a28"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Introduction to proteins",
+        "Protein representation learning",
+        "Protein structure prediction"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "title": "Protein Structure and Dynamics",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Structure and Dynamics",
+        "• Structures and dynamics are important for their functions"
+      ],
+      "media_sha256": [
+        "e092845de3084f5a47a7064dc1cf849e8eac479d9c3d21866109e308d361c32e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "title": "AlphaFold2",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold2",
+        "• Protein structure prediction (from amino acid sequence to 3D structure)",
+        "A representation of each residue as one free-floating rigid",
+        "body for the backbone (blue triangles) and χ angles for the",
+        "side chains (green circles)."
+      ],
+      "media_sha256": [
+        "b5f6c1be299ee2d47d0480a2765c8251e77e6f42a049722f09fde3eaff75fd11",
+        "bf347ba72edb087b9e453621ef880aa5db7a4608de4adecc07d2ff2ba687c6b8",
+        "f98fc3ba6caf4ec8927842e12c4b26b20c25560b165f385ad89680ddcfbcfa02"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "title": "AlphaFold2: Overview",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold2: Overview",
+        "Jumper, John, et al. \"Highly accurate protein structure prediction with AlphaFold.\" nature 596.7873 (2021): 583-589."
+      ],
+      "media_sha256": [
+        "b2c9db00cef41c27b6152c6324b14b6174d29b017304b73d7869b8bce0334a98"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "title": "AlphaFold2: Evoformer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold2: Evoformer"
+      ],
+      "media_sha256": [
+        "a2c19079cd825a0092c3f9d2d9b528f99737509f17aeec64ddb1e996ac7b1048",
+        "3aee88851033abf155fb0fc50c157459fcd52bb68f0045b59435f9afab6c66ee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": 52,
+      "title": "AlphaFold2: Structure Module",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold2: Structure Module"
+      ],
+      "media_sha256": [
+        "8980cc82f33d1b7da143b1a4965256ae74a5d59107f664b183bbf74227bbc5b0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": 53,
+      "title": "AlphaFold2",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold2"
+      ],
+      "media_sha256": [
+        "494394216ef5f00c9108f868ee0e8661d304c4f31ba87a19b16629a8b1ceb7cb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 54,
+      "title": "RoseTTAFold",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "RoseTTAFold",
+        "• Three-track model: sequence (MSA), pair (distance), 3D coordinates",
+        "Baek, Minkyung, et al. \"Accurate prediction of protein structures and interactions",
+        "using a three-track neural network.\" Science"
+      ],
+      "media_sha256": [
+        "d69ecbf05abc34264dbb9f2ff6e0b62c12882f0ef0ba257932caa1da6e6af0a8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 55,
+      "pptx_slide": 55,
+      "title": "OmegaFold",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "OmegaFold",
+        "• Single sequence as input without MSA"
+      ],
+      "media_sha256": [
+        "fdbcbf437d912e1756cacc9bc81dea296b01e87254368672913775e2217e6079"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 56,
+      "pptx_slide": 56,
+      "title": "ESMFold",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ESMFold",
+        "• Single sequence folding model based on pre-trained protein LM.",
+        "Lin, Zeming, et al. \"Evolutionary-scale prediction of atomic-level protein structure with a language model.\"",
+        "Science 379.6637 (2023): 1123-1130."
+      ],
+      "media_sha256": [
+        "05fc0cd9dc8549eeeafae6828a0eb9f262b43c9824feb18bf5c07f4c8a8934df"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 57,
+      "pptx_slide": 57,
+      "title": "AttnPacker",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AttnPacker",
+        "• Packing: Predict the side-chain coordinates given their backbone structure.",
+        "McPartlon, Matthew, and Jinbo Xu. \"An end-to-end deep learning method for protein side-chain packing and inverse",
+        "folding.\" Proceedings of the National Academy of Sciences 120.23 (2023): e2216438120."
+      ],
+      "media_sha256": [
+        "95dea1b2a1f0d994e1e53ad3ed28f3e7ea721410eff564d4c58fc4eeeb144ef1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 58,
+      "pptx_slide": 58,
+      "title": "DiffPack",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "DiffPack",
+        "Zhang, Yangtian, et al. \"Diffpack: A torsional diffusion model for autoregressive protein side-chain packing.\"",
+        "Advances in Neural Information Processing Systems 36 (2024)."
+      ],
+      "media_sha256": [
+        "01315aacbb0c7db53fe750247e555f994e94fe2787b26bf257e22ff130cc6745"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 59,
+      "pptx_slide": 59,
+      "title": "AlphaFold-Multimer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold-Multimer",
+        "• Predicting protein complexes",
+        "Evans, Richard, et al. \"Protein complex prediction with AlphaFold-Multimer.\" biorxiv (2021): 2021-10."
+      ],
+      "media_sha256": [
+        "14a87da9625ad8d0c38846f34a59a1ed19062457e88f87f6fa458f2b373169a7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 60,
+      "pptx_slide": 60,
+      "title": "RoseTTAFold All-Atom",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "RoseTTAFold All-Atom",
+        "• Tokenize residue,",
+        "ligand, ion, etc.",
+        "• Predict the structure",
+        "of each.",
+        "• Performs better than",
+        "existing docking tools.",
+        "Krishna, Rohith, et al. \"Generalized biomolecular modeling and design",
+        "with RoseTTAFold All-Atom.\" Science 384.6693 (2024): eadl2528"
+      ],
+      "media_sha256": [
+        "65b2dcf9f7362bbd11d30482a2763936375475b4048a501eef4787fa52fa71f5",
+        "67df367a9fbf67b94b9524bb132740b28369e0884110d798a1b3f0e3dc9de07f",
+        "2736b32fd0cf3d8dfa18e19e176672f58eeb34eccbd0bc71066597c6032bdb4c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 61,
+      "pptx_slide": 61,
+      "title": "AlphaFold3",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFold3",
+        "• All-atom coordinate prediction",
+        "• Multiple modality including",
+        "protein, ligand, ion",
+        "• Non-equivariant architecture",
+        "• Diffusion structure module",
+        "Abramson, Josh, et al. \"Accurate structure prediction of biomolecular interactions",
+        "with AlphaFold 3.\" Nature (2024): 1-3."
+      ],
+      "media_sha256": [
+        "16c0d73581b1ca6115b746793abf218eff5f73938e58d03a4eee8e4587eb1c1e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 62,
+      "pptx_slide": 62,
+      "title": "Proteina",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proteina",
+        "• Flow-based architecture for protein backbone generation",
+        "Foldseek AFDB clusters",
+        "High-quality filtered AFDB subset",
+        "Proteina: Scaling Flow-based Protein Structure Generative Models"
+      ],
+      "media_sha256": [
+        "19c1271bd673372ef20b453b763d477ee1f2147b3a8e76d504c8be3da9de131c",
+        "4e3163c9e1d3234a1e74c50f2afbb86cda912305a8c673eb05f89101d5b563d0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 63,
+      "pptx_slide": 63,
+      "title": "Open-source Practices with Training Code",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Open-source Practices with Training Code",
+        "Boltz-1 (AF3, 2024/11)",
+        "Ahdritz, Gustaf, et al. \"OpenFold: Retraining AlphaFold2 yields new insights into its learning mechanisms and",
+        "capacity for generalization.\" Nature Methods (2024): 1-11.",
+        "Chen, Xinshi, et al. \"Protenix-Advancing Structure Prediction Through a Comprehensive AlphaFold3 Reproduction.\"",
+        "bioRxiv (2025): 2025-01."
+      ],
+      "media_sha256": [
+        "e4fe7022cdcc6140484d324a6eeeee3487dde745738e139af8f91c06ea72b990",
+        "65185bf422c24f7a9de6736d7df018364226669ecb35594d8266cb9af3bcc2e4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 64,
+      "pptx_slide": 64,
+      "title": "Web Servers for Structure Prediction",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Web Servers for Structure Prediction",
+        "Mirdita, Milot, et al. \"ColabFold: making protein folding accessible to all.\" Nature methods 19.6 (2022): 679-682.",
+        "Lin, Zeming, et al. \"Evolutionary-scale prediction of atomic-level protein structure with a language model.\" Science 379.6637 (2023):",
+        "1123-1130.",
+        "Abramson, Josh, et al. \"Accurate structure prediction of biomolecular interactions with AlphaFold 3.\" Nature (2024): 1-3."
+      ],
+      "media_sha256": [
+        "f1a697387c3357ffed65560e5b0f9230f95469fecb905d9e34c1b8757d535a4a"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "6d7cbda3571e494a4659cffb09d2d95bd2aaffa0eb4702004cff47dab2ef8ba2",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 428089,
+      "slides": [
+        3
+      ]
+    },
+    {
+      "sha256": "f0a79ecb5607979382c9298965f6e620421d4509a3be7886abcc12dc6ae33d54",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 215104,
+      "slides": [
+        10
+      ]
+    },
+    {
+      "sha256": "a73c89a773e2ae8efc1b412e3cc47c9afd569e0f77455cfd0a35fd66ef31f7f1",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 555558,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "b251d27607df8bca21c350732b0af01e1e5ac09f93e6d149b46de6b02ead450b",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 604419,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "275129c026cbcc0bb4418e7fcb9ce0280b00537a91d9db029d4b8961a5792c59",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 737017,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "8ad8132b93ad9f8f2c3b45268c6cb47290ec2041ccdd2f77fa890b8aebb2db6d",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 164749,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "e0da610ce484a03d209f1bdbe2992a8f482333ed9e9286e52109884c72a10074",
+      "pptx_path": "ppt/media/image140.png",
+      "extension": ".png",
+      "bytes": 37263,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "775c9d8d2d05ba43fc021f598de8dd75e8cb705cdcf7f7578dce71d34db7ba71",
+      "pptx_path": "ppt/media/image15.jpeg",
+      "extension": ".jpeg",
+      "bytes": 51049,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "e4d8e6cdd8e698dfce331d3d0be3400688a2105117f4b0636a7b6d6a2645f644",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 251512,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "6f289cc89acac434667092eb5e3f997931a200168e5f935ba0cc12f04eacfc8c",
+      "pptx_path": "ppt/media/image160.png",
+      "extension": ".png",
+      "bytes": 35125,
+      "slides": [
+        18
+      ]
+    },
+    {
+      "sha256": "11bbc31677a011273795fdf6bef11f285e5bcd976d848bd36d35beebf62930d3",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 705777,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "e8d685fae01aeaea5a5c2a82a06b53ecef9f95fa3bbf41d9d95f15aa3e986dd1",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 558677,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "e46fe0070f45b0c99e6de5ef8694798c2527564eb477b493d38d1ec9417efa97",
+      "pptx_path": "ppt/media/image180.png",
+      "extension": ".png",
+      "bytes": 35286,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "dcdcb1b98be0e081b14d71b592cbbeaab99809df3679451edde6bd25d3b93950",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 404932,
+      "slides": [
+        18,
+        18
+      ]
+    },
+    {
+      "sha256": "f063bc1bd7172b4231df8f8ba646300b438cc759ba34b165e560eb4632808d02",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 992944,
+      "slides": [
+        4
+      ]
+    },
+    {
+      "sha256": "92961d335cc68b9987b36fabe764fa4414ede8685725a594afc3a970ad1746c0",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 317803,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "b16773604d81b5c574296e4f1111d6514f050efb061bbe43893bdf106a8a5c61",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 175538,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "86826c38afef6cbbcdd94e99a4352156bbc2da405fe8a93caf293a4c99748ad9",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 561719,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "c8964ab6bdf857d42f20dfce11face189eb9ab39b685c8244ba38333d505efca",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 214766,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "0200e629b18f5fd40584e3793583240bd4f23fdac6c8536c6c49b4e5a297ca16",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 294352,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "f766dc7a4cd7e914f2a6703ed761764a87cc7b4168110ed8c4ba54e8bc4217ec",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 331190,
+      "slides": [
+        24,
+        41
+      ]
+    },
+    {
+      "sha256": "3ea38ba5f5e8347b4820753b640fb320ede9b368c9aca5674142729362814d31",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 250604,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "fb7f0d340f6b7a4c99965bb6199a5a3797a6f7ebba887509b16da4f1b416948b",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 145984,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "aca17b2352586f7c0c8fcf3b350be9cf078c3c5250b72c133be24ea44b340834",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 99113,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "a2294a942a22083e839b82a9f8c800882bec9d968d6648b9ffcaef6901af6163",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 98936,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "8d6d2164d42e1d5695cae22eb4e3fa623e532ab6325cb7e524b6969dd1cc6fee",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 1009927,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "40cf0c7754c6823d4367c824270a22dda8f41d36beb2b6e09cb2b9f5d888b6ae",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 257989,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "68056c6a8acd5591a97ca8ceb3ecbcac2cd208e9f2f8131640c8974440503c5d",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 132722,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "eafa2c5330fe71abe8b9febe29c949e407b505646a696d324934951f5aae5075",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 443774,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "df84dacf589a2527b9dbab1fb23a07380341997a21272eceb551a25d2e61a4bb",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 278298,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "3e2fcd6f2a85ca3661b0fb9e70d02d75c0d3ed19a348439b077fea8d629a9ad3",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 144331,
+      "slides": [
+        31
+      ]
+    },
+    {
+      "sha256": "56a32a2cd3e13b64f4ba49c5a5234db402217be51e62df0e0259d02f913f66ab",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 252897,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "ab0fac09a9d4f1097530209c84f892586185f22e22cdf20c52b90113355e4d37",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 386203,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "d22e2616f3846a6147bd80a590dfe82e07d86a001677cf8f18646514827d46da",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 246944,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "37ef329ee5279915f7def3590179efa4fcf0ccce522d3907028db55d0b594ba3",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 250790,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "ced4e3ced3e4109cd7fcf4fa3a69261a50b7459ab3e4370551b031be23567395",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 269036,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "4bf7cdb6365652ca69034c9ef31981b8b0cf8d353020d2647712eddc01063077",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 82603,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "d2b67137b4bf186d6d513d7da2b9bb9047772ced7687e7862df61db2c2787623",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 177467,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "7fa74eab1b2804424cb682d365178a7682e8bb370438877e00c061ebbe55912b",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 158677,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "67344b17ecf2b765c354c14398b9c5997e76377a23eee7130983cb21cf223f21",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 293839,
+      "slides": [
+        38
+      ]
+    },
+    {
+      "sha256": "2d6f68be19b80426d8d2dfbc5e7dc1a310a058ee0667a9d8637544a1539bb952",
+      "pptx_path": "ppt/media/image420.png",
+      "extension": ".png",
+      "bytes": 35163,
+      "slides": [
+        45,
+        46
+      ]
+    },
+    {
+      "sha256": "85c7231b8249630df5cd2c7e71b1c1c2517c3831ef3696ff95da491cffc1c5e2",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 239377,
+      "slides": [
+        39
+      ]
+    },
+    {
+      "sha256": "e6fb235ffb2ff10bf758e36aa8d1c40749589b1708188eac283af6ee3d43f4d6",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 472109,
+      "slides": [
+        40
+      ]
+    },
+    {
+      "sha256": "8c54c027dc3d4d1d60e3957514767bd2cfad9afc10c2a9065c279558642af6c7",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 320481,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "0601f7146b0cf7ae92ebe65f1c63e2b8287d751b723067ee71108e596b1554ee",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 138233,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "29b5fc5ddb2d035d163af2ad206b384ba4643314ba5fe92935e0c094ad10252e",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 289095,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "cda6f260df7f0091a6c17b776357e9d9bc8b85e50b40702efb9bdf5624094721",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 284045,
+      "slides": [
+        45
+      ]
+    },
+    {
+      "sha256": "c2a6caa6e2b1b39d7cb1f7d1f9bff320b9de1ee99be59aec2b5840405f70377f",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 169914,
+      "slides": [
+        46
+      ]
+    },
+    {
+      "sha256": "586d01a50495cf3cd21f6a419f2f2826ec8ebb0d64423bc66321788fbc8e2ac3",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 171118,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "f4ee5b57061a434c6107d4279f9bbc044a7d4516f578c799427f2e53bf7f5a28",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 438267,
+      "slides": [
+        46
+      ]
+    },
+    {
+      "sha256": "e092845de3084f5a47a7064dc1cf849e8eac479d9c3d21866109e308d361c32e",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 268886,
+      "slides": [
+        48
+      ]
+    },
+    {
+      "sha256": "b5f6c1be299ee2d47d0480a2765c8251e77e6f42a049722f09fde3eaff75fd11",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 91760,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "bf347ba72edb087b9e453621ef880aa5db7a4608de4adecc07d2ff2ba687c6b8",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 10767,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "f98fc3ba6caf4ec8927842e12c4b26b20c25560b165f385ad89680ddcfbcfa02",
+      "pptx_path": "ppt/media/image54.gif",
+      "extension": ".gif",
+      "bytes": 3212211,
+      "slides": [
+        49
+      ]
+    },
+    {
+      "sha256": "b2c9db00cef41c27b6152c6324b14b6174d29b017304b73d7869b8bce0334a98",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 372191,
+      "slides": [
+        50
+      ]
+    },
+    {
+      "sha256": "a2c19079cd825a0092c3f9d2d9b528f99737509f17aeec64ddb1e996ac7b1048",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 73138,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "3aee88851033abf155fb0fc50c157459fcd52bb68f0045b59435f9afab6c66ee",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 110544,
+      "slides": [
+        51
+      ]
+    },
+    {
+      "sha256": "8980cc82f33d1b7da143b1a4965256ae74a5d59107f664b183bbf74227bbc5b0",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 86979,
+      "slides": [
+        52
+      ]
+    },
+    {
+      "sha256": "494394216ef5f00c9108f868ee0e8661d304c4f31ba87a19b16629a8b1ceb7cb",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 133885,
+      "slides": [
+        53
+      ]
+    },
+    {
+      "sha256": "fef70d868b5effe5d7f2bd0144b3ccabfb0fac796ca2249333232e830a559ffb",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 390942,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "d69ecbf05abc34264dbb9f2ff6e0b62c12882f0ef0ba257932caa1da6e6af0a8",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 532644,
+      "slides": [
+        54
+      ]
+    },
+    {
+      "sha256": "fdbcbf437d912e1756cacc9bc81dea296b01e87254368672913775e2217e6079",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 335147,
+      "slides": [
+        55
+      ]
+    },
+    {
+      "sha256": "05fc0cd9dc8549eeeafae6828a0eb9f262b43c9824feb18bf5c07f4c8a8934df",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 243294,
+      "slides": [
+        56
+      ]
+    },
+    {
+      "sha256": "95dea1b2a1f0d994e1e53ad3ed28f3e7ea721410eff564d4c58fc4eeeb144ef1",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 308418,
+      "slides": [
+        57
+      ]
+    },
+    {
+      "sha256": "01315aacbb0c7db53fe750247e555f994e94fe2787b26bf257e22ff130cc6745",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 541420,
+      "slides": [
+        58,
+        58
+      ]
+    },
+    {
+      "sha256": "14a87da9625ad8d0c38846f34a59a1ed19062457e88f87f6fa458f2b373169a7",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 441761,
+      "slides": [
+        59
+      ]
+    },
+    {
+      "sha256": "65b2dcf9f7362bbd11d30482a2763936375475b4048a501eef4787fa52fa71f5",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 357521,
+      "slides": [
+        60
+      ]
+    },
+    {
+      "sha256": "67df367a9fbf67b94b9524bb132740b28369e0884110d798a1b3f0e3dc9de07f",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 291144,
+      "slides": [
+        60
+      ]
+    },
+    {
+      "sha256": "2736b32fd0cf3d8dfa18e19e176672f58eeb34eccbd0bc71066597c6032bdb4c",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 30019,
+      "slides": [
+        60
+      ]
+    },
+    {
+      "sha256": "16c0d73581b1ca6115b746793abf218eff5f73938e58d03a4eee8e4587eb1c1e",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 380522,
+      "slides": [
+        61
+      ]
+    },
+    {
+      "sha256": "164327330978c7cb24fe7b6e6a1eafcc896b6314fba94ba586d3a864d20e6593",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 1120574,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "19c1271bd673372ef20b453b763d477ee1f2147b3a8e76d504c8be3da9de131c",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 345921,
+      "slides": [
+        62
+      ]
+    },
+    {
+      "sha256": "4e3163c9e1d3234a1e74c50f2afbb86cda912305a8c673eb05f89101d5b563d0",
+      "pptx_path": "ppt/media/image71.png",
+      "extension": ".png",
+      "bytes": 28428,
+      "slides": [
+        62
+      ]
+    },
+    {
+      "sha256": "e4fe7022cdcc6140484d324a6eeeee3487dde745738e139af8f91c06ea72b990",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 547004,
+      "slides": [
+        63
+      ]
+    },
+    {
+      "sha256": "65185bf422c24f7a9de6736d7df018364226669ecb35594d8266cb9af3bcc2e4",
+      "pptx_path": "ppt/media/image73.jpeg",
+      "extension": ".jpeg",
+      "bytes": 410585,
+      "slides": [
+        63
+      ]
+    },
+    {
+      "sha256": "f1a697387c3357ffed65560e5b0f9230f95469fecb905d9e34c1b8757d535a4a",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 352396,
+      "slides": [
+        64
+      ]
+    },
+    {
+      "sha256": "89ee7fa137f465f5e53e89cc1d82d651cdecd309aa92ca244b51ff62a4984835",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 323900,
+      "slides": [
+        9
+      ]
+    },
+    {
+      "sha256": "bc7dcd2b71eca737d5b6898e0dfdc217003e3a3e7902b84f0c7dfd91fb7a1ec5",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 912745,
+      "slides": [
+        10
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}

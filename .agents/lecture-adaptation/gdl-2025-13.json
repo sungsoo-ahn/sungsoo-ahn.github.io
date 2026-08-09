@@ -1,0 +1,1410 @@
+{
+  "deck_id": "gdl-2025-13",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec13_prelim2 (revised).pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec13_prelim2 (revised).pptx",
+  "slide_count": 37,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Preliminaries:",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Preliminaries:",
+        "Diffusion and Flow Matching",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Updated Syllabus",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Updated Syllabus",
+        "Part 2 of this class is about",
+        "geometric generative models!",
+        "• Original plan:",
+        "Graph generative models first,",
+        "geometric generative models next.",
+        "• New plan:",
+        "geometric generative models first,",
+        "graph generative models next",
+        "(in the applications)"
+      ],
+      "media_sha256": [
+        "edc88ecd2b80277c583a3b8820e8b7f12fbf51b4c5cce684fd9743fcfe9098e9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Part 2: Geometric Generative Models",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Part 2: Geometric Generative Models",
+        "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
+        "Lec 2 (April 30th): Preliminaries on diffusion and flow matching",
+        "Lec 3 (May 7th): Geometric flow matching",
+        "Lec 4 (May 12th): Geometric flow matching",
+        "Lec 5 (May 14nd): Discrete flow matching",
+        "Lec 6 (May 19th): Discrete diffusion models"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Today: Diffusion and Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Diffusion and Flow Matching",
+        "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
+        "• Itô calculus",
+        "• Itô integral",
+        "• Itô formula",
+        "• Probability distributions of ODEs/SDEs",
+        "• Infinitesimal generator",
+        "• Derivation of Fokker-Planck-Kolmogorov (FPK) equation"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Main Material",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Main Material",
+        "Simo Särkkä and Arno Solin (2019). Applied Stochastic Differential Equations. Cambridge",
+        "University Press. (https://users.aalto.fi/~asolin/sde-book/sde-book.pdf)"
+      ],
+      "media_sha256": [
+        "add3fc3332097b62f518da6d913382180f62a8a96fcd395e9c0dafce20c1922d",
+        "51492a293b4a9e14f01a8f19491c8c318e50e28ce47689d241e715297d03d4d1",
+        "0d005aab03cfec088b58eb38420f05932a89e062e5010f2bfde5419915ef9be9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "What is an ODE?",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "What is an ODE?",
+        "An ordinary differential equation (ODE) is an equation that involves",
+        "differentials of the function of interest.",
+        "𝑑𝑥! = 𝑓 𝑥! , 𝑡 𝑑𝑡",
+        "For simplicity, we will assume one-dimensional ODEs with 𝑥! ∈ ℝ.",
+        "This is equation can be understood as continuous limits of the following equation:",
+        "!\"#",
+        "𝑥!\"# − 𝑥! = *        𝑓 𝑥$ , 𝜏 𝑑𝜏 .",
+        "!"
+      ],
+      "media_sha256": [
+        "a52f5ee2ccd5e27ad495f033eca816b8492a933b30c48baa1496e30c9707eec8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "What is a SDE?",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "What is a SDE?",
+        "Similarly, a stochastic differential equation (SDE) is an equation that express",
+        "differentials of the function of interest using a stochastic process.",
+        "𝑑𝑋! = 𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! .",
+        "• Drift coefficient 𝜇 𝑋! , 𝑡 ∈ ℝ",
+        "• Diffusion coefficient 𝜎 𝑋! , 𝑡 ∈ ℝ",
+        "• Weiner process 𝑊!",
+        "For simplicity, we assume one-dimensional SDEs with 𝑋! ∈ ℝ.",
+        "We use differentials for convenience, but SDE actually represents the following integral:",
+        "!\"#                 !\"#",
+        "𝑋!\"# − 𝑋! = *            𝜇 𝑋$ , 𝜏 𝑑𝜏 + *     𝜎 𝑋! , 𝑡 𝑑𝑊! .   We will learn",
+        "!                   !                      how to do this!"
+      ],
+      "media_sha256": [
+        "897d801cee6ba371070631e82cab65dbf56f1ae5ef8844b27b1eb3ef70c7be0e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Weiner Process (or Brownian Motions)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Weiner Process (or Brownian Motions)",
+        "Our SDE depends on the definition of Weiner process 𝑊! ,",
+        "which is a stochastic process with the following properties:",
+        "• any increment 𝑊!\"# − 𝑊! is a zero-mean Gaussian with variance Δ.",
+        "• When the time spans of increments do not overlap, the increments are independent.",
+        "• The process starts at origin 𝛽 0 = 0.",
+        "The Brownian motion can be derived",
+        "as continuous limit of a random walk:",
+        "$",
+        "1                         1",
+        "𝑊$ =    1 𝑁% ,       𝑁% ∼ 𝒩 0,",
+        "𝑛                        𝑛",
+        "%&'"
+      ],
+      "media_sha256": [
+        "52cc8e0566e667618a6ee062351686bf59251c8af112d70ed2c9af9fa4ff36aa",
+        "d650db8c5538dba75911011636c32d5f4ed1d39cb5c8f9da7eb114c098b4e3dc",
+        "a9bce9c91354c84311f9de839380e9f3c052e49888d38a57a126cf6aa25e9b6a",
+        "cf994d60ed57eec5bacad20624a8ab3826da5717e8aa1264a39f20c511bfb16a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Weiner Process (or Brownian Motions)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Weiner Process (or Brownian Motions)",
+        "It is attractive to think about Weiner process using time differential 𝑑𝑡:",
+        "2",
+        "𝑑𝑊",
+        "2! = 𝑁! 𝑑𝑡,",
+        "𝑑𝑊                 𝑁! ∼ 𝒩 0, 1 ,           = 𝑁! ?",
+        "𝑑𝑡",
+        "However, this random process is not differentiable,",
+        "% !\"# '&",
+        "&      %!",
+        "i.e.,     #",
+        "does not converge for Δ → 0.",
+        "Linear approximation also does not make sense,",
+        "i.e., distribution of 𝑊!\"# − 𝑊! ∼ 𝒩(0, Δ),",
+        "while 𝑊  2!\"( − 𝑊 2! ≈ 𝑤 𝑡 𝛥 ∼ 𝒩 0, Δ) ."
+      ],
+      "media_sha256": [
+        "fc93498c546b3346180be3db21a0a6f98a9d03838022e658f3fd4066520b7d5a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Today: Diffusion and Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Diffusion and Flow Matching",
+        "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
+        "• Itô calculus",
+        "• Itô integral",
+        "• Itô formula",
+        "• Probability distributions of ODEs/SDEs",
+        "• Infinitesimal generator",
+        "• Derivation of Fokker-Planck-Kolmogorov (FPK) equation"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": null,
+      "title": "Itô Integral",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô Integral",
+        "Let’s consider a SDE 𝑑𝑋! = 𝜎 𝑋! , 𝑡 𝑑𝑊! , which corresponds to the integral:",
+        "*",
+        "𝑋* − 𝑋+ = * 𝜎 𝑋! , 𝜏 𝑑𝑊!",
+        "+",
+        "What does this integral actually mean?",
+        "In fact, there exist multiple ways (stochastic calculus) to define integration",
+        "over differentials of random variables.",
+        "• NOT the typical Riemannian, Stieltjes, or Lebesgue integral",
+        "• Itô & backward Itô integral",
+        "• Stratonovich integral"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Stieltjes vs. Itô Integral",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Stieltjes vs. Itô Integral",
+        "Let’s consider the simplest SDE associated with the Brownian motion:",
+        "\"",
+        "𝑑𝑋! = 𝑌! 𝑑𝑊! ,     𝑋\" − 𝑋# = ( 𝑌! 𝑑𝑊! ,",
+        "#",
+        "e.g., the diffusion term 𝑌! = 𝜎(𝑋! , 𝑡).",
+        "Stieltjes integral for 𝑡# = 0 < ⋯ < 𝑡$ = 𝑇, 𝑡%∗ ∈ 𝑡% , 𝑡%'( :",
+        "\"            $",
+        "( 𝑌! 𝑑𝑊! = lim 6 𝑌!!∗ 𝑊!!#$ − 𝑊!! .",
+        "#          $→*",
+        "%+(",
+        "In general, this integral often does not converge",
+        "since the integration depends on the choice of 𝑡%∗ ∈ 𝑡% , 𝑡%'( .",
+        "• We will see an example soon."
+      ],
+      "media_sha256": [
+        "cb574e8f27961d49ab21ce493ca0d0c0d7eeb086c36f4bb6fafce26c8a6399e4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Stieltjes vs. Itô Integral",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Stieltjes vs. Itô Integral",
+        "Let’s consider the simplest SDE associated with the Brownian motion:",
+        "*",
+        "𝑑𝑋! = 𝑌! 𝑑𝑊! ,         𝑋* − 𝑋+ = * 𝑌! 𝑑𝑊! ,",
+        "+",
+        "e.g., the diffusion coefficient 𝑌! = 𝜎(𝑋! , 𝑡).",
+        "Stieltjes integral for 𝑡+ = 0 < ⋯ < 𝑡, = 𝑇, 𝑡-∗ ∈ 𝑡- , 𝑡-\"/ :",
+        "*                    ,",
+        "* 𝑌! 𝑑𝑊! = lim H 𝑌!$∗ 𝑊!$\"& − 𝑊!$ .",
+        "+            ,→1",
+        "-2/",
+        "Itô integral for 𝑡+ < ⋯ < 𝑡, = 𝑇:",
+        "*                  ,",
+        "* 𝑌! 𝑑𝑊! = lim H 𝑌!$ 𝑊!$\"& − 𝑊!$ .",
+        "+            ,→1",
+        "-2/"
+      ],
+      "media_sha256": [
+        "67cd15f6d3cb39982cf462d833dca3639ac6d5ba59a897888936ab0bf564db3f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Stieltjes vs. Itô Integral",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Stieltjes vs. Itô Integral",
+        "For a more concrete example, consider 𝑑𝑋! = 𝑊! 𝑑𝑊! with Stieltjes integral:",
+        "*                 ,",
+        "* 𝑊! 𝑑𝑊! = lim H 𝑊!$∗ 𝑊!$\"& − 𝑊!$ .",
+        "+           ,→1",
+        "-2/",
+        "The value is inconsistent for 𝑡-∗ = 𝑡- (Itô) or 𝑡-∗ = 𝑡-\"/ (backward Itô).",
+        "Let’s first consider Itô:",
+        ",                               ,",
+        "1  )       )               )",
+        "lim H 𝑊!$ 𝑊!$\"& − 𝑊!$        = lim H 𝑊!$\"& − 𝑊!$ − 𝑊!$\"& − 𝑊!$",
+        ",→1                            ,→1  2",
+        "-2/                     1 )-2/1 ) 1",
+        "= 𝑊* − 𝑊+ − 𝑇",
+        "2     2    2"
+      ],
+      "media_sha256": [
+        "f6e5723cb2b8abf8f36221b2aaf16af49deb7df07d7f1709cf943bb486ad056a",
+        "5a19286ef908563f78234fdb5abf1536c37a3031f4673b4929eccc7ac0fcff61"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Stieltjes vs. Itô Integral",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Stieltjes vs. Itô Integral",
+        "For a more concrete example, consider 𝑑𝑋! = 𝑊! 𝑑𝑊! with Stieltjes integral:",
+        ",",
+        "𝑋* − 𝑋+ = lim H 𝑊!$∗ 𝑊!$\"& − 𝑊!$ .",
+        ",→1",
+        "-2/",
+        "Consider the backward Itô case with 𝑡-∗ = 𝑡-\"/:",
+        ",                                   ,",
+        "1  )       )               )",
+        "lim H 𝑊!$\"& 𝑊!$\"& − 𝑊!$       = lim H 𝑊!$\"& − 𝑊!$ + 𝑊!$\"& − 𝑊!$",
+        ",→1                             ,→1  2",
+        "-2/                               -2/",
+        "1 ) 1 ) 1",
+        "= 𝑊* − 𝑊+ + 𝑇",
+        "2    2    2"
+      ],
+      "media_sha256": [
+        "2d196b50f0ceb8b90467a2b35385b25712563710d1ac223f0d7b103111c8a527",
+        "bbe6ea2b049ec2f226ec81f5f5b85ce4c05233733ee2ff4ec46f46b4d17617e0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": null,
+      "title": "Itô, Backward Itô, and Stratonovich Integrals",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô, Backward Itô, and Stratonovich Integrals",
+        "Itô integral is expressed as:",
+        "*              ,",
+        "* 𝑌! 𝑑𝑊! = lim H 𝑌!$ 𝑊!$\"& − 𝑊!$",
+        "+        ,→1",
+        "-2/",
+        "Backward Itô integral is expressed as:",
+        "*              ,",
+        "* 𝑌! 𝑑𝑊! = lim H 𝑌!$\"& 𝑊!$\"& − 𝑊!$",
+        "+           ,→1",
+        "-2/",
+        "Stratonovich integral is expressed as:",
+        "*                 ,",
+        "𝑌!$ + 𝑌!$\"&",
+        "* 𝑌! ∘ 𝑑𝑊! = lim H             𝑊!$\"& − 𝑊!$",
+        "+           ,→1        2",
+        "-2/"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": null,
+      "title": "Itô Formula",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô Formula",
+        "In the previous slides, we derived that:",
+        "*",
+        "1 ) 1 ) 1",
+        "* 𝑊! 𝑑𝑊! = 𝑊* − 𝑊+ − 𝑇.",
+        "+        2    2    2",
+        "This implies something similar to the chain rule:",
+        "1 )           1",
+        "𝑑 𝑊! = 𝑊! 𝑑𝑊! + 𝑑𝑡.",
+        "2             2",
+        "This application of the Itô formula, which corresponds to the chain rule in ordinary calculus."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": null,
+      "title": "Itô Formula",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô Formula",
+        "Itô formula describes the differential of an arbitrary function 𝜙(𝑋! , 𝑡) as follows:",
+        "𝜕𝜙      𝜕𝜙       1 𝜕 )𝜙",
+        "𝑑𝜙(𝑋! , 𝑡) =    𝑑𝑡 +    𝑑𝑋! +      ) 𝑑𝑋! 𝑑𝑋!",
+        "𝜕𝑡      𝜕𝑥       2 𝜕𝑥",
+        "Why? Think about second-order Taylor expansion for",
+        "𝑑𝜙 = 𝜙 𝑋! + 𝑑𝑋! , 𝑡 + 𝑑𝑡 − 𝜙 𝑋! , 𝑡 .",
+        "Why second-order? The Weiner process implies:",
+        "• 𝑑𝑊! = 𝑊!\"(! − 𝑊! ∼ 𝒩 0, 𝑑𝑡 .",
+        "• In the limit, 𝑑𝑊! 𝑑𝑊! = 𝑑𝑡.",
+        "• We also obtain 𝑑𝑡𝑑𝑊! = 0, 𝑑𝑊! 𝑑𝑡 = 0."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": null,
+      "title": "Itô Formula",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô Formula",
+        "Let’s assume an SDE 𝑑𝑋! = 𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! . Itô formula describes:",
+        "𝜕𝜙      𝜕𝜙       1 𝜕 )𝜙",
+        "𝑑𝜙(𝑋! , 𝑡) =    𝑑𝑡 +    𝑑𝑋! +      ) 𝑑𝑋! 𝑑𝑋!",
+        "𝜕𝑡      𝜕𝑥       2 𝜕𝑥",
+        "Plug in the definition of 𝑑𝑋! :",
+        "𝑑𝜙 𝑋! , 𝑡",
+        "𝜕𝜙      𝜕𝜙                              1 𝜕 )𝜙                             )",
+        "=    𝑑𝑡 +    𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! +         𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊!",
+        "𝜕𝑡      𝜕𝑥                              2 𝜕𝑥 )",
+        "𝜕𝜙      𝜕𝜙                              1 𝜕 )𝜙 )",
+        "=    𝑑𝑡 +    𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! +      ) 𝜎 𝑋! , 𝑡 𝑑𝑡.",
+        "𝜕𝑡      𝜕𝑥                              2 𝜕𝑥"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": null,
+      "title": "Itô Formula",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Itô Formula",
+        "/   )",
+        "Let’s revisit the same question: what is 𝑑     𝑊",
+        ") !",
+        "?",
+        "Let’s apply Itô formula for the case of 𝑑𝑋! = 𝑑𝑊! and 𝜙 𝑋! , 𝑡 = 𝑋!):",
+        "𝜕𝜙      𝜕𝜙       1 𝜕 )𝜙",
+        "𝑑𝜙(𝑋! , 𝑡) =    𝑑𝑡 +    𝑑𝑋! +      ) 𝑑𝑋! 𝑑𝑋!",
+        "𝜕𝑡      𝜕𝑥       2 𝜕𝑥",
+        "1                  1",
+        "= 𝑋! 𝑑𝑋! + 𝑑𝑋! 𝑑𝑋! = 𝛽 𝑡 𝑑𝛽 + 𝑑𝑡",
+        "2                  2",
+        "/          /",
+        "In other words, ∫ 𝑊! 𝑑𝑊! = ∫ 𝑑      𝑊!)   − ∫ 𝑑𝑡",
+        ")          )"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Summary of Itô Integral and Itô Formula",
+      "classification": "repeated-recap",
+      "coverage": "pending",
+      "text": [
+        "Summary of Itô Integral and Itô Formula",
+        "Given a SDE 𝑑𝑋! = 𝑌! 𝑑𝑊! , the Itô integral is computed by:",
+        "*                ,",
+        "* 𝑌! 𝑑𝑊! = lim H 𝑌!$ 𝑊!$\"& − 𝑊!$ ,            𝑡+ = 0 < ⋯ < 𝑡, = 𝑡 .",
+        "+           ,→1",
+        "-2/",
+        "Given some function 𝜙 𝑥 𝑡 , 𝑡 , the Itô formula states that:",
+        "𝜕𝜙      𝜕𝜙       1 𝜕 )𝜙",
+        "𝑑𝜙(𝑋! , 𝑡) =    𝑑𝑡 +    𝑑𝑋! +      ) 𝑑𝑋! 𝑑𝑋!",
+        "𝜕𝑡      𝜕𝑥       2 𝜕𝑥",
+        "where 𝑑𝑊! 𝑑𝑊! = 𝑑𝑡, 𝑑𝑊! 𝑑𝑡 = 0, 𝑑𝑡𝑑𝑊! = 0.",
+        "The relation is not quite the inverse, but something similar…"
+      ],
+      "media_sha256": [
+        "f68044801d3e87353d7e490a32609af6f572e266c124ffa648425943e95e8662"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Today: Diffusion and Flow Matching",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Today: Diffusion and Flow Matching",
+        "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
+        "• Itô calculus",
+        "• Itô integral",
+        "• Itô formula",
+        "• Probability distributions of ODEs/SDEs",
+        "• Infinitesimal generator",
+        "• Derivation of Fokker-Planck-Kolmogorov (FPK) equation"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Probability Distributions of ODEs / SDEs",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Probability Distributions of ODEs / SDEs",
+        "We are interested in the probability density function 𝑋! ∼ 𝑝 𝑥, 𝑡 ,",
+        "given a SDE 𝑑𝑋! = 𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! .",
+        "We (probably) have learned in other courses that this is",
+        "described by the Fokker-Planck Kolmogorov (FPK) equation:",
+        "𝜕              𝜕                      1 𝜕)          ) 𝑝 𝑥, 𝑡",
+        "𝑝(𝑥, 𝑡) = −    𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡     +        𝜎 𝑥, 𝑡",
+        "𝜕𝑡             𝜕𝑥                     2 𝜕𝑥 )",
+        "How to intuitively understand this equation?"
+      ],
+      "media_sha256": [
+        "f2a053d6fe43e7252da2674b252d4189d171a87a54b10cf3ae324c53224d8c59"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Probability Distributions of ODEs / SDEs",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Probability Distributions of ODEs / SDEs",
+        "The FPK equation can be described in term of the change in probability current 𝐽(𝑥, 𝑡):",
+        "𝜕            𝜕                                       1 𝜕",
+        "𝑝(𝑥, 𝑡) =    𝐽 𝑥, 𝑡 ,    𝐽 𝑥, 𝑡 = 𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡 +      𝜎 𝑥, 𝑡 )𝑝 𝑥, 𝑡",
+        "𝜕𝑡           𝜕𝑥                                      2 𝜕𝑥",
+        "Intuively, we could say that the probability change over time depends on",
+        "the difference between probability mass coming in (𝐽 𝑥, 𝑡 )                    𝑝(𝑥, 𝑡)",
+        "and the probability mass going out (𝐽 𝑥 + 𝑑𝑥, 𝑡 ).",
+        "More intuition about the probability current?                                            𝐽 𝑥 + 𝑑𝑥, 𝑡",
+        "𝐽 𝑥, 𝑡"
+      ],
+      "media_sha256": [
+        "8c74c05020a1ff7c0e4e4ae65fe2447d65c197498bc30b1ac9fd27c6cd3daa9a",
+        "3057faecf77ecd5c32e308bc7d05d29ec69ea955ff79e1182420fccda2d9eea9",
+        "b14bb617d6f39e673bfc7c9df8339dbbe052488ea6e0a85c6dbd69509f6dd140",
+        "da6afe15ae4a48de10a56ea93c133cd4699fddb75fb1019ff67bfc335ab6299a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Probability Distributions of ODEs / SDEs",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Probability Distributions of ODEs / SDEs",
+        "We just described that the probability current is described by:",
+        "1 𝜕",
+        "𝐽 𝑥, 𝑡 = 𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡 +      𝜎 𝑥, 𝑡 )𝑝 𝑥, 𝑡              𝑝(𝑥, 𝑡)",
+        "2 𝜕𝑥",
+        "The drift-related term is more obvious, i.e., the probability mass is",
+        "moving at velocity of 𝜇 𝑥, 𝑡 .                                                             𝜇 𝑥, 𝑡 %",
+        "For the diffusion-related term, easier to think of it as difference              𝑝(𝑥 + 𝑑𝑥, 𝑡)",
+        "between two “repulsive drifts”.                                        𝑝(𝑥, 𝑡)",
+        "𝜎 𝑥 + 𝑑𝑥, 𝑡 %",
+        "𝜎 𝑥, 𝑡 %"
+      ],
+      "media_sha256": [
+        "19062bbe052b51e4a12ddcf69050fda471ee2584364348cd2a5e97555c1ca644",
+        "d326a0f9c6ddc01d30f35bb5908fc2f25f3fdc06092d9a897c7cddc438bbe956",
+        "e5d5a6b8d0f0d50a69ba159117bdd777c6fceaddcd9c433e838d9389967e1d7b",
+        "a196a1c188154e028e861bc154663c280a82deb81b537fc9a7f3e1032e5a2f98",
+        "d72b4d99012153b69adea3df89bbe7502d89449ea56585011196181f817a9e87",
+        "9ad8eb86f6845587da81f4152a00e644c003351959bf99534a357e92eded46f2",
+        "1081653191941a79cd3162765393c3789d8401d0dc6cedc7556ca63fff0aac7f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Infinitesimal Generator",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Infinitesimal Generator",
+        "To derive the FPK equation, we need to define infinitesimal generator",
+        "as expected change of a function for infinitesimal time.",
+        "()(+! )",
+        "• Recall that differentiation, e.g.,          , is ill-defined in stochastic calculus.",
+        "(!",
+        "The infinitesimal generator ℒ𝜙 thinks about differentiation of the expectation:",
+        "𝔼 𝜙 𝑋!\"# − 𝜙(𝑋! ) 𝔼>? 𝜙 𝑋! + 𝑑𝑋 − 𝜙 𝑋!",
+        "ℒ𝜙 𝑋! = lim                          =                             .",
+        "#→+           Δ                            𝑑𝑡",
+        "𝔼!\" '(",
+        "Informally, we can express this by",
+        "')",
+        "This could be derived using Itô formula:",
+        "𝑑   𝜕𝜙       1 𝜕 )𝜙",
+        "𝔼    𝑑𝑋! +      ) 𝑑𝑋! 𝑑𝑋! .",
+        "𝑑𝑡 𝜕𝑥        2 𝜕𝑥"
+      ],
+      "media_sha256": [
+        "c649da8bd0a1fc89b3b614d36ee22e1eabb7b3e873ddc333b8c46f4d0e48afd3",
+        "c687d2fb5a23fd264582b456f5e62ee15defff5b0024e6abe4d1809062f425be"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Infinitesimal Generator",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Infinitesimal Generator",
+        "To further apply the Itô formula, consider the SDE:",
+        "𝑑𝑋! = 𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊!",
+        "We have already done a similar derivation before:",
+        "𝔼 𝑑𝜙  𝑑  𝜕𝜙      𝜕𝜙      1 𝜕 )𝜙",
+        "ℒ𝜙 𝑋!    =      = 𝔼    𝑑𝑡 +    𝑑𝑥 +      ) 𝑑𝑥𝑑𝑥",
+        "𝑑𝑡   𝑑𝑡 𝜕𝑡      𝜕𝑥      2 𝜕𝑥",
+        "𝑑         𝜕𝜙             𝜕𝜙      1        𝜕 )𝜙",
+        "= 𝔼 𝜇 𝑥, 𝑡    𝑑𝑡 + 𝜎 𝑥, 𝑡    𝑑𝑊! + 𝜎 𝑥, 𝑡 ) ) 𝑑𝑡",
+        "𝑑𝑡        𝜕𝑥             𝜕𝑥      2        𝜕𝑥",
+        "𝜕𝜙 1        𝜕 )𝜙",
+        "= 𝜇 𝑥, 𝑡   + 𝜎 𝑥, 𝑡 ) ) .",
+        "𝜕𝑥 2        𝜕𝑥"
+      ],
+      "media_sha256": [
+        "bb33cb8eccffe88e26038939b4349d36b5219ab2caa956fdbf333784a600e388"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Infinitesimal Generator",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Infinitesimal Generator",
+        "In conclusion, the infinitesimal generator is characterized as:",
+        "𝜕𝜙(𝑥) 1         𝜕 ) 𝜙(𝑥)",
+        "ℒ𝜙 𝑥 = 𝜇 𝑥, 𝑡      + 𝜎 𝑥, 𝑡 )      )   .",
+        "𝜕𝑥   2           𝜕𝑥",
+        "Intuive understanding of how infinitesimal generators are related to FPK equation:",
+        "Think of 𝜙 𝑥 as an indicator function e.g., 𝜙 𝑥 = 1 iff 𝑥 ∈ 𝐴 ⊆ ℝ.",
+        "(",
+        "• Then the corresponding infinitesimal generator is      𝑃 𝑥∈𝐴 .",
+        "(!",
+        "• But this does not make sense since the indicator function is discontinuous…"
+      ],
+      "media_sha256": [
+        "87949cf7b783f3867c5ac5939493f879943447a4924f49ddbf99f3714fc55af9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Proof Sketch of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof Sketch of FPK Equation",
+        "The Fokker-Planck-Kolmogorov equation describes",
+        "the evolution of density 𝑝(𝑥, 𝑡) as follows:",
+        "𝜕𝑝(𝑥, 𝑡)    𝜕                               1 𝜕)          ) 𝑝 𝑥, 𝑡 .",
+        "=−    𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡              +        𝜎 𝑥, 𝑡",
+        "𝜕𝑡        𝜕𝑥                              2 𝜕𝑥 )",
+        "Key ideas:",
+        "• The probability 𝑃 𝑋! ∈ 𝐴 = 𝔼 𝕀- 𝑋! , where 𝕀- 𝑥 is our “test function”.",
+        "We can try analyzing the infinitesimal generator, but indicator functions are discontinuous…",
+        "./(0,!)",
+        "• Instead, we can compute           by analyzing the statistics of 𝔼+! [𝜙(𝑋! )]",
+        ".!",
+        "for arbitrary test functions 𝜙."
+      ],
+      "media_sha256": [
+        "391229df31cfda08e965aab777a7219ca5ddf206a3f041d7ce60365f0cda3010"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Proof Sketch of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof Sketch of FPK Equation",
+        "We analyze the quantity",
+        "𝑑𝔼?! [𝜙(𝑋! )] 𝑑",
+        "= * 𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 .",
+        "𝑑𝑡       𝑑𝑡 ℝ",
+        "Using simple calculus:",
+        "𝑑                         𝜕",
+        "* 𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥    𝑝 𝑥, 𝑡 𝑑𝑥",
+        "𝑑𝑡 ℝ                 ℝ    𝜕𝑡",
+        "We will derive that:",
+        "𝑑",
+        "*𝜙 𝑥    𝑝 𝑥, 𝑡 𝑑𝑥 = * ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥 ℒ ∗ 𝑝 𝑥, 𝑡 𝑑𝑥",
+        "ℝ    𝑑𝑡              ℝ                  ℝ",
+        "A",
+        "Hence A! 𝑝 𝑥, 𝑡 = ℒ ∗ 𝑝 𝑥, 𝑡 .         Let’s focus on this first."
+      ],
+      "media_sha256": [
+        "8616e4022732e4a1d0c93e0aa675791e9bccb59b5df6b41a9c3251ed79629add"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        ">",
+        "How to first derive ∫ℝ 𝜙 𝑥 >! 𝑝 𝑥, 𝑡 𝑑𝑥 = ∫ℝ ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥?",
+        "Note the difference between 𝑥 and 𝑋! !",
+        "• LHS is about fixing 𝑥 and measuring 𝜙(𝑥)𝑝 𝑥, 𝑡 + 𝑑𝑡 − 𝜙(𝑥)𝑝 𝑥, 𝑡",
+        "• RHS is about measuring the expectation of 𝜙(𝑋!\"(! )𝑝 𝑋!\"(! , 𝑡 + 𝑑𝑡 − 𝜙(𝑋! )𝑝(𝑋! , 𝑡)",
+        "Intuitively, both should sum up to the same value.",
+        "• Both 𝜙(𝑥)𝑝 𝑥, 𝑡 + 𝑑𝑡 − 𝜙(𝑥)𝑝 𝑥, 𝑡 and",
+        "𝜙(𝑋!\"(! )𝑝 𝑋!\"(! , 𝑡 + 𝑑𝑡 − 𝜙(𝑋! )𝑝(𝑋! , 𝑡)",
+        "measures difference of 𝜙 𝑥 over time,",
+        "but with different mapping."
+      ],
+      "media_sha256": [
+        "7ebeb8fd10d02b7cd8964e8480321e92b5ed8e0616fdf43a69f3a4806736a6da"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        ">",
+        "How to first derive ∫ℝ 𝜙 𝑥 >! 𝑝 𝑥, 𝑡 𝑑𝑥 = ∫ℝ ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥?",
+        "Let’s think about an infinitesimal time interval 𝑡/, 𝑡) :",
+        "𝜕               1",
+        "* 𝜙(𝑥) 𝑝 𝑥, 𝑡 𝑑𝑥 =         * 𝜙 𝑥 𝑝 𝑥, 𝑡) 𝑑𝑥 − * 𝜙 𝑥 𝑝 𝑥, 𝑡/ 𝑑𝑥",
+        "ℝ    𝜕𝑡           𝑡) − 𝑡/ ℝ                   ℝ",
+        "1",
+        "=        * * 𝜙 𝑥) 𝑝 𝑥)|𝑡), 𝑥/, 𝑡/ 𝑝 𝑥/, 𝑡/ 𝑑𝑥/𝑑𝑥) − *𝜙 𝑥 𝑝 𝑥, 𝑡/ 𝑑𝑥",
+        "𝑡) − 𝑡/ ℝ ℝ",
+        "1",
+        "=        * * 𝜙 𝑥) 𝑝 𝑥)|𝑡), 𝑥/, 𝑡/ 𝑑𝑥) − 𝜙 𝑥/              𝑝 𝑥/, 𝑡/ 𝑑𝑥/ = * ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 .",
+        "𝑡) − 𝑡/ ℝ ℝ                                                            ℝ"
+      ],
+      "media_sha256": [
+        "342793a4bc6ebd9c681bdf6f09820733cf07ed12a96381a34dd1eb3c1513810f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        "We are now",
+        "focusing on this",
+        "We will derive that there exists some adjoint operator ℒ ∗ such that        part.",
+        "𝑑",
+        "*𝜙 𝑥    𝑝 𝑥, 𝑡 𝑑𝑥 = * ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥 ℒ ∗ 𝑝 𝑥, 𝑡 𝑑𝑥",
+        "ℝ    𝑑𝑡              ℝ                  ℝ",
+        "We use the integration by parts formula:",
+        "𝑑𝑣",
+        "𝑑                                𝑑",
+        "*     𝑢 𝑥      𝑣 𝑥 𝑑𝑥 = * 𝑢 𝑥          𝑣 𝑥      𝑑𝑥    𝑣",
+        "ℝ 𝑑𝑥                      ℝ        𝑑𝑥",
+        "𝑢        𝑑𝑢",
+        "… if 𝑢 𝑥 𝑣 𝑥 = 0 for 𝑥 > 𝐶 and 𝑥 < 𝐶 where 𝐶 is some constant.."
+      ],
+      "media_sha256": [
+        "a9879316974bccb6a2c1e337bdbbc9cf30b4cea325b9e9e7d26e2aba34604805",
+        "00cac31f1f7c7c134130b0a5244b8064c3fb766ab15eed005c5a256ddc05ea51",
+        "52463d9b846420827e4cac2bde3496a00c05c016c8ea8a5dade60df5d868ac50",
+        "0e4b38c0309e6ab24c3e584cc6d3862fd1472637f98ca442e64f8f97fcc119fe",
+        "472b64235286194b33f9070eee66d0f145fba18b3fab466d8b2af7b47ddb5e0c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        "We are now",
+        "focusing on this",
+        "We will derive that there exists some adjoint operator ℒ ∗ such that   part.",
+        "𝑑",
+        "*𝜙 𝑥    𝑝 𝑥, 𝑡 𝑑𝑥 = * ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥 ℒ ∗ 𝑝 𝑥, 𝑡 𝑑𝑥",
+        "ℝ    𝑑𝑡              ℝ                  ℝ",
+        "By the previously derived infinitesimal generator:",
+        "𝜕𝜙 𝑥     1               𝜕 )𝜙",
+        "* ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡      𝑑𝑥 + 𝜎 𝑥, 𝑡 )𝑝(𝑥, 𝑡) ) 𝑑𝑥",
+        "ℝ                                  𝜕𝑥      2               𝜕𝑥",
+        "𝜕𝜙 𝑥          𝜕",
+        "* 𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡      𝑑𝑥 = − *    𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡 𝜙 𝑥 𝑑𝑥",
+        "𝜕𝑥           𝜕𝑥",
+        "1               𝜕 )𝜙      1 𝜕 )",
+        "* 𝜎 𝑥, 𝑡 )𝑝(𝑥, 𝑡) ) 𝑑𝑥 = *        𝜎 𝑥, 𝑡 ) 𝑝 𝑥, 𝑡 𝜙(𝑥)𝑑𝑥",
+        "2               𝜕𝑥        2 𝜕𝑥 )"
+      ],
+      "media_sha256": [
+        "bf63aef2c9f00a70f437a5201a98a73984a1a0e4778424729db70b388a918ced"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        "By the previously derived infinitesimal generator:",
+        "𝜕𝜙 𝑥     1                𝜕 ) 𝜙(𝑥)",
+        "* ℒ𝜙 𝑥 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡      𝑑𝑥 + 𝜎 𝑥, 𝑡 )𝑝(𝑥, 𝑡)      )   𝑑𝑥",
+        "ℝ                                  𝜕𝑥      2                  𝜕𝑥",
+        "Resulting adjoint operator:",
+        "𝜕                    1 𝜕)",
+        "* 𝜙 𝑥 ℒ ∗ 𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥      −    𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡   +        𝜎 𝑥, 𝑡 ) 𝑝 𝑥, 𝑡   𝑑𝑥 .",
+        "ℝ                         ℝ       𝜕𝑥                   2 𝜕𝑥 )"
+      ],
+      "media_sha256": [
+        "56e0d2e7eb5c460e0ad459425958353b747bf9784dafc4b56fb4e3e8fca89de3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Proof of FPK Equation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Proof of FPK Equation",
+        "We proved that, for all 𝜙 𝑥 ,",
+        "𝜕",
+        "*𝜙 𝑥    𝑝 𝑥, 𝑡 𝑑𝑥 = * 𝜙 𝑥 ℒ ∗ 𝑝 𝑥, 𝑡 𝑑𝑥 .",
+        "ℝ    𝜕𝑡              ℝ",
+        "Then we arrive at the FPK equation:",
+        "𝜕𝑝(𝑥, 𝑡)    𝜕                    1 𝜕)          ) 𝑝 𝑥, 𝑡 .",
+        "=−    𝜇 𝑥, 𝑡 𝑝 𝑥, 𝑡   +        𝜎 𝑥, 𝑡",
+        "𝜕𝑡        𝜕𝑥                   2 𝜕𝑥 )"
+      ],
+      "media_sha256": [
+        "7cc521da2e2f1e79514c51398c5c836ce9e05f72e1c4d7407cd3ff847037669c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "End of Slide",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "End of Slide",
+        "Multi-dimensional generalization is conceptually straightforward.",
+        "Other useful concepts (not the scope of this lecture):",
+        "• Girsanov theorem (change of measures for SDEs)",
+        "• Feynman–Kac formula (importance sampling for SDEs)",
+        "• Doob’s ℎ-Transform (dynamic version of Bayes rule for SDEs)",
+        "Read the book for more! https://users.aalto.fi/~asolin/sde-book/sde-book.pdf"
+      ],
+      "media_sha256": [
+        "13605043260d47294e83cab0208c54cb53ce0c812f68354ae6647484ee66f36a"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "edc88ecd2b80277c583a3b8820e8b7f12fbf51b4c5cce684fd9743fcfe9098e9",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 142714,
+      "slides": [
+        2
+      ]
+    },
+    {
+      "sha256": "cf994d60ed57eec5bacad20624a8ab3826da5717e8aa1264a39f20c511bfb16a",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 18478,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "fc93498c546b3346180be3db21a0a6f98a9d03838022e658f3fd4066520b7d5a",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 117350,
+      "slides": [
+        9
+      ]
+    },
+    {
+      "sha256": "654a3ecc6977ca8d108fd841e855a4b75024d0bc6e9549b3c08fbff030070e32",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 125676,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "cb574e8f27961d49ab21ce493ca0d0c0d7eeb086c36f4bb6fafce26c8a6399e4",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 132388,
+      "slides": [
+        12
+      ]
+    },
+    {
+      "sha256": "67cd15f6d3cb39982cf462d833dca3639ac6d5ba59a897888936ab0bf564db3f",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 149923,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "f6e5723cb2b8abf8f36221b2aaf16af49deb7df07d7f1709cf943bb486ad056a",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 118598,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "5a19286ef908563f78234fdb5abf1536c37a3031f4673b4929eccc7ac0fcff61",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 7991,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "2d196b50f0ceb8b90467a2b35385b25712563710d1ac223f0d7b103111c8a527",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 105952,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "bbe6ea2b049ec2f226ec81f5f5b85ce4c05233733ee2ff4ec46f46b4d17617e0",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 9561,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "8c327e0f09fe6624572e4fc7cf6aefeacfc4d76e5a371e918c86d952ce8c1092",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 126845,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "add3fc3332097b62f518da6d913382180f62a8a96fcd395e9c0dafce20c1922d",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 41542,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "b0958902eed6a8bfb2585cd0de4d3e33e11bb52143e8993cae2b4d4e2fe61073",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 89939,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "414afc5c3d85cbb0518e99c418f40a1a30fce6532c6148d84b20bd2339389083",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 114072,
+      "slides": [
+        18
+      ]
+    },
+    {
+      "sha256": "226997abec65d08dc1f557736ecad93ce348d5ea6cb02c46076d8c21d05f2f5f",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 115748,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "d388831bd1bb8b4e94e73607dbb8539cfb057777aa27e16ada705934365a9d83",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 90538,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "a9ec56dc1c1a920b0239a4730e9a7e3fe96861f8cb8e7d81f96677b466fcdd0c",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 10646,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "f68044801d3e87353d7e490a32609af6f572e266c124ffa648425943e95e8662",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 128374,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "f2a053d6fe43e7252da2674b252d4189d171a87a54b10cf3ae324c53224d8c59",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 124361,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "8c74c05020a1ff7c0e4e4ae65fe2447d65c197498bc30b1ac9fd27c6cd3daa9a",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 130390,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "3057faecf77ecd5c32e308bc7d05d29ec69ea955ff79e1182420fccda2d9eea9",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 2839,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "b14bb617d6f39e673bfc7c9df8339dbbe052488ea6e0a85c6dbd69509f6dd140",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 3582,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "51492a293b4a9e14f01a8f19491c8c318e50e28ce47689d241e715297d03d4d1",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 193971,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "da6afe15ae4a48de10a56ea93c133cd4699fddb75fb1019ff67bfc335ab6299a",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 2695,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "19062bbe052b51e4a12ddcf69050fda471ee2584364348cd2a5e97555c1ca644",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 100785,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "d326a0f9c6ddc01d30f35bb5908fc2f25f3fdc06092d9a897c7cddc438bbe956",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 2684,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "e5d5a6b8d0f0d50a69ba159117bdd777c6fceaddcd9c433e838d9389967e1d7b",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 3446,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "a196a1c188154e028e861bc154663c280a82deb81b537fc9a7f3e1032e5a2f98",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 3454,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "d72b4d99012153b69adea3df89bbe7502d89449ea56585011196181f817a9e87",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 2736,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "9ad8eb86f6845587da81f4152a00e644c003351959bf99534a357e92eded46f2",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 2691,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "1081653191941a79cd3162765393c3789d8401d0dc6cedc7556ca63fff0aac7f",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 2884,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "c649da8bd0a1fc89b3b614d36ee22e1eabb7b3e873ddc333b8c46f4d0e48afd3",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 141191,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "c687d2fb5a23fd264582b456f5e62ee15defff5b0024e6abe4d1809062f425be",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 11309,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "0d005aab03cfec088b58eb38420f05932a89e062e5010f2bfde5419915ef9be9",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 64624,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "bb33cb8eccffe88e26038939b4349d36b5219ab2caa956fdbf333784a600e388",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 112454,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "87949cf7b783f3867c5ac5939493f879943447a4924f49ddbf99f3714fc55af9",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 113592,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "391229df31cfda08e965aab777a7219ca5ddf206a3f041d7ce60365f0cda3010",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 140152,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "8616e4022732e4a1d0c93e0aa675791e9bccb59b5df6b41a9c3251ed79629add",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 123355,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "7ebeb8fd10d02b7cd8964e8480321e92b5ed8e0616fdf43a69f3a4806736a6da",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 149196,
+      "slides": [
+        31
+      ]
+    },
+    {
+      "sha256": "342793a4bc6ebd9c681bdf6f09820733cf07ed12a96381a34dd1eb3c1513810f",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 136634,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "a9879316974bccb6a2c1e337bdbbc9cf30b4cea325b9e9e7d26e2aba34604805",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 121583,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "00cac31f1f7c7c134130b0a5244b8064c3fb766ab15eed005c5a256ddc05ea51",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 1094,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "52463d9b846420827e4cac2bde3496a00c05c016c8ea8a5dade60df5d868ac50",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 1683,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "0e4b38c0309e6ab24c3e584cc6d3862fd1472637f98ca442e64f8f97fcc119fe",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 1665,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "a52f5ee2ccd5e27ad495f033eca816b8492a933b30c48baa1496e30c9707eec8",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 113600,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "472b64235286194b33f9070eee66d0f145fba18b3fab466d8b2af7b47ddb5e0c",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 1076,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "bf63aef2c9f00a70f437a5201a98a73984a1a0e4778424729db70b388a918ced",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 153832,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "56e0d2e7eb5c460e0ad459425958353b747bf9784dafc4b56fb4e3e8fca89de3",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 115862,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "7cc521da2e2f1e79514c51398c5c836ce9e05f72e1c4d7407cd3ff847037669c",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 89402,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "13605043260d47294e83cab0208c54cb53ce0c812f68354ae6647484ee66f36a",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 112312,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "897d801cee6ba371070631e82cab65dbf56f1ae5ef8844b27b1eb3ef70c7be0e",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 162697,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "52cc8e0566e667618a6ee062351686bf59251c8af112d70ed2c9af9fa4ff36aa",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 113520,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "d650db8c5538dba75911011636c32d5f4ed1d39cb5c8f9da7eb114c098b4e3dc",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 175880,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "a9bce9c91354c84311f9de839380e9f3c052e49888d38a57a126cf6aa25e9b6a",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 128316,
+      "slides": [
+        8
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}

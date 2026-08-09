@@ -1,0 +1,1146 @@
+{
+  "deck_id": "gdl-2025-19",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec19_proteins2.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec19_proteins2.pptx",
+  "slide_count": 44,
+  "review_status": "pending",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "GDL for Proteins",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "GDL for Proteins",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Protein structure distribution learning",
+        "Molecular dynamics trajectory emulation",
+        "Protein design"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Protein Can Adopt Multiple Conformations",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Can Adopt Multiple Conformations",
+        "• There is never a unique structure!"
+      ],
+      "media_sha256": [
+        "dab91f10f7b2672cb8a50201c18fbb4e0ee8c1ebaee987d5d2bb1658f1fe808b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Boltzmann Generators",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Boltzmann Generators",
+        "Noé, Frank, et al. \"Boltzmann generators: Sampling equilibrium states of many-body systems with deep learning.\"",
+        "Science 365.6457 (2019): eaaw1147."
+      ],
+      "media_sha256": [
+        "5b7b565adebc4d4f79ccef749706357fcdd8a94d8b90503b39f60bbc5cce9723"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Two for One",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Two for One",
+        "• Diffusion-version of Boltzmann generators",
+        "Arts, Marloes, et al. \"Two for one: Diffusion models and force fields for coarse-grained molecular dynamics.\" Journal of",
+        "Chemical Theory and Computation 19.18 (2023): 6151-6159."
+      ],
+      "media_sha256": [
+        "382c8016fe8e9792f7a51a86e480ad142bc9610ad7b7f3dd32cabbbb6a6dfc4d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "EigenFold",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "EigenFold",
+        "Apo = protein alone (inactive)",
+        "Holo = protein + cofactor/ligand (active)",
+        "Jing, Bowen, et al. \"Eigenfold: Generative protein structure prediction with diffusion models.\" ICLR 2023 MLDD."
+      ],
+      "media_sha256": [
+        "8fd130e93a05718be06d1db7c9edb8c2dc8765e1216dbf12682ad25378ee2f8a",
+        "5e4361b85ff1aefd2b89680add9c4497aa33724c72923ae688ec9204896cb466"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "ConfDiff",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "ConfDiff",
+        "Wang, Yan, et al. \"Protein conformation generation via force-guided se (3) diffusion models.\" The 41st International",
+        "Conference on Machine Learning (ICML 2024)"
+      ],
+      "media_sha256": [
+        "536f778a740eed267158ae1e85851b5d2f31aa8f6e63a99b0acdc227300f2cf6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Distributional Graphormer",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Distributional Graphormer",
+        "Zheng, Shuxin, et al. \"Predicting equilibrium distributions for molecular systems with deep learning.\"",
+        "Nature Machine Intelligence (2024): 1-10."
+      ],
+      "media_sha256": [
+        "8f1ccff5bc05a8534b2e55f4d7ee8029e90b9915a6ab75368c19f8e92ab95e29"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "AlphaFlow",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "AlphaFlow",
+        "Jing, Bowen, et al. \"AlphaFold meets flow matching for generating protein ensembles.\" The 41st International",
+        "Conference on Machine Learning (ICML 2024)"
+      ],
+      "media_sha256": [
+        "b6fab02577e470d7f43c436d5d5f4157b1a829450a6548b32a1bc5ac10064fda"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Structure Language Models & ESMDiff",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Language Models & ESMDiff",
+        "Lu, Jiarui, et al. \"Structure Language Models for Protein Conformation Generation.\" The Thirteenth International",
+        "Conference on Learning Representations (ICLR 2025)."
+      ],
+      "media_sha256": [
+        "05eaf390000f91a9c4514abe637d9126232b7f3649bb0b19ea80d90192f90a32"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "BioEmu",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "BioEmu",
+        "Lewis, Sarah, et al. \"Scalable emulation of protein equilibrium ensembles",
+        "with generative deep learning.\" bioRxiv (2024): 2024-12."
+      ],
+      "media_sha256": [
+        "1ecf9073250d9e5c7c43d9db0ed1cfc8b5296161de4fb47601d9cf1ddce5cd78",
+        "62022cbce49e208ddfe0466fbd06fe937b5e0e8deb6522e572319296c10ff3cb",
+        "3f04be9afcc270726b585742001ffc1f6ef620f5b263d8a1e35250d7263bc601"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Protein structure distribution learning",
+        "Molecular dynamics trajectory emulation",
+        "Protein design"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Preliminary: Molecular Dynamics (MD) Simulation",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Preliminary: Molecular Dynamics (MD) Simulation",
+        "Lu, Jiarui, et al. \"Str2Str: A Score-based Framework for Zero-shot Protein Conformation Sampling.\" The Twelfth",
+        "International Conference on Learning Representations (ICLR 2024)."
+      ],
+      "media_sha256": [
+        "ad0310e83794cf66f46382dfd19c40f050b8ec122640f51696554ea934e58860"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "CGMD",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "CGMD",
+        "Fu, Xiang, et al. \"Simulate time-integrated coarse-grained molecular dynamics with multi-scale graph networks.\"",
+        "Transactions on Machine Learning Research (2023)."
+      ],
+      "media_sha256": [
+        "8cdf48a2e26b63bff10cdfda8233ecce7ead7c8b34c6da97ee726b417aef1ea1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Implicit Transfer Operator",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Implicit Transfer Operator",
+        "Schreiner, Mathias, et al. \"Implicit transfer operator learning: multiple time-resolution surrogates for molecular",
+        "dynamics.\" Advances in Neural Information Processing Systems 36 (2023)."
+      ],
+      "media_sha256": [
+        "b9dc6db2ecd9a40cb5308062fa4bc5d20716e1dbd89ea51d372a036361967aaa"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "TimeWarp",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "TimeWarp",
+        "• Conditional Normalizing flow as transfer operator",
+        "• RealNVP coupling layer",
+        "• Tested on small (2-4AA) peptides",
+        "Klein, Leon, et al. \"Timewarp: Transferable acceleration of molecular dynamics by learning time-coarsened dynamics.\"",
+        "Advances in Neural Information Processing Systems 36 (2023): 52863-52883."
+      ],
+      "media_sha256": [
+        "4cecccf764dd46e8b1c0c03a6f169007207e0754a33e370725fe0dc5f0f77385"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "MDGen",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "MDGen",
+        "Jing, Bowen, et al. \"Generative modeling of molecular dynamics trajectories.\" Advances in Neural Information",
+        "Processing Systems 37 (2024)."
+      ],
+      "media_sha256": [
+        "6396c31272253d590b22665782e93d1736d710032a5cd74c0ea3839bece8951d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "pending",
+      "text": [
+        "Overview",
+        "Protein structure distribution learning",
+        "Molecular dynamics trajectory emulation",
+        "Protein design"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Protein Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Protein Design",
+        "• Generate protein of desired functions",
+        "• Sequence design",
+        "• Structure design",
+        "• Sequence and structure design (co-design)",
+        "• Right shows a green fluorescent protein",
+        "generated from ESM3."
+      ],
+      "media_sha256": [
+        "1a2c1ad6c69eaa71b8e2db5f0b0c4732ba878f2bb021e23c499fd4303b5f2ffb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Squence Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Squence Design",
+        "• Compared to structures, sequences have a much larger data scale,",
+        "making model training easier.",
+        "• Depending on the input, sequence generative models",
+        "can be categorized into two types.",
+        "• Partial sequence, properties -> sequence",
+        "• Structure -> sequence (inverse folding)"
+      ],
+      "media_sha256": [
+        "5ff3d00a04c13f7169413e7425cbfd4b0fc126fc001cfd816cad108e2e14efba"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Sequence Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Sequence Design",
+        "• Goal: Generate sequences from properties",
+        "• Inputs: Properties such as protein family,",
+        "biological process and molecular function.",
+        "• Outputs: Protein sequences.",
+        "• Approaches: 1.2 billion parameters tranformer-",
+        "based protein LM.",
+        "ProGen: Madani et al., Nature Biotechnology 2023."
+      ],
+      "media_sha256": [
+        "e863644b8fa7d280cdc12289756cdde84747666b127e0571e2e9486b09989349"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Structure to Sequence Design (ESM-IF)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure to Sequence Design (ESM-IF)",
+        "• Goal: Predict sequences from the predicted backbone structures.",
+        "• Inputs: Spatial coordinates of protein backbone generated by AlphaFold2.",
+        "• Outputs: Protein sequences.",
+        "• Approaches: Autoregressive sequence-to-sequence",
+        "encoder-decoder invariant geometric vector perceptron layers.",
+        "ESM-IF: Hsu et al., ICML 2022."
+      ],
+      "media_sha256": [
+        "4a28a9203e8931e1006ebf2a66f8056232dd42e8e33fa13f87ace3e05664f6f2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Structure to Sequence Design (ProteinMPNN)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure to Sequence Design (ProteinMPNN)",
+        "• Autoregressive generation from message passing neural networks (Node is residue)",
+        "ProteinMPNN: Dauparas et al., Science 2022"
+      ],
+      "media_sha256": [
+        "fd59ea39bd044fe194a5faed0c639774b79f42a7d4620590ddba82e5cbd535f1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Surface to Sequence Design (SurfPro)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Surface to Sequence Design (SurfPro)",
+        "SurfPro: Song, Huang, Li & Jin, ICML 2024"
+      ],
+      "media_sha256": [
+        "7b31c6b278465502f2446a0016214ef5be1c76e125ec9a75bab731471dd92acb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Structure Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design",
+        "• Generation of complex 3D structure is highly challenging",
+        "• Structure design approaches evolve alongside generative models."
+      ],
+      "media_sha256": [
+        "fca68f5a8abdf5d9e304dbac6e2cea5fa08eeab374aba8f5c5c820038ae8d272"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Structure Design (FrameDiff)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (FrameDiff)",
+        "• Diffusion on rigid bodies in 3D",
+        "FrameDiff: Yim et al., ICML 2023."
+      ],
+      "media_sha256": [
+        "1e230ffb7883be7f169c93eb8802e9d510140af5ebbdf6bc74700608dcd8b31b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Structure Design (FrameFlow)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (FrameFlow)",
+        "• Flow matching on rigid bodies in 3D"
+      ],
+      "media_sha256": [
+        "1c127e1f6efa85a696c8e4836a92adac956febde8bb4ac46fe4a38876287fa28"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Structure Design (Genie)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (Genie)",
+        "• Diffusion on coordinates in 3D",
+        "Genie: Lin et al., ICML 2023."
+      ],
+      "media_sha256": [
+        "7b2a9c9d8e48090fbb18b297924fd5ebd05b981ea946dbbd8e225cd47aa2e614"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Structure Design (Genie 2)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (Genie 2)",
+        "• Diffusion on coordinates in 3D",
+        "Genie 2: Lin et al., 2024."
+      ],
+      "media_sha256": [
+        "d36fdcf7dcbe80155bb22176ce3babf5322a5c28d4df78167400ece1ab6a9291"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Structure Design (Chroma)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (Chroma)",
+        "• Efficient generation of coordinates in 3D",
+        "Chroma: Ingraham et al., Nature 2023."
+      ],
+      "media_sha256": [
+        "f409a2bbf93fa02d6da5737f4c8e263bbc4efbe1c391dedba084d7937287d34d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Structure Design (RFDiffusion)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (RFDiffusion)",
+        "• Diffusion with enhanced denoiser in 3D",
+        "RFDiffusion: Watson et al., Nature 2023."
+      ],
+      "media_sha256": [
+        "13c81df50f1d7c6da3d48d982795082c37ab642467cc20bd9a19f5445b73b947"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Structure Design (FoldFlow)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (FoldFlow)",
+        "• Importance of path design in flow matching",
+        "FoldFlow: Bose et al., ICLR 2024."
+      ],
+      "media_sha256": [
+        "e9b3d529cc4766298b728d94e1d729c00e8c9a1e5df40c60b0b5fa971d36fa69"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Structure Design (FlowFlow 2)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Structure Design (FlowFlow 2)",
+        "• Sequence helps structure generation"
+      ],
+      "media_sha256": [
+        "4d94ee47838835956cd51f7e1ebec34fa79c8a2905f0b113fa75cf7814a41cfa"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Co-Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Co-Design",
+        "• Generation of continuous structure and",
+        "discrete sequence at the same time.",
+        "• Continuous and discrete generative",
+        "models can be combined for co-design.",
+        "• Fusing multi-modal representations is",
+        "important"
+      ],
+      "media_sha256": [
+        "2a2bc8601a807399058fdbaf8fccb9d835d33da837c62ad80b984d5ae9c83505"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Co-Design (ProtSeed)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Co-Design (ProtSeed)",
+        "• Geometric encoding for co-design",
+        "ProtSeed: Shi et al., ICLR 2023."
+      ],
+      "media_sha256": [
+        "be4c5dc9788cbaca8dcef3416b9a71b52b42ec140523a709b6baaa20027d419e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Co-Design (ProteinGenerator)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Co-Design (ProteinGenerator)",
+        "• Generate categorical variables in continuous space",
+        "ProteinGenerator: Lisanza et al., Nature Biotechnology 2024."
+      ],
+      "media_sha256": [
+        "246098a072c2bea813ade242c63ba9364f525c0746c5b928db3fa87b731c29db"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Co-Design (MultiFlow)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Co-Design (MultiFlow)",
+        "• Multi-modal flow matching model",
+        "MultiFlow: Campbell et al., ICML 2024."
+      ],
+      "media_sha256": [
+        "c604688bcbe3c2bae983f35ca74c5baa7e7123a1cc503b2750e42fe814d664e5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "Co-Design (Protpardelle)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Co-Design (Protpardelle)",
+        "• All-atom structure and sequence generation",
+        "Protpardelle: Chu et al., PNAS 2024."
+      ],
+      "media_sha256": [
+        "1a352edf9db88e1cb53fc5a33a46cd2ca0eef5d5cfce5233a2e48f9eb9ccb0bc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "Antibody Design",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Antibody Design",
+        "• Antibody is a protein that binds to an antigen and stimulates immune responses.",
+        "• Antibody consists of heavy chains and light chains and each has variable domain.",
+        "• Variable domain can be divided into a framework regions",
+        "and complementary determining regions (CDRs).",
+        "• CDRs are the main determinants of binding and neutralization.",
+        "paratope"
+      ],
+      "media_sha256": [
+        "2f343e6191e6feb02bd0874d3fb5541b04fdb4771576d30fee1f40312a695178"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "Antibody Design (RefineGNN)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Antibody Design (RefineGNN)",
+        "• Antibody Sequence-Structure Co-Design",
+        "Jin et al., ICLR 2022"
+      ],
+      "media_sha256": [
+        "9a1cb93aa0c55abc845a1979656327ae11aaf8e67803bf2a2d3fe35e92bae9c5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "Antibody Design (HERN)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Antibody Design (HERN)",
+        "• Adding Antigen Information",
+        "HERN generates paratope autoregressively by adding one residue at a time.",
+        "In each generation step, we use the docking model to infer the geometric hidden",
+        "state from a partial paratope sequence",
+        "Jin et al., ICML 2022"
+      ],
+      "media_sha256": [
+        "98d0abcea96968241b582d1748f8942ee7344fdbba4ea4f6a8cdfea5b11a4839",
+        "17182d73fc273614e7ec7ca8ddcc8ba35ac8bd088abfc3b5d57a5ef0079df424"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "title": "Antibody Design (DSMBind)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Antibody Design (DSMBind)",
+        "• Learning Antibody-Antigen Binding Affinity",
+        "Jin et al., NeurIPS 2023)"
+      ],
+      "media_sha256": [
+        "a2b85bb894f02702dc20bede2b5c3e5be0e5a766ab326b2db459a9719f73e800"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "Learning Antibody-Antigen Binding Affinity (DSMBind)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Learning Antibody-Antigen Binding Affinity (DSMBind)",
+        "• Learning the likelihood of 3D structures via denoising score matching (DSM)",
+        "Jin et al., NeurIPS 2023)"
+      ],
+      "media_sha256": [
+        "643fc0616993f746d9135f95b089c5ac7f219907924abc095dc8961c743c5f40"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "Learning Antibody-Antigen Binding Affinity (DSMBind)",
+      "classification": "substantive",
+      "coverage": "pending",
+      "text": [
+        "Learning Antibody-Antigen Binding Affinity (DSMBind)",
+        "• Wet lab validation of designed PD-L1 nanobodies",
+        "Jin et al., NeurIPS 2023)"
+      ],
+      "media_sha256": [
+        "33673eb9e2e76bb3c14045676739bdf943313250233a3d87c71643f1f06bef35"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "dab91f10f7b2672cb8a50201c18fbb4e0ee8c1ebaee987d5d2bb1658f1fe808b",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 337359,
+      "slides": [
+        3
+      ]
+    },
+    {
+      "sha256": "1ecf9073250d9e5c7c43d9db0ed1cfc8b5296161de4fb47601d9cf1ddce5cd78",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 446245,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "3f04be9afcc270726b585742001ffc1f6ef620f5b263d8a1e35250d7263bc601",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 591149,
+      "slides": [
+        11
+      ]
+    },
+    {
+      "sha256": "ad0310e83794cf66f46382dfd19c40f050b8ec122640f51696554ea934e58860",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 479280,
+      "slides": [
+        13
+      ]
+    },
+    {
+      "sha256": "8cdf48a2e26b63bff10cdfda8233ecce7ead7c8b34c6da97ee726b417aef1ea1",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 409276,
+      "slides": [
+        14
+      ]
+    },
+    {
+      "sha256": "b9dc6db2ecd9a40cb5308062fa4bc5d20716e1dbd89ea51d372a036361967aaa",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 565914,
+      "slides": [
+        15
+      ]
+    },
+    {
+      "sha256": "4cecccf764dd46e8b1c0c03a6f169007207e0754a33e370725fe0dc5f0f77385",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 251787,
+      "slides": [
+        16
+      ]
+    },
+    {
+      "sha256": "6396c31272253d590b22665782e93d1736d710032a5cd74c0ea3839bece8951d",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 436615,
+      "slides": [
+        17
+      ]
+    },
+    {
+      "sha256": "1a2c1ad6c69eaa71b8e2db5f0b0c4732ba878f2bb021e23c499fd4303b5f2ffb",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 199432,
+      "slides": [
+        19
+      ]
+    },
+    {
+      "sha256": "5ff3d00a04c13f7169413e7425cbfd4b0fc126fc001cfd816cad108e2e14efba",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 92654,
+      "slides": [
+        20
+      ]
+    },
+    {
+      "sha256": "e863644b8fa7d280cdc12289756cdde84747666b127e0571e2e9486b09989349",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 221366,
+      "slides": [
+        21
+      ]
+    },
+    {
+      "sha256": "5b7b565adebc4d4f79ccef749706357fcdd8a94d8b90503b39f60bbc5cce9723",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 481235,
+      "slides": [
+        4
+      ]
+    },
+    {
+      "sha256": "4a28a9203e8931e1006ebf2a66f8056232dd42e8e33fa13f87ace3e05664f6f2",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 122364,
+      "slides": [
+        22
+      ]
+    },
+    {
+      "sha256": "fd59ea39bd044fe194a5faed0c639774b79f42a7d4620590ddba82e5cbd535f1",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 251986,
+      "slides": [
+        23
+      ]
+    },
+    {
+      "sha256": "7b31c6b278465502f2446a0016214ef5be1c76e125ec9a75bab731471dd92acb",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 186467,
+      "slides": [
+        24
+      ]
+    },
+    {
+      "sha256": "fca68f5a8abdf5d9e304dbac6e2cea5fa08eeab374aba8f5c5c820038ae8d272",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 107147,
+      "slides": [
+        25
+      ]
+    },
+    {
+      "sha256": "1e230ffb7883be7f169c93eb8802e9d510140af5ebbdf6bc74700608dcd8b31b",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 358871,
+      "slides": [
+        26
+      ]
+    },
+    {
+      "sha256": "1c127e1f6efa85a696c8e4836a92adac956febde8bb4ac46fe4a38876287fa28",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 739020,
+      "slides": [
+        27
+      ]
+    },
+    {
+      "sha256": "7b2a9c9d8e48090fbb18b297924fd5ebd05b981ea946dbbd8e225cd47aa2e614",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 588573,
+      "slides": [
+        28
+      ]
+    },
+    {
+      "sha256": "d36fdcf7dcbe80155bb22176ce3babf5322a5c28d4df78167400ece1ab6a9291",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 733427,
+      "slides": [
+        29
+      ]
+    },
+    {
+      "sha256": "f409a2bbf93fa02d6da5737f4c8e263bbc4efbe1c391dedba084d7937287d34d",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 421054,
+      "slides": [
+        30
+      ]
+    },
+    {
+      "sha256": "13c81df50f1d7c6da3d48d982795082c37ab642467cc20bd9a19f5445b73b947",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 367335,
+      "slides": [
+        31
+      ]
+    },
+    {
+      "sha256": "382c8016fe8e9792f7a51a86e480ad142bc9610ad7b7f3dd32cabbbb6a6dfc4d",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 866992,
+      "slides": [
+        5
+      ]
+    },
+    {
+      "sha256": "e9b3d529cc4766298b728d94e1d729c00e8c9a1e5df40c60b0b5fa971d36fa69",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 398142,
+      "slides": [
+        32
+      ]
+    },
+    {
+      "sha256": "4d94ee47838835956cd51f7e1ebec34fa79c8a2905f0b113fa75cf7814a41cfa",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 403819,
+      "slides": [
+        33
+      ]
+    },
+    {
+      "sha256": "2a2bc8601a807399058fdbaf8fccb9d835d33da837c62ad80b984d5ae9c83505",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 141760,
+      "slides": [
+        34
+      ]
+    },
+    {
+      "sha256": "be4c5dc9788cbaca8dcef3416b9a71b52b42ec140523a709b6baaa20027d419e",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 211961,
+      "slides": [
+        35
+      ]
+    },
+    {
+      "sha256": "246098a072c2bea813ade242c63ba9364f525c0746c5b928db3fa87b731c29db",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 257623,
+      "slides": [
+        36
+      ]
+    },
+    {
+      "sha256": "c604688bcbe3c2bae983f35ca74c5baa7e7123a1cc503b2750e42fe814d664e5",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 309043,
+      "slides": [
+        37
+      ]
+    },
+    {
+      "sha256": "1a352edf9db88e1cb53fc5a33a46cd2ca0eef5d5cfce5233a2e48f9eb9ccb0bc",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 383658,
+      "slides": [
+        38
+      ]
+    },
+    {
+      "sha256": "2f343e6191e6feb02bd0874d3fb5541b04fdb4771576d30fee1f40312a695178",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 62612,
+      "slides": [
+        39
+      ]
+    },
+    {
+      "sha256": "9a1cb93aa0c55abc845a1979656327ae11aaf8e67803bf2a2d3fe35e92bae9c5",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 292377,
+      "slides": [
+        40
+      ]
+    },
+    {
+      "sha256": "98d0abcea96968241b582d1748f8942ee7344fdbba4ea4f6a8cdfea5b11a4839",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 543513,
+      "slides": [
+        41
+      ]
+    },
+    {
+      "sha256": "8fd130e93a05718be06d1db7c9edb8c2dc8765e1216dbf12682ad25378ee2f8a",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 313178,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "17182d73fc273614e7ec7ca8ddcc8ba35ac8bd088abfc3b5d57a5ef0079df424",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 128855,
+      "slides": [
+        41
+      ]
+    },
+    {
+      "sha256": "a2b85bb894f02702dc20bede2b5c3e5be0e5a766ab326b2db459a9719f73e800",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 742567,
+      "slides": [
+        42
+      ]
+    },
+    {
+      "sha256": "643fc0616993f746d9135f95b089c5ac7f219907924abc095dc8961c743c5f40",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 694758,
+      "slides": [
+        43
+      ]
+    },
+    {
+      "sha256": "33673eb9e2e76bb3c14045676739bdf943313250233a3d87c71643f1f06bef35",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 816082,
+      "slides": [
+        44
+      ]
+    },
+    {
+      "sha256": "5e4361b85ff1aefd2b89680add9c4497aa33724c72923ae688ec9204896cb466",
+      "pptx_path": "ppt/media/image5.jpeg",
+      "extension": ".jpeg",
+      "bytes": 103989,
+      "slides": [
+        6
+      ]
+    },
+    {
+      "sha256": "536f778a740eed267158ae1e85851b5d2f31aa8f6e63a99b0acdc227300f2cf6",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 417686,
+      "slides": [
+        7
+      ]
+    },
+    {
+      "sha256": "8f1ccff5bc05a8534b2e55f4d7ee8029e90b9915a6ab75368c19f8e92ab95e29",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 486241,
+      "slides": [
+        8
+      ]
+    },
+    {
+      "sha256": "b6fab02577e470d7f43c436d5d5f4157b1a829450a6548b32a1bc5ac10064fda",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 472168,
+      "slides": [
+        9
+      ]
+    },
+    {
+      "sha256": "05eaf390000f91a9c4514abe637d9126232b7f3649bb0b19ea80d90192f90a32",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 267273,
+      "slides": [
+        10
+      ]
+    },
+    {
+      "sha256": "62022cbce49e208ddfe0466fbd06fe937b5e0e8deb6522e572319296c10ff3cb",
+      "pptx_path": "ppt/media/media1.mov",
+      "extension": ".mov",
+      "bytes": 20730985,
+      "slides": [
+        11
+      ]
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": null,
+    "reused": 0,
+    "duplicate": 0,
+    "decorative": 0,
+    "scientifically_redundant": 0
+  }
+}

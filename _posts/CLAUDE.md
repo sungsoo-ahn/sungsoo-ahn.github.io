@@ -22,6 +22,15 @@ matter more than raw length. Preserve the requested H2 storyline, but add H3
 derivations, worked examples, and case studies wherever the draft is only an
 abstract survey.
 
+When the author requests a source-faithful lecture adaptation, the lecture deck
+overrides those defaults. Inventory the slides first, preserve all substantive
+scientific content and its order, and omit only logistics, transition-only
+slides, and repeated recaps. Delete draft material that is not supported by the
+deck. Use the house references only for prose and rendering quality; do not add
+examples, derivations, sections, or figures merely to match their depth. Reuse
+the rights-cleared deck figures directly and maintain agent-facing slide and
+figure coverage manifests.
+
 ## Post Frontmatter
 
 Every post must include this frontmatter block:

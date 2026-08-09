@@ -16,6 +16,18 @@ Use source figures when they are clearer than a custom redraw and legally usable
 - For physical device or process schematics, consider whether ChatGPT/image generation would produce a clearer explanatory base than a source figure or hand-drawn boxes. Use this only for illustrative renderings, then add exact labels/callouts as editable SVG text.
 - Do not use image generation to substitute for canonical method-overview figures when a licensed high-quality source already exists, such as RFDiffusion, AlphaFold, ProteinMPNN, or standard protein-structure diagrams.
 
+### Rights-Cleared Lecture Decks
+
+When the author supplies a lecture deck and explicitly confirms republication
+rights for all embedded figures, treat that confirmation as the reuse authority
+for the adaptation. Reuse the deck figure directly instead of finding or
+drawing a substitute. Preserve any paper/project attribution already present on
+the slide, and record the course, deck, slide number, original cited source, and
+extraction method in an agent-facing figure manifest.
+
+This exception applies only to the confirmed deck and its embedded figures. It
+does not establish a general license for the same source elsewhere.
+
 ## Workflow
 
 1. Identify the target concept and candidate source figure.
