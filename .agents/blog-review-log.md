@@ -615,6 +615,31 @@ requirements for the replacement deck-level articles.
   alignment, and EquiformerV2 changes nonlinear processing and normalization.
   The blog-writing skill now requires these bottleneck--remedy pairs to remain
   separate and tied to their own evidence.
+
+### GDL 2025 Lecture 12: Scaling Machine-Learned Force Fields for Materials
+
+- **Source:** `lec12_geognn6 (revised).pdf` (38 pages), represented by 35
+  canonical PDF composites preserving dataset maps, periodic crystal diagrams,
+  discovery and active-learning workflows, scaling systems, and benchmark
+  evidence.
+- **Coverage:** 35 scientific slides covered; the cover, dated course schedule,
+  and final course-transition card omitted. The source order remains the QM9 to
+  phonon benchmark progression, periodic crystal representations and long-range
+  models, GNoME, MatterSim, Orb, the equivariance-at-scale question, SevenNet,
+  and eSEN.
+- **Figures:** all 35 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous materials tutorials' convex-hull
+  candidate calculations, unimodular-basis example, finite guidance pool,
+  relaxation collision, validation funnel, and closed-loop synthesis argument
+  were absent from this deck. The replacement restores the source's much wider
+  benchmark and force-field scaling survey.
+- **General lesson promoted:** a universal-potential claim changes meaning
+  across invariant molecular properties, molecule-specific forces, periodic
+  bulk structures, adsorption trajectories, phonon spectra, phase-transition
+  dynamics, and discovery ranking. The blog-writing skill's dataset-survey rule
+  now explicitly requires scaling and simulation claims to remain attached to
+  the data and target regime that supports them.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
