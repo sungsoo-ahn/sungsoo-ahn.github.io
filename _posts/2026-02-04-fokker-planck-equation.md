@@ -2,9 +2,10 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-08-08
-description: "Three routes to the Fokker-Planck equation — intuition, heuristic discretization, and rigorous Itô calculus — building from physical pictures to mathematical proof."
+last_updated: 2026-08-09
+description: "Three routes to the Fokker-Planck equation—physical intuition, heuristic discretization, and a rigorous derivation with Itô calculus."
 post_type: tutorial
+selected: true
 authors: ["Sungsoo Ahn"]
 order: 2
 series: stochastic-generative-models

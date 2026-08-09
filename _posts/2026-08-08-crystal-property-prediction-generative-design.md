@@ -3,8 +3,9 @@ layout: post
 title: "Crystal Property Prediction and Generative Design"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "How periodic representations support crystal property prediction and generative design—and why relaxation, first-principles validation, and synthesis remain decisive."
+description: "How periodic representations support crystal prediction and generation—and why relaxation, first-principles validation, and synthesis remain decisive."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [materials-science]
 lecture_paths: [gdl]
@@ -15,7 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the crystal-design storyline from my Geometric Deep Learning lecture. It focuses on how an infinite periodic solid becomes a finite representation, how predictors preserve its symmetries, how generators move composition, lattice, and atomic sites, and why a generated crystal is only the beginning of validation.</em>
+  <em>Adapted from my 2025 Geometric Deep Learning lectures. The central question is how an infinite periodic solid becomes a finite, symmetry-aware object that can be predicted, generated, relaxed, and validated.</em>
 </p>
 
 ## A Crystal Is Infinite, but Its Description Should Not Be

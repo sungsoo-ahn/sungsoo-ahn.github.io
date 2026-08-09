@@ -1,26 +1,14 @@
 {% assign all_count = site.posts | size %}
-{% assign selected_before = "2026-08-08" | date: "%s" | plus: 0 %}
-{% assign selected_count = 0 %}
-{% assign human_reviewed_count = 0 %}
-{% assign ai_generated_count = 0 %}
-{% for post in site.posts %}
-  {% assign post_timestamp = post.date | date: "%s" | plus: 0 %}
-  {% if post_timestamp < selected_before and post.human_reviewed != true %}
-    {% assign selected_count = selected_count | plus: 1 %}
-  {% endif %}
-  {% if post.human_reviewed %}
-    {% assign human_reviewed_count = human_reviewed_count | plus: 1 %}
-  {% elsif post.lecture_paths %}
-    {% assign ai_generated_count = ai_generated_count | plus: 1 %}
-  {% endif %}
-{% endfor %}
+{% assign selected_count = site.posts | where: "selected", true | size %}
+{% assign human_reviewed_count = site.posts | where: "editorial_status", "human-reviewed" | size %}
+{% assign ai_generated_count = site.posts | where: "editorial_status", "ai-generated" | size %}
 {% assign research_count = site.posts | where: "post_type", "research" | size %}
 {% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
 {% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
 
 <div class="blog-index-filters">
-  <nav class="blog-type-summary blog-category-summary" aria-label="Blog categories">
-    <span>Categories</span>
+  <nav class="blog-type-summary blog-category-summary" aria-label="Blog collections">
+    <span>Collections</span>
     <span>
       <a href="{{ '/blog/all/' | relative_url }}"{% if page.url == '/blog/all/' %} class="is-active" aria-current="page"{% endif %}>All posts {{ all_count }}</a>
     </span>
@@ -33,6 +21,9 @@
     <span>
       <a href="{{ '/blog/ai-generated/' | relative_url }}"{% if page.url == '/blog/ai-generated/' %} class="is-active" aria-current="page"{% endif %}>AI-generated {{ ai_generated_count }}</a>
     </span>
+  </nav>
+  <nav class="blog-type-summary blog-category-summary" aria-label="Blog formats">
+    <span>Formats</span>
     <span>
       <a href="{{ '/blog/type/research/' | relative_url }}"{% if page.url == '/blog/type/research/' %} class="is-active" aria-current="page"{% endif %}>Research {{ research_count }}</a>
     </span>
@@ -42,6 +33,9 @@
     <span>
       <a href="{{ '/blog/type/technical-note/' | relative_url }}"{% if page.url == '/blog/type/technical-note/' %} class="is-active" aria-current="page"{% endif %}>Technical notes {{ technical_note_count }}</a>
     </span>
+  </nav>
+  <nav class="blog-type-summary blog-category-summary" aria-label="Blog topics">
+    <span>Topics</span>
     {% for category in site.data.blog_categories %}
       {% assign category_posts = site.categories[category.slug] %}
       {% assign category_post_count = category_posts.size | default: 0 %}

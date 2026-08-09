@@ -3,8 +3,9 @@ layout: post
 title: "Generative Models for Protein Design"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "Protein design as a sequence–structure–function inference problem: inverse folding, backbone diffusion, motif scaffolding, co-design, computational filters, and the experimental evidence that closes the loop."
+description: "Protein design as sequence–structure–function inference, from inverse folding and backbone diffusion to computational filters and experimental evidence."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [protein-science]
 lecture_paths: [ml4mol, gdl]
@@ -15,7 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the protein-design storyline from my Machine Learning for Molecules and Geometric Deep Learning lectures. The <a href="{% post_url 2026-03-03-protein-design-for-ml %}">practical protein-design chapter</a> owns the biological primer, tool landscape, and standard workflow. The <a href="{% post_url 2026-08-08-protein-structure-prediction-alphafold %}">AlphaFold</a> and <a href="{% post_url 2026-08-08-protein-representation-learning %}">representation</a> chapters own confidence semantics and representation evidence, while the diffusion chapters own denoising mechanics. Here the narrower question is which sequence, backbone, motif, and joint distributions we generate, how probability mass moves between their interfaces, and what independent evidence survives the full design funnel.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. This article asks which sequence, backbone, motif, and joint distributions protein models generate—and what evidence survives the full design funnel. For the biological workflow and current tool landscape, begin with <a href="{% post_url 2026-03-03-protein-design-for-ml %}">Protein Design</a>.</em>
 </p>
 
 ## Protein Design Is Not Structure Prediction in Reverse

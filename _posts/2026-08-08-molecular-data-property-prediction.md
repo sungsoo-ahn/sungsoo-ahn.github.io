@@ -2,9 +2,10 @@
 layout: post
 title: "Molecular Data and Property Prediction Across 1D, 2D, and 3D"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "How molecular representations, conformers, data splits, pretraining, and uncertainty determine what a property-prediction benchmark actually measures."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -15,15 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the molecular property-prediction storyline from
-  my Machine Learning for Molecules lecture. It treats representation, data
-  splitting, and evaluation as parts of the scientific claim—not as plumbing
-  around a neural architecture. The
-  <a href="{% post_url 2026-02-03-quantum-chemistry-dft %}">quantum-chemistry chapter</a>
-  owns electronic-structure fidelity, and the
-  <a href="{% post_url 2026-02-05-electrocatalysis-ml %}">electrocatalysis chapter</a>
-  owns physics-constrained screening. Here I follow one analogue series and one
-  flexible molecule from representation to a decision.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. Representation, data splitting, and evaluation are parts of the scientific claim—not plumbing around an architecture—so this article follows one analogue series and one flexible molecule from input choice to decision.</em>
 </p>
 
 A molecule can be written as a string, drawn as a graph, or placed in three-dimensional space. These are not three file formats for the same information. Each makes some molecular distinctions explicit, hides others, and introduces its own nuisance variation.

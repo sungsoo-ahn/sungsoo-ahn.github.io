@@ -2,11 +2,12 @@
 layout: post
 title: "Molecular Simulation with Machine-Learned Force Fields"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "How learned potential-energy surfaces become molecular dynamics, why rollout stability differs from static accuracy, and how to validate the resulting scientific observables."
+last_updated: 2026-08-09
+description: "How learned energy surfaces become molecular dynamics, why rollout stability differs from static accuracy, and how to validate observables."
 abstract: >
   A machine-learned force field is useful only after it survives repeated integration, stays inside a physically covered configuration space, and reproduces the ensemble observables that motivated the simulation.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [molecular-science]
 lecture_paths: [ml4mol]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the molecular-simulation storyline from my 2025 Machine Learning for Molecules lecture. Architectural symmetry and energy-derived forces are developed in <a href="{% post_url 2026-08-08-equivariant-transformers-machine-learned-potentials %}">Equivariant Transformers and Machine-Learned Potentials</a>; the stochastic density dynamics behind Langevin simulation are developed in <a href="{% post_url 2026-02-04-fokker-planck-equation %}">The Fokker–Planck Equation</a>.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules lectures. This article asks when an accurate learned force becomes a reliable trajectory and, eventually, a trustworthy observable; <a href="{% post_url 2026-08-08-equivariant-transformers-machine-learned-potentials %}">equivariant potentials</a> and <a href="{% post_url 2026-02-04-fokker-planck-equation %}">Fokker–Planck dynamics</a> provide the architectural and stochastic background.</em>
 </p>
 
 A force-field benchmark asks whether a model predicts energies and forces on held-out configurations. A molecular simulation asks a harder question: what happens after the model's prediction moves the atoms, the new geometry is fed back into the model, and this loop is repeated millions of times?
@@ -236,7 +237,7 @@ $$
 
 The energy error is $$U_\theta-U^\star=0.2x^2$$. Its mean is 0.05, while its variation across $$x$$ constrains curvature and relative weights. Force labels densely constrain local slopes, but a force-only fit is insensitive to independent energy constants on disconnected configuration components. Energy differences anchor basin offsets; forces determine local geometry. Their weights should reflect the intended observable and label units, not only make two numerical loss terms similar in magnitude.
 
-Reference fidelity sits upstream of both terms. If a density-functional approximation yields curvature 4.4 while the physical target has curvature 4, an exact learner reproduces the 0.2273 variance of its reference. The [quantum-chemistry post]({% post_url 2026-02-03-quantum-chemistry-dft %}) owns the electronic approximations that define this label surface. This chapter begins after that choice and asks what its learned surrogate does inside a simulation.
+Reference fidelity sits upstream of both terms. If a density-functional approximation yields curvature 4.4 while the physical target has curvature 4, an exact learner reproduces the 0.2273 variance of its reference. The [quantum-chemistry post]({% post_url 2026-02-03-quantum-chemistry-dft %}) explains the electronic approximations that define this label surface. This chapter begins after that choice and asks what its learned surrogate does inside a simulation.
 
 ## Training data should cover a distribution of environments, not frames from one movie
 

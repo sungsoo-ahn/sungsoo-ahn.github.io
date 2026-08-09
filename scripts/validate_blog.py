@@ -30,8 +30,11 @@ REQUIRED_FRONTMATTER = {
     "related_posts",
 }
 
+EDITORIAL_STATUSES = {"human-reviewed", "ai-generated"}
+
 FIGURE_RE = re.compile(r'{%\s*include\s+figure\.liquid\b(?P<attrs>.*?)%}')
 ATTR_RE = re.compile(r'(?P<key>[\w-]+)="(?P<value>[^"]*)"')
+BLOG_ASSET_RE = re.compile(r"/?(assets/img/blog/[^\s\"')>]+\.(?:png|jpe?g|gif|webp|svg))", re.IGNORECASE)
 FOOTNOTE_USE_RE = re.compile(r"\[\^([^\]]+)\](?!:)")
 FOOTNOTE_DEF_RE = re.compile(r"^\[\^([^\]]+)\]:", re.MULTILINE)
 DATE_PREFIX_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-")
@@ -40,6 +43,14 @@ LECTURE_PATH_ID_RE = re.compile(r"^([a-z0-9-]+):\s*$", re.MULTILINE)
 LECTURE_SCAFFOLD_RE = re.compile(
     r"^#{1,4}\s+(learning objectives?|concept checks?|exercises?|prerequisites?|today'?s lecture|agenda)\s*$",
     re.IGNORECASE | re.MULTILINE,
+)
+AUTHOR_NOTE_RE = re.compile(
+    r'<p style="color: #666; font-size: 0\.9em; margin-bottom: 1\.5em;">.*?</p>',
+    re.DOTALL,
+)
+INTERNAL_AUTHOR_NOTE_RE = re.compile(
+    r"\b(storyline|division of labor|chapter owns|post owns|slides? (?:are|were|is|was)|validation work)\b",
+    re.IGNORECASE,
 )
 
 KNOWN_CATEGORIES = set(CATEGORY_SLUG_RE.findall(BLOG_CATEGORIES_PATH.read_text(encoding="utf-8")))
@@ -127,10 +138,23 @@ def validate_post(path: Path) -> list[Finding]:
     if created and updated and updated < created:
         findings.append(Finding(path, "last_updated must not be earlier than date"))
 
+    description = frontmatter.get("description", "")
+    if len(description) > 160:
+        findings.append(Finding(path, f"description exceeds 160 characters: {len(description)}"))
+
     if "series" in frontmatter and "series_order" not in frontmatter:
         findings.append(Finding(path, "series posts must define series_order"))
     if "series_order" in frontmatter and "series" not in frontmatter:
         findings.append(Finding(path, "series_order requires series"))
+
+    selected = frontmatter.get("selected") == "true"
+    editorial_status = frontmatter.get("editorial_status")
+    if editorial_status and editorial_status not in EDITORIAL_STATUSES:
+        findings.append(Finding(path, f"unknown editorial_status: {editorial_status}"))
+    if selected and editorial_status:
+        findings.append(Finding(path, "selected posts must not also define editorial_status"))
+    if not selected and not editorial_status:
+        findings.append(Finding(path, "post must be selected or define editorial_status"))
 
     categories = parse_inline_list(frontmatter.get("categories", ""))
     if len(categories) != 1:
@@ -155,6 +179,10 @@ def validate_post(path: Path) -> list[Finding]:
 
         if '<p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">' not in body:
             findings.append(Finding(path, "lecture-derived post is missing the standard author note"))
+        else:
+            author_note = AUTHOR_NOTE_RE.search(body)
+            if author_note and INTERNAL_AUTHOR_NOTE_RE.search(author_note.group(0)):
+                findings.append(Finding(path, "lecture-derived author note uses internal editorial language"))
 
     for match in FIGURE_RE.finditer(text):
         attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}
@@ -166,6 +194,8 @@ def validate_post(path: Path) -> list[Finding]:
             findings.append(Finding(path, f"figure path does not exist: {figure_path}"))
 
         caption = attrs.get("caption", "")
+        if not attrs.get("alt") and not caption:
+            findings.append(Finding(path, f"figure needs alt text or a caption fallback: {figure_path}"))
         if "$" in caption:
             findings.append(Finding(path, f"figure caption uses dollar math delimiters: {figure_path}"))
         direct_license_source = re.search(r"\b(Wikimedia Commons|public domain|CC BY|Labster Theory)\b", caption)
@@ -198,9 +228,10 @@ def validate_assets() -> list[Finding]:
     findings: list[Finding] = []
     referenced: set[Path] = set()
     content_files = sorted(POSTS_DIR.glob("[0-9][0-9][0-9][0-9]-*.md"))
-    content_files.extend(sorted(PAGES_DIR.glob("kups-md-post-*.md")))
+    content_files.extend(sorted(PAGES_DIR.glob("*.md")))
     for content_file in content_files:
         text = content_file.read_text(encoding="utf-8")
+        referenced.update(ROOT / match for match in BLOG_ASSET_RE.findall(text))
         for match in FIGURE_RE.finditer(text):
             attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}
             figure_path = attrs.get("path")
@@ -212,7 +243,11 @@ def validate_assets() -> list[Finding]:
         for image in BLOG_IMG_DIR.rglob("*")
         if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
     }
-    unused = sorted(all_blog_images - referenced)
+    unused = sorted(
+        image
+        for image in all_blog_images - referenced
+        if not (image.suffix.lower() == ".png" and image.with_suffix(".svg") in referenced)
+    )
     if unused:
         names = ", ".join(str(path.relative_to(ROOT)) for path in unused[:12])
         if len(unused) > 12:

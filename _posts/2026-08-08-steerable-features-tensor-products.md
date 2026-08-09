@@ -2,9 +2,10 @@
 layout: post
 title: "Steerable Features and Tensor Products"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "How irreducible rotation types, spherical harmonics, and Clebsch–Gordan tensor products create expressive equivariant neural-network layers."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [geometric-deep-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,11 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the algebraic core of my 2025 Machine Learning
-  for Molecules and Geometric Deep Learning lectures. The companion post
-  <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">Symmetry and Equivariance</a>
-  motivates the transformation laws; <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">Spherical Equivariant Layers</a>
-  owns Wigner-basis conventions, implementation strategies, and the modern architecture survey. This chapter stays concrete: low-order Cartesian algebra and one complete typed message layer.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. This article stays concrete—low-order Cartesian algebra and one complete typed message layer—while <a href="{% post_url 2026-08-08-symmetry-equivariance-geometric-data %}">Symmetry and Equivariance</a> motivates the transformation laws and <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">Spherical Equivariant Layers</a> develops the Wigner-basis implementation.</em>
 </p>
 
 An equivariant network cannot treat every hidden array as an ordinary feature vector. Some channels are scalars and should stay fixed under rotation. Others encode directions and should rotate as vectors. Higher-order channels contain angular patterns whose components mix in less familiar but equally precise ways.

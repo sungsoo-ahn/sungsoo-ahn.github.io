@@ -3,10 +3,9 @@ ml4mol:
   short_title: ML for Molecules
   permalink: /teaching/machine-learning-for-molecules/
   description: >-
-    A route from the scientific language of molecules to graph and geometric
-    architectures, generative models, molecular simulation, proteins, genomes,
-    and materials. The sequence follows the 2025 lecture storyline while each
-    chapter stands on its own.
+    Begin with the scientific language of molecules, then move through graph
+    and geometric architectures, generative models, molecular simulation,
+    proteins, genomes, and materials. Every chapter also stands on its own.
   chapters:
     - section: Scientific foundations
       title: Chemistry and Physics for Molecular Machine Learning
@@ -106,10 +105,9 @@ gdl:
   short_title: Geometric Deep Learning
   permalink: /teaching/geometric-deep-learning/
   description: >-
-    A route from symmetry and graph representation learning to geometric neural
-    networks, flow matching, and applications in proteins, genomes, and
-    materials. The sequence follows the 2025 course without copying its
-    lecture-by-lecture boundaries.
+    Begin with symmetry and graph representation learning, then move through
+    geometric neural networks, flow matching, and applications in proteins,
+    genomes, and materials. Every chapter also stands on its own.
   chapters:
     - section: Geometry and graphs
       title: Symmetry and Equivariance for Geometric Data

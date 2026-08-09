@@ -2,9 +2,10 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
+selected: true
 authors: ["Sungsoo Ahn"]
 order: 2
 series: ml-for-science

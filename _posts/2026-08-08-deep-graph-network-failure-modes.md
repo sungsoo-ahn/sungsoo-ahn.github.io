@@ -2,9 +2,10 @@
 layout: post
 title: "Depth, Over-Smoothing, and Over-Squashing in Graph Networks"
 date: 2026-08-08
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Why deeper graph networks face under-reaching, over-smoothing, and over-squashing—and how topology determines which remedy helps."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [graph-learning]
 lecture_paths: [ml4mol, gdl]
@@ -15,9 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>Note: This post develops the deep-GNN storyline from my 2025 Machine
-  Learning for Molecules and Geometric Deep Learning lectures. It continues
-  the message-passing abstraction developed in <a href="{% post_url 2026-08-08-graph-neural-networks-message-passing %}">Graph Neural Networks as Learnable Message Passing</a>. The neighboring chapter on <a href="{% post_url 2026-08-08-graph-neural-network-expressivity %}">graph neural network expressivity</a> studies which graphs an architecture can distinguish even with ideal parameters; this chapter instead asks why information can be lost as that architecture becomes deep.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Starting from <a href="{% post_url 2026-08-08-graph-neural-networks-message-passing %}">message passing</a>, this article asks why information disappears or bottlenecks as graph networks become deep; <a href="{% post_url 2026-08-08-graph-neural-network-expressivity %}">the expressivity chapter</a> treats the complementary question of which graphs they can distinguish.</em>
 </p>
 
 A message-passing graph neural network communicates one edge per layer. Two nodes separated by ten edges cannot interact through a five-layer network. The obvious response is to add depth.

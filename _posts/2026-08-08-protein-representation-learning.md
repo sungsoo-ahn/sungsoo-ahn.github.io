@@ -3,8 +3,9 @@ layout: post
 title: "Protein Representation Learning Across Sequence and Structure"
 date: 2026-08-08
 last_updated: 2026-08-09
-description: "How sequence, evolutionary alignments, residue graphs, backbone frames, molecular surfaces, and multimodal objectives shape what protein embeddings can—and cannot—support."
+description: "How sequence, alignments, residue graphs, backbone frames, surfaces, and multimodal objectives shape what protein embeddings can support."
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [protein-science]
 lecture_paths: [ml4mol, gdl]
@@ -15,15 +16,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the protein-representation storyline from my Machine
-  Learning for Molecules and Geometric Deep Learning lectures. Its organizing
-  question is not which encoder is largest, but which biological neighborhood
-  the representation exposes and which notion of generalization the evaluation
-  actually measures. The mechanics of coevolution, pair geometry, residue
-  frames, and confidence belong to <a href="{% post_url 2026-08-08-protein-structure-prediction-alphafold %}">Protein Structure Prediction and AlphaFold</a>;
-  general geometric transformation laws belong to <a href="{% post_url 2026-02-02-spherical-equivariant-layers %}">Spherical Equivariant Layers</a>.
-  The end-to-end generate–filter–experiment workflow belongs to <a href="{% post_url 2026-03-03-protein-design-for-ml %}">Protein Design</a>.
-  Here the focus is what an embedding makes accessible and what evidence supports that claim.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Rather than ranking encoders by size, this article asks which biological neighborhood an embedding exposes and what evidence supports its claimed generalization. <a href="{% post_url 2026-08-08-protein-structure-prediction-alphafold %}">The AlphaFold chapter</a> develops the complementary geometry and confidence machinery.</em>
 </p>
 
 A protein admits several valid descriptions. Its amino-acid sequence records a polymer and an evolutionary history. A multiple sequence alignment exposes variation within a family. A residue graph makes spatial contacts explicit. Backbone frames retain local pose, while a molecular surface places the representation where many interactions occur. These descriptions are coupled, but they are not equivalent.

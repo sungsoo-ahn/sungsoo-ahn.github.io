@@ -2,11 +2,12 @@
 layout: post
 title: "Discrete Flow and Generator Matching"
 date: 2026-08-08
-last_updated: 2026-08-08
-description: "How continuous-time Markov chains transport categorical probability, how conditional paths make their rates learnable, and how generator matching extends the construction across modalities."
+last_updated: 2026-08-09
+description: "How continuous-time Markov chains transport categorical probability, how their rates become learnable, and how generator matching extends across modalities."
 abstract: >
   A discrete state has no infinitesimal displacement, but its probability can still move continuously in time. The right analogue of a velocity field is a jump generator: a collection of rates whose master equation transports mass between states.
 post_type: tutorial
+editorial_status: ai-generated
 authors: ["Sungsoo Ahn"]
 categories: [generative-modeling]
 lecture_paths: [ml4mol, gdl]
@@ -17,7 +18,7 @@ related_posts: false
 ---
 
 <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5em;">
-  <em>This post develops the discrete-flow storyline from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. For the continuous counterpart—velocity fields, probability flux, and probability-flow ODEs—see <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs, SDEs, and Probability Flow</a>. The full conditional-regression theorem appears in <a href="{% post_url 2026-08-08-diffusion-models-flow-matching %}">Diffusion Models and Flow Matching</a>; here I use it only after identifying the correct discrete target. Finally, <a href="{% post_url 2026-03-14-generative-flow-networks %}">Generative Flow Networks</a> owns flow balance on a directed construction DAG. The present chapter is about physical-time Markov rates, which may cycle and which determine waiting times as well as destinations.</em>
+  <em>Adapted from my 2025 Machine Learning for Molecules and Geometric Deep Learning lectures. Here generation is governed by continuous-time Markov rates that determine waiting times as well as destinations; see <a href="{% post_url 2026-08-08-odes-sdes-probability-flow %}">ODEs, SDEs, and Probability Flow</a> for the continuous counterpart and <a href="{% post_url 2026-03-14-generative-flow-networks %}">Generative Flow Networks</a> for flow balance on construction graphs.</em>
 </p>
 
 A continuous flow moves a point by an infinitesimal vector. That picture breaks on a categorical state space. There is no state halfway between carbon and nitrogen, no amino acid infinitesimally close to glycine, and no fractional bond order hiding between two graph categories.

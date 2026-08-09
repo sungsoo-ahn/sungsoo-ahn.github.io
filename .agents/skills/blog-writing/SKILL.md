@@ -153,11 +153,13 @@ from one comparison can improve the criteria used for the next.
   against nuisance baselines and construct close counterfactuals where family,
   metadata, or global similarity stays fixed while the target mechanism changes.
   A cluster plot or high probe score alone does not establish mechanism.
-- When a mature companion post already covers nearby material, declare the
-  division of labor near the opening and make the new post earn its place through
+- When a mature companion post already covers nearby material, give the new post
   a different organizing question, derivation, or running example. Cross-link
   prerequisite machinery instead of re-teaching it, and audit the pair for
   duplicated exposition; a series should deepen by composition, not paraphrase.
+  Describe this relationship in reader-facing terms ("For the PDE derivation,
+  see...") rather than project-management language such as "division of labor"
+  or "this chapter owns...".
 - When a post connects an ML architecture to a downstream scientific workflow,
   expose the interface contract between them. State exactly what mathematical
   object the architecture supplies, what the downstream calculation assumes,
@@ -271,6 +273,16 @@ Flag these patterns; do not ban them when they carry real technical contrast:
 - Preserve legitimate uncertainty instead of converting everything into confident declarative prose.
 - Include the author's actual judgment, not only a polished synthesis of conventional observations.
 - Compare the passage against two or three known non-AI passages by the author when voice is uncertain.
+
+### Lecture Adaptation Notes
+
+- Keep the opening note to one or two reader-facing sentences.
+- Name the lecture source briefly when provenance is useful: “Adapted from my
+  2025 Geometric Deep Learning lectures.”
+- Use the remaining sentence to state the article's central question or point.
+- Do not describe slide reuse, lecture-storyline production, chapter ownership,
+  validation work, or the writing process. Those are editorial facts, not reasons
+  for a reader to continue.
 
 ## Coherence Checklist (apply when reviewing)
 
