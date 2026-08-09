@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec19_proteins2.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec19_proteins2.pptx",
   "slide_count": 44,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "GDL for Proteins",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "GDL for Proteins",
         "AI.810 Geometric Deep Learning",
@@ -24,7 +24,7 @@
       "pptx_slide": 2,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Overview",
         "Protein structure distribution learning",
@@ -39,7 +39,7 @@
       "pptx_slide": 3,
       "title": "Protein Can Adopt Multiple Conformations",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Can Adopt Multiple Conformations",
         "• There is never a unique structure!"
@@ -54,7 +54,7 @@
       "pptx_slide": 4,
       "title": "Boltzmann Generators",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Boltzmann Generators",
         "Noé, Frank, et al. \"Boltzmann generators: Sampling equilibrium states of many-body systems with deep learning.\"",
@@ -70,7 +70,7 @@
       "pptx_slide": 5,
       "title": "Two for One",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Two for One",
         "• Diffusion-version of Boltzmann generators",
@@ -87,7 +87,7 @@
       "pptx_slide": 6,
       "title": "EigenFold",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "EigenFold",
         "Apo = protein alone (inactive)",
@@ -105,7 +105,7 @@
       "pptx_slide": 7,
       "title": "ConfDiff",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "ConfDiff",
         "Wang, Yan, et al. \"Protein conformation generation via force-guided se (3) diffusion models.\" The 41st International",
@@ -121,7 +121,7 @@
       "pptx_slide": 8,
       "title": "Distributional Graphormer",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Distributional Graphormer",
         "Zheng, Shuxin, et al. \"Predicting equilibrium distributions for molecular systems with deep learning.\"",
@@ -137,7 +137,7 @@
       "pptx_slide": 9,
       "title": "AlphaFlow",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "AlphaFlow",
         "Jing, Bowen, et al. \"AlphaFold meets flow matching for generating protein ensembles.\" The 41st International",
@@ -153,7 +153,7 @@
       "pptx_slide": 10,
       "title": "Structure Language Models & ESMDiff",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Language Models & ESMDiff",
         "Lu, Jiarui, et al. \"Structure Language Models for Protein Conformation Generation.\" The Thirteenth International",
@@ -169,7 +169,7 @@
       "pptx_slide": 11,
       "title": "BioEmu",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "BioEmu",
         "Lewis, Sarah, et al. \"Scalable emulation of protein equilibrium ensembles",
@@ -187,7 +187,7 @@
       "pptx_slide": 12,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Overview",
         "Protein structure distribution learning",
@@ -202,7 +202,7 @@
       "pptx_slide": 13,
       "title": "Preliminary: Molecular Dynamics (MD) Simulation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Preliminary: Molecular Dynamics (MD) Simulation",
         "Lu, Jiarui, et al. \"Str2Str: A Score-based Framework for Zero-shot Protein Conformation Sampling.\" The Twelfth",
@@ -218,7 +218,7 @@
       "pptx_slide": 14,
       "title": "CGMD",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "CGMD",
         "Fu, Xiang, et al. \"Simulate time-integrated coarse-grained molecular dynamics with multi-scale graph networks.\"",
@@ -234,7 +234,7 @@
       "pptx_slide": 15,
       "title": "Implicit Transfer Operator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Implicit Transfer Operator",
         "Schreiner, Mathias, et al. \"Implicit transfer operator learning: multiple time-resolution surrogates for molecular",
@@ -250,7 +250,7 @@
       "pptx_slide": 16,
       "title": "TimeWarp",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "TimeWarp",
         "• Conditional Normalizing flow as transfer operator",
@@ -269,7 +269,7 @@
       "pptx_slide": 17,
       "title": "MDGen",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "MDGen",
         "Jing, Bowen, et al. \"Generative modeling of molecular dynamics trajectories.\" Advances in Neural Information",
@@ -285,7 +285,7 @@
       "pptx_slide": 18,
       "title": "Overview",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Overview",
         "Protein structure distribution learning",
@@ -300,7 +300,7 @@
       "pptx_slide": 19,
       "title": "Protein Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Protein Design",
         "• Generate protein of desired functions",
@@ -320,7 +320,7 @@
       "pptx_slide": 20,
       "title": "Squence Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Squence Design",
         "• Compared to structures, sequences have a much larger data scale,",
@@ -340,7 +340,7 @@
       "pptx_slide": 21,
       "title": "Sequence Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Sequence Design",
         "• Goal: Generate sequences from properties",
@@ -361,7 +361,7 @@
       "pptx_slide": 22,
       "title": "Structure to Sequence Design (ESM-IF)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure to Sequence Design (ESM-IF)",
         "• Goal: Predict sequences from the predicted backbone structures.",
@@ -381,7 +381,7 @@
       "pptx_slide": 23,
       "title": "Structure to Sequence Design (ProteinMPNN)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure to Sequence Design (ProteinMPNN)",
         "• Autoregressive generation from message passing neural networks (Node is residue)",
@@ -397,7 +397,7 @@
       "pptx_slide": 24,
       "title": "Surface to Sequence Design (SurfPro)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Surface to Sequence Design (SurfPro)",
         "SurfPro: Song, Huang, Li & Jin, ICML 2024"
@@ -412,7 +412,7 @@
       "pptx_slide": 25,
       "title": "Structure Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design",
         "• Generation of complex 3D structure is highly challenging",
@@ -428,7 +428,7 @@
       "pptx_slide": 26,
       "title": "Structure Design (FrameDiff)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (FrameDiff)",
         "• Diffusion on rigid bodies in 3D",
@@ -444,7 +444,7 @@
       "pptx_slide": 27,
       "title": "Structure Design (FrameFlow)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (FrameFlow)",
         "• Flow matching on rigid bodies in 3D"
@@ -459,7 +459,7 @@
       "pptx_slide": 28,
       "title": "Structure Design (Genie)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (Genie)",
         "• Diffusion on coordinates in 3D",
@@ -475,7 +475,7 @@
       "pptx_slide": 29,
       "title": "Structure Design (Genie 2)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (Genie 2)",
         "• Diffusion on coordinates in 3D",
@@ -491,7 +491,7 @@
       "pptx_slide": 30,
       "title": "Structure Design (Chroma)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (Chroma)",
         "• Efficient generation of coordinates in 3D",
@@ -507,7 +507,7 @@
       "pptx_slide": 31,
       "title": "Structure Design (RFDiffusion)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (RFDiffusion)",
         "• Diffusion with enhanced denoiser in 3D",
@@ -523,7 +523,7 @@
       "pptx_slide": 32,
       "title": "Structure Design (FoldFlow)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (FoldFlow)",
         "• Importance of path design in flow matching",
@@ -539,7 +539,7 @@
       "pptx_slide": 33,
       "title": "Structure Design (FlowFlow 2)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Structure Design (FlowFlow 2)",
         "• Sequence helps structure generation"
@@ -554,7 +554,7 @@
       "pptx_slide": 34,
       "title": "Co-Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Co-Design",
         "• Generation of continuous structure and",
@@ -574,7 +574,7 @@
       "pptx_slide": 35,
       "title": "Co-Design (ProtSeed)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Co-Design (ProtSeed)",
         "• Geometric encoding for co-design",
@@ -590,7 +590,7 @@
       "pptx_slide": 36,
       "title": "Co-Design (ProteinGenerator)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Co-Design (ProteinGenerator)",
         "• Generate categorical variables in continuous space",
@@ -606,7 +606,7 @@
       "pptx_slide": 37,
       "title": "Co-Design (MultiFlow)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Co-Design (MultiFlow)",
         "• Multi-modal flow matching model",
@@ -622,7 +622,7 @@
       "pptx_slide": 38,
       "title": "Co-Design (Protpardelle)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Co-Design (Protpardelle)",
         "• All-atom structure and sequence generation",
@@ -638,7 +638,7 @@
       "pptx_slide": 39,
       "title": "Antibody Design",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Antibody Design",
         "• Antibody is a protein that binds to an antigen and stimulates immune responses.",
@@ -658,7 +658,7 @@
       "pptx_slide": 40,
       "title": "Antibody Design (RefineGNN)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Antibody Design (RefineGNN)",
         "• Antibody Sequence-Structure Co-Design",
@@ -674,7 +674,7 @@
       "pptx_slide": 41,
       "title": "Antibody Design (HERN)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Antibody Design (HERN)",
         "• Adding Antigen Information",
@@ -694,7 +694,7 @@
       "pptx_slide": 42,
       "title": "Antibody Design (DSMBind)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Antibody Design (DSMBind)",
         "• Learning Antibody-Antigen Binding Affinity",
@@ -710,7 +710,7 @@
       "pptx_slide": 43,
       "title": "Learning Antibody-Antigen Binding Affinity (DSMBind)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Learning Antibody-Antigen Binding Affinity (DSMBind)",
         "• Learning the likelihood of 3D structures via denoising score matching (DSM)",
@@ -726,7 +726,7 @@
       "pptx_slide": 44,
       "title": "Learning Antibody-Antigen Binding Affinity (DSMBind)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Learning Antibody-Antigen Binding Affinity (DSMBind)",
         "• Wet lab validation of designed PD-L1 nanobodies",
@@ -746,7 +746,8 @@
       "bytes": 337359,
       "slides": [
         3
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1ecf9073250d9e5c7c43d9db0ed1cfc8b5296161de4fb47601d9cf1ddce5cd78",
@@ -755,7 +756,8 @@
       "bytes": 446245,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3f04be9afcc270726b585742001ffc1f6ef620f5b263d8a1e35250d7263bc601",
@@ -764,7 +766,8 @@
       "bytes": 591149,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ad0310e83794cf66f46382dfd19c40f050b8ec122640f51696554ea934e58860",
@@ -773,7 +776,8 @@
       "bytes": 479280,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8cdf48a2e26b63bff10cdfda8233ecce7ead7c8b34c6da97ee726b417aef1ea1",
@@ -782,7 +786,8 @@
       "bytes": 409276,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b9dc6db2ecd9a40cb5308062fa4bc5d20716e1dbd89ea51d372a036361967aaa",
@@ -791,7 +796,8 @@
       "bytes": 565914,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4cecccf764dd46e8b1c0c03a6f169007207e0754a33e370725fe0dc5f0f77385",
@@ -800,7 +806,8 @@
       "bytes": 251787,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6396c31272253d590b22665782e93d1736d710032a5cd74c0ea3839bece8951d",
@@ -809,7 +816,8 @@
       "bytes": 436615,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1a2c1ad6c69eaa71b8e2db5f0b0c4732ba878f2bb021e23c499fd4303b5f2ffb",
@@ -818,7 +826,8 @@
       "bytes": 199432,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5ff3d00a04c13f7169413e7425cbfd4b0fc126fc001cfd816cad108e2e14efba",
@@ -827,7 +836,8 @@
       "bytes": 92654,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e863644b8fa7d280cdc12289756cdde84747666b127e0571e2e9486b09989349",
@@ -836,7 +846,8 @@
       "bytes": 221366,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5b7b565adebc4d4f79ccef749706357fcdd8a94d8b90503b39f60bbc5cce9723",
@@ -845,7 +856,8 @@
       "bytes": 481235,
       "slides": [
         4
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4a28a9203e8931e1006ebf2a66f8056232dd42e8e33fa13f87ace3e05664f6f2",
@@ -854,7 +866,8 @@
       "bytes": 122364,
       "slides": [
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fd59ea39bd044fe194a5faed0c639774b79f42a7d4620590ddba82e5cbd535f1",
@@ -863,7 +876,8 @@
       "bytes": 251986,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7b31c6b278465502f2446a0016214ef5be1c76e125ec9a75bab731471dd92acb",
@@ -872,7 +886,8 @@
       "bytes": 186467,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fca68f5a8abdf5d9e304dbac6e2cea5fa08eeab374aba8f5c5c820038ae8d272",
@@ -881,7 +896,8 @@
       "bytes": 107147,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1e230ffb7883be7f169c93eb8802e9d510140af5ebbdf6bc74700608dcd8b31b",
@@ -890,7 +906,8 @@
       "bytes": 358871,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1c127e1f6efa85a696c8e4836a92adac956febde8bb4ac46fe4a38876287fa28",
@@ -899,7 +916,8 @@
       "bytes": 739020,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7b2a9c9d8e48090fbb18b297924fd5ebd05b981ea946dbbd8e225cd47aa2e614",
@@ -908,7 +926,8 @@
       "bytes": 588573,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d36fdcf7dcbe80155bb22176ce3babf5322a5c28d4df78167400ece1ab6a9291",
@@ -917,7 +936,8 @@
       "bytes": 733427,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f409a2bbf93fa02d6da5737f4c8e263bbc4efbe1c391dedba084d7937287d34d",
@@ -926,7 +946,8 @@
       "bytes": 421054,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13c81df50f1d7c6da3d48d982795082c37ab642467cc20bd9a19f5445b73b947",
@@ -935,7 +956,8 @@
       "bytes": 367335,
       "slides": [
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "382c8016fe8e9792f7a51a86e480ad142bc9610ad7b7f3dd32cabbbb6a6dfc4d",
@@ -944,7 +966,8 @@
       "bytes": 866992,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e9b3d529cc4766298b728d94e1d729c00e8c9a1e5df40c60b0b5fa971d36fa69",
@@ -953,7 +976,8 @@
       "bytes": 398142,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4d94ee47838835956cd51f7e1ebec34fa79c8a2905f0b113fa75cf7814a41cfa",
@@ -962,7 +986,8 @@
       "bytes": 403819,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2a2bc8601a807399058fdbaf8fccb9d835d33da837c62ad80b984d5ae9c83505",
@@ -971,7 +996,8 @@
       "bytes": 141760,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "be4c5dc9788cbaca8dcef3416b9a71b52b42ec140523a709b6baaa20027d419e",
@@ -980,7 +1006,8 @@
       "bytes": 211961,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "246098a072c2bea813ade242c63ba9364f525c0746c5b928db3fa87b731c29db",
@@ -989,7 +1016,8 @@
       "bytes": 257623,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c604688bcbe3c2bae983f35ca74c5baa7e7123a1cc503b2750e42fe814d664e5",
@@ -998,7 +1026,8 @@
       "bytes": 309043,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1a352edf9db88e1cb53fc5a33a46cd2ca0eef5d5cfce5233a2e48f9eb9ccb0bc",
@@ -1007,7 +1036,8 @@
       "bytes": 383658,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2f343e6191e6feb02bd0874d3fb5541b04fdb4771576d30fee1f40312a695178",
@@ -1016,7 +1046,8 @@
       "bytes": 62612,
       "slides": [
         39
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9a1cb93aa0c55abc845a1979656327ae11aaf8e67803bf2a2d3fe35e92bae9c5",
@@ -1025,7 +1056,8 @@
       "bytes": 292377,
       "slides": [
         40
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "98d0abcea96968241b582d1748f8942ee7344fdbba4ea4f6a8cdfea5b11a4839",
@@ -1034,7 +1066,8 @@
       "bytes": 543513,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8fd130e93a05718be06d1db7c9edb8c2dc8765e1216dbf12682ad25378ee2f8a",
@@ -1043,7 +1076,8 @@
       "bytes": 313178,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "17182d73fc273614e7ec7ca8ddcc8ba35ac8bd088abfc3b5d57a5ef0079df424",
@@ -1052,7 +1086,8 @@
       "bytes": 128855,
       "slides": [
         41
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a2b85bb894f02702dc20bede2b5c3e5be0e5a766ab326b2db459a9719f73e800",
@@ -1061,7 +1096,8 @@
       "bytes": 742567,
       "slides": [
         42
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "643fc0616993f746d9135f95b089c5ac7f219907924abc095dc8961c743c5f40",
@@ -1070,7 +1106,8 @@
       "bytes": 694758,
       "slides": [
         43
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "33673eb9e2e76bb3c14045676739bdf943313250233a3d87c71643f1f06bef35",
@@ -1079,7 +1116,8 @@
       "bytes": 816082,
       "slides": [
         44
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5e4361b85ff1aefd2b89680add9c4497aa33724c72923ae688ec9204896cb466",
@@ -1088,7 +1126,8 @@
       "bytes": 103989,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "536f778a740eed267158ae1e85851b5d2f31aa8f6e63a99b0acdc227300f2cf6",
@@ -1097,7 +1136,8 @@
       "bytes": 417686,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8f1ccff5bc05a8534b2e55f4d7ee8029e90b9915a6ab75368c19f8e92ab95e29",
@@ -1106,7 +1146,8 @@
       "bytes": 486241,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b6fab02577e470d7f43c436d5d5f4157b1a829450a6548b32a1bc5ac10064fda",
@@ -1115,7 +1156,8 @@
       "bytes": 472168,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "05eaf390000f91a9c4514abe637d9126232b7f3649bb0b19ea80d90192f90a32",
@@ -1124,7 +1166,8 @@
       "bytes": 267273,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "62022cbce49e208ddfe0466fbd06fe937b5e0e8deb6522e572319296c10ff3cb",
@@ -1133,14 +1176,457 @@
       "bytes": 20730985,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 40,
+    "reused": 40,
+    "scientifically_redundant": 0,
+    "reuse_ratio": 1.0
+  },
+  "pdf_regions": [
+    {
+      "slide": 3,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-3.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-4.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-5.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-9.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-10.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-25.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-29.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-30.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-37.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-39.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-40.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-41.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-42.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-43.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 44,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-19/slide-44.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-19.md"
 }
