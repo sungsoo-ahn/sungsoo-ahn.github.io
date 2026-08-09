@@ -16767,19 +16767,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-10.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s05-image1.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        10
+        5
       ],
       "slide_keys": [
-        "gdl-2025-03:10"
+        "gdl-2025-03:5"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Node-wise learned messages and symmetric pooling turn a variable-size neighborhood into a fixed-width node state. Cropped from the 2025 GDL graph-neural-network lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Graphs describe communication and social systems as entities connected by relations.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "448aef0b7ef222db619312efbad1e05d1b3bc692be075390608b409a3766ac77",
+      "content_sha256": "ca304f4b1ec749c4528f16deb76f7cf9294b2bf58df1378a664062283145a02e",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16789,19 +16789,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-11.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s05-image2.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        11
+        5
       ],
       "slide_keys": [
-        "gdl-2025-03:11"
+        "gdl-2025-03:5"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GCN combines normalized neighborhood averaging, a self term, trainable weights, and a nonlinearity. Cropped from the 2025 GDL graph-neural-network lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The same representation covers scientific systems whose interactions are spatial, physical, or chemical.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fe348b2f71e3067a1ea73072906e97ef98a59e09bc0393913fbdfe22fa726454",
+      "content_sha256": "2ab82e38e9c58123dd893d0e6f627fc18005b8da74d067741ceae16851416d6b",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16811,19 +16811,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-12.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s05-image3.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        12
+        5
       ],
       "slide_keys": [
-        "gdl-2025-03:12"
+        "gdl-2025-03:5"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "The matrix form separates sparse adjacency aggregation from the node-wise self transformation. Cropped from the 2025 GDL graph-neural-network lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Knowledge and relational databases also become graphs once their entities and relation types are made explicit.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5c074a08928f29715616a04f749ade4a76fc9c8d32e70680c260daba42d72307",
+      "content_sha256": "e3722e6e3db70dbafcd3caad24ae425f07e66065544393d906b91db1c7261030",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16833,19 +16833,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-13.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s07-image6.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        13
+        7
       ],
       "slide_keys": [
-        "gdl-2025-03:13"
+        "gdl-2025-03:7"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Several named GNNs are variations of the same message, aggregation, and update interface. Cropped from the 2025 GDL graph-neural-network lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Node-, edge-, and graph-level tasks differ in which part of the graph carries the target.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "458dcf9d4b9dd68aa0151d6538c5ba0ba9b9499391aaccac0173d601847efe5c",
+      "content_sha256": "0bd17ad828ffd6b921b922ce05f9831bb24933bba92fe1018b7c27f541a607e4",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16855,19 +16855,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-15.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s09-image10.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        15
+        9
       ],
       "slide_keys": [
-        "gdl-2025-03:15"
+        "gdl-2025-03:9"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Graph attention keeps edge-local communication but learns how strongly each neighbor contributes. Cropped from the 2025 GDL graph-neural-network lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "An MPNN alternates edge-wise message computation with permutation-invariant neighborhood aggregation.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2ef3af52722b46ec67c37bee412a4c9e53ecdda11dc43a0b45fdeee107a1d58d",
+      "content_sha256": "788424584642f5d72ccb4e73f26ea5aee2fa096019794ed456f7404a99178b60",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16877,7 +16877,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-16.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s16-image18.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         16
@@ -16886,10 +16886,10 @@
         "gdl-2025-03:16"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Restricting attention to graph neighborhoods gives GAT; attending over all vertices gives the Transformer pattern. Cropped from the 2025 GDL graph-neural-network lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Restricting attention to graph neighborhoods gives GAT; attending over all vertices gives the Transformer pattern.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1dd422d25463dde70ff7274d06f4451eca6621c9a9c2be6ab2d94c7d9d7e8dc9",
+      "content_sha256": "79f80d1f3cef9416b426eac3b6ebe3727dc9087f0e6ecea9459247dcc124744b",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16899,7 +16899,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-17.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s17-image20.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         17
@@ -16908,10 +16908,10 @@
         "gdl-2025-03:17"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GAT uses concatenation and a learned linear score rather than the standard Transformer inner product. Cropped from the 2025 GDL graph-neural-network lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GAT scores an edge by concatenating transformed endpoint features and applying a learned linear map.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "aabf72644b0792b2d949bdf0ba51d34407c926d64b37c8bbe166a385a414a8b8",
+      "content_sha256": "acd10f08afc56a9186b4b49c871409a05e39d12ab9cb0dfadc31c023ae57b557",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16921,7 +16921,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-19.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s19-image22.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         19
@@ -16930,10 +16930,10 @@
         "gdl-2025-03:19"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "A graph Transformer must decide how vertices and graph structure enter a sequence-style architecture. Cropped from the 2025 GDL graph-neural-network lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A graph Transformer must decide how vertices and graph structure enter a sequence-style architecture.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "62f401e158cbf1746d6c5b43d88edd1fba8b982019b2c9f55ee1a6ce2873bcd1",
+      "content_sha256": "929f0605134201c12068bc4323dc1baa3a4b15a64aba3cdd63c2c22685d23958",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16943,7 +16943,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-20.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s20-image24.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         20
@@ -16952,10 +16952,10 @@
         "gdl-2025-03:20"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Fully connected attention discards stored adjacency unless graph structure is supplied separately. Cropped from the 2025 GDL graph-neural-network lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Without positional or structural input, self-attention cannot distinguish a permutation of the same tokens.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2273d9d93d0360f06b8dd02a7c2329812df7bfd20b3c7b033e79b3d9dab07c32",
+      "content_sha256": "428c0e8b9d14a4de4654cb4fff3515f99b984b1092b23175938c4cf34851032e",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16965,7 +16965,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-21.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s21-image26.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         21
@@ -16974,10 +16974,10 @@
         "gdl-2025-03:21"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Attention is order-blind without positional information; graph Transformers face the corresponding structure-blindness problem. Cropped from the 2025 GDL graph-neural-network lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Sequence Transformers repair order blindness by adding positions before attention; graph Transformers need an analogous structural signal.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "57bb22f86cd877623811048b0c257c6fefaf5ac7794236a8e7d46415a9e8640d",
+      "content_sha256": "ced8ef56662980252113cdd21447e91a183d8e9c8c6ddf7823072f10ae49a8a3",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16987,7 +16987,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-22.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s22-image27.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         22
@@ -16996,10 +16996,10 @@
         "gdl-2025-03:22"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Rows of a truncated Laplacian eigenbasis provide graph-dependent node positions. Cropped from the 2025 GDL graph-neural-network lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Rows of a truncated Laplacian eigenbasis provide graph-dependent node positions.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d1112b51513a81cf4dbd5839e042188c8cc961c176f9f7383addf333e97d02c9",
+      "content_sha256": "9c161b9af420a7ee62bb3c4db66e82e4c43f35ed61e3df8de4d8841b2b5fba01",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17009,7 +17009,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-23.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s23-image29.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         23
@@ -17018,10 +17018,10 @@
         "gdl-2025-03:23"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "The graph Laplacian carries structure, and its eigenvectors generalize frequency-like coordinates to graphs. Cropped from the 2025 GDL graph-neural-network lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The graph Laplacian is built directly from adjacency and degree information.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c0d2aa3a8f1218a0158210fc0cfcae2e926298389a8f5e43ba210acd0123b01b",
+      "content_sha256": "a44a167a924f805ec61c8183201d539f9d2965dc3df9a9045a724c5a89277476",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17031,7 +17031,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-24.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s24-image31.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         24
@@ -17040,10 +17040,10 @@
         "gdl-2025-03:24"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Pairwise shortest-path or edge-type biases inject graph structure directly into attention scores. Cropped from the 2025 GDL graph-neural-network lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Pairwise shortest-path or edge-type biases inject graph structure directly into attention scores.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8b30023865bd6c6da146bd5e1a5793248ff58754fac279962115213b6ffc064f",
+      "content_sha256": "6c3c8d6dded638479126d8315b192baab50e4dcf0634f3c8dcb8efc5a18e7623",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17053,7 +17053,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-25.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s25-image32.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         25
@@ -17062,10 +17062,10 @@
         "gdl-2025-03:25"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GraphGPS++ is an optimized hybrid of message passing, attention, and molecular features. Cropped from the 2025 GDL graph-neural-network lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A hybrid graph layer can combine local message passing, global attention, residual pathways, and molecular features.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "174a4dd51930d0331f820daa25296f15aea1b565e4300d9c7fb53eea62771f46",
+      "content_sha256": "c941104fda7387463700d5555bf34a05cb0ad66b8cadb26ec654a98b50be4cae",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17075,7 +17075,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-27.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s27-image36.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         27
@@ -17084,10 +17084,10 @@
         "gdl-2025-03:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Early graph convolution combined graph clustering, pooling, and spectral filtering. Cropped from the 2025 GDL graph-neural-network lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Early graph convolution combined graph clustering, pooling, and spectral filtering.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3bdbe94602e33a7ce31293f57ba43ac72686262e0c929aeb2d090bfafa73b399",
+      "content_sha256": "16052baf4712dd7ae79e29788e7fcdebcab1ecf1d65a72cb738e0c430c831755",
       "candidate_urls": [],
       "candidate_citations": [
         "Graph-Structured Data (Arxiv 2013)"
@@ -17099,7 +17099,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-28.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s28-image38.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         28
@@ -17108,10 +17108,10 @@
         "gdl-2025-03:28"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "ChebNet approximates spectral filters with Laplacian polynomials that remain localized on the graph. Cropped from the 2025 GDL graph-neural-network lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "ChebNet approximates spectral filters with Laplacian polynomials that remain localized on the graph.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6e07789b4fd0c72d323c9985a4fafe934d403f64d2f42bf33bd4f7fbc77612f9",
+      "content_sha256": "58d83f43b11dc6cf9e9af57e149f6ef362f2726c3e86914b73a48c55ab25deb7",
       "candidate_urls": [],
       "candidate_citations": [
         "Filtering (NeurIPS 2016)"
@@ -17123,7 +17123,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-29.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s29-image39.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         29
@@ -17132,10 +17132,10 @@
         "gdl-2025-03:29"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Node2Vec learns node embeddings from biased random-walk contexts. Cropped from the 2025 GDL graph-neural-network lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Node2Vec learns node embeddings from random walks biased between local breadth-first and outward depth-first exploration.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a2ebfc698b8324798084e376bc4265ac2614257da2411347dc0a1e99c623c723",
+      "content_sha256": "431748a05a55495fc83050598f8287e8ff61ddf1c63b4e514a8e5aab7d2d246a",
       "candidate_urls": [],
       "candidate_citations": [
         "node2vec: Scalable Feature Learning for Networks (KDD 2016)"
@@ -17147,7 +17147,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-30.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s30-image42.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         30
@@ -17156,10 +17156,10 @@
         "gdl-2025-03:30"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GCN turned a spectral approximation into a simple neighborhood propagation rule. Cropped from the 2025 GDL graph-neural-network lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GCN turned a first-order spectral approximation into a simple stack of neighborhood-propagation layers.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7a8c10a867c80511d2b3d5ae629f83a564a0ed0c80b79c0cb72cf464f56647ac",
+      "content_sha256": "8c1ab3a8736d678cf2236b29f248de809231f698d4097165bd6cc3229cdf93d2",
       "candidate_urls": [],
       "candidate_citations": [
         "Graph Convolutional Networks (ICLR 2017)"
@@ -17171,7 +17171,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-31.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s31-image46.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         31
@@ -17180,10 +17180,10 @@
         "gdl-2025-03:31"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "MPNN supplied a common message-and-update abstraction and connected it to molecular prediction. Cropped from the 2025 GDL graph-neural-network lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The MPNN framework connected a common message-and-update abstraction to molecular property prediction.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b0c3081ab66e545d7af94b2aac55bae17de3912924d34a9266267518c20cc8ef",
+      "content_sha256": "e60e8b2972dd2da15dd13496ef72b759e439da5b032db92e6c3d0fe1ba37ec08",
       "candidate_urls": [],
       "candidate_citations": [
         "Neural Message Passing for Quantum Chemistry (ICML 2017)"
@@ -17195,7 +17195,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-32.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s32-image49.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         32
@@ -17204,10 +17204,10 @@
         "gdl-2025-03:32"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GraphSAGE samples neighborhoods to learn inductive node representations at scale. Cropped from the 2025 GDL graph-neural-network lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GraphSAGE samples neighborhoods and repeatedly aggregates them to learn inductive node representations.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ac74f53c7c0abc7086f59229578ad235982e9ae68dc4b549eead676b6d8bf3c4",
+      "content_sha256": "6b19b0a2bc0ee1cff210d8b9076b3069cfefb03022b19e30793ddac08631a507",
       "candidate_urls": [],
       "candidate_citations": [
         "Large Graphs (NeurIPS 2017)"
@@ -17219,7 +17219,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-33.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s33-image52.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         33
@@ -17228,10 +17228,10 @@
         "gdl-2025-03:33"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "R-GCN conditions messages on typed relations rather than treating every edge identically. Cropped from the 2025 GDL graph-neural-network lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "R-GCN conditions messages on typed relations rather than treating every edge identically.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7dec40385c78dec4f9e76a3d99a74640796af2c64dd698cf980145f59a2eac66",
+      "content_sha256": "bd44436e97f319d6c547e47e0da8e537b06b6d02453448536c70f8a7f1140a74",
       "candidate_urls": [],
       "candidate_citations": [
         "Convolutional Networks (Springer, 2017)."
@@ -17243,7 +17243,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-34.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s34-image56.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         34
@@ -17252,10 +17252,10 @@
         "gdl-2025-03:34"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GatedGCN learns unnormalized edge gates for residual message propagation. Cropped from the 2025 GDL graph-neural-network lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GatedGCN learns unnormalized edge gates for residual message propagation.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "51ac91ab5bf6b1c4dc62d5ce390b058c5edaf95b41846889dfcf6e844c9ef53c",
+      "content_sha256": "930cb351be38e446aca05ebf684c57c7ecdb443855277f5340dff7b6f6b006e9",
       "candidate_urls": [],
       "candidate_citations": [
         "(ICLR 2018)"
@@ -17267,31 +17267,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-35.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-03:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GAT introduced normalized learned weights over graph neighborhoods. Cropped from the 2025 GDL graph-neural-network lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "09f381ac604260fa35c751107458f9629df240c637c003ea7b35b894a2ae6e95",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "Graph Attention Networks (ICLR 2018)"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-36.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s36-image59.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         36
@@ -17300,10 +17276,10 @@
         "gdl-2025-03:36"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "JK-Net preserves information from different receptive-field depths instead of using only the final layer. Cropped from the 2025 GDL graph-neural-network lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "JK-Net aggregates states from several layers instead of using only the deepest representation.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "83e3efe3e911eea2a88845d942097c86f2345d292679c0be90b1ae233facc4bd",
+      "content_sha256": "d79a270953535e71eb5f99a9532475897ecd22abf8581855e93f41addf67b30e",
       "candidate_urls": [],
       "candidate_citations": [
         "Knowledge Networks (ICML 2018)."
@@ -17315,7 +17291,31 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-37.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s36-image60.png": {
+      "deck_id": "gdl-2025-03",
+      "slides": [
+        36
+      ],
+      "slide_keys": [
+        "gdl-2025-03:36"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+      "caption": "Different nodes and tasks can favor different receptive-field depths, motivating adaptive layer aggregation.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b3b3b086ae72e2bcf4758a0b112ee577773a96e927cc1e51b4ee89f4d9ae768f",
+      "candidate_urls": [],
+      "candidate_citations": [
+        "Knowledge Networks (ICML 2018)."
+      ],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-03/s37-image61.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         37
@@ -17324,10 +17324,10 @@
         "gdl-2025-03:37"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "DiffPool learns a soft node-to-cluster assignment for hierarchical graph coarsening. Cropped from the 2025 GDL graph-neural-network lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "DiffPool learns a soft node-to-cluster assignment for hierarchical graph coarsening.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b3d5b01e82d3adbd3ae0f961105338e4bed4ed469c1e3857a37386272aabe626",
+      "content_sha256": "7f44cffb60a8b3e24f26dfe190c6820220597877fbca8b8de706a62c77efd70e",
       "candidate_urls": [],
       "candidate_citations": [
         "Hierarchical Graph Representation Learning with Differentiable Pooling (NeurIPS 2018)"
@@ -17339,7 +17339,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-38.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s38-image66.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         38
@@ -17348,10 +17348,10 @@
         "gdl-2025-03:38"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GIN tied injective multiset aggregation to the distinguishing power of the WL test. Cropped from the 2025 GDL graph-neural-network lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GIN ties injective multiset aggregation to the distinguishing power of the Weisfeiler--Lehman test.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1404b382556eb257865cb6f2d8117c4be4274d242a13e4bb34562bf08ee0630a",
+      "content_sha256": "44cd9d12ca5ec809d583dae28ece0d9bb145ce9d39616ecffb4c22c1ce58cbd5",
       "candidate_urls": [],
       "candidate_citations": [
         "(ICLR 2019)"
@@ -17363,7 +17363,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-39.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s39-image68.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         39
@@ -17372,10 +17372,10 @@
         "gdl-2025-03:39"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "SGC asks how much of GCN performance comes from linear graph propagation alone. Cropped from the 2025 GDL graph-neural-network lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "SGC asks how much of GCN performance comes from linear graph propagation alone.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ec5b9fabb9e51237fb927645cb050758f4350c7e22e48fb2eacf19860f8cc850",
+      "content_sha256": "9656b33971898c5983f43cc5ece8acdf4d29c9fe13ea58ab58f2b34d842cfb48",
       "candidate_urls": [],
       "candidate_citations": [
         "Networks (ICML 2019)"
@@ -17387,31 +17387,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-40.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-03:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Controlled evaluation exposed the statistical fragility of rankings on small graph benchmarks. Cropped from the 2025 GDL graph-neural-network lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "917bcac63250fae8d4881bbaab6c24ad37c2a12f6f94553702daaa1d3ccff1ef",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "for graph classification (ICLR 2020)."
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-41.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s41-image73.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         41
@@ -17420,10 +17396,10 @@
         "gdl-2025-03:41"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "PNA combines neighborhood statistics because no single pooling rule captures every distribution. Cropped from the 2025 GDL graph-neural-network lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "PNA combines several neighborhood statistics and degree-dependent scalers because no single pooling rule captures every distribution.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3e6b6b683a667522f9cfe122a787340e5c998cdcaa7185e9afe237e2c745a2a8",
+      "content_sha256": "bc461cba776d2e15ca756d1a608de1848d7aef67fa9a32c781479775c688ea43",
       "candidate_urls": [],
       "candidate_citations": [
         "Graph Nets (NeurIPS 2020)"
@@ -17435,31 +17411,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-42.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-03:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GCNII uses initial residual and identity-mapping mechanisms to stabilize deep graph propagation. Cropped from the 2025 GDL graph-neural-network lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1b9b45d84dc7b1b4a6ac62f92ba4869f4bd9836a05ae15734eea994a6afea4cf",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "Simple and Deep Graph Convolutional Networks (ICML 2020)"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-43.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s43-image78.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         43
@@ -17468,10 +17420,10 @@
         "gdl-2025-03:43"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "The early Graph Transformer supplied spectral positional information to attention layers. Cropped from the 2025 GDL graph-neural-network lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The early Graph Transformer supplied spectral positional information to attention layers.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ce8ffd7bcfead209be62d9098effa6596d349996d1e89d2d4814798826db6d15",
+      "content_sha256": "1a2e674b5406e12b0c2266ec458b376bec6479cf6349fbb067f8bbd330b200c4",
       "candidate_urls": [],
       "candidate_citations": [
         "Graphs (Arxiv 2020)"
@@ -17483,7 +17435,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-44.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s44-image80.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         44
@@ -17492,10 +17444,10 @@
         "gdl-2025-03:44"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Design-space experiments show that strong graph architectures depend on the task and evaluation regime. Cropped from the 2025 GDL graph-neural-network lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Design-space experiments compare families of graph architectures under controlled choices rather than changing one layer in isolation.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4033594b41435b90288c85489a184b29931608cc8d7795352a84d10d3f97e8c4",
+      "content_sha256": "6f1de34ca6a1fd0910b210ade12b2d487b97658c37a9aecbece42a784ed1f001",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17505,7 +17457,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-45.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s45-image81.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         45
@@ -17514,10 +17466,10 @@
         "gdl-2025-03:45"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Substructure counts add graph information beyond ordinary local message passing. Cropped from the 2025 GDL graph-neural-network lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Graph Substructure Networks augment node states with counts of selected local structures.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c79b1a541b8d5ac1b0af4ef951903555885e9810a9c83e3c273772bf9c02532d",
+      "content_sha256": "0e8083d5947da4c12c2bf7fa5b11894c560ab8bbfad1a5c7a380e684be921afa",
       "candidate_urls": [],
       "candidate_citations": [
         "(Arxiv 2020, TPAMI 2023)"
@@ -17529,7 +17481,31 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-46.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s45-image84.png": {
+      "deck_id": "gdl-2025-03",
+      "slides": [
+        45
+      ],
+      "slide_keys": [
+        "gdl-2025-03:45"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+      "caption": "Substructure features can separate graphs that ordinary local message passing treats identically.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b51301d1e132595eff13ccc51c1ec7f43d5f28e8c7b039a3938b6af32a625da8",
+      "candidate_urls": [],
+      "candidate_citations": [
+        "(Arxiv 2020, TPAMI 2023)"
+      ],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-03/s46-image86.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         46
@@ -17538,10 +17514,10 @@
         "gdl-2025-03:46"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Higher-order GNNs lift graphs into richer combinatorial complexes and communicate among their cells. Cropped from the 2025 GDL graph-neural-network lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A higher-order model first lifts a graph into vertices, edges, and cells.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0b81d20ac3e1ceb04d321a73dece693c5500674e99aa704a9d613141e0a13afc",
+      "content_sha256": "c2209376b88d4734a688f50a0867beba3890c8d38d13e69f9c13eb55c13e1fbd",
       "candidate_urls": [],
       "candidate_citations": [
         "Message Passing Simplicial Networks (ICML 2021)",
@@ -17554,7 +17530,32 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-47.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s46-image88.png": {
+      "deck_id": "gdl-2025-03",
+      "slides": [
+        46
+      ],
+      "slide_keys": [
+        "gdl-2025-03:46"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+      "caption": "Simplicial message passing communicates among explicit higher-order objects instead of nodes alone.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "13588f3c5d20c006fa897d5794982d195bb0aeb3041078fba9ca9e557d7c8c8e",
+      "candidate_urls": [],
+      "candidate_citations": [
+        "Message Passing Simplicial Networks (ICML 2021)",
+        "CW Networks (NeurIPS 2021)"
+      ],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-03/s47-image90.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         47
@@ -17563,10 +17564,10 @@
         "gdl-2025-03:47"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Graphormer injects shortest paths, edge types, and centrality into global attention. Cropped from the 2025 GDL graph-neural-network lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Graphormer injects shortest paths, edge types, and centrality into global attention.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a0f395f64219fd80f6a72bd3afe95f327b05b7fd93d3616d6b8efa28fa26cf31",
+      "content_sha256": "ff46fd8f9fc1c73730442a36aa152cbd5668aeb2a99e11fc6a96d75175c31562",
       "candidate_urls": [],
       "candidate_citations": [
         "Graph Representation? (NeurIPS 2021)"
@@ -17578,7 +17579,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-48.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s48-image91.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         48
@@ -17587,10 +17588,10 @@
         "gdl-2025-03:48"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GRAND models graph representation flow as a differential equation related to heat diffusion. Cropped from the 2025 GDL graph-neural-network lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GRAND models graph representation flow as a differential equation related to heat diffusion.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "23729994ead0aefbb823e770cbe8cecd69be23b1315c715ebdaa58b485c8f428",
+      "content_sha256": "3c9da5354118efcfa27f7ae53ecb84b1c209501841fb2579472126b63df332ea",
       "candidate_urls": [],
       "candidate_citations": [
         "GRAND: Graph Neural Diffusion (ICML 2021)"
@@ -17602,7 +17603,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-49.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s49-image95.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         49
@@ -17611,10 +17612,10 @@
         "gdl-2025-03:49"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Over-squashing compresses distant information through narrow graph bottlenecks; rewiring changes the communication geometry. Cropped from the 2025 GDL graph-neural-network lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Curvature identifies graph regions whose geometry creates difficult long-range communication paths.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0339d1a43dba74e4403372802ce28dbffc97874b1595d35c267841db1f01d36c",
+      "content_sha256": "103a87bf5c63446bc5a6f6a9c958973c769f34393d1f56fd5e05c9b2e0da6428",
       "candidate_urls": [],
       "candidate_citations": [
         "on graphs via curvature (ICLR 2022)"
@@ -17626,21 +17627,23 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-5.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s49-image96.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        5
+        49
       ],
       "slide_keys": [
-        "gdl-2025-03:5"
+        "gdl-2025-03:49"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Graphs place many kinds of relational data inside one representation. Cropped from the 2025 GDL graph-neural-network lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Over-squashing forces information from a rapidly growing neighborhood through a fixed-width bottleneck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a98df869e60d44b7f3e85762f3264c6d865dca15e391b4da162fe97e480ec7b9",
+      "content_sha256": "13cee6581c44eb3840b612ba67606fb0d105c6b55a7a17405b296a605b46481e",
       "candidate_urls": [],
-      "candidate_citations": [],
+      "candidate_citations": [
+        "on graphs via curvature (ICLR 2022)"
+      ],
       "status": "pending",
       "source_ids": [],
       "confidence": "unresolved",
@@ -17648,7 +17651,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-50.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s50-image97.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         50
@@ -17657,10 +17660,10 @@
         "gdl-2025-03:50"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GNN-AK processes induced local subgraphs instead of reducing each neighborhood to a star. Cropped from the 2025 GDL graph-neural-network lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GNN-AK processes induced local subgraphs instead of reducing each neighborhood to a star.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "741e0d86c5aafe14ab74969a3af25b38abf496e6cf9f918456090a3dbd6e9fa1",
+      "content_sha256": "048a6c922cdf4ef800f5b1109d7578b213419c4d6419d2d6366e80185190e2c7",
       "candidate_urls": [],
       "candidate_citations": [
         "with Local Structure Awareness (ICLR 2022)"
@@ -17672,7 +17675,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-51.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s51-image100.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         51
@@ -17681,10 +17684,10 @@
         "gdl-2025-03:51"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "ESAN increases expressive power by applying a shared GNN to a permutation-consistent collection of subgraphs. Cropped from the 2025 GDL graph-neural-network lecture, slide 51.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Subgraph generation can expose differences that a standard whole-graph MPNN misses.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e53d4f4ac77dc4c12ab1b9ea9219af8bb1e037b14d03f085b534c0a49b6fdb34",
+      "content_sha256": "494d5e05793d5ca2d9d368d3d74a6c5ede8930a71132b95b961a9115544b9d33",
       "candidate_urls": [],
       "candidate_citations": [
         "Equivariant Subgraph Aggregation Networks (ICLR 2022)"
@@ -17696,7 +17699,31 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-52.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s51-image101.png": {
+      "deck_id": "gdl-2025-03",
+      "slides": [
+        51
+      ],
+      "slide_keys": [
+        "gdl-2025-03:51"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+      "caption": "ESAN applies a shared GNN to a permutation-consistent collection of subgraphs and aggregates their representations.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4f1020d3cb4fea072b4eca547fbc922c76de7a76cff345372a281b8a3e366bcf",
+      "candidate_urls": [],
+      "candidate_citations": [
+        "Equivariant Subgraph Aggregation Networks (ICLR 2022)"
+      ],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-03/s52-image102.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         52
@@ -17705,10 +17732,10 @@
         "gdl-2025-03:52"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GPS combines a local MPNN, a global Transformer, and structural encodings in each layer. Cropped from the 2025 GDL graph-neural-network lecture, slide 52.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GPS combines a local MPNN, a global Transformer, and structural encodings in each layer.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "aefe07391f580a88536b2cf32870e4cc3dc001ffc31750417b060a446a006392",
+      "content_sha256": "56a8dbc5fc60909950aab238d492bf62fbdf03b292444222404a565ec7a49225",
       "candidate_urls": [],
       "candidate_citations": [
         "Transformer (NeurIPS 2022)"
@@ -17720,7 +17747,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-53.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s53-image108.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         53
@@ -17729,10 +17756,10 @@
         "gdl-2025-03:53"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "GPS++ shows how a carefully optimized message-passing system can remain state of the art for molecular graphs. Cropped from the 2025 GDL graph-neural-network lecture, slide 53.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GPS++ shows how a carefully optimized message-passing system can remain competitive for molecular graphs.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "bead27a100d5cec056bd04ab07bf7eb79f73fa768dcb7546a5e51a590aedf34a",
+      "content_sha256": "1f12b33e093563b71c421c77f9c7ed7f230acc9df4aa331c6683b90715066134",
       "candidate_urls": [],
       "candidate_citations": [
         "for Molecular Property Prediction (TMLR 2023)"
@@ -17744,7 +17771,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-54.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s54-image34.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         54
@@ -17753,10 +17780,10 @@
         "gdl-2025-03:54"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Scaling studies test whether model and data size improve established GNNs beyond small-benchmark architecture comparisons. Cropped from the 2025 GDL graph-neural-network lecture, slide 54.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Scaling studies test whether established graph models continue improving with more data and parameters.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0cf009b27481d27dbeeaca0bc1d8618f93f12c7cdce92536e3b1ca9de6e1ae0e",
+      "content_sha256": "b5a632771bdfd767b664f9f66db4f5ab3bc434f0cc8a1c0c7842c99eea42101b",
       "candidate_urls": [],
       "candidate_citations": [
         "On the Scalability of GNNs for Molecular Graphs (NeurIPS 2023)"
@@ -17768,29 +17795,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-56.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        56
-      ],
-      "slide_keys": [
-        "gdl-2025-03:56"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "TU datasets are convenient small-scale benchmarks, but their variance limits strong architecture conclusions. Cropped from the 2025 GDL graph-neural-network lecture, slide 56.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "26fa2626058e8bbdc9381c4887f094872be44e9dcba24ec4e5a2be39815e9b8a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-57.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s57-image111.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         57
@@ -17799,10 +17804,10 @@
         "gdl-2025-03:57"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Citation-network benchmarks emphasize node prediction under graph homophily. Cropped from the 2025 GDL graph-neural-network lecture, slide 57.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Citation-network benchmarks often reward homophily: nearby vertices tend to share labels.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "75b55bdb4ffba64fc37cd87ce4d3c4102d32c90b3b115ecdbe41eb494aeba9fa",
+      "content_sha256": "601fa808952d13aef13b299e35aa12943f319badeaca9043fa24f0891e86c5f5",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17812,29 +17817,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-58.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        58
-      ],
-      "slide_keys": [
-        "gdl-2025-03:58"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Two-dimensional molecular benchmarks test property prediction and the value of chemistry-aware features. Cropped from the 2025 GDL graph-neural-network lecture, slide 58.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f482fce21a51c41761580a0db95ba9bdc022302e624041a7b4dc165bb812b62c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-59.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s59-image114.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         59
@@ -17843,10 +17826,10 @@
         "gdl-2025-03:59"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Large graph benchmarks evaluate scalability as well as predictive performance. Cropped from the 2025 GDL graph-neural-network lecture, slide 59.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Large graph benchmarks separate node, link, and graph prediction while testing whether training systems scale.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e41377295aa30501f5f4600fdf547e276f52ef662388f20d0829c67f96f4407d",
+      "content_sha256": "dea5e521ba826831ee01408b4a698729313306adbe80e4f4975e47307a5e875e",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17856,29 +17839,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-6.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        6
-      ],
-      "slide_keys": [
-        "gdl-2025-03:6"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Graph representation learning starts from an explicit contract for vertices, edges, node features, and edge attributes. Cropped from the 2025 GDL graph-neural-network lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5a16c7ecb3132a73964176989883575ba0b3d7c9e6fd4d84da7fbb92a1148ac6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-60.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s60-image118.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         60
@@ -17887,10 +17848,10 @@
         "gdl-2025-03:60"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "LRGB isolates long-range dependencies that short-range message passing can miss. Cropped from the 2025 GDL graph-neural-network lecture, slide 60.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "LRGB includes visual and combinatorial tasks designed around dependencies beyond a few graph hops.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c8152945c7bec50b65664dd48f2f84552ae5d1702645c5712c16e095b79c4391",
+      "content_sha256": "5d144fdf1038aa653de8eaf5e1f50e1d81a8f3c7780a75b398c76258921c0f87",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17900,7 +17861,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-61.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s60-image119.png": {
+      "deck_id": "gdl-2025-03",
+      "slides": [
+        60
+      ],
+      "slide_keys": [
+        "gdl-2025-03:60"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
+      "caption": "Its molecular tasks likewise require information to travel beyond a strictly local neighborhood.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "dd69bcf8d042b021e187a2660be7e892b1e38cbb969a20c7b25ae4be3f2beb68",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-03/s61-image122.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         61
@@ -17909,10 +17892,10 @@
         "gdl-2025-03:61"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Temporal graph benchmarks add event time and require time-aware representation and evaluation. Cropped from the 2025 GDL graph-neural-network lecture, slide 61.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Temporal graph models use time-stamped history to predict future nodes, links, or labels without leaking later events.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ead30189c6e198d5d89fa725cc511f0236bd1de9e382be22390e6d84261b9e53",
+      "content_sha256": "558c1cb7efce114e7c4b823f5064c96da82ef38346fd8a4042be7e00be0b8ee2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17922,29 +17905,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-62.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        62
-      ],
-      "slide_keys": [
-        "gdl-2025-03:62"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Algorithmic-reasoning datasets test whether graph networks can emulate structured computation. Cropped from the 2025 GDL graph-neural-network lecture, slide 62.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1e89dfe6098cf4c5e0c80e8cbaf47a8d5f249f7ba79b680f1cbf71e8d626f2a0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-63.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s63-image125.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
         63
@@ -17953,10 +17914,10 @@
         "gdl-2025-03:63"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Knowledge-graph reasoning combines relational structure with increasingly language-based representations. Cropped from the 2025 GDL graph-neural-network lecture, slide 63.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Knowledge-graph reasoning composes typed relations to answer structured queries.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a7947fb76315131856cc1280e9bf7d46b3403ddd58abf09a1e3415cb27fbc4f6",
+      "content_sha256": "3ceb5dd591d30486ffa0d36dec42d415ff2f445fbfef1f4eec42b033623ae640",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -17966,63 +17927,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-03/slide-7.webp": {
+    "assets/img/blog/lectures/gdl-2025-03/s63-image126.png": {
       "deck_id": "gdl-2025-03",
       "slides": [
-        7
+        63
       ],
       "slide_keys": [
-        "gdl-2025-03:7"
+        "gdl-2025-03:63"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Node-, edge-, and graph-level tasks differ in the index structure of the output. Cropped from the 2025 GDL graph-neural-network lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Recent systems combine language representations with graph reasoning, but benchmark saturation claims remain evaluation-dependent.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "14099b5aec083a1d260a64e44885ef02a3f4d62d6d65816078fb03119a1ce178",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-8.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        8
-      ],
-      "slide_keys": [
-        "gdl-2025-03:8"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "Sparse message passing and fully connected attention are the two main graph-network patterns developed in the lecture. Cropped from the 2025 GDL graph-neural-network lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e1c91974e67f1ba308a8bb5b62df62148e5013c7b971aaea5b02ab4121a88aea",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-03/slide-9.webp": {
-      "deck_id": "gdl-2025-03",
-      "slides": [
-        9
-      ],
-      "slide_keys": [
-        "gdl-2025-03:9"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-03.md",
-      "caption": "An MPNN alternates edge-wise message computation with permutation-invariant neighborhood aggregation. Cropped from the 2025 GDL graph-neural-network lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d1f0838c2807e9c6b83c2f9d0d5b131a948de16ae1e979be338562646de4a8c9",
+      "content_sha256": "eaa95d1cdd5b4bc013ceb13e7834a29c1b153a7c38939b98968cacf76a834cfe",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",

@@ -21,6 +21,21 @@ LECTURE_PATHS_PATH = ROOT / "_data" / "lecture_paths.yml"
 LECTURE_SOURCES_PATH = ROOT / "_data" / "lecture_sources.yml"
 LECTURE_MANIFEST_DIR = ROOT / ".agents" / "lecture-adaptation"
 LECTURE_FIGURE_SOURCE_VALIDATOR = ROOT / "scripts" / "update_lecture_figure_sources.py"
+PPTX_EXTRACTION_METHODS = {
+    "pptx-media-copy",
+    "pptx-picture-export",
+    "pptx-shape-group-export",
+}
+PPTX_FIGURE_ROLES = {
+    "architecture",
+    "benchmark-figure",
+    "composite",
+    "diagram",
+    "illustration",
+    "photograph",
+    "plot",
+    "scientific-image",
+}
 
 REQUIRED_FRONTMATTER = {
     "layout",
@@ -255,6 +270,60 @@ def validate_post(path: Path) -> list[Finding]:
             figure_coverage = manifest.get("figure_coverage", {})
             if figure_coverage.get("reuse_ratio", 0) < 0.8:
                 findings.append(Finding(path, "lecture figure reuse ratio is below 80%"))
+            if manifest.get("asset_migration_status") == "pptx-native-complete":
+                included_paths = {
+                    attrs.get("path", "")
+                    for match in FIGURE_RE.finditer(body)
+                    for attrs in [
+                        {
+                            attr.group("key"): attr.group("value")
+                            for attr in ATTR_RE.finditer(match.group("attrs"))
+                        }
+                    ]
+                    if attrs.get("path")
+                }
+                published_figures = [
+                    figure
+                    for figure in manifest.get("pptx_figures", [])
+                    if figure.get("reuse_status") == "reused"
+                ]
+                recorded_paths = {
+                    figure.get("asset_path", "") for figure in published_figures
+                }
+                if included_paths != recorded_paths:
+                    findings.append(
+                        Finding(
+                            path,
+                            "PPTX-native manifest/post figure mismatch: "
+                            f"missing={sorted(recorded_paths - included_paths)}, "
+                            f"extra={sorted(included_paths - recorded_paths)}",
+                        )
+                    )
+                reused_pdf = [
+                    region.get("asset_path", "")
+                    for region in manifest.get("pdf_regions", [])
+                    if region.get("reuse_status") == "reused"
+                ]
+                if reused_pdf:
+                    findings.append(
+                        Finding(path, f"PPTX-native post still reuses PDF regions: {reused_pdf}")
+                    )
+                for figure in published_figures:
+                    asset_path = figure.get("asset_path", "")
+                    method = figure.get("extraction_method")
+                    role = figure.get("content_role")
+                    if method not in PPTX_EXTRACTION_METHODS:
+                        findings.append(
+                            Finding(path, f"invalid PPTX extraction method for {asset_path}: {method}")
+                        )
+                    if role not in PPTX_FIGURE_ROLES:
+                        findings.append(
+                            Finding(path, f"invalid PPTX figure role for {asset_path}: {role}")
+                        )
+                    if re.search(r"(?:^|/)slide-\d+\.(?:png|jpe?g|gif|webp)$", asset_path):
+                        findings.append(Finding(path, f"whole-slide figure is forbidden: {asset_path}"))
+                if re.search(r"\bCropped from (?:the )?2025\b", body):
+                    findings.append(Finding(path, "PPTX-native post retains PDF-crop caption wording"))
 
     for match in FIGURE_RE.finditer(text):
         attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}

@@ -29,7 +29,12 @@ slides, and repeated recaps. Delete draft material that is not supported by the
 deck. Use the house references only for prose and rendering quality; do not add
 examples, derivations, sections, or figures merely to match their depth. Reuse
 the rights-cleared deck figures directly and maintain agent-facing slide and
-figure coverage manifests.
+figure coverage manifests. Never embed a whole-slide screenshot. Transcribe
+text, equations, and tables into native web content; extract only the visual
+object from the source PPTX, copying unchanged `ppt/media` bytes when possible
+or exporting a PowerPoint picture or semantic group when the slide applies
+native layout, crop, or shape composition. Do not derive published assets from
+the PDF.
 
 ## Post Frontmatter
 
