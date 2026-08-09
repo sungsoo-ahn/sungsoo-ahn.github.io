@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "callister-hcp-figure": {
+      "label": "Callister & Rethwisch, Materials Science and Engineering, Fig. 3.3",
+      "url": "https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498",
+      "kind": "book",
+      "license_status": "restricted",
+      "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "chemistry-learner-dipole-dipole": {
+      "label": "Chemistry Learner, Dipole–dipole forces",
+      "url": "https://www.chemistrylearner.com/chemical-bonds/dipole-dipole-forces",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "chemistry-learner-van-der-waals": {
+      "label": "Chemistry Learner, Van der Waals forces",
+      "url": "https://www.chemistrylearner.com/chemical-bonds/van-der-waals-forces",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "devriendt-thermodynamics-notes": {
+      "label": "Devriendt, Thermodynamics & Statistical Mechanics, Fig. 2.2",
+      "url": "https://studylib.net/doc/27659869/all-thermo-notes",
+      "kind": "lecture-notes",
+      "license_status": "restricted",
+      "license": "© 2021 Julien Devriendt",
+      "verified_on": "2026-08-09"
+    },
+    "fry-essential-biochemistry": {
+      "label": "Fry, Essential Biochemistry for Medicine, Fig. 9.2",
+      "url": "https://openlibrary.org/books/OL39891834M/Essential_Biochemistry_for_Medicine",
+      "kind": "book",
+      "license_status": "restricted",
+      "license": "© 2010 John Wiley & Sons",
+      "verified_on": "2026-08-09"
+    },
+    "gill-ecfp-presentation": {
+      "label": "Gill (2020), ECFP presentation",
+      "url": "https://michellelynngill.com/assets/pdf/presentations/2020_GillMichelle_RiceDataScienceConference.pdf",
+      "kind": "presentation",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "globalsino-crystallographic-groups": {
+      "label": "GlobalSino, crystallographic group hierarchy",
+      "url": "https://www.globalsino.com/EM/page4547.html",
+      "kind": "educational-page",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "hou-2016-p2n3": {
+      "label": "Hou et al. (2016)",
+      "url": "https://doi.org/10.1039/C5SC04667J",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY-NC 3.0",
+      "verified_on": "2026-08-09"
+    },
+    "jackel-2005-molecular-electronics": {
+      "label": "Jäckel, PhD thesis (2005), Fig. 2-2",
+      "url": "https://publikationen.bibliothek.kit.edu/1000002955/3814657",
+      "kind": "thesis",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "libretexts-bonding-antibonding": {
+      "label": "Chemistry LibreTexts, bonding and antibonding orbitals",
+      "url": "https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/09%3A_Chemical_Bonding_in_Diatomic_Molecules/9.05%3A_Bonding_and_Antibonding_Orbitals",
+      "kind": "educational-page",
+      "license_status": "open",
+      "license": "CC BY-NC-SA (version not stated)",
+      "verified_on": "2026-08-09"
+    },
+    "openstax-hydrogen-bonding": {
+      "label": "OpenStax Chemistry 2e, Fig. 10.10",
+      "url": "https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces",
+      "kind": "open-textbook",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "panini-2014-triazole": {
+      "label": "Panini et al. (2014)",
+      "url": "https://doi.org/10.1007/s12039-014-0700-2",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "rogers-hahn-2010-ecfp": {
+      "label": "Rogers & Hahn (2010)",
+      "url": "https://doi.org/10.1021/ci100050t",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "Publisher copyright",
+      "verified_on": "2026-08-09"
+    },
+    "schlegel-2011-geometry-optimization": {
+      "label": "Schlegel (2011), Fig. 1",
+      "url": "https://doi.org/10.1002/wcms.34",
+      "kind": "paper",
+      "license_status": "restricted",
+      "license": "© 2011 John Wiley & Sons",
+      "verified_on": "2026-08-09"
+    },
+    "simons-bands-of-orbitals": {
+      "label": "Simons/LibreTexts, bands of orbitals in solids",
+      "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Theoretical_Chemistry_%28Simons%29/02%3A_Model_Problems_That_Form_Important_Starting_Points/2.02%3A_Bands_of_Orbitals_in_Solids",
+      "kind": "open-textbook",
+      "license_status": "open",
+      "license": "CC BY-NC-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "slideserve-crystal-lattice-basis": {
+      "label": "Crystal-structure lecture slide (mirrored by SlideServe)",
+      "url": "https://www.slideserve.com/odessa-spears/chapter-1-crystal-structure",
+      "kind": "presentation-mirror",
+      "license_status": "unknown",
+      "license": "No reuse license stated",
+      "verified_on": "2026-08-09"
+    },
+    "substech-crystal-defects": {
+      "label": "SubsTech, Imperfections of crystal structure",
+      "url": "https://www.substech.com/dokuwiki/doku.php?id=imperfections_of_crystal_structure",
+      "kind": "educational-page",
+      "license_status": "open",
+      "license": "CC BY-NC-SA 3.0",
+      "verified_on": "2026-08-09"
+    },
+    "uwisc-hydrogen-orbitals": {
+      "label": "UW–Madison Chemistry 109, atomic orbitals",
+      "url": "https://wisc.pb.unizin.org/chem109fall2020ver03/chapter/unit-1-day-2/",
+      "kind": "open-course",
+      "license_status": "open",
+      "license": "CC BY-NC-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-inchi": {
+      "label": "Wikipedia, International Chemical Identifier",
+      "url": "https://en.wikipedia.org/wiki/International_Chemical_Identifier",
+      "kind": "open-encyclopedia",
+      "license_status": "open",
+      "license": "CC BY-SA 4.0",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-methane-shells": {
+      "label": "Wikimedia Commons, Methane shells",
+      "url": "https://commons.wikimedia.org/wiki/File:Methane_shells.svg",
+      "kind": "open-media",
+      "license_status": "open",
+      "license": "Public domain",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-metallic-bonding": {
+      "label": "Wikimedia Commons, Metallic Bonding Example",
+      "url": "https://commons.wikimedia.org/wiki/File:Metallic_Bonding_Example.svg",
+      "kind": "open-media",
+      "license_status": "open",
+      "license": "CC0 1.0",
+      "verified_on": "2026-08-09"
+    },
+    "wikimedia-water-pes": {
+      "label": "Wikimedia Commons, Potential Energy Surface for Water",
+      "url": "https://commons.wikimedia.org/wiki/File:Potential_Energy_Surface_for_Water.png",
+      "kind": "open-media",
+      "license_status": "open",
+      "license": "CC BY-SA 3.0",
+      "verified_on": "2026-08-09"
+    },
+    "yirik-steinbeck-2021-chemical-graphs": {
+      "label": "Yirik & Steinbeck (2021), Fig. 3",
+      "url": "https://doi.org/10.1371/journal.pcbi.1008504",
+      "kind": "paper",
+      "license_status": "open",
+      "license": "CC BY 4.0",
+      "verified_on": "2026-08-09"
+    }
+  },
+  "figures": {
+    "assets/img/blog/lectures/ml4mol-2025-02/s04-image2.webp": {
+      "status": "verified",
+      "source_ids": [
+        "jackel-2005-molecular-electronics"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The source thesis contains the exact Bulk Molecular Systems / Single Molecular Systems diagram as Fig. 2-2."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match found by searching the distinctive panel headings."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s05-image4.webp": {
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-inchi"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The structure, identifier, and example-table layout match the InChI article."
+      ],
+      "reader_note": "",
+      "notes": "The slide uses a crop of the article's InChI example table."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s06-image6.webp": {
+      "status": "verified",
+      "source_ids": [
+        "yirik-steinbeck-2021-chemical-graphs"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The serotonin structure and graph are the two panels of Fig. 3 in the cited PLOS paper."
+      ],
+      "reader_note": "",
+      "notes": "An exact Wikimedia copy also records the PLOS article and CC BY 4.0 license."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s07-image8.webp": {
+      "status": "composite",
+      "source_ids": [
+        "gill-ecfp-presentation",
+        "rogers-hahn-2010-ecfp"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Gill's presentation contains the same atom identifiers and fingerprint progression.",
+        "The presentation explicitly credits the original ECFP paper by Rogers and Hahn."
+      ],
+      "reader_note": "The presentation credits the original ECFP paper.",
+      "notes": "Exact visual source and authoritative method paper are both retained for traceability."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s08-image11.webp": {
+      "status": "composite",
+      "source_ids": [
+        "panini-2014-triazole"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The distinctive 3-(4-fluoro-3-phenoxyphenyl)-1-((4-methylpiperazin-1-yl)methyl)-1H-1,2,4-triazole-5-thiol scaffold matches the paper.",
+        "The rotatable-bond numbering and two-conformer overlay appear to be lecture annotations rather than a directly reproduced paper panel."
+      ],
+      "reader_note": "The lecture adds the rotatable-bond labels and conformer overlay.",
+      "notes": "Primary scaffold provenance is verified; exact provenance of the overlaid conformer rendering is not stated."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s09-image12.webp": {
+      "status": "unresolved",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [
+        "Compared the crop against Wikimedia, Open educational chemistry pages, and exact-text image-search results for L- and D-alanine enantiomer diagrams.",
+        "Several conceptually equivalent diagrams were found, but none matched the wedge/dash geometry, colors, mirror line, and labels together."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "Do not substitute a merely similar alanine diagram for the exact visual source."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s10-image13.webp": {
+      "status": "ambiguous",
+      "source_ids": [
+        "slideserve-crystal-lattice-basis"
+      ],
+      "confidence": "low",
+      "evidence": [
+        "The mirrored slide contains the exact Crystalline Periodicity / Crystal Structure = Lattice + Basis panel.",
+        "The mirror does not identify a reliable original author or reuse license."
+      ],
+      "reader_note": "The exact slide is mirrored there, but its original author is unclear.",
+      "notes": "Exact downstream visual match; original creator remains unresolved."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s11-image15.webp": {
+      "status": "verified",
+      "source_ids": [
+        "callister-hcp-figure"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The reduced-sphere HCP unit cell and packed-sphere aggregate match Fig. 3.3 of Callister's textbook."
+      ],
+      "reader_note": "",
+      "notes": "The lecture caption was corrected because this is an HCP packing figure, not a molecular point-symmetry figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s14-image20.webp": {
+      "status": "verified",
+      "source_ids": [
+        "globalsino-crystallographic-groups"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The hierarchy and all four labeled group counts match the source image."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s16-image22.webp": {
+      "status": "verified",
+      "source_ids": [
+        "substech-crystal-defects"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The six-panel point-defect diagram and SubsTech watermark match the source page."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; the page states CC BY-NC-SA 3.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s22-image27.webp": {
+      "status": "verified",
+      "source_ids": [
+        "uwisc-hydrogen-orbitals"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The six wavefunction/probability-density panels for 1s, 2s, and 2p match H_phase_node.png on the course page."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; course-level license applies because no separate image credit is shown."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s28-image34.webp": {
+      "status": "verified",
+      "source_ids": [
+        "libretexts-bonding-antibonding"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The four bonding/antibonding wavefunction and probability-density panels match the page's first figure."
+      ],
+      "reader_note": "",
+      "notes": "The page identifies the figure as CC BY-SA-NC but does not state a version."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s32-image36.webp": {
+      "status": "verified",
+      "source_ids": [
+        "hou-2016-p2n3"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The P2N3− orbital shapes, occupations, and energy labels match the paper's molecular-orbital figure."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure; the RSC landing page states CC BY-NC 3.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s35-image38.webp": {
+      "status": "verified",
+      "source_ids": [
+        "simons-bands-of-orbitals"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The progression from one orbital to five levels and a band matches Fig. 2.5 on the source page."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s40-image41.webp": {
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-methane-shells"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The methane valence-shell diagram, atom labels, and electron legend match the Commons file."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; Commons records the file as public domain."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s42-image43.webp": {
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-metallic-bonding"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The red ion array and blue delocalized electrons match the Commons SVG."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; Commons records a CC0 1.0 dedication."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s43-image44.webp": {
+      "status": "verified",
+      "source_ids": [
+        "openstax-hydrogen-bonding"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The five-water-molecule arrangement and numbered hydrogen-bond inset match OpenStax Fig. 10.10."
+      ],
+      "reader_note": "",
+      "notes": "Exact OpenStax figure."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s44-image46.webp": {
+      "status": "verified",
+      "source_ids": [
+        "chemistry-learner-dipole-dipole"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The blue header, red/blue dipoles, and attraction/repulsion arrangements match the source page."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; no reuse license is stated."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s45-image47.webp": {
+      "status": "verified",
+      "source_ids": [
+        "chemistry-learner-van-der-waals"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The two-step temporary-dipole illustration and blue header match the source page."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; no reuse license is stated."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s48-image48.webp": {
+      "status": "verified",
+      "source_ids": [
+        "devriendt-thermodynamics-notes"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The balloon drawing and macrostate/microstate variable labels match Fig. 2.2 exactly."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match found through a distinctive-text search."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s54-image56.gif": {
+      "status": "unresolved",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [
+        "Inspected multiple frames and identified an all-atom membrane-protein simulation in explicit lipid and water.",
+        "Compared semantic image-search results from NAMD, MemProtMD, VMD, MolSoft, and membrane-biophysics project galleries; none matched the animation exactly."
+      ],
+      "reader_note": "The exact external source could not be identified.",
+      "notes": "No source is assigned because related membrane-simulation images do not establish exact provenance."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s55-image57.webp": {
+      "status": "verified",
+      "source_ids": [
+        "wikimedia-water-pes"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The water bond-length/bond-angle surface and annotations match the Commons file."
+      ],
+      "reader_note": "",
+      "notes": "Exact visual match; Commons records CC BY-SA 3.0."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s56-image58.webp": {
+      "status": "verified",
+      "source_ids": [
+        "schlegel-2011-geometry-optimization"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The labeled minima, transition structures, second-order saddle, and valley-ridge inflection point match Fig. 1."
+      ],
+      "reader_note": "",
+      "notes": "Exact paper figure; the article notes it was reprinted from Schlegel's 1998 encyclopedia chapter."
+    },
+    "assets/img/blog/lectures/ml4mol-2025-02/s57-image59.webp": {
+      "status": "verified",
+      "source_ids": [
+        "fry-essential-biochemistry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The reactant/product examples, red and blue profiles, and three activation-energy annotations match Fig. 9.2."
+      ],
+      "reader_note": "",
+      "notes": "Exact book figure identified through its distinctive labels and figure caption."
+    }
+  }
+}
