@@ -148,6 +148,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     interchangeable benchmarks. Name the object passed at each boundary and
     retain the source's reported experimental endpoint; do not extract only the
     generative architecture and discard the selection or validation chain.
+16. When a deck introduces measurement modalities before a predictive model,
+    preserve that observation layer. Sequence, bulk counts, single-cell counts,
+    spatial expression, images, and experimental phenotypes expose different
+    projections of the underlying system. Explain which measurement defines
+    the model's input and target before using broad language such as simulation,
+    response, state, or digital twin.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute

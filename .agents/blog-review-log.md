@@ -304,6 +304,34 @@ requirements for the replacement deck-level articles.
   confidence or affinity ranking, filtering, synthesis, and wet-lab measurement
   as separate stages with explicit handoffs. The blog-writing skill now records
   this pipeline-fidelity rule.
+
+### ML4Mol 2025 Lecture 14: Genomics and Virtual Cells
+
+- **Source:** `lec14_genome_cell.pdf` (57 pages), with 86 published media assets
+  extracted from the corresponding PowerPoint and four AlphaGenome/TxPert
+  composites cropped from the canonical PDF.
+- **Coverage:** 54 substantive slides covered; the lecture cover and two part
+  titles omitted. The source order remains genome and expression biology,
+  sequencing and functional annotation, genomic foundation models and design,
+  AlphaGenome and RNA structure, virtual-cell desiderata, cell-level measurement
+  modalities, cell representation learning, perturbation prediction, and
+  language-model reasoning over expression-derived cell sentences.
+- **Figures:** 90 of 100 unique substantive visuals reused (90%). Ten omitted
+  visuals are duplicate panels or secondary examples whose content is already
+  visible in retained slide media. Fourteen unused extraction candidates were
+  removed. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous virtual-cell chapter's negative
+  binomial derivation, causal-identification discussion, donor/batch split
+  protocol, perturbation-distribution example, calibration calculation, and
+  claim-matched evaluation contract were absent from this deck. The replacement
+  follows the source's long genomic-model chronology and its explicit transition
+  from genomic sequence to measured cellular perturbation response.
+- **General lesson promoted:** measurement slides are scientific content when
+  they define what a broad modeling claim can observe. Bulk RNA-seq, single-cell
+  RNA-seq, spatial transcriptomics, and fluorescence microscopy expose different
+  cell-state projections; retaining them keeps "virtual cell" tied to its actual
+  inputs and targets. The blog-writing skill now records this observation-layer
+  rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
