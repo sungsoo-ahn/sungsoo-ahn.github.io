@@ -234,6 +234,13 @@ new thesis, a reordered curriculum, or additional technical branches.
     their discrete counterparts. Introduce coordinate factorization at the
     source's computational bottleneck rather than treating the two versions as
     unrelated method summaries.
+30. Keep an infinitesimal generator distinct from the finite-dimensional
+    coefficient used to parameterize it. Define the generator by its action on
+    test functions, derive how flow, diffusion, or jump coefficients enter that
+    action, and preserve the conditional-to-marginal identity at both the
+    operator and coefficient levels. Do not rename every generator coefficient
+    a velocity or omit the operator family that makes the learning target
+    meaningful.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute

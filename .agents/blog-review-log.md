@@ -748,6 +748,33 @@ requirements for the replacement deck-level articles.
   Factorization should appear where the source introduces computational scale,
   not as an unrelated modeling assumption.
 
+### GDL 2025 Lecture 17: Generator Matching and Equivariant Flow Matching
+
+- **Source:** `lec17_geogen3.pdf` (28 pages), represented by 24 canonical PDF
+  composites preserving the test-function generator derivations, conditional
+  matching equations, application survey, coupling construction, and symmetry
+  alignment.
+- **Coverage:** all 24 scientific slides covered; the cover, course map, and two
+  agenda cards omitted. The opening and later flow-matching recaps were retained
+  because the lecture first abstracts their conditional-marginal pattern into
+  generator matching and then returns to their endpoint-pair coupling. The
+  source order remains CTMPs and kernels, generators, flow/diffusion/jump
+  examples, generator parameterization and matching, applications, multisample
+  couplings, and equivariant alignment.
+- **Figures:** all 24 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous generator tutorial's three-state
+  mask calculation, event-time inversion, reverse rates, factorized molecule
+  arithmetic, circulation example, and simulator comparison were absent from
+  this deck. The replacement preserves the source's operator-level unification
+  and minibatch-coupling argument.
+- **General lesson promoted:** a generator is an operator on test functions,
+  while a neural model predicts coefficients in a chosen operator family.
+  Adaptations must retain that separation through the conditional generator,
+  posterior marginalization, and loss. Collapsing the operator and its
+  coefficient into a generic “velocity” erases what makes flows, diffusions,
+  and jumps instances of one construction.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
