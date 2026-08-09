@@ -7,17 +7,20 @@ The registry separates three layers:
 * ``slides`` contains evidence extracted from the source decks; and
 * ``figures`` maps every published asset to its deck, slide, and audited source.
 
-Running ``--sync`` updates only deck-derived fields and preserves manual audit
-decisions. ``--require-complete`` is the final gate: it rejects pending figures
-and incomplete source metadata.
+Running ``--sync`` updates deck-derived fields and applies manual audit decisions
+from the curated assignment file. Exact byte-for-byte duplicates inherit one
+audited decision while retaining asset-level traceability. ``--require-complete``
+is the final gate: it rejects pending figures and incomplete source metadata.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from xml.etree import ElementTree as ET
@@ -200,7 +203,6 @@ def load_assignments() -> dict:
 def sync_registry(registry: dict, assignments: dict) -> dict:
     generated_slides: dict[str, dict] = {}
     generated_figures: dict[str, dict] = {}
-    existing_figures = registry.get("figures", {})
     curated_figures = assignments.get("figures", {})
 
     for manifest_path in sorted(MANIFEST_DIR.glob("*.json")):
@@ -223,7 +225,6 @@ def sync_registry(registry: dict, assignments: dict) -> dict:
             generated_slides[f"{deck_id}:{number}"] = evidence
 
         for asset_path, asset in assets.items():
-            previous = existing_figures.get(asset_path, {})
             slide_keys = [f"{deck_id}:{number}" for number in asset["slides"]]
             candidate_urls = sorted(
                 {
@@ -247,17 +248,55 @@ def sync_registry(registry: dict, assignments: dict) -> dict:
                 "caption": includes[asset_path].get("caption", ""),
                 "extraction_method": asset["extraction_method"],
                 "reuse_basis": "rights-cleared-lecture-deck",
+                "content_sha256": hashlib.sha256(
+                    (ROOT / asset_path).read_bytes()
+                ).hexdigest(),
                 "candidate_urls": candidate_urls,
                 "candidate_citations": candidate_citations,
-                "status": previous.get("status", "pending"),
-                "source_ids": previous.get("source_ids", []),
-                "confidence": previous.get("confidence", "unresolved"),
-                "evidence": previous.get("evidence", []),
-                "reader_note": previous.get("reader_note", ""),
-                "notes": previous.get("notes", ""),
+                "status": "pending",
+                "source_ids": [],
+                "confidence": "unresolved",
+                "evidence": [],
+                "reader_note": "",
+                "notes": "",
             }
             if asset_path in curated_figures:
                 generated_figures[asset_path].update(curated_figures[asset_path])
+
+    exact_groups: dict[str, list[str]] = defaultdict(list)
+    for asset_path, figure in generated_figures.items():
+        exact_groups[figure["content_sha256"]].append(asset_path)
+    for members in exact_groups.values():
+        if len(members) < 2:
+            continue
+        members.sort()
+        representative = members[0]
+        audited = [
+            asset_path
+            for asset_path in members
+            if asset_path in curated_figures
+            and generated_figures[asset_path]["status"] != "pending"
+        ]
+        inherited_from = audited[0] if audited else ""
+        for asset_path in members:
+            if asset_path != representative:
+                generated_figures[asset_path]["exact_duplicate_of"] = representative
+            if not inherited_from or asset_path in curated_figures:
+                continue
+            source = generated_figures[inherited_from]
+            target = generated_figures[asset_path]
+            for field in (
+                "status",
+                "source_ids",
+                "confidence",
+                "reader_note",
+                "notes",
+            ):
+                target[field] = source[field]
+            target["evidence"] = [
+                f"Byte-for-byte duplicate of {inherited_from}; source audit inherited."
+            ] + list(source["evidence"])
+            target["source_audit_inherited_from"] = inherited_from
 
     registry["schema_version"] = 1
     registry["slides"] = dict(sorted(generated_slides.items()))
@@ -321,6 +360,8 @@ def validate_registry(
             errors.append(f"figure {asset_path}: invalid status {status}")
         if confidence not in CONFIDENCE_VALUES:
             errors.append(f"figure {asset_path}: invalid confidence {confidence}")
+        if not re.fullmatch(r"[0-9a-f]{64}", figure.get("content_sha256", "")):
+            errors.append(f"figure {asset_path}: invalid or missing content_sha256")
         for source_id in source_ids:
             if source_id not in sources:
                 errors.append(f"figure {asset_path}: unknown source {source_id}")
@@ -349,16 +390,42 @@ def validate_registry(
         if require_complete and status == "pending":
             errors.append(f"figure {asset_path}: provenance audit is pending")
 
+    figures_by_hash: dict[str, list[str]] = defaultdict(list)
+    for asset_path, figure in figures.items():
+        figures_by_hash[figure.get("content_sha256", "")].append(asset_path)
+    for members in figures_by_hash.values():
+        curated_members = [path for path in members if path in curated_figures]
+        decisions = {
+            (
+                figures[path].get("status"),
+                tuple(figures[path].get("source_ids", [])),
+                figures[path].get("confidence"),
+            )
+            for path in curated_members
+            if figures[path].get("status") != "pending"
+        }
+        if len(decisions) > 1:
+            errors.append(
+                "exact duplicate figures have conflicting curated audits: "
+                + ", ".join(sorted(curated_members))
+            )
+
     return errors
 
 
 def report(registry: dict) -> None:
     counts: dict[str, int] = {}
+    hash_counts: dict[str, int] = defaultdict(int)
+    inherited = 0
     for figure in registry.get("figures", {}).values():
         status = figure.get("status", "missing")
         counts[status] = counts.get(status, 0) + 1
+        hash_counts[figure.get("content_sha256", "")] += 1
+        inherited += int(bool(figure.get("source_audit_inherited_from")))
     print(f"sources: {len(registry.get('sources', {}))}")
     print(f"figures: {len(registry.get('figures', {}))}")
+    print(f"exact duplicate groups: {sum(count > 1 for count in hash_counts.values())}")
+    print(f"source audits inherited by exact duplicate: {inherited}")
     for status in sorted(counts):
         print(f"  {status}: {counts[status]}")
 
