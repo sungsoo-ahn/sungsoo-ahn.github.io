@@ -357,6 +357,34 @@ requirements for the replacement deck-level articles.
   a reader-facing article, but the motivating examples, domain inventory, field
   definition, and architecture-design question often form the deck's scientific
   thesis. The blog-writing skill now records this distinction.
+
+### GDL 2025 Lecture 2: Symmetry and Equivariance
+
+- **Source:** `lec2_prelim1.pdf` (51 pages), with six overview and timeline
+  figures extracted from the corresponding PowerPoint and 32 source-native
+  diagram or equation composites cropped from the canonical PDF.
+- **Coverage:** 40 substantive slides covered; eight course-administration
+  slides and three part-title transitions omitted. The source order remains the
+  geometric-deep-learning recipe, graph and geometric-graph symmetries,
+  algebraic and topological structure, matrix and transformation groups, group
+  actions, stabilizers, cosets and quotients, representations, harmonics,
+  steerable features, and equivariant operators.
+- **Figures:** 38 of 45 unique substantive visuals reused (84.44%). Seven
+  omitted visuals are duplicate timeline or secondary feature examples whose
+  content is already represented in retained figures. The 109 unused extraction
+  fragments removed from the candidate directory were constituents of the
+  retained source composites, not additional conceptual figures. No explanatory
+  figure was drawn.
+- **Synthetic material removed:** the previous symmetry tutorial's typed
+  V-shaped running object, signed-volume chirality witness, layer-closure proof,
+  force and conservation derivations, and numerical augmentation examples were
+  absent from this deck. The replacement follows the source's introductory
+  group-theory construction and ends at the definition of equivariance.
+- **General lesson promoted:** a formal lecture can make its argument through a
+  dependency chain rather than a long derivation. Group, action, stabilizer,
+  coset, quotient, representation, and equivariance each supply the object used
+  next, so none should be compressed into glossary background. The blog-writing
+  skill now records this dependency-chain rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
