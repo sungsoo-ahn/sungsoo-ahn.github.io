@@ -17997,759 +17997,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-04/slide-10.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        10
-      ],
-      "slide_keys": [
-        "gdl-2025-04:10"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Fourier frequency can be defined through the eigenfunctions of the Laplacian rather than through coordinates alone. Cropped from the 2025 GDL graph-convolution lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c0def50790e826cb213dd2796451fa14dab9f89bb71a8599490e3952a0890573",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-11.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        11
-      ],
-      "slide_keys": [
-        "gdl-2025-04:11"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The Laplacian measures local deviation from neighboring values and therefore acts as a smoothness operator. Cropped from the 2025 GDL graph-convolution lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b4df5a8afbf1c48e564031aa5a0c98c4f1a0af1111608614a1a4f905b2b2eee9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-12.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-04:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Higher-dimensional Laplacians retain the local-average interpretation without relying on a one-dimensional order. Cropped from the 2025 GDL graph-convolution lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cd8b891dafc22058466d30988bf89bc85ee0b54805a25eb15bf608f23c696ffc",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-13.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-04:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Heat diffusion makes the Laplacian's local averaging behavior physically visible. Cropped from the 2025 GDL graph-convolution lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "eb369fbc97ed7202f6ac841246a5742d1c9cf8e7deeefcc2338ec254d352ffb5",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-14.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        14
-      ],
-      "slide_keys": [
-        "gdl-2025-04:14"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The graph Laplacian sums differences between each node and its neighbors. Cropped from the 2025 GDL graph-convolution lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b72ae9917834542c3ad16e3e1491dcab9d7a97bf2876ef8a8f7fe7246cca3857",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-15.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        15
-      ],
-      "slide_keys": [
-        "gdl-2025-04:15"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The Laplacian eigenvalue orders Fourier modes by oscillation or lack of smoothness. Cropped from the 2025 GDL graph-convolution lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "bc2f4117a7c5b7729af35f34113d0851574095abea1fee7e37b0e26969a78d17",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-16.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        16
-      ],
-      "slide_keys": [
-        "gdl-2025-04:16"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Graph frequency is defined by variation across edges, measured by the Laplacian quadratic form. Cropped from the 2025 GDL graph-convolution lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "433987a3fca2d80e570b2f63513c2dc481252ebb74985e527d0c9707a204baa8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-17.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        17
-      ],
-      "slide_keys": [
-        "gdl-2025-04:17"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Laplacian eigenvectors provide a graph-specific spectrum from smooth to rapidly varying signals. Cropped from the 2025 GDL graph-convolution lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d082ed1edb1663959380dde1573e9e471fca036c15497846148c381002dc2433",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-18.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-04:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Graph Fourier analysis is an eigenvector change of basis defined by the graph Laplacian. Cropped from the 2025 GDL graph-convolution lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "eb8d421b25f2a175d4a858cbd695ecd2523a59e4587f9b95caccb6ec82947802",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-19.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-04:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Classical and graph Fourier transforms share the same Laplacian-eigenbasis construction. Cropped from the 2025 GDL graph-convolution lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "816617fe6bde3999761de4bc2b2b7acd89fbf19c5fcadde4d98d222fb26f4ac3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-20.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        20
-      ],
-      "slide_keys": [
-        "gdl-2025-04:20"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The cycle graph links the abstract graph transform back to ordinary discrete Fourier analysis. Cropped from the 2025 GDL graph-convolution lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fafab3d956e632803b652b27f7f00f6bdda298c15fdaf59561bbdaa21a6a247c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-21.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-04:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A suitable complex eigenbasis of the cycle Laplacian yields the standard DFT matrix. Cropped from the 2025 GDL graph-convolution lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3fc30ee6199ca710163635e59c7466694e9a91fccd4a4d700896597a0f491a30",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-22.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-04:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A graph filter changes Laplacian-basis coefficients element by element. Cropped from the 2025 GDL graph-convolution lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "295c09e3179ed5803af3e952b4482259fd2537753f42becfef0e3ee979901257",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-23.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        23
-      ],
-      "slide_keys": [
-        "gdl-2025-04:23"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The convolution theorem turns convolution into coefficient-wise multiplication after a Fourier transform. Cropped from the 2025 GDL graph-convolution lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3af093872344ca3070141548b6317c89d3abfdc9128bb07b153785d3bc59e445",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-24.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-04:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Graph convolution is defined by transforming into the Laplacian basis, multiplying frequencies, and transforming back. Cropped from the 2025 GDL graph-convolution lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2ae4dff17465aa79a6fdf4abb6ac9e25a68a0c1fe25c50f96c114900bdc72c2c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-25.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-04:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A free spectral response requires Laplacian eigenvectors and graph-size-dependent parameters. Cropped from the 2025 GDL graph-convolution lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a84c401f94d615049e9b6b654001345e9a96b8c67de3564149a8855f31314514",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-26.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-04:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Polynomial spectral filters avoid explicit eigendecomposition; GCN retains a first-order approximation. Cropped from the 2025 GDL graph-convolution lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0066419f702b3e621e221498127d57539e837b960075f223f000a33adf4057fb",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-27.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        27
-      ],
-      "slide_keys": [
-        "gdl-2025-04:27"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The standard GCN propagation rule is the endpoint of the first-order spectral derivation. Cropped from the 2025 GDL graph-convolution lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "34330c38b8cc61b6b2918ae5c4f56a0014d25520672b325fae4c8eea0ce58692",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-28.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        28
-      ],
-      "slide_keys": [
-        "gdl-2025-04:28"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Laplacian positional encodings reuse graph Fourier modes as node coordinates. Cropped from the 2025 GDL graph-convolution lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2dba00ae7069401ec2199ff1a752b6c6b8bf2c44a74874323b2d7f10e421caf9",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-31.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-04:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A graph-specific Fourier basis does not align cleanly with datasets in which the graph itself changes. Cropped from the 2025 GDL graph-convolution lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d9e970e0184b5c1f72096a23829e08cd90acb48c56ae5ff45a1fc4d8592656c0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-32.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-04:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The alternative definition treats convolution as a linear map that commutes with the domain symmetry. Cropped from the 2025 GDL graph-convolution lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8b2678da4e9becbbc153a616ef5a80181a9bbd1053d30403094272818af54ca8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-33.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-04:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Shift equivariance is the commutation relation between a linear map and the cyclic shift. Cropped from the 2025 GDL graph-convolution lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8a3783bbc5f050d5cc8c8950bb767bc01f8a8692a1fd7e6cea98bea2b41922e0",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-34.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-04:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The commutant of the cyclic shift is the space of circulant convolution matrices. Cropped from the 2025 GDL graph-convolution lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "221dea25e7af69ba1a3a5bcec288eca1b0dbc045c148f3650a36b706e116dc0b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-35.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-04:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "For scalar node features, identity plus global pooling and broadcasting span every permutation-equivariant linear map. Cropped from the 2025 GDL graph-convolution lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0cb36f0daa7e9e254f342ad83fec35c9a70c8b52d7bbb6fa741356a1a68fe709",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "Zaheer et al., Deep Sets, NeurIPS 2017"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-36.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        36
-      ],
-      "slide_keys": [
-        "gdl-2025-04:36"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Moving from node features to edges and higher-order relations enlarges both the feature space and the linear operator. Cropped from the 2025 GDL graph-convolution lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5ad0d81d46b5038072bf3833bb956e3e1f36a26a4baeefcc14139aedc88007d6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-37.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        37
-      ],
-      "slide_keys": [
-        "gdl-2025-04:37"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Higher-order operator spaces are defined by the same commuting diagram with the appropriate tensor action. Cropped from the 2025 GDL graph-convolution lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cc62a9f1c9a30662758b020ab5b33729beb6fb4005d184d1e30ac9fcc9cecd64",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-38.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-04:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Vectorization turns the commutation constraint into invariance of the operator tensor under four simultaneous index permutations. Cropped from the 2025 GDL graph-convolution lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e1bd410e619859dcbac2ae4d26a2a5321dfe54a8ccd1040103dc0b17ceeb2140",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-39.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        39
-      ],
-      "slide_keys": [
-        "gdl-2025-04:39"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Permutation orbits of operator entries are determined by equality patterns among their indices. Cropped from the 2025 GDL graph-convolution lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "479ae5807235a62df74c2ae61316f09496704fa6cf0b3a08949369d698f55469",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-4.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        4
-      ],
-      "slide_keys": [
-        "gdl-2025-04:4"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A CNN is an MLP whose linear map has a shared shift-structured weight matrix. Cropped from the 2025 GDL graph-convolution lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1220943b998588e1e6874333c5e10230311bd3b35b387b36475417b1442f5b55",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-40.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-04:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Set partitions index a complete basis for higher-order permutation-equivariant linear maps. Cropped from the 2025 GDL graph-convolution lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "da19e3dbd0007224985dcfc7ff8776407d9d8b21400f3392a2706bd4cfa3845f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-41.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-04:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Permutation-equivariant linear maps can be expressed through index pooling and broadcasting. Cropped from the 2025 GDL graph-convolution lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b509d788b8ecdf0cb0caa8f5c02a4b7095deb27744f12fc7f9183542474f0367",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "Albooyeh et al., Incidence Networks for Geometric Deep Learning, In Arxiv 2019"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-42.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-04:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Concrete degree-two bases act by selecting, pooling, and broadcasting matrix entries in permutation-consistent ways. Cropped from the 2025 GDL graph-convolution lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "6992118ee79da159d2acdfb446b15ee467b42a1e09459db2c046a1ce248748d1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-43.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-04:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "GNNs gain locality and flexibility by multiplying equivariant adjacency and feature tensors and then applying shared node-wise transformations. Cropped from the 2025 GDL graph-convolution lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "de9d8925b9e07f8576c589a1b20005f1ec3af5220d8ff1cf4d77445218757abf",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-7.webp": {
-      "deck_id": "gdl-2025-04",
-      "slides": [
-        7
-      ],
-      "slide_keys": [
-        "gdl-2025-04:7"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "Graph convolution asks what should replace the translation-based operator used for images and time signals. Cropped from the 2025 GDL graph-convolution lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2b6e6a9340996a8fb459fa3c4c4a8ff4354964dbe0a9beac8632959667357692",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-04/slide-8.webp": {
+    "assets/img/blog/lectures/gdl-2025-04/s08-cycle-signal.png": {
       "deck_id": "gdl-2025-04",
       "slides": [
         8
@@ -18758,10 +18006,10 @@
         "gdl-2025-04:8"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "A periodic one-dimensional signal is already a graph signal on a directed cycle. Cropped from the 2025 GDL graph-convolution lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A periodic one-dimensional signal is already a graph signal on a directed cycle. Original PowerPoint figure from slide 8.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d6c6d1f690e056b7731d503524094348dc10473cb4e9b79b1dcb698db8a7c841",
+      "content_sha256": "e569e0c113a93ed12cc109446d41df3e8f90852c7a7b6c7d527cec42c4ccee66",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -18771,7 +18019,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-04/slide-9.webp": {
+    "assets/img/blog/lectures/gdl-2025-04/s09-filter-types.png": {
       "deck_id": "gdl-2025-04",
       "slides": [
         9
@@ -18780,10 +18028,517 @@
         "gdl-2025-04:9"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
-      "caption": "The spectral route seeks graph frequencies so that filtering becomes simple coefficient-wise multiplication. Cropped from the 2025 GDL graph-convolution lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Filtering modifies selected frequency components.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0fe5da10b832ce693bd0ff2d0bb1826fc1960ce92baa8c653f9011602e9161ac",
+      "content_sha256": "a6e6e8395eba22b9dd5f21c8ab999c4c41eb94c18532616e8d81de73179ef6bd",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s09-fourier-transform.gif": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        9
+      ],
+      "slide_keys": [
+        "gdl-2025-04:9"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Fourier transformation changes from the time domain to the frequency domain.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "07a6871f7b613a0f196979de2f46bcbe3ea657d1ec0fcc6cb844b59f4340246a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s10-frequency-decomposition.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        10
+      ],
+      "slide_keys": [
+        "gdl-2025-04:10"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Frequency measures the rate at which basis functions oscillate. Original PowerPoint figure from slide 10.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0faa84a56dd961d41f76565a1c8377a7a970ebf6f77adc57660a57f51ef2c055",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s11-laplacian-curvature.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        11
+      ],
+      "slide_keys": [
+        "gdl-2025-04:11"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "The second derivative records local curvature.",
+      "extraction_method": "pptx-picture-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "2ebe08420daeaf86673377c670b58a61bcd810a79567ce0cb9353af4d0b28cbe",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s11-local-average.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        11
+      ],
+      "slide_keys": [
+        "gdl-2025-04:11"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "A smooth value agrees with its local average.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "9bd8d09acd741e1fdc598a2ec2a54ec2f58fcac9248059db12b28f03e231a56d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s12-higher-dimensional-laplacian.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        12
+      ],
+      "slide_keys": [
+        "gdl-2025-04:12"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "The higher-dimensional Laplacian retains the local-average interpretation. Original PowerPoint figure from slide 12.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4f7ce7e65a6d4ea8c98f4ff2f6f509db624e947687b4ef4856b09f490de58e05",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s13-heat-equation.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        13
+      ],
+      "slide_keys": [
+        "gdl-2025-04:13"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Heat flow smooths a field.",
+      "extraction_method": "pptx-picture-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "abbfa5fa7ff8cc6fa5d3569919f17b15061f64666e03d2c750d13e9ef2bfd04d",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s13-laplace-equation.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        13
+      ],
+      "slide_keys": [
+        "gdl-2025-04:13"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "The Laplace equation is stationary.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "e9b485ee57a7a0740b5dcbae76d824085dbccebf1f1ec4a64720727ba76be775",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s13-neighbor-averaging.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        13
+      ],
+      "slide_keys": [
+        "gdl-2025-04:13"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Values move toward nearby averages.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "9d2673e78eb573aa858d2ace4b81206c6074781fde656879f0cc6f7e780cb416",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s14-graph-laplacian.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        14
+      ],
+      "slide_keys": [
+        "gdl-2025-04:14"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "The graph Laplacian replaces an ordered neighborhood with the adjacency relation. Original PowerPoint graph from slide 14.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "758ee4855a86a5e88daba0bc021ad58c695b322e095eedf379d3be1a72acfa10",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s17-graph-fourier-modes.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        17
+      ],
+      "slide_keys": [
+        "gdl-2025-04:17"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Laplacian eigenvectors provide a graph-specific spectrum from smooth to rapidly varying signals. Original PowerPoint figure from slide 17.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f44939882115a6263315ffc6cddb829c9f0ef302abd5a6d6c86b48fa18ff3485",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s21-path-dct-modes.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        21
+      ],
+      "slide_keys": [
+        "gdl-2025-04:21"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "A path graph produces the DCT-II basis rather than the periodic DFT basis. Original PowerPoint figure from slide 21.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "7b7872b56bc6fd5e479f2c2ec3e32c2e40caf2fa223ef60dd2471f5fb458aa17",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s22-fourier-filter-pipeline.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        22
+      ],
+      "slide_keys": [
+        "gdl-2025-04:22"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "A filter multiplies coefficients in the Fourier domain.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "af75b3413bee5895a18b06049fcc0773cef09359d10edfdf575f81675e271fa6",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s22-noise-filtering.jpeg": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        22
+      ],
+      "slide_keys": [
+        "gdl-2025-04:22"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Filtering can suppress high-frequency noise.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f366c379a2b3113d98a060b108230915d84ef5cf962db45ef46c308d463eda4b",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s24-graph-filter-pipeline.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        24
+      ],
+      "slide_keys": [
+        "gdl-2025-04:24"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Graph convolution transforms into the Laplacian basis, multiplies frequency coefficients, and transforms back. Original PowerPoint diagram from slide 24.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "cdc2e91e4e662a4f6fbf62eb97fd18761b011a06cd4f7eb35d3a22f5e4f86470",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s28-laplacian-positional-encoding.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        28
+      ],
+      "slide_keys": [
+        "gdl-2025-04:28"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Laplacian positional encodings reuse graph Fourier modes as node coordinates. Original PowerPoint diagram from slide 28.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "9c161b9af420a7ee62bb3c4db66e82e4c43f35ed61e3df8de4d8841b2b5fba01",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-03/s22-image27.png"
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s32-connectivity-weight-sharing.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        32
+      ],
+      "slide_keys": [
+        "gdl-2025-04:32"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Local connectivity and weight sharing distinguish convolution from a dense map.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "502f4efe7fd2967b7604dced7a6aed4671e2151be8ae5a00b801326b395b2928",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s32-translation-equivariance.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        32
+      ],
+      "slide_keys": [
+        "gdl-2025-04:32"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Convolution commutes with translation.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ef9d9a1140d803ee9c86f947e7ad4e50aab44d0fe6f4ce16bbcd496021c7dd95",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s36-higher-order-features.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        36
+      ],
+      "slide_keys": [
+        "gdl-2025-04:36"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Higher-order relations require tensors with more vertex indices.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "d12250b12c05cac364f74215f38a6e39900be480d275c8fd7da28cfd165ed217",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s36-node-edge-features.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        36
+      ],
+      "slide_keys": [
+        "gdl-2025-04:36"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Node and edge features are degree-one and degree-two tensors.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "1fe89095e5bd2cd9460c819f8130d1d30b1fa2b4b8d28eb54b44f8368642f8d3",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s37-permutation-actions.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        37
+      ],
+      "slide_keys": [
+        "gdl-2025-04:37"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "A vertex permutation acts simultaneously on every vertex index.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "a5f3b456d9f1e52999abddb52b79c03f2ff506a1519b34da50829a35b23aaa54",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s37-tensor-permutation.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        37
+      ],
+      "slide_keys": [
+        "gdl-2025-04:37"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "For edge features, relabeling permutes both matrix indices.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "644b1abdd6e4fdcea3343d90eb8a68add31e358867aee62b321ca8bba19cdae5",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s40-bell-basis.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        40
+      ],
+      "slide_keys": [
+        "gdl-2025-04:40"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Set partitions index a complete basis for higher-order permutation-equivariant linear maps. Original PowerPoint diagram from slide 40.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "5de51f6cbd258cbfe1507625cb9ae352984db332d5cc1493e3fc76813eb73b56",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-04/s42-pooling-broadcasting.png": {
+      "deck_id": "gdl-2025-04",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-04:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-04.md",
+      "caption": "Concrete degree-two bases act by selecting, pooling, and broadcasting matrix entries in permutation-consistent ways. Original PowerPoint diagram from slide 42.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "98ef559b22c3c48296860b922364e2d0a4794ee0cd25fb69a69d95f08f341d61",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
