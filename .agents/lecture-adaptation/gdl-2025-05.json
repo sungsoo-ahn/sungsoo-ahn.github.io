@@ -2200,738 +2200,486 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 66,
-    "reused": 66,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 43,
+    "reused_figures": 43,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-05.md",
+  "pptx_figures": [
     {
       "slide": 4,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s04-graph-representations.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image4.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-4.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 5,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-5.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 6,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-6.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 7,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s07-graph-isomorphism.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-7.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 8,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s08-isomorphic-commuting-diagram.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-8.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 9,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s09-representation-collapse.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-9.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 10,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s10-regular-graph-collision.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image12.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-10.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s10-molecular-collision.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image13.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 11,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s11-universal-approximation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image14.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-11.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 12,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-12.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 13,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s13-function-class-inclusion.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image16.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-13.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 14,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s14-substructure-function-class.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-14.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 15,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s15-expressivity-gap.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-15.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 16,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-16.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s17-wl-initialization.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-17.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 18,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s18-wl-neighborhoods.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-18.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s19-wl-stable-coloring.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-19.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 20,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-20.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 21,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-21.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 22,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-22.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 23,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-23.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s24-k-tuple-space.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-24.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 25,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s25-k-coordinate-neighborhood.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-25.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 26,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-26.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 27,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-27.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 28,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s28-wl-gnn-hierarchy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image34.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-28.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 29,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-29.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 30,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s30-sparse-wl-hierarchy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-30.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 31,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-31.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 32,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-32.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 33,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-33.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 34,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-34.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 35,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-35.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 36,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s36-speqnet-hierarchy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-36.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s37-ign-equivariance.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image51.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-37.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 38,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-38.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 39,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-39.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 40,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s40-model-spectrum.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image55.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-40.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 41,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s41-substructure-node-identification.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image56.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-41.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 42,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s42-motif-matches.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image57.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-42.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s42-motif-bank.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image58.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 43,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s43-molecular-structural-encoding.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image59.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-43.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s43-motif-legend.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image60.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 44,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s44-substructure-matching.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image61.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-44.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 45,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-45.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 46,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s46-zinc-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image63.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-46.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 47,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-47.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 48,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s48-cellular-complex.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image65.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-48.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 49,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s49-complex-lifts.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image66.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-49.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 50,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s50-cwn-message-passing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image68.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-50.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 51,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-51.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 52,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-52.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 53,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-53.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 54,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-54.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 55,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 55,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s55-subgraph-intuition.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image73.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-55.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 56,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 56,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s56-subgraph-gnn.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image74.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-56.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 57,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 57,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s57-subgraph-components.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image75.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-57.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 58,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 58,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s58-ego-subgraphs.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image77.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-58.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 59,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 59,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s59-subgraph-policies.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image78.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-59.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 60,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 60,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s60-ds-gnn.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image80.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-60.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 61,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 61,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s61-gnn-ak-context.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image81.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-61.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 62,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 62,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s62-gnn-ak-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image82.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-62.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 63,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 63,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s63-node-bag-symmetry.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image83.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-63.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 64,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 64,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s64-expressiveness-landscape.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image84.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-64.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 65,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 65,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s65-beyond-3wl.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image85.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-65.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 66,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 66,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s66-k-osan.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image86.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-66.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 67,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-67.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 68,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-68.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 69,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 69,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-05/s69-tokengt.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image89.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-05/slide-69.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-05.md"
+  "asset_migration_status": "pptx-native-complete"
 }
