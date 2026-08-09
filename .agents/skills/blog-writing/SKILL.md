@@ -101,6 +101,9 @@ new thesis, a reordered curriculum, or additional technical branches.
    figure-count, or derivation-depth target.
 6. Maintain an agent-facing slide coverage record. Every substantive slide must
    map to prose, an equation, a table, or a figure before the post is complete.
+7. Preserve deliberate cross-domain juxtapositions. Do not split one deck into
+   separately optimized essays when its sequence uses the domains to expose a
+   shared discovery, measurement, or modeling pattern.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute

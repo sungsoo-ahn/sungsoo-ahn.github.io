@@ -28,6 +28,27 @@ requirements for the replacement deck-level articles.
   and use house references only as an editorial quality check. The blog-writing
   and figure skills now encode this rule.
 
+### ML4Mol 2025 Lecture 3: Drug and Material Discovery
+
+- **Source:** `lec3_prelim2.pdf` (70 pages), with media extracted from the
+  corresponding PowerPoint.
+- **Coverage:** 61 substantive slides covered; one notice and eight title or
+  part-transition slides omitted. The article retains the deck's progression
+  from biological organization through PK/PD, the drug-discovery funnel,
+  experimental techniques, material properties, synthesis, characterization,
+  and applications.
+- **Figures:** 50 of 61 unique substantive slide visuals reused (81.97%); the
+  remaining eleven repeat information already visible in reused figures. No new
+  explanatory figure was drawn.
+- **Synthetic material removed:** the hypothetical KX/A2 program, occupancy and
+  residence-time calculations, SAR table, Bateman PK calculation, therapeutic
+  window calculation, clinical Bayesian example, AB3 convex-hull scenario,
+  defect-population derivation, and closed-loop acquisition argument were not in
+  the source deck.
+- **General lesson:** when one deck deliberately juxtaposes domains, preserve
+  the juxtaposition. Splitting the lecture into separately optimized domain
+  essays can erase the comparison that motivated the original sequence.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
