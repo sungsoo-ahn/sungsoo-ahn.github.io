@@ -182,6 +182,12 @@ from one comparison can improve the criteria used for the next.
   the claimed equality on one controlled process and give a witness for a level
   that does not agree. Similar samples at each time do not imply the same
   coupling, path measure, likelihood, or dynamics.
+- When measurements are destructive or unpaired, distinguish a change in
+  population marginals from trajectories of individual entities. Construct two
+  couplings with the same observed before/after marginals but different
+  transitions, then name the lineage, longitudinal, randomization, or modeling
+  assumptions needed to choose between them. Cross-sectional agreement does not
+  identify dynamics or individual counterfactual response.
 - When calling learning targets, objectives, or parameterizations equivalent,
   state the exact equivalence: invertible target information, a shared
   population minimizer, identical gradients up to a parameter-independent
