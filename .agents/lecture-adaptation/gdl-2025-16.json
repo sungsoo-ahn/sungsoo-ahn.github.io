@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec16_geogen2.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec16_geogen2.pptx",
   "slide_count": 38,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Geometric Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Geometric Flow Matching",
         "AI.810 Geometric Deep Learning",
@@ -24,7 +24,7 @@
       "pptx_slide": 2,
       "title": "Part 2: Geometric Generative Models",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 2: Geometric Generative Models",
         "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
@@ -42,7 +42,7 @@
       "pptx_slide": 3,
       "title": "Reference",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Reference",
         "Today’s lecture is a summary of two recent lectures (with personal notes)",
@@ -59,7 +59,7 @@
       "pptx_slide": 4,
       "title": "Today",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today",
         "Recap: Riemannian manifolds and flow matching",
@@ -74,7 +74,7 @@
       "pptx_slide": 5,
       "title": "Why Geometric Flow Matching?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Why Geometric Flow Matching?",
         "For protein structure prediction,",
@@ -95,7 +95,7 @@
       "pptx_slide": 6,
       "title": "Why Geometric Flow Matching?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Why Geometric Flow Matching?",
         "Almost all structure design models follow the framework of AlphaFold2.",
@@ -115,7 +115,7 @@
       "pptx_slide": 7,
       "title": "Recap: Manifolds",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Manifolds",
         "Manifold ℳ: A topological space that locally looks like patches of a Euclidean space.",
@@ -133,7 +133,7 @@
       "pptx_slide": 8,
       "title": "Recap: Manifolds",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Manifolds",
         "Smooth manifold: ℳ satisfying “chart condition”:",
@@ -151,7 +151,7 @@
       "pptx_slide": 9,
       "title": "Recap: Tangent Space",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Tangent Space",
         "𝑇! 𝕊\"",
@@ -188,7 +188,7 @@
       "pptx_slide": 10,
       "title": "Recap: Riemannian Metric",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Riemannian Metric",
         "Riemannian metric 𝑔+ ∶ 𝑇+ ℳ × 𝑇+ ℳ → ℝ:",
@@ -210,7 +210,7 @@
       "pptx_slide": 11,
       "title": "Recap: Riemannian Manifold",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Riemannian Manifold",
         "Riemannian Manifold ℳ, 𝑔 :",
@@ -231,7 +231,7 @@
       "pptx_slide": 12,
       "title": "Recap: Exponential Map",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Exponential Map",
         "Exponential map: Takes a tangent vector 𝜈 ∈ 𝑇+ ℳ and transports it along the unique",
@@ -251,7 +251,7 @@
       "pptx_slide": 13,
       "title": "Recap: Logarithmic Map",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Logarithmic Map",
         "Logarithmic map: log + : ℳ → 𝑇+ ℳ. Takes a point on ℳ back",
@@ -272,7 +272,7 @@
       "pptx_slide": 14,
       "title": "Recap: Flow Matching",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Flow Matching",
         "How to generalize diffusion models to ODEs?",
@@ -292,7 +292,7 @@
       "pptx_slide": 15,
       "title": "Recap: Flow Matching",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Flow Matching",
         "We want to find an ODE 𝑑𝑥@ = 𝑢@A 𝑥@ 𝑑𝑡",
@@ -320,7 +320,7 @@
       "pptx_slide": 16,
       "title": "Recap: Flow Matching",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Flow Matching",
         "Importantly, the conditioning variable 𝑧 and the associated probability path 𝑝@ 𝑥 𝑧",
@@ -342,7 +342,7 @@
       "pptx_slide": 17,
       "title": "Recap: Flow Matching",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Recap: Flow Matching",
         "𝑢& 𝑥 = 𝔼'|) 𝑢& 𝑥 𝑧"
@@ -359,7 +359,7 @@
       "pptx_slide": 18,
       "title": "Today",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today",
         "Recap: Riemannian manifolds and flow matching",
@@ -374,7 +374,7 @@
       "pptx_slide": 19,
       "title": "Riemannian Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Riemannian Flow Matching",
         "Problem: Find an ODE defined on an Riemannian manifold that generates the data.",
@@ -395,7 +395,7 @@
       "pptx_slide": 20,
       "title": "Generalizing ODEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing ODEs",
         "ODE in a manifold ℳ is defined as:",
@@ -418,7 +418,7 @@
       "pptx_slide": 21,
       "title": "Generalizing ODEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing ODEs",
         "ODE in a manifold ℳ is defined as:",
@@ -442,7 +442,7 @@
       "pptx_slide": 22,
       "title": "Generalizing Conditional Velocity Fields",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Velocity Fields",
         "How to generalize the conditional velocity field 𝑢@ 𝑥@ 𝑧 ,",
@@ -466,7 +466,7 @@
       "pptx_slide": 23,
       "title": "Generalizing Conditional Velocity Fields",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Velocity Fields",
         "Then for straight lines with velocity 𝑢@ 𝑥@ |𝑥) , the conditional flow 𝜓@ 𝑥? 𝑥) is derived as:",
@@ -489,7 +489,7 @@
       "pptx_slide": 24,
       "title": "Generalizing Conditional Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Generalizing Conditional Flow Matching Loss",
         "The conditional flow matching loss is simply generalized using",
@@ -512,7 +512,7 @@
       "pptx_slide": 25,
       "title": "Today",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today",
         "Recap: Riemannian manifolds and flow matching",
@@ -527,7 +527,7 @@
       "pptx_slide": 26,
       "title": "Discrete Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching",
         "How to generate discrete data using a continuous-time Markov chain?",
@@ -545,7 +545,7 @@
       "pptx_slide": 27,
       "title": "Continuous Time Markov Chain (CTMC)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain (CTMC)",
         "Formally, discrete data and space are defined as follows:",
@@ -567,7 +567,7 @@
       "pptx_slide": 28,
       "title": "Continuous Time Markov Chain (CTMC)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain (CTMC)",
         "CTMC describes a random process 𝑋@ ?B@B)",
@@ -590,7 +590,7 @@
       "pptx_slide": 29,
       "title": "Continuous Time Markov Chain",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Continuous Time Markov Chain",
         "The probabilities path of a CTMC is described",
@@ -621,7 +621,7 @@
       "pptx_slide": 30,
       "title": "Discrete Flow Matching",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching",
         "Similar to the continuous case, we aim to:",
@@ -641,7 +641,7 @@
       "pptx_slide": 31,
       "title": "Marginalization Trick",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Marginalization Trick",
         "Consider a conditional velocity field 𝑢@ (𝑦, 𝑥|𝑧) generating cond. prob. path 𝑝@|) 𝑥 𝑧 .",
@@ -666,7 +666,7 @@
       "pptx_slide": 32,
       "title": "Discrete Flow Matching Loss",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Discrete Flow Matching Loss",
         "The discrete flow matching loss to train the CTMC model is defined as:",
@@ -685,7 +685,7 @@
       "pptx_slide": 33,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "To implement discrete flow matching, one needs parameterization of the velocity field:",
@@ -706,7 +706,7 @@
       "pptx_slide": 34,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "To handle high-dimensional problems, we often factorize the output space:",
@@ -724,7 +724,7 @@
       "pptx_slide": 35,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "For factorized velocities, ODE is solved by coordinate-wise Euler method:",
@@ -747,7 +747,7 @@
       "pptx_slide": 36,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "In practice, the conditional probability path is constructed using a coupling 𝜋?,)(𝑋?, 𝑋)):",
@@ -772,7 +772,7 @@
       "pptx_slide": 37,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-repeated-recap",
       "text": [
         "Factorized Paths and Velocities",
         "In practice, the conditional probability path is constructed using a coupling 𝜋?,)(𝑋?, 𝑋)):",
@@ -797,7 +797,7 @@
       "pptx_slide": 38,
       "title": "Factorized Paths and Velocities",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Factorized Paths and Velocities",
         "How to parameterize the marginal velocity 𝑢@A (𝑦, 𝑥)?",
@@ -828,7 +828,8 @@
       "slides": [
         5,
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0691e1be7d969470e4d89e6d71fd25b5505715f687a4a9c26c7d39dc707d8a2d",
@@ -837,7 +838,8 @@
       "bytes": 79971,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1d74f9cee715bf5e60c48ec69a38c2260a6faff132299a2f6a3821617f524ce9",
@@ -846,7 +848,8 @@
       "bytes": 108682,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e587e3db2f79143bcc71d91f417a9d0ef0bedf0d28335b8379473f5b736713d9",
@@ -855,7 +858,8 @@
       "bytes": 58802,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0610267025cc22b4ac700e98d891ece5cd38795197ec6dde727988ab94b75687",
@@ -864,7 +868,8 @@
       "bytes": 3184,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4e382c73b3b4f69f84340d5a379e513134fc4329f24c992616ea8824aa916824",
@@ -873,7 +878,8 @@
       "bytes": 2202,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4fdbfb06b0b7c40d6660dce14957dbe28aa2e65882847ae0e4ce52214a66542e",
@@ -882,7 +888,8 @@
       "bytes": 2173,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "85380b65b7f95b360cc424416ba6f8017fd0782a96875f58019b56e3cb6ecf44",
@@ -891,7 +898,8 @@
       "bytes": 1232,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3d1bbfb66c2b4ef420657e3cbb38b09e7e1e18ee6f9130af99c2cf9c2e6e75bc",
@@ -900,7 +908,8 @@
       "bytes": 25669,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fdb9766fc747f088f9c544fb2c80d978adb8781ac70fd6504918027d1d654068",
@@ -909,7 +918,8 @@
       "bytes": 63792,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c2a7f5ca2c81adad62e3090e4b633aa8c791cde1f39fcab45d920ed89a5664c5",
@@ -918,7 +928,8 @@
       "bytes": 121497,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b53d4a282306a02fbea66418c88cebeee610c014a39cf815458344561275459e",
@@ -927,7 +938,8 @@
       "bytes": 3435,
       "slides": [
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b1ef819f4482de9a9fa3c76ef1492315d9d263f6b624004a09f59d2a215c18ef",
@@ -936,7 +948,8 @@
       "bytes": 187603,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b271f82a3d4afa1d298b1edd4651b670e74df529cb76132b04cc3753bf1296e9",
@@ -945,7 +958,8 @@
       "bytes": 84809,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "327c183d1351dfafb1b8494444bb1e793dc2415e153469c6fe401d2d5bc10724",
@@ -954,7 +968,8 @@
       "bytes": 155801,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "4232f1fc8f8639812f5dc1e33c82d830e190fd14fc18c6c32028c2b2401a59c9",
@@ -963,7 +978,8 @@
       "bytes": 93655,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1d632848f82f7f93f2ec902d0d6ed5dba8a31dfe60e3b3bcc1eeccbd385ef8f9",
@@ -972,7 +988,8 @@
       "bytes": 153960,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6a82c6ca19e29bc5ee7d1e7df8ac1ade119a35478045a2f303a96352e5147f87",
@@ -981,7 +998,8 @@
       "bytes": 95186,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
@@ -990,7 +1008,8 @@
       "bytes": 78744,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b81167b4b967be3e5a1088d850398187579fcf51404835b41ed1e50b6b628ff6",
@@ -999,7 +1018,8 @@
       "bytes": 212667,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8",
@@ -1011,7 +1031,8 @@
         15,
         17,
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "087ddc2faba2b846efdd80097739dfcfe9007c503101499fc0708e45af94fa8c",
@@ -1020,7 +1041,8 @@
       "bytes": 97627,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "95487beb0bb99838f2e8faa2f0dc6f5f95446c27dd2745d0f3e6fdaa8f12ddee",
@@ -1030,7 +1052,8 @@
       "slides": [
         16,
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "65875cb851e767f6e459f38bc7305411daf6ca5b26f42a7db55e7c35897a3131",
@@ -1039,7 +1062,8 @@
       "bytes": 93991,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0c85c08759abfafd37de276720fffac525fbe0dd5d9efc4d18ac381c1ad1936e",
@@ -1048,7 +1072,8 @@
       "bytes": 1351680,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "92516c364d5d8b473d65dfc765f84eadc0750cad9decb1db5211e8e931c92c5c",
@@ -1057,7 +1082,8 @@
       "bytes": 264192,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2d0794f83023ccf1b4060af3bf9ff6197553067f6c24a2382fe8a77c4466970e",
@@ -1066,7 +1092,8 @@
       "bytes": 69657,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b5f61e556b7df4e3d677a1cfb590dcd74d5499735589b36ce5fbbec827a560f4",
@@ -1075,7 +1102,8 @@
       "bytes": 83608,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "938d5ce59faa2a7c73fc83c9d842e0470f46e96d7b6b2206454a387377b920bb",
@@ -1084,7 +1112,8 @@
       "bytes": 7907,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "aea14e2f88e43ad606285f091b4b04cc50fa9944c9a7ab2d477936a23c19b106",
@@ -1093,7 +1122,8 @@
       "bytes": 77912,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "84a451df92b5c1f22764e51729442a688d3d3091c98694b190574c09948512da",
@@ -1103,7 +1133,8 @@
       "slides": [
         19,
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "53d6352bf4dc69c0a366b62be27dba20d5f5e22884dc5a66aca3bcc1f9f354f5",
@@ -1112,7 +1143,8 @@
       "bytes": 149022,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ecdc00d3e38ac4eaa0718f7e57c9aec2f9b741c2415bb03d7b66e2e7fc33b58a",
@@ -1122,7 +1154,8 @@
       "slides": [
         21,
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "91cfa320623482d2375e1dbe5fb03e5e288ba0070a229da83a3a470a82704e1c",
@@ -1131,7 +1164,8 @@
       "bytes": 16668,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "84ab12cdbb108313171004762b562d433357b6f59e0bb694110add9aacc9b9b9",
@@ -1141,7 +1175,8 @@
       "slides": [
         22,
         22
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "567abe3577ba171661f2b6b9c3dc71114db657a5c1e7a2e271dab1b87fa52486",
@@ -1150,7 +1185,8 @@
       "bytes": 159073,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2cd366b7601d391291122c50d703952dbd5962fe71a417e4516efdbf445cbdc4",
@@ -1159,7 +1195,8 @@
       "bytes": 96025,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "990f77794f525a30f58f051292c53b63b3573e74347a2f7135731039c1a1d47f",
@@ -1168,7 +1205,8 @@
       "bytes": 487233,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8cc23720db0f3c8875271bfc3ccf15c681e716e7a80db245ecf83afa30d239e6",
@@ -1177,7 +1215,8 @@
       "bytes": 103618,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bc7f64bf8415ef86d1c53fdf23202b4cec5e29e33277b320589654b9923788a8",
@@ -1186,7 +1225,8 @@
       "bytes": 4118,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "19062e5b66367924c59d3baf4a143a71d9d5874f7ddce2ad40046dc1554d28a8",
@@ -1195,7 +1235,8 @@
       "bytes": 33089,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b04880d4ddbcee76ba90f2d30f249a7416bc4fffc238ba32db1fdfe4e4f43327",
@@ -1204,7 +1245,8 @@
       "bytes": 100862,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f8f5959cac639992926882f9424daf5eebd03ccd6d3de7589caa2e0b8d7adfe6",
@@ -1213,7 +1255,8 @@
       "bytes": 44086,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "10759dd65d9b9ecab523e9632d53eda27d9fbff79d57e2f089f8c129fe32a682",
@@ -1222,7 +1265,8 @@
       "bytes": 95137,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1c586707322d7ae3a0a78fc4db109c8722861ac03d5a3b5d3281f9df3557e5da",
@@ -1231,7 +1275,8 @@
       "bytes": 136899,
       "slides": [
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "344c893fa7c77604fa9f3c226b5da408c28d3b2911264e7669e2ad0d81366152",
@@ -1240,7 +1285,8 @@
       "bytes": 99789,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "6b045b0e1ee0456ee0f795bf8ca2ef4e70d31e8d9f99656ffa51b234ec37359e",
@@ -1249,7 +1295,8 @@
       "bytes": 9768,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9f566ec308332fc021b42f2755625766acaeae1763aa6ed67b1219cb7ad742e3",
@@ -1258,7 +1305,8 @@
       "bytes": 104284,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "af7670c3b5762f1ad054744dfa18608c92143236f78333354b8c4462dab38d78",
@@ -1267,7 +1315,8 @@
       "bytes": 175676,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7d4aea11144a9c497db53763e3417e30db2b42e78f864da6b07d1fe9e5b0b959",
@@ -1276,7 +1325,8 @@
       "bytes": 100963,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2d530148aff9f9b0715f794b906211cdd8b9738b77b28dffbc1cd18862c639ae",
@@ -1285,7 +1335,8 @@
       "bytes": 460356,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "76bb3ceadd308b643d0d71754726ed3e17d6dec5a7cf4bd6be344786e985c74b",
@@ -1294,7 +1345,8 @@
       "bytes": 118487,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f59c3743f95945e2824616d9d35f197d7eeb383aafab3166ac1757ed4e982a5f",
@@ -1303,7 +1355,8 @@
       "bytes": 63709,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "62678c8fb3b17a713a7abc408707fbf40ac6c6134f5bd38e91d1ee6907888edf",
@@ -1313,7 +1366,8 @@
       "slides": [
         36,
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d11cfcee1fcfd1e3fa3192f6b1c09a8965de03660609d4b36a7a0c7c62d134c0",
@@ -1322,7 +1376,8 @@
       "bytes": 122466,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "857ccfd969523c8428897a2807a1b03e1a9674c56fcb0ec624155b9e0a4ce016",
@@ -1331,7 +1386,8 @@
       "bytes": 116542,
       "slides": [
         38
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "56658f5496576bc970b020c9fd213f7850c31080e364c6927a57e840a7edf6ab",
@@ -1340,7 +1396,8 @@
       "bytes": 73330,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b157a7fae860eb96978064f04f03e5e87cd8099ceebafa2338560b04e40ac807",
@@ -1349,7 +1406,8 @@
       "bytes": 104129,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "31a63007228e91e1fd3ed562b41dfda67c76624df9d53b3345f2c1ff6bb55ef6",
@@ -1358,7 +1416,8 @@
       "bytes": 71239,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ef724f88fe6e389b2904cfaf747fb35a814dbb0c64740085ac543df5338e03f2",
@@ -1367,7 +1426,8 @@
       "bytes": 68372,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "002e8508f8959df9f61450091fa7ffb2302f455a1e5856f0299fac31bbeed496",
@@ -1377,14 +1437,369 @@
       "slides": [
         9,
         10
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 32,
+    "reused": 31,
+    "scientifically_redundant": 1,
+    "reuse_ratio": 0.9688
+  },
+  "pdf_regions": [
+    {
+      "slide": 5,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-5.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-9.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-10.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-29.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-30.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-37.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "slide": 38,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-16/slide-38.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-16.md"
 }
