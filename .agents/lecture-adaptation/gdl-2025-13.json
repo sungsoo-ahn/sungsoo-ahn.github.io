@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec13_prelim2 (revised).pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec13_prelim2 (revised).pptx",
   "slide_count": 37,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Preliminaries:",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Preliminaries:",
         "Diffusion and Flow Matching",
@@ -25,7 +25,7 @@
       "pptx_slide": 2,
       "title": "Updated Syllabus",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Updated Syllabus",
         "Part 2 of this class is about",
@@ -48,7 +48,7 @@
       "pptx_slide": 3,
       "title": "Part 2: Geometric Generative Models",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Part 2: Geometric Generative Models",
         "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
@@ -66,7 +66,7 @@
       "pptx_slide": 4,
       "title": "Today: Diffusion and Flow Matching",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today: Diffusion and Flow Matching",
         "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
@@ -85,7 +85,7 @@
       "pptx_slide": 5,
       "title": "Main Material",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Main Material",
         "Simo Särkkä and Arno Solin (2019). Applied Stochastic Differential Equations. Cambridge",
@@ -103,7 +103,7 @@
       "pptx_slide": 6,
       "title": "What is an ODE?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "What is an ODE?",
         "An ordinary differential equation (ODE) is an equation that involves",
@@ -125,7 +125,7 @@
       "pptx_slide": 7,
       "title": "What is a SDE?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "What is a SDE?",
         "Similarly, a stochastic differential equation (SDE) is an equation that express",
@@ -150,7 +150,7 @@
       "pptx_slide": 8,
       "title": "Weiner Process (or Brownian Motions)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Weiner Process (or Brownian Motions)",
         "Our SDE depends on the definition of Weiner process 𝑊! ,",
@@ -179,7 +179,7 @@
       "pptx_slide": 9,
       "title": "Weiner Process (or Brownian Motions)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Weiner Process (or Brownian Motions)",
         "It is attractive to think about Weiner process using time differential 𝑑𝑡:",
@@ -207,7 +207,7 @@
       "pptx_slide": 10,
       "title": "Today: Diffusion and Flow Matching",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today: Diffusion and Flow Matching",
         "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
@@ -226,7 +226,7 @@
       "pptx_slide": null,
       "title": "Itô Integral",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô Integral",
         "Let’s consider a SDE 𝑑𝑋! = 𝜎 𝑋! , 𝑡 𝑑𝑊! , which corresponds to the integral:",
@@ -248,7 +248,7 @@
       "pptx_slide": 12,
       "title": "Stieltjes vs. Itô Integral",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Stieltjes vs. Itô Integral",
         "Let’s consider the simplest SDE associated with the Brownian motion:",
@@ -275,7 +275,7 @@
       "pptx_slide": 13,
       "title": "Stieltjes vs. Itô Integral",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Stieltjes vs. Itô Integral",
         "Let’s consider the simplest SDE associated with the Brownian motion:",
@@ -304,7 +304,7 @@
       "pptx_slide": 14,
       "title": "Stieltjes vs. Itô Integral",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Stieltjes vs. Itô Integral",
         "For a more concrete example, consider 𝑑𝑋! = 𝑊! 𝑑𝑊! with Stieltjes integral:",
@@ -333,7 +333,7 @@
       "pptx_slide": 15,
       "title": "Stieltjes vs. Itô Integral",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Stieltjes vs. Itô Integral",
         "For a more concrete example, consider 𝑑𝑋! = 𝑊! 𝑑𝑊! with Stieltjes integral:",
@@ -362,7 +362,7 @@
       "pptx_slide": null,
       "title": "Itô, Backward Itô, and Stratonovich Integrals",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô, Backward Itô, and Stratonovich Integrals",
         "Itô integral is expressed as:",
@@ -390,7 +390,7 @@
       "pptx_slide": null,
       "title": "Itô Formula",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô Formula",
         "In the previous slides, we derived that:",
@@ -412,7 +412,7 @@
       "pptx_slide": null,
       "title": "Itô Formula",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô Formula",
         "Itô formula describes the differential of an arbitrary function 𝜙(𝑋! , 𝑡) as follows:",
@@ -434,7 +434,7 @@
       "pptx_slide": null,
       "title": "Itô Formula",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô Formula",
         "Let’s assume an SDE 𝑑𝑋! = 𝜇 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑋! , 𝑡 𝑑𝑊! . Itô formula describes:",
@@ -458,7 +458,7 @@
       "pptx_slide": null,
       "title": "Itô Formula",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Itô Formula",
         "/   )",
@@ -484,7 +484,7 @@
       "pptx_slide": 21,
       "title": "Summary of Itô Integral and Itô Formula",
       "classification": "repeated-recap",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Summary of Itô Integral and Itô Formula",
         "Given a SDE 𝑑𝑋! = 𝑌! 𝑑𝑊! , the Itô integral is computed by:",
@@ -509,7 +509,7 @@
       "pptx_slide": 22,
       "title": "Today: Diffusion and Flow Matching",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "omitted-transition",
       "text": [
         "Today: Diffusion and Flow Matching",
         "• Ordinary differential equations (ODEs) and stochastic differential equations (SDEs)",
@@ -528,7 +528,7 @@
       "pptx_slide": 23,
       "title": "Probability Distributions of ODEs / SDEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Probability Distributions of ODEs / SDEs",
         "We are interested in the probability density function 𝑋! ∼ 𝑝 𝑥, 𝑡 ,",
@@ -550,7 +550,7 @@
       "pptx_slide": 24,
       "title": "Probability Distributions of ODEs / SDEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Probability Distributions of ODEs / SDEs",
         "The FPK equation can be described in term of the change in probability current 𝐽(𝑥, 𝑡):",
@@ -576,7 +576,7 @@
       "pptx_slide": 25,
       "title": "Probability Distributions of ODEs / SDEs",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Probability Distributions of ODEs / SDEs",
         "We just described that the probability current is described by:",
@@ -606,7 +606,7 @@
       "pptx_slide": 26,
       "title": "Infinitesimal Generator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Infinitesimal Generator",
         "To derive the FPK equation, we need to define infinitesimal generator",
@@ -637,7 +637,7 @@
       "pptx_slide": 27,
       "title": "Infinitesimal Generator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Infinitesimal Generator",
         "To further apply the Itô formula, consider the SDE:",
@@ -663,7 +663,7 @@
       "pptx_slide": 28,
       "title": "Infinitesimal Generator",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Infinitesimal Generator",
         "In conclusion, the infinitesimal generator is characterized as:",
@@ -687,7 +687,7 @@
       "pptx_slide": 29,
       "title": "Proof Sketch of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof Sketch of FPK Equation",
         "The Fokker-Planck-Kolmogorov equation describes",
@@ -713,7 +713,7 @@
       "pptx_slide": 30,
       "title": "Proof Sketch of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof Sketch of FPK Equation",
         "We analyze the quantity",
@@ -741,7 +741,7 @@
       "pptx_slide": 31,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         ">",
@@ -765,7 +765,7 @@
       "pptx_slide": 32,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         ">",
@@ -791,7 +791,7 @@
       "pptx_slide": 33,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         "We are now",
@@ -822,7 +822,7 @@
       "pptx_slide": 34,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         "We are now",
@@ -852,7 +852,7 @@
       "pptx_slide": 35,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         "By the previously derived infinitesimal generator:",
@@ -874,7 +874,7 @@
       "pptx_slide": 36,
       "title": "Proof of FPK Equation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Proof of FPK Equation",
         "We proved that, for all 𝜙 𝑥 ,",
@@ -896,7 +896,7 @@
       "pptx_slide": 37,
       "title": "End of Slide",
       "classification": "transition-only",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "End of Slide",
         "Multi-dimensional generalization is conceptually straightforward.",
@@ -920,7 +920,8 @@
       "bytes": 142714,
       "slides": [
         2
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cf994d60ed57eec5bacad20624a8ab3826da5717e8aa1264a39f20c511bfb16a",
@@ -929,7 +930,8 @@
       "bytes": 18478,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "fc93498c546b3346180be3db21a0a6f98a9d03838022e658f3fd4066520b7d5a",
@@ -938,7 +940,8 @@
       "bytes": 117350,
       "slides": [
         9
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "654a3ecc6977ca8d108fd841e855a4b75024d0bc6e9549b3c08fbff030070e32",
@@ -947,7 +950,8 @@
       "bytes": 125676,
       "slides": [
         11
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "cb574e8f27961d49ab21ce493ca0d0c0d7eeb086c36f4bb6fafce26c8a6399e4",
@@ -956,7 +960,8 @@
       "bytes": 132388,
       "slides": [
         12
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "67cd15f6d3cb39982cf462d833dca3639ac6d5ba59a897888936ab0bf564db3f",
@@ -965,7 +970,8 @@
       "bytes": 149923,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f6e5723cb2b8abf8f36221b2aaf16af49deb7df07d7f1709cf943bb486ad056a",
@@ -974,7 +980,8 @@
       "bytes": 118598,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "5a19286ef908563f78234fdb5abf1536c37a3031f4673b4929eccc7ac0fcff61",
@@ -983,7 +990,8 @@
       "bytes": 7991,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2d196b50f0ceb8b90467a2b35385b25712563710d1ac223f0d7b103111c8a527",
@@ -992,7 +1000,8 @@
       "bytes": 105952,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bbe6ea2b049ec2f226ec81f5f5b85ce4c05233733ee2ff4ec46f46b4d17617e0",
@@ -1001,7 +1010,8 @@
       "bytes": 9561,
       "slides": [
         15
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8c327e0f09fe6624572e4fc7cf6aefeacfc4d76e5a371e918c86d952ce8c1092",
@@ -1010,7 +1020,8 @@
       "bytes": 126845,
       "slides": [
         16
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "add3fc3332097b62f518da6d913382180f62a8a96fcd395e9c0dafce20c1922d",
@@ -1019,7 +1030,8 @@
       "bytes": 41542,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b0958902eed6a8bfb2585cd0de4d3e33e11bb52143e8993cae2b4d4e2fe61073",
@@ -1028,7 +1040,8 @@
       "bytes": 89939,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "414afc5c3d85cbb0518e99c418f40a1a30fce6532c6148d84b20bd2339389083",
@@ -1037,7 +1050,8 @@
       "bytes": 114072,
       "slides": [
         18
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "226997abec65d08dc1f557736ecad93ce348d5ea6cb02c46076d8c21d05f2f5f",
@@ -1046,7 +1060,8 @@
       "bytes": 115748,
       "slides": [
         19
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d388831bd1bb8b4e94e73607dbb8539cfb057777aa27e16ada705934365a9d83",
@@ -1055,7 +1070,8 @@
       "bytes": 90538,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a9ec56dc1c1a920b0239a4730e9a7e3fe96861f8cb8e7d81f96677b466fcdd0c",
@@ -1064,7 +1080,8 @@
       "bytes": 10646,
       "slides": [
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f68044801d3e87353d7e490a32609af6f572e266c124ffa648425943e95e8662",
@@ -1073,7 +1090,8 @@
       "bytes": 128374,
       "slides": [
         21
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f2a053d6fe43e7252da2674b252d4189d171a87a54b10cf3ae324c53224d8c59",
@@ -1082,7 +1100,8 @@
       "bytes": 124361,
       "slides": [
         23
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8c74c05020a1ff7c0e4e4ae65fe2447d65c197498bc30b1ac9fd27c6cd3daa9a",
@@ -1091,7 +1110,8 @@
       "bytes": 130390,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3057faecf77ecd5c32e308bc7d05d29ec69ea955ff79e1182420fccda2d9eea9",
@@ -1100,7 +1120,8 @@
       "bytes": 2839,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "b14bb617d6f39e673bfc7c9df8339dbbe052488ea6e0a85c6dbd69509f6dd140",
@@ -1109,7 +1130,8 @@
       "bytes": 3582,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "51492a293b4a9e14f01a8f19491c8c318e50e28ce47689d241e715297d03d4d1",
@@ -1118,7 +1140,8 @@
       "bytes": 193971,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "da6afe15ae4a48de10a56ea93c133cd4699fddb75fb1019ff67bfc335ab6299a",
@@ -1127,7 +1150,8 @@
       "bytes": 2695,
       "slides": [
         24
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "19062bbe052b51e4a12ddcf69050fda471ee2584364348cd2a5e97555c1ca644",
@@ -1136,7 +1160,8 @@
       "bytes": 100785,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d326a0f9c6ddc01d30f35bb5908fc2f25f3fdc06092d9a897c7cddc438bbe956",
@@ -1145,7 +1170,8 @@
       "bytes": 2684,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "e5d5a6b8d0f0d50a69ba159117bdd777c6fceaddcd9c433e838d9389967e1d7b",
@@ -1154,7 +1180,8 @@
       "bytes": 3446,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a196a1c188154e028e861bc154663c280a82deb81b537fc9a7f3e1032e5a2f98",
@@ -1163,7 +1190,8 @@
       "bytes": 3454,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d72b4d99012153b69adea3df89bbe7502d89449ea56585011196181f817a9e87",
@@ -1172,7 +1200,8 @@
       "bytes": 2736,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "9ad8eb86f6845587da81f4152a00e644c003351959bf99534a357e92eded46f2",
@@ -1181,7 +1210,8 @@
       "bytes": 2691,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1081653191941a79cd3162765393c3789d8401d0dc6cedc7556ca63fff0aac7f",
@@ -1190,7 +1220,8 @@
       "bytes": 2884,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c649da8bd0a1fc89b3b614d36ee22e1eabb7b3e873ddc333b8c46f4d0e48afd3",
@@ -1199,7 +1230,8 @@
       "bytes": 141191,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c687d2fb5a23fd264582b456f5e62ee15defff5b0024e6abe4d1809062f425be",
@@ -1208,7 +1240,8 @@
       "bytes": 11309,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0d005aab03cfec088b58eb38420f05932a89e062e5010f2bfde5419915ef9be9",
@@ -1217,7 +1250,8 @@
       "bytes": 64624,
       "slides": [
         5
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bb33cb8eccffe88e26038939b4349d36b5219ab2caa956fdbf333784a600e388",
@@ -1226,7 +1260,8 @@
       "bytes": 112454,
       "slides": [
         27
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "87949cf7b783f3867c5ac5939493f879943447a4924f49ddbf99f3714fc55af9",
@@ -1235,7 +1270,8 @@
       "bytes": 113592,
       "slides": [
         28
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "391229df31cfda08e965aab777a7219ca5ddf206a3f041d7ce60365f0cda3010",
@@ -1244,7 +1280,8 @@
       "bytes": 140152,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8616e4022732e4a1d0c93e0aa675791e9bccb59b5df6b41a9c3251ed79629add",
@@ -1253,7 +1290,8 @@
       "bytes": 123355,
       "slides": [
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7ebeb8fd10d02b7cd8964e8480321e92b5ed8e0616fdf43a69f3a4806736a6da",
@@ -1262,7 +1300,8 @@
       "bytes": 149196,
       "slides": [
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "342793a4bc6ebd9c681bdf6f09820733cf07ed12a96381a34dd1eb3c1513810f",
@@ -1271,7 +1310,8 @@
       "bytes": 136634,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a9879316974bccb6a2c1e337bdbbc9cf30b4cea325b9e9e7d26e2aba34604805",
@@ -1280,7 +1320,8 @@
       "bytes": 121583,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "00cac31f1f7c7c134130b0a5244b8064c3fb766ab15eed005c5a256ddc05ea51",
@@ -1289,7 +1330,8 @@
       "bytes": 1094,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "52463d9b846420827e4cac2bde3496a00c05c016c8ea8a5dade60df5d868ac50",
@@ -1298,7 +1340,8 @@
       "bytes": 1683,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0e4b38c0309e6ab24c3e584cc6d3862fd1472637f98ca442e64f8f97fcc119fe",
@@ -1307,7 +1350,8 @@
       "bytes": 1665,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a52f5ee2ccd5e27ad495f033eca816b8492a933b30c48baa1496e30c9707eec8",
@@ -1316,7 +1360,8 @@
       "bytes": 113600,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "472b64235286194b33f9070eee66d0f145fba18b3fab466d8b2af7b47ddb5e0c",
@@ -1325,7 +1370,8 @@
       "bytes": 1076,
       "slides": [
         33
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bf63aef2c9f00a70f437a5201a98a73984a1a0e4778424729db70b388a918ced",
@@ -1334,7 +1380,8 @@
       "bytes": 153832,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "56e0d2e7eb5c460e0ad459425958353b747bf9784dafc4b56fb4e3e8fca89de3",
@@ -1343,7 +1390,8 @@
       "bytes": 115862,
       "slides": [
         35
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7cc521da2e2f1e79514c51398c5c836ce9e05f72e1c4d7407cd3ff847037669c",
@@ -1352,7 +1400,8 @@
       "bytes": 89402,
       "slides": [
         36
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "13605043260d47294e83cab0208c54cb53ce0c812f68354ae6647484ee66f36a",
@@ -1361,7 +1410,8 @@
       "bytes": 112312,
       "slides": [
         37
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "897d801cee6ba371070631e82cab65dbf56f1ae5ef8844b27b1eb3ef70c7be0e",
@@ -1370,7 +1420,8 @@
       "bytes": 162697,
       "slides": [
         7
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "52cc8e0566e667618a6ee062351686bf59251c8af112d70ed2c9af9fa4ff36aa",
@@ -1379,7 +1430,8 @@
       "bytes": 113520,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "d650db8c5538dba75911011636c32d5f4ed1d39cb5c8f9da7eb114c098b4e3dc",
@@ -1388,7 +1440,8 @@
       "bytes": 175880,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a9bce9c91354c84311f9de839380e9f3c052e49888d38a57a126cf6aa25e9b6a",
@@ -1397,14 +1450,347 @@
       "bytes": 128316,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 30,
+    "reused": 30,
+    "scientifically_redundant": 0,
+    "reuse_ratio": 1.0
+  },
+  "pdf_regions": [
+    {
+      "slide": 6,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-9.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-18.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-25.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-29.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-30.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-13/slide-37.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-13.md"
 }

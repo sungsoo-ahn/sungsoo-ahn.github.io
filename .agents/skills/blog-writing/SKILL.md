@@ -208,6 +208,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     benchmark tables look comparable. Name the exact operation changed, retain
     its cost or stability motivation, and attach the reported evidence to that
     change rather than to a generic claim of architectural progress.
+26. Preserve the source's proof strategy and the objects it moves between.
+    When a derivation proceeds from path increments to observables, conditional
+    expectations, generators, adjoints, and densities, retain those transitions
+    and the assumptions used at each one. Do not replace the lecture's proof
+    with a shorter familiar argument that reaches the same final equation but
+    erases why the intermediate objects were introduced.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
