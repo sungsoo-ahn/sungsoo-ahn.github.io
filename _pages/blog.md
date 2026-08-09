@@ -25,22 +25,6 @@ pagination:
       <span>Technical notes {{ technical_note_count }}</span>
     </div>
 
-    <nav class="blog-topic-nav" aria-labelledby="blog-topic-nav-title">
-      <h2 id="blog-topic-nav-title">Browse by topic</h2>
-      <ul class="blog-topic-list">
-        {% for path_pair in site.data.lecture_paths %}
-          {% assign path = path_pair[1] %}
-          <li>
-            <a href="{{ path.permalink | relative_url }}">
-              <span>{{ path.title }}</span>
-              <small>{{ path.chapters.size }} chapters</small>
-            </a>
-            <p>{{ path.description }}</p>
-          </li>
-        {% endfor %}
-      </ul>
-    </nav>
-
     <h2 class="blog-latest-title">All posts</h2>
 
     <ol class="bibliography">
