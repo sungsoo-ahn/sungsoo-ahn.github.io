@@ -28,6 +28,29 @@ extraction method in an agent-facing figure manifest.
 This exception applies only to the confirmed deck and its embedded figures. It
 does not establish a general license for the same source elsewhere.
 
+### Auditing Existing Lecture Figures
+
+- Treat **visual provenance** and **method provenance** as different claims. A
+  slide titled with a paper may contain an exact paper figure, a lecturer-made
+  derivation of that paper's method, or a composite. Cite the paper as the
+  figure source only after matching the actual visual.
+- For lecturer-made equations, matrices, graph drawings, and comparison
+  diagrams, use a reader-facing note such as “Lecture diagram by the author.”
+  Keep the method citation in the prose or references; do not turn it into a
+  misleading “Figure source” link.
+- Verify exact matches with distinctive labels, panel order, node colors,
+  plotted values, table cells, and crop boundaries. Matching a topic, title, or
+  broad layout is not enough. When the concept is traceable but the rendering
+  is generic, record the concept source as ambiguous and say that the exact
+  drawing origin is unclear.
+- In chronological method surveys, one primary paper may legitimately source
+  several adjacent assets: an architecture panel, result plot, table, or
+  equation crop. Record each asset separately, but deduplicate the source
+  metadata and reuse the same authoritative paper page.
+- A publisher DOI returning an automated 403 is not by itself a broken source.
+  Confirm the DOI's title, authors, venue, and year through an authoritative
+  index, and record the publisher's license conservatively.
+
 ## Workflow
 
 1. Identify the target concept and candidate source figure.
