@@ -142,6 +142,31 @@ requirements for the replacement deck-level articles.
   spectra, periodic structures, and trajectories is part of the scientific
   argument.
 
+### ML4Mol 2025 Lecture 8: Molecular Simulation
+
+- **Source:** `lec8_molsim.pdf` (16 pages), with media extracted from the
+  corresponding PowerPoint and two slide-native diagrams cropped from the
+  canonical PDF.
+- **Coverage:** 15 substantive slides covered; the repeated lecture-series
+  cover omitted. The source sequence remains intact: Langevin dynamics,
+  thermodynamic ensembles, the MD workflow, force-field choices, three classes
+  of observable, spatial and temporal acceleration, classical coarse-graining,
+  enhanced sampling, learned coarse-graining, MDGen, accelerated lithium
+  transport, and neural biased dynamics.
+- **Figures:** 29 of 31 unique substantive visuals reused (93.55%). Two omitted
+  panels repeat the time-coarse transition comparison shown by a retained
+  visual. Three paper title cards and one isolated text fragment were treated
+  as non-substantive. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous simulation chapter's harmonic
+  force and frequency example, explicit Verlet step, stability matrix,
+  learned-curvature bias, autocorrelation and effective-sample-size arithmetic,
+  ensemble-disagreement counterexample, cutoff derivation, and final error
+  budget were absent from the lecture source.
+- **General lesson:** when a deck classifies methods by what they coarse-grain
+  or modify, preserve that axis. Spatial reduction, long-lag transition
+  generation, altered exploration, and learned bias forces accelerate different
+  objects and should not be flattened into a generic list of efficiency methods.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
