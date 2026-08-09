@@ -592,6 +592,29 @@ requirements for the replacement deck-level articles.
   Here the recap fixes the typed TFN kernel that attention weights and the
   linear aggregation that SEGNN replaces. The recap rule in the blog-writing
   skill now names this baseline-delta case explicitly.
+
+### GDL 2025 Lecture 11: Scaling Steerable GNNs
+
+- **Source:** `lec11_geognn5.pdf` (41 pages), represented by 39 canonical PDF
+  composites preserving the TFN baseline, attention equations, high-body-order
+  couplings, aligned-axis reductions, normalization diagrams, and benchmarks.
+- **Coverage:** 39 scientific slides covered; only the cover and dated course
+  schedule omitted. The source order remains TFN and SE(3)-Transformer,
+  Equiformer, MACE, eSCN, EquiformerV2, and two scientific related-work maps.
+- **Figures:** all 39 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the prior equivariant-potential tutorial's
+  typed-attention rotation arithmetic, conservative-force proof and
+  counterexample, cutoff regularity derivation, charged-fragment locality case,
+  and fixed-budget architecture ledger were absent from this deck. The
+  replacement restores the source's distinct architecture-specific motivations
+  and its complete efficiency and benchmark sequence.
+- **General lesson promoted:** recent-method surveys must not merge all gains
+  into “better equivariance.” Equiformer changes practical attention blocks,
+  MACE makes body order explicit, eSCN sparsifies the angular product by edge
+  alignment, and EquiformerV2 changes nonlinear processing and normalization.
+  The blog-writing skill now requires these bottleneck--remedy pairs to remain
+  separate and tied to their own evidence.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 
