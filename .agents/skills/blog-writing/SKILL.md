@@ -214,6 +214,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     and the assumptions used at each one. Do not replace the lecture's proof
     with a shorter familiar argument that reaches the same final equation but
     erases why the intermediate objects were introduced.
+27. Keep conditional and marginal constructions distinct throughout a
+    generative-model derivation. Name the conditional path, marginal path,
+    conditional field, marginal field, conditioning posterior, and endpoint
+    convention whenever the source uses them. Preserve the expectation or
+    gradient identity that connects the levels; shared notation or Gaussian
+    examples do not make the conditional and marginal objects interchangeable.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
