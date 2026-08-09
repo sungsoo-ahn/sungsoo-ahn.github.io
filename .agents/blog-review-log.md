@@ -951,3 +951,54 @@ Post-specific observations remain here rather than becoming universal rules.
   stability. A deployment contract reunites those claims. Existing figures
   remained sufficient. Arithmetic/citation audits, validation, clean build, and
   rendered checks passed.
+
+## 22. Generative Models for Protein Design
+
+- **Post:** `_posts/2026-08-08-generative-models-protein-design.md`
+- **Topic-matched reference:** The polished protein-design chapter owns the
+  biological primer, tool landscape, and end-to-end practical funnel. The
+  revised AlphaFold and protein-representation chapters own structure-confidence
+  semantics and representation evidence; the diffusion companions own
+  denoising mechanics. This chapter should instead own the distinctions among
+  sequence, inverse-folding, backbone, motif-conditioned, and joint generative
+  distributions, plus the interfaces and evidence needed to move between them.
+- **Before:** At 2,747 substantive words, the post has a clean nine-section arc
+  and already separates the principal conditional distributions. It remains
+  mostly qualitative: guidance never meets an epistatic failure, inverse
+  folding has no designability calculation, motif constraints have no finite
+  geometric witness, and the sequential-versus-joint argument has no proposal
+  mass arithmetic. The design funnel counts attrition but not enrichment or
+  independence of evidence, so agreement between a generator and a learned
+  refolder can read as stronger validation than it is.
+- **Criteria promoted:** When one learned model validates or filters another,
+  audit shared training data, architectures, representations, and assumptions.
+  Separate internal self-consistency from orthogonal computational evidence and
+  experiment, and exhibit a correlated-error case where learned models agree
+  while an independent check fails.
+- **Planned revision:** Preserve all nine H2s and their order. Carry a
+  hypothetical three-residue metal-binding design through sequence generation,
+  inverse folding, backbone diffusion, motif scaffolding, co-design, filtering,
+  and assays. Add a two-locus epistasis failure under additive guidance; a
+  fixed-backbone sequence-entropy/designability calculation; a finite motif
+  geometry constraint; and a two-region proposal table showing why
+  `p(X)p(a\mid X)` can waste probability mass relative to a joint design model.
+  Construct a shared-prior generator/refolder failure that passes learned
+  self-consistency but fails an orthogonal energy or experimental check. Expand
+  the funnel with a randomized or stratified control arm to estimate enrichment
+  while preserving expression, folding, and function denominators. Finish with
+  a feedback ledger assigning each negative result to the responsible stage.
+  Reuse the four existing figures unless a genuine missing relationship
+  warrants another.
+- **After:** Expanded from 2,747 to 4,601 substantive body words while
+  preserving all nine H2s and their order. A three-residue zinc-binding design
+  now carries the post from sequence guidance through inverse folding, motif
+  scaffolding, co-design, selection, assays, and feedback. Finite calculations
+  expose additive guidance under epistasis, conditional sequence entropy,
+  distance-only motif failure, and the useful proposal mass lost at a separately
+  trained backbone--sequence interface. A shared-prior generator/refolder case
+  implements the promoted independence-of-evidence audit by separating learned
+  self-consistency from orthogonal chemistry and experiment. A prespecified
+  stratified control quantifies ranker enrichment at both synthesis and assay
+  denominators, and the final ledger assigns negative results to the earliest
+  failed stage. Existing figures remained sufficient. Arithmetic/citation
+  audits, validation, clean build, and rendered checks passed.
