@@ -800,6 +800,31 @@ requirements for the replacement deck-level articles.
   task. Shared protein encoders or geometric modules do not make these targets
   interchangeable.
 
+### GDL 2025 Lecture 19: Protein Ensembles, Dynamics, and Design
+
+- **Source:** `lec19_proteins2.pdf` (44 pages), represented by 40 canonical PDF
+  composites preserving method diagrams, generated structures, benchmark
+  panels, co-design architectures, and antibody validation results.
+- **Coverage:** all 40 scientific slides covered; the cover and three overview
+  cards omitted. The source order remains equilibrium structure-distribution
+  learning, time-coarsened or whole-trajectory MD emulation, protein design
+  targets, property-conditioned sequence generation and inverse folding,
+  backbone generation, joint sequence--structure generation, and antigen-aware
+  antibody design through wet-lab validation.
+- **Figures:** all 40 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous ensemble and protein-design
+  tutorials' reversible microstate calculation, lumpability witness, implied
+  timescale arithmetic, nonlinear experimental forward model, abstract design
+  taxonomy, motif-scaffolding derivation, oracle-failure argument, and
+  evaluation funnel were absent from this deck. The replacement retains the
+  source's named model progression and experimental endpoint.
+- **General lesson promoted:** generative protein methods must remain organized
+  by the object they generate. Independent equilibrium conformations,
+  lag-conditioned transitions, complete time-ordered trajectories, discrete
+  sequences, backbones, and joint all-atom sequence--structure states carry
+  different sample semantics even when they reuse diffusion or flow matching.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 

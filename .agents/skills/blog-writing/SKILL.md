@@ -247,6 +247,13 @@ new thesis, a reordered curriculum, or additional technical branches.
     Reused encoders, geometric modules, or generative objectives do not make the
     tasks interchangeable. Keep the source's task map visible as the method
     survey crosses its boundaries.
+32. When a source organizes generative methods by the object sampled, retain
+    that sample unit and its time semantics. Independent equilibrium states,
+    lag-conditioned transitions, complete trajectories, discrete sequences,
+    geometric backbones, and joint sequence--structure states are different
+    targets even when each uses diffusion or flow matching. State what is
+    conditioned, what one sample contains, and whether temporal order is part
+    of the learned law.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
