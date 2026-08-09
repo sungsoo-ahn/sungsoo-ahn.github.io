@@ -19494,19 +19494,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-10.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s04-three-failures.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
-        10
+        4
       ],
       "slide_keys": [
-        "gdl-2025-06:10"
+        "gdl-2025-06:4"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Global pairwise embedding distance and edge-local Dirichlet energy measure different aspects of state collapse. Cropped from the 2025 GDL large-graph GNN lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Three different failures can appear as an MPNN becomes deeper: insufficient reach, loss of node distinctions, and compression through a bottleneck. Original PowerPoint figure from slide 4.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d20ead0c2f5027af25e73fb3cbd13034f7c649165f5dba8d2378ee009f32523e",
+      "content_sha256": "9c61fd3907f86e971f63b39a85355cf01361dbb5fc41918a3aa504e1ba95bc8e",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19516,7 +19516,73 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-11.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s05-under-reaching.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        5
+      ],
+      "slide_keys": [
+        "gdl-2025-06:5"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "A finite layer count imposes a hard graph-distance boundary on information flow. Original PowerPoint figure from slide 5.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b22eaab06e4f7dedd1ed80b75531562d057d23037bc17f8c7d38ce5b6bf7885f",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s06-over-smoothing.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        6
+      ],
+      "slide_keys": [
+        "gdl-2025-06:6"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "Repeated propagation can erase distinctions among node states. Original PowerPoint figure from slide 6.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c845c7befa451bca7bbd34a1b46ea09ae52a74504539686359496462d301f40c",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s07-over-squashing.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        7
+      ],
+      "slide_keys": [
+        "gdl-2025-06:7"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "A rapidly expanding receptive field is compressed through a narrow graph bottleneck. Original PowerPoint figure from slide 7.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "bb8205cb5c1c7b633c83d7c3dfafbc4dd7397f25d06838f81bba55e5f008a70a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s11-smoothing-curves.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         11
@@ -19525,10 +19591,10 @@
         "gdl-2025-06:11"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Different propagation rules exhibit different empirical smoothing dynamics even before task training. Cropped from the 2025 GDL large-graph GNN lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Naive GCN, GAT, and GraphSAGE propagation drives both smoothing measures downward at architecture- and dataset-dependent rates. Original PowerPoint figure from slide 11.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9eb2800d4090161cda44245143843750fd1d9c5f93129480a15800bf8dc20f9c",
+      "content_sha256": "df9c25ae7d1308bb078301c14d3d26cfe5b2cfa8b052f04ee0bed1ff79c089c7",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19538,51 +19604,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-12.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-06:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Skip pathways preserve shallower node information instead of relying only on the deepest diffused state. Cropped from the 2025 GDL large-graph GNN lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c416a0a1dd313a8cb481a0372edccf2c95f3aed7444d2d87708652b7024c4b87",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-13.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-06:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Normalization and stochastic edge removal alter the state or graph on which smoothing occurs. Cropped from the 2025 GDL large-graph GNN lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "61f523c019e3f6255e64760995df6d9d366f63637682c90fae97d0865b54c16d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-14.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s14-oscillator-trajectories.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         14
@@ -19591,10 +19613,10 @@
         "gdl-2025-06:14"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Oscillatory graph dynamics replace irreversible diffusion with propagation that can conserve variation. Cropped from the 2025 GDL large-graph GNN lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Second-order graph dynamics preserve evolving differences instead of monotonically diffusing them away. Original PowerPoint figure from slide 14.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f89aa0f8d2b7245cf236c00218ad873d3f69c8a9e7f5a5677903e336d3c87e6f",
+      "content_sha256": "95eb1535b5453e942af3ae4a5fa08496ce63d4276327fa5265e8a6bb8ff6aeb0",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19604,7 +19626,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-15.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s14-spring-mass.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        14
+      ],
+      "slide_keys": [
+        "gdl-2025-06:14"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "The coupled-oscillator analogy behind GraphCON. Original PowerPoint figure from slide 14.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "48e90e60cbfc68992da0b379c3be814938373c5973a41e9ac0e1182e94a9a586",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s15-mitigation-curves.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         15
@@ -19613,10 +19657,10 @@
         "gdl-2025-06:15"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Architectures can preserve embedding diversity by the chosen metric without establishing better prediction. Cropped from the 2025 GDL large-graph GNN lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Several mitigation methods preserve Dirichlet energy across depth on small-, medium-, and large-scale graphs. Original PowerPoint figure from slide 15.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fcfae6c7f98d1294f8ae0cd5572f24d54d8236ae7bca0e75dda9ccdf9b11cec8",
+      "content_sha256": "30a240b9333c817bd80fcb99cf1bab4c7ff65e1c1a83913cbd1143258550b0c3",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19626,7 +19670,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-16.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s16-dirichlet-energy.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         16
@@ -19635,10 +19679,10 @@
         "gdl-2025-06:16"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A method can score well on a smoothing measure by suppressing the transformations the model needs. Cropped from the 2025 GDL large-graph GNN lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "GraphCON and PairNorm keep Dirichlet energy high as depth grows. Original PowerPoint figure from slide 16.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cf30be489e800fe0eb0ffb6f85cecee44f7604442411f326e7266c1aa0bf6e99",
+      "content_sha256": "6f3c3b03e6f5c0e34f9f3fbb493c8a8b94a9ce172dff1309cc166a38d9e9fae4",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19648,19 +19692,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-17.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s16-test-accuracy.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
-        17
+        16
       ],
       "slide_keys": [
-        "gdl-2025-06:17"
+        "gdl-2025-06:16"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "The topology can force distant evidence through a small cut regardless of the local update rule. Cropped from the 2025 GDL large-graph GNN lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Only some energy-preserving dynamics retain test accuracy; the diagnostic and the task objective are different. Original PowerPoint figure from slide 16.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cd84aa4fdf3b82915d058b64a831ec49ad1545e5f7f5c8e96eae06936a81947f",
+      "content_sha256": "2e6230de9c8f6581d1f72be9fe981b70fb3bcbeab6419b3ee617d2d72b44a1bd",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19670,51 +19714,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-18.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-06:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Sensitivity makes information transfer measurable without assuming that hidden width alone explains it. Cropped from the 2025 GDL large-graph GNN lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8089acf74dcd94a765da483e064c49de37bde0d60e10686a020cec697539bbcf",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-19.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-06:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A node-to-node Jacobian turns distant influence into an analyzable quantity. Cropped from the 2025 GDL large-graph GNN lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "904d2fa1901b1572b79c8bb2198ee4d172457ea3510e0a6555088bac686aa16b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-20.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s20-binary-tree.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         20
@@ -19723,10 +19723,10 @@
         "gdl-2025-06:20"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A binary tree expands the number of distant sources faster than a fixed root state can preserve them. Cropped from the 2025 GDL large-graph GNN lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The binary-tree example isolates topological over-squashing after reach has been satisfied. Original PowerPoint figure from slide 20.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "65b747af82a965f1c7ef982324d02da349f5a178aa945034c996ec16537075c4",
+      "content_sha256": "f4c8e36a3e57d5fae4e18e7bc9901048f1c922075bf5615353956e99984549f6",
       "candidate_urls": [],
       "candidate_citations": [
         "(Alon and Yahv, 2021):"
@@ -19738,29 +19738,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-21.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-06:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Highly negative curvature is a local signature of edges joining rapidly expanding graph regions. Cropped from the 2025 GDL large-graph GNN lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "439442e603160d3c500859fc305d3d61f011ba79e6bad573025f4c4d138a707f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-22.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s22-curvature-manifolds.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         22
@@ -19769,10 +19747,10 @@
         "gdl-2025-06:22"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Continuous curvature describes how nearby geodesics converge or diverge. Cropped from the 2025 GDL large-graph GNN lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The three prototypical curvature regimes. Original PowerPoint figure from slide 22.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4d3bd9c638e2ec4774403d63d545b2225ae102f3dcf695b08694fad22a14a9bf",
+      "content_sha256": "af758a0103dc644e17ba1bea9b08399b5544fb6902ad24b1ea9974d133dcda72",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19782,7 +19760,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-23.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s23-flat-geodesics.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         23
@@ -19791,10 +19769,10 @@
         "gdl-2025-06:23"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Ricci curvature compares center distance with the transport distance between neighboring local distributions. Cropped from the 2025 GDL large-graph GNN lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Zero curvature: nearby geodesics remain parallel. Original PowerPoint figure from slide 23.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b4f194221d6b50c58eab4f1da86729e3f828c37debe19594f635d243238bd38e",
+      "content_sha256": "e560f54222fab8b16d411a3bd74f138c90438f32533286120fe9924ee40f92fc",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19804,7 +19782,51 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-24.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s23-negative-curvature.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        23
+      ],
+      "slide_keys": [
+        "gdl-2025-06:23"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "Negative curvature: nearby geodesics diverge. Original PowerPoint figure from slide 23.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "39f49e37b071ba6f7cc3a994e56662ebf7483ae7a623b67a317ac0ef8df559bb",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s23-positive-curvature.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        23
+      ],
+      "slide_keys": [
+        "gdl-2025-06:23"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "Positive curvature: nearby geodesics converge. Original PowerPoint figure from slide 23.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "dda786bb40d2f26a93911c74871c1d4a63252363ae4f9e9bd510ef8af51df61e",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s24-graph-curvature-examples.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         24
@@ -19813,10 +19835,10 @@
         "gdl-2025-06:24"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Graph Ricci curvature distinguishes clustered edges from flat chains and expanding tree-like bottlenecks. Cropped from the 2025 GDL large-graph GNN lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Clique, grid, and tree structures mirror the three continuous curvature regimes. Original PowerPoint figure from slide 24.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "33ca0501526ff46ecf6d50c1b8b8e4b3eb577ec90a463af751fd629eee613fcf",
+      "content_sha256": "fb029997613b7c009dd7a273a8cde79b00c7af583f14a7f334e0f743d3ab607a",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19826,7 +19848,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-25.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s25-curvature-rewiring.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         25
@@ -19835,10 +19857,10 @@
         "gdl-2025-06:25"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Curvature-guided rewiring targets the graph locations predicted to squash information. Cropped from the 2025 GDL large-graph GNN lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Curvature-guided rewiring treats the computational bottleneck surgically. Original PowerPoint figure from slide 25.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a3f51643325de63cbd96da4b0e9fd70e0c7863fea42f5b1ca7de3fdbd356c32f",
+      "content_sha256": "8b87839d40b0e2e631ad73003a33b9643c4750bbcb9c62f1996fad33fa16a62f",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19848,7 +19870,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-26.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s26-added-edge.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         26
@@ -19857,10 +19879,10 @@
         "gdl-2025-06:26"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A bypass edge widens communication across a bottleneck without adding message-passing depth. Cropped from the 2025 GDL large-graph GNN lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "3. Add the edge that best improves the bottleneck. Original PowerPoint figure from slide 26.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "cbb1b4e93f4dfe0d90fb15f44296e93f09f4e0e8b63765872d20cd8dcccfe823",
+      "content_sha256": "95b38b6479b0c1e7c020406b832463715a3b90cac5cd53d41a96359888e7a9be",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19870,7 +19892,51 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-27.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s26-candidate-edges.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        26
+      ],
+      "slide_keys": [
+        "gdl-2025-06:26"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "2. Evaluate candidate shortcuts. Original PowerPoint figure from slide 26.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b81db908da30ffcfb26e6ff292d0d51ce50450a1cdf474f1ac14ab002196d684",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s26-min-ricci-edge.png": {
+      "deck_id": "gdl-2025-06",
+      "slides": [
+        26
+      ],
+      "slide_keys": [
+        "gdl-2025-06:26"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+      "caption": "1. Find the minimum-curvature edge. Original PowerPoint figure from slide 26.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "9212ffd71ce9cd351fd5f68e6cd5f192c45aad8b0ea77a158e71779776893d77",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-06/s27-high-curvature-edge.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         27
@@ -19879,10 +19945,10 @@
         "gdl-2025-06:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Rewiring is a family of topology interventions rather than one universal repair. Cropped from the 2025 GDL large-graph GNN lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A high-curvature edge is selected for removal. Original PowerPoint figure from slide 27.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "05d61a8e6cda3033c3274a62ca56ad2f9d6ce9e5acb4c7ea17b44b19b193be9e",
+      "content_sha256": "8e0d5ca32c04cc28bbeec4528aedf99ded1111f414d13b1c65fa501920e73079",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19892,19 +19958,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-28.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s27-removed-edge.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
-        28
+        27
       ],
       "slide_keys": [
-        "gdl-2025-06:28"
+        "gdl-2025-06:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "The second over-squashing analysis broadens the diagnosis beyond one local curvature measure. Cropped from the 2025 GDL large-graph GNN lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Removing the selected edge reduces local over-clustering. Original PowerPoint figure from slide 27.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "699f02b59e703e305f1fcbc693175e658ced3d3563eb1006fc6007efa3858edb",
+      "content_sha256": "ea0597a3f00a6151fa023c37daf749ec560dac468030b57a1fdbf7fd453c8911",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -19914,73 +19980,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-29.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-06:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A controlled MPNN class makes the width and topology claims mathematically explicit. Cropped from the 2025 GDL large-graph GNN lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0c01486abf8e6bd764bfbfd102187f45a24437f7c60a30f141b74941d995d496",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-3.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        3
-      ],
-      "slide_keys": [
-        "gdl-2025-06:3"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "The lecture begins from the shared aggregate-and-combine MPNN formalism. Cropped from the 2025 GDL large-graph GNN lecture, slide 3.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0a14c071eb7923882930faf70bc1fb3228bfb7f827fdcfda96aced42d5a6e93d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-30.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-06:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Width can increase representational capacity even when the graph paths themselves are unchanged. Cropped from the 2025 GDL large-graph GNN lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1f7c292253f7768e392ba3db483dd88f1000debde1c87151ba55b344900b3772",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-31.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s31-width-sensitivity.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         31
@@ -19989,10 +19989,10 @@
         "gdl-2025-06:31"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Wider networks alter sensitivity, but topology still controls how evidence is routed. Cropped from the 2025 GDL large-graph GNN lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Width delays sensitivity collapse, but the graph family still determines how quickly long-range accuracy fails. Original PowerPoint figure from slide 31.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ce316447df0f2910b30b97d873e55f0e1d889b83b7daa471a4d524710285d2d5",
+      "content_sha256": "3eeb9d72b5d335c27f563dabf7e209c19ac34c872bff301248d97d0555552350",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20002,7 +20002,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-32.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s32-long-range-sensitivity.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         32
@@ -20011,10 +20011,10 @@
         "gdl-2025-06:32"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Long-range difficulty depends on the transport geometry, not only on the number of hops. Cropped from the 2025 GDL large-graph GNN lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Hop distance is held comparable, yet sensitivity differs because the number and quality of connecting routes differ. Original PowerPoint figure from slides 32–33.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "75796ad59d8bd590141fa1d033af07467917b8af8682dd77cfdefbf13b7d65df",
+      "content_sha256": "551218067f0f417533b6ae17498e17e45b51124adedd3428fddab53513fd02a2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20024,29 +20024,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-33.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-06:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Graphs with comparable hop distance can have sharply different long-range sensitivity. Cropped from the 2025 GDL large-graph GNN lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "07265b2cd1478dd70d726ac77e1ab337fd2d1d79318fa3cc069cb12978d0aa17",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-34.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s34-commute-time-rewiring.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         34
@@ -20055,10 +20033,10 @@
         "gdl-2025-06:34"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Commute time summarizes all connecting routes through a global transport quantity. Cropped from the 2025 GDL large-graph GNN lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Commute time summarizes all routes between nodes and motivates topology-aware rewiring. Original PowerPoint figure from slide 34.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4cb83bc86d283b1613fe604e747a50788433b1c95371e78a78e75879864a9330",
+      "content_sha256": "4906602f6a303a21e0c1e3504faebb7f3c2beb9778563f2dbe78d33d9b235dc3",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20068,29 +20046,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-35.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-06:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Commute time supplies a global, layer-independent view of how difficult node-to-node communication is. Cropped from the 2025 GDL large-graph GNN lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "04cfa01cd056d0a35b177e7ae08abb7bae7d5d79c51d8dd2a527631e6961b745",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-36.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s36-dynamic-rewiring.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         36
@@ -20099,10 +20055,10 @@
         "gdl-2025-06:36"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Layer-dependent rewiring delays long-range edges until the model needs their reach. Cropped from the 2025 GDL large-graph GNN lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Dynamic rewiring adds communication radii progressively instead of densifying the graph at the first layer. Original PowerPoint figure from slide 36.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b1f80146398dff855484d993d012531ac8e1e9dde02d6ad3e673ac198e01b124",
+      "content_sha256": "e1e970e5fcfd96b3612caa10bbcf97e92e8b589e9b47f4f9b0001e917b428a4e",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20112,7 +20068,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-37.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s37-drew-delay.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         37
@@ -20121,10 +20077,10 @@
         "gdl-2025-06:37"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Dynamic edge addition separates when a shortcut exists from when its message is delivered. Cropped from the 2025 GDL large-graph GNN lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Classical propagation, distance-dependent edge addition, and distance-dependent delay. Original PowerPoint figure from slide 37.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f5a611495db260574e445e3dd409f6d894958d25813a77dc8292f6b86286f219",
+      "content_sha256": "24c2edd99adeb59a6d82abacb934b7b3238590b26e1ae6bba024397fbb7176d9",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20134,95 +20090,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-38.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-06:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "nu-DRew makes both the evolving edge set and delayed message source explicit in the layer update. Cropped from the 2025 GDL large-graph GNN lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fb5accc93b224f26f78c8d860c6f1eab9bcbd5eda10fd2a05854266431f898a7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-39.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        39
-      ],
-      "slide_keys": [
-        "gdl-2025-06:39"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Progressive densification balances local inductive bias, reach, squashing, and repeated smoothing. Cropped from the 2025 GDL large-graph GNN lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0f7e711c31bd524fab7cfacf7b28cf83e17fb02360219e1577ac422d88629430",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-4.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        4
-      ],
-      "slide_keys": [
-        "gdl-2025-06:4"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Reach, state collapse, and information bottlenecks are separate pathologies with similar depth-related symptoms. Cropped from the 2025 GDL large-graph GNN lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c2e8b54e625b21beba568b9c27fcecba3f39a903b63707e683fad2b20bff2bc7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-40.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-06:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Long-range benchmarks shift evaluation away from predominantly local graph tasks. Cropped from the 2025 GDL large-graph GNN lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1acadafb2ba9b7d323c84295fc1cb103631b2015e82a7e4be20eebcfac66d556",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-41.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s41-depth-performance.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         41
@@ -20231,10 +20099,10 @@
         "gdl-2025-06:41"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Layer sweeps reveal whether a long-range method actually benefits from additional propagation depth. Cropped from the 2025 GDL large-graph GNN lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Dynamic and delayed rewiring continue to benefit from depth after ordinary GCN performance has saturated. Original PowerPoint figure from slide 41.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1698336a2fa7024e17e7907695ad9fd0357609179d76e1682c62d5df906f0bce",
+      "content_sha256": "39bb1dc49b0c57ce1085e982bdd41a76afddd350c9313a055abe6718a38b4beb",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20244,73 +20112,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-42.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-06:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "The final section asks readers to evaluate the problem and benchmark, not only the proposed layer. Cropped from the 2025 GDL large-graph GNN lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "34af59a2f21e2ee0d7d9f97c6c24d994d3232a8a78ad672283d54d7358de6473",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-43.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-06:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "The critique separates task relevance, graph construction, evaluation culture, and scaling claims. Cropped from the 2025 GDL large-graph GNN lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "28ef2711675b77da0cb0c02c6c1f8e8f10501fe79f98888bfb44defc2a7c735c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-44.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-06:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A graph benchmark should correspond to a problem whose relational structure and outcome matter outside the benchmark. Cropped from the 2025 GDL large-graph GNN lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "19ac308773f7f6dfcae40d5df3487e04452ccec5a3c92048a47e52b0c9b0a70e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-45.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s45-graph-construction.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         45
@@ -20319,10 +20121,10 @@
         "gdl-2025-06:45"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A graph architecture cannot rescue an input graph whose edges do not encode a defensible relation. Cropped from the 2025 GDL large-graph GNN lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "An image-to-superpixel pipeline illustrates how design choices create the graph on which a GNN is evaluated. Original PowerPoint figure from slide 45.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f6fdb852b4f728fab1738c41f137d804a024bb8b075b212db947c33df2c4818a",
+      "content_sha256": "679626a26af21c441f13df9646df6a2ee71bf7e37ebe138b9d3f631a72b45d94",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -20332,117 +20134,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-06/slide-46.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        46
-      ],
-      "slide_keys": [
-        "gdl-2025-06:46"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Uncontrolled splits and tuning can turn small benchmark differences into unreliable architecture claims. Cropped from the 2025 GDL large-graph GNN lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a2ea49dd9f40e03ad112feb08767c21c0c56859b9c91fee536e181fa30086825",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-47.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        47
-      ],
-      "slide_keys": [
-        "gdl-2025-06:47"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Graph scaling lacks the shared data semantics and decisive transfer gains seen in mature foundation-model domains. Cropped from the 2025 GDL large-graph GNN lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7b5bb2921a052680848a2865235e4041cb915b8ca9cf782c5bb96f55a0e717b8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-48.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        48
-      ],
-      "slide_keys": [
-        "gdl-2025-06:48"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Graph structure is useful only when it encodes predictive relations unavailable to simpler baselines. Cropped from the 2025 GDL large-graph GNN lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8681823ba52cf6bb5fd1887bbe22b4073955e74c40e5295bd482ea71d7480060",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-49.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        49
-      ],
-      "slide_keys": [
-        "gdl-2025-06:49"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Strong controlled baselines can erase gains attributed to a new graph architecture. Cropped from the 2025 GDL large-graph GNN lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3f7045ef8f4b4237e86dda6ed1284fcba948e8fb5c620d0cf70c821c07dfe9c3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-5.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        5
-      ],
-      "slide_keys": [
-        "gdl-2025-06:5"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "A finite layer count imposes a hard graph-distance boundary on information flow. Cropped from the 2025 GDL large-graph GNN lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ea59a6bf22399f87d00e2f1659bb56641e8189255898bb59b83268625f142517",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-50.webp": {
+    "assets/img/blog/lectures/gdl-2025-06/s50-pretraining-curves.png": {
       "deck_id": "gdl-2025-06",
       "slides": [
         50
@@ -20451,98 +20143,10 @@
         "gdl-2025-06:50"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Graph pretraining benefits are task-dependent and should be reported endpoint by endpoint. Cropped from the 2025 GDL large-graph GNN lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Multi-task pretraining helps some downstream endpoints and model families much more than others. Original PowerPoint figure from slide 50.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d442a72708828563335d6592e0b73a14b1fe7129c48d2f4cdedf934ca9509b3d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-6.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        6
-      ],
-      "slide_keys": [
-        "gdl-2025-06:6"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Over-smoothing describes loss of node-level distinction under repeated message passing. Cropped from the 2025 GDL large-graph GNN lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f8b30c265a2a4f30602ee6d276ac25f12b6f4d87efeab6bd5558325c70283e22",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-7.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        7
-      ],
-      "slide_keys": [
-        "gdl-2025-06:7"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Over-squashing compresses a rapidly growing receptive field through fixed-width graph bottlenecks. Cropped from the 2025 GDL large-graph GNN lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "fb9a8fb1010b9deed969ba27bd25fe79b6fcdbd10ef8a0255a2cfb780c0aa3e1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-8.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        8
-      ],
-      "slide_keys": [
-        "gdl-2025-06:8"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Over-smoothing claims depend on a representation-distance measure and on the propagation process being studied. Cropped from the 2025 GDL large-graph GNN lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "49212e08b59bac34ee66730d1362fd170a9dc192e5e4f0d508e3cffb52f1fb78",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-06/slide-9.webp": {
-      "deck_id": "gdl-2025-06",
-      "slides": [
-        9
-      ],
-      "slide_keys": [
-        "gdl-2025-06:9"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
-      "caption": "Dirichlet energy tracks how much neighboring node states differ. Cropped from the 2025 GDL large-graph GNN lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "685ae2a8de1761ebf92e8ce4aeb8d9ee298a0bb2b40385a48ba5416e83f74ff6",
+      "content_sha256": "8595c4641086e1679f3d40060cef8b4ad8a052575f611696c422fe258554dc20",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
