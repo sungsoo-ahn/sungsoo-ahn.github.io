@@ -28,15 +28,18 @@ layout: default
             {% assign include_document = false %}
           {% endif %}
         {% endif %}
-        {% if page.editorial_status == 'human-gated' %}
-          {% unless document.human_gated %}
+        {% if page.exclude_human_reviewed and document.human_reviewed %}
+          {% assign include_document = false %}
+        {% endif %}
+        {% if page.editorial_status == 'human-reviewed' %}
+          {% unless document.human_reviewed %}
             {% assign include_document = false %}
           {% endunless %}
         {% elsif page.editorial_status == 'ai-generated' %}
           {% unless document.lecture_paths %}
             {% assign include_document = false %}
           {% endunless %}
-          {% if document.human_gated %}
+          {% if document.human_reviewed %}
             {% assign include_document = false %}
           {% endif %}
         {% endif %}

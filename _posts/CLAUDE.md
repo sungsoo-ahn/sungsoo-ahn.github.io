@@ -40,7 +40,7 @@ blog_blocks:
     content: >
       Optional named block shown before the post body.
 post_type: tutorial # tutorial | technical-note | research
-human_gated: true # optional; marks an AI-written post as having passed human editorial review
+human_reviewed: true # optional; marks an AI-written post as having passed human editorial review
 authors: ["Sungsoo Ahn"] # list all named authors shown in the post and blog index
 order: 1 # legacy field; blog index now sorts by date
 series: optional-series-id
@@ -61,7 +61,7 @@ The blog index sorts posts by date. Series metadata may be kept for organization
 
 Use `authors` for every post, even single-author posts. The blog layout also supports the older `author` field as a fallback, but new posts should use `authors`.
 
-Set `human_gated: true` only after an AI-written post has passed an explicit human editorial review. This moves a lecture-derived post from the AI-generated archive to the Human-gated archive. Selected highlights are a separate curated collection and do not imply that this gate was passed.
+Set `human_reviewed: true` only after an AI-written post has passed an explicit human editorial review. This moves a lecture-derived post from the AI-generated archive to the Human-reviewed archive. Selected highlights are a separate curated collection and do not imply that this review was completed.
 
 Optional frontmatter blocks render between the post metadata and the post body. Use `abstract` for a single abstract-style block. Use `blog_blocks` for additional named blocks such as `Key points`, `Prerequisites`, or `Scope`. Keep these blocks short; Markdown is supported inside each block.
 

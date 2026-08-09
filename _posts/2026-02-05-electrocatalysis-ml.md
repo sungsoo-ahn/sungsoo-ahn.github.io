@@ -2,9 +2,10 @@
 layout: post
 title: "Heterogeneous Electrocatalysis"
 date: 2026-02-05
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 description: "Heterogeneous electrocatalysis: the energy storage problem, why oxides matter, the solid-liquid interface, and why real catalyst design is hard."
 post_type: tutorial
+human_reviewed: true
 authors: ["Sungsoo Ahn"]
 order: 1
 series: ml-for-science
