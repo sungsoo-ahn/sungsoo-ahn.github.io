@@ -165,6 +165,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     cumulative, each definition is substantive because it supplies an object
     used by the next construction. Explain that role in the surrounding prose;
     do not compress the sequence into a glossary or retain only its endpoint.
+19. Preserve the argument encoded by a chronological method survey. A sequence
+    of architectures can show successive changes in locality, pooling,
+    expressivity, depth, long-range communication, evaluation, and scale rather
+    than merely list papers by year. Retain the source's comparisons and author
+    judgments, and connect each method to the limitation or question it changes.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
