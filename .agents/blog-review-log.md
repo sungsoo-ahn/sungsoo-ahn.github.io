@@ -849,6 +849,29 @@ requirements for the replacement deck-level articles.
   task. A sequence of model names without those changes loses the source's
   scientific account of scaling.
 
+### GDL 2025 Lecture 21: Machine Learning for Crystalline Materials
+
+- **Source:** `lec21_materials.pdf` (36 pages), represented by 35 canonical PDF
+  composites preserving property diagrams, crystal symmetry constructions,
+  model architectures, generation results, and application pipelines.
+- **Coverage:** all 35 scientific slides covered; only the lecture cover omitted.
+  The source order remains material classes and property regimes, periodic
+  crystals and space-group symmetry, property and inverse-structure prediction,
+  symmetry-aware diffusion, latent/text/flow/multimodal crystal generation,
+  battery transport, semiconductor discovery, and heterogeneous catalysis.
+- **Figures:** all 35 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous materials and crystal tutorials'
+  AB/AB3 convex-hull arithmetic, lattice gauge calculation, periodic message
+  update, fixed candidate guidance table, relaxation collision, and finite
+  validation funnel were absent from this deck. The replacement retains the
+  source's property taxonomy, named model survey, and three application chains.
+- **General lesson promoted:** application sections following a model survey
+  are not decorative examples. Preserve the handoff from generated or predicted
+  crystal to the downstream physical calculation and observable: stability,
+  ion diffusivity, topology, or adsorbate relaxation. The application defines
+  what the model output is for.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
