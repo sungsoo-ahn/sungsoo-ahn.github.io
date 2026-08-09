@@ -195,6 +195,11 @@ from one comparison can improve the criteria used for the next.
   the time-dependent loss weight with it. Then identify what finite capacity,
   sampling, conditioning, optimization, or numerical integration can still make
   different; algebraic convertibility does not imply equal training behavior.
+- When a tutorial gives multiple derivations of one method, keep the output and
+  controlled example fixed across the routes. Maintain an assumption ledger,
+  prove the exact overlap, and mark the approximation, restriction, or added
+  input where the formulas diverge. Similar-looking final updates do not make
+  their premises, guarantees, transfer behavior, or failure modes equivalent.
 
 ## Quality Checklist (apply before finalizing)
 

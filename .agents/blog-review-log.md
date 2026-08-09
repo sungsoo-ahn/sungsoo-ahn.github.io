@@ -1056,3 +1056,54 @@ Post-specific observations remain here rather than becoming universal rules.
   and abstention rule close the evidentiary chain. Existing figures remained
   sufficient. Arithmetic/citation audits, skill and blog validation, clean
   build, and rendered checks passed.
+
+## 24. Two Routes to Graph Convolution
+
+- **Post:** `_posts/2026-08-08-graph-convolution-spectral-equivariant.md`
+- **Topic-matched reference:** The revised message-passing chapter owns the
+  implementation family and controlled GCN/GraphSAGE/GAT/GIN comparisons. The
+  revised symmetry chapter owns general group actions, representation closure,
+  and architectural equivariance. The spherical-equivariant anchor shows how a
+  formal symmetry construction earns intuition through explicit algebra. This
+  chapter should instead own the exact overlap and non-equivalence between the
+  Laplacian-spectral and permutation-commutant routes to graph convolution.
+- **Before:** At 2,747 substantive words, the post has a strong ten-section
+  spine and unusually careful caveats about repeated eigenspaces, locality,
+  bilinearity, and the limits of permutation symmetry. Its examples are split:
+  cyclic convolution, abstract spectral filtering, a four-node GCN update, and
+  higher-order fixed points never act on one shared graph signal. The route from
+  a Chebyshev filter to GCN compresses rescaling, coefficient tying, and
+  renormalization into prose, which can make the practical GCN operator look
+  exactly derived rather than deliberately approximated.
+- **Criteria promoted:** When multiple derivations motivate one method, carry
+  the same object and output through each route, maintain an assumption ledger,
+  prove their exact overlap, and locate the approximation or added relational
+  input where their guarantees diverge.
+- **Planned revision:** Preserve all ten H2s and their order. Use a three-node
+  path and one impulse signal to compute its Laplacian eigensystem, graph Fourier
+  coefficients, a rational low-pass response, a first-degree localized
+  polynomial, and a self-loop-normalized GCN propagation. Start with a finite
+  cyclic-shift commutant calculation, and use a four-cycle repeated eigenspace
+  to expose basis ambiguity without changing `h(L)`. Derive the ChebNet-to-GCN
+  sequence with an explicit ledger for spectral rescaling, first-order
+  truncation, coefficient tying, and renormalization; state which equalities are
+  exact and which are design choices. Prove polynomial-filter equivariance under
+  simultaneous graph relabeling, instantiate the node-feature commutant, and
+  connect higher-order equality patterns to graph-dependent bilinear `AX`.
+  Quantify sparse-polynomial versus eigendecomposition cost and finish with a
+  two-route claim table. Reuse the three existing figures unless a genuine
+  missing relationship warrants another.
+- **After:** Expanded from 2,747 to 4,799 substantive body words while
+  preserving all ten H2s and their order. A single P3 impulse now moves through
+  the Laplacian eigensystem, rational low-pass reconstruction, localized
+  polynomial, normalized-Laplacian approximation, and self-loop GCN update. A
+  finite cyclic commutant and a C4 repeated-eigenspace witness distinguish
+  scalar spectral functions from the full Laplacian commutant. The
+  ChebNet-to-GCN ledger labels rescaling, truncation, coefficient tying,
+  `lambda_max` substitution, and renormalization as exact identities,
+  approximations, restrictions, or replacements. Polynomial relabeling
+  equivariance, the feature-only commutant obstruction, small-N Bell-number
+  boundaries, and the bilinear `AX` contraction then connect the second route
+  on the same signal. Cost arithmetic and a final claim table make the overlap
+  and blind spots explicit. Existing figures remained sufficient. Matrix,
+  citation, skill, blog, build, and rendered audits passed.
