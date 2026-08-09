@@ -1002,3 +1002,57 @@ Post-specific observations remain here rather than becoming universal rules.
   denominators, and the final ledger assigns negative results to the earliest
   failed stage. Existing figures remained sufficient. Arithmetic/citation
   audits, validation, clean build, and rendered checks passed.
+
+## 23. Genomic Foundation Models and Virtual Cells
+
+- **Post:** `_posts/2026-08-08-genomic-foundation-models-virtual-cells.md`
+- **Topic-matched reference:** There is no older standalone genomics chapter in
+  the site. The Fokker–Planck anchor is the fairest mathematical analogue
+  because it carefully separates individual paths, transition kernels, and
+  population densities; the spherical-equivariant anchor supplies the same
+  definition--derivation--check rhythm for representations. This chapter should
+  own the ladder from genome sequence to regulatory labels, noisy cell-state
+  observations, perturbation-conditioned population response, and the stronger
+  evidentiary contract of a virtual cell.
+- **Before:** At 2,722 substantive words, the post already rejects the idea that
+  a large embedding is automatically a simulator and covers DNA, regulation,
+  RNA, counts, multimodality, perturbations, causality, confounding, scaling,
+  and evaluation. Most distinctions remain verbal. The masking shortcut has no
+  finite token example; the count model never produces a zero probability;
+  ranked encodings never visibly lose abundance; and mean response is criticized
+  without a bimodal counterexample. Most importantly, destructive before/after
+  snapshots are written as `x_0` and `x_t` without showing that the coupling
+  between individual cells is unobserved.
+- **Criteria promoted:** Destructive or unpaired measurements identify
+  cross-sectional population marginals, not individual trajectories. Exhibit
+  two couplings with identical observed marginals but different transitions and
+  state what additional lineage, longitudinal, randomization, or structural
+  assumptions identify the desired dynamic or counterfactual claim.
+- **Planned revision:** Preserve all thirteen H2s and their order. Carry one
+  hypothetical cytokine-response program from a regulatory sequence variant
+  through four-gene single-cell counts, a latent state, an intervention, donor
+  transfer, and a prospective decision. Quantify overlapping-k-mer leakage and
+  reverse-complement task semantics; compute negative-binomial variance and
+  zero probabilities at two library sizes; show two abundance vectors with the
+  same rank encoding; and evaluate one finite multimodal contrastive batch.
+  Contrast a bimodal responder population with an implausible mean cell. Give
+  two transition matrices with the same before/after marginals but opposite
+  cell-level dynamics, then name the measurements that distinguish them. Add a
+  confounded batch/intervention table, independent-donor versus cell-count
+  arithmetic, claim-matched baselines, calibration or interval coverage, and a
+  final virtual-cell contract. Reuse the four existing figures unless a genuine
+  missing relationship warrants another.
+- **After:** Expanded from 2,722 to 4,643 substantive body words while
+  preserving all thirteen H2s and their order. A hypothetical cytokine-response
+  program now crosses the interfaces from regulatory variant to four-gene
+  counts, latent state, perturbation response, donor transfer, calibration, and
+  experiment selection. Finite examples expose overlapping-token masking
+  leakage, reverse-complement task semantics, negative-binomial zero rates,
+  rank-induced scale loss, and contrastive false negatives. A bimodal response
+  defeats the mean-cell summary, while stay and swap transition matrices
+  produce identical destructive-snapshot marginals and implement the promoted
+  path-identification rule. A confounded batch table, cluster effective-size
+  calculation, donor-stratified coverage example, probability-object contract,
+  and abstention rule close the evidentiary chain. Existing figures remained
+  sufficient. Arithmetic/citation audits, skill and blog validation, clean
+  build, and rendered checks passed.
