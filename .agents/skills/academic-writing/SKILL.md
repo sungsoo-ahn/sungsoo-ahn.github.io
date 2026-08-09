@@ -131,6 +131,12 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   mass conservation, or positivity—under one finite update. A convention note
   without an executable check does not protect the derivation from a transpose
   or sign error.
+- When measurements are destructive or unpaired, do not infer individual
+  trajectories from cross-sectional marginals alone. Give two finite couplings
+  that reproduce the same observed marginals but imply different transitions,
+  and state which longitudinal measurements, lineage information,
+  randomization, or structural assumptions would identify the desired dynamic
+  or counterfactual quantity.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
