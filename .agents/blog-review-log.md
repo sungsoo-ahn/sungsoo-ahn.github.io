@@ -775,6 +775,31 @@ requirements for the replacement deck-level articles.
   coefficient into a generic “velocity” erases what makes flows, diffusions,
   and jumps instances of one construction.
 
+### GDL 2025 Lecture 18: Protein Representation Learning and Structure Prediction
+
+- **Source:** `lec18_proteins1.pdf` (64 pages), represented by 59 canonical PDF
+  composites preserving the biological task map, method diagrams, benchmark
+  panels, AlphaFold architecture views, and open-tool survey.
+- **Coverage:** all 59 scientific slides covered; the cover, one scheduling
+  announcement, and three overview cards omitted. The source order remains
+  protein function and geometry, the sequence--structure--dynamics--design task
+  map, sequence language models, structural and multimodal representation
+  learning, fitness and antibody applications, AlphaFold2, and later folding,
+  packing, complex, all-atom, flow-based, open, and server-based systems.
+- **Figures:** all 59 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous protein-representation and
+  AlphaFold tutorials' homology-split calculation, pooling and leakage audit,
+  common-cause MSA example, distance-realizability witness, memory arithmetic,
+  confidence matrix, and free-energy warning were absent from this deck. The
+  replacement retains the source's much broader representation-to-application
+  survey and its named architecture sequence.
+- **General lesson promoted:** a survey that reuses model components across
+  representation learning, structure prediction, dynamics, sequence design,
+  and structure generation must preserve the input and output contract of each
+  task. Shared protein encoders or geometric modules do not make these targets
+  interchangeable.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
