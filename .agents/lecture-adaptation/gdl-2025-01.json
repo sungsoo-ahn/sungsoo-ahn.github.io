@@ -3,14 +3,14 @@
   "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec1_intro_v2.pdf",
   "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec1_intro_v2.pptx",
   "slide_count": 33,
-  "review_status": "pending",
+  "review_status": "complete",
   "slides": [
     {
       "slide": 1,
       "pptx_slide": 1,
       "title": "Course Introduction",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Course Introduction",
         "AI.899 Geometric Deep Learning",
@@ -25,7 +25,7 @@
       "pptx_slide": 2,
       "title": "AI.899: Geometric Deep Learning (GDL)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "AI.899: Geometric Deep Learning (GDL)",
         "Welcome to the course!",
@@ -42,7 +42,7 @@
       "pptx_slide": 3,
       "title": "What to Expect From This Course",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "What to Expect From This Course",
         "Course objective:",
@@ -61,7 +61,7 @@
       "pptx_slide": 4,
       "title": "Course Schedule",
       "classification": "logistical",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Course Schedule",
         "Topics will be mainly about:",
@@ -85,7 +85,7 @@
       "pptx_slide": 5,
       "title": "What to Expect From This Course",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "What to Expect From This Course",
         "Useful but not necessary preliminaries:",
@@ -104,7 +104,7 @@
       "pptx_slide": 6,
       "title": "What to Expect From This Course",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "What to Expect From This Course",
         "IMPORTANT: This course will focus on GDL applications to molecular science.",
@@ -125,7 +125,7 @@
       "pptx_slide": 7,
       "title": "Course Project: Blog Post                                                           See an example of",
       "classification": "logistical",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Course Project: Blog Post                                                           See an example of",
         "spotlight blog post at",
@@ -149,7 +149,7 @@
       "pptx_slide": 8,
       "title": "Course Project: Blog Post",
       "classification": "logistical",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Course Project: Blog Post",
         "We adhere to most of the ICLR 2025 BlogPost format.",
@@ -166,7 +166,7 @@
       "pptx_slide": 9,
       "title": "Course Project: Blog Post",
       "classification": "logistical",
-      "coverage": "pending",
+      "coverage": "omitted-logistical",
       "text": [
         "Course Project: Blog Post",
         "You will also need to submit reviews for 4~5 blogs,",
@@ -183,7 +183,7 @@
       "pptx_slide": 10,
       "title": "What is Geometric Deep Learning?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "What is Geometric Deep Learning?",
         "ICLR 2021 Keynote - \"Geometric Deep Learning: The Erlangen Programme of ML\" - M Bronstein",
@@ -197,7 +197,7 @@
       "pptx_slide": 11,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Some Hypes for the Topic",
         "AlphaFold3 (Google Isomorphic labs) allows structure “prediction”",
@@ -214,7 +214,7 @@
       "pptx_slide": null,
       "title": "Machine Learning = Function Approximation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Machine Learning = Function Approximation",
         "• How to choose the black-box function?",
@@ -229,7 +229,7 @@
       "pptx_slide": null,
       "title": "Machine Learning = Function Approximation",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Machine Learning = Function Approximation",
         "• How to choose the black-box function?",
@@ -244,7 +244,7 @@
       "pptx_slide": 14,
       "title": "Deep Neural Networks (DNNs)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Deep Neural Networks (DNNs)",
         "• DNNs are the revolution of",
@@ -265,7 +265,7 @@
       "pptx_slide": 15,
       "title": "Deep Neural Networks (DNNs)",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Deep Neural Networks (DNNs)",
         "• How powerful are the DNNs?",
@@ -286,7 +286,7 @@
       "pptx_slide": 16,
       "title": "The Problem of Overfitting",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "The Problem of Overfitting",
         "• DNNs easily overfit to high dimensional data.",
@@ -310,7 +310,7 @@
       "pptx_slide": 18,
       "title": "Zoo of DNN Architectures",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Zoo of DNN Architectures",
         "convolutional neural networks (CNNs)   graph neural networks (GNNs)",
@@ -329,7 +329,7 @@
       "pptx_slide": 19,
       "title": "Zoo of DNN Architectures",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Zoo of DNN Architectures",
         "Datasets:",
@@ -350,7 +350,7 @@
       "pptx_slide": 20,
       "title": "Geometric Deep Learning",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometric Deep Learning",
         "Datasets:",
@@ -371,7 +371,7 @@
       "pptx_slide": 21,
       "title": "What is a Geometry?",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "What is a Geometry?",
         "“Mathematics about measurement, properties, and relationships",
@@ -388,7 +388,7 @@
       "pptx_slide": 22,
       "title": "Geometry",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometry",
         "• A study of invariants, i.e., properties unchanged under",
@@ -408,7 +408,7 @@
       "pptx_slide": 23,
       "title": "Geometry of Data",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometry of Data",
         "• Geometry of data is defined by symmetries:",
@@ -425,7 +425,7 @@
       "pptx_slide": 24,
       "title": "Geometric Deep Neural Networks",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometric Deep Neural Networks",
         "We should design deep neural networks that incorporates the data-specific structure."
@@ -440,7 +440,7 @@
       "pptx_slide": 25,
       "title": "Geometric Generative Models",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Geometric Generative Models",
         "We should design generative models that incorporates the data-specific structure.",
@@ -462,7 +462,7 @@
       "pptx_slide": 26,
       "title": "Key Molecules",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Key Molecules",
         "Small molecules (drug candidates) consist of atoms and bonds.",
@@ -482,7 +482,7 @@
       "pptx_slide": 27,
       "title": "Key Molecules",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Key Molecules",
         "Proteins are long chains of amino acid",
@@ -502,7 +502,7 @@
       "pptx_slide": 28,
       "title": "Key Molecules",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Key Molecules",
         "Nucleic acids (DNAs / RNAs)",
@@ -521,7 +521,7 @@
       "pptx_slide": 29,
       "title": "Key Molecules",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Key Molecules",
         "Solids often have crystal structures that periodically",
@@ -543,7 +543,7 @@
       "pptx_slide": 30,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "omitted-repeated-recap",
       "text": [
         "Some Hypes for the Topic",
         "AlphaFold3 (Google Isomorphic labs) allows structure “prediction”",
@@ -560,7 +560,7 @@
       "pptx_slide": 31,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Some Hypes for the Topic",
         "MatterGen (Microsoft) is a",
@@ -582,7 +582,7 @@
       "pptx_slide": 32,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Some Hypes for the Topic",
         "Meta open-sourced large datasets on molecular simulation:",
@@ -604,7 +604,7 @@
       "pptx_slide": 33,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Some Hypes for the Topic"
       ],
@@ -618,7 +618,7 @@
       "pptx_slide": 34,
       "title": "Some Hypes for the Topic",
       "classification": "substantive",
-      "coverage": "pending",
+      "coverage": "covered",
       "text": [
         "Some Hypes for the Topic",
         "AI tool GNoME finds 2.2 million   Using materials from",
@@ -642,7 +642,8 @@
       "bytes": 210380,
       "slides": [
         4
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0b7bd1a4126153db5b70e7003c2e205701c2db81a68bf85416c54f001c9d71e4",
@@ -651,7 +652,8 @@
       "bytes": 1372,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "ebf80f598b78fc85f78fe605424f4cf0cf27ee4b2520fd8375c960edf7231e53",
@@ -660,7 +662,9 @@
       "bytes": 5199,
       "slides": [
         14
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s14-image11.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e0c56d46421d06cc102599df085568af3b8d649cb71c38b30a0ba9e4f1229a22",
@@ -669,7 +673,8 @@
       "bytes": 127858,
       "slides": [
         14
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "30eb852ef0aba909f20f46e5355dbe7807379a53c01a0f3df6e9645ed9307b5f",
@@ -678,7 +683,9 @@
       "bytes": 13425,
       "slides": [
         14
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s14-image13.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "304bfb816506ed2396ff1eebb91a483a23aec9e5541e9145a32cfe7b95f3c7f5",
@@ -687,7 +694,9 @@
       "bytes": 823745,
       "slides": [
         15
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s15-image14.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "087bdde6f1f30802e7a229f16b0fb676fe2517ca5c8afa05276c7ae7ad077149",
@@ -696,7 +705,9 @@
       "bytes": 36256,
       "slides": [
         16
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s16-image15.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "bd8c8d58260e1a7cf59078b29ec68ca8c4f1db80079984a578cd75dbf7dafbbf",
@@ -705,7 +716,9 @@
       "bytes": 83872,
       "slides": [
         16
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s16-image16.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "e85b3975ecc8bbc3fb1eb05626dc6d19178f4c9cc71f6bc9a952cc59be468d7e",
@@ -714,7 +727,8 @@
       "bytes": 110543,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "963c1ebf070afbcf8c6e3cba5db38f582b61b62a3b458099cba9b4ddd9552d75",
@@ -723,7 +737,8 @@
       "bytes": 109045,
       "slides": [
         17
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
@@ -734,7 +749,9 @@
         18,
         19,
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image19.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91",
@@ -745,7 +762,8 @@
         6,
         11,
         30
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5",
@@ -756,7 +774,9 @@
         18,
         19,
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image20.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "04337125f30a6f24427e01a229051fa7cf51bd4d5e74ae5b831bd14930f17ac9",
@@ -765,7 +785,9 @@
       "bytes": 130375,
       "slides": [
         18
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image21.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
@@ -775,7 +797,9 @@
       "slides": [
         19,
         20
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s18-image22.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
@@ -789,7 +813,8 @@
         20,
         20,
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
@@ -799,7 +824,8 @@
       "slides": [
         19,
         20
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "1dba7b77661c778998ce06b3a0979dfb72ea5b4289de67ac0543713988088d8c",
@@ -808,7 +834,9 @@
       "bytes": 54714,
       "slides": [
         21
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s20-image25.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "01886c5a06f9d20b3f29d4c005679f964e1a531010078a922c6847e3aeffbd60",
@@ -817,7 +845,9 @@
       "bytes": 374213,
       "slides": [
         22
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s21-image26.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0daca2a2a01551299a1613641526f7ca4a226a049b53951717cc5de6bedd4cb5",
@@ -829,7 +859,9 @@
         23,
         23,
         23
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s22-image27.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2e2ece3cd3992d8aabb861b564bb57bd4490505e692f5406250b805966d697aa",
@@ -838,7 +870,8 @@
       "bytes": 32636,
       "slides": [
         25
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "7801369c2ed926e8f7a1649a362f7e693bba6c36519aeb4b1fa782d10dd7509e",
@@ -847,7 +880,9 @@
       "bytes": 376615,
       "slides": [
         24
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s23-image28.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "14d7cc6bc9a31b90aa9c8f6631c01a59d03381baa73118c0ce802396857d03f3",
@@ -856,7 +891,9 @@
       "bytes": 139927,
       "slides": [
         25
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s24-image29.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
@@ -866,7 +903,8 @@
       "slides": [
         6,
         31
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "bb7464320c05895e2f67a375c5e3a17baf5bdf76b428675ec4f788d4d90c8f5c",
@@ -875,7 +913,9 @@
       "bytes": 259856,
       "slides": [
         25
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s24-image30.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0d2399a3f64dfcfc9c420b8ea60708330078d5dee1b3b5dc245033ba4b6358b3",
@@ -884,7 +924,9 @@
       "bytes": 18446,
       "slides": [
         26
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s25-image31.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "12da6710c3862b84ac8af55813bbbc9bbf9782b5f2027a611904cd612057e5c4",
@@ -893,7 +935,8 @@
       "bytes": 356556,
       "slides": [
         26
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "2470a2b7141d050e69173c989546d0b060204b85864409eaff447d86fab12932",
@@ -902,7 +945,9 @@
       "bytes": 10396,
       "slides": [
         26
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s25-image33.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "afb7592ed989993f9c07a19022dce82278b37ed0a70447bc36d4663ed63cb2d6",
@@ -911,7 +956,9 @@
       "bytes": 1440603,
       "slides": [
         27
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s26-image34.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "33de648d628432901aa63a3d1ba3e3e602f879f79fc1cd523551772c517c1526",
@@ -920,7 +967,9 @@
       "bytes": 181663,
       "slides": [
         27
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s26-image35.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "185ed69c8516908eb4583b2e7b43901a8d37b931fa477cb9e2f01fb4441dcff1",
@@ -929,7 +978,9 @@
       "bytes": 2050248,
       "slides": [
         28
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s27-image36.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "37a1264bff3e77c721d6b36319cfed1ba0e62608c3fc4f56c1da053f40d77389",
@@ -938,7 +989,9 @@
       "bytes": 654362,
       "slides": [
         28
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s27-image37.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a6243f1e12337650c790e190e40e0226d655e8e9aba8ceaa2d8471d0915d129f",
@@ -947,7 +1000,9 @@
       "bytes": 6823,
       "slides": [
         29
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image38.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
@@ -956,7 +1011,8 @@
       "bytes": 31451,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a4722cff2a0de5e06a50ca07a2667227c55d3c6a8291f04ad6f89c033cab3de4",
@@ -965,7 +1021,8 @@
       "bytes": 201675,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "a9ef08849beb7887386a354c9662db6e1bce02a4a19d09d2765e97157aebcdab",
@@ -974,7 +1031,9 @@
       "bytes": 170129,
       "slides": [
         29
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image40.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "a5332bb9a1497df6faacc3964211fea5c8b0aca54f56c67718294b46c4d33afa",
@@ -983,7 +1042,8 @@
       "bytes": 151029,
       "slides": [
         29
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c5524fd1c4d75e6d5f4966811d3a44394cf2e243442f06c3263b9fdac4fa8d21",
@@ -992,7 +1052,9 @@
       "bytes": 22572,
       "slides": [
         29
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image42.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "45fb8beef87e162645d3fb5e1e2dd3f38e95e7ba33bc17e25fea13fe8cc17de0",
@@ -1001,7 +1063,9 @@
       "bytes": 214329,
       "slides": [
         31
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s30-image43.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "b8e4de6e201a244f412ef4f37f5d4838236ce241eee597b3bb97069a6daa46fc",
@@ -1010,7 +1074,9 @@
       "bytes": 404906,
       "slides": [
         32
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s31-image44.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "2e009a23569a31f7f9fdcce5ae24edc58083aadf41f09a97ed59fee79e18490a",
@@ -1019,7 +1085,8 @@
       "bytes": 3808710,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "3b9e29eb2a1eca12583551defac7f55e134b0853f9e4c2c954808770a9df1e2f",
@@ -1028,7 +1095,9 @@
       "bytes": 2469032,
       "slides": [
         32
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s31-image46.gif",
+      "reuse_status": "reused"
     },
     {
       "sha256": "8b4d3a445fdbc7719fa90c90111683b4fcd0366b14855ede9a2b679dc1501b10",
@@ -1037,7 +1106,9 @@
       "bytes": 257393,
       "slides": [
         33
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s32-image47.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "30d126ab7c8cbe13f5f74cf799c759af5d16d68c71867b5a5f91af42a331bbb5",
@@ -1046,7 +1117,9 @@
       "bytes": 298660,
       "slides": [
         34
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s33-image48.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7600c4f700cdb14cce23aa1042b97bdf5d6f40c856f8d833026ae628ddbef767",
@@ -1055,7 +1128,8 @@
       "bytes": 56508,
       "slides": [
         34
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "0fecab7819fa0c71cf18f61fc5253cd4af4f0eb86c6a9231075242915165d42b",
@@ -1064,7 +1138,8 @@
       "bytes": 337003,
       "slides": [
         8
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "169a4096b2f5c53f866eb4100269e621ea3c8dfeec36a73671c79d764d3fddab",
@@ -1073,7 +1148,9 @@
       "bytes": 76455,
       "slides": [
         34
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s33-image50.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "7d31c26db2db223cf919c2bede75a4a2dac4c6ffe7125ef3aac5a8b3c07e2aa4",
@@ -1083,7 +1160,9 @@
       "slides": [
         11,
         30
-      ]
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s11-image6.webp",
+      "reuse_status": "reused"
     },
     {
       "sha256": "9344221b08a07e34db8f723095a8a2f5ab6b10ee7a04cc62bc9f1b2bdf0dfc5d",
@@ -1093,7 +1172,8 @@
       "slides": [
         12,
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c854c8580a426904ff1bdcbc31581b28c3f296c27c150d7a0f75b1576778dbe8",
@@ -1103,7 +1183,8 @@
       "slides": [
         12,
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "867872fdb0dadf50d7ec73a2336f02d14d801d251b3ec81a871dfabef886bd3d",
@@ -1112,7 +1193,8 @@
       "bytes": 1163,
       "slides": [
         13
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "8829a49ecf5e0c896f70ee5c5895b124d4157ce4043412ceabd7d6384cf09166",
@@ -1121,7 +1203,8 @@
       "bytes": 2234177,
       "slides": [
         6
-      ]
+      ],
+      "reuse_status": "not-published"
     },
     {
       "sha256": "75b8c9d7da1dc3809ba8778001b94fb123dba8499e82b8f4c8198dbfdb08ea91",
@@ -1130,14 +1213,39 @@
       "bytes": 484528,
       "slides": [
         32
-      ]
+      ],
+      "reuse_status": "not-published"
     }
   ],
   "figure_coverage": {
-    "unique_substantive": null,
-    "reused": 0,
-    "duplicate": 0,
-    "decorative": 0,
-    "scientifically_redundant": 0
-  }
+    "unique_substantive": 39,
+    "reused": 33,
+    "scientifically_redundant": 6,
+    "reuse_ratio": 0.8462
+  },
+  "pdf_regions": [
+    {
+      "slide": 13,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/function-approximation.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "crop": [
+        0.01,
+        0.02,
+        0.98,
+        0.95
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/gdl-recipe.webp",
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-01.md"
 }
