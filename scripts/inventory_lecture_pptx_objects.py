@@ -149,16 +149,10 @@ def resolve_pptx_slide(manifest: dict, logical_slide: int) -> int:
     return int(match.get("pptx_slide") or logical_slide)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--manifest", required=True, type=Path)
-    parser.add_argument("--slide", required=True, type=int, help="Logical lecture slide")
-    args = parser.parse_args()
-
-    manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
-    pptx_slide = resolve_pptx_slide(manifest, args.slide)
+def inventory_slide(pptx_path: Path, pptx_slide: int) -> dict[str, object]:
+    """Return the native object inventory for one physical PPTX slide."""
     slide_path = f"ppt/slides/slide{pptx_slide}.xml"
-    with zipfile.ZipFile(manifest["source_pptx"]) as archive:
+    with zipfile.ZipFile(pptx_path) as archive:
         if slide_path not in archive.namelist():
             raise SystemExit(f"missing {slide_path} in source PPTX")
         root = ET.fromstring(archive.read(slide_path))
@@ -167,17 +161,28 @@ def main() -> int:
         children = [] if shape_tree is None else [
             child
             for child in shape_tree
-            if child.tag.rsplit("}", 1)[-1] in {"pic", "sp", "grpSp", "graphicFrame"}
+            if child.tag.rsplit("}", 1)[-1]
+            in {"pic", "sp", "grpSp", "graphicFrame"}
         ]
-        result = {
-            "deck_id": manifest["deck_id"],
-            "logical_slide": args.slide,
+        return {
             "pptx_slide": pptx_slide,
             "objects": [
                 object_record(child, rels, index)
                 for index, child in enumerate(children)
             ],
         }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--manifest", required=True, type=Path)
+    parser.add_argument("--slide", required=True, type=int, help="Logical lecture slide")
+    args = parser.parse_args()
+
+    manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    pptx_slide = resolve_pptx_slide(manifest, args.slide)
+    result = inventory_slide(Path(manifest["source_pptx"]), pptx_slide)
+    result.update(deck_id=manifest["deck_id"], logical_slide=args.slide)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
