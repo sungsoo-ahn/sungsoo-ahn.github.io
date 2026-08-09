@@ -721,6 +721,33 @@ requirements for the replacement deck-level articles.
   The blog-writing skill now requires each replacement to remain attached to
   the coordinate or embedding representation that implements it.
 
+### GDL 2025 Lecture 16: Riemannian and Discrete Flow Matching
+
+- **Source:** `lec16_geogen2.pdf` (38 pages), represented by 31 canonical PDF
+  composites. Slides 36 and 37 are pixel-identical, so their shared conditional
+  path and rate construction appears once.
+- **Coverage:** 31 scientific slides covered; the cover, course map, reference
+  card, and three agenda cards omitted; one literal duplicate collapsed. The
+  manifold and flow-matching recap was retained because the lecture maps each
+  of its objects first to a Riemannian version and then to a CTMC version. The
+  source order remains protein motivation, geometry recap, conditional flow
+  matching, Riemannian ODEs and loss, CTMC rates and Kolmogorov equation,
+  discrete marginalization and loss, and factorized paths.
+- **Figures:** 31 of 32 unique-sequence scientific composites reused (96.88%);
+  the omitted composite is the exact duplicate. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** the earlier discrete-generator tutorial's
+  worked three-state mask chain, reverse-rate calculation, circulation witness,
+  graph-equivariance proof, and simulator cost comparison were absent from this
+  deck. The replacement follows the source's CTMC construction and endpoint-
+  posterior parameterization.
+- **General lesson promoted:** when a source builds discrete and continuous
+  versions of one method, preserve the analogy at the level of mathematical
+  objects: tangent velocities versus jump-rate vectors, continuity versus
+  Kolmogorov equations, and posterior-averaged conditional targets in both.
+  Factorization should appear where the source introduces computational scale,
+  not as an unrelated modeling assumption.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
