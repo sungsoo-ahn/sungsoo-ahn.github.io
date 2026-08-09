@@ -825,6 +825,30 @@ requirements for the replacement deck-level articles.
   sequences, backbones, and joint all-atom sequence--structure states carry
   different sample semantics even when they reuse diffusion or flow matching.
 
+### GDL 2025 Lecture 20: Machine Learning for Genomics and Virtual Cells
+
+- **Source:** `lec20_genome.pdf` (31 pages), represented by 29 canonical PDF
+  composites preserving the biology and assay diagrams, task definitions,
+  model architectures, evaluation panels, RNA systems, and virtual-cell map.
+- **Coverage:** all 29 scientific slides covered; the cover and one transition
+  card omitted. The source order remains genome and expression biology,
+  RNA-seq/WGS/ATAC-seq/structural measurements, annotation and design tasks,
+  the DNABERT-to-Evo-2 foundation-model chronology, RNA structure and
+  sequence--structure co-design, and cell-level transcriptome modeling.
+- **Figures:** all 29 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous virtual-cell tutorial's negative
+  binomial observation derivation, reverse-complement calculation, causal
+  identification argument, donor-split and batch-confounding examples,
+  perturbation-distribution calculation, and claim-matched evaluation table
+  were absent from this deck. The replacement retains the source's assay and
+  model chronology.
+- **General lesson promoted:** foundation-model chronologies must keep the axes
+  on which the models actually differ: tokenization, context length, training
+  corpus and species coverage, measurement modalities, objective, and target
+  task. A sequence of model names without those changes loses the source's
+  scientific account of scaling.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
