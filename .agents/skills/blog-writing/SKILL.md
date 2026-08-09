@@ -104,6 +104,10 @@ new thesis, a reordered curriculum, or additional technical branches.
 7. Preserve deliberate cross-domain juxtapositions. Do not split one deck into
    separately optimized essays when its sequence uses the domains to expose a
    shared discovery, measurement, or modeling pattern.
+8. Preserve the deck's rhetorical destination as well as its technical topics.
+   If a historical survey ends in a methodological critique, open question, or
+   author judgment, do not stop the article at the last architecture or equation.
+   That change of register is part of the source argument.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
