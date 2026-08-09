@@ -94,6 +94,28 @@ requirements for the replacement deck-level articles.
   figure skill now requires a reproducible high-resolution canonical-PDF crop
   when direct media extraction fails.
 
+### ML4Mol 2025 Lecture 6: Continuous, Geometric, and Discrete Generative Models
+
+- **Source:** `lec6_prelim5.pdf` (63 pages), with media extracted from the
+  corresponding PowerPoint.
+- **Coverage:** 56 substantive slides covered; seven cover or part-transition
+  slides omitted. The article keeps the deck's dependency chain from ODEs,
+  SDEs, Fokker--Planck, and score matching through Euclidean conditional flow
+  matching, Riemannian flow matching, and CTMC-based discrete flow matching.
+- **Figures:** 49 of 58 unique substantive visuals reused (84.48%). Nine omitted
+  visuals are duplicate process strips or equation fragments already shown by a
+  reused visual from the same derivation. No explanatory figure was drawn.
+- **Synthetic material removed:** the prior posts' constant-velocity transport,
+  probability-flow ODE, exact Gaussian variance example, schedule/solver
+  comparison, sphere midpoint calculation, SO(3) determinant counterexample,
+  torus branch-jump calculation, CTMC mask example, circulation witness, and
+  simulation-cost arithmetic were absent from the deck.
+- **General lesson promoted:** a repeated derivation can be the source argument
+  rather than expendable recap. The deck deliberately carries conditional
+  paths, posterior marginalization, and conditional regression from Euclidean
+  velocities to Riemannian tangent fields and discrete CTMC rates. The
+  blog-writing skill now protects such structural analogies from over-editing.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
