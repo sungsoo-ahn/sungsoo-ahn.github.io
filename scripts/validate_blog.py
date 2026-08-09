@@ -282,12 +282,19 @@ def validate_post(path: Path) -> list[Finding]:
                     ]
                     if attrs.get("path")
                 }
+                published_media = [
+                    media
+                    for media in manifest.get("media", [])
+                    if media.get("reuse_status") == "reused"
+                ]
                 published_figures = [
                     figure
                     for figure in manifest.get("pptx_figures", [])
                     if figure.get("reuse_status") == "reused"
                 ]
                 recorded_paths = {
+                    media.get("asset_path", "") for media in published_media
+                } | {
                     figure.get("asset_path", "") for figure in published_figures
                 }
                 if included_paths != recorded_paths:

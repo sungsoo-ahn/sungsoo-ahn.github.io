@@ -15173,50 +15173,6 @@
     }
   },
   "figures": {
-    "assets/img/blog/lectures/gdl-2025-01/function-approximation.webp": {
-      "deck_id": "gdl-2025-01",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-01:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-01.md",
-      "caption": "Machine learning chooses and fits a function family that maps observed inputs to desired outputs. Cropped from the 2025 GDL introduction lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "698e4a3d6c07ec5dc4eadbbe6d638794f30b8f87f2e69248d4d35f52331c9fc4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-01/gdl-recipe.webp": {
-      "deck_id": "gdl-2025-01",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-01:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-01.md",
-      "caption": "Geometric deep learning turns the informal architecture zoo into a geometry-driven design question. Cropped from the 2025 GDL introduction lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "49b18bed718895ce27bd1b5d9cbc19ed0f2cec8ae181f6433d16e3e68d98b2c3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
     "assets/img/blog/lectures/gdl-2025-01/s11-image6.webp": {
       "deck_id": "gdl-2025-01",
       "slides": [
@@ -15232,6 +15188,28 @@
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "72f14cc103b83115400060ad8c4e98d26a5aca51f49874061344570153006d3a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-01/s13-function-approximation.png": {
+      "deck_id": "gdl-2025-01",
+      "slides": [
+        13
+      ],
+      "slide_keys": [
+        "gdl-2025-01:13"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-01.md",
+      "caption": "Machine learning chooses and fits a function family that maps observed inputs to desired outputs.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0dcbcc5350eeff11a4cd8d6c659b42aa92d85a493e26299be2b54c5bd2363a93",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -15446,6 +15424,28 @@
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "a3b98bea38fc1e8b6155ab728fafcaaf3e8228dd02ebef33800a1ea46c9bb432",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-01/s19-gdl-recipe.png": {
+      "deck_id": "gdl-2025-01",
+      "slides": [
+        19
+      ],
+      "slide_keys": [
+        "gdl-2025-01:19"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-01.md",
+      "caption": "Geometric deep learning turns the informal architecture zoo into a geometry-driven design question.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "712a4485bd00f4c9aa3a40f0970d22e1b3d90d658560b623310fa6d22f6e93e8",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",

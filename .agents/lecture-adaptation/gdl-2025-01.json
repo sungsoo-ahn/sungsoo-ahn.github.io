@@ -1223,27 +1223,37 @@
     "scientifically_redundant": 6,
     "reuse_ratio": 0.8462
   },
-  "pdf_regions": [
+  "asset_migration_status": "pptx-native-complete",
+  "pptx_figures": [
     {
       "slide": 13,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s13-function-approximation.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 2",
+      "source_media_paths": [
+        "ppt/media/image7.jpeg",
+        "ppt/media/image8.png",
+        "ppt/media/image9.png",
+        "ppt/media/image10.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-01/function-approximation.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s19-gdl-recipe.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 34",
+      "source_media_paths": [
+        "ppt/media/image22.jpeg",
+        "ppt/media/image23.png",
+        "ppt/media/image24.jpeg",
+        "ppt/media/image19.jpeg",
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-01/gdl-recipe.webp",
       "reuse_status": "reused"
     }
   ],
