@@ -191,6 +191,36 @@ requirements for the replacement deck-level articles.
   the source order because each changes the construction or translation problem
   inherited by the next method.
 
+### ML4Mol 2025 Lecture 10: Three-Dimensional Molecular Generation and Optimization
+
+- **Source:** `lec10_molopt.pdf` (55 pages), with media extracted from the
+  corresponding PowerPoint and twenty composite slide regions cropped from the
+  canonical PDF. Sixteen of those crops preserve the equation-heavy GFlowNet
+  derivation as coherent visuals rather than publishing its many disconnected
+  PowerPoint text and equation fragments.
+- **Coverage:** 51 substantive slides covered; the cover and three part-title
+  slides omitted. The source order remains joint 3D generation, crystal and
+  symmetry-aware generation, structure-conditioned design, molecular
+  optimization, reaction-based construction, and the full GFlowNet derivation
+  from reward-proportional sampling through TB, DB, training, and evaluation.
+- **Figures:** 80 of 94 unique substantive visuals reused (85.11%). Fourteen
+  omitted visuals are duplicate result panels or secondary examples already
+  represented by a retained visual. The numerous isolated numerals, equation
+  tokens, icons, and paper title fragments in the PowerPoint package were
+  treated as pieces of their cropped slide composite rather than independent
+  figures. No explanatory figure was drawn.
+- **Synthetic material removed:** the prior 3D-generation chapter's torus and
+  centered-coordinate derivations, latent-oracle and Pareto examples,
+  optimization funnel, oracle-exploitation discussion, and synthesis-budget
+  calculations were absent from this lecture. The GFlowNet material now follows
+  the lecture's own reward-4/2/1 flow example and forward/backward derivation.
+- **General lesson promoted:** PowerPoint media inventory is not identical to
+  conceptual figure inventory. When one visual is assembled from dozens of
+  equation or text fragments, preserve it as one high-resolution canonical-PDF
+  composite; publishing the fragments separately destroys the source argument
+  and inflates the apparent figure denominator. The figure skill now records
+  this rule.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 

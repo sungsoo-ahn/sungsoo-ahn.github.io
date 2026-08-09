@@ -33,6 +33,12 @@ the figure is assembled from slide-native shapes, text, or equations.
   as permission to omit or redraw the figure. Recover the displayed region from
   a high-resolution rendering of the canonical PDF page and record the page and
   normalized crop so the asset remains reproducible.
+- Distinguish package media from conceptual figures. If one slide visual is
+  assembled from many PowerPoint text boxes, equation tokens, arrows, or tiny
+  image fragments, crop the coherent composite once from the canonical PDF and
+  count it once in figure coverage. Do not publish or count each package
+  fragment as an independent figure; that destroys layout semantics and
+  inflates the reuse denominator.
 - Record deck path, slide number, crop/extraction method, attribution, output
   asset, and caption in a figure manifest.
 - Use the house references to judge placement, caption clarity, and rendering,
