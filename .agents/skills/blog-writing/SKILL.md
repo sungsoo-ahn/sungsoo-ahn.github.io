@@ -119,9 +119,10 @@ new thesis, a reordered curriculum, or additional technical branches.
     establishes changing scientific contracts. If the sequence moves from
     scalar labels to forces, spectra, periodic structures, trajectories, or
     other distinct inputs and outputs, retain those transitions and explain
-    what each dataset makes observable. Do not compress the survey into a short
-    preamble merely because it contains fewer derivations than later method
-    slides.
+    what each dataset makes observable. Attach later claims about universality,
+    scaling, discovery, or physical simulation to the matching data and target
+    regime. Do not compress the survey into a short preamble merely because it
+    contains fewer derivations than later method slides.
 11. Preserve a deck's organizing axis when it classifies methods by the object
     they alter. Spatial reduction, time coarse-graining, biased exploration,
     learned dynamics, and postprocessing may all be called acceleration, but
