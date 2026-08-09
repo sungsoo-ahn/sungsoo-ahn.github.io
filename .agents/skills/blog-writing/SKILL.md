@@ -124,6 +124,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     learned dynamics, and postprocessing may all be called acceleration, but
     they preserve different distributions and observables. Keep the source
     categories explicit instead of rewriting them as a flat method catalog.
+12. When the deck treats a representation as a construction grammar, explain
+    the actions, constraints, and ambiguities induced by that grammar before
+    moving to model comparisons. Matrix entries, motifs, strings, edits, and
+    mechanistic paths can encode the same endpoint while defining different
+    learning problems; do not relegate this progression to notation or merge it
+    into one generic representation paragraph.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
