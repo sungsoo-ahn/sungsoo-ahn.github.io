@@ -492,6 +492,32 @@ requirements for the replacement deck-level articles.
   meaningful claim at all: the graph must encode a defensible relation and the
   evaluation must survive matched baselines and tuning. The blog-writing skill's
   rhetorical-destination rule now names this form of claim-boundary audit.
+
+### GDL 2025 Lecture 7: Scalar- and Vector-Based Geometric Graph Neural Networks
+
+- **Source:** `lec7_geognn1.pdf` (61 pages), represented by 52 canonical PDF
+  composites preserving the molecular diagrams, basis equations, local-frame
+  constructions, architecture blocks, and benchmark tables on every scientific
+  slide.
+- **Coverage:** 52 scientific slides covered; three project-announcement slides
+  and six cover, overview, part-title, or end transitions omitted. The source
+  order remains geometric molecular graphs and forces, scalarization, SchNet,
+  DimeNet, SphereNet, ComENet, GemNet, EGNN, PaiNN, and TorchMD-Net.
+- **Figures:** all 52 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous scalar/vector tutorial's
+  Euclidean-distance-matrix completeness derivation, fixed angular-shell
+  example, nonconservative EGNN witness, pair-force calculation, cost ledger,
+  and architecture decision table were absent from this deck. The replacement
+  restores the lecture's method-by-method geometric constructions and reported
+  property, energy, force, and timing comparisons.
+- **General lesson promoted:** the scalar architecture sequence is not merely a
+  catalog before the vector models. It successively adds distance, angle,
+  torsion, and complete local-frame information, while the vector section keeps
+  orientation inside the hidden state. A faithful adaptation must explain which
+  ambiguity each step resolves and preserve the empirical evidence attached to
+  that representational claim. The blog-writing skill now records this
+  representational-sufficiency rule.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 

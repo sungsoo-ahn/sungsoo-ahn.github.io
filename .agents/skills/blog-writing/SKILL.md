@@ -183,6 +183,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     families and uses that comparison to motivate the next part. Collapse only
     literal repetition; retain synthesis slides that change the organizing axis
     or pose the next scientific question.
+22. Preserve a source's progression of representational sufficiency. When
+    successive methods add distances, angles, torsions, local frames, or vector
+    channels, explain which geometric ambiguity each construction resolves and
+    retain the source's accuracy, force, and efficiency comparisons. Do not
+    compress the sequence into a binary scalar-versus-vector taxonomy.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
