@@ -4236,7 +4236,7 @@
     "gdl-2025-08:45": {
       "deck_id": "gdl-2025-08",
       "slide": 45,
-      "pptx_slide": 46,
+      "pptx_slide": 45,
       "title": "Probabilistic Symmetrization",
       "url_candidates": [],
       "citation_candidates": []
@@ -20619,848 +20619,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-08/slide-10.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        10
-      ],
-      "slide_keys": [
-        "gdl-2025-08:10"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Completeness of the local basis is the condition behind ClofNet's universal approximation argument. Cropped from the 2025 GDL frame-based-GNN lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0c1f3699b313b2c923acfa6e878a944226a0a2f33a66b143ac6150273d42883b",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-11.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        11
-      ],
-      "slide_keys": [
-        "gdl-2025-08:11"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The complete-frame construction was tested through conformer generation on GEOM-QM9 and GEOM-Drugs. Cropped from the 2025 GDL frame-based-GNN lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "34dbd49a8ebd7cd298740e23a8d0474f83ea3a1aaa85a6662e192dd763adeaec",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-12.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-08:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "LEFTNet separates edge-local substructure encoding from communication across different local frames. Cropped from the 2025 GDL frame-based-GNN lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ea22ab91c3c93c6a20d8fdd71961bf44a367b9280005018d3698b344844336c6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-13.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-08:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "LEFTNet evaluates local expressivity through a hierarchy of increasingly informative neighborhood equivalences. Cropped from the 2025 GDL frame-based-GNN lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d72e22f9ef8aaf5db474c26bcb2f5555d9afe00167b2c0cc80797d4baa80d6b1",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-14.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        14
-      ],
-      "slide_keys": [
-        "gdl-2025-08:14"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Each stronger local-isometry notion resolves configurations collapsed by the preceding one. Cropped from the 2025 GDL frame-based-GNN lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3f6a4825f44e1476de1269c3e36763436ccb58f7a13f8e1493cf243cd58bcfc6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-15.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        15
-      ],
-      "slide_keys": [
-        "gdl-2025-08:15"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "LSE supplies structural weights; FTE transports information between locally defined coordinate systems. Cropped from the 2025 GDL frame-based-GNN lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2d311613de77899fad4d2186259c8f790624c446beb15ea2c070f3bfe883b067",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-16.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        16
-      ],
-      "slide_keys": [
-        "gdl-2025-08:16"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Edge-local scalarization encodes triangles shared by the two endpoint neighborhoods. Cropped from the 2025 GDL frame-based-GNN lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c0f855a0f14ea3b3757748f2b008737e137038c8ba03469a39d29aa7bf7e952f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-17.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        17
-      ],
-      "slide_keys": [
-        "gdl-2025-08:17"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Frame-transition encoding moves a learned message through invariant coordinates before reconstructing a geometric feature. Cropped from the 2025 GDL frame-based-GNN lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "81380731cbf033e30a28093cf18bbd6a255a972798b89cc700a921f7a1c297cf",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-18.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        18
-      ],
-      "slide_keys": [
-        "gdl-2025-08:18"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "QM9 comparisons evaluate the expressivity of LSE and FTE for molecular properties. Cropped from the 2025 GDL frame-based-GNN lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d1f382d9a26539a41ffaf0b186cdd6a8a72763005e0e9a5bd21a722dd8d1bd18",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-19.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        19
-      ],
-      "slide_keys": [
-        "gdl-2025-08:19"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "MD17 evaluates whether frame-aware messages also improve learned potential-energy surfaces and forces. Cropped from the 2025 GDL frame-based-GNN lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "245358f290274b682fc48bc1195b1756a023b6be0d806003f2daccde97750f5e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-20.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        20
-      ],
-      "slide_keys": [
-        "gdl-2025-08:20"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "AlphaNet revisits local frames with rotary frame-transition encodings and temporal long-range connections. Cropped from the 2025 GDL frame-based-GNN lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5f0ab175e821ce1f3df1b342abb8e09bf8f9c12884356d415f921a7c2d51b8a4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-21.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-08:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Scaling experiments compare predictive accuracy with inference cost rather than accuracy alone. Cropped from the 2025 GDL frame-based-GNN lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c6db48f0f4bb752df63f4f64a1d4040d936d9ca1051445bde5b05a0941bf4091",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-22.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-08:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "AlphaNet's evaluation spans property, energy, and force tasks at different data scales. Cropped from the 2025 GDL frame-based-GNN lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "5943c98e5c911a186eac6c0cc2d2819fcc89dd13b001162f4c7cbacdc653269c",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-24.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-08:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The group axioms organize the transformations over which a symmetrization procedure averages. Cropped from the 2025 GDL frame-based-GNN lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "670be800be9a4fcc439f2e7af41f4fe024980a915481f987cf10f06804d52117",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-25.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-08:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The abstract group element and its data-space representation must be kept distinct. Cropped from the 2025 GDL frame-based-GNN lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8dcede96d04f0c57aabee30e81a26fc449c430193e78a0c58952f2ecba247c4f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-26.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-08:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Permutation symmetry acts consistently on node-indexed features and both indices of the adjacency matrix. Cropped from the 2025 GDL frame-based-GNN lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2781c67ec27fc0fe5005a63da57859de2a2b6ee2ac2d832fec592f9ccba5bc42",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-27.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        27
-      ],
-      "slide_keys": [
-        "gdl-2025-08:27"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The source moves from averaging over a finite frame to learning deterministic or probabilistic canonicalizers. Cropped from the 2025 GDL frame-based-GNN lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b3f105159146efd0b5429848818253fc13ea61b3def7ec88916f1beb906bd564",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Puny et al., 2021] Frame Averaging for Invariant and Equivariant Network Design",
-        "• [Duval et al., 2023] FAENet: Frame Averaging Equivariant GNN for Materials Modeling",
-        "• [Kaba et al., 2023] Equivariance with Learned Canonicalization Functions",
-        "• [Kim et al., 2023] Learning Probabilistic Symmetrization for Architecture Agnostic Equivariance"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-28.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        28
-      ],
-      "slide_keys": [
-        "gdl-2025-08:28"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Averaging a backbone over transformed inputs removes dependence on the chosen representative. Cropped from the 2025 GDL frame-based-GNN lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "af4c3e81ee2d593eaebd11dbae82189b9f5a0868987e5a8f630e35d6cecec8d8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-29.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-08:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Frame averaging seeks the symmetry guarantee of group averaging with a much smaller evaluation set. Cropped from the 2025 GDL frame-based-GNN lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "bbd3178062ae47414375e1935f4fa2e3b6cd4319284b370732ec2bbb48403fe4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-30.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-08:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Group averaging requires the group action on the input to be specified explicitly. Cropped from the 2025 GDL frame-based-GNN lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2c2aa75da2d1fb0d7a5e913e05b975a5cb7a8864641ba5b73a80af9b7550de87",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-31.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-08:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The invariance proof is a change of summation index over the group. Cropped from the 2025 GDL frame-based-GNN lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b0e9fb49f4004219ae31c0e473a6afabcd7c4e83f95cac2952e3e7e4d29e270f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-32.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-08:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Output-side transformation converts invariant averaging into an equivariant construction. Cropped from the 2025 GDL frame-based-GNN lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f0f70cd24c51439b4853b0ec3ac739853fd302456907972b4af2f69e5b4e00ba",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-33.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        33
-      ],
-      "slide_keys": [
-        "gdl-2025-08:33"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "A finite frame replaces an intractable integral over continuous Euclidean transformations. Cropped from the 2025 GDL frame-based-GNN lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "909d1d3c5402bfd8f00023cd735b783e4b566a4aad5c18f8b407bd86728b9409",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-34.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-08:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The frame must move with the input as a set, even when no single canonical element is continuous or unique. Cropped from the 2025 GDL frame-based-GNN lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a6bed0cab20a449411dafdfc777c7364c1a489d9fd8b6eec7601ca11e9a52444",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-35.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        35
-      ],
-      "slide_keys": [
-        "gdl-2025-08:35"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Frame averaging retains the transformed-input and transformed-output recipes of full group averaging. Cropped from the 2025 GDL frame-based-GNN lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "359258941376194171b53cc7895577a1d7dd59b7ee34f0ee6966040e263f0277",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-36.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        36
-      ],
-      "slide_keys": [
-        "gdl-2025-08:36"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Frame averaging transfers the capacity of the backbone into an equivariant hypothesis class. Cropped from the 2025 GDL frame-based-GNN lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "465215794319ab2c8c267a624411c87149f43f75e2d805563d4ecaff80504e2f",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-37.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        37
-      ],
-      "slide_keys": [
-        "gdl-2025-08:37"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "PCA determines axes while the finite frame retains every unresolved eigenvector sign. Cropped from the 2025 GDL frame-based-GNN lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b6175d39f7c938301d5eb8b35f97af2de6267b76208cb9ad546a0ab6b9bd5ed3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-38.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        38
-      ],
-      "slide_keys": [
-        "gdl-2025-08:38"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "FAENet turns the frame-averaging construction into a scalable materials model. Cropped from the 2025 GDL frame-based-GNN lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "27061b45847eb2486cddaf1792861ec5d0c1d22ed765fd1cd456b39083601794",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-39.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        39
-      ],
-      "slide_keys": [
-        "gdl-2025-08:39"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "A three-dimensional PCA frame contains eight sign-resolved coordinate systems. Cropped from the 2025 GDL frame-based-GNN lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "30a5a00c15c72cb9db8fdf75aca76effc30e60fe33e8db77fd190a44b74cff91",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-4.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        4
-      ],
-      "slide_keys": [
-        "gdl-2025-08:4"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Invariant scalar functions, scalar gates, vector combinations, dot products, and cross products form the basic equivariant operation set. Cropped from the 2025 GDL frame-based-GNN lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f86f6b1daab3c84db01fa44911a4ae7ef352caed2e834566e45919deca9f5d08",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-40.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-08:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Sampling one sign frame trades exact finite averaging per pass for lower computation, while periodic offsets require separate treatment. Cropped from the 2025 GDL frame-based-GNN lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "38469789e11106b75348b8a48fce4bb24f859d61cfbd25f580248cd9cd4aaf08",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-41.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-08:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "FAENet evaluates the practical accuracy--cost tradeoff of stochastic frame averaging. Cropped from the 2025 GDL frame-based-GNN lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "59d9acf7397a10b65062bdd42a9f077c9849bbd5c13e4f6706936167bb1c10b6",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-42.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-08:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "A learned canonicalizer chooses one pose instead of averaging the backbone over a finite frame. Cropped from the 2025 GDL frame-based-GNN lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "78f57423c8a90ef79242e6f3f608234d22a5b14b6e24c8762718578123930571",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-43.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-08:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "The transformation law of the canonicalizer is the condition that makes a single canonical pose sufficient. Cropped from the 2025 GDL frame-based-GNN lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "e2dec3a09647930f14af23f02e625561457c7f1cfd24c79eb681c9d9851c9f50",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-44.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-08:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Learned canonicalization was evaluated across several data types and output transformation laws. Cropped from the 2025 GDL frame-based-GNN lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "18834d2c72dcc2fb04126f1ddd78145e80f7aaaba81a186a697cc69162e30cf7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-45.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        45
-      ],
-      "slide_keys": [
-        "gdl-2025-08:45"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Probabilistic symmetrization replaces a single canonical pose with a learned pose distribution. Cropped from the 2025 GDL frame-based-GNN lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "750c9c8d50bf20bbb19e84333f292b51cfc84969d7146201304e11a585774958",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-46.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        46
-      ],
-      "slide_keys": [
-        "gdl-2025-08:46"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "An equivariant matrix generator followed by Gram--Schmidt provides samples in the orthogonal group. Cropped from the 2025 GDL frame-based-GNN lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b81fc5d3f3cf437ec70776a6b008666eb727fb735ee24fa47170f1c5cc3459aa",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-47.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        47
-      ],
-      "slide_keys": [
-        "gdl-2025-08:47"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Probabilistic symmetrization tests whether non-geometric pretrained backbones can be reused inside an equivariant wrapper. Cropped from the 2025 GDL frame-based-GNN lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ddcc07e9b1377f68648524782dcd7a9b94c0beac977dafd6d2689f69c6a09144",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-5.webp": {
+    "assets/img/blog/lectures/gdl-2025-08/s05-clofnet-local-frame.png": {
       "deck_id": "gdl-2025-08",
       "slides": [
         5
@@ -21469,10 +20628,10 @@
         "gdl-2025-08:5"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "ClofNet replaces a single relative direction with a local three-axis frame for each interaction. Cropped from the 2025 GDL frame-based-GNN lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "ClofNet's complete local frame around a two-body interaction. Figure from <a href='https://proceedings.mlr.press/v162/du22e.html'>Du et al.</a>, retained from slide 5 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7d088513064f986017e1e43271a007500700f2654349f030b2f29de81e0d6727",
+      "content_sha256": "cb1c2758ad4f3b4e2b0e0d3a6e759763dbbb6056570339f4798af21698c5f948",
       "candidate_urls": [
         "https://en.wikipedia.org/wiki/Basis_of_a_vector_space",
         "https://en.wikipedia.org/wiki/Linearly_dependent"
@@ -21485,7 +20644,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-08/slide-6.webp": {
+    "assets/img/blog/lectures/gdl-2025-08/s06-clofnet-scalarization.png": {
       "deck_id": "gdl-2025-08",
       "slides": [
         6
@@ -21494,10 +20653,10 @@
         "gdl-2025-08:6"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "A local frame separates geometric bookkeeping from nonlinear scalar message passing. Cropped from the 2025 GDL frame-based-GNN lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Scalarization moves the nonlinear computation into invariant coordinates; vectorization returns the result to geometric space. Figure retained from slide 6 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d5f2b517c0d9cf908296c4c78756a3653dff1b4cfd3bb43d94082fedd196258e",
+      "content_sha256": "5c9b98c5bea313c75ad9dac5209d6679eeef965000bd1f0bd6fb9e40cb78df8c",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21507,51 +20666,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-08/slide-7.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        7
-      ],
-      "slide_keys": [
-        "gdl-2025-08:7"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Projection onto an equivariant frame produces invariant coefficients for both endpoints of an edge. Cropped from the 2025 GDL frame-based-GNN lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "735e9e013b18aec707516a08ce72f47faddf68e3471513a9537fa559bdba3692",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-8.webp": {
-      "deck_id": "gdl-2025-08",
-      "slides": [
-        8
-      ],
-      "slide_keys": [
-        "gdl-2025-08:8"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "Nonlinear scalar processing is followed by reconstruction in the edge-local frame. Cropped from the 2025 GDL frame-based-GNN lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "647b9244e0c909a94e8f641292e77d8607e04a757e7a26274f582cb8c2be361a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-08/slide-9.webp": {
+    "assets/img/blog/lectures/gdl-2025-08/s09-clofnet-message-passing.png": {
       "deck_id": "gdl-2025-08",
       "slides": [
         9
@@ -21560,12 +20675,300 @@
         "gdl-2025-08:9"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
-      "caption": "ClofNet organizes scalarization, invariant message passing, frame updates, and vectorization as distinct blocks. Cropped from the 2025 GDL frame-based-GNN lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The ClofNet message-passing block keeps scalar and vector outputs separate. Figure from <a href='https://proceedings.mlr.press/v162/du22e.html'>Du et al.</a>, retained from slide 9 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1bd18af8da2ab21da287e09cc948194c3207acb681116281a982e7f18b78cdeb",
+      "content_sha256": "618380a8fa7f615b8a40894d4272b64349ac31b5f76fa12b4cd619608bdc4b10",
       "candidate_urls": [],
       "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s14-leftnet-isometry-hierarchy.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        14
+      ],
+      "slide_keys": [
+        "gdl-2025-08:14"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "The two strict separations in LEFTNet's hierarchy of local geometric isomorphisms. Figure from <a href='https://proceedings.neurips.cc/paper_files/paper/2023/hash/d212c6c26603c0eb3c9a6b6432386a1f-Abstract.html'>Du et al.</a>, retained from slide 14 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "31c1f99c8202bf4002ef820330f2beb785d8d9e165fb1a69e59e9e28c8cd8089",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s17-leftnet-frame-transition.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        17
+      ],
+      "slide_keys": [
+        "gdl-2025-08:17"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "LEFTNet makes the transition between two local frames explicit. Figure from <a href='https://proceedings.neurips.cc/paper_files/paper/2023/hash/d212c6c26603c0eb3c9a6b6432386a1f-Abstract.html'>Du et al.</a>, retained from slide 17 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "7deb8d8d90260321703ea5267f0d9377b3e0e6bf5f3c616225174c62c8c3f05a",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s21-alphanet-scaling.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        21
+      ],
+      "slide_keys": [
+        "gdl-2025-08:21"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "AlphaNet's performance--inference tradeoff across system sizes and pretrained interatomic potentials. Figure from <a href='https://arxiv.org/abs/2501.07155'>Yin et al.</a>, retained from slide 21 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "228c7cf664c90f2215049538903fea5c2149060d9922f99e6fb728658d5b50ab",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s24-symmetry-actions.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        24
+      ],
+      "slide_keys": [
+        "gdl-2025-08:24"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "Several transformations act on one signal while remaining elements of the same abstract group. PowerPoint group retained from slide 24 of the lecture deck.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c6e465e226e036ace98b41c1890df512f4aac4a298cd4fdd99456c4a1b414264",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s28-rotation-orbit.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        28
+      ],
+      "slide_keys": [
+        "gdl-2025-08:28"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "Its orbit under quarter-turn rotations. Both PowerPoint groups are retained from slide 28.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "ef16c76ac73ef1fc259859fa42149ff644186874262f7fbf584bbe79547c9125",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s28-single-orientation.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        28
+      ],
+      "slide_keys": [
+        "gdl-2025-08:28"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "One representative input.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "20fd80ca9e7f9ad0cac8737bc6d905f8e3c3d38fb08164c0e7b6885f88f19f40",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s30-group-action.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        30
+      ],
+      "slide_keys": [
+        "gdl-2025-08:30"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "A group element and its representation move data within the representation space. PowerPoint group retained from slide 30 of the lecture deck.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4fd0fe5a41119482e901c455b44dafad50b1227c05699444a9a3a027668a0e28",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s33-pca-frame.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        33
+      ],
+      "slide_keys": [
+        "gdl-2025-08:33"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "PCA supplies data-dependent axes, while sign choices remain unresolved. Figure retained from slide 33 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "7eba30a3337b854b5503ce9d08d40779d578ff0fd3c12d58153924b67de2efed",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s34-equivariant-set-frame.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        34
+      ],
+      "slide_keys": [
+        "gdl-2025-08:34"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "The defining transformation law of an equivariant frame. Figure retained from slide 34 of the lecture deck.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "3b5ecedf65dcab5a40b77948c2bf6651d570f7e4e651e758670174a90f9993c6",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s38-faenet-tradeoff.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        38
+      ],
+      "slide_keys": [
+        "gdl-2025-08:38"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "FAENet's OC20 Direct IS2RE accuracy--throughput tradeoff. Figure from <a href='https://openreview.net/forum?id=HRDRZNxQXc'>Duval et al.</a>, retained from slide 38 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "6ac88faa3d7102731a3eacb68c18220d5957a7d9352eac27a67ea2bab6b6d9b7",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s41-faenet-cost.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        41
+      ],
+      "slide_keys": [
+        "gdl-2025-08:41"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "QM9 accuracy improvement versus measured relative compute cost; FAENet is the fastest point in the comparison. Figure from <a href='https://openreview.net/forum?id=HRDRZNxQXc'>Duval et al.</a>, retained from slide 41 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "94836a4b6e4decf3fa82d97af71f5d8cee8a506d597ebba116d7a1831095b9aa",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s42-learned-canonicalization.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        42
+      ],
+      "slide_keys": [
+        "gdl-2025-08:42"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "Canonicalization replaces repeated backbone evaluation with an input-dependent pose. Figure from <a href='https://proceedings.mlr.press/v202/kaba23a.html'>Kaba et al.</a>, retained from slide 42 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "21b92c4a2e123611832aca3143b223ed50797fbb45d911697ecafdb8c2ec62c1",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-08/s48-continuity-obstruction.png": {
+      "deck_id": "gdl-2025-08",
+      "slides": [
+        48
+      ],
+      "slide_keys": [
+        "gdl-2025-08:48"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-08.md",
+      "caption": "Small perturbations can change a deterministic canonical representative abruptly. Figure from <a href='https://proceedings.mlr.press/v235/dym24a.html'>Dym, Lawrence, and Siegel</a>, retained from slide 48 of the lecture deck.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "d299d950839f128ac9a6b27bd9c9d09bcb43fe69bb32b21e94549b7a86e75971",
+      "candidate_urls": [],
+      "candidate_citations": [
+        "• [Dym et al., 2024] Equivariant Frames and the Impossibility of Continuous Canonicalization"
+      ],
       "status": "pending",
       "source_ids": [],
       "confidence": "unresolved",
