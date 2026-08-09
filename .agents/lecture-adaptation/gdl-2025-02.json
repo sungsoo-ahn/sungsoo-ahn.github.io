@@ -2524,364 +2524,393 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 45,
-    "reused": 38,
-    "scientifically_redundant": 7,
-    "reuse_ratio": 0.8444
+    "unique_substantive_figures": 40,
+    "reused_figures": 40,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
   },
-  "pdf_regions": [
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+  "pptx_figures": [
     {
       "slide": 18,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s18-molecular-graph.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image26.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-18.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-19.webp",
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s19-graph-original.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 47",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s19-graph-permuted.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 4",
+      "source_media_paths": [],
       "reuse_status": "reused"
     },
     {
       "slide": 20,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s20-permutation-actions.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 18",
+      "source_media_paths": [
+        "ppt/media/image30.png",
+        "ppt/media/image31.png",
+        "ppt/media/image20.png",
+        "ppt/media/image21.png",
+        "ppt/media/image32.png",
+        "ppt/media/image33.png",
+        "ppt/media/image34.png",
+        "ppt/media/image35.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-20.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 21,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s21-invariant-property.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 8",
+      "source_media_paths": [
+        "ppt/media/image36.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-21.webp",
       "reuse_status": "reused"
     },
     {
-      "slide": 22,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s21-equivariant-property.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image37.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-22.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 23,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-geometric-graph.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image46.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-rotating-molecule.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image38.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-hamiltonian-block.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image45.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 25,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s25-transformation-space.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image47.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-25.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 26,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s26-algebraic-structures.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image48.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-26.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-simplicial-complex.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-27.webp",
       "reuse_status": "reused"
     },
     {
-      "slide": 28,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-geodesic-metric.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image50.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-topology-mug.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image51.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-topology-sphere.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image52.gif"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 29,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s29-noncommuting-rotations.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image53.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-29.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 30,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-30.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 31,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s31-permutation-group.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image55.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-31.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 32,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-32.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 33,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s33-euclidean-group.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image56.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-33.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 34,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-34.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 35,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s35-axis-angle.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image59.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s35-euler-angles.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image60.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 36,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s36-group-action.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image62.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-36.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-37.webp",
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s37-triangle-original.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 34",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s37-triangle-rotated.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 35",
+      "source_media_paths": [],
       "reuse_status": "reused"
     },
     {
       "slide": 38,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-transitive-sphere.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image67.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-transitive-line.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image68.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-nontransitive-conjugation.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image70.png"
+      ],
       "reuse_status": "reused"
     },
     {
       "slide": 39,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s39-sphere-stabilizer.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image71.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-39.webp",
       "reuse_status": "reused"
     },
     {
-      "slide": 40,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s39-self-action-stabilizer.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image72.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-40.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 41,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s41-quotient-sphere.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image76.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-41.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 42,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-42.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 43,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-43.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 44,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-44.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 45,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s45-circular-harmonics.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "plot",
+      "source_shape_name": "Group 35",
+      "source_media_paths": [
+        "ppt/media/image82.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-45.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 46,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-46.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 47,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s47-spherical-harmonics.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image87.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-47.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 48,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s48-wigner-steerability.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image92.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-48.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 49,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s49-steerable-types.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image93.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-49.webp",
       "reuse_status": "reused"
     },
     {
       "slide": 50,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s50-equivariant-operator.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image96.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-02/slide-50.webp",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-02.md"
+  "asset_migration_status": "pptx-native-complete"
 }

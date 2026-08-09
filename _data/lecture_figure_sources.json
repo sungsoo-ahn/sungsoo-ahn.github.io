@@ -16055,7 +16055,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-18.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s18-molecular-graph.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         18
@@ -16064,10 +16064,10 @@
         "gdl-2025-02:18"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A stored graph uses node indices even though the scientific object does not assign physical meaning to those indices. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A molecular graph separates atom-wise and bond-wise information. The source lecture credits Xavier Bresson for this figure.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "48756a2b9bef36b7c2c97dec58686b629e921e127fda01ed81587a6a1e90b5ab",
+      "content_sha256": "51bd0de87d8a06b43053342511d8f77c0f0fe98cf94bec6593f6621b7af55df7",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16077,7 +16077,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-19.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s19-graph-original.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         19
@@ -16086,10 +16086,10 @@
         "gdl-2025-02:19"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Permutation symmetry identifies relabeled adjacency and feature matrices as the same graph. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The original node ordering.",
+      "extraction_method": "pptx-shape-group-export",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7c803815a066df38aec1f6498e392840727704468f7fc1e0f4ddd3b7410883f2",
+      "content_sha256": "1583dd0bfcf0b2a3ddd4b1a3676b6201860bf19d1104700a47dbc0be48b73d34",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16099,7 +16099,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-20.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s19-graph-permuted.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        19
+      ],
+      "slide_keys": [
+        "gdl-2025-02:19"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "The same graph after relabeling.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "b489b7de3020a3f60f45de8ff494dc5c5a40b4ea9a1f9e4b144f9a06fac4b929",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s20-permutation-actions.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         20
@@ -16108,10 +16130,10 @@
         "gdl-2025-02:20"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "One group element has different concrete actions on node-wise and pairwise data spaces. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The same relabeling acts as \\(A\\mapsto PAP^\\top\\) on adjacency data and \\(X\\mapsto PX\\) on node features. This semantic group is exported directly from slide 20.",
+      "extraction_method": "pptx-shape-group-export",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8c2687bb6cf5b3b489031f481cf2ac73b0ed162c58e3555ed783ff92ed9161c6",
+      "content_sha256": "f9a3d7dc361bd5657d19b51be64b64a7c2f49b0ead9154ec114b3ecb7e9b83b1",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16121,7 +16143,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-21.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s21-equivariant-property.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         21
@@ -16130,10 +16152,10 @@
         "gdl-2025-02:21"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Graph-level outputs remain fixed, while node-level outputs follow the relabeling. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Atom-wise equivariant outputs.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f52d18d9e79c846b520a23a976673626393c720667ca73bfdb713d6edf610e6e",
+      "content_sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16143,19 +16165,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-22.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s21-invariant-property.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
-        22
+        21
       ],
       "slide_keys": [
-        "gdl-2025-02:22"
+        "gdl-2025-02:21"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A pairwise output carries a two-index permutation action rather than the one-index node action. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A molecule-level invariant output.",
+      "extraction_method": "pptx-shape-group-export",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "da0942c40a0625cfeebfa74afa9063cc173d30b0c2c5787ac0a10038819dc4d9",
+      "content_sha256": "3ef4865719df8c2ee6bfc7a0a84037c6e3d645df02f52627144938ca1e344569",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16165,7 +16187,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-23.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s23-geometric-graph.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         23
@@ -16174,10 +16196,10 @@
         "gdl-2025-02:23"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Geometric graphs combine permutation symmetry with rigid-motion actions on coordinates and physical outputs. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A rigid rotation changes the coordinate array but not the underlying molecule. The source lecture credits Tess Smidt for the molecular visuals on slide 23.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "d20d2532873a4ac55b4abc2e3760e07186deb8689877b2ed3ab882e4ff2c5eb0",
+      "content_sha256": "ed8b0957b4f3fe423e787f2a5b2655258dc12880fb9cb62cc1fa35fd85e193b0",
       "candidate_urls": [
         "https://bostonsymmetry.github.io/slides/tess_slides_sp2023.pdf"
       ],
@@ -16189,7 +16211,55 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-25.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s23-hamiltonian-block.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        23
+      ],
+      "slide_keys": [
+        "gdl-2025-02:23"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "A Hamiltonian is indexed by orbital channels and therefore carries more structure than a scalar molecular property. The source lecture credits Tess Smidt for this diagram.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "c01187dee989bcec30f8bc0043ac0d7d30a17ccb20ca70f0f7529a3ad5b58bf4",
+      "candidate_urls": [
+        "https://bostonsymmetry.github.io/slides/tess_slides_sp2023.pdf"
+      ],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s23-rotating-molecule.gif": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        23
+      ],
+      "slide_keys": [
+        "gdl-2025-02:23"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "Scalar, vector, and higher-order molecular quantities do not all transform in the same way. The source lecture credits Tess Smidt for this animation.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "480ee1f10a097bb97b26f73cb7b45c82cedbca54c876712fa2d34943946f4d53",
+      "candidate_urls": [
+        "https://bostonsymmetry.github.io/slides/tess_slides_sp2023.pdf"
+      ],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s25-transformation-space.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         25
@@ -16198,10 +16268,10 @@
         "gdl-2025-02:25"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Geometric learning distinguishes the domain being transformed from the set of transformations acting on it. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The molecular coordinates belong to the data space; the rotations belong to the transformation space. Original PowerPoint image from slide 25.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0d2ef2ffe0ed652c6f28fb27f186b58a0f35724f4db813cfd5da75a2fd6ad435",
+      "content_sha256": "fa1ae5c53e34f3bb1f2a35ac8a80900bde8f1cf2d1c48440a803268688267371",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16211,7 +16281,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-26.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s26-algebraic-structures.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         26
@@ -16220,10 +16290,10 @@
         "gdl-2025-02:26"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Groups belong to a hierarchy of sets equipped with algebraic operations. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Groups sit inside a broader hierarchy of algebraic structures. Original diagram extracted from slide 26.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f18f2aa272cb08145a641d342cf6c4d3cca04d2938c70fed75902d302de45dc1",
+      "content_sha256": "39b87b4e9ee0a68615187ababc06fe2bc46589f9ea3131d8860e8fe06cecd9dc",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16233,7 +16303,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-27.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s27-geodesic-metric.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         27
@@ -16242,10 +16312,10 @@
         "gdl-2025-02:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Topology and metrics describe neighborhood and continuity, complementing algebraic symmetry. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Closeness represented by a metric.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "bc6a1bac85df7fe921a8e5faa356b1fde40dc26d30d1365bcf33fbab747a7a96",
+      "content_sha256": "0c8e85fc82f6f5afaa0edcc6ab9b23a1bc1003f9e41702218eb766ab8459cafe",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16255,19 +16325,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-28.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s27-simplicial-complex.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
-        28
+        27
       ],
       "slide_keys": [
-        "gdl-2025-02:28"
+        "gdl-2025-02:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "The group axioms formalize composable, reversible transformations. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Closeness represented by incidence.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1022abfcce24f708056a347bebcd1bcdd00a9b010fc4bce9b582d86d2f6d4a60",
+      "content_sha256": "259f271e064d5a62c74d51ca48e5babe7671253c6ba53a255bda0d87523a46f5",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16277,7 +16347,51 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-29.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s27-topology-mug.gif": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        27
+      ],
+      "slide_keys": [
+        "gdl-2025-02:27"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "A mug-like surface under continuous deformation.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "a0436a0d88286b89b5359edf245ac75e6e011cedd88c9bebbb56938c9b0298aa",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s27-topology-sphere.gif": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        27
+      ],
+      "slide_keys": [
+        "gdl-2025-02:27"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "A sphere-like surface under continuous deformation.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "72438f7a0388cde0c3fb0e00fc28421201092374e60ab2e98da9d98f821136d7",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s29-noncommuting-rotations.jpeg": {
       "deck_id": "gdl-2025-02",
       "slides": [
         29
@@ -16286,10 +16400,10 @@
         "gdl-2025-02:29"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Three-dimensional rotations demonstrate why transformation composition can be noncommutative. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Two-dimensional rotations commute, but three-dimensional rotations generally do not. Original PowerPoint image from slide 29.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0e11d13272017b2bb9916c5298eca1b189aabb4264c5d4d8dfbb2c9cde41ae4c",
+      "content_sha256": "5496668a09f47fc6227e6723e4a39502071154f0bddd8be6ba6a4e8cbc112a98",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16299,29 +16413,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-30.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        30
-      ],
-      "slide_keys": [
-        "gdl-2025-02:30"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Invertible matrices form a group because matrix multiplication is closed, associative, and invertible. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0845df85bb38bd8a448f7071c354049a09213848a2932400880d2f920e6370d8",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-31.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s31-permutation-group.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         31
@@ -16330,10 +16422,10 @@
         "gdl-2025-02:31"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "The symmetric group connects abstract relabelings to linear matrix actions. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Permutation matrices realize the symmetric group inside the general linear group. Original PowerPoint figure from slide 31.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8d9c81d26c09c26fe570d61b60600be29fb2ff4c756c89edee7731259fa15364",
+      "content_sha256": "e3e64ccb710c805abe458248dc088f35d9b82dbda3f9f8f5cdebfc3ae048999b",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16343,29 +16435,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-32.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        32
-      ],
-      "slide_keys": [
-        "gdl-2025-02:32"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Orthogonal transformations preserve inner products and distance; special orthogonal transformations preserve orientation. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "af4cf49b4f09cff01b8c550d9cdfd8bc5462e37c46e75b4dd8d731b7d3fa093a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-33.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s33-euclidean-group.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         33
@@ -16374,10 +16444,10 @@
         "gdl-2025-02:33"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Euclidean isometries preserve distance while moving the origin and possibly reversing orientation. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Successive rigid motions compose into another rigid motion. Original PowerPoint diagram from slide 33.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "259466567ac258653f22290682363256a8cc2e2361462450172a917c18956b3d",
+      "content_sha256": "87cba7a30541e34b70f6fbc6cfcdc829d495e1f730e60395747a7ac618d2ee0d",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16387,29 +16457,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-34.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        34
-      ],
-      "slide_keys": [
-        "gdl-2025-02:34"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "The Euclidean-group product rotates a translation before adding it, which makes the structure a semidirect product. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "060c24c6632138f962c7411cd1f55cfe97493baf1b72b92fb30351d99e182059",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-35.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s35-axis-angle.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         35
@@ -16418,10 +16466,10 @@
         "gdl-2025-02:35"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Several parameterizations encode one SO(3) rotation, each with its own numerical tradeoffs. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Axis–angle coordinates.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "aad6a8bf62e7982dbe4eb328daf369b42e770202a9bed8746f15a7e50035bd42",
+      "content_sha256": "a1c00a7c7d1cecc853a8999cfe7b1677955398fcec439f599dc45340749acd33",
       "candidate_urls": [
         "https://eater.net/quaternions"
       ],
@@ -16433,7 +16481,31 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-36.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s35-euler-angles.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        35
+      ],
+      "slide_keys": [
+        "gdl-2025-02:35"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "Euler-angle coordinates.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "edf11fd5a63c6377f7ab07946b291aa7721d0e9c1d793b33d88b8eb9737d1980",
+      "candidate_urls": [
+        "https://eater.net/quaternions"
+      ],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s36-group-action.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         36
@@ -16442,10 +16514,10 @@
         "gdl-2025-02:36"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A group action specifies how an abstract transformation changes an object in a domain. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A group action turns an abstract rotation into a transformation of a point in the domain. Original PowerPoint figure from slide 36.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f5f4abcc680a2996b6d075c404e3572679de2a6118f85e7683bf4f89627d1334",
+      "content_sha256": "8a5afe415e824b5693cc376c7b93333f7b2e990b57875213ef90534a6021d9fb",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16455,7 +16527,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-37.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s37-triangle-original.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         37
@@ -16464,10 +16536,10 @@
         "gdl-2025-02:37"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Group-action compatibility connects transformation composition to repeated action on data. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The original coordinate array.",
+      "extraction_method": "pptx-shape-group-export",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "49d0ec104864767d0b1c95f8abccec599aea69c276d1a7c329a49e911234bc63",
+      "content_sha256": "1d5f81face977b2e0993b1396d8487f2f107815c3e3bd203b4cd1a098a103869",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16477,7 +16549,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-38.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s37-triangle-rotated.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        37
+      ],
+      "slide_keys": [
+        "gdl-2025-02:37"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "The transformed coordinate array.",
+      "extraction_method": "pptx-shape-group-export",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "73e6e41e50308819ffb426b1d42ff8d43ec27d908305a5319d7a48bceb52edd3",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s38-nontransitive-conjugation.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         38
@@ -16486,10 +16580,10 @@
         "gdl-2025-02:38"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A homogeneous space is generated by moving one reference point through the group action. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A rotational orbit covers only a circle.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "40250603275a400ba65fe2ba26959f7a5a85a60c8096421e88d6bbc7d3bbfb15",
+      "content_sha256": "428bef670866c8121a09eb96b4677f8de40fa8a6de91c2aa037f91cb0407eb9a",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16499,7 +16593,51 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-39.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s38-transitive-line.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        38
+      ],
+      "slide_keys": [
+        "gdl-2025-02:38"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "Rigid motions cover the plane.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "dc9aa0f60db536fbab2da65a4841ff08163a27766381fcceb6d2ad0e9a97d0bd",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s38-transitive-sphere.png": {
+      "deck_id": "gdl-2025-02",
+      "slides": [
+        38
+      ],
+      "slide_keys": [
+        "gdl-2025-02:38"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+      "caption": "Translations cover the plane.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "4644a9f75c4f7792d204726bc08574cf10341dd1b8a5f368c7d35910c2a4e229",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-02/s39-self-action-stabilizer.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         39
@@ -16508,10 +16646,10 @@
         "gdl-2025-02:39"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A stabilizer records transformations that are invisible at a chosen point. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Left multiplication has a trivial stabilizer.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "eccff40af904fa590b49e2e1bc65fe7dc0fe1a7580e525e28bfc65117a987bcd",
+      "content_sha256": "d279d957eccf23a2d4c64decd41cf710e634cdcd25e1def70148ddceeb21cdd8",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16521,19 +16659,19 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-40.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s39-sphere-stabilizer.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
-        40
+        39
       ],
       "slide_keys": [
-        "gdl-2025-02:40"
+        "gdl-2025-02:39"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Cosets collect transformations that differ only by multiplication with a subgroup element. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "A spherical point has a rotational stabilizer.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "69a5ac10c3fa43cd07124728c025cbd74babb45b4bdc019bf7092b3c19fae606",
+      "content_sha256": "b2c88d96c4db15a11b5c7e1d43528cfe090b18334229fdc1656051c348ec47a2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16543,7 +16681,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-41.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s41-quotient-sphere.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         41
@@ -16552,10 +16690,10 @@
         "gdl-2025-02:41"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A quotient removes the transformations that leave the reference point unchanged. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The sphere is the homogeneous space \\(S^2\\cong SO(3)/SO(2)\\): rotations differing only around the reference axis reach the same point. Original PowerPoint diagram from slide 41.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4682ba1685464ae563bb002e5e71ff348890c16be7ee7842166941f39a03b328",
+      "content_sha256": "46395d5689d6048ca6dba72336ed0943ce6b20c4cdab4c1e0c3ef68eb4a7c9c5",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16565,75 +16703,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-42.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        42
-      ],
-      "slide_keys": [
-        "gdl-2025-02:42"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "The finite S3 example makes coset and quotient construction explicit. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 42.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "12282a9855f69d4edc2815e9080ba3edc7b06647d021a10012db4bac95ec820d",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-43.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        43
-      ],
-      "slide_keys": [
-        "gdl-2025-02:43"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "A representation converts abstract group elements into linear transformations of features. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 43.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "50a1ab2d233989bd15a064fbdaeebc8e060862ecd08db09c00790fa0603e5332",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "[1] Cohen et al., Steerable CNNs, ICLR 2017"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-44.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        44
-      ],
-      "slide_keys": [
-        "gdl-2025-02:44"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Feature type is determined by the representation through which the group acts. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 44.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "aea63b5985598abdffcd9faadbe1d4bddab6d1b1157bcea5f4ce87b4c4011296",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-45.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s45-circular-harmonics.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         45
@@ -16642,10 +16712,10 @@
         "gdl-2025-02:45"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Circular harmonics turn rotation of the argument into a linear transformation of feature coefficients. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 45.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Circular harmonics of increasing degree oscillate more rapidly around the circle. The PowerPoint group is exported directly from slides 45–46.",
+      "extraction_method": "pptx-shape-group-export",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "01bb65d2fbe844ad17a819e120eefd48219b222f845f427ebfedd2d8183955aa",
+      "content_sha256": "48ec7b7999469d8149bdb937f8be6f59bdde2b7b98a3bc2ef9a5c2bb5a0a026d",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16655,29 +16725,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-46.webp": {
-      "deck_id": "gdl-2025-02",
-      "slides": [
-        46
-      ],
-      "slide_keys": [
-        "gdl-2025-02:46"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Higher-degree circular harmonics oscillate more rapidly while remaining steerable under SO(2). Cropped from the 2025 GDL symmetry and equivariance lecture, slide 46.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0acad575f1a2e468114b0d9ee1826bb26702a6db5d78e1b10c1add371459cec2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-02/slide-47.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s47-spherical-harmonics.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         47
@@ -16686,10 +16734,10 @@
         "gdl-2025-02:47"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Spherical harmonics organize angular functions into finite-dimensional degree blocks. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 47.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Degree controls angular frequency, while order indexes the components within each degree. Original PowerPoint figure from slide 47.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f93ed5306dce5da56c935f4224c128adca77ba8c9e4624ba9cf89ccd0524cb31",
+      "content_sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16699,7 +16747,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-48.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s48-wigner-steerability.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         48
@@ -16708,10 +16756,10 @@
         "gdl-2025-02:48"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Wigner matrices are the SO(3) representations carried by spherical-harmonic feature blocks. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 48.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Rotating the argument of a degree-\\(\\ell\\) spherical harmonic mixes its components through \\(D^{(\\ell)}(g)\\). Original PowerPoint diagram from slide 48.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "aa269e70d2a1726786e1c4ec36d8f66266aa334de5b99b4e88e73f360f3f3350",
+      "content_sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -16721,7 +16769,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-49.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s49-steerable-types.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         49
@@ -16730,10 +16778,10 @@
         "gdl-2025-02:49"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Feature order is shorthand for the group representation carried by that channel. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 49.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Cartesian tensor products and Clebsch–Gordan tensor products build higher-order steerable types in different bases. Original PowerPoint figure from slide 49.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "90682047d754190a920f129d15eac38368b6d37ee55902b540efe9b226145585",
+      "content_sha256": "74444843fcfe3916a8f252eb3ddfca723b5ea1829154797e76c07c6d0669d651",
       "candidate_urls": [],
       "candidate_citations": [
         "Duval et al., A Hitchhiker’s Guide to Geometric GNNs for 3D Atomic Systems, 2023"
@@ -16745,7 +16793,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-02/slide-50.webp": {
+    "assets/img/blog/lectures/gdl-2025-02/s50-equivariant-operator.png": {
       "deck_id": "gdl-2025-02",
       "slides": [
         50
@@ -16754,10 +16802,10 @@
         "gdl-2025-02:50"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
-      "caption": "Equivariance is a commuting relation between the chosen input action, operator, and output action. Cropped from the 2025 GDL symmetry and equivariance lecture, slide 50.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "Equivariance is a commuting relation between the input action, the operator, and the output action. Original PowerPoint figure from slide 50.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f705e72e63e1761828b89faf37dddacfa6a6128e824b412dd81a9259ed800c9a",
+      "content_sha256": "af40c7f27d0a78c5b2213f67466d0d3d8fcc0e4a86699b4b8333fadf18e6f510",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
