@@ -1260,3 +1260,28 @@ Post-specific observations remain here rather than becoming universal rules.
   every validity, collision, selection, DFT, synthesis, and characterization
   denominator. The four existing figures remained sufficient. Matrix,
   arithmetic, citation, skill, blog, build, and rendered-page audits passed.
+
+## Series consolidation and regression
+
+- **Coverage:** All 27 canonical lecture-derived chapters were reviewed and
+  revised in order. Their substantive body lengths now range from 4,522 to
+  5,807 words, meeting the 30--45 minute depth diagnostic without adding
+  learning objectives, concept checks, exercises, or prerequisite scaffolding.
+- **Criteria consolidation:** The promoted rules remain organized by role.
+  `blog-writing` owns chapter depth, running examples, comparison discipline,
+  decision denominators, evidence boundaries, and reader-facing coherence.
+  `academic-writing` owns derivation closure, convention checks, constrained
+  domains, identifiability, and transformation-law audits. The final review
+  found no duplicate within-skill rule that could be merged without weakening
+  its diagnostic trigger. Jekyll and figure rules already covered every
+  rendering and visual issue encountered, so no series-specific exception was
+  added to those skills.
+- **Regression:** The canonical data contain 43 ordered reading-path entries
+  resolving to 27 unique posts: 23 chapters in ML4Mol and 20 in GDL, including
+  their intentional overlap. Post titles, path membership, categories,
+  citations, backlinks, figure assets, and internal post links are consistent.
+  All five relevant skills validate, `scripts/validate_blog.py` passes with only
+  the pre-existing unused `_site` image warning, and `git diff --check` is clean.
+  A clean production Jekyll build with responsive-image generation completed
+  successfully. All 27 chapter pages, both reading-path hubs, eight category
+  archives, and their local links were verified in the rendered site.
