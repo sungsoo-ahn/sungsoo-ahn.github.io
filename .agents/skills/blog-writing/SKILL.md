@@ -119,6 +119,11 @@ new thesis, a reordered curriculum, or additional technical branches.
     what each dataset makes observable. Do not compress the survey into a short
     preamble merely because it contains fewer derivations than later method
     slides.
+11. Preserve a deck's organizing axis when it classifies methods by the object
+    they alter. Spatial reduction, time coarse-graining, biased exploration,
+    learned dynamics, and postprocessing may all be called acceleration, but
+    they preserve different distributions and observables. Keep the source
+    categories explicit instead of rewriting them as a flat method catalog.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
