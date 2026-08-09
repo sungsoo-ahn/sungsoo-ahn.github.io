@@ -136,6 +136,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     inference, and solver contracts. When the source moves between these
     objects, state what is predicted and what calculation still follows; do not
     flatten the sequence into a catalog of machine-learning architectures.
+14. Retain an opening map of adjacent tasks when later methods cross its
+    boundaries. Sequence encoding, structure prediction, ensemble generation,
+    inverse design, property prediction, and simulation may initially appear as
+    orientation, yet later architectures can change from one target to another.
+    Use the map to make those shifts legible instead of deleting it as generic
+    background and presenting the later models as a single task lineage.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
