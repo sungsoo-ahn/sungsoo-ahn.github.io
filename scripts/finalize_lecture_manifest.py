@@ -61,15 +61,25 @@ def main() -> int:
 
     post_text = args.post.read_text(encoding="utf-8")
     referenced = set(ASSET_RE.findall(post_text))
-    reused = 0
+    reused_assets: set[str] = set()
     for item in manifest["media"]:
         asset = item.get("asset_path")
         if asset and asset in referenced:
             item["reuse_status"] = "reused"
-            reused += 1
+            reused_assets.add(asset)
         else:
             item["reuse_status"] = "not-published"
             item.pop("asset_path", None)
+
+    for item in manifest.get("pdf_regions", []):
+        asset = item.get("asset_path")
+        if asset and asset in referenced:
+            item["reuse_status"] = "reused"
+            reused_assets.add(asset)
+        else:
+            item["reuse_status"] = "not-published"
+
+    reused = len(reused_assets)
 
     if reused + args.redundant != args.unique_substantive:
         raise SystemExit(
