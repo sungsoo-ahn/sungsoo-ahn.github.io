@@ -1156,3 +1156,54 @@ Post-specific observations remain here rather than becoming universal rules.
   integration error. Cost formulas and a regime table close the comparison.
   Existing figures remained sufficient. Geometry, pushforward, variance,
   citation, skill, blog, build, and rendered audits passed.
+
+## 26. Protein Ensembles and Learned Molecular Dynamics
+
+- **Post:** `_posts/2026-08-08-protein-ensembles-learned-dynamics.md`
+- **Topic-matched reference:** The polished Fokker–Planck chapter owns the
+  path-to-density derivation. The revised molecular-simulation chapter owns
+  integrators, force-field error, sampling convergence, and observable error
+  budgets. The revised probability-flow and geometric-flow chapters own
+  generative path semantics. This chapter should instead own the distinction
+  among protein equilibrium ensembles, coarse transfer operators, and
+  physical-time path laws, with state representation as the interface.
+- **Before:** At 2,296 substantive words, the post cleanly separates ensembles,
+  transition kernels, and trajectories and already names detailed balance,
+  implied timescales, Chapman–Kolmogorov tests, reweighting, and experimental
+  forward models. Its equations never close on one finite system. The MSM has
+  no count matrix or eigenvalue calculation, and the warning that a learned
+  state “hides memory” has no witness. Equilibrium-versus-kinetics uses rates
+  but does not derive the transition kernel or relaxation time, while generated
+  trajectories are not checked for multi-lag consistency.
+- **Criteria promoted:** A representation used as a dynamical state must be
+  audited for Markov sufficiency or lumpability. Merge microstates with
+  different outgoing laws, compute the history-dependent coarse transition,
+  and show what state refinement, lag change, or memory variable repairs it.
+- **Planned revision:** Preserve all nine H2s and their order. Carry a
+  three-microstate protein switch with two geometrically similar open rotamers
+  and one closed state through equilibrium populations, free energy, MD counts,
+  a reversible MSM, eigenvalues, implied timescales, and a coarse open/closed
+  model. Use an explicit symmetric transition matrix and show that merging the
+  two open rotamers violates lumpability because their closed-state transition
+  probabilities differ; compare equilibrium and entry-conditioned mixtures and
+  a Chapman–Kolmogorov check. Quantify timestep scale and one enhanced-sampling
+  reweighting example. Derive a two-state continuous-time kernel showing equal
+  stationary populations but 1000-fold different relaxation. Add a
+  multi-lag/semigroup inconsistency for a learned trajectory model, equilibrium
+  observable and importance-weight arithmetic, experimental forward-model
+  nonlinearity, and a final claim-matched diagnostic table. Reuse the four
+  existing figures unless a genuine missing relationship warrants another.
+- **After:** Expanded from 2,296 to 4,522 substantive body words while
+  preserving all nine H2s and their order. A reversible three-microstate protein
+  switch now supplies stationary populations, aggregate free energy, exact
+  counts, detailed balance, eigenvalues, and implied timescales. Merging its two
+  open rotamers creates the promoted non-lumpability witness: equilibrium-,
+  entry-, and survival-conditioned hidden mixtures yield different closing
+  hazards, and direct two-lag propagation disagrees with the squared coarse
+  kernel. Timestep scaling, enhanced-sampling reweighting, generator importance
+  weights and ESS, a continuous-time two-state kernel with a 1000-fold clock
+  change, and an inconsistent pair of learned lag heads separate ensemble,
+  transfer, and physical-time claims. A nonlinear FRET forward model and final
+  diagnostic table complete the evidence chain. Existing figures remained
+  sufficient. Matrix, probability, citation, skill, blog, build, and rendered
+  audits passed.

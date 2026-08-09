@@ -147,6 +147,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   distribution, and equality of expectations. Instantiate a finite estimator,
   derive its residual variance or error scaling, and state how randomness is
   shared between transformed evaluations.
+- When a representation becomes the state of a dynamical model, test Markov
+  sufficiency or lumpability explicitly. Construct a finite microstate chain in
+  which merged states have different outgoing laws, compute the dependence of
+  the coarse transition on hidden mixture or history, and identify the state
+  refinement, lag, or memory variable needed to restore the stated model.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 
