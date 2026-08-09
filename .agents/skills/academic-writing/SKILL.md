@@ -142,6 +142,11 @@ Good academic writing is **simple, precise, and top-down**. The reader should ne
   common case, then locate every approximation, restriction, or additional
   input that makes their conclusions differ. A shared final formula does not
   imply shared guarantees or scope.
+- When a guarantee is enforced by randomized averaging, distinguish exact
+  per-sample behavior, behavior under coupled randomness, equality in
+  distribution, and equality of expectations. Instantiate a finite estimator,
+  derive its residual variance or error scaling, and state how randomness is
+  shared between transformed evaluations.
 - Reuse notation across neighboring sections when the same object persists.
   If the mathematical object changes, say so before reusing a familiar symbol.
 

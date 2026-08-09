@@ -1107,3 +1107,52 @@ Post-specific observations remain here rather than becoming universal rules.
   on the same signal. Cost arithmetic and a final claim table make the overlap
   and blind spots explicit. Existing figures remained sufficient. Matrix,
   citation, skill, blog, build, and rendered audits passed.
+
+## 25. Frames, Canonicalization, and Symmetrization
+
+- **Post:** `_posts/2026-08-08-frames-canonicalization-symmetrization.md`
+- **Topic-matched reference:** The revised symmetry chapter owns general orbit,
+  stabilizer, group-averaging, and closure arguments. The spherical-equivariant
+  anchor owns representation-aware geometric primitives. This chapter should
+  instead own the operational trade among choosing one pose, choosing a local
+  pose, averaging a finite equivariant frame, and sampling a pose distribution,
+  especially near configurations where pose selection becomes singular.
+- **Before:** At 2,285 substantive words, the post has a clean seven-section
+  progression and already states the stabilizer obstruction, PCA degeneracy,
+  local Gram--Schmidt frame, Haar proof, finite frame law, and probabilistic
+  pushforward condition. The constructions remain almost entirely symbolic.
+  PCA never receives a perturbation whose principal axis jumps; the local frame
+  never approaches collinearity; and the four averaging recipes never evaluate
+  the same arbitrary backbone. The Monte Carlo paragraph does not separate
+  per-draw, coupled-draw, distributional, and expectation equivariance or
+  quantify their residuals.
+- **Criteria promoted:** For randomized symmetry enforcement, distinguish exact
+  per-sample, coupled-sample, distributional, and expectation-level guarantees.
+  Compute a finite estimator's equivariance residual and variance, and state how
+  randomness is shared across transformed inputs.
+- **Planned revision:** Preserve all seven H2s and their order. Carry a centered
+  anisotropic four-point cross through orbit, quotient, deterministic PCA pose,
+  the eigenvalue tie at zero anisotropy, signed PCA frames, and weighted pose
+  distributions. Compute its covariance and 90-degree canonical-axis jump. Use
+  one local vector triple to verify scalarization/vectorization under rotation,
+  quantify the Gram--Schmidt singularity as the vectors become collinear, and
+  check the reflection-parity failure. On a finite four-pose orbit, evaluate one
+  unrestricted backbone under canonicalization, full group averaging, finite
+  frame averaging, and Monte Carlo symmetrization. Derive expectation and
+  residual variance for independent versus coupled samples, plus evaluation
+  cost and a final regime-selection table. Reuse the four existing figures
+  unless a genuine missing relationship warrants another.
+- **After:** Expanded from 2,285 to 5,110 substantive body words while
+  preserving all seven H2s and their order. A centered anisotropic cross now
+  moves through quotient coordinates, deterministic PCA, a computed eigengap,
+  the exact 90-degree pose jump, signed frames, stabilizer closure, and a smooth
+  four-pose weight law. A local vector triple verifies scalarization,
+  vectorization, collinearity amplification, and reflection parity. One
+  unrestricted four-pose backbone then makes canonicalization, finite frame
+  averaging, full group averaging, and randomized symmetrization numerically
+  distinct. The promoted guarantee ladder separates deterministic,
+  coupled-sample, distributional, and expectation equivariance; the independent
+  residual has variance `40/M` while coupled poses make it zero without removing
+  integration error. Cost formulas and a regime table close the comparison.
+  Existing figures remained sufficient. Geometry, pushforward, variance,
+  citation, skill, blog, build, and rendered audits passed.
