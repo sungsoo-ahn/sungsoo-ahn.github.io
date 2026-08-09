@@ -49,6 +49,30 @@ requirements for the replacement deck-level articles.
   the juxtaposition. Splitting the lecture into separately optimized domain
   essays can erase the comparison that motivated the original sequence.
 
+### ML4Mol 2025 Lecture 4: Graph Neural Networks
+
+- **Source:** `lec4_prelim3.pdf` (86 pages), with media extracted from the
+  corresponding PowerPoint.
+- **Coverage:** 76 substantive slides covered; five cover or part-transition
+  slides omitted. The article retains all three source sections: message
+  passing, graph discrimination, and graph Transformers; the chronological
+  2013--2025 GNN timeline; and the closing critique of applications, graph
+  construction, benchmarking, and graph foundation-model claims.
+- **Figures:** 73 of 88 unique substantive slide visuals reused (82.95%). The
+  fifteen omitted visuals are paper title cards, repeated equations, or visual
+  fragments whose scientific content is already represented by a reused figure
+  from the same slide. No explanatory figure was drawn.
+- **Synthetic material removed:** the fixed five-node architecture comparison,
+  numerical GCN/GraphSAGE/GAT updates, two-hop coefficient calculation,
+  sparse-versus-dense cost example, formal 1-WL ceiling proof, `C6` versus
+  `2C3` collision, remedy cost table, oversmoothing diffusion derivation,
+  binary-tree sensitivity example, and rewiring calculations from the previous
+  three-post treatment were absent from this deck.
+- **General lesson promoted:** source fidelity includes the lecture's rhetorical
+  destination. A deck that moves from a technical survey into a methodological
+  critique should not be adapted into an architecture tutorial that ends before
+  the critique. The blog-writing skill now records this rule.
+
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
 
