@@ -332,6 +332,31 @@ requirements for the replacement deck-level articles.
   cell-state projections; retaining them keeps "virtual cell" tied to its actual
   inputs and targets. The blog-writing skill now records this observation-layer
   rule.
+
+### GDL 2025 Lecture 1: An Introduction to Geometric Deep Learning
+
+- **Source:** `lec1_intro_v2.pdf` (33 pages in the canonical manifest), with 31
+  published media assets extracted from the corresponding PowerPoint and two
+  native diagrams cropped from the canonical PDF.
+- **Coverage:** 23 substantive slides covered; nine course-administration slides
+  omitted and one AlphaFold motivation slide collapsed as a literal recap. The
+  scientific spine remains function approximation, deep-network expressivity
+  and overfitting, architecture as data structure, geometry as invariants under
+  symmetry, geometric neural and generative models, molecular data domains, and
+  current drug, protein, simulation, and materials applications.
+- **Figures:** 33 of 39 unique substantive visuals reused (84.62%). Six omitted
+  visuals are duplicated application panels or secondary architecture examples.
+  Eleven unused extraction candidates were removed. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** no prior deck-level article existed for this
+  course introduction. The new post excludes the staff, schedule, prerequisites,
+  grading, blog-project, and peer-review logistics while retaining every
+  scientific orientation slide.
+- **General lesson promoted:** course-introduction decks require a slide-level
+  boundary between administration and science. Logistics should disappear from
+  a reader-facing article, but the motivating examples, domain inventory, field
+  definition, and architecture-design question often form the deck's scientific
+  thesis. The blog-writing skill now records this distinction.
   and inflates the apparent figure denominator. The figure skill now records
   this rule.
 

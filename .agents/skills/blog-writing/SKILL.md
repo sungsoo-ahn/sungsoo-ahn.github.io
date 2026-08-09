@@ -154,6 +154,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     projections of the underlying system. Explain which measurement defines
     the model's input and target before using broad language such as simulation,
     response, state, or digital twin.
+17. For a course-introduction deck, separate logistics from scientific
+    orientation slide by slide. Remove grading, schedule, staff, and project
+    administration, but retain the motivating applications, domain inventory,
+    definition of the field, and architectural question when they form a
+    coherent scientific argument. “Introduction” is not itself a reason to omit
+    a slide.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
