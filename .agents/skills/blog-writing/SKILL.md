@@ -130,6 +130,12 @@ new thesis, a reordered curriculum, or additional technical branches.
     mechanistic paths can encode the same endpoint while defining different
     learning problems; do not relegate this progression to notation or merge it
     into one generic representation paragraph.
+13. Preserve a deck's hierarchy of learned scientific objects and downstream
+    computations. A state, functional, operator, field, and basis expansion may
+    describe related physics while defining different supervision, symmetry,
+    inference, and solver contracts. When the source moves between these
+    objects, state what is predicted and what calculation still follows; do not
+    flatten the sequence into a catalog of machine-learning architectures.
 
 In this mode, source fidelity overrides the general depth heuristics below. A
 short deck may produce a shorter article; a long deck may exceed a 45-minute
