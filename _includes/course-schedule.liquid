@@ -3,7 +3,7 @@
   <section class="course-schedule" aria-labelledby="course-schedule-title">
     <h2 id="course-schedule-title">Schedule</h2>
     <p class="course-schedule-intro">
-      Class meets every Monday and Wednesday from 10:30 AM to 12:00 PM, beginning Aug. 31. The optional supplementary articles follow the corresponding 2025 lecture materials.
+      Class meets every Monday and Wednesday from 10:30 AM to 12:00 PM, beginning Aug. 31.
     </p>
     <div class="table-responsive">
       <table>
@@ -12,7 +12,6 @@
             <th scope="col">Dates</th>
             <th scope="col">Topic</th>
             <th scope="col">Focus</th>
-            <th scope="col">Supplementary material</th>
           </tr>
         </thead>
         <tbody>
@@ -30,20 +29,6 @@
               </td>
               <td class="course-schedule-topic">{{ block.topic }}</td>
               <td>{{ block.focus }}</td>
-              <td>
-                {% if block.supplementary_posts and block.supplementary_posts.size > 0 %}
-                  <ul class="course-schedule-readings">
-                    {% for post_slug in block.supplementary_posts %}
-                      {% assign supplementary_post = site.posts | where: 'slug', post_slug | first %}
-                      {% if supplementary_post %}
-                        <li><a href="{{ supplementary_post.url | relative_url }}">{{ supplementary_post.title }}</a></li>
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
-                {% else %}
-                  <span aria-label="No supplementary material">—</span>
-                {% endif %}
-              </td>
             </tr>
           {% endfor %}
         </tbody>
