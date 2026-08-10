@@ -20,8 +20,9 @@ Create publication-quality blog figures. Treat figures as explanatory objects, n
 When a source-faithful lecture adaptation requests reuse of the slide figures,
 the deck is the visual source of record. Inventory every unique substantive
 figure and reuse it in the deck's order. Prefer extracting the original media
-from the PowerPoint package; crop a high-resolution rendered slide only when
-the figure is assembled from slide-native shapes, text, or equations.
+from the PowerPoint package. When the displayed figure depends on PowerPoint
+crops, masks, rotations, or native shapes, export the exact picture or semantic
+group from PowerPoint.
 
 - Do not draw, redraw, simplify, or image-generate replacement figures.
 - Do not impose a figure quota. Track every unique substantive slide figure as
@@ -30,15 +31,13 @@ the figure is assembled from slide-native shapes, text, or equations.
   content hash, and retain enough resolution for labels to remain readable when
   zoomed.
 - Treat an unsupported legacy format such as EMF as an extraction problem, not
-  as permission to omit or redraw the figure. Recover the displayed region from
-  a high-resolution rendering of the canonical PDF page and record the page and
-  normalized crop so the asset remains reproducible.
+  as permission to omit, redraw, or crop the PDF. Export the displayed PPTX
+  object through PowerPoint or a renderer that preserves that source object.
 - Distinguish package media from conceptual figures. If one slide visual is
   assembled from many PowerPoint text boxes, equation tokens, arrows, or tiny
-  image fragments, crop the coherent composite once from the canonical PDF and
-  count it once in figure coverage. Do not publish or count each package
-  fragment as an independent figure; that destroys layout semantics and
-  inflates the reuse denominator.
+  image fragments, export the semantic group once and count it once in figure
+  coverage. Do not publish a whole-slide screenshot, crop a PDF region, or
+  count each package fragment as an independent figure.
 - Record deck path, slide number, crop/extraction method, attribution, output
   asset, and caption in a figure manifest.
 - Use the house references to judge placement, caption clarity, and rendering,

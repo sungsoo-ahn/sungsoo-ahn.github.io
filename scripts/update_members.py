@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""
-Script to generate people.md from the SPML lab members.xlsx file.
-Usage: python scripts/update_members.py
-"""
+"""Generate the people page from the SPML lab member workbook."""
 
-import pandas as pd
+import os
 from pathlib import Path
 
-# Configuration
-EXCEL_PATH = Path.home() / "Sungsahn0215 Dropbox/SPML/administration/members.xlsx"
+import pandas as pd
+
+
+DEFAULT_EXCEL_PATH = Path.home() / "SPML Dropbox/SPML/administration/members.xlsx"
+EXCEL_PATH = Path(os.environ.get("SPML_MEMBERS_XLSX", DEFAULT_EXCEL_PATH)).expanduser()
 OUTPUT_PATH = Path(__file__).parent.parent / "_pages/people.md"
 
 
@@ -28,6 +28,12 @@ def format_member(row):
 
 
 def main():
+    if not EXCEL_PATH.is_file():
+        raise FileNotFoundError(
+            f"Members workbook not found at {EXCEL_PATH}. "
+            "Set SPML_MEMBERS_XLSX to override the Dropbox location."
+        )
+
     print(f"Reading members from: {EXCEL_PATH}")
     df = pd.read_excel(EXCEL_PATH)
 
@@ -76,7 +82,7 @@ def main():
 
     # Write to file
     output = "\n".join(lines)
-    OUTPUT_PATH.write_text(output)
+    OUTPUT_PATH.write_text(output, encoding="utf-8")
 
     print(f"Generated people page with {len(members)} members and {len(alumni_list)} alumni")
     print(f"Output written to: {OUTPUT_PATH}")

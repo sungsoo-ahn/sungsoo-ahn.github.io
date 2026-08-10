@@ -1,4 +1,7 @@
-# Tutorial Comparison and Revision Log
+# Archived Tutorial Comparison and Revision Log
+
+This historical audit is retained as project documentation. It is not an agent
+instruction file; current policy belongs in `AGENTS.md` and canonical skills.
 
 ## Source-Faithful Deck Migration (supersedes the synthetic-storyline pass)
 
@@ -166,6 +169,711 @@ requirements for the replacement deck-level articles.
   or modify, preserve that axis. Spatial reduction, long-lag transition
   generation, altered exploration, and learned bias forces accelerate different
   objects and should not be flattened into a generic list of efficiency methods.
+
+### ML4Mol 2025 Lecture 9: Molecular Generation
+
+- **Source:** `lec9_molgen.pdf` (38 pages), with media extracted from the
+  corresponding PowerPoint and two composite diagrams cropped from the
+  canonical PDF.
+- **Coverage:** 37 substantive slides covered; the lecture cover omitted. The
+  article preserves the source sequence from autoregressive graph models and
+  GraphRNN through graph grammars, motifs, SMILES, continuous and discrete graph
+  diffusion, reaction prediction, organic and inorganic retrosynthesis,
+  multistep planning, electron flow, and chemistry language models.
+- **Figures:** 56 of 65 unique substantive visuals reused (86.15%). Nine omitted
+  panels are duplicate examples or secondary panels already represented by a
+  retained visual from the same method. Paper title cards and decomposed icon
+  fragments were treated as non-substantive. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous generation chapter's fixed
+  five-outcome validity calculation, two-history likelihood comparison,
+  guidance ratios, atom-mapping quotient, route-tree arithmetic, compounded
+  yield calculation, and 1,000-candidate funnel were absent from the source.
+- **General lesson:** representation grammar is not a preliminary encoding
+  detail when it determines the model's actions. The adjacency, motif, string,
+  diffusion, reaction-edit, and electron-flow representations must remain in
+  the source order because each changes the construction or translation problem
+  inherited by the next method.
+
+### ML4Mol 2025 Lecture 10: Three-Dimensional Molecular Generation and Optimization
+
+- **Source:** `lec10_molopt.pdf` (55 pages), with media extracted from the
+  corresponding PowerPoint and twenty composite slide regions cropped from the
+  canonical PDF. Sixteen of those crops preserve the equation-heavy GFlowNet
+  derivation as coherent visuals rather than publishing its many disconnected
+  PowerPoint text and equation fragments.
+- **Coverage:** 51 substantive slides covered; the cover and three part-title
+  slides omitted. The source order remains joint 3D generation, crystal and
+  symmetry-aware generation, structure-conditioned design, molecular
+  optimization, reaction-based construction, and the full GFlowNet derivation
+  from reward-proportional sampling through TB, DB, training, and evaluation.
+- **Figures:** 80 of 94 unique substantive visuals reused (85.11%). Fourteen
+  omitted visuals are duplicate result panels or secondary examples already
+  represented by a retained visual. The numerous isolated numerals, equation
+  tokens, icons, and paper title fragments in the PowerPoint package were
+  treated as pieces of their cropped slide composite rather than independent
+  figures. No explanatory figure was drawn.
+- **Synthetic material removed:** the prior 3D-generation chapter's torus and
+  centered-coordinate derivations, latent-oracle and Pareto examples,
+  optimization funnel, oracle-exploitation discussion, and synthesis-budget
+  calculations were absent from this lecture. The GFlowNet material now follows
+  the lecture's own reward-4/2/1 flow example and forward/backward derivation.
+- **General lesson promoted:** PowerPoint media inventory is not identical to
+  conceptual figure inventory. When one visual is assembled from dozens of
+  equation or text fragments, preserve it as one high-resolution canonical-PDF
+  composite; publishing the fragments separately destroys the source argument.
+
+### ML4Mol 2025 Lecture 11: Quantum Chemistry
+
+- **Source:** `lec11_quantum.pdf` (41 pages), with media extracted from the
+  corresponding PowerPoint and four equation-heavy diagrams cropped from the
+  canonical PDF because their PowerPoint representation was split into small
+  text, equation, orbital, and arrow fragments.
+- **Coverage:** 36 substantive slides covered; the cover and four part-title
+  slides omitted. The source sequence remains the quantum many-body problem,
+  Hartree--Fock and self-consistency, antisymmetry and neural wavefunctions,
+  variational Monte Carlo, Kohn--Sham DFT, the Skala learned XC functional, and
+  supervised prediction of Hamiltonians and electron densities.
+- **Figures:** 36 of 43 unique substantive visuals reused (83.72%). Seven
+  omitted visuals are paper title cards, decorative media, or secondary panels
+  whose scientific content appears in a retained visual. Forty-three unused
+  extraction candidates were removed after the composite crops replaced their
+  fragmented representations. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous quantum-chemistry chapter's
+  two-level VMC calculation, scalar SCF contraction example, near-degenerate
+  Hamiltonian witness, delta-learning comparison, fidelity-ranking case, and
+  amortized break-even analysis were absent from this deck. The replacement
+  instead follows the lecture's own chain from the Schrödinger equation through
+  WFT and DFT to learned wavefunctions, functionals, operators, and densities.
+- **General lesson promoted:** related quantum objects are not interchangeable
+  prediction targets. Preserve the source's hierarchy from state to functional,
+  operator, field, and basis coefficients, and state which numerical solve or
+  query remains downstream of each learned object. The blog-writing skill now
+  records this target-and-solver contract.
+
+### ML4Mol 2025 Lecture 12: Protein Structure Prediction
+
+- **Source:** `lec12_protein1.pdf` (80 pages), with 95 published media assets
+  extracted directly from the corresponding PowerPoint.
+- **Coverage:** 77 substantive slides covered; the cover, attribution notice,
+  and one part-title slide omitted. The source progression remains the protein
+  sequence--structure--dynamics--design task map, AlphaFold1 learned potentials,
+  AlphaFold2 Evoformer and structure module, AlphaFold3 all-atom diffusion,
+  open implementations, alternative folding and packing models, affinity
+  prediction, protein generation, ensemble prediction, and open data questions.
+- **Figures:** 95 of 100 unique substantive visuals reused (95%). The five
+  omitted visuals are duplicated overview fragments, logos, or title cards.
+  Ten unused extraction candidates were removed. No explanatory figure was
+  drawn and no PDF crop was needed because the deck's architecture diagrams
+  were preserved as coherent embedded media.
+- **Synthetic material removed:** the prior AlphaFold chapter's binary
+  common-cause MSA calculation, realizability counterexample, memory arithmetic,
+  rigid-transform numerical example, confidence matrix, sample-frequency
+  warning, binding-free-energy calculation, and claim-scope table were absent
+  from this deck. The replacement retains the much broader source survey from
+  protein representations through AlphaFold and into affinity and ensemble
+  models.
+- **General lesson promoted:** an opening task map is substantive when the later
+  storyline crosses its boundaries. Retaining sequence learning, folding,
+  ensemble prediction, sequence design, and structure design makes it possible
+  to see AlphaFold3, Proteina, Boltz-2, and BioEmu as changes of target rather
+  than a flat list of structure architectures. The blog-writing skill now
+  records this rule.
+
+### ML4Mol 2025 Lecture 13: Protein Representation Learning and Design
+
+- **Source:** `lec13_protein2.pdf` (62 pages), with 70 published media assets
+  extracted from the corresponding PowerPoint and four slide-native diagrams
+  cropped from the canonical PDF.
+- **Coverage:** 59 substantive slides covered; the cover and attribution notice
+  omitted, and one antibody-anatomy slide collapsed as a literal recap. The
+  source order remains sequence and structure representation learning,
+  multimodal and fitness pretraining, antibody affinity maturation, sequence
+  design and inverse folding, backbone generation, joint co-design, de novo
+  antibody design, complete design pipelines, and affinity-based experimental
+  filtering.
+- **Figures:** 74 of 78 unique substantive visuals reused (94.87%). Four omitted
+  visuals are duplicate token examples, title media, or decorative animation.
+  Three unused extraction candidates were removed. No explanatory figure was
+  drawn; canonical-PDF crops recover DiffPreT and the three DSMBind slides whose
+  scientific diagrams were built from native slide shapes.
+- **Synthetic material removed:** the prior protein-design chapter's abstract
+  variable-choice taxonomy, motif-scaffolding derivation, oracle-failure
+  argument, evaluation funnel, and selection-bias discussion were absent from
+  this deck. The replacement retains the source's extensive method chronology
+  and its reported Chai-2, BoltzGen, antibody maturation, and DSMBind laboratory
+  validations.
+- **General lesson promoted:** a design lecture can distribute its scientific
+  claim across a pipeline. Preserve generation, inverse folding, folding,
+  confidence or affinity ranking, filtering, synthesis, and wet-lab measurement
+  as separate stages with explicit handoffs. The blog-writing skill now records
+  this pipeline-fidelity rule.
+
+### ML4Mol 2025 Lecture 14: Genomics and Virtual Cells
+
+- **Source:** `lec14_genome_cell.pdf` (57 pages), with 86 published media assets
+  extracted from the corresponding PowerPoint and four AlphaGenome/TxPert
+  composites cropped from the canonical PDF.
+- **Coverage:** 54 substantive slides covered; the lecture cover and two part
+  titles omitted. The source order remains genome and expression biology,
+  sequencing and functional annotation, genomic foundation models and design,
+  AlphaGenome and RNA structure, virtual-cell desiderata, cell-level measurement
+  modalities, cell representation learning, perturbation prediction, and
+  language-model reasoning over expression-derived cell sentences.
+- **Figures:** 90 of 100 unique substantive visuals reused (90%). Ten omitted
+  visuals are duplicate panels or secondary examples whose content is already
+  visible in retained slide media. Fourteen unused extraction candidates were
+  removed. No explanatory figure was drawn.
+- **Synthetic material removed:** the previous virtual-cell chapter's negative
+  binomial derivation, causal-identification discussion, donor/batch split
+  protocol, perturbation-distribution example, calibration calculation, and
+  claim-matched evaluation contract were absent from this deck. The replacement
+  follows the source's long genomic-model chronology and its explicit transition
+  from genomic sequence to measured cellular perturbation response.
+- **General lesson promoted:** measurement slides are scientific content when
+  they define what a broad modeling claim can observe. Bulk RNA-seq, single-cell
+  RNA-seq, spatial transcriptomics, and fluorescence microscopy expose different
+  cell-state projections; retaining them keeps "virtual cell" tied to its actual
+  inputs and targets. The blog-writing skill now records this observation-layer
+  rule.
+
+### GDL 2025 Lecture 1: An Introduction to Geometric Deep Learning
+
+- **Source:** `lec1_intro_v2.pdf` (33 pages in the canonical manifest), with 31
+  published media assets extracted from the corresponding PowerPoint and two
+  native diagrams cropped from the canonical PDF.
+- **Coverage:** 23 substantive slides covered; nine course-administration slides
+  omitted and one AlphaFold motivation slide collapsed as a literal recap. The
+  scientific spine remains function approximation, deep-network expressivity
+  and overfitting, architecture as data structure, geometry as invariants under
+  symmetry, geometric neural and generative models, molecular data domains, and
+  current drug, protein, simulation, and materials applications.
+- **Figures:** 33 of 39 unique substantive visuals reused (84.62%). Six omitted
+  visuals are duplicated application panels or secondary architecture examples.
+  Eleven unused extraction candidates were removed. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** no prior deck-level article existed for this
+  course introduction. The new post excludes the staff, schedule, prerequisites,
+  grading, blog-project, and peer-review logistics while retaining every
+  scientific orientation slide.
+- **General lesson promoted:** course-introduction decks require a slide-level
+  boundary between administration and science. Logistics should disappear from
+  a reader-facing article, but the motivating examples, domain inventory, field
+  definition, and architecture-design question often form the deck's scientific
+  thesis. The blog-writing skill now records this distinction.
+
+### GDL 2025 Lecture 2: Symmetry and Equivariance
+
+- **Source:** `lec2_prelim1.pdf` (51 pages), with six overview and timeline
+  figures extracted from the corresponding PowerPoint and 32 source-native
+  diagram or equation composites cropped from the canonical PDF.
+- **Coverage:** 40 substantive slides covered; eight course-administration
+  slides and three part-title transitions omitted. The source order remains the
+  geometric-deep-learning recipe, graph and geometric-graph symmetries,
+  algebraic and topological structure, matrix and transformation groups, group
+  actions, stabilizers, cosets and quotients, representations, harmonics,
+  steerable features, and equivariant operators.
+- **Figures:** 38 of 45 unique substantive visuals reused (84.44%). Seven
+  omitted visuals are duplicate timeline or secondary feature examples whose
+  content is already represented in retained figures. The 109 unused extraction
+  fragments removed from the candidate directory were constituents of the
+  retained source composites, not additional conceptual figures. No explanatory
+  figure was drawn.
+- **Synthetic material removed:** the previous symmetry tutorial's typed
+  V-shaped running object, signed-volume chirality witness, layer-closure proof,
+  force and conservation derivations, and numerical augmentation examples were
+  absent from this deck. The replacement follows the source's introductory
+  group-theory construction and ends at the definition of equivariance.
+- **General lesson promoted:** a formal lecture can make its argument through a
+  dependency chain rather than a long derivation. Group, action, stabilizer,
+  coset, quotient, representation, and equivariance each supply the object used
+  next, so none should be compressed into glossary background. The blog-writing
+  skill now records this dependency-chain rule.
+
+### GDL 2025 Lecture 3: Graph Neural Networks
+
+- **Source:** `lec3_gnn1.pdf` (63 pages), represented by 55 canonical PDF
+  composites that preserve the equations, diagrams, paper panels, and benchmark
+  tables assembled on each substantive slide.
+- **Coverage:** 55 substantive slides covered; the cover, overview, five repeated
+  agenda slides, and one study-resources slide omitted. The article retains the
+  source order: graph targets, message passing and GCN, graph attention, graph
+  Transformers and positional encoding, the 2013--2023 architecture survey, and
+  dataset regimes from TU collections to knowledge-graph reasoning.
+- **Figures:** all 55 source-native substantive visual composites reused (100%).
+  Full-slide crops were necessary because equations, annotations, paper
+  screenshots, and diagrams form one layout in the source. No extracted fragment
+  was substituted and no explanatory figure was drawn.
+- **Synthetic material removed:** the previous message-passing tutorial's fixed
+  five-node numerical example, layer equivariance proof, aggregation collision
+  table, structural-attention calculation, and sparse-versus-dense complexity
+  example were absent from this deck. The replacement restores the lecture's
+  long architecture and benchmark chronology, including its judgments about
+  graph pooling, fragile small-data comparisons, universal-best claims, and the
+  changing importance of data scale.
+- **General lesson promoted:** a chronological survey can carry an argument by
+  showing which limitation each method changes. Preserving only a modern MPNN
+  derivation would erase the deck's progression through locality, pooling,
+  expressivity, depth, long-range propagation, fair comparison, and scaling.
+  The blog-writing skill now records this chronological-survey rule.
+
+### GDL 2025 Lecture 4: Two Routes to Graph Convolution
+
+- **Source:** `lec4_gnn2.pdf` (43 pages), represented by 36 canonical PDF
+  composites preserving the equations, signal diagrams, operator bases, and
+  annotations assembled on each scientific slide.
+- **Coverage:** 36 substantive slides covered; five cover, overview, and outline
+  transitions plus two reference-list slides omitted. The source order remains
+  MLP versus convolutional linear maps, graph signals and the Laplacian, graph
+  Fourier bases and transforms, spectral filtering, Chebyshev and GCN
+  approximations, the varying-graph limitation, shift and permutation
+  equivariance, higher-order fixed-point equations, Bell-number bases, and the
+  comparison with adjacency-conditioned GNNs.
+- **Figures:** all 36 source-native substantive visual composites reused (100%).
+  Full-slide crops preserve the relationship between equations and diagrams in
+  the deck; no explanatory figure was drawn.
+- **Synthetic material removed:** the previous graph-convolution tutorial's
+  controlled graph example, coefficient ledger, four-index equality-pattern
+  correction, basis/sign/scale failure analysis, and cost comparison were absent
+  from this deck. The replacement keeps the source's spectral derivation and its
+  explicit critique before beginning the independent equivariant-operator route.
+- **General lesson promoted:** two derivations of the same operator are not
+  redundant when their assumptions differ. The signal-processing route fixes a
+  graph Laplacian, while the commutant route fixes a transformation group; the
+  lecture's varying-graph critique is the reason for the pivot. The blog-writing
+  skill now records this alternate-derivation rule.
+
+### GDL 2025 Lecture 5: Expressive Power of Graph Neural Networks
+
+- **Source:** `lec5_gnn3.pdf` (69 pages), represented by 66 canonical PDF
+  composites preserving the graph pairs, refinement steps, theorem statements,
+  architecture diagrams, and comparison landscapes on every scientific slide.
+- **Coverage:** all 66 substantive slides covered; only the cover, course
+  overview, and external reading-list slide omitted. The source order remains
+  graph discrimination and approximation, 1-WL and GIN, the k-WL hierarchy,
+  sparse local and tuple-restricted variants, IGNs, motif encodings and GSNs,
+  cellular lifts and CWNs, subgraph selection policies, DS-GNN and GNN-AK,
+  coupled bag symmetries, k-OSAN, and the final proposal to learn rather than
+  impose equivariance.
+- **Figures:** all 66 source-native substantive visual composites reused (100%).
+  The two recap slides were retained because they compare representation
+  families and establish the next section's question. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** the previous expressivity tutorial's fixed P5
+  refinement, C6-versus-two-triangles collision, explicit spectra and deletion
+  decks, bounded injective encoding proof, and remedy cost ledger were absent
+  from this deck. The replacement restores the lecture's much broader sequence
+  of formal test--architecture pairs and substructure or subgraph constructions.
+- **General lesson promoted:** a slide titled “recap” can be the argumentative
+  hinge of a lecture. Here the first recap compares higher-order tensors with
+  stochastic identifiers, and the second locates subgraph bags among structural
+  encodings and lifts. The blog-writing skill now distinguishes such synthesis
+  slides from literal repeated recap.
+
+### GDL 2025 Lecture 6: Failure Modes of Graph Neural Networks
+
+- **Source:** `lec6_gnn4.pdf` (50 pages), represented by 48 canonical PDF
+  composites preserving the diagnostic diagrams, energy and sensitivity
+  equations, curvature examples, rewiring sequences, benchmark plots, and final
+  research-practice evidence.
+- **Coverage:** all 48 scientific slides covered; only the cover and course
+  overview omitted. The source order remains under-reaching, over-smoothing and
+  its competing measures, mitigation families and their risks, over-squashing
+  sensitivity, binary-tree and curvature analysis, rewiring, width, graph
+  distance versus commute time, dynamic delayed rewiring, long-range benchmarks,
+  and the closing critique of application relevance, graph meaning, evaluation
+  culture, and graph foundation models.
+- **Figures:** all 48 source-native substantive visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous failure-modes tutorial's custom
+  three-failure summary, exact tree sensitivity calculation, Dirichlet numerical
+  example, effective-resistance derivation, molecular computation-graph case,
+  and architecture remedy table were absent from this deck. The replacement
+  retains the lecture's empirical comparisons and its unusually long
+  research-practice critique.
+- **General lesson promoted:** the final nine slides are not an optional opinion
+  appendix. They define when a better information-flow architecture supports a
+  meaningful claim at all: the graph must encode a defensible relation and the
+  evaluation must survive matched baselines and tuning. The blog-writing skill's
+  rhetorical-destination rule now names this form of claim-boundary audit.
+
+### GDL 2025 Lecture 7: Scalar- and Vector-Based Geometric Graph Neural Networks
+
+- **Source:** `lec7_geognn1.pdf` (61 pages), represented by 52 canonical PDF
+  composites preserving the molecular diagrams, basis equations, local-frame
+  constructions, architecture blocks, and benchmark tables on every scientific
+  slide.
+- **Coverage:** 52 scientific slides covered; three project-announcement slides
+  and six cover, overview, part-title, or end transitions omitted. The source
+  order remains geometric molecular graphs and forces, scalarization, SchNet,
+  DimeNet, SphereNet, ComENet, GemNet, EGNN, PaiNN, and TorchMD-Net.
+- **Figures:** all 52 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous scalar/vector tutorial's
+  Euclidean-distance-matrix completeness derivation, fixed angular-shell
+  example, nonconservative EGNN witness, pair-force calculation, cost ledger,
+  and architecture decision table were absent from this deck. The replacement
+  restores the lecture's method-by-method geometric constructions and reported
+  property, energy, force, and timing comparisons.
+- **General lesson promoted:** the scalar architecture sequence is not merely a
+  catalog before the vector models. It successively adds distance, angle,
+  torsion, and complete local-frame information, while the vector section keeps
+  orientation inside the hidden state. A faithful adaptation must explain which
+  ambiguity each step resolves and preserve the empirical evidence attached to
+  that representational claim. The blog-writing skill now records this
+  representational-sufficiency rule.
+
+### GDL 2025 Lecture 8: Local Frames, Frame Averaging, and Canonicalization
+
+- **Source:** `lec8_geognn2.pdf` (48 pages), represented by 43 canonical PDF
+  composites preserving local-frame definitions, scalarize--vectorize blocks,
+  isomorphism diagrams, averaging proofs, PCA constructions, and experiments.
+- **Coverage:** 43 scientific slides covered; five cover, part-title, or end
+  transitions omitted. The group, representation, and permutation recaps were
+  retained because they supply the notation used immediately by group and frame
+  averaging. The source order remains ClofNet, LEFTNet, AlphaNet, group and
+  frame averaging, FAENet, learned canonicalization, and probabilistic
+  symmetrization.
+- **Figures:** all 43 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous frames tutorial's quotient-space
+  derivation, V-shaped running object, PCA discontinuity calculation, local
+  Gram--Schmidt example, Haar proof, Monte Carlo residual example, and
+  universality/continuity decision table were absent from this deck. The
+  replacement restores the source's full architecture chronology, local
+  isometry hierarchy, exact finite averaging proofs, materials implementation,
+  and pretrained-backbone experiment.
+- **General lesson promoted:** “frame” changes meaning across the lecture. An
+  edge-local basis moves features between interacting neighborhoods; a global
+  input-dependent set symmetrizes an entire backbone. A faithful article must
+  identify what indexes each frame and what operation consumes it rather than
+  merging the two halves into a general canonicalization essay. The
+  blog-writing skill now records this scope-tracking rule.
+
+### GDL 2025 Lecture 9: Steerable Features, Tensor Products, TFN, and NequIP
+
+- **Source:** `lec9_geognn3.pdf` (54 pages), represented by 49 canonical PDF
+  composites preserving harmonic plots, representation decompositions,
+  Clebsch--Gordan equations, TFN layers, NequIP parity rules, and experiments.
+- **Coverage:** 49 scientific slides covered; the cover, course schedule,
+  bibliography card, and two part-title transitions omitted. Four overview
+  slides were retained because they define the three questions answered by the
+  lecture. The nominal end slide was retained because its Cormorant, 3D
+  steerable-CNN, and Fourier-space CG-network map is scientific content.
+- **Figures:** all 49 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous tensor-product tutorial's
+  feature ladder, vector dot--cross--STF worked decomposition, compact selection
+  diagram, and self-contained typed-message pipeline were absent from this
+  deck. The replacement restores the source's full path through groups,
+  circular and spherical harmonics, Cartesian reducibility, Wigner blocks,
+  Clebsch--Gordan coefficients, TFN, NequIP, parity, and early experiments.
+- **General lesson promoted:** the group-theory half is not detachable
+  background. Its objects reappear as the type, representation, channel, and
+  parity indices of the network and as the triangle and parity constraints on
+  each message. The blog-writing skill now requires an adaptation to carry that
+  abstract dependency chain into the concrete architecture.
+
+### GDL 2025 Lecture 10: Steerable Attention and Nonlinear Message Passing
+
+- **Source:** `lec10_geognn4.pdf` (44 pages), represented by 42 canonical PDF
+  composites preserving the recap equations, TFN and NequIP layers,
+  SE(3)-Transformer attention, SEGNN steerable MLPs, and benchmark tables.
+- **Coverage:** 42 scientific slides covered; only the cover and dated course
+  schedule omitted. The steerable-feature, TFN, and NequIP recap remains in the
+  article because SE(3)-Transformer is expressed as an attention-weighted TFN
+  value update and SEGNN is contrasted with TFN's linear aggregation. The end
+  slide's related-architecture map was also retained.
+- **Figures:** all 42 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** no prior synthetic article matched this deck
+  exactly; its material had been split between the tensor-product and
+  equivariant-potential tutorials. Their standalone typed-layer derivations,
+  rotation arithmetic, conservative-force counterexample, locality analysis,
+  and architecture ledger were absent from the source and were not imported.
+- **General lesson promoted:** repeated preliminaries remain substantive when
+  the new architecture is stated as a precise modification of their notation.
+  Here the recap fixes the typed TFN kernel that attention weights and the
+  linear aggregation that SEGNN replaces. The recap rule in the blog-writing
+  skill now names this baseline-delta case explicitly.
+
+### GDL 2025 Lecture 11: Scaling Steerable GNNs
+
+- **Source:** `lec11_geognn5.pdf` (41 pages), represented by 39 canonical PDF
+  composites preserving the TFN baseline, attention equations, high-body-order
+  couplings, aligned-axis reductions, normalization diagrams, and benchmarks.
+- **Coverage:** 39 scientific slides covered; only the cover and dated course
+  schedule omitted. The source order remains TFN and SE(3)-Transformer,
+  Equiformer, MACE, eSCN, EquiformerV2, and two scientific related-work maps.
+- **Figures:** all 39 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the prior equivariant-potential tutorial's
+  typed-attention rotation arithmetic, conservative-force proof and
+  counterexample, cutoff regularity derivation, charged-fragment locality case,
+  and fixed-budget architecture ledger were absent from this deck. The
+  replacement restores the source's distinct architecture-specific motivations
+  and its complete efficiency and benchmark sequence.
+- **General lesson promoted:** recent-method surveys must not merge all gains
+  into “better equivariance.” Equiformer changes practical attention blocks,
+  MACE makes body order explicit, eSCN sparsifies the angular product by edge
+  alignment, and EquiformerV2 changes nonlinear processing and normalization.
+  The blog-writing skill now requires these bottleneck--remedy pairs to remain
+  separate and tied to their own evidence.
+
+### GDL 2025 Lecture 12: Scaling Machine-Learned Force Fields for Materials
+
+- **Source:** `lec12_geognn6 (revised).pdf` (38 pages), represented by 35
+  canonical PDF composites preserving dataset maps, periodic crystal diagrams,
+  discovery and active-learning workflows, scaling systems, and benchmark
+  evidence.
+- **Coverage:** 35 scientific slides covered; the cover, dated course schedule,
+  and final course-transition card omitted. The source order remains the QM9 to
+  phonon benchmark progression, periodic crystal representations and long-range
+  models, GNoME, MatterSim, Orb, the equivariance-at-scale question, SevenNet,
+  and eSEN.
+- **Figures:** all 35 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous materials tutorials' convex-hull
+  candidate calculations, unimodular-basis example, finite guidance pool,
+  relaxation collision, validation funnel, and closed-loop synthesis argument
+  were absent from this deck. The replacement restores the source's much wider
+  benchmark and force-field scaling survey.
+- **General lesson promoted:** a universal-potential claim changes meaning
+  across invariant molecular properties, molecule-specific forces, periodic
+  bulk structures, adsorption trajectories, phonon spectra, phase-transition
+  dynamics, and discovery ranking. The blog-writing skill's dataset-survey rule
+  now explicitly requires scaling and simulation claims to remain attached to
+  the data and target regime that supports them.
+
+### GDL 2025 Lecture 13: ODEs, SDEs, Itô Calculus, and Fokker--Planck
+
+- **Source:** `lec13_prelim2 (revised).pdf` (37 pages), represented by 30
+  canonical PDF composites preserving the stochastic-sum calculations, Itô
+  expansions, probability-current diagrams, generator equations, and weak
+  Fokker--Planck proof.
+- **Coverage:** 30 scientific slides covered; the cover, updated syllabus, part
+  and agenda cards, and bibliography card omitted. The source order remains
+  ODEs and SDEs, Brownian motion, stochastic integral conventions, Itô's
+  formula, probability-density evolution, infinitesimal generators, and the
+  test-function/adjoint proof of the Fokker--Planck equation. The nominal end
+  slide was retained for its multidimensional and related-theorem map.
+- **Figures:** all 30 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous ODE/SDE tutorial's constant-flow
+  example, CNF log-density derivation, reverse-time sign-convention comparison,
+  score-based probability-flow construction, and exact Gaussian example were
+  absent from this deck. The replacement restores the source's stochastic
+  integration and generator derivation rather than jumping directly to
+  diffusion-model formulas.
+- **General lesson promoted:** a proof-faithful adaptation must retain the
+  sequence of mathematical objects, not only its endpoint. Here trajectory
+  increments lead to Itô observables, conditional expectations, the generator,
+  its adjoint, and finally density evolution. The blog-writing skill now records
+  this proof-strategy rule.
+
+### GDL 2025 Lecture 14: Diffusion Models and Flow Matching
+
+- **Source:** `lec14_prelim3.pdf` (29 pages), represented by 24 canonical PDF
+  composites preserving the reverse-SDE equations, conditional/marginal path
+  diagrams, loss derivations, and affine parameterizations.
+- **Coverage:** 24 scientific slides covered; the cover, part and agenda cards,
+  and final reference card omitted. The Fokker--Planck recap was retained
+  because it derives both Nelson's reverse-drift identity and the zero-diffusion
+  continuity equation. The source order remains Langevin dynamics, forward and
+  reverse diffusion, score matching, ODE flows, marginalization, conditional
+  flow matching, Gaussian and affine paths, and velocity parameterization.
+- **Figures:** all 24 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous diffusion/flow tutorial's added
+  schedule tradeoff figure, separate denoising and marginalization diagrams,
+  solver discussion, and expanded conditional-expectation identities were not
+  source figures or source-ordered branches. The replacement follows the deck's
+  compact paired derivation.
+- **General lesson promoted:** conditional and marginal paths and vector fields
+  must remain separate. Diffusion learns a marginal score from conditional
+  corruption scores; flow matching learns a marginal velocity from conditional
+  velocities. The blog-writing skill now requires the posterior expectation or
+  gradient identity connecting these levels and the deck's endpoint convention
+  to remain explicit.
+
+### GDL 2025 Lecture 15: Geometric Flow Matching
+
+- **Source:** `lec15_geogen.pdf` (54 pages), represented by 45 canonical PDF
+  composites preserving the conditional-flow recap, chart and tangent-space
+  diagrams, metric and geodesic construction, manifold operators, and
+  Riemannian score and likelihood formulas.
+- **Coverage:** 45 scientific slides covered; the cover, course map, reference
+  card, and six repeated agenda cards omitted. Slides 5--8 were retained even
+  though they are titled as a recap because their conditional/marginal
+  distinction is the baseline that the lecture generalizes. The source order
+  remains flow matching, manifold motivation, smooth charts, tangent vectors,
+  Riemannian metrics and geodesics, Exp--Log--transport operations, and
+  Riemannian score and density computation.
+- **Figures:** all 45 source-native scientific visual composites reused (100%).
+  No explanatory figure was drawn.
+- **Synthetic material removed:** the previous geometric-flow tutorial's
+  worked sphere quarter-circle, rotation interpolation failure, circle branch
+  jump, Euler/retraction error, product-metric bookkeeping, and solver contract
+  were not part of this deck. The replacement follows the source's geometric
+  replacement sequence and retains its intrinsic-versus-extrinsic design
+  choices.
+- **General lesson promoted:** when a source generalizes an algorithm to a new
+  geometry, preserve its replacement dictionary and operational order. Here
+  ambient vectors become tangent vectors, straight lines become geodesics,
+  subtraction and addition become Log and Exp, Euclidean norms become metric
+  norms, and ordinary gradients and divergences become Riemannian operators.
+  The blog-writing skill now requires each replacement to remain attached to
+  the coordinate or embedding representation that implements it.
+
+### GDL 2025 Lecture 16: Riemannian and Discrete Flow Matching
+
+- **Source:** `lec16_geogen2.pdf` (38 pages), represented by 31 canonical PDF
+  composites. Slides 36 and 37 are pixel-identical, so their shared conditional
+  path and rate construction appears once.
+- **Coverage:** 31 scientific slides covered; the cover, course map, reference
+  card, and three agenda cards omitted; one literal duplicate collapsed. The
+  manifold and flow-matching recap was retained because the lecture maps each
+  of its objects first to a Riemannian version and then to a CTMC version. The
+  source order remains protein motivation, geometry recap, conditional flow
+  matching, Riemannian ODEs and loss, CTMC rates and Kolmogorov equation,
+  discrete marginalization and loss, and factorized paths.
+- **Figures:** 31 of 32 unique-sequence scientific composites reused (96.88%);
+  the omitted composite is the exact duplicate. No explanatory figure was
+  drawn.
+- **Synthetic material removed:** the earlier discrete-generator tutorial's
+  worked three-state mask chain, reverse-rate calculation, circulation witness,
+  graph-equivariance proof, and simulator cost comparison were absent from this
+  deck. The replacement follows the source's CTMC construction and endpoint-
+  posterior parameterization.
+- **General lesson promoted:** when a source builds discrete and continuous
+  versions of one method, preserve the analogy at the level of mathematical
+  objects: tangent velocities versus jump-rate vectors, continuity versus
+  Kolmogorov equations, and posterior-averaged conditional targets in both.
+  Factorization should appear where the source introduces computational scale,
+  not as an unrelated modeling assumption.
+
+### GDL 2025 Lecture 17: Generator Matching and Equivariant Flow Matching
+
+- **Source:** `lec17_geogen3.pdf` (28 pages), represented by 24 canonical PDF
+  composites preserving the test-function generator derivations, conditional
+  matching equations, application survey, coupling construction, and symmetry
+  alignment.
+- **Coverage:** all 24 scientific slides covered; the cover, course map, and two
+  agenda cards omitted. The opening and later flow-matching recaps were retained
+  because the lecture first abstracts their conditional-marginal pattern into
+  generator matching and then returns to their endpoint-pair coupling. The
+  source order remains CTMPs and kernels, generators, flow/diffusion/jump
+  examples, generator parameterization and matching, applications, multisample
+  couplings, and equivariant alignment.
+- **Figures:** all 24 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous generator tutorial's three-state
+  mask calculation, event-time inversion, reverse rates, factorized molecule
+  arithmetic, circulation example, and simulator comparison were absent from
+  this deck. The replacement preserves the source's operator-level unification
+  and minibatch-coupling argument.
+- **General lesson promoted:** a generator is an operator on test functions,
+  while a neural model predicts coefficients in a chosen operator family.
+  Adaptations must retain that separation through the conditional generator,
+  posterior marginalization, and loss. Collapsing the operator and its
+  coefficient into a generic “velocity” erases what makes flows, diffusions,
+  and jumps instances of one construction.
+
+### GDL 2025 Lecture 18: Protein Representation Learning and Structure Prediction
+
+- **Source:** `lec18_proteins1.pdf` (64 pages), represented by 59 canonical PDF
+  composites preserving the biological task map, method diagrams, benchmark
+  panels, AlphaFold architecture views, and open-tool survey.
+- **Coverage:** all 59 scientific slides covered; the cover, one scheduling
+  announcement, and three overview cards omitted. The source order remains
+  protein function and geometry, the sequence--structure--dynamics--design task
+  map, sequence language models, structural and multimodal representation
+  learning, fitness and antibody applications, AlphaFold2, and later folding,
+  packing, complex, all-atom, flow-based, open, and server-based systems.
+- **Figures:** all 59 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous protein-representation and
+  AlphaFold tutorials' homology-split calculation, pooling and leakage audit,
+  common-cause MSA example, distance-realizability witness, memory arithmetic,
+  confidence matrix, and free-energy warning were absent from this deck. The
+  replacement retains the source's much broader representation-to-application
+  survey and its named architecture sequence.
+- **General lesson promoted:** a survey that reuses model components across
+  representation learning, structure prediction, dynamics, sequence design,
+  and structure generation must preserve the input and output contract of each
+  task. Shared protein encoders or geometric modules do not make these targets
+  interchangeable.
+
+### GDL 2025 Lecture 19: Protein Ensembles, Dynamics, and Design
+
+- **Source:** `lec19_proteins2.pdf` (44 pages), represented by 40 canonical PDF
+  composites preserving method diagrams, generated structures, benchmark
+  panels, co-design architectures, and antibody validation results.
+- **Coverage:** all 40 scientific slides covered; the cover and three overview
+  cards omitted. The source order remains equilibrium structure-distribution
+  learning, time-coarsened or whole-trajectory MD emulation, protein design
+  targets, property-conditioned sequence generation and inverse folding,
+  backbone generation, joint sequence--structure generation, and antigen-aware
+  antibody design through wet-lab validation.
+- **Figures:** all 40 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous ensemble and protein-design
+  tutorials' reversible microstate calculation, lumpability witness, implied
+  timescale arithmetic, nonlinear experimental forward model, abstract design
+  taxonomy, motif-scaffolding derivation, oracle-failure argument, and
+  evaluation funnel were absent from this deck. The replacement retains the
+  source's named model progression and experimental endpoint.
+- **General lesson promoted:** generative protein methods must remain organized
+  by the object they generate. Independent equilibrium conformations,
+  lag-conditioned transitions, complete time-ordered trajectories, discrete
+  sequences, backbones, and joint all-atom sequence--structure states carry
+  different sample semantics even when they reuse diffusion or flow matching.
+
+### GDL 2025 Lecture 20: Machine Learning for Genomics and Virtual Cells
+
+- **Source:** `lec20_genome.pdf` (31 pages), represented by 29 canonical PDF
+  composites preserving the biology and assay diagrams, task definitions,
+  model architectures, evaluation panels, RNA systems, and virtual-cell map.
+- **Coverage:** all 29 scientific slides covered; the cover and one transition
+  card omitted. The source order remains genome and expression biology,
+  RNA-seq/WGS/ATAC-seq/structural measurements, annotation and design tasks,
+  the DNABERT-to-Evo-2 foundation-model chronology, RNA structure and
+  sequence--structure co-design, and cell-level transcriptome modeling.
+- **Figures:** all 29 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous virtual-cell tutorial's negative
+  binomial observation derivation, reverse-complement calculation, causal
+  identification argument, donor-split and batch-confounding examples,
+  perturbation-distribution calculation, and claim-matched evaluation table
+  were absent from this deck. The replacement retains the source's assay and
+  model chronology.
+- **General lesson promoted:** foundation-model chronologies must keep the axes
+  on which the models actually differ: tokenization, context length, training
+  corpus and species coverage, measurement modalities, objective, and target
+  task. A sequence of model names without those changes loses the source's
+  scientific account of scaling.
+
+### GDL 2025 Lecture 21: Machine Learning for Crystalline Materials
+
+- **Source:** `lec21_materials.pdf` (36 pages), represented by 35 canonical PDF
+  composites preserving property diagrams, crystal symmetry constructions,
+  model architectures, generation results, and application pipelines.
+- **Coverage:** all 35 scientific slides covered; only the lecture cover omitted.
+  The source order remains material classes and property regimes, periodic
+  crystals and space-group symmetry, property and inverse-structure prediction,
+  symmetry-aware diffusion, latent/text/flow/multimodal crystal generation,
+  battery transport, semiconductor discovery, and heterogeneous catalysis.
+- **Figures:** all 35 source-native scientific composites reused (100%). No
+  explanatory figure was drawn.
+- **Synthetic material removed:** the previous materials and crystal tutorials'
+  AB/AB3 convex-hull arithmetic, lattice gauge calculation, periodic message
+  update, fixed candidate guidance table, relaxation collision, and finite
+  validation funnel were absent from this deck. The replacement retains the
+  source's property taxonomy, named model survey, and three application chains.
+- **General lesson promoted:** application sections following a model survey
+  are not decorative examples. Preserve the handoff from generated or predicted
+  crystal to the downstream physical calculation and observable: stability,
+  ion diffusivity, topology, or adsorbate relaxation. The application defines
+  what the model output is for.
 
 This agent-facing log records the sequential comparison of the 27 canonical
 lecture-derived tutorials against the site's polished house references.
