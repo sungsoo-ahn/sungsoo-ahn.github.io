@@ -1,4 +1,7 @@
-# Tutorial Comparison and Revision Log
+# Archived Tutorial Comparison and Revision Log
+
+This historical audit is retained as project documentation. It is not an agent
+instruction file; current policy belongs in `AGENTS.md` and canonical skills.
 
 ## Source-Faithful Deck Migration (supersedes the synthetic-storyline pass)
 
