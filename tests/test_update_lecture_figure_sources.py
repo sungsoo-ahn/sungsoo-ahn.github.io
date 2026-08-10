@@ -2,10 +2,35 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.update_lecture_figure_sources import parse_figure_includes, reused_assets
+from scripts.update_lecture_figure_sources import (
+    deck_slide_evidence,
+    parse_figure_includes,
+    reused_assets,
+)
 
 
 class ReusedAssetsTests(unittest.TestCase):
+    def test_slide_evidence_uses_only_tracked_url_inputs(self):
+        manifest = {
+            "deck_id": "example",
+            "source_pptx": "/private/untracked/deck.pptx",
+            "slides": [
+                {
+                    "slide": 4,
+                    "pptx_slide": 5,
+                    "text": ["Paper: https://example.org/paper"],
+                    "external_urls": ["https://example.org/project"],
+                }
+            ],
+        }
+
+        evidence = deck_slide_evidence(manifest)[4]
+
+        self.assertEqual(
+            evidence["url_candidates"],
+            ["https://example.org/paper", "https://example.org/project"],
+        )
+
     def test_curated_figure_overrides_matching_media_inventory_record(self):
         path = "assets/img/blog/lectures/example/s04-image2.webp"
         manifest = {
