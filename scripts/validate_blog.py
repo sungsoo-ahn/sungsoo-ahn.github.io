@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
+import json
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -16,6 +18,24 @@ PAGES_DIR = ROOT / "_pages"
 BLOG_IMG_DIR = ROOT / "assets" / "img" / "blog"
 BLOG_CATEGORIES_PATH = ROOT / "_data" / "blog_categories.yml"
 LECTURE_PATHS_PATH = ROOT / "_data" / "lecture_paths.yml"
+LECTURE_SOURCES_PATH = ROOT / "_data" / "lecture_sources.yml"
+LECTURE_MANIFEST_DIR = ROOT / ".agents" / "lecture-adaptation"
+LECTURE_FIGURE_SOURCE_VALIDATOR = ROOT / "scripts" / "update_lecture_figure_sources.py"
+PPTX_EXTRACTION_METHODS = {
+    "pptx-media-copy",
+    "pptx-picture-export",
+    "pptx-shape-group-export",
+}
+PPTX_FIGURE_ROLES = {
+    "architecture",
+    "benchmark-figure",
+    "composite",
+    "diagram",
+    "illustration",
+    "photograph",
+    "plot",
+    "scientific-image",
+}
 
 REQUIRED_FRONTMATTER = {
     "layout",
@@ -55,6 +75,24 @@ INTERNAL_AUTHOR_NOTE_RE = re.compile(
 
 KNOWN_CATEGORIES = set(CATEGORY_SLUG_RE.findall(BLOG_CATEGORIES_PATH.read_text(encoding="utf-8")))
 KNOWN_LECTURE_PATHS = set(LECTURE_PATH_ID_RE.findall(LECTURE_PATHS_PATH.read_text(encoding="utf-8")))
+
+
+def load_lecture_sources() -> dict[str, dict[str, str]]:
+    sources: dict[str, dict[str, str]] = {}
+    current: dict[str, str] | None = None
+    for line in LECTURE_SOURCES_PATH.read_text(encoding="utf-8").splitlines():
+        id_match = re.match(r"^  - id:\s*(\S+)\s*$", line)
+        if id_match:
+            current = {"id": id_match.group(1)}
+            sources[current["id"]] = current
+            continue
+        field_match = re.match(r"^    ([a-z_]+):\s*(.+?)\s*$", line)
+        if current is not None and field_match:
+            current[field_match.group(1)] = field_match.group(2).strip().strip('"\'')
+    return sources
+
+
+LECTURE_SOURCES = load_lecture_sources()
 
 
 @dataclass
@@ -184,6 +222,116 @@ def validate_post(path: Path) -> list[Finding]:
             if author_note and INTERNAL_AUTHOR_NOTE_RE.search(author_note.group(0)):
                 findings.append(Finding(path, "lecture-derived author note uses internal editorial language"))
 
+    lecture_source_id = frontmatter.get("lecture_source_id")
+    if lecture_source_id:
+        lecture_source = LECTURE_SOURCES.get(lecture_source_id)
+        if lecture_source is None:
+            findings.append(Finding(path, f"unknown lecture_source_id: {lecture_source_id}"))
+        else:
+            expected_slug = lecture_source.get("slug")
+            actual_slug = DATE_PREFIX_RE.sub("", path.stem)
+            if expected_slug and actual_slug != expected_slug:
+                findings.append(
+                    Finding(path, f"lecture source expects slug {expected_slug}, found {actual_slug}")
+                )
+            expected_category = lecture_source.get("category")
+            if expected_category and categories != [expected_category]:
+                findings.append(
+                    Finding(path, f"lecture source expects category {expected_category}")
+                )
+
+        if "lecture_paths" in frontmatter:
+            findings.append(Finding(path, "deck-level lecture posts must not define lecture_paths"))
+        author_note = AUTHOR_NOTE_RE.search(body)
+        if not author_note:
+            findings.append(Finding(path, "deck-level lecture post is missing the standard author note"))
+
+        expected_asset_prefix = f"assets/img/blog/lectures/{lecture_source_id}/"
+        for match in FIGURE_RE.finditer(body):
+            attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}
+            figure_path = attrs.get("path", "")
+            if figure_path and not figure_path.startswith(expected_asset_prefix):
+                findings.append(
+                    Finding(path, f"deck-level post uses a non-deck figure: {figure_path}")
+                )
+            if "Original figure" in attrs.get("caption", ""):
+                findings.append(Finding(path, f"deck-level post claims a newly drawn figure: {figure_path}"))
+
+        manifest_path = LECTURE_MANIFEST_DIR / f"{lecture_source_id}.json"
+        if not manifest_path.exists():
+            findings.append(Finding(path, f"missing lecture coverage manifest: {manifest_path.relative_to(ROOT)}"))
+        else:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if manifest.get("review_status") != "complete":
+                findings.append(Finding(path, "lecture coverage manifest is not complete"))
+            pending = [slide["slide"] for slide in manifest.get("slides", []) if slide.get("coverage") == "pending"]
+            if pending:
+                findings.append(Finding(path, f"lecture manifest has pending slides: {pending}"))
+            figure_coverage = manifest.get("figure_coverage", {})
+            if figure_coverage.get("reuse_ratio", 0) < 0.8:
+                findings.append(Finding(path, "lecture figure reuse ratio is below 80%"))
+            if manifest.get("asset_migration_status") == "pptx-native-complete":
+                included_paths = {
+                    attrs.get("path", "")
+                    for match in FIGURE_RE.finditer(body)
+                    for attrs in [
+                        {
+                            attr.group("key"): attr.group("value")
+                            for attr in ATTR_RE.finditer(match.group("attrs"))
+                        }
+                    ]
+                    if attrs.get("path")
+                }
+                published_media = [
+                    media
+                    for media in manifest.get("media", [])
+                    if media.get("reuse_status") == "reused"
+                ]
+                published_figures = [
+                    figure
+                    for figure in manifest.get("pptx_figures", [])
+                    if figure.get("reuse_status") == "reused"
+                ]
+                recorded_paths = {
+                    media.get("asset_path", "") for media in published_media
+                } | {
+                    figure.get("asset_path", "") for figure in published_figures
+                }
+                if included_paths != recorded_paths:
+                    findings.append(
+                        Finding(
+                            path,
+                            "PPTX-native manifest/post figure mismatch: "
+                            f"missing={sorted(recorded_paths - included_paths)}, "
+                            f"extra={sorted(included_paths - recorded_paths)}",
+                        )
+                    )
+                reused_pdf = [
+                    region.get("asset_path", "")
+                    for region in manifest.get("pdf_regions", [])
+                    if region.get("reuse_status") == "reused"
+                ]
+                if reused_pdf:
+                    findings.append(
+                        Finding(path, f"PPTX-native post still reuses PDF regions: {reused_pdf}")
+                    )
+                for figure in published_figures:
+                    asset_path = figure.get("asset_path", "")
+                    method = figure.get("extraction_method")
+                    role = figure.get("content_role")
+                    if method not in PPTX_EXTRACTION_METHODS:
+                        findings.append(
+                            Finding(path, f"invalid PPTX extraction method for {asset_path}: {method}")
+                        )
+                    if role not in PPTX_FIGURE_ROLES:
+                        findings.append(
+                            Finding(path, f"invalid PPTX figure role for {asset_path}: {role}")
+                        )
+                    if re.search(r"(?:^|/)slide-\d+\.(?:png|jpe?g|gif|webp)$", asset_path):
+                        findings.append(Finding(path, f"whole-slide figure is forbidden: {asset_path}"))
+                if re.search(r"\bCropped from (?:the )?2025\b", body):
+                    findings.append(Finding(path, "PPTX-native post retains PDF-crop caption wording"))
+
     for match in FIGURE_RE.finditer(text):
         attrs = {attr.group("key"): attr.group("value") for attr in ATTR_RE.finditer(match.group("attrs"))}
         figure_path = attrs.get("path")
@@ -198,6 +346,21 @@ def validate_post(path: Path) -> list[Finding]:
             findings.append(Finding(path, f"figure needs alt text or a caption fallback: {figure_path}"))
         if "$" in caption:
             findings.append(Finding(path, f"figure caption uses dollar math delimiters: {figure_path}"))
+        if re.search(
+            r"\b(?:PowerPoint-native|"
+            r"(?:extracted|retained) (?:directly )?from (?:the )?(?:source |lecture )?(?:PowerPoint|deck)|"
+            r"embedded in (?:the )?(?:source |lecture )?PowerPoint|"
+            r"native PowerPoint (?:figure|image|illustration|panel|group))\b",
+            caption,
+            re.IGNORECASE,
+        ):
+            findings.append(
+                Finding(
+                    path,
+                    "figure caption exposes extraction workflow instead of reader-facing provenance: "
+                    f"{figure_path}",
+                )
+            )
         direct_license_source = re.search(r"\b(Wikimedia Commons|public domain|CC BY|Labster Theory)\b", caption)
         source_wording = re.search(r"\b(From|Figure from)\s+[A-Z][^.;\"]+", caption)
         adapted_wording = re.search(r"\b(Redrawn from|Adapted from|Data adapted from)\b", caption)
@@ -256,11 +419,35 @@ def validate_assets() -> list[Finding]:
     return findings
 
 
+def validate_lecture_figure_sources() -> list[Finding]:
+    """Keep generated figure provenance synchronized with its curated audit."""
+
+    if not LECTURE_FIGURE_SOURCE_VALIDATOR.exists():
+        return []
+    result = subprocess.run(
+        [sys.executable, str(LECTURE_FIGURE_SOURCE_VALIDATOR), "--check"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout).strip().replace("\n", "; ")
+    return [
+        Finding(
+            LECTURE_FIGURE_SOURCE_VALIDATOR,
+            f"lecture figure source registry validation failed: {detail}",
+        )
+    ]
+
+
 def main() -> int:
     findings: list[Finding] = []
     for path in sorted(POSTS_DIR.glob("[0-9][0-9][0-9][0-9]-*.md")):
         findings.extend(validate_post(path))
     findings.extend(validate_assets())
+    findings.extend(validate_lecture_figure_sources())
 
     errors = [finding for finding in findings if finding.severity == "error"]
     warnings = [finding for finding in findings if finding.severity == "warning"]

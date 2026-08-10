@@ -4,9 +4,7 @@ _site
 .jekyll-cache
 .jekyll-metadata
 .DS_store
-.ruby-version
 .tweet-cache
-Gemfile.lock
 assets/libs/
 node_modules/
 vendor
@@ -15,6 +13,12 @@ vendor
 .agent/
 .omc/
 __pycache__/
+
+# Machine-local agent configuration and credentials
+/.claude/settings.local.json
+/.env
+/.env.*
+!/.env.example
 
 # LaTeX build byproducts (the CV PDF itself is committed)
 /cv/*.aux

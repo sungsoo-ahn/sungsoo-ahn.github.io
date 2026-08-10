@@ -16,8 +16,8 @@ Academic homepage for Sungsoo Ahn (KAIST Graduate School of AI), built with the 
 # Blog validation
 python3 scripts/validate_blog.py
 
-# If port 4000 is already in use:
-lsof -ti:4000 | xargs kill -9
+# Agent instruction and skill validation
+python3 scripts/validate_agent_hygiene.py
 
 # Python package management (uses uv)
 uv sync                                # Install/update dependencies
@@ -56,7 +56,11 @@ If the server is already running, only run the `open` command. Do not restart th
 
 External Excel file synced from Dropbox:
 
-- `~/Sungsahn0215 Dropbox/SPML/administration/members.xlsx` → Lab members
+- `~/SPML Dropbox/SPML/administration/members.xlsx` → Lab members
+
+Override the workbook location with `SPML_MEMBERS_XLSX` when the Dropbox root
+differs. Do not hard-code another user's home directory in scripts or tracked
+metadata.
 
 ## Key Files
 
@@ -80,6 +84,7 @@ External Excel file synced from Dropbox:
 Writing style and rendering rules are managed as skills:
 
 - `/blog-writing` — direct, opinionated prose style for blog posts
+- `/lecture-adaptation` — source-faithful lecture-to-blog workflow
 - `/academic-writing` — top-down, rigorous style for papers and teaching notes
 - `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
 - `/generate-blog-figures` — matplotlib figure generation workflow
@@ -88,6 +93,19 @@ Writing style and rendering rules are managed as skills:
   Blog metadata, figure paths, footnote IDs, and asset drift are checked by `scripts/validate_blog.py`, which also runs in pre-commit and CI.
 
 Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each with their own AGENTS.md and skills.
+
+### Instruction-file ownership
+
+- `AGENTS.md` files are the canonical repository and directory instructions.
+- `.agents/skills/*/SKILL.md` files are the canonical skill definitions.
+- `CLAUDE.md`, `_posts/CLAUDE.md`, and `.claude/skills/` are thin adapters to
+  those canonical files. Keep policy in one place; do not duplicate it in the
+  adapters.
+- `.agents/lecture-adaptation/*.json` are durable workflow manifests consumed by
+  validation scripts, not agent instructions. Preserve them as data until the
+  active lecture migration is complete.
+- Keep credentials and broad tool permission histories out of the repository.
+  Machine-local agent settings belong in ignored files.
 
 ## Architecture
 

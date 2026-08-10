@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,8 +10,14 @@ repos:
       - id: check-added-large-files
   - repo: local
     hooks:
+      - id: validate-agent-hygiene
+        name: validate agent instructions and skills
+        entry: python3 scripts/validate_agent_hygiene.py
+        language: system
+        pass_filenames: false
       - id: validate-blog
         name: validate blog posts
         entry: python3 scripts/validate_blog.py
         language: system
         pass_filenames: false
+        files: ^(_posts/[0-9]{4}-[0-9]{2}-[0-9]{2}-.*\.md$|assets/img/blog/|_data/(blog_categories|lecture_paths|lecture_sources|lecture_figure_sources)\.(yml|json)$|\.agents/lecture-adaptation/|scripts/(validate_blog|update_lecture_figure_sources)\.py$)

@@ -78,11 +78,18 @@ from one comparison can improve the criteria used for the next.
 4. Revise with the updated criteria, then repeat the comparison until no major
    explanatory gap remains.
 
+### Lecture Adaptation
+
+When a lecture deck is the content authority, read
+`../lecture-adaptation/SKILL.md` completely and apply it together with this
+skill. Keep source-fidelity, slide-coverage, and extraction rules there.
+
 ### Depth Without Padding
 
 - A 30--45 minute technical tutorial usually needs 4,500--6,500 substantive
   words, adjusted for mathematical density. Treat this range as a diagnostic,
-  not a reason to add background or repeated summaries.
+  not a reason to add background or repeated summaries. Do not apply this range
+  to a source-faithful lecture adaptation when the deck determines the scope.
 - Preserve a coherent H2 storyline. Add H3 subsections when a derivation,
   worked example, or case study needs room; do not add headings merely to make
   a post longer.
@@ -273,16 +280,6 @@ Flag these patterns; do not ban them when they carry real technical contrast:
 - Preserve legitimate uncertainty instead of converting everything into confident declarative prose.
 - Include the author's actual judgment, not only a polished synthesis of conventional observations.
 - Compare the passage against two or three known non-AI passages by the author when voice is uncertain.
-
-### Lecture Adaptation Notes
-
-- Keep the opening note to one or two reader-facing sentences.
-- Name the lecture source briefly when provenance is useful: “Adapted from my
-  2025 Geometric Deep Learning lectures.”
-- Use the remaining sentence to state the article's central question or point.
-- Do not describe slide reuse, lecture-storyline production, chapter ownership,
-  validation work, or the writing process. Those are editorial facts, not reasons
-  for a reader to continue.
 
 ## Coherence Checklist (apply when reviewing)
 

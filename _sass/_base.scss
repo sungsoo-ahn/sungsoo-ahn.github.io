@@ -272,6 +272,13 @@ ul.task-list input[type="checkbox"] {
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
   text-align: center;
+
+  .figure-source {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--global-text-color-light);
+    font-size: 0.9em;
+  }
 }
 
 // Card

@@ -1,0 +1,2916 @@
+{
+  "deck_id": "gdl-2025-02",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec2_prelim1.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec2_prelim1.pptx",
+  "slide_count": 51,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Preliminaries:",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Preliminaries:",
+        "Equivariance and Group Theory",
+        "Sungsoo Ahn, KAIST",
+        "sungsoo.ahn@postech.ac.kr"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "For Newcomers",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "For Newcomers",
+        "Course objective: Become an expert at geometric deep learning.",
+        "• This is NOT an introductory course for graph neural networks (GNNs)!",
+        "Course website: https://sungsoo-ahn.github.io/ai899-2025/about",
+        "I will finalize the course logistics at March 10th,",
+        "when the students & TAs get finalized."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "For Newcomers",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "For Newcomers",
+        "Topics will be mainly about:",
+        "1.   GNNs (2 weeks)",
+        "2.   Geometric GNNs (3 weeks)",
+        "3.   Graph generative models (1 week)",
+        "4.   Geometric generative models (3 weeks)",
+        "5.   Applications to small molecules, crystals,",
+        "and proteins (3 weeks)"
+      ],
+      "media_sha256": [
+        "9ec1ada0f54dd80a4ecde6f6d4c84eb805639505ef693b6749c2b4c1c443b304"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Why You Should / Shoud Not Take This Course",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Why You Should / Shoud Not Take This Course",
+        "IMPORTANT: This course will focus on GDL applications to molecular science.",
+        "• Many lectures will be more about AI4science, not just about GDL.",
+        "AlphaFold3                           MatterGen                      Orb",
+        "(protein structure prediction)            (crystal generation)   (machine learning force field)"
+      ],
+      "media_sha256": [
+        "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91",
+        "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
+        "8829a49ecf5e0c896f70ee5c5895b124d4157ce4043412ceabd7d6384cf09166",
+        "a4722cff2a0de5e06a50ca07a2667227c55d3c6a8291f04ad6f89c033cab3de4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Why You Should / Shoud Not Take This Course",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Why You Should / Shoud Not Take This Course",
+        "Disclaimer 1: I was never trained as a mathematician, physicist, nor chemist.",
+        "• I only go over high-level concepts from the “machine learning practitioner’s view”,",
+        "just enough to understand how the algorithms work.",
+        "• If some details are wrong, feel free to point out!",
+        "Disclaimer 2: This is a first-time course with ambitious goals.",
+        "• I learned most of the stuffs during the last three years.",
+        "• Expect some typos.",
+        "• Slides will usually be uploaded just minutes before the lecture."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Course Project: Blog Post                                                           See an example of",
+      "classification": "logistical",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Project: Blog Post                                                           See an example of",
+        "spotlight blog post at",
+        "Grades are 100% based on a project to write a research blog post.                   ICLR 2024, about",
+        "Hessian-vector",
+        "products.",
+        "Blogposts will be about…",
+        "1.   Summarizing and augmenting the course;",
+        "about the lectures on “geometric GNNs” or “geometric generative models”.",
+        "2.   Reviewing two or more of the recent papers related to the course;",
+        "must include one of the papers in the predefined list.",
+        "3.   Your own research project related to the course;",
+        "must get my approval beforehand.",
+        "More logistics on choosing the topic will be announced soon."
+      ],
+      "media_sha256": [
+        "0fecab7819fa0c71cf18f61fc5253cd4af4f0eb86c6a9231075242915165d42b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Today",
+      "classification": "transition-only",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Today",
+        "Preliminaries for the first part of the lecture: GNNs and geometric GNNs.",
+        "• In particular, very introductory group theory (just the definitions).",
+        "Contents:",
+        "• The big picture of geometric deep learning (recap)",
+        "• Symmetry of graphs and geometric graphs.",
+        "• Introduction to group theory"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Contents",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Contents",
+        "• The big picture of geometric deep learning (recap)",
+        "• Symmetry of graphs and geometric graphs.",
+        "• Introduction to group theory"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "The Big Picture: Geometric Deep Learning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Big Picture: Geometric Deep Learning",
+        "Datasets:",
+        "Given different geometry of datasets, what is the",
+        "“recipe” for new deep learning algorithms?"
+      ],
+      "media_sha256": [
+        "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
+        "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
+        "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
+        "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+        "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "What is a Geometry?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is a Geometry?",
+        "“Mathematics about measurement, properties, and relationships",
+        "of points, lines, angles, surfaces, and solids.”",
+        "…from Wikipedia"
+      ],
+      "media_sha256": [
+        "1dba7b77661c778998ce06b3a0979dfb72ea5b4289de67ac0543713988088d8c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Geometry of Data",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometry of Data",
+        "• Geometry of data is defined by symmetries:",
+        "transformations that do not the change the object identity.",
+        "All Cats!"
+      ],
+      "media_sha256": [
+        "0daca2a2a01551299a1613641526f7ca4a226a049b53951717cc5de6bedd4cb5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Today",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Today",
+        "In the first part of this lecture (before mid-term),",
+        "we will learn about equivariant neural networks."
+      ],
+      "media_sha256": [
+        "06be0e8c20fdfd976a28833265b7beba30248f82b45e7bad5d79c7247bc66d4d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Timeline of Equivariant Neural Networks",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Timeline of Equivariant Neural Networks",
+        "Graph neural networks have been developed",
+        "relatively early, arguably since 2005.",
+        "• Popularized by GCN 2017."
+      ],
+      "media_sha256": [
+        "99db688a8e37762a4dc08e6566ea5a53f38a00f1c7447e1b8903df887abe8917",
+        "9ca6012e6f2f013ca14e84767277ca540ad25a0991e3dac2869ceb1e2f838e98"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Timeline of Equivariant Neural Networks",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Timeline of Equivariant Neural Networks",
+        "3D geometric GNNs have appeared more recently, with the focus on molecules."
+      ],
+      "media_sha256": [
+        "0985598f2c0a33bc7deba549d013dbfe7b6b147013f8703b103928d4578882ae"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Timeline of Equivariant Neural Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Timeline of Equivariant Neural Network",
+        "A lot of theory was actually developed by rotation-equivariant neural network on images",
+        "(drawn on flat plane, sphere, manifold), i.e., how to generalize translation-equivariant",
+        "convolutions to arbitrary data and transformation?"
+      ],
+      "media_sha256": [
+        "af8b76c8336530690e73abc9d64e99cb83362b72f03133bb6bf3e1a13d65aadc",
+        "b49295e5ccb502a86da698198a5608eda203037fa7cf4635dcb7591bcbccda96"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Contents",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Contents",
+        "• The big picture of geometric deep learning (recap)",
+        "• Symmetry of graphs and geometric graphs.",
+        "• Introduction to group theory"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Symmetry",
+        "When is an object symmetric?",
+        "From Wikipedia…",
+        "One can say that a mathematical object is symmetric with respect to a given mathematical",
+        "operation, if, when applied to the object, this operation preserves some property of the object.",
+        "The set of operations that preserve a given property of the object form a group."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Graph Data",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Data",
+        "Scientific data, especially molecules, are often represented by graphs.",
+        "A graph 𝐺 with 𝑛 nodes is represented by adjacency matrix 𝐴 ∈ ℝ!×!",
+        "and node-wise feature matrix 𝑋 ∈ ℝ!×# .",
+        "1           2           1   2   3   4          blue red",
+        "1                       1",
+        "2                       2",
+        "3                       3",
+        "4                       4",
+        "3           4",
+        "adjacency matrix    node feature matrix",
+        "[Figures from Xavier Bresson]",
+        "graph"
+      ],
+      "media_sha256": [
+        "94ec9a9901d98ccfa72508943192ac8466f5ba9a2e5276bc86cf77a44973b865",
+        "3600bb5d80516a320023df19438abb479b81c26cbe5e7ac409e3673b9dfc5f99",
+        "e934fc102efadaa987b0c557b2a23841422d01e3568d9b29f39cbfc6cc3aff23",
+        "80975ceee12262f3197e97adf2d2bce1cb52ab8ddfe79e227c2c5d31927fd081",
+        "919ab4b150660d59abc9eec4079ea609f0dd2e82f298ca7166bf2fbd73818928",
+        "3898172bfc73dcb507ef3481bb6dc044083fced7f55b15673859e7f5024ff820",
+        "f2671c65d17ddfdd02676e30291d71bdfacf661090549bd694a24fe31c9859f4",
+        "51bd0de87d8a06b43053342511d8f77c0f0fe98cf94bec6593f6621b7af55df7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Permutation Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Permutation Symmetry",
+        "The graph is symmetric to permutation of vertices, i.e., transforming the adjacency matrix",
+        "and the node features by a permutation matrix 𝑃 does not change the graph properties.",
+        "1               2                                 2               3",
+        "1   2   3   4",
+        "3               4                                 4               1",
+        "1st",
+        "2nd",
+        "1   2   3   4       3rd                               2   3   4   1",
+        "4th"
+      ],
+      "media_sha256": [
+        "993ca443e3d154cd62faba9109c833b14e10985dcd4e2a3521218809096be378",
+        "cd98fe991fac3f433c36038c225ac52f31d9d4d14a2cd4bb51b1ed64bf6ca7cd",
+        "cdaab7e94cb3a95875f1f3cec6531cf8cd66d89f6677f461940d2d566f857337"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Permutation Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Permutation Symmetry",
+        "What is permutation? If it is a function or a mapping, the input/output space is inconsistent.",
+        "• Sometimes applied to node-wise features, sometimes applied to adj. matrix.",
+        "1    2       3   4           blue red",
+        "1          2",
+        "1",
+        "1",
+        "2",
+        "2",
+        "3",
+        "3",
+        "4",
+        "3          4           4",
+        "𝐴                       𝑋",
+        "2    3       4   1           blue red",
+        "b           c            2                             2",
+        "3                             3",
+        "4                             4",
+        "1                             1",
+        "d           a",
+        "𝑃𝐴𝑃!                         𝑃𝑋"
+      ],
+      "media_sha256": [
+        "f7465893701eb08ce709c75d4df98af9a0da2fb088d12e2a4ec5bf1c32b28cdb",
+        "fafbde70c992698fe0416cc77efbe126253511abc4a422174c373f3307206fc4",
+        "3600bb5d80516a320023df19438abb479b81c26cbe5e7ac409e3673b9dfc5f99",
+        "e934fc102efadaa987b0c557b2a23841422d01e3568d9b29f39cbfc6cc3aff23",
+        "78d9a5af7d6f226b89f29320b14837f7e9b5beecc8a116049f64134a696a9a72",
+        "32df489c365d293e108b6ac4a3f6ad8c59ea722442ef7599c6ba7f2722e86bf2",
+        "0ca0ab7be360df7552a7a994d14cc291749d3afd4937e22e063eaeb7b4b61914",
+        "1b02c077b0be5c79c12bdfe516f55c69037ec44700feca77b2dafbcccf905573"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Permutation Invariance/Equivariance",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Permutation Invariance/Equivariance",
+        "yes / no",
+        "Broadly, any neural network that operates on a graph.",
+        "Invariant property:",
+        "However, most GNNs are functions that respect symmetry            soluble to water?",
+        "of the graph, i.e., invariance/equivariance to permutation of           toxic?",
+        "the input graph.",
+        "invariance: 𝑓 𝑃𝑋, 𝑃𝐴𝑃$ = 𝑓(𝑋, 𝐴)                   Equivariant property:",
+        "atom types?",
+        "equivariance (?): 𝑃𝑓 𝑃𝑋, 𝑃𝐴𝑃$ = 𝑓(𝑋, 𝐴)",
+        "Are these definitions sufficient?"
+      ],
+      "media_sha256": [
+        "c3595a5afcf158d2dbfe50c39ea9c6144bbd57ef6500a6860e09dc610f2cd67c",
+        "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+        "ed6a730676f7e69e5c61fdc5532e533a5197a3795a66e213e9a396d75774c7ca",
+        "8a40e92684a2f82e3f2e447d0bfaae6aa370d94a3b4b75c09d52e5e482d153c7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Permutation Invariance/Equivariance",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Permutation Invariance/Equivariance",
+        "Suppose that you want to train a GNN that",
+        "predicts the distance matrix 𝐷 ∈ ℝ!×! .",
+        "• Permutes by 𝑃𝐷𝑃!.",
+        "The neural network should respect the symmetry by…",
+        "3D distance matrix",
+        "equivariance 2 (?): 𝑃𝑓 𝑃𝑋, 𝑃𝐴𝑃$ 𝑃$ = 𝑓(𝑋, 𝐴)",
+        "Then there are at least two types of equivariance and symmetry",
+        "for graphs. How find a consistent definition?"
+      ],
+      "media_sha256": [
+        "85813e8ddf8d0b3d70f17102378d8638290b871d9bacdceb04cf9b3166d70245",
+        "c3595a5afcf158d2dbfe50c39ea9c6144bbd57ef6500a6860e09dc610f2cd67c",
+        "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+        "3dd4bf8ecc73d0ffdfa4ac75acdc8c3f1b8b1dc7d1f28b1adc0414efa7d2c135"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Geometric Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometric Graphs",
+        "Geometric graph data is associated with 3D coordinates",
+        "that are symmetric w.r.t. roto-translation.",
+        "• Properties like force fileds are rotation-equivariant.",
+        "𝑋 ∈ ℝ%×' : atom coordinates",
+        "𝑅 ∈ ℝ'×' : rotation matrix                               Properties like Hamiltonians",
+        "exhibit high-order symmetry.",
+        "𝑋𝑅 ∈ ℝ%×' : rotated matrix",
+        "Figures from Tess Smidt, https://bostonsymmetry.github.io/slides/tess_slides_sp2023.pdf"
+      ],
+      "media_sha256": [
+        "f6eba088ad5124a82e2e69f2a4894b4fd7c05a4f451da97aa78587cd338bb757",
+        "4f542e357f4e9f30a5a7b632922bf399618aa2f2358a2244619e2c985e16f792",
+        "93f458479df746edb394fcc79562db14036fdf158f62a631cceceaa463483f6b",
+        "480ee1f10a097bb97b26f73cb7b45c82cedbca54c876712fa2d34943946f4d53",
+        "c01187dee989bcec30f8bc0043ac0d7d30a17ccb20ca70f0f7529a3ad5b58bf4",
+        "ed8b0957b4f3fe423e787f2a5b2655258dc12880fb9cb62cc1fa35fd85e193b0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Contents",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Contents",
+        "• The big picture of geometric deep learning (recap)",
+        "• Symmetry of graphs and geometric graphs.",
+        "• Introduction to group theory"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Mathematical Structures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Mathematical Structures",
+        "Mathematics is about decorating a set of elements with additional structure.",
+        "• Typically, algebraic or topological structures.",
+        "A space is a set endowed with a structure defining the relations among the elements.",
+        "In this lecture, we are interested in two types of space:",
+        "• Space of data, e.g., 3D atom-wise coordinates of a molecule.",
+        "• Space of transformations, e.g., 3D rotations.",
+        "𝑥 ∈ ℝ(×' , 𝛼, 𝛽, 𝛾 ∈ SO 3"
+      ],
+      "media_sha256": [
+        "fa1ae5c53e34f3bb1f2a35ac8a80900bde8f1cf2d1c48440a803268688267371",
+        "c39f0b4d61960b6341183b37133275504e6a74d0de6f0e2dac44df2f6b8c2f5b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Algebraic Structures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Algebraic Structures",
+        "Algebraic structures introduce operations between the elements.",
+        "• includes group, ring, field, and vector space",
+        "• addition or multiplication",
+        "A monoid (𝐺,⋅) is a set of elements 𝐺",
+        "equipped with a product ⋅ satisfying:",
+        "• Closure: 𝑔 ⋅ ℎ ∈ 𝐺 for any 𝑔, ℎ ∈ 𝐺.",
+        "• Existence of identity element:",
+        "There exists 𝑒 ∈ 𝐺 such that 𝑔 ⋅ 𝑒 = 𝑔",
+        "for any 𝑔 ∈ 𝐺.",
+        "We will learn more about groups today."
+      ],
+      "media_sha256": [
+        "a59e84e149fbb7f03b0adf1018061e0ef24b0bbfc9c8d1446a69641efcb0c300",
+        "39b87b4e9ee0a68615187ababc06fe2bc46589f9ea3131d8860e8fe06cecd9dc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Topological Structures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Topological Structures",
+        "Topological structures introduce the notion of “closeness.”",
+        "• includes simplicial complex, metric space and manifolds",
+        "• closeness is defined by, e.g., open sets and metric functions",
+        "• discussed more after the mid-terms."
+      ],
+      "media_sha256": [
+        "259f271e064d5a62c74d51ca48e5babe7671253c6ba53a255bda0d87523a46f5",
+        "0c8e85fc82f6f5afaa0edcc6ab9b23a1bc1003f9e41702218eb766ab8459cafe",
+        "a0436a0d88286b89b5359edf245ac75e6e011cedd88c9bebbb56938c9b0298aa",
+        "72438f7a0388cde0c3fb0e00fc28421201092374e60ab2e98da9d98f821136d7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group",
+        "A group (𝐺,⋅) is a set of elements 𝐺 equipped with a group product ⋅",
+        "that satisfies the following four axioms:",
+        "• Closure: 𝑔 ⋅ ℎ ∈ 𝐺 for any 𝑔, ℎ ∈ 𝐺,.",
+        "• Associative: 𝑔 ⋅ ℎ ⋅ 𝑖 = 𝑔 ⋅ ℎ ⋅ 𝑖 for any 𝑔, ℎ, 𝑖 ∈ 𝐺.",
+        "• Identity element: There exists 𝑒 ∈ 𝐺 such that 𝑒 ⋅ 𝑔 = 𝑔 ⋅ 𝑒 = 𝑔 for any 𝑔 ∈ 𝐺.",
+        "• Inverse element: For each 𝑔 ∈ 𝐺 there exists 𝑔\"# ∈ 𝐺",
+        "such that 𝑔\"# ⋅ 𝑔 = 𝑔 ⋅ 𝑔\"# = 𝑒."
+      ],
+      "media_sha256": [
+        "ff294eda893fe60634da95bc27a3f2c1be2c22d651499abe15e44bcddcf58256"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Abelian / Non-Abelian Groups",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Abelian / Non-Abelian Groups",
+        "Note that the transformations do not",
+        "need to be commutative, e.g.,",
+        "𝑔 ⋅ ℎ = ℎ ⋅ 𝑔.",
+        "• Commutative operations form",
+        "an Abelian group.",
+        "• 2D rotations form an Abelian group.",
+        "• 3D rotations form a non-Abelian group."
+      ],
+      "media_sha256": [
+        "ec60adcb44c82f9b62ec990f59df87d688286ffcff53b7929b4a373af182b843",
+        "5496668a09f47fc6227e6723e4a39502071154f0bddd8be6ba6a4e8cbc112a98"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Example: General Linear Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: General Linear Group",
+        "General linear group GL(𝑛, ℝ) is the group of real-valued invertible 𝑛×𝑛 matrices",
+        "with group product as the matrix product.",
+        "<latexit sha1_base64=\"K35Oqr2ITyPBG/0kUsJxQ1Xv988=\">AAACbnicbVFdaxQxFM2MH63j17ZCHyzixUXZwrjMlKpFEAo+6IMPVdy2sFmWJHNnNzSTmSYZYRnmsX/QN3+DL/4Es7vzUFsvhBzOuSe5OeGVktYlya8gvHX7zt2NzXvR/QcPHz3ubW2f2LI2AkeiVKU548yikhpHTjqFZ5VBVnCFp/z841I//YHGylJ/d4sKJwWbaZlLwZynpr3LT18G+zHQgrk55823du8DVZg72qy2AeU4k7phxrBF2yjVRgxeAQdKI+FBFlHUWSdTI2dzt/ceWAw8BhFDBlTqK4fHwCB7zUEA1XgBydpB22mvnwyTVcFNkHagT7o6nvZ+0qwUdYHaCcWsHadJ5SZ+DieFwjaitcWKiXM2w7GHmhVoJ80qrhZeeiaDvDR+aQcr9qqjYYW1i4L7zuXk9rq2JP+njWuXH04aqavaoRbri/JagSthmT1k0qBwauEBE0b6WUHMmWHC+R+KfAjp9SffBCf7w/Tt8M3Xg/7RYRfHJtklL8iApOQdOSKfyTEZEUF+B1vB02A3+BPuhM/C5+vWMOg8T8g/FQ7+Ak/+t3o=</latexit>",
+        "⇢✓           ◆",
+        "a   b",
+        "GL(2, R) =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                : a, b, c, d 2 R, ad   bc 6= 0",
+        "c   d",
+        "• Closure: Multiplying two invertible square matrix is again an invertible square matrix.",
+        "• Associativity: Associativity of matrix multiplication.",
+        "• Identity element: Existence of identity matrix.",
+        "• Inverse element: Invertibility of matrices."
+      ],
+      "media_sha256": [
+        "b66a28dc94b734e252c0683667320ac47347bb08ee0cc21398f4ac4437794f68",
+        "e27db9540e11b916ffd137e29bc31f4fb5e0ef978f4cee9da4cce2ccf26b26ed"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Example: Symmetric Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Symmetric Group",
+        "Symmetric group S 𝑛 is the group of permutations for a set {1, … , 𝑛}",
+        "with group product as the composition of permutations.",
+        "It is a subgroup of the general linear group GL(𝑛, ℝ) since the permutations",
+        "can be expressed as permutation matrices.",
+        "• A group (𝐺,⋅) is a subgroup of (𝐻,⋅) if 𝐺 ⊆ 𝐻."
+      ],
+      "media_sha256": [
+        "778b4b46b24c2e229d161893023318c8815351a723728ef20ffdec6375e400c9",
+        "e3e64ccb710c805abe458248dc088f35d9b82dbda3f9f8f5cdebfc3ae048999b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Example: Orthogonal Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Orthogonal Group",
+        "The orthogonal group O(𝑛) is",
+        "• the group of 𝑛×𝑛 orthogonal matrices with group product as the matrix product",
+        "(subgroup of GL(𝑛, ℝ)).",
+        "• the group of distance-preserving transformations of a 𝑛-dimension Euclidean space",
+        "that keeps a point fixed (combination of rotation and reflection).",
+        "The special orthogonal group SO(𝑛) is",
+        "• the group of 𝑛×𝑛 orthogonal matrices with determinant 1 (subgroup of 𝑂 𝑛 ).",
+        "• also called 2D and 3D rotation group for 𝑛 = 2,3."
+      ],
+      "media_sha256": [
+        "9fe55f2dbca1591ab426fc5d71b54215ec7f49c0c6a62e86b878caa01d55a14e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Example: Euclidean Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Euclidean Group",
+        "The Euclidean group E(𝑛) is",
+        "• the group of Euclidean isometries of a Euclidean space 𝔼$ (an affine space over the reals).",
+        "• consist of translations, rotations, and reflections on 𝔼$ .",
+        "The special Euclidean group SE(𝑛) is",
+        "• the group of isometries that preserves the",
+        "“handedness”, i.e., rigid motions.",
+        "• arbitrary combination of translations",
+        "and rotations"
+      ],
+      "media_sha256": [
+        "2ab4c8807a337f9468fd2f0516c8f066496361d903f074f380e95ecce73e8024",
+        "87cba7a30541e34b70f6fbc6cfcdc829d495e1f730e60395747a7ac618d2ee0d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Example: Euclidean Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Euclidean Group",
+        "Each group element 𝑔 ∈ SE(𝑛) is associated with (𝐑 % , 𝐭)",
+        "where 𝐑 % is the rotation matrix and 𝐭 is the translation vector.",
+        "g · g 0 = (t, R✓ ) · (t0 , R✓0 ) = (R✓ t0 + t, R✓+✓0 )",
+        "<latexit sha1_base64=\"h7084sIo2u9+Lj+gtg6VczYkuZ0=\">AAADRHicfVJNb9NAEF2br2I+msKRy4oIVFQa2YiPXpAqceFYEGkrsiFar8fOquu1tTtGiiz/OC78AG78Ai4cQIgrYhObqE1aRlrpaea9NzujiUslLYbhV8+/dPnK1Wsb14MbN2/d3uxt3Tm0RWUEDEWhCnMccwtKahiiRAXHpQGexwqO4pNX8/rRRzBWFvodzkoY5zzTMpWCo0tNtrz3LIZM6pormWlImiCjTCQF0uxDzUojc2joQ/qSKUhxm+Ucp3FaY/OY/sNvmwnDKSBnRmZTfNTKV/lLszPCulUui03nsdJu2YKeY7hzwac6750LWlDGAjfibnRqvN21hi3hv2MvKJ1pwEAny1VOev1wEC6CroOoA33SxcGk94Ulhahy0CgUt3YUhSWOa25QCgVNwCoLJRcnPIORg5rnYMf14gga+sBlEpoWxj2NdJE9rah5bu0sjx1zPoJdrc2T59VGFaZ741rqskLQom2UVopiQecXRRNpQKCaOcCFke6vVEy54QLd3QVuCdHqyOvg8Mkgej549uZpf3+vW8cGuUfuk20SkRdkn7wmB2RIhPfJ++b98H76n/3v/i//d0v1vU5zl5wJ/89fw4kUVA==</latexit>",
+        "g 1=       R✓ 1 t, R✓ 1",
+        "Note that the group can also be represented by matrices:",
+        "0                        1",
+        "✓             ◆",
+        "<latexit sha1_base64=\"nJ9yONi0b8vVD6KXYTa0WQOvSg0=\">AAADGHicdVLLbtQwFHXCq4TXFJZsLEagIsEoQRS6qVSJBSxL1WkrjYfIcZyMVcdJ7RtoFOUz2PArbFiAENvu+Js6mQwwU3olS+eee8992I4KKQz4/m/HvXL12vUbaze9W7fv3L03WL9/YPJSMz5mucz1UUQNl0LxMQiQ/KjQnGaR5IfR8Zs2fviRayNytQ9VwacZTZVIBKNgqXDdGaXbRPIENkhGYRYlNTTP8ALvNSGBGQdKtEhn8BSTk5LGuBN0DNU6/7Rge9HbZlEx4qlQtc2hVVMzxhqPsNzgeUn8BD8nRqi/LoSnmBBvmVxWQFi1Kb6F7Qk8wlXcd+hnvKS57b26VFv9z9Jd597zmw/7l1QPB0N/5HeGL4KgB0PU2244OCNxzsqMK2CSGjMJ/AKmtigIJrmdqjS8oOyYpnxioaIZN9O6e9gGP7ZMjJNc26MAd+y/ippmxlRZZDPb0c1qrCX/F5uUkGxNa6GKErhi80ZJKTHkuP0lOBaaM5CVBZRpYWfFbEY1ZWD/kmcvIVhd+SI4eDEKXo02378c7mz117GGHqJHaAMF6DXaQe/QLhoj5nx2vjrfnR/uF/eb+9P9NU91nV7zAC2Ze3YOTfn6wQ==</latexit>",
+        "cos ✓        sin ✓   tx",
+        "R✓      t",
+        "g = (t, R✓ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $     G = @ sin ✓       cos ✓    ty A =",
+        "0T      1",
+        "0           0       1"
+      ],
+      "media_sha256": [
+        "958dd822b332d96d008349784bfee34c7296b6baf94c3b70dab7e430f8b6011d",
+        "79919f64a221fb06a5f52e3179dc3fae29e5c822a2230270200dedfcb36ce9d4",
+        "6e91a510ba563abfaf82f26c087d92a42c5c39f52de959663a52996cd33cb1a6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Example: 3D Rotations",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: 3D Rotations",
+        "3D rotation is an element of the SO(3) group.",
+        "It is represented in several ways:",
+        "• Euler axis and angle: single rotation around some axis.          Euler axis and angle",
+        "• Euler rotations: three consecutive rotations in SO(2).",
+        "• Quaternions: most popular four-dimensional representation",
+        "that extends the complex number system.",
+        "Hard to explain! See this link: https://eater.net/quaternions.",
+        "Euler rotations"
+      ],
+      "media_sha256": [
+        "b2ef05a74a4fc54a3023a0852555d73b27a911da2d29a24f82cf9a0f6b471340",
+        "a1c00a7c7d1cecc853a8999cfe7b1677955398fcec439f599dc45340749acd33",
+        "edf11fd5a63c6377f7ab07946b291aa7721d0e9c1d793b33d88b8eb9737d1980"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Group Action",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group Action",
+        "Given the group to describe the set of symmetries, we now formalize",
+        "how the group elements (transformations) act on objects.",
+        "A group element 𝑔 ∈ 𝐺 operates on a (left) 𝐺-set 𝑋, i.e., domain,",
+        "by the (left) group action ⋅ ∶ (𝑔, 𝑥) ↦ 𝑔 ⋅ 𝑥.",
+        "• Example: rotation group 𝑆𝑂(3) elements (roto-translations)",
+        "acting on functions (features) of a spherical point (𝜃, 𝜙) ∈ 𝑆 % ."
+      ],
+      "media_sha256": [
+        "cf590a67b06dc1d87876620f765f2560e6f4444ab256ae3e57e7cca414fc6997",
+        "8a5afe415e824b5693cc376c7b93333f7b2e990b57875213ef90534a6021d9fb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Group Action",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group Action",
+        "A group element 𝑔 ∈ 𝐺 operates on a domain 𝑋, i.e., a (left) 𝐺-set, by",
+        "the (left) group action ⋅ ∶ 𝑔, 𝑥 ↦ 𝑔 ⋅ 𝑥 ∈ 𝑋 that satisfies:",
+        "• Compatibility: 𝑔 ⋅ ℎ ⋅ 𝑥 = (𝑔 ⋅ ℎ)𝑥",
+        "• Identity element: there exists 𝑒 ∈ 𝐺 such that 𝑒 ⋅ 𝑥 = 𝑥 for any 𝑥 ∈ 𝑋.",
+        "𝐱)                                                        𝐑& 𝐱 )",
+        "𝐑& 𝐱'",
+        "𝑔 ∈ 𝑆𝑂(2)",
+        "𝐱'                   𝐱(                                               𝐑& 𝐱 (",
+        "𝑿 = 𝐱', 𝐱 (, 𝐱 ) ∈ ℝ)×)                           𝑔 ⋅ 𝑿 = (𝐑& 𝐱', 𝐑& 𝐱 (, 𝐑& 𝐱 ))"
+      ],
+      "media_sha256": [
+        "a23a645ec870902bd623ff8c547b69b5f47791024736a2dafad6343166c78564",
+        "ad5ba2dda1531bbb00c2592a8fa764e1bcef059bb03293b9f1cea311ca0389d4",
+        "16cb58ea3faed07359c51b0bf0d4bf307c60bfec6dff49c6ef48d361bb92df22",
+        "5e82b5d858d731ec99832f534dc73de4370b917d2cf92968a52342509e6483e4",
+        "fbed729d2a3db8a4c55afc05bb5f23a8504d94b58cbb22d7f8933103b1fcd898",
+        "c3af299c3c845ad29762deb6c2d3ba592b7a20b5281413dc3fa13ebbeced3361",
+        "a94c66d6a194e36179a68cf20d2024e5663dee3b615f78658e615448d8481f6a",
+        "ff333fb5360c5d270f9eddabdc1f9e0a88f0c5260238ed8c129a5edb6cda25ed",
+        "79ab751abbb48547d3dbc9dfb54c67f96d4235b9a87dd662c073cb3fb8c04210",
+        "3d193489fe1dd6b7e9961e2b6e8b44411c0cbe46e7f8f0ba3efea2665192b45c",
+        "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
+        "6cf6aee3536d85081a36f602a0d568a9d8e308350b225a57588cfbb4ae2c375b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": null,
+      "title": "Homogeneous space is a 𝐺-set 𝑋 on",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Homogeneous space is a 𝐺-set 𝑋 on",
+        "Transitive Action                                              which 𝐺 acts transitively,",
+        "i.e., covered by group action on a point.",
+        "Transitive action is an group action ⋅ ∶ 𝑔, 𝑥 ↦ 𝑔 ⋅ 𝑥 ∈ 𝑋",
+        "that “covers the whole 𝐺-set 𝑋 from a point”:",
+        "∀*! ,*∈- ∃&∈. : 𝑥 = 𝑔 ⋅ 𝑥/",
+        "Orbit of 𝑥! :",
+        "𝐺𝑥! = 𝑔 ⋅ 𝑥! : 𝑔 ∈ 𝐺"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "Stabilizer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Stabilizer",
+        "A stabilizer Stab. (𝑥/) is a subset of 𝐺 that leaves 𝑥/ unchanged, i.e.,",
+        "Stab. 𝑥/ = 𝑔: 𝑔𝑥/ = 𝑥/",
+        "Any point 𝑥! in the sphere is associated",
+        "with a unique set of rotations that form a          Only the identity element is the",
+        "stabilizer Stab\" 𝑥! .                               stabilizer when 𝐺-set is itself 𝑋 = 𝐺."
+      ],
+      "media_sha256": [
+        "92326243cb233f674887eb595e625505eb5d0cb5180c618cb7ca116e14c39be7",
+        "b2c88d96c4db15a11b5c7e1d43528cfe090b18334229fdc1656051c348ec47a2",
+        "429c0049a572441d3cb4526f720bb728ac65d09b6efcb1a19f86a9d1eb12030c",
+        "d279d957eccf23a2d4c64decd41cf710e634cdcd25e1def70148ddceeb21cdd8",
+        "8f75c767cb276607573e816d939e28d2c86b5f539ba24c94c885fa59419ff560"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "Coset",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Coset",
+        "Given a group 𝐺 and its subgroup 𝐻 (closed under group product),",
+        "the group can be partitioned into subgroups 𝑔𝐻 = 𝑔ℎ: ℎ ∈ 𝐻 for 𝑔 ∈ 𝐺.",
+        "These subgroups are called cosets.",
+        "• Why? Repeat choose an “unseen” element 𝑔 ∉ 𝐻",
+        "and add 𝑔𝐻 to the coset.",
+        "• The cosets are equally-sized."
+      ],
+      "media_sha256": [
+        "88eea562e0d74fabe1d8c6f219f3c5e4198db1e154f8edb8e5b007d5e6b595ed"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "Quotient Space",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Quotient Space",
+        "Quotient space 𝐺/𝐻 is the space of unique cosets 𝑔𝐻 = 𝑔ℎ: ℎ ∈ 𝐻 ,",
+        "i.e., elements of the space 𝐺/𝐻 are cosets."
+      ],
+      "media_sha256": [
+        "07e172d0ac39264798effb7b60011c1d62000f213706af0702a205925e28be7f",
+        "46395d5689d6048ca6dba72336ed0943ce6b20c4cdab4c1e0c3ef68eb4a7c9c5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "title": "Example: Graph",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Graph",
+        "Think symmetric group Sym(3) and the subgroup of cyclic permutations 𝐻.",
+        "Sym 3 /𝐻 ≡ { 123 ↦ (123), 123 ↦ (321)}",
+        "where the cosets are defined as:",
+        "123 ↦ (123)              123 ↦ (321)",
+        "123 ↦ (231)              123 ↦ (213)",
+        "123 ↦ (312)              123 ↦ (132)"
+      ],
+      "media_sha256": [
+        "fb7229f3039e8d2e7a709cbb8732fd4a2c3eaa47a858b467f511ea7fc5efce21",
+        "6091f3639b12a9ee025100a31e6dc1a7a6a241f3e876ab5f262a3f51320542ec",
+        "6808cb60fe4671e3f5c9e8dd38ed87f996794de6ca17029f4dc5e936f88e0807"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "Group Representation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group Representation",
+        "A group representation 𝜌 maps a group element 𝑔 to an invertible matrix 𝜌(𝑔)",
+        "that linearly transforms a vector 𝐯 ∈ 𝑉 by 𝐯 ↦ 𝜌 𝑔 𝐯.",
+        "• Compatibility: 𝜌 𝑔 ⋅ ℎ 𝐯 = 𝜌 𝑔 𝜌 ℎ 𝐯",
+        "• Identity element: there exists 𝑒 ∈ 𝐺 such that 𝜌 𝑔 = 𝐈.",
+        "The vector 𝐯 is sometimes called a steerable (feature) vector [1] or a steerable function,",
+        "meaning that it is transformed by the group element via matrix-vector product.",
+        "[1] Cohen et al., Steerable CNNs, ICLR 2017"
+      ],
+      "media_sha256": [
+        "563aa8eb5711eda2a0b2af23a2ba7d15ffa374039eff8bd8a3702e0558021573",
+        "3eb8f993f4f1d213ee8b0191ea6f58bbe9a5381fffaf88383d0d99266a65d6b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "Example: Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Graphs",
+        "For a graph 𝐺 = (𝐴, 𝑋) and the symmetric group 𝑔 ∈ Sym(𝑛), we already know that:",
+        "𝑋 ↦ 𝑃𝑋,      𝐴 ↦ 𝑃𝐴𝑃$,",
+        "i.e., they are associated with different group representations!",
+        "Note that 𝐴 ↦ 𝑃𝐴𝑃$ can be written in matrix-vector multiplication as:",
+        "Vlatten 𝐴 ↦ 𝑃 ⊗ 𝑃 Vlatten 𝐴 ,",
+        "\"",
+        "where vec 𝐴     ∈ ℝ is the “flattened” version of 𝐴 ∈ ℝ!×! and ⊗",
+        "!",
+        "is the Kronecker product.",
+        "• An attention-like feature 𝑋𝑋 ! behaves similarly.",
+        "• You can even consider more complex scenarios, e.g., hypergraphs."
+      ],
+      "media_sha256": [
+        "2c02fd0fd40d821cf6ce966f1f4dab740f2d552dbba867e125828b9e29821eb1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 46,
+      "title": "Example: Circular Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Circular Harmonics",
+        "Example of steerable vectors and group representations:",
+        "circular harmonics defined on 0,2𝜋 .",
+        "group representation 𝜌(𝑔& )",
+        "",
+        "<latexit sha1_base64=\"L2dc+j/jC3NPRl5MN8V+5PGHFYc=\">AAAC2HicfVJNa9tAEF2pSeuqaeO2x16WmAaHUiOFtPUlYMilxwTi2MQyZrUe24tXK7E7KjXC0ENK6TU/rbf+iv6FrGwFO47pwMKb92bezn5EqRQGff+v4z7Z2X36rPLce7H38tV+9fWbK5NkmkObJzLR3YgZkEJBGwVK6KYaWBxJ6ETTs0LvfANtRKIucZZCP2ZjJUaCM7TUoPovjGAsVB7FDLX4PvdCnhhaD3ECyAa5P6cf6DI5omHohUao7aoXghqubE69rcbLYnpIF0ZlZn0/rudWXdVu+P7HtZjnfsQVs9E/qNb8hr8I+hgEJaiRMs4H1T/hMOFZDAq5ZMb0Aj/Ffs40Ci7B2mcGUsanbAw9CxWLwfTzxcPM6XvLDOko0XYppAt2vSNnsTGzOLKVdsCJ2dQKcpvWy3DU7OdCpRmC4suNRpmkmNDilelQaOAoZxYwroWdlfIJ04yj/QvFJQSbR34Mro4bwefGp4uTWqtZXkeFvCMHpE4C8oW0yFdyTtqEO20nd26cn+61+8P95f5elrpO2fOWPAj39g4J8OLE</latexit>",
+        "                    ",
+        "cos(✓0 + ✓)         cos ✓    sin ✓       cos ✓0",
+        "=",
+        "sin(✓0 + ✓)          sin ✓   cos ✓       sin ✓0",
+        "𝑔& ⋅ 𝐯                      steerable vector 𝐯",
+        "[cos 𝜃/ , sin 𝜃/]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  [cos(𝜃/ + 𝜃) , sin(𝜃/ + 𝜃)]",
+        "𝜃/                            𝜃/ + 𝜃"
+      ],
+      "media_sha256": [
+        "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
+        "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
+        "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
+        "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
+        "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
+        "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
+        "82e4abca9103542898f309f8a2c2d7a249e678bbeaf1bcbd1922299da668137a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": null,
+      "title": "Q. How does the area",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Q. How does the area",
+        "Example: Circular Harmonics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               change to rotations?",
+        "Example of steerable vectors and group representations:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1",
+        "circular harmonics with degree 𝑘 defined on 0,2𝜋 .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 cos 𝜃/ sin 𝜃/",
+        "2",
+        "group representation 𝜌' (𝑔& )",
+        "<latexit sha1_base64=\"MsID9pI95WbJG+1cnuVYFMWdLos=\">AAADE3icfVJLa9tAEF6paZuqL6c99rLEtCSUGqk0bS6BQC85plAnAa8wq/XIXrxaid1RwAj/h1zyV3LJIaX02ktu+TdZW3Kbh8nAwrffPL6Z2U0KJS2G4ZXnP1p5/OTp6rPg+YuXr1631t4c2Lw0AroiV7k5SrgFJTV0UaKCo8IAzxIFh8n4+8x/eAzGylz/xEkBccaHWqZScHRUf83bZApS7LEEhlJX3Bg+mVZqGjCRWzqeOzcYjgB5P/xYA2bkcISblLGAWakfjgoY6EFTt6binWWSQiw0aZ1PP9C6+uLu5D7dZlzEzYwlUg8ORxcd/5/kH7WkVr/VDjvh3Oh9EDWgTRrb77cu2SAXZQYaheLW9qKwwNgVRSkUuC5KCwUXYz6EnoOaZ2Djav6mU/reMQOa5sYdjXTO3syoeGbtJEtcZMZxZO/6ZuQyX6/EdDuupC5KBC1qobRUFHM6+yB0IA0IVBMHuDDS9UrFiBsu0H2jwC0hujvyfXDwuRN97Wz9+NLe3W7WsUrekXWyQSLyjeySPbJPukR4J96Zd+H98k/9c/+3/6cO9b0m5y25Zf7fa8ud++Y=</latexit>",
+        "                           ",
+        "cos k (✓0 + ✓)            cos k✓      sin k✓         cos k✓0",
+        "=",
+        "sin k (✓0 + ✓)             sin k✓     cos k✓         sin k✓0",
+        "𝑔& ⋅ 𝐯                                    steerable vector 𝐯"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "Spherical harmonics form an orthonormal basis of",
+        "functions defined on the surface of a sphere.",
+        "• Defined by degree 𝑙 and order 𝑚.",
+        "order 𝑚",
+        "• Higher degree implies higher “frequency”.",
+        "• Solution to the Laplace’s equation",
+        "in the spherical domains.",
+        "degree ℓ",
+        "Yml (✓, ') = Nl,m exp(im')Pl,m (cos ✓)",
+        "<latexit sha1_base64=\"8+YrmTANYEIUzuE35yu3UTgjhJ0=\">AAACM3icbVDLSgMxFM34tr6qLt0Ei1BByoz42giCG3EhFawPOnXIpLc2mMwMyR2xDP0nN/6IC0FcKOLWfzBtB/F1IHA45x5u7gkTKQy67pMzNDwyOjY+MVmYmp6ZnSvOL5yaONUcajyWsT4PmQEpIqihQAnniQamQgln4fV+zz+7AW1EHJ1gJ4GGYleRaAnO0EpB8fAiUJeZ7JZ9bAOyNerfMJ20xeruUZDJNaq61IfbhJYFVV8ereZe2eexoYPoalAsuRW3D/qXeDkpkRzVoPjgN2OeKoiQS2ZM3XMTbGRMo+ASugU/NZAwfs2uoG5pxBSYRta/uUtXrNKkrVjbFyHtq98TGVPGdFRoJxXDtvnt9cT/vHqKrZ1GJqIkRYj4YFErlRRj2iuQNoUGjrJjCeNa2L9S3maacbQ1F2wJ3u+T/5LT9Yq3Vdk83ijt7eR1TJAlskzKxCPbZI8ckCqpEU7uyCN5Ia/OvfPsvDnvg9EhJ88skh9wPj4BtDipGA==</latexit>",
+        "normalization    Legendre",
+        "constant      polynomial"
+      ],
+      "media_sha256": [
+        "8de6dd7a92cee0dadcb277b2adff307f42afa8d3cbd131554f7a354a9b21fff8",
+        "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
+        "c096184821a68fc535ced61f329d70d712d3a894e432a35cc717d795483300a0",
+        "9228a17093bbebb75a51756fe40fdd42ca7e9e84cb50a85491ea287df85b8388",
+        "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "Degree-𝑙 spherical harmonics are steerable vectors associated",
+        "with the 𝑙-th Wigner-D matrix, which is the SO(3) group representation:",
+        "`",
+        ") = [Ym` (✓,   )]lm= l   Y ` (g · ✓, g · ) = Dl (g)Y ` (✓, )",
+        "<latexit sha1_base64=\"uiuohEvGDLpJR6DloCbxGSi4WNI=\">AAACJ3icbZDLSgNBEEV74ju+oi7dNAYhgoYZ8bWJBNy4VDBGyYyhp1PJNOl50F0jhCF/48ZfcSOoiC79EzsxgkYLGi7nVlFd10+k0Gjb71ZuYnJqemZ2Lj+/sLi0XFhZvdRxqjjUeCxjdeUzDVJEUEOBEq4SBSz0JdT97snAr9+C0iKOLrCXgBeyTiTagjM0qFk4vr7JXJCyX3IxAGTb1E0CsVVpfPNmFo55nkGVHdm/yYxbKNple1j0r3BGokhGddYsPLmtmKchRMgl07rh2Al6GVMouIR+3k01JIx3WQcaRkYsBO1lwzv7dNOQFm3HyrwI6ZD+nMhYqHUv9E1nyDDQ494A/uc1UmwfeZmIkhQh4l+L2qmkGNNBaLQlFHCUPSMYV8L8lfKAKcbRRJs3ITjjJ/8Vl7tl56C8f75XrB6N4pgl62SDlIhDDkmVnJIzUiOc3JEH8kxerHvr0Xq13r5ac9ZoZo38KuvjExrYphQ=</latexit>                                <latexit sha1_base64=\"WeEcU4fPhxPj0MFaDeapuHy8/jc=\">AAACLXicbVDLSgMxFM34rPVVdekmWIQKUmbE10Yo2IVLBfuQTlsy6W0bzDxI7ghl6A+58VdEcFERt/6GaR1FqwcCJ+ecS3KPF0mh0bZH1szs3PzCYmYpu7yyurae29is6jBWHCo8lKGqe0yDFAFUUKCEeqSA+Z6Emnd7PvZrd6C0CINrHETQ9FkvEF3BGRqpnSvftBIXpBwWei7vhEhd7AOyfdqj6T3qi72zcisZR/a+01+xid3O5e2iPQH9S5yU5EmKy3buye2EPPYhQC6Z1g3HjrCZMIWCSxhm3VhDxPgt60HD0ID5oJvJZNsh3TVKh3ZDZU6AdKL+nEiYr/XA90zSZ9jX095Y/M9rxNg9bSYiiGKEgH8+1I0lxZCOq6MdoYCjHBjCuBLmr5T3mWIcTcFZU4IzvfJfUj0oOsfFo6vDfOk0rSNDtskOKRCHnJASuSCXpEI4uSePZERerAfr2Xq13j6jM1Y6s0V+wXr/ACpxp3A=</latexit>",
+        "Y (✓,"
+      ],
+      "media_sha256": [
+        "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
+        "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
+        "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
+        "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "title": "Types of Steerable Vectors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Steerable Vectors",
+        "It seems there are several “orders” of steerable vectors. Any insights?",
+        "• Only high-level intuitions today, discussed more later (irreducible representations).",
+        "Steerable vectors can be categorized by the group representations.",
+        "• High-order Cartesian tensors are created from",
+        "naïve “tensor products” between low-order ones.",
+        "• High-order spherical tensors are created from",
+        "“Clebsch-gordan tensor products” between",
+        "low-order ones.",
+        "Duval et al., A Hitchhiker’s Guide to Geometric GNNs for 3D Atomic Systems, 2023"
+      ],
+      "media_sha256": [
+        "74444843fcfe3916a8f252eb3ddfca723b5ea1829154797e76c07c6d0669d651"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "title": "Equivariance",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Equivariance",
+        "Equivariance is a property of an operator Φ: 𝑋 → 𝑌 that",
+        "commutes with the group action:",
+        "(⇢X (g)x) = ⇢Y (g) (x)",
+        "<latexit sha1_base64=\"X/Jj3zFXCJXF0Sgxmt+PAb40Nx0=\">AAACHnicbVDLSsNAFJ3UV62vqEs3g0VoNyURq90IBTcuK9iHNLFMppNm6OTBzEQsoV/ixl9x40IRwZX+jZM0oLYeGDiccy5z73EiRoU0jC+tsLS8srpWXC9tbG5t7+i7ex0RxhyTNg5ZyHsOEoTRgLQllYz0Ik6Q7zDSdcYXqd+9I1zQMLiWk4jYPhoF1KUYSSUN9LrV8mjF4l5426uMqpaPpOe4yf20ep6JN0qEcBb68QZ62agZGeAiMXNSBjlaA/3DGoY49kkgMUNC9E0jknaCuKSYkWnJigWJEB6jEekrGiCfCDvJzpvCI6UMoRty9QIJM/X3RIJ8ISa+o5LpimLeS8X/vH4s3Yad0CCKJQnw7CM3ZlCGMO0KDiknWLKJIghzqnaF2EMcYakaLakSzPmTF0nnuGae1upXJ+VmI6+jCA7AIagAE5yBJrgELdAGGDyAJ/ACXrVH7Vl7095n0YKWz+yDP9A+vwGCmqF5</latexit>",
+        "Note that group representations depend on the",
+        "domains 𝑋 and 𝑌, e.g.,",
+        "⇢X (g) = R,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ⇢Y (g) = I",
+        "<latexit sha1_base64=\"pCighqm+uQfHiVrcXSvLMMUH+qU=\">AAACH3icbZDLSsNAFIYnXmu9RV26GSxCBSmJaO2mUHCjuyr2Ik0sk+mkHTq5ODMRSsibuPFV3LhQRNz1bZy0EbT1wMDP/53DnPM7IaNCGsZYW1hcWl5Zza3l1zc2t7b1nd2mCCKOSQMHLOBtBwnCqE8akkpG2iEnyHMYaTnDi5S3HgkXNPBv5Sgktof6PnUpRlJZXb1s8UFwH7eTYv8IVqHlITlw3PgmOYbWQ4R6cMrvUl79oVdJVy8YJWNScF6YmSiArOpd/cvqBTjyiC8xQ0J0TCOUdoy4pJiRJG9FgoQID1GfdJT0kUeEHU/uS+ChcnrQDbh6voQT9/dEjDwhRp6jOtMNxSxLzf9YJ5JuxY6pH0aS+Hj6kRsxKAOYhgV7lBMs2UgJhDlVu0I8QBxhqSLNqxDM2ZPnRfOkZJZLZ9enhVoliyMH9sEBKAITnIMauAR10AAYPIEX8AbetWftVfvQPqetC1o2swf+lDb+BsUeojI=</latexit>",
+        "for invariant operators."
+      ],
+      "media_sha256": [
+        "d7acf0b2ecaf3e27aad3395c07f235d7479e749295bd134aa33c8f65bf7001c9",
+        "226a42868161ecc44e6b63263770cb1caa9675ff28a26e985c43d2a844578e70",
+        "af40c7f27d0a78c5b2213f67466d0d3d8fcc0e4a86699b4b8333fadf18e6f510",
+        "f7fe2e1e368fb84f3b172102e25f7a3dbd37dcf81b783a9245cf7821bd329b72"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "title": "End of Slide",
+      "classification": "transition-only",
+      "coverage": "omitted-logistical",
+      "text": [
+        "End of Slide",
+        "Some references:",
+        "• Bronstein et al., Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges, 2021",
+        "• Bronstein et al., Geometric Deep Learning: The Erlangen Programme of ML, Keynote @ ICLR 2021",
+        "• Veličković, Geometric Deep Learning: GNNs Beyond Permutation Equivariance, Tutorial @ CVPR 2022",
+        "• Smidt, Symmetry and Equivariance in Neural Networks, Berkeley Lab Deep Learning School 2020",
+        "• Bekkers, An Introduction to Group Equivariant Deep Learning, Course provided @ University of",
+        "Amsterdam, 2022.",
+        "• Duval et al., A Hitchhiker’s Guide to Geometric GNNs for 3D Atomic Systems, In Arxiv 2023"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "9ec1ada0f54dd80a4ecde6f6d4c84eb805639505ef693b6749c2b4c1c443b304",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 210380,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 22211,
+      "slides": [
+        9
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s09-image10.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9fe55f2dbca1591ab426fc5d71b54215ec7f49c0c6a62e86b878caa01d55a14e",
+      "pptx_path": "ppt/media/image100.png",
+      "extension": ".png",
+      "bytes": 147315,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d7acf0b2ecaf3e27aad3395c07f235d7479e749295bd134aa33c8f65bf7001c9",
+      "pptx_path": "ppt/media/image103.png",
+      "extension": ".png",
+      "bytes": 65742,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1dba7b77661c778998ce06b3a0979dfb72ea5b4289de67ac0543713988088d8c",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 54714,
+      "slides": [
+        10
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s10-image11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2ab4c8807a337f9468fd2f0516c8f066496361d903f074f380e95ecce73e8024",
+      "pptx_path": "ppt/media/image110.png",
+      "extension": ".png",
+      "bytes": 105314,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0daca2a2a01551299a1613641526f7ca4a226a049b53951717cc5de6bedd4cb5",
+      "pptx_path": "ppt/media/image12.jpeg",
+      "extension": ".jpeg",
+      "bytes": 39102,
+      "slides": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s11-image12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "06be0e8c20fdfd976a28833265b7beba30248f82b45e7bad5d79c7247bc66d4d",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 376278,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "958dd822b332d96d008349784bfee34c7296b6baf94c3b70dab7e430f8b6011d",
+      "pptx_path": "ppt/media/image130.png",
+      "extension": ".png",
+      "bytes": 78565,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "99db688a8e37762a4dc08e6566ea5a53f38a00f1c7447e1b8903df887abe8917",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 75348,
+      "slides": [
+        13
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s13-image14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9ca6012e6f2f013ca14e84767277ca540ad25a0991e3dac2869ceb1e2f838e98",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 33578,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0985598f2c0a33bc7deba549d013dbfe7b6b147013f8703b103928d4578882ae",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 401493,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s14-image16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "af8b76c8336530690e73abc9d64e99cb83362b72f03133bb6bf3e1a13d65aadc",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 375552,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s15-image17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b49295e5ccb502a86da698198a5608eda203037fa7cf4635dcb7591bcbccda96",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 310373,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "94ec9a9901d98ccfa72508943192ac8466f5ba9a2e5276bc86cf77a44973b865",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 74052,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91",
+      "pptx_path": "ppt/media/image2.gif",
+      "extension": ".gif",
+      "bytes": 18616695,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c39f0b4d61960b6341183b37133275504e6a74d0de6f0e2dac44df2f6b8c2f5b",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 13151,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3600bb5d80516a320023df19438abb479b81c26cbe5e7ac409e3673b9dfc5f99",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 17243,
+      "slides": [
+        18,
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ad5ba2dda1531bbb00c2592a8fa764e1bcef059bb03293b9f1cea311ca0389d4",
+      "pptx_path": "ppt/media/image200.png",
+      "extension": ".png",
+      "bytes": 7992,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e934fc102efadaa987b0c557b2a23841422d01e3568d9b29f39cbfc6cc3aff23",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 12065,
+      "slides": [
+        18,
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a94c66d6a194e36179a68cf20d2024e5663dee3b615f78658e615448d8481f6a",
+      "pptx_path": "ppt/media/image210.png",
+      "extension": ".png",
+      "bytes": 3622,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "80975ceee12262f3197e97adf2d2bce1cb52ab8ddfe79e227c2c5d31927fd081",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 4350,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16cb58ea3faed07359c51b0bf0d4bf307c60bfec6dff49c6ef48d361bb92df22",
+      "pptx_path": "ppt/media/image220.png",
+      "extension": ".png",
+      "bytes": 7278,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "919ab4b150660d59abc9eec4079ea609f0dd2e82f298ca7166bf2fbd73818928",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 4899,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5e82b5d858d731ec99832f534dc73de4370b917d2cf92968a52342509e6483e4",
+      "pptx_path": "ppt/media/image230.png",
+      "extension": ".png",
+      "bytes": 1638,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3898172bfc73dcb507ef3481bb6dc044083fced7f55b15673859e7f5024ff820",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 4975,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fbed729d2a3db8a4c55afc05bb5f23a8504d94b58cbb22d7f8933103b1fcd898",
+      "pptx_path": "ppt/media/image240.png",
+      "extension": ".png",
+      "bytes": 1897,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f2671c65d17ddfdd02676e30291d71bdfacf661090549bd694a24fe31c9859f4",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 4579,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c3af299c3c845ad29762deb6c2d3ba592b7a20b5281413dc3fa13ebbeced3361",
+      "pptx_path": "ppt/media/image250.png",
+      "extension": ".png",
+      "bytes": 1992,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "51bd0de87d8a06b43053342511d8f77c0f0fe98cf94bec6593f6621b7af55df7",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 278965,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff333fb5360c5d270f9eddabdc1f9e0a88f0c5260238ed8c129a5edb6cda25ed",
+      "pptx_path": "ppt/media/image260.png",
+      "extension": ".png",
+      "bytes": 3364,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "993ca443e3d154cd62faba9109c833b14e10985dcd4e2a3521218809096be378",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 70355,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "79ab751abbb48547d3dbc9dfb54c67f96d4235b9a87dd662c073cb3fb8c04210",
+      "pptx_path": "ppt/media/image270.png",
+      "extension": ".png",
+      "bytes": 3725,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cd98fe991fac3f433c36038c225ac52f31d9d4d14a2cd4bb51b1ed64bf6ca7cd",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 17271,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3d193489fe1dd6b7e9961e2b6e8b44411c0cbe46e7f8f0ba3efea2665192b45c",
+      "pptx_path": "ppt/media/image280.png",
+      "extension": ".png",
+      "bytes": 5421,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cdaab7e94cb3a95875f1f3cec6531cf8cd66d89f6677f461940d2d566f857337",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 1121,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
+      "pptx_path": "ppt/media/image3.gif",
+      "extension": ".gif",
+      "bytes": 4283831,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a59e84e149fbb7f03b0adf1018061e0ef24b0bbfc9c8d1446a69641efcb0c300",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 127971,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f7465893701eb08ce709c75d4df98af9a0da2fb088d12e2a4ec5bf1c32b28cdb",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 17674,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fafbde70c992698fe0416cc77efbe126253511abc4a422174c373f3307206fc4",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 12095,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "78d9a5af7d6f226b89f29320b14837f7e9b5beecc8a116049f64134a696a9a72",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 1222,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3d97576a018c288094519bea7935734dfc8086b33ded71501c5203022a211cc4",
+      "pptx_path": "ppt/media/image320.png",
+      "extension": ".png",
+      "bytes": 1608,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "32df489c365d293e108b6ac4a3f6ad8c59ea722442ef7599c6ba7f2722e86bf2",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 1880,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "315eb7c939c64aef25dcc0984b9ad7dac0c796896898c8d4411381551ae20fba",
+      "pptx_path": "ppt/media/image330.png",
+      "extension": ".png",
+      "bytes": 2113,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0ca0ab7be360df7552a7a994d14cc291749d3afd4937e22e063eaeb7b4b61914",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 1208,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "89de0ae41f78429141ed0f1907140b74ca4936bab60cb09aca11c7b54798216b",
+      "pptx_path": "ppt/media/image340.png",
+      "extension": ".png",
+      "bytes": 4968,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1b02c077b0be5c79c12bdfe516f55c69037ec44700feca77b2dafbcccf905573",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 1679,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "df93a8e2708dcfcf08cc1879501b927313b25a34f720d27f4b7a4859165b33ed",
+      "pptx_path": "ppt/media/image350.png",
+      "extension": ".png",
+      "bytes": 7174,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c3595a5afcf158d2dbfe50c39ea9c6144bbd57ef6500a6860e09dc610f2cd67c",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 45078,
+      "slides": [
+        21,
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c7b6f5f6f20b491b963653b736c17eab30845d8fea22c4d19fa6e30ac321bc1",
+      "pptx_path": "ppt/media/image360.png",
+      "extension": ".png",
+      "bytes": 7130,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 175128,
+      "slides": [
+        21,
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b3c2e040d61324239fc1839b38cc2147d0436224fd3d5576ed16d17becff7266",
+      "pptx_path": "ppt/media/image370.png",
+      "extension": ".png",
+      "bytes": 11192,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "480ee1f10a097bb97b26f73cb7b45c82cedbca54c876712fa2d34943946f4d53",
+      "pptx_path": "ppt/media/image38.gif",
+      "extension": ".gif",
+      "bytes": 4744534,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ed6a730676f7e69e5c61fdc5532e533a5197a3795a66e213e9a396d75774c7ca",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 14364,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e66986efb3bc6c8e9800f32c9c0093a58b41988c548f888f8cacc15de50cb54b",
+      "pptx_path": "ppt/media/image380.png",
+      "extension": ".png",
+      "bytes": 3083,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8a40e92684a2f82e3f2e447d0bfaae6aa370d94a3b4b75c09d52e5e482d153c7",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 11638,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a4722cff2a0de5e06a50ca07a2667227c55d3c6a8291f04ad6f89c033cab3de4",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 201675,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "85813e8ddf8d0b3d70f17102378d8638290b871d9bacdceb04cf9b3166d70245",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 104913,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3dd4bf8ecc73d0ffdfa4ac75acdc8c3f1b8b1dc7d1f28b1adc0414efa7d2c135",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 15046,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
+      "pptx_path": "ppt/media/image410.png",
+      "extension": ".png",
+      "bytes": 7128,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f6eba088ad5124a82e2e69f2a4894b4fd7c05a4f451da97aa78587cd338bb757",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 12273,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
+      "pptx_path": "ppt/media/image420.png",
+      "extension": ".png",
+      "bytes": 11485,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4f542e357f4e9f30a5a7b632922bf399618aa2f2358a2244619e2c985e16f792",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 10263,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
+      "pptx_path": "ppt/media/image430.png",
+      "extension": ".png",
+      "bytes": 3095,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "93f458479df746edb394fcc79562db14036fdf158f62a631cceceaa463483f6b",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 11993,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c01187dee989bcec30f8bc0043ac0d7d30a17ccb20ca70f0f7529a3ad5b58bf4",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 14439,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ed8b0957b4f3fe423e787f2a5b2655258dc12880fb9cb62cc1fa35fd85e193b0",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 280200,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fa1ae5c53e34f3bb1f2a35ac8a80900bde8f1cf2d1c48440a803268688267371",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 12303,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "39b87b4e9ee0a68615187ababc06fe2bc46589f9ea3131d8860e8fe06cecd9dc",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 388824,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "259f271e064d5a62c74d51ca48e5babe7671253c6ba53a255bda0d87523a46f5",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 12900,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0fecab7819fa0c71cf18f61fc5253cd4af4f0eb86c6a9231075242915165d42b",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 337003,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0c8e85fc82f6f5afaa0edcc6ab9b23a1bc1003f9e41702218eb766ab8459cafe",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 9500,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a0436a0d88286b89b5359edf245ac75e6e011cedd88c9bebbb56938c9b0298aa",
+      "pptx_path": "ppt/media/image51.gif",
+      "extension": ".gif",
+      "bytes": 508851,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "72438f7a0388cde0c3fb0e00fc28421201092374e60ab2e98da9d98f821136d7",
+      "pptx_path": "ppt/media/image52.gif",
+      "extension": ".gif",
+      "bytes": 377797,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff294eda893fe60634da95bc27a3f2c1be2c22d651499abe15e44bcddcf58256",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 116025,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5496668a09f47fc6227e6723e4a39502071154f0bddd8be6ba6a4e8cbc112a98",
+      "pptx_path": "ppt/media/image53.jpeg",
+      "extension": ".jpeg",
+      "bytes": 60997,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e27db9540e11b916ffd137e29bc31f4fb5e0ef978f4cee9da4cce2ccf26b26ed",
+      "pptx_path": "ppt/media/image54.emf",
+      "extension": ".emf",
+      "bytes": 78212,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ec60adcb44c82f9b62ec990f59df87d688286ffcff53b7929b4a373af182b843",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 62108,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e3e64ccb710c805abe458248dc088f35d9b82dbda3f9f8f5cdebfc3ae048999b",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 296239,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "87cba7a30541e34b70f6fbc6cfcdc829d495e1f730e60395747a7ac618d2ee0d",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 56357,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "79919f64a221fb06a5f52e3179dc3fae29e5c822a2230270200dedfcb36ce9d4",
+      "pptx_path": "ppt/media/image57.emf",
+      "extension": ".emf",
+      "bytes": 124152,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6e91a510ba563abfaf82f26c087d92a42c5c39f52de959663a52996cd33cb1a6",
+      "pptx_path": "ppt/media/image58.emf",
+      "extension": ".emf",
+      "bytes": 116856,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a1c00a7c7d1cecc853a8999cfe7b1677955398fcec439f599dc45340749acd33",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 12215,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
+      "pptx_path": "ppt/media/image6.jpeg",
+      "extension": ".jpeg",
+      "bytes": 109080,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b66a28dc94b734e252c0683667320ac47347bb08ee0cc21398f4ac4437794f68",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 122556,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "edf11fd5a63c6377f7ab07946b291aa7721d0e9c1d793b33d88b8eb9737d1980",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 9790,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b2ef05a74a4fc54a3023a0852555d73b27a911da2d29a24f82cf9a0f6b471340",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 115628,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8a5afe415e824b5693cc376c7b93333f7b2e990b57875213ef90534a6021d9fb",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 6606,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 36687,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cf590a67b06dc1d87876620f765f2560e6f4444ab256ae3e57e7cca414fc6997",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 129377,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6cf6aee3536d85081a36f602a0d568a9d8e308350b225a57588cfbb4ae2c375b",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 44864,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a23a645ec870902bd623ff8c547b69b5f47791024736a2dafad6343166c78564",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 90569,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4644a9f75c4f7792d204726bc08574cf10341dd1b8a5f368c7d35910c2a4e229",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 34013,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c096184821a68fc535ced61f329d70d712d3a894e432a35cc717d795483300a0",
+      "pptx_path": "ppt/media/image670.png",
+      "extension": ".png",
+      "bytes": 4428,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dc9aa0f60db536fbab2da65a4841ff08163a27766381fcceb6d2ad0e9a97d0bd",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 24906,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9228a17093bbebb75a51756fe40fdd42ca7e9e84cb50a85491ea287df85b8388",
+      "pptx_path": "ppt/media/image680.png",
+      "extension": ".png",
+      "bytes": 4138,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a13b42004b5015932d1fd49c26628e3bf210feca059abb0e05a477fdc24b47b6",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 67172,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 104085,
+      "slides": [
+        9,
+        9,
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "428bef670866c8121a09eb96b4677f8de40fa8a6de91c2aa037f91cb0407eb9a",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 16126,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b2c88d96c4db15a11b5c7e1d43528cfe090b18334229fdc1656051c348ec47a2",
+      "pptx_path": "ppt/media/image71.png",
+      "extension": ".png",
+      "bytes": 76490,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d279d957eccf23a2d4c64decd41cf710e634cdcd25e1def70148ddceeb21cdd8",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 128577,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "90b48d7276b66cc1860ae289587d210691f375b2b6e201af524551014d15b6c6",
+      "pptx_path": "ppt/media/image73.png",
+      "extension": ".png",
+      "bytes": 9233,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "11ac0e86279f4bb7bdb30b523916844a9a272b9822448c6a996318a2412104ef",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 23901,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "92326243cb233f674887eb595e625505eb5d0cb5180c618cb7ca116e14c39be7",
+      "pptx_path": "ppt/media/image75.png",
+      "extension": ".png",
+      "bytes": 55603,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "46395d5689d6048ca6dba72336ed0943ce6b20c4cdab4c1e0c3ef68eb4a7c9c5",
+      "pptx_path": "ppt/media/image76.png",
+      "extension": ".png",
+      "bytes": 116732,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "429c0049a572441d3cb4526f720bb728ac65d09b6efcb1a19f86a9d1eb12030c",
+      "pptx_path": "ppt/media/image77.png",
+      "extension": ".png",
+      "bytes": 20490,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3eb8f993f4f1d213ee8b0191ea6f58bbe9a5381fffaf88383d0d99266a65d6b2",
+      "pptx_path": "ppt/media/image78.png",
+      "extension": ".png",
+      "bytes": 53790,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1c2ecb12ce5440d8babf590120f9bde1da5b59797388e1a8ae438a2ac673f51e",
+      "pptx_path": "ppt/media/image79.emf",
+      "extension": ".emf",
+      "bytes": 87624,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8f75c767cb276607573e816d939e28d2c86b5f539ba24c94c885fa59419ff560",
+      "pptx_path": "ppt/media/image79.png",
+      "extension": ".png",
+      "bytes": 12799,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
+      "pptx_path": "ppt/media/image8.jpeg",
+      "extension": ".jpeg",
+      "bytes": 307013,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "778b4b46b24c2e229d161893023318c8815351a723728ef20ffdec6375e400c9",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 104448,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
+      "pptx_path": "ppt/media/image80.emf",
+      "extension": ".emf",
+      "bytes": 101240,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "88eea562e0d74fabe1d8c6f219f3c5e4198db1e154f8edb8e5b007d5e6b595ed",
+      "pptx_path": "ppt/media/image80.png",
+      "extension": ".png",
+      "bytes": 97689,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "07e172d0ac39264798effb7b60011c1d62000f213706af0702a205925e28be7f",
+      "pptx_path": "ppt/media/image81.png",
+      "extension": ".png",
+      "bytes": 55535,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
+      "pptx_path": "ppt/media/image82.png",
+      "extension": ".png",
+      "bytes": 273771,
+      "slides": [
+        46,
+        46,
+        46,
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fb7229f3039e8d2e7a709cbb8732fd4a2c3eaa47a858b467f511ea7fc5efce21",
+      "pptx_path": "ppt/media/image83.png",
+      "extension": ".png",
+      "bytes": 69054,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6091f3639b12a9ee025100a31e6dc1a7a6a241f3e876ab5f262a3f51320542ec",
+      "pptx_path": "ppt/media/image84.png",
+      "extension": ".png",
+      "bytes": 15333,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6808cb60fe4671e3f5c9e8dd38ed87f996794de6ca17029f4dc5e936f88e0807",
+      "pptx_path": "ppt/media/image85.png",
+      "extension": ".png",
+      "bytes": 15492,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "563aa8eb5711eda2a0b2af23a2ba7d15ffa374039eff8bd8a3702e0558021573",
+      "pptx_path": "ppt/media/image86.png",
+      "extension": ".png",
+      "bytes": 128727,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
+      "pptx_path": "ppt/media/image87.png",
+      "extension": ".png",
+      "bytes": 1041453,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36",
+      "pptx_path": "ppt/media/image88.emf",
+      "extension": ".emf",
+      "bytes": 75172,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c02fd0fd40d821cf6ce966f1f4dab740f2d552dbba867e125828b9e29821eb1",
+      "pptx_path": "ppt/media/image88.png",
+      "extension": ".png",
+      "bytes": 138004,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
+      "pptx_path": "ppt/media/image89.emf",
+      "extension": ".emf",
+      "bytes": 89312,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0f061aa7fd4cea5e46f89a88c0b7fad194d369d61749fac5ec5b03baa4093e1a",
+      "pptx_path": "ppt/media/image89.png",
+      "extension": ".png",
+      "bytes": 67161,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+      "pptx_path": "ppt/media/image9.jpeg",
+      "extension": ".jpeg",
+      "bytes": 84246,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
+      "pptx_path": "ppt/media/image90.emf",
+      "extension": ".emf",
+      "bytes": 81752,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
+      "pptx_path": "ppt/media/image91.png",
+      "extension": ".png",
+      "bytes": 71363,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
+      "pptx_path": "ppt/media/image92.png",
+      "extension": ".png",
+      "bytes": 111225,
+      "slides": [
+        48,
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "74444843fcfe3916a8f252eb3ddfca723b5ea1829154797e76c07c6d0669d651",
+      "pptx_path": "ppt/media/image93.png",
+      "extension": ".png",
+      "bytes": 64143,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "226a42868161ecc44e6b63263770cb1caa9675ff28a26e985c43d2a844578e70",
+      "pptx_path": "ppt/media/image94.emf",
+      "extension": ".emf",
+      "bytes": 79900,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "82e4abca9103542898f309f8a2c2d7a249e678bbeaf1bcbd1922299da668137a",
+      "pptx_path": "ppt/media/image94.png",
+      "extension": ".png",
+      "bytes": 5662,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8de6dd7a92cee0dadcb277b2adff307f42afa8d3cbd131554f7a354a9b21fff8",
+      "pptx_path": "ppt/media/image95.png",
+      "extension": ".png",
+      "bytes": 87648,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "af40c7f27d0a78c5b2213f67466d0d3d8fcc0e4a86699b4b8333fadf18e6f510",
+      "pptx_path": "ppt/media/image96.png",
+      "extension": ".png",
+      "bytes": 102940,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f7fe2e1e368fb84f3b172102e25f7a3dbd37dcf81b783a9245cf7821bd329b72",
+      "pptx_path": "ppt/media/image97.emf",
+      "extension": ".emf",
+      "bytes": 69324,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
+      "pptx_path": "ppt/media/image98.png",
+      "extension": ".png",
+      "bytes": 73135,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8829a49ecf5e0c896f70ee5c5895b124d4157ce4043412ceabd7d6384cf09166",
+      "pptx_path": "ppt/media/media1.mp4",
+      "extension": ".mp4",
+      "bytes": 2234177,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 40,
+    "reused_figures": 40,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-02.md",
+  "pptx_figures": [
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s18-molecular-graph.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s19-graph-original.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 47",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s19-graph-permuted.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 4",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s20-permutation-actions.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 18",
+      "source_media_paths": [
+        "ppt/media/image30.png",
+        "ppt/media/image31.png",
+        "ppt/media/image20.png",
+        "ppt/media/image21.png",
+        "ppt/media/image32.png",
+        "ppt/media/image33.png",
+        "ppt/media/image34.png",
+        "ppt/media/image35.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s21-invariant-property.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 8",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s21-equivariant-property.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image37.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-geometric-graph.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image46.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-rotating-molecule.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image38.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s23-hamiltonian-block.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image45.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s25-transformation-space.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s26-algebraic-structures.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-simplicial-complex.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image49.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-geodesic-metric.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image50.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-topology-mug.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image51.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s27-topology-sphere.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image52.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s29-noncommuting-rotations.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image53.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s31-permutation-group.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image55.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s33-euclidean-group.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image56.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s35-axis-angle.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image59.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s35-euler-angles.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image60.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s36-group-action.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image62.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s37-triangle-original.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 34",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s37-triangle-rotated.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 35",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-transitive-sphere.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image67.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-transitive-line.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image68.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s38-nontransitive-conjugation.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image70.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s39-sphere-stabilizer.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image71.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s39-self-action-stabilizer.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image72.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s41-quotient-sphere.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image76.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s45-circular-harmonics.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "plot",
+      "source_shape_name": "Group 35",
+      "source_media_paths": [
+        "ppt/media/image82.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s47-spherical-harmonics.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image87.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s48-wigner-steerability.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image92.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s49-steerable-types.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image93.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-02/s50-equivariant-operator.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image96.png"
+      ],
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

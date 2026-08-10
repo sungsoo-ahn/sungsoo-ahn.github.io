@@ -1,0 +1,4270 @@
+{
+  "deck_id": "ml4mol-2025-04",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec4_prelim3.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec4_prelim3.pptx",
+  "slide_count": 86,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Preliminaries: Graph Neural Networks",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Preliminaries: Graph Neural Networks",
+        "AI810 Machine Learning for Molecules",
+        "Sungsoo Ahn",
+        "1"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Today’s Lecture",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Today’s Lecture",
+        "• Permutation equivariant neural networks.",
+        "• If you are confident with GNNs, feel free to skip this course.",
+        "• If you took the “AI810: Geometric Deep Learning” course last semester,",
+        "also feel free to skip this course.",
+        "2"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Part 1. Graph Neural Networks",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 1. Graph Neural Networks",
+        "3"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Problem: Graph Representation Learning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Problem: Graph Representation Learning",
+        "Given a graph 𝐺 and a target 𝑦, how to learn a function 𝑓! : 𝐺 ↦ 𝑦?",
+        "In the simplest form, we are interested in a undirected graph 𝐺 = (𝑉, 𝐸):",
+        "• Vertex set 𝒱 with elements denoted by 𝑢 ∈ 𝑉 with 𝑉 = 𝑁.",
+        "• Edge set ℰ with elements denoted by {𝑢, 𝑣} ∈ 𝐸",
+        "or binary adjacency matrix 𝐴 ∈ 0,1 !×! .",
+        "• Node features 𝑋 = 𝑥# #∈𝒱 for 𝑥# ∈ ℝ& or simply 𝑋 ∈ ℝ!×' .",
+        "• Edge attributes 𝑒#( ∈ ℛ associated with an edge {𝑢, 𝑣} ∈ 𝐸"
+      ],
+      "media_sha256": [
+        "ab447ecb0ec3dc9a1a072f09aa2ba30cead0f070c7bfdede16f40a512ec97f06"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Problem: Graph Representation Learning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Problem: Graph Representation Learning",
+        "Given a graph 𝐺 and a target 𝑦, how to learn a function 𝑓! : 𝐺 ↦ 𝑦?",
+        "Targets differ for each problem.",
+        "• Node-level prediction 𝑦# : 𝑢 ∈ 𝑉 .",
+        "• Edge-level prediction 𝑦#( : 𝑢𝑣 ∈ 𝐸 .",
+        "• Graph-level prediction 𝑦."
+      ],
+      "media_sha256": [
+        "fcf5b679b04cb64589a13f88bc445262fbb283daf0766d4ad32a9962aae0b1db",
+        "0bd17ad828ffd6b921b922ce05f9831bb24933bba92fe1018b7c27f541a607e4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Graph Neural Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Neural Network",
+        "Neural networks that work on graphs:",
+        "Roughly speaking, two types:",
+        "• Message-passing neural networks (sparsely connected)",
+        "• Transformers (fully connected)"
+      ],
+      "media_sha256": [
+        "f78a4f5bd1de57e8c6f3d06f845bfe89bf1e2b01809b69d209492e213c585872"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Message Passing Neural Networks (MPNN)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Message Passing Neural Networks (MPNN)",
+        "The 𝑙-th MPNN layer consists of two steps:",
+        "1. Message computation (from node 𝑢 to node 𝑣):",
+        "(;)",
+        "𝑚89 = MESSAGE (;) ℎ8;=> , 𝑒89 .",
+        "2. Aggregation (for node 𝑣):",
+        "(;)                       ;             (;=>)",
+        "ℎ9 = AGGREGATE        𝑚89 , 𝑢 ∈ 𝑁 𝑣   , ℎ9       .",
+        "What are the candidates for MESSAGE",
+        "and AGGREGATE functions?"
+      ],
+      "media_sha256": [
+        "731ca2f2d3d9ebf0ba2bb75166889ddc45040679dc9cd9bf1fd68befe4eb8a87",
+        "f9ea372f64e4eaa2778c6682b5ced4cb7df0c231098295849d71c759971126ce",
+        "788424584642f5d72ccb4e73f26ea5aee2fa096019794ed456f7404a99178b60"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "(Typical) MPNNs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "(Typical) MPNNs",
+        "For message functions, we use node-wise functions, e.g.,",
+        "MESSAGE: ℎ8 , 𝑒89 ↦ MLP ℎ8 ||𝑒89 .",
+        "For aggregation: ℝ 𝒩 9 ×A → ℝA , we use one of",
+        "sum / mean / max pooling, e.g.,",
+        "SUM: 𝑚89 , 𝑢 ∈ 𝒩 𝑣     ↦ C 𝑚89",
+        "8∈𝒩(9)",
+        "1",
+        "MEAN: 𝑚89 , 𝑢 ∈ 𝒩 𝑣      ↦          C 𝑚89",
+        "𝒩 𝑣",
+        "8∈𝒩(9)"
+      ],
+      "media_sha256": [
+        "43e4f4858a673e8f391bf08d4680dfb9e4c76fc4716a201f2ee4826759afefe4",
+        "731ca2f2d3d9ebf0ba2bb75166889ddc45040679dc9cd9bf1fd68befe4eb8a87"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Graph Convolutional Network (GCN)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Convolutional Network (GCN)",
+        "GCN is one of the most basic MPNN applied to a graph 𝐺 = (𝑉, 𝐸)",
+        "with node attributes 𝑥9 (and no edge attributes).",
+        "B",
+        "1. Initialize the hidden layer embedding ℎ9 = 𝑥9",
+        "2. Update each embedding ℎ!\"#$ by averaging over neighborhoods 𝑁 𝑣",
+        "and non-linear activation 𝜎 (e.g., ReLU):",
+        "Trainable weights",
+        "ℎ%\"         (\")",
+        "ℎ!\"#$ = 𝜎 𝑊\"    &        + 𝐵\" ℎ!",
+        "|𝑁(𝑣)|",
+        "%∈'(!)"
+      ],
+      "media_sha256": [
+        "c0aacaa56415a26535c35d57a2641add9886662735e98f557aa35a05d806f1c1",
+        "b80e2ffe07bd3885f79acb922fc767600f1a516d7566ec18eaf8db99f3bc4dcb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Matrix Formulation of GCN",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Matrix Formulation of GCN",
+        "GCN updates can be written in matrix multiplication:",
+        "𝐻 CD> = 𝜎 𝐴𝐻 I C 𝑊CE + 𝐻 C 𝐵CE ,        𝐴I = 𝐷=> 𝐴",
+        "• Red: neighborhood aggregation via",
+        "F",
+        "“normalized” adjacency matrix 𝐴.",
+        "• Blue: self-transformation",
+        "• In practice, this implies that efficient “sparse” matrix multiplication can",
+        "be used.",
+        "• Note that sparse matrix multiplication via GPU is an active area of research."
+      ],
+      "media_sha256": [
+        "b3a99079593687ba0df437b2d1b12fb9bdeedef8471e75b7b6a370a0b700e0c0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Other MPNNs (GraphSAGE, GIN, GatedGCN)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Other MPNNs (GraphSAGE, GIN, GatedGCN)",
+        "Recall the 𝑙-th MPNN layer consists of two steps:",
+        "(;)                          ;=>",
+        "𝑚89 = MESSAGE (;)           ℎ8 , 𝑒89",
+        "(;)                           ;                     (;=>)",
+        "ℎ9 = AGGREGATE               𝑚89 , 𝑢 ∈ 𝑁 𝑣        , ℎ9",
+        "Existing architectures are just some variations!",
+        "• Graph convolutional network (GCN): Use linear layer + activation and dropout + mean-pooling",
+        "• GraphSAGE: Use linear layer + activation and mean-pooling",
+        "• Graph isomorphism network (GIN): Use MLP and sum-pooling",
+        "• Gated GCN: Use linear layer + activation and GRU"
+      ],
+      "media_sha256": [
+        "d5ed244864f85511de02578541889431091b74521ed1a53143fbc5058b5bb04e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Graph Attention Network (GAT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Attention Network (GAT)",
+        "The 𝑙-th GNN layer consists of two steps:",
+        "• Message computation (from node 𝑢 to node 𝑣):",
+        "(*)",
+        "𝑚#( = MSG (*) ℎ#*,- , 𝑒#( .",
+        "• Aggregation (for node 𝑣):",
+        "(*)               *             (*,-)",
+        "ℎ( = AGG       𝑚#( , 𝑢 ∈ 𝑁 𝑣   , ℎ(      .",
+        "What if we replace AGG by attention pooling?"
+      ],
+      "media_sha256": [
+        "047bb21b47f1cb713e12a0d4a0ffeba63b72db180393f2ea9716ea0364da85fc",
+        "731ca2f2d3d9ebf0ba2bb75166889ddc45040679dc9cd9bf1fd68befe4eb8a87"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Graph Attention Network (GAT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Attention Network (GAT)",
+        "(;)           ;                 (;=>)",
+        "Aggregation ℎ9 = AGG     𝑚89 ,𝑢 ∈ 𝑁 𝑣      , ℎ9      is written as:",
+        "(;)                 O (;=>)",
+        "ℎ9 =    C       𝛼89 𝑊 ℎ9",
+        "8∈N(9)",
+        "Where the attention score 𝛼89 is defined as follows:",
+        "exp 𝑚89",
+        "𝛼89 =                  ,         𝑚89 = 𝑊 Q ℎ9 E 𝑊 R ℎ8 .",
+        "∑8!∈N 9 exp 𝑚8P9",
+        "If 𝑁 𝑣 = 𝑉, this becomes a Transformer layer."
+      ],
+      "media_sha256": [
+        "5adc1aa6ab796184df02c8c40a7d301689eed0b2701af626822378db125a1f72",
+        "79f80d1f3cef9416b426eac3b6ebe3727dc9087f0e6ecea9459247dcc124744b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Graph Attention Network (GAT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Attention Network (GAT)",
+        "𝑚!\" = 𝑊 # ℎ\" $ 𝑊 % ℎ! ?",
+        "Previously introduced layer:",
+        "(;)                 O (;=>)",
+        "exp 𝑚89",
+        "ℎ9 =     .      𝛼89 𝑊 ℎ9     ,   𝛼89 =                  .",
+        "∑8!∈N 9 exp 𝑚8P9",
+        "8∈N(9)",
+        "Actual implementation of GAT:",
+        ";=>      (;=>)",
+        "𝑚89 = Linear ℎ8       ||ℎ9",
+        "This is slightly different from the Transformer",
+        "(inner product), but performs better in practice."
+      ],
+      "media_sha256": [
+        "dd74f44100b0cf2332100d3377b3372f56af2df4aa3e1bfb6aa9c6ddb49f0c0f",
+        "acd10f08afc56a9186b4b49c871409a05e39d12ab9cb0dfadc31c023ae57b557",
+        "79f80d1f3cef9416b426eac3b6ebe3727dc9087f0e6ecea9459247dcc124744b",
+        "434669601cef50cb7780df3f1c40e662588db300b0f6ee8a23eff97c7b5ef74c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Graph Isomorphism Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Isomorphism Test",
+        "Main tool for measuring expressive power of GNNs:",
+        "How many non-isomorphic graph pairs can GNN distinguish?",
+        "• Graphs are isomorphic given existence of a mapping 𝜑 such that:"
+      ],
+      "media_sha256": [
+        "e024b0f783ad0951a32ee668f722cb05849da72aae74c87fb3ca85a7a5c77b06",
+        "907735e9e199bcc2143c486314ac8d75869749dccdf7977114816d7dfcf70ead",
+        "65c61648e5bd1092222649488aa13099ac0c775bdcf33144ed194340b89c1025"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "MPNNs and Isomorphic Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MPNNs and Isomorphic Graphs",
+        "MPNNs assign the same representations to isomorphic graphs.",
+        "• Are MPNNs faithful to the isomorphism between graphs?"
+      ],
+      "media_sha256": [
+        "a8a2966cbaf057ed2c50fcb04f16b33e739f81e3366af9507771c5bb149cda18"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Representation of Non-Isomorphic Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Representation of Non-Isomorphic Graphs",
+        "Do MPNNs assign distinct representations for non-isomorphic graphs?",
+        "• No! There exists pairs of non-isomorphic graphs that cannot be distinguished by any MPNN."
+      ],
+      "media_sha256": [
+        "2d12da6719903a80709c368719fb70c4082ed78da2ce71c42829993af5cc13b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "An Abstract Example",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "An Abstract Example",
+        "No pair of regular graphs with the same cardinality can be distinguished",
+        "using MPNN.",
+        "• For example, circular skip link (CSL) graphs.",
+        "Real-world example includes",
+        "decalin and bicyclopentil (molecules)."
+      ],
+      "media_sha256": [
+        "67db4a91edfaeadfd9d6b19141ae478afefcf85972da7a89c58fbe8c89b05bc6",
+        "e1ea83141b3b82a5e012d3dabf274312ece248d4b3db15fa00829f8ec24983ee"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Universal Approximation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Universal Approximation",
+        "Universal approximation theorem quantifies expressive power of MLPs.",
+        "• Can we do similar for graph neural networks?"
+      ],
+      "media_sha256": [
+        "85416d0150643716abf2ebc92745bcbb6b4c5214215116fc2bc88f0b1bbc553e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Function Approximation and Graph Discrimination",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Function Approximation and Graph Discrimination",
+        "How to quantify expressive power of graph neural networks?"
+      ],
+      "media_sha256": [
+        "931ef5e1c5a628b9fd38ce3e6d8383fb9036b35834972674d5a7391b1d3b2743"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "MPNNs and Function Approximation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MPNNs and Function Approximation"
+      ],
+      "media_sha256": [
+        "9b2efdba6f307a8102e85fa0f4191ef163aefc1610f272e3504529d1ee78f529"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Substructure-Counting is Not in ℳ",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Substructure-Counting is Not in ℳ",
+        "MPNNs cannot count induced subgraphs in the graph.",
+        "• Induced subgraphs a re subgraphs formed by subset of vertices and all the edges."
+      ],
+      "media_sha256": [
+        "8d6de1743fdf20018e1b2d82bb917c3bc9a46e1d750b471ace6ddf8254bf690e",
+        "47da868cc47283cec78ad4063f8015e37e619e49f62c201684f157d6700c817d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Expressive Power of GNNs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Expressive Power of GNNs",
+        "Questions:",
+        "• How can we quantify expressive power of GNNs?",
+        "• How to build GNN architectures that are more expressive than MPNNs?"
+      ],
+      "media_sha256": [
+        "c8a04b760fe642e84b86cf4d7843cd6682788b5e0d4484238194402a04f95766",
+        "0b97524d847f0af1049dcfef7313471c886b57509a0dd32c06ec66a32373d7e2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "The Weisfeiler-Lehman (WL) Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Weisfeiler-Lehman (WL) Test",
+        "The graph isomorphism problem is NP intermediate",
+        "• Not known to be solvable in polynomial time, nor to be NP complete.",
+        "The WL test is a combinatorial heuristic to test graph isomorphism.",
+        "• If two graphs are distinguished by the WL test, they are non-isomorphic.",
+        "• If two graphs are non-distinguishable by the WL test, no conclusion.",
+        "Expressive power of GNNs are mainly expressed by the WL test hierarchy."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "The WL Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The WL Test"
+      ],
+      "media_sha256": [
+        "df680a4d4465c0f8e0f4b73b8b72ea1b56f04b953ecf62c342e5e74e3cd68eea"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "The WL Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The WL Test"
+      ],
+      "media_sha256": [
+        "31cab153a4c5aaa66974a07d6316efea03a2eca6b2438b215c1d3e10042a1083"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "The WL Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The WL Test"
+      ],
+      "media_sha256": [
+        "df672ec98ebdfeb4a0e8e7c5c42aed82084608f6784211b79a2380fff0286e10"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "The WL Test",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The WL Test"
+      ],
+      "media_sha256": [
+        "2f2d166a5196a8f442dd35496a05d4c2a1f15c67251abc8de62a30c9d6fa6e60"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Are All GNNs Made Equal?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Are All GNNs Made Equal?",
+        "The previous WL test is very similar to MPNN updates.",
+        "However, are all MPNNs as",
+        "powerful as the WL test? No!",
+        "Graph Isomorphism Networks",
+        "(GINs) are built specifically for",
+        "simulating the WL test.",
+        "• Sum aggregator counts colors.",
+        "• MLPs simulate hashing",
+        "(via universal approx.)",
+        "How Powerful Are Graph Neural Networks?, ICLR 2018"
+      ],
+      "media_sha256": [
+        "3f0028cf30c21a001e2f5f01887082f36920d34dc022b53b270d0cc0c3ace4c0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Graph Transformers",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Transformers",
+        "How to input a graph into a Transformer?"
+      ],
+      "media_sha256": [
+        "929f0605134201c12068bc4323dc1baa3a4b15a64aba3cdd63c2c22685d23958"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Graph Transformers",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Transformers",
+        "Transformer updates the features by:",
+        "(;)        O (;=>)",
+        "ℎ9 = . 𝛼89 𝑊 ℎ9     ,                𝛼89 = SoftMax 𝑊 Q ℎ9 E 𝑊 R ℎ8",
+        "8∈O",
+        "Previously 𝑢 ∈ 𝑁(𝑣) for GAT.",
+        "Key observation: adjacency information is missing,",
+        "i.e., we do not know the node positions."
+      ],
+      "media_sha256": [
+        "dcc9479ffc2e9d30d61d2af8f35bfd55b2abd5f7a16507804c8665d636290b63",
+        "428c0e8b9d14a4de4654cb4fff3515f99b984b1092b23175938c4cf34851032e",
+        "6df51ac3a836a626ad3e7f6bfb860ddf99e7e571ecdbadfacbc72d52b752a8e2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Positional Encodings",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Positional Encodings",
+        "Transformer doesn’t know",
+        "order of inputs (or the graph structure).",
+        "Extra positional features needed",
+        "so it knows that",
+        "• Je = word 1,",
+        "• Suis = word 2,",
+        "• Etc.",
+        "For NLP, positional encoding",
+        "vectors are learnable parameters."
+      ],
+      "media_sha256": [
+        "ced8ef56662980252113cdd21447e91a183d8e9c8c6ddf7823072f10ae49a8a3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Laplacian Eigenvector Positional Encodings",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Laplacian Eigenvector Positional Encodings",
+        "Consider a Laplacian matrix 𝐿 = 𝐷 − 𝐴 with",
+        "𝑘-th eigenvector: 𝐿𝑣C = 𝜆C 𝑣C",
+        "Positional encoding steps:",
+        "• Compute 𝑘 eigenvectors 𝑣- , … , 𝑣. .",
+        "• Stack into matrix.",
+        "• the 𝑖-th row, e.g., 𝑣. [𝑖], is",
+        "positional encoding for node 𝑖."
+      ],
+      "media_sha256": [
+        "02a372c6fb517a61bf50db355deb3f3b8100788628baf48a39d2e8c83c1e1018",
+        "9c161b9af420a7ee62bb3c4db66e82e4c43f35ed61e3df8de4d8841b2b5fba01"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Laplacian Eigenvector Positional Encodings",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Laplacian Eigenvector Positional Encodings",
+        "Laplacian matrix 𝐿 = 𝐷 − 𝐴 (degree matrix minus adjacency matrix)",
+        "• Each graph has its own Laplacian matrix.",
+        "• Laplacian encodes the graph structure",
+        "Laplacian eigenvectors are natural extension of sinusoidal embeddings.",
+        "• Why? This is the topic for next lecture.."
+      ],
+      "media_sha256": [
+        "8473a1903543649674ed61c379f48c6929a1d2dff813c2d3d1cfce6ae737852e",
+        "ee3690bd4033a8210b4a245900a08e61b9fe32fc64ac86fd101f47971d3d6085",
+        "a44a167a924f805ec61c8183201d539f9d2965dc3df9a9045a724c5a89277476"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Shortest Path Encoding",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Shortest Path Encoding",
+        "Another way to incorporate graph structure",
+        "is to modify the attention matrix, e.g.,",
+        "𝑊 Q ℎ9 E 𝑊 R ℎ8",
+        "𝛼89 = SoftMax 𝑏89 +",
+        "𝑑9",
+        "Here 𝐵 ∈ ℝ O ×|O| is the matrix that",
+        "encodes the graph structure, e.g., 𝑏89",
+        "could be shortest path between a pair of",
+        "vertices or edge types."
+      ],
+      "media_sha256": [
+        "d6eb801dababcae86fcb6bcfcc87e1f7658383f53d7a9e29ec48dce237c2b1b5",
+        "6c3c8d6dded638479126d8315b192baab50e4dcf0634f3c8dcb8efc5a18e7623"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "GNNs in Practice: GraphGPS++",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GNNs in Practice: GraphGPS++",
+        "An optimized hybrid message-passing",
+        "/ Transformer architecture."
+      ],
+      "media_sha256": [
+        "c941104fda7387463700d5555bf34a05cb0ad66b8cadb26ec654a98b50be4cae",
+        "818512c293aff47d9cc45d18a6a3d652dc8cf8489e9d5e0b46a66e8fb9fb7b44",
+        "b5a632771bdfd767b664f9f66db4f5ab3bc434f0cc8a1c0c7842c99eea42101b",
+        "120d8221c5a8a6e90f87351360132126ff874d2229353ed54f77e542c5ad68fe",
+        "7bf4d9b06ad8bcd6de911be0d87e021e1db6140713ec457ad1e02de8a6281e37"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": null,
+      "title": "Part 2. Brief Timelines of GNNs",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 2. Brief Timelines of GNNs",
+        "37"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "Key GNN Concepts",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key GNN Concepts",
+        "• Some key questions in development of GNNs:",
+        "• Graph transformers",
+        "• Expressive power, more expressive WL tests and GNNs, subgraph-based GNNs",
+        "• Graph signal processing, Fourier transformation, wavelets, convolution",
+        "• Space of permutation-equivariant linear operators",
+        "• How to build deep layers? Alleviate versmoothing & oversquashing",
+        "38"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "Generalization of CNN to Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Generalization of CNN to Graphs",
+        "Deep Convolutional Networks on",
+        "Graph-Structured Data (Arxiv 2013)",
+        "• Partitions the data into clusters &",
+        "pool them into a vertex.",
+        "• Also propose “spectral” version of their network."
+      ],
+      "media_sha256": [
+        "4b004765d386327b4814c20bb31a0511ff90634eedf164077fc4709ebb8f2c3f",
+        "16052baf4712dd7ae79e29788e7fcdebcab1ecf1d65a72cb738e0c430c831755"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "ChebNet",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "ChebNet",
+        "Convolutional Neural Networks",
+        "on Graphs with Fast Localized",
+        "Spectral Filtering (NeurIPS 2016)",
+        "• Message-passing update:",
+        "𝐻(*/-) = [ 𝜃. 𝐿. 𝐻(*)",
+        ".",
+        "• This is shown to approximate",
+        "spectral filtering of signals by",
+        "chebyshev polynomials."
+      ],
+      "media_sha256": [
+        "695a39ee7895ed4a30f12e7b1ff571add55913d29bffe681dbcb108408478051",
+        "11b6b379c69ac0915cadd05f71cb86d53fd8343e7a47b5de62cccae24538e9ee",
+        "58d83f43b11dc6cf9e9af57e149f6ef362f2726c3e86914b73a48c55ab25deb7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "Node2Vec",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Node2Vec",
+        "node2vec: Scalable Feature Learning for Networks (KDD 2016)",
+        "Represent nodes by (1) running random walks starting",
+        "from the node and (2) using any ML method on the sequence.",
+        "• A new random walk strategy is proposed to balance",
+        "between BFS and DFS strategies."
+      ],
+      "media_sha256": [
+        "431748a05a55495fc83050598f8287e8ff61ddf1c63b4e514a8e5aab7d2d246a",
+        "b4de481f71ba65315c64864418406fe0d3b82a5ec912d89c77a54dab519977b6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": null,
+      "title": "Graph Convolutional Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Convolutional Network",
+        "Message-passing update:",
+        "𝐻(;D>) = 𝜎 𝐿𝐻 ; 𝑊;",
+        "Derived GCN as a first-order approximation",
+        "of spectral graph convolution."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "Message Passing Neural Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Message Passing Neural Network",
+        "Neural Message Passing for Quantum Chemistry (ICML 2017)",
+        "Message-passing update:",
+        "(#)                     #()      #()            #()",
+        "ℎ! = 𝜎    $ MSG #      ℎ!      , ℎ%     , 𝑒!% , ℎ!",
+        "%∈' !",
+        "Developed a very general framework",
+        "and applied to quantum chemistry",
+        "(QM9) dataset."
+      ],
+      "media_sha256": [
+        "19b89f5fc89f4dd330611ea51343b7136bde302613b8a830dc765fe4a4e657f7",
+        "de62dace86a637bfe19f5ee23b2e9588ecf285944d60c0136f5612248a91c925",
+        "e60e8b2972dd2da15dd13496ef72b759e439da5b032db92e6c3d0fe1ba37ec08"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "GraphSAGE",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GraphSAGE",
+        "Inductive Representation Learning on",
+        "Large Graphs (NeurIPS 2017)",
+        "Message-passing update:",
+        "(;)                  (;=>)",
+        "𝑚8 = MSG ;           ℎ8",
+        ";             ;      (;)",
+        "ℎ9    = AGG           𝑚8 , 𝑢 ∈ 𝑁(𝑣)",
+        "• Drop neighbors for scalability",
+        "• Draws connection to",
+        "Weisfeiler-Lehman (WL)",
+        "Isomorphism Test."
+      ],
+      "media_sha256": [
+        "2d81ec10c369388c37569f38e6ce15f4e5ff03905173e562cbc3d89cc7044b75",
+        "dd8010e9313f524cf034b299cfb5e15c4fee5379259c6d00b624a8f0717de117",
+        "6b19b0a2bc0ee1cff210d8b9076b3069cfefb03022b19e30793ddac08631a507"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "title": "Relational Graph Convolution Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Relational Graph Convolution Network",
+        "Modeling Relational Data with Graph",
+        "Convolutional Networks (Springer, 2017).",
+        ";    (;=>)",
+        "MSG       ℎ8 , 𝑒89",
+        "Message-passing update:",
+        "(;)                1    (;=>) (;=>)",
+        "ℎ9 = 𝜎     1           𝑊^\"# ℎ8",
+        "𝑁 𝑣",
+        "8∈N(9)",
+        "where 𝑟(𝑢𝑣) is type of edge 𝑢𝑣."
+      ],
+      "media_sha256": [
+        "e76c2f0b91237e797e32fbae00b8bf7bf56e36455ae9ec97251231069276cfe1",
+        "ed8f06fa4a5b2bf5488a78cdc3f5ff8fb4110d5f9075127fab4a57e25506a597",
+        "bd44436e97f319d6c547e47e0da8e537b06b6d02453448536c70f8a7f1140a74"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "title": "Deep Sets (NeurIPS’17)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Deep Sets (NeurIPS’17)",
+        "What is the space of linear transformations",
+        "on element-wise (or node-wise) features",
+        "that are permutation equivariant?",
+        "For node-valued features 𝑥 ∈ ℝ_ , we have",
+        "the relation that:",
+        "𝑃𝐶𝑥 = 𝐶𝑃𝑥,     ∀𝑃.",
+        "Then one can derive that:",
+        "𝐶 = 𝑤> 𝐵> + 𝑤` 𝐵` ,   ∀𝑤> , 𝑤` ∈ ℝ",
+        "where 𝐵> = 𝐼 is the identity matrix and 𝐵` =",
+        "𝟏𝟏E is a matrix of ones.                       46"
+      ],
+      "media_sha256": [
+        "92af2d38cda6d70b9b7aed876fddb9df4239f20bca024aceccfd3f2e01733f5d",
+        "1940be730d0d24ffd875d374a6987e7fdc7db4b3bb123010ccae7168b33f8e4a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "GatedGCN (ICLR’18)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GatedGCN (ICLR’18)",
+        "Message-passing update:",
+        ";                              (;=>)",
+        "ℎ9 = 𝜎          1 𝛼89 𝑊ℎ8                  ,",
+        "8∈N(9)",
+        ";=>     ;=>",
+        "𝛼89 = Gate(ℎ9    , ℎ8 , 𝑒98 )",
+        "• Condition on node pairs based on gating mechanism,",
+        "very similar to graph attention network.",
+        "• Similar to attention, except the gated value is unnormalized."
+      ],
+      "media_sha256": [
+        "8aa23b5d22855fac4de54614c1011f84f9ca7fd71fec7085623611ddb51b41ef",
+        "bfc7bd6823021a57ab6b390a04f32eca18117fae71872c14038fe8cd5224537d",
+        "930cb351be38e446aca05ebf684c57c7ecdb443855277f5340dff7b6f6b006e9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "title": "Graph Attention Network (ICLR’18)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Attention Network (ICLR’18)",
+        "Message-passing update:",
+        "(;)                         (;=>)",
+        "ℎ9 = 1 𝛼89 𝑊 O ℎ9",
+        "8∈N(9)",
+        "• Propose a slightly different attention mechanism",
+        "using concatenation plus linear layer."
+      ],
+      "media_sha256": [
+        "25bbbfdf4e850a0578978e985814cdcb5fcebbb78d7a8c70211acc1e8ce41f29",
+        "d43975f841ed3baac5bd6006a646e7de22c7b4f7c89bc087678134ab31415f32",
+        "79f80d1f3cef9416b426eac3b6ebe3727dc9087f0e6ecea9459247dcc124744b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "title": "Jumping Knowledge Networks (ICML’18)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Jumping Knowledge Networks (ICML’18)",
+        "Key idea: Using residual layer is important.",
+        "Theoretical analysis for oversmoothing,",
+        "based on random walks and influence functions",
+        "(sometimes, local information is lost",
+        "during the random walk)."
+      ],
+      "media_sha256": [
+        "d79a270953535e71eb5f99a9532475897ecd22abf8581855e93f41addf67b30e",
+        "b3b3b086ae72e2bcf4758a0b112ee577773a96e927cc1e51b4ee89f4d9ae768f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "title": "DiffPool (NeurIPS’18)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DiffPool (NeurIPS’18)",
+        "How to generalize CNN pooling for graphs?",
+        "• Learnable soft clustering by assignment matrix.",
+        "• The assignment matrix is computed by",
+        "inner product between node features and",
+        "cluster features.",
+        "• IMO, pooling does not work well for graphs."
+      ],
+      "media_sha256": [
+        "7f44cffb60a8b3e24f26dfe190c6820220597877fbca8b8de706a62c77efd70e",
+        "9b80585cef785037633f59ad36c3eaa3e4c70798b8df0ec89dd491be7eb45056",
+        "6eb64d42b0b188c33ea0df2a157a12d12d07cf35edba8ff73c854a7f986686d6",
+        "ac2e17e77441a3d0465f041cc9c1801f16496b8fa54935e895ea209a73883652"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "title": "Invariant Graph Neural Networks (ICLR’19)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Invariant Graph Neural Networks (ICLR’19)",
+        "What is the space of linear transformations on node-valued and edge-",
+        "valued features that are permutation equivariant?",
+        "_ℓ",
+        "Let 𝑋 ∈ ℝ        denote a tensor of degree ℓ.",
+        "We desire to find a linear operator 𝐿 such that:",
+        "𝐿 𝑝 ⋅ 𝑋 = 𝑝 ⋅ 𝐿𝑋",
+        "Where 𝑝 ⋅ is the permutation operator.",
+        "51"
+      ],
+      "media_sha256": [
+        "f00345ef6163a9bc77299c189f37dc927ed51c3ddc24e6288803a2991495db1c",
+        "0678056bf1aa16526bfd71e95aeaf94fd0487be33994b513117123545ce652bb",
+        "a5f3b456d9f1e52999abddb52b79c03f2ff506a1519b34da50829a35b23aaa54",
+        "98ef559b22c3c48296860b922364e2d0a4794ee0cd25fb69a69d95f08f341d61"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": 52,
+      "title": "Graph Isomorphism Network (ICLR’19)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Isomorphism Network (ICLR’19)",
+        "Message-passing update:",
+        "(;)                             ;=>",
+        "ℎ9 = MLP           1 𝑊 O ℎ9",
+        "8∈N 9",
+        "• Formally connects GNNs to the WL test.",
+        "• Very influential paper that leads to",
+        "explosion of papers analyzing expressive",
+        "power of GNNs."
+      ],
+      "media_sha256": [
+        "ddf3f1468a5c462def22bb4076a0be7f931dac97e71254442b59cf71e462bd90",
+        "04de879e8a485ba0eadbae0a3792167c5b08123dda143a7f289f8d6c15ab5180",
+        "44cd9d12ca5ec809d583dae28ece0d9bb145ce9d39616ecffb4c22c1ce58cbd5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": 53,
+      "title": "Graph Isomorphism Network (ICLR’19)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Isomorphism Network (ICLR’19)",
+        "TONs of follow-up works: Design an expressive WL test and the",
+        "corresponding GNNs that approximate it."
+      ],
+      "media_sha256": [
+        "6c6f6bf380718dbc2db81e68e44544a2a4490a1c13901fec903d927174cb0ad6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 54,
+      "title": "𝒌-WL-GNNs (AAAI’19)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "𝒌-WL-GNNs (AAAI’19)",
+        "Consider high-order WL tests and",
+        "design GNNs to approximate them.",
+        "Key idea: color tuple of nodes in 𝑉 C instead of a single node.",
+        "• We color 𝑉 . iteratively until we reach a stable coloring.",
+        "• We do not just color the edges, but also non-edge vertex pairs!",
+        "54"
+      ],
+      "media_sha256": [
+        "91d6a8473c194b279b46e0bd16c0cabfeb94fe203724728329f02aa1462fa41f",
+        "68dab3f85cd7f0dbf09cb1856f29089d47a7943953005baea0933277fd137d3e",
+        "814a8e45a358ff89bbc13bb7d3fa6e0606748a957dfd57e63f73fbb778f61fac",
+        "1e8a94566afe308b1f50864eeeda119f8fb9ca38f300b0f2ec591787a390b5c7",
+        "6aea8b1c6d62508211143c8ee78052dbec7589e8898ead899863d96d343b0ffa",
+        "ba0c79b534ffe2e2d3d0ea0e92aedbcb8b26772ea3e98733c2f65b4622e754df"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 55,
+      "pptx_slide": 55,
+      "title": "Simplifying Graph Convolution (ICML’19)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Simplifying Graph Convolution (ICML’19)",
+        "Message-passing update:",
+        "𝐻(R) = 𝜎 𝐿R 𝐻(B) 𝑊",
+        "• Key idea: most GNN problems",
+        "do not require much non-",
+        "linearities."
+      ],
+      "media_sha256": [
+        "f348ae51398b8aa1681d59bb044009ef7cfc0c20e1c19664a49c219a15126cff",
+        "36b2d1a5786dc92a64ce1732d419ed02c8331797682be21f61854c37fc049a14",
+        "9656b33971898c5983f43cc5ece8acdf4d29c9fe13ea58ab58f2b34d842cfb48"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 56,
+      "pptx_slide": 56,
+      "title": "A Fair Comparison of Graph Neural Networks (ICLR’20)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "A Fair Comparison of Graph Neural Networks (ICLR’20)",
+        "The previous benchmarks on small graph datasets (TUdatasets)",
+        "are not statistically significant.",
+        "• Use cross-validation properly!"
+      ],
+      "media_sha256": [
+        "0ae8db9a53d82ae174e6dc10fea740a6a33fb2d6e2f2461e9ab71e1c63b3622e",
+        "f351172587d82e8270ade5592135eacc8236a2f4448b6cd07c1e0af00332c29e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 57,
+      "pptx_slide": 57,
+      "title": "Principal Neighbourhood Aggregation (NeurIPS’20)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Principal Neighbourhood Aggregation (NeurIPS’20)",
+        "Aggregation function is really important:",
+        "(;)               (;=>)",
+        "𝑚8 = MSG ;        ℎ8",
+        ";           ;    (;)",
+        "ℎ9    = AGG       𝑚8 , 𝑢 ∈ 𝑁(𝑣)",
+        "Use a combination of multiple",
+        "aggregators to improve performance."
+      ],
+      "media_sha256": [
+        "9046e12f418f4794e993796497511e5a1c4b473f3d73b9a9e00c2deb389f1926",
+        "3755ec2f43b583d940f63216d9651d705698c7c86782c2de5197473455407fda",
+        "bc461cba776d2e15ca756d1a608de1848d7aef67fa9a32c781479775c688ea43"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 58,
+      "pptx_slide": 58,
+      "title": "GCNII (ICML’20)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GCNII (ICML’20)",
+        "Many layers of GNN do not improve performance",
+        "(despite more parameters).",
+        "• Simple tricks (initial residual and maintain identity mapping)",
+        "to improve performance for deep GCN layers."
+      ],
+      "media_sha256": [
+        "ad4bf134271354243603659103423f34fb34c9b923c3e5b97f1b1adf00da61a7",
+        "4860fc98198455557f8889dd0ac7b53b646cb16e4735e2943b90f15179c40fdf",
+        "cd9dd33949f6f0869f36dbc08791de15e587a3ee3521f4508680fe1fdf16b76c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 59,
+      "pptx_slide": 59,
+      "title": "Graph Transformer (Arxiv’20)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Transformer (Arxiv’20)",
+        "A Generalization of Transformer Networks to Graphs (Arxiv 2020)",
+        "• One of the first transformers for graphs.",
+        "• Applies Laplacian eigenvector as",
+        "positional information of each node."
+      ],
+      "media_sha256": [
+        "5f66f80084ce16979109eb9d1ae7f8612e52d0a889d2ac70b83a1538a6e60028",
+        "1a2e674b5406e12b0c2266ec458b376bec6479cf6349fbb067f8bbd330b200c4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 60,
+      "pptx_slide": 60,
+      "title": "Design Space of Graph Neural Networks (NeurIPS’20)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Design Space of Graph Neural Networks (NeurIPS’20)",
+        "Exhaustively search over possible GNN layers for",
+        "the best performance on each of the popular datasets.",
+        "Conclusion: The best GNN differs for each task!",
+        "• Implicitly suggests that existing papers that",
+        "claim “our architecture is the best for all datasert”",
+        "are not to be trusted.",
+        "• Some discussion point:",
+        "GNN papers on new architectures",
+        "are less meaningful?"
+      ],
+      "media_sha256": [
+        "2a979a61da436ddaf27f850298800165fdabce5ec2a00aa1c4823061b4ac6113",
+        "6f1de34ca6a1fd0910b210ade12b2d487b97658c37a9aecbece42a784ed1f001"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 61,
+      "pptx_slide": 61,
+      "title": "Graph Substructure Networks (Arxiv’20, TPAMI’23)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Substructure Networks (Arxiv’20, TPAMI’23)",
+        "Adding counts of substructure (theoretically)",
+        "improves the expressive power of MPNNs.",
+        "Some examples that typical MPNNs cannot distinguish."
+      ],
+      "media_sha256": [
+        "0e8083d5947da4c12c2bf7fa5b11894c560ab8bbfad1a5c7a380e684be921afa",
+        "c79383d1af2bfddbe2d7e93a11c8709c992c35cf1e203d1c4a30d6bc4efc66d0",
+        "ae7f31a094e663bc545a59d1fb9a6df5e6bbc92ea459e1c4264c2216961dda88",
+        "b51301d1e132595eff13ccc51c1ec7f43d5f28e8c7b039a3938b6af32a625da8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 62,
+      "pptx_slide": 62,
+      "title": "High-Order GNNs (ICML’21, NeurIPS’21)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "High-Order GNNs (ICML’21, NeurIPS’21)",
+        "A graph can be lifted to cellular networks",
+        "(or even simplicial complexes).",
+        "• Or just hypergraphs…",
+        "• We can run message passing between",
+        "high-order substructures.",
+        "Message passing",
+        "simplicial networks",
+        "(MPSN)          CW Networks"
+      ],
+      "media_sha256": [
+        "28b36aa335cad1582fb8264462f46e1569cd078e18efab77547dbd879b22c346",
+        "c2209376b88d4734a688f50a0867beba3890c8d38d13e69f9c13eb55c13e1fbd",
+        "6be2a0ddea3c421ea7edefb2132b4f22a38e91476337a8203c97f929e1f00e8b",
+        "13588f3c5d20c006fa897d5794982d195bb0aeb3041078fba9ca9e557d7c8c8e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 63,
+      "pptx_slide": 63,
+      "title": "Graphormer (NeurIPS’21)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graphormer (NeurIPS’21)",
+        "Spatial encoding (shortest path distance), edge type encoding, and",
+        "centrality encoding (node degree) for positional feature of nodes."
+      ],
+      "media_sha256": [
+        "4424137ce2b941c289577c69531045e9576f050e4b4bd7cb0967b2d3de7c8e1c",
+        "ff46fd8f9fc1c73730442a36aa152cbd5668aeb2a99e11fc6a96d75175c31562"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 64,
+      "pptx_slide": 64,
+      "title": "Graph Neural Diffusion (GRAND, ICML’21)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Neural Diffusion (GRAND, ICML’21)",
+        "Similar to neural ODE, interpret graph neural networks",
+        "as differential equations that corresponds",
+        "to heat diffusion on a non-Euclidean manifold.",
+        "• In continuous time, we can analyze and prevent",
+        "the over-smoothing behavior of GNNs"
+      ],
+      "media_sha256": [
+        "3c9da5354118efcfa27f7ae53ecb84b1c209501841fb2579472126b63df332ea",
+        "8c95528d6bc44c6ac8de69c1e047e7f0e8e5871ae43a89720d68832366e4f15f",
+        "b924c11f58bdee8708fd63ab543b74810ae67b450176b4695a5a196389bf8c50",
+        "faeccce3360ebd91226bff6a976ad9aaad35be6fc61ba22fa0016fa47efc05a0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 65,
+      "pptx_slide": 65,
+      "title": "Oversquashing in Graph Neural Networks (ICLR’22)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Oversquashing in Graph Neural Networks (ICLR’22)",
+        "GNNs fail to propagate information between",
+        "far-away information, since the receptive size",
+        "exponentially grow w.r.t. neighborhood size.",
+        "We can interpret this as a “curvature problem”.",
+        "• Changing the message-passing structure",
+        "via graph rewiring can alleviate this issue!"
+      ],
+      "media_sha256": [
+        "103a87bf5c63446bc5a6f6a9c958973c769f34393d1f56fd5e05c9b2e0da6428",
+        "13cee6581c44eb3840b612ba67606fb0d105c6b55a7a17405b296a605b46481e",
+        "7598665ad1e40e3f1b766874bb5c7fd661a9cc8b2608893a19d31c4dc8acec29"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 66,
+      "pptx_slide": 66,
+      "title": "GNN As Kernel (GNN-AK, ICLR’22)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GNN As Kernel (GNN-AK, ICLR’22)",
+        "Instead of counting subgraphs as features in GSN,",
+        "first run GNNs on the subgraphs.",
+        "• Existing MPNNs can be thought as",
+        "running GNNs on star graphs.",
+        "Provably performs better",
+        "than existing MPNNs and GSN."
+      ],
+      "media_sha256": [
+        "048a6c922cdf4ef800f5b1109d7578b213419c4d6419d2d6366e80185190e2c7",
+        "dfeb2105353bd4a166478dd80a623f66f2780e65eda9305eea4c74407296f616"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 67,
+      "pptx_slide": 67,
+      "title": "Equivariant Subgraph Aggregation Networks (ESAN, ICLR’22)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Equivariant Subgraph Aggregation Networks (ESAN, ICLR’22)",
+        "Graphs that are indistinguishable by typical MPNNs",
+        "are distinguishable after randomly dropping vertices.",
+        "That is, averaging over node dropouts improve",
+        "expressive power!"
+      ],
+      "media_sha256": [
+        "e1f38c88a04c327ce016fd8ba38b6f086997bf1203dbc4d2723ab3d449dc43f3",
+        "494d5e05793d5ca2d9d368d3d74a6c5ede8930a71132b95b961a9115544b9d33",
+        "4f1020d3cb4fea072b4eca547fbc922c76de7a76cff345372a281b8a3e366bcf"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 68,
+      "pptx_slide": 68,
+      "title": "General, Powerful, Scalable (GPS) Graph Transformer (NeurIPS’22)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "General, Powerful, Scalable (GPS) Graph Transformer (NeurIPS’22)",
+        "One of the “serious” investigations of how to",
+        "build the best graph neural network.",
+        "Key observations:",
+        "1. Combination of message passing and",
+        "Transformers are the best for",
+        "improving performance.",
+        "2. Featurization (positional and structural",
+        "encodings) is important!"
+      ],
+      "media_sha256": [
+        "56a8dbc5fc60909950aab238d492bf62fbdf03b292444222404a565ec7a49225",
+        "14a908423761a8a028d5e80ee2957ef9cefa6c41d173dc101a9a9292610edb4f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 69,
+      "pptx_slide": 69,
+      "title": "TokenGT (NeurIPS’22)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TokenGT (NeurIPS’22)",
+        "Input node and edge tokens as an unordered",
+        "“bag of words” to transformers.",
+        "69"
+      ],
+      "media_sha256": [
+        "2f08fec1be3af479bf73739a50542b6ed428a6e3e0603475913be71fdae22f9b",
+        "d0880b34bd5ed29c0a953c8d6aba25f66f3fe1354339ab9e7f574e7f29da6c1b",
+        "91fb63e9e57c476a470bed981a92287c9bf92656f4360274aafcb66998937e8d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 70,
+      "pptx_slide": 70,
+      "title": "GPS++ (TMLR’23)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GPS++ (TMLR’23)",
+        "Extension with some additional modifications."
+      ],
+      "media_sha256": [
+        "16bc257d6843d2d12219309efde9aa9bdb32243e1cae9b92d4ba9b94e8af1997",
+        "d896848317dbf005fd042d2e4e199c3d28362098764fc6aade84a18d23071848",
+        "afea9f269527be93e7ba9ae7400da40b711eeb09c4826153afb5740095d2d4b3",
+        "5ba4f1ba038aac7a02b93cb20605fe4a75e12de89c7e9a20c662bc41b158331c",
+        "1f12b33e093563b71c421c77f9c7ed7f230acc9df4aa331c6683b90715066134"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 71,
+      "pptx_slide": 71,
+      "title": "Scaling GNNs (NeurIPS’23)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Scaling GNNs (NeurIPS’23)",
+        "Investigates the behavior of GNNs",
+        "for large datasets and large # of parameters.",
+        "We already have a good architecture that can scale;",
+        "All we need is a good dataset.",
+        "• New dataset based on phenomics (closed)…"
+      ],
+      "media_sha256": [
+        "b5a632771bdfd767b664f9f66db4f5ab3bc434f0cc8a1c0c7842c99eea42101b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 72,
+      "pptx_slide": null,
+      "title": "Drew (ICML’23)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Drew (ICML’23)",
+        "Alleviate over-squashing problem with dynamic",
+        "rewiring of edge connectivity.",
+        "72"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 73,
+      "pptx_slide": 73,
+      "title": "Graph Mamba (KDD’24)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Mamba (KDD’24)",
+        "State-space models (long-context recurrent neural networks) for graphs.",
+        "73"
+      ],
+      "media_sha256": [
+        "69025d03dd76bdda831fe4bbfcdc8edd59130caa8e4eb8eed9c2d8305bf75a37"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 74,
+      "pptx_slide": 74,
+      "title": "Classic GNNs are Strong Baselines (NeurIPS’24)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Classic GNNs are Strong Baselines (NeurIPS’24)",
+        "With proper hyperparameter tuning, local message-passing performs on",
+        "par with graph transformers.",
+        "• Key points: normalization (for large graphs), dropout, residual connection, deeper layers.",
+        "74"
+      ],
+      "media_sha256": [
+        "fb7e900b3c5508b78bf11559e978fc7c34244de8fa8efcfc23a2453276d3b91a",
+        "32ea28a7f181a3b47c58bf6cedfa94ac2d2793638784b87cc8cf7687e7b9b439"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 75,
+      "pptx_slide": 75,
+      "title": "Random Walk Neural Networks (RWNN, ICLR’25)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Random Walk Neural Networks (RWNN, ICLR’25)",
+        "Featurize the graph as a sequence",
+        "(of random walks).",
+        "Shows good performance when combined",
+        "with a pretrained LLM.",
+        "75"
+      ],
+      "media_sha256": [
+        "f24d586ca9a00ea016f66f717b5c3fa03e4fea64339ae3884e308ef7c0af64a3",
+        "22c6b4ddec2b5af2cf72a585e05ad1617dd17a8b9ddcb4eab9d75f3fa21b86ca",
+        "dba4018c90757a0e808c44af036aa0314acb0788d68491e7e59be4107621641e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 76,
+      "pptx_slide": 76,
+      "title": "Critical Thinking of GNNs… (ICML’25)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Critical Thinking of GNNs… (ICML’25)",
+        "GNN developments are rather slow (or saturated) nowadays… Why?",
+        "Current GNN benchmarks are rather poor,",
+        "so it is hard to measure progress!",
+        "76"
+      ],
+      "media_sha256": [
+        "dd2c1a8558407544fa81fe80d2ecd1e4ce851b03d28d01ac2d2a942d72b61384"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 77,
+      "pptx_slide": null,
+      "title": "Part 3. Critical Thinking for GNN Research",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 3. Critical Thinking for GNN Research",
+        "77"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 78,
+      "pptx_slide": 78,
+      "title": "Critical Thinking for GNN Research",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Critical Thinking for GNN Research",
+        "There is a plethora of GNN papers, are we making progress?",
+        "Current GNN benchmarks are rather poor,",
+        "so it is hard to measure progress!",
+        "ICML 2025"
+      ],
+      "media_sha256": [
+        "dd2c1a8558407544fa81fe80d2ecd1e4ce851b03d28d01ac2d2a942d72b61384"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 79,
+      "pptx_slide": 79,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Overview"
+      ],
+      "media_sha256": [
+        "b678f0afcb5071c4d8d4fec42aaf6d887816bac674b4068dc0bd2c2b8bab6452"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 80,
+      "pptx_slide": 80,
+      "title": "Missing Real-World Applications",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Missing Real-World Applications",
+        "GNNs developed around niche sub-fileds,",
+        "e.g., predicting properties from 2D molecular graph.",
+        "Suggestions:",
+        "• Shift focus to natural graph problems with real-world impact,",
+        "e.g., combinatorial optimization or relational databases.",
+        "• Improve conditional diffusion models for combinatorial tasks."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 81,
+      "pptx_slide": 81,
+      "title": "Graphs Lack Meaning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graphs Lack Meaning",
+        "Graphs are often constructed artificially to test a hypothesis, not for",
+        "practical applications.",
+        "• “Not everything that could be modeled as a graph should be modeled as a graph.”",
+        "Suggestions:",
+        "• When proposing new benchmarks, discuss the advantage of graph structure",
+        "• Benchmarks should include baselines with unstructured sets to ensure graph structure’s",
+        "advantage."
+      ],
+      "media_sha256": [
+        "679626a26af21c441f13df9646df6a2ee71bf7e37ebe138b9d3f631a72b45d94"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 82,
+      "pptx_slide": 82,
+      "title": "Bad Benchmarking Culture",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Bad Benchmarking Culture",
+        "Often, datasets have no standard splits, eval, protocol,",
+        "or detailed hyper-params.",
+        "Researchers often report marginal gains w/o statistical significance.",
+        "Suggestions :",
+        "• The community should shift its focus beyond merely improving performance.",
+        "• Propose practical tasks and robust evaluation frameworks."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 83,
+      "pptx_slide": 83,
+      "title": "No True Foundation Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "No True Foundation Models",
+        "Impactful graph foundation models are yet to emerge.",
+        "Even domain-specific graph-based foundation models",
+        "only show marginal gains.",
+        "Suggestions:",
+        "• Shift paradigm from one model for one dataset to one model for all datasets.",
+        "• Create large-scale, high-quality datasets of diverse graph structures."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 84,
+      "pptx_slide": 84,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Graphs are not necessarily constructed in a meaningful way."
+      ],
+      "media_sha256": [
+        "60400b473dea7c2306a7748bace4c27b57615bb1b85cd88bf6ed4dbb33d17520"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 85,
+      "pptx_slide": 85,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Simple baselines are often powerful enough when the hyperparameters",
+        "are tuned enough."
+      ],
+      "media_sha256": [
+        "a23b1d49a5c9b29b0d7a4a08876d88336cff9182cf578eb9738dcc2eeed79c3e",
+        "5356d1cd0c9f9ae7a56054325bcc7ca96351d529234a67e6cb1ea4c23a3b8af0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 86,
+      "pptx_slide": 86,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Multi-task pretraining is (sometimes) beneficial.",
+        "• Pretrained on COCO-SP+MalNetTiny+PCQM4Mv2",
+        "• Finetuned on PascalVOC-SP, Peptides-struct, Stargazers."
+      ],
+      "media_sha256": [
+        "b095a1069fc27f3f534e6124e4e0b9bc026ccb2d377e1841ada042b9c78388bd",
+        "8595c4641086e1679f3d40060cef8b4ad8a052575f611696c422fe258554dc20"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "0bd17ad828ffd6b921b922ce05f9831bb24933bba92fe1018b7c27f541a607e4",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 152593,
+      "slides": [
+        5
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s05-image1.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "dd74f44100b0cf2332100d3377b3372f56af2df4aa3e1bfb6aa9c6ddb49f0c0f",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 110047,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bc461cba776d2e15ca756d1a608de1848d7aef67fa9a32c781479775c688ea43",
+      "pptx_path": "ppt/media/image100.png",
+      "extension": ".png",
+      "bytes": 121637,
+      "slides": [
+        57
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s57-image100.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "ad4bf134271354243603659103423f34fb34c9b923c3e5b97f1b1adf00da61a7",
+      "pptx_path": "ppt/media/image101.png",
+      "extension": ".png",
+      "bytes": 30031,
+      "slides": [
+        58
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4860fc98198455557f8889dd0ac7b53b646cb16e4735e2943b90f15179c40fdf",
+      "pptx_path": "ppt/media/image102.png",
+      "extension": ".png",
+      "bytes": 51708,
+      "slides": [
+        58
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s58-image102.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "cd9dd33949f6f0869f36dbc08791de15e587a3ee3521f4508680fe1fdf16b76c",
+      "pptx_path": "ppt/media/image103.png",
+      "extension": ".png",
+      "bytes": 144091,
+      "slides": [
+        58
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5f66f80084ce16979109eb9d1ae7f8612e52d0a889d2ac70b83a1538a6e60028",
+      "pptx_path": "ppt/media/image104.png",
+      "extension": ".png",
+      "bytes": 47273,
+      "slides": [
+        59
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1a2e674b5406e12b0c2266ec458b376bec6479cf6349fbb067f8bbd330b200c4",
+      "pptx_path": "ppt/media/image105.png",
+      "extension": ".png",
+      "bytes": 232908,
+      "slides": [
+        59
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s59-image105.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2a979a61da436ddaf27f850298800165fdabce5ec2a00aa1c4823061b4ac6113",
+      "pptx_path": "ppt/media/image106.png",
+      "extension": ".png",
+      "bytes": 45574,
+      "slides": [
+        60
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6f1de34ca6a1fd0910b210ade12b2d487b97658c37a9aecbece42a784ed1f001",
+      "pptx_path": "ppt/media/image107.png",
+      "extension": ".png",
+      "bytes": 203139,
+      "slides": [
+        60
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s60-image107.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0e8083d5947da4c12c2bf7fa5b11894c560ab8bbfad1a5c7a380e684be921afa",
+      "pptx_path": "ppt/media/image108.png",
+      "extension": ".png",
+      "bytes": 120434,
+      "slides": [
+        61
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s61-image108.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c79383d1af2bfddbe2d7e93a11c8709c992c35cf1e203d1c4a30d6bc4efc66d0",
+      "pptx_path": "ppt/media/image109.png",
+      "extension": ".png",
+      "bytes": 33012,
+      "slides": [
+        61
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "acd10f08afc56a9186b4b49c871409a05e39d12ab9cb0dfadc31c023ae57b557",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 27020,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s14-image11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "ae7f31a094e663bc545a59d1fb9a6df5e6bbc92ea459e1c4264c2216961dda88",
+      "pptx_path": "ppt/media/image110.png",
+      "extension": ".png",
+      "bytes": 19308,
+      "slides": [
+        61
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s61-image110.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b51301d1e132595eff13ccc51c1ec7f43d5f28e8c7b039a3938b6af32a625da8",
+      "pptx_path": "ppt/media/image111.png",
+      "extension": ".png",
+      "bytes": 63095,
+      "slides": [
+        61
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "28b36aa335cad1582fb8264462f46e1569cd078e18efab77547dbd879b22c346",
+      "pptx_path": "ppt/media/image112.png",
+      "extension": ".png",
+      "bytes": 93257,
+      "slides": [
+        62
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c2209376b88d4734a688f50a0867beba3890c8d38d13e69f9c13eb55c13e1fbd",
+      "pptx_path": "ppt/media/image113.png",
+      "extension": ".png",
+      "bytes": 49901,
+      "slides": [
+        62
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s62-image113.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "6be2a0ddea3c421ea7edefb2132b4f22a38e91476337a8203c97f929e1f00e8b",
+      "pptx_path": "ppt/media/image114.png",
+      "extension": ".png",
+      "bytes": 45676,
+      "slides": [
+        62
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "13588f3c5d20c006fa897d5794982d195bb0aeb3041078fba9ca9e557d7c8c8e",
+      "pptx_path": "ppt/media/image115.png",
+      "extension": ".png",
+      "bytes": 68087,
+      "slides": [
+        62
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s62-image115.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "4424137ce2b941c289577c69531045e9576f050e4b4bd7cb0967b2d3de7c8e1c",
+      "pptx_path": "ppt/media/image116.png",
+      "extension": ".png",
+      "bytes": 84396,
+      "slides": [
+        63
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff46fd8f9fc1c73730442a36aa152cbd5668aeb2a99e11fc6a96d75175c31562",
+      "pptx_path": "ppt/media/image117.png",
+      "extension": ".png",
+      "bytes": 227414,
+      "slides": [
+        63
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s63-image117.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "3c9da5354118efcfa27f7ae53ecb84b1c209501841fb2579472126b63df332ea",
+      "pptx_path": "ppt/media/image118.png",
+      "extension": ".png",
+      "bytes": 49075,
+      "slides": [
+        64
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8c95528d6bc44c6ac8de69c1e047e7f0e8e5871ae43a89720d68832366e4f15f",
+      "pptx_path": "ppt/media/image119.png",
+      "extension": ".png",
+      "bytes": 36328,
+      "slides": [
+        64
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c0aacaa56415a26535c35d57a2641add9886662735e98f557aa35a05d806f1c1",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 100926,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b924c11f58bdee8708fd63ab543b74810ae67b450176b4695a5a196389bf8c50",
+      "pptx_path": "ppt/media/image120.png",
+      "extension": ".png",
+      "bytes": 11451,
+      "slides": [
+        64
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s64-image120.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "faeccce3360ebd91226bff6a976ad9aaad35be6fc61ba22fa0016fa47efc05a0",
+      "pptx_path": "ppt/media/image121.png",
+      "extension": ".png",
+      "bytes": 14335,
+      "slides": [
+        64
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "103a87bf5c63446bc5a6f6a9c958973c769f34393d1f56fd5e05c9b2e0da6428",
+      "pptx_path": "ppt/media/image122.png",
+      "extension": ".png",
+      "bytes": 150732,
+      "slides": [
+        65
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "13cee6581c44eb3840b612ba67606fb0d105c6b55a7a17405b296a605b46481e",
+      "pptx_path": "ppt/media/image123.png",
+      "extension": ".png",
+      "bytes": 108314,
+      "slides": [
+        65
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s65-image123.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7598665ad1e40e3f1b766874bb5c7fd661a9cc8b2608893a19d31c4dc8acec29",
+      "pptx_path": "ppt/media/image124.png",
+      "extension": ".png",
+      "bytes": 64744,
+      "slides": [
+        65
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "048a6c922cdf4ef800f5b1109d7578b213419c4d6419d2d6366e80185190e2c7",
+      "pptx_path": "ppt/media/image125.png",
+      "extension": ".png",
+      "bytes": 153454,
+      "slides": [
+        66
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s66-image125.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "dfeb2105353bd4a166478dd80a623f66f2780e65eda9305eea4c74407296f616",
+      "pptx_path": "ppt/media/image126.png",
+      "extension": ".png",
+      "bytes": 65097,
+      "slides": [
+        66
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e1f38c88a04c327ce016fd8ba38b6f086997bf1203dbc4d2723ab3d449dc43f3",
+      "pptx_path": "ppt/media/image127.png",
+      "extension": ".png",
+      "bytes": 106194,
+      "slides": [
+        67
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "494d5e05793d5ca2d9d368d3d74a6c5ede8930a71132b95b961a9115544b9d33",
+      "pptx_path": "ppt/media/image128.png",
+      "extension": ".png",
+      "bytes": 134212,
+      "slides": [
+        67
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s67-image128.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "4f1020d3cb4fea072b4eca547fbc922c76de7a76cff345372a281b8a3e366bcf",
+      "pptx_path": "ppt/media/image129.png",
+      "extension": ".png",
+      "bytes": 145091,
+      "slides": [
+        67
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b80e2ffe07bd3885f79acb922fc767600f1a516d7566ec18eaf8db99f3bc4dcb",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 37727,
+      "slides": [
+        9
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s09-image13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "56a8dbc5fc60909950aab238d492bf62fbdf03b292444222404a565ec7a49225",
+      "pptx_path": "ppt/media/image130.png",
+      "extension": ".png",
+      "bytes": 319512,
+      "slides": [
+        68
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s68-image130.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "14a908423761a8a028d5e80ee2957ef9cefa6c41d173dc101a9a9292610edb4f",
+      "pptx_path": "ppt/media/image131.png",
+      "extension": ".png",
+      "bytes": 74551,
+      "slides": [
+        68
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2f08fec1be3af479bf73739a50542b6ed428a6e3e0603475913be71fdae22f9b",
+      "pptx_path": "ppt/media/image132.png",
+      "extension": ".png",
+      "bytes": 86861,
+      "slides": [
+        69
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s69-image132.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "d0880b34bd5ed29c0a953c8d6aba25f66f3fe1354339ab9e7f574e7f29da6c1b",
+      "pptx_path": "ppt/media/image133.png",
+      "extension": ".png",
+      "bytes": 48261,
+      "slides": [
+        69
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "91fb63e9e57c476a470bed981a92287c9bf92656f4360274aafcb66998937e8d",
+      "pptx_path": "ppt/media/image134.png",
+      "extension": ".png",
+      "bytes": 136260,
+      "slides": [
+        69
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16bc257d6843d2d12219309efde9aa9bdb32243e1cae9b92d4ba9b94e8af1997",
+      "pptx_path": "ppt/media/image135.png",
+      "extension": ".png",
+      "bytes": 129684,
+      "slides": [
+        70
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d896848317dbf005fd042d2e4e199c3d28362098764fc6aade84a18d23071848",
+      "pptx_path": "ppt/media/image136.png",
+      "extension": ".png",
+      "bytes": 28847,
+      "slides": [
+        70
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "afea9f269527be93e7ba9ae7400da40b711eeb09c4826153afb5740095d2d4b3",
+      "pptx_path": "ppt/media/image137.png",
+      "extension": ".png",
+      "bytes": 75475,
+      "slides": [
+        70
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5ba4f1ba038aac7a02b93cb20605fe4a75e12de89c7e9a20c662bc41b158331c",
+      "pptx_path": "ppt/media/image138.png",
+      "extension": ".png",
+      "bytes": 23158,
+      "slides": [
+        70
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1f12b33e093563b71c421c77f9c7ed7f230acc9df4aa331c6683b90715066134",
+      "pptx_path": "ppt/media/image139.png",
+      "extension": ".png",
+      "bytes": 110044,
+      "slides": [
+        70
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s70-image139.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b3a99079593687ba0df437b2d1b12fb9bdeedef8471e75b7b6a370a0b700e0c0",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 117833,
+      "slides": [
+        10
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s10-image14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9d0988992ff700751f30ee4dcdaabbbf5ab7ebd36d1c3004bf24037d2140041d",
+      "pptx_path": "ppt/media/image140.png",
+      "extension": ".png",
+      "bytes": 33505,
+      "slides": [
+        72
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4a5c690cd53d8981413e32ecceb45d1926d7f2b6a06d5eb69110b7a9e1f8f0f8",
+      "pptx_path": "ppt/media/image141.png",
+      "extension": ".png",
+      "bytes": 135668,
+      "slides": [
+        72
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "90d1e832c524c9aa332bbd16a4caf80a6e39f6f70d13908a897330511bf9b592",
+      "pptx_path": "ppt/media/image142.png",
+      "extension": ".png",
+      "bytes": 61047,
+      "slides": [
+        72
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "69025d03dd76bdda831fe4bbfcdc8edd59130caa8e4eb8eed9c2d8305bf75a37",
+      "pptx_path": "ppt/media/image143.png",
+      "extension": ".png",
+      "bytes": 396602,
+      "slides": [
+        73
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s73-image143.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "fb7e900b3c5508b78bf11559e978fc7c34244de8fa8efcfc23a2453276d3b91a",
+      "pptx_path": "ppt/media/image144.png",
+      "extension": ".png",
+      "bytes": 233063,
+      "slides": [
+        74
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s74-image144.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "32ea28a7f181a3b47c58bf6cedfa94ac2d2793638784b87cc8cf7687e7b9b439",
+      "pptx_path": "ppt/media/image145.png",
+      "extension": ".png",
+      "bytes": 232029,
+      "slides": [
+        74
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f24d586ca9a00ea016f66f717b5c3fa03e4fea64339ae3884e308ef7c0af64a3",
+      "pptx_path": "ppt/media/image146.png",
+      "extension": ".png",
+      "bytes": 56500,
+      "slides": [
+        75
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "22c6b4ddec2b5af2cf72a585e05ad1617dd17a8b9ddcb4eab9d75f3fa21b86ca",
+      "pptx_path": "ppt/media/image147.png",
+      "extension": ".png",
+      "bytes": 136568,
+      "slides": [
+        75
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s75-image147.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "dba4018c90757a0e808c44af036aa0314acb0788d68491e7e59be4107621641e",
+      "pptx_path": "ppt/media/image148.png",
+      "extension": ".png",
+      "bytes": 116328,
+      "slides": [
+        75
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dd2c1a8558407544fa81fe80d2ecd1e4ce851b03d28d01ac2d2a942d72b61384",
+      "pptx_path": "ppt/media/image149.png",
+      "extension": ".png",
+      "bytes": 58769,
+      "slides": [
+        76,
+        78
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s76-image149.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "d5ed244864f85511de02578541889431091b74521ed1a53143fbc5058b5bb04e",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 166290,
+      "slides": [
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s11-image15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "8d6de1743fdf20018e1b2d82bb917c3bc9a46e1d750b471ace6ddf8254bf690e",
+      "pptx_path": "ppt/media/image150.png",
+      "extension": ".png",
+      "bytes": 33604,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b678f0afcb5071c4d8d4fec42aaf6d887816bac674b4068dc0bd2c2b8bab6452",
+      "pptx_path": "ppt/media/image151.png",
+      "extension": ".png",
+      "bytes": 106322,
+      "slides": [
+        79
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s79-image151.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "679626a26af21c441f13df9646df6a2ee71bf7e37ebe138b9d3f631a72b45d94",
+      "pptx_path": "ppt/media/image152.png",
+      "extension": ".png",
+      "bytes": 293088,
+      "slides": [
+        81
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s81-image152.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "60400b473dea7c2306a7748bace4c27b57615bb1b85cd88bf6ed4dbb33d17520",
+      "pptx_path": "ppt/media/image153.png",
+      "extension": ".png",
+      "bytes": 61450,
+      "slides": [
+        84
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s84-image153.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a23b1d49a5c9b29b0d7a4a08876d88336cff9182cf578eb9738dcc2eeed79c3e",
+      "pptx_path": "ppt/media/image154.png",
+      "extension": ".png",
+      "bytes": 61661,
+      "slides": [
+        85
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s85-image154.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "5356d1cd0c9f9ae7a56054325bcc7ca96351d529234a67e6cb1ea4c23a3b8af0",
+      "pptx_path": "ppt/media/image155.png",
+      "extension": ".png",
+      "bytes": 46173,
+      "slides": [
+        85
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s85-image155.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b095a1069fc27f3f534e6124e4e0b9bc026ccb2d377e1841ada042b9c78388bd",
+      "pptx_path": "ppt/media/image156.png",
+      "extension": ".png",
+      "bytes": 50192,
+      "slides": [
+        86
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s86-image156.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "8595c4641086e1679f3d40060cef8b4ad8a052575f611696c422fe258554dc20",
+      "pptx_path": "ppt/media/image157.png",
+      "extension": ".png",
+      "bytes": 112759,
+      "slides": [
+        86
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s86-image157.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "047bb21b47f1cb713e12a0d4a0ffeba63b72db180393f2ea9716ea0364da85fc",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 88488,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5adc1aa6ab796184df02c8c40a7d301689eed0b2701af626822378db125a1f72",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 113005,
+      "slides": [
+        13
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s13-image17.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "e024b0f783ad0951a32ee668f722cb05849da72aae74c87fb3ca85a7a5c77b06",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 208635,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s15-image18.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "65c61648e5bd1092222649488aa13099ac0c775bdcf33144ed194340b89c1025",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 146586,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s15-image19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "f78a4f5bd1de57e8c6f3d06f845bfe89bf1e2b01809b69d209492e213c585872",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 64076,
+      "slides": [
+        6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s06-image2.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a8a2966cbaf057ed2c50fcb04f16b33e739f81e3366af9507771c5bb149cda18",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 67344,
+      "slides": [
+        16
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s16-image20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "434669601cef50cb7780df3f1c40e662588db300b0f6ee8a23eff97c7b5ef74c",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 8992,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s14-image21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2d12da6719903a80709c368719fb70c4082ed78da2ce71c42829993af5cc13b2",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 112592,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "67db4a91edfaeadfd9d6b19141ae478afefcf85972da7a89c58fbe8c89b05bc6",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 56258,
+      "slides": [
+        18
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s18-image23.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "e1ea83141b3b82a5e012d3dabf274312ece248d4b3db15fa00829f8ec24983ee",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 42161,
+      "slides": [
+        18
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s18-image24.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "02a372c6fb517a61bf50db355deb3f3b8100788628baf48a39d2e8c83c1e1018",
+      "pptx_path": "ppt/media/image240.png",
+      "extension": ".png",
+      "bytes": 89928,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "85416d0150643716abf2ebc92745bcbb6b4c5214215116fc2bc88f0b1bbc553e",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 209582,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6df51ac3a836a626ad3e7f6bfb860ddf99e7e571ecdbadfacbc72d52b752a8e2",
+      "pptx_path": "ppt/media/image250.png",
+      "extension": ".png",
+      "bytes": 10013,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "931ef5e1c5a628b9fd38ce3e6d8383fb9036b35834972674d5a7391b1d3b2743",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 135959,
+      "slides": [
+        20
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s20-image26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "8473a1903543649674ed61c379f48c6929a1d2dff813c2d3d1cfce6ae737852e",
+      "pptx_path": "ppt/media/image260.png",
+      "extension": ".png",
+      "bytes": 94373,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9b2efdba6f307a8102e85fa0f4191ef163aefc1610f272e3504529d1ee78f529",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 185146,
+      "slides": [
+        21
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s21-image27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "47da868cc47283cec78ad4063f8015e37e619e49f62c201684f157d6700c817d",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 147453,
+      "slides": [
+        22
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s22-image28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c8a04b760fe642e84b86cf4d7843cd6682788b5e0d4484238194402a04f95766",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 39843,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "731ca2f2d3d9ebf0ba2bb75166889ddc45040679dc9cd9bf1fd68befe4eb8a87",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 102254,
+      "slides": [
+        7,
+        8,
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0b97524d847f0af1049dcfef7313471c886b57509a0dd32c06ec66a32373d7e2",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 167083,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "df680a4d4465c0f8e0f4b73b8b72ea1b56f04b953ecf62c342e5e74e3cd68eea",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 111102,
+      "slides": [
+        25
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s25-image31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "31cab153a4c5aaa66974a07d6316efea03a2eca6b2438b215c1d3e10042a1083",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 108776,
+      "slides": [
+        26
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s26-image32.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "df672ec98ebdfeb4a0e8e7c5c42aed82084608f6784211b79a2380fff0286e10",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 88252,
+      "slides": [
+        27
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s27-image33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2f2d166a5196a8f442dd35496a05d4c2a1f15c67251abc8de62a30c9d6fa6e60",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 434558,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3f0028cf30c21a001e2f5f01887082f36920d34dc022b53b270d0cc0c3ace4c0",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 201869,
+      "slides": [
+        29
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s29-image35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "929f0605134201c12068bc4323dc1baa3a4b15a64aba3cdd63c2c22685d23958",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 109418,
+      "slides": [
+        30
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s30-image36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "695a39ee7895ed4a30f12e7b1ff571add55913d29bffe681dbcb108408478051",
+      "pptx_path": "ppt/media/image360.png",
+      "extension": ".png",
+      "bytes": 76292,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dcc9479ffc2e9d30d61d2af8f35bfd55b2abd5f7a16507804c8665d636290b63",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 86750,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "428c0e8b9d14a4de4654cb4fff3515f99b984b1092b23175938c4cf34851032e",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 158700,
+      "slides": [
+        31
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s31-image38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "ced8ef56662980252113cdd21447e91a183d8e9c8c6ddf7823072f10ae49a8a3",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 101438,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ab447ecb0ec3dc9a1a072f09aa2ba30cead0f070c7bfdede16f40a512ec97f06",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 134635,
+      "slides": [
+        4
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s04-image4.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9c161b9af420a7ee62bb3c4db66e82e4c43f35ed61e3df8de4d8841b2b5fba01",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 151891,
+      "slides": [
+        33
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s33-image40.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "ee3690bd4033a8210b4a245900a08e61b9fe32fc64ac86fd101f47971d3d6085",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 45971,
+      "slides": [
+        34
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s34-image41.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a44a167a924f805ec61c8183201d539f9d2965dc3df9a9045a724c5a89277476",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 21234,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d6eb801dababcae86fcb6bcfcc87e1f7658383f53d7a9e29ec48dce237c2b1b5",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 96902,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6c3c8d6dded638479126d8315b192baab50e4dcf0634f3c8dcb8efc5a18e7623",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 146539,
+      "slides": [
+        35
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s35-image44.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c941104fda7387463700d5555bf34a05cb0ad66b8cadb26ec654a98b50be4cae",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 116921,
+      "slides": [
+        36
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s36-image45.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "818512c293aff47d9cc45d18a6a3d652dc8cf8489e9d5e0b46a66e8fb9fb7b44",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 31011,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b5a632771bdfd767b664f9f66db4f5ab3bc434f0cc8a1c0c7842c99eea42101b",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 94652,
+      "slides": [
+        36,
+        71
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s36-image47.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "120d8221c5a8a6e90f87351360132126ff874d2229353ed54f77e542c5ad68fe",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 79365,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7bf4d9b06ad8bcd6de911be0d87e021e1db6140713ec457ad1e02de8a6281e37",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 96501,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fcf5b679b04cb64589a13f88bc445262fbb283daf0766d4ad32a9962aae0b1db",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 85065,
+      "slides": [
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4b004765d386327b4814c20bb31a0511ff90634eedf164077fc4709ebb8f2c3f",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 112154,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16052baf4712dd7ae79e29788e7fcdebcab1ecf1d65a72cb738e0c430c831755",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 392293,
+      "slides": [
+        39
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s39-image51.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "11b6b379c69ac0915cadd05f71cb86d53fd8343e7a47b5de62cccae24538e9ee",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 66778,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "58d83f43b11dc6cf9e9af57e149f6ef362f2726c3e86914b73a48c55ab25deb7",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 337865,
+      "slides": [
+        40
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s40-image53.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "431748a05a55495fc83050598f8287e8ff61ddf1c63b4e514a8e5aab7d2d246a",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 61635,
+      "slides": [
+        41
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s41-image54.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "3f0671f44d59a4b8c416f03835f00d5f7f2397ca351113bba5dcaf4947845a6f",
+      "pptx_path": "ppt/media/image540.png",
+      "extension": ".png",
+      "bytes": 61037,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b4de481f71ba65315c64864418406fe0d3b82a5ec912d89c77a54dab519977b6",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 48066,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0b3f4e293b67c0045213ec86331c0397c255005fe5231af57f8d57712d7d13ce",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 86806,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "07a6871f7b613a0f196979de2f46bcbe3ea657d1ec0fcc6cb844b59f4340246a",
+      "pptx_path": "ppt/media/image57.gif",
+      "extension": ".gif",
+      "bytes": 58320,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "19b89f5fc89f4dd330611ea51343b7136bde302613b8a830dc765fe4a4e657f7",
+      "pptx_path": "ppt/media/image570.png",
+      "extension": ".png",
+      "bytes": 95419,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f44939882115a6263315ffc6cddb829c9f0ef302abd5a6d6c86b48fa18ff3485",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 905112,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cdc2e91e4e662a4f6fbf62eb97fd18761b011a06cd4f7eb35d3a22f5e4f86470",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 90969,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "788424584642f5d72ccb4e73f26ea5aee2fa096019794ed456f7404a99178b60",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 136470,
+      "slides": [
+        7
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s07-image6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "de62dace86a637bfe19f5ee23b2e9588ecf285944d60c0136f5612248a91c925",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 35091,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2d81ec10c369388c37569f38e6ce15f4e5ff03905173e562cbc3d89cc7044b75",
+      "pptx_path": "ppt/media/image600.png",
+      "extension": ".png",
+      "bytes": 98247,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e60e8b2972dd2da15dd13496ef72b759e439da5b032db92e6c3d0fe1ba37ec08",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 77389,
+      "slides": [
+        43
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s43-image61.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "dd8010e9313f524cf034b299cfb5e15c4fee5379259c6d00b624a8f0717de117",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 38492,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6b19b0a2bc0ee1cff210d8b9076b3069cfefb03022b19e30793ddac08631a507",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 205085,
+      "slides": [
+        44
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s44-image63.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "e76c2f0b91237e797e32fbae00b8bf7bf56e36455ae9ec97251231069276cfe1",
+      "pptx_path": "ppt/media/image630.png",
+      "extension": ".png",
+      "bytes": 110030,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ed8f06fa4a5b2bf5488a78cdc3f5ff8fb4110d5f9075127fab4a57e25506a597",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 76036,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bd44436e97f319d6c547e47e0da8e537b06b6d02453448536c70f8a7f1140a74",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 65280,
+      "slides": [
+        45
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s45-image65.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "92af2d38cda6d70b9b7aed876fddb9df4239f20bca024aceccfd3f2e01733f5d",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 97263,
+      "slides": [
+        46
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s46-image66.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "1940be730d0d24ffd875d374a6987e7fdc7db4b3bb123010ccae7168b33f8e4a",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 52881,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8aa23b5d22855fac4de54614c1011f84f9ca7fd71fec7085623611ddb51b41ef",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 91080,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bfc7bd6823021a57ab6b390a04f32eca18117fae71872c14038fe8cd5224537d",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 50036,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "43e4f4858a673e8f391bf08d4680dfb9e4c76fc4716a201f2ee4826759afefe4",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 127620,
+      "slides": [
+        8
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s08-image7.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "930cb351be38e446aca05ebf684c57c7ecdb443855277f5340dff7b6f6b006e9",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 29187,
+      "slides": [
+        47
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s47-image70.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "25bbbfdf4e850a0578978e985814cdcb5fcebbb78d7a8c70211acc1e8ce41f29",
+      "pptx_path": "ppt/media/image71.png",
+      "extension": ".png",
+      "bytes": 55892,
+      "slides": [
+        48
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s48-image71.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "d43975f841ed3baac5bd6006a646e7de22c7b4f7c89bc087678134ab31415f32",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 118989,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d79a270953535e71eb5f99a9532475897ecd22abf8581855e93f41addf67b30e",
+      "pptx_path": "ppt/media/image73.png",
+      "extension": ".png",
+      "bytes": 93410,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b3b3b086ae72e2bcf4758a0b112ee577773a96e927cc1e51b4ee89f4d9ae768f",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 256720,
+      "slides": [
+        49
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s49-image74.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7f44cffb60a8b3e24f26dfe190c6820220597877fbca8b8de706a62c77efd70e",
+      "pptx_path": "ppt/media/image75.png",
+      "extension": ".png",
+      "bytes": 129070,
+      "slides": [
+        50
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s50-image75.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9b80585cef785037633f59ad36c3eaa3e4c70798b8df0ec89dd491be7eb45056",
+      "pptx_path": "ppt/media/image76.png",
+      "extension": ".png",
+      "bytes": 98765,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6eb64d42b0b188c33ea0df2a157a12d12d07cf35edba8ff73c854a7f986686d6",
+      "pptx_path": "ppt/media/image77.png",
+      "extension": ".png",
+      "bytes": 14789,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ac2e17e77441a3d0465f041cc9c1801f16496b8fa54935e895ea209a73883652",
+      "pptx_path": "ppt/media/image78.png",
+      "extension": ".png",
+      "bytes": 12022,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f00345ef6163a9bc77299c189f37dc927ed51c3ddc24e6288803a2991495db1c",
+      "pptx_path": "ppt/media/image79.png",
+      "extension": ".png",
+      "bytes": 89337,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "79f80d1f3cef9416b426eac3b6ebe3727dc9087f0e6ecea9459247dcc124744b",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 117769,
+      "slides": [
+        13,
+        14,
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0678056bf1aa16526bfd71e95aeaf94fd0487be33994b513117123545ce652bb",
+      "pptx_path": "ppt/media/image80.png",
+      "extension": ".png",
+      "bytes": 59975,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a5f3b456d9f1e52999abddb52b79c03f2ff506a1519b34da50829a35b23aaa54",
+      "pptx_path": "ppt/media/image81.png",
+      "extension": ".png",
+      "bytes": 130616,
+      "slides": [
+        51
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s51-image81.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "907735e9e199bcc2143c486314ac8d75869749dccdf7977114816d7dfcf70ead",
+      "pptx_path": "ppt/media/image810.png",
+      "extension": ".png",
+      "bytes": 68217,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "98ef559b22c3c48296860b922364e2d0a4794ee0cd25fb69a69d95f08f341d61",
+      "pptx_path": "ppt/media/image82.png",
+      "extension": ".png",
+      "bytes": 272188,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ddf3f1468a5c462def22bb4076a0be7f931dac97e71254442b59cf71e462bd90",
+      "pptx_path": "ppt/media/image83.png",
+      "extension": ".png",
+      "bytes": 70734,
+      "slides": [
+        52
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "04de879e8a485ba0eadbae0a3792167c5b08123dda143a7f289f8d6c15ab5180",
+      "pptx_path": "ppt/media/image84.png",
+      "extension": ".png",
+      "bytes": 66747,
+      "slides": [
+        52
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "44cd9d12ca5ec809d583dae28ece0d9bb145ce9d39616ecffb4c22c1ce58cbd5",
+      "pptx_path": "ppt/media/image85.png",
+      "extension": ".png",
+      "bytes": 43909,
+      "slides": [
+        52
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s52-image85.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "6c6f6bf380718dbc2db81e68e44544a2a4490a1c13901fec903d927174cb0ad6",
+      "pptx_path": "ppt/media/image86.png",
+      "extension": ".png",
+      "bytes": 359463,
+      "slides": [
+        53
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "91d6a8473c194b279b46e0bd16c0cabfeb94fe203724728329f02aa1462fa41f",
+      "pptx_path": "ppt/media/image87.png",
+      "extension": ".png",
+      "bytes": 23365,
+      "slides": [
+        54
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "68dab3f85cd7f0dbf09cb1856f29089d47a7943953005baea0933277fd137d3e",
+      "pptx_path": "ppt/media/image88.png",
+      "extension": ".png",
+      "bytes": 83718,
+      "slides": [
+        54
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "814a8e45a358ff89bbc13bb7d3fa6e0606748a957dfd57e63f73fbb778f61fac",
+      "pptx_path": "ppt/media/image89.png",
+      "extension": ".png",
+      "bytes": 86281,
+      "slides": [
+        54
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f9ea372f64e4eaa2778c6682b5ced4cb7df0c231098295849d71c759971126ce",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 110572,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1e8a94566afe308b1f50864eeeda119f8fb9ca38f300b0f2ec591787a390b5c7",
+      "pptx_path": "ppt/media/image90.png",
+      "extension": ".png",
+      "bytes": 11238,
+      "slides": [
+        54
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s54-image90.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "6aea8b1c6d62508211143c8ee78052dbec7589e8898ead899863d96d343b0ffa",
+      "pptx_path": "ppt/media/image91.png",
+      "extension": ".png",
+      "bytes": 61876,
+      "slides": [
+        54
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ba0c79b534ffe2e2d3d0ea0e92aedbcb8b26772ea3e98733c2f65b4622e754df",
+      "pptx_path": "ppt/media/image92.png",
+      "extension": ".png",
+      "bytes": 96207,
+      "slides": [
+        54
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f348ae51398b8aa1681d59bb044009ef7cfc0c20e1c19664a49c219a15126cff",
+      "pptx_path": "ppt/media/image93.png",
+      "extension": ".png",
+      "bytes": 41277,
+      "slides": [
+        55
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "36b2d1a5786dc92a64ce1732d419ed02c8331797682be21f61854c37fc049a14",
+      "pptx_path": "ppt/media/image94.png",
+      "extension": ".png",
+      "bytes": 41784,
+      "slides": [
+        55
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9656b33971898c5983f43cc5ece8acdf4d29c9fe13ea58ab58f2b34d842cfb48",
+      "pptx_path": "ppt/media/image95.png",
+      "extension": ".png",
+      "bytes": 304938,
+      "slides": [
+        55
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s55-image95.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0ae8db9a53d82ae174e6dc10fea740a6a33fb2d6e2f2461e9ab71e1c63b3622e",
+      "pptx_path": "ppt/media/image96.png",
+      "extension": ".png",
+      "bytes": 123185,
+      "slides": [
+        56
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s56-image96.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "f351172587d82e8270ade5592135eacc8236a2f4448b6cd07c1e0af00332c29e",
+      "pptx_path": "ppt/media/image97.png",
+      "extension": ".png",
+      "bytes": 176994,
+      "slides": [
+        56
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9046e12f418f4794e993796497511e5a1c4b473f3d73b9a9e00c2deb389f1926",
+      "pptx_path": "ppt/media/image98.png",
+      "extension": ".png",
+      "bytes": 73461,
+      "slides": [
+        57
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3755ec2f43b583d940f63216d9651d705698c7c86782c2de5197473455407fda",
+      "pptx_path": "ppt/media/image99.png",
+      "extension": ".png",
+      "bytes": 71601,
+      "slides": [
+        57
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 88,
+    "reused_figures": 73,
+    "redundant_figures": 15,
+    "reuse_ratio": 0.8295
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-04.md",
+  "pptx_figures": [
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s04-image4.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image4.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s05-image1.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image1.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s06-image2.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image2.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s07-image6.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s08-image7.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s09-image13.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image13.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s10-image14.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image14.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s11-image15.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image15.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s13-image17.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image17.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s14-image11.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s14-image21.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s15-image18.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image18.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s15-image19.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s16-image20.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image20.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s18-image23.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image23.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s18-image24.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image24.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s20-image26.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s21-image27.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image27.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s22-image28.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image28.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s25-image31.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s26-image32.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image32.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s27-image33.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image33.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s29-image35.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image35.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s30-image36.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s31-image38.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image38.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s33-image40.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image40.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s34-image41.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image41.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s35-image44.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image44.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s36-image45.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image45.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s36-image47.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s39-image51.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image51.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s40-image53.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image53.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s41-image54.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image54.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s43-image61.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image61.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s44-image63.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image63.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s45-image65.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image65.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s46-image66.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image66.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s47-image70.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image70.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s48-image71.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image71.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s49-image74.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image74.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s50-image75.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image75.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 51,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s51-image81.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image81.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 52,
+      "pptx_slide": 52,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s52-image85.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image85.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 54,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s54-image90.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image90.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 55,
+      "pptx_slide": 55,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s55-image95.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image95.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 56,
+      "pptx_slide": 56,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s56-image96.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image96.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 57,
+      "pptx_slide": 57,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s57-image100.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image100.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 58,
+      "pptx_slide": 58,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s58-image102.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image102.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 59,
+      "pptx_slide": 59,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s59-image105.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image105.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 60,
+      "pptx_slide": 60,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s60-image107.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image107.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 61,
+      "pptx_slide": 61,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s61-image108.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image108.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 61,
+      "pptx_slide": 61,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s61-image110.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image110.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 62,
+      "pptx_slide": 62,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s62-image113.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image113.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 62,
+      "pptx_slide": 62,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s62-image115.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image115.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 63,
+      "pptx_slide": 63,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s63-image117.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image117.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 64,
+      "pptx_slide": 64,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s64-image120.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image120.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 65,
+      "pptx_slide": 65,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s65-image123.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image123.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 66,
+      "pptx_slide": 66,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s66-image125.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image125.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 67,
+      "pptx_slide": 67,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s67-image128.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image128.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 68,
+      "pptx_slide": 68,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s68-image130.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image130.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 69,
+      "pptx_slide": 69,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s69-image132.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image132.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 70,
+      "pptx_slide": 70,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s70-image139.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image139.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 73,
+      "pptx_slide": 73,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s73-image143.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image143.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 74,
+      "pptx_slide": 74,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s74-image144.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image144.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 75,
+      "pptx_slide": 75,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s75-image147.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image147.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 76,
+      "pptx_slide": 76,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s76-image149.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image149.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 79,
+      "pptx_slide": 79,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s79-image151.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image151.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 81,
+      "pptx_slide": 81,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s81-image152.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image152.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 84,
+      "pptx_slide": 84,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s84-image153.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image153.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 85,
+      "pptx_slide": 85,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s85-image154.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image154.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 85,
+      "pptx_slide": 85,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s85-image155.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image155.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 86,
+      "pptx_slide": 86,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s86-image156.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image156.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 86,
+      "pptx_slide": 86,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-04/s86-image157.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image157.png"
+      ],
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

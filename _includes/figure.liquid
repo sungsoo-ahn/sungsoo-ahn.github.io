@@ -1,6 +1,10 @@
 {% assign img_path = include.path | remove: '.jpg' | remove: '.jpeg' | remove: '.png' | remove: '.tiff' | remove: '.gif' %}
 {% assign parts = include.path | split: '.' %}
 {% assign ext = parts.last %}
+{% assign lecture_figure_registry = site.data.lecture_figure_sources %}
+{% if lecture_figure_registry %}
+  {% assign lecture_figure_source = lecture_figure_registry.figures[include.path] %}
+{% endif %}
 
 <figure
   {% if include.slot %}
@@ -78,7 +82,28 @@
     >
   </picture>
 
-  {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
+  {% if include.caption or lecture_figure_source %}
+    <figcaption class="caption">
+      {% if include.caption %}{{ include.caption }}{% endif %}
+      {% if lecture_figure_source and lecture_figure_source.status != 'pending' %}
+        {% assign figure_source_count = lecture_figure_source.source_ids.size %}
+        {% if figure_source_count > 0 %}
+          <span class="figure-source">
+            {% if lecture_figure_source.status == 'ambiguous' %}
+              Possible {% if figure_source_count > 1 %}sources{% else %}source{% endif %}:
+            {% else %}
+              Figure {% if figure_source_count > 1 %}sources{% else %}source{% endif %}:
+            {% endif %}
+            {% for source_id in lecture_figure_source.source_ids %}
+              {% assign source = lecture_figure_registry.sources[source_id] %}
+              <a href="{{ source.url }}">{{ source.label }}</a>{% if source.license_status == 'open' %} ({{ source.license }}){% endif %}{% unless forloop.last %}; {% endunless %}
+            {% endfor %}
+            {% if lecture_figure_source.reader_note != '' %} {{ lecture_figure_source.reader_note }}{% endif %}
+          </span>
+        {% elsif lecture_figure_source.reader_note != '' %}
+          <span class="figure-source">{{ lecture_figure_source.reader_note }}</span>
+        {% endif %}
+      {% endif %}
+    </figcaption>
   {% endif %}
 </figure>
