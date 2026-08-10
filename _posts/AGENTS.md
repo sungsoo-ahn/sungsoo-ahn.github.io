@@ -58,7 +58,7 @@ The blog index sorts posts by date. Series metadata may be kept for organization
 
 Use `authors` for every post, even single-author posts. The blog layout also supports the older `author` field as a fallback, but new posts should use `authors`.
 
-Use `selected: true` for the independently curated Selected collection. Otherwise, set `editorial_status` explicitly to `human-reviewed` or `ai-generated`; never infer it from the publication date or lecture metadata. Move an AI-generated post to `human-reviewed` only after an explicit human editorial review. A post must belong to exactly one of these three collections.
+Use `selected: true` for the independently curated Selected collection. Otherwise, set `editorial_status` explicitly to `human-reviewed` or `ai-generated`; never infer it from the publication date or lecture metadata. Move an AI-generated post to `human-reviewed` only after an explicit human editorial review. Editorial status is provenance metadata, not a reader-facing blog collection.
 
 Optional frontmatter blocks render between the post metadata and the post body. Use `abstract` for a single abstract-style block. Use `blog_blocks` for additional named blocks such as `Key points`, `Prerequisites`, or `Scope`. Keep these blocks short; Markdown is supported inside each block.
 
