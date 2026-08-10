@@ -346,6 +346,21 @@ def validate_post(path: Path) -> list[Finding]:
             findings.append(Finding(path, f"figure needs alt text or a caption fallback: {figure_path}"))
         if "$" in caption:
             findings.append(Finding(path, f"figure caption uses dollar math delimiters: {figure_path}"))
+        if re.search(
+            r"\b(?:PowerPoint-native|"
+            r"(?:extracted|retained) (?:directly )?from (?:the )?(?:source |lecture )?(?:PowerPoint|deck)|"
+            r"embedded in (?:the )?(?:source |lecture )?PowerPoint|"
+            r"native PowerPoint (?:figure|image|illustration|panel|group))\b",
+            caption,
+            re.IGNORECASE,
+        ):
+            findings.append(
+                Finding(
+                    path,
+                    "figure caption exposes extraction workflow instead of reader-facing provenance: "
+                    f"{figure_path}",
+                )
+            )
         direct_license_source = re.search(r"\b(Wikimedia Commons|public domain|CC BY|Labster Theory)\b", caption)
         source_wording = re.search(r"\b(From|Figure from)\s+[A-Z][^.;\"]+", caption)
         adapted_wording = re.search(r"\b(Redrawn from|Adapted from|Data adapted from)\b", caption)

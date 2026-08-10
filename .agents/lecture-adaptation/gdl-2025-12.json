@@ -777,7 +777,7 @@
       "pptx_slide": 38,
       "title": "End of Part 1.",
       "classification": "substantive",
-      "coverage": "omitted-transition",
+      "coverage": "covered",
       "text": [
         "End of Part 1.",
         "• This is the end of Part 1. for our course on geometric deep learning.",
@@ -786,7 +786,7 @@
         "To be discussed in Part 2."
       ],
       "media_sha256": [],
-      "notes": ""
+      "notes": "The course dates are omitted; the transition to geometric generation and later protein representation learning is retained."
     }
   ],
   "media": [
@@ -1453,397 +1453,299 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 35,
-    "reused": 35,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 26,
+    "reused_figures": 26,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
-    {
-      "slide": 3,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-3.webp",
-      "reuse_status": "reused"
-    },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-12.md",
+  "pptx_figures": [
     {
       "slide": 4,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s04-qm9-chemical-space.png",
+      "source_media_paths": [
+        "ppt/media/image2.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-4.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 5,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s05-md17-molecule-trajectories.jpeg",
+      "source_media_paths": [
+        "ppt/media/image3.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-5.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 6,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s06-mptraj-element-coverage.png",
+      "source_media_paths": [
+        "ppt/media/image5.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-6.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 7,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-7.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 8,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s08-oc20-dataset.jpeg",
+      "source_media_paths": [
+        "ppt/media/image8.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-8.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 9,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s09-oc22-dataset.jpeg",
+      "source_media_paths": [
+        "ppt/media/image10.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-9.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 10,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s10-odac23-dataset.png",
+      "source_media_paths": [
+        "ppt/media/image11.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-10.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 11,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s11-omat24-overview.png",
+      "source_media_paths": [
+        "ppt/media/image12.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-11.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 12,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-12.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 13,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-13.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
       "reuse_status": "reused"
     },
     {
       "slide": 14,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s14-phonon-modes.gif",
+      "source_media_paths": [
+        "ppt/media/image17.gif"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-14.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 15,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-15.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
       "reuse_status": "reused"
     },
     {
       "slide": 16,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s16-matformer-multiedge-graph.png",
+      "source_media_paths": [
+        "ppt/media/image18.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-16.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
-      "slide": 17,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s16-matformer-boundary-invariance.png",
+      "source_media_paths": [
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-17.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 18,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-18.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 19,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-19.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 20,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s20-real-reciprocal-long-range.png",
+      "source_media_paths": [
+        "ppt/media/image25.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-20.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 21,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s21-gnome-active-learning.png",
+      "source_media_paths": [
+        "ppt/media/image30.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-21.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 22,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-22.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 23,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s23-mattersim-overview.png",
+      "source_media_paths": [
+        "ppt/media/image36.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-23.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s24-mattersim-training-loop.png",
+      "source_media_paths": [
+        "ppt/media/image37.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-24.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 25,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s25-mattersim-physical-properties.png",
+      "source_media_paths": [
+        "ppt/media/image39.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-25.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 26,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s26-mattersim-heating-tests.png",
+      "source_media_paths": [
+        "ppt/media/image41.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-26.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s27-mattersim-active-learning.png",
+      "source_media_paths": [
+        "ppt/media/image44.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-27.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 28,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-28.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 29,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s29-orb-diffusion-pretraining.png",
+      "source_media_paths": [
+        "ppt/media/image47.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-29.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s29-orb-gns-architecture.png",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 30,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s30-orb-discovery-f1.png",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-30.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s30-orb-throughput.png",
+      "source_media_paths": [
+        "ppt/media/image50.png"
+      ],
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 31,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s31-equivariance-scaling.png",
+      "source_media_paths": [
+        "ppt/media/image51.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-31.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 32,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-32.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 33,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s33-sevennet-spatial-decomposition.png",
+      "source_media_paths": [
+        "ppt/media/image54.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-33.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 34,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s34-sevennet-large-system.png",
+      "source_media_paths": [
+        "ppt/media/image55.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-34.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 35,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s35-esen-architecture.png",
+      "source_media_paths": [
+        "ppt/media/image58.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-35.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 36,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-36.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-12/s37-esen-smoothness-tests.png",
+      "source_media_paths": [
+        "ppt/media/image62.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-12/slide-37.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-12.md"
+  "asset_migration_status": "pptx-native-complete"
 }

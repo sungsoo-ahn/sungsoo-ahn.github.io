@@ -9,7 +9,7 @@
       "slide": 1,
       "pptx_slide": 1,
       "title": "Genomics & Virtual Cell",
-      "classification": "substantive",
+      "classification": "transition-only",
       "coverage": "omitted-transition",
       "text": [
         "Genomics & Virtual Cell",
@@ -24,7 +24,7 @@
       "slide": 2,
       "pptx_slide": 2,
       "title": "Machine Learning for Genomics",
-      "classification": "substantive",
+      "classification": "transition-only",
       "coverage": "omitted-transition",
       "text": [
         "Machine Learning for Genomics",
@@ -666,7 +666,7 @@
       "slide": 34,
       "pptx_slide": 34,
       "title": "Machine Learning for Virtual Cell",
-      "classification": "substantive",
+      "classification": "transition-only",
       "coverage": "omitted-transition",
       "text": [
         "Machine Learning for Virtual Cell",
@@ -1122,7 +1122,7 @@
       "slides": [
         3
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s03-image1.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s03-image1.png",
       "reuse_status": "reused"
     },
     {
@@ -1133,7 +1133,7 @@
       "slides": [
         10
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s10-image10.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s10-image10.png",
       "reuse_status": "reused"
     },
     {
@@ -1144,7 +1144,8 @@
       "slides": [
         54
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image100.png"
     },
     {
       "sha256": "053fae8bd1e17a5c305c17eddb697fe3aafad4cd1a02b5750ac8c597ade3398a",
@@ -1154,7 +1155,7 @@
       "slides": [
         54
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image101.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image101.png",
       "reuse_status": "reused"
     },
     {
@@ -1165,7 +1166,7 @@
       "slides": [
         55
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s55-image102.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s55-image102.png",
       "reuse_status": "reused"
     },
     {
@@ -1176,7 +1177,7 @@
       "slides": [
         55
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s55-image103.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s55-image103.png",
       "reuse_status": "reused"
     },
     {
@@ -1187,7 +1188,7 @@
       "slides": [
         56
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s56-image104.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s56-image104.png",
       "reuse_status": "reused"
     },
     {
@@ -1198,7 +1199,7 @@
       "slides": [
         57
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s57-image105.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s57-image105.png",
       "reuse_status": "reused"
     },
     {
@@ -1209,7 +1210,7 @@
       "slides": [
         57
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s57-image106.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s57-image106.png",
       "reuse_status": "reused"
     },
     {
@@ -1220,7 +1221,7 @@
       "slides": [
         11
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s11-image11.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s11-image11.png",
       "reuse_status": "reused"
     },
     {
@@ -1231,7 +1232,7 @@
       "slides": [
         12
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s12-image12.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s12-image12.png",
       "reuse_status": "reused"
     },
     {
@@ -1242,7 +1243,7 @@
       "slides": [
         12
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s12-image13.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s12-image13.png",
       "reuse_status": "reused"
     },
     {
@@ -1253,7 +1254,7 @@
       "slides": [
         14
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s14-image14.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s14-image14.png",
       "reuse_status": "reused"
     },
     {
@@ -1264,7 +1265,7 @@
       "slides": [
         14
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s14-image15.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s14-image15.png",
       "reuse_status": "reused"
     },
     {
@@ -1275,7 +1276,7 @@
       "slides": [
         15
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s15-image16.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s15-image16.png",
       "reuse_status": "reused"
     },
     {
@@ -1286,7 +1287,7 @@
       "slides": [
         15
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s15-image17.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s15-image17.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1297,7 +1298,7 @@
       "slides": [
         16
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s16-image18.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s16-image18.png",
       "reuse_status": "reused"
     },
     {
@@ -1308,7 +1309,7 @@
       "slides": [
         16
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s16-image19.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s16-image19.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1319,7 +1320,7 @@
       "slides": [
         4
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s04-image2.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s04-image2.png",
       "reuse_status": "reused"
     },
     {
@@ -1330,7 +1331,7 @@
       "slides": [
         17
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s17-image20.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s17-image20.png",
       "reuse_status": "reused"
     },
     {
@@ -1341,7 +1342,7 @@
       "slides": [
         17
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s17-image21.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s17-image21.png",
       "reuse_status": "reused"
     },
     {
@@ -1352,7 +1353,7 @@
       "slides": [
         18
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s18-image22.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s18-image22.png",
       "reuse_status": "reused"
     },
     {
@@ -1363,7 +1364,7 @@
       "slides": [
         18
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s18-image23.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s18-image23.png",
       "reuse_status": "reused"
     },
     {
@@ -1374,7 +1375,8 @@
       "slides": [
         18
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s18-image24.png"
     },
     {
       "sha256": "864d7558226d73ad8a5c7cb7de2b29fa420b217d0bbb0f42f354f28ef9c6b8a4",
@@ -1384,7 +1386,7 @@
       "slides": [
         19
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s19-image25.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s19-image25.png",
       "reuse_status": "reused"
     },
     {
@@ -1395,7 +1397,7 @@
       "slides": [
         19
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s19-image26.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s19-image26.png",
       "reuse_status": "reused"
     },
     {
@@ -1406,7 +1408,7 @@
       "slides": [
         20
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s20-image27.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s20-image27.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1417,7 +1419,7 @@
       "slides": [
         21
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s21-image28.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s21-image28.png",
       "reuse_status": "reused"
     },
     {
@@ -1428,7 +1430,7 @@
       "slides": [
         21
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s21-image29.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s21-image29.png",
       "reuse_status": "reused"
     },
     {
@@ -1439,7 +1441,7 @@
       "slides": [
         5
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image3.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image3.png",
       "reuse_status": "reused"
     },
     {
@@ -1450,7 +1452,7 @@
       "slides": [
         22
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s22-image30.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s22-image30.png",
       "reuse_status": "reused"
     },
     {
@@ -1461,7 +1463,7 @@
       "slides": [
         22
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s22-image31.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s22-image31.png",
       "reuse_status": "reused"
     },
     {
@@ -1472,7 +1474,8 @@
       "slides": [
         22
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s22-image32.png"
     },
     {
       "sha256": "e4ec6cee220d8ad2412952be09a0d526a86a2eb2a02dc74272c15e361bb5da6c",
@@ -1483,7 +1486,7 @@
         23,
         23
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s23-image33.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s23-image33.png",
       "reuse_status": "reused"
     },
     {
@@ -1495,7 +1498,8 @@
         23,
         23
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s23-image34.png"
     },
     {
       "sha256": "1de4380d922f830b0232950158c20d16e440fc40575b5b22c59cf80ea4648430",
@@ -1505,7 +1509,7 @@
       "slides": [
         23
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s23-image35.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s23-image35.png",
       "reuse_status": "reused"
     },
     {
@@ -1516,7 +1520,7 @@
       "slides": [
         24
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s24-image36.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s24-image36.png",
       "reuse_status": "reused"
     },
     {
@@ -1527,7 +1531,7 @@
       "slides": [
         24
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s24-image37.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s24-image37.png",
       "reuse_status": "reused"
     },
     {
@@ -1538,7 +1542,7 @@
       "slides": [
         25
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image38.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image38.png",
       "reuse_status": "reused"
     },
     {
@@ -1549,7 +1553,8 @@
       "slides": [
         25
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image39.png"
     },
     {
       "sha256": "ed16c3f69b34f7ea0a475d374ffa6c3b719ec479b97e27cfb766f950473f712b",
@@ -1559,7 +1564,7 @@
       "slides": [
         5
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image4.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image4.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1570,7 +1575,8 @@
       "slides": [
         25
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image40.png"
     },
     {
       "sha256": "98a2f46af17a4163cf7e3d2f8f7942a886389d3ee4b0023cd9ab92216f041659",
@@ -1580,7 +1586,7 @@
       "slides": [
         25
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image41.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s25-image41.png",
       "reuse_status": "reused"
     },
     {
@@ -1591,7 +1597,7 @@
       "slides": [
         26
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s26-image42.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s26-image42.png",
       "reuse_status": "reused"
     },
     {
@@ -1602,7 +1608,7 @@
       "slides": [
         26
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s26-image43.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s26-image43.png",
       "reuse_status": "reused"
     },
     {
@@ -1613,7 +1619,7 @@
       "slides": [
         27
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s27-image44.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s27-image44.png",
       "reuse_status": "reused"
     },
     {
@@ -1624,7 +1630,7 @@
       "slides": [
         27
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s27-image45.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s27-image45.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1635,7 +1641,7 @@
       "slides": [
         28
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s28-image46.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s28-image46.png",
       "reuse_status": "reused"
     },
     {
@@ -1646,7 +1652,7 @@
       "slides": [
         28
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s28-image47.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s28-image47.png",
       "reuse_status": "reused"
     },
     {
@@ -1657,7 +1663,7 @@
       "slides": [
         29
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s29-image48.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s29-image48.png",
       "reuse_status": "reused"
     },
     {
@@ -1668,7 +1674,7 @@
       "slides": [
         29
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s29-image49.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s29-image49.png",
       "reuse_status": "reused"
     },
     {
@@ -1679,7 +1685,7 @@
       "slides": [
         5
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image5.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s05-image5.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1690,7 +1696,8 @@
       "slides": [
         29
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s29-image50.jpg"
     },
     {
       "sha256": "ae658a6685882d2798e0e81b92fc9d028fba7d92ac3be630f09e2a85ec34883a",
@@ -1721,7 +1728,7 @@
       "slides": [
         33
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s33-image53.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s33-image53.png",
       "reuse_status": "reused"
     },
     {
@@ -1732,7 +1739,7 @@
       "slides": [
         35
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s35-image54.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s35-image54.png",
       "reuse_status": "reused"
     },
     {
@@ -1743,7 +1750,7 @@
       "slides": [
         36
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s36-image55.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s36-image55.png",
       "reuse_status": "reused"
     },
     {
@@ -1754,7 +1761,7 @@
       "slides": [
         37
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s37-image56.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s37-image56.png",
       "reuse_status": "reused"
     },
     {
@@ -1765,7 +1772,7 @@
       "slides": [
         37
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s37-image57.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s37-image57.png",
       "reuse_status": "reused"
     },
     {
@@ -1776,7 +1783,7 @@
       "slides": [
         38
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s38-image58.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s38-image58.png",
       "reuse_status": "reused"
     },
     {
@@ -1787,7 +1794,7 @@
       "slides": [
         39
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s39-image59.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s39-image59.png",
       "reuse_status": "reused"
     },
     {
@@ -1798,7 +1805,7 @@
       "slides": [
         6
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s06-image6.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s06-image6.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1809,7 +1816,7 @@
       "slides": [
         39
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s39-image60.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s39-image60.png",
       "reuse_status": "reused"
     },
     {
@@ -1822,7 +1829,7 @@
         42,
         43
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image61.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image61.png",
       "reuse_status": "reused"
     },
     {
@@ -1833,7 +1840,8 @@
       "slides": [
         40
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image62.jpg"
     },
     {
       "sha256": "fe3b0d24f2f2704edcab747ca8b7ec764ac9c6c02798bb655f3061615eda9c39",
@@ -1843,7 +1851,7 @@
       "slides": [
         40
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image63.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image63.png",
       "reuse_status": "reused"
     },
     {
@@ -1854,7 +1862,8 @@
       "slides": [
         40
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s40-image64.png"
     },
     {
       "sha256": "d77c287db845807482001f4de734ffaa16e88781a35dd3e628b557b90b24dd81",
@@ -1864,7 +1873,7 @@
       "slides": [
         41
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s41-image65.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s41-image65.png",
       "reuse_status": "reused"
     },
     {
@@ -1875,7 +1884,8 @@
       "slides": [
         41
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s41-image66.jpg"
     },
     {
       "sha256": "3402f0aa5e4b586677ef88718cfe844c9fd6790994f965e69e82628de23f17b5",
@@ -1885,7 +1895,7 @@
       "slides": [
         41
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s41-image67.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s41-image67.png",
       "reuse_status": "reused"
     },
     {
@@ -1896,7 +1906,7 @@
       "slides": [
         42
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s42-image68.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s42-image68.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1907,7 +1917,7 @@
       "slides": [
         42
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s42-image69.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s42-image69.png",
       "reuse_status": "reused"
     },
     {
@@ -1918,7 +1928,7 @@
       "slides": [
         7
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s07-image7.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s07-image7.png",
       "reuse_status": "reused"
     },
     {
@@ -1929,7 +1939,7 @@
       "slides": [
         43
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s43-image70.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s43-image70.jpg",
       "reuse_status": "reused"
     },
     {
@@ -1940,7 +1950,8 @@
       "slides": [
         43
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s43-image71.jpg"
     },
     {
       "sha256": "67a7ac46b9e6d16b3af32e88978183f78c3eff8dce710fc290c850c891a51ade",
@@ -1950,7 +1961,7 @@
       "slides": [
         43
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s43-image72.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s43-image72.png",
       "reuse_status": "reused"
     },
     {
@@ -1961,7 +1972,7 @@
       "slides": [
         44
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s44-image73.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s44-image73.png",
       "reuse_status": "reused"
     },
     {
@@ -1972,7 +1983,7 @@
       "slides": [
         44
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s44-image74.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s44-image74.png",
       "reuse_status": "reused"
     },
     {
@@ -1983,7 +1994,7 @@
       "slides": [
         45
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s45-image75.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s45-image75.png",
       "reuse_status": "reused"
     },
     {
@@ -1994,7 +2005,8 @@
       "slides": [
         45
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s45-image76.png"
     },
     {
       "sha256": "64321b49b68c7dcc2ad8502ef2b181874abbb889393ae8573646539eb126c81f",
@@ -2004,7 +2016,7 @@
       "slides": [
         45
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s45-image77.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s45-image77.png",
       "reuse_status": "reused"
     },
     {
@@ -2015,7 +2027,7 @@
       "slides": [
         46
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s46-image78.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s46-image78.png",
       "reuse_status": "reused"
     },
     {
@@ -2026,7 +2038,8 @@
       "slides": [
         46
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s46-image79.png"
     },
     {
       "sha256": "10a36a7e0285c390346b04b49de81758afac5bd7fe86e9ce149fdea6180aff11",
@@ -2036,7 +2049,7 @@
       "slides": [
         8
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s08-image8.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s08-image8.png",
       "reuse_status": "reused"
     },
     {
@@ -2047,7 +2060,7 @@
       "slides": [
         46
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s46-image80.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s46-image80.png",
       "reuse_status": "reused"
     },
     {
@@ -2058,7 +2071,7 @@
       "slides": [
         47
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s47-image81.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s47-image81.png",
       "reuse_status": "reused"
     },
     {
@@ -2069,7 +2082,7 @@
       "slides": [
         47
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s47-image82.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s47-image82.png",
       "reuse_status": "reused"
     },
     {
@@ -2080,7 +2093,8 @@
       "slides": [
         48
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s48-image83.png"
     },
     {
       "sha256": "2aa22dafda5e6d9d305afd385e8df6139f7850e1d90503933b535913ec73cc1f",
@@ -2110,7 +2124,8 @@
       "slides": [
         48
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s48-image86.jpg"
     },
     {
       "sha256": "18afeef4726b2837d57a4f45bcee45fba46be6a83974f5867168f3012e14dc77",
@@ -2120,7 +2135,7 @@
       "slides": [
         49
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s49-image87.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s49-image87.png",
       "reuse_status": "reused"
     },
     {
@@ -2131,8 +2146,7 @@
       "slides": [
         49
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s49-image88.webp",
-      "reuse_status": "reused"
+      "reuse_status": "not-published"
     },
     {
       "sha256": "c54df3fdc70d3caad2e8601390a05a0af11646163c969ca9520b5bebdc9a0d55",
@@ -2142,7 +2156,7 @@
       "slides": [
         50
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s50-image89.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s50-image89.png",
       "reuse_status": "reused"
     },
     {
@@ -2153,7 +2167,7 @@
       "slides": [
         9
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s09-image9.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s09-image9.png",
       "reuse_status": "reused"
     },
     {
@@ -2165,7 +2179,7 @@
         50,
         51
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s50-image90.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s50-image90.png",
       "reuse_status": "reused"
     },
     {
@@ -2176,7 +2190,7 @@
       "slides": [
         51
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s51-image91.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s51-image91.png",
       "reuse_status": "reused"
     },
     {
@@ -2187,7 +2201,7 @@
       "slides": [
         51
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s51-image92.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s51-image92.png",
       "reuse_status": "reused"
     },
     {
@@ -2198,7 +2212,7 @@
       "slides": [
         52
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s52-image93.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s52-image93.png",
       "reuse_status": "reused"
     },
     {
@@ -2209,7 +2223,7 @@
       "slides": [
         52
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s52-image94.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s52-image94.png",
       "reuse_status": "reused"
     },
     {
@@ -2220,7 +2234,7 @@
       "slides": [
         53
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s53-image95.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s53-image95.png",
       "reuse_status": "reused"
     },
     {
@@ -2231,7 +2245,8 @@
       "slides": [
         53
       ],
-      "reuse_status": "not-published"
+      "reuse_status": "reused",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s53-image96.png"
     },
     {
       "sha256": "1c09451b020b7bf8b3ba4009d3ce402a35fb6f7c067630754b14165db3d4bc66",
@@ -2241,7 +2256,7 @@
       "slides": [
         53
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s53-image97.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s53-image97.png",
       "reuse_status": "reused"
     },
     {
@@ -2252,7 +2267,7 @@
       "slides": [
         54
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image98.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image98.png",
       "reuse_status": "reused"
     },
     {
@@ -2263,7 +2278,7 @@
       "slides": [
         54
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image99.webp",
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s54-image99.png",
       "reuse_status": "reused"
     },
     {
@@ -2278,56 +2293,37 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 100,
-    "reused": 90,
-    "scientifically_redundant": 10,
-    "reuse_ratio": 0.9
+    "unique_substantive_figures": 103,
+    "reused_figures": 103,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
   },
-  "pdf_regions": [
-    {
-      "slide": 30,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/alphagenome-overview.webp",
-      "reuse_status": "reused"
-    },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-14.md",
+  "pptx_figures": [
     {
       "slide": 31,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s31-alphagenome-architecture.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image52.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/alphagenome-architecture.webp",
+      "source_shape_name": "Picture 2",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 32,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/s32-alphagenome-evaluation.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image52.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/alphagenome-evaluation.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 48,
-      "crop": [
-        0.01,
-        0.02,
-        0.98,
-        0.95
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-14/txpert-virtual-cell.webp",
+      "source_shape_name": "Picture 2",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-14.md"
+  "asset_migration_status": "pptx-native-complete"
 }

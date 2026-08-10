@@ -1411,984 +1411,565 @@
       "notes": ""
     }
   ],
-  "media": [
+  "media": [],
+  "figure_coverage": {
+    "unique_substantive_figures": 50,
+    "reused_figures": 50,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-03.md",
+  "pptx_figures": [
     {
-      "sha256": "0a482b1294e7e8af7ab8ade023bae286f6f3d134612327f2466debf853f71298",
-      "pptx_path": "ppt/media/image1.jpeg",
-      "extension": ".jpeg",
-      "bytes": 200824,
-      "slides": [
-        5
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s05-cell-types.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image1.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s05-image1.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "fee14ee59841c6e3e15736f5ca07c4f0d8c9d95ea6456c3ff8a4e737dd56c871",
-      "pptx_path": "ppt/media/image10.jpeg",
-      "extension": ".jpeg",
-      "bytes": 11756,
-      "slides": [
-        9
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s06-central-dogma.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image3.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "17db01b76912132375197e7e0b7fa5c8da468f431905510142121c245009971c",
-      "pptx_path": "ppt/media/image11.png",
-      "extension": ".png",
-      "bytes": 175128,
-      "slides": [
-        10
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s10-image11.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "e573bd349e7182ff6fc8bbada10ce056ea255b323cdab1e07af7a6c2c538be75",
-      "pptx_path": "ppt/media/image12.png",
-      "extension": ".png",
-      "bytes": 27559,
-      "slides": [
-        10
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s07-cell-signaling.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image4.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "afe888491448838fba40ac7eda44fd3147446d729511ec5437cee4d3c726c0f4",
-      "pptx_path": "ppt/media/image13.png",
-      "extension": ".png",
-      "bytes": 40576,
-      "slides": [
-        10
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "b5997025a9bdc003f440635048fa8a5d6f1e3901f5cf3c2587924438ac85e559",
-      "pptx_path": "ppt/media/image14.png",
-      "extension": ".png",
-      "bytes": 124837,
-      "slides": [
-        11
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "b60521d2444e060138de601e8764be27ffe306e13b5f7fbb1d31a0dfa4718170",
-      "pptx_path": "ppt/media/image15.jpeg",
-      "extension": ".jpeg",
-      "bytes": 77939,
-      "slides": [
-        12
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s12-image15.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "3668621e6fecbc6b94537244bb415a44513cbf446c8a8102533806f29ecad7ce",
-      "pptx_path": "ppt/media/image16.png",
-      "extension": ".png",
-      "bytes": 7077570,
-      "slides": [
-        12
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s08-biomolecules.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image7.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "cf8ff9a3057fdb541769faf91c20699507c0c6db837c4aed1d41558f0d26af0a",
-      "pptx_path": "ppt/media/image17.jpeg",
-      "extension": ".jpeg",
-      "bytes": 313317,
-      "slides": [
-        12
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "1d231b15f1e22e7535717655bc9a6cbf50254cb426317cca0d9442d2e55b3759",
-      "pptx_path": "ppt/media/image18.png",
-      "extension": ".png",
-      "bytes": 72661,
-      "slides": [
-        13
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "6f112d1eea8202296e76a71a2100e550d086198d1e117f417d3606d3b60cb225",
-      "pptx_path": "ppt/media/image19.png",
-      "extension": ".png",
-      "bytes": 51267,
-      "slides": [
-        14
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s14-image19.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "82932b37ea1cf3f298c5c4fc379cac2560b27f41650c9e961d14ff7858490b12",
-      "pptx_path": "ppt/media/image2.jpeg",
-      "extension": ".jpeg",
-      "bytes": 237590,
-      "slides": [
-        5
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s10-aspirin-model.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image11.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "1533ae0ea9ad17b6f47f82dd45f49b3bfe709ba2e2b5777f412b08099a550e40",
-      "pptx_path": "ppt/media/image20.gif",
-      "extension": ".gif",
-      "bytes": 361520,
-      "slides": [
-        15
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "68fbd2c880b2e7d627a36cb78b59a88dda42d329567ae516854a7eaab4d4ae2d",
-      "pptx_path": "ppt/media/image21.png",
-      "extension": ".png",
-      "bytes": 666785,
-      "slides": [
-        17
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "abe29a91c6f3510c73d1eafcf842b1b9f9459a0d0f200aca12c24e0a0517f65a",
-      "pptx_path": "ppt/media/image22.png",
-      "extension": ".png",
-      "bytes": 115147,
-      "slides": [
-        18
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "701d1c1cff92bddc48842b909114cab81b2ca41ea29e36b457280f2743e609f1",
-      "pptx_path": "ppt/media/image23.jpeg",
-      "extension": ".jpeg",
-      "bytes": 63669,
-      "slides": [
-        20
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s20-image23.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "69b7a2b5d8efcf74a4cec807e7c1e1da41ef674b01f97b4b541e6900dafb5b21",
-      "pptx_path": "ppt/media/image24.jpeg",
-      "extension": ".jpeg",
-      "bytes": 28915,
-      "slides": [
-        21
+      "slide": 12,
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s12-monoclonal-antibodies.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image15.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s21-image24.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "c8374fdc395d616ccce1747778ab033250df4cff90c8f4dc9436a627aebdbb75",
-      "pptx_path": "ppt/media/image25.png",
-      "extension": ".png",
-      "bytes": 53804,
-      "slides": [
-        22
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s14-adme-overview.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image19.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s22-image25.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "032e9e7b2c006af476133703a1d425a9cc1542e7ac595bcee557fbf2abe83733",
-      "pptx_path": "ppt/media/image26.png",
-      "extension": ".png",
-      "bytes": 97041,
-      "slides": [
-        22
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s20-absorption-elimination.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image23.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "0759599fff544c95b712bf535cc333f03d6701df4d8e4858d001646f210a7b0d",
-      "pptx_path": "ppt/media/image27.png",
-      "extension": ".png",
-      "bytes": 40620,
-      "slides": [
-        23
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s23-image27.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "14449f340fda0b2ae864a295d6d8daaf5a23cae41a35427e8cb2b756e54b9b3a",
-      "pptx_path": "ppt/media/image28.jpeg",
-      "extension": ".jpeg",
-      "bytes": 19478,
-      "slides": [
-        24
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s21-pk-pd-relationship.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image24.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s24-image28.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "dde9bdd2d4fdf336e8665f1f4772a4698fdf70238b254e92a164aa678aef4b29",
-      "pptx_path": "ppt/media/image29.jpeg",
-      "extension": ".jpeg",
-      "bytes": 203135,
-      "slides": [
-        25
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s22-drug-receptor-interactions.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image25.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s25-image29.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "7b1a0336df83e377f8e9a5d7bcd92e8941fff97d4bf97191216f6c154d1bce50",
-      "pptx_path": "ppt/media/image3.jpeg",
-      "extension": ".jpeg",
-      "bytes": 109349,
-      "slides": [
-        6
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s23-dose-response.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image27.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s06-image3.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "9c39d2c019a147097677827b2641adb1bc2bd3f9c09a430608d4aac70f748985",
-      "pptx_path": "ppt/media/image30.png",
-      "extension": ".png",
-      "bytes": 57722,
-      "slides": [
-        26
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s24-therapeutic-index.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image28.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s26-image30.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "ea35524ab55a480a854e4dbe6d91fd083ca0dfb7af04ef6d4bbaddf71c9ef8f9",
-      "pptx_path": "ppt/media/image31.jpeg",
-      "extension": ".jpeg",
-      "bytes": 116038,
-      "slides": [
-        27
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s25-beta-blocker-moa.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image29.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "5903ba8540ab585ced6f375abd69a514f023782ada26d64c59b4fa702500ab2a",
-      "pptx_path": "ppt/media/image32.jpeg",
-      "extension": ".jpeg",
-      "bytes": 35497,
-      "slides": [
-        27
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "942f8a29bf390eef48415af84364965e8745f2b8d11bf8b780bc994881185b1c",
-      "pptx_path": "ppt/media/image33.png",
-      "extension": ".png",
-      "bytes": 170277,
-      "slides": [
-        28
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s28-image33.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "d528051f802aff0acd9c9d6fb57c577e463c82407950e4e12eb55c7766803576",
-      "pptx_path": "ppt/media/image34.png",
-      "extension": ".png",
-      "bytes": 14199,
-      "slides": [
-        30
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s26-signal-transduction.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image30.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s30-image34.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "35a4c45311de9e224d89f7b9a5dae3e656fd00b755c53e77aaf0a29d6b9ce309",
-      "pptx_path": "ppt/media/image35.png",
-      "extension": ".png",
-      "bytes": 38627,
-      "slides": [
-        30
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s28-drug-interactions.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image33.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "9bd149a676a38f591363ed68fd0fed111ba7c243bb538946b9e47c2d74103fb0",
-      "pptx_path": "ppt/media/image36.jpeg",
-      "extension": ".jpeg",
-      "bytes": 87647,
-      "slides": [
-        31
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s31-image36.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "a28c39571dee4ecc75eb8312c5637e8851309db0576e4d9ae93a0de2742f20a0",
-      "pptx_path": "ppt/media/image37.png",
-      "extension": ".png",
-      "bytes": 206587,
-      "slides": [
-        31
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s30-discovery-process.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image34.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "0532d9f0599d3a46b1574487dcf7b1237d3f8e3445dfc7a8fb3ba881b0455bfd",
-      "pptx_path": "ppt/media/image38.jpeg",
-      "extension": ".jpeg",
-      "bytes": 11243,
-      "slides": [
-        32
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s32-image38.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "a678940f6e8c3b26c2bb39a40ac78781182b1619e54148c9df9a252b29767b20",
-      "pptx_path": "ppt/media/image39.png",
-      "extension": ".png",
-      "bytes": 29237,
-      "slides": [
-        33
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s31-target-identification.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image36.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s33-image39.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "045e38d5c6fe6e431f9b53b5d792a49212b822f8e1610487281e81b759f42f45",
-      "pptx_path": "ppt/media/image4.png",
-      "extension": ".png",
-      "bytes": 5718,
-      "slides": [
-        7,
-        22
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s32-druggability-pocket.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image38.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s07-image4.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "d677661c1d94c9c587447abb2992b1ca634919d6be30b1eaeb12da1a543c0602",
-      "pptx_path": "ppt/media/image40.png",
-      "extension": ".png",
-      "bytes": 262468,
-      "slides": [
-        33
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s33-target-validation.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image39.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "a14ef9453940f458b7112482c84ef386426b1d5cdebaee62d482d78a5ed46471",
-      "pptx_path": "ppt/media/image41.png",
-      "extension": ".png",
-      "bytes": 311088,
-      "slides": [
-        34
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s34-image41.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "d2aefab161dac212d730e2bf98c1b9cf10ff3be0276a033405c795c610e31861",
-      "pptx_path": "ppt/media/image42.png",
-      "extension": ".png",
-      "bytes": 228212,
-      "slides": [
-        34
+      "slide": 34,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s34-hit-identification.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image41.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "dbb07584e7a97f718004917707e2f497096a731361ddf12126315e88dd202b85",
-      "pptx_path": "ppt/media/image43.jpeg",
-      "extension": ".jpeg",
-      "bytes": 21380,
-      "slides": [
-        36
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s36-image43.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "d3142fc899a230aa4b501441ad97555f27b9955279ce47190796a82475818aff",
-      "pptx_path": "ppt/media/image44.jpeg",
-      "extension": ".jpeg",
-      "bytes": 77504,
-      "slides": [
-        37
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s36-lead-optimization.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image43.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s37-image44.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "57eda6a63737fdb4b9c2d7db8c3cc26b943e3c96667eb0c77c7ec7f7f5c51cec",
-      "pptx_path": "ppt/media/image45.png",
-      "extension": ".png",
-      "bytes": 182690,
-      "slides": [
-        38
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s37-clinical-trial-phases.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image44.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s38-image45.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "4924044db5d2457113d4abfd4ccdf1ede1ddd3093aabc5f95ac04f9ab4886c62",
-      "pptx_path": "ppt/media/image46.png",
-      "extension": ".png",
-      "bytes": 159471,
-      "slides": [
-        39
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s38-discovery-funnel.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image45.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s39-image46.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "dc0dfbf6825b0dd03d4a5d5afae10293941f20e359a3391296e96d202be8e184",
-      "pptx_path": "ppt/media/image47.jpeg",
-      "extension": ".jpeg",
-      "bytes": 68709,
-      "slides": [
-        39
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s39-personalized-medicine.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image46.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "c33ab9d24905e329ec5197970a538d64cbb821e53cb36e85a771bc69ac924b1d",
-      "pptx_path": "ppt/media/image48.png",
-      "extension": ".png",
-      "bytes": 111367,
-      "slides": [
-        41
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s41-image48.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "08082238ff1c7bcbc2386416b71ae6976d3ab86a506bb98fd2ce7968ae8945f8",
-      "pptx_path": "ppt/media/image49.jpeg",
-      "extension": ".jpeg",
-      "bytes": 108643,
-      "slides": [
-        41
+      "slide": 41,
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s41-omics.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image48.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "2aecc12b841f79d5a487ed528b74ac6c93949e027c64e3d110c5783cb7a19c64",
-      "pptx_path": "ppt/media/image5.jpeg",
-      "extension": ".jpeg",
-      "bytes": 253261,
-      "slides": [
-        7
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "2d5aaba142cf0bea78a894835dc156f29dd93ef10a79b9fdf1db0dd81507b7bc",
-      "pptx_path": "ppt/media/image50.jpeg",
-      "extension": ".jpeg",
-      "bytes": 46253,
-      "slides": [
-        42
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s42-image50.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "cb6bea175a00254b9072d68c6dce23512dcca869f932d2e19cbbe871f1d14cd0",
-      "pptx_path": "ppt/media/image51.jpeg",
-      "extension": ".jpeg",
-      "bytes": 81703,
-      "slides": [
-        43
+      "slide": 42,
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s42-rna-seq.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image50.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s43-image51.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "d2f07534fe6ebcf61c8cc586c3a30294586568b29637b47f3f9cc32f1b201f98",
-      "pptx_path": "ppt/media/image52.jpeg",
-      "extension": ".jpeg",
-      "bytes": 71018,
-      "slides": [
-        44
+      "slide": 43,
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s43-atac-seq.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image51.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s44-image52.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "408d5a008619430728598bc18b58c1ba834abb0cd731f0ac4b93db4e1c6d0e59",
-      "pptx_path": "ppt/media/image53.jpeg",
-      "extension": ".jpeg",
-      "bytes": 50387,
-      "slides": [
-        44
+      "slide": 44,
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s44-protein-structure-data.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image52.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "798d16777e6986cb94d0b23b4d444a7131243edb6b25a76522b9420eb89d297e",
-      "pptx_path": "ppt/media/image54.png",
-      "extension": ".png",
-      "bytes": 102721,
-      "slides": [
-        45
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s45-image54.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "b7d2d75179b5c34fcc166b52cc4ae52948a326d7b31eda85120abd0250af0dae",
-      "pptx_path": "ppt/media/image55.jpeg",
-      "extension": ".jpeg",
-      "bytes": 56066,
-      "slides": [
-        45
+      "slide": 45,
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s45-xray-crystallography.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image54.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "69577ba34412dd36f804d1507fd094924906ca85ba789a6565e9afd6e7631fda",
-      "pptx_path": "ppt/media/image56.jpeg",
-      "extension": ".jpeg",
-      "bytes": 71488,
-      "slides": [
-        46
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s46-image56.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "8bd0120d8d2321cf9267d92b8f144bb7c2d03db031ac04656cd3b196a96eee13",
-      "pptx_path": "ppt/media/image57.png",
-      "extension": ".png",
-      "bytes": 31877,
-      "slides": [
-        48
+      "slide": 46,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s46-cryo-em.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image56.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s48-image57.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "86f9ce6f331631a7ed9da15969de49e263abd548bd8febe4720a19c06883440a",
-      "pptx_path": "ppt/media/image58.jpeg",
-      "extension": ".jpeg",
-      "bytes": 198709,
-      "slides": [
-        48
+      "slide": 48,
+      "pptx_slide": 48,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s48-materials-science.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image57.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "9fcdd296e9258d4926e681240a8814728ac77df5a7bdd2b92eabaa9ab072f84e",
-      "pptx_path": "ppt/media/image59.gif",
-      "extension": ".gif",
-      "bytes": 34657,
-      "slides": [
-        48
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "be3295b76203c01f94949c74620b6179c45e5bc1b19b4935b9a197252587d9b3",
-      "pptx_path": "ppt/media/image6.png",
-      "extension": ".png",
-      "bytes": 14502,
-      "slides": [
-        7
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "0c279cc4926b2272752e33e21f323fede393c61e0178cb954a4b7b6501b666ab",
-      "pptx_path": "ppt/media/image60.png",
-      "extension": ".png",
-      "bytes": 52108,
-      "slides": [
-        49
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s49-image60.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "93861716929d2bc7381d2e93fea988ee12491d30bd018e098639fee98f513954",
-      "pptx_path": "ppt/media/image61.gif",
-      "extension": ".gif",
-      "bytes": 20408,
-      "slides": [
-        50
+      "slide": 49,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s49-materials-discovery-loop.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image60.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "f4823ad7ab5196bf98ef2a1cc36dbc5d8b23f183dc5eda4ab8ede9407d94e30a",
-      "pptx_path": "ppt/media/image62.png",
-      "extension": ".png",
-      "bytes": 153081,
-      "slides": [
-        50
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s50-image62.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395",
-      "pptx_path": "ppt/media/image63.png",
-      "extension": ".png",
-      "bytes": 58449,
-      "slides": [
-        51
+      "slide": 50,
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s50-material-classes.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image62.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s51-image63.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "c7ae9b7a5bcd9f0c0e2bc36d67fee53588a1de5de01fcf6c50d4f260161de07e",
-      "pptx_path": "ppt/media/image64.png",
-      "extension": ".png",
-      "bytes": 159744,
-      "slides": [
-        52
+      "slide": 51,
+      "pptx_slide": 51,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s51-band-gap-comparison.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image63.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s52-image64.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "8896104b29a89a9369992e7eb6e08ac27eefc49442969876c3fe89d5366b8e2e",
-      "pptx_path": "ppt/media/image65.png",
-      "extension": ".png",
-      "bytes": 32890,
-      "slides": [
-        52
+      "slide": 52,
+      "pptx_slide": 52,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s52-oled-properties.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image64.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "d9a4913fa85b867ab3f6607ae318478d87c841829d19f0160bdb4ed6b6625c5a",
-      "pptx_path": "ppt/media/image66.jpeg",
-      "extension": ".jpeg",
-      "bytes": 31326,
-      "slides": [
-        53
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s53-image66.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "6df86d944edba6ebc9d943b7e35d57541e9cd1201526a34db8039106f4dcf4f0",
-      "pptx_path": "ppt/media/image67.png",
-      "extension": ".png",
-      "bytes": 442796,
-      "slides": [
-        54
+      "slide": 53,
+      "pptx_slide": 53,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s53-thermal-transport.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image66.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s54-image67.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "0255a41ce1e3c809c41691a94547c7fd422258a5e7db9273b8a85173da859124",
-      "pptx_path": "ppt/media/image68.png",
-      "extension": ".png",
-      "bytes": 124996,
-      "slides": [
-        54
+      "slide": 54,
+      "pptx_slide": 54,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s54-magnetic-classes.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image67.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "55add2c7a421ac5d05a3a5ab1cf0fb802d2adb8a56113a8ec7502aed530f27a3",
-      "pptx_path": "ppt/media/image69.png",
-      "extension": ".png",
-      "bytes": 230534,
-      "slides": [
-        55
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s55-image69.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "14730109b4b885733dc025d125e7c1d4553ab5a4b7df9645af98c90f7247088b",
-      "pptx_path": "ppt/media/image7.png",
-      "extension": ".png",
-      "bytes": 163271,
-      "slides": [
-        8
+      "slide": 55,
+      "pptx_slide": 55,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s55-size-scales.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image69.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s08-image7.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "5402d240ce77f220b3300d0ab117c42f9fbb5453bd642821b16d10c4845546d7",
-      "pptx_path": "ppt/media/image70.png",
-      "extension": ".png",
-      "bytes": 132447,
-      "slides": [
-        55
+      "slide": 57,
+      "pptx_slide": 57,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s57-crystal-stability.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image71.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "46ea95226fee25c7f3b9e20f6df3b2c9eacaa388ecad46bbbb2dcd4bd72693f8",
-      "pptx_path": "ppt/media/image71.jpeg",
-      "extension": ".jpeg",
-      "bytes": 1199494,
-      "slides": [
-        57
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s57-image71.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "e43cd5f8506fcecca83220f540324362d9ebb1da4a95be1f96229a998af955e4",
-      "pptx_path": "ppt/media/image72.jpeg",
-      "extension": ".jpeg",
-      "bytes": 114642,
-      "slides": [
-        57
+      "slide": 59,
+      "pptx_slide": 59,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s59-solid-phase-synthesis.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image73.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "42d835fe4a0efd6cd9ad89cda8f49ee3252a98c7b8343baee7516aa552abd9a7",
-      "pptx_path": "ppt/media/image73.png",
-      "extension": ".png",
-      "bytes": 1038198,
-      "slides": [
-        59
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s59-image73.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "5846db05e7e99fba983b006b65c92e7c5d65e32e3b9b0eb10efa2a10ae83ce51",
-      "pptx_path": "ppt/media/image74.png",
-      "extension": ".png",
-      "bytes": 338368,
-      "slides": [
-        60
+      "slide": 60,
+      "pptx_slide": 60,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s60-liquid-phase-synthesis.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image74.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s60-image74.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "13e5429981e50de396061d86f21ded0dfd03748f507cb8bf5d5d3c119e71929f",
-      "pptx_path": "ppt/media/image75.jpeg",
-      "extension": ".jpeg",
-      "bytes": 8202,
-      "slides": [
-        61
+      "slide": 61,
+      "pptx_slide": 61,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s61-gas-phase-synthesis.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image75.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s61-image75.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "8b4fe7d085b87d1c627b86484fe3479b468aefaa9def3cff3c424110b7c00af2",
-      "pptx_path": "ppt/media/image76.png",
-      "extension": ".png",
-      "bytes": 573169,
-      "slides": [
-        62
+      "slide": 62,
+      "pptx_slide": 62,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s62-xray-diffraction.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image76.png"
       ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s62-image76.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "64e996b189acdd6de3efad9b08f929194dd84a5a855365c5197a5ef07c986b73",
-      "pptx_path": "ppt/media/image77.gif",
-      "extension": ".gif",
-      "bytes": 31724,
-      "slides": [
-        62
+      "slide": 63,
+      "pptx_slide": 63,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s63-electron-microscopy.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image78.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "69c7a12d458a389c056c55531f5a2ad4aaabd07ece3b5fef6362bbf042c3cfbd",
-      "pptx_path": "ppt/media/image78.jpeg",
-      "extension": ".jpeg",
-      "bytes": 56871,
-      "slides": [
-        63
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s63-image78.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "6df2cb44474b8382f2cf70d69a5cd018e9294fa5e43e545ee03f18b2dd9b1ba5",
-      "pptx_path": "ppt/media/image79.jpeg",
-      "extension": ".jpeg",
-      "bytes": 124018,
-      "slides": [
-        63
+      "slide": 65,
+      "pptx_slide": 65,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s65-battery-cell.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image80.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "0bbfe035b41249c7c8bc6b539e921dd4937c5451231a711a7d9af2baedaad903",
-      "pptx_path": "ppt/media/image8.jpeg",
-      "extension": ".jpeg",
-      "bytes": 27912,
-      "slides": [
-        9
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "383544ff14b420b7d9381eae5cf6e0a0b3e28c82d1b163e05207851f5f94326c",
-      "pptx_path": "ppt/media/image80.png",
-      "extension": ".png",
-      "bytes": 499710,
-      "slides": [
-        65
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s65-image80.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "a2a4241860207ff0622e97921e78d0252809010a34f70a53ddd42137e530256c",
-      "pptx_path": "ppt/media/image81.jpeg",
-      "extension": ".jpeg",
-      "bytes": 106784,
-      "slides": [
-        65
+      "slide": 66,
+      "pptx_slide": 66,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s66-chemeleon-candidates.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image82.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "2ff5b58e4f26ce63afedeed9c785d1c1eb8ca4727d2cd30f6c25120fb9099975",
-      "pptx_path": "ppt/media/image82.png",
-      "extension": ".png",
-      "bytes": 284328,
-      "slides": [
-        66
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s66-image82.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "c05c12a72a3ca6411bc50c3107ab882b14d35c11034b44f975b2f361b6edddfc",
-      "pptx_path": "ppt/media/image83.png",
-      "extension": ".png",
-      "bytes": 343836,
-      "slides": [
-        66
+      "slide": 67,
+      "pptx_slide": 67,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s67-semiconductor-doping.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image84.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "b56245566f604df87f715a0cc5c3e23a5e320d87e7250929aa3391723afb6f23",
-      "pptx_path": "ppt/media/image84.jpeg",
-      "extension": ".jpeg",
-      "bytes": 65787,
-      "slides": [
-        67
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s67-image84.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "b6ca7fd53759cdbe46a7d9dc15bd802eb3c0d6b3ea83d5ebccc2f1772ab578b4",
-      "pptx_path": "ppt/media/image85.png",
-      "extension": ".png",
-      "bytes": 26230,
-      "slides": [
-        67
+      "slide": 68,
+      "pptx_slide": 68,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s68-heterogeneous-catalysis.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image87.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "16cfeb81cd49dd0a585511526b875181497ffd292e4ccb5f525e4166cbad7892",
-      "pptx_path": "ppt/media/image86.jpeg",
-      "extension": ".jpeg",
-      "bytes": 78175,
-      "slides": [
-        67
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "164535a84a23af025735ba55400dc5ce012b5f7d004c023eb15b2955851feb93",
-      "pptx_path": "ppt/media/image87.jpeg",
-      "extension": ".jpeg",
-      "bytes": 102656,
-      "slides": [
-        68
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s68-image87.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "0d0cd5e6a353b92069112a508e8e011fcba5e1701b220790efd501e9d9be7597",
-      "pptx_path": "ppt/media/image88.jpeg",
-      "extension": ".jpeg",
-      "bytes": 160195,
-      "slides": [
-        68
+      "slide": 69,
+      "pptx_slide": 69,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s69-biocatalysis.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image89.jpeg"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "2e4e05c1e7ab8e242edd2310bcc23f4d03b15784c68b3abb6d382f32ad8bf001",
-      "pptx_path": "ppt/media/image89.jpeg",
-      "extension": ".jpeg",
-      "bytes": 74710,
-      "slides": [
-        69
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s69-image89.webp",
       "reuse_status": "reused"
     },
     {
-      "sha256": "9615f3fd8ba07465803d0e9b1a8c831aae15dd11118bb416227f9d98184c32c5",
-      "pptx_path": "ppt/media/image9.png",
-      "extension": ".png",
-      "bytes": 100025,
-      "slides": [
-        9
+      "slide": 70,
+      "pptx_slide": 70,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s70-direct-air-capture.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image91.png"
       ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "4ac90b81a88b3bba63aa627e4a244efe869eeaaf6878868c6e1bbb463aba17f4",
-      "pptx_path": "ppt/media/image90.png",
-      "extension": ".png",
-      "bytes": 885350,
-      "slides": [
-        69
-      ],
-      "reuse_status": "not-published"
-    },
-    {
-      "sha256": "ae9165990f477bebfe3409260520f632905eda832e4af60bab2df1ff584f06ba",
-      "pptx_path": "ppt/media/image91.png",
-      "extension": ".png",
-      "bytes": 51476,
-      "slides": [
-        70
-      ],
-      "asset_path": "assets/img/blog/lectures/ml4mol-2025-03/s70-image91.webp",
       "reuse_status": "reused"
-    },
-    {
-      "sha256": "ebe8a7e10c10d0fdd7cbf362ba2dbc46e2dde4cc3050273ea08f923790f9b99b",
-      "pptx_path": "ppt/media/image92.jpeg",
-      "extension": ".jpeg",
-      "bytes": 17743,
-      "slides": [
-        70
-      ],
-      "reuse_status": "not-published"
     }
   ],
-  "figure_coverage": {
-    "unique_substantive": 61,
-    "reused": 50,
-    "scientifically_redundant": 11,
-    "reuse_ratio": 0.8197
-  },
-  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-03.md"
+  "asset_migration_status": "pptx-native-complete"
 }
