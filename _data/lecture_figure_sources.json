@@ -42866,7 +42866,7 @@
         "ml4mol-2025-13:3"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Protein representation learning seeks a reusable encoding that connects several biological views and tasks.",
+      "caption": "Protein representation learning seeks a reusable encoding that connects several biological views and tasks. Lecture synthesis by the author.",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "7e88dc3702b9439ad1ae0280bb6e82d8e4ff2d534d6cfdebdaa53b8a40c0b817",
@@ -42888,7 +42888,7 @@
         "ml4mol-2025-13:4"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "PEER evaluates whether one learned representation transfers across heterogeneous protein-understanding tasks.",
+      "caption": "PEER evaluates whether one learned representation transfers across heterogeneous protein-understanding tasks. Source: [Xu et al., 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/e467582d42d9c13fa9603df16f31de6d-Abstract-Datasets_and_Benchmarks.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "e6fb235ffb2ff10bf758e36aa8d1c40749589b1708188eac283af6ee3d43f4d6",
@@ -42915,7 +42915,7 @@
         "ml4mol-2025-13:7"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "A protein fitness landscape records how mutations move a sequence toward better or worse measured function.",
+      "caption": "A protein fitness landscape records how mutations move a sequence toward better or worse measured function. The exact visual origin is unclear.",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "f766dc7a4cd7e914f2a6703ed761764a87cc7b4168110ed8c4ba54e8bc4217ec",
@@ -42938,7 +42938,7 @@
         "ml4mol-2025-13:6"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Protein language modeling learns contextual residue embeddings from sequence reconstruction.",
+      "caption": "Protein language modeling learns contextual residue embeddings from sequence reconstruction. Lecture synthesis by the author.",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "0200e629b18f5fd40584e3793583240bd4f23fdac6c8536c6c49b4e5a297ca16",
@@ -42961,7 +42961,7 @@
         "ml4mol-2025-13:8"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ESM learns protein sequence representations through masked amino-acid recovery.",
+      "caption": "ESM learns protein sequence representations through masked amino-acid recovery. Source: [Rives et al., 2021](https://www.pnas.org/doi/10.1073/pnas.2016239118).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "fb7f0d340f6b7a4c99965bb6199a5a3797a6f7ebba887509b16da4f1b416948b",
@@ -42987,7 +42987,7 @@
         "ml4mol-2025-13:8"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ESM reports systematic improvements as model scale increases.",
+      "caption": "ESM reports systematic improvements as model scale increases. Source: [Rives et al., 2021](https://www.pnas.org/doi/10.1073/pnas.2016239118).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "aca17b2352586f7c0c8fcf3b350be9cf078c3c5250b72c133be24ea44b340834",
@@ -43013,7 +43013,7 @@
         "ml4mol-2025-13:8"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ESMFold converts pretrained sequence representations into three-dimensional structures.",
+      "caption": "ESMFold converts pretrained sequence representations into three-dimensional structures. Source: [Lin et al., 2023](https://www.science.org/doi/10.1126/science.ade2574).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "a2294a942a22083e839b82a9f8c800882bec9d968d6648b9ffcaef6901af6163",
@@ -43039,7 +43039,7 @@
         "ml4mol-2025-13:9"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "A discrete diffusion language model supports both protein understanding and generation.",
+      "caption": "A discrete diffusion language model supports both protein understanding and generation. Source: [Wang et al., 2024](https://openreview.net/forum?id=NUAbSFqyqb).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "f4a3fa577baaef40d34fa4a7a854ba21a2ce23491f7f718b2ca6dbf3fd575adc",
@@ -43063,7 +43063,7 @@
         "ml4mol-2025-13:9"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "DPLM corrupts protein sequences at several mask levels and learns the corresponding reverse denoising process.",
+      "caption": "DPLM corrupts protein sequences at several mask levels and learns the corresponding reverse denoising process. Source: [Wang et al., 2024](https://openreview.net/forum?id=NUAbSFqyqb).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "40cf0c7754c6823d4367c824270a22dda8f41d36beb2b6e09cb2b9f5d888b6ae",
@@ -43088,7 +43088,7 @@
         "ml4mol-2025-13:10"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "MSA Transformer treats aligned sequences as a matrix with distinct sequence and family axes.",
+      "caption": "MSA Transformer treats aligned sequences as a matrix with distinct sequence and family axes. Source: [Rao et al., 2021](https://proceedings.mlr.press/v139/rao21a.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "68056c6a8acd5591a97ca8ceb3ecbcac2cd208e9f2f8131640c8974440503c5d",
@@ -43113,7 +43113,7 @@
         "ml4mol-2025-13:10"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Row and column attention separately model within-sequence context and cross-homolog variation.",
+      "caption": "Row and column attention separately model within-sequence context and cross-homolog variation. Source: [Rao et al., 2021](https://proceedings.mlr.press/v139/rao21a.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "5c246bcacb2338fe6031928e31483047eaf769c8c2d6ec0d072078c718b8855b",
@@ -43137,7 +43137,7 @@
         "ml4mol-2025-13:10"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Long-range contact precision tests whether evolutionary representation learning recovers structural relations.",
+      "caption": "Long-range contact precision tests whether evolutionary representation learning recovers structural relations. Source: [Rao et al., 2021](https://proceedings.mlr.press/v139/rao21a.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "41bc88944d761718833fd8f92b97d013b54176326c718a8db64774a1a5ae2815",
@@ -43161,7 +43161,7 @@
         "ml4mol-2025-13:11"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Structure encoders support tasks such as fold classification, interface prediction, docking, and antibody modeling.",
+      "caption": "Structure encoders support tasks such as fold classification, interface prediction, docking, and antibody modeling. The exact montage origin is unclear.",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "eafa2c5330fe71abe8b9febe29c949e407b505646a696d324934951f5aae5075",
@@ -43184,7 +43184,7 @@
         "ml4mol-2025-13:12"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Pure point-cloud geometry can discard the sequential and relational organization of a protein chain.",
+      "caption": "Pure point-cloud geometry can discard the sequential and relational organization of a protein chain. The exact visual origin is unclear.",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "df84dacf589a2527b9dbab1fb23a07380341997a21272eceb551a25d2e61a4bb",
@@ -43207,7 +43207,7 @@
         "ml4mol-2025-13:13"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "GEAR preserves both chain order and spatial neighborhood through typed residue relations.",
+      "caption": "GEAR preserves both chain order and spatial neighborhood through typed residue relations. Source: [Zhang et al., 2023](https://arxiv.org/abs/2203.06125).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "3e2fcd6f2a85ca3661b0fb9e70d02d75c0d3ed19a348439b077fea8d629a9ad3",
@@ -43232,7 +43232,7 @@
         "ml4mol-2025-13:14"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "GEAR pretraining combines residue recovery with geometric relation prediction.",
+      "caption": "GEAR pretraining combines residue recovery with geometric relation prediction. Source: [Zhang et al., 2023](https://arxiv.org/abs/2203.06125).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "56a32a2cd3e13b64f4ba49c5a5234db402217be51e62df0e0259d02f913f66ab",
@@ -43257,7 +43257,7 @@
         "ml4mol-2025-13:14"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "The geometric objectives improve transfer to protein-level and residue-level tasks.",
+      "caption": "The geometric objectives improve transfer to protein-level and residue-level tasks. Source: [Zhang et al., 2023](https://arxiv.org/abs/2203.06125).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "2713825da710fadbb80521e05a0a3ea564d2a686cc007df53fd1c2ee972f394b",
@@ -43281,7 +43281,7 @@
         "ml4mol-2025-13:15"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Multimodal protein pretraining aligns sequence encoders with geometric structure encoders.",
+      "caption": "Multimodal protein pretraining aligns sequence encoders with geometric structure encoders. Source: [Tan et al., 2023](https://arxiv.org/abs/2303.06275).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "d22e2616f3846a6147bd80a590dfe82e07d86a001677cf8f18646514827d46da",
@@ -43307,7 +43307,7 @@
         "ml4mol-2025-13:16"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "SiamDiff mutually denoises trajectories from correlated conformers to make the representation sensitive to shared protein identity without collapsing conformational variation.",
+      "caption": "SiamDiff mutually denoises trajectories from correlated conformers to make the representation sensitive to shared protein identity without collapsing conformational variation. Source: [Zhang et al., 2023](https://openreview.net/forum?id=tIzbNQko3c).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "019f7865b3cc7f3d6687f78db68479e84042c44fb7dbfeb19fc995a66ccd135d",
@@ -43356,7 +43356,7 @@
         "ml4mol-2025-13:17"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "SaProt extends the protein vocabulary by pairing each amino acid with a discrete local-structure token derived from Foldseek.",
+      "caption": "SaProt extends the protein vocabulary by pairing each amino acid with a discrete local-structure token derived from Foldseek. Source: [Su et al., 2024](https://proceedings.iclr.cc/paper_files/paper/2024/hash/1c42513b8895ab11fbbb5b7e8e6b6b02-Abstract-Conference.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "37ef329ee5279915f7def3590179efa4fcf0ccce522d3907028db55d0b594ba3",
@@ -43381,7 +43381,7 @@
         "ml4mol-2025-13:18"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "DPLM-2 jointly corrupts and denoises sequence and structural token streams.",
+      "caption": "DPLM-2 jointly corrupts and denoises sequence and structural token streams. Source: [Wang et al., 2024](https://arxiv.org/abs/2410.13782).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "ced4e3ced3e4109cd7fcf4fa3a69261a50b7459ab3e4370551b031be23567395",
@@ -43406,7 +43406,7 @@
         "ml4mol-2025-13:19"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ESM-3 expresses several protein modalities as synchronized token sequences.",
+      "caption": "ESM-3 expresses several protein modalities as synchronized token sequences. Source: [Hayes et al., 2025](https://www.science.org/doi/10.1126/science.ads0018).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "d2b67137b4bf186d6d513d7da2b9bb9047772ced7687e7862df61db2c2787623",
@@ -43431,7 +43431,7 @@
         "ml4mol-2025-13:19"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Local atomic neighborhoods are discretized into structure tokens that align with residue positions.",
+      "caption": "Local atomic neighborhoods are discretized into structure tokens that align with residue positions. Source: [Hayes et al., 2025](https://www.science.org/doi/10.1126/science.ads0018).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "7fa74eab1b2804424cb682d365178a7682e8bb370438877e00c061ebbe55912b",
@@ -43456,7 +43456,7 @@
         "ml4mol-2025-13:19"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Masked diffusion lets ESM-3 generate one modality while conditioning on the others.",
+      "caption": "Masked diffusion lets ESM-3 generate one modality while conditioning on the others. Source: [Hayes et al., 2025](https://www.science.org/doi/10.1126/science.ads0018).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "a9090a9c4a8d7466dd887ccbad58788f5902b4a6ccdae706d16c3ac4ac97cf48",
@@ -43480,7 +43480,7 @@
         "ml4mol-2025-13:19"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Conditional examples demonstrate the shared sequence--structure--function interface.",
+      "caption": "Conditional examples demonstrate the shared sequence--structure--function interface. Source: [Hayes et al., 2025](https://www.science.org/doi/10.1126/science.ads0018).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "b3189bd6dd35415817a58d0e70b3d0a965e314dc1e5bbd04a9e3c6d1fa908341",
@@ -43504,7 +43504,7 @@
         "ml4mol-2025-13:20"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ProtST adds natural-language functional descriptions to evolutionary sequence supervision.",
+      "caption": "ProtST adds natural-language functional descriptions to evolutionary sequence supervision. Source: [Xu et al., 2023](https://proceedings.mlr.press/v202/xu23t.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "67344b17ecf2b765c354c14398b9c5997e76377a23eee7130983cb21cf223f21",
@@ -43529,7 +43529,7 @@
         "ml4mol-2025-13:21"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "ProtST trains sequence and text encoders to reconstruct their inputs and recognize matched protein descriptions.",
+      "caption": "ProtST trains sequence and text encoders to reconstruct their inputs and recognize matched protein descriptions. Source: [Xu et al., 2023](https://proceedings.mlr.press/v202/xu23t.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "85c7231b8249630df5cd2c7e71b1c1c2517c3831ef3696ff95da491cffc1c5e2",
@@ -43554,7 +43554,7 @@
         "ml4mol-2025-13:22"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "Zero-shot fitness prediction integrates pretrained sequence features with structural and functional context.",
+      "caption": "Zero-shot fitness prediction integrates pretrained sequence features with structural and functional context. Source: [Zhou et al., 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b7d795e655c1463d7299688d489e8ef4-Abstract-Conference.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "8c54c027dc3d4d1d60e3957514767bd2cfad9afc10c2a9065c279558642af6c7",
@@ -43579,7 +43579,7 @@
         "ml4mol-2025-13:23"
       ],
       "post": "_posts/2026-08-09-ml4mol-2025-lecture-13.md",
-      "caption": "A modest amount of structural supervision can substantially improve zero-shot mutation ranking.",
+      "caption": "A modest amount of structural supervision can substantially improve zero-shot mutation ranking. Source: [Zhou et al., 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b7d795e655c1463d7299688d489e8ef4-Abstract-Conference.html).",
       "extraction_method": "pptx-media-extraction",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "0601f7146b0cf7ae92ebe65f1c63e2b8287d751b723067ee71108e596b1554ee",
