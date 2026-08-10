@@ -1353,56 +1353,6 @@ footer.sticky-bottom {
   }
 }
 
-.lecture-path {
-  .lecture-path__description {
-    color: var(--global-text-color-light);
-    line-height: 1.55;
-    max-width: 760px;
-  }
-
-  .lecture-path__count {
-    color: var(--global-text-color-light);
-    font-size: 0.82rem;
-    margin-bottom: 2rem;
-  }
-
-  .lecture-path__section {
-    margin-top: 2.25rem;
-  }
-
-  .lecture-path__chapters {
-    padding-left: 1.4rem;
-
-    li {
-      margin-bottom: 1.15rem;
-      padding-left: 0.25rem;
-    }
-  }
-
-  .lecture-path__chapter-title {
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .lecture-path__chapter-description {
-    color: var(--global-text-color-light);
-    font-size: 0.9rem;
-    line-height: 1.45;
-    margin-top: 0.2rem;
-    max-width: 760px;
-  }
-
-  .lecture-path__chapter-source {
-    color: var(--global-text-color-light);
-    font-size: 0.75rem;
-    margin-top: 0.2rem;
-  }
-
-  .lecture-path__chapter--forthcoming {
-    color: var(--global-text-color-light);
-  }
-}
-
 .course-schedule {
   margin-top: 2.4rem;
 
@@ -1414,7 +1364,7 @@ footer.sticky-bottom {
   table {
     font-size: 0.88rem;
     line-height: 1.4;
-    min-width: 840px;
+    min-width: 680px;
   }
 
   th {
@@ -1467,18 +1417,6 @@ footer.sticky-bottom {
     width: 17%;
   }
 
-  .course-schedule-readings {
-    margin: 0;
-    padding-left: 1.05rem;
-
-    li {
-      margin-bottom: 0.35rem;
-    }
-
-    li:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 
 // Rouge Color Customization
@@ -1822,49 +1760,8 @@ details.kups-reproducibility {
   }
 }
 
-.lecture-series-nav {
-  border-top: 1px solid var(--global-divider-color);
-  margin-top: 3rem;
-  padding-top: 1.25rem;
-
-  .lecture-series-nav__position {
-    color: var(--global-text-color-light);
-    font-size: 0.82rem;
-    margin-bottom: 1rem;
-  }
-
-  .lecture-series-nav__links {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-
-  .lecture-series-nav__previous,
-  .lecture-series-nav__next {
-    align-items: center;
-    border: 1px solid var(--global-divider-color);
-    border-radius: 0.45rem;
-    display: flex;
-    gap: 0.7rem;
-    padding: 0.8rem 0.9rem;
-  }
-
-  .lecture-series-nav__next {
-    justify-content: flex-end;
-    text-align: right;
-  }
-
-  small {
-    color: var(--global-text-color-light);
-    display: block;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-  }
-}
-
 @media (max-width: 575.98px) {
-  .kups-series-nav .kups-series-nav__links,
-  .lecture-series-nav .lecture-series-nav__links {
+  .kups-series-nav .kups-series-nav__links {
     grid-template-columns: 1fr;
   }
 }

@@ -2,7 +2,6 @@
     - date: "Aug. 31 (Mon)"
   topic: Introduction
   focus: Course overview and introductions by Prof. Sungbin Lim and Prof. Sungsoo Ahn.
-  supplementary_posts: []
 
 - dates:
     - date: "Sep. 2 (Wed)"
@@ -12,9 +11,6 @@
     - date: "Sep. 16 (Wed)"
   topic: AI for Science Basics
   focus: Chemistry and physics, drug discovery, and materials discovery.
-  supplementary_posts:
-    - ml4mol-2025-lecture-02
-    - ml4mol-2025-lecture-03
 
 - dates:
     - date: "Sep. 21 (Mon)"
@@ -27,16 +23,12 @@
     - date: "Oct. 7 (Wed)"
   topic: Architectures
   focus: Graph neural networks, geometric representations, equivariance, and interatomic potentials.
-  supplementary_posts:
-    - ml4mol-2025-lecture-04
-    - ml4mol-2025-lecture-05
 
 - dates:
     - date: "Oct. 12 (Mon)"
     - date: "Oct. 14 (Wed)"
   topic: Midterm
   focus: Midterm period.
-  supplementary_posts: []
 
 - dates:
     - date: "Oct. 19 (Mon)"
@@ -49,8 +41,6 @@
     - date: "Nov. 11 (Wed)"
   topic: Generative Models
   focus: Continuous, geometric, and discrete generative processes.
-  supplementary_posts:
-    - ml4mol-2025-lecture-06
 
 - dates:
     - date: "Nov. 16 (Mon)"
@@ -61,15 +51,6 @@
     - date: "Dec. 2 (Wed)"
   topic: Seminar
   focus: Paper discussions and applications across molecules, proteins, and cells.
-  supplementary_posts:
-    - ml4mol-2025-lecture-07
-    - ml4mol-2025-lecture-08
-    - ml4mol-2025-lecture-09
-    - ml4mol-2025-lecture-10
-    - ml4mol-2025-lecture-11
-    - ml4mol-2025-lecture-12
-    - ml4mol-2025-lecture-13
-    - ml4mol-2025-lecture-14
 
 - dates:
     - date: "Dec. 7 (Mon)"
@@ -78,4 +59,3 @@
     - date: "Dec. 16 (Wed)"
   topic: Invited Talks
   focus: Speakers will be announced after they are confirmed.
-  supplementary_posts: []
