@@ -27,9 +27,6 @@ layout: default
         {% if page.collection_status == 'selected' and document.selected != true %}
           {% assign include_document = false %}
         {% endif %}
-        {% if page.editorial_status and document.editorial_status != page.editorial_status %}
-          {% assign include_document = false %}
-        {% endif %}
         {% if include_document %}
           {% assign archive_count = archive_count | plus: 1 %}
           {% assign read_time = document.content | number_of_words | divided_by: 150 | plus: 1 %}
