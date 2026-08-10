@@ -1,7 +1,5 @@
 {% assign all_count = site.posts | size %}
 {% assign selected_count = site.posts | where: "selected", true | size %}
-{% assign human_reviewed_count = site.posts | where: "editorial_status", "human-reviewed" | size %}
-{% assign ai_generated_count = site.posts | where: "editorial_status", "ai-generated" | size %}
 {% assign research_count = site.posts | where: "post_type", "research" | size %}
 {% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
 {% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
@@ -14,12 +12,6 @@
     </span>
     <span>
       <a href="{{ '/blog/selected/' | relative_url }}"{% if page.url == '/blog/selected/' %} class="is-active" aria-current="page"{% endif %}>Selected {{ selected_count }}</a>
-    </span>
-    <span>
-      <a href="{{ '/blog/human-reviewed/' | relative_url }}"{% if page.url == '/blog/human-reviewed/' %} class="is-active" aria-current="page"{% endif %}>Human-reviewed {{ human_reviewed_count }}</a>
-    </span>
-    <span>
-      <a href="{{ '/blog/ai-generated/' | relative_url }}"{% if page.url == '/blog/ai-generated/' %} class="is-active" aria-current="page"{% endif %}>AI-generated {{ ai_generated_count }}</a>
     </span>
   </nav>
   <nav class="blog-type-summary blog-category-summary" aria-label="Blog formats">
