@@ -13,7 +13,7 @@ source .venv/bin/activate
 uv run python scripts/update_publications.py --check
 
 # Update lab members from members.xlsx
-python scripts/update_members.py
+uv run python scripts/update_members.py
 
 # Regenerate and compile the CV
 uv run python scripts/update_cv.py
@@ -24,7 +24,9 @@ git add -A && git commit -m "Update content" && git push
 
 External data source (synced from Dropbox):
 
-- `~/Sungsahn0215 Dropbox/SPML/administration/members.xlsx`
+- `~/SPML Dropbox/SPML/administration/members.xlsx`
+
+Set `SPML_MEMBERS_XLSX` to override this location on another machine.
 
 ## CV Maintenance
 
@@ -64,6 +66,7 @@ Then open http://localhost:4000
 Before pushing blog changes, run:
 
 ```bash
+python3 scripts/validate_agent_hygiene.py
 python3 scripts/validate_blog.py
 python3 scripts/validate_kups_pages.py
 ```

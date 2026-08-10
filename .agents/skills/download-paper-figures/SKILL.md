@@ -46,6 +46,12 @@ does not establish a general license for the same source elsewhere.
   `source_media_paths` or `source_shape_name`, `extraction_method`,
   `content_role`, and `reuse_status`. A completed migration must have an exact
   manifest-to-post asset match and no reused PDF-region records.
+- Keep extraction provenance out of the visible caption. Phrases such as
+  “PowerPoint-native,” “extracted from the deck,” and “retained from the
+  lecture slide” describe the production workflow, not the scientific figure.
+  Store those facts in the manifest. The rendered caption should explain what
+  the reader should notice and, when the visual source is verified, link the
+  original paper, project, dataset, or open-license page.
 
 ### Auditing Existing Lecture Figures
 
@@ -92,6 +98,12 @@ If using ChatGPT/image generation instead of a downloaded source figure:
 4. Record the prompt, asset paths, and design rationale in agent-facing notes, a figure-generation script, or a figure manifest.
 
 ## Caption Wording
+
+Lead with the scientific interpretation. End with a concise, linked source
+attribution only when the visual provenance has been verified. Do not expose
+internal extraction or migration language to readers. If the precise visual
+origin remains unclear, say so briefly and honestly rather than substituting a
+method citation for a figure-source claim.
 
 Direct licensed source:
 
