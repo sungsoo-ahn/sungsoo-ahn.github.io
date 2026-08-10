@@ -1,0 +1,1261 @@
+{
+  "deck_id": "gdl-2025-01",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec1_intro_v2.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec1_intro_v2.pptx",
+  "slide_count": 33,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Course Introduction",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Introduction",
+        "AI.899 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST",
+        "People in the Zoom chat, please turn on your camera."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "AI.899: Geometric Deep Learning (GDL)",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "AI.899: Geometric Deep Learning (GDL)",
+        "Welcome to the course!",
+        "Lecturer: Sungsoo Ahn (sungsoo.ahn@kaist.ac.kr)",
+        "Teaching assistant: TBA (XXX@kaist.ac.kr)",
+        "Course website:",
+        "https://sungsoo-ahn.github.io/ai899-2025"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "What to Expect From This Course",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "What to Expect From This Course",
+        "Course objective:",
+        "• Become an expert at geometric deep learning.",
+        "• Maybe practice writing & presentation about research.",
+        "• This is NOT an introductory course for graph neural networks (GNNs)!",
+        "This is a first-time course!",
+        "• Schedules are ambitious and subject to change.",
+        "• Expect some typos.."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Course Schedule",
+      "classification": "logistical",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Schedule",
+        "Topics will be mainly about:",
+        "1.   GNNs (2 weeks)",
+        "2.   Geometric GNNs (3 weeks)",
+        "3.   Graph generative models (1 week)",
+        "4.   Geometric generative models (3 weeks)",
+        "5.   Applications to small molecules, crystals,",
+        "and proteins (3 weeks)",
+        "They are subject to change!",
+        "• Some lectures may take longer.",
+        "• I haven’t decided on the details of make-up lectures."
+      ],
+      "media_sha256": [
+        "9ec1ada0f54dd80a4ecde6f6d4c84eb805639505ef693b6749c2b4c1c443b304"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "What to Expect From This Course",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "What to Expect From This Course",
+        "Useful but not necessary preliminaries:",
+        "• Typical deep learning architectures, e.g., CNNs and Transformers, work.",
+        "• Typical deep generative models, e.g., autoregressive, VAE, diffusion models.",
+        "• Fourier transformation and the convolution theorem.",
+        "I will try to provide a very preliminary knowledge about:",
+        "• Group theory (about group action & representation)",
+        "• Differential geometry (about Riemannian manifold)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "What to Expect From This Course",
+      "classification": "substantive",
+      "coverage": "omitted-logistical",
+      "text": [
+        "What to Expect From This Course",
+        "IMPORTANT: This course will focus on GDL applications to molecular science.",
+        "• Many lectures will be more about AI4science, not just about GDL.",
+        "AlphaFold3                           MatterGen                      Orb",
+        "(protein structure prediction)            (crystal generation)   (machine learning force field)"
+      ],
+      "media_sha256": [
+        "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91",
+        "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
+        "8829a49ecf5e0c896f70ee5c5895b124d4157ce4043412ceabd7d6384cf09166",
+        "a4722cff2a0de5e06a50ca07a2667227c55d3c6a8291f04ad6f89c033cab3de4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Course Project: Blog Post                                                           See an example of",
+      "classification": "logistical",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Project: Blog Post                                                           See an example of",
+        "spotlight blog post at",
+        "Grades are 100% based on a project to write a research blog post.                   ICLR 2024, about",
+        "Hessian-vector",
+        "products.",
+        "Blogposts will be about…",
+        "1.   Summarizing and augmenting the course;",
+        "about the lectures on “geometric GNNs” or “geometric generative models”.",
+        "2.   Reviewing two or more of the recent papers related to the course;",
+        "must include one of the papers in the predefined list.",
+        "3.   Your own research project related to the course;",
+        "must get my approval beforehand.",
+        "More logistics on choosing the topic will be announced soon."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Course Project: Blog Post",
+      "classification": "logistical",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Project: Blog Post",
+        "We adhere to most of the ICLR 2025 BlogPost format.",
+        "• I aim to publish it online with full credit to the authors.",
+        "• Maybe target ICLR 2026 BlogPost?"
+      ],
+      "media_sha256": [
+        "0fecab7819fa0c71cf18f61fc5253cd4af4f0eb86c6a9231075242915165d42b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Course Project: Blog Post",
+      "classification": "logistical",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Course Project: Blog Post",
+        "You will also need to submit reviews for 4~5 blogs,",
+        "which will be aggregated for the final grade.",
+        "• More logistics on review assignments will be shared soon.",
+        "Authors will have the chance to update their blogs",
+        "to incorporate the reviews."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "What is Geometric Deep Learning?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is Geometric Deep Learning?",
+        "ICLR 2021 Keynote - \"Geometric Deep Learning: The Erlangen Programme of ML\" - M Bronstein",
+        "https://youtu.be/w6Pw4MOzMuo?si=XCZahIC8G3Tm5M-0"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Some Hypes for the Topic",
+        "AlphaFold3 (Google Isomorphic labs) allows structure “prediction”",
+        "for proteins, RNAs, DNAs, and drugs."
+      ],
+      "media_sha256": [
+        "7d31c26db2db223cf919c2bede75a4a2dac4c6ffe7125ef3aac5a8b3c07e2aa4",
+        "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": null,
+      "title": "Machine Learning = Function Approximation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Machine Learning = Function Approximation",
+        "• How to choose the black-box function?",
+        "“black-box”",
+        "{cat, dog}"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": null,
+      "title": "Machine Learning = Function Approximation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Machine Learning = Function Approximation",
+        "• How to choose the black-box function?",
+        "“black-box”",
+        "{cat, dog}"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Deep Neural Networks (DNNs)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Deep Neural Networks (DNNs)",
+        "• DNNs are the revolution of",
+        "functions for machine learning.",
+        "• Great for optimizing the given",
+        "objective:",
+        "text-to-image generation [Saharia et al., 2022]"
+      ],
+      "media_sha256": [
+        "ebf80f598b78fc85f78fe605424f4cf0cf27ee4b2520fd8375c960edf7231e53",
+        "e0c56d46421d06cc102599df085568af3b8d649cb71c38b30a0ba9e4f1229a22",
+        "30eb852ef0aba909f20f46e5355dbe7807379a53c01a0f3df6e9645ed9307b5f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Deep Neural Networks (DNNs)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Deep Neural Networks (DNNs)",
+        "• How powerful are the DNNs?",
+        "Universal approximation theorem [Kurt et al., 1989]:",
+        "DNNs express any continuous function given enough # of parameters!",
+        "• Do we have enough # of parameters?",
+        "… Hopefully yes.",
+        "• Is # of parameters the solution",
+        "to everything? No!"
+      ],
+      "media_sha256": [
+        "304bfb816506ed2396ff1eebb91a483a23aec9e5541e9145a32cfe7b95f3c7f5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "The Problem of Overfitting",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Problem of Overfitting",
+        "• DNNs easily overfit to high dimensional data.",
+        "As the dimensionality increases, # of data points (amount of information)",
+        "required for good performance increases exponentially.",
+        "• Hence, we inject domain-specific information to",
+        "design DNNs like:",
+        "• Convolutional neural networks (CNNs)",
+        "• Recurrent neural networks (RNNs)",
+        "• Graph neural networks (GNNs)",
+        "• …"
+      ],
+      "media_sha256": [
+        "087bdde6f1f30802e7a229f16b0fb676fe2517ca5c8afa05276c7ae7ad077149",
+        "bd8c8d58260e1a7cf59078b29ec68ca8c4f1db80079984a578cd75dbf7dafbbf"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 18,
+      "title": "Zoo of DNN Architectures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Zoo of DNN Architectures",
+        "convolutional neural networks (CNNs)   graph neural networks (GNNs)",
+        "Transformers, Deep Sets, …",
+        "recurrent neural networks (RNNs)"
+      ],
+      "media_sha256": [
+        "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+        "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5",
+        "04337125f30a6f24427e01a229051fa7cf51bd4d5e74ae5b831bd14930f17ac9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 19,
+      "title": "Zoo of DNN Architectures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Zoo of DNN Architectures",
+        "Datasets:",
+        "Given different characteristic of datasets, what is",
+        "the “recipe” for new deep learning algorithms?"
+      ],
+      "media_sha256": [
+        "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
+        "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
+        "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
+        "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+        "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 20,
+      "title": "Geometric Deep Learning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometric Deep Learning",
+        "Datasets:",
+        "Given different geometry of datasets, what is the",
+        "“recipe” for new deep learning algorithms?"
+      ],
+      "media_sha256": [
+        "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
+        "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
+        "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
+        "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+        "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 21,
+      "title": "What is a Geometry?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is a Geometry?",
+        "“Mathematics about measurement, properties, and relationships",
+        "of points, lines, angles, surfaces, and solids.”",
+        "…from Wikipedia"
+      ],
+      "media_sha256": [
+        "1dba7b77661c778998ce06b3a0979dfb72ea5b4289de67ac0543713988088d8c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 22,
+      "title": "Geometry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometry",
+        "• A study of invariants, i.e., properties unchanged under",
+        "some class of transformations, called the symmetries.",
+        "• Euclidean geometry studies lengths and angles",
+        "(preserved by rotations and translations).",
+        "• Affine geometry studies parallelism",
+        "(preserved by affine transformations)."
+      ],
+      "media_sha256": [
+        "01886c5a06f9d20b3f29d4c005679f964e1a531010078a922c6847e3aeffbd60"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 23,
+      "title": "Geometry of Data",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometry of Data",
+        "• Geometry of data is defined by symmetries:",
+        "transformations that do not the change the object identity.",
+        "All Cats!"
+      ],
+      "media_sha256": [
+        "0daca2a2a01551299a1613641526f7ca4a226a049b53951717cc5de6bedd4cb5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 24,
+      "title": "Geometric Deep Neural Networks",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometric Deep Neural Networks",
+        "We should design deep neural networks that incorporates the data-specific structure."
+      ],
+      "media_sha256": [
+        "7801369c2ed926e8f7a1649a362f7e693bba6c36519aeb4b1fa782d10dd7509e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 25,
+      "title": "Geometric Generative Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Geometric Generative Models",
+        "We should design generative models that incorporates the data-specific structure.",
+        "Flow matching generative model:",
+        "let neural networks reconstruct the data 𝑥!",
+        "from noise 𝑥\" following the shortest path",
+        "Generating “torsion angles”            (minimum of integration over vector norms).",
+        "for a molecule"
+      ],
+      "media_sha256": [
+        "14d7cc6bc9a31b90aa9c8f6631c01a59d03381baa73118c0ce802396857d03f3",
+        "2e2ece3cd3992d8aabb861b564bb57bd4490505e692f5406250b805966d697aa",
+        "bb7464320c05895e2f67a375c5e3a17baf5bdf76b428675ec4f788d4d90c8f5c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 26,
+      "title": "Key Molecules",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key Molecules",
+        "Small molecules (drug candidates) consist of atoms and bonds.",
+        "• 3D representations additionally have atom-wise 3D coordinates.",
+        "• Roto-translation symmetry.",
+        "2D & 3D representations of aspirin"
+      ],
+      "media_sha256": [
+        "0d2399a3f64dfcfc9c420b8ea60708330078d5dee1b3b5dc245033ba4b6358b3",
+        "12da6710c3862b84ac8af55813bbbc9bbf9782b5f2027a611904cd612057e5c4",
+        "2470a2b7141d050e69173c989546d0b060204b85864409eaff447d86fab12932"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 27,
+      "title": "Key Molecules",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key Molecules",
+        "Proteins are long chains of amino acid",
+        "residues that function within organisms.",
+        "• 3D sequence data, forward-backward symmetry.",
+        "enzyme catalysis",
+        "protein structure"
+      ],
+      "media_sha256": [
+        "afb7592ed989993f9c07a19022dce82278b37ed0a70447bc36d4663ed63cb2d6",
+        "33de648d628432901aa63a3d1ba3e3e602f879f79fc1cd523551772c517c1526"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 28,
+      "title": "Key Molecules",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key Molecules",
+        "Nucleic acids (DNAs / RNAs)",
+        "carry genetic information.",
+        "• 3D sequence data,",
+        "forward-backward symmetry."
+      ],
+      "media_sha256": [
+        "185ed69c8516908eb4583b2e7b43901a8d37b931fa477cb9e2f01fb4441dcff1",
+        "37a1264bff3e77c721d6b36319cfed1ba0e62608c3fc4f56c1da053f40d77389"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 29,
+      "title": "Key Molecules",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key Molecules",
+        "Solids often have crystal structures that periodically",
+        "repeat patterns described by the unit cell.",
+        "Crystal symmetries are described by",
+        "the space group"
+      ],
+      "media_sha256": [
+        "a6243f1e12337650c790e190e40e0226d655e8e9aba8ceaa2d8471d0915d129f",
+        "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+        "a9ef08849beb7887386a354c9662db6e1bce02a4a19d09d2765e97157aebcdab",
+        "a5332bb9a1497df6faacc3964211fea5c8b0aca54f56c67718294b46c4d33afa",
+        "c5524fd1c4d75e6d5f4966811d3a44394cf2e243442f06c3263b9fdac4fa8d21"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 30,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "omitted-repeated-recap",
+      "text": [
+        "Some Hypes for the Topic",
+        "AlphaFold3 (Google Isomorphic labs) allows structure “prediction”",
+        "for proteins, RNAs, DNAs, and drugs."
+      ],
+      "media_sha256": [
+        "7d31c26db2db223cf919c2bede75a4a2dac4c6ffe7125ef3aac5a8b3c07e2aa4",
+        "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 31,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Some Hypes for the Topic",
+        "MatterGen (Microsoft) is a",
+        "BioEmu (Microsoft) allows",
+        "diffusion model to generate new",
+        "thermodynamics-aware protein",
+        "crystalline materials from the given",
+        "structure “generation.”",
+        "property."
+      ],
+      "media_sha256": [
+        "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
+        "45fb8beef87e162645d3fb5e1e2dd3f38e95e7ba33bc17e25fea13fe8cc17de0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 32,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Some Hypes for the Topic",
+        "Meta open-sourced large datasets on molecular simulation:",
+        "open cataysts (OC20, OC22) and open direct carbon capture (ODAC23)",
+        "Relaxation trajectory of a carboxylic",
+        "group (CO*) adsorbed on top of a                             CO2s being captured into",
+        "Zirconium atom                                               MOFs."
+      ],
+      "media_sha256": [
+        "75b8c9d7da1dc3809ba8778001b94fb123dba8499e82b8f4c8198dbfdb08ea91",
+        "b8e4de6e201a244f412ef4f37f5d4838236ce241eee597b3bb97069a6daa46fc",
+        "2e009a23569a31f7f9fdcce5ae24edc58083aadf41f09a97ed59fee79e18490a",
+        "3b9e29eb2a1eca12583551defac7f55e134b0853f9e4c2c954808770a9df1e2f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 33,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Some Hypes for the Topic"
+      ],
+      "media_sha256": [
+        "8b4d3a445fdbc7719fa90c90111683b4fcd0366b14855ede9a2b679dc1501b10"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 34,
+      "title": "Some Hypes for the Topic",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Some Hypes for the Topic",
+        "AI tool GNoME finds 2.2 million   Using materials from",
+        "new crystals, including 380,000   GNoME, Berkeley lab",
+        "stable materials.                 successfully synthesized",
+        "more than 41 new materials"
+      ],
+      "media_sha256": [
+        "30d126ab7c8cbe13f5f74cf799c759af5d16d68c71867b5a5f91af42a331bbb5",
+        "7600c4f700cdb14cce23aa1042b97bdf5d6f40c856f8d833026ae628ddbef767",
+        "169a4096b2f5c53f866eb4100269e621ea3c8dfeec36a73671c79d764d3fddab"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "9ec1ada0f54dd80a4ecde6f6d4c84eb805639505ef693b6749c2b4c1c443b304",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 210380,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0b7bd1a4126153db5b70e7003c2e205701c2db81a68bf85416c54f001c9d71e4",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 1372,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ebf80f598b78fc85f78fe605424f4cf0cf27ee4b2520fd8375c960edf7231e53",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 5199,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s14-image11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "e0c56d46421d06cc102599df085568af3b8d649cb71c38b30a0ba9e4f1229a22",
+      "pptx_path": "ppt/media/image12.jpeg",
+      "extension": ".jpeg",
+      "bytes": 127858,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "30eb852ef0aba909f20f46e5355dbe7807379a53c01a0f3df6e9645ed9307b5f",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 13425,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s14-image13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "304bfb816506ed2396ff1eebb91a483a23aec9e5541e9145a32cfe7b95f3c7f5",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 823745,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s15-image14.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "087bdde6f1f30802e7a229f16b0fb676fe2517ca5c8afa05276c7ae7ad077149",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 36256,
+      "slides": [
+        16
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s16-image15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "bd8c8d58260e1a7cf59078b29ec68ca8c4f1db80079984a578cd75dbf7dafbbf",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 83872,
+      "slides": [
+        16
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s16-image16.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "e85b3975ecc8bbc3fb1eb05626dc6d19178f4c9cc71f6bc9a952cc59be468d7e",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 110543,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "963c1ebf070afbcf8c6e3cba5db38f582b61b62a3b458099cba9b4ddd9552d75",
+      "pptx_path": "ppt/media/image18.jpeg",
+      "extension": ".jpeg",
+      "bytes": 109045,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c1f5ef7e57ff002559e1abedf5ee763af39273144442dd65dec1b1d247f76334",
+      "pptx_path": "ppt/media/image19.jpeg",
+      "extension": ".jpeg",
+      "bytes": 84246,
+      "slides": [
+        18,
+        19,
+        20
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image19.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c3c8eda42aee40f1d505d4dae5eb6c6cc69107d9382dd42010f1c7a84293da91",
+      "pptx_path": "ppt/media/image2.gif",
+      "extension": ".gif",
+      "bytes": 18616695,
+      "slides": [
+        6,
+        11,
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1a74df010495696a47021842fcd518fb587f879aa840e195f4cf929ff4d619d5",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 22211,
+      "slides": [
+        18,
+        19,
+        20
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "04337125f30a6f24427e01a229051fa7cf51bd4d5e74ae5b831bd14930f17ac9",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 130375,
+      "slides": [
+        18
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s17-image21.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0e5c79bd11e1f295b3e8e7a8a1c542fdcd82bb7feb5215eb7aa3564acaecf6ee",
+      "pptx_path": "ppt/media/image22.jpeg",
+      "extension": ".jpeg",
+      "bytes": 109080,
+      "slides": [
+        19,
+        20
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s18-image22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "1b2041ee77bc4c1c832f9f98d84d1f1ab38d6112cfdcf9c21538504dc63e82ad",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 104085,
+      "slides": [
+        19,
+        19,
+        19,
+        20,
+        20,
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f2e87edddb5baafb9d0a1df2657607ce3da56bda89f460d31b16868d9f63dba2",
+      "pptx_path": "ppt/media/image24.jpeg",
+      "extension": ".jpeg",
+      "bytes": 307013,
+      "slides": [
+        19,
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1dba7b77661c778998ce06b3a0979dfb72ea5b4289de67ac0543713988088d8c",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 54714,
+      "slides": [
+        21
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s20-image25.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "01886c5a06f9d20b3f29d4c005679f964e1a531010078a922c6847e3aeffbd60",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 374213,
+      "slides": [
+        22
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s21-image26.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0daca2a2a01551299a1613641526f7ca4a226a049b53951717cc5de6bedd4cb5",
+      "pptx_path": "ppt/media/image27.jpeg",
+      "extension": ".jpeg",
+      "bytes": 39102,
+      "slides": [
+        23,
+        23,
+        23,
+        23
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s22-image27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2e2ece3cd3992d8aabb861b564bb57bd4490505e692f5406250b805966d697aa",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 32636,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7801369c2ed926e8f7a1649a362f7e693bba6c36519aeb4b1fa782d10dd7509e",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 376615,
+      "slides": [
+        24
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s23-image28.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "14d7cc6bc9a31b90aa9c8f6631c01a59d03381baa73118c0ce802396857d03f3",
+      "pptx_path": "ppt/media/image29.jpeg",
+      "extension": ".jpeg",
+      "bytes": 139927,
+      "slides": [
+        25
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s24-image29.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "6ef0ee7acf0c3e26657d0572e28be28e46e34e786ba493f3216371b6bcb1c3cb",
+      "pptx_path": "ppt/media/image3.gif",
+      "extension": ".gif",
+      "bytes": 4283831,
+      "slides": [
+        6,
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bb7464320c05895e2f67a375c5e3a17baf5bdf76b428675ec4f788d4d90c8f5c",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 259856,
+      "slides": [
+        25
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s24-image30.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0d2399a3f64dfcfc9c420b8ea60708330078d5dee1b3b5dc245033ba4b6358b3",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 18446,
+      "slides": [
+        26
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s25-image31.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "12da6710c3862b84ac8af55813bbbc9bbf9782b5f2027a611904cd612057e5c4",
+      "pptx_path": "ppt/media/image32.jpg",
+      "extension": ".jpg",
+      "bytes": 356556,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2470a2b7141d050e69173c989546d0b060204b85864409eaff447d86fab12932",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 10396,
+      "slides": [
+        26
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s25-image33.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "afb7592ed989993f9c07a19022dce82278b37ed0a70447bc36d4663ed63cb2d6",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 1440603,
+      "slides": [
+        27
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s26-image34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "33de648d628432901aa63a3d1ba3e3e602f879f79fc1cd523551772c517c1526",
+      "pptx_path": "ppt/media/image35.jpeg",
+      "extension": ".jpeg",
+      "bytes": 181663,
+      "slides": [
+        27
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s26-image35.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "185ed69c8516908eb4583b2e7b43901a8d37b931fa477cb9e2f01fb4441dcff1",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 2050248,
+      "slides": [
+        28
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s27-image36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "37a1264bff3e77c721d6b36319cfed1ba0e62608c3fc4f56c1da053f40d77389",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 654362,
+      "slides": [
+        28
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s27-image37.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a6243f1e12337650c790e190e40e0226d655e8e9aba8ceaa2d8471d0915d129f",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 6823,
+      "slides": [
+        29
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+      "pptx_path": "ppt/media/image39.jpeg",
+      "extension": ".jpeg",
+      "bytes": 31451,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a4722cff2a0de5e06a50ca07a2667227c55d3c6a8291f04ad6f89c033cab3de4",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 201675,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a9ef08849beb7887386a354c9662db6e1bce02a4a19d09d2765e97157aebcdab",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 170129,
+      "slides": [
+        29
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image40.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a5332bb9a1497df6faacc3964211fea5c8b0aca54f56c67718294b46c4d33afa",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 151029,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c5524fd1c4d75e6d5f4966811d3a44394cf2e243442f06c3263b9fdac4fa8d21",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 22572,
+      "slides": [
+        29
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s28-image42.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "45fb8beef87e162645d3fb5e1e2dd3f38e95e7ba33bc17e25fea13fe8cc17de0",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 214329,
+      "slides": [
+        31
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s30-image43.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b8e4de6e201a244f412ef4f37f5d4838236ce241eee597b3bb97069a6daa46fc",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 404906,
+      "slides": [
+        32
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s31-image44.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "2e009a23569a31f7f9fdcce5ae24edc58083aadf41f09a97ed59fee79e18490a",
+      "pptx_path": "ppt/media/image45.gif",
+      "extension": ".gif",
+      "bytes": 3808710,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3b9e29eb2a1eca12583551defac7f55e134b0853f9e4c2c954808770a9df1e2f",
+      "pptx_path": "ppt/media/image46.gif",
+      "extension": ".gif",
+      "bytes": 2469032,
+      "slides": [
+        32
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s31-image46.gif",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "8b4d3a445fdbc7719fa90c90111683b4fcd0366b14855ede9a2b679dc1501b10",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 257393,
+      "slides": [
+        33
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s32-image47.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "30d126ab7c8cbe13f5f74cf799c759af5d16d68c71867b5a5f91af42a331bbb5",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 298660,
+      "slides": [
+        34
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s33-image48.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7600c4f700cdb14cce23aa1042b97bdf5d6f40c856f8d833026ae628ddbef767",
+      "pptx_path": "ppt/media/image49.jpeg",
+      "extension": ".jpeg",
+      "bytes": 56508,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0fecab7819fa0c71cf18f61fc5253cd4af4f0eb86c6a9231075242915165d42b",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 337003,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "169a4096b2f5c53f866eb4100269e621ea3c8dfeec36a73671c79d764d3fddab",
+      "pptx_path": "ppt/media/image50.jpeg",
+      "extension": ".jpeg",
+      "bytes": 76455,
+      "slides": [
+        34
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s33-image50.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7d31c26db2db223cf919c2bede75a4a2dac4c6ffe7125ef3aac5a8b3c07e2aa4",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 2440292,
+      "slides": [
+        11,
+        30
+      ],
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s11-image6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9344221b08a07e34db8f723095a8a2f5ab6b10ee7a04cc62bc9f1b2bdf0dfc5d",
+      "pptx_path": "ppt/media/image7.jpeg",
+      "extension": ".jpeg",
+      "bytes": 2811326,
+      "slides": [
+        12,
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c854c8580a426904ff1bdcbc31581b28c3f296c27c150d7a0f75b1576778dbe8",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 1280,
+      "slides": [
+        12,
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "867872fdb0dadf50d7ec73a2336f02d14d801d251b3ec81a871dfabef886bd3d",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 1163,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8829a49ecf5e0c896f70ee5c5895b124d4157ce4043412ceabd7d6384cf09166",
+      "pptx_path": "ppt/media/media1.mp4",
+      "extension": ".mp4",
+      "bytes": 2234177,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "75b8c9d7da1dc3809ba8778001b94fb123dba8499e82b8f4c8198dbfdb08ea91",
+      "pptx_path": "ppt/media/media2.mp4",
+      "extension": ".mp4",
+      "bytes": 484528,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive": 39,
+    "reused": 33,
+    "scientifically_redundant": 6,
+    "reuse_ratio": 0.8462
+  },
+  "asset_migration_status": "pptx-native-complete",
+  "pptx_figures": [
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s13-function-approximation.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 2",
+      "source_media_paths": [
+        "ppt/media/image7.jpeg",
+        "ppt/media/image8.png",
+        "ppt/media/image9.png",
+        "ppt/media/image10.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-01/s19-gdl-recipe.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "그룹 34",
+      "source_media_paths": [
+        "ppt/media/image22.jpeg",
+        "ppt/media/image23.png",
+        "ppt/media/image24.jpeg",
+        "ppt/media/image19.jpeg",
+        "ppt/media/image20.png"
+      ],
+      "reuse_status": "reused"
+    }
+  ],
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-01.md"
+}

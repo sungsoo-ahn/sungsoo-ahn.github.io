@@ -1,0 +1,2064 @@
+{
+  "deck_id": "ml4mol-2025-11",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec11_quantum.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec11_quantum.pptx",
+  "slide_count": 41,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Quantum Chemistry",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Quantum Chemistry",
+        "AI810 Machine Learning for Molecules",
+        "Sungsoo Ahn",
+        "1"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Quantum Many-Body Problem",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Quantum Many-Body Problem",
+        "2"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": null,
+      "title": "! = 𝐸𝜓",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "! = 𝐸𝜓",
+        "Schrödinger Equation 𝐻𝜓",
+        "Time-independent version:",
+        "! = 𝐸𝜓",
+        "𝐻𝜓",
+        "Known:",
+        "• Number of electrons & nuclei 𝑁 (system).",
+        "• Hamiltonian operator 𝐻 that",
+        "maps 𝜓 to another function.",
+        "Unknown:",
+        "• Wavefunction 𝜓: ℝ!\" → ℂ",
+        "• Energy 𝐸 ∈ ℝ.",
+        "3"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": null,
+      "title": "! = 𝐸𝜓",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "! = 𝐸𝜓",
+        "Schrödinger Equation 𝐻𝜓",
+        "More explicitly, for all possible electron positions 𝑟* , … , 𝑟+ ∈ ℝ,",
+        "and nucleus positions 𝑅* , … , 𝑅+ ∈ ℝ, :",
+        "!",
+        "𝐻𝜓 𝑟* , … , 𝑟+ , 𝑅* , … , 𝑅+ = 𝐸𝜓 𝑟* , … , 𝑟+ , 𝑅* , … , 𝑅+ ,",
+        "1            1          𝑍1    1          𝑍1 𝑍2",
+        "! = − / ∇- + /",
+        "𝐻        .",
+        "−/              .",
+        "− / ∇1 + /",
+        "2         𝑟- − 𝑟0    𝑟- − 𝑅1  2         𝑅1 − 𝑅2",
+        "-        -/0              -1                  1        1/2",
+        "Electron kinetic energy,             electron-           Nuclear kinetic",
+        "electron-electron                  nuclear            energy, nuclear-",
+        "repulsion                     attraction         nuclear repulsion",
+        "4"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": null,
+      "title": "! = 𝐸𝜓",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "! = 𝐸𝜓",
+        "Schrödinger Equation 𝐻𝜓",
+        "The wavefunction describes everything we know about the system.",
+        "• Multiple solutions (𝜓# , 𝜓$ , 𝜓% , …) with a corresponding energy (𝐸# , 𝐸$ , 𝐸% , …).",
+        "The lowest energy 𝐸# is the \"ground state.”",
+        "• Electron density is expressed as: 𝜌 𝑟 = ∫& ,…,& ∫) ,…,) 𝜓 𝑟, 𝑟% , … , 𝑟* , 𝑅$ , … , 𝑅*   %.",
+        "!   \"   #   \"",
+        "5"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Cures of Dimensionality",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Cures of Dimensionality",
+        "Exact analytic solution exists only for one-body system.",
+        "• Many-body systems require consideration of electron-electron repulsion.",
+        "In computational chemistry, approximations are",
+        "made to solve many-body problems.",
+        "• Wavefunction theory (WFT) directly approximates the wavefunction.",
+        "• Density functional theory (DFT) replaces the high-dimensional wavefunction",
+        "with three-dimensional electron density function in every calculation.",
+        "6"
+      ],
+      "media_sha256": [
+        "565219a3d4777ba01d840a56ffe4c252dd5ac531235713bba9e5da8e2259dbd7",
+        "ad68fa273ffc798febccad9f5f064a5a5d2417ff267cea5020657659a167d12b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Born-Oppenheimer Approximation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Born-Oppenheimer Approximation",
+        "Nuclei is so much slower and heavier than the electrons, so you can treat",
+        "the nuclei as stationary points when calculating the electronic structure.",
+        "• The Electronic Problem:",
+        "Solve for the energy and distribution",
+        "of the electrons around a",
+        "fixed nuclear framework.",
+        "• The Nuclear Problem: Figure out how",
+        "the nuclei move on the energy landscape",
+        "created by the electrons.",
+        "! 𝒓; 𝑹 = 𝐸 𝑹 𝜓 𝒓; 𝑹 .",
+        "This means, we set 𝐻𝜓",
+        "• Also allows ball-and-stick models for drawing.      Potential energy landscape",
+        "that we are typically interested in.",
+        "7"
+      ],
+      "media_sha256": [
+        "84e410c6a2fb5bced191401053199291cf659dea2ee6e07736f08f2bcecd9221",
+        "350d6a16e7d244232484c170c862236333fa210988b94faa221a04fb5120335f",
+        "565219a3d4777ba01d840a56ffe4c252dd5ac531235713bba9e5da8e2259dbd7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Rest of the Lecture: ML + Quantum Chemistry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Rest of the Lecture: ML + Quantum Chemistry",
+        "• ML + WFT: parameterize wavefunction using neural networks.",
+        "• ML + DFT: parameterize electron density",
+        "and Kohn-Sham Hamiltonian using neural networks.",
+        "8"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Machine Learning for",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Machine Learning for",
+        "Wavefunction Theory",
+        "9"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Wavefunction Theory (WFT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Wavefunction Theory (WFT)",
+        "WFT methods attempts to directly approximate the wavefunction.",
+        "• Hartree-Fock (HF) theory: Approximates the Hamiltonian using mean-field model,",
+        "i.e., electrons interact with the average potential, in place of electron-electron repulsion.",
+        "• Post-Hartree-Fock methods: Aims to correct the missing “correlation energy”",
+        "through coupled cluster theory (CC) or Møller-Plesset perturbation theory (MP2).",
+        "Much accurate but expensive.",
+        "10"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Hartree-Fock (HF) Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Hartree-Fock (HF) Theory",
+        "Schrodinger equation with BO approximation:",
+        "!",
+        "𝐻𝜓   𝑟* , … , 𝑟+ = 𝐸𝜓 𝑟* , … , 𝑟+ ,                            constant",
+        "1            1          𝑍1    1          𝑍1 𝑍2",
+        "! = − / ∇- + /",
+        "𝐻        .",
+        "−/              .",
+        "− / ∇1 + /",
+        "2         𝑟- − 𝑟0    𝑟- − 𝑅1  2         𝑅1 − 𝑅2",
+        "-        -/0             -1                  1   1/2",
+        "One-electron      Two-electron        One-electron",
+        "kinetic energy      potential          potential",
+        "HF theory aims to approximate two-electron potential by",
+        "! = ∑- 𝐹7- , where 𝐹- is the Fock operator.",
+        "one-electron potentials, i.e., 𝐻",
+        "11"
+      ],
+      "media_sha256": [
+        "9fe0d9c69f79f496a21c197ca0e51820de96b9f5961d1fbf9093bce381552c0b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Hartree-Fock (HF) Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Hartree-Fock (HF) Theory",
+        "To this end, one “may” apply mean-field parameterization",
+        "(also called Hartree product) for the wavefunction:",
+        "𝜓 𝑟* , … , 𝑟: = 𝜙* 𝑟* ⋯ 𝜙: 𝑟: .",
+        "Then the Fock operator is expressed as:",
+        "𝐻 = # 𝐹$! ,             𝐹$! = ℎ$ ! + #(2𝐽+\"! + 𝐾",
+        "-\"! )",
+        "!                             \"#!",
+        "1                                                           1",
+        "𝐽;+, = ∫ 𝜙+∗ 𝑟+             𝜙+ 𝑟+ 𝑑𝑟+ ,      B+, 𝜙, ) 𝑟, = 𝜙+ (𝑟+ )∫ 𝜙+∗ 𝑟+",
+        "(𝐾                                          𝜙, 𝑟, 𝑑𝑟+ ,",
+        "𝑟, − 𝑟+                                                     𝑟, − 𝑟+",
+        "12"
+      ],
+      "media_sha256": [
+        "fbcdd7616457f733468e4f91569bcf8e915841ae17262709b989f90d4724cc79"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Hartree-Fock (HF) Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Hartree-Fock (HF) Theory",
+        "The Fock operators depends on the orbitals, and vice versa.",
+        "To find a consistent pair of Fock operator and the orbitals,",
+        "self-consistent field (SCF) method iterates the following:",
+        "1.                                 B = ∑, 𝐹, 𝜙, ∏+., 𝜙+ = ∑, 𝐸, ∏, 𝜙, .",
+        "Solve for 𝐹, 𝜙, = 𝐸, 𝜙, since 𝐻𝜓",
+        "2.   Update the Fock operator using 𝜙, .",
+        "3.   Repeat.",
+        "In practice, orbitals and operators are expressed",
+        "via linear combination of basis sets.                                        13"
+      ],
+      "media_sha256": [
+        "8285e836f7fbb3c761ea93ad8a90e77f184d83d90d5b0d63fca638f5caba8f9e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Hartree-Fock (HF) Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Hartree-Fock (HF) Theory",
+        "Unfortunately, simple parameterization 𝜓 𝑟* , … , 𝑟: = 𝜙* 𝑟* ⋯ 𝜙: 𝑟:",
+        "violates the Pauli exculsion (antisymmetry) principle:",
+        "𝜓 … , 𝑟- , … , 𝑟0 , … = −𝜓 … , 𝑟0 , … , 𝑟- , … .",
+        "Swap the coordinates of any",
+        "two electrons, then the wavefunction",
+        "must flip its sign.",
+        "14"
+      ],
+      "media_sha256": [
+        "ac20d63ab642ac0c16e6399bac9d539edf1fe36e8477b4318d7a5d3076518bab",
+        "64a744404dc359c6b5dfb02d4a30a8be12885c89898609c17012fa7302dfd75b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Hartree-Fock (HF) Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Hartree-Fock (HF) Theory",
+        "To satisfy the antisymmetry property,",
+        "use the slater determinant-based",
+        "parameterization:",
+        "𝜙* (𝑟* )",
+        "1              ⋯   𝜙: (𝑟* )",
+        "𝜓 𝑟* , … , 𝑟:     =       ⋮            ⋱      ⋮     .",
+        "𝑁! 𝜙 (𝑟 )          ⋯   𝜙: (𝑟: )",
+        "* :",
+        "• This parameterization also leads to",
+        "the actual “exclusion” property, i.e.,",
+        "𝜓 𝑟$ , … , 𝑟* = 0 whenever 𝜙, = 𝜙+",
+        "for some 𝑖, 𝑗.",
+        "15"
+      ],
+      "media_sha256": [
+        "9cc2b376c5d140d82e6f5e6d006c58ce92ef206ae43337cb230af7eeb0afb355",
+        "bab029a2f51efe93d0377157cfe2b3c25fe8852e26c7ab29f8902574663238dd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "FermiNet",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "FermiNet",
+        "FermiNet is a deep learning framework to solve Schrodinger’s",
+        "equation based on HF theory.",
+        "• It parameterizes the wavefunction using neural network orbitals 𝜙, (𝑟, ; 𝜃).",
+        "• To train the networks, uses variational Monte Carlo framework.",
+        "16"
+      ],
+      "media_sha256": [
+        "1df5aaf1d0cd698850c28f342662e6a7e1f87e1e08ca7cdf03612e24cf3b5dd0",
+        "28fca5ab2d148f27d1a9fb12455bac68d9f4c7151119bdab85614d3cd755fcc9",
+        "01ce246bd53e87388a4881832e4ecf155ddfdd96b93589dbcefae4b9407d786e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "FermiNet",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "FermiNet",
+        "Some practical considerations:",
+        "• Parameterize each orbital 𝜙, by 𝜙, (𝑟, ; 𝑟$ , … , 𝑟,/$ , 𝑟,0$ , … , 𝑟* ) using",
+        "a neural network invariant to permutations of non-𝑖 positions.",
+        "• Use 𝑘-th order determinants, i.e., set",
+        "𝜓 𝑟$ , … , 𝑟* = O 𝑤1 det(𝜙$1 , … , 𝜙,1 ) ,",
+        "1",
+        "1        1 enumerates over all possible subsets of 𝜙 , … , 𝜙",
+        "where 𝜙$ , … , 𝜙2                                          $       *",
+        "with size 𝑚.",
+        "17"
+      ],
+      "media_sha256": [
+        "7b33c7965e0bc51178c37bdfa80d25df48e95f7c2369e0ec5d01a93d7d6495c6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Variational Monte Carlo (VMC) Framework",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Variational Monte Carlo (VMC) Framework",
+        "FermiNet is trained using the VMC framework, which is based on the fact",
+        "that the ground-state wave function is solution to an optimization problem:",
+        "! U 𝒓 𝑑𝒓",
+        "∫ 𝜓U∗ 𝒓 𝐻𝜓",
+        "min                . 𝑑𝒓",
+        ".",
+        "U     ∫ 𝜓U 𝒓",
+        "Since integration is intractable, we use Monte Carlo approximation,",
+        "sampling from 𝑝U 𝒓 ∝ 𝜓U 𝒓 . :",
+        "! U 𝒓 ,",
+        "min 𝔼𝒓∼Y! 𝜓 Z* 𝒓 𝐻𝜓",
+        "U",
+        "using REINFORCE trick for gradient estimation.",
+        "18"
+      ],
+      "media_sha256": [
+        "9643ad2fdc06c5fe72fae765f0d9b2b3033842e26e08f7419a7e37203d1e16bb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "FermiNet",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "FermiNet",
+        "FermiNet outperforms comparable VMC methods by a large margin.",
+        "It captures most of correlation energy (from mean-field approximations)",
+        "through expressive parameterization.",
+        "19"
+      ],
+      "media_sha256": [
+        "53c9b0ea471df3500453f10fd2b95f199e97fdfe6d57fc5dbe942fd71bdc29a0",
+        "8f4160e0eb693de4c4c525102b23a1174b602026b277985e7358c16bb6520f9b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "PsiFormer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "PsiFormer",
+        "Psiformer replaces the multi-stream, convolutional-style architecture of",
+        "FermiNet with a self-attention mechanism.",
+        "• Yields a dramatic improvement in accuracy, particularly for larger molecules.",
+        "• On benchmark systems, the performance gap between Psiformer and FermiNet",
+        "grows with system size.",
+        "20"
+      ],
+      "media_sha256": [
+        "b1ea8e194c2af13b208b83310b9dc63276f8a6dedf3525a6db506ebd683de386",
+        "dd489b1ab80b84aadd45c29b5e536bfb3ddcf70fe73ec9220cc367a35409de68"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Orbformer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Orbformer",
+        "A foundation model for wavefunction prediction",
+        "(focus on pretraining and transferrability).",
+        "21"
+      ],
+      "media_sha256": [
+        "f5580a4f6e48874fabc41f694889af44f06f0c1c09266d834de26a5e1e2b0187",
+        "edbb7158de5acf87cdea220f922262b1c6f7326d36468df0e5546d0eebc36586"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Solving Excited States",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Solving Excited States",
+        "It is also possible to solve excited",
+        "states using similar parameterization,",
+        "but with different training objective.",
+        "• Combining with the FermiNet and",
+        "Psiformer can accurately recover",
+        "vertical excitation energies and",
+        "oscillator strengths on a range",
+        "of molecules.",
+        "22"
+      ],
+      "media_sha256": [
+        "debb2c899fbc4d7e24632d0fa5de22985a57dcb63514c129a0e315e6afbcf2f3",
+        "3b4e3f674ec8b536c4ab612ea8e716dca80c754428819679e64b6794543a593b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Learning the Universal Functioanl in",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Learning the Universal Functioanl in",
+        "Density Functional Theory",
+        "23"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Density Functional Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Density Functional Theory",
+        "Hohenberg-Kohn theorem proves that the ground-state energy of",
+        "a system is a unique functional of its electron density, 𝜌(𝑟).",
+        "24"
+      ],
+      "media_sha256": [
+        "63b12294db43bc8ca61976ef73e9dfea99e595b688342740efee91bff053e14c",
+        "562da9db9870e3a62dd2b5cfe271e4ef790d7497980730612730b454f3105eae",
+        "b62fcbb7823f8e3d82161817743213f24ee680bd4f2be7362007a082cce17ee5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Kohn-Sham (KS) Density Functional Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Kohn-Sham (KS) Density Functional Theory",
+        "A fictitious system of non-interacting electrons that",
+        "generate the same density as the real, interacting system.",
+        "! = 𝐸𝜓",
+        "𝐻𝜓                      !!\" 𝜙# )(𝑟) = 𝜙# (𝑟)",
+        "(𝐻                        𝜌 𝑟 = + 𝜙# 𝑟   $",
+        "Original",
+        "#",
+        "Schrodinger",
+        "equation",
+        "25"
+      ],
+      "media_sha256": [
+        "4de90c0e5a7fadd6c11bdeb51944aae9bdc699f9b7a38911e2a5e3ec8bcb1b5a",
+        "5c8674167ea59c7af7e559024598ba66f20da26bc80f02f6d06b841d741a585a",
+        "f41d4d64db105c141c5cd12fa0606f1e50e2f61ed2483f54db59380fb024265e",
+        "a137157fc2ad8d8151a1e7a9ddf0041090249d660d91e8243c596c6843614cdb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Kohn-Sham (KS) Density Functional Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Kohn-Sham (KS) Density Functional Theory",
+        "Complex many-body physics, including exchange and correlation effects,",
+        "are bundled into the unknown exchange-correlation (XC) functional.",
+        "B34 𝜌 .",
+        "• Note that the KS Hamiltonian depends on the density, hence we write 𝐻",
+        "• We reintroduce orbitals here, but these are purely mathematical constructs.",
+        "!!\" 𝜌 𝜙# )(𝑟) = 𝜙# (𝑟)                                               $",
+        "(𝐻                                       𝜌 𝑟 = + 𝜙# 𝑟",
+        "#",
+        "Known parts                Residual error",
+        "1 $",
+        "!!\" 𝜌 = − ∇ + 𝑣%&' 𝑟 + 𝑣( 𝑟 + 𝑣&) 𝑟",
+        "𝐻",
+        "2",
+        "𝑍                   𝜌 𝑟′",
+        "= −O               = −[             𝑑𝑟 5",
+        "|𝑟 − 𝑅6 |                   5",
+        "&5 |𝑟 − 𝑟 |",
+        "6",
+        "26"
+      ],
+      "media_sha256": [
+        "a8513bad1fb55ba2c0b96a79e58d9b1754904ddf1b52e88cdcd6eb37a154716a",
+        "ba2170df87276eefbc4d5f6c2584c65bc0e70106d205031cd3e9ee67c57bba33",
+        "e8567cb8ab63b33e24d9305723e4c376ac8ccda4c91290f9aea3d6ac5cffb3a6",
+        "e2bcbaf4bcd0fe9c92b5d87aad1f4875e74b9f2ec610adda5353a3422d884ce6",
+        "eb2f9076bec9f2933e1e64117fa7fb53f25070b7882a0b1a7907b94def292874",
+        "ab92d88c67039ae8f66b34c00b181193640f26855430e8740544b2a31b4bf7a7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Kohn-Sham (KS) Density Functional Theory",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Kohn-Sham (KS) Density Functional Theory",
+        "After solving KS DFT equations, the energy is expressed as:",
+        "𝐸 𝜌 = 𝑇_ 𝜌 + 𝐸` 𝜌 + 𝐸abc 𝜌 + 𝐸de 𝜌 .",
+        "fg\"# h",
+        "Again, the XC functional is unknown, but we know that 𝑣de 𝑟 =    fh i",
+        ".",
+        "Hence, the quality of KS DFT approximation",
+        "depends on the choice of 𝐸jk 𝜌 !",
+        "27"
+      ],
+      "media_sha256": [
+        "9fedad49c29d611a9de25a0056d260a7783d5d885f188ca3190d80c24556686b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Self-Consistent Method",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Self-Consistent Method",
+        "An iterative procedure to find electron density",
+        "1.     Start from an initial guess for 𝜌.",
+        "2.     Solve the Kohn-Sham equation with 𝐻     B34[𝜌],",
+        "B34 𝜌 𝜙, = 𝜖, 𝜙, .",
+        "then obtain orbitals 𝜙$ , … , 𝜙* by solving 𝐻",
+        "3.     Construct new density 𝜌(𝑟) = ∑, 𝜙, (𝑟) % .",
+        "4.     Go back to step 2. and iterate until convergence.",
+        "2. Solve the KS equation to get orbitals",
+        "1.",
+        "End",
+        "Molecule                          3.Construct new density from orbitals",
+        "(+ Initial density guess)                                                            Converged density",
+        "4. Iterative update electron density                               28"
+      ],
+      "media_sha256": [
+        "205db98e24f774434050b63a4a8d06a079ed6343c96324ce7b8a7cab99661ecd",
+        "7328ee03d5ef146b9f2bf9623c571b0e833d29b3ef02d5ffab90ee84585b23ff",
+        "5e9c571da185a08d1b4054413a91384cbb33a48732dd64a788d339ee6538b78b",
+        "c73f1088bbcdbc3ecd5c6059cf7803ee2a2acff9c13cfa9ae69fb898159b3cd6",
+        "5c28344de81da3ba5ae50913165e4ae7a055a1d8b03a94ae56bb982f6df81824",
+        "663cdf401463a49aa8dcfff3cf58c57a2124334685d20c803b74c6bc4dfb8539",
+        "fffdb19a50484597c014443998c54938bc76d2e18a6be79a8ba646564366430a",
+        "2c735015822b3b01d73f9ee296b499bd37ec95b81cfe05d8b3dc22ef44fa3831",
+        "a575cff6390b787b031dbb5199e80e8f05b0347992ae0943136e91609cc53ec8",
+        "9e8b035866393c3f754de7ed685268eeca6193ccb15611f96112caaa7eeb438a",
+        "88aabe18f4d5ac69cc5369c0ce015d13ff3eb3f349c624b2a1a22b7a1a5c9f24",
+        "ba828c3b51a3a6d8698d2f1109a569f27cb7aaf334f383a80fb744a33bdb6b5b",
+        "fa87666394a8c2907b45715dbaf60232d19fc7797d8a888ecad03b0634edd0a1",
+        "3ce69b6befdf35353696d83d335b2e0a59139883d794a2d4aca5b00fec7726a3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "Researchers have investigated various XC functionals,",
+        "expressed as the Jacob's Ladder.",
+        "Maybe we can find the best XC functional,",
+        "parameterized by a neural network?",
+        "29"
+      ],
+      "media_sha256": [
+        "d064479f15d45d2155506962658a670c1f21b76f96717ab2dc6ce74da56b3fdd",
+        "6ac09dfcf72513c552eafa39b386f80146cfb7bc38c325f4102533ba1d4fa1b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "How to learn the best XC functional, parameterized by a neural network?",
+        "• Train a XC functional neural network that takes",
+        "density (+@) as input and energy as output.",
+        "• Trained to match the results of wavefunction theory-based calculations.",
+        "30"
+      ],
+      "media_sha256": [
+        "0a9db87a009694a899f010e09c5ae44533b4ccd4de0ceeb53830fa071decda5a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "Parameterization and featurization follows",
+        "that of meta-GGA functional.",
+        "𝐱 𝜌 = 𝜌, ∇𝜌 , 𝜏",
+        "31"
+      ],
+      "media_sha256": [
+        "fc2c37463f8b78e9cb85e7e544297b61e510d4eaa7cea33b74d744638c276466",
+        "fd620823c95f63605e2aac9cbbceac52d46674cde4dafab4e0e480eeb8664e96",
+        "c707476d260d7bfb695090adbea6494aabf603a1af390d94f7207d6ad4da385d",
+        "144cdbe5c90c4364f0cbb12afa8e8b6c1d5d896c3401868fe6a5e394f141f826"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "For training, require ground-truth solutions to the Schrodinger equation",
+        "• Obtained using accurate wavefunction theory calculations",
+        "(CCSD(T)/CBS level of theory or higher).",
+        "Idea:",
+        "• Run self-consistent field (SCF) iteration with the current XC functional.",
+        "• At each SCF iteration, optimize XC functional to match the true energy,",
+        "using the current estimate of density.",
+        "32"
+      ],
+      "media_sha256": [
+        "b059383a98ccd39475aee1a2202885977e527d4afdc686d6f61064d45d50891f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "33"
+      ],
+      "media_sha256": [
+        "89f646c0919273f5ef01556a297fee9a7c58c6cc56b1bafb4652fdd79ef63609"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "34"
+      ],
+      "media_sha256": [
+        "669f5525d3b59273e040e58da81a2f1d693b54694f08a1e16da200d84ff64e28"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Skala: Data-Driven XC Functional",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Skala: Data-Driven XC Functional",
+        "35"
+      ],
+      "media_sha256": [
+        "aaa06611267ac13d3d34a77606bebe449d711f79e8c8c747f11d67c7ebddba9e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Supervised Learning of",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Supervised Learning of",
+        "Hamiltonians and Electron Densities",
+        "36"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Quantum Hamiltonian Neural Network (QHNet)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Quantum Hamiltonian Neural Network (QHNet)",
+        "Propose a dataset of DFT-computed",
+        "Hamiltonians.",
+        "Trains a neural network (QHNet)",
+        "to predict the obtained solutions.",
+        "37"
+      ],
+      "media_sha256": [
+        "309496e63cf1c712ae0af2ed46246ddba7be9d8e4e6b03cc6dbc874440bf5683",
+        "219d0b92ad9c119f25979fdec7ffe6316776a035dfe67530c009fc254860cdcc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "QHFlow",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "QHFlow",
+        "Instead of direct prediction, use",
+        "equiv. generative model (flow matching)",
+        "to learn the structure behind",
+        "Hamiltonians.",
+        "Actual DFT acceleration with",
+        "initializing SCF solvers with",
+        "Hamiltonians.",
+        "38"
+      ],
+      "media_sha256": [
+        "af458439e281e6757660069eef2d6657ac4645ebc4d5941828704883170c1735",
+        "cf5ea29164330e5ce02b1e6f48d0e43c32fd09f1378fe9c21ad02124d94d74df"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "title": "DeepDFT",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DeepDFT",
+        "Instead of predicting the Hamiltonian,",
+        "predict the electron densities.",
+        "DeepDFT takes a coordinate as",
+        "input and outputs the corresponding",
+        "density.",
+        "• similar to implicit neural representations",
+        "39"
+      ],
+      "media_sha256": [
+        "a0948cefd7f22dbb49b44c404b3a72481522baba1bb87abc36719d688b6745fe",
+        "81a3e9c778b5236ab71377688d9b67e932a78e88518d2811e9764b2d34d8ef3f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "GPWNO",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GPWNO",
+        "It is expensive to query for",
+        "each density evaluation 𝜌(𝑟).",
+        "Instead, take a neural operator",
+        "approach to predict the",
+        "linear combination of",
+        "basis functions for density.",
+        "40"
+      ],
+      "media_sha256": [
+        "fc509cd9116d121b69d1e3377569ff2be693b9e6fd7aff2c5b0c65a59a10f1ad",
+        "0341de693dc938c915b7665c7f29f2fca3dcc28616975d2c00515ad332b44c10",
+        "887e0d94689f901b1405f68eb3ff2323f8bd8355bd12dd14c88aadfb8ac1edbe",
+        "d0e83474e81e2888c8cf9cdd53310b8aec2fb6a5b54337af0c8d8284bc7d69f7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "A Recipe for Charge Density Estimation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "A Recipe for Charge Density Estimation",
+        "Smarter density choice:",
+        "put Gaussian-type orbitals",
+        "for each atom center",
+        "and bond center.",
+        "Shows much better",
+        "performance",
+        "and speed.",
+        "41"
+      ],
+      "media_sha256": [
+        "1621e3c5b326ea0598401495e0d7e7775b7ef497a41785cb5adb8b49c340ae2d",
+        "05f6f8c06f2a1a7ddd086e4577408d0dca05f5dca28e8b7213e05169af04c717"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "a9c8ae2f38d9c9cf5e6ac03636a2329ca67ff0d85f60f410903f0da1dec150b9",
+      "pptx_path": "ppt/media/image1.jpeg",
+      "extension": ".jpeg",
+      "bytes": 8730,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5b50bf20896dcac194023e70fa940bff8ea5bc0fc0694ea4a3e66de28e73938e",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 29641,
+      "slides": [
+        3,
+        4,
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "64a744404dc359c6b5dfb02d4a30a8be12885c89898609c17012fa7302dfd75b",
+      "pptx_path": "ppt/media/image10.gif",
+      "extension": ".gif",
+      "bytes": 427181,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9fe0d9c69f79f496a21c197ca0e51820de96b9f5961d1fbf9093bce381552c0b",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 134281,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fbcdd7616457f733468e4f91569bcf8e915841ae17262709b989f90d4724cc79",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 103553,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8285e836f7fbb3c761ea93ad8a90e77f184d83d90d5b0d63fca638f5caba8f9e",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 114707,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ac20d63ab642ac0c16e6399bac9d539edf1fe36e8477b4318d7a5d3076518bab",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 89221,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9cc2b376c5d140d82e6f5e6d006c58ce92ef206ae43337cb230af7eeb0afb355",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 90466,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bab029a2f51efe93d0377157cfe2b3c25fe8852e26c7ab29f8902574663238dd",
+      "pptx_path": "ppt/media/image15.jpeg",
+      "extension": ".jpeg",
+      "bytes": 35194,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "28fca5ab2d148f27d1a9fb12455bac68d9f4c7151119bdab85614d3cd755fcc9",
+      "pptx_path": "ppt/media/image16.gif",
+      "extension": ".gif",
+      "bytes": 478701,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1df5aaf1d0cd698850c28f342662e6a7e1f87e1e08ca7cdf03612e24cf3b5dd0",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 78126,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "01ce246bd53e87388a4881832e4ecf155ddfdd96b93589dbcefae4b9407d786e",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 55853,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "53c9b0ea471df3500453f10fd2b95f199e97fdfe6d57fc5dbe942fd71bdc29a0",
+      "pptx_path": "ppt/media/image18.jpeg",
+      "extension": ".jpeg",
+      "bytes": 23643,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7b33c7965e0bc51178c37bdfa80d25df48e95f7c2369e0ec5d01a93d7d6495c6",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 90241,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4c1a5cb4a0d4eefee98ec20d08e93eb9aec387b9131d35a6baf9d6c6fa650c81",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 67035,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9643ad2fdc06c5fe72fae765f0d9b2b3033842e26e08f7419a7e37203d1e16bb",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 138770,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8f4160e0eb693de4c4c525102b23a1174b602026b277985e7358c16bb6520f9b",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 217676,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b1ea8e194c2af13b208b83310b9dc63276f8a6dedf3525a6db506ebd683de386",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 193003,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dd489b1ab80b84aadd45c29b5e536bfb3ddcf70fe73ec9220cc367a35409de68",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 279813,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f5580a4f6e48874fabc41f694889af44f06f0c1c09266d834de26a5e1e2b0187",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 206683,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "edbb7158de5acf87cdea220f922262b1c6f7326d36468df0e5546d0eebc36586",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 85533,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "63b12294db43bc8ca61976ef73e9dfea99e595b688342740efee91bff053e14c",
+      "pptx_path": "ppt/media/image250.png",
+      "extension": ".png",
+      "bytes": 61250,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "debb2c899fbc4d7e24632d0fa5de22985a57dcb63514c129a0e315e6afbcf2f3",
+      "pptx_path": "ppt/media/image26.jpeg",
+      "extension": ".jpeg",
+      "bytes": 469202,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3b4e3f674ec8b536c4ab612ea8e716dca80c754428819679e64b6794543a593b",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 86229,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "562da9db9870e3a62dd2b5cfe271e4ef790d7497980730612730b454f3105eae",
+      "pptx_path": "ppt/media/image28.jpeg",
+      "extension": ".jpeg",
+      "bytes": 135894,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4de90c0e5a7fadd6c11bdeb51944aae9bdc699f9b7a38911e2a5e3ec8bcb1b5a",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 4883,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b62fcbb7823f8e3d82161817743213f24ee680bd4f2be7362007a082cce17ee5",
+      "pptx_path": "ppt/media/image29.jpeg",
+      "extension": ".jpeg",
+      "bytes": 8987,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5c8674167ea59c7af7e559024598ba66f20da26bc80f02f6d06b841d741a585a",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 9568,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d1a9597cc15c80c0a7532f1769ca718aa078e2b798ff0809dd51e9f4aef1ad5d",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 90090,
+      "slides": [
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f41d4d64db105c141c5cd12fa0606f1e50e2f61ed2483f54db59380fb024265e",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 19737,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a137157fc2ad8d8151a1e7a9ddf0041090249d660d91e8243c596c6843614cdb",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 220801,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a8513bad1fb55ba2c0b96a79e58d9b1754904ddf1b52e88cdcd6eb37a154716a",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 83575,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ba2170df87276eefbc4d5f6c2584c65bc0e70106d205031cd3e9ee67c57bba33",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 21321,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e8567cb8ab63b33e24d9305723e4c376ac8ccda4c91290f9aea3d6ac5cffb3a6",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 11229,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e2bcbaf4bcd0fe9c92b5d87aad1f4875e74b9f2ec610adda5353a3422d884ce6",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 31571,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "eb2f9076bec9f2933e1e64117fa7fb53f25070b7882a0b1a7907b94def292874",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 16951,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ab92d88c67039ae8f66b34c00b181193640f26855430e8740544b2a31b4bf7a7",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 19670,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9fedad49c29d611a9de25a0056d260a7783d5d885f188ca3190d80c24556686b",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 99335,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "205db98e24f774434050b63a4a8d06a079ed6343c96324ce7b8a7cab99661ecd",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 88055,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dc370ae9a903a4f3b10ab22650f2cd72b6d4aecbf9460885ed84e984c797f43b",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 113602,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7328ee03d5ef146b9f2bf9623c571b0e833d29b3ef02d5ffab90ee84585b23ff",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 33479,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5e9c571da185a08d1b4054413a91384cbb33a48732dd64a788d339ee6538b78b",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 128927,
+      "slides": [
+        28,
+        28,
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c73f1088bbcdbc3ecd5c6059cf7803ee2a2acff9c13cfa9ae69fb898159b3cd6",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 13293,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5c28344de81da3ba5ae50913165e4ae7a055a1d8b03a94ae56bb982f6df81824",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 22118,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "663cdf401463a49aa8dcfff3cf58c57a2124334685d20c803b74c6bc4dfb8539",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 20456,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fffdb19a50484597c014443998c54938bc76d2e18a6be79a8ba646564366430a",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 20365,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c735015822b3b01d73f9ee296b499bd37ec95b81cfe05d8b3dc22ef44fa3831",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 31684,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a575cff6390b787b031dbb5199e80e8f05b0347992ae0943136e91609cc53ec8",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 29938,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9e8b035866393c3f754de7ed685268eeca6193ccb15611f96112caaa7eeb438a",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 26576,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "88aabe18f4d5ac69cc5369c0ce015d13ff3eb3f349c624b2a1a22b7a1a5c9f24",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 29129,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aabbd4eb1cd3fbf3eecda10a6a4115e1e42679e5dae3961ca0537254325a4ca0",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 3394996,
+      "slides": [
+        5,
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ba828c3b51a3a6d8698d2f1109a569f27cb7aaf334f383a80fb744a33bdb6b5b",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 29773,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fa87666394a8c2907b45715dbaf60232d19fc7797d8a888ecad03b0634edd0a1",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 2812,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3ce69b6befdf35353696d83d335b2e0a59139883d794a2d4aca5b00fec7726a3",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 200618,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d064479f15d45d2155506962658a670c1f21b76f96717ab2dc6ce74da56b3fdd",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 65786,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6ac09dfcf72513c552eafa39b386f80146cfb7bc38c325f4102533ba1d4fa1b2",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 162161,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0a9db87a009694a899f010e09c5ae44533b4ccd4de0ceeb53830fa071decda5a",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 246819,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fc2c37463f8b78e9cb85e7e544297b61e510d4eaa7cea33b74d744638c276466",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 27744,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fd620823c95f63605e2aac9cbbceac52d46674cde4dafab4e0e480eeb8664e96",
+      "pptx_path": "ppt/media/image560.png",
+      "extension": ".png",
+      "bytes": 5600,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c707476d260d7bfb695090adbea6494aabf603a1af390d94f7207d6ad4da385d",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 73256,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "144cdbe5c90c4364f0cbb12afa8e8b6c1d5d896c3401868fe6a5e394f141f826",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 243284,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b059383a98ccd39475aee1a2202885977e527d4afdc686d6f61064d45d50891f",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 136060,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "565219a3d4777ba01d840a56ffe4c252dd5ac531235713bba9e5da8e2259dbd7",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 57812,
+      "slides": [
+        6,
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "89f646c0919273f5ef01556a297fee9a7c58c6cc56b1bafb4652fdd79ef63609",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 333280,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "669f5525d3b59273e040e58da81a2f1d693b54694f08a1e16da200d84ff64e28",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 291916,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aaa06611267ac13d3d34a77606bebe449d711f79e8c8c747f11d67c7ebddba9e",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 857072,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "309496e63cf1c712ae0af2ed46246ddba7be9d8e4e6b03cc6dbc874440bf5683",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 168364,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "219d0b92ad9c119f25979fdec7ffe6316776a035dfe67530c009fc254860cdcc",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 37184,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "af458439e281e6757660069eef2d6657ac4645ebc4d5941828704883170c1735",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 78052,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cf5ea29164330e5ce02b1e6f48d0e43c32fd09f1378fe9c21ad02124d94d74df",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 349635,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a0948cefd7f22dbb49b44c404b3a72481522baba1bb87abc36719d688b6745fe",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 62926,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "81a3e9c778b5236ab71377688d9b67e932a78e88518d2811e9764b2d34d8ef3f",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 367265,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fc509cd9116d121b69d1e3377569ff2be693b9e6fd7aff2c5b0c65a59a10f1ad",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 74069,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ad68fa273ffc798febccad9f5f064a5a5d2417ff267cea5020657659a167d12b",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 96324,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0341de693dc938c915b7665c7f29f2fca3dcc28616975d2c00515ad332b44c10",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 165732,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "887e0d94689f901b1405f68eb3ff2323f8bd8355bd12dd14c88aadfb8ac1edbe",
+      "pptx_path": "ppt/media/image71.png",
+      "extension": ".png",
+      "bytes": 29168,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d0e83474e81e2888c8cf9cdd53310b8aec2fb6a5b54337af0c8d8284bc7d69f7",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 112968,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1621e3c5b326ea0598401495e0d7e7775b7ef497a41785cb5adb8b49c340ae2d",
+      "pptx_path": "ppt/media/image73.png",
+      "extension": ".png",
+      "bytes": 81243,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "05f6f8c06f2a1a7ddd086e4577408d0dca05f5dca28e8b7213e05169af04c717",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 194685,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "84e410c6a2fb5bced191401053199291cf659dea2ee6e07736f08f2bcecd9221",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 125470,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "350d6a16e7d244232484c170c862236333fa210988b94faa221a04fb5120335f",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 322803,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 30,
+    "reused_figures": 30,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-11.md",
+  "pptx_figures": [
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s03-image1.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image1.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s05-image5.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image5.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s06-image6.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s07-image9.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image9.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s14-image10.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image10.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s15-image15.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image15.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s16-image16.gif",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image16.gif"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s19-image18.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "plot",
+      "source_media_paths": [
+        "ppt/media/image18.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s19-image21.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s20-image22.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image22.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s20-image23.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image23.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s21-image24.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image24.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s22-image26.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "composite",
+      "source_media_paths": [
+        "ppt/media/image26.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s24-image29.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "illustration",
+      "source_media_paths": [
+        "ppt/media/image29.jpeg"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s25-image31.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s28-group37.png",
+      "extraction_method": "pptx-shape-group-export",
+      "content_role": "diagram",
+      "source_shape_name": "Group 37",
+      "source_media_paths": [],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s29-image53.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image53.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s30-image55.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image55.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s31-image57.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image57.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s31-image58.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image58.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s32-image59.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "diagram",
+      "source_media_paths": [
+        "ppt/media/image59.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s33-image60.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image60.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s34-image61.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image61.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s35-image62.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "benchmark-figure",
+      "source_media_paths": [
+        "ppt/media/image62.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s37-image63.png",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image63.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s38-image66.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image66.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s39-image68.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image68.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s40-image70.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image70.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s40-image72.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "architecture",
+      "source_media_paths": [
+        "ppt/media/image72.png"
+      ],
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-11/s41-image74.webp",
+      "extraction_method": "pptx-media-copy",
+      "content_role": "scientific-image",
+      "source_media_paths": [
+        "ppt/media/image74.png"
+      ],
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

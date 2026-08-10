@@ -1,0 +1,2031 @@
+{
+  "deck_id": "gdl-2025-21",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec21_materials.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec21_materials.pptx",
+  "slide_count": 36,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Machine Learning for Materials",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Machine Learning for Materials",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "What is Material Science?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is Material Science?",
+        "• Interdisciplinary field studying the properties, structure,",
+        "and processing of materials (metals, ceramics, polymers, etc.)",
+        "• Key challenges include designing new materials with targeted properties",
+        "(for energy, electronics, etc.) and scaling up from lab to industry",
+        "• Applications to semiconductors, batteries, biomaterials, and more"
+      ],
+      "media_sha256": [
+        "8bd0120d8d2321cf9267d92b8f144bb7c2d03db031ac04656cd3b196a96eee13",
+        "86f9ce6f331631a7ed9da15969de49e263abd548bd8febe4720a19c06883440a",
+        "9fcdd296e9258d4926e681240a8814728ac77df5a7bdd2b92eabaa9ab072f84e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Key Challenges in Materials Discovery",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Key Challenges in Materials Discovery",
+        "• Key challenges:",
+        "• Vast design space: Millions of potential compounds,",
+        "but only a fraction have been synthesized.",
+        "• Traditional trial-and-error synthesis is slow and costly.",
+        "• Simulations (e.g. DFT) for crystal structures are",
+        "accurate but time-consuming.",
+        "• Inverse design problem: Use AI to go from",
+        "desired property to a material that exhibits it."
+      ],
+      "media_sha256": [
+        "0c279cc4926b2272752e33e21f323fede393c61e0178cb954a4b7b6501b666ab"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Types of Materials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Materials",
+        "• Metals (iron, copper): good electrical conductors,",
+        "ductile, often crystalline.",
+        "• Ceramics (alumina, silicon carbide): inorganic",
+        "compounds, brittle but withstand high temperatures.",
+        "• Polymers (plastics like PE, PTFE): long-chain",
+        "organic molecules, lightweight and flexible.",
+        "• Composites: combinations of materials"
+      ],
+      "media_sha256": [
+        "93861716929d2bc7381d2e93fea988ee12491d30bd018e098639fee98f513954",
+        "f4823ad7ab5196bf98ef2a1cc36dbc5d8b23f183dc5eda4ab8ede9407d94e30a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Types of Material Properties",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Material Properties",
+        "• Classification by electronic properties:",
+        "• Conductors (e.g., metals):",
+        "Have free electrons that allow easy charge flow. No band gap.",
+        "• Insulators (e.g., ceramics, polymers):",
+        "No free carriers under normal conditions. Large band gap.",
+        "• Semiconductors (in between):",
+        "Conductivity can be tuned by doping or temperature. Moderate band gap.",
+        "• Band gap is the energy difference (in electronvolts, eV) between:",
+        "• The top of the valence band (highest energy electrons bound to atoms)",
+        "• The bottom of the conduction band (lowest energy electrons that can move freely)",
+        "• Conceptually similar to HOMO-LUMO gap for molecules (non-materials)"
+      ],
+      "media_sha256": [
+        "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Types of Material Properties",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Material Properties",
+        "• Classification by optical properties",
+        "• Transparency:",
+        "• Occurs when a material does not absorb visible light.",
+        "• Requires a wide band gap, so photons pass through without excitation (e.g., glass, quartz).",
+        "• Luminescence:",
+        "• Emission of light from a material after absorbing energy.",
+        "• Can arise from electron-hole recombination (photoluminescence),",
+        "defects (fluorescence), or dopants (phosphors in LEDs)."
+      ],
+      "media_sha256": [
+        "c7ae9b7a5bcd9f0c0e2bc36d67fee53588a1de5de01fcf6c50d4f260161de07e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Types of Material Properties                                              Electrons = real particles that move and",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Material Properties                                              Electrons = real particles that move and",
+        "carry charge.",
+        "Phonons = waves of atomic motion,",
+        "• Classification by thermal properties                                    quantized as particles of vibration.",
+        "• Thermal conductors:",
+        "• Heat transported via free electrons (metals) or phonons (diamond).",
+        "• Strong atomic bonds and high atomic density enhance conductivity.",
+        "• Thermal insulators:",
+        "• Poor phonon or electron transport.",
+        "• Often disordered, porous, or low-density structures."
+      ],
+      "media_sha256": [
+        "d9a4913fa85b867ab3f6607ae318478d87c841829d19f0160bdb4ed6b6625c5a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Types of Material Properties",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Material Properties",
+        "• Classification by magnetic properties",
+        "• Diamagnetic: Weak repulsion to magnetic fields.",
+        "• Paramagnetic: Materials with unpaired electrons",
+        "align weakly with external fields.",
+        "• Ferromagnetic: Strong magnetic ordering; domains",
+        "align spontaneously.",
+        "• Antiferromagnetic / ferrimagnetic: Opposing spin",
+        "alignments reduce or partially cancel net",
+        "magnetization (e.g., MnO, Fe₃O₄)."
+      ],
+      "media_sha256": [
+        "6df86d944edba6ebc9d943b7e35d57541e9cd1201526a34db8039106f4dcf4f0",
+        "0255a41ce1e3c809c41691a94547c7fd422258a5e7db9273b8a85173da859124"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Types of Material Properties",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Material Properties",
+        "• Hardness: Resistance to deformation or scratching",
+        "• Elasticity: Ability to return to original shape after stress",
+        "• Plasticity: Permanent deformation under stress;",
+        "common in metals due to dislocation motion.",
+        "• Toughness: Resistance to fracture (balance between strength and ductility).",
+        "Brittle materials (e.g., ceramics) fracture easily;"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "What is a Crystal?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is a Crystal?",
+        "• Crystals have preiodic patterns, described by lattice matrix 𝐿 = ℓ!, ℓ\", ℓ# $,",
+        "in addition to the typical point cloud representation.",
+        "• Then the infinite crystal structure can be",
+        "represented as:",
+        "where 𝒑% , 𝒂% denotes the position and type of",
+        "some atom 𝑖 in a specific cell.                                 Some crystals are “more",
+        "symmetric” than others…"
+      ],
+      "media_sha256": [
+        "702ca85252fab2769d9c79e376bc1c505a6567be9e43f5e4bbf5b04a03b89df9",
+        "fda75caa8481761cc1df23ff566461818613c5580f2f31baed1623ebb69eea38",
+        "0cc0f6ecede709a120dbb55807366ee40e249d0df68f64bd313d5e6241884bd6",
+        "50e0c0d4e7428cdbeeaa4ec3d6ae919fee7c71686cff975ffb16789ec293afbb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Unit Cells and Lattices",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Unit Cells and Lattices",
+        "• Bravais lattice: distinct lattice types (14 in",
+        "3D) describing all possible periodic",
+        "arrangements of points.",
+        "• These include primitive and centered lattices for",
+        "each crystal system",
+        "• Each lattice type is associated with a set of",
+        "translations that leaves the crystal invariant.",
+        "• NOT associated with a particular group!"
+      ],
+      "media_sha256": [
+        "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Symmetry in Crystal Structures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Symmetry in Crystal Structures",
+        "• Crystals exhibit symmetry operations:",
+        "• translations, rotations, reflections, inversion that map the",
+        "crystal onto itself.",
+        "• Translational symmetry:",
+        "• the repeating lattice means a translation by one unit cell",
+        "leaves the crystal unchanged",
+        "• Point symmetry:",
+        "• Rotations or inversions about lattice points,",
+        "e.g., a cube has 90° rotational axes and mirror planes.               Allows additional",
+        "translation",
+        "• Combination of point symmetries with translations gives the",
+        "full space group symmetry",
+        "Allows 6-fold rotation"
+      ],
+      "media_sha256": [
+        "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+        "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Space Group Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Space Group Symmetry",
+        "• Space groups (230 distinct groups in 3D) which enumerate all combinations of rotations,",
+        "mirrors, glide planes, screw axes with translations that a crystal can have.",
+        "• Obtained from removing duplicates in 14x32 combinations.",
+        "2D space groups"
+      ],
+      "media_sha256": [
+        "ff152ce84cb89b8d31158c0029bc33a71ccdca59309a4916b148ff6debbf5625",
+        "9dc63111664136cfc7fe6905d2bcf966894b833b16839d910d92323abd119d53"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Wyckoff Positions",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Wyckoff Positions",
+        "• Wyckoff positions: within a space group, these are sets of points in the unit cell that are",
+        "equivalent under symmetry. Atoms in a crystal occupy Wyckoff positions.",
+        "• High-symmetry positions often lead to more stable structures,",
+        "many known materials have atoms on special symmetric sites"
+      ],
+      "media_sha256": [
+        "1b91b675cefac17031e498cde20d6c0242a8cbe7f12368a307d78b5b32f76c28",
+        "2e536128800f0f14d18e036f769440e679de4c3a9704e45b5bd2cea31e685277"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Crystal Property Prediction",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Crystal Property Prediction",
+        "• Formation energy and stability: Geometric deep learning (CGCNN, MEGNet, etc.) can",
+        "predict formation energies of crystals with high accuracy.",
+        "• Formation energy is the energy required to form a compound from",
+        "its constituent elements in their standard states",
+        "• Allows rapid screening of millions of hypothetical structures for",
+        "thermodynamic stability (negative formation energy)."
+      ],
+      "media_sha256": [
+        "46ea95226fee25c7f3b9e20f6df3b2c9eacaa388ecad46bbbb2dcd4bd72693f8",
+        "e43cd5f8506fcecca83220f540324362d9ebb1da4a95be1f96229a998af955e4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Crystal Property Prediction",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Crystal Property Prediction",
+        "• Band gap prediction: Models have been trained to predict band gaps.",
+        "• Enabling quick identification of candidate semiconductors",
+        "• Band gap is the energy difference (in electronvolts, eV) between:",
+        "• The top of the valence band (highest energy electrons bound to atoms)",
+        "• The bottom of the conduction band (lowest energy electrons that can move freely)"
+      ],
+      "media_sha256": [
+        "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Crystal Structure Prediction",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Crystal Structure Prediction",
+        "• Traditional materials discovery predicts properties of a given",
+        "structure, while inverse design asks: what structure yields a",
+        "desired property?",
+        "• Crystal Structure Prediction (CSP) methods (e.g., USPEX,",
+        "random search) tackle this by finding low-energy structures for",
+        "a given composition but are computationally expensive.",
+        "• ML-based CSP uses generative models to learn and sample",
+        "from the distribution of stable structures, enabling exploration",
+        "of many candidates or even novel compositions.",
+        "• ML can also be embedded in an active learning loop: propose",
+        "→ evaluate → refine, accelerating inverse design by focusing",
+        "on structures with promising properties."
+      ],
+      "media_sha256": [
+        "5efc48bbe49c26ef932f14eb87d2ddc24eb757dc52b935a5309b17a6716c05ce"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "DiffCSP",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DiffCSP",
+        "• DiffCSP is a diffusion model to generate crystal structure from compositions.",
+        "• Equivariant to rotations and translations.",
+        "• Invariant to periodic transformations."
+      ],
+      "media_sha256": [
+        "292153615b45fe62650692dff9aed98c5dee246bd99e3fd2bee08881150b5bc0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "DiffCSP++: Space Group Constraints",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DiffCSP++: Space Group Constraints",
+        "• DiffCSP++ allows explicit conditioning on space group symmetry for structure generation.",
+        "• First sample a lattice, then assign atoms to Wyckoff positions",
+        "(including which Wyckoff sites are occupied and by what element).",
+        "• Then sample any displacements within those sites (constrained by symmetry).",
+        "Drastically improves performance."
+      ],
+      "media_sha256": [
+        "03aa2932b9413c2763080d109e8028e98a1a941ac3d43a60dea0485776687990",
+        "a389f64b1805d3583c7ed8f612d160345da8aa78e9de65278b3c7b7e029619f7",
+        "47cbc05b02f0594e510c359f05b6e3071babd767fc4d60323aa3033b83d3e5d8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": null,
+      "title": "SymmCD – Symmetry-Preserving Diffusion",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "SymmCD – Symmetry-Preserving Diffusion",
+        "• SymmCD also generates crystal structures conditioned on symmetry,",
+        "but keeps the representation size small.",
+        "• Separates the crystal into asymmetric unit (minimal atom set)",
+        "and space group operations (applied post-generation)."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Crystal Generative Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Crystal Generative Models",
+        "• Generating the crystal composition along with 3D coordinates.",
+        "• These models often have capability of crystal structure prediction through conditioning.",
+        "• The pipeline for generative design often is:",
+        "• generate candidate materials (with a generative model)",
+        "• predict their properties (with a fast ML model)",
+        "• filter or optimize",
+        "• possibly feedback to generator."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Crystal Diffusion VAE (CDVAE)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Crystal Diffusion VAE (CDVAE)",
+        "• In CDVAE, the encoder maps a crystal structure to a latent vector, and the decoder",
+        "attempts to reconstruct the structure by a diffusion process."
+      ],
+      "media_sha256": [
+        "cea347c9f1f0f79e91486e57cb3671ab4ac72e5e433cddc839a50af98d38efc1",
+        "1beded01b86b68de5fa5fbc1664098b9c55da609e59730eaf5991b34ce6233d9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "CrystalLLM",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "CrystalLLM",
+        "• Tokenize crystallographic CIF files and train autoregressive transformer .",
+        "• At generation time, you prompt it with a desired composition,",
+        "and it writes out a plausible crystal structure as a CIF file"
+      ],
+      "media_sha256": [
+        "f944f94dd456ed9a8ab0e379e65c16ed24cb03d461d9cbd395061f5b1bee64b3",
+        "3cec95fa2d7524f5fafdc0e90dad7cc1fab6ebb7a3d71936b64476409487cbb4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Finetuning Existing LLMs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Finetuning Existing LLMs",
+        "• Gruver et al., finetunes LLaMa-70B to generate CIF files.",
+        "• LLMs have highly optimized architecture for leveraging a huge amount of parameters",
+        "and can capture complex constraints like charge balance, common oxidation states, etc."
+      ],
+      "media_sha256": [
+        "ac8f2d450523c6786f603ebe17e7bdea9d4e535cac77437ae5f34dc0b6d1a829",
+        "6e53539fb005d3e22b35c22e13d094421cfe34d0b044d833c1a1db8f4467eac6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Flow-Based Models – FlowMM",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow-Based Models – FlowMM",
+        "• Generating the crystal composition and the structure through Riemannian flow matching."
+      ],
+      "media_sha256": [
+        "236f11ca0aeccadcad096e5475e6f7acd172c430190e911617d0f71c8e84c06e",
+        "63dff5053c4fdfd033142ebcba72eb5560260539fbec508a4c1095f46ff41790"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "MatterGen",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MatterGen",
+        "• State-of-the-art diffusion model for inorganic materials, trained as a foundation model.",
+        "• Trained on essentially the entire periodic table (a vast set of materials)",
+        "and then can be fine-tuned or guided to many tasks."
+      ],
+      "media_sha256": [
+        "ccce7f7f5fff478be42a21491c3e5979675dd9692e01834001a7ffd240e6c4f4",
+        "23f08a98c8d3b365024fe433e7e2030c3f9e347a9362342336567ac824abc9e9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "All-Atom Diffusion Transformer (ADiT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "All-Atom Diffusion Transformer (ADiT)",
+        "• Training a multi-modal distribution for molecules and materials with latent diffusion."
+      ],
+      "media_sha256": [
+        "16ba6a8e3332a806b708a6b8ed976b26a66da2c8dfa04b173b71db8e7e632314",
+        "d8496ec8059dec7176a2c2a937c444d13b7b3d4cac40842c50c3e80393c04fbb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Chemeleon – Text-Guided Crystal Generation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Chemeleon – Text-Guided Crystal Generation",
+        "• A CLIP-like model that takes natural",
+        "language or text descriptions as input",
+        "to guide the generation of crystal",
+        "structures."
+      ],
+      "media_sha256": [
+        "a2677d458e6f8747f2dc25624b8992b31252a8dbc3af84a6b9902f12205478ea",
+        "ef5ba48433c5959639a5671b18dbe5cc8e4f1520f4efb2ffa5b301675adc2e25"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Application: Battery",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Battery",
+        "• Charge storage system:",
+        "• Cathode: Made of a cathode active material (usually a",
+        "lithium metal oxide) that stores lithium ions (Li⁺)",
+        "when the battery is discharging.",
+        "• Anode: Composed of an anode active material (often",
+        "graphite) and enhanced with conductivity-boosting",
+        "agents to improve electron flow.",
+        "• Discharge process (Powering a Device)",
+        "• Lithium ions (Li⁺) move from the anode to the cathode",
+        "through the separator (blue porous material).",
+        "• Electrons (e⁻) cannot pass through the separator and",
+        "instead travel through an external circuit, powering a",
+        "device."
+      ],
+      "media_sha256": [
+        "383544ff14b420b7d9381eae5cf6e0a0b3e28c82d1b163e05207851f5f94326c",
+        "a2a4241860207ff0622e97921e78d0252809010a34f70a53ddd42137e530256c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Application: Battery",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Battery",
+        "• Solid-state electrolytes: A current challenge is to find new crystal compounds that conduct",
+        "lithium ions well but are stable and easy to make.",
+        "• MatterGen and Chemeleon both explored Li–P–S–Cl quaternary system for Li-ion conductors",
+        "Four generated metastable and dynamically",
+        "stable materials for Li-P-S-Cl from Chemeleon."
+      ],
+      "media_sha256": [
+        "2ff5b58e4f26ce63afedeed9c785d1c1eb8ca4727d2cd30f6c25120fb9099975",
+        "c05c12a72a3ca6411bc50c3107ab882b14d35c11034b44f975b2f361b6edddfc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Application: Battery",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Battery",
+        "• Approximate lithium diffusivity using neural-accelerated molecular dynamics.",
+        "self-diffusivity estimation"
+      ],
+      "media_sha256": [
+        "6828e1baae09a549193600415423cfbc29dbdbf0e558b2da7f6feaf11aa3094b",
+        "8c12b8f16d57c490c9dab5ae54e0d2dcd12f1554f77a9efff95412d4adf660b5",
+        "c711327b21f9a813963245043a68eec3942a77e477c990c5448685351cfd8d19"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Application: Semiconductor",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Semiconductor",
+        "• Semiconductor is a material whose",
+        "electrical conductivity lies between that of",
+        "conductors and insulators.",
+        "• n-type: Doped with donor atoms (e.g.,",
+        "Phosphorus) that provide extra electrons.",
+        "• p-type: Doped with acceptor atoms (e.g.,",
+        "Boron) that create holes (missing electrons)."
+      ],
+      "media_sha256": [
+        "b56245566f604df87f715a0cc5c3e23a5e320d87e7250929aa3391723afb6f23",
+        "b6ca7fd53759cdbe46a7d9dc15bd802eb3c0d6b3ea83d5ebccc2f1772ab578b4",
+        "16cfeb81cd49dd0a585511526b875181497ffd292e4ccb5f525e4166cbad7892"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Application: Semiconductor",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Semiconductor",
+        "• Samsung released a dataset to analyze semiconductors",
+        "using machine learning force fields."
+      ],
+      "media_sha256": [
+        "6a924b9c0b022a97bdc6c4a76203aac50ee1452b57f86c543af7f01e41c46c21",
+        "bc6a3fd140d31b1b17b059192e85e799c23e0dfc72846e52abaae09a6c8a50fb",
+        "e00049eb961c72243840ee5515d521699fd91255983a9c84707d0c88a3fc5646"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Application: Semiconductor",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Semiconductor",
+        "• A new pipeline CTMT (Combining generative model, Topology evaluator, and interatomic",
+        "potential discovered 4 new topological insulators and 16 new semimetals, including some",
+        "chiral materials that were previously hard to design."
+      ],
+      "media_sha256": [
+        "f164b96e0c186299f9cd50d3f22f17cb8edb239a75031b5078186b18a01d23ce",
+        "eb114f6183363975da41ab07ba6abe99d816bd1e2d33c5086bef5a2cad6a4ac1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Application: Heterogeneous Catalysis",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Heterogeneous Catalysis",
+        "• Heterogeneous catalysis involves a catalyst in a different phase (usually solid).",
+        "• Reactions occur at the surface of the catalyst, where reactant molecules are adsorbed,",
+        "transformed, and desorbed as products.",
+        "• It is widely used in industry (e.g., catalytic converters, ammonia synthesis, fuel refining)",
+        "due to ease of catalyst recovery and reuse.",
+        "Homo vs. heterogenous catayslis"
+      ],
+      "media_sha256": [
+        "164535a84a23af025735ba55400dc5ce012b5f7d004c023eb15b2955851feb93",
+        "0d0cd5e6a353b92069112a508e8e011fcba5e1701b220790efd501e9d9be7597"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Application: Heterogeneous Catalysis",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Application: Heterogeneous Catalysis",
+        "• Determining the optimal configuration of adsorbates on a slab",
+        "Open catalyst project dataset"
+      ],
+      "media_sha256": [
+        "7c1f47350892f21b586fa20063141be135659cf54d5d3996700aa67a6afce2c7",
+        "0212ac20c8ed13fc864e9579e6add970d664c13a4de4db44b6f11053b3933e5c",
+        "2cc73dcab46712afe3df535c54f987ded277705291b72dbcf262de6d5af247ea"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "8bd0120d8d2321cf9267d92b8f144bb7c2d03db031ac04656cd3b196a96eee13",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 31877,
+      "slides": [
+        2
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6df86d944edba6ebc9d943b7e35d57541e9cd1201526a34db8039106f4dcf4f0",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 442796,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0255a41ce1e3c809c41691a94547c7fd422258a5e7db9273b8a85173da859124",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 124996,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fda75caa8481761cc1df23ff566461818613c5580f2f31baed1623ebb69eea38",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 16348,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0cc0f6ecede709a120dbb55807366ee40e249d0df68f64bd313d5e6241884bd6",
+      "pptx_path": "ppt/media/image13.jpeg",
+      "extension": ".jpeg",
+      "bytes": 97567,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "50e0c0d4e7428cdbeeaa4ec3d6ae919fee7c71686cff975ffb16789ec293afbb",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 141447,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "702ca85252fab2769d9c79e376bc1c505a6567be9e43f5e4bbf5b04a03b89df9",
+      "pptx_path": "ppt/media/image140.png",
+      "extension": ".png",
+      "bytes": 87775,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3",
+      "pptx_path": "ppt/media/image15.jpeg",
+      "extension": ".jpeg",
+      "bytes": 185686,
+      "slides": [
+        11,
+        12,
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+      "pptx_path": "ppt/media/image16.jpeg",
+      "extension": ".jpeg",
+      "bytes": 31451,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff152ce84cb89b8d31158c0029bc33a71ccdca59309a4916b148ff6debbf5625",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 127067,
+      "slides": [
+        13,
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9dc63111664136cfc7fe6905d2bcf966894b833b16839d910d92323abd119d53",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 734530,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1b91b675cefac17031e498cde20d6c0242a8cbe7f12368a307d78b5b32f76c28",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 115738,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "86f9ce6f331631a7ed9da15969de49e263abd548bd8febe4720a19c06883440a",
+      "pptx_path": "ppt/media/image2.jpeg",
+      "extension": ".jpeg",
+      "bytes": 198709,
+      "slides": [
+        2
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2e536128800f0f14d18e036f769440e679de4c3a9704e45b5bd2cea31e685277",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 191711,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "46ea95226fee25c7f3b9e20f6df3b2c9eacaa388ecad46bbbb2dcd4bd72693f8",
+      "pptx_path": "ppt/media/image21.jpeg",
+      "extension": ".jpeg",
+      "bytes": 1199494,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e43cd5f8506fcecca83220f540324362d9ebb1da4a95be1f96229a998af955e4",
+      "pptx_path": "ppt/media/image22.jpeg",
+      "extension": ".jpeg",
+      "bytes": 114642,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5efc48bbe49c26ef932f14eb87d2ddc24eb757dc52b935a5309b17a6716c05ce",
+      "pptx_path": "ppt/media/image23.jpeg",
+      "extension": ".jpeg",
+      "bytes": 99321,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "292153615b45fe62650692dff9aed98c5dee246bd99e3fd2bee08881150b5bc0",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 113379,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "03aa2932b9413c2763080d109e8028e98a1a941ac3d43a60dea0485776687990",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 79789,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a389f64b1805d3583c7ed8f612d160345da8aa78e9de65278b3c7b7e029619f7",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 92684,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "47cbc05b02f0594e510c359f05b6e3071babd767fc4d60323aa3033b83d3e5d8",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 86800,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d470796fcbd30e48e48cacdf6b5e6391bd4b78f883c54c3d8a01720ccb68f2d0",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 98890,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e3f532aad3a1490dfc468c9a0b29a3b58aa6d0fbb4aae3e9813c03001aef1d44",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 99781,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9fcdd296e9258d4926e681240a8814728ac77df5a7bdd2b92eabaa9ab072f84e",
+      "pptx_path": "ppt/media/image3.gif",
+      "extension": ".gif",
+      "bytes": 34657,
+      "slides": [
+        2
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cea347c9f1f0f79e91486e57cb3671ab4ac72e5e433cddc839a50af98d38efc1",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 83936,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1beded01b86b68de5fa5fbc1664098b9c55da609e59730eaf5991b34ce6233d9",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 118556,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f944f94dd456ed9a8ab0e379e65c16ed24cb03d461d9cbd395061f5b1bee64b3",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 113971,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3cec95fa2d7524f5fafdc0e90dad7cc1fab6ebb7a3d71936b64476409487cbb4",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 85373,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ac8f2d450523c6786f603ebe17e7bdea9d4e535cac77437ae5f34dc0b6d1a829",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 304837,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6e53539fb005d3e22b35c22e13d094421cfe34d0b044d833c1a1db8f4467eac6",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 170628,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "236f11ca0aeccadcad096e5475e6f7acd172c430190e911617d0f71c8e84c06e",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 38308,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "63dff5053c4fdfd033142ebcba72eb5560260539fbec508a4c1095f46ff41790",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 129724,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ccce7f7f5fff478be42a21491c3e5979675dd9692e01834001a7ffd240e6c4f4",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 135354,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "23f08a98c8d3b365024fe433e7e2030c3f9e347a9362342336567ac824abc9e9",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 179710,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0c279cc4926b2272752e33e21f323fede393c61e0178cb954a4b7b6501b666ab",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 52108,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16ba6a8e3332a806b708a6b8ed976b26a66da2c8dfa04b173b71db8e7e632314",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 282810,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d8496ec8059dec7176a2c2a937c444d13b7b3d4cac40842c50c3e80393c04fbb",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 85299,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a2677d458e6f8747f2dc25624b8992b31252a8dbc3af84a6b9902f12205478ea",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 286483,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ef5ba48433c5959639a5671b18dbe5cc8e4f1520f4efb2ffa5b301675adc2e25",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 261792,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "383544ff14b420b7d9381eae5cf6e0a0b3e28c82d1b163e05207851f5f94326c",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 499710,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a2a4241860207ff0622e97921e78d0252809010a34f70a53ddd42137e530256c",
+      "pptx_path": "ppt/media/image45.jpeg",
+      "extension": ".jpeg",
+      "bytes": 106784,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2ff5b58e4f26ce63afedeed9c785d1c1eb8ca4727d2cd30f6c25120fb9099975",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 284328,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c05c12a72a3ca6411bc50c3107ab882b14d35c11034b44f975b2f361b6edddfc",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 343836,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6828e1baae09a549193600415423cfbc29dbdbf0e558b2da7f6feaf11aa3094b",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 134736,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8c12b8f16d57c490c9dab5ae54e0d2dcd12f1554f77a9efff95412d4adf660b5",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 291341,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "93861716929d2bc7381d2e93fea988ee12491d30bd018e098639fee98f513954",
+      "pptx_path": "ppt/media/image5.gif",
+      "extension": ".gif",
+      "bytes": 20408,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c711327b21f9a813963245043a68eec3942a77e477c990c5448685351cfd8d19",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 165180,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b56245566f604df87f715a0cc5c3e23a5e320d87e7250929aa3391723afb6f23",
+      "pptx_path": "ppt/media/image51.jpeg",
+      "extension": ".jpeg",
+      "bytes": 65787,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b6ca7fd53759cdbe46a7d9dc15bd802eb3c0d6b3ea83d5ebccc2f1772ab578b4",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 26230,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16cfeb81cd49dd0a585511526b875181497ffd292e4ccb5f525e4166cbad7892",
+      "pptx_path": "ppt/media/image53.jpeg",
+      "extension": ".jpeg",
+      "bytes": 78175,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6a924b9c0b022a97bdc6c4a76203aac50ee1452b57f86c543af7f01e41c46c21",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 996618,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bc6a3fd140d31b1b17b059192e85e799c23e0dfc72846e52abaae09a6c8a50fb",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 29296,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e00049eb961c72243840ee5515d521699fd91255983a9c84707d0c88a3fc5646",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 28984,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f164b96e0c186299f9cd50d3f22f17cb8edb239a75031b5078186b18a01d23ce",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 386426,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "eb114f6183363975da41ab07ba6abe99d816bd1e2d33c5086bef5a2cad6a4ac1",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 113521,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "164535a84a23af025735ba55400dc5ce012b5f7d004c023eb15b2955851feb93",
+      "pptx_path": "ppt/media/image59.jpeg",
+      "extension": ".jpeg",
+      "bytes": 102656,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f4823ad7ab5196bf98ef2a1cc36dbc5d8b23f183dc5eda4ab8ede9407d94e30a",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 153081,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0d0cd5e6a353b92069112a508e8e011fcba5e1701b220790efd501e9d9be7597",
+      "pptx_path": "ppt/media/image60.jpeg",
+      "extension": ".jpeg",
+      "bytes": 160195,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7c1f47350892f21b586fa20063141be135659cf54d5d3996700aa67a6afce2c7",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 235788,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0212ac20c8ed13fc864e9579e6add970d664c13a4de4db44b6f11053b3933e5c",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 63902,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2cc73dcab46712afe3df535c54f987ded277705291b72dbcf262de6d5af247ea",
+      "pptx_path": "ppt/media/image63.gif",
+      "extension": ".gif",
+      "bytes": 88817,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 58449,
+      "slides": [
+        5,
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c7ae9b7a5bcd9f0c0e2bc36d67fee53588a1de5de01fcf6c50d4f260161de07e",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 159744,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d9a4913fa85b867ab3f6607ae318478d87c841829d19f0160bdb4ed6b6625c5a",
+      "pptx_path": "ppt/media/image9.jpeg",
+      "extension": ".jpeg",
+      "bytes": 31326,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 58,
+    "reused_figures": 58,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-21.md",
+  "pptx_figures": [
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s02-doping-example.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s02-oled-materials.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image3.gif"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s03-discovery-paradigms.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image4.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s04-materials-tree.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.gif"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s05-band-regimes.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s06-oled-layers.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image8.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s07-phonon-transport.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.jpeg"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s08-magnetic-response.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s10-lattice-basis.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image13.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s10-crystal-cells.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image14.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s11-bravais-lattices.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image15.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s12-nonsymmorphic-operations.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image16.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s13-wallpaper-groups.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s13-symmetry-hierarchy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s14-wyckoff-orbits.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image20.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s15-nucleation-growth.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.jpeg"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s15-convex-hull.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.jpeg"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s17-csp-active-loop.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image23.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s18-diffcsp-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image24.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s19-diffcspp-process.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image25.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s19-diffcspp-benchmark.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image27.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s20-symmcd-asymmetric-unit.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s20-symmcd-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image29.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s22-cdvae-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s22-cdvae-samples.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s23-crystallm-tokenization.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image32.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s23-crystallm-benchmark.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s24-llama-cif-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image34.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s24-llama-cif-benchmark.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image35.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s25-flowmm-path.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s25-flowmm-benchmarks.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s26-mattergen-process.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image38.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s26-mattergen-examples.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image39.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s27-adit-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image40.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s27-adit-benchmark.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image41.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s28-chemeleon-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image42.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s28-chemeleon-examples.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image43.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s29-battery-anatomy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image44.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s29-liquid-solid-electrolytes.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image45.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s30-li-ps-s-cl-candidates.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image46.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s30-phase-diagrams.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s31-liflow-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s31-lithium-diffusion.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image49.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s31-diffusivity-estimates.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image50.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s32-doping-types.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image51.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s32-semiconductor-bands.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image53.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s33-semiconductor-structures.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image54.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s33-sin-dataset-counts.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image55.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s33-hfo-dataset-counts.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image56.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s34-ctmt-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image57.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s34-ctmt-funnel.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image58.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s35-surface-catalysis.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image59.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s36-adsorbdiff-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image61.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s36-success-rate.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image62.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s36-ocp-adsorbates.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image63.gif"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s04-materials-comparison.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s08-magnetic-classes.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-21/s14-wyckoff-table.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

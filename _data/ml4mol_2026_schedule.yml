@@ -13,9 +13,8 @@
   topic: AI for Science Basics
   focus: Chemistry and physics, drug discovery, and materials discovery.
   supplementary_posts:
-    - chemistry-physics-molecular-ml
-    - drug-discovery-target-to-clinic
-    - materials-discovery-structure-properties-synthesis
+    - ml4mol-2025-lecture-02
+    - ml4mol-2025-lecture-03
 
 - dates:
     - date: "Sep. 21 (Mon)"
@@ -29,13 +28,8 @@
   topic: Architectures
   focus: Graph neural networks, geometric representations, equivariance, and interatomic potentials.
   supplementary_posts:
-    - graph-neural-networks-message-passing
-    - graph-neural-network-expressivity
-    - deep-graph-network-failure-modes
-    - symmetry-equivariance-geometric-data
-    - scalar-vector-geometric-gnns
-    - steerable-features-tensor-products
-    - equivariant-transformers-machine-learned-potentials
+    - ml4mol-2025-lecture-04
+    - ml4mol-2025-lecture-05
 
 - dates:
     - date: "Oct. 12 (Mon)"
@@ -56,10 +50,7 @@
   topic: Generative Models
   focus: Continuous, geometric, and discrete generative processes.
   supplementary_posts:
-    - odes-sdes-probability-flow
-    - diffusion-models-flow-matching
-    - geometric-flow-matching-manifolds
-    - discrete-flow-generator-matching
+    - ml4mol-2025-lecture-06
 
 - dates:
     - date: "Nov. 16 (Mon)"
@@ -71,15 +62,14 @@
   topic: Seminar
   focus: Paper discussions and applications across molecules, proteins, and cells.
   supplementary_posts:
-    - molecular-data-property-prediction
-    - molecular-simulation-machine-learned-force-fields
-    - molecular-generation-graphs-reactions
-    - molecular-generation-3d-optimization
-    - machine-learning-quantum-chemistry
-    - protein-structure-prediction-alphafold
-    - protein-representation-learning
-    - generative-models-protein-design
-    - genomic-foundation-models-virtual-cells
+    - ml4mol-2025-lecture-07
+    - ml4mol-2025-lecture-08
+    - ml4mol-2025-lecture-09
+    - ml4mol-2025-lecture-10
+    - ml4mol-2025-lecture-11
+    - ml4mol-2025-lecture-12
+    - ml4mol-2025-lecture-13
+    - ml4mol-2025-lecture-14
 
 - dates:
     - date: "Dec. 7 (Mon)"

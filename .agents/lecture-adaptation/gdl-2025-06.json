@@ -1,0 +1,1966 @@
+{
+  "deck_id": "gdl-2025-06",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec6_gnn4.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec6_gnn4.pptx",
+  "slide_count": 50,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Graph Neural Networks",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Graph Neural Networks",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Lecture Overview: GNNs",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Lecture Overview: GNNs",
+        "Lec 1 (Mar 5th): Overview of graph neural networks (GNNs)",
+        "Lec 2 (March 10th): Principled derivation of GNNs",
+        "Lec 3 (March 12th): Expressive power of GNNs",
+        "Lec 4 (March 17th): Scaling GNNs to large graphs",
+        "• about over-squashing, over-smoothing, computational complexity…"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": null,
+      "title": "MPNN Formalism",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MPNN Formalism",
+        "• Combine function 𝑐𝑜𝑚(\")",
+        "• Permutation invariant aggregation map 𝑎𝑔𝑔(\")",
+        "(\")",
+        "• For any layer 𝑡 we compute node embeddings h$ by:"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 3,
+      "title": "Failure of MPNNs for Large Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Failure of MPNNs for Large Graphs"
+      ],
+      "media_sha256": [
+        "9c61fd3907f86e971f63b39a85355cf01361dbb5fc41918a3aa504e1ba95bc8e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 4,
+      "title": "Under-Reaching Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Under-Reaching Problem",
+        "• Information cannot propagate futher than there are layers in the MPNN:",
+        "in principle, this can be fixed by increasing depth."
+      ],
+      "media_sha256": [
+        "b22eaab06e4f7dedd1ed80b75531562d057d23037bc17f8c7d38ce5b6bf7885f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 5,
+      "title": "Over-Smoothing Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Smoothing Problem",
+        "• In a deep MPNN, node representations can become",
+        "similar (smoothed out) and weaken influence of graph",
+        "structure.",
+        "• In principal, this can be fixed by choosing message",
+        "passing functions that do not act as low-pass filters",
+        "and is independent of the topology."
+      ],
+      "media_sha256": [
+        "c845c7befa451bca7bbd34a1b46ea09ae52a74504539686359496462d301f40c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 6,
+      "title": "Over-Squashing Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Squashing Problem",
+        "• Depending on the graph-topology, the size of the 𝑟-hop",
+        "of a node may grow exponentially.",
+        "• As messages are sent through the ‘same structural edges’",
+        "via fixed-size node representations, we lose information."
+      ],
+      "media_sha256": [
+        "76e84b09a0e7a9411296a373cce52dbda86526d722a60e8ff6c299a4e400e4ae",
+        "bb8205cb5c1c7b633c83d7c3dfafbc4dd7397f25d06838f81bba55e5f008a70a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 7,
+      "title": "Over-Smoothing",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Smoothing",
+        "How to measure over-smoothing?",
+        "How to mitigate over-smoothing?",
+        "• Normalization & regularization",
+        "• Change of GNN dynamics",
+        "• Residual networks"
+      ],
+      "media_sha256": [
+        "c845c7befa451bca7bbd34a1b46ea09ae52a74504539686359496462d301f40c",
+        "f76ec8b9dcd54a2bbac403e20c251242cfd3cf3f4cabc0d156bf7632e3f7cb99"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 8,
+      "title": "Over-Smoothing Measures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Smoothing Measures",
+        "Consider the following MPNN updates:",
+        "𝑋 % = 𝜎 𝐹& (𝑋 %'(, 𝒢) ,     ∀𝑛 = 1, … , 𝑁.",
+        "Over-smoothing is defined as exponential decay",
+        "in the node-similarity measure 𝜇(⋅):",
+        "𝜇 𝑋 % ≤ 𝐶(𝑒 ')! % ,   ∀𝑛 = 1, … , 𝑁,",
+        "where the node-similarity measure 𝜇(⋅)",
+        "satisfies the following axioms:",
+        "• 𝜇 𝑋 = 0 ⇔ 𝑋 is constant.",
+        "• 𝜇 𝑋 + 𝑌 ≤ 𝜇 𝑋 + 𝜇(𝑌)."
+      ],
+      "media_sha256": [
+        "c73a48e9141df280ec3f38f91d807b671d8619b8091a53ded9eccb8f9d4394a0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 9,
+      "title": "Over-Smoothing Measures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Smoothing Measures",
+        "Dirichlet energy is a popular node-similarity measure for graphs:",
+        "1             /",
+        "ℰ 𝑋%    = > > 𝑋*% − 𝑋-% .",
+        "𝑣             /",
+        "*∈𝒱 -∈𝒩\"",
+        "Another candidate is mean average distance (MAD):",
+        "0",
+        "1                𝑋*% 𝑋-%",
+        "MAD 𝑋 %      = >> 1 − %                       ,",
+        "𝑣       𝑋*                𝑋-%",
+        "*   -",
+        "which is a valid node similarity measure when the features",
+        "are constrained to satisfy 𝑋-% = 1."
+      ],
+      "media_sha256": [
+        "e091628ea3e475325d1744a54f3b529834c69fdb25c0753a23d0bf77839cad29"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 10,
+      "title": "Empirical Evaluation of Over-Smoothing",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evaluation of Over-Smoothing",
+        "For randomly initialized weights, naïve GNNs exhibit",
+        "exponential decay in the node similarity"
+      ],
+      "media_sha256": [
+        "df9c25ae7d1308bb078301c14d3d26cfe5b2cfa8b052f04ee0bed1ff79c089c7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 11,
+      "title": "Methods to Mitigate Oversmoothing - 1",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Methods to Mitigate Oversmoothing - 1",
+        "Residual networks have been proposed as the first solution to oversmoothing problem [1]:",
+        "𝑋 % = 𝑋 %'( + 𝐹& 𝑋 %'(, 𝒢 .",
+        "Another example is GCNII where a scaled residual connection to the initial node features is",
+        "added to every layer of the GCN:",
+        "𝑋 % = 𝑋 %'( + 𝜎     1 − 𝛼 𝐿𝑋 % + 𝛼𝑋 1     1 − 𝛽 𝐼 + 𝛽𝑊      .",
+        "Other examples include jumping knowledge networks (JKNets)",
+        "and deep adaptive graph neural networks."
+      ],
+      "media_sha256": [
+        "7068a522c65708fd979bbd94631dc3931487bcd9c1879bb62e10eeea8b8aed7c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 12,
+      "title": "Methods to Mitigate Oversmoothing - 2",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Methods to Mitigate Oversmoothing - 2",
+        "One can more directly regularize the GNNs by (1) penalizing deviations of over-smoothing",
+        "measures, (2) normalizing the node features, and (3) adding noise to the optimization process.",
+        "Energetic GNNs proposes to regularize the Dirichlet energy during training.",
+        "PairNorm sets the distance between neighboring features to be constant via:",
+        "3",
+        "1                         𝑠𝑋I*",
+        "𝑋I* = 𝑋* − > 𝑋- ,        𝑋* =",
+        "𝑣                      1 3",
+        "-2(                   ∑-2( 𝑋I-",
+        "𝑣",
+        "DropEdge regularizes training by masking out edges."
+      ],
+      "media_sha256": [
+        "b935b8de605d4e9789049adf7cc158002b68f9b742b955637d9083cd2777505b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 13,
+      "title": "Methods to Mitigate Oversmoothing - 3",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Methods to Mitigate Oversmoothing - 3",
+        "One can also change the discrete / continuous dynamics of the",
+        "message passing propagation to mitigate over-smoothing.",
+        "Graph-Coupled Oscillator Network (GraphCON) defines",
+        "a second-order continuous-time dynamics as follows:",
+        "𝑋 44 = 𝜎 𝐹& 𝑋   − 𝛾𝑋 − 𝛼𝑋 4 .",
+        "This dynamics can be specifically designed",
+        "to preserve the Dirichlet energy."
+      ],
+      "media_sha256": [
+        "bae6c1a22f9ddbcaadff8bafa5ed9d0123b27b2c0d11328c4f9275a8c97b7381",
+        "95eb1535b5453e942af3ae4a5fa08496ce63d4276327fa5265e8a6bb8ff6aeb0",
+        "48e90e60cbfc68992da0b379c3be814938373c5973a41e9ac0e1182e94a9a586"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 14,
+      "title": "Evaluation of Methods",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Evaluation of Methods",
+        "Naïve baselines do not work, but most others actually mitigate oversmoothing!"
+      ],
+      "media_sha256": [
+        "30a240b9333c817bd80fcb99cf1bab4c7ff65e1c1a83913cbd1143258550b0c3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 15,
+      "title": "Risks of Mitigating Over-Smoothing",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Risks of Mitigating Over-Smoothing",
+        "Is the mitigation of over-squashing always good? Not really!",
+        "Simply adding a bias vector at each GCN mitigates over-",
+        "smoothing in the designed experiments:",
+        "𝑋 % = 𝜎 𝐹& (𝑋 %'(, 𝒢) + 𝒃,      ∀𝑛 = 1, … , 𝑁",
+        "Mitigation of over-squashing often sacrifise the expressive",
+        "power, e.g., PairNorm performs really bad in practice."
+      ],
+      "media_sha256": [
+        "b5ec0427c3f8342188aa85de2a84cbac6336b1ceb269b43cc8361fcf8996ce73",
+        "6f3c3b03e6f5c0e34f9f3fbb493c8a8b94a9ce172dff1309cc166a38d9e9fae4",
+        "2e6230de9c8f6581d1f72be9fe981b70fb3bcbeab6419b3ee617d2d72b44a1bd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 16,
+      "title": "Over-Squashing Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Squashing Problem",
+        "Over-squashing is intrinsic to the underlying graph topology",
+        "and cannot be easily fixed by different architecture choices.",
+        "If the topology is harmful, can we ‘decouple’ the",
+        "computational graph from the input one? The bigger picture:",
+        "rewiring, graph-transformers, and the role of the graph."
+      ],
+      "media_sha256": [
+        "bb8205cb5c1c7b633c83d7c3dfafbc4dd7397f25d06838f81bba55e5f008a70a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 17,
+      "title": "Understanding Over-Squashing: Part 1.",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Understanding Over-Squashing: Part 1.",
+        "Sensitivity analysis to assess information flow in",
+        "an MPNN.",
+        "Proved that over-squashing is independent of the",
+        "choice of the model, but arises when we have",
+        "edges with high negative curvature.",
+        "Proposed first rewiring method directly aimed at",
+        "correcting the graph topology along bottlenecks."
+      ],
+      "media_sha256": [
+        "0263e48e1fbeb59c4c4f94af1e1b7b6bef9c8c14aa111297196fe3bf5ae78570"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 18,
+      "title": "Sensitivity Analysis",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Sensitivity Analysis",
+        "Consider MPNN of the form:"
+      ],
+      "media_sha256": [
+        "f8c669ba00927b4ed592382e567d9aa4863a6f6fab0fb4cdb14d805dfd8728b5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 19,
+      "title": "Over-Squashing Example: Binary Tree",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Squashing Example: Binary Tree",
+        "Demonstrated in Tree-Neighbors Match experiment",
+        "(Alon and Yahv, 2021):",
+        "1 '(5'()",
+        "𝐴N 5 36 =     ⋅3",
+        "2",
+        "Sensivitiy analysis is now the standard approach to",
+        "monitor over-squashing in GNNs.",
+        "If the graph topology induces over-squashing, can we",
+        "identify the edges responsible for bottlenecks?"
+      ],
+      "media_sha256": [
+        "310b37c501c88df8fd9bc8d6561a590d34a3fbb2c0f595d425d351b4bd54be28",
+        "f4c8e36a3e57d5fae4e18e7bc9901048f1c922075bf5615353956e99984549f6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 20,
+      "title": "Edges with High Negative Curvature",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Edges with High Negative Curvature",
+        "The paper intruduces a curvature map Ric over the edges s.t. 𝑢, 𝑣 ↦ 𝑅𝑖𝑐(𝑢, 𝑣)",
+        "depends on triangles and 4-cycles based at 𝑢, 𝑣 ."
+      ],
+      "media_sha256": [
+        "2d71a05dba715cb6aba533c684e57bd405ba9bf8f286960dd14ed561ef1f8f1b",
+        "7312b213a3f692dc50644ef5e4a8ebc5dfe7bf84450cf73ed326504bfd0ee147",
+        "1c4b89a786b180537d8ee1dc8196e874100551bb7fa9d286b7409f510d8f31c6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 21,
+      "title": "What is Curvature?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What is Curvature?",
+        "• Ricci curvature on ’prototypical’ manifolds"
+      ],
+      "media_sha256": [
+        "af758a0103dc644e17ba1bea9b08399b5544fb6902ad24b1ea9974d133dcda72"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 22,
+      "title": "Ricci Curvature Intuition",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Ricci Curvature Intuition",
+        "Pick geodesics at nearby points with parallel velocity.",
+        "• With positive curvature, geodesics converge.",
+        "• With zero curvature, geodesics stay parallel",
+        "• With negative curvature, geodesics diverge"
+      ],
+      "media_sha256": [
+        "e6bca5036baa7c59f21caa186a768c9d9525177ce48b05a16ef6fac4f23754fa",
+        "e560f54222fab8b16d411a3bd74f138c90438f32533286120fe9924ee40f92fc",
+        "dda786bb40d2f26a93911c74871c1d4a63252363ae4f9e9bd510ef8af51df61e",
+        "39f49e37b071ba6f7cc3a994e56662ebf7483ae7a623b67a317ac0ef8df559bb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 23,
+      "title": "Ricci Curvature Intuition",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Ricci Curvature Intuition",
+        "Swapping geodesics for edges, we can take discrete analogues on graphs."
+      ],
+      "media_sha256": [
+        "fb029997613b7c009dd7a273a8cde79b00c7af583f14a7f334e0f743d3ab607a",
+        "5d2360b761fa5811d382b7232a38f7e8c0eeee8b3884164680ba8afbca3acad3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 24,
+      "title": "Surgical Analysis: Graph-Rewiring",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Surgical Analysis: Graph-Rewiring",
+        "Negatively curved edges -> bottlenecks -> over-squashing.",
+        "• If the topology only is responsible for over-squashing, what if we change it?",
+        "Benefit of this analysis:",
+        "• We can surgically identify bottlenecks",
+        "by studying the curvature.",
+        "• We can add/remove edges accordingly."
+      ],
+      "media_sha256": [
+        "8b87839d40b0e2e631ad73003a33b9643c4750bbcb9c62f1996fad33fa16a62f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 25,
+      "title": "Graph Rewiring Example",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Rewiring Example"
+      ],
+      "media_sha256": [
+        "9212ffd71ce9cd351fd5f68e6cd5f192c45aad8b0ea77a158e71779776893d77",
+        "b81db908da30ffcfb26e6ff292d0d51ce50450a1cdf474f1ac14ab002196d684",
+        "95b38b6479b0c1e7c020406b832463715a3b90cac5cd53d41a96359888e7a9be",
+        "a326eaf0593fb1add20f59a127c906c511f768111d89f9887c2369e97bc5b561"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 26,
+      "title": "Graph Rewiring Example",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graph Rewiring Example"
+      ],
+      "media_sha256": [
+        "8e0d5ca32c04cc28bbeec4528aedf99ded1111f414d13b1c65fa501920e73079",
+        "ea0597a3f00a6151fa023c37daf749ec560dac468030b57a1fdbf7fd453c8911"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 27,
+      "title": "Understanding Over-Squashing: Part 2.",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Understanding Over-Squashing: Part 2.",
+        "Some important questions left open…",
+        "• What is the impact of the width in mitigating over-squashing?",
+        "• Can over-squashing be avoided by sufficiently deep models?",
+        "• How does over-squashing realte to the graph spectrum and the underlying topology beyond curvature",
+        "bounds that only apply to 2-hop propagation?"
+      ],
+      "media_sha256": [
+        "af8b3e0b6fc3b6efdd0447f288fcc2ff1f01104e0c875b4f6574c7ba9ac5317f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 28,
+      "title": "Setting",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Setting",
+        "Key assumption: We consider (isotropic) MPNNs of the form",
+        "• 𝜎 is a point-wise nonlinear map, 𝑊 (\") are learnable weight matrices.",
+        "• 𝑐$ , 𝑐% ≥ 0 measures the strength of residual and aggregation terms.",
+        "!      !",
+        "• 𝐴 is a message passing matrix typically chosen in   𝐷 &' 𝐴, 𝐴, 𝐷 &\" 𝐴𝐷 &\" .",
+        "Include standard models like GCN, SAGE, and GIN."
+      ],
+      "media_sha256": [
+        "111aaaeaaca83416bbc334c535d0266e987e75ec8a15a484c55fa70e63116849",
+        "c21fd79c9c1b89dc7e2ce1251f3153cbc44c28dc502d28f3585164f838457395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 29,
+      "title": "The Impact of Width",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Impact of Width",
+        "$",
+        "78#",
+        "Oversquashing is studied in via gradient sensitivity: if      &   is small, then the feature at 𝑣 is",
+        "78%",
+        "mostly insensitive to the information initally contained at 𝑢, after 𝑚 layers."
+      ],
+      "media_sha256": [
+        "4565a2faedef5049adfba51eb081178d6f4aa16d80c9d5872824b9226fd0de44",
+        "2b29482f90ee3abf9987b0bfbf383e0982d6ffc24596b09cdd65eaea60fec825"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 30,
+      "title": "The Impact of Width",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Impact of Width",
+        "• Width can help, yet at the expense of over-fitting."
+      ],
+      "media_sha256": [
+        "3eeb9d72b5d335c27f563dabf7e209c19ac34c872bff301248d97d0555552350"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": null,
+      "title": "What Does It Mean ‘Long-Range’?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What Does It Mean ‘Long-Range’?",
+        "Synthetic graph-transfer task:"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 32,
+      "title": "What Does It Mean ‘Long-Range’?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "What Does It Mean ‘Long-Range’?"
+      ],
+      "media_sha256": [
+        "551218067f0f417533b6ae17498e17e45b51124adedd3428fddab53513fd02a2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 33,
+      "title": "Random Walk",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Random Walk",
+        "A random walk (RW) on 𝐺 is a Markov chain which, at each step, moves from a node 𝑣 to",
+        "one of its neighbours with probability 1/𝑑3 .",
+        "Commute time 𝜏 𝑣, 𝑢 is the expected",
+        "number of steps in a RW starting at 𝑣",
+        "to reach node 𝑢 and come back.",
+        "Effective resistance (ER) is",
+        "𝑅𝑒𝑠 𝑣, 𝑢 = 𝜏(𝑣, 𝑢)/2|𝐸|."
+      ],
+      "media_sha256": [
+        "b76f83e7735b1786d02ba32bc6810f5bb218a1bb2a9917ab2b575da96ffedbb9",
+        "4906602f6a303a21e0c1e3504faebb7f3c2beb9778563f2dbe78d33d9b235dc3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 34,
+      "title": "Over-Squashing and Commute Time",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Over-Squashing and Commute Time",
+        "Given 𝐴 = 𝐷 '(𝐴𝐷 '(// and 𝜎 = ReLU:",
+        "This has some important consequences:",
+        "• Reducing the sensitivity to messages from nodes with high effective resistance (ER)",
+        "can be beneficial when the task only depends on ‘local’ interactions.",
+        "• Over-squashing is an issue if the task depends on the interaction of nodes at high ER.",
+        "• The ER represents an obstruction which is independent of the number of layers."
+      ],
+      "media_sha256": [
+        "cc52f037221882a5fc3051f1dafb17269ffb3656483e5da764b2014453b92379",
+        "c00209ca94af26e48ab047658a6bed04e7360050bf4cb88a29e61b575b8142be"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 35,
+      "title": "Towards Dynamic Graph Rewiring",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Towards Dynamic Graph Rewiring",
+        "Add edges among each pair of nodes within a certain distance,",
+        "then the new graph is much dense.",
+        "• More sensitive to over-smoothing",
+        "• Higher impact on training time",
+        "• Loses inductive bias afforded by",
+        "the distance."
+      ],
+      "media_sha256": [
+        "e1e970e5fcfd96b3612caa10bbcf97e92e8b589e9b47f4f9b0001e917b428a4e",
+        "36d970f6d963745b48b20c893fc2e3ef65544205cf964f452749f6d579ca3eef"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 36,
+      "title": "Dynamic Edge-Addition and Delay",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Dynamic Edge-Addition and Delay",
+        "For classic MPNNs, information only travels from a node to its neighbours.",
+        "• In DREW, adds edges connecting nodes at distance 𝑟.",
+        "• In 𝜈-DREW, introduce delay depending on the distnace between nodes."
+      ],
+      "media_sha256": [
+        "4f846ac51ddea87cac2db1750a5d1efcfda91dda43692917b9531d6d8189603e",
+        "24c2edd99adeb59a6d82abacb934b7b3238590b26e1ae6bba024397fbb7176d9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 37,
+      "title": "𝜈-DREW in Equations",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "𝜈-DREW in Equations",
+        "Introduce 𝜏: 𝑘 = max(0, 𝑘 − 𝜈) and consider the family of 𝜈-DREW-MPNN",
+        "• No delay corresponds to 𝜈 → ∞.",
+        "• The agg and com are parameterized using weights depending on the layer 𝑡 and the distance 𝑘."
+      ],
+      "media_sha256": [
+        "63d48c63ac936e694296a0b93e0aeb9e9450d42958e42deb850cc25cbe2bc3cc",
+        "03393bcc46b9c26b60ed0e1549beb7e0ec6275d2e49ea29df0623c0675558b68"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 38,
+      "title": "Advantages of 𝜈-DREW",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Advantages of 𝜈-DREW",
+        "The graph is progressively filled with each layer making for a more efficient framework.",
+        "Preserves the inductive bias provided by the input grpah,",
+        "since nodes that are closer still interact earlier.",
+        "Mitigates over-smoothing: a larger delay means that 𝑣 aggregates the feature from 𝑢 before",
+        "they are (significantly) ‘smoothed’ by repeated message passing."
+      ],
+      "media_sha256": [
+        "513eb4d46177717c574038a2084858aff2541cd66c30f93f8b5a9535abee4a60"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 39,
+      "title": "Long-Range Graph Benchmarks",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Long-Range Graph Benchmarks",
+        "New graph benchmarks introduced with tasks likely to exhibit long-range dependencies.",
+        "• Graph Transformers were shown to be superior to standard MPNNs."
+      ],
+      "media_sha256": [
+        "8daca8836d789f3be34fc33053f96fec838458cbe4eca7fa0865b90709a6a48e",
+        "a289d7a54564b82ead48c36064d270108c5fc5e3be8a20dfebb6bbdf86bec323",
+        "b8ae3a292344946424c408a56a286f55f352b6757e3827b044c8dfb8d6e1088d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 40,
+      "title": "Long-Range Graph Benchmarks",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Long-Range Graph Benchmarks"
+      ],
+      "media_sha256": [
+        "39bb1dc49b0c57ce1085e982bdd41a76afddd350c9313a055abe6718a38b4beb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 41,
+      "title": "Critical Thinking for GNN Research",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Critical Thinking for GNN Research",
+        "There is a plethora of GNN papers, but I provide warning for newcomers in reading them.",
+        "Current GNN benchmarks are rather poor, so you should not",
+        "always trust the empirical results!"
+      ],
+      "media_sha256": [
+        "6bf2493ebe768d594e8e77ff21dfb0f833b15e2facb1cfd163db101a91d8680a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 42,
+      "title": "Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Overview"
+      ],
+      "media_sha256": [
+        "b678f0afcb5071c4d8d4fec42aaf6d887816bac674b4068dc0bd2c2b8bab6452"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 43,
+      "title": "Missing Real-World Applications",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Missing Real-World Applications",
+        "GNNs developed around niche sub-fileds,",
+        "e.g., predicting properties from 2D molecular graph.",
+        "Suggestions:",
+        "• Shift focus to natural graph problems with real-world impact,",
+        "e.g., combinatorial optimization or relational databases.",
+        "• Improve conditional diffusion models for combinatorial tasks."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 44,
+      "title": "Graphs Lack Meaning",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Graphs Lack Meaning",
+        "Graphs are often constructed artificially to test a hypothesis, not for practical applications.",
+        "• “Not everything that could be modeled as a graph should be modeled as a graph.”",
+        "Suggestions:",
+        "• When proposing new benchmarks, discuss the advantage of graph structure",
+        "• Benchmarks should include baselines with unstructured sets to ensure graph structure’s advantage."
+      ],
+      "media_sha256": [
+        "679626a26af21c441f13df9646df6a2ee71bf7e37ebe138b9d3f631a72b45d94"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 45,
+      "title": "Bad Benchmarking Culture",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Bad Benchmarking Culture",
+        "Often, datasets have no standard splits, eval, protocol, or detailed hyper-params.",
+        "Researchers often report marginal gains w/o statistical significance.",
+        "Suggestions :",
+        "• The community should shift its focus beyond merely improving performance.",
+        "• Propose practical tasks and robust evaluation frameworks."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 46,
+      "title": "No True Foundation Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "No True Foundation Models",
+        "Impactful graph foundation models are yet to emerge.",
+        "Even domain-specific graph-based foundation models only show marginal gains.",
+        "Suggestions:",
+        "• Shift paradigm from one model for one dataset to one model for all datasets.",
+        "• Create large-scale, high-quality datasets of diverse graph structures."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 47,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Graphs are not necessarily constructed in a meaningful way."
+      ],
+      "media_sha256": [
+        "60400b473dea7c2306a7748bace4c27b57615bb1b85cd88bf6ed4dbb33d17520"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 48,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Simple baselines are often powerful enough when the hyperparameters are tuned enough."
+      ],
+      "media_sha256": [
+        "a23b1d49a5c9b29b0d7a4a08876d88336cff9182cf578eb9738dcc2eeed79c3e",
+        "5356d1cd0c9f9ae7a56054325bcc7ca96351d529234a67e6cb1ea4c23a3b8af0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 49,
+      "title": "Empirical Evidence",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Empirical Evidence",
+        "Multi-task pretraining is (sometimes) beneficial.",
+        "• Pretrained on COCO-SP+MalNetTiny+PCQM4Mv2",
+        "• Finetuned on PascalVOC-SP, Peptides-struct, Stargazers."
+      ],
+      "media_sha256": [
+        "b095a1069fc27f3f534e6124e4e0b9bc026ccb2d377e1841ada042b9c78388bd",
+        "8595c4641086e1679f3d40060cef8b4ad8a052575f611696c422fe258554dc20"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "9c61fd3907f86e971f63b39a85355cf01361dbb5fc41918a3aa504e1ba95bc8e",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 152069,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e091628ea3e475325d1744a54f3b529834c69fdb25c0753a23d0bf77839cad29",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 128535,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "48e90e60cbfc68992da0b379c3be814938373c5973a41e9ac0e1182e94a9a586",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 988111,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "30a240b9333c817bd80fcb99cf1bab4c7ff65e1c1a83913cbd1143258550b0c3",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 110554,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7068a522c65708fd979bbd94631dc3931487bcd9c1879bb62e10eeea8b8aed7c",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 127203,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b935b8de605d4e9789049adf7cc158002b68f9b742b955637d9083cd2777505b",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 136460,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bae6c1a22f9ddbcaadff8bafa5ed9d0123b27b2c0d11328c4f9275a8c97b7381",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 110110,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6f3c3b03e6f5c0e34f9f3fbb493c8a8b94a9ce172dff1309cc166a38d9e9fae4",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 45092,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2e6230de9c8f6581d1f72be9fe981b70fb3bcbeab6419b3ee617d2d72b44a1bd",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 52724,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0263e48e1fbeb59c4c4f94af1e1b7b6bef9c8c14aa111297196fe3bf5ae78570",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 668899,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b5ec0427c3f8342188aa85de2a84cbac6336b1ceb269b43cc8361fcf8996ce73",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 99463,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b22eaab06e4f7dedd1ed80b75531562d057d23037bc17f8c7d38ce5b6bf7885f",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 59808,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f8c669ba00927b4ed592382e567d9aa4863a6f6fab0fb4cdb14d805dfd8728b5",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 206280,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f4c8e36a3e57d5fae4e18e7bc9901048f1c922075bf5615353956e99984549f6",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 130675,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "310b37c501c88df8fd9bc8d6561a590d34a3fbb2c0f595d425d351b4bd54be28",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 89248,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7312b213a3f692dc50644ef5e4a8ebc5dfe7bf84450cf73ed326504bfd0ee147",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 128126,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2d71a05dba715cb6aba533c684e57bd405ba9bf8f286960dd14ed561ef1f8f1b",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 60348,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1c4b89a786b180537d8ee1dc8196e874100551bb7fa9d286b7409f510d8f31c6",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 72074,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "af758a0103dc644e17ba1bea9b08399b5544fb6902ad24b1ea9974d133dcda72",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 228642,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e6bca5036baa7c59f21caa186a768c9d9525177ce48b05a16ef6fac4f23754fa",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 129665,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e560f54222fab8b16d411a3bd74f138c90438f32533286120fe9924ee40f92fc",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 223635,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dda786bb40d2f26a93911c74871c1d4a63252363ae4f9e9bd510ef8af51df61e",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 263260,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c845c7befa451bca7bbd34a1b46ea09ae52a74504539686359496462d301f40c",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 58973,
+      "slides": [
+        5,
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "39f49e37b071ba6f7cc3a994e56662ebf7483ae7a623b67a317ac0ef8df559bb",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 399521,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fb029997613b7c009dd7a273a8cde79b00c7af583f14a7f334e0f743d3ab607a",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 207757,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5d2360b761fa5811d382b7232a38f7e8c0eeee8b3884164680ba8afbca3acad3",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 55247,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8b87839d40b0e2e631ad73003a33b9643c4750bbcb9c62f1996fad33fa16a62f",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 239944,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9212ffd71ce9cd351fd5f68e6cd5f192c45aad8b0ea77a158e71779776893d77",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 228599,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b81db908da30ffcfb26e6ff292d0d51ce50450a1cdf474f1ac14ab002196d684",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 266817,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "95b38b6479b0c1e7c020406b832463715a3b90cac5cd53d41a96359888e7a9be",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 280273,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a326eaf0593fb1add20f59a127c906c511f768111d89f9887c2369e97bc5b561",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 213599,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8e0d5ca32c04cc28bbeec4528aedf99ded1111f414d13b1c65fa501920e73079",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 248648,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ea0597a3f00a6151fa023c37daf749ec560dac468030b57a1fdbf7fd453c8911",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 231124,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "76e84b09a0e7a9411296a373cce52dbda86526d722a60e8ff6c299a4e400e4ae",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 73964,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "af8b3e0b6fc3b6efdd0447f288fcc2ff1f01104e0c875b4f6574c7ba9ac5317f",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 252892,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c21fd79c9c1b89dc7e2ce1251f3153cbc44c28dc502d28f3585164f838457395",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 54069,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "111aaaeaaca83416bbc334c535d0266e987e75ec8a15a484c55fa70e63116849",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 97263,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2b29482f90ee3abf9987b0bfbf383e0982d6ffc24596b09cdd65eaea60fec825",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 163896,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4565a2faedef5049adfba51eb081178d6f4aa16d80c9d5872824b9226fd0de44",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 65759,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3eeb9d72b5d335c27f563dabf7e209c19ac34c872bff301248d97d0555552350",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 488438,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "57701d54de9808169fb5f1398848e6c16d4b20fbca3a8b49bba0661e804f30c4",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 268803,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "551218067f0f417533b6ae17498e17e45b51124adedd3428fddab53513fd02a2",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 259134,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4906602f6a303a21e0c1e3504faebb7f3c2beb9778563f2dbe78d33d9b235dc3",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 133719,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b76f83e7735b1786d02ba32bc6810f5bb218a1bb2a9917ab2b575da96ffedbb9",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 106499,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bb8205cb5c1c7b633c83d7c3dfafbc4dd7397f25d06838f81bba55e5f008a70a",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 59962,
+      "slides": [
+        6,
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c00209ca94af26e48ab047658a6bed04e7360050bf4cb88a29e61b575b8142be",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 86502,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cc52f037221882a5fc3051f1dafb17269ffb3656483e5da764b2014453b92379",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 99764,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e1e970e5fcfd96b3612caa10bbcf97e92e8b589e9b47f4f9b0001e917b428a4e",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 110087,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "36d970f6d963745b48b20c893fc2e3ef65544205cf964f452749f6d579ca3eef",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 28291,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "24c2edd99adeb59a6d82abacb934b7b3238590b26e1ae6bba024397fbb7176d9",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 232432,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4f846ac51ddea87cac2db1750a5d1efcfda91dda43692917b9531d6d8189603e",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 69035,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "03393bcc46b9c26b60ed0e1549beb7e0ec6275d2e49ea29df0623c0675558b68",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 70178,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "63d48c63ac936e694296a0b93e0aeb9e9450d42958e42deb850cc25cbe2bc3cc",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 74428,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8daca8836d789f3be34fc33053f96fec838458cbe4eca7fa0865b90709a6a48e",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 268355,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "513eb4d46177717c574038a2084858aff2541cd66c30f93f8b5a9535abee4a60",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 97373,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f76ec8b9dcd54a2bbac403e20c251242cfd3cf3f4cabc0d156bf7632e3f7cb99",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 49128,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a289d7a54564b82ead48c36064d270108c5fc5e3be8a20dfebb6bbdf86bec323",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 190829,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b8ae3a292344946424c408a56a286f55f352b6757e3827b044c8dfb8d6e1088d",
+      "pptx_path": "ppt/media/image61.png",
+      "extension": ".png",
+      "bytes": 189935,
+      "slides": [
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "39bb1dc49b0c57ce1085e982bdd41a76afddd350c9313a055abe6718a38b4beb",
+      "pptx_path": "ppt/media/image62.png",
+      "extension": ".png",
+      "bytes": 214851,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6bf2493ebe768d594e8e77ff21dfb0f833b15e2facb1cfd163db101a91d8680a",
+      "pptx_path": "ppt/media/image63.png",
+      "extension": ".png",
+      "bytes": 46491,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b678f0afcb5071c4d8d4fec42aaf6d887816bac674b4068dc0bd2c2b8bab6452",
+      "pptx_path": "ppt/media/image64.png",
+      "extension": ".png",
+      "bytes": 106322,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "679626a26af21c441f13df9646df6a2ee71bf7e37ebe138b9d3f631a72b45d94",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 293088,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "60400b473dea7c2306a7748bace4c27b57615bb1b85cd88bf6ed4dbb33d17520",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 61450,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a23b1d49a5c9b29b0d7a4a08876d88336cff9182cf578eb9738dcc2eeed79c3e",
+      "pptx_path": "ppt/media/image67.png",
+      "extension": ".png",
+      "bytes": 61661,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5356d1cd0c9f9ae7a56054325bcc7ca96351d529234a67e6cb1ea4c23a3b8af0",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 46173,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b095a1069fc27f3f534e6124e4e0b9bc026ccb2d377e1841ada042b9c78388bd",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 50192,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "df9c25ae7d1308bb078301c14d3d26cfe5b2cfa8b052f04ee0bed1ff79c089c7",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 147295,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8595c4641086e1679f3d40060cef8b4ad8a052575f611696c422fe258554dc20",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 112759,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "95eb1535b5453e942af3ae4a5fa08496ce63d4276327fa5265e8a6bb8ff6aeb0",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 79852,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c73a48e9141df280ec3f38f91d807b671d8619b8091a53ded9eccb8f9d4394a0",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 115168,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 30,
+    "reused_figures": 30,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-06.md",
+  "pptx_figures": [
+    {
+      "slide": 4,
+      "pptx_slide": 3,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s04-three-failures.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s05-under-reaching.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s06-over-smoothing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image3.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s07-over-squashing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s11-smoothing-curves.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s14-oscillator-trajectories.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image8.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s14-spring-mass.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s15-mitigation-curves.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image12.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s16-dirichlet-energy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image16.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s16-test-accuracy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s20-binary-tree.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s22-curvature-manifolds.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s23-flat-geodesics.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s23-positive-curvature.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image29.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s23-negative-curvature.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s24-graph-curvature-examples.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s25-curvature-rewiring.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s26-min-ricci-edge.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image34.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s26-candidate-edges.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image35.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s26-added-edge.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s27-high-curvature-edge.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image38.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s27-removed-edge.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image39.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s31-width-sensitivity.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image45.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s32-long-range-sensitivity.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s34-commute-time-rewiring.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s36-dynamic-rewiring.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image52.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s37-drew-delay.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image54.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s41-depth-performance.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image62.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s45-graph-construction.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image65.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-06/s50-pretraining-curves.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image70.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

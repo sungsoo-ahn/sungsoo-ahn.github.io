@@ -16,6 +16,66 @@ Use source figures when they are clearer than a custom redraw and legally usable
 - For physical device or process schematics, consider whether ChatGPT/image generation would produce a clearer explanatory base than a source figure or hand-drawn boxes. Use this only for illustrative renderings, then add exact labels/callouts as editable SVG text.
 - Do not use image generation to substitute for canonical method-overview figures when a licensed high-quality source already exists, such as RFDiffusion, AlphaFold, ProteinMPNN, or standard protein-structure diagrams.
 
+### Rights-Cleared Lecture Decks
+
+When the author supplies a lecture deck and explicitly confirms republication
+rights for all embedded figures, treat that confirmation as the reuse authority
+for the adaptation. Reuse the deck figure directly instead of finding or
+drawing a substitute. Preserve any paper/project attribution already present on
+the slide, and record the course, deck, slide number, original cited source, and
+extraction method in an agent-facing figure manifest.
+
+This exception applies only to the confirmed deck and its embedded figures. It
+does not establish a general license for the same source elsewhere.
+
+#### PowerPoint-native extraction
+
+- Never publish a full-slide screenshot or a region cropped from the lecture
+  PDF. The editable PPTX is the source of truth for visual extraction.
+- Inspect the slide's actual object tree. Presentation manifests and PPTX media
+  archives can contain unused, hidden, duplicated, or alternate resources that
+  are not visible on the slide.
+- Copy an unmodified browser-safe picture directly from `ppt/media` to preserve
+  its original pixels. If PowerPoint applies a crop, mask, rotation, grouped
+  composition, or native-shape construction, export the exact picture or
+  semantic group with PowerPoint's `save as picture` command.
+- Do not rasterize text boxes, equations, paper title cards, citations, or
+  tables merely because they appeared on a slide. Recreate those as reader-
+  facing HTML/Markdown/MathJax and retain only the scientific visual object.
+- Record each published asset with `slide`, `pptx_slide`, `asset_path`,
+  `source_media_paths` or `source_shape_name`, `extraction_method`,
+  `content_role`, and `reuse_status`. A completed migration must have an exact
+  manifest-to-post asset match and no reused PDF-region records.
+- Keep extraction provenance out of the visible caption. Phrases such as
+  “PowerPoint-native,” “extracted from the deck,” and “retained from the
+  lecture slide” describe the production workflow, not the scientific figure.
+  Store those facts in the manifest. The rendered caption should explain what
+  the reader should notice and, when the visual source is verified, link the
+  original paper, project, dataset, or open-license page.
+
+### Auditing Existing Lecture Figures
+
+- Treat **visual provenance** and **method provenance** as different claims. A
+  slide titled with a paper may contain an exact paper figure, a lecturer-made
+  derivation of that paper's method, or a composite. Cite the paper as the
+  figure source only after matching the actual visual.
+- For lecturer-made equations, matrices, graph drawings, and comparison
+  diagrams, use a reader-facing note such as “Lecture diagram by the author.”
+  Keep the method citation in the prose or references; do not turn it into a
+  misleading “Figure source” link.
+- Verify exact matches with distinctive labels, panel order, node colors,
+  plotted values, table cells, and crop boundaries. Matching a topic, title, or
+  broad layout is not enough. When the concept is traceable but the rendering
+  is generic, record the concept source as ambiguous and say that the exact
+  drawing origin is unclear.
+- In chronological method surveys, one primary paper may legitimately source
+  several adjacent assets: an architecture panel, result plot, table, or
+  equation crop. Record each asset separately, but deduplicate the source
+  metadata and reuse the same authoritative paper page.
+- A publisher DOI returning an automated 403 is not by itself a broken source.
+  Confirm the DOI's title, authors, venue, and year through an authoritative
+  index, and record the publisher's license conservatively.
+
 ## Workflow
 
 1. Identify the target concept and candidate source figure.
@@ -38,6 +98,12 @@ If using ChatGPT/image generation instead of a downloaded source figure:
 4. Record the prompt, asset paths, and design rationale in agent-facing notes, a figure-generation script, or a figure manifest.
 
 ## Caption Wording
+
+Lead with the scientific interpretation. End with a concise, linked source
+attribution only when the visual provenance has been verified. Do not expose
+internal extraction or migration language to readers. If the precise visual
+origin remains unclear, say so briefly and honestly rather than substituting a
+method citation for a figure-source claim.
 
 Direct licensed source:
 
