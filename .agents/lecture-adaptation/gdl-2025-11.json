@@ -1884,441 +1884,266 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 39,
-    "reused": 39,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 23,
+    "reused_figures": 23,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
-    {
-      "slide": 3,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-3.webp",
-      "reuse_status": "reused"
-    },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
+  "pptx_figures": [
     {
       "slide": 4,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s04-tfn-angular-filter.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.jpeg"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-4.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 5,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s05-tfn-feature-layout.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-5.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 6,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-6.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 7,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-7.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 8,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-8.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 9,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-9.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 10,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-10.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 11,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-11.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 12,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-12.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 13,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-13.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 14,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s14-se3-qm9-table.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-14.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 15,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s15-equiformer-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-15.webp",
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s15-equiformer-attention.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 16,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s16-equiformer-linear.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image20.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-16.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s16-equiformer-layernorm.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s17-depthwise-tensor-product.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-17.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 18,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s18-equiformer-qm9.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image24.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-18.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s19-equiformer-md17.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image25.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-19.webp",
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s19-equiformer-oc20.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 20,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s20-ace-body-order.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.gif"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-20.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 21,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-21.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 22,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-22.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 23,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-23.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 24,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-24.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 25,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-25.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 26,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-26.webp",
+      "content_role": "illustration",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s27-mace-rmd17.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-27.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 28,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s28-mace-depth-curves.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image39.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-28.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 29,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-29.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 30,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s30-spherical-harmonic-basis.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image45.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-30.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 31,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-31.webp",
+      "content_role": "scientific-image",
       "reuse_status": "reused"
     },
     {
       "slide": 32,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 32,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s32-escn-tensor-product.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-32.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 33,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s33-so3-to-so2.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image52.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-33.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 34,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s34-escn-oc20.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image53.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-34.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 35,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s35-equiformerv2-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image55.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-35.webp",
+      "content_role": "architecture",
       "reuse_status": "reused"
     },
     {
       "slide": 36,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 36,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s36-equiformerv2-activations.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image57.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-36.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 37,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s37-equiformerv2-normalization.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image59.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-37.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 38,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s38-equiformerv2-oc20.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image60.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-38.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 39,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-11/s39-equiformerv2-tradeoff.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image61.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-39.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 40,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-40.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 41,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-11/slide-41.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-11.md"
+  "asset_migration_status": "pptx-native-complete"
 }

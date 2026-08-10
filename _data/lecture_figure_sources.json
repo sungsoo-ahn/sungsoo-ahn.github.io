@@ -21512,19 +21512,19 @@
       "notes": "",
       "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/s06-steerable-type-pipeline.png"
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-10.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s04-tfn-angular-filter.jpeg": {
       "deck_id": "gdl-2025-11",
       "slides": [
-        10
+        4
       ],
       "slide_keys": [
-        "gdl-2025-11:10"
+        "gdl-2025-11:4"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The radial, harmonic, and Clebsch--Gordan pieces are packaged into a typed value kernel. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 10.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The Tensor Field Network angular encoding embedded in the lecture PowerPoint. The original construction is from <a href='https://arxiv.org/abs/1802.08219'>Thomas et al.</a>: distance controls a learned radial function, while direction is expanded in a fixed spherical-harmonic basis.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "842e839e4fdb8911f46a2f6d38a9899360a72556c9b718f82d4116ad525c5d94",
+      "content_sha256": "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21532,21 +21532,22 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": ""
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/s18-edge-harmonic-encoding.jpeg"
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-11.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s05-tfn-feature-layout.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
-        11
+        5
       ],
       "slide_keys": [
-        "gdl-2025-11:11"
+        "gdl-2025-11:5"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The invariant coefficient changes message strength without changing its output type. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 11.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The native TFN feature-layout figure retained from the PowerPoint. Point and channel indices describe where a feature lives and how many copies exist; degree and representation indices prescribe how it rotates.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "3546dc7aa6fa5a0990bc994a289a4c766c34cafd2ece72ef6bc8a806331f4af1",
+      "content_sha256": "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21554,53 +21555,10 @@
       "confidence": "unresolved",
       "evidence": [],
       "reader_note": "",
-      "notes": ""
+      "notes": "",
+      "exact_duplicate_of": "assets/img/blog/lectures/gdl-2025-09/s42-tfn-feature-indices.png"
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-12.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        12
-      ],
-      "slide_keys": [
-        "gdl-2025-11:12"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Like-type inner products produce valid scalar attention logits. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 12.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "832e67d5891ad570a935e54959b024fc420c6b1b95ad5d4539e32d8d3793947a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-13.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        13
-      ],
-      "slide_keys": [
-        "gdl-2025-11:13"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Pointwise channel mixing complements neighbor attention inside the steerable block. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 13.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a971cf4c0bb43e11ca0758bd4ce8de4414fe6df96bbbb09287cc071195d78a12",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-14.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s14-se3-qm9-table.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         14
@@ -21609,10 +21567,10 @@
         "gdl-2025-11:14"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The benchmark tests whether adaptive neighbor weighting improves the TFN baseline. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 14.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete QM9 table embedded in the source PowerPoint from the <a href='https://proceedings.neurips.cc/paper/2020/hash/15231a7ce4ba789d13b722cc5c955834-Abstract.html'>SE(3)-Transformer paper</a>. Attention improves the TFN row on all six reported targets, although it is not the best method in every column.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7e31c3bab99c106cab7bae34b8146cb2ff8f1e925bff4f17ea67a127353d3399",
+      "content_sha256": "4efd5e3fbfccbecb7dad69dba840a0c1c546d9ae1a329802152b2cfb725ba65c",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21622,7 +21580,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-15.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s15-equiformer-architecture.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         15
@@ -21631,10 +21589,10 @@
         "gdl-2025-11:15"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Equiformer packages equivariant attention, nonlinear messages, gates, and normalization into a repeatable architecture. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 15.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The Equiformer architecture panel embedded in the lecture PowerPoint from <a href='https://openreview.net/forum?id=KwmPfARgOTD'>Liao and Smidt</a>. Its outer residual structure is familiar; every inner operation is typed.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "32d8f080f539897e2930d79aa645f7de9fb4960075561cc3eb9114111f4fdd8c",
+      "content_sha256": "a433c1ee25f7026bf2a9b282dfae0fb2d13d6c3720315d2732e599894badacf2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21644,7 +21602,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-16.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s15-equiformer-attention.png": {
+      "deck_id": "gdl-2025-11",
+      "slides": [
+        15
+      ],
+      "slide_keys": [
+        "gdl-2025-11:15"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
+      "caption": "The corresponding equivariant graph-attention block from the same paper. A depth-wise tensor product mixes geometric types, scalar features generate attention, and gated values remain steerable.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "0ca62c43bbe21e12240bf7a168e56dd71e8ffa96c73b08f0f3afde2d9bf1681e",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-11/s16-equiformer-layernorm.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         16
@@ -21653,10 +21633,10 @@
         "gdl-2025-11:16"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Equiformer's pointwise operations preserve the grouping of components belonging to one irrep. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 16.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The native Equiformer layer-normalization panel. Scalar and higher-degree blocks require different statistics because only the scalar block has a rotation-invariant componentwise mean.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "73de6180db45eb08040e0238263471b92f9f114f69cf64c4960c7743101ee730",
+      "content_sha256": "38d033a9b01393979659124154d6e6dd520fa67c9b5e96374b13545b7ad222cb",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21666,7 +21646,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-17.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s16-equiformer-linear.png": {
+      "deck_id": "gdl-2025-11",
+      "slides": [
+        16
+      ],
+      "slide_keys": [
+        "gdl-2025-11:16"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
+      "caption": "Equiformer's native typed-linear diagram. Dense channel mixing occurs within a degree, not across the representation coordinates of unrelated degrees.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "f211a3b80d526c77a4bc7a87a39700641cb7aaea587a9c8beb942dc56701c023",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-11/s17-depthwise-tensor-product.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         17
@@ -21675,10 +21677,10 @@
         "gdl-2025-11:17"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Depth-wise tensor products trade dense channel coupling for a cheaper structured interaction. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 17.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The depth-wise tensor-product paths embedded in the lecture PowerPoint from the Equiformer paper. Restricting multiplicity coupling makes the Clebsch--Gordan stage cheaper while retaining all selected output types.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "8006b537033bd412f0cd931e4818619e5173bfbc989d9f0ff55d318dad1d6490",
+      "content_sha256": "84d19c7dc3379e1e317a3efa0b1c1fb3738c37a0558384e4f07b104f171fd683",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21688,7 +21690,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-18.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s18-equiformer-qm9.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         18
@@ -21697,10 +21699,10 @@
         "gdl-2025-11:18"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "QM9 evaluates the practical equivariant Transformer on molecular properties. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 18.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete QM9 table embedded in the PowerPoint from the <a href='https://openreview.net/forum?id=KwmPfARgOTD'>Equiformer paper</a>. The dagger identifies methods evaluated with different dataset partitions.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "0f857dca1867595bb19e4fe696e742856812c3cefd584310a7557ff0f9df76c1",
+      "content_sha256": "5c0984c79baf8d7534449d60306be236f15fa481dfe63e298150d7c04c1bb249",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21710,7 +21712,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-19.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s19-equiformer-md17.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         19
@@ -21719,10 +21721,10 @@
         "gdl-2025-11:19"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Force-field and catalyst benchmarks extend the comparison to energy and force targets. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 19.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The full MD17 table retained from the lecture PowerPoint and sourced to the Equiformer paper. Energy and force columns are reported separately for each trajectory.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "c69135ab3feb60645a53a8206bdcc4e6d2f564a0e72ed4bd8dc7c80e88c93d2e",
+      "content_sha256": "a64f2dc3a74f13d3e87c3f0244f1cee430b92d7b1407a3c75f3aa225bf1cf96c",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21732,7 +21734,29 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-20.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s19-equiformer-oc20.png": {
+      "deck_id": "gdl-2025-11",
+      "slides": [
+        19
+      ],
+      "slide_keys": [
+        "gdl-2025-11:19"
+      ],
+      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
+      "caption": "The full OC20 IS2RE table from the same embedded paper figure. The four splits expose whether gains survive novel adsorbates, catalysts, or both.",
+      "extraction_method": "pptx-media-copy",
+      "reuse_basis": "rights-cleared-lecture-deck",
+      "content_sha256": "2abba788f96281f713525a2046ec3b27e925efaadc79d05738321927ff0dec0b",
+      "candidate_urls": [],
+      "candidate_citations": [],
+      "status": "pending",
+      "source_ids": [],
+      "confidence": "unresolved",
+      "evidence": [],
+      "reader_note": "",
+      "notes": ""
+    },
+    "assets/img/blog/lectures/gdl-2025-11/s20-ace-body-order.gif": {
       "deck_id": "gdl-2025-11",
       "slides": [
         20
@@ -21741,10 +21765,10 @@
         "gdl-2025-11:20"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "MACE expands a local environment into one-neighbor, two-neighbor, through higher-correlation contributions. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 20.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The ACE body-order illustration embedded in the lecture PowerPoint. MACE connects this hierarchy to equivariant message passing; see the <a href='https://proceedings.neurips.cc/paper_files/paper/2022/hash/4a36c3c51af11ed9f34615b81edb5bbc-Abstract-Conference.html'>original MACE paper</a>.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "f7c7428c67429a424b629845b952fde7ecd03ae388d4303e9b44f59ab83fdf0e",
+      "content_sha256": "8631924ad274d6f4057a873cfd41de38aa464b9d609ebc92f486bd4d20eef1f2",
       "candidate_urls": [],
       "candidate_citations": [
         "[Drautz, 2019] Atomic cluster expansion for accurate and transferable interatomic potentials"
@@ -21756,139 +21780,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-21.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        21
-      ],
-      "slide_keys": [
-        "gdl-2025-11:21"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "MACE separates gathering geometric neighbor information from forming higher body-order correlations at the center. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 21.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1eb9babce06c88c6cc0fcf0d5c2e4368e42bf16aeafdaa16dbee4650880635c3",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-22.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        22
-      ],
-      "slide_keys": [
-        "gdl-2025-11:22"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Element-conditioned linear mixing combines node state and body-ordered message. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 22.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ca91b58cde4593a0fc0edd7b8f849dd24cac345524e58867d0b3004f3ff80617",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-23.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        23
-      ],
-      "slide_keys": [
-        "gdl-2025-11:23"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Each correlation order contributes a generalized tensor product to the typed message. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 23.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "374e778cc24974c80a97eaf42b3a356f08764f417095921464105b5fd82bcff4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-24.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        24
-      ],
-      "slide_keys": [
-        "gdl-2025-11:24"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "A chain of Clebsch--Gordan couplings maps several neighbor-aggregated features into one output type. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 24.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b85b53f53e9a135a2a5d6bfd9f3f2aec92de106ffd62ef5398f5f25a417cb14e",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-25.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        25
-      ],
-      "slide_keys": [
-        "gdl-2025-11:25"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Aggregation followed by products produces many-body terms from compact neighborhood summaries. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 25.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4924c59fbb5e756f79b20ccdcaccd88338fb5b2f77b7ed8e8595a5e064096611",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-26.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        26
-      ],
-      "slide_keys": [
-        "gdl-2025-11:26"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Higher correlation order corresponds to a longer coupling path through intermediate angular momenta. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 26.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1305cccd6dad57ccd6eef9c4c7485eb3caf58dccd28ea6ab6d39210355f98fa2",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-27.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s27-mace-rmd17.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         27
@@ -21897,10 +21789,10 @@
         "gdl-2025-11:27"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Revised-MD17 evaluates the accuracy of explicit higher body-order equivariant messages. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 27.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete revised-MD17 table embedded in the lecture PowerPoint from the <a href='https://proceedings.neurips.cc/paper_files/paper/2022/hash/4a36c3c51af11ed9f34615b81edb5bbc-Abstract-Conference.html'>MACE paper</a>. The source distinguishes models trained on 950 configurations from those trained on only 50.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "af01044d720fd11c079c40666fd4488c86f207c1ed905e8a614990b5f5c4397b",
+      "content_sha256": "272945891c5420dc336355cd1ca931a6774d12d2fe075556f6264655d56d348d",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21910,7 +21802,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-28.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s28-mace-depth-curves.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         28
@@ -21919,10 +21811,10 @@
         "gdl-2025-11:28"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "MACE reaches its best errors with few layers, consistent with higher-order interactions being formed within each layer. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 28.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The MACE depth study retained from the source PowerPoint. Across the 3BPA temperatures, MACE reaches its low-error regime with few layers, supporting the lecture's claim that explicit higher-order interactions reduce the depth required to build local correlations.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "48bc9877ecb8b6a402275a21353cfb2a7a3f31fc0b948ad8a5280f74e01d3821",
+      "content_sha256": "c774b1bb9e5a19c1bea23d64b5dc0bbed7e60bd84b5d84e3745189c8d21a3be2",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -21932,57 +21824,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-29.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        29
-      ],
-      "slide_keys": [
-        "gdl-2025-11:29"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "eSCN targets the angular tensor product rather than reducing the number of geometric feature types. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 29.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "09f55a276743959a10679d473efd8c50b61c98ca061ddf024767cb388b5c7a91",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-3.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        3
-      ],
-      "slide_keys": [
-        "gdl-2025-11:3"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The source organizes recent advances around attention, higher body order, efficient tensor products, and higher-degree scaling. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 3.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4066b9a54d32cf602b8ce42c1ea36c7fb464e3c4134d4d9b0ff26e786f157ed9",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Fuchs et al., 2020] SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks",
-        "• [Liao and Smidt, 2022] Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs",
-        "• [Batatia et al., 2022] MACE: Higher Order Equivariant Message Passing Neural Networks for Fast and",
-        "• [Passaro and Zitnick, 2023] Reducing SO(3) Convolutions to SO(2) for Efficient Equivariant GNNs",
-        "• [Liao et al., 2023] EquiformerV2: Improved Equivariant Transformer"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-30.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s30-spherical-harmonic-basis.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         30
@@ -21991,10 +21833,10 @@
         "gdl-2025-11:30"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Axis alignment makes all nonzero magnetic-index components of the edge harmonic vanish. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 30.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The spherical-harmonic basis image embedded in the eSCN section of the PowerPoint. Aligning an edge with the reference axis selects the axisymmetric column and makes the angular filter sparse.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "83a863deb0730a1827bdd09a233859b8eec09cdf6b9bb57e5e96934a83a3f956",
+      "content_sha256": "6d52d84a7481993658efa2ede4e3092b19c37f8f1bf712a999f56b76a1f696eb",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22004,29 +21846,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-31.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        31
-      ],
-      "slide_keys": [
-        "gdl-2025-11:31"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Rotating to the edge frame removes a full angular summation exactly. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 31.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4bf58cf1dbdf37904bf9788aa696e3c99e271899349ff17837082e74f34b3ed7",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-32.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s32-escn-tensor-product.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         32
@@ -22035,10 +21855,10 @@
         "gdl-2025-11:32"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The remaining aligned-axis product decomposes into smaller structured contractions. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 32.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The eSCN tensor-product diagram embedded in the lecture PowerPoint from the <a href='https://proceedings.mlr.press/v202/passaro23a.html'>ICML paper</a>. Axis alignment converts the dense three-dimensional coupling into sparse aligned-frame operations.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "b3a0983ede99de702ed64d912c53077b09b0f7375f0bfa8db32281d4afc1ec7f",
+      "content_sha256": "d1c7cdfcb38da246755c943f24129b1108bd65b7b76ddcd51dee1a99973514bc",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22048,7 +21868,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-33.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s33-so3-to-so2.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         33
@@ -22057,10 +21877,10 @@
         "gdl-2025-11:33"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "After fixing the edge direction, only rotations about that axis remain, reducing the coupling from SO(3) to SO(2). Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 33.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The lecture's embedded SO(3)-to-SO(2) interpretation from eSCN. Once the filter direction is fixed, each magnetic-order column becomes a circular-harmonic channel for rotations around that direction.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "59d65b419b59960385942afaccb3fa85c0440b2b71216c140526d12f15f69c1f",
+      "content_sha256": "ea9eb7fed86f31fb2d35e263aed04be54f8c0e11453093c773e3b7108eb2805c",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22070,7 +21890,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-34.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s34-escn-oc20.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         34
@@ -22079,10 +21899,10 @@
         "gdl-2025-11:34"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The evaluation tests whether the exact sparse reformulation improves the accuracy--cost frontier. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 34.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete eSCN comparison table embedded in the source PowerPoint. The <a href='https://proceedings.mlr.press/v202/passaro23a.html'>paper</a> reports both accuracy and GPU-day cost, which is essential because the method is an efficiency result as well as an accuracy result.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "31eaf4bf869ef7504a0abbe9d90f6fca965f3a483d95b2a63f1ff645c8f1065f",
+      "content_sha256": "b002fb73d414fd6844aaa64da4338a47fab0bd7b13780b1d1e697a43e0892131",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22092,7 +21912,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-35.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s35-equiformerv2-architecture.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         35
@@ -22101,10 +21921,10 @@
         "gdl-2025-11:35"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "EquiformerV2 integrates efficient tensor products with revised activation and normalization. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 35.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete EquiformerV2 architecture embedded in the lecture PowerPoint from <a href='https://openreview.net/forum?id=3o4jU8fWVj'>Liao et al.</a>. Red annotations identify the replacements relative to Equiformer.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "92542d8b84546140385f8f45fc5115af7c735712cbee2e07bf977666282db86b",
+      "content_sha256": "b5d121e58e6afcf060638db0884e61e744fdadf832a64228c7985025d71c712e",
       "candidate_urls": [],
       "candidate_citations": [
         "Combining recent advances to achieve the best performance (2023)."
@@ -22116,7 +21936,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-36.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s36-equiformerv2-activations.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         36
@@ -22125,10 +21945,10 @@
         "gdl-2025-11:36"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Spherical sampling lets nonlinear interactions involve all degrees rather than only scalar gates. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 36.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The three activation designs embedded in the lecture PowerPoint from EquiformerV2. The separable version retains a scalar activation path while letting sampled spherical features from all degrees pass through a pointwise nonlinearity.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "7a2fa2e1fc89f231df21d754969f66088a2d293f6c1eb16600ec7912fda48a4b",
+      "content_sha256": "02a4b1917d538001a954e3343425e0cc54c8ba74cf91695b89b169347bf78b0b",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22138,7 +21958,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-37.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s37-equiformerv2-normalization.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         37
@@ -22147,10 +21967,10 @@
         "gdl-2025-11:37"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The normalization changes target unstable mixing across different representation degrees. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 37.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The normalization comparison retained from the EquiformerV2 paper through the lecture PowerPoint. Separable normalization keeps scalar centering separate while coupling the scale statistics of non-scalar degrees.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "9c57c58e8c62515a6600bce3b62c66a042efa4431c06e761527757b28ce52e1c",
+      "content_sha256": "12e7832fad2e820c552087c1294ed0bc3e7ec436b1a68a47840e74550edc7dea",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22160,7 +21980,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-38.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s38-equiformerv2-oc20.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         38
@@ -22169,10 +21989,10 @@
         "gdl-2025-11:38"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "OC20 evaluates high-degree equivariant attention on catalyst energy and force tasks. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 38.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The complete EquiformerV2 OC20 table embedded in the PowerPoint. Results are grouped by training set, and several EquiformerV2 sizes expose how maximum degree and parameter count change throughput and accuracy.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a9819cb2278b7252f1fafbe237c48da21d7bfd258ead1bdd67228e9d62f257ce",
+      "content_sha256": "522ba491be51923b177eadfe59a70bc32946ab943a9697e2dd0c5082746fcc4a",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
@@ -22182,7 +22002,7 @@
       "reader_note": "",
       "notes": ""
     },
-    "assets/img/blog/lectures/gdl-2025-11/slide-39.webp": {
+    "assets/img/blog/lectures/gdl-2025-11/s39-equiformerv2-tradeoff.png": {
       "deck_id": "gdl-2025-11",
       "slides": [
         39
@@ -22191,195 +22011,10 @@
         "gdl-2025-11:39"
       ],
       "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The reported frontier compares accuracy with training time and memory cost. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 39.",
-      "extraction_method": "pdf-slide-crop",
+      "caption": "The compute--accuracy plots retained from the EquiformerV2 paper. The source compares both inference throughput and total training cost against validation force MAE instead of presenting accuracy without its computational denominator.",
+      "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "4a8f2870a3e44a67af8c6e60e7c2e08e5aaf15d4d310a55e45b5d3d9d8e340c4",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-4.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        4
-      ],
-      "slide_keys": [
-        "gdl-2025-11:4"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "TFN supplies the typed convolution modified by every architecture in this lecture. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 4.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1b7394a441671f721a21707c021c10bdfdc971b96a9d2ff5d15d12dbe0cfad19",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-40.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        40
-      ],
-      "slide_keys": [
-        "gdl-2025-11:40"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The first related-work map separates general equivariant frameworks from local atomistic and body-ordered models. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 40.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "1c6af7d7169871cb58871e93b66da0a655b8a80ac1efd69d7e4a90b804f01834",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Finzi et al., 2020] Generalizing Convolutional Neural Networks for Equivariance to Lie Groups on",
-        "• [Geiger and Smidt, 2022] e3nn: Euclidean Neural Networks",
-        "• [Musaelian et al., 2022] Learning local equivariant representations for large-scale atomistic dynamics",
-        "• [Batatia et al., 2022] The Design Space of E(3)-Equivariant Atom-Centered Interatomic Potentials"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-41.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        41
-      ],
-      "slide_keys": [
-        "gdl-2025-11:41"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The second map locates efficient spherical channels and alternative equivariant attention models. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 41.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "53740a6139615022792b050db3fc9192b425cc65a882bbec562bf5d6b5660159",
-      "candidate_urls": [],
-      "candidate_citations": [
-        "• [Zitnick et al., 2022] Spherical Channels for Modeling Atomic Interactions",
-        "• [Le et al., 2022] Equivariant Graph Attention Networks for Molecular Property Prediction",
-        "• [Thölke et al., 2022] Equivariant Transformers for Neural Network based Molecular Potentials"
-      ],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-5.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        5
-      ],
-      "slide_keys": [
-        "gdl-2025-11:5"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Channel multiplicity and irrep coordinates play different roles in a steerable hidden state. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 5.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "ae108d595e57e1e3c3e8201b07a215ea288e4e57095e5736d013b0827ad07b2a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-6.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        6
-      ],
-      "slide_keys": [
-        "gdl-2025-11:6"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "A learned invariant radial factor multiplies a fixed typed angular basis. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 6.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "a5581de23ce2f4867b246a5db0770355ca5a5439b9a06af011a1d3d7b3750576",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-7.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        7
-      ],
-      "slide_keys": [
-        "gdl-2025-11:7"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "TFN aggregates legal filter--input couplings into each output type. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 7.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2eae5bab084ae6c6718e0a9406332c5b92c12d84809d4d659df62494efde569a",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-8.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        8
-      ],
-      "slide_keys": [
-        "gdl-2025-11:8"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "The simplified equations isolate tensor coupling, geometric conditioning, and graph aggregation. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 8.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "2926eb0fdd2ca919e744581fb479934b04d2775962ecc9e9691c9ebf69105d51",
-      "candidate_urls": [],
-      "candidate_citations": [],
-      "status": "pending",
-      "source_ids": [],
-      "confidence": "unresolved",
-      "evidence": [],
-      "reader_note": "",
-      "notes": ""
-    },
-    "assets/img/blog/lectures/gdl-2025-11/slide-9.webp": {
-      "deck_id": "gdl-2025-11",
-      "slides": [
-        9
-      ],
-      "slide_keys": [
-        "gdl-2025-11:9"
-      ],
-      "post": "_posts/2026-08-09-gdl-2025-lecture-11.md",
-      "caption": "Attention changes neighbor importance while keeping the selection scalar invariant. Cropped from the 2025 GDL advanced-steerable-GNN lecture, slide 9.",
-      "extraction_method": "pdf-slide-crop",
-      "reuse_basis": "rights-cleared-lecture-deck",
-      "content_sha256": "eb2ac57108a849238f1471b89e0e3508ac0316fa5fff0650f3e5ddc9244b9cfc",
+      "content_sha256": "94ccdaff0347cbd5236639677744f98f57c271da7278f52937389703973fbba9",
       "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
