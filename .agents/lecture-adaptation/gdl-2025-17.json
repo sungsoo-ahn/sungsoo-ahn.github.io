@@ -1028,276 +1028,202 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 24,
-    "reused": 24,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 17,
+    "reused_figures": 17,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-17.md",
+  "pptx_figures": [
     {
       "slide": 4,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s04-domain-flow-matching.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-4.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 5,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s05-markov-process-families.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-5.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s05-multimodal-state-space.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image3.png"
+      ],
+      "content_role": "illustration",
       "reuse_status": "reused"
     },
     {
       "slide": 6,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s06-process-generator-correspondence.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-6.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 7,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-7.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 8,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s08-transition-kernel-correspondence.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image8.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-8.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 9,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-9.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 10,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-10.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 11,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-11.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 12,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-12.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 13,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-13.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 14,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-14.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 15,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-15.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 16,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-16.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s17-conditional-marginal-generators.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image24.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-17.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 18,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-18.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s19-generator-matching-applications.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-19.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s19-protein-backbone-samples.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image27.png"
+      ],
+      "content_role": "scientific-image",
       "reuse_status": "reused"
     },
     {
       "slide": 21,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s21-flow-matching-recap.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image29.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-21.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 22,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s22-conditioning-choices.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-22.webp",
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s22-intractable-prior.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "content_role": "illustration",
       "reuse_status": "reused"
     },
     {
       "slide": 23,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s23-endpoint-couplings.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-23.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s24-straight-path-comparison.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image35.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-24.webp",
+      "content_role": "plot",
       "reuse_status": "reused"
     },
     {
       "slide": 25,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s25-minibatch-perfect-matching.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-25.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 26,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s26-minibatch-coupling-cost.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image38.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-26.webp",
+      "content_role": "benchmark-figure",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s27-data-orbit-molecule.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image39.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-27.webp",
+      "source_shape_name": "Group 33",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
-      "slide": 28,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-17/s27-noise-orbit-molecule.png",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image40.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-17/slide-28.webp",
+      "source_shape_name": "Group 35",
+      "content_role": "diagram",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-17.md"
+  "asset_migration_status": "pptx-native-complete"
 }
