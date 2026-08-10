@@ -3,189 +3,155 @@ ml4mol:
   short_title: ML for Molecules
   permalink: /teaching/machine-learning-for-molecules/
   description: >-
-    Begin with the scientific language of molecules, then move through graph
+    Follow the 2025 lecture sequence from scientific foundations through graph
     and geometric architectures, generative models, molecular simulation,
-    proteins, genomes, and materials. Every chapter also stands on its own.
+    proteins, and genomics. Each article preserves one lecture deck's scientific
+    storyline and figures.
   chapters:
     - section: Scientific foundations
       title: Chemistry and Physics for Molecular Machine Learning
-      post: chemistry-physics-molecular-ml
-      source: ML4Mol Lecture 2
+      post: ml4mol-2025-lecture-02
+      source: Lecture 2
     - section: Scientific foundations
-      title: How Drug Discovery Turns Biological Hypotheses into Molecules
-      post: drug-discovery-target-to-clinic
-      source: ML4Mol Lecture 3
-    - section: Scientific foundations
-      title: Materials Discovery Connects Structure, Properties, and Synthesis
-      post: materials-discovery-structure-properties-synthesis
-      source: ML4Mol Lecture 3; GDL Lecture 21
+      title: Drug and Material Discovery
+      post: ml4mol-2025-lecture-03
+      source: Lecture 3
     - section: Neural architectures
-      title: Graph Neural Networks as Learnable Message Passing
-      post: graph-neural-networks-message-passing
-      source: ML4Mol Lecture 4; GDL Lecture 3
+      title: Graph Neural Networks
+      post: ml4mol-2025-lecture-04
+      source: Lecture 4
     - section: Neural architectures
-      title: What Graph Neural Networks Can and Cannot Distinguish
-      post: graph-neural-network-expressivity
-      source: ML4Mol Lecture 4; GDL Lecture 5
-    - section: Neural architectures
-      title: Depth, Over-Smoothing, and Over-Squashing in Graph Networks
-      post: deep-graph-network-failure-modes
-      source: ML4Mol Lecture 4; GDL Lecture 6
-    - section: Neural architectures
-      title: Symmetry and Equivariance for Geometric Data
-      post: symmetry-equivariance-geometric-data
-      source: ML4Mol Lecture 5; GDL Lectures 1–2
-    - section: Neural architectures
-      title: Scalar and Vector Geometric Graph Networks
-      post: scalar-vector-geometric-gnns
-      source: ML4Mol Lecture 5; GDL Lecture 7
-    - section: Neural architectures
-      title: Steerable Features and Tensor Products
-      post: steerable-features-tensor-products
-      source: ML4Mol Lecture 5; GDL Lectures 9–10
-    - section: Neural architectures
-      title: Equivariant Transformers and Machine-Learned Potentials
-      post: equivariant-transformers-machine-learned-potentials
-      source: ML4Mol Lecture 7; GDL Lectures 11–12
+      title: Geometric Graph Neural Networks
+      post: ml4mol-2025-lecture-05
+      source: Lecture 5
     - section: Generative models
-      title: ODEs, SDEs, and Probability Flow
-      post: odes-sdes-probability-flow
-      source: ML4Mol Lecture 6; GDL Lecture 13
-    - section: Generative models
-      title: Diffusion Models and Flow Matching
-      post: diffusion-models-flow-matching
-      source: ML4Mol Lecture 6; GDL Lecture 14
-    - section: Generative models
-      title: Geometric Flow Matching on Manifolds
-      post: geometric-flow-matching-manifolds
-      source: ML4Mol Lecture 6; GDL Lectures 15–16
-    - section: Generative models
-      title: Discrete Flow and Generator Matching
-      post: discrete-flow-generator-matching
-      source: ML4Mol Lecture 6; GDL Lectures 16–17
+      title: Continuous, Geometric, and Discrete Generative Models
+      post: ml4mol-2025-lecture-06
+      source: Lecture 6
     - section: Molecular learning
-      title: Molecular Data and Property Prediction Across 1D, 2D, and 3D
-      post: molecular-data-property-prediction
-      source: ML4Mol Lecture 7
+      title: Molecular Property Prediction and Simulation
+      post: ml4mol-2025-lecture-07
+      source: Lecture 7
     - section: Molecular learning
-      title: Molecular Simulation with Machine-Learned Force Fields
-      post: molecular-simulation-machine-learned-force-fields
-      source: ML4Mol Lecture 8
+      title: Molecular Simulation
+      post: ml4mol-2025-lecture-08
+      source: Lecture 8
     - section: Molecular learning
-      title: Generating Molecular Graphs and Chemical Reactions
-      post: molecular-generation-graphs-reactions
-      source: ML4Mol Lecture 9
+      title: Molecular Generation
+      post: ml4mol-2025-lecture-09
+      source: Lecture 9
     - section: Molecular learning
       title: Three-Dimensional Molecular Generation and Optimization
-      post: molecular-generation-3d-optimization
-      source: ML4Mol Lecture 10
+      post: ml4mol-2025-lecture-10
+      source: Lecture 10
     - section: Molecular learning
-      title: Machine Learning Meets Quantum Chemistry
-      post: machine-learning-quantum-chemistry
-      source: ML4Mol Lecture 11
+      title: Quantum Chemistry
+      post: ml4mol-2025-lecture-11
+      source: Lecture 11
     - section: Biological systems
-      title: Protein Structure Prediction from AlphaFold 1 to 3
-      post: protein-structure-prediction-alphafold
-      source: ML4Mol Lecture 12; GDL Lecture 18
+      title: Protein Structure Prediction
+      post: ml4mol-2025-lecture-12
+      source: Lecture 12
     - section: Biological systems
-      title: Protein Representation Learning Across Sequence and Structure
-      post: protein-representation-learning
-      source: ML4Mol Lecture 13; GDL Lecture 18
+      title: Protein Representation Learning and Design
+      post: ml4mol-2025-lecture-13
+      source: Lecture 13
     - section: Biological systems
-      title: Generative Models for Protein Design
-      post: generative-models-protein-design
-      source: ML4Mol Lecture 13; GDL Lecture 19
-    - section: Biological systems
-      title: Genomic Foundation Models and Virtual Cells
-      post: genomic-foundation-models-virtual-cells
-      source: ML4Mol Lecture 14; GDL Lecture 20
+      title: Genomics and Virtual Cells
+      post: ml4mol-2025-lecture-14
+      source: Lecture 14
 
 gdl:
   title: Geometric Deep Learning
   short_title: Geometric Deep Learning
   permalink: /teaching/geometric-deep-learning/
   description: >-
-    Begin with symmetry and graph representation learning, then move through
-    geometric neural networks, flow matching, and applications in proteins,
-    genomes, and materials. Every chapter also stands on its own.
+    Follow the 2025 lecture sequence from symmetry and graph learning through
+    steerable architectures, geometric generative models, and scientific
+    applications. Each article preserves one lecture deck's scientific
+    storyline and figures.
   chapters:
-    - section: Geometry and graphs
-      title: Symmetry and Equivariance for Geometric Data
-      post: symmetry-equivariance-geometric-data
-      source: GDL Lectures 1–2; ML4Mol Lecture 5
-    - section: Geometry and graphs
-      title: Graph Neural Networks as Learnable Message Passing
-      post: graph-neural-networks-message-passing
-      source: GDL Lecture 3; ML4Mol Lecture 4
-    - section: Geometry and graphs
+    - section: Foundations
+      title: An Introduction to Geometric Deep Learning
+      post: gdl-2025-lecture-01
+      source: Lecture 1
+    - section: Foundations
+      title: Symmetry and Equivariance
+      post: gdl-2025-lecture-02
+      source: Lecture 2
+    - section: Graph learning
+      title: Graph Neural Networks
+      post: gdl-2025-lecture-03
+      source: Lecture 3
+    - section: Graph learning
       title: Two Routes to Graph Convolution
-      post: graph-convolution-spectral-equivariant
-      source: GDL Lecture 4
-    - section: Geometry and graphs
-      title: What Graph Neural Networks Can and Cannot Distinguish
-      post: graph-neural-network-expressivity
-      source: GDL Lecture 5; ML4Mol Lecture 4
-    - section: Geometry and graphs
-      title: Depth, Over-Smoothing, and Over-Squashing in Graph Networks
-      post: deep-graph-network-failure-modes
-      source: GDL Lecture 6; ML4Mol Lecture 4
+      post: gdl-2025-lecture-04
+      source: Lecture 4
+    - section: Graph learning
+      title: Expressive Power of Graph Neural Networks
+      post: gdl-2025-lecture-05
+      source: Lecture 5
+    - section: Graph learning
+      title: Failure Modes of Graph Neural Networks
+      post: gdl-2025-lecture-06
+      source: Lecture 6
     - section: Geometric neural networks
-      title: Scalar and Vector Geometric Graph Networks
-      post: scalar-vector-geometric-gnns
-      source: GDL Lecture 7; ML4Mol Lecture 5
+      title: Scalar- and Vector-Based Geometric Graph Neural Networks
+      post: gdl-2025-lecture-07
+      source: Lecture 7
     - section: Geometric neural networks
-      title: Frames, Canonicalization, and Symmetrization
-      post: frames-canonicalization-symmetrization
-      source: GDL Lecture 8
+      title: Local Frames, Frame Averaging, and Canonicalization
+      post: gdl-2025-lecture-08
+      source: Lecture 8
     - section: Geometric neural networks
-      title: Steerable Features and Tensor Products
-      post: steerable-features-tensor-products
-      source: GDL Lectures 9–10; ML4Mol Lecture 5
+      title: Steerable Features, Tensor Products, TFN, and NequIP
+      post: gdl-2025-lecture-09
+      source: Lecture 9
     - section: Geometric neural networks
-      title: Equivariant Transformers and Machine-Learned Potentials
-      post: equivariant-transformers-machine-learned-potentials
-      source: GDL Lectures 11–12; ML4Mol Lecture 7
+      title: Steerable Attention and Nonlinear Message Passing
+      post: gdl-2025-lecture-10
+      source: Lecture 10
+    - section: Geometric neural networks
+      title: "Scaling Steerable GNNs: Equiformer, MACE, eSCN, and EquiformerV2"
+      post: gdl-2025-lecture-11
+      source: Lecture 11
+    - section: Geometric neural networks
+      title: Scaling Machine-Learned Force Fields for Materials
+      post: gdl-2025-lecture-12
+      source: Lecture 12
     - section: Geometric generative models
-      title: ODEs, SDEs, and Probability Flow
-      post: odes-sdes-probability-flow
-      source: GDL Lecture 13; ML4Mol Lecture 6
+      title: ODEs, SDEs, Itô Calculus, and the Fokker--Planck Equation
+      post: gdl-2025-lecture-13
+      source: Lecture 13
     - section: Geometric generative models
-      title: Diffusion Models and Flow Matching
-      post: diffusion-models-flow-matching
-      source: GDL Lecture 14; ML4Mol Lecture 6
+      title: Diffusion Models and Flow Matching from Density Evolution
+      post: gdl-2025-lecture-14
+      source: Lecture 14
     - section: Geometric generative models
-      title: Geometric Flow Matching on Manifolds
-      post: geometric-flow-matching-manifolds
-      source: GDL Lectures 15–16; ML4Mol Lecture 6
+      title: Geometric Flow Matching on Riemannian Manifolds
+      post: gdl-2025-lecture-15
+      source: Lecture 15
     - section: Geometric generative models
-      title: Discrete Flow and Generator Matching
-      post: discrete-flow-generator-matching
-      source: GDL Lectures 16–17; ML4Mol Lecture 6
-    - section: Applications
-      title: Protein Structure Prediction from AlphaFold 1 to 3
-      post: protein-structure-prediction-alphafold
-      source: GDL Lecture 18; ML4Mol Lecture 12
-    - section: Applications
-      title: Protein Representation Learning Across Sequence and Structure
-      post: protein-representation-learning
-      source: GDL Lecture 18; ML4Mol Lecture 13
-    - section: Applications
-      title: Protein Ensembles and Learned Molecular Dynamics
-      post: protein-ensembles-learned-dynamics
-      source: GDL Lecture 19
-    - section: Applications
-      title: Generative Models for Protein Design
-      post: generative-models-protein-design
-      source: GDL Lecture 19; ML4Mol Lecture 13
-    - section: Applications
-      title: Genomic Foundation Models and Virtual Cells
-      post: genomic-foundation-models-virtual-cells
-      source: GDL Lecture 20; ML4Mol Lecture 14
-    - section: Applications
-      title: Materials Discovery Connects Structure, Properties, and Synthesis
-      post: materials-discovery-structure-properties-synthesis
-      source: GDL Lecture 21; ML4Mol Lecture 3
-    - section: Applications
-      title: Crystal Property Prediction and Generative Design
-      post: crystal-property-prediction-generative-design
-      source: GDL Lecture 21; ML4Mol Lecture 10
+      title: Riemannian and Discrete Flow Matching
+      post: gdl-2025-lecture-16
+      source: Lecture 16
+    - section: Geometric generative models
+      title: Generator Matching and Equivariant Flow Matching
+      post: gdl-2025-lecture-17
+      source: Lecture 17
+    - section: Scientific applications
+      title: Protein Representation Learning and Structure Prediction
+      post: gdl-2025-lecture-18
+      source: Lecture 18
+    - section: Scientific applications
+      title: Protein Ensembles, Dynamics, and Design
+      post: gdl-2025-lecture-19
+      source: Lecture 19
+    - section: Scientific applications
+      title: Machine Learning for Genomics and Virtual Cells
+      post: gdl-2025-lecture-20
+      source: Lecture 20
+    - section: Scientific applications
+      title: Machine Learning for Crystalline Materials
+      post: gdl-2025-lecture-21
+      source: Lecture 21

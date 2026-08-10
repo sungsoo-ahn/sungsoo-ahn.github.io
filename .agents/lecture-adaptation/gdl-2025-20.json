@@ -1,0 +1,1718 @@
+{
+  "deck_id": "gdl-2025-20",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec20_genome.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec20_genome.pptx",
+  "slide_count": 31,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Machine Learning for Genomics",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Machine Learning for Genomics",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Today: Machine Learning for Genomics",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Today: Machine Learning for Genomics",
+        "Since we learned about machine learning for molecules and proteins,",
+        "it is natural to learn more about DNA and RNAs."
+      ],
+      "media_sha256": [
+        "f5765da7d909fb1ee65c1850f8afe5de9e2d30ccd5e7657d2296094cb9d757d9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Genomics 101",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Genomics 101",
+        "DNAs and RNAs determine who",
+        "and what we are.",
+        "They contain the instructions that",
+        "guide the formation, functioning,",
+        "and regulation of every cell.",
+        "Ultimately shaping our physical",
+        "characteristics, health, and even",
+        "aspects of our behavior."
+      ],
+      "media_sha256": [
+        "f61a5288092de61a93fc2be7089f30a5c51b40cc6f4d6a6c366e7d1c61a16adb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "DNAs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DNAs",
+        "• Cells are categorized into",
+        "Eukaryotic and Prokaryotic cells.",
+        "• In Eukaryotic cells, DNAs are “packaged”",
+        "to form chromosomes.",
+        "• Mitochondria also has",
+        "a circular chromosome."
+      ],
+      "media_sha256": [
+        "b04790138dced9d42ed91fed04aec01741ec45d5ce2c5e49f0851c3bacdfd537",
+        "ed16c3f69b34f7ea0a475d374ffa6c3b719ec479b97e27cfb766f950473f712b",
+        "460ff63f0da119f9151983e7bfff381498104078bcdc342d3f6876364c5f3716"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "From DNAs to RNAs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "From DNAs to RNAs",
+        "DNAs affect human through gene expression:",
+        "• DNA instructions are transcribed into RNA.",
+        "• Messenger RNA (mRNA) carries these",
+        "instructions from DNA to ribosomes, where",
+        "proteins are synthesized.",
+        "• Proteins synthesized from RNA instructions",
+        "determine physical characteristics, such as eye",
+        "color, height, and hair texture."
+      ],
+      "media_sha256": [
+        "7b1a0336df83e377f8e9a5d7bcd92e8941fff97d4bf97191216f6c154d1bce50"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "How to Obtain Data?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "How to Obtain Data?",
+        "RNA sequencing is a ubiquitous",
+        "tool in biomedical research for",
+        "measuring gene expression in a",
+        "population of cells.",
+        "To measure gene expression, match",
+        "short reads back to the reference",
+        "genome or transcriptome (known",
+        "RNA sequences), and count the",
+        "number to measure expression",
+        "levels."
+      ],
+      "media_sha256": [
+        "10a36a7e0285c390346b04b49de81758afac5bd7fe86e9ce149fdea6180aff11"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "How to Obtain Data?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "How to Obtain Data?",
+        "Whole genome sequencing can be used to",
+        "recover the whole DNA sequence.",
+        "• The very first human genome was completed in",
+        "2003 as part of the Human Genome Project.",
+        "• Today, sequencing technology is much more",
+        "efficient, and a human genome can be",
+        "sequenced in a matter of days for under",
+        "$10,000."
+      ],
+      "media_sha256": [
+        "383bd2bb870488c39810236b873c19edd22d7a7cbc5833acbed2e5b83089ae8a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "How to Obtain Data?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "How to Obtain Data?",
+        "Assay for Transposase-Accessible Chromatin",
+        "using sequencing (ATAC-seq) is used for",
+        "assessing genome-wide chromatin",
+        "accessibility.",
+        "• Varies between different cell types and even",
+        "among cells of the same type under different",
+        "conditions or developmental stages."
+      ],
+      "media_sha256": [
+        "afdcd25a7e079d0db02d5d4227a7812d58756c5525c9a3b5d0ce2b2635fe5508"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Bonus: How to Obtain 3D Data?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Bonus: How to Obtain 3D Data?",
+        "Three representative methods (also used for proteins):",
+        "• X-ray Crystallography",
+        "• Nuclear Magnetic Resonance (NMR) Spectroscopy",
+        "• Cryogenic Electron Microscopy (Cryo-EM)"
+      ],
+      "media_sha256": [
+        "b984a3cd93e4110a2e6f3a99df7b6f1e0fd4aed5aeda624c0eeb8937c11b26be",
+        "d75fa4cd50076c31b74039759bad99af04515eac64c9c1f29ece6fc98756b56a",
+        "f51eeb8c5a38f258bcf092cc541bc3b6d9ef06dc3839711e06705b2b9c337245"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Task: Functional Annotation of Genomes",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Functional Annotation of Genomes",
+        "Variant effect prediction: scoring genetic",
+        "variants (mutations) to predict if they are",
+        "functionally deleterious or alter some",
+        "phenotype."
+      ],
+      "media_sha256": [
+        "752e7dca42ac149d6a342d59fc9edabba15da968f3a9ac1327da01eefa6ebe9a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Task: Functional Annotation of Genomes",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Functional Annotation of Genomes",
+        "Promoter prediction and enhancer",
+        "detection",
+        "• Promoters are DNA sequences that",
+        "initiate transcription by binding to RNA",
+        "polymerase and transcription factors.",
+        "• Enhancers are short nucleotide",
+        "sequences that enhance the transcription",
+        "rate in the genome."
+      ],
+      "media_sha256": [
+        "fa049ceb96a1f3abb348625c74613daffbeeed7d3ccd34dcc3ab5215e5f1f352"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Task: Functional Annotation of Genomes",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Functional Annotation of Genomes",
+        "Transcription factor binding:",
+        "Predicting whether a transcription",
+        "factor (TF) will bind a given DNA",
+        "sequence.",
+        "• Transcription factor (TF) is a",
+        "protein that controls the rate of",
+        "transcription of genetic information",
+        "from DNA to messenger RNA,"
+      ],
+      "media_sha256": [
+        "a2f4b01203e0dc3a47b276f57b3786d0aaa16a672d4f7900f122cc3fbeb047e5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Task: Functional Annotation of Genomes",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Functional Annotation of Genomes",
+        "RNA splicing prediction (cutting introns and joining exons)."
+      ],
+      "media_sha256": [
+        "74d1e08e53745904d55ef1dd3c1d6c34d2394ccf58166641f2f66bbd17fe53d0",
+        "2b30e8f04d5044f8fe4287a67f652b3c6194ff42886040388e6a96048c41c182"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Task: Structure Prediction",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Structure Prediction",
+        "RNA molecules play critical roles in various",
+        "cellular processes, and their function is closely",
+        "tied to their three-dimensional (3D) structure.",
+        "Unlike double-helix DNAs, various structures",
+        "are possible!"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Task: Sequence Generation and Design",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Task: Sequence Generation and Design",
+        "Protein-binding DNA motif creation:",
+        "Design synthetic enhancers that recruit specific transcription factors.",
+        "Synthetic enhancers and promoters:",
+        "gene & cell therapy and understanding regulatory logic.",
+        "RNA design: Important for RNA therapeutics and vaccines."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "DNABERT",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "DNABERT",
+        "Early transformer-based DNA language model trained with masked language modeling.",
+        "• Pre-trained on the human reference genome (GRCh38, ~3.2 billion bases) using 6-mer tokenization.",
+        "Evaluated on identifying promoter regions",
+        "Ji et al., DNABERT: pre-trained Bidirectional Encoder Representations from Transformers model for DNA-language in",
+        "genome, Bioinformatics, 2021"
+      ],
+      "media_sha256": [
+        "261c6db4941d873494342e68a9bf260e372ed7a21c942c034103d2e4ee0f42af",
+        "636ce66606f8fc968adf8cce32a1ea8dafae67ffad5661c184ff635c5d7845cb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Enformer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Enformer",
+        "CNN/transformer hybrid modeling long-range interactions.",
+        "• Trained on multi-species genome sequences (human + mouse)",
+        "with large input windows (~200 kbp = kilo-base pairs)",
+        "• Thousands of epigenomic tracks as targets.",
+        "Evaluated on gene expression prediction",
+        "Avsec et al., “Effective gene expression prediction from sequence by integrating long-range interactions“, Nature",
+        "Methods, 2021"
+      ],
+      "media_sha256": [
+        "9cbd7f4fe42f1b823e449ebe85b822a53a25804ed3fc681f3339154fbf08c0b9",
+        "b0290fb3e178c49765d072979b2bf22dd56763c16f8295719af34d3854c6e90d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "GeneBERT",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GeneBERT",
+        "Multi-modal transformer trained with DNA sequence and a 2D matrix of (transcription",
+        "factors × regions) to provide context.",
+        "• Trained jointly on DNA sequence and chromatin",
+        "accessibility data (ATAC-seq) for regulatory",
+        "element prediction.",
+        "Mo et al., Multi-modal Self-supervised Pre-training for Regulatory Genome Across Cell Types, ICLR, 2022"
+      ],
+      "media_sha256": [
+        "a2de1c9182f96fd53c9c17e9823c3596c09802c40bc43ed284a2555aed057b37",
+        "3ecbe6c743f2e188a778220652b9c14a0b737ebecf6babe02ff084611fdcafe2",
+        "1ce7426e073e31eeb15e98ac8e5b7ed3f30c9ecda3ad1d0a2df22c4410827bf5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Pangolin",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Pangolin",
+        "Transformer model predicting RNA splicing and variant-induced",
+        "splicing alterations from genomic sequences.",
+        "• Trained on multi-tissue splicing data from four tissues (heart, liver, brain, testis)",
+        "across four species (human, rhesus macaque, mouse, rat).",
+        "Zeng & Li, “Predicting RNA splicing from DNA sequence using Pangolin”, Genome Biology, 2022"
+      ],
+      "media_sha256": [
+        "efe547e865cfc92802f0889df60308984bd73970b6308bd998ba3249387323fc",
+        "864d7558226d73ad8a5c7cb7de2b29fa420b217d0bbb0f42f354f28ef9c6b8a4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "AlphaMissense",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "AlphaMissense",
+        "DeepMind's AlphaFold-based model for predicting pathogenicity of all possible missense",
+        "variants across the human proteome.",
+        "• A missense variant is a single letter substitution in DNA.",
+        "Cheng et al., “Accurate proteome-wide missense variant effect prediction with AlphaMissense”, Science, 2023"
+      ],
+      "media_sha256": [
+        "55cee8935e193b37059b786730623c620dcc311b629551953fe854e621e60b83"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "HyenaDNA",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "HyenaDNA",
+        "Hierarchical convolution-based model capable of modeling",
+        "ultra-long DNA sequences (up to 1 million bases) efficiently.",
+        "• Previous works used only up to 512 - 4k tokens.",
+        "• Pre-trained on the human reference genome.",
+        "Nguyen et al., HyenaDNA: Long-Range Genomic Sequence Modeling at Single Nucleotide Resolution, NeurIPS, 2023"
+      ],
+      "media_sha256": [
+        "cecfb835a868b246ba180fb8fa031d0f57086eda44065395f20c1cc7229e045c",
+        "f0a78e81087cbdfc55d1121a4065dbe28b59ebaf50264e8aed9553c01d6ef6bc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Evo",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Evo",
+        "Evolutionary-scale genomic foundation model trained on millions of prokaryotic genomes,",
+        "enabling genome-scale sequence modeling and design.",
+        "• Trained on OpenGenome consisting of 2.7M publicly available",
+        "prokaryotic and phage genomes.",
+        "Nguyen et al., “Sequence modeling and design from molecular to genome scale with Evo” Science, 2024"
+      ],
+      "media_sha256": [
+        "085fa7cf5216a2d8bbfa28d627facae72710f01c0934098c496f139ec007c5a2",
+        "e1ddd6589cedd9e20bfddb86c3c7b97eee01cdd3bd809893bfec6f7553272cd6",
+        "a1d635e8a697f979289a9055fdf7b3f64eb65aa32a2e5c79dd9b6edf8d3c2030"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "GROVER",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GROVER",
+        "Genome-scale foundation model using byte-pair encoding on the entire human genome.",
+        "Sanabria et al., “DNA language model GROVER learns sequence context in the human genome”, Nature Machine",
+        "Intelligence, 2024"
+      ],
+      "media_sha256": [
+        "e4ec6cee220d8ad2412952be09a0d526a86a2eb2a02dc74272c15e361bb5da6c",
+        "b2071c61fa02c948311aa420fa64401c7ebca98fa3acb587d9bbd082c12a8444"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Nucleotide Transformer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Nucleotide Transformer",
+        "Extensive transformer models trained on hybrid dataset of 3,202",
+        "human genomes plus 850 non-human genomes.",
+        "Dalla-Torre et al., “Nucleotide Transformer: building and evaluating robust foundation models for human genomics”,",
+        "Nature Methods, 2024"
+      ],
+      "media_sha256": [
+        "2c2477be39950c9dc21108f412ef731341cfdeb9c71858fa66c5e93d88dd71c5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "GENErator",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GENErator",
+        "Long-context generative foundation model (1.2B parameters) with a ~98,000-token context",
+        "window optimized for synthetic genomic design.",
+        "• Eukaryotic DNA corpus (~386 billion bases) covering many higher organisms’ genomes",
+        "Wu et al., “GENERator: A Long-Context Generative Genomic Foundation Model”, arXiv, 2024"
+      ],
+      "media_sha256": [
+        "43107b497e80ac3b951e0b5f5ed70ddb8807b36e8fb8b647c9bf979f36ccfe4a",
+        "b08b13da8acf731aea224ab252c35df4fa0d1fdede104f944f2bcb011e5f9eed"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Evo2",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Evo2",
+        "Extending Evo to 9.3 trillion bases of DNA from >128,000 genomes including bacteria,",
+        "archaea, viruses (phages), plants, animals (including human), and more.",
+        "• the largest DNA language model with 1M token context dependencies.",
+        "Hsu, Hie, et al., “Genome modeling and design across all domains of life with Evo 2”, bioRxiv, 2025"
+      ],
+      "media_sha256": [
+        "ee7ca34c91ecf86056a7caf8c0d2b5d273c131905c5ab45b32d6410a63c9c598",
+        "f37e6423326290c44c9a52b7477b964f2ad69fd9627e888f2ebf152d46df1c1d",
+        "d9b84d3fd341e7b12c6b30fde75e0bdecf29b7f9c8f4e8069d517084cd6866eb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "RhoFold+",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "RhoFold+",
+        "Integrated RNA LM-based model for RNA structure prediction.",
+        "• Trained with a combination of RNA sequence language modeling and structure learning.",
+        "Shen et al., “Accurate RNA 3D structure prediction using a language model-based deep learning approach”, Nature",
+        "Methods, 2024"
+      ],
+      "media_sha256": [
+        "16e79ff528f466e7f6ad310325645d52f8becf41f353e2b9c89cfbb8089c93b3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "RNAFlow",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "RNAFlow",
+        "Co-design RNA sequence and structure using flow matching",
+        "Designing RNA aptamers that bind to protein target",
+        "Nori and Jin, “RNAFlow: RNA Structure & Sequence Design via Inverse Folding-Based Flow Matching “, ICML 2024"
+      ],
+      "media_sha256": [
+        "ca01400b8aa87a90905a9b9a2a9e62eb118bbde4261f8f61b3c333e1cfdce09e",
+        "16288db489cea5699e5fc8e0ccf111511389d7bef24099017fe1a7ccff2ca949"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Towards Virtual Cell",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Towards Virtual Cell",
+        "Building a multimodal model to",
+        "“simulate” all the cell behaviors.",
+        "Bunne et al., “How to Build the Virtual Cell with Artificial Intelligence: Priorities and Opportunities “, Cell 2024"
+      ],
+      "media_sha256": [
+        "48cdc0006017135cf3eb18ff2829ed489eb45a8c4dd7b33a286762c9aead9c2f",
+        "fda934ae89c2dfcc764d25f6f51b7f70902ad4764f2a04c5d6a62c21da6a0790",
+        "00476fc4095e5a0ad5ad201bfeda9d15d63280c372bc3b79d36af2796a26d321"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "GENEformer",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "GENEformer",
+        "Pretrained with masked learning objective on 30 million",
+        "single-cell transcriptomes (gene expression ranks).",
+        "Theodoris et al., “Transfer learning enables predictions in network biology”, In Nature 2023"
+      ],
+      "media_sha256": [
+        "3bfeda27262335faa3656acd5c0d79e21882755854127d4d6a17211f4d84c678",
+        "c0ff1a809dca8f26e0c4863d3e2d31e2dcd3811a6c70a89cde8e0278f2d49796",
+        "85c3b6f5c9d19fc097394d2176a37b587f3bda340479905fc28671cf732cc8f0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "scCello",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "scCello",
+        "Cell-ontology guided transcriptome foundation model",
+        "Yuan et al., “Cell-ontology guided transcriptome foundation model“, NeurIPS 2024"
+      ],
+      "media_sha256": [
+        "b79f2b03ef40f47016379d8d2c9ae92d74f6b0021c28d8877210b55094d119b9",
+        "5170765ea24133dfa30197dafb49525b917695d2eea9be088bdeb3aa58b8e27d"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "f5765da7d909fb1ee65c1850f8afe5de9e2d30ccd5e7657d2296094cb9d757d9",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 138012,
+      "slides": [
+        2
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b984a3cd93e4110a2e6f3a99df7b6f1e0fd4aed5aeda624c0eeb8937c11b26be",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 313975,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d75fa4cd50076c31b74039759bad99af04515eac64c9c1f29ece6fc98756b56a",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 6780,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f51eeb8c5a38f258bcf092cc541bc3b6d9ef06dc3839711e06705b2b9c337245",
+      "pptx_path": "ppt/media/image12.jpeg",
+      "extension": ".jpeg",
+      "bytes": 38246,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "752e7dca42ac149d6a342d59fc9edabba15da968f3a9ac1327da01eefa6ebe9a",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 272511,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fa049ceb96a1f3abb348625c74613daffbeeed7d3ccd34dcc3ab5215e5f1f352",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 52606,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a2f4b01203e0dc3a47b276f57b3786d0aaa16a672d4f7900f122cc3fbeb047e5",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 87887,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "74d1e08e53745904d55ef1dd3c1d6c34d2394ccf58166641f2f66bbd17fe53d0",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 6069,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2b30e8f04d5044f8fe4287a67f652b3c6194ff42886040388e6a96048c41c182",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 25694,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a7aa1b6700c3e47031191247081ad35d045cb0e903fde97863148186afb96a9c",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 72196,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a8ba3cc6d420fbd0dd318492d9ee3449d607100c5234999ba232db638da7cd75",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 641234,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f61a5288092de61a93fc2be7089f30a5c51b40cc6f4d6a6c366e7d1c61a16adb",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 159486,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "261c6db4941d873494342e68a9bf260e372ed7a21c942c034103d2e4ee0f42af",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 23498,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "636ce66606f8fc968adf8cce32a1ea8dafae67ffad5661c184ff635c5d7845cb",
+      "pptx_path": "ppt/media/image21.jpeg",
+      "extension": ".jpeg",
+      "bytes": 103223,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9cbd7f4fe42f1b823e449ebe85b822a53a25804ed3fc681f3339154fbf08c0b9",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 97117,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b0290fb3e178c49765d072979b2bf22dd56763c16f8295719af34d3854c6e90d",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 157636,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a2de1c9182f96fd53c9c17e9823c3596c09802c40bc43ed284a2555aed057b37",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 138205,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3ecbe6c743f2e188a778220652b9c14a0b737ebecf6babe02ff084611fdcafe2",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 122836,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1ce7426e073e31eeb15e98ac8e5b7ed3f30c9ecda3ad1d0a2df22c4410827bf5",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 21882,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "efe547e865cfc92802f0889df60308984bd73970b6308bd998ba3249387323fc",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 70570,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "864d7558226d73ad8a5c7cb7de2b29fa420b217d0bbb0f42f354f28ef9c6b8a4",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 58402,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "55cee8935e193b37059b786730623c620dcc311b629551953fe854e621e60b83",
+      "pptx_path": "ppt/media/image29.jpeg",
+      "extension": ".jpeg",
+      "bytes": 72886,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b04790138dced9d42ed91fed04aec01741ec45d5ce2c5e49f0851c3bacdfd537",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 309397,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cecfb835a868b246ba180fb8fa031d0f57086eda44065395f20c1cc7229e045c",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 654893,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f0a78e81087cbdfc55d1121a4065dbe28b59ebaf50264e8aed9553c01d6ef6bc",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 78077,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "085fa7cf5216a2d8bbfa28d627facae72710f01c0934098c496f139ec007c5a2",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 289214,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e1ddd6589cedd9e20bfddb86c3c7b97eee01cdd3bd809893bfec6f7553272cd6",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 333204,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a1d635e8a697f979289a9055fdf7b3f64eb65aa32a2e5c79dd9b6edf8d3c2030",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 180058,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e4ec6cee220d8ad2412952be09a0d526a86a2eb2a02dc74272c15e361bb5da6c",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 129863,
+      "slides": [
+        23,
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b2071c61fa02c948311aa420fa64401c7ebca98fa3acb587d9bbd082c12a8444",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 63191,
+      "slides": [
+        23,
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c2477be39950c9dc21108f412ef731341cfdeb9c71858fa66c5e93d88dd71c5",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 239629,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "43107b497e80ac3b951e0b5f5ed70ddb8807b36e8fb8b647c9bf979f36ccfe4a",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 179308,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b08b13da8acf731aea224ab252c35df4fa0d1fdede104f944f2bcb011e5f9eed",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 96362,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ed16c3f69b34f7ea0a475d374ffa6c3b719ec479b97e27cfb766f950473f712b",
+      "pptx_path": "ppt/media/image4.jpeg",
+      "extension": ".jpeg",
+      "bytes": 61968,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ee7ca34c91ecf86056a7caf8c0d2b5d273c131905c5ab45b32d6410a63c9c598",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 91916,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f37e6423326290c44c9a52b7477b964f2ad69fd9627e888f2ebf152d46df1c1d",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 79239,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d9b84d3fd341e7b12c6b30fde75e0bdecf29b7f9c8f4e8069d517084cd6866eb",
+      "pptx_path": "ppt/media/image42.png",
+      "extension": ".png",
+      "bytes": 82244,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16e79ff528f466e7f6ad310325645d52f8becf41f353e2b9c89cfbb8089c93b3",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 253020,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ca01400b8aa87a90905a9b9a2a9e62eb118bbde4261f8f61b3c333e1cfdce09e",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 488689,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "16288db489cea5699e5fc8e0ccf111511389d7bef24099017fe1a7ccff2ca949",
+      "pptx_path": "ppt/media/image45.png",
+      "extension": ".png",
+      "bytes": 597788,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "48cdc0006017135cf3eb18ff2829ed489eb45a8c4dd7b33a286762c9aead9c2f",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 142668,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fda934ae89c2dfcc764d25f6f51b7f70902ad4764f2a04c5d6a62c21da6a0790",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 126392,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "00476fc4095e5a0ad5ad201bfeda9d15d63280c372bc3b79d36af2796a26d321",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 98753,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3bfeda27262335faa3656acd5c0d79e21882755854127d4d6a17211f4d84c678",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 82951,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "460ff63f0da119f9151983e7bfff381498104078bcdc342d3f6876364c5f3716",
+      "pptx_path": "ppt/media/image5.jpeg",
+      "extension": ".jpeg",
+      "bytes": 56109,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c0ff1a809dca8f26e0c4863d3e2d31e2dcd3811a6c70a89cde8e0278f2d49796",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 85029,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "85c3b6f5c9d19fc097394d2176a37b587f3bda340479905fc28671cf732cc8f0",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 70062,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b79f2b03ef40f47016379d8d2c9ae92d74f6b0021c28d8877210b55094d119b9",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 173058,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5170765ea24133dfa30197dafb49525b917695d2eea9be088bdeb3aa58b8e27d",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 138345,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7b1a0336df83e377f8e9a5d7bcd92e8941fff97d4bf97191216f6c154d1bce50",
+      "pptx_path": "ppt/media/image6.jpeg",
+      "extension": ".jpeg",
+      "bytes": 109349,
+      "slides": [
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "10a36a7e0285c390346b04b49de81758afac5bd7fe86e9ce149fdea6180aff11",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 460501,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "383bd2bb870488c39810236b873c19edd22d7a7cbc5833acbed2e5b83089ae8a",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 200420,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "afdcd25a7e079d0db02d5d4227a7812d58756c5525c9a3b5d0ce2b2635fe5508",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 103329,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 51,
+    "reused_figures": 51,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-20.md",
+  "pptx_figures": [
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s03-dna-rna-structure.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s04-chromosome-packaging.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image3.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s04-eukaryote-prokaryote.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image4.jpeg"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s04-mitochondrial-dna.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.jpeg"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s05-gene-expression.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image6.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s06-rna-seq-workflow.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s07-whole-genome-sequencing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image8.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s08-atac-seq.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s09-cryo-em-workflow.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s09-xray-crystallography.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s09-nmr-workflow.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image12.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s10-variant-effects.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image13.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s11-promoter-enhancer.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image14.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s12-transcription-factors.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image15.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s13-rna-splicing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s14-rna-structure-levels.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s14-rna-structural-motifs.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s16-dnabert-transformer.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image20.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s16-dnabert-benchmarks.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.jpeg"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s17-enformer-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s17-enformer-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image23.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s18-genebert-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image24.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s18-genebert-tf-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image25.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s18-genebert-promoter-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s19-pangolin-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image27.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s19-pangolin-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s20-alphamissense.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image29.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s21-hyenadna-overview.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s21-hyena-block.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image31.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s22-evo-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image32.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s22-evo-long-context.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s22-evo-scaling.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image34.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s23-grover-tokenization.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image35.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s23-grover-evaluation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s24-nucleotide-transformer.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s25-generator-corpus.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image38.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s25-generator-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image39.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s26-evo2-domain-coverage.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image40.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s26-evo2-genome-context.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image41.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s26-evo2-codon-structure.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image42.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s27-rhofold-plus.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image43.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s28-rnaflow-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image44.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s28-rnaflow-results.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image45.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s29-virtual-cell-modalities.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image46.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s29-virtual-cell-representations.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s29-virtual-cell-scales.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s30-geneformer-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image49.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s30-geneformer-tissues.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image50.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s30-geneformer-tasks.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image51.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s31-sccello-pretraining.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image52.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-20/s31-sccello-tasks.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image53.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

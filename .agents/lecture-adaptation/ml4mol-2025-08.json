@@ -1,0 +1,1095 @@
+{
+  "deck_id": "ml4mol-2025-08",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec8_molsim.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec8_molsim.pptx",
+  "slide_count": 16,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Molecular Property",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Molecular Property",
+        "Prediction & Simulation",
+        "AI810 Machine Learning for Molecules",
+        "Sungsoo Ahn",
+        "1"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Molecular Dynamics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecular Dynamics",
+        "A computer simulation method for studying the",
+        "physical movements of atoms and molecules",
+        "over time.",
+        "−𝛻𝑈 𝑹!               2𝛾𝑘\" 𝜆",
+        "d𝑹! = 𝑽! d𝑡,   d𝑽! =        d𝑡 − 𝛾𝑽! d𝑡 +        d𝒘",
+        "𝒎                    𝒎",
+        "Newton Dynamics   friction   diffusion",
+        "2"
+      ],
+      "media_sha256": [
+        "2c2fbfa6316b921a91a9a22064b1d7f06975d7d9dd1073e840e9ee3db252e178",
+        "907398260729f95ef64972164a5de29aa4c6c5eca507ac3f2537e266efc52a30",
+        "82ecc5f6d2ceb90e5200e68371d874df9addcff4c2c434c24725c97a05c45c34"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Molecular Dynamics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecular Dynamics",
+        "Further categorized by preservation of                        N: the number of atoms",
+        "V: volume",
+        "thermodynamic parameters (N, V, E, P, T).                     E: energy",
+        "T: temperature",
+        "• NVE (microcanonical) MD                                   P: pressure",
+        "• NVT (canonical) MD",
+        "• NPT (isothermal-isobaric) MD",
+        "Barostat",
+        "Thermostat",
+        "No interaction",
+        "NVE                        NVT     NPT",
+        "3"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Molecular Dynamics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecular Dynamics",
+        "MD workflow (initialization is the key!)",
+        "0. Pre-processing                                                                                               5. Post-processing",
+        "•   Setup system (Hamiltonian)                                                                                   •   Save MD trajectory",
+        "•   Setup Integrator                                                                                             •   Compute thermodynamic",
+        "(dynamics + discretization)                                                                                      & dynamic properties",
+        "•   Setup initial state",
+        "1. Energy Minimization         2. Temperature Ramp                         3. Equilibration   4. Production run",
+        "Temperature (K)               Pressure (bar)",
+        "Time (ps)                         Time (ps)",
+        "L-BFGS or FIRE algorithm                      NVT                               NPT          NVE or NVT or NPT",
+        "4"
+      ],
+      "media_sha256": [
+        "52c1826abd82e81886279a3f273dbf0b973d3449dca83bc4c92ef6efcc34c8af"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Machine Learning Force Fields",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Machine Learning Force Fields",
+        "Several ways to compute force fiels: classic (fast & inaccurate),",
+        "ab initio (slow & accurate), machine learning (fast & accurate).",
+        "5"
+      ],
+      "media_sha256": [
+        "a80b5db2948a1aa935cf5337fda87b244a1d305711a48bb6a0a79ae673f07b5e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "MD Application: Conformation Analysis",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MD Application: Conformation Analysis",
+        "MD simulations are used to explore the different 3D shapes, or",
+        "\"conformations,\" that a molecule can adopt.",
+        "• Workflow: Run MD simulation and analyze Ramachandran plot",
+        "(visualization of dihedral angles) & collective variables",
+        "(other low-dim representations).",
+        "6"
+      ],
+      "media_sha256": [
+        "bafb0111d9241f1f5dcd8cfe9aed255c1e52afa054c1912316c0073c7a369d73",
+        "882f63139be1335df943252ba8a2151ad974a838f2de51aed84ebea477a54eb2",
+        "2f9489dde1052009b856921f4c55f99cf994fab1f70ba54d909c4799a411e6cd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "MD Application: Folding & Binding Free Energy",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MD Application: Folding & Binding Free Energy",
+        "Calculating the free energy change:",
+        "𝑈 𝑥                  𝑈 𝑥",
+        "ln # exp −      𝑑𝑥 − ln # exp −      𝑑𝑥",
+        "1      𝑘2 𝑇          2      𝑘2 𝑇",
+        "• folding & binding process helps determine the stability of different folded states.",
+        "7"
+      ],
+      "media_sha256": [
+        "0978757a420dc75e08247d0002071531ce47985f6cd6c53f8c0fbfafbb0eccee",
+        "3900a83013fcc921bf22ab52f67bbeffc160639bda570b13af0cb0e8648db2ed",
+        "63d0f9b1b185ce842456679b868a1746d5d645d14d418dbd3060e92cd60f0c2e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "MD Application: Diffusion Coefficient",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "MD Application: Diffusion Coefficient",
+        "How quickly particles (like atoms or molecules) spread",
+        "out in a system due to random motion.",
+        "MD can be used to calculate the",
+        "mean squared displacement (MSD).",
+        "MSD over time 𝜏",
+        "8"
+      ],
+      "media_sha256": [
+        "e769eba3cf8b88e1cb33956e40d81c46de9b909fe8325b95dae1ba6d5c15a697",
+        "f52cf7bfbfe4a4601e5a5ab2847f213528257d4975bd84776622708d76e1e737",
+        "b0a0fcf060ac0a30971719d4aa9127ccec7a788b391c2197592254cf6ed7d3c1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Accelerating Machine Learning Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Accelerating Machine Learning Potentials",
+        "Machine learning potentials are still too slow to simulate rare events.",
+        "Coarse-graining in time",
+        "Coarse-graining in space",
+        "9"
+      ],
+      "media_sha256": [
+        "54a8a08ad09af75e63bf3d3513d34628d2dade91fea586e50c228a4672a74b8c",
+        "9c2a14dced1245c11e81a3de720f07c35bd4c0b7549f5817db5fb309322d4118"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Classic Approach: Coarse-Grained MD",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Classic Approach: Coarse-Grained MD",
+        "Coarse-grained MD (1) groups a set of atoms into beads, (2) define force",
+        "field on beads, (3) simulate beads.",
+        "• Pros: (1) Remove fast degree of freedom → smooth landscape → longer MD step (~1ps)",
+        "(2) Reduced input size → Faster force field calculation",
+        "• Cons: (1) Inaccurate and unable to model some phenomena (e.g. hydrogen bond, ligand binding)",
+        "(2) Lose transferability, biased dynamic observables.",
+        "10"
+      ],
+      "media_sha256": [
+        "2b4069de0ec2d9fb8d37793b1179a33debb91d909ab3c8adec8bbde0b239d1ff",
+        "48f7d36bc33e3193b685128cea7691656a44596edc885ea44c762073e6916818"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Classic Approach: Enhanced Sampling",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Classic Approach: Enhanced Sampling",
+        "Modify the MD simulation with additional exploration terms / parameters.",
+        "Temperature annealing",
+        "Replica exchange",
+        "Metadynamics",
+        "11"
+      ],
+      "media_sha256": [
+        "5450313d31f50b9bdbced59c9ab0a1349e761dfe89b0ed62cc62009512c15ced",
+        "b479583e131a2c7c625c0fcf817d44c9c56b99685f28eecd1f692aa65d458024",
+        "d035b5cacd0d239f0472b57a139ddca773202a8240bc3cc6a215e2f8f0e2b9bc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Neural Approach: Coarse-Grained MD Simulation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Neural Approach: Coarse-Grained MD Simulation",
+        "Coarse-graining multiple atoms to reduce the system size.",
+        "12"
+      ],
+      "media_sha256": [
+        "6090673bc93721e7e1e6aa9ab11b6276c9c7e37d3db9261255c195e94542868d",
+        "739a7dc88687fad8910dafa7f0affcd345853e4724c2c9763428a80fd13d2298"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Neural Approach: Coarse-Graining over Time",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Neural Approach: Coarse-Graining over Time",
+        "Generate a distribution of 𝑝(𝑥345 |𝑥3 )",
+        "instead of predicting the drift term.",
+        "Typical simulations work with",
+        "femto-seconds, but now",
+        "can predict in nano-seconds.",
+        "13"
+      ],
+      "media_sha256": [
+        "6fa22feba2fba7b1e9d6decc90b6b2d8ea1fd95543e1a60967bfada067da74a9",
+        "8ceff10b208b063ac69fc3ce1fef5150a4619e5e2b78b0cb18cd0c098019fdca",
+        "c8230b05830e1effcb9547702b4dc685762c03c86f3680dcc408d4e715456ec7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Neural Approach: Coarse-Graining over Time",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Neural Approach: Coarse-Graining over Time",
+        "MDGen: Train a video generative model",
+        "with with coarsed timescale.",
+        "Video diffusion (non-autoregressive gen.)",
+        "allows infilling and extrapolation.",
+        "14"
+      ],
+      "media_sha256": [
+        "114292842889dcc8ebbc590a86731b7f510965444c6ceb0a8fec1911f09584c8",
+        "02828a00063ab43bfd60a0b211ee24ff71b8aa0e395b477207b9d42c33d04525",
+        "3047f9f10c2f086c64adeeb94be2471aabb684e7dadeab4f606e4efb333fd844"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Neural Approach: Coarse-Graining over Time",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Neural Approach: Coarse-Graining over Time",
+        "Coarse-graining over multiple time-steps to estimate diffusivity of lithium",
+        "across solid-state electrolyte (SSE) candidates.",
+        "15",
+        "Nam, Juno, et al. \"Flow matching for accelerated simulation of atomic transport in materials.\" arXiv preprint arXiv:2410.01464 (2024)."
+      ],
+      "media_sha256": [
+        "75c3c889aa89c139f416ea18db976a0d2fc67a7047ffec11cda40ee547cc712f",
+        "8f3e33564a6667b62dd8931cb48ba47465a3e399a352841ff8456e87ac1b4270"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": null,
+      "title": "𝑈 𝑹!",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "𝑈 𝑹!",
+        "Neural Approach: Biased MD Simulation",
+        "Train a neural network to add neural drift terms                            𝒜             ℬ",
+        "that guide towards the desired event.",
+        "𝑈 𝑹! + 𝑏 𝑹!",
+        "Original MD simulation",
+        "−𝛻𝑈 𝑹!               2𝛾𝑘\" 𝜆",
+        "d𝑹! = 𝑽! d𝑡,      d𝑽! =             d𝑡 − 𝛾𝑽! d𝑡 +        d𝒘",
+        "𝒎                    𝒎",
+        "Newton Dynamics    friction       diffusion",
+        "𝒜             ℬ",
+        "“Neural” bias MD simulation",
+        "−𝛻 𝑈 𝑹! + 𝑏# 𝑹!                           2𝛾𝑘\" 𝜆",
+        "d𝑽! =                             d𝑡 − 𝛾𝑽! d𝑡 +        d𝒘",
+        "𝒎                                    𝒎",
+        "“Neural” Bias Force"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "907398260729f95ef64972164a5de29aa4c6c5eca507ac3f2537e266efc52a30",
+      "pptx_path": "ppt/media/image1.gif",
+      "extension": ".gif",
+      "bytes": 4512370,
+      "slides": [
+        2
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s02-image1.gif",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "63d0f9b1b185ce842456679b868a1746d5d645d14d418dbd3060e92cd60f0c2e",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 1180659,
+      "slides": [
+        7
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s07-image10.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c2fbfa6316b921a91a9a22064b1d7f06975d7d9dd1073e840e9ee3db252e178",
+      "pptx_path": "ppt/media/image1010.png",
+      "extension": ".png",
+      "bytes": 27726,
+      "slides": [
+        2,
+        16
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s02-image1010.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e769eba3cf8b88e1cb33956e40d81c46de9b909fe8325b95dae1ba6d5c15a697",
+      "pptx_path": "ppt/media/image11.jpeg",
+      "extension": ".jpeg",
+      "bytes": 182090,
+      "slides": [
+        8
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s08-image11.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f52cf7bfbfe4a4601e5a5ab2847f213528257d4975bd84776622708d76e1e737",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 13038,
+      "slides": [
+        8
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s08-image12.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b0a0fcf060ac0a30971719d4aa9127ccec7a788b391c2197592254cf6ed7d3c1",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 6947,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "54a8a08ad09af75e63bf3d3513d34628d2dade91fea586e50c228a4672a74b8c",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 259663,
+      "slides": [
+        9
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s09-image14.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6d3555d77ec7eb2451b0de8e80b9a5d0ef46ad491b17cc1a0d21cf02c7ba4bbb",
+      "pptx_path": "ppt/media/image140.png",
+      "extension": ".png",
+      "bytes": 1131,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9c2a14dced1245c11e81a3de720f07c35bd4c0b7549f5817db5fb309322d4118",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 167858,
+      "slides": [
+        9
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s09-image15.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c60b336adcf98f017a25cd9555a9d84229822bfca7b4efb99a6bafa0ad1de85a",
+      "pptx_path": "ppt/media/image150.png",
+      "extension": ".png",
+      "bytes": 1133,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2b4069de0ec2d9fb8d37793b1179a33debb91d909ab3c8adec8bbde0b239d1ff",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 637406,
+      "slides": [
+        10
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s10-image16.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "48f7d36bc33e3193b685128cea7691656a44596edc885ea44c762073e6916818",
+      "pptx_path": "ppt/media/image17.jpeg",
+      "extension": ".jpeg",
+      "bytes": 11141,
+      "slides": [
+        10
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s10-image17.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5450313d31f50b9bdbced59c9ab0a1349e761dfe89b0ed62cc62009512c15ced",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 385178,
+      "slides": [
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-image18.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b479583e131a2c7c625c0fcf817d44c9c56b99685f28eecd1f692aa65d458024",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 165160,
+      "slides": [
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-image19.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3867b79a3324e4aa3f1d6986c57caf4c80d55122b6ddfc96338827003f09abd0",
+      "pptx_path": "ppt/media/image190.png",
+      "extension": ".png",
+      "bytes": 1130,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "82ecc5f6d2ceb90e5200e68371d874df9addcff4c2c434c24725c97a05c45c34",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 118935,
+      "slides": [
+        2
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s02-image2.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d035b5cacd0d239f0472b57a139ddca773202a8240bc3cc6a215e2f8f0e2b9bc",
+      "pptx_path": "ppt/media/image20.gif",
+      "extension": ".gif",
+      "bytes": 610280,
+      "slides": [
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-image20.gif",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3f5c1a1ba7e12cfc0ae91b0255d23f7a5a651bc9e01fd5992023ca0817852fe5",
+      "pptx_path": "ppt/media/image200.png",
+      "extension": ".png",
+      "bytes": 1127,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6090673bc93721e7e1e6aa9ab11b6276c9c7e37d3db9261255c195e94542868d",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 240124,
+      "slides": [
+        12
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s12-image21.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "739a7dc88687fad8910dafa7f0affcd345853e4724c2c9763428a80fd13d2298",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 32648,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6fa22feba2fba7b1e9d6decc90b6b2d8ea1fd95543e1a60967bfada067da74a9",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 72321,
+      "slides": [
+        13
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s13-image23.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8ceff10b208b063ac69fc3ce1fef5150a4619e5e2b78b0cb18cd0c098019fdca",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 116956,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c8230b05830e1effcb9547702b4dc685762c03c86f3680dcc408d4e715456ec7",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 169141,
+      "slides": [
+        13
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s13-image25.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "114292842889dcc8ebbc590a86731b7f510965444c6ceb0a8fec1911f09584c8",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 784113,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s14-image26.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "02828a00063ab43bfd60a0b211ee24ff71b8aa0e395b477207b9d42c33d04525",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 63888,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3047f9f10c2f086c64adeeb94be2471aabb684e7dadeab4f606e4efb333fd844",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 390468,
+      "slides": [
+        14
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s14-image28.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "75c3c889aa89c139f416ea18db976a0d2fc67a7047ffec11cda40ee547cc712f",
+      "pptx_path": "ppt/media/image29.gif",
+      "extension": ".gif",
+      "bytes": 7318688,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s15-image29.gif",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "52c1826abd82e81886279a3f273dbf0b973d3449dca83bc4c92ef6efcc34c8af",
+      "pptx_path": "ppt/media/image3.gif",
+      "extension": ".gif",
+      "bytes": 10499756,
+      "slides": [
+        4
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s04-image3.gif",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8f3e33564a6667b62dd8931cb48ba47465a3e399a352841ff8456e87ac1b4270",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 85574,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s15-image30.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0bb344d42d5c6bfd2f58e15bb9a11a3b8db85bde521bb6f9fccfce049f24ccff",
+      "pptx_path": "ppt/media/image31.gif",
+      "extension": ".gif",
+      "bytes": 6599981,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a185d4bb692be7a96296f2e77261d35c0a8e61448654d13d752a7e89004e54c4",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 5220,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "167786f150e4c36904a0cd0bd5c238f595d8a2081795b2930cd58fc7dae7b451",
+      "pptx_path": "ppt/media/image32.gif",
+      "extension": ".gif",
+      "bytes": 841143,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b2966fcf33689faa05ab5049dfe7c0edd7b5552d79eebd26f911f08b02a155d2",
+      "pptx_path": "ppt/media/image33.gif",
+      "extension": ".gif",
+      "bytes": 616564,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3f3c80b169341a10df6a0f7cb0e617e9f8c024b56884372cd0a2c7fc0d011f1d",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 2407,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9a0f992e0a27f66a479be25baed2f2833d34e04a722c8016b4085cdfe41cac1a",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 68007,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a80b5db2948a1aa935cf5337fda87b244a1d305711a48bb6a0a79ae673f07b5e",
+      "pptx_path": "ppt/media/image4.gif",
+      "extension": ".gif",
+      "bytes": 90759,
+      "slides": [
+        5
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s05-image4.gif",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bafb0111d9241f1f5dcd8cfe9aed255c1e52afa054c1912316c0073c7a369d73",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 98076,
+      "slides": [
+        6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-image5.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "882f63139be1335df943252ba8a2151ad974a838f2de51aed84ebea477a54eb2",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 96182,
+      "slides": [
+        6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-image6.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2f9489dde1052009b856921f4c55f99cf994fab1f70ba54d909c4799a411e6cd",
+      "pptx_path": "ppt/media/image7.jpeg",
+      "extension": ".jpeg",
+      "bytes": 147022,
+      "slides": [
+        6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-image7.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0978757a420dc75e08247d0002071531ce47985f6cd6c53f8c0fbfafbb0eccee",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 95142,
+      "slides": [
+        7
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s07-image8.webp",
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "804af415579d4e5ad0276e13d551045447a6a108fde8e8691a9fe473c57033d6",
+      "pptx_path": "ppt/media/image800.png",
+      "extension": ".png",
+      "bytes": 20285,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3900a83013fcc921bf22ab52f67bbeffc160639bda570b13af0cb0e8648db2ed",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 15888,
+      "slides": [
+        7
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s07-image9.webp",
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 26,
+    "reused_figures": 26,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-08.md",
+  "pptx_figures": [
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s02-membrane-protein-md.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.gif"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s02-md-loop.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s04-md-workflow.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image3.gif"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s05-ml-potential-landscape.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image4.gif"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-torsion-energy.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-dihedral-landscape.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s06-neural-collective-variable.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s07-folding-landscape.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s07-binding-free-energy-cycle.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s08-ion-diffusion.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.jpeg"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s09-spatial-coarse-graining.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image14.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s09-temporal-coarse-graining.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image15.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s10-coarse-grained-chain.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image16.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s10-landscape-smoothing.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.jpeg"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-temperature-annealing.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image18.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-replica-exchange.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s11-metadynamics.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image20.gif"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s12-neural-coarse-graining.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image21.png"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s13-timewarp.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image25.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s14-mdgen-tasks.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s14-mdgen-evaluation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image28.png"
+      ],
+      "content_role": "benchmark-figure",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s15-lithium-diffusion.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image29.gif"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s15-liflow.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s16-transition-path-molecule.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image31.gif"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s16-unbiased-landscape.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image32.gif"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-08/s16-biased-landscape.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.gif"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

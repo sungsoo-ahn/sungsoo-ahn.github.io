@@ -1,0 +1,2683 @@
+{
+  "deck_id": "gdl-2025-09",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec9_geognn3.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec9_geognn3.pptx",
+  "slide_count": 54,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Geometric Graph Neural Networks",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Geometric Graph Neural Networks",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Lecture Overview: Geometric GNNs",
+      "classification": "transition-only",
+      "coverage": "omitted-logistical",
+      "text": [
+        "Lecture Overview: Geometric GNNs",
+        "Lec 1 (Mar 19th): Scalar- and vector- based geometric GNNs",
+        "Lec X (March 24th): No class due to business trip",
+        "Lec 2 (March 26th): Frame-based geometric GNNs",
+        "Lec 3 (March 31th): Steerable geometric GNNs - 1",
+        "Lec 4 (April 2nd): Steerable geometric GNNs - 2",
+        "Lec 5 (April 7th): Advanced Steerable geometric GNNs",
+        "…",
+        "May 26th: Invited lecture from Jinwoo Kim (https://jw9730.github.io/)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Lecture Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Lecture Overview",
+        "Previously, we mainly worked with scalar-valued and vector-valued features.",
+        "𝐱! − 𝐱 \"              𝐱! − 𝐱 \"",
+        "𝐱! − 𝐱 \"",
+        "We call these features steerable features, meaning that rotation",
+        "𝑔 ∈ 𝑆𝑂 3 operates on them via matrix-vector multiplication.",
+        "𝐱! − 𝐱 \"        𝐱! − 𝐱 \"",
+        "↦𝐑 𝑔",
+        "𝐱! − 𝐱 \"        𝐱! − 𝐱 \"",
+        "Furthermore, scalars and vectors are called type-0 and type-1 steerable vectors,",
+        "respectively, to indicate how they differently respond to the rotation."
+      ],
+      "media_sha256": [
+        "77ca318ebd9bce78b93b96313541ad55150b9ad3b45d1a9bb00073cdef54762b",
+        "8a4ee390b53393726f33d059b99b0876f3607d3a19257ce1c7e758d78b48a01b",
+        "8ad4cc4a3a3d2858686ca14fc4c6a9ce20d491eef7bd0d9424dc8b5cabeeda35",
+        "eebbe8b06804b0e92d87829e0c771a8e2b8e5f30fbddb75939ba129a662ab37d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Lecture Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Lecture Overview",
+        "In the remaining of this course, we will study steerable networks",
+        "that operate on type-0, type-1,…, type-𝐿 steerable features.",
+        "Featurization from pair-",
+        "wise atom features",
+        "Type-0                    Type-0                    Type-0",
+        "Type-1                    Type-1                    Type-1",
+        "Layer 1                   Layer 2",
+        "Type-2                    Type-2                    Type-2",
+        "Type-3                    Type-3                    Type-3",
+        "hidden",
+        "input                                               output",
+        "feature"
+      ],
+      "media_sha256": [
+        "6a11ee13996e84fe5d425e1c060155ffe66a84bbd29a5dde8d262014fd2c2b28",
+        "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Lecture Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Lecture Overview",
+        "The new neural networks linearly combine steerable features of different types",
+        "to another steerable feature via the Clebsch-Gordan tensor products.",
+        "Type-0                     Type-0                      Type-0",
+        "Type-1                     Type-1                      Type-1",
+        "Type-2                     Type-2                      Type-2",
+        "Type-3                     Type-3                      Type-3",
+        "Clebsch-Gordan              Clebsch-Gordan",
+        "tensor products   hidden    tensor products",
+        "input                                                  output",
+        "feature"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Lecture Overview",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Lecture Overview",
+        "What is a steerable feature?",
+        "(need to learn group representation)",
+        "What is a type-𝑙 steerable feature?",
+        "(need to learn irreducible representation, Wigner 𝐷-matrix)",
+        "How to define linear mapping between the steerable vectors?",
+        "(need to learn Clebsch-Gordan tensor product)"
+      ],
+      "media_sha256": [
+        "3c6e7e9a563a77cec3217a0f78c9456a0833211f159af89b9610adb54dbb23c4",
+        "fb66cb3e881ebfefc95d333b8e11d7bee5f3fdb31b4fb36b3b1eaac1d755d3cf"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Reference",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Reference",
+        "[Sophia Tang, 2024] A Complete Guide to Spherical Equivariant Graph Transformers",
+        "• https://alchemybio.substack.com/p/spherical-equivariant-graph-",
+        "transformer?open=false#%C2%A7clebsch-gordan-decomposition",
+        "[Duval et al., 2023] A Hitchhiker's Guide to Geometric GNNs for 3D Atomic Systems",
+        "• https://arxiv.org/abs/2312.07511",
+        "[Erik Bekkers, 2023] Group Equivariant Deep Learning",
+        "• https://www.youtube.com/watch?v=cB4zsnLnZfo"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": null,
+      "title": "Part 1. More Preliminaries",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 1. More Preliminaries",
+        "on Group Theory"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group",
+        "A group (𝐺,⋅) is a set of elements 𝐺 equipped with a group product ⋅",
+        "that satisfies the following four axioms:",
+        "• Closure: 𝑔 ⋅ ℎ ∈ 𝐺 for any 𝑔, ℎ ∈ 𝐺,.",
+        "• Associative: 𝑔 ⋅ ℎ ⋅ 𝑖 = 𝑔 ⋅ ℎ ⋅ 𝑖 for any 𝑔, ℎ, 𝑖 ∈ 𝐺.",
+        "• Identity element: There exists 𝑒 ∈ 𝐺 such that 𝑒 ⋅ 𝑔 = 𝑔 ⋅ 𝑒 = 𝑔 for any 𝑔 ∈ 𝐺.",
+        "• Inverse element: For each 𝑔 ∈ 𝐺 there exists 𝑔!\" ∈ 𝐺",
+        "such that 𝑔!\" ⋅ 𝑔 = 𝑔 ⋅ 𝑔!\" = 𝑒."
+      ],
+      "media_sha256": [
+        "ff294eda893fe60634da95bc27a3f2c1be2c22d651499abe15e44bcddcf58256"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Example: Orthogonal Group",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Orthogonal Group",
+        "The orthogonal group O(𝑛) is",
+        "• the group of 𝑛×𝑛 orthogonal matrices with group product as the matrix product",
+        "(subgroup of GL(𝑛, ℝ)).",
+        "• the group of distance-preserving transformations of a 𝑛-dimension Euclidean space",
+        "that keeps a point fixed (combination of rotation and reflection).",
+        "The special orthogonal group SO(𝑛) is",
+        "• the group of 𝑛×𝑛 orthogonal matrices with determinant 1 (subgroup of 𝑂 𝑛 ).",
+        "• also called 2D and 3D rotation group for 𝑛 = 2,3."
+      ],
+      "media_sha256": [
+        "9fe55f2dbca1591ab426fc5d71b54215ec7f49c0c6a62e86b878caa01d55a14e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Group Action",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group Action",
+        "A group element 𝑔 ∈ 𝐺 operates on a domain 𝑋, i.e., a (left) 𝐺-set, by",
+        "the (left) group action ⋅ ∶ 𝑔, 𝑥 ↦ 𝑔 ⋅ 𝑥 ∈ 𝑋 that satisfies:",
+        "• Compatibility: 𝑔 ⋅ ℎ ⋅ 𝑥 = (𝑔 ⋅ ℎ)𝑥",
+        "• Identity element: there exists 𝑒 ∈ 𝐺 such that 𝑒 ⋅ 𝑥 = 𝑥 for any 𝑥 ∈ 𝑋.",
+        "𝐱)                                                            𝐑& 𝐱 )",
+        "𝐑& 𝐱'",
+        "𝑔 ∈ 𝑆𝑂(2)",
+        "𝐱'                  𝐱(                                                   𝐑& 𝐱 (",
+        "𝑿 = 𝐱', 𝐱 (, 𝐱 ) ∈ ℝ)×)                         𝑔 ⋅ 𝑿 = (𝐑& 𝐱', 𝐑& 𝐱 (, 𝐑& 𝐱 ))"
+      ],
+      "media_sha256": [
+        "a23a645ec870902bd623ff8c547b69b5f47791024736a2dafad6343166c78564",
+        "560c2a5b6865a58eda13df5774b158b4ca5a86304a8104fc9d850a4dad6f9098",
+        "935dab79286aeb783d5388fdb2d2ccb0f6fb619ece75d02912f8bcb8823838a6",
+        "9e9190c008fea318315ce08ca8410ae33675d5099f4b33680b735800a40048a1",
+        "36e97bc889e289bad8d8c3a7a333560414623fe018d8bd9127feba804a0af076",
+        "bae7950e8e0f55a58e6c0d45501372a3fd5a3aeb69bbff7158cb1e5eeaadc8f9",
+        "9c5befb5492f59ff958684cbcdde2aa2926ed8059d6fb39e2bbab073903e0d9a",
+        "5cfe4b5ba305823c1302052dc7b4a48db8282bf1e3b425c7b4e93814d3b29f2d",
+        "1f2c79c4aff8592f19b9a8f0a1d13921f80038992c823c543bc1ee9d37a75f58",
+        "7aa7bc717f850d80ccf76a6800273f63978cd746758ff0dfe631e6867c4ce577",
+        "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
+        "6cf6aee3536d85081a36f602a0d568a9d8e308350b225a57588cfbb4ae2c375b",
+        "aafefa6a01a5930634dfe68a6a6e39c09114e605fac2cf9367ab6769e11b3d2a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Group Representation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Group Representation",
+        "A group representation 𝜌 maps a group element 𝑔 to an invertible matrix 𝜌(𝑔)",
+        "that linearly transforms a vector 𝐯 ∈ 𝑉 by 𝐯 ↦ 𝜌 𝑔 𝐯.",
+        "• Compatibility: 𝜌 𝑔 ⋅ ℎ 𝐯 = 𝜌 𝑔 𝜌 ℎ 𝐯",
+        "• Identity element: there exists 𝑒 ∈ 𝐺 such that 𝜌 𝑔 = 𝐈.",
+        "The vector 𝐯 is sometimes called a steerable (feature) vector [1] or a steerable function,",
+        "meaning that it is transformed by the group element via matrix-vector product.",
+        "[1] Cohen et al., Steerable CNNs, ICLR 2017"
+      ],
+      "media_sha256": [
+        "563aa8eb5711eda2a0b2af23a2ba7d15ffa374039eff8bd8a3702e0558021573",
+        "3eb8f993f4f1d213ee8b0191ea6f58bbe9a5381fffaf88383d0d99266a65d6b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 14,
+      "title": "Example: Circular Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Circular Harmonics",
+        "Example of steerable vectors and group representations:",
+        "circular harmonics defined on 0,2𝜋 .",
+        "group representation 𝜌(𝑔# )",
+        "",
+        "<latexit sha1_base64=\"L2dc+j/jC3NPRl5MN8V+5PGHFYc=\">AAAC2HicfVJNa9tAEF2pSeuqaeO2x16WmAaHUiOFtPUlYMilxwTi2MQyZrUe24tXK7E7KjXC0ENK6TU/rbf+iv6FrGwFO47pwMKb92bezn5EqRQGff+v4z7Z2X36rPLce7H38tV+9fWbK5NkmkObJzLR3YgZkEJBGwVK6KYaWBxJ6ETTs0LvfANtRKIucZZCP2ZjJUaCM7TUoPovjGAsVB7FDLX4PvdCnhhaD3ECyAa5P6cf6DI5omHohUao7aoXghqubE69rcbLYnpIF0ZlZn0/rudWXdVu+P7HtZjnfsQVs9E/qNb8hr8I+hgEJaiRMs4H1T/hMOFZDAq5ZMb0Aj/Ffs40Ci7B2mcGUsanbAw9CxWLwfTzxcPM6XvLDOko0XYppAt2vSNnsTGzOLKVdsCJ2dQKcpvWy3DU7OdCpRmC4suNRpmkmNDilelQaOAoZxYwroWdlfIJ04yj/QvFJQSbR34Mro4bwefGp4uTWqtZXkeFvCMHpE4C8oW0yFdyTtqEO20nd26cn+61+8P95f5elrpO2fOWPAj39g4J8OLE</latexit>",
+        "                    ",
+        "cos(✓0 + ✓)         cos ✓    sin ✓       cos ✓0",
+        "=",
+        "sin(✓0 + ✓)          sin ✓   cos ✓       sin ✓0",
+        "𝑔# ⋅ 𝐯                      steerable vector 𝐯",
+        "[cos 𝜃+ , sin 𝜃+]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  [cos(𝜃+ + 𝜃) , sin(𝜃+ + 𝜃)]",
+        "𝜃+                            𝜃+ + 𝜃"
+      ],
+      "media_sha256": [
+        "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
+        "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
+        "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
+        "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
+        "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
+        "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
+        "d7a776bf412d0de2392afb78f265a1ac20a11c4e197fdeb706a801511a8e0717"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": null,
+      "title": "Q. How does the area",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Q. How does the area",
+        "Example: Circular Harmonics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               change to rotations?",
+        "Example of steerable vectors and group representations:",
+        "circular harmonics with degree 𝑘 defined on 0,2𝜋 .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1",
+        "cos 𝜃+ sin 𝜃+",
+        "2",
+        "group representation 𝜌$ (𝑔# )",
+        "<latexit sha1_base64=\"MsID9pI95WbJG+1cnuVYFMWdLos=\">AAADE3icfVJLa9tAEF6paZuqL6c99rLEtCSUGqk0bS6BQC85plAnAa8wq/XIXrxaid1RwAj/h1zyV3LJIaX02ktu+TdZW3Kbh8nAwrffPL6Z2U0KJS2G4ZXnP1p5/OTp6rPg+YuXr1631t4c2Lw0AroiV7k5SrgFJTV0UaKCo8IAzxIFh8n4+8x/eAzGylz/xEkBccaHWqZScHRUf83bZApS7LEEhlJX3Bg+mVZqGjCRWzqeOzcYjgB5P/xYA2bkcISblLGAWakfjgoY6EFTt6binWWSQiw0aZ1PP9C6+uLu5D7dZlzEzYwlUg8ORxcd/5/kH7WkVr/VDjvh3Oh9EDWgTRrb77cu2SAXZQYaheLW9qKwwNgVRSkUuC5KCwUXYz6EnoOaZ2Djav6mU/reMQOa5sYdjXTO3syoeGbtJEtcZMZxZO/6ZuQyX6/EdDuupC5KBC1qobRUFHM6+yB0IA0IVBMHuDDS9UrFiBsu0H2jwC0hujvyfXDwuRN97Wz9+NLe3W7WsUrekXWyQSLyjeySPbJPukR4J96Zd+H98k/9c/+3/6cO9b0m5y25Zf7fa8ud++Y=</latexit>",
+        "                           ",
+        "cos k (✓0 + ✓)            cos k✓      sin k✓         cos k✓0",
+        "=",
+        "sin k (✓0 + ✓)             sin k✓     cos k✓         sin k✓0",
+        "𝑔# ⋅ 𝐯                                    steerable vector 𝐯"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "Spherical harmonics form an orthonormal basis of",
+        "functions defined on the surface of a sphere.",
+        "• Defined by degree 𝑙 and order 𝑚.",
+        "• Higher degree implies higher “frequency”.",
+        "• Solution to the Laplace’s equation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      order 𝑚",
+        "in the spherical domains.",
+        "degree ℓ",
+        "Yml (✓, ') = Nl,m exp(im')Pl,m (cos ✓)",
+        "<latexit sha1_base64=\"8+YrmTANYEIUzuE35yu3UTgjhJ0=\">AAACM3icbVDLSgMxFM34tr6qLt0Ei1BByoz42giCG3EhFawPOnXIpLc2mMwMyR2xDP0nN/6IC0FcKOLWfzBtB/F1IHA45x5u7gkTKQy67pMzNDwyOjY+MVmYmp6ZnSvOL5yaONUcajyWsT4PmQEpIqihQAnniQamQgln4fV+zz+7AW1EHJ1gJ4GGYleRaAnO0EpB8fAiUJeZ7JZ9bAOyNerfMJ20xeruUZDJNaq61IfbhJYFVV8ereZe2eexoYPoalAsuRW3D/qXeDkpkRzVoPjgN2OeKoiQS2ZM3XMTbGRMo+ASugU/NZAwfs2uoG5pxBSYRta/uUtXrNKkrVjbFyHtq98TGVPGdFRoJxXDtvnt9cT/vHqKrZ1GJqIkRYj4YFErlRRj2iuQNoUGjrJjCeNa2L9S3maacbQ1F2wJ3u+T/5LT9Yq3Vdk83ijt7eR1TJAlskzKxCPbZI8ckCqpEU7uyCN5Ia/OvfPsvDnvg9EhJ88skh9wPj4BtDipGA==</latexit>",
+        "normalization    Legendre",
+        "constant      polynomial"
+      ],
+      "media_sha256": [
+        "8de6dd7a92cee0dadcb277b2adff307f42afa8d3cbd131554f7a354a9b21fff8",
+        "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
+        "07955ecae91146dd51c4c9e3fb66a71618d993d1d247c65dc25ba3f235e2d26f",
+        "7294605f657f47c1ecec63d1e04abd8661f604c93d9ebcbff928a691345df327",
+        "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36",
+        "ee47a6a7b707b37acc5f169c8c796ed7acb32afe59ec55745bc1da400cb4f311",
+        "b7f858f1b6f1e9b56b38ff960a84067b1e91e86a6535a05ec3a4b0bfaa8c6261"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "Degree-𝑙 spherical harmonics are steerable vectors associated",
+        "with the 𝑙-th Wigner-D matrix, which is the SO(3) group representation:",
+        "`",
+        ") = [Ym` (✓,   )]lm= l   Y ` (g · ✓, g · ) = Dl (g)Y ` (✓, )",
+        "<latexit sha1_base64=\"uiuohEvGDLpJR6DloCbxGSi4WNI=\">AAACJ3icbZDLSgNBEEV74ju+oi7dNAYhgoYZ8bWJBNy4VDBGyYyhp1PJNOl50F0jhCF/48ZfcSOoiC79EzsxgkYLGi7nVlFd10+k0Gjb71ZuYnJqemZ2Lj+/sLi0XFhZvdRxqjjUeCxjdeUzDVJEUEOBEq4SBSz0JdT97snAr9+C0iKOLrCXgBeyTiTagjM0qFk4vr7JXJCyX3IxAGTb1E0CsVVpfPNmFo55nkGVHdm/yYxbKNple1j0r3BGokhGddYsPLmtmKchRMgl07rh2Al6GVMouIR+3k01JIx3WQcaRkYsBO1lwzv7dNOQFm3HyrwI6ZD+nMhYqHUv9E1nyDDQ494A/uc1UmwfeZmIkhQh4l+L2qmkGNNBaLQlFHCUPSMYV8L8lfKAKcbRRJs3ITjjJ/8Vl7tl56C8f75XrB6N4pgl62SDlIhDDkmVnJIzUiOc3JEH8kxerHvr0Xq13r5ac9ZoZo38KuvjExrYphQ=</latexit>                                <latexit sha1_base64=\"WeEcU4fPhxPj0MFaDeapuHy8/jc=\">AAACLXicbVDLSgMxFM34rPVVdekmWIQKUmbE10Yo2IVLBfuQTlsy6W0bzDxI7ghl6A+58VdEcFERt/6GaR1FqwcCJ+ecS3KPF0mh0bZH1szs3PzCYmYpu7yyurae29is6jBWHCo8lKGqe0yDFAFUUKCEeqSA+Z6Emnd7PvZrd6C0CINrHETQ9FkvEF3BGRqpnSvftBIXpBwWei7vhEhd7AOyfdqj6T3qi72zcisZR/a+01+xid3O5e2iPQH9S5yU5EmKy3buye2EPPYhQC6Z1g3HjrCZMIWCSxhm3VhDxPgt60HD0ID5oJvJZNsh3TVKh3ZDZU6AdKL+nEiYr/XA90zSZ9jX095Y/M9rxNg9bSYiiGKEgH8+1I0lxZCOq6MdoYCjHBjCuBLmr5T3mWIcTcFZU4IzvfJfUj0oOsfFo6vDfOk0rSNDtskOKRCHnJASuSCXpEI4uSePZERerAfr2Xq13j6jM1Y6s0V+wXr/ACpxp3A=</latexit>",
+        "Y (✓,"
+      ],
+      "media_sha256": [
+        "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
+        "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
+        "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
+        "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "The 1st spherical harmonics 𝑌,- (𝜃, 𝜑) is simply xyz coordinates:"
+      ],
+      "media_sha256": [
+        "f2c72598ebe4ed728249680c16c4709bc8eccae1e88adbe23bd4c0660004f3ff",
+        "ee47a6a7b707b37acc5f169c8c796ed7acb32afe59ec55745bc1da400cb4f311",
+        "b3c9e92893500c841cbb0878068d5e685147d5d126c6fa18ec3575c97de9b7d0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Example: Spherical Harmonics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Example: Spherical Harmonics",
+        "Later, we are going to use spherical harmonics to encode relative distance information:"
+      ],
+      "media_sha256": [
+        "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Types of Steerable Vectors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Types of Steerable Vectors",
+        "It seems there are several “orders” of steerable vectors. Any insights?",
+        "Steerable vectors can be categorized by the group representations.",
+        "• High-order Cartesian tensors are created from",
+        "naïve “tensor products” between low-order ones.",
+        "• High-order spherical tensors are created from",
+        "“Clebsch-gordan tensor products” between low-order ones.",
+        "Tensor product can also be defined abstractly as a map from two input linear spaces to a third one such hat for every",
+        "bilinear map on the original two linear spaces there is a unique, corresponding linear map in the third linear space.",
+        "Duval et al., A Hitchhiker’s Guide to Geometric GNNs for 3D Atomic Systems, 2023"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Cartesian Tensors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Cartesian Tensors",
+        "𝑣, 𝑤 ∈ ℝ):",
+        "Naively, we could start with 1st-order tensors 𝑢, ⃗",
+        "• e.g., corresponds to xyz coordinates of points (or their linear combination)",
+        "• Also corresponds to 1st-order spherical tensors & spherical harmonics.",
+        "To create a high-order Cartesian tensor, simply compute the cross product.",
+        "• 2nd order Cartesian tensor: 𝑀%& = 𝑢% 𝑣&",
+        "• 3rd order Cartesian tensor: 𝑇%&$ = 𝑢% 𝑣& 𝑤$"
+      ],
+      "media_sha256": [
+        "5aa241ed358c51c9438ee8808c11c0a3ba3a9797d4a795f2fca0fe375db6f1c3",
+        "7afe96b5ee3848c437ba54b956c35a69fb68560c7983255581a2d056c3f20a17"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 21,
+      "title": "Cartesian Tensors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Cartesian Tensors",
+        "How do the Cartesian tensors rotate?",
+        "𝑔 ⋅ 𝑀 = 𝑅𝑢 ⊗ 𝑅𝑣⃗ = 𝑅𝑀𝑅.",
+        "𝑔 ⋅ 𝑇 = 𝑅𝑢 ⊗ 𝑅𝑣⃗ ⊗ 𝑅𝑤 ⇔ 𝑔 ⋅ 𝑇 /01 = W 𝑅/- 𝑅0, 𝑅12 𝑇/01",
+        "-,2",
+        "In vectorized (flattened) form:",
+        "vec 𝑔 ⋅ 𝑀 = 𝑅 ⊗ 𝑅 vec 𝑀 ,",
+        "vec 𝑔 ⋅ 𝑇 = 𝑅 ⊗ 𝑅 ⊗ 𝑅 vec 𝑇 .",
+        "Similarly, we can build even high-order tensor products",
+        "and they will be steerable."
+      ],
+      "media_sha256": [
+        "74f10d9c580ac414d8058c5c4be21593540e044b9351c76ea80bbd6688e22713"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Reducibility of Cartesian Tensors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Reducibility of Cartesian Tensors",
+        "Are Cartesian tensors the most compact description of steerable tensors?",
+        "• e.g., do they form somehing like a “basis” for steerable vectors?",
+        "Not really! For example, type-2 Cartesian tensor can be decomposed into three parts:",
+        "Type-0 and type-1 Cartesian tensors",
+        "New type of tensor!?"
+      ],
+      "media_sha256": [
+        "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a",
+        "813b69fd2ad8563b2e2fe8b1c540675618e07b2bce45d536ab79e968ebe3b6c4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "It is desirable to think of a concept that linearly decomposes a steerable vector such that:",
+        "• the resulting steerable vectors are categorized by how they respond to rotation.",
+        "• the decomposition is unique and “compact”",
+        "To do this, we need a categorization for steerable vectors,",
+        "i.e., categorize the corresponding group representations!",
+        "• Irreducible group representation as a way to",
+        "categorize group representations",
+        "and the associated steerable vectors!"
+      ],
+      "media_sha256": [
+        "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "Two representations 𝜌 3 (𝑔) and 𝜌4 (𝑔) are equivalent if the matrices are similar:",
+        "⇢B (g) = Q 1 ⇢A (g)Q",
+        "<latexit sha1_base64=\"uoIuvMXbYJnry4cPwGCVTV0o1RE=\">AAACBXicbZDLSgMxFIYz9VbrbdSlLoJFqAvLjHjpRqi6cdmCvUA7LZk0bUMzyZBkhDJ048ZXceNCEbe+gzvfxnQ6C63+EPj5zjmcnN8PGVXacb6szMLi0vJKdjW3tr6xuWVv79SViCQmNSyYkE0fKcIoJzVNNSPNUBIU+Iw0/NHNtN64J1JRwe/0OCRegAac9ilG2qCuvd+WQ9G5LgyOLqud+NidwARcGQCrXTvvFJ1E8K9xU5MHqSpd+7PdEzgKCNeYIaVarhNqL0ZSU8zIJNeOFAkRHqEBaRnLUUCUFydXTOChIT3YF9I8rmFCf07EKFBqHPimM0B6qOZrU/hfrRXpfsmLKQ8jTTieLepHDGoBp5HAHpUEazY2BmFJzV8hHiKJsDbB5UwI7vzJf039pOieF8+qp/lyKY0jC/bAASgAF1yAMrgFFVADGDyAJ/ACXq1H69l6s95nrRkrndkFv2R9fANjzpaP</latexit>",
+        "where 𝑄 and 𝑄 5' represents the change of basis."
+      ],
+      "media_sha256": [
+        "64e10054bb52914a7fe57eaa3a914838da8f7f3e8e1a96512f4e75737bd23825",
+        "d588786dee339cca95742b63c2a4afea2d3211c2deaf334ba867a940c2a14035",
+        "3ffa76026cdae019a536ded72721011a03a4d1bedf95f596198d53bddc2f8a4f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 25,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "A representation is called reducible if it can be written as:",
+        "<latexit sha1_base64=\"UbBV8683rTCH3PSMfTejBKdwb0o=\">AAACcnicbZHdShwxFMczYz90bOtW8caCxi4tK+gyI7V6IwjeeOmCq8LOdslkz8wGM8mQnCkswz6Ar+ddn8IbH8DsOmj9OBD48zsfOfknKaSwGIb/PH/u3fsPH+cXgsVPn78sNb4un1tdGg5drqU2lwmzIIWCLgqUcFkYYHki4SK5Op7mL/6CsUKrMxwX0M9ZpkQqOEOHBo3r2Ix0K9s67PypdqJJLCHF1pQNIkdprAtZWjoDuw7ERmQj3KKd5/UJZEJVzBg2nlScT4KnCT9pSOM4CJ14nBLEoIZ1+ePEQaMZtsNZ0NciqkWT1HE6aNzEQ83LHBRyyaztRWGBfTcWBZfgdigtFIxfsQx6TiqWg+1XM8sm9IcjQ5pq445COqP/d1Qst3acJ64yZziyL3NT+FauV2J60K+EKkoExR8uSktJUdOp/3QoDHCUYycYN8LtSvmIGcbR/VLgTIhePvm1ON9tR7/be51fzaOD2o558o18Jy0SkX1yRE7IKekSTm69VW/d2/Du/DV/06+98726Z4U8C3/7HqQNuPo=</latexit>",
+        "✓                     ◆",
+        "1                             1       ⇢1 (g)     0",
+        "⇢(g) = Q                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 (⇢1 (g)   ⇢2 (g)) Q = Q                                 Q",
+        "0      ⇢2 (g)",
+        "This means that a reducible representation 𝜌(𝑔) can be decomposed into",
+        "“smaller pieces” 𝜌' 𝑔 ⊕ 𝜌((𝑔), which is an irreducible representation (irrep).",
+        "For 𝑆𝑂(3) groups, every group representation can be",
+        "“canonicalized” to a particular irrep called Wigner D-matrices."
+      ],
+      "media_sha256": [
+        "69f037db0d16cf30ce760ee822132c8d28db5eb6765fc3e3b0b62ef62bc1ca09",
+        "232c6ed9278960f1b2e1b3a76ae4319c28a93378b198c9178ee6bc891aa05d48"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "Example of steerable vectors associated with irreps of 𝑆𝑂(2):",
+        "collection of circular harmonics!",
+        "2<latexit sha1_base64=\"e6FN7E+aOs+Ihf9L4TNJV+vwk3A=\">AAAEcXicfVNdb9MwFPWaACN8dYMXhEDWKtCmiSpJ+dgL0iReeBwS3SY1VeW4t601x4lsB62K9sz/440/wQt/ACcNtG7TWbJy7z33+Fxf58YZZ0r7/q+dluPeuXtv97734OGjx0/ae/vnKs0lhT5NeSovY6KAMwF9zTSHy0wCSWIOF/HV5xK/+A5SsVR80/MMhgmZCjZhlGgTGu21fkQxTJko4oRoya5vvABHkRfRVB1Gegaa4GMcEZ7NyFEZV0w0xk1+uI3QDBhGbxtjE/AiEONlkZ+8zbLfYL9pmyPLb6lXH2oco4H/e03pb8uUZb4h357/b1eNsHVCm7hGqIRCS+l2wqoS7tlStbuFUUn1LKklwe7v1p9i8Rz1My2dqupVKLSwnoXVni05anf8rl8tvGkEtdFB9TobtX9G45TmCQhNOVFqEPiZHhZEakY5mCvkCjJCr8gUBsYUJAE1LKqJucGvTWSMJ6k0W2hcRVcZBUmUmiexyTT1zdQ6VgabsEGuJyfDgoks1yDoQmiSc6xTXI4fHjMJVPO5MQiVzNSK6YxIQrUZUs80IVi/8qZxHnaDD933X991Tk/qduyiF+gAHaIAfUSn6As6Q31EW7+dZ85L55Xzx33uYvdgkdraqTlPkbXc47/c206E</latexit>",
+        "3   2                                                       32         3",
+        "1          1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    0        0       0         0        0         0           1",
+        "6 cos(✓ + ↵) 7 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     cos ✓    sin ✓     0         0        0         0 7    6        7",
+        "6              7 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         7 6 cos ↵ 7",
+        "6 sin(✓ + ↵) 7 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      sin ✓   cos ✓     0         0        0         0 7    6        7",
+        "6              7 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         7 6 sin ↵ 7",
+        "6cos 2(✓ + ↵)7 = 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     0        0     cos 2✓    sin 2✓     0         0 7    6cos 2↵7",
+        "6              7 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         76         7",
+        "6 sin 2(✓ + ↵) 7 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     0        0      sin 2✓   cos 2✓     0         0 7 6 sin 2↵ 7",
+        "7 6",
+        "6              7 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    7",
+        "4cos 3(✓ + ↵)5 40                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       0        0       0         0      cos 3✓    sin 3✓ 5 4cos 3↵5",
+        "sin 3(✓ + ↵)     0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    0        0       0         0       sin 3✓   cos 3✓     sin 3↵",
+        "Note that linear combination of circular harmonics is NOT associated with an irrep,",
+        "e.g., cos 𝛼 + sin 2𝛼 , sin 𝛼 + cos 𝛼 . does not transform by an irrep."
+      ],
+      "media_sha256": [
+        "4d91b2a220c6e7da8a74d50c61fa6e04f075afa1874bcb11177072ba87d9f568",
+        "13d96e767c3c6036ccd7e90cc3fffedd54976f2a21e580527e4b6f10e5b24723"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "The irreducible representations of 𝑆𝑂(3) are called",
+        "Wigner-D matrices 𝐷 (-) : 𝑆𝑂 3 → ℝ (-8' ×((-8') .",
+        "<latexit sha1_base64=\"p8Nyw43aq8BwLkJsT4xuEZ5XRlo=\">AAACQnicbVDLSsNAFJ34rPUVdelmsAgtaknERzeCoAuXKrZVmrRMppN2cDIJMxOhhHybG7/AnR/gxoUibl04aQNq9cLAueecy71zvIhRqSzryZiYnJqemS3MFecXFpeWzZXVhgxjgUkdhywU1x6ShFFO6ooqRq4jQVDgMdL0bk8yvXlHhKQhv1KDiLgB6nHqU4yUpjrmjRMg1ff85DRtJ2VWScu9ylHrtJMEkH8zru63IT/aYWmbQYdyOBrzksvMtAvZll2BjqIBkXmXdsySVbWGBf8COwclkNd5x3x0uiGOA8IVZkjKlm1Fyk2QUBQzkhadWJII4VvUIy0NOdLL3GQYQQo3NdOFfij04woO2Z8TCQqkHASedmaXy3EtI//TWrHya25CeRQrwvFokR8zqEKY5Qm7VBCs2EADhAXVt0LcRwJhpVMv6hDs8S//BY3dqn1Q3b/YKx3X8jgKYB1sgDKwwSE4BmfgHNQBBvfgGbyCN+PBeDHejY+RdcLIZ9bArzI+vwCpgK2/</latexit>",
+        "D(l) (g) = [Dmn",
+        "(l)",
+        "(g)]lm,n= l 2 R(2l+1)⇥(2l+1)",
+        "<latexit sha1_base64=\"sRg72Uy4tU7gS9DiZWjtZSo4yUY=\">AAACyHicbZHPT9swFMedsAHLGOvguItFNVQuVVLGxgUJCZAQ4sAkCkhNqRz3JVh1nMh2BpWVy/7E3Tjxr+C0EaWUJz3pq+/7WH4/opwzpX3/0XGXPnxcXln95H1e+7L+tfFt40plhaTQpRnP5E1EFHAmoKuZ5nCTSyBpxOE6Gh1V9eu/IBXLxKUe59BPSSJYzCjR1ho0nsKU6LsoNsdlK9k58MKIJVnOCzUw/CAob815OSNuTYvvVJxXgZAwYSJblOyh9OYof0Lhbey/ZBh6lZjDgnmsRhawzgx7hSxgu9PWQhDDWVuDRtNv+5PAiyKoRRPVcTFo/A+HGS1SEJpyolQv8HPdN0RqRjnYOQsFOaEjkkDPSkFSUH0zOUSJf1hniONM2hQaT9zXLwxJlRqnkSWrztXbWmW+V+sVOt7vGybyQoOg04/igmOd4eqqeMgkUM3HVhAqme0V0zsiCdX29tUSgrcjL4qrTjv41d7787N5uF+vYxV9R1uohQL0Gx2iU3SBuog6J87I0U7hnrm5e++Op6jr1G820Vy4/54B9YLQNQ==</latexit>",
+        "2                       3×3 matrix                     3",
+        "(0)",
+        "D         (g)      0            0          0",
+        "L",
+        "M             6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               0          D(1) (g)        0          0       7",
+        "D(g) =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 D (g) = 6",
+        "(l)",
+        "4",
+        "7",
+        "5",
+        "0            0          D(2) (g)      0",
+        "l=1",
+        "0            0            0        D(3) (g)",
+        "5×5 matrix",
+        "7×7 matrix",
+        "The 2𝑙 + 1 -dimensional vector on which 𝐃 - (𝑔) acts on",
+        "will be called a type-𝑙 steerable vector (or irreps vectors)."
+      ],
+      "media_sha256": [
+        "e2414e6a127129a00b63aab9bc00eb84adaebf57fd570a2f2ae4a92b3988a631",
+        "11555cc6120c699c80691d76f1c41c19e18884c33c0f706fce4cb25ef75f7edf",
+        "706c7590e4cedb211a91e330ddcbecd69b2a758785510ef616b22c8186d80983",
+        "1b7dffe7952197d9f4e42972c97f519eeb5ae243b35536f9095d664a6c3ecc3f",
+        "27bd0232e2d44991ba582aeb852ca263669288b67a73ef28cdaf8d048ed13ff8",
+        "af56e01f7edff1e1bf61aae474161729d62090e2abf8af6f3eab18236f7c529a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Irredicible Representation (IrRep)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Irredicible Representation (IrRep)",
+        "Examples of steerable vectors for Irreps that are functions on 𝑆 (.",
+        "• type-0 steerable vector: a scalar.",
+        "• type-1 steerable vector: a 3D vector that transforms directly via the rotation matrix,",
+        "e.g., velocity, force, displacement.",
+        "For type-𝑙 steerable vectors for Irreps with 𝑙 > 1, the description is non-trivial.",
+        "-",
+        "The collection of 𝑙-th spherical harmonics 𝑌,- 𝜃, 𝜙             ,95-",
+        "is the most famous type-𝑙 steerable vector."
+      ],
+      "media_sha256": [
+        "92aa75075981c9a0c8d69bc996bf2928a213841a75fbf7c230aa423c3d90b270"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "Spherical Harmonics and Wigner-D Matrix",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Spherical Harmonics and Wigner-D Matrix",
+        "Degree-𝑙 spherical harmonics are type-𝑙 steerable vectors",
+        "associated with the Wigner-D matrix:",
+        "`",
+        ") = [Ym` (✓,   )]lm= l   Y ` (g · ✓, g · ) = Dl (g)Y ` (✓, )",
+        "<latexit sha1_base64=\"uiuohEvGDLpJR6DloCbxGSi4WNI=\">AAACJ3icbZDLSgNBEEV74ju+oi7dNAYhgoYZ8bWJBNy4VDBGyYyhp1PJNOl50F0jhCF/48ZfcSOoiC79EzsxgkYLGi7nVlFd10+k0Gjb71ZuYnJqemZ2Lj+/sLi0XFhZvdRxqjjUeCxjdeUzDVJEUEOBEq4SBSz0JdT97snAr9+C0iKOLrCXgBeyTiTagjM0qFk4vr7JXJCyX3IxAGTb1E0CsVVpfPNmFo55nkGVHdm/yYxbKNple1j0r3BGokhGddYsPLmtmKchRMgl07rh2Al6GVMouIR+3k01JIx3WQcaRkYsBO1lwzv7dNOQFm3HyrwI6ZD+nMhYqHUv9E1nyDDQ494A/uc1UmwfeZmIkhQh4l+L2qmkGNNBaLQlFHCUPSMYV8L8lfKAKcbRRJs3ITjjJ/8Vl7tl56C8f75XrB6N4pgl62SDlIhDDkmVnJIzUiOc3JEH8kxerHvr0Xq13r5ac9ZoZo38KuvjExrYphQ=</latexit>",
+        "<latexit sha1_base64=\"WeEcU4fPhxPj0MFaDeapuHy8/jc=\">AAACLXicbVDLSgMxFM34rPVVdekmWIQKUmbE10Yo2IVLBfuQTlsy6W0bzDxI7ghl6A+58VdEcFERt/6GaR1FqwcCJ+ecS3KPF0mh0bZH1szs3PzCYmYpu7yyurae29is6jBWHCo8lKGqe0yDFAFUUKCEeqSA+Z6Emnd7PvZrd6C0CINrHETQ9FkvEF3BGRqpnSvftBIXpBwWei7vhEhd7AOyfdqj6T3qi72zcisZR/a+01+xid3O5e2iPQH9S5yU5EmKy3buye2EPPYhQC6Z1g3HjrCZMIWCSxhm3VhDxPgt60HD0ID5oJvJZNsh3TVKh3ZDZU6AdKL+nEiYr/XA90zSZ9jX095Y/M9rxNg9bSYiiGKEgH8+1I0lxZCOq6MdoYCjHBjCuBLmr5T3mWIcTcFZU4IzvfJfUj0oOsfFo6vDfOk0rSNDtskOKRCHnJASuSCXpEI4uSePZERerAfr2Xq13j6jM1Y6s0V+wXr/ACpxp3A=</latexit>",
+        "Y (✓,"
+      ],
+      "media_sha256": [
+        "0bcacb36ac0946ce339401fc92778b8e49188ec8726b37a3acc6037e267a9272",
+        "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
+        "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
+        "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
+        "2a931a37458528925f5b960854d2a59b4dc2228b6a9851ccbb2f3bfd0301e5f0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 30,
+      "title": "Spherical Harmonics and Wigner-D Matrix",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Spherical Harmonics and Wigner-D Matrix",
+        "The type-1 steerable vectors rotate by typical rotation matrix,",
+        "i.e., Wigner-D matrices for type-1 tensors are the typical 3D rotation matrices!"
+      ],
+      "media_sha256": [
+        "b3c9e92893500c841cbb0878068d5e685147d5d126c6fa18ec3575c97de9b7d0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 31,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "We just learned about type-𝑙 steerable features that are features",
+        "of our steerable neural networks.",
+        "We now need to learn Clebsch-Gordan tensor product as a way",
+        "to combine steerable features of different type.",
+        "Actually, this is generalization of prior tricks",
+        "to combine equivariant features."
+      ],
+      "media_sha256": [
+        "a30c49dc9792271a0ac64ea939bbb6d1b883ed9ffc44fd37116c2b6f321bed8b",
+        "598e5c881283f8381fe2e139e9df4c3e2941dbe665c26d650269bd813f739d29"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 32,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "How to combine two (or more) steerable vectors, such that",
+        "the output is still a steerable vector?",
+        "Consider tensor product of steerable vectors",
+        "𝐚 ∈ 𝑉-! and 𝐛 ∈ 𝑉-\" of type 𝑙: and 𝑙; , respectively.",
+        "<latexit sha1_base64=\"KYhmAoWni7jWI92jEEkV0+NP04g=\">AAACiHicbVFNa9wwEJXdpk3dr2167EV0aUgpLPaSNMkhENpLjylkk8Bqu0jyeFdElow0DizGv6X/qbf+m8q7TmiTDgw8vTcz0jyJSiuPafo7ih893nrydPtZ8vzFy1evB292LrytnYSJtNq6K8E9aGVgggo1XFUOeCk0XIrrr51+eQPOK2vOcVXBrOQLowolOQZqPvjJSo5LUTS8pcyiKsHTW0q0J3cqFe2P8xOmocA9JmChTMOd46u2kVK2CZ9nVITcpRs0Dojp3GKYxoI6vlPHtypL2M26YLc75R1MGJi8n8ucWizx43wwTEfpOuhDkPVgSPo4mw9+sdzKugSDUnPvp1la4SwMRSU1tAmrPVRcXvMFTAM0PGw8a9ZGtvRDYHJaWBfSIF2zf3c0vPR+VYpQ2Rnj72sd+T9tWmNxNGuUqWoEIzcXFbWmaGn3KzRXDiTqVQBcOhXeSuWSOy4x/F0STMjur/wQXIxH2efRwff94elRb8c2eUfekz2SkUNySr6RMzIhMtqKPkX70UGcxGl8GB9vSuOo73lL/on4yx/MZ7/k</latexit>",
+        "0                            1",
+        "a 1 b1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             a 1 b2   ...",
+        "B                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      C",
+        "a ⌦ b = abT = @ a2 b1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              a 2 b2            A",
+        "..                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ..",
+        ".                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .",
+        "How does the tensor product rotate?",
+        "<latexit sha1_base64=\"i1VvYttFjIaaL2FYLizWbtWmkN8=\">AAACfHicfVHLSgMxFM2M7/qqunRhsAotYpkRH10WdOFSwarQqeVOmmmDmYfJHaEM40/4Z+78FDdiplZ84oXAyTk5yc25fiKFRsd5tuyJyanpmdm50vzC4tJyeWX1UsepYrzFYhmrax80lyLiLRQo+XWiOIS+5Ff+7XGhX91zpUUcXeAw4Z0Q+pEIBAM0VLf86IWAAz/IIKdejCLkmn5QvqHuUugVRKIx/tyN5JP8JvMkD7Aqu+Ap0R9gLa/2aw//Xvnwl93/Yr+56JYrTt0ZFf0N3DGokHGddctPXi9macgjZBK0brtOgp0MFAomeV7yUs0TYLfQ520DIzAtdbJReDndNkyPBrEyK0I6Yr86Mgi1HoYmjO2ic/1TK8i/tHaKQaOTiShJkUfs/aEgldQEWUyC9oTiDOXQAGBKmF4pG4AChmZeJROC+/PLv8HlXt09rB+c71eajXEcs2SdbJIqcckRaZJTckZahJEXa8OqWjXr1d6yd+zd96O2NfaskW9lH74BrITDwQ==</latexit>",
+        "a⌦b                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              7!   D(la ) (g) a ⌦ b D(lb ) (g)T"
+      ],
+      "media_sha256": [
+        "edd83c4a864bd5f0a8ba9a0cd5aff70e7b6f9c507b924910fdf30b0e2e2cea40",
+        "59f9f339313e82584a3bb184c73f2580ab2b3e12e6ba32c0b1ca64aa295271ba",
+        "5dc348f870139f6ba8ef983b7fab358c7878c65db43954b061c300728570214f"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 33,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "It turns out that “vectorized” tensor products are steerable:",
+        "new group representation",
+        "<latexit sha1_base64=\"yysKHdNv3FN3ePv5ZqkvyCX5Nx0=\">AAACkHiclVFNa9tAEF2pzUedjzrJsZelJmAfYqS0TXxoaEp7KD0lECcByzGj9chZstKK3VHACP2e/p/c+m+6ctTSOrl0YOHx3hvm7UycK2kpCH56/ouXK6tr669aG5tb26/bO7uXVhdG4FBopc11DBaVzHBIkhRe5wYhjRVexXdfav3qHo2VOrugeY7jFGaZTKQActSk/WMWiakmHukcDZA2GaRY3qOoulEKdBsnJVROJZmi5b+puOrxE/7H8bW6KbtqEveq7uymPAidutzRWKC29Hr/P27S7gT9YFH8KQgb0GFNnU3aD9FUiyLFjIQCa0dhkNO4BENSKKxaUWExB3EHMxw5WOew43Kx0IrvO2bKE23cy4gv2L87Skitnaexc9YR7bJWk89po4KSwbiUWV4QZuJxUFIoTprX1+FTaVCQmjsAwkiXlYtbMCDI3bDllhAuf/kpuDzsh0f9D+fvO6eDZh3r7A17y7osZMfslH1jZ2zIhLflvfM+eif+rj/wP/mfH62+1/TssX/K//4Lq2DImQ==</latexit>",
+        "g · vec(a ⌦ b) = (D(lb ) (g 1 ) ⌦ D(la ) (g)) vec(a ⌦ b)",
+        "However, the vectorized tensor product does not rotate by the Wigner-D matrix,",
+        "i.e., has no type, and the group representation is reducible:",
+        "<latexit sha1_base64=\"WFNSQzIBYRqdHAZ9vPZBohyd1BE=\">AAADK3iclVLLbtQwFHXCq6Q8prBkYzEqmi4YJeXVTaUiWLBsJaatNBlGtnOTWnXsyHZGjKL0e9jwKyxgwUNs+Q+cTCjTDhuuZOncc861r69NC8GNDcPvnn/l6rXrN9ZuBuu3bt+529u4d2hUqRmMmBJKH1NiQHAJI8utgONCA8mpgCN6+qrRj2agDVfyrZ0XMMlJJnnKGbGOmm54LzMcs0RZHKsCNLFKS5JDNQNWD+Kc2BOaVqR2quU5GPyHovUW3j3PDup31eOoDmIKGZcVdbTm713e6a+dLqZRPci28CMcdqs9120ZB212wbu95F34Otuq9Uln/btdPGuRo1ZB0oAgBpmct7l0DXz2/3OY9vrhMGwDr4KoA33Uxf609zlOFCtzkJYJYsw4Cgs7qYi2nAlwUysNFISdkgzGDjZ9mEnVvnWNNx2T4FRpt6TFLbtcUZHcmHlOnbNp0VzWGvJf2ri06c6k4rIoLUi2OCgtBbYKNx8HJ1wDs2LuAGGau14xOyGaMOu+V+CGEF2+8io43B5Gz4fPDp7293a6cayhB+ghGqAIvUB76A3aRyPEvA/eJ++r983/6H/xf/g/F1bf62ruowvh//oN6tr/MQ==</latexit>",
+        "2   l1",
+        "3",
+        "D (g)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       0         0       ···",
+        "6 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Dl2 (g)     0       · · ·7",
+        "6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     7",
+        "g · vec(a ⌦ b) = Q 1 6 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           0       Dl3 (g)   · · ·7  Q vec(a ⌦ b)",
+        "4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     5",
+        "..                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ..        ..      ..",
+        ".                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         .         .          ."
+      ],
+      "media_sha256": [
+        "aae42b36f61ac4179e075edab2d5c761ea5a7d85a2e56b49a0b02979ce170d48",
+        "d3e1bc608c3a5dbf186fdfb865aca5ec8de860f20347ca7d946e119e514984b4"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 34,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "The Clebsch-Gordan tensor product includes change of basis",
+        "to yield steerable vectors associated with Wigner-D matrices",
+        "or irreducible representations.",
+        "<latexit sha1_base64=\"DZtR2WuKaWHbV6o8JUoto3IDgqU=\">AAADG3icnVJNb9QwEHXCR0v42pYjF4sVaHtZJaUtvVSqBAeORWLbSpslcpxJatWxI9tZsbLC7+DCX+HCAYQ4IXHg3+BkA7RdToxk6fm9Z3tmPGnFmTZh+NPzr12/cXNt/VZw+87de/cHG5vHWtaKwoRKLtVpSjRwJmBimOFwWikgZcrhJD1/3uonc1CaSfHaLCqYlaQQLGeUGEclG15U4Jhm0uBYVqCIkUqQEuwcaDOKS2LO0tySxqmGlaATSwu36fm02cIHOIhTKJiwqWMVe9sEv+UXzRvLk6gZFVv4CQ771b2mcRwH3e6Sd/uCd+nrbavWp73173XxvEOOWgVZC4IYRPYnTfzuP0tOBsNwHHaBV0HUgyHq4ygZfI8zSesShKGcaD2NwsrMLFGGUQ6uX7WGitBzUsDUwTYZPbPd3zb4sWMynEvlljC4Yy+esKTUelGmztmmqK9qLfkvbVqbfH9mmahqA4IuH8prjo3E7aDgjCmghi8cIFQxlyumZ0QRatw4Ba4J0dWSV8Hx9jjaG+++2hke7vftWEcP0SM0QhF6hg7RS3SEJoh6772P3mfvi//B/+R/9b8trb7Xn3mALoX/4xfMYfjR</latexit>",
+        "2   l1",
+        "3",
+        "D (g)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  0         0       ···",
+        "6 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Dl2 (g)     0       · · ·7",
+        "6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                7",
+        "g · vec(a ⌦cg b) = 6 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      0       Dl3 (g)   · · ·7  vec(a ⌦cg b)",
+        "4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                5",
+        "..                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ..        ..      ..",
+        ".                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .         .          ."
+      ],
+      "media_sha256": [
+        "a13ee44e1efe1ac8eba7af1ef66d20ffc3e858e6215bc9f7e1e50004ba935db6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 35,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "To describe the Clebsch-Gordan tensor product, reconsider",
+        "two steerable vectors 𝐯 -! , 𝐯 -# of type 𝑙' and 𝑙(:",
+        "0 . 1                         0 . 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <latexit sha1_base64=\"2qhsNdLFQJjHKwC7oHAuHPqbviE=\">AAAC+XiclVLLjtMwFHXCY4bwmA4s2VhUSIOEqqYCZjZII7FhOUi0M1JdIse5aa1xnGDfRKqs/AkbFiDElj9hx9/gtFnATBdwJctH59wjH187rZS0OB7/CsIbN2/d3tu/E929d//BweDw4cyWtREwFaUqzUXKLSipYYoSFVxUBniRKjhPL990+nkDxspSv8d1BYuCL7XMpeDoqeQwOGAFx1Wau6b94JiCHI9UEjMjlyt81r7eMiyFpdSOG8PXrRNtxJqsREsZi5rEFUm8y9up276Igc56d69SJjWdJc73t89pxD7WPPPbjiyT/8wy2eX9xyyTdpQMhuPReFP0Ooh7MCR9nSWDnywrRV2ARqG4tfN4XOHCn4BSKPDxagsVF5d8CXMPNS/ALtzm5Vr61DMZzUvjl0a6Yf90OF5Yuy5S39mNxl7VOnKXNq8xP1k4qasaQYvtQXmtKJa0+wY0kwYEqrUHXBjps1Kx4oYL9J8l8kOIr175OphNRvGr0ct3L4anJ/049slj8oQckZgck1PylpyRKRFBE3wKvgRfQxd+Dr+F37etYdB7HpG/KvzxGwul8do=</latexit>",
+        "..                           ..",
+        "B (l ) C                      B (l ) C",
+        "v (l1 )   B          C",
+        "= @ v m 1 A 2 Vl1 , v",
+        "1             (l2 )",
+        "=B v     2 C 2 V l2 .",
+        "@   m   2 A",
+        "..                           ..",
+        ".                            .",
+        "The Clebsch-Gordan tensor product is defined as:",
+        "l1       l2",
+        "<latexit sha1_base64=\"AyL5OgFjN0muBsW/2sbqjvQA1uc=\">AAACnHicbVFdaxQxFM2MX3X96FafRJDgIuyCLjOD1b4UC/WhIkIFd1vYWUMmm9mGJjPD5M7iEuZX+U988994M12qbb2QcHLuuecmN1mllYUo+h2Et27fuXtv637vwcNHj7f7O0+mtmxqISei1GV9mnErtSrkBBRoeVrVkptMy5Ps/NDnT1aytqosvsG6knPDl4XKleCAFOv/HKaGw1mWu1X73Q01i0ctTUtQRlrmUpA/wIlli9xVWTJqR8x4iPp9mtrGMGdYvP8GLVDi90s28WzSsUlLD1nX5zVF+chbeYR+3gwh+q06q7/36c7JZWPWH0TjqAt6E8QbMCCbOGb9X+miFI2RBQjNrZ3FUQVzx2tQQsu2lzZWVlyc86WcISw4Pn7uuuG29BUyC5qXNa4CaMf+W+G4sXZtMlT6EdnrOU/+LzdrIN+bO1VUDchCXDTKG02hpP6n6ELVUoBeI+CiVnhXKs54zQXgf/ZwCPH1J98E02Qcvxvvfn07ONjbjGOLPCcvyZDE5D05IEfkmEyICJ4FH4Kj4FP4IvwYfg6/XEjDYFPzlFyJcPoHal3I8g==</latexit>",
+        "X        X          (l,m)",
+        "(l1 )",
+        "(v                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ⌦cg v(l2 ) )(l)",
+        "m =",
+        "(l1 ) (l2 )",
+        "C(l1 ,m1 )(l2 ,m2 ) vm 1",
+        "vm2",
+        "m 1 = l1 m 2 = l 2"
+      ],
+      "media_sha256": [
+        "f5a66f19494f2c1e97b334e871e6b40bb6698ca51b62536d2a4e117598902152",
+        "13d7e21f60c9c4954475c74760bd83a14710636dc2960e6630d86406fc57a2a7",
+        "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 36,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "The Clebsch-Gordan tensor product is defined as:",
+        "l1       l2",
+        "<latexit sha1_base64=\"AyL5OgFjN0muBsW/2sbqjvQA1uc=\">AAACnHicbVFdaxQxFM2MX3X96FafRJDgIuyCLjOD1b4UC/WhIkIFd1vYWUMmm9mGJjPD5M7iEuZX+U988994M12qbb2QcHLuuecmN1mllYUo+h2Et27fuXtv637vwcNHj7f7O0+mtmxqISei1GV9mnErtSrkBBRoeVrVkptMy5Ps/NDnT1aytqosvsG6knPDl4XKleCAFOv/HKaGw1mWu1X73Q01i0ctTUtQRlrmUpA/wIlli9xVWTJqR8x4iPp9mtrGMGdYvP8GLVDi90s28WzSsUlLD1nX5zVF+chbeYR+3gwh+q06q7/36c7JZWPWH0TjqAt6E8QbMCCbOGb9X+miFI2RBQjNrZ3FUQVzx2tQQsu2lzZWVlyc86WcISw4Pn7uuuG29BUyC5qXNa4CaMf+W+G4sXZtMlT6EdnrOU/+LzdrIN+bO1VUDchCXDTKG02hpP6n6ELVUoBeI+CiVnhXKs54zQXgf/ZwCPH1J98E02Qcvxvvfn07ONjbjGOLPCcvyZDE5D05IEfkmEyICJ4FH4Kj4FP4IvwYfg6/XEjDYFPzlFyJcPoHal3I8g==</latexit>",
+        "X        X           (l,m)",
+        "(v(l1 ) ⌦cg v(l2 ) )(l)",
+        "m =",
+        "(l1 ) (l2 )",
+        "C(l1 ,m1 )(l2 ,m2 ) vm 1",
+        "vm2",
+        "m 1 = l1 m 2 = l 2",
+        "The product is highly sparse, i.e., for all 𝑙 < 𝑙' − 𝑙( and 𝑙 > 𝑙' + 𝑙(.",
+        "Examples:",
+        "• Product of two scalars (𝑙\" = 0, 𝑙' = 0, 𝑙 = 0)",
+        "• The scalar-vector product (𝑙\" = 0, 𝑙' = 1, 𝑙 = 1)",
+        "• The dot product (𝑙\" = 1, 𝑙' = 1, 𝑙 = 0)",
+        "• The cross product (𝑙\" = 1, 𝑙' = 1, 𝑙 = 1)"
+      ],
+      "media_sha256": [
+        "179efe6a99c68752d79699e9afcaccbc1ceca34a3d1c4b999a3b00b156a892ae",
+        "f28e8d944e65dbb60fbfaa2b415e15c53b8dfe7a068710419c8a5e61ae37a3a7",
+        "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "Some useful visualization for understanding (Think |𝑙, 𝑚⟩",
+        "as 𝑌,- spherical harmonics-like vectors)"
+      ],
+      "media_sha256": [
+        "dc653757cdc1086870c5c5496001f4880fa12094cbc803a2739b2d7c9b53290b",
+        "81ca0b83683c8e82700f0b908433c28a4d05f88f8a855949b1b8983fe5e16615"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "title": "Clebsch-Gordan Tensor Product",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Clebsch-Gordan Tensor Product",
+        "(-,,)",
+        "Each CG coefficient 𝐶(-! ,,! ,-# ,,# ) is a mapping from",
+        "a pair of steerable vector elements with type 𝑙', 𝑚' , (𝑙(, 𝑚()",
+        "to another steerable vector element with type 𝑙, 𝑚 .",
+        "l1       l2",
+        "<latexit sha1_base64=\"AyL5OgFjN0muBsW/2sbqjvQA1uc=\">AAACnHicbVFdaxQxFM2MX3X96FafRJDgIuyCLjOD1b4UC/WhIkIFd1vYWUMmm9mGJjPD5M7iEuZX+U988994M12qbb2QcHLuuecmN1mllYUo+h2Et27fuXtv637vwcNHj7f7O0+mtmxqISei1GV9mnErtSrkBBRoeVrVkptMy5Ps/NDnT1aytqosvsG6knPDl4XKleCAFOv/HKaGw1mWu1X73Q01i0ctTUtQRlrmUpA/wIlli9xVWTJqR8x4iPp9mtrGMGdYvP8GLVDi90s28WzSsUlLD1nX5zVF+chbeYR+3gwh+q06q7/36c7JZWPWH0TjqAt6E8QbMCCbOGb9X+miFI2RBQjNrZ3FUQVzx2tQQsu2lzZWVlyc86WcISw4Pn7uuuG29BUyC5qXNa4CaMf+W+G4sXZtMlT6EdnrOU/+LzdrIN+bO1VUDchCXDTKG02hpP6n6ELVUoBeI+CiVnhXKs54zQXgf/ZwCPH1J98E02Qcvxvvfn07ONjbjGOLPCcvyZDE5D05IEfkmEyICJ4FH4Kj4FP4IvwYfg6/XEjDYFPzlFyJcPoHal3I8g==</latexit>",
+        "X        X           (l,m)",
+        "(v(l1 ) ⌦cg v(l2 ) )(l)",
+        "m =",
+        "(l1 ) (l2 )",
+        "C(l1 ,m1 )(l2 ,m2 ) vm 1",
+        "vm2",
+        "m 1 = l1 m 2 = l 2"
+      ],
+      "media_sha256": [
+        "012011bb64e43d032b54c70770ac78d7f64828958e72c711075a7911834b59df",
+        "724e9bafcffdec825f00d048d8493dbdf19796cdf39fc3a8b0ce35ac589670ad",
+        "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": null,
+      "title": "Part 2. Steerable Geometric GNNs",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 2. Steerable Geometric GNNs",
+        "(in the Simplest Form)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 40,
+      "title": "Overview of Lecture 4.2",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "Overview of Lecture 4.2",
+        "Here, we begin with geometric GNNs with the simplest form,",
+        "using type-𝑙 steerable vectors with 𝑙 > 1.",
+        "Publications:",
+        "• [Thomas et al., 2018] Tensor field networks: Rotation- and translation-equivariant",
+        "neural networks for 3D point clouds",
+        "• [Schütt et al., 2021] E(3)-equivariant graph neural networks for data-efficient",
+        "and accurate interatomic potentials"
+      ],
+      "media_sha256": [
+        "c489a8a813737d14c12efd94cf710ea4714a5c9c0d4c50a9b7d27fb590f6bc82"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 41,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "One of the first papers to propose neural network that",
+        "operate on steerable features.",
+        "• The layer outputs are called tensor fields since",
+        "they associate tensors for every geometric point.",
+        "Applies Clebsch-gordan tensor product between",
+        "filters and intermediate features.",
+        "Additionally applies scalar-based non-linearity",
+        "Featurization: project the relative position onto a",
+        "on the intermediate layers.                              sphere, than compute the spherical harmonics."
+      ],
+      "media_sha256": [
+        "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "(-)",
+        "Hidden features are denoted by 𝑉:=, :",
+        "• rotation order 𝑙, i.e., order of Wigner D-matrix",
+        "and spherical harmonics.",
+        "• point index 𝑎 assigned for each vertex (or atom).",
+        "• channel index 𝑐 similar to that of",
+        "typical neural networks.",
+        "• representation index 𝑚, i.e., degree of",
+        "spherical harmonics."
+      ],
+      "media_sha256": [
+        "a50430f073dcc75e77467dce273c4bfc81f3e8a53aeb7567b38aabeb3573a6af",
+        "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 43,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "(- ,- )",
+        "Filters are defined by product of learnable distance embeding 𝑅= ! #",
+        "(-)",
+        "and the fixed spherical harmonics 𝑌, :",
+        "~r",
+        "<latexit sha1_base64=\"0uIaYycwRqB2yUduLlzervp8KNo=\">AAACh3icdVFdT9swFHUCbFBgdPDIi7UKqUWoS4AxXpBASBOPbKIF1JTIcW9aCzsJ9g1SFeWv8KN449/gdJH42q5k6dxz7vHHcZRJYdDznhx3bn7h0+fFpcbyyuqXtebX9b5Jc82hx1OZ6quIGZAigR4KlHCVaWAqknAZ3Z5W+uU9aCPS5AKnGQwVGyciFpyhpcLmw6+w4FSVN0UgIca2DOMdKkMRaDGeYKdsB/fAC112jv6E/L9DukOvQ/VKfrFPGFb2HRrc3eVsRGuCHtEg1owX9f6l9fZBI637QFddGTZbXtebFf0I/Bq0SF3nYfMxGKU8V5Agl8yYge9lOCyYRsEllI0gN5AxfsvGMLAwYQrMsJjlWNIty4xonGq7EqQz9rWjYMqYqYrspGI4Me+1ivyXNsgxPhwWIslyhIT/PSjOJcWUVp9CR0IDRzm1gHEt7F0pnzAbD9qva9gQ/PdP/gj6u13/oPvj937r+LCOY5Fskm+kTXzykxyTM3JOeoQ78862s+fsu0vud/fArWddp/ZskDflnjwDdczExg==</latexit>",
+        "(l ,l )       (l ,l )   (l )",
+        "Fcmf i (~r) = Rc f i (r)Ym f (r̂),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             r̂ =",
+        "k~rk",
+        "-$ ,-%",
+        "The filter 𝐹=, ( ⃗𝑟) is a type-𝑙> steerable vector that we want to combine with",
+        "(-% )",
+        "type-𝑙/ steerable hidden feature 𝑉:=,    via the Clebsch-gordan tensor product."
+      ],
+      "media_sha256": [
+        "e35f7e79752c06b18edc7fd5f94762bfeb73d664dc4045cfc107d2b1bc307503",
+        "dfd30cf6d1fc986bcd790f23d6493f195c7b067d69b6937568f841d98e2e1cc5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 44,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "The message passing layer consists of:",
+        "• Clebsch-Gordan tensor product between the input features and the filters",
+        "• aggregation of atom-wise features",
+        "aggregation of atom-wise features",
+        "⇣            ⌘ X (l ,m )            X (l ,l )",
+        "<latexit sha1_base64=\"Q0t4gAvhVAlv32dtiKCrix0TxIo=\">AAADCnicdVJNaxQxGM6MX3X96FaPXoKLUKEsM6VqEYRCQTx4qOhuCztryGQzu6H5GJJMYQlz9uJf8dJDRbz6C7z5b8x87DJt9YWQh+d93jfPmyTNOTM2iv4E4Y2bt27f2bjbu3f/wcPN/tajsVGFJnREFFf6JMWGcibpyDLL6UmuKRYpp8fp6WGVPz6j2jAlP9llTqcCzyXLGMHWU2grgInAdkEwd+9L5DAkUCBVfnYJp5nd5kglms0X9nnZEMkZJU6XCO/A8UrOOnK2ljf76zeJKQRyAmU7tRQeorW4prJWue5Q61ZtOkYqfu0GNm1TmDAJP5bwLXKVlaxT4Lt3/Vyy752nK4vVIOn/B0H9QTSM6oDXQdyCAWjjCPV/JzNFCkGlJRwbM4mj3E4d1pYRTsteUhiaY3KK53TiocSCmqmrn7KEzzwzg5nSfkkLa7Zb4bAwZilSr6zezVzNVeS/cpPCZvtTx2ReWCpJc1BWcGgVrP4FnDFNieVLDzDRzHuFZIE1Jtb/np6/hPjqyNfBeHcYvxy++LA3ONhvr2MDPAFPwTaIwStwAN6BIzACJPgSfAsugu/h1/A8/BH+bKRh0NY8Bpci/PUXEtz4gA==</latexit>",
+        "(lo )        (li )                                           (li )",
+        "Lacmo ~ra , Vacmi :=      o   o",
+        "C(lf ,mf )(li ,mi )  Fcmff i (~rab ) Vbcm    i",
+        "mf ,mi                  b2S",
+        "type-𝑙(      type-𝑙%",
+        "(- )",
+        "Note that the layer ℒ:=,",
+        "&",
+        "&",
+        "outputs a type-𝑙? vector from",
+        "combining type-𝑙> and type-𝑙/ vectors.",
+        "• TFN repeats for 𝑙( − 𝑙% ≤ 𝑙) ≤ 𝑙( + 𝑙% ."
+      ],
+      "media_sha256": [
+        "b4dcd36d21ff5644c99936b0efa68fdd8beb3fe7882795077f26920158bac242",
+        "f10331e95ead9898e2611f49e480881955af9b654f5c50d52683406ecb271f6d",
+        "f087e4990ae0915d7828d89a0c7f26dc604eabb93b6c22d5e77b6b3ef5addccc",
+        "bd6225263c56a0657013307d5b6ea2edc49f9ab92a5be07b09a2ffa5cbd71911"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 45,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "The TFN applies order-wise non-linearities via scalar transformation.",
+        "(+)      (+)",
+        "For 𝑙 = 0, use a general non-linear activation 𝜂 + 𝑉:=, + 𝑏=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  .",
+        "For 𝑙 > 0:",
+        "⇣               ⌘                       s",
+        "X",
+        "<latexit sha1_base64=\"lJfgVTxKZCfwiInY7zoRGgMI0Ms=\">AAACZXicbVFNa9swGJa9bkuzdUs/2KWHiYVBykawy7aWQaGwy44dLGkhSs1rRU5EJduVXg+C7T/ZW6+79G9MSXxok70geHg+eKVHca6kxSC49/xnW89fvGxtt1+93nnztrO7N7RZYbgY8Exl5ioGK5RMxQAlKnGVGwE6VuIyvvmx0C//CGNllv7GeS7GGqapTCQHdFTUqZhAuC576qhmSiTYY9WQVVEJlNcr+lMc8cZg5HSGR3S4lKluDJ8puy1gshH8fsbsrcGS2UJHulpLVdfHddTpBv1gOXQThA3okmYuos4dm2S80CJFrsDaURjkOC7BoORK1G1WWJEDv4GpGDmYghZ2XC5bqulHx0xokhl3UqRL9nGiBG3tXMfOqQFndl1bkP/TRgUmp+NSpnmBIuWrRUmhKGZ0UTmdSCM4qrkDwI10d6V8BgY4uo9puxLC9SdvguFxP/zW//rrS/f8tKmjRQ7JB9IjITkh5+QnuSADwslfr+Xtenveg7/jH/jvVlbfazL75Mn47/8BpF23fg==</latexit>",
+        "(l)",
+        "⌘ (l) kV k(l)",
+        "ac  + b (l)",
+        "c   V  (l)",
+        "acm ,   kV k(l)",
+        "ac :=             |Vacm |2",
+        "m",
+        "(-)",
+        "where 𝑉 := is a scalar."
+      ],
+      "media_sha256": [
+        "07514c9fe340dab3f2ccf89570ff0314b800ea0183c8555bbafb9c43523fc2c9",
+        "ca1be4d8026217924df9a346765458dbac47ddadf86911075592dbb7849c080c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "Overall architecture (self-interaction layers are 1x1 convolutions):"
+      ],
+      "media_sha256": [
+        "8f217e780bcc35cdaec301a886242a361b21202d0012f8bce51b758def4eab9d"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "title": "TFN: Tensor Field Network",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "TFN: Tensor Field Network",
+        "Experiments are proof-of-concept types.",
+        "tetris shape classification",
+        "missing point prediction"
+      ],
+      "media_sha256": [
+        "48b1139b6e6d797397da0be26875a93cd876cd650a762c9aa5854c27443e36c1",
+        "d39ab775bd9c73fde1b9c9d68a7461fa96afc664fdc1ecc135ee292c53d70ed5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "Applies TFN-like architecture to learn interatomic potentials:",
+        "X",
+        "F~i = ri Epot",
+        "<latexit sha1_base64=\"Xh3Rrn+SHI7Y7vHibZdvIaobdpQ=\">AAACV3icbVFbSxtBGJ1db2lqa2wf+zI0FHzQsCveXgShWPokFhoVsmH5dvJFB+eyznwrDcv+yeKLf6Uv7SRG8NIDA4dzzjeXM0WppKckuY/ihcWl5ZXWm/bb1Xfv1zrrH868rZzAvrDKuosCPCppsE+SFF6UDkEXCs+L669T//wWnZfW/KRJiUMNl0aOpQAKUt4xx3mdEf6iurTUNIeZr3ReS55Jw08eLSCrfdM0PITlJn+iShHkTZ7d3FQw4tktivpbk8vDrcxAoSCX/Pn+eaeb9JIZ+GuSzkmXzXGad35nIysqjYaEAu8HaVLSsAZHUihs2lnlsQRxDZc4CNSARj+sZ700/EtQRnxsXViG+Ex9OlGD9n6ii5DUQFf+pTcV/+cNKhofDGtpyorQiIeDxpXiZPm0ZD6SDgWpSSAgnAx35eIKHAgKX9EOJaQvn/yanG330r3e7o+d7tHBvI4W+8Q+sw2Wsn12xL6zU9Zngt2xP9FCtBjdR3/j5bj1EI2j+cxH9gzx+j/Vo7c+</latexit>",
+        "Epot =            Ei,atomic ,",
+        "i2Natoms",
+        "Importantly, interatomic potentials (forces) are invariant (equivariant) under",
+        "rotation, translation, and reflection.",
+        "Hence, one needs to design 𝑂(3)-equivariant network,",
+        "rather than a 𝑆𝑂(3)-equivariant one."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "(-,@)",
+        "The layer updates steerable features 𝑉:=,",
+        "where parity index 𝑝 to indicates how",
+        "the steerable feature is transformed by reflection.",
+        "• Similar to how 𝑙, 𝑚 indicates how the feature",
+        "is transformed by rotation.",
+        "Case of odd parity (magnetism)",
+        "(-,8')       (-,8')",
+        "A tensor has even parity (𝑝 = +1) if it is invariant under reflection, i.e., 𝑉:=,         ↦ 𝑉:=,",
+        "(-,5')         (-,5')",
+        "odd parity (𝑝 = −1) if it flips under reflection i.e., 𝑉:=,     ↦ −𝑉:=, ."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "The filter 𝑆,- 𝑟⃗/0 is expressed as:",
+        "<latexit sha1_base64=\"ev3TDG1FqUsIb5XQ7Y2IxGMepb0=\">AAACRnicbVC7ThtBFL3rQAAHggklzQgrkmms3YhXg4SUhpIA5iHvspod37UHZh+auYtkrfbr0lDT8Qk0KRIhWsaPAkyOdKWjc+7RzD1RrqQh1310ap/m5j8vLC7VvyyvfF1trH07N1mhBXZEpjJ9GXGDSqbYIUkKL3ONPIkUXkS3P0f+xR1qI7P0jIY5BgnvpzKWgpOVwkZwGibXZUttVb7CmFr+HYpSV2Ep2U3la9kf0NbBycTT71R2NZMccJpNho2m23bHYB+JNyVNmOI4bDz4vUwUCaYkFDem67k5BSXXJIXCqu4XBnMubnkfu5amPEETlOMaKvbdKj0WZ9pOSmysvk2UPDFmmER2M+E0MLPeSPyf1y0o3g9KmeYFYSomD8WFYpSxUaesJzUKUkNLuNDS/pWJAddckG2+bkvwZk/+SM5/tL3d9s6v7ebh/rSORdiATWiBB3twCEdwDB0Q8Bue4C/8c+6dP86z8zJZrTnTzDq8Qw1eAT0SsjQ=</latexit>",
+        "(l)",
+        "Sm   (~rij ) = R (rij ) Ym(l) (r̂ij )",
+        "<latexit sha1_base64=\"tVkHSafcprPmR1AEGheJ86fLknU=\">AAACYHicbVG7TsMwFHXCq5QWWthgsaiQylIlFY8uSAgWRkCUVGqiyHGd1uA4kX0DqqL+JBsDC1+C+xig9EiWj8+514/jKBNcg+N8Wvba+sbmVmm7vFOp7u7V6vvPOs0VZV2ailT1IqKZ4JJ1gYNgvUwxkkSCedHr7dT33pjSPJVPMM5YkJCh5DGnBIwU1t4ffcFiaKqw4Phl4is+HMHplRdK7Gs+TMjc9sUgBf1H8sL20trFN6s2WzmFtYbTcmbA/4m7IA20wH1Y+/AHKc0TJoEKonXfdTIICqKAU8EmZT/XLCP0lQxZ31BJEqaDYhbQBJ8YZYDjVJkhAc/U3x0FSbQeJ5GpTAiM9LI3FVd5/RziTlBwmeXAJJ0fFOcCQ4qnaeMBV4yCGBtCqOLmrpiOiCIUzJ+UTQju8pP/k+d2y71onT+cNa47izhK6AgdoyZy0SW6RnfoHnURRV/WmlWxqta3XbL37Pq81LYWPQfoD+zDHzVptfc=</latexit>",
+        "R (rij ) = Wn (. . . (W2 (W1 B (rij ))))",
+        "<latexit sha1_base64=\"E8/L2bFkUDO9Tykgx2ajO5AsCMs=\">AAACa3icbVFNS+tAFJ3E7/rx6nPhQ10MFkFBSiL6dPNAfBuXClaFpoTJ9Kad18kkzNwIJWTjT3TnP3Dz/oPTJgurXhg499xzuDNnokwKg5736rhz8wuLS8srjdW19Y0fzc2f9ybNNYcOT2WqHyNmQAoFHRQo4THTwJJIwkM0+juZPzyBNiJVdzjOoJewgRKx4AwtFTafrwIJMR7qsBD0XxloMRji0Z8g1owXJ2WhQ17SqguMULRSV0REg0zUkln/hJz2JY3DAqiiT+XMnmNr4LU4bLa8tjct+hX4NWiRum7C5kvQT3megEIumTFd38uwVzCNgksoG0FuIGN8xAbQtVCxBEyvmGZV0gPL9GmcansU0in70VGwxJhxElllwnBoPs8m5Hezbo7xRa8QKssRFK8WxbmkmNJJ8LQvNHCUYwsY18LelfIhszmi/Z6GDcH//OSv4P6k7f9un92eti4v6jiWyS7ZJ4fEJ+fkklyTG9IhnLw5G86288v57265O+5eJXWd2rNFZso9eAcXELug</latexit>",
+        "⇣            ⌘",
+        "b⇡",
+        "2 sin       rc rij",
+        "B (rij ) =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 fenv (rij , rc )",
+        "rc      rij",
+        "polynomial",
+        "Bessel function             envelope",
+        "(DimeNet)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "The layers update similar to TFN by Clebsch-Gordan tensor products:",
+        "<latexit sha1_base64=\"y0Gh4p646eZAswTto/1nhJ9MK5U=\">AAADFXicfVLLbtQwFHXCq4TXFJZsLEZIRUSjpIK2G6RK3bBgUR4zLZoMluNxZqz6EdlOpZGVn2DDr7BhAUJskdjxN8RJRiodxJVsH917zn3YzkvOjE2S30F45eq16ze2bka3bt+5e2+wfX9iVKUJHRPFlT7NsaGcSTq2zHJ6WmqKRc7pSX525OMn51QbpuQ7uyrpTOCFZAUj2DYutB08jTKB7ZJg7l7VyGFIoECq/uA4ciquY1giFUOOCo8Kj5hHrM44LexOdk6J0zXCMZys1axVr2maLZb2yYvMVAI54VN4BjxCHUf4jXfuohWquO0AdoocZkzCt325N92hfal8nRs54lOo//TaEaP3bQdtlWI9wBJbP8DFhH6UfHOUCA2GyShpDW6CtAdD0NsxGvzK5opUgkpLODZmmialnTmsLSOc1lFWGVpicoYXdNpAiQU1M9e+ag0fN545LJRulrSw9V5UOCyMWYm8YfoXNJdj3vmv2LSyxcHMMVlWlkrSFSoqDq2C/ovAOdOUWL5qACaaNb1CssQaE9t8JH8J6eWRN8Fkd5TujZ6/fjY8POivYws8BI/ADkjBPjgEL8ExGAMSfAw+B1+Db+Gn8Ev4PfzRUcOg1zwAf1n48w+X2fh1</latexit>",
+        "lo, ,po ,lf ,pf ,li ,pi",
+        "X                           X⇣                                  ⌘",
+        "l",
+        "Lacm   o",
+        "li ,pi",
+        "~ra , Vacm   i",
+        "=            Cllio,m",
+        ",mo",
+        "i ,lf ,mf",
+        "li ,pi",
+        "R (rab )c,lo ,po ,lf ,pf ,li ,pi Ymff (r̂ab ) Vbcm   i",
+        "mf ,mi                       b2S",
+        "In addition to the Clebsch-Gordan condition 𝑙> − 𝑙/ ≤ 𝑙? ≤ 𝑙> + 𝑙/ ,",
+        "parity needs to be considered by setting 𝑝/ 𝑝> = 𝑝? ."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "Experiments confirm the superiority of NequIP over",
+        "both deep learning-based and kernel-based methods (sGDML)."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": null,
+      "title": "NequIP: Neural Equivariant Interatomic Potentials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "NequIP: Neural Equivariant Interatomic Potentials",
+        "Experiments confirm the superiority of NequIP over",
+        "both deep learning-based and kernel-based methods (FCHL)."
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 54,
+      "title": "End of Section",
+      "classification": "transition-only",
+      "coverage": "covered",
+      "text": [
+        "End of Section",
+        "More related publications:",
+        "• [Anderson et al., 2019] Cormorant: Covariant Molecular Neural Networks",
+        "(Cormorant, Similar to TFN but the scalar part of the filter function is more expressive)",
+        "• [Weiler et al., 2018] 3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumetric Data",
+        "(3D steerable CNN, operating on steerable features for volumetric data)",
+        "• [Kondor et al., 2018] Clebsch-Gordan Nets: a Fully Fourier Space Spherical Convolutional Neural",
+        "Network (FFS2CNN, using Clebsch-Gordan as a non-linear function of steerable features",
+        "for volumetric data)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "77ca318ebd9bce78b93b96313541ad55150b9ad3b45d1a9bb00073cdef54762b",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 118197,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9e9190c008fea318315ce08ca8410ae33675d5099f4b33680b735800a40048a1",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 1641,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9fe55f2dbca1591ab426fc5d71b54215ec7f49c0c6a62e86b878caa01d55a14e",
+      "pptx_path": "ppt/media/image100.png",
+      "extension": ".png",
+      "bytes": 147315,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3841cedd37bdc8fd49304f015b27610b5e841709d8fc480e7f1a16f9b245ef28",
+      "pptx_path": "ppt/media/image101.png",
+      "extension": ".png",
+      "bytes": 298689,
+      "slides": [
+        53
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "36e97bc889e289bad8d8c3a7a333560414623fe018d8bd9127feba804a0af076",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 1883,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8a4ee390b53393726f33d059b99b0876f3607d3a19257ce1c7e758d78b48a01b",
+      "pptx_path": "ppt/media/image110.png",
+      "extension": ".png",
+      "bytes": 2227,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bae7950e8e0f55a58e6c0d45501372a3fd5a3aeb69bbff7158cb1e5eeaadc8f9",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 1996,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9c5befb5492f59ff958684cbcdde2aa2926ed8059d6fb39e2bbab073903e0d9a",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 3616,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5cfe4b5ba305823c1302052dc7b4a48db8282bf1e3b425c7b4e93814d3b29f2d",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 3367,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1f2c79c4aff8592f19b9a8f0a1d13921f80038992c823c543bc1ee9d37a75f58",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 3724,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7aa7bc717f850d80ccf76a6800273f63978cd746758ff0dfe631e6867c4ce577",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 5405,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ea3457ff5fcaa3027bf5e70238e6af770963d4d6da7bddf86a7b85887c8ddc17",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 36687,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6cf6aee3536d85081a36f602a0d568a9d8e308350b225a57588cfbb4ae2c375b",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 44864,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aafefa6a01a5930634dfe68a6a6e39c09114e605fac2cf9367ab6769e11b3d2a",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 5347,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8ad4cc4a3a3d2858686ca14fc4c6a9ce20d491eef7bd0d9424dc8b5cabeeda35",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 3788,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3eb8f993f4f1d213ee8b0191ea6f58bbe9a5381fffaf88383d0d99266a65d6b2",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 53790,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1c2ecb12ce5440d8babf590120f9bde1da5b59797388e1a8ae438a2ac673f51e",
+      "pptx_path": "ppt/media/image21.emf",
+      "extension": ".emf",
+      "bytes": 87624,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cc629d679d405836d15015b560572a966185efd0be3be7c3d44b54a709fecc1e",
+      "pptx_path": "ppt/media/image22.emf",
+      "extension": ".emf",
+      "bytes": 101240,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "22c603fe5729d5227caf57f9892070782b665e36fbfd08f818f6424e35209f33",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 273771,
+      "slides": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d7a776bf412d0de2392afb78f265a1ac20a11c4e197fdeb706a801511a8e0717",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 5691,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e832eced606c7d2c102ef98c3c935a9f6904dc9cd0aaef33804b1e8d9279348b",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 1041453,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "07955ecae91146dd51c4c9e3fb66a71618d993d1d247c65dc25ba3f235e2d26f",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 4406,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7294605f657f47c1ecec63d1e04abd8661f604c93d9ebcbff928a691345df327",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 4133,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7749a994ee18e0bda2b45bd665a33a6a3cc2c6420474573a1856bb1312ebfa36",
+      "pptx_path": "ppt/media/image28.emf",
+      "extension": ".emf",
+      "bytes": 75172,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ee47a6a7b707b37acc5f169c8c796ed7acb32afe59ec55745bc1da400cb4f311",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 38599,
+      "slides": [
+        15,
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "eebbe8b06804b0e92d87829e0c771a8e2b8e5f30fbddb75939ba129a662ab37d",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 6609,
+      "slides": [
+        3
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b7f858f1b6f1e9b56b38ff960a84067b1e91e86a6535a05ec3a4b0bfaa8c6261",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 6290,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3328cec60dcc5a6c5b7a49b667cf0857b044c47acd2c74b876a10c9238818754",
+      "pptx_path": "ppt/media/image31.emf",
+      "extension": ".emf",
+      "bytes": 89312,
+      "slides": [
+        16,
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "83fff34423bfc9c38290524ce651fd725037d8747c898e5264c18dafe54d52b4",
+      "pptx_path": "ppt/media/image32.emf",
+      "extension": ".emf",
+      "bytes": 81752,
+      "slides": [
+        16,
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3d97576a018c288094519bea7935734dfc8086b33ded71501c5203022a211cc4",
+      "pptx_path": "ppt/media/image320.png",
+      "extension": ".png",
+      "bytes": 1608,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d74d93803a00c132070674cc80293074d9c97451135760b388a397c6fda583b2",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 111225,
+      "slides": [
+        16,
+        16,
+        29,
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "315eb7c939c64aef25dcc0984b9ad7dac0c796896898c8d4411381551ae20fba",
+      "pptx_path": "ppt/media/image330.png",
+      "extension": ".png",
+      "bytes": 2113,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f2c72598ebe4ed728249680c16c4709bc8eccae1e88adbe23bd4c0660004f3ff",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 46859,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "89de0ae41f78429141ed0f1907140b74ca4936bab60cb09aca11c7b54798216b",
+      "pptx_path": "ppt/media/image340.png",
+      "extension": ".png",
+      "bytes": 4968,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b3c9e92893500c841cbb0878068d5e685147d5d126c6fa18ec3575c97de9b7d0",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 143190,
+      "slides": [
+        17,
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "df93a8e2708dcfcf08cc1879501b927313b25a34f720d27f4b7a4859165b33ed",
+      "pptx_path": "ppt/media/image350.png",
+      "extension": ".png",
+      "bytes": 7174,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5aa241ed358c51c9438ee8808c11c0a3ba3a9797d4a795f2fca0fe375db6f1c3",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 101758,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2c7b6f5f6f20b491b963653b736c17eab30845d8fea22c4d19fa6e30ac321bc1",
+      "pptx_path": "ppt/media/image360.png",
+      "extension": ".png",
+      "bytes": 7130,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7afe96b5ee3848c437ba54b956c35a69fb68560c7983255581a2d056c3f20a17",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 81523,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b3c2e040d61324239fc1839b38cc2147d0436224fd3d5576ed16d17becff7266",
+      "pptx_path": "ppt/media/image370.png",
+      "extension": ".png",
+      "bytes": 11192,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "74f10d9c580ac414d8058c5c4be21593540e044b9351c76ea80bbd6688e22713",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 117266,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e66986efb3bc6c8e9800f32c9c0093a58b41988c548f888f8cacc15de50cb54b",
+      "pptx_path": "ppt/media/image380.png",
+      "extension": ".png",
+      "bytes": 3083,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d1aef830d92b13421773a3341e65482682b230a731945b5a3bbfd673176f2d3a",
+      "pptx_path": "ppt/media/image39.jpeg",
+      "extension": ".jpeg",
+      "bytes": 50131,
+      "slides": [
+        22,
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6a11ee13996e84fe5d425e1c060155ffe66a84bbd29a5dde8d262014fd2c2b28",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 64087,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "813b69fd2ad8563b2e2fe8b1c540675618e07b2bce45d536ab79e968ebe3b6c4",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 121689,
+      "slides": [
+        22,
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "64e10054bb52914a7fe57eaa3a914838da8f7f3e8e1a96512f4e75737bd23825",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 64320,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5a1de70cd43f01502ccce689da5059152100861542a51c4cc161a47a319c8f4b",
+      "pptx_path": "ppt/media/image410.png",
+      "extension": ".png",
+      "bytes": 7128,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d588786dee339cca95742b63c2a4afea2d3211c2deaf334ba867a940c2a14035",
+      "pptx_path": "ppt/media/image42.emf",
+      "extension": ".emf",
+      "bytes": 76160,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b96ffa62ee6ca27f4a7e3bf597021f8c4a18a1e3b6ca8440c2ec4a68e1b225f2",
+      "pptx_path": "ppt/media/image420.png",
+      "extension": ".png",
+      "bytes": 11485,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3ffa76026cdae019a536ded72721011a03a4d1bedf95f596198d53bddc2f8a4f",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 102418,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c26daa7d36f4be8e23ad4d4893bca35543fdce0b084fe68e9a5142109e749e27",
+      "pptx_path": "ppt/media/image430.png",
+      "extension": ".png",
+      "bytes": 3095,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "69f037db0d16cf30ce760ee822132c8d28db5eb6765fc3e3b0b62ef62bc1ca09",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 113983,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "232c6ed9278960f1b2e1b3a76ae4319c28a93378b198c9178ee6bc891aa05d48",
+      "pptx_path": "ppt/media/image45.emf",
+      "extension": ".emf",
+      "bytes": 96244,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4d91b2a220c6e7da8a74d50c61fa6e04f075afa1874bcb11177072ba87d9f568",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 102986,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "13d96e767c3c6036ccd7e90cc3fffedd54976f2a21e580527e4b6f10e5b24723",
+      "pptx_path": "ppt/media/image47.emf",
+      "extension": ".emf",
+      "bytes": 155244,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e2414e6a127129a00b63aab9bc00eb84adaebf57fd570a2f2ae4a92b3988a631",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 103374,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "11555cc6120c699c80691d76f1c41c19e18884c33c0f706fce4cb25ef75f7edf",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 5270,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "408ad1125ef302f154c1b3ecb893e1e6f138c18c0582a7dd376469ef443d5f63",
+      "pptx_path": "ppt/media/image5.jpeg",
+      "extension": ".jpeg",
+      "bytes": 68382,
+      "slides": [
+        4,
+        18,
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "706c7590e4cedb211a91e330ddcbecd69b2a758785510ef616b22c8186d80983",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 5227,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1b7dffe7952197d9f4e42972c97f519eeb5ae243b35536f9095d664a6c3ecc3f",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 5422,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "27bd0232e2d44991ba582aeb852ca263669288b67a73ef28cdaf8d048ed13ff8",
+      "pptx_path": "ppt/media/image52.emf",
+      "extension": ".emf",
+      "bytes": 99024,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff294eda893fe60634da95bc27a3f2c1be2c22d651499abe15e44bcddcf58256",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 116025,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "af56e01f7edff1e1bf61aae474161729d62090e2abf8af6f3eab18236f7c529a",
+      "pptx_path": "ppt/media/image53.emf",
+      "extension": ".emf",
+      "bytes": 94796,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "92aa75075981c9a0c8d69bc996bf2928a213841a75fbf7c230aa423c3d90b270",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 124969,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0bcacb36ac0946ce339401fc92778b8e49188ec8726b37a3acc6037e267a9272",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 66650,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2a931a37458528925f5b960854d2a59b4dc2228b6a9851ccbb2f3bfd0301e5f0",
+      "pptx_path": "ppt/media/image56.png",
+      "extension": ".png",
+      "bytes": 676784,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a30c49dc9792271a0ac64ea939bbb6d1b883ed9ffc44fd37116c2b6f321bed8b",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 101101,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "598e5c881283f8381fe2e139e9df4c3e2941dbe665c26d650269bd813f739d29",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 86951,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "edd83c4a864bd5f0a8ba9a0cd5aff70e7b6f9c507b924910fdf30b0e2e2cea40",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 87634,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3c6e7e9a563a77cec3217a0f78c9456a0833211f159af89b9610adb54dbb23c4",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 110367,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "59f9f339313e82584a3bb184c73f2580ab2b3e12e6ba32c0b1ca64aa295271ba",
+      "pptx_path": "ppt/media/image60.emf",
+      "extension": ".emf",
+      "bytes": 98032,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5dc348f870139f6ba8ef983b7fab358c7878c65db43954b061c300728570214f",
+      "pptx_path": "ppt/media/image61.emf",
+      "extension": ".emf",
+      "bytes": 89484,
+      "slides": [
+        32
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aae42b36f61ac4179e075edab2d5c761ea5a7d85a2e56b49a0b02979ce170d48",
+      "pptx_path": "ppt/media/image62.emf",
+      "extension": ".emf",
+      "bytes": 132752,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d3e1bc608c3a5dbf186fdfb865aca5ec8de860f20347ca7d946e119e514984b4",
+      "pptx_path": "ppt/media/image63.emf",
+      "extension": ".emf",
+      "bytes": 113384,
+      "slides": [
+        33
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a13ee44e1efe1ac8eba7af1ef66d20ffc3e858e6215bc9f7e1e50004ba935db6",
+      "pptx_path": "ppt/media/image64.emf",
+      "extension": ".emf",
+      "bytes": 117052,
+      "slides": [
+        34
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f5a66f19494f2c1e97b334e871e6b40bb6698ca51b62536d2a4e117598902152",
+      "pptx_path": "ppt/media/image65.png",
+      "extension": ".png",
+      "bytes": 75028,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "13d7e21f60c9c4954475c74760bd83a14710636dc2960e6630d86406fc57a2a7",
+      "pptx_path": "ppt/media/image66.emf",
+      "extension": ".emf",
+      "bytes": 111980,
+      "slides": [
+        35
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a23a645ec870902bd623ff8c547b69b5f47791024736a2dafad6343166c78564",
+      "pptx_path": "ppt/media/image66.png",
+      "extension": ".png",
+      "bytes": 90569,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "43baa45296f1f7eeaa887edae43ea07263a76f7e6dc9014a3c7d35502acf6dd6",
+      "pptx_path": "ppt/media/image67.emf",
+      "extension": ".emf",
+      "bytes": 126416,
+      "slides": [
+        35,
+        36,
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "179efe6a99c68752d79699e9afcaccbc1ceca34a3d1c4b999a3b00b156a892ae",
+      "pptx_path": "ppt/media/image68.png",
+      "extension": ".png",
+      "bytes": 101955,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f28e8d944e65dbb60fbfaa2b415e15c53b8dfe7a068710419c8a5e61ae37a3a7",
+      "pptx_path": "ppt/media/image69.png",
+      "extension": ".png",
+      "bytes": 60007,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fb66cb3e881ebfefc95d333b8e11d7bee5f3fdb31b4fb36b3b1eaac1d755d3cf",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 119142,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dc653757cdc1086870c5c5496001f4880fa12094cbc803a2739b2d7c9b53290b",
+      "pptx_path": "ppt/media/image70.png",
+      "extension": ".png",
+      "bytes": 58710,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "81ca0b83683c8e82700f0b908433c28a4d05f88f8a855949b1b8983fe5e16615",
+      "pptx_path": "ppt/media/image71.jpeg",
+      "extension": ".jpeg",
+      "bytes": 153530,
+      "slides": [
+        37
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f10331e95ead9898e2611f49e480881955af9b654f5c50d52683406ecb271f6d",
+      "pptx_path": "ppt/media/image710.png",
+      "extension": ".png",
+      "bytes": 3939,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "012011bb64e43d032b54c70770ac78d7f64828958e72c711075a7911834b59df",
+      "pptx_path": "ppt/media/image72.png",
+      "extension": ".png",
+      "bytes": 74496,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f087e4990ae0915d7828d89a0c7f26dc604eabb93b6c22d5e77b6b3ef5addccc",
+      "pptx_path": "ppt/media/image720.png",
+      "extension": ".png",
+      "bytes": 4271,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "724e9bafcffdec825f00d048d8493dbdf19796cdf39fc3a8b0ce35ac589670ad",
+      "pptx_path": "ppt/media/image73.jpeg",
+      "extension": ".jpeg",
+      "bytes": 45786,
+      "slides": [
+        38
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c489a8a813737d14c12efd94cf710ea4714a5c9c0d4c50a9b7d27fb590f6bc82",
+      "pptx_path": "ppt/media/image74.png",
+      "extension": ".png",
+      "bytes": 103818,
+      "slides": [
+        40
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a50430f073dcc75e77467dce273c4bfc81f3e8a53aeb7567b38aabeb3573a6af",
+      "pptx_path": "ppt/media/image75.png",
+      "extension": ".png",
+      "bytes": 90977,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4b52820f835a13f086cbefa090bba6c579083913356614eb039b01c06de718a1",
+      "pptx_path": "ppt/media/image76.png",
+      "extension": ".png",
+      "bytes": 161125,
+      "slides": [
+        42
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e35f7e79752c06b18edc7fd5f94762bfeb73d664dc4045cfc107d2b1bc307503",
+      "pptx_path": "ppt/media/image77.png",
+      "extension": ".png",
+      "bytes": 126175,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dfd30cf6d1fc986bcd790f23d6493f195c7b067d69b6937568f841d98e2e1cc5",
+      "pptx_path": "ppt/media/image78.emf",
+      "extension": ".emf",
+      "bytes": 100640,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b4dcd36d21ff5644c99936b0efa68fdd8beb3fe7882795077f26920158bac242",
+      "pptx_path": "ppt/media/image79.png",
+      "extension": ".png",
+      "bytes": 93060,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "560c2a5b6865a58eda13df5774b158b4ca5a86304a8104fc9d850a4dad6f9098",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 7957,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bd6225263c56a0657013307d5b6ea2edc49f9ab92a5be07b09a2ffa5cbd71911",
+      "pptx_path": "ppt/media/image80.emf",
+      "extension": ".emf",
+      "bytes": 138364,
+      "slides": [
+        44
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "07514c9fe340dab3f2ccf89570ff0314b800ea0183c8555bbafb9c43523fc2c9",
+      "pptx_path": "ppt/media/image81.png",
+      "extension": ".png",
+      "bytes": 79613,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ca1be4d8026217924df9a346765458dbac47ddadf86911075592dbb7849c080c",
+      "pptx_path": "ppt/media/image82.emf",
+      "extension": ".emf",
+      "bytes": 111124,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8f217e780bcc35cdaec301a886242a361b21202d0012f8bce51b758def4eab9d",
+      "pptx_path": "ppt/media/image83.png",
+      "extension": ".png",
+      "bytes": 237426,
+      "slides": [
+        46
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "48b1139b6e6d797397da0be26875a93cd876cd650a762c9aa5854c27443e36c1",
+      "pptx_path": "ppt/media/image84.png",
+      "extension": ".png",
+      "bytes": 50249,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d39ab775bd9c73fde1b9c9d68a7461fa96afc664fdc1ecc135ee292c53d70ed5",
+      "pptx_path": "ppt/media/image85.png",
+      "extension": ".png",
+      "bytes": 123116,
+      "slides": [
+        47
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "563aa8eb5711eda2a0b2af23a2ba7d15ffa374039eff8bd8a3702e0558021573",
+      "pptx_path": "ppt/media/image86.png",
+      "extension": ".png",
+      "bytes": 128727,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ab0541861e44493eceb7907fc75bc3cfc52679a9be74759f7cba1961419cbf06",
+      "pptx_path": "ppt/media/image87.png",
+      "extension": ".png",
+      "bytes": 104455,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bfad0227dc7c138ded59472a4f4c23744936d7c6f4510098eb646b3078c1ad79",
+      "pptx_path": "ppt/media/image88.emf",
+      "extension": ".emf",
+      "bytes": 116144,
+      "slides": [
+        48
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0f061aa7fd4cea5e46f89a88c0b7fad194d369d61749fac5ec5b03baa4093e1a",
+      "pptx_path": "ppt/media/image89.png",
+      "extension": ".png",
+      "bytes": 67161,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "935dab79286aeb783d5388fdb2d2ccb0f6fb619ece75d02912f8bcb8823838a6",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 7312,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff20d4e28212a05da9c27a788b99196e70987f22a50836a78e34f7a9cbbfd27e",
+      "pptx_path": "ppt/media/image90.png",
+      "extension": ".png",
+      "bytes": 119531,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "66e02074b3a18941711c68f212f9f9151a659fbd8b4b8ee15b15eac9cfa06c52",
+      "pptx_path": "ppt/media/image91.png",
+      "extension": ".png",
+      "bytes": 71363,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ffc79a5b64e41ca66c3749bdf4b3950068dfb7c26ef09a26c1a082ef1204d157",
+      "pptx_path": "ppt/media/image92.png",
+      "extension": ".png",
+      "bytes": 43952,
+      "slides": [
+        49
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fb855be1eaaafd4c44005da2388b5fc750fc921a96916bed5e031f1459b32e0c",
+      "pptx_path": "ppt/media/image93.png",
+      "extension": ".png",
+      "bytes": 42265,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e3466ffe13cb158087bbe048a5cba6900b404c2b7315cb62453126d903644100",
+      "pptx_path": "ppt/media/image94.emf",
+      "extension": ".emf",
+      "bytes": 76460,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6d351b0d2f68a1f61b94e30af1641fc36b872ff9258f4f09a5a22b4f34f9e7c1",
+      "pptx_path": "ppt/media/image95.emf",
+      "extension": ".emf",
+      "bytes": 77020,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8de6dd7a92cee0dadcb277b2adff307f42afa8d3cbd131554f7a354a9b21fff8",
+      "pptx_path": "ppt/media/image95.png",
+      "extension": ".png",
+      "bytes": 87648,
+      "slides": [
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "56a0458ae46fd7b92255b274eb41798d8e95ff29f6bccb1ab7f884086650793a",
+      "pptx_path": "ppt/media/image96.emf",
+      "extension": ".emf",
+      "bytes": 93456,
+      "slides": [
+        50
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "79a4c148f4403d444b4b5f75f914177ba944aa4b007b9e2baf26fc7a2924bcd4",
+      "pptx_path": "ppt/media/image97.png",
+      "extension": ".png",
+      "bytes": 73655,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d3e3b18abd6768680997404e104ae59f3f6434dbf70e2f71bf8d3eeb813f7a07",
+      "pptx_path": "ppt/media/image98.emf",
+      "extension": ".emf",
+      "bytes": 146984,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9980061943d7f674c0a307155b5e3fa70da0b38f829de3d6cb352c438d0bf780",
+      "pptx_path": "ppt/media/image98.png",
+      "extension": ".png",
+      "bytes": 73135,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5982a175a7473beb5cdc9620a117d994ff4d3f66ffee650ad3e772db106e928f",
+      "pptx_path": "ppt/media/image99.png",
+      "extension": ".png",
+      "bytes": 223715,
+      "slides": [
+        52
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 17,
+    "reused_figures": 17,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-09.md",
+  "pptx_figures": [
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s06-steerable-type-pipeline.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s11-group-action-composition.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image17.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s14-circular-harmonics.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image23.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s15-spherical-harmonics.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image25.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s16-spherical-harmonic-steerability.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image33.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s18-edge-harmonic-encoding.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image5.jpeg"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s20-cartesian-tensor-orders.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image37.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s22-rank-two-decomposition.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image39.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s24-representation-bases.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image43.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s29-wigner-harmonic-equivariance.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image56.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s37-clebsch-gordan-coupling.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image71.jpeg"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 38,
+      "pptx_slide": 38,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s38-clebsch-gordan-index-map.jpeg",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image73.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s42-tfn-feature-indices.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image76.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s46-tfn-architecture.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image83.png"
+      ],
+      "content_role": "architecture",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s47-tfn-tetris.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image84.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s47-tfn-missing-point.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image85.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 49,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-09/s49-parity-reflection.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image92.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

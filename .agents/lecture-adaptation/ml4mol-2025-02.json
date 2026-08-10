@@ -1,0 +1,2182 @@
+{
+  "deck_id": "ml4mol-2025-02",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec2_prelim1.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_ml4mol/lec2_prelim1.pptx",
+  "slide_count": 57,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Preliminaries: Chemistry and Physics",
+      "classification": "substantive",
+      "coverage": "omitted-transition",
+      "text": [
+        "Preliminaries: Chemistry and Physics",
+        "AI810 Machine Learning for Molecules",
+        "Sungsoo Ahn",
+        "1"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 3,
+      "title": "Disclaimers",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Disclaimers",
+        "• Today’s lecture is more like a list of things that frequently appear in",
+        "machine learning for molecules & materials.",
+        "• A lot of stuff is simplified and removed for my convenience in",
+        "presentation. I am not an expert in chemistry and physics.",
+        "2"
+      ],
+      "media_sha256": [],
+      "notes": "Preserved as the reader-facing scope caveat in the opening paragraphs."
+    },
+    {
+      "slide": 3,
+      "pptx_slide": null,
+      "title": "Part 1. Molecules and Materials",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 1. Molecules and Materials",
+        "3"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 5,
+      "title": "Molecules and Materials",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecules and Materials",
+        "• A molecule is a group of two or more",
+        "atoms chemically bonded together,",
+        "such as a single water molecule (H₂O).",
+        "• A material, is a larger collection of",
+        "molecules that forms a macroscopic",
+        "substance with specific properties, like",
+        "water or a piece of metal.",
+        "4"
+      ],
+      "media_sha256": [
+        "01e3d4d8967b6150d773a490d78df3c13efc854d44eb6c2948d4a13da905d276"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 6,
+      "title": "1D Molecular Representations: SMILES & InChI",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "1D Molecular Representations: SMILES & InChI",
+        "• These text-based strings encode molecular connectivity in a compact,",
+        "linear format suitable for sequence models.",
+        "5"
+      ],
+      "media_sha256": [
+        "aeca6a35a5ac010802b85dfa771e99f682a1da7f8349e5660f8e88cb61ec1567",
+        "4f91ae6b801f0afca3afee4afd4810bef5d3f43e03aaa9f40975bad1e7673783",
+        "5c9ab2630cf0a1b800f1678d76801fda9a45b964435d9f0d7a082d0fa1019c10"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 7,
+      "title": "2D Molecular Representations: Molecular Graphs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "2D Molecular Representations: Molecular Graphs",
+        "• This is the most natural representation of a molecule's connectivity,",
+        "where atoms are nodes and bonds are edges.",
+        "• Node features can include atomic number and charge, while edge",
+        "features can include bond type (single, double, etc.).",
+        "6"
+      ],
+      "media_sha256": [
+        "0b77d2f86a2eb323252e72d41f730bbb23568b244be19df0eaadf4c2b806f4bb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 8,
+      "title": "2D Molecular Representations: Fingerprints",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "2D Molecular Representations: Fingerprints",
+        "• A fingerprint is a fixed-length vector (usually of 0s and 1s) that indicates",
+        "the presence or absence of predefined chemical substructures.",
+        "• Computationally cheap and are a standard input for classical machine learning models.",
+        "7"
+      ],
+      "media_sha256": [
+        "7761bd89146b78f832c659f6ad7768497795b1c3b933f5b0c94a2aef77458eba",
+        "6fc22e3357f5690096430dc9a602b5f76d9bf9b8eb9988f6391613910b5dddf2",
+        "200b841e48d1fccd218141490cc0e8148ba08e2fee2cf939f9f95aa4ce0fc133"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 9,
+      "title": "3D Molecular Representations: Atomic Coordinates",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "3D Molecular Representations: Atomic Coordinates",
+        "• Using the x, y, z coordinates of each atom",
+        "provides a complete, physically realistic",
+        "description essential for geometry-",
+        "dependent problems.",
+        "• A molecule's 3D conformation is largely",
+        "determined by the low-energy rotational",
+        "barriers of its torsional (dihedral) angles.",
+        "8"
+      ],
+      "media_sha256": [
+        "9bacce8d681152ae1045d84785e92cb3ea6a5606d2122e666eb47ca555fae37d",
+        "18f9f6fdedaa83edaed35380ffe57fa68fe4af551cbfd70869ee18956ed3f4a8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 10,
+      "title": "Chirality: When Your Mirror Image is Different",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Chirality: When Your Mirror Image is Different",
+        "• Chiral molecules are non-superimposable on their mirror images, a",
+        "subtle 3D property that 2D representations like graphs completely miss.",
+        "• SMILES notation for clock-wise and",
+        "counter clock-wise order:",
+        "• L-Alanine: C[C@@H](N)C(=O)O",
+        "• D-Alanine: C[C@H](N)C(=O)O",
+        "Bold Wedge (Solid Triangle): A bond represented by a bold",
+        "wedge is coming out of the plane of the surface.",
+        "Dashed Wedge (Hashed Lines): A bond represented by a                           9",
+        "dashed wedge is going into the plane of the surface"
+      ],
+      "media_sha256": [
+        "c64a62235e4b4e136898df9564cbe86e3880d0c7ad257785b69042bba0e36d66"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 11,
+      "title": "Material Representations: Crystalline Solids",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Material Representations: Crystalline Solids",
+        "• For periodic materials, representations must capture the repeating unit",
+        "cell, lattice parameters, and symmetry.",
+        "• Crystals have preiodic patterns, described by lattice matrix 𝐿 = ℓ1 , ℓ2 , ℓ3 ⊤ , in addition to the",
+        "typical point cloud representation.",
+        "• Then the infinite crystal structure can be",
+        "represented as:",
+        "where 𝒑𝑖 , 𝒂𝑖 denotes the position and type of",
+        "some atom 𝑖 in a specific cell.",
+        "10"
+      ],
+      "media_sha256": [
+        "996904c60f1b008d68b5ce639827582e7d2a440aee7c6762a58399ac4ce5fb74",
+        "0cc0f6ecede709a120dbb55807366ee40e249d0df68f64bd313d5e6241884bd6",
+        "fda75caa8481761cc1df23ff566461818613c5580f2f31baed1623ebb69eea38"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 12,
+      "title": "Molecular Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecular Symmetry",
+        "• We can describe molecules not just by coordinates but by their inherent",
+        "symmetries (rotations, reflections).",
+        "• Point groups are a classification system that neatly categorizes all possible symmetries a finite",
+        "molecule can possess.",
+        "Some crystals are “more",
+        "symmetric” than others…",
+        "11"
+      ],
+      "media_sha256": [
+        "50e0c0d4e7428cdbeeaa4ec3d6ae919fee7c71686cff975ffb16789ec293afbb",
+        "6ede48c15ea0709d9bbe24d46dcd6e3f22f6f4c8a99d69d761bf5750ec7a0dfa"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 13,
+      "title": "Unit Cells and Lattices",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Unit Cells and Lattices",
+        "• Bravais lattice: distinct lattice types",
+        "(14 in 3D) describing all possible",
+        "periodic arrangements of points.",
+        "• These include primitive and centered lattices",
+        "for each crystal system",
+        "• Each lattice type is associated with a",
+        "set of translations that leaves the",
+        "crystal invariant.",
+        "• NOT associated with a particular group!"
+      ],
+      "media_sha256": [
+        "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 14,
+      "title": "Symmetry in Crystal Structures",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Symmetry in Crystal Structures",
+        "• Crystals exhibit symmetry operations:",
+        "• translations, rotations, reflections, inversion that map",
+        "the crystal onto itself.",
+        "• Translational symmetry:",
+        "• the repeating lattice means a translation by one unit cell",
+        "leaves the crystal unchanged",
+        "• Point symmetry:",
+        "• Rotations or inversions about lattice points,                       Allows additional",
+        "e.g., a cube has 90° rotational axes and mirror planes.             translation",
+        "• Combination of point symmetries with translations gives",
+        "the full space group symmetry",
+        "Allows 6-fold rotation"
+      ],
+      "media_sha256": [
+        "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+        "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 15,
+      "title": "Space Group Symmetry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Space Group Symmetry",
+        "• Space groups (230 distinct groups in 3D) which enumerate all",
+        "combinations of rotations, mirrors, glide planes, screw axes with",
+        "translations that a crystal can have.",
+        "• Obtained from removing duplicates in 14x32 combinations.",
+        "2D space groups"
+      ],
+      "media_sha256": [
+        "ff152ce84cb89b8d31158c0029bc33a71ccdca59309a4916b148ff6debbf5625",
+        "9dc63111664136cfc7fe6905d2bcf966894b833b16839d910d92323abd119d53"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 16,
+      "title": "How Symmetry Constrains Properties",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "How Symmetry Constrains Properties",
+        "• A molecule's symmetry determines which properties it can have; for",
+        "example, a molecule with a center of inversion cannot have a permanent",
+        "dipole moment.",
+        "Some crystals are “more",
+        "15",
+        "symmetric” than others…"
+      ],
+      "media_sha256": [
+        "50e0c0d4e7428cdbeeaa4ec3d6ae919fee7c71686cff975ffb16789ec293afbb",
+        "45e2b4622452a36da1ac0f0fcf59a10241f6539f9faa6792af82c79ba02c5f27",
+        "6ede48c15ea0709d9bbe24d46dcd6e3f22f6f4c8a99d69d761bf5750ec7a0dfa"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 17,
+      "title": "The Importance of Defects",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Importance of Defects",
+        "• Real materials are never perfect,",
+        "and defects like vacancies or",
+        "impurities often control their most",
+        "useful properties.",
+        "16"
+      ],
+      "media_sha256": [
+        "b4f3c701ec505c2c17f8983218f182b4837ee02e3b417d5be372e22ef23ce017"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 18,
+      "title": "Part 2. Quantum Mechanics",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 2. Quantum Mechanics",
+        "17"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 20,
+      "title": "Schrödinger Equation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Schrödinger Equation",
+        "• This single equation, is the master",
+        "recipe for chemistry.",
+        "෡ = 𝐸𝜓",
+        "𝐻𝜓",
+        "• For a molecule with 𝑁 electrons:",
+        "• Wavefunction 𝜓: ℝ3𝑁 → ℂ",
+        "• Hamiltonian operator 𝐻 that",
+        "maps 𝜓 to another function.",
+        "• Energy 𝐸 ∈ ℝ.",
+        "18"
+      ],
+      "media_sha256": [
+        "c853bc99aa0ea6c87f186aa8cbcc9e6e4c2591f39704a4ce29e990e7aea78f84"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 21,
+      "title": "The Schrödinger Equation: Master Equation of Chemistry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Schrödinger Equation: Master Equation of Chemistry",
+        "• This single equation, is the master recipe for chemistry.",
+        "෡ = 𝐸𝜓",
+        "𝐻𝜓",
+        "෡ is given by the molecular state.",
+        "• Input: The Hamiltonian 𝐻",
+        "• The Hamiltonian is not just a variable; it's an operator,",
+        "which is a set of mathematical instructions.",
+        "• You \"tell\" the Hamiltonian about your molecule by",
+        "providing the positions and types of all atoms.",
+        "19"
+      ],
+      "media_sha256": [
+        "3494fd0fa684e9efa5d1bc1a2637fb489cd7f976379b6813658fbf9d0ad98efd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 22,
+      "title": "The Schrödinger Equation: Master Equation of Chemistry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Schrödinger Equation: Master Equation of Chemistry",
+        "• This single equation, is the master recipe for chemistry.",
+        "෡ = 𝐸𝜓",
+        "𝐻𝜓",
+        "• Output: The wavefunction 𝜓 and the molecule’s energy 𝐸.",
+        "• The wavefunction is a high-dimensional function.",
+        "Its input space is the set of coordinates for all electrons in the molecule.",
+        "• For a molecule with 𝑁 electrons, 𝜓 lives in a 3𝑁-dimensional space.",
+        "20"
+      ],
+      "media_sha256": [
+        "5cc58f97ad7cba4f51773c56021a2836c12742d61cc571ee9d3b2da0807bf8f5"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": 23,
+      "title": "The Schrödinger Equation: Master Equation of Chemistry",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Schrödinger Equation: Master Equation of Chemistry",
+        "• This single equation, is the master recipe for chemistry.",
+        "෡ = 𝐸𝜓",
+        "𝐻𝜓",
+        "• Output: The wavefunction 𝜓 and the molecule’s energy 𝐸.",
+        "• The energy E is a single number representing the total energy",
+        "of the molecule for that specific state.",
+        "• There are multiple solutions (𝜓0 , 𝜓1 , 𝜓2 , …) each with",
+        "a corresponding energy (𝐸0 , 𝐸1 , 𝐸2 , …).",
+        "• The lowest energy 𝐸0 is the \"ground state.\"",
+        "21"
+      ],
+      "media_sha256": [
+        "1acd6c3edbc649378b6be20cc8f280b4fcd7b410df82736e827452e9b33cd835"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 24,
+      "title": "The Wavefunction",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Wavefunction",
+        "• The wavefunction is a mathematical",
+        "function that describes everything we",
+        "know about an electron in a system.",
+        "• While the function itself is abstract, its",
+        "square, 𝜓 2 , gives us something",
+        "concrete: the probability of finding an",
+        "electron at a specific point.",
+        "• For now, think of it as a mathematical",
+        "description of everything we know",
+        "about a particular quantum system.           22"
+      ],
+      "media_sha256": [
+        "e6ca0b4cc5a8d5b867d0e4ddd8b11a2909efe589295a152a8e57b4a1c91fbb00",
+        "aabbd4eb1cd3fbf3eecda10a6a4115e1e42679e5dae3961ca0537254325a4ca0"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 25,
+      "title": "The Hydrogen Atom: An Exact Solution",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Hydrogen Atom: An Exact Solution",
+        "• The simplest atom, hydrogen, is the only chemical system for which the",
+        "Schrödinger equation can be solved exactly.",
+        "ℏ2 2  𝑒2",
+        "− ∇ −        𝜓 𝑟, 𝜃, 𝜑 = 𝐸𝜓 𝑟, 𝜃, 𝜑",
+        "2𝜇   4𝜋𝜀0 𝑟",
+        "෡",
+        "Hamiltonian operator 𝐻",
+        "• This exact solution is incredibly important because it provides the",
+        "foundation for understanding all other, more complex atoms.",
+        "23"
+      ],
+      "media_sha256": [
+        "d8440234a68918991be5a65d042d613aba917a5ab40c7ac2565c96b461b8c39a",
+        "b4d0c57b3cd6a25bb3440f49d5e90d26dee80ef7fa3199127e9e4f07e7bdb6bc"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 26,
+      "title": "Atomic Orbitals (s, p, d, f)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Atomic Orbitals (s, p, d, f)",
+        "• The solutions to the hydrogen",
+        "equation give us the familiar atomic",
+        "orbitals (s, p, d, f).",
+        "• Orbital: each of the actual or",
+        "potential patterns of electron density",
+        "that may be formed in an atom or",
+        "molecule by one or more electrons.",
+        "24"
+      ],
+      "media_sha256": [
+        "cc59fa48882bc8aba026910245af16e47ddc0b1e79d7a6b9e309c8f65ee1f712"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": 27,
+      "title": "Approximations…",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Approximations…",
+        "• In fact, the introduced Schrodinger equation is",
+        "a simplified version.",
+        "• We use Born-Oppenheimer approximation:",
+        "the wave functions of atomic nuclei and",
+        "electrons in a molecule can be treated",
+        "separately.",
+        "• We also ignore time-dependency.",
+        "25"
+      ],
+      "media_sha256": [
+        "999d071bc29912588b92ff7d7b3cb331b5dfd8c7d9378a0c4eaf066fe49436ff"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 28,
+      "title": "Many-Electron Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Many-Electron Problem",
+        "• Schrodinger’s equation for non-hydrogen atoms and molecules.",
+        "• Wavefunctions are system-specific and not atom-specific.",
+        "• Due to the system change,",
+        "෡",
+        "Hamiltonian operator 𝐻",
+        "gets more complex.",
+        "26"
+      ],
+      "media_sha256": [
+        "12f4a416615952226ec04ce30fa950b68a2edea999076e70d13367741e8ebc8a",
+        "565219a3d4777ba01d840a56ffe4c252dd5ac531235713bba9e5da8e2259dbd7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 29,
+      "title": "Many-Electron Problem",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Many-Electron Problem",
+        "• For many-electron systems, the Hamiltonian operator is expressed as:",
+        "𝐻෡ = 𝑇෠𝑒 + 𝑇෠𝑁 + 𝑉෠𝑒𝑁 + 𝑉෠𝑒𝑒 + 𝑉෠𝑁𝑁",
+        "ℏ 2",
+        "• Kinetic Energy of the Electrons 𝑇෠𝑒 = − σ𝑁     2                                ෠",
+        "𝑖 2𝑚 ∇𝑖 , kinetic energy of the nuclei 𝑇𝑁 , electron-nucleus",
+        "𝑒",
+        "attraction 𝑉෠𝑒𝑁 , electron-electron repulsion 𝑉෠𝑒𝑒 , nucleus-nucleus repulsion 𝑉෠𝑁𝑁",
+        "• The Schrödinger equation becomes impossible to solve exactly",
+        "due to electron-electron repulsion.",
+        "27"
+      ],
+      "media_sha256": [
+        "ccae2f1c5b3966513fad2d4d83fc1b8555cf92e47c1fcc0c69dd4cb7c60755d8",
+        "ecf8f7e9acada45aca21bc6c6c6eaebf91c53ba4b7a31a4c686e858e4899bc7a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 30,
+      "title": "Linear Combination of Atomic Orbitals",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Linear Combination of Atomic Orbitals",
+        "• Atomic interactions can be approximated by linear combinations",
+        "• Bonding molecular orbital: The electrons in this orbital are found between the two nuclei,",
+        "effectively \"gluing\" the atoms together.",
+        "• Antibonding molecular orbital: The electrons in this orbital are pushed away from the space",
+        "between the nuclei.",
+        "28"
+      ],
+      "media_sha256": [
+        "c11feb92c63a2584510effdcd9e6ebf3daee8dbab733ef64edc1bc5be52c9c18",
+        "b5abcdd59f4eafa06a66418c91f3d99c6deddc5a4d21176988391fd5e37782a9"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 31,
+      "title": "Density Functional Theory (DFT)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Density Functional Theory (DFT)",
+        "• To study real molecules, we rely on powerful approximate methods like",
+        "Density Functional Theory (DFT).",
+        "• Instead of tracking every electron's complicated wavefunction, DFT",
+        "cleverly focuses on a simpler property: the total electron density.",
+        "• DFT is a workhorse in chemistry and materials science, but it's still",
+        "computationally demanding, often 𝑂(𝑁 3 ) or even 𝑂(𝑁 6 ).",
+        "29"
+      ],
+      "media_sha256": [
+        "bb354ebcabbb5595fbb7d04c3ac3fe605cc415f7d79f00b4b0a5f2e81fade1ae"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 30,
+      "pptx_slide": 32,
+      "title": "Part 3. Electronic Properties:",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 3. Electronic Properties:",
+        "From Orbitals to Bands",
+        "30"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 31,
+      "pptx_slide": 33,
+      "title": "How Electrons Behave in Chemical Systems",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "How Electrons Behave in Chemical Systems",
+        "• As we know from the Schrödinger equation, an electron in an atom",
+        "doesn't just circle the nucleus like a planet.",
+        "• Instead, its location is described by an atomic orbital, which is a",
+        "probability map of where the electron is likely to be.",
+        "• Each atomic orbital has a distinct energy level.",
+        "31"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 34,
+      "title": "Highest Occupied Molecular Orbital (HOMO)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Highest Occupied Molecular Orbital (HOMO)",
+        "• Molecular orbital with the highest energy",
+        "level that contains at least one electron.",
+        "• Think of all the electrons in a molecule filling up the",
+        "available energy orbitals from the lowest energy to the",
+        "highest.",
+        "• The HOMO is the very last \"room\" that an electron",
+        "occupies.",
+        "• This orbital is associated with a molecule's ability to",
+        "donate electrons. An electron in a high-energy state",
+        "is easier to remove and give to another molecule.",
+        "32"
+      ],
+      "media_sha256": [
+        "9e6a32e1ffc1a5237c294cc6fbad01a099711f35382f907f14481170c1a92f8a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 33,
+      "pptx_slide": 35,
+      "title": "Lowest Unoccupied Molecular Orbital.",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Lowest Unoccupied Molecular Orbital.",
+        "• Molecular orbital with the lowest energy",
+        "level that is empty of electrons.",
+        "• This is the very next \"room\" available",
+        "for an electron to jump into.",
+        "• This orbital is associated with a molecule’s",
+        "ability to accept electrons.",
+        "• It's the most accessible place for",
+        "an incoming electron to go.",
+        "33"
+      ],
+      "media_sha256": [
+        "9e6a32e1ffc1a5237c294cc6fbad01a099711f35382f907f14481170c1a92f8a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 34,
+      "pptx_slide": 36,
+      "title": "HOMO-LUMO Gap",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "HOMO-LUMO Gap",
+        "• This gap is a critical measure of a molecule’s",
+        "excitability and chemical stability.",
+        "• A molecule with a large energy gap is generally more",
+        "stable and less reactive. It takes a lot of energy to \"excite\"",
+        "an electron from the HOMO to the LUMO.",
+        "• A molecule with a small energy gap is typically more",
+        "reactive and less stable. It requires less energy for an",
+        "electron to make the jump, allowing it to participate more",
+        "readily in chemical reactions.",
+        "34"
+      ],
+      "media_sha256": [
+        "0fb00c1fc8948946a291dda9b776467386c886f920406dd70d8d682d2c054d37"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 37,
+      "title": "In Crystals: Electronic Band Structure",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "In Crystals: Electronic Band Structure",
+        "• Now, let's scale this up. Instead of two",
+        "atoms, imagine a vast number of them,",
+        "as you would find in a solid material.",
+        "• All of their atomic orbitals combine to form a",
+        "massive number of molecular orbitals.",
+        "• Because there are so many of these orbitals, their",
+        "energy levels are incredibly close together.",
+        "• They are so close that they essentially form a",
+        "continuous range of allowed energies, which we",
+        "call an energy band.",
+        "35"
+      ],
+      "media_sha256": [
+        "469fb8ff6c7469e5f0c02bdaecea6e63986f8259295c40826fc27c8dcdad87ea"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 36,
+      "pptx_slide": 38,
+      "title": "The Electronic Band Structure of Solids",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Electronic Band Structure of Solids",
+        "• Band types:",
+        "• Valence Band: This is the highest energy band that is",
+        "filled with electrons. You can think of these as the",
+        "electrons that are involved in bonding.",
+        "• Conduction Band: This is the next higher energy",
+        "band, which is mostly empty. For an electron to move",
+        "freely and conduct electricity, it needs to jump into",
+        "this band.",
+        "• Band Gap: This is a crucial \"forbidden zone\" of",
+        "energy that separates the valence and conduction",
+        "bands. No electron can exist with an energy level",
+        "within the band gap.",
+        "36"
+      ],
+      "media_sha256": [
+        "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 37,
+      "pptx_slide": 39,
+      "title": "Band Gaps: Metals, Insulators, Semiconductors",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Band Gaps: Metals, Insulators, Semiconductors",
+        "• Electrical conductivity is decided by band gap:",
+        "• Metals (Conductors): No band gap! Electrons can easily",
+        "move",
+        "into the conduction band and conduct electricity.",
+        "• Insulators: These materials have a very large band gap. It",
+        "takes a great deal of energy to excite an electron from the",
+        "valence band to the conduction band.",
+        "• Semiconductors: The band gap in semiconductors is small.",
+        "With a little energy (like from heat or light), electrons can",
+        "jump the gap and move into the conduction band.",
+        "37"
+      ],
+      "media_sha256": [
+        "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 38,
+      "pptx_slide": null,
+      "title": "Part 4. Intra- and Inter-Molecular Forces",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 4. Intra- and Inter-Molecular Forces",
+        "38"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 39,
+      "pptx_slide": 41,
+      "title": "From Quantum Mechanics to Chemical Forces",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "From Quantum Mechanics to Chemical Forces",
+        "• While the Schrödinger equation describes all energy and forces in a",
+        "system, we use simplified models and categories for practical",
+        "understanding.",
+        "• We can group forces into two main types:",
+        "• Intramolecular: Strong forces that hold",
+        "atoms together within a molecule",
+        "(e.g., covalent bonds).",
+        "• Intermolecular: Weaker forces",
+        "that cause molecules to attract",
+        "each other.",
+        "39"
+      ],
+      "media_sha256": [
+        "9362c8771d50c282d1fc411a4d52dd97b0a053da00d815b7e6ecce63bcbb4e1c"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 42,
+      "title": "Intramolecular Forces: Covalent Bonds",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intramolecular Forces: Covalent Bonds",
+        "• Covalent bonds, formed by sharing",
+        "electrons, are the strong, directional links",
+        "that define a molecule's structure.",
+        "• This type of bond typically forms between",
+        "nonmetal atoms that have similar",
+        "tendencies to attract electrons.",
+        "40"
+      ],
+      "media_sha256": [
+        "f29aa7f52561c78367a6bff1af7d62dc3f1315289473e26c412162710958edea"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 41,
+      "pptx_slide": 43,
+      "title": "Intramolecular Forces: Ionic & Metallic Bonds",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intramolecular Forces: Ionic & Metallic Bonds",
+        "• Ionic bonds result from electrostatic attraction between charged ions.",
+        "• Found in: Compounds formed between metals and nonmetals, such as sodium chloride (NaCl)",
+        "and magnesium oxide (MgO)",
+        "• Found in: Metallic elements and alloys, such as iron, copper, gold, and brass.",
+        "41"
+      ],
+      "media_sha256": [
+        "da6224001125dd6d13042349b60816d8542e5ba268f23f21e7d9d70cb86f63bb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 44,
+      "title": "Intramolecular Forces: Ionic & Metallic Bonds",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intramolecular Forces: Ionic & Metallic Bonds",
+        "• Metallic bonds involve a \"sea\" of delocalized electrons.",
+        "• Found in: Metallic elements and alloys, such as iron, copper, gold, and brass.",
+        "42"
+      ],
+      "media_sha256": [
+        "ac242efe1910af37157839e705620df9445e5eab2dddaadc822ec8a58cec9337"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 45,
+      "title": "Intermolecular Forces: Hydrogen Bonds",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intermolecular Forces: Hydrogen Bonds",
+        "• A hydrogen (H) atom, covalently bonded to a more electronegative donor",
+        "atom or group (Dn), interacts with another electronegative atom bearing a",
+        "lone pair of electrons—the hydrogen bond acceptor (Ac).",
+        "• This stronger, highly directional interaction is critical in biological systems like DNA and proteins.",
+        "43"
+      ],
+      "media_sha256": [
+        "eb8badf665b802c5a4f76eb4e12b7e1e1a724c86996f541a53360bdbcc4e0f44",
+        "a921fb44189fff9f95db8dbec22256420539ff2b14bfae4bc3dbe7eb9597dae2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 46,
+      "title": "Intermolecular Forces: Dipole-Dipole Force",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intermolecular Forces: Dipole-Dipole Force",
+        "• Attractive forces that occur between",
+        "polar molecules with permanent partial",
+        "positive and negative charges.",
+        "• An electric dipole deals with the",
+        "separation of the positive and negative",
+        "electric charges found in any",
+        "electromagnetic system.",
+        "44"
+      ],
+      "media_sha256": [
+        "1286c82d7893464e26b0a5add5f5187ad63b5da513aa0e08f5831640c1563217"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 47,
+      "title": "Intermolecular Forces: London Dispersion Forces",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Intermolecular Forces: London Dispersion Forces",
+        "• These short-range attractions arise from",
+        "temporary, fluctuating dipoles and are",
+        "present in all molecules.",
+        "• The term \"Van der Waals forces\" is",
+        "sometimes used to collectively refer to both",
+        "London dispersion and dipole-dipole",
+        "forces.",
+        "45"
+      ],
+      "media_sha256": [
+        "e6eb0e103374600ea3a62ac84de852752489c155874b80139449f098d6436347"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 46,
+      "pptx_slide": 48,
+      "title": "A Hierarchy of Forces",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "A Hierarchy of Forces",
+        "• Intramolecular Forces (Strong - Holding molecules together):",
+        "• Covalent Bonds: ~200–800 kJ/mol",
+        "• Ionic Bonds: ~100–400 kJ/mol",
+        "• Intermolecular Forces (Weak - Pulling molecules together):",
+        "• Hydrogen Bonds: ~10–40 kJ/mol (a special, strong type of dipole-dipole force)",
+        "• Dipole-Dipole Forces: ~5–20 kJ/mol",
+        "• London Dispersion Forces: ~0.1–10 kJ/mol",
+        "46"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 47,
+      "pptx_slide": 49,
+      "title": "Part 5. Statistical Mechanics:",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 5. Statistical Mechanics:",
+        "From One Molecule to Many",
+        "47"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 50,
+      "title": "The Ensemble View of Matter",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Ensemble View of Matter",
+        "• Instead of one perfect structure, a real system is an \"ensemble\" of",
+        "countless molecules constantly moving and exploring different energy",
+        "states.",
+        "48"
+      ],
+      "media_sha256": [
+        "58f8ebae1a97d0445e8111ff70733731cb397224135c2eb1a29081b9a5bedac2"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 49,
+      "pptx_slide": 51,
+      "title": "The Boltzmann Distribution",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "The Boltzmann Distribution",
+        "• The Boltzmann distribution gives the probability for a system with state 𝑞:",
+        "𝑃 𝑞 ∝ 𝑒 −𝐸(𝑞)/𝑘𝐵 𝑇",
+        "• It tells us that high-energy states are exponentially",
+        "less likely than low-energy states.",
+        "• As temperature increases, higher energy",
+        "states become more accessible.",
+        "49"
+      ],
+      "media_sha256": [
+        "9b103e480c924acb376896b9c353d46b691f988fb234ac770e179153d9ba6689",
+        "8e73ec362ed99953290087188618ad3f5848025cb606f1e05e12736065a54905"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 50,
+      "pptx_slide": 52,
+      "title": "Gibbs Free Energy",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Gibbs Free Energy",
+        "• Ultimate decider of spontaneity for chemical & biological processes:",
+        "𝐺 = −𝑘𝐵 𝑇 ln 𝑍 = ln ∫ 𝑒 −𝐸(𝑞)/𝑘𝐵 𝑇 𝑑𝑞",
+        "• Maximum amount of non-volume expansion “work”",
+        "that can be extracted from a closed system.",
+        "• A system at constant temperature and pressure will",
+        "spontaneously evolve to minimize its Gibbs Free Energy.",
+        "• Gibbs free energy 𝐺 = 𝐻 − 𝑇𝑆 is can also be expressed",
+        "using entropy 𝐻 and enthalpy 𝑆.",
+        "50"
+      ],
+      "media_sha256": [
+        "a6edbfb071cb0193704e14012d6bc98f15b55cbffe1b94f5a2a4d56e96f63e64"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 51,
+      "pptx_slide": 53,
+      "title": "Entropy and Enthalpy",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Entropy and Enthalpy",
+        "• Recall definition of Gibbs free energy: 𝐺 = 𝐻 − 𝑇𝑆.",
+        "• Enthalpy is averaged internal energy:",
+        "𝐻 = ∫ 𝑝 𝑞 𝐸 𝑞 𝑑𝑞",
+        "• Entropy is energy “locked up” by system disorder:",
+        "𝑆 = ∫ 𝑝 𝑞 log 𝑝 𝑞 𝑑𝑞",
+        "• Second law of thermodynamics: For a process to happen, a certain amount of the",
+        "system's energy must be invested to reduce/increase disorder.",
+        "51"
+      ],
+      "media_sha256": [
+        "4a8958919ec8798a3658c8a36d7271de8f06ae67b829f5fe1bdc8c61ecd4618a"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 52,
+      "pptx_slide": 54,
+      "title": "Part 6. The Energetics and",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 6. The Energetics and",
+        "Dynamics of Chemical Change",
+        "52"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 53,
+      "pptx_slide": 55,
+      "title": "Chemistry is About Change",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Chemistry is About Change",
+        "• We now move from static structures to the dynamic processes of",
+        "chemical reactions and conformational changes.",
+        "• Conformational changes: Molecules can change their shape without",
+        "breaking bonds (e.g., rotation around a single bond).",
+        "• Chemical reactions: Old bonds break and new bonds form,",
+        "leading to entirely new molecules.",
+        "53"
+      ],
+      "media_sha256": [
+        "f271acbfd31f9184ca7dbe573f75bd7248ba431f6a6b42359c97788eac0d6a85",
+        "d240073b1efff4a1dc0e011674512891395f68c0d79dd9e3cadc57f86a9310a3",
+        "7104f3910311ea413aa3a9598ba42fcc835e50f657ad5a42e74b653b8e77a04e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 56,
+      "title": "Molecular Dynamics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Molecular Dynamics",
+        "• How to simulate actual molecular dynamics?",
+        "• A primary source of data for understanding protein folding, how a drug binds to a protein, or how a",
+        "material behaves at a certain temperature.",
+        "• Generated samples follow the Boltzmann distribution,",
+        "i.e., connect force fields to statistical mechanics.",
+        "−𝛻𝑈 𝑹𝑡               2𝛾𝑘𝐵 𝜆",
+        "d𝑹𝑡 = 𝑽𝑡 d𝑡,    d𝑽𝑡 =        d𝑡 − 𝛾𝑽𝑡 d𝑡 +        d𝒘",
+        "𝒎                    𝒎",
+        "Newton Dynamics     friction      diffusion",
+        "54"
+      ],
+      "media_sha256": [
+        "0466c9323a42f9c1ba38aa07a9217e7705c4981ce60c1b6f9cc4a81b968377fb",
+        "907398260729f95ef64972164a5de29aa4c6c5eca507ac3f2537e266efc52a30"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 55,
+      "pptx_slide": 57,
+      "title": "Potential Energy Surface (PES)",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Potential Energy Surface (PES)",
+        "• PES is a high-dimensional landscape that maps a molecule's geometry to",
+        "its potential energy, governing all chemical transformations.",
+        "• Low Energy = Stable: Points in the valleys of the",
+        "landscape are stable arrangements of the atoms.",
+        "• High Energy = Unstable: Points on the hills or",
+        "peaks are unstable.",
+        "• Metastable state: a condition where a",
+        "system is stable but is not in its lowest",
+        "possible energy state,",
+        "e.g., diamond vs. graphite.",
+        "PES for water molecule",
+        "55"
+      ],
+      "media_sha256": [
+        "b0c7ed1d7f4c706f1a4c01515d360597272543b815be6a9086f4d88c12caa275"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 56,
+      "pptx_slide": 58,
+      "title": "Features of the PES: Minima & Transition States",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Features of the PES: Minima & Transition States",
+        "• Minima (Valleys): stable chemical species, e.g., the reactants and the",
+        "products of a reaction.",
+        "• Transition States (Saddle Points): highest energy point on the lowest",
+        "energy path connecting two minima (a reactant and a product)",
+        "56"
+      ],
+      "media_sha256": [
+        "7ef5ee5c764f932a1bee123cc22329dff64ba3f1861092770906907a034253dd"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 57,
+      "pptx_slide": 59,
+      "title": "Thermodynamics: Will a Reaction Happen?",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Thermodynamics: Will a Reaction Happen?",
+        "• Spontaneity: Gibbs free energy difference (ΔG=ΔH−TΔS) decides if the",
+        "reaction happens or not.",
+        "• Kinetics: activation energy",
+        "governs the reaction rate.",
+        "57"
+      ],
+      "media_sha256": [
+        "7352ef81f69db3eedf9455a0f08303af5b408c3c58bd4db3aeca2e7a3b5f818d"
+      ],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "a9b55d91b11077ce45b43a5b98440cd2be6b8a983024308e7d8dd863167a53fb",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 199279,
+      "slides": [
+        2
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9bacce8d681152ae1045d84785e92cb3ea6a5606d2122e666eb47ca555fae37d",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 24848,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "12f4a416615952226ec04ce30fa950b68a2edea999076e70d13367741e8ebc8a",
+      "pptx_path": "ppt/media/image100.png",
+      "extension": ".png",
+      "bytes": 73255,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "18f9f6fdedaa83edaed35380ffe57fa68fe4af551cbfd70869ee18956ed3f4a8",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 134779,
+      "slides": [
+        9
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s08-image11.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c64a62235e4b4e136898df9564cbe86e3880d0c7ad257785b69042bba0e36d66",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 34629,
+      "slides": [
+        10
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s09-image12.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0cc0f6ecede709a120dbb55807366ee40e249d0df68f64bd313d5e6241884bd6",
+      "pptx_path": "ppt/media/image13.jpeg",
+      "extension": ".jpeg",
+      "bytes": 97567,
+      "slides": [
+        11
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s10-image13.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "fda75caa8481761cc1df23ff566461818613c5580f2f31baed1623ebb69eea38",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 16348,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "50e0c0d4e7428cdbeeaa4ec3d6ae919fee7c71686cff975ffb16789ec293afbb",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 141447,
+      "slides": [
+        12,
+        16
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s11-image15.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "bb354ebcabbb5595fbb7d04c3ac3fe605cc415f7d79f00b4b0a5f2e81fade1ae",
+      "pptx_path": "ppt/media/image150.png",
+      "extension": ".png",
+      "bytes": 111989,
+      "slides": [
+        31
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6ede48c15ea0709d9bbe24d46dcd6e3f22f6f4c8a99d69d761bf5750ec7a0dfa",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 85879,
+      "slides": [
+        12,
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d7abfd4770d1d4ad7287325856b66bb0e633c8a8dffc66cf8b1a436629e1dca3",
+      "pptx_path": "ppt/media/image17.jpeg",
+      "extension": ".jpeg",
+      "bytes": 185686,
+      "slides": [
+        13,
+        14,
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0fdd148d2d0bf03d3c0d5c521b101a6c68e17b6c23e1d88b10001e79f267bc9a",
+      "pptx_path": "ppt/media/image18.jpeg",
+      "extension": ".jpeg",
+      "bytes": 31451,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ff152ce84cb89b8d31158c0029bc33a71ccdca59309a4916b148ff6debbf5625",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 127067,
+      "slides": [
+        15,
+        15
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "01e3d4d8967b6150d773a490d78df3c13efc854d44eb6c2948d4a13da905d276",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 312191,
+      "slides": [
+        5
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s04-image2.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9dc63111664136cfc7fe6905d2bcf966894b833b16839d910d92323abd119d53",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 734530,
+      "slides": [
+        15
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s14-image20.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "45e2b4622452a36da1ac0f0fcf59a10241f6539f9faa6792af82c79ba02c5f27",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 60864,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b4f3c701ec505c2c17f8983218f182b4837ee02e3b417d5be372e22ef23ce017",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 82741,
+      "slides": [
+        17
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s16-image22.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "70fec7ec89bbac8d573d1721894740dce12f5cee441594bdcf7e87a9b7689131",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 66797,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "996904c60f1b008d68b5ce639827582e7d2a440aee7c6762a58399ac4ce5fb74",
+      "pptx_path": "ppt/media/image230.png",
+      "extension": ".png",
+      "bytes": 94903,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "cc59fa48882bc8aba026910245af16e47ddc0b1e79d7a6b9e309c8f65ee1f712",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 1880635,
+      "slides": [
+        19,
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3494fd0fa684e9efa5d1bc1a2637fb489cd7f976379b6813658fbf9d0ad98efd",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 207950,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e6ca0b4cc5a8d5b867d0e4ddd8b11a2909efe589295a152a8e57b4a1c91fbb00",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 88558,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aabbd4eb1cd3fbf3eecda10a6a4115e1e42679e5dae3961ca0537254325a4ca0",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 3394996,
+      "slides": [
+        24
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s22-image27.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "999d071bc29912588b92ff7d7b3cb331b5dfd8c7d9378a0c4eaf066fe49436ff",
+      "pptx_path": "ppt/media/image28.gif",
+      "extension": ".gif",
+      "bytes": 228816,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a6edbfb071cb0193704e14012d6bc98f15b55cbffe1b94f5a2a4d56e96f63e64",
+      "pptx_path": "ppt/media/image280.png",
+      "extension": ".png",
+      "bytes": 116381,
+      "slides": [
+        52
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "565219a3d4777ba01d840a56ffe4c252dd5ac531235713bba9e5da8e2259dbd7",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 57812,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "aeca6a35a5ac010802b85dfa771e99f682a1da7f8349e5660f8e88cb61ec1567",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 40961,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b4d0c57b3cd6a25bb3440f49d5e90d26dee80ef7fa3199127e9e4f07e7bdb6bc",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 7058,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ccae2f1c5b3966513fad2d4d83fc1b8555cf92e47c1fcc0c69dd4cb7c60755d8",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 96601,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ecf8f7e9acada45aca21bc6c6c6eaebf91c53ba4b7a31a4c686e858e4899bc7a",
+      "pptx_path": "ppt/media/image32.jpeg",
+      "extension": ".jpeg",
+      "bytes": 50158,
+      "slides": [
+        29
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c11feb92c63a2584510effdcd9e6ebf3daee8dbab733ef64edc1bc5be52c9c18",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 157438,
+      "slides": [
+        30
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b5abcdd59f4eafa06a66418c91f3d99c6deddc5a4d21176988391fd5e37782a9",
+      "pptx_path": "ppt/media/image34.jpeg",
+      "extension": ".jpeg",
+      "bytes": 358107,
+      "slides": [
+        30
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s28-image34.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "c853bc99aa0ea6c87f186aa8cbcc9e6e4c2591f39704a4ce29e990e7aea78f84",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 90345,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9e6a32e1ffc1a5237c294cc6fbad01a099711f35382f907f14481170c1a92f8a",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 457339,
+      "slides": [
+        34,
+        35
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s32-image36.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0fb00c1fc8948946a291dda9b776467386c886f920406dd70d8d682d2c054d37",
+      "pptx_path": "ppt/media/image37.png",
+      "extension": ".png",
+      "bytes": 11007,
+      "slides": [
+        36
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "469fb8ff6c7469e5f0c02bdaecea6e63986f8259295c40826fc27c8dcdad87ea",
+      "pptx_path": "ppt/media/image38.png",
+      "extension": ".png",
+      "bytes": 66301,
+      "slides": [
+        37
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s35-image38.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "fd9c957edef58e731b66d6e840da3c2de6c7a0bf06695d5297792c0a8d066395",
+      "pptx_path": "ppt/media/image39.png",
+      "extension": ".png",
+      "bytes": 58449,
+      "slides": [
+        38,
+        39
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4f91ae6b801f0afca3afee4afd4810bef5d3f43e03aaa9f40975bad1e7673783",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 125112,
+      "slides": [
+        6
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s05-image4.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9362c8771d50c282d1fc411a4d52dd97b0a053da00d815b7e6ecce63bcbb4e1c",
+      "pptx_path": "ppt/media/image40.png",
+      "extension": ".png",
+      "bytes": 5249,
+      "slides": [
+        41
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f29aa7f52561c78367a6bff1af7d62dc3f1315289473e26c412162710958edea",
+      "pptx_path": "ppt/media/image41.png",
+      "extension": ".png",
+      "bytes": 25835,
+      "slides": [
+        42
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s40-image41.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "da6224001125dd6d13042349b60816d8542e5ba268f23f21e7d9d70cb86f63bb",
+      "pptx_path": "ppt/media/image42.gif",
+      "extension": ".gif",
+      "bytes": 84162,
+      "slides": [
+        43
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ac242efe1910af37157839e705620df9445e5eab2dddaadc822ec8a58cec9337",
+      "pptx_path": "ppt/media/image43.png",
+      "extension": ".png",
+      "bytes": 31940,
+      "slides": [
+        44
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s42-image43.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "eb8badf665b802c5a4f76eb4e12b7e1e1a724c86996f541a53360bdbcc4e0f44",
+      "pptx_path": "ppt/media/image44.png",
+      "extension": ".png",
+      "bytes": 19888,
+      "slides": [
+        45
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s43-image44.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "a921fb44189fff9f95db8dbec22256420539ff2b14bfae4bc3dbe7eb9597dae2",
+      "pptx_path": "ppt/media/image45.jpeg",
+      "extension": ".jpeg",
+      "bytes": 13772,
+      "slides": [
+        45
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "0466c9323a42f9c1ba38aa07a9217e7705c4981ce60c1b6f9cc4a81b968377fb",
+      "pptx_path": "ppt/media/image450.png",
+      "extension": ".png",
+      "bytes": 26889,
+      "slides": [
+        56
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1286c82d7893464e26b0a5add5f5187ad63b5da513aa0e08f5831640c1563217",
+      "pptx_path": "ppt/media/image46.jpeg",
+      "extension": ".jpeg",
+      "bytes": 61617,
+      "slides": [
+        46
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s44-image46.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "5cc58f97ad7cba4f51773c56021a2836c12742d61cc571ee9d3b2da0807bf8f5",
+      "pptx_path": "ppt/media/image46.png",
+      "extension": ".png",
+      "bytes": 89969,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e6eb0e103374600ea3a62ac84de852752489c155874b80139449f098d6436347",
+      "pptx_path": "ppt/media/image47.png",
+      "extension": ".png",
+      "bytes": 8894,
+      "slides": [
+        47
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s45-image47.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "58f8ebae1a97d0445e8111ff70733731cb397224135c2eb1a29081b9a5bedac2",
+      "pptx_path": "ppt/media/image48.png",
+      "extension": ".png",
+      "bytes": 77996,
+      "slides": [
+        50
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s48-image48.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "9b103e480c924acb376896b9c353d46b691f988fb234ac770e179153d9ba6689",
+      "pptx_path": "ppt/media/image49.png",
+      "extension": ".png",
+      "bytes": 91751,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5c9ab2630cf0a1b800f1678d76801fda9a45b964435d9f0d7a082d0fa1019c10",
+      "pptx_path": "ppt/media/image5.gif",
+      "extension": ".gif",
+      "bytes": 9263,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8e73ec362ed99953290087188618ad3f5848025cb606f1e05e12736065a54905",
+      "pptx_path": "ppt/media/image50.png",
+      "extension": ".png",
+      "bytes": 20827,
+      "slides": [
+        51
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "1acd6c3edbc649378b6be20cc8f280b4fcd7b410df82736e827452e9b33cd835",
+      "pptx_path": "ppt/media/image51.png",
+      "extension": ".png",
+      "bytes": 103163,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4a8958919ec8798a3658c8a36d7271de8f06ae67b829f5fe1bdc8c61ecd4618a",
+      "pptx_path": "ppt/media/image52.png",
+      "extension": ".png",
+      "bytes": 104822,
+      "slides": [
+        53
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "f271acbfd31f9184ca7dbe573f75bd7248ba431f6a6b42359c97788eac0d6a85",
+      "pptx_path": "ppt/media/image53.png",
+      "extension": ".png",
+      "bytes": 7420,
+      "slides": [
+        55
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "d240073b1efff4a1dc0e011674512891395f68c0d79dd9e3cadc57f86a9310a3",
+      "pptx_path": "ppt/media/image54.png",
+      "extension": ".png",
+      "bytes": 6143,
+      "slides": [
+        55
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "7104f3910311ea413aa3a9598ba42fcc835e50f657ad5a42e74b653b8e77a04e",
+      "pptx_path": "ppt/media/image55.png",
+      "extension": ".png",
+      "bytes": 8553,
+      "slides": [
+        55
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "907398260729f95ef64972164a5de29aa4c6c5eca507ac3f2537e266efc52a30",
+      "pptx_path": "ppt/media/image56.gif",
+      "extension": ".gif",
+      "bytes": 4512370,
+      "slides": [
+        56
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s54-image56.gif",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "b0c7ed1d7f4c706f1a4c01515d360597272543b815be6a9086f4d88c12caa275",
+      "pptx_path": "ppt/media/image57.png",
+      "extension": ".png",
+      "bytes": 128819,
+      "slides": [
+        57
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s55-image57.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7ef5ee5c764f932a1bee123cc22329dff64ba3f1861092770906907a034253dd",
+      "pptx_path": "ppt/media/image58.png",
+      "extension": ".png",
+      "bytes": 511846,
+      "slides": [
+        58
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s56-image58.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7352ef81f69db3eedf9455a0f08303af5b408c3c58bd4db3aeca2e7a3b5f818d",
+      "pptx_path": "ppt/media/image59.png",
+      "extension": ".png",
+      "bytes": 9811,
+      "slides": [
+        59
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s57-image59.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "0b77d2f86a2eb323252e72d41f730bbb23568b244be19df0eaadf4c2b806f4bb",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 42886,
+      "slides": [
+        7
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s06-image6.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "7761bd89146b78f832c659f6ad7768497795b1c3b933f5b0c94a2aef77458eba",
+      "pptx_path": "ppt/media/image7.jpeg",
+      "extension": ".jpeg",
+      "bytes": 23666,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6fc22e3357f5690096430dc9a602b5f76d9bf9b8eb9988f6391613910b5dddf2",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 166939,
+      "slides": [
+        8
+      ],
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s07-image8.webp",
+      "reuse_status": "reused"
+    },
+    {
+      "sha256": "d8440234a68918991be5a65d042d613aba917a5ab40c7ac2565c96b461b8c39a",
+      "pptx_path": "ppt/media/image80.png",
+      "extension": ".png",
+      "bytes": 110798,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "200b841e48d1fccd218141490cc0e8148ba08e2fee2cf939f9f95aa4ce0fc133",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 274507,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 29,
+    "reused_figures": 24,
+    "redundant_figures": 5,
+    "reuse_ratio": 0.8276
+  },
+  "published_post": "_posts/2026-08-09-ml4mol-2025-lecture-02.md",
+  "pptx_figures": [
+    {
+      "slide": 4,
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s04-image2.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image2.png"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s05-image4.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image4.png"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s06-image6.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s07-image8.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image8.png"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s08-image11.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image11.png"
+      ],
+      "content_role": "composite",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 10,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s09-image12.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image12.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s10-image13.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image13.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s11-image15.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image15.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 15,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s14-image20.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image20.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s16-image22.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image22.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s22-image27.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image27.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s28-image34.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image34.jpeg"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 32,
+      "pptx_slide": 34,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s32-image36.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image36.png"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 35,
+      "pptx_slide": 37,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s35-image38.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image38.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 40,
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s40-image41.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image41.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 42,
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s42-image43.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image43.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 43,
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s43-image44.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image44.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 44,
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s44-image46.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image46.jpeg"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 45,
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s45-image47.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image47.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 48,
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s48-image48.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image48.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 54,
+      "pptx_slide": 56,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s54-image56.gif",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image56.gif"
+      ],
+      "content_role": "scientific-image",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 55,
+      "pptx_slide": 57,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s55-image57.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image57.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 56,
+      "pptx_slide": 58,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s56-image58.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image58.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 57,
+      "pptx_slide": 59,
+      "asset_path": "assets/img/blog/lectures/ml4mol-2025-02/s57-image59.webp",
+      "extraction_method": "pptx-picture-export",
+      "source_media_paths": [
+        "ppt/media/image59.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}

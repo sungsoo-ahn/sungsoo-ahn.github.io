@@ -1,0 +1,1217 @@
+{
+  "deck_id": "gdl-2025-14",
+  "source_pdf": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec14_prelim3.pdf",
+  "source_pptx": "/Users/sungsoo/SPML Dropbox/SPML/lecture/2025_gdl/slides/lec14_prelim3.pptx",
+  "slide_count": 29,
+  "review_status": "complete",
+  "slides": [
+    {
+      "slide": 1,
+      "pptx_slide": 1,
+      "title": "Preliminaries:",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Preliminaries:",
+        "Diffusion and Flow Matching",
+        "AI.810 Geometric Deep Learning",
+        "Sungsoo Ahn, KAIST"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "pptx_slide": 2,
+      "title": "Part 2: Geometric Generative Models",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Part 2: Geometric Generative Models",
+        "Lec 1 (April 21st): Preliminaries on diffusion and flow matching",
+        "Lec 2 (April 30th): Preliminaries on diffusion and flow matching",
+        "Lec 3 (May 7th): Geometric flow matching",
+        "Lec 4 (May 12th): Geometric flow matching",
+        "Lec 5 (May 14nd): Discrete flow matching",
+        "Lec 6 (May 19th): Discrete diffusion models"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "pptx_slide": 3,
+      "title": "Today: Diffusion and Flow Matching",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Today: Diffusion and Flow Matching",
+        "Diffusion models (SDE-based generation)",
+        "• Langevin dynamics",
+        "• Forward and reverse SDE",
+        "• Nelson’s identity",
+        "• Denoising score identity",
+        "• Score matching objective",
+        "Flow matching models (ODE-based generation)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "pptx_slide": 4,
+      "title": "Recap: Fokker-Planck-Kolmogorov Equation",
+      "classification": "repeated-recap",
+      "coverage": "covered",
+      "text": [
+        "Recap: Fokker-Planck-Kolmogorov Equation",
+        "Consider the following SDE:",
+        "𝑑𝑋! = 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑡 𝑑𝑊!",
+        "In the previous lecture, we proved the FPK equation:",
+        "𝜕𝑝! (𝑥)    𝜕                     1 𝜕\"       \"𝑝 𝑥",
+        "=−    𝑓 𝑥, 𝑡 𝑝! 𝑥      +        𝜎 𝑡   !",
+        "𝜕𝑡       𝜕𝑥                    2 𝜕𝑥 \"",
+        "We proved the equation for 1D case, but easily generalized to high-dimensional cases."
+      ],
+      "media_sha256": [
+        "b6c36781e70b2ec2a53229c37e14e58ae1b39445513175ed63adea68d86f55e8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "pptx_slide": 5,
+      "title": "Recap: Fokker-Planck-Kolmogorov Equation",
+      "classification": "repeated-recap",
+      "coverage": "covered",
+      "text": [
+        "Recap: Fokker-Planck-Kolmogorov Equation",
+        "The FPK equation for one-dimension case :",
+        "𝑑𝑋! = 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝜎 𝑡 𝑑𝑊!",
+        "𝜕𝑝! (𝑥)    𝜕                    1 𝜕\"       \"𝑝 𝑥",
+        "=−    𝑓 𝑥, 𝑡 𝑝! 𝑥     +        𝜎 𝑡   !",
+        "𝜕𝑡       𝜕𝑥                   2 𝜕𝑥 \"",
+        "The FPK equation for multi-dimension case (with element-wise diffusion):",
+        "𝑑𝑿! = 𝒇 𝑿! , 𝑡 𝑑𝑡 + 𝝈 𝑡 𝑑𝑾!",
+        "𝜕𝑝! (𝐱)       𝜕                     1    𝜕\"",
+        "= −7     𝑓# 𝐱, 𝑡 𝑝! 𝐱      + 7         𝜎# 𝑡 𝜎% 𝑡 𝑝! 𝐱",
+        "𝜕𝑡         𝜕𝑥#                    2  𝜕𝑥# 𝜕𝑥%",
+        "#                         #,%"
+      ],
+      "media_sha256": [
+        "b2feb2cd4c50a261c8322a1fe249031fa57fc762ec78b4a68a3e70a9ca06a5c3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "title": "Langevin Dynamics",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Langevin Dynamics",
+        "Given an energy function 𝑈(𝑥),",
+        "Langevin dynamics is a SDE described as:",
+        "𝑑𝑋! = ∇𝑈 𝑋! 𝑑𝑡 + 2𝜎𝑑𝑊! .",
+        "& '",
+        "Using the FPK equation, we can derive the stationary distribution as 𝑝 𝑥 ∝ exp − (! :",
+        "𝜕𝑝! (𝑥)   𝜕    𝜕                    𝜕",
+        "=    −    𝑈 𝑥        𝑝! 𝑥 +    𝜎 \" 𝑡 𝑝! 𝑥      = 0.",
+        "𝜕𝑡      𝜕𝑥   𝜕𝑥                   𝜕𝑥",
+        "𝜕                𝜕",
+        "𝜎 )\" 𝑡      𝑈 𝑥    𝑝! 𝑥 =    𝑝! 𝑥 .",
+        "𝜕𝑥               𝜕𝑥"
+      ],
+      "media_sha256": [
+        "88311b3d62ec7c29597f799b1c5162cfaa11821153360448aa8f699c5cb731fb",
+        "66afcd1d943330bb6a23b571bceba4cba28ae5783c6df2f267383d44a08615a6"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "title": "Diffusion Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Diffusion Models",
+        "Consider the following SDE that “encodes” the data distribution:",
+        "𝑑𝑋! = 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊! ,      𝑋* ∼ 𝑝+,-,",
+        ".",
+        "For example, let 𝑓 𝑋! , 𝑡 = 𝛽 𝑡 𝑋! and 𝑔 𝑡 =      𝛽 𝑡 .",
+        "\"",
+        "• Then 𝑋! ∼ 𝒩 0,1 approximately for large 𝑇.",
+        "• How to sample from the reverse?"
+      ],
+      "media_sha256": [
+        "9740d898d697406e1dceba6e329183fee54b4db80ff5faf0ca6daabc5ae2066f",
+        "b91368f2854c319b4303fafcc2363158febd0fef0dae292bd9e21e936e5fd60e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "title": "Diffusion Models",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Diffusion Models",
+        "Key idea: find a “reverse-time” neural SDE that can generate data",
+        "from the noise distribution.",
+        "!                  $",
+        "• Note that Ito integrals are asymmetric, i.e., ∫\"#$ 𝑔(𝑡)𝑑𝑊\" ≠ − ∫\"#! 𝑔(𝑡)𝑑𝑊\""
+      ],
+      "media_sha256": [
+        "3118cc47f6b136badb414abae7e02028f9be225f27c3f88f7ec4ae26183ec431",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "pptx_slide": 9,
+      "title": "Forward and Reverse SDEs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Forward and Reverse SDEs",
+        "C! :",
+        "Consider a pair of forward and the reverse SDEs with “reverse-time” Weiner process 𝑊",
+        "/",
+        "𝑑𝑋! = 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊! ,       𝑋/ − 𝑋* = D 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊!",
+        "!0*",
+        "1",
+        "𝑑𝑋E! = 𝑓 ̅ 𝑋E! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊",
+        "C! ,   𝑋E1 − 𝑋E/ = D 𝑓 ̅ 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊",
+        "C!",
+        "!0/"
+      ],
+      "media_sha256": [
+        "a915d1b05195df5b00e6ced7ae703851469060bbe6bb9a4650671e8c98da3802",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "pptx_slide": 10,
+      "title": "Forward and Reverse SDEs",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Forward and Reverse SDEs",
+        "The reverse time SDE can also be defined using 𝑌! = 𝑋E1)! :",
+        "1",
+        "𝑑𝑋E! = 𝑓 ̅ 𝑋E! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊",
+        "C! ,   𝑋E1 − 𝑋E/ = D 𝑓 ̅ 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊",
+        "C!",
+        "!0/",
+        "/",
+        "𝑑𝑌! = −𝑓 ̅ 𝑌! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊! ,     𝑌/ − 𝑌* = D −𝑓 ̅ 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊!",
+        "!0*",
+        "𝜕𝑝! (𝑦)   𝜕                     1 𝜕\"",
+        "=    𝑓 ̅ 𝑦, 𝑡 𝑝! 𝑦    +      \" 𝑔 𝑡 \" 𝑝! 𝑦",
+        "𝜕𝑡      𝜕𝑥                    2 𝜕𝑥",
+        "𝜕𝑝!̅ (𝑥)    𝜕                     1 𝜕\"",
+        "=−    𝑓 ̅ 𝑦, 𝑡 𝑝! 𝑦    −      \"",
+        "𝑔 𝑡 \" 𝑝! 𝑦",
+        "𝜕𝑡        𝜕𝑥                    2 𝜕𝑥"
+      ],
+      "media_sha256": [
+        "caa1dd1bdd8641368af13a194a2542c2f668fd85bddda50305d37250e758950d",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734",
+        "adf0f5b9ef5a36652b35799054a06598ef5658593226f354f5bc44408c3f2e3d",
+        "5af97352534b722331cf7dc7eeffc55e56b55e4fce7d0adde249558e5e22fca7"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "pptx_slide": 11,
+      "title": "Nelson’s Identity",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Nelson’s Identity",
+        "How to enforce the same distributions for forward/reverse SDEs?",
+        "Nelson’s identity states the relation between two SDEs with same distributions:",
+        "𝑑𝑋! = 𝑓 𝑋! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊! , 𝑑𝑋E! = 𝑓 ̅ 𝑋E! , 𝑡 𝑑𝑡 + 𝑔 𝑡 𝑑𝑊",
+        "C! ,",
+        "The drift and the diffusion terms should satisfy:",
+        "𝑓 𝑥, 𝑡 − 𝑓 ̅ 𝑥, 𝑡 = 𝑔 𝑡 \"∇ log 𝑝! 𝑥 ."
+      ],
+      "media_sha256": [
+        "bac276d1238965c9e3afc7370af4d98ba26b687fac7d23c85e84ee9f33b00cfe",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "pptx_slide": 12,
+      "title": "Nelson’s Identity",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Nelson’s Identity",
+        "\"#(%,!)   \" ̅",
+        "#(%,!)",
+        "Proof: Let 𝑝! 𝑥 = 𝑃(𝑋! = 𝑥) and 𝑝!̅ 𝑥 = 𝑃(𝑋)! = 𝑥). We want         =        .",
+        "\"!         \"!",
+        "This could be derived by the FPK equation:",
+        "𝜕𝑝! (𝑥)     𝜕                    1 𝜕)       )",
+        "=−    𝑓 𝑥, 𝑡 𝑝! 𝑥     +        𝑔 𝑡   𝑝! 𝑥",
+        "𝜕𝑡        𝜕𝑥                   2 𝜕𝑥 )",
+        "𝜕𝑝!̅ (𝑥)    𝜕                    1 𝜕)",
+        "=−    𝑓 ̅ 𝑥, 𝑡 𝑝! 𝑥   −        𝑔 𝑡 )𝑝 𝑥",
+        "!",
+        "𝜕𝑡        𝜕𝑥                   2 𝜕𝑥 )",
+        "We have that:",
+        "𝜕                                  𝜕)",
+        "𝑓 𝑥, 𝑡 − 𝑓 ̅ 𝑥, 𝑡 𝑝! 𝑥 = ) 𝑔 𝑡 ) 𝑝! 𝑥",
+        "𝜕𝑥                                𝜕𝑥",
+        "𝜕",
+        "̅",
+        "𝑓 𝑥, 𝑡 − 𝑓 𝑥, 𝑡 𝑝! 𝑥 = 𝑔 𝑡      )",
+        "𝑝 𝑥 ,",
+        "𝜕𝑥 !",
+        "𝜕",
+        "̅",
+        "𝑓 𝑥, 𝑡 − 𝑓 𝑥, 𝑡 = 𝑔 𝑡   )    log 𝑝! 𝑥",
+        "𝜕𝑥"
+      ],
+      "media_sha256": [
+        "488619e49c264e0dd9f37e4cac634e3fe52f0515158d88d8734567302fe25525"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "pptx_slide": 13,
+      "title": "Score Matching Objective",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Score Matching Objective",
+        "Returning to the original problem, we want to estimate",
+        "the reverse drift coefficient 𝑓A̅ ≈ 𝑓 ̅ which satisfies:",
+        "𝑓A̅ 𝑥, 𝑡 ≈ 𝑓 𝑥, 𝑡 − 𝑔 𝑡 \"∇ log 𝑝! 𝑥",
+        "We already know about 𝑓 𝑥, 𝑡 in fixed form,",
+        "so how to estimate the “score function” ∇ log 𝑝! 𝑥 ?"
+      ],
+      "media_sha256": [
+        "2d16beb1c69afc990e8662ae5d4a81c26e001faa964ced2e0ecdca84718058e6",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "pptx_slide": 14,
+      "title": "Score Matching Objective",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Score Matching Objective",
+        "A simple “denoising” score identity gives us Monte Carlo estimation of score functions.",
+        "∇' 𝑝! 𝑥 = D ∇' 𝑝!|* 𝑥 𝑥* 𝑝* 𝑥* 𝑑𝑥1 = 𝔼'# ∇' 𝑝!|* 𝑥 𝑥*",
+        "'\"",
+        "Since diffusion models are (usually) defined",
+        "for the case when 𝑝!|* 𝑥 𝑥* is tractable,",
+        "the models can be trained by the score matching loss:",
+        "ℒ 𝜃 = 𝔼'# ,'    (𝑓A̅ 𝑥, 𝑡 − 𝑓 𝑥, 𝑡 − ∇' 𝑝!|* 𝑥 𝑥*       ."
+      ],
+      "media_sha256": [
+        "e921e5481f450bb2a517c3253579432adbf66079869125e20c7f6bba93130b9d",
+        "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "pptx_slide": 15,
+      "title": "Today: Diffusion and Flow Matching",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "Today: Diffusion and Flow Matching",
+        "Diffusion models (SDE-based generation)",
+        "Flow matching models (ODE-based generation)",
+        "• Continuity equation",
+        "• Flows, velocity fields, and probability path",
+        "• Marginalization trick",
+        "• Flow matching loss and conditional flow matching loss",
+        "• Affine conditional flows and velocity parameterizations"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "pptx_slide": 16,
+      "title": "Continuity Equation",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Continuity Equation",
+        "Consider an ODE described as:",
+        "𝑑𝑋! = 𝑢 𝑋! , 𝑡 𝑑𝑡.",
+        "The probability path 𝑝! 𝑥 *C!C. where 𝑝! (𝑥) = 𝑃(𝑋! = 𝑥)",
+        "is described by the continuity equation:",
+        "𝜕           𝜕",
+        "𝑝! 𝑥 = −    𝑢 𝑥, 𝑡 𝑝! (𝑥) ,",
+        "𝜕𝑡          𝜕𝑥",
+        "… which could be derived as a special case of FPK equation",
+        "with zero diffusion terms (𝜎 𝑡 = 0).",
+        "𝜕𝑝! (𝑥)    𝜕                  1 𝜕\"       \"𝑝 𝑥",
+        "=−    𝑓 𝑥, 𝑡 𝑝! 𝑥   +        𝜎 𝑡   !",
+        "𝜕𝑡       𝜕𝑥                 2 𝜕𝑥 \""
+      ],
+      "media_sha256": [
+        "fef77534dd07ff5fa67d7e8784f519dd81f2ff2bf1d89d43f1690e1b6f389013",
+        "9215a852de2b8e48a221b0825e41e893b29d01543ca4dac76107b67081e23b9e"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "title": "Flow Matching",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching",
+        "How to generalize diffusion models to ODEs?",
+        "We want to find an ODE 𝑑𝑋! = 𝑢A 𝑋! , 𝑡 𝑑𝑡 described by",
+        "velocity field 𝑢A with probability path 𝑝! *C!C..",
+        "The ODE is also described by 𝑋! = 𝜓! (𝑋*), where",
+        "the flow 𝜓! is a one-to-one mapping.",
+        "Important: 𝑋# is the noise distribution, while it",
+        "The flow 𝜓! is also associated with                was the data distribution for diffusion models…",
+        "a push-forward operator 𝜓# 𝑝* = 𝑝! ."
+      ],
+      "media_sha256": [
+        "b23830d92288395ee42ae430734ce5a7b5b453cae90c3f70b0e65c8cf0884592",
+        "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
+        "6189d3c2d1a0746af1f3c3018139ba8649830fbe0c502c93366e62a9f533cf1b"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "title": "Flow Matching",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching",
+        "Similar to diffusion model, the target distribution is a marginalization",
+        "over a tractable conditional probability path 𝑝!|. 𝑥 𝑥. ,",
+        "expressed by a conditional velocity field 𝑢 𝑋! 𝑥. and its ODE.",
+        "The target path is called the marginal probability path:",
+        "𝑝! 𝑥 = ∫ 𝑝!|. 𝑥 𝑥. 𝑝 𝑥. 𝑑𝑥.,",
+        "𝑝. 𝑥 = 𝑝+,-,,       𝑝* 𝑥 = 𝒩 0,1 .",
+        "where 𝑝!|. 𝑥 𝑥. the conditional probability path induced",
+        "by conditional velocity fields:",
+        "𝑑𝑋! = 𝑢 𝑋! 𝑥. 𝑑𝑡"
+      ],
+      "media_sha256": [
+        "494b057aa5bd1f7d05eed9dfd684a9f388d71201548aba18e10c6130d9c3e631",
+        "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 19,
+      "pptx_slide": 19,
+      "title": "Flow Matching Outline",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching Outline",
+        "The corresponding flow 𝜓 𝑥 𝑥. is solution to the conditional ODE:",
+        "𝑑𝑋! = 𝑢 𝑋! 𝑥. 𝑑𝑡",
+        "It satisfies:",
+        "𝜕",
+        "𝑢 𝑋! 𝑥.       ̇ ). 𝑥 𝑥. |𝑥.)",
+        "= 𝜓(𝜓",
+        "𝜕𝑡"
+      ],
+      "media_sha256": [
+        "24e6ffdf6709fbe2e6fc20c5f3b78c018d80ef6a97ee97d567df33ba4a5262bd",
+        "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "title": "Flow Matching",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching",
+        "The most simple construction relies on Gaussian conditional",
+        "probability paths, induced from ODEs that correspond to",
+        "linear paths between data and a Gaussian prior.",
+        "1. Sample a pair of data and noise: 𝑥. ∼ 𝑝., 𝑥* ∼ 𝑝*.",
+        "2. ODE corresponds to the linear interpolation:",
+        "𝑥. − 𝑋!",
+        "𝑥! = 𝑥* + 𝑡 𝑥. − 𝑥* ,      𝑑𝑋! =         𝑑𝑡",
+        "(1 − 𝑡)",
+        "3. Conditional probability path:",
+        "𝑝! 𝑥 = 𝒩 𝑥 𝑡𝑥., 1 − 𝑡 \"𝐼 ."
+      ],
+      "media_sha256": [
+        "9dfdad6fa18b2f1ff658afb2be28838ed102b50d64e300bcbe8419f8d4b81794",
+        "069100315a141bb305e91909fd4862206ed19f9b4b8bf4dbc820a3a5231cdb64"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 21,
+      "pptx_slide": null,
+      "title": "Flow Matching",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching",
+        "It is important to think about the relation between marginal probability path, marginal",
+        "velocity field, conditional probability path, and conditional velocity field:",
+        "intractable",
+        "𝑢(𝑥1 )     generates",
+        "𝑝1 (𝑥)",
+        "???                              marginalization",
+        "generates",
+        "𝑢 𝑥1 𝑥2                      𝑝1 𝑥 𝑥2",
+        "tractable"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 22,
+      "pptx_slide": 22,
+      "title": "Marginalization Trick",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Marginalization Trick",
+        "How to describe the marginal velocity field 𝑢! (𝑥) in terms of 𝑢! (𝑥|𝑥.)?",
+        "𝑢! 𝑥 = D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑑𝑥. .",
+        "'$",
+        "G             G",
+        "Proof: first, recall that G! 𝑝! 𝑥   = − G'    𝑢! 𝑥 𝑝! 𝑥 .",
+        "𝜕             𝜕",
+        "𝑝! 𝑥 = D      𝑝!|. 𝑥 𝑥. 𝑝(𝑥.)𝑑𝑥.",
+        "𝜕𝑡         '$ 𝜕𝑡",
+        "𝜕",
+        "=D      𝑢! 𝑥 𝑥. 𝑝!|.(𝑥|𝑥.) 𝑝(𝑥.)𝑑𝑥.",
+        "'$ 𝜕𝑥",
+        "𝜕",
+        "=    D 𝑢! 𝑥 𝑥. 𝑝!,.(𝑥, 𝑥.)𝑑𝑥.",
+        "𝜕𝑥 '$"
+      ],
+      "media_sha256": [
+        "dd470db84c1348d959cb7cd232da39eb7dd09705c27b852a9c405242376b7727"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "title": "Marginalization Trick",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Marginalization Trick",
+        "The marginalization trick can be generalized to other conditions."
+      ],
+      "media_sha256": [
+        "50dcea5e828e680a2579bc30d75b49714d8ea88c3ede72504b2c373357f142a3"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 24,
+      "pptx_slide": 24,
+      "title": "Flow Matching Loss",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Flow Matching Loss",
+        "How to estimate the marginal flow?",
+        "𝑢! 𝑥 = D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑑𝑥.",
+        "'$",
+        "One could consider the flow matching loss:",
+        "\"",
+        "ℒHI 𝜃 = 𝔼!,'∼K%       𝑢A 𝑥, 𝑡 − D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑑𝑥.",
+        "'$",
+        "However, the term 𝑝.|! 𝑥. 𝑥 is intractable."
+      ],
+      "media_sha256": [
+        "b144e61495e5b575172883ccecf86073c45cdf170a594633b8fe7fb347b4c247"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 25,
+      "pptx_slide": null,
+      "title": "+",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "+",
+        "ℒ!\" 𝜃 = 𝔼#,%∼'!       𝑢( 𝑥, 𝑡 − * 𝑢# 𝑥 𝑥) 𝑝)|# 𝑥) 𝑥 𝑑𝑥)",
+        "Conditional Flow Matching Loss",
+        "%\"",
+        "Surprisingly, there exists a tractable conditional flow matching loss",
+        "with identical gradient to the flow matching loss:",
+        "\"",
+        "ℒLHI 𝜃 = 𝔼!,'$ ,'∼K%|$ ('% |'$ )   𝑢A 𝑥, 𝑡 − 𝑢! 𝑥 𝑥.             ,",
+        "∇A ℒLHI 𝜃 = ∇A ℒHI 𝜃",
+        "Proof: taking the derivative makes the problem easier!",
+        "\"",
+        "∇A ℒHI 𝜃 = ∇A 𝔼!,'∼K%       𝑢A 𝑥, 𝑡 − D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑑𝑥.",
+        "'$",
+        "= 𝔼!,'∼K% ∇𝑢A (𝑥, 𝑡) 𝑢A 𝑥, 𝑡 − D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑑𝑥.",
+        "'$",
+        "= ∇𝑢A 𝑥, 𝑡    𝔼!,'∼K% 𝑢A 𝑥, 𝑡     − D 𝑢! 𝑥 𝑥. 𝑝.|! 𝑥. 𝑥 𝑝! (𝑥)𝑑𝑥. = ∇A ℒLHI 𝜃",
+        "'$"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "title": "Gaussian Conditional Flow Matching",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Gaussian Conditional Flow Matching"
+      ],
+      "media_sha256": [
+        "6eb9475fefd90e2de2dcb4fbdf37fc226ed7dcd558b5bcfd09f0f2cb8a5f99db",
+        "6acbd56d8c13244168b7d1dd28ac209a8a9a249e621e4bfb3863fd85340f9916",
+        "4e1d05985ae18da76060f9738e2691ba13827d49a1b7a50b9088ba2308d03006",
+        "5fcb97c855ad36579ed4731fc1e0b7cfe7a7af4f33afb7aee9c4264287ffc5ac",
+        "bfba94ca1f59e1c5190b4a76266103ee7aaf253ceeba407586b35e7f09ae6145"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 27,
+      "pptx_slide": 27,
+      "title": "Affine Conditional Flows",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Affine Conditional Flows",
+        "A class of popular flows called the affine conditional flows are defined as:",
+        "𝜓! 𝑥 𝑥. = 𝛼! 𝑥. + 𝜎! 𝑥",
+        "where (𝛼! , 𝜎! ) are given by some scheduler.",
+        "• 𝛼\" is strictly monotonically increasing from 0 to 1.",
+        "• 𝜎\" is strictly monotonically decreasing from 1 to 0.",
+        "𝜕",
+        "𝑢 𝑥 𝑥$ =       𝜓̇ ! 𝜓!%$ 𝑥 𝑥$ |𝑥$",
+        "𝜕𝑡",
+        "Then the conditional flow matching loss takes the form:",
+        "\"",
+        "𝔼!,'$ ,'# ,'∼K%|$ (⋅|'$ ,'# )   𝑢A 𝑥, 𝑡 − 𝛼̇ ! 𝑥. + 𝜎̇! 𝑥*       ,",
+        "At the optimal point, this converges to 𝑢(𝑥, 𝑡) = 𝛼̇ ! 𝔼 𝑋. 𝑋! = 𝑥 + 𝜎̇! 𝑋*|𝑋! = 𝑥 ."
+      ],
+      "media_sha256": [
+        "ceece682cdc96e9474807b1228b02dc7845f542ab3f68abde0aa6933dd5eaff7",
+        "8ac70a4388f2fd541581bc86b24a569cf08f3e46cfc703f1eded54b5af32e077"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 28,
+      "pptx_slide": 28,
+      "title": "Velocity Parameterization",
+      "classification": "substantive",
+      "coverage": "covered",
+      "text": [
+        "Velocity Parameterization",
+        "In the affine case, the marginal velocity field admits",
+        "parameterizations based on 𝑥.- and 𝑥*- predictions:",
+        "𝑢 𝑥, 𝑡",
+        "= 𝛼̇ ! 𝔼 𝑋. 𝑋! = 𝑥 + 𝜎̇! 𝑋*|𝑋! = 𝑥",
+        "𝜎̇!            𝜎̇!",
+        "= 𝑥 + 𝛼̇ ! − 𝛼!      𝔼 𝑋.|𝑋! = 𝑥",
+        "𝜎!             𝜎!",
+        "𝛼̇ !           𝛼̇ !",
+        "= 𝑥 + 𝜎̇! − 𝜎!       𝔼 𝑋*|𝑋! = 𝑥",
+        "𝛼!             𝛼!",
+        "Then we can parameterize 𝑢A 𝑥, 𝑡 to “predict 𝑥.” or to “predict 𝑥*”."
+      ],
+      "media_sha256": [
+        "39ef39633464c89020172ab1076ea3514921b8b79f2479aebe196400048cddeb"
+      ],
+      "notes": ""
+    },
+    {
+      "slide": 29,
+      "pptx_slide": 29,
+      "title": "End of Slide",
+      "classification": "transition-only",
+      "coverage": "omitted-transition",
+      "text": [
+        "End of Slide",
+        "Reference:",
+        "• Flow matching guide and code (https://arxiv.org/abs/2412.06264)"
+      ],
+      "media_sha256": [],
+      "notes": ""
+    }
+  ],
+  "media": [
+    {
+      "sha256": "b6c36781e70b2ec2a53229c37e14e58ae1b39445513175ed63adea68d86f55e8",
+      "pptx_path": "ppt/media/image1.png",
+      "extension": ".png",
+      "bytes": 102552,
+      "slides": [
+        4
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "adf0f5b9ef5a36652b35799054a06598ef5658593226f354f5bc44408c3f2e3d",
+      "pptx_path": "ppt/media/image10.png",
+      "extension": ".png",
+      "bytes": 16754,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5af97352534b722331cf7dc7eeffc55e56b55e4fce7d0adde249558e5e22fca7",
+      "pptx_path": "ppt/media/image11.png",
+      "extension": ".png",
+      "bytes": 16591,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bac276d1238965c9e3afc7370af4d98ba26b687fac7d23c85e84ee9f33b00cfe",
+      "pptx_path": "ppt/media/image12.png",
+      "extension": ".png",
+      "bytes": 98933,
+      "slides": [
+        11
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "488619e49c264e0dd9f37e4cac634e3fe52f0515158d88d8734567302fe25525",
+      "pptx_path": "ppt/media/image13.png",
+      "extension": ".png",
+      "bytes": 141901,
+      "slides": [
+        12
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "2d16beb1c69afc990e8662ae5d4a81c26e001faa964ced2e0ecdca84718058e6",
+      "pptx_path": "ppt/media/image14.png",
+      "extension": ".png",
+      "bytes": 93928,
+      "slides": [
+        13
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e921e5481f450bb2a517c3253579432adbf66079869125e20c7f6bba93130b9d",
+      "pptx_path": "ppt/media/image15.png",
+      "extension": ".png",
+      "bytes": 124721,
+      "slides": [
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "fef77534dd07ff5fa67d7e8784f519dd81f2ff2bf1d89d43f1690e1b6f389013",
+      "pptx_path": "ppt/media/image16.png",
+      "extension": ".png",
+      "bytes": 113555,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9215a852de2b8e48a221b0825e41e893b29d01543ca4dac76107b67081e23b9e",
+      "pptx_path": "ppt/media/image17.png",
+      "extension": ".png",
+      "bytes": 16214,
+      "slides": [
+        16
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b23830d92288395ee42ae430734ce5a7b5b453cae90c3f70b0e65c8cf0884592",
+      "pptx_path": "ppt/media/image18.png",
+      "extension": ".png",
+      "bytes": 118467,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "42861fd95062862f7a33f9ab44c3f5be115eb2936a25fb2ee32d5619e4912aed",
+      "pptx_path": "ppt/media/image19.png",
+      "extension": ".png",
+      "bytes": 78744,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b2feb2cd4c50a261c8322a1fe249031fa57fc762ec78b4a68a3e70a9ca06a5c3",
+      "pptx_path": "ppt/media/image2.png",
+      "extension": ".png",
+      "bytes": 127841,
+      "slides": [
+        5
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6189d3c2d1a0746af1f3c3018139ba8649830fbe0c502c93366e62a9f533cf1b",
+      "pptx_path": "ppt/media/image20.png",
+      "extension": ".png",
+      "bytes": 16576,
+      "slides": [
+        17
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "069100315a141bb305e91909fd4862206ed19f9b4b8bf4dbc820a3a5231cdb64",
+      "pptx_path": "ppt/media/image200.png",
+      "extension": ".png",
+      "bytes": 115143,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "494b057aa5bd1f7d05eed9dfd684a9f388d71201548aba18e10c6130d9c3e631",
+      "pptx_path": "ppt/media/image21.png",
+      "extension": ".png",
+      "bytes": 161266,
+      "slides": [
+        18
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "e386bfb12bd1eb717055ad80ad3a769eaeef8ed9838c50be3aacea3f0db3116f",
+      "pptx_path": "ppt/media/image210.png",
+      "extension": ".png",
+      "bytes": 4326,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3867377373845f2bb370465d99d6ef8b66dd68533f2ffb8b40d5bfdb4abeaef8",
+      "pptx_path": "ppt/media/image22.png",
+      "extension": ".png",
+      "bytes": 77386,
+      "slides": [
+        18,
+        18,
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b87f895135db83e94d9e0e67f221646d1fc6dc4493454026ed82deb2feb8ba86",
+      "pptx_path": "ppt/media/image220.png",
+      "extension": ".png",
+      "bytes": 4519,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "24e6ffdf6709fbe2e6fc20c5f3b78c018d80ef6a97ee97d567df33ba4a5262bd",
+      "pptx_path": "ppt/media/image23.png",
+      "extension": ".png",
+      "bytes": 66909,
+      "slides": [
+        19
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "93dd0677b229b98cbed78d5296f57899fdebf576c0ed97da07a90001eb0112cf",
+      "pptx_path": "ppt/media/image230.png",
+      "extension": ".png",
+      "bytes": 4042,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9dfdad6fa18b2f1ff658afb2be28838ed102b50d64e300bcbe8419f8d4b81794",
+      "pptx_path": "ppt/media/image24.png",
+      "extension": ".png",
+      "bytes": 60452,
+      "slides": [
+        20
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4be06f0e366ecd05066e3226d2c66bbe1ff4290d64c34c7ab929140838bd6fdb",
+      "pptx_path": "ppt/media/image240.png",
+      "extension": ".png",
+      "bytes": 3945,
+      "slides": [
+        21
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6acbd56d8c13244168b7d1dd28ac209a8a9a249e621e4bfb3863fd85340f9916",
+      "pptx_path": "ppt/media/image25.png",
+      "extension": ".png",
+      "bytes": 24044,
+      "slides": [
+        21,
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "4e1d05985ae18da76060f9738e2691ba13827d49a1b7a50b9088ba2308d03006",
+      "pptx_path": "ppt/media/image26.png",
+      "extension": ".png",
+      "bytes": 23293,
+      "slides": [
+        21,
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "5fcb97c855ad36579ed4731fc1e0b7cfe7a7af4f33afb7aee9c4264287ffc5ac",
+      "pptx_path": "ppt/media/image27.png",
+      "extension": ".png",
+      "bytes": 28851,
+      "slides": [
+        21,
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bfba94ca1f59e1c5190b4a76266103ee7aaf253ceeba407586b35e7f09ae6145",
+      "pptx_path": "ppt/media/image28.png",
+      "extension": ".png",
+      "bytes": 19292,
+      "slides": [
+        21,
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dd470db84c1348d959cb7cd232da39eb7dd09705c27b852a9c405242376b7727",
+      "pptx_path": "ppt/media/image29.png",
+      "extension": ".png",
+      "bytes": 131686,
+      "slides": [
+        22
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "88311b3d62ec7c29597f799b1c5162cfaa11821153360448aa8f699c5cb731fb",
+      "pptx_path": "ppt/media/image3.png",
+      "extension": ".png",
+      "bytes": 124774,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "50dcea5e828e680a2579bc30d75b49714d8ea88c3ede72504b2c373357f142a3",
+      "pptx_path": "ppt/media/image30.png",
+      "extension": ".png",
+      "bytes": 75421,
+      "slides": [
+        23
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b144e61495e5b575172883ccecf86073c45cdf170a594633b8fe7fb347b4c247",
+      "pptx_path": "ppt/media/image31.png",
+      "extension": ".png",
+      "bytes": 106822,
+      "slides": [
+        24
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "bf5c717cd8478025bcddc9e47bae86cfcd0e3af2d58f855b5c56955fe9066b77",
+      "pptx_path": "ppt/media/image32.png",
+      "extension": ".png",
+      "bytes": 172084,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "dca77841b725671d9203e8014285c1bbe13954f1fe42e37d1135303d44eeaf48",
+      "pptx_path": "ppt/media/image33.png",
+      "extension": ".png",
+      "bytes": 15238,
+      "slides": [
+        25
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "6eb9475fefd90e2de2dcb4fbdf37fc226ed7dcd558b5bcfd09f0f2cb8a5f99db",
+      "pptx_path": "ppt/media/image34.png",
+      "extension": ".png",
+      "bytes": 136991,
+      "slides": [
+        26
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "ceece682cdc96e9474807b1228b02dc7845f542ab3f68abde0aa6933dd5eaff7",
+      "pptx_path": "ppt/media/image35.png",
+      "extension": ".png",
+      "bytes": 135931,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "39ef39633464c89020172ab1076ea3514921b8b79f2479aebe196400048cddeb",
+      "pptx_path": "ppt/media/image350.png",
+      "extension": ".png",
+      "bytes": 97276,
+      "slides": [
+        28
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "8ac70a4388f2fd541581bc86b24a569cf08f3e46cfc703f1eded54b5af32e077",
+      "pptx_path": "ppt/media/image36.png",
+      "extension": ".png",
+      "bytes": 8547,
+      "slides": [
+        27
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "66afcd1d943330bb6a23b571bceba4cba28ae5783c6df2f267383d44a08615a6",
+      "pptx_path": "ppt/media/image4.png",
+      "extension": ".png",
+      "bytes": 1764588,
+      "slides": [
+        6
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "9740d898d697406e1dceba6e329183fee54b4db80ff5faf0ca6daabc5ae2066f",
+      "pptx_path": "ppt/media/image5.png",
+      "extension": ".png",
+      "bytes": 91573,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "b91368f2854c319b4303fafcc2363158febd0fef0dae292bd9e21e936e5fd60e",
+      "pptx_path": "ppt/media/image6.png",
+      "extension": ".png",
+      "bytes": 417683,
+      "slides": [
+        7
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "3118cc47f6b136badb414abae7e02028f9be225f27c3f88f7ec4ae26183ec431",
+      "pptx_path": "ppt/media/image60.png",
+      "extension": ".png",
+      "bytes": 67594,
+      "slides": [
+        8
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "c69ff0e6be34c711678285288962675efed6a8d5ee77e03f5749f6d1f1d9c734",
+      "pptx_path": "ppt/media/image7.png",
+      "extension": ".png",
+      "bytes": 262443,
+      "slides": [
+        8,
+        9,
+        10,
+        11,
+        13,
+        14
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "a915d1b05195df5b00e6ced7ae703851469060bbe6bb9a4650671e8c98da3802",
+      "pptx_path": "ppt/media/image8.png",
+      "extension": ".png",
+      "bytes": 86463,
+      "slides": [
+        9
+      ],
+      "reuse_status": "not-published"
+    },
+    {
+      "sha256": "caa1dd1bdd8641368af13a194a2542c2f668fd85bddda50305d37250e758950d",
+      "pptx_path": "ppt/media/image9.png",
+      "extension": ".png",
+      "bytes": 82972,
+      "slides": [
+        10
+      ],
+      "reuse_status": "not-published"
+    }
+  ],
+  "figure_coverage": {
+    "unique_substantive_figures": 8,
+    "reused_figures": 8,
+    "redundant_figures": 0,
+    "reuse_ratio": 1.0
+  },
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-14.md",
+  "pptx_figures": [
+    {
+      "slide": 6,
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s06-langevin-density.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image4.png"
+      ],
+      "content_role": "plot",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 7,
+      "pptx_slide": 7,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s07-forward-sde.png",
+      "extraction_method": "pptx-picture-export",
+      "source_shape_name": "Picture 4",
+      "source_media_paths": [
+        "ppt/media/image6.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 8,
+      "pptx_slide": 8,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s08-forward-reverse-sde.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image7.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 17,
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s17-noise-data-endpoints.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
+      ],
+      "content_role": "illustration",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 18,
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s18-conditional-marginal-objects.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 20,
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s20-linear-conditional-path.png",
+      "extraction_method": "pptx-picture-export",
+      "source_shape_name": "Picture 6",
+      "source_media_paths": [
+        "ppt/media/image24.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 23,
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s23-conditioning-choices.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    },
+    {
+      "slide": 26,
+      "pptx_slide": 26,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-14/s26-gaussian-cfm-map.png",
+      "extraction_method": "pptx-picture-export",
+      "source_shape_name": "Content Placeholder 4",
+      "source_media_paths": [
+        "ppt/media/image34.png"
+      ],
+      "content_role": "diagram",
+      "reuse_status": "reused"
+    }
+  ],
+  "asset_migration_status": "pptx-native-complete"
+}
