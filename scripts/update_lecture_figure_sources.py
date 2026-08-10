@@ -82,9 +82,10 @@ def parse_figure_includes(post_path: Path) -> dict[str, dict[str, str]]:
         path = attrs.get("path")
         if not path:
             continue
-        if path in figures:
-            raise ValueError(f"{post_path}: duplicate figure path {path}")
-        figures[path] = attrs
+        # A deck can deliberately reuse one visual on multiple slides, and the
+        # article may mirror that repetition with context-specific captions.
+        # The source registry is asset-based, so retain the first include here.
+        figures.setdefault(path, attrs)
     return figures
 
 
@@ -151,16 +152,20 @@ def reused_assets(manifest: dict) -> dict[str, dict]:
         if slide.get("pptx_slide")
     }
     assets: dict[str, dict] = {}
+    source_media_by_asset: dict[str, set[str]] = defaultdict(set)
+    logical_slides_by_media: dict[str, list[int]] = {}
     for media in manifest.get("media", []):
-        if media.get("reuse_status") != "reused":
-            continue
-        path = media["asset_path"]
         logical_slides = sorted(
             {
                 pptx_to_logical.get(number, number)
                 for number in media.get("slides", [])
             }
         )
+        logical_slides_by_media[media["pptx_path"]] = logical_slides
+        if media.get("reuse_status") != "reused":
+            continue
+        path = media["asset_path"]
+        source_media_by_asset[path].add(media["pptx_path"])
         assets[path] = {
             "slides": logical_slides,
             "extraction_method": "pptx-media-extraction",
@@ -170,9 +175,15 @@ def reused_assets(manifest: dict) -> dict[str, dict]:
             continue
         path = figure["asset_path"]
         if path in assets:
-            raise ValueError(f"duplicate published figure record for {path}")
+            figure_sources = set(figure.get("source_media_paths", []))
+            if not figure_sources.intersection(source_media_by_asset[path]):
+                raise ValueError(f"conflicting published figure record for {path}")
+        figure_slides = {figure["slide"]}
+        if figure["extraction_method"] == "pptx-media-copy":
+            for source_path in figure.get("source_media_paths", []):
+                figure_slides.update(logical_slides_by_media.get(source_path, []))
         assets[path] = {
-            "slides": [figure["slide"]],
+            "slides": sorted(figure_slides),
             "extraction_method": figure["extraction_method"],
         }
     for region in manifest.get("pdf_regions", []):
