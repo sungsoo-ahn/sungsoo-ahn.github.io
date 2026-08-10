@@ -1920,507 +1920,321 @@
     }
   ],
   "figure_coverage": {
-    "unique_substantive": 45,
-    "reused": 45,
-    "scientifically_redundant": 0,
+    "unique_substantive_figures": 28,
+    "reused_figures": 28,
+    "redundant_figures": 0,
     "reuse_ratio": 1.0
   },
-  "pdf_regions": [
+  "published_post": "_posts/2026-08-09-gdl-2025-lecture-15.md",
+  "pptx_figures": [
     {
       "slide": 5,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 5,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s05-flow-map.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image1.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-5.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 6,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 6,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s06-conditional-marginal-paths.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image2.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-6.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 7,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-7.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 8,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-8.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 9,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 9,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s09-conditioning-choices.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image9.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-9.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 11,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 11,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s11-manifold-domains.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image10.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-11.webp",
+      "content_role": "composite",
       "reuse_status": "reused"
     },
     {
       "slide": 12,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 12,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s12-embedded-manifolds.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image11.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-12.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 13,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-13.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 14,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-14.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 15,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-15.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 16,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-16.webp",
+      "content_role": "composite",
       "reuse_status": "reused"
     },
     {
       "slide": 17,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 17,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s17-geodesic-conditional-flow.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image19.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-17.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 18,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 18,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s18-riemannian-flow-losses.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image22.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-18.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 19,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 19,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s19-local-euclidean-patches.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image24.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-19.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 20,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 20,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s20-chart-atlas.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image26.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-20.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 21,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-21.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 22,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 22,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s22-extrinsic-sphere.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image30.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-22.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 23,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 23,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s23-stereographic-projection.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image32.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-23.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 24,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 24,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s24-spherical-coordinates.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image34.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-24.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 26,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-26.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 27,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 27,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s27-tangent-derivation.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image36.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-27.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 28,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-28.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 29,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-29.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 30,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 30,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s30-velocity-designs.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image43.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-30.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 32,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-32.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 33,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 33,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s33-metric-geometries.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image49.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-33.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 34,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-34.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 35,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 35,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s35-norm-angle-loss.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image52.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-35.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 36,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-36.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 37,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-37.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 38,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-38.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 39,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 39,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s39-flow-diffusion-losses.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image60.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-39.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 40,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 40,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s40-inference-constraints.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image61.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-40.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 42,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 42,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s42-manifold-operators.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image62.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-42.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 43,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 43,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s43-exponential-map.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image63.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-43.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 44,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 44,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s44-logarithmic-map.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image66.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-44.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 45,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 45,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s45-parallel-transport.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image69.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-45.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 46,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 46,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s46-euclidean-so3-operations.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image71.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-46.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 47,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 47,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s47-manifold-inference.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image72.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-47.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 49,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-49.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 50,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 50,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s50-riemannian-gradient.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image75.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-50.webp",
-      "reuse_status": "reused"
-    },
-    {
-      "slide": 51,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
-      ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-51.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 52,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 52,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s52-riemannian-divergence.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image78.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-52.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 53,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 53,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s53-euclidean-geometric-summary.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image79.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-53.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     },
     {
       "slide": 54,
-      "crop": [
-        0.0,
-        0.0,
-        1.0,
-        1.0
+      "pptx_slide": 54,
+      "asset_path": "assets/img/blog/lectures/gdl-2025-15/s54-likelihood-summary.png",
+      "extraction_method": "pptx-media-copy",
+      "source_media_paths": [
+        "ppt/media/image80.png"
       ],
-      "asset_path": "assets/img/blog/lectures/gdl-2025-15/slide-54.webp",
+      "content_role": "diagram",
       "reuse_status": "reused"
     }
   ],
-  "published_post": "_posts/2026-08-09-gdl-2025-lecture-15.md"
+  "asset_migration_status": "pptx-native-complete"
 }
