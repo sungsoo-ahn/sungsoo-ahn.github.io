@@ -1061,10 +1061,7 @@
       "slide": 7,
       "pptx_slide": 7,
       "title": "Course Project: Blog Post                                                           See an example of",
-      "url_candidates": [
-        "https://docs.google.com/spreadsheets/d/15PtC9GrSOAWyhSf1C0jQlABeQSmVYy5HLizc0cYMiI4/edit?usp=sharing",
-        "https://iclr-blogposts.github.io/2024/blog/bench-hvp/"
-      ],
+      "url_candidates": [],
       "citation_candidates": [
         "Grades are 100% based on a project to write a research blog post. ICLR 2024, about"
       ]
@@ -1491,10 +1488,7 @@
       "slide": 6,
       "pptx_slide": 6,
       "title": "Course Project: Blog Post                                                           See an example of",
-      "url_candidates": [
-        "https://docs.google.com/spreadsheets/d/15PtC9GrSOAWyhSf1C0jQlABeQSmVYy5HLizc0cYMiI4/edit?usp=sharing",
-        "https://iclr-blogposts.github.io/2024/blog/bench-hvp/"
-      ],
+      "url_candidates": [],
       "citation_candidates": [
         "Grades are 100% based on a project to write a research blog post. ICLR 2024, about"
       ]
@@ -2628,8 +2622,7 @@
       "pptx_slide": 3,
       "title": "References",
       "url_candidates": [
-        "https://youtu.be/ASQYjbUBYzs?si=K69MP",
-        "https://youtu.be/ASQYjbUBYzs?si=K69MP7qHVWwnKa1N"
+        "https://youtu.be/ASQYjbUBYzs?si=K69MP"
       ],
       "citation_candidates": []
     },
@@ -3589,10 +3582,7 @@
       "slide": 3,
       "pptx_slide": 3,
       "title": "Project Announcement",
-      "url_candidates": [
-        "https://docs.google.com/spreadsheets/d/1m-ZcprMr0yVgweAunollQRBHLn3Q3cdaqTaczqquIew/edit?usp=sharing",
-        "https://forms.gle/ixao5kkme82b6gyk7"
-      ],
+      "url_candidates": [],
       "citation_candidates": []
     },
     "gdl-2025-07:30": {
@@ -4272,10 +4262,7 @@
       "slide": 5,
       "pptx_slide": 5,
       "title": "ClofNet: Using Complete Local Frames",
-      "url_candidates": [
-        "https://en.wikipedia.org/wiki/Basis_of_a_vector_space",
-        "https://en.wikipedia.org/wiki/Linearly_dependent"
-      ],
+      "url_candidates": [],
       "citation_candidates": []
     },
     "gdl-2025-08:6": {
@@ -4738,7 +4725,6 @@
       "title": "Reference",
       "url_candidates": [
         "https://alchemybio.substack.com/p/spherical-equivariant-graph-",
-        "https://alchemybio.substack.com/p/spherical-equivariant-graph-transformer?open=false#%C2%A7clebsch-gordan-decomposition",
         "https://arxiv.org/abs/2312.07511",
         "https://www.youtube.com/watch?v=cB4zsnLnZfo"
       ],
@@ -8558,9 +8544,7 @@
       "slide": 31,
       "pptx_slide": 31,
       "title": "scCello",
-      "url_candidates": [
-        "https://arxiv.org/abs/2408.12373"
-      ],
+      "url_candidates": [],
       "citation_candidates": [
         "Yuan et al., “Cell-ontology guided transcriptome foundation model“, NeurIPS 2024"
       ]
@@ -20676,10 +20660,7 @@
       "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "cb1c2758ad4f3b4e2b0e0d3a6e759763dbbb6056570339f4798af21698c5f948",
-      "candidate_urls": [
-        "https://en.wikipedia.org/wiki/Basis_of_a_vector_space",
-        "https://en.wikipedia.org/wiki/Linearly_dependent"
-      ],
+      "candidate_urls": [],
       "candidate_citations": [],
       "status": "pending",
       "source_ids": [],
@@ -28129,9 +28110,7 @@
       "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "b79f2b03ef40f47016379d8d2c9ae92d74f6b0021c28d8877210b55094d119b9",
-      "candidate_urls": [
-        "https://arxiv.org/abs/2408.12373"
-      ],
+      "candidate_urls": [],
       "candidate_citations": [
         "Yuan et al., “Cell-ontology guided transcriptome foundation model“, NeurIPS 2024"
       ],
@@ -28155,9 +28134,7 @@
       "extraction_method": "pptx-media-copy",
       "reuse_basis": "rights-cleared-lecture-deck",
       "content_sha256": "5170765ea24133dfa30197dafb49525b917695d2eea9be088bdeb3aa58b8e27d",
-      "candidate_urls": [
-        "https://arxiv.org/abs/2408.12373"
-      ],
+      "candidate_urls": [],
       "candidate_citations": [
         "Yuan et al., “Cell-ontology guided transcriptome foundation model“, NeurIPS 2024"
       ],

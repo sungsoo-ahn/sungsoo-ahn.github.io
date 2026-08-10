@@ -23,8 +23,6 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
-from xml.etree import ElementTree as ET
-from zipfile import BadZipFile, ZipFile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,28 +87,6 @@ def parse_figure_includes(post_path: Path) -> dict[str, dict[str, str]]:
     return figures
 
 
-def external_slide_urls(pptx_path: Path, pptx_slide: int) -> list[str]:
-    rel_path = f"ppt/slides/_rels/slide{pptx_slide}.xml.rels"
-    if not pptx_path.exists():
-        return []
-    try:
-        with ZipFile(pptx_path) as archive:
-            if rel_path not in archive.namelist():
-                return []
-            root = ET.fromstring(archive.read(rel_path))
-    except (BadZipFile, OSError, ET.ParseError):
-        return []
-
-    urls: set[str] = set()
-    for relation in root:
-        target = relation.attrib.get("Target", "")
-        if relation.attrib.get("TargetMode") != "External":
-            continue
-        if target.startswith(("http://", "https://")):
-            urls.add(normalize_url(target))
-    return sorted(urls)
-
-
 def citation_candidates(text_lines: list[str]) -> list[str]:
     candidates: list[str] = []
     for line in text_lines:
@@ -123,19 +99,20 @@ def citation_candidates(text_lines: list[str]) -> list[str]:
 
 
 def deck_slide_evidence(manifest: dict) -> dict[int, dict]:
-    pptx_path = Path(manifest.get("source_pptx", ""))
     evidence: dict[int, dict] = {}
     for slide in manifest.get("slides", []):
         slide_number = slide["slide"]
         text_lines = slide.get("text", [])
         urls = {normalize_url(url) for url in URL_RE.findall(" ".join(text_lines))}
-        pptx_slide = slide.get("pptx_slide")
-        if pptx_slide:
-            urls.update(external_slide_urls(pptx_path, pptx_slide))
+        urls.update(
+            normalize_url(url)
+            for url in slide.get("external_urls", [])
+            if url.startswith(("http://", "https://"))
+        )
         evidence[slide_number] = {
             "deck_id": manifest["deck_id"],
             "slide": slide_number,
-            "pptx_slide": pptx_slide,
+            "pptx_slide": slide.get("pptx_slide"),
             "title": slide.get("title", ""),
             "url_candidates": sorted(urls),
             "citation_candidates": citation_candidates(text_lines),
