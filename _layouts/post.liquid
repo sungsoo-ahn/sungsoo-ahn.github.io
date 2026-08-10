@@ -45,11 +45,6 @@ layout: default
         {% if page.selected %}
           <a class="blog-post-status blog-post-status-selected" href="{{ '/blog/selected/' | relative_url }}">Selected</a>
         {% endif %}
-        {% if page.editorial_status == 'human-reviewed' %}
-          <a class="blog-post-status blog-post-status-reviewed" href="{{ '/blog/human-reviewed/' | relative_url }}">Human-reviewed</a>
-        {% elsif page.editorial_status == 'ai-generated' %}
-          <a class="blog-post-status blog-post-status-ai" href="{{ '/blog/ai-generated/' | relative_url }}">AI-generated</a>
-        {% endif %}
         {% if author_text %}
           <span>{{ author_text }}</span>
         {% endif %}
