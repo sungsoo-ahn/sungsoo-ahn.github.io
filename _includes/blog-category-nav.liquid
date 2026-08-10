@@ -31,10 +31,12 @@
     {% for category in site.data.blog_categories %}
       {% assign category_posts = site.categories[category.slug] %}
       {% assign category_post_count = category_posts.size | default: 0 %}
-      {% assign category_url = category.slug | prepend: '/blog/category/' | append: '/' %}
-      <span>
-        <a href="{{ category_url | relative_url }}"{% if page.url == category_url %} class="is-active" aria-current="page"{% endif %}>{{ category.title }} {{ category_post_count }}</a>
-      </span>
+      {% if category_post_count > 0 %}
+        {% assign category_url = category.slug | prepend: '/blog/category/' | append: '/' %}
+        <span>
+          <a href="{{ category_url | relative_url }}"{% if page.url == category_url %} class="is-active" aria-current="page"{% endif %}>{{ category.title }} {{ category_post_count }}</a>
+        </span>
+      {% endif %}
     {% endfor %}
   </nav>
 </div>
