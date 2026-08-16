@@ -1,38 +1,38 @@
 {% assign course_schedule = site.data[include.data] %}
 {% if course_schedule %}
-  <section class="course-schedule" aria-labelledby="course-schedule-title">
-    <h2 id="course-schedule-title">Schedule</h2>
-    <p class="course-schedule-intro">
-      Class meets every Monday and Wednesday from 10:30 AM to 12:00 PM, beginning Aug. 31.
-    </p>
-    <div class="table-responsive">
-      <table>
-        <thead>
+<section class="course-schedule" aria-labelledby="course-schedule-title">
+  <h2 id="course-schedule-title">Schedule</h2>
+  <p class="course-schedule-intro">
+    Class meets every Monday and Wednesday from 10:30 AM to 12:00 PM, beginning Aug. 31.
+  </p>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Dates</th>
+          <th scope="col">Topic</th>
+          <th scope="col">Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in course_schedule %}
           <tr>
-            <th scope="col">Dates</th>
-            <th scope="col">Topic</th>
-            <th scope="col">Focus</th>
+            <td class="course-schedule-dates">
+              <ul>
+                {% for meeting in block.dates %}
+                  <li{% if meeting.cancelled %} class="course-schedule-date-cancelled"{% endif %}>
+                    <span class="course-schedule-date">{{ meeting.date }}</span>
+                    {% if meeting.note %}<span class="course-schedule-date-note">{{ meeting.note }}</span>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td class="course-schedule-topic">{{ block.topic }}</td>
+            <td>{{ block.focus }}</td>
           </tr>
-        </thead>
-        <tbody>
-          {% for block in course_schedule %}
-            <tr>
-              <td class="course-schedule-dates">
-                <ul>
-                  {% for meeting in block.dates %}
-                    <li{% if meeting.cancelled %} class="course-schedule-date-cancelled"{% endif %}>
-                      <span class="course-schedule-date">{{ meeting.date }}</span>
-                      {% if meeting.note %}<span class="course-schedule-date-note">{{ meeting.note }}</span>{% endif %}
-                    </li>
-                  {% endfor %}
-                </ul>
-              </td>
-              <td class="course-schedule-topic">{{ block.topic }}</td>
-              <td>{{ block.focus }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </section>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
 {% endif %}
