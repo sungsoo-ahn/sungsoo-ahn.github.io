@@ -5,34 +5,55 @@
   <p class="course-schedule-intro">
     Class meets every Monday and Wednesday from 10:30 AM to 12:00 PM, beginning Aug. 31.
   </p>
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Dates</th>
-          <th scope="col">Topic</th>
-          <th scope="col">Focus</th>
+  <table class="course-schedule-table">
+    <caption class="sr-only">Course schedule by topic, dates, and focus</caption>
+    {% for block in course_schedule %}
+      <tbody class="course-schedule-section">
+        <tr class="course-schedule-topic-row">
+          <th scope="rowgroup">
+            <span class="course-schedule-row-label">Topic</span>
+            <span class="course-schedule-topic">{{ block.topic }}</span>
+          </th>
         </tr>
-      </thead>
-      <tbody>
-        {% for block in course_schedule %}
-          <tr>
-            <td class="course-schedule-dates">
-              <ul>
-                {% for meeting in block.dates %}
-                  <li{% if meeting.cancelled %} class="course-schedule-date-cancelled"{% endif %}>
-                    <span class="course-schedule-date">{{ meeting.date }}</span>
-                    {% if meeting.note %}<span class="course-schedule-date-note">{{ meeting.note }}</span>{% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-            </td>
-            <td class="course-schedule-topic">{{ block.topic }}</td>
-            <td>{{ block.focus }}</td>
-          </tr>
-        {% endfor %}
+        <tr class="course-schedule-dates-row">
+          <td>
+            <span class="course-schedule-row-label">Dates</span>
+            <ul aria-label="Dates for {{ block.topic | escape }}">
+              {% for meeting in block.dates %}
+                <li{% if meeting.cancelled %} class="course-schedule-date-cancelled"{% endif %}>
+                  <span class="course-schedule-date">{{ meeting.date }}</span>
+                  {% if meeting.note %}<span class="course-schedule-date-note">{{ meeting.note }}</span>{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr class="course-schedule-focus-row">
+          <td>
+            <span class="course-schedule-row-label">Focus</span>
+            <ul class="course-schedule-focus-list" aria-label="Focus areas for {{ block.topic | escape }}">
+              {% for item in block.focus %}
+                <li>
+                  <span class="course-schedule-subtopic">{{ item.subtopic }}.</span>
+                  <span class="course-schedule-subtopic-details">{{ item.details }}</span>
+                  {% if item.papers %}
+                    <span class="course-schedule-papers">
+                      <span class="course-schedule-papers-label">Key papers:</span>
+                      {% for paper in item.papers %}
+                        <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.label }}</a>{% unless forloop.last %}<span aria-hidden="true"> · </span>{% endunless %}
+                      {% endfor %}
+                    </span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+            {% if block.perspective %}
+              <p class="course-schedule-perspective">{{ block.perspective }}</p>
+            {% endif %}
+          </td>
+        </tr>
       </tbody>
-    </table>
-  </div>
+    {% endfor %}
+  </table>
 </section>
 {% endif %}

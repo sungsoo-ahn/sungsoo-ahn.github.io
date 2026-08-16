@@ -1358,43 +1358,81 @@ footer.sticky-bottom {
 
   .course-schedule-intro {
     color: var(--global-text-color-light);
+    margin-bottom: 1rem;
     max-width: 760px;
   }
 
-  table {
+  .course-schedule-table {
+    border: 0;
+    border-collapse: collapse;
     font-size: 0.88rem;
-    line-height: 1.4;
-    min-width: 680px;
+    line-height: 1.5;
+    margin: 0;
+    width: 100%;
+
+    th,
+    td {
+      background: transparent;
+      border: 0;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: left;
+      vertical-align: top;
+    }
   }
 
-  th {
-    white-space: nowrap;
+  .course-schedule-row-label {
+    color: var(--global-text-color-light);
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
   }
 
-  td {
-    vertical-align: top;
+  .course-schedule-topic-row {
+    th {
+      border-top: 1px solid var(--global-divider-color);
+      padding-bottom: 0.35rem;
+      padding-top: 1.15rem;
+    }
   }
 
-  .course-schedule-dates {
-    min-width: 175px;
-    width: 20%;
+  .course-schedule-section:first-of-type .course-schedule-topic-row th {
+    border-top: 0;
+    padding-top: 0.35rem;
+  }
+
+  .course-schedule-topic {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-top: 0.2rem;
+  }
+
+  .course-schedule-dates-row td {
+    padding-bottom: 0.65rem;
+    padding-top: 0.25rem;
 
     ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 1.1rem;
       list-style: none;
-      margin: 0;
+      margin: 0.35rem 0 0;
       padding: 0;
     }
 
     li {
-      margin-bottom: 0.4rem;
-    }
-
-    li:last-child {
-      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      min-width: 125px;
     }
 
     .course-schedule-date {
-      display: block;
+      font-weight: 500;
       white-space: nowrap;
     }
 
@@ -1403,6 +1441,7 @@ footer.sticky-bottom {
       display: block;
       font-size: 0.78rem;
       line-height: 1.35;
+      max-width: 250px;
       margin-top: 0.05rem;
     }
 
@@ -1412,9 +1451,56 @@ footer.sticky-bottom {
     }
   }
 
-  .course-schedule-topic {
-    font-weight: 600;
-    width: 17%;
+  .course-schedule-focus-row td {
+    padding-bottom: 1.15rem;
+    padding-top: 0.25rem;
+  }
+
+  .course-schedule-focus-list {
+    list-style: disc;
+    margin: 0.35rem 0 0;
+    padding-left: 1.2rem;
+
+    li + li {
+      margin-top: 0.35rem;
+    }
+
+    li {
+      line-height: 1.55;
+    }
+
+    .course-schedule-subtopic {
+      font-weight: 600;
+    }
+
+    .course-schedule-subtopic-details {
+      color: var(--global-text-color-light);
+    }
+
+    .course-schedule-papers {
+      display: block;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      margin-top: 0.1rem;
+    }
+
+    .course-schedule-papers-label {
+      color: var(--global-text-color-light);
+      font-weight: 500;
+    }
+  }
+
+  .course-schedule-perspective {
+    color: var(--global-text-color-light);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin: 0.55rem 0 0;
+  }
+
+  @media (max-width: 575.98px) {
+    .course-schedule-dates-row li {
+      min-width: calc(50% - 0.55rem);
+    }
   }
 
 }

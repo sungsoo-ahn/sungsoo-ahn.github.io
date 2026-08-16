@@ -1,7 +1,9 @@
 - dates:
     - date: "Aug. 31 (Mon)"
   topic: Introduction
-  focus: Course overview and introductions by Prof. Sungbin Lim and Prof. Sungsoo Ahn.
+  focus:
+    - subtopic: Course overview and introductions
+      details: Course goals, structure, expectations, and logistics.
 
 - dates:
     - date: "Sep. 2 (Wed)"
@@ -10,7 +12,26 @@
     - date: "Sep. 14 (Mon)"
     - date: "Sep. 16 (Wed)"
   topic: AI for Science Basics
-  focus: Chemistry and physics, drug discovery, and materials discovery.
+  focus:
+    - subtopic: Molecular and material representations
+      details: SMILES and InChI, graphs, fingerprints, 3D coordinates, chirality, crystals, and symmetry.
+      papers:
+        - label: "Duvenaud et al., Neural Molecular Fingerprints (2015)"
+          url: "https://arxiv.org/abs/1509.09292"
+    - subtopic: Quantum foundations
+      details: The Schrödinger equation, wavefunctions, orbitals, density functional theory, molecular orbitals, and band structure.
+    - subtopic: Chemical and statistical foundations
+      details: Chemical forces, statistical mechanics, free energy, molecular dynamics, potential-energy surfaces, and reaction kinetics.
+    - subtopic: Drug discovery
+      details: Small molecules and biologics, pharmacokinetics and pharmacodynamics, target identification, hit-to-lead optimization, clinical trials, and experimental assays.
+      papers:
+        - label: "Wallach et al., AtomNet (2015)"
+          url: "https://arxiv.org/abs/1510.02855"
+    - subtopic: Materials discovery
+      details: Properties, stability, synthesis, characterization, batteries, semiconductors, catalysis, and direct air capture.
+      papers:
+        - label: "Xie and Grossman, CGCNN (2018)"
+          url: "https://arxiv.org/abs/1710.10324"
 
 - dates:
     - date: "Sep. 21 (Mon)"
@@ -22,13 +43,69 @@
       cancelled: true
     - date: "Oct. 7 (Wed)"
   topic: Architectures
-  focus: Graph neural networks, geometric representations, equivariance, and interatomic potentials.
-
+  focus:
+    - subtopic: Message-passing graph neural networks and graph transformers
+      details: Message passing, attention, positional encodings, and global token interactions; GCN, GraphSAGE, GIN, GAT, and Graphormer.
+      papers:
+        - label: "Gilmer et al., MPNNs (2017)"
+          url: "https://proceedings.mlr.press/v70/gilmer17a.html"
+        - label: "Ying et al., Graphormer (2021)"
+          url: "https://proceedings.neurips.cc/paper/2021/hash/f1c1592588411002af340cbaedd6fc33-Abstract.html"
+    - subtopic: Molecular property prediction and benchmarks
+      details: Supervised prediction from fingerprints, graphs, and three-dimensional representations, with molecular benchmarks and foundation models.
+      papers:
+        - label: "Wu et al., MoleculeNet (2018)"
+          url: "https://arxiv.org/abs/1703.00564"
+        - label: "Zhou et al., Uni-Mol (2023)"
+          url: "https://openreview.net/forum?id=6K2RM6wVqKu"
+    - subtopic: Geometric deep learning foundations
+      details: Geometric graphs, Euclidean groups, group actions and representations, invariance, equivariance, and spherical harmonics.
+      papers:
+        - label: "Bronstein et al., Geometric Deep Learning (2021)"
+          url: "https://arxiv.org/abs/2104.13478"
+    - subtopic: Invariant models
+      details: SchNet, DimeNet, and GemNet.
+      papers:
+        - label: "Schütt et al., SchNet (2018)"
+          url: "https://arxiv.org/abs/1712.06113"
+        - label: "Gasteiger et al., DimeNet (2020)"
+          url: "https://arxiv.org/abs/2003.03123"
+        - label: "Gasteiger et al., GemNet (2021)"
+          url: "https://arxiv.org/abs/2106.08903"
+    - subtopic: Vector-equivariant models
+      details: EGNN and PaiNN.
+      papers:
+        - label: "Satorras et al., EGNN (2021)"
+          url: "https://proceedings.mlr.press/v139/satorras21a.html"
+        - label: "Schütt et al., PaiNN (2021)"
+          url: "https://arxiv.org/abs/2102.03150"
+    - subtopic: Spherical tensor models
+      details: Irreducible representations, Clebsch-Gordan products, Tensor Field Networks, and NequIP.
+      papers:
+        - label: "Thomas et al., Tensor Field Networks (2018)"
+          url: "https://arxiv.org/abs/1802.08219"
+        - label: "Batzner et al., NequIP (2022)"
+          url: "https://arxiv.org/abs/2101.03164"
+    - subtopic: Modern interatomic-potential architectures
+      details: Modern machine-learning interatomic potentials for energy and force prediction; MACE, eSCN, eSEN, Orb-v3, and UMA.
+      papers:
+        - label: "Batatia et al., MACE (2022)"
+          url: "https://arxiv.org/abs/2206.07697"
+        - label: "Rhodes et al., Orb-v3 (2025)"
+          url: "https://arxiv.org/abs/2504.06231"
+        - label: "Wood et al., UMA (2025)"
+          url: "https://arxiv.org/abs/2506.23971"
 - dates:
     - date: "Oct. 12 (Mon)"
+      note: "No class — midterm examination period"
+      cancelled: true
     - date: "Oct. 14 (Wed)"
+      note: "No class — midterm examination period"
+      cancelled: true
   topic: Midterm
-  focus: Midterm period.
+  focus:
+    - subtopic: Midterm examination period
+      details: No class.
 
 - dates:
     - date: "Oct. 19 (Mon)"
@@ -40,7 +117,58 @@
     - date: "Nov. 9 (Mon)"
     - date: "Nov. 11 (Wed)"
   topic: Generative Models
-  focus: Continuous, geometric, and discrete generative processes.
+  focus:
+    - subtopic: Probabilistic modeling and continuous normalizing flows
+      details: Probability distributions, change of variables, likelihoods, transport maps, neural ODEs, and continuous normalizing flows.
+      papers:
+        - label: "Chen et al., Neural ODEs (2018)"
+          url: "https://arxiv.org/abs/1806.07366"
+        - label: "Grathwohl et al., FFJORD (2019)"
+          url: "https://arxiv.org/abs/1810.01367"
+    - subtopic: Stochastic dynamics and probability evolution
+      details: ODEs and SDEs, Brownian motion, Itô calculus, Fokker-Planck equations, Langevin dynamics, continuity equations, and numerical simulation.
+    - subtopic: Score-based diffusion models
+      details: Forward and reverse diffusion, score functions, denoising score matching, reverse-time SDEs, and probability-flow ODEs.
+      papers:
+        - label: "Ho et al., Denoising Diffusion Probabilistic Models (2020)"
+          url: "https://arxiv.org/abs/2006.11239"
+        - label: "Song et al., Score-Based Generative Modeling through SDEs (2021)"
+          url: "https://arxiv.org/abs/2011.13456"
+    - subtopic: Flow matching and stochastic interpolants
+      details: Conditional probability paths, marginal velocity fields, simulation-free training objectives, and stochastic interpolants.
+      papers:
+        - label: "Lipman et al., Flow Matching for Generative Modeling (2023)"
+          url: "https://arxiv.org/abs/2210.02747"
+        - label: "Albergo et al., Stochastic Interpolants (2023)"
+          url: "https://arxiv.org/abs/2303.08797"
+    - subtopic: Geometric generative processes
+      details: Generative modeling on manifolds, tangent vector fields, rotations, SO(3), periodic coordinates, and equivariant probability paths.
+      papers:
+        - label: "Chen and Lipman, Flow Matching on General Geometries (2024)"
+          url: "https://openreview.net/forum?id=g7ohDlTITL"
+    - subtopic: Discrete generative processes
+      details: Discrete diffusion and flow matching, continuous-time Markov chains, molecular graphs, sequences, and hybrid discrete-continuous states.
+      papers:
+        - label: "Campbell et al., Continuous-Time Discrete Denoising (2022)"
+          url: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/b5b528767aa35f5b1a60fe0aaeca0563-Abstract-Conference.html"
+        - label: "Gat et al., Discrete Flow Matching (2024)"
+          url: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/f0d629a734b56a642701bba7bc8bb3ed-Abstract-Conference.html"
+    - subtopic: Conditional and controlled generation
+      details: Conditioning, guidance, energy-based steering, composition, constrained generation, and inverse problems; how these methods modify a base distribution for molecular design.
+      papers:
+        - label: "Dhariwal and Nichol, Classifier Guidance (2021)"
+          url: "https://arxiv.org/abs/2105.05233"
+        - label: "Ho and Salimans, Classifier-Free Guidance (2022)"
+          url: "https://arxiv.org/abs/2207.12598"
+    - subtopic: Modern molecular generative systems
+      details: Diffusion and flow models for molecular graphs, three-dimensional molecules, conformers, protein-ligand structures, protein structures, and crystals across continuous, discrete, geometric, and hybrid state spaces.
+      papers:
+        - label: "Hoogeboom et al., Equivariant Diffusion for Molecule Generation in 3D (2022)"
+          url: "https://proceedings.mlr.press/v162/hoogeboom22a.html"
+        - label: "Corso et al., DiffDock (2023)"
+          url: "https://openreview.net/forum?id=kKF8_K-mBbS"
+        - label: "Hassan et al., ET-Flow (2024)"
+          url: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/e8bd617e7dd0394ceadf37b4a7773179-Abstract-Conference.html"
 
 - dates:
     - date: "Nov. 16 (Mon)"
@@ -49,8 +177,75 @@
     - date: "Nov. 25 (Wed)"
     - date: "Nov. 30 (Mon)"
     - date: "Dec. 2 (Wed)"
-  topic: Seminar
-  focus: Paper discussions and applications across molecules, proteins, and cells.
+  topic: Case Studies
+  focus:
+    - subtopic: Molecular modeling and simulation
+      details: Molecular dynamics, learned collective variables, free-energy estimation, enhanced sampling, time-coarsened dynamics, and learned atomic transport.
+      papers:
+        - label: "Noé et al., Boltzmann Generators (2019)"
+          url: "https://arxiv.org/abs/1812.01729"
+        - label: "Klein et al., Timewarp (2023)"
+          url: "https://proceedings.neurips.cc/paper_files/paper/2023/hash/a598c367280f9054434fdcc227ce4d38-Abstract-Conference.html"
+        - label: "Nam et al., LiFlow (2025)"
+          url: "https://www.nature.com/articles/s42256-025-01125-4"
+    - subtopic: Quantum chemistry and electronic structure
+      details: Neural wavefunctions, learned density functionals, machine-learning Hamiltonians, electron densities, orbitals, energies, and forces.
+      papers:
+        - label: "Pfau et al., FermiNet (2020)"
+          url: "https://arxiv.org/abs/1909.02487"
+        - label: "Kirkpatrick et al., DM21 (2021)"
+          url: "https://pubmed.ncbi.nlm.nih.gov/34882476/"
+        - label: "Kim et al., QHFlow2 (2026, preprint)"
+          url: "https://arxiv.org/abs/2602.16897"
+    - subtopic: Crystal and materials discovery
+      details: Crystal representations, structure and property prediction, stability, generative discovery, and materials foundation models.
+      papers:
+        - label: "Merchant et al., GNoME (2023)"
+          url: "https://www.nature.com/articles/s41586-023-06735-9"
+        - label: "Zeni et al., MatterGen (2025)"
+          url: "https://www.nature.com/articles/s41586-025-08628-5"
+    - subtopic: Goal-directed and synthesis-aware molecular design
+      details: Property guidance, reinforcement learning, Bayesian optimization, and GFlowNets for goal-directed and multi-objective design; reaction prediction, retrosynthesis, route search, and reaction-based generation for synthetic feasibility, with oracle reliability and experimental feasibility as design constraints.
+      papers:
+        - label: "Koziarski et al., RGFN (2024)"
+          url: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/53704142f230054140418ecd8857f391-Abstract-Conference.html"
+        - label: "Seo et al., RxnFlow (2025)"
+          url: "https://openreview.net/forum?id=pB1XSj2y4X"
+        - label: "Gao et al., SynFormer (2025)"
+          url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12541314/"
+    - subtopic: Protein structure prediction
+      details: Sequence-to-structure models combine evolutionary information, protein language models, geometric reasoning, and confidence estimation.
+      papers:
+        - label: "Jumper et al., AlphaFold 2 (2021)"
+          url: "https://www.nature.com/articles/s41586-021-03819-2"
+        - label: "Abramson et al., AlphaFold 3 (2024)"
+          url: "https://www.nature.com/articles/s41586-024-07487-w"
+    - subtopic: Protein representation and design
+      details: Sequence-based representation learning and single-sequence folding with ESM-2 and ESMFold; structure-conditioned inverse folding with ProteinMPNN; generative backbone design with RFdiffusion.
+      papers:
+        - label: "Lin et al., ESM-2 and ESMFold (2023)"
+          url: "https://pubmed.ncbi.nlm.nih.gov/36927031/"
+        - label: "Dauparas et al., ProteinMPNN (2022)"
+          url: "https://pubmed.ncbi.nlm.nih.gov/36108050/"
+        - label: "Watson et al., RFdiffusion (2023)"
+          url: "https://www.nature.com/articles/s41586-023-06415-8"
+    - subtopic: Genomics
+      details: DNA and RNA foundation models support long-range sequence modeling, functional annotation, regulatory and variant-effect prediction, and sequence design.
+      papers:
+        - label: "Brixi et al., Evo 2 (2026)"
+          url: "https://www.nature.com/articles/s41586-026-10176-5"
+        - label: "Avsec et al., AlphaGenome (2026)"
+          url: "https://www.nature.com/articles/s41586-025-10014-0"
+    - subtopic: Virtual cells
+      details: Single-cell representations, multimodal foundation models, perturbation prediction, and models of cell state and response.
+      papers:
+        - label: "Cui et al., scGPT (2024)"
+          url: "https://www.nature.com/articles/s41592-024-02201-0"
+        - label: "Adduri et al., State (2025, preprint)"
+          url: "https://www.biorxiv.org/content/10.1101/2025.06.26.661135v1"
+        - label: "Noutahi et al., Virtual Cells (2025, perspective)"
+          url: "https://arxiv.org/abs/2505.14613"
+  perspective: LLM-based tools support literature retrieval, protocols, code, and tool orchestration; AI scientists and self-driving laboratories combine specialized molecular models with active learning, automated experiments, and iterative model updates.
 
 - dates:
     - date: "Dec. 7 (Mon)"
@@ -58,4 +253,6 @@
     - date: "Dec. 14 (Mon)"
     - date: "Dec. 16 (Wed)"
   topic: Invited Talks
-  focus: Speakers will be announced after they are confirmed.
+  focus:
+    - subtopic: Guest speakers
+      details: Speakers and topics to be announced.

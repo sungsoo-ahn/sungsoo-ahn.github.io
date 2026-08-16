@@ -10,13 +10,15 @@ nav_order: 3
 
 # Machine Learning for Molecules
 
-This course studies machine learning methods for molecular science. It covers the scientific foundations, neural architectures, and generative models used in applications such as drug and materials discovery.
+This course studies machine learning methods for molecular science. It covers scientific foundations, neural architectures, probabilistic generative models, and representative applications in drug discovery, materials science, proteins, genomics, and virtual cells.
 
 ## Course format
 
 This is a discussion-based course. Students watch the uploaded lecture videos before each class. Class time is reserved for questions, clarification, and discussion rather than a repetition of the videos.
 
-The seminar sessions focus on paper reading and special topics. Students should read the assigned material before class and come prepared to discuss it.
+Prof. Sungbin Lim leads the Generative Models module, with an emphasis on the probabilistic foundations of diffusion and flow models.
+
+The case-study sessions focus on paper reading and special topics. Students should read the assigned material before class and come prepared to discuss it.
 
 ## Teaching team
 
