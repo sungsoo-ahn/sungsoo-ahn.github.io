@@ -16,10 +16,6 @@ This course studies machine learning methods for molecular science. It covers sc
 
 This is a discussion-based course. Students watch the uploaded lecture videos before each class. Class time is reserved for questions, clarification, and discussion rather than a repetition of the videos.
 
-Prof. Sungbin Lim leads the Generative Models module, with an emphasis on the probabilistic foundations of diffusion and flow models.
-
-The case-study sessions focus on paper reading and special topics. Students should read the assigned material before class and come prepared to discuss it.
-
 ## Teaching team
 
 - **Instructor:** Prof. Sungsoo Ahn, KAIST
