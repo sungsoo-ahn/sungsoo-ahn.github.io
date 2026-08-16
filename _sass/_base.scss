@@ -1354,11 +1354,20 @@ footer.sticky-bottom {
 }
 
 .course-schedule {
-  margin-top: 2.4rem;
+  margin-top: 2.1rem;
+
+  .course-schedule-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 0.3rem;
+  }
 
   .course-schedule-intro {
     color: var(--global-text-color-light);
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1.2rem;
     max-width: 760px;
   }
 
@@ -1394,14 +1403,9 @@ footer.sticky-bottom {
   .course-schedule-topic-row {
     th {
       border-top: 1px solid var(--global-divider-color);
-      padding-bottom: 0.35rem;
-      padding-top: 1.15rem;
+      padding-bottom: 0.3rem;
+      padding-top: 1rem;
     }
-  }
-
-  .course-schedule-section:first-of-type .course-schedule-topic-row th {
-    border-top: 0;
-    padding-top: 0.35rem;
   }
 
   .course-schedule-topic {
@@ -1452,7 +1456,7 @@ footer.sticky-bottom {
   }
 
   .course-schedule-focus-row td {
-    padding-bottom: 1.15rem;
+    padding-bottom: 1rem;
     padding-top: 0.25rem;
   }
 
@@ -1498,6 +1502,10 @@ footer.sticky-bottom {
   }
 
   @media (max-width: 575.98px) {
+    .course-schedule-title {
+      font-size: 1.3rem;
+    }
+
     .course-schedule-dates-row li {
       min-width: calc(50% - 0.55rem);
     }
