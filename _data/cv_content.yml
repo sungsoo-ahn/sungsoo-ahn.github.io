@@ -266,6 +266,10 @@ grants:
       organization: "Principal Investigator, POSCO Holdings"
       detail: "KRW 49.3M total project funding"
   computing:
+    - title: "Foundation Models for Biology and Materials"
+      date: "Aug. 2026"
+      organization: "AMD University Program, AI & HPC Cluster Program"
+      detail: "1,000 node-hours (up to 8,000 AMD Instinct MI300X GPU-hours), Request 00887691"
     - title: "Towards a Unified Generative Model for Molecular Interactions in Materials"
       date: "Jul. 2026 – Dec. 2026"
       organization: "NVIDIA Academic Grant Program"
