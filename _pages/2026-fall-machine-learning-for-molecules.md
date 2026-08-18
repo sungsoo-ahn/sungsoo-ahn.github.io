@@ -14,7 +14,18 @@ This course studies machine learning methods for molecular science. It covers sc
 
 ## Course format
 
-This is a discussion-based course. Students watch the uploaded lecture videos before each class. Class time is reserved for questions, clarification, and discussion rather than a repetition of the videos.
+This is a flipped, discussion-based course. Recorded lectures will be uploaded at least two days before each class.
+
+Before class, students watch the assigned lecture and submit questions through a shared Google Sheet. Class time is devoted to addressing these questions, clarifying difficult concepts, and discussing the material rather than repeating the recorded lecture.
+
+For invited lectures, live participation is strongly encouraged. Students who cannot attend live may watch the recording instead.
+
+## Grading
+
+Students are assessed individually based on:
+
+- The quality and consistency of their questions submitted before class.
+- A final individual study note that explains and synthesizes selected course material.
 
 ## Teaching team
 
