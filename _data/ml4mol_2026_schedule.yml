@@ -251,8 +251,22 @@
     - date: "Dec. 7 (Mon)"
     - date: "Dec. 9 (Wed)"
     - date: "Dec. 14 (Mon)"
+      note: "Juno Nam, MIT"
     - date: "Dec. 16 (Wed)"
+      note: "Minji Lee, Columbia University"
   topic: Invited Talks
   focus:
-    - subtopic: Guest speakers
-      details: Speakers and topics to be announced.
+    - subtopic: Juno Nam, MIT
+      details: Machine learning for molecular simulation, with a focus on free-energy modeling and enhanced sampling.
+      papers:
+        - label: "Nam et al., LiFlow (2025)"
+          url: "https://www.nature.com/articles/s42256-025-01125-4"
+        - label: "Nam et al., Universal Thermodynamic Interatomic Potentials (2026, preprint)"
+          url: "https://arxiv.org/abs/2608.14502"
+    - subtopic: Minji Lee, Columbia University
+      details: Generative modeling for protein structure and design, including ConforNets and Genie 3.
+      papers:
+        - label: "Lee et al., ConforNets (2026, preprint)"
+          url: "https://arxiv.org/abs/2604.18559"
+        - label: "Lin et al., Genie 3 (2026, preprint)"
+          url: "https://www.biorxiv.org/content/10.64898/2026.05.01.722168v1"
