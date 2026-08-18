@@ -245,18 +245,21 @@
           url: "https://www.biorxiv.org/content/10.1101/2025.06.26.661135v1"
         - label: "Noutahi et al., Virtual Cells (2025, perspective)"
           url: "https://arxiv.org/abs/2505.14613"
-  perspective: LLM-based tools support literature retrieval, protocols, code, and tool orchestration; AI scientists and self-driving laboratories combine specialized molecular models with active learning, automated experiments, and iterative model updates.
-
 - dates:
     - date: "Dec. 7 (Mon)"
+      note: "TBA"
     - date: "Dec. 9 (Wed)"
+      note: "TBA"
     - date: "Dec. 14 (Mon)"
       note: "Juno Nam, MIT"
+      note_url: "https://junonam.com/"
     - date: "Dec. 16 (Wed)"
       note: "Minji Lee, Columbia University"
+      note_url: "https://haewonc.github.io/"
   topic: Invited Talks
   focus:
     - subtopic: Juno Nam, MIT
+      url: "https://junonam.com/"
       details: Machine learning for molecular simulation, with a focus on free-energy modeling and enhanced sampling.
       papers:
         - label: "Nam et al., LiFlow (2025)"
@@ -264,6 +267,7 @@
         - label: "Nam et al., Universal Thermodynamic Interatomic Potentials (2026, preprint)"
           url: "https://arxiv.org/abs/2608.14502"
     - subtopic: Minji Lee, Columbia University
+      url: "https://haewonc.github.io/"
       details: Generative modeling for protein structure and design, including ConforNets and Genie 3.
       papers:
         - label: "Lee et al., ConforNets (2026, preprint)"
