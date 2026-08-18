@@ -22,7 +22,13 @@
               {% for meeting in block.dates %}
                 <li{% if meeting.cancelled %} class="course-schedule-date-cancelled"{% endif %}>
                   <span class="course-schedule-date">{{ meeting.date }}</span>
-                  {% if meeting.note %}<span class="course-schedule-date-note">{{ meeting.note }}</span>{% endif %}
+                  {% if meeting.note %}
+                    {% if meeting.note_url %}
+                      <a class="course-schedule-date-note" href="{{ meeting.note_url }}" target="_blank" rel="noopener noreferrer">{{ meeting.note }}</a>
+                    {% else %}
+                      <span class="course-schedule-date-note">{{ meeting.note }}</span>
+                    {% endif %}
+                  {% endif %}
                 </li>
               {% endfor %}
             </ul>
@@ -34,7 +40,11 @@
             <ul class="course-schedule-focus-list" aria-label="Focus areas for {{ block.topic | escape }}">
               {% for item in block.focus %}
                 <li>
-                  <span class="course-schedule-subtopic">{{ item.subtopic }}.</span>
+                  {% if item.url %}
+                    <a class="course-schedule-subtopic" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.subtopic }}.</a>
+                  {% else %}
+                    <span class="course-schedule-subtopic">{{ item.subtopic }}.</span>
+                  {% endif %}
                   <span class="course-schedule-subtopic-details">{{ item.details }}</span>
                   {% if item.papers %}
                     <span class="course-schedule-papers">
