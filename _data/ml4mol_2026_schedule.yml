@@ -195,7 +195,7 @@
           url: "https://arxiv.org/abs/1909.02487"
         - label: "Kirkpatrick et al., DM21 (2021)"
           url: "https://pubmed.ncbi.nlm.nih.gov/34882476/"
-        - label: "Kim et al., QHFlow2 (2026, preprint)"
+        - label: "Kim et al., QHFlow2 (2026)"
           url: "https://arxiv.org/abs/2602.16897"
     - subtopic: Crystal and materials discovery
       details: Crystal representations, structure and property prediction, stability, generative discovery, and materials foundation models.
@@ -241,9 +241,9 @@
       papers:
         - label: "Cui et al., scGPT (2024)"
           url: "https://www.nature.com/articles/s41592-024-02201-0"
-        - label: "Adduri et al., State (2025, preprint)"
+        - label: "Adduri et al., State (2025)"
           url: "https://www.biorxiv.org/content/10.1101/2025.06.26.661135v1"
-        - label: "Noutahi et al., Virtual Cells (2025, perspective)"
+        - label: "Noutahi et al., Virtual Cells (2025)"
           url: "https://arxiv.org/abs/2505.14613"
 - dates:
     - date: "Dec. 7 (Mon)"
@@ -264,13 +264,13 @@
       papers:
         - label: "Nam et al., LiFlow (2025)"
           url: "https://www.nature.com/articles/s42256-025-01125-4"
-        - label: "Nam et al., Universal Thermodynamic Interatomic Potentials (2026, preprint)"
+        - label: "Nam et al., Universal Thermodynamic Interatomic Potentials (2026)"
           url: "https://arxiv.org/abs/2608.14502"
     - subtopic: Minji Lee, Columbia University
       url: "https://haewonc.github.io/"
       details: Generative modeling for protein structure and design, including ConforNets and Genie 3.
       papers:
-        - label: "Lee et al., ConforNets (2026, preprint)"
+        - label: "Lee et al., ConforNets (2026)"
           url: "https://arxiv.org/abs/2604.18559"
-        - label: "Lin et al., Genie 3 (2026, preprint)"
+        - label: "Lin et al., Genie 3 (2026)"
           url: "https://www.biorxiv.org/content/10.64898/2026.05.01.722168v1"
