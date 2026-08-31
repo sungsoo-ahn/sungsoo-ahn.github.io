@@ -9,6 +9,18 @@
 # year, and abbr. Website fields: selected, presentation, presentation_venue,
 # html, arxiv, code/code_label, code2/code2_label, website, pdf, video, preview,
 # annotation, award, and abstract. CV-only rendering fields start with `cv_`.
+- id: kim2026packora
+  type: preprint
+  title: 'Packora: Systematic Design for Generative Molecular Crystal Structure Prediction'
+  authors:
+  - Nayoung Kim
+  - Kiyoung Seong
+  - Sungsoo Ahn
+  venue: arXiv
+  year: 2026
+  abbr: '-'
+  arxiv: '2608.26962'
+  cv_sort_order: 202608270000
 - id: seong2026discovering
   type: preprint
   title: Discovering Crystal Structure Prediction Algorithms with an AI Co-Scientist
