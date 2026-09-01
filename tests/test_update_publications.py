@@ -10,7 +10,7 @@ class UpdatePublicationsTest(unittest.TestCase):
     def test_canonical_publications_are_valid(self):
         entries = publications.load_publications()
         self.assertEqual(publications.validate_publications(entries), [])
-        self.assertEqual(len(entries), 74)
+        self.assertEqual(len(entries), 75)
         self.assertEqual(sum(entry["selected"] for entry in entries if "selected" in entry), 12)
 
     def test_jekyll_reads_yaml_instead_of_bibtex(self):

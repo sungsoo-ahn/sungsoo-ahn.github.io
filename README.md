@@ -33,8 +33,9 @@ Set `SPML_MEMBERS_XLSX` to override this location on another machine.
 The CV follows a single-source workflow inspired by
 [academic-homepage-cv-sync](https://github.com/kw1jjang/academic-homepage-cv-sync):
 
-- Edit education, employment, service, talks, courses, awards, and grants in
-  `_data/cv_content.yml`.
+- Edit public education, employment, service, talks, courses, and awards in
+  `_data/cv_content.yml`. Never add phone numbers, funding, project IDs, or
+  computing allocations to this public repository.
 - Edit all publication metadata in `_data/publications.yml`. The website reads
   this file directly, and the CV generator reads the same records.
 - Run `uv run python scripts/update_cv.py`. This regenerates the protected
@@ -42,14 +43,19 @@ The CV follows a single-source workflow inspired by
   `cv/cv.pdf`, and copies it to `assets/pdf/cv.pdf` for the website.
 
 Do not edit content inside `% SYNC:...:BEGIN/END` markers by hand. Content
-outside those markers, including the LaTeX design and contact header, remains
-hand-maintained.
+outside those markers, including the LaTeX design, remains hand-maintained.
+The contact header is generated from the public data too.
+
+The private CV is built from the private `sungsoo-ahn/cv-private` repository.
+Its overlay restores sensitive contact, funding, project, and computing data
+without copying those values into this repository.
 
 Useful variants:
 
 ```bash
 uv run python scripts/update_cv.py --no-compile        # update LaTeX only
 uv run python scripts/update_cv.py --check --no-compile # verify committed output
+uv run python scripts/update_cv.py --variant private --private-data PATH --output PATH
 uv run python scripts/update_publications.py --check    # validate publication YAML
 uv run python -m unittest discover tests                # regression tests
 ```

@@ -8,10 +8,13 @@ Usage:
 """
 
 import argparse
+import copy
 import hashlib
+import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import yaml
@@ -24,6 +27,15 @@ CV_TEX_PATH = Path(__file__).parent.parent / "cv/cv.tex"
 CV_PDF_PATH = Path(__file__).parent.parent / "cv/cv.pdf"
 WEB_PDF_PATH = Path(__file__).parent.parent / "assets/pdf/cv.pdf"
 SOURCE_HASH_PATH = Path(__file__).parent.parent / "cv/source.sha256"
+
+PRIVATE_DATA_PATTERNS = (
+    re.compile(r"\b(?:RS|PJT|KSC)-\d", re.IGNORECASE),
+    re.compile(r"\bN\d{8}\b"),
+    re.compile(r"\b(?:KRW|USD)\b"),
+    re.compile(r"\b(?:GPU|node)-hours?\b", re.IGNORECASE),
+    re.compile(r"\bNVIDIA\s+\w+\s+GPUs?\b", re.IGNORECASE),
+    re.compile(r"\+?82[\s)-]*10[-\s]?\d{3,4}[-\s]?\d{4}"),
+)
 
 # Which abbr values belong to which category
 CONFERENCE_ABBRS = {
@@ -285,10 +297,21 @@ def build_publications() -> tuple[str, tuple[int, int, int]]:
 
 
 def load_cv_data(path: Path = CV_DATA_PATH) -> dict:
-    """Load and validate the structured, hand-maintained CV sections."""
+    """Load and validate the public structured CV sections."""
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise ValueError(f"Expected a mapping in {path}")
+
+    contact = data.get("contact")
+    if not isinstance(contact, dict):
+        raise ValueError(f"{path}: contact must be a mapping")
+    missing_contact = {"affiliation", "email", "website_url", "website_text"} - set(contact)
+    if missing_contact:
+        raise ValueError(f"{path}: contact is missing {sorted(missing_contact)}")
+    if "mobile" in contact:
+        raise ValueError(f"{path}: public contact must not contain mobile")
+    if not str(contact["website_url"]).startswith(("https://", "http://")):
+        raise ValueError(f"{path}: contact.website_url must be an HTTP(S) URL")
 
     list_sections = ("education", "employment", "service", "talks", "courses", "awards")
     for section in list_sections:
@@ -304,8 +327,17 @@ def load_cv_data(path: Path = CV_DATA_PATH) -> dict:
             url = entry.get("organization_url")
             if url and not str(url).startswith(("https://", "http://")):
                 raise ValueError(f"{path}: {section}[{index}] has an invalid organization_url")
+    if "grants" in data:
+        raise ValueError(f"{path}: grants are private and must not be stored in public CV data")
+    serialized = yaml.safe_dump(data, allow_unicode=True, sort_keys=False)
+    for pattern in PRIVATE_DATA_PATTERNS:
+        match = pattern.search(serialized)
+        if match:
+            raise ValueError(f"{path}: public CV data contains private value {match.group(0)!r}")
+    return data
 
-    grants = data.get("grants")
+
+def validate_grants(grants: object, path: Path) -> dict[str, list[dict]]:
     if not isinstance(grants, dict):
         raise ValueError(f"{path}: grants must be a mapping")
     for group in ("research", "computing"):
@@ -320,6 +352,45 @@ def load_cv_data(path: Path = CV_DATA_PATH) -> dict:
                 raise ValueError(
                     f"{path}: grants.{group}[{index}] is missing {sorted(missing)}"
                 )
+    return grants
+
+
+def load_private_overlay(path: Path) -> dict:
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"Expected a mapping in {path}")
+    contact = data.get("contact", {})
+    if not isinstance(contact, dict):
+        raise ValueError(f"{path}: contact must be a mapping")
+    overrides = data.get("entry_overrides", {})
+    if not isinstance(overrides, dict):
+        raise ValueError(f"{path}: entry_overrides must be a mapping")
+    validate_grants(data.get("grants"), path)
+    return data
+
+
+def apply_private_overlay(public_data: dict, overlay: dict, path: Path) -> dict:
+    data = copy.deepcopy(public_data)
+    data["contact"].update(overlay.get("contact", {}))
+    for section, section_overrides in overlay.get("entry_overrides", {}).items():
+        if section not in data or not isinstance(data[section], list):
+            raise ValueError(f"{path}: entry_overrides references unknown section {section!r}")
+        if not isinstance(section_overrides, dict):
+            raise ValueError(f"{path}: entry_overrides.{section} must be a mapping")
+        entries_by_id = {
+            str(entry["id"]): entry for entry in data[section] if entry.get("id") is not None
+        }
+        for entry_id, fields in section_overrides.items():
+            if entry_id not in entries_by_id:
+                raise ValueError(
+                    f"{path}: entry_overrides.{section} references unknown id {entry_id!r}"
+                )
+            if not isinstance(fields, dict):
+                raise ValueError(
+                    f"{path}: entry_overrides.{section}.{entry_id} must be a mapping"
+                )
+            entries_by_id[entry_id].update(fields)
+    data["grants"] = copy.deepcopy(overlay["grants"])
     return data
 
 
@@ -335,6 +406,25 @@ def render_organization(entry: dict) -> str:
         raise ValueError("organization_link_text must be a prefix of organization")
     suffix = tex_escape_plain(raw_organization[len(link_text):])
     return rf"\href{{{safe_url}}}{{{tex_escape_plain(link_text)}}}{suffix}"
+
+
+def render_contact(contact: dict) -> str:
+    email = tex_escape_plain(contact["email"])
+    affiliation = tex_escape_plain(contact["affiliation"])
+    website_url = str(contact["website_url"]).replace("%", r"\%").replace("#", r"\#")
+    website_text = tex_escape_plain(contact["website_text"])
+    details = [rf"{{Email:}} \texttt{{{email}}}"]
+    mobile = str(contact.get("mobile", "")).strip()
+    if mobile:
+        details.append(rf"{{Mobile:}} \texttt{{{tex_escape_plain(mobile)}}}")
+    return "\n".join(
+        (
+            r"    {\Huge \bf Sungsoo Ahn} \vspace{.2in} \\",
+            rf"    {affiliation}\\",
+            "    " + ", ".join(details) + r", \\",
+            rf"    {{Web:}} \href{{{website_url}}}{{\texttt{{{website_text}}}}}",
+        )
+    )
 
 
 def render_entry(entry: dict, command: str) -> str:
@@ -391,14 +481,16 @@ def render_grants(grants: dict[str, list[dict]]) -> str:
 
 
 def render_cv_sections(data: dict) -> dict[str, str]:
+    grants = data.get("grants")
     return {
+        "CONTACT": render_contact(data["contact"]),
         "EDUCATION": render_entry_list(data["education"], "cvunnumberedentry", "itemize"),
         "EMPLOYMENT": render_entry_list(data["employment"], "cvunnumberedentry", "itemize"),
         "SERVICE": render_entry_list(data["service"], "cventry"),
         "TALKS": render_talks(data["talks"]),
         "COURSES": render_compact_entry_list(data["courses"]),
         "AWARDS": render_compact_entry_list(data["awards"]),
-        "GRANTS": render_grants(data["grants"]),
+        "GRANTS": rf"\section{{Grants}}{chr(10)}{render_grants(grants)}" if grants else "",
     }
 
 
@@ -444,6 +536,27 @@ def compile_cv() -> None:
     SOURCE_HASH_PATH.write_text(source_digest() + "\n", encoding="utf-8")
 
 
+def compile_private_cv(cv_source: str, publications: str, output_path: Path) -> None:
+    """Compile a private CV without leaving sensitive intermediates in this repository."""
+    latexmk = shutil.which("latexmk")
+    if not latexmk:
+        raise RuntimeError("latexmk is required to compile the private CV")
+    with tempfile.TemporaryDirectory(prefix="sungsoo-private-cv-") as temp_name:
+        temp_dir = Path(temp_name)
+        (temp_dir / CV_TEX_PATH.name).write_text(cv_source, encoding="utf-8")
+        (temp_dir / OUTPUT_PATH.name).write_text(publications, encoding="utf-8")
+        subprocess.run(
+            [latexmk, "-pdf", "-interaction=nonstopmode", "-halt-on-error", CV_TEX_PATH.name],
+            cwd=temp_dir,
+            check=True,
+        )
+        compiled = temp_dir / CV_PDF_PATH.name
+        if not compiled.exists():
+            raise RuntimeError(f"Expected {compiled} after private LaTeX compilation")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(compiled, output_path)
+
+
 def source_digest() -> str:
     """Hash the generated LaTeX inputs used to build the committed PDF."""
     digest = hashlib.sha256()
@@ -474,6 +587,11 @@ def check_generated_files(publications: str, cv_source: str) -> list[str]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--variant", choices=("public", "private"), default="public", help="CV variant to build"
+    )
+    parser.add_argument("--private-data", type=Path, help="private overlay YAML path")
+    parser.add_argument("--output", type=Path, help="private PDF output path")
     parser.add_argument("--no-compile", action="store_true", help="update sources without compiling")
     parser.add_argument("--check", action="store_true", help="fail if committed generated files are stale")
     args = parser.parse_args(argv)
@@ -481,6 +599,21 @@ def main(argv: list[str] | None = None) -> int:
     data = load_cv_data()
     publications, counts = build_publications()
     current_cv = CV_TEX_PATH.read_text(encoding="utf-8")
+
+    if args.variant == "private":
+        if args.check or args.no_compile:
+            parser.error("--check and --no-compile apply only to the public variant")
+        if args.private_data is None or args.output is None:
+            parser.error("private builds require --private-data and --output")
+        overlay = load_private_overlay(args.private_data)
+        private_data = apply_private_overlay(data, overlay, args.private_data)
+        private_source = expected_cv_source(current_cv, private_data)
+        compile_private_cv(private_source, publications, args.output.resolve())
+        print(f"Compiled private CV to {args.output.resolve()}.")
+        return 0
+
+    if args.private_data is not None or args.output is not None:
+        parser.error("--private-data and --output require --variant private")
     cv_source = expected_cv_source(current_cv, data)
 
     if args.check:

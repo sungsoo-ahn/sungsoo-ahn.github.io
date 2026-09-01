@@ -67,7 +67,7 @@ metadata.
 | File                       | Purpose                                     |
 | -------------------------- | ------------------------------------------- |
 | `_data/publications.yml`   | Canonical publications for website and CV   |
-| `_data/cv_content.yml`     | Structured source for CV sections           |
+| `_data/cv_content.yml`     | Public, non-sensitive CV sections            |
 | `cv/cv.tex`                | CV template with generated SYNC blocks      |
 | `assets/pdf/cv.pdf`        | Generated CV served by the homepage         |
 | `_pages/about.md`          | Homepage content                            |
@@ -78,6 +78,10 @@ metadata.
 | `assets/img/prof_pic.jpg`  | Profile photo                               |
 | `_pages/teaching.md`       | Teaching page (links to course sites)       |
 | `_data/courses.yml`        | Course metadata (links to standalone sites) |
+
+Sensitive contact, funding, project, and computing-allocation data belong only
+in the private `sungsoo-ahn/cv-private` overlay. Do not copy them into this
+repository, its tests, fixtures, commit messages, or generated artifacts.
 
 ## Skills
 
