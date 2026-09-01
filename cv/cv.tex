@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+
+% # FONTS
+
+\usepackage[T1]{fontenc}
+\usepackage{kotex}
+\renewcommand*\ttdefault{lmvtt}
+%\usepackage[bitstream-charter]{mathdesign}
+\usepackage{amsmath}
+%\usepackage[scaled=0.92]{PTSans}
+%\usepackage{charter}
+% # GEOMETRY
+
+\usepackage[
+  paper  = letterpaper,
+  left   = 1.0in,
+  right  = 1.0in,
+  top    = 1.25in,
+  bottom = 1.25in,
+]{geometry}
+%\usepackage[final,expansion=alltext]{microtype}
+\usepackage[english]{babel}
+\usepackage[parfill]{parskip}
+\usepackage{afterpage}
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage{pifont}     % needed for dingbats for colophon
+
+% # COLOR
+\usepackage[dvipsnames]{xcolor}
+\definecolor{shadecolor}{gray}{0.9}
+\definecolor{WineRed}{rgb}{0.6,0,0}
+
+\usepackage[colorlinks=true,urlcolor=WineRed,citecolor=WineRed]{hyperref}
+\hypersetup{
+  pdftitle={Curriculum Vitae - Sungsoo Ahn},
+  pdfauthor={Sungsoo Ahn},
+}
+
+% # MACROS
+
+\newcommand{\me}[1]{\textbf{#1}}
+% Add this to compile in Overleaf.
+% \usepackage{natbib}
+
+% # HEADERS
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{\textcolor{gray}{\emph{Sungsoo Ahn}}}
+\rhead{\textcolor{gray}{\thepage}}
+\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\cventry}[3]{%
+  \item \textit{#1}, #2, #3.%
+}
+
+\newcommand{\cvunnumberedentry}[3]{%
+  \item[] \textit{#1}, #2, #3.%
+}
+
+\newcommand{\grantentry}[4]{%
+  \item \textit{#1}, #3, #2. #4.%
+}
+
+% Unnumbered section headings with consistent spacing and page-break behavior.
+\setcounter{secnumdepth}{0}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0pt}%
+  {1.0\baselineskip}%
+  {0.35\baselineskip}%
+  {\Large\bfseries}}
+\makeatother
+
+\begin{document}
+\thispagestyle{empty}
+
+
+\begin{center}
+% SYNC:CONTACT:BEGIN
+    {\Huge \bf Sungsoo Ahn} \vspace{.2in} \\
+    KAIST\\
+    {Email:} \texttt{sungsoo.ahn@kaist.ac.kr}, \\
+    {Web:} \href{https://sungsoo-ahn.github.io}{\texttt{sungsoo-ahn.github.io}}
+% SYNC:CONTACT:END
+\end{center}
+%\parbox[c][0.5in]{3.4in}{{\huge \textbf{Sungsoo Ahn}}}\\
+%{\small 
+%}
+\section{Education}
+% SYNC:EDUCATION:BEGIN
+\begin{itemize}
+\cvunnumberedentry{Integrated M.S.--Ph.D. Program in Electrical Engineering}{KAIST, Daejeon, South Korea, Advisor: Jinwoo Shin}{Mar. 2015 -- Mar. 2021}
+\cvunnumberedentry{B.S. in Electrical Engineering}{KAIST, Daejeon, South Korea}{Mar. 2011 -- Mar. 2015}
+\end{itemize}
+% SYNC:EDUCATION:END
+\section{Employment}
+% SYNC:EMPLOYMENT:BEGIN
+\begin{itemize}
+\cvunnumberedentry{Assistant Professor}{Graduate School of AI, KAIST, Daejeon, South Korea}{Jan. 2025 -- Present}
+\cvunnumberedentry{Assistant Professor}{Graduate School of AI and Department of Computer Science and Engineering, POSTECH, Pohang, South Korea}{Dec. 2021 -- Jan. 2025}
+\cvunnumberedentry{Postdoctoral Research Associate}{Mohamed bin Zayed University of Artificial Intelligence (MBZUAI), Abu Dhabi, United Arab Emirates, Supervisors: Le Song and Eric Xing}{Mar. 2021 -- Nov. 2021}
+\cvunnumberedentry{Research Intern}{Amazon Cambridge Development Center, Cambridge, United Kingdom, Supervisor: Zhenwen Dai}{Jun. 2018 -- Aug. 2018}
+\cvunnumberedentry{Visiting Student}{University of Cambridge, Cambridge, United Kingdom, Host: Adrian Weller}{Mar. 2018 -- May 2018}
+\cvunnumberedentry{Research Intern}{Los Alamos National Laboratory, Los Alamos, New Mexico, United States, Host: Michael Chertkov}{Jun. 2017 -- Aug. 2017}
+\cvunnumberedentry{Research Intern}{Los Alamos National Laboratory, Los Alamos, New Mexico, United States, Host: Michael Chertkov}{Jun. 2016 -- Aug. 2016}
+\cvunnumberedentry{Software Developer Intern}{Penta Security Systems, Seoul, South Korea}{Jan. 2014 -- Feb. 2014}
+\end{itemize}
+% SYNC:EMPLOYMENT:END
+
+\section{Publications}
+{\small $^*$Equal contribution. $^\dagger$Equal corresponding authors.}\par
+\begingroup
+\setlength{\emergencystretch}{2em}
+\input{publications}
+\endgroup
+
+\section{Service}
+% SYNC:SERVICE:BEGIN
+\begin{enumerate}
+\cventry{Track Chair (AI Scientist / Agent Systems)}{\href{https://ai4scikorea.org/}{AI for Science Conference (AI4Sci Korea)}, Seoul, South Korea}{2026}
+\cventry{Host}{\href{https://holymollyhao.github.io/ai4science-korea/}{Korea AI4Science Gathering @ ICML}, Seoul, South Korea}{2026}
+\cventry{Local Chair}{\href{https://probml.cc/}{Symposium on Probabilistic Machine Learning (ProbML)}, Seoul, South Korea}{2026}
+\cventry{Organizer}{\href{https://ai4sciencecommunity.github.io/icml26}{AI for Science: AI Scientists---Tools, Co-authors, or Founders?}, International Conference on Machine Learning (ICML)}{2026}
+\cventry{Mentor}{AI Co-Research \& Education for Innovative Drug (AI-CRED) Institute, InnoCORE Program}{2025 -- Present}
+\cventry{Board of Directors}{Korean Society of AI Frontier (KSAIF)}{2025 -- Present}
+\cventry{Area Chair}{International Conference on Machine Learning (ICML)}{2022 -- 2026}
+\cventry{Area Chair}{International Conference on Learning Representations (ICLR)}{2024 -- 2026}
+\cventry{Area Chair}{Conference on Neural Information Processing Systems (NeurIPS)}{2022 -- 2026}
+\cventry{Area Chair}{International Conference on Artificial Intelligence and Statistics (AISTATS)}{2022 -- 2024}
+\cventry{Area Chair}{AAAI Conference on Artificial Intelligence (AAAI)}{2024}
+\cventry{Action Editor}{Transactions of Machine Learning Research (TMLR)}{2024 -- Present}
+\cventry{Workflow Chair}{International Conference on Machine Learning (ICML)}{2022}
+\cventry{Reviewer}{NeurIPS}{2018 -- 2021}
+\cventry{Reviewer}{ICML}{2019 -- 2021}
+\cventry{Reviewer}{ICLR}{2019 -- 2024}
+\cventry{Reviewer}{AISTATS}{2019 -- 2021}
+\end{enumerate}
+% SYNC:SERVICE:END
+
+\section{Invited Talks and Seminars}
+% SYNC:TALKS:BEGIN
+\begingroup
+\setlength{\emergencystretch}{2em}
+\begin{enumerate}
+\cventry{비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Seoul, South Korea}{Nov. 2026}
+\cventry{From Atomistic Generative Models to Amortized Free-Energy Estimation}{Generative Models and Uncertainty Quantification (GenU), Copenhagen, Denmark}{Sep. 2026}
+\cventry{Amortizing Molecular Simulation with Neural Networks}{DTU Energy, Kongens Lyngby, Denmark}{Sep. 2026}
+\cventry{AI for Molecular and Materials Discovery}{KAIST College of AI Colloquium, Daejeon, South Korea}{Sep. 2026}
+\cventry{Recent Trends in AI for Science}{Korea Supercomputing Conference (KSC), Seoul, South Korea}{Sep. 2026}
+\cventry{From Atomistic Generative Models to Amortized Free-Energy Estimation}{KAIST--Mila Prefrontal AI Workshop, Daejeon, South Korea}{Aug. 2026}
+\cventry{K-Fold: Fast Biomolecular Complex Prediction without Evolutionary Signals}{Korean Society of Artificial Intelligence in Medicine (KoSAIM), South Korea}{Jul. 2026}
+\cventry{Machine Learning Hamiltonians}{22nd KIAS Workshop on Electronic Structure Calculations, Seoul, South Korea}{Jul. 2026}
+\cventry{Generative Approaches to Protein Conformational Landscapes}{2026 Korean Biomolecular Science Joint Conference, South Korea}{Jun. 2026}
+\cventry{Generative Approaches to Protein Conformational Landscapes}{Korea Institute for Advanced Study (KIAS), Seoul, South Korea}{Jun. 2026}
+\cventry{비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Seoul, South Korea}{May 2026}
+\cventry{AI Methods for Generating Scientific Hypotheses}{Samsung Advanced Institute of Technology Scientific AI Workshop, Suwon, South Korea}{May 2026}
+\cventry{Generative Models for Molecular Discovery}{Korea Institute of Science and Technology Information (KISTI), Daejeon, South Korea}{Mar. 2026}
+\cventry{비정형 데이터 기반 딥러닝의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Seoul, South Korea}{Nov. 2025}
+\cventry{Foundation Models for Material Discovery}{Korea Institute of Materials Science (KIMS), Changwon, South Korea}{Jul. 2025}
+\cventry{Generative Models for Molecular Discovery}{Seoul National University, Seoul, South Korea}{Jul. 2025}
+\cventry{A Generative Model for Metal-Organic Frameworks}{KAIST--Mila Annual Workshop, Montreal, Canada}{Jul. 2025}
+\cventry{Machine Learning for Transition Path Sampling}{The Korea in Silico BioDesign and Discovery Society (KIDDS), Daejeon, South Korea}{Jul. 2025}
+\cventry{그래프신경망의 과학기술 활용 및 혁신 사례}{KAIST Chief AI Officer Program, Seoul, South Korea}{May 2025}
+\cventry{Generative Models for Molecular Discovery}{LG AI Research, Seoul, South Korea}{May 2025}
+\cventry{Optimization Methods for Materials Science}{POSCO Holdings, Seoul, South Korea}{Dec. 2024}
+\cventry{Structure- and Energy-Based Machine Learning for Molecules}{KAIST--Mila Prefrontal AI Workshop, Montreal, Canada}{Dec. 2024}
+\cventry{Amortizing Intractable Inference for Molecular Discovery}{Physics-Informed Machine Learning Workshop, New Mexico, United States}{Nov. 2024}
+\cventry{Opportunities and Challenges in Deep Graph Generative Models}{AI Korea, Seoul, South Korea}{Nov. 2023}
+\cventry{Machine Learning for Drug Discovery}{KAIST, Daejeon, South Korea}{Oct. 2023}
+\cventry{Graph Structured Prediction and Graph Generation with Deep Learning}{KAIST, Daejeon, South Korea}{Jun. 2023}
+\cventry{Deep Neural Networks for Graph Optimization}{University of Arizona, Tucson, Arizona, United States}{Nov. 2022}
+\cventry{Geometric Deep Learning for Drug Discovery}{Korean Artificial Intelligence Association (KAIA), Jeju, South Korea}{Aug. 2022}
+\cventry{Machine Learning for Drug Discovery}{Centre for Frontier AI Research, Singapore}{Jun. 2022}
+\cventry{Elimination Techniques in Probabilistic Graphical Models}{Skolkovo Institute of Science and Technology (Skoltech), Moscow, Russia}{Jun. 2021}
+\cventry{Guiding Deep Molecular Optimization with Genetic Exploration}{Seminar at Samsung Advanced Institute of Technology, Suwon, South Korea}{Dec. 2020}
+\cventry{Scaling Deep Reinforcement Learning to Large Combinatorial Problems}{AI \& CSE Seminar, POSTECH, Pohang, South Korea}{Feb. 2020}
+\cventry{Bucket Renormalization for Approximate Inference}{Robotics Seminar, University of Oxford, Oxford, United Kingdom}{Jul. 2018}
+\cventry{Mini-Bucket Renormalization}{Physics-Informed Machine Learning Workshop, Santa Fe, New Mexico, United States}{Feb. 2018}
+\cventry{Gauge Transformation of Graphical Models}{CNLS Student Seminar, Los Alamos National Laboratory, Los Alamos, New Mexico, United States}{Jul. 2017}
+\cventry{Optimizing Gauge Transformation for Inference in Graphical Models}{Banff Workshop on Optimization and Inference for Physical Flows on Networks, Banff, Alberta, Canada}{Feb. 2017}
+\cventry{Synthesis of MCMC and Belief Propagation}{CNLS Student Seminar, Los Alamos National Laboratory, Los Alamos, New Mexico, United States}{Jul. 2016}
+\cventry{Minimum Weight Perfect Matching via Blossom Belief Propagation}{Discrete Math Seminar, KAIST, Daejeon, South Korea}{Nov. 2015}
+\end{enumerate}
+\endgroup
+% SYNC:TALKS:END
+
+\section{Teaching}
+% SYNC:COURSES:BEGIN
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\cventry{Proteins and AI (CoE499)}{KAIST}{Spring 2026}
+\cventry{Machine Learning for Molecules (AI899)}{KAIST}{Fall 2025}
+\cventry{Geometric Deep Learning (AI810)}{KAIST}{Spring 2025}
+\cventry{Introduction to Artificial Intelligence (CSED105)}{POSTECH}{Fall 2023 and Fall 2024}
+\cventry{Machine Learning for Graphs (CSED/AIGS703I)}{POSTECH}{Spring 2024}
+\cventry{Probabilistic Graphical Models (CSED/AIGS524)}{POSTECH}{Spring 2022 and Spring 2023}
+\cventry{Introduction to Machine Learning (CSED490B)}{POSTECH}{Fall 2022}
+\end{enumerate}
+% SYNC:COURSES:END
+\section{Awards}
+% SYNC:AWARDS:BEGIN
+\begin{enumerate}[itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt]
+\cventry{Outstanding Teaching Award}{KAIST}{2026}
+\cventry{Q-Day Faculty Special Award, Research Division}{KAIST}{2025}
+\end{enumerate}
+% SYNC:AWARDS:END
+
+% SYNC:GRANTS:BEGIN
+
+% SYNC:GRANTS:END
+\end{document}
