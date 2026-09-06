@@ -1,0 +1,58 @@
+name: Validate agent tooling
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "_posts/AGENTS.md"
+      - ".agents/**"
+      - ".gitignore"
+      - "scripts/validate_agent_hygiene.py"
+      - "scripts/blog_figure_style.py"
+      - "scripts/preview_figure_quality.py"
+      - "tests/test_validate_agent_hygiene.py"
+      - "tests/test_blog_figure_style.py"
+      - ".github/workflows/agent-tooling.yml"
+  push:
+    branches: [main]
+    paths:
+      - "AGENTS.md"
+      - "_posts/AGENTS.md"
+      - ".agents/**"
+      - ".gitignore"
+      - "scripts/validate_agent_hygiene.py"
+      - "scripts/blog_figure_style.py"
+      - "scripts/preview_figure_quality.py"
+      - "tests/test_validate_agent_hygiene.py"
+      - "tests/test_blog_figure_style.py"
+      - ".github/workflows/agent-tooling.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install focused test dependencies
+        run: python -m pip install "matplotlib>=3.10.8" numpy pillow pyyaml
+      - name: Validate canonical skills and references
+        run: python scripts/validate_agent_hygiene.py
+      - name: Test instruction validation and figure exports
+        run: |
+          python -m unittest discover -s tests -p 'test_validate_agent_hygiene.py'
+          python -m unittest discover -s tests -p 'test_blog_figure_style.py'
+      - name: Generate visual review examples
+        run: python scripts/preview_figure_quality.py --output-dir "$RUNNER_TEMP/figure-quality"
+      - name: Keep rendered examples for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: figure-quality-examples
+          path: "${{ runner.temp }}/figure-quality"

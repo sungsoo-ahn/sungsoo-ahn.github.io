@@ -17,10 +17,10 @@ uv run python scripts/update_members.py
 
 # Regenerate and compile the CV
 uv run python scripts/update_cv.py
-
-# Commit and push
-git add -A && git commit -m "Update content" && git push
 ```
+
+Review and stage the requested changes before committing. Pushing to main
+deploys the site.
 
 External data source (synced from Dropbox):
 
@@ -78,6 +78,12 @@ python3 scripts/validate_kups_pages.py
 ```
 
 ## File Structure
+
+Agent guidance lives in [AGENTS.md](AGENTS.md) and five repository skills:
+blog-writing, blog-figures, lecture-adaptation, site-maintenance, and
+site-validation. See [upstream sources](.agents/third-party/sources.md) for
+adapted figure, editing, and layout guidance. Skills load detailed references
+only for the applicable task.
 
 ```
 _data/publications.yml    # Canonical publications for the website and CV

@@ -173,6 +173,11 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "_scripts"]
 exclude:
+  - AGENTS.md
+  - _posts/AGENTS.md
+  - .agents/
+  - docs/agent-audits/
+  - temp_prompt.md
   - cv/
   - assets/jupyter/
   - bin/
