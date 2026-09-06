@@ -1,7 +1,6 @@
-"""Generate the native SVG detailed-balance diagram for the GFlowNet post.
+"""Generate editable GFlowNet diagrams with explicit positive target weights.
 
-The other GFlowNet figures are original PNGs and are intentionally not
-generated here.
+Superseded lecture PNGs remain in Git history; corrected examples use new filenames.
 """
 
 from __future__ import annotations
@@ -266,117 +265,73 @@ def figure_backward_policy():
     save(svg, "fig_backward_policy")
 
 
-def mini_tree(svg: Svg, ox: float, oy: float, *, nonuniform=False, forward=False, reverse=False):
-    pts = {
-        "s0": (ox, oy + 80),
-        "s1": (ox + 105, oy + 35),
-        "s2": (ox + 105, oy + 125),
-        "x1": (ox + 225, oy + 12),
-        "x2": (ox + 225, oy + 80),
-        "x3": (ox + 225, oy + 148),
-    }
-    if nonuniform:
-        edges = [("s0", "s1"), ("s0", "s2"), ("s1", "x1"), ("s1", "x2"), ("s2", "x2"), ("s2", "x3")]
-    else:
-        edges = [("s0", "s1"), ("s0", "s2"), ("s1", "x1"), ("s2", "x2"), ("s2", "x3")]
-    for u, v in edges:
-        color = TEXT if forward else GRAY
-        marker = "arrow-text" if forward else "arrow-gray"
-        p1, p2 = (pts[v], pts[u]) if reverse else (pts[u], pts[v])
-        arrow(svg, p1, p2, color=color, marker=marker, sw=2.5, r1=17, r2=17)
-    for n, p in pts.items():
-        if n == "s0":
-            labeled_node(svg, *p, "s0", fill=BLUE_LIGHT, stroke=BLUE, color=BLUE, r=17, size=11)
-        elif n.startswith("x"):
-            labeled_node(svg, *p, n, fill=RED_LIGHT, stroke=RED, color=RED, r=17, size=12)
-        else:
-            labeled_node(svg, *p, n, fill=WHITE, stroke=TEXT, r=17, size=12)
-    return pts
+def _worked_graph(*, shared: bool):
+    """Forward probabilities derived from path weights 4, 2, 1 or 4, 1, 1, 1."""
+    from fractions import Fraction
 
-
-def panel(svg: Svg, x, y, w, h, title: str):
-    svg.rect(x, y, w, h, fill=WHITE, stroke="#d8e0e4", sw=1.2, rx=7)
-    svg.text(x + 16, y + 22, title, size=16, weight=700, fill=TEXT, anchor="start")
-
-
-def bars(svg: Svg, x, y, values, *, max_value=4, color=AMBER):
-    for i, (label, value) in enumerate(values):
-        yy = y + i * 42
-        svg.text(x, yy + 12, label, size=14, weight=700, fill=TEXT, anchor="start")
-        svg.rect(x + 64, yy, 132, 24, fill=LIGHT_GRAY, stroke="none", sw=0, rx=5)
-        svg.rect(x + 64, yy, 132 * value / max_value, 24, fill=AMBER_LIGHT, stroke=color, sw=1.4, rx=5)
-        svg.text(x + 210, yy + 12, str(value), size=15, weight=700, fill=color, anchor="start")
+    svg = Svg(660, 470)
+    title = "A shared terminal state" if shared else "One path per terminal state"
+    svg.text(330, 30, title, size=25, weight=700)
+    svg.text(330, 70, "Positive weights w = exp(R);  Z = 4 + 2 + 1 = 7", size=20)
+    pts = {"s0": (65, 250), "s1": (210, 165), "s2": (210, 335),
+           "x1": (390, 130), "x2": (390, 250), "x3": (390, 370)}
+    paths = [("s0", "s1", "x1"), ("s0", "s1", "x2"), ("s0", "s2", "x3")]
+    weights = [4, 2, 1]
+    if shared:
+        paths.insert(2, ("s0", "s2", "x2"))
+        weights = [4, 1, 1, 1]
+    flow = {}
+    outgoing = {}
+    for path, weight in zip(paths, weights):
+        for u, v in zip(path, path[1:]):
+            flow[u, v] = flow.get((u, v), 0) + weight
+            outgoing[u] = outgoing.get(u, 0) + weight
+    for (u, v), weight in flow.items():
+        arrow(svg, pts[u], pts[v], color=BLUE, marker="arrow-blue", sw=2.6, r1=25, r2=27)
+        x = (pts[u][0] + pts[v][0])/2
+        y = (pts[u][1] + pts[v][1])/2
+        offset = -20 if pts[v][1] < pts[u][1] else 22
+        svg.text(x, y+offset, str(Fraction(weight, outgoing[u])), size=20, weight=700)
+    for name, (x, y) in pts.items():
+        labeled_node(svg, x, y, name, r=25, size=19,
+                     fill=RED_LIGHT if name.startswith("x") else BLUE_LIGHT,
+                     stroke=RED if name.startswith("x") else BLUE)
+    for name, weight in [("x1", 4), ("x2", 2), ("x3", 1)]:
+        svg.text(525, pts[name][1], f"w({name}) = {weight}", size=22, weight=700)
+    svg.text(330, 430, "Arrows: forward probabilities pF", size=20, fill=MUTED)
+    return svg
 
 
 def figure_example_forward():
-    svg = Svg(940, 340)
-    panel(svg, 20, 26, 278, 270, "A. Backward policy")
-    panel(svg, 330, 26, 250, 270, "B. Target weights")
-    panel(svg, 612, 26, 306, 270, "C. Forward policy")
-    pts = mini_tree(svg, 55, 80, reverse=True)
-    svg.text(160, 265, "pB = 1 on each parent edge", size=13, fill=MUTED)
-    bars(svg, 365, 96, [("x1", 4), ("x2", 2), ("x3", 1)])
-    pts = mini_tree(svg, 650, 80, forward=True)
-    labels = [
-        ((pts["s0"][0] + pts["s1"][0]) / 2, (pts["s0"][1] + pts["s1"][1]) / 2 - 15, "4/7"),
-        ((pts["s0"][0] + pts["s2"][0]) / 2, (pts["s0"][1] + pts["s2"][1]) / 2 + 16, "3/7"),
-        ((pts["s1"][0] + pts["x1"][0]) / 2, (pts["s1"][1] + pts["x1"][1]) / 2 - 15, "1"),
-        ((pts["s2"][0] + pts["x2"][0]) / 2, (pts["s2"][1] + pts["x2"][1]) / 2 - 15, "2/3"),
-        ((pts["s2"][0] + pts["x3"][0]) / 2, (pts["s2"][1] + pts["x3"][1]) / 2 + 16, "1/3"),
-    ]
-    for x, y, label in labels:
-        svg.text(x, y, label, size=14, weight=700, fill=TEXT)
-    svg.text(470, 316, "terminal probability is proportional to reward", size=15, fill=MUTED)
-    save(svg, "fig_example_forward")
+    save(_worked_graph(shared=False), "fig_example_tree")
 
 
 def figure_example_backward():
-    svg = Svg(940, 340)
-    panel(svg, 20, 26, 300, 270, "A. Non-uniform pB")
-    panel(svg, 350, 26, 250, 270, "B. Four trajectories")
-    panel(svg, 632, 26, 286, 270, "C. Forward response")
-    pts = mini_tree(svg, 60, 80, nonuniform=True, reverse=True)
-    svg.text(262, 128, "1", size=13, weight=700, fill=TEXT)
-    svg.text(262, 164, "0.5", size=13, weight=700, fill=RED)
-    svg.text(262, 192, "0.5", size=13, weight=700, fill=RED)
-    svg.text(262, 236, "1", size=13, weight=700, fill=TEXT)
-    bars(svg, 385, 78, [("tau1", 4), ("tau2a", 1), ("tau2b", 1), ("tau3", 1)])
-    pts = mini_tree(svg, 670, 80, nonuniform=True, forward=True)
-    labels = [
-        ((pts["s0"][0] + pts["s1"][0]) / 2, (pts["s0"][1] + pts["s1"][1]) / 2 - 16, "5/7"),
-        ((pts["s0"][0] + pts["s2"][0]) / 2, (pts["s0"][1] + pts["s2"][1]) / 2 + 16, "2/7"),
-        ((pts["s1"][0] + pts["x1"][0]) / 2, (pts["s1"][1] + pts["x1"][1]) / 2 - 15, "4/5"),
-        ((pts["s1"][0] + pts["x2"][0]) / 2, (pts["s1"][1] + pts["x2"][1]) / 2 + 12, "1/5"),
-        ((pts["s2"][0] + pts["x2"][0]) / 2, (pts["s2"][1] + pts["x2"][1]) / 2 - 12, "1/2"),
-        ((pts["s2"][0] + pts["x3"][0]) / 2, (pts["s2"][1] + pts["x3"][1]) / 2 + 15, "1/2"),
-    ]
-    for x, y, label in labels:
-        svg.text(x, y, label, size=13, weight=700, fill=TEXT)
-    svg.text(470, 316, "splitting x2 changes the route probabilities", size=15, fill=MUTED)
-    save(svg, "fig_example_backward")
+    save(_worked_graph(shared=True), "fig_example_shared")
 
 
 def figure_flow_matching():
-    svg = Svg(1060, 340)
-    panel(svg, 20, 26, 220, 270, "A. Rewards")
-    panel(svg, 270, 26, 230, 270, "B. Backward flow")
-    panel(svg, 530, 26, 220, 270, "C. Forward flow")
-    panel(svg, 780, 26, 260, 270, "D. Policy")
-    bars(svg, 55, 100, [("x1", 4), ("x2", 2), ("x3", 1)])
-    bars(svg, 305, 100, [("tau1", 4), ("tau2", 2), ("tau3", 1)], color=TEAL)
-    svg.text(642, 112, "Z = 7", size=23, weight=700, fill=TEXT)
-    bars(svg, 565, 150, [("tau1", 4), ("tau2", 2), ("tau3", 1)], color=BLUE)
-    pts = mini_tree(svg, 800, 80, forward=True)
-    labels = [
-        ((pts["s0"][0] + pts["s1"][0]) / 2, (pts["s0"][1] + pts["s1"][1]) / 2 - 15, "4/7"),
-        ((pts["s0"][0] + pts["s2"][0]) / 2, (pts["s0"][1] + pts["s2"][1]) / 2 + 16, "3/7"),
-        ((pts["s2"][0] + pts["x2"][0]) / 2, (pts["s2"][1] + pts["x2"][1]) / 2 - 15, "2/3"),
-        ((pts["s2"][0] + pts["x3"][0]) / 2, (pts["s2"][1] + pts["x3"][1]) / 2 + 16, "1/3"),
+    svg = Svg(700, 440)
+    svg.text(350, 30, "Trajectory balance on the shared-terminal graph", size=23, weight=700)
+    headers = [(120, "Path"), (320, "Backward flow"), (525, "Forward probability")]
+    for x, title in headers:
+        svg.text(x, 92, title, size=20, weight=700)
+    rows = [
+        ("s0 → s1 → x1", "4 × 1 = 4", "4/7"),
+        ("s0 → s1 → x2", "2 × ½ = 1", "1/7"),
+        ("s0 → s2 → x2", "2 × ½ = 1", "1/7"),
+        ("s0 → s2 → x3", "1 × 1 = 1", "1/7"),
     ]
-    for x, y, label in labels:
-        svg.text(x, y, label, size=13, weight=700, fill=TEXT)
-    svg.text(510, 316, "trajectory balance matches backward and forward flows", size=15, fill=MUTED)
-    save(svg, "fig_flow_matching")
+    for i, row in enumerate(rows):
+        y = 150+i*53
+        svg.rect(25, y-23, 650, 46, fill=bfs.PURPLE_LIGHT if i%2 == 0 else WHITE,
+                 stroke="none", sw=0, rx=4)
+        for (x, _), value in zip(headers, row):
+            svg.text(x, y, value, size=21)
+    svg.text(350, 370, "fB(τ) = w(x) pB(τ | x) = Z pF(τ) = fF(τ)", size=22, weight=700)
+    svg.text(350, 408, "w(x) = exp(R(x));  Z = 7", size=20, fill=MUTED)
+    save(svg, "fig_trajectory_balance")
+
 
 
 def figure_detailed_balance():
@@ -400,6 +355,9 @@ def figure_detailed_balance():
 
 
 def main():
+    figure_example_forward()
+    figure_example_backward()
+    figure_flow_matching()
     figure_detailed_balance()
 
 

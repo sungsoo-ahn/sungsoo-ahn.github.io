@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Flow Networks"
 date: 2026-03-14
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "GFlowNets from a probabilistic-ML perspective: reward-proportional sampling, training objectives, and connections to MaxEnt RL and variational inference."
 post_type: tutorial
 selected: true
@@ -29,7 +29,7 @@ Suppose you want to generate a molecule that binds to a target protein. You have
 
 In scientific discovery, diversity is essential. Proxy reward functions are imprecise; the top-scoring molecule under the proxy may fail experimentally. The safer strategy is to cast a wide net: generate many diverse candidates that score well, then filter them in the lab.
 
-GFlowNets address this by sampling objects proportionally to their reward (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)). Instead of finding $$x^* = \arg\max_x R(x)$$, a GFlowNet learns a policy that generates $$x$$ with probability proportional to $$\exp R(x)$$. If molecule A has reward 4 and molecule B has reward 2, A is sampled $$e^4 / e^2 \approx 7.4$$ times more often than B, but B is still generated regularly. This is an energy-based (Boltzmann) distribution, the same type that appears in statistical mechanics and Bayesian inference.
+GFlowNets learn a sampler with a specified positive weight for each object (<span id="cite-bengio2021"></span>[Bengio et al., 2021](#ref-bengio2021)). In this post, $$R(x)$$ denotes a **log reward**, so the positive target weight is $$w(x)=\exp R(x)$$. Log rewards 4 and 2 give a probability ratio $$e^4/e^2\approx 7.4$$. This differs from assigning positive weights 4 and 2, which gives a ratio of 2. The distinction matters in the worked examples below.
 
 ## Part I: The Goal
 
@@ -41,7 +41,7 @@ GFlowNet is a generative framework for sampling combinatorial objects from an en
 >
 > $$p^*(x) = \frac{\exp R(x)}{Z}, \qquad Z = \sum_{x \in \mathcal{X}} \exp R(x)$$
 >
-> where $$R(x)$$ is a reward function (or negative energy), $$\mathcal{X}$$ is a finite set of objects, and $$Z$$ is the partition function — a normalizing constant that ensures the probabilities sum to one.
+> where $$R(x)$$ is the log reward (or negative energy), $$\mathcal{X}$$ is a finite set of objects, and $$Z$$ is the partition function — a normalizing constant that ensures the probabilities sum to one.
 {: .block-definition }
 
 We can evaluate $$R(x)$$ for any given object $$x$$, for example by running a docking simulation, but we cannot enumerate all objects to compute $$Z$$. Unlike VAEs or diffusion models, the model learns directly from the reward function, not from a dataset of samples from $$p^*(x)$$.
@@ -50,20 +50,18 @@ We can evaluate $$R(x)$$ for any given object $$x$$, for example by running a do
 
 MCMC methods such as Metropolis-Hastings, Langevin dynamics, and HMC can sample from $$p^*(x)$$ without knowing $$Z$$, but each run produces a single correlated chain of samples. When we need repeated samples from the same distribution, or from many related distributions, rerunning MCMC from scratch is wasteful.
 
-GFlowNets perform amortized sampling: they invest upfront computation to train a neural network (the forward policy), and then sampling is a single forward pass through the network — fast and parallelizable. This is the same idea behind amortized variational inference, where an encoder network replaces per-datapoint optimization. The upfront training cost is large, but inference at deployment time is cheap.
+GFlowNets amortize sampling by training a forward policy that constructs a fresh object through a sequence of decisions. Each decision usually requires a network evaluation; it is not a single forward pass for the whole object. Independent construction trajectories can be batched, and the training cost can pay off when many samples from the same target are needed.
 
-In probabilistic-ML terms, GFlowNets are amortized MCMC for combinatorial spaces: train once, sample forever, with the learned policy replacing the Markov chain.
+Unlike an MCMC chain, the learned policy does not automatically preserve the target distribution. Its sampling accuracy depends on training, exploration, and model capacity.
 
 ### Why Not RL?
 
 RL maximizes expected cumulative reward. It finds the single best action sequence, or a narrow set of near-optimal ones. GFlowNets solve a different problem: sampling proportionally to reward. The two are related but distinct:
 
 - **Similar:** Both use interactive training with a reward function and learn a policy through trial and error.
-- **Different:** RL converges to the mode; GFlowNets converge to the full distribution.
+- **Different:** Unregularized expected-reward maximization favors optimal objects; GFlowNet balance conditions target a specified distribution over objects. Neither objective guarantees that finite training reaches its ideal solution.
 
-For scientific discovery, mode-seeking is dangerous. If the reward function is a learned proxy for binding affinity, its top-scoring molecule may not bind well in the lab. We want many diverse candidates so that some can succeed even when others fail experimentally.
-
-Maximum entropy RL comes closer — it augments the reward with an entropy bonus that encourages the policy to spread probability mass across trajectories. GFlowNets turn out to be equivalent to MaxEnt RL with a specific reward shaping, but they target a distribution over terminal *objects* rather than trajectories. Part V returns to this connection.
+Maximum entropy RL comes closer — it augments the reward with an entropy bonus that encourages the policy to spread probability mass across trajectories. GFlowNets turn out to be equivalent to MaxEnt RL with a specific reward shaping, but they target a distribution over terminal *objects* rather than trajectories. The connections section develops this relationship.
 
 ---
 
@@ -79,9 +77,9 @@ GFlowNets construct objects step by step, like assembling a molecule atom by ato
 
 Each edge $$(s_{t-1}, s_t)$$ in the DAG represents an action, such as adding an atom, appending an amino acid, or placing a node. Multiple trajectories can lead to the same terminal object $$x$$, because different construction orders can produce the same result.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_molecules.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A DAG for molecule construction. Each node is a partially built molecule; each edge adds a fragment. Terminal states (large circles) are completed molecules. Redrawn from Bengio et al., <a href='https://jmlr.org/papers/v24/22-0364.html'>GFlowNet Foundations</a> (Figure 2b)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_molecules.png" alt="A directed acyclic graph builds different molecules by adding fragments to intermediate structures." class="img-fluid rounded z-depth-1" zoomable=true caption="A DAG for molecule construction. Each node is a partially built molecule; each edge adds a fragment. Terminal states (large circles) are completed molecules. Redrawn from Bengio et al., <a href='https://jmlr.org/papers/v24/22-0364.html'>GFlowNet Foundations</a> (Figure 2b)." %}
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_abstract.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Abstract view of the same structure. The blue node is the initial state \(s_0\); pink nodes are terminal states \(x \in \mathcal{X}\). Intermediate white nodes are partially constructed objects." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_dag_abstract.png" alt="An initial state branches through intermediate states to several terminal states." class="img-fluid rounded z-depth-1" zoomable=true caption="Abstract view of the same structure. The blue node is the initial state \(s_0\); pink nodes are terminal states \(x \in \mathcal{X}\). Intermediate white nodes are partially constructed objects." %}
 
 ### Forward Policy
 
@@ -95,7 +93,7 @@ $$p_\mathrm{F}(x) = \sum_{\tau \in \mathcal{T}(x)} p_\mathrm{F}(\tau)$$
 
 where $$\mathcal{T}(x)$$ is the set of all trajectories that terminate at $$x$$. For example, a molecule with three atoms A, B, C can be built as A→B→C or A→C→B or B→A→C, and so on — all producing the same molecule $$x$$. The total probability of generating $$x$$ is the sum over all these construction orders.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_forward_policy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The forward policy constructs objects step by step through a DAG. A trajectory (highlighted) is a path from the initial state to a terminal state. The probability of an object is the sum over all trajectories ending at it." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_forward_policy.png" alt="Highlighted arrows trace one forward construction path through the graph." class="img-fluid rounded z-depth-1" zoomable=true caption="The forward policy constructs objects step by step through a DAG. A trajectory (highlighted) is a path from the initial state to a terminal state. The probability of an object is the sum over all trajectories ending at it." %}
 
 ### The Key Difficulty
 
@@ -113,19 +111,19 @@ $$p_\mathrm{B}(\tau) \propto \exp R(x) \prod_{t=1}^{T} p_\mathrm{B}(s_{t-1} \mid
 
 A trajectory leading to a high-reward terminal state gets high probability; the backward policy determines how that probability is split among the different construction orders for $$x$$. The backward policy can be fixed (e.g., uniform over parents) or learned jointly with the forward policy.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_backward_policy.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The backward policy decomposes a terminal state into a trajectory by reversing the construction. Training matches the forward and backward trajectory distributions, which implies matching the marginal distributions over objects." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_backward_policy.png" alt="Highlighted arrows retrace a terminal state toward the initial state under a backward policy." class="img-fluid rounded z-depth-1" zoomable=true caption="The backward policy decomposes a terminal state into a trajectory by reversing the construction. Training matches the forward and backward trajectory distributions, which implies matching the marginal distributions over objects." %}
 
 ### A Worked Example: Uniform Backward Policy
 
 Consider a simple DAG with three terminal states $$x_1, x_2, x_3$$ and unnormalized target weights $$\exp R(x_1) = 4$$, $$\exp R(x_2) = 2$$, $$\exp R(x_3) = 1$$. With a uniform backward policy, and assuming each state has exactly one parent so $$p_\mathrm{B} = 1$$ on every edge, each terminal state has exactly one backward trajectory. Each trajectory's target probability is proportional to $$\exp R(x)$$: $$p_\mathrm{B}(\tau_1) \propto 4$$, $$p_\mathrm{B}(\tau_2) \propto 2$$, $$p_\mathrm{B}(\tau_3) \propto 1$$. The total is $$4 + 2 + 1 = 7$$, so the forward policy must route 4/7 of its probability toward $$x_1$$, 2/7 toward $$x_2$$, and 1/7 toward $$x_3$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_forward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Uniform backward policy example. Left: backward policy with all probabilities equal to 1. Center: three trajectories with probabilities proportional to terminal rewards. Right: the forward policy that matches these trajectory probabilities." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_tree.svg" alt="A tree with terminal weights four, two, and one yields forward branch probabilities six-sevenths and one-seventh." class="img-fluid rounded z-depth-1" zoomable=true caption="Each terminal has one construction path, so all backward probabilities are one. Positive terminal weights \(w=\exp R\) of 4, 2, and 1 give the forward probabilities shown. These are weights, not log rewards. Redrawn for the worked example." %}
 
-### A Worked Example: Non-Uniform Backward Policy
+### A Worked Example: A Shared Terminal State
 
-What if the backward policy is non-uniform? Suppose $$x_2$$ has two parents $$s_1$$ and $$s_2$$, and we set $$p_\mathrm{B}(s_1 \mid x_2) = p_\mathrm{B}(s_2 \mid x_2) = 0.5$$. Now there are four trajectories instead of three, because $$x_2$$ can be reached through either $$s_1$$ or $$s_2$$. The backward policy splits $$x_2$$'s weight of $$\exp R(x_2) = 2$$ across the two paths: each trajectory through $$x_2$$ gets target probability proportional to $$2 \times 0.5 = 1$$. The forward policy adjusts by routing more probability through $$s_2$$, because $$s_2$$ serves as a waypoint to both $$x_2$$ and $$x_3$$.
+What changes when a terminal state has more than one parent? Suppose $$x_2$$ has two parents $$s_1$$ and $$s_2$$, and we set $$p_\mathrm{B}(s_1 \mid x_2) = p_\mathrm{B}(s_2 \mid x_2) = 0.5$$. Now there are four trajectories instead of three, because $$x_2$$ can be reached through either $$s_1$$ or $$s_2$$. The backward policy splits $$x_2$$'s weight of $$\exp R(x_2) = 2$$ across the two paths: each trajectory through $$x_2$$ gets target probability proportional to $$2 \times 0.5 = 1$$. The forward policy adjusts by routing more probability through $$s_2$$, because $$s_2$$ serves as a waypoint to both $$x_2$$ and $$x_3$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_backward.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Non-uniform backward policy. The 0.5 split at \(x_2\) creates four trajectories instead of three. The forward policy adapts: \(s_2\) now receives more probability (2/7 vs 1/7) because it serves as a path to both \(x_2\) and \(x_3\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_example_shared.svg" alt="A graph with two paths to the middle terminal splits its weight between those paths." class="img-fluid rounded z-depth-1" zoomable=true caption="The middle terminal now has two parents. A uniform backward policy splits its weight 2 into two path weights of 1, giving the forward probabilities shown. The lower branch receives 2/7 instead of 1/7. Redrawn for the worked example." %}
 
 ### Flows
 
@@ -152,9 +150,9 @@ The trajectory balance objective (<span id="cite-malkin2022"></span>[Malkin et a
 > The loss is zero when the forward flow $$Z_\theta \prod p_\mathrm{F}$$ equals the backward flow $$\exp R(x) \prod p_\mathrm{B}$$ for every trajectory.
 {: .block-definition }
 
-TB is the simplest objective. It trains a single scalar $$Z_\theta$$ plus the forward and backward policies. The downside is credit assignment: a single reward signal at the terminal state must propagate back through the entire construction sequence. For long trajectories, this makes learning slow — the gradient carries information about the full trajectory, and early transitions receive weak signal.
+TB trains a scalar $$Z_\theta$$ alongside the policies, without requiring a separate flow estimate at every intermediate state. Its whole-trajectory residual couples early decisions directly to the terminal weight. This can help credit assignment, but the benefit depends on trajectory length, exploration, and the competing objective; it is not a guarantee of easy optimization.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_flow_matching.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Trajectory balance in action. From left: backward policy and rewards; backward flows \(f_\mathrm{B}(\tau) = R(x) \prod p_\mathrm{B}\); forward flows \(f_\mathrm{F}(\tau) = Z_\theta\, p_\mathrm{F}(\tau)\) with \(Z_\theta = 7\); the resulting forward policy." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_trajectory_balance.svg" alt="A table lists four paths, their backward flows, and forward probabilities, verifying trajectory balance with normalizer seven." class="img-fluid rounded z-depth-1" zoomable=true caption="Four construction paths carry backward flows 4, 1, 1, and 1. Multiplying each forward path probability by \(Z=7\) recovers its backward flow. The two paths to \(x_2\) together carry its terminal weight 2. Redrawn for the worked example." %}
 
 ### Detailed Balance (DB)
 
@@ -169,11 +167,11 @@ TB applies to entire trajectories, which can be long. The detailed balance objec
 
 DB provides local credit assignment: each transition gets its own loss signal, so early transitions receive direct feedback rather than waiting for the terminal reward. The trade-off is that the model must learn the state flow function $$f_\theta(s)$$, an additional neural network that estimates how much total flow passes through each intermediate state.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_detailed_balance.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Detailed balance enforces flow consistency on one edge at a time. The product of state flow and transition probability must match in the forward and backward directions." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/gflownet/fig_detailed_balance.svg" alt="Two states with flows five and two satisfy local balance using forward probability two-fifths and backward probability one." class="img-fluid rounded z-depth-1" zoomable=true caption="Detailed balance enforces flow consistency on one edge at a time. The product of state flow and transition probability must match in the forward and backward directions." %}
 
 ### Sub-Trajectory Balance (SubTB)
 
-TB enforces balance over the full trajectory (global but weak signal); DB enforces balance over single edges (local but requires learning state flows). Sub-trajectory balance (<span id="cite-madan2023"></span>[Madan et al., 2023](#ref-madan2023)) interpolates between the two by enforcing balance on sub-trajectories of arbitrary length $$\ell$$. For a sub-trajectory $$(s_i, s_{i+1}, \ldots, s_{i+\ell})$$:
+TB enforces balance over the full trajectory (a global residual); DB enforces balance over single edges (local but requires learning state flows). Sub-trajectory balance (<span id="cite-madan2023"></span>[Madan et al., 2023](#ref-madan2023)) interpolates between the two by enforcing balance on sub-trajectories of arbitrary length $$\ell$$. For a sub-trajectory $$(s_i, s_{i+1}, \ldots, s_{i+\ell})$$:
 
 > **Sub-Trajectory Balance.** For states $$s_i, \ldots, s_{i+\ell}$$ along a trajectory:
 >
@@ -188,13 +186,11 @@ In practice, SubTB sums losses over all sub-trajectories of all lengths within a
 
 An alternative to the balance conditions is flow matching (not to be confused with the flow matching used in continuous normalizing flows). This is the original training objective from the first GFlowNet paper ([Bengio et al., 2021](#ref-bengio2021)). It enforces flow conservation at each intermediate state: the total incoming flow must equal the total outgoing flow, like water in a pipe network. This is conceptually clean but requires summing over all parents and children of each state, which can be expensive for states with many neighbors.
 
-### Why These Objectives Are Easy to Optimize
+### Computable Losses, Difficult Exploration
 
-GFlowNet training is simpler than the problem statement suggests. The TB loss is a squared log-ratio between two quantities we can compute for any given trajectory. This is a regression problem: fit the forward flow to the backward flow, using MSE in log-space.
+For a sampled trajectory, the TB residual is computable without enumerating the terminal distribution or estimating its normalizer separately. Its gradient is backpropagation through the log-probabilities on that trajectory. Replayed trajectories can therefore support off-policy updates without a REINFORCE estimator for each TB regression step.
 
-Compare this with on-policy RL, where you must collect fresh trajectories with the current policy, estimate advantages with high-variance baselines, and tune clipping ratios or entropy bonuses to keep training stable. GFlowNet training looks more like offline RL or behavioral cloning: given a dataset of trajectories from a replay buffer, minimize a well-defined regression loss. There is no policy gradient, no REINFORCE estimator, and no reward-to-go. The gradient of $$\mathcal{L}_\mathrm{TB}$$ with respect to policy parameters is straightforward backpropagation through log-probabilities, the same kind of computation used in a supervised sequence model.
-
-GFlowNet training moves the difficulty from optimization to exploration. Sampling from an energy-based distribution over combinatorial objects sounds hard, but training reduces to something closer to supervised learning than to RL. The loss is easy to minimize on any given trajectory, but the model needs useful trajectories to train on.
+A computable loss is not an easy optimization problem. The policy, normalizer, and possibly backward policy must be learned together. Low loss on replayed paths says little about high-weight regions the sampler has never visited. Training needs adequate support and exploration as well as a useful balance objective.
 
 ---
 
@@ -232,10 +228,12 @@ The backward policy $$p_\mathrm{B}$$ is a design choice with real consequences. 
 
 ### Evaluation
 
-GFlowNet performance is measured along two axes:
+For discovery applications, two useful measures are:
 
 - **Reward quality:** average reward of the top-$$k$$ generated samples, or the fraction of samples exceeding a reward threshold.
 - **Diversity:** number of distinct modes discovered. This is domain-specific — for molecules, it might be the number of structurally distinct scaffolds; for sequences, the number of distinct high-affinity families.
+
+These do not establish reward-proportional sampling. Where enumeration or a trusted reference is available, also compare empirical terminal frequencies with the normalized target weights, at a matched reward-evaluation budget.
 
 A good GFlowNet achieves high reward *and* high diversity. A model that finds one excellent molecule and generates it repeatedly has failed; downstream experimental validation needs many distinct candidates.
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Spherical Equivariant Layers for 3D Atomic Systems"
 date: 2026-02-02
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "Understanding the spherical equivariant layers that power modern molecular neural networks, from group theory foundations to Clebsch-Gordan tensor products."
 post_type: tutorial
 selected: true
@@ -45,9 +45,9 @@ $$
 
 Here, $$\mathbf{m}_{ij}$$ is the message sent from atom $$j$$ to atom $$i$$, $$\mathbf{m}_i$$ is the aggregated message at atom $$i$$, and $$\phi$$ and $$\psi$$ are learned functions. The summation over $$j$$ is the graph aggregation step. It is permutation-invariant with respect to the ordering of neighbors, but it does not by itself guarantee rotational equivariance.
 
-Spherical equivariant networks preserve this message-passing structure, but modify the edge function. Instead of using an unconstrained function $$\phi$$, they replace it with an equivariant function $$\phi_{\mathrm{eq}}$$. This function is designed so that, when the molecule is rotated, its input features and output messages transform consistently under the same rotation. The equivariant mechanism is therefore local to the design of $$\phi_{\mathrm{eq}}$$. In practical spherical equivariant networks, $$\phi_{\mathrm{eq}}$$ is constructed using spherical harmonics, radial functions, Clebsch-Gordan tensor products, and equivariant nonlinearities.
+Spherical equivariant networks preserve this message-passing structure, but modify the edge function. Instead of using an unconstrained function $$\phi$$, they replace it with an equivariant function $$\phi_{\mathrm{eq}}$$. This function is designed so that, when the molecule is rotated, its input features and output messages transform consistently under the same rotation. The node update $$\psi$$ and output readout must obey compatible transformation rules as well; an equivariant edge function alone does not make the whole network equivariant. In practical spherical equivariant networks, $$\phi_{\mathrm{eq}}$$ is constructed using spherical harmonics, radial functions, Clebsch-Gordan tensor products, and equivariant nonlinearities.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/architecture_overview.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="High-level architecture of spherical equivariant networks. Message passing performs graph aggregation over neighbors, while spherical equivariant operations update edge or node features using CG tensor products and nonlinearities. These two components are interleaved for \(T\) layers." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/architecture_overview.svg" alt="Equivariant graph network from atomic positions through message passing to scalar, vector, or tensor outputs." class="img-fluid rounded z-depth-1" zoomable=true caption="High-level architecture of spherical equivariant networks. Message passing performs graph aggregation over neighbors, while spherical equivariant operations update edge or node features using CG tensor products and nonlinearities. These two components are interleaved for \(T\) layers." %}
 
 The central question is how to make $$\phi_{\mathrm{eq}}$$ expressive while preserving the required rotation law. A standard MLP cannot be applied directly to geometric features. For example, if a feature represents a direction, such as a 3D vector, a generic MLP can destroy its geometric meaning: after the MLP is applied, the resulting feature may no longer rotate consistently with the molecule. Equivariant models therefore need operations whose algebra preserves the transformation rules of geometric features.
 
@@ -64,7 +64,7 @@ The central question is how to make $$\phi_{\mathrm{eq}}$$ expressive while pres
 
 For 3D atomic systems, the key symmetry is rotation: rotating a molecule shouldn't change its predicted energy, and predicted forces should rotate along with the molecule. A precise account needs the full collection of 3D rotations and their composition rules.
 
-A group is the natural mathematical structure for a set of transformations. For 3D rotations, any two rotations compose to another rotation, every rotation has an inverse, and one rotation does nothing. Closure, inverses, and an identity element are exactly the group axioms. The special orthogonal group $SO(3)$ is the group of all 3D rotations, represented concretely as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. Reflections and translations can also be included, but they are outside the scope of this post.
+A group is the natural mathematical structure for a set of transformations. For 3D rotations, any two rotations compose to another rotation, every rotation has an inverse, and one rotation does nothing. Together with associativity of composition, closure, inverses, and an identity element give the group axioms. The special orthogonal group $SO(3)$ is the group of all 3D rotations, represented concretely as $3 \times 3$ orthogonal matrices with determinant $+1$. This is the primary symmetry group for equivariant neural networks on 3D atomic systems. Reflections and translations can also be included, but they are outside the scope of this post.
 
 A group action describes how a group transforms the elements of some space $X$. For each group element $g \in G$ and each point $x \in X$, the action produces a transformed point $g \cdot x \in X$.
 
@@ -94,7 +94,7 @@ These are only two examples from an infinite family. Irreducible representations
 > In the new basis, the representation is a direct sum $$D_1 \oplus D_2$$, meaning the carrier space splits into independent subspaces that don't mix under the group action. A representation that *cannot* be decomposed this way is called irreducible.[^irreps]
 {: .block-definition }
 
-Irreducible representations (irreps) are the basic building blocks: any representation can be decomposed into a direct sum of irreps by an appropriate change of basis.
+Irreducible representations (irreps) are the basic building blocks: every finite-dimensional continuous representation of SO(3) can be decomposed into a direct sum of irreps by an appropriate change of basis.
 
 For $SO(3)$, the irreps are labeled by non-negative integers $\ell = 0, 1, 2, \ldots$. The $\ell$-th irrep has a carrier space of dimension $2\ell + 1$: the $\ell = 0$ irrep is the trivial representation (1D, scalars), the $\ell = 1$ irrep is the standard representation (3D, vectors), and higher $\ell$ correspond to increasingly complex transformation properties.
 
@@ -123,13 +123,13 @@ Representations tell us how features should transform; spherical harmonics tell 
 
 To build intuition, consider the simpler case of the circle first. The circular harmonics $e^{im\phi} = \cos(m\phi) + i\sin(m\phi)$ form a basis for functions on the circle $S^1$. Any function on the circle can be written as a sum of these basis functions (this is the Fourier series). Crucially, each circular harmonic has a simple transformation property under 2D rotations: rotating by angle $\alpha$ multiplies $e^{im\phi}$ by $e^{im\alpha}$. Different values of $m$ transform independently. We write $Y_m(\phi)$ for the real part $\cos(m\phi)$ of each circular harmonic.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/circular_harmonics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Circular harmonics \(Y_m\) for \(m = 0, 1, 2, 3\). Red indicates positive values, blue indicates negative values. The number of lobes increases with \(m\). Under rotation, each harmonic gets multiplied by a phase factor proportional to \(m\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/circular_harmonics.svg" alt="Real circular harmonics of orders zero through three, with positive and negative lobes in contrasting colors." class="img-fluid rounded z-depth-1" zoomable=true caption="Circular harmonics \(Y_m\) for \(m = 0, 1, 2, 3\). Red indicates positive values, blue indicates negative values. The number of lobes increases with \(m\). These plots show real cosine modes. Rotation mixes a cosine mode with its sine partner; in the complex basis, the corresponding exponential mode instead acquires a phase." %}
 
 **Spherical harmonics** extend this idea from the circle to the sphere. Circular harmonics form a basis for functions on $S^1$; spherical harmonics form a basis for functions on the unit sphere $S^2$. The analogy also preserves the key symmetry property: circular harmonics transform simply under 2D rotations, and spherical harmonics transform simply under 3D rotations.
 
 The spherical harmonics $Y_\ell^m$ are special functions on the unit sphere $S^2$ that form a complete orthonormal basis.[^realsh] Each $Y_\ell^m: S^2 \to \mathbb{R}$ takes a direction and returns a real number. They are indexed by degree $\ell \geq 0$ and order $-\ell \leq m \leq \ell$, so for each degree $\ell$ there are $2\ell + 1$ spherical harmonics.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/spherical_harmonics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Representative spherical harmonics for degrees \(\ell = 0, 1, 2, 3\). Red indicates positive regions and blue indicates negative regions; higher degrees create more angular lobes, so they can encode finer directional structure." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/spherical_harmonics.svg" alt="Real spherical harmonics of degrees zero through three, shown as signed lobes around the origin." class="img-fluid rounded z-depth-1" zoomable=true caption="Representative spherical harmonics for degrees \(\ell = 0, 1, 2, 3\). Red indicates positive regions and blue indicates negative regions; higher degrees create more angular lobes, so they can encode finer directional structure." %}
 
 Each degree captures a different level of angular complexity:
 
@@ -146,9 +146,9 @@ To build intuition for the $$\ell = 2$$ row, consider drawing a surface whose ra
 
 $$r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0(\hat{\mathbf{r}}) + \sum_{m=-2}^{2} f_m^{(2)} Y_2^m(\hat{\mathbf{r}})$$
 
-When only the type-0 coefficient is nonzero, $$r$$ is constant in every direction: a perfect sphere. Adding type-2 coefficients deforms the sphere into an ellipsoid, capturing directional stretching or compression. The sign and component choice determine whether the shape stretches along the z-axis (prolate), squashes along it (oblate), or tilts the stretch into the xy-plane.
+When only the type-0 coefficient is nonzero, $$r$$ is constant in every direction: a perfect sphere. Adding type-2 coefficients produces a quadrupolar, ellipsoid-like deformation, capturing directional stretching or compression. This radial expansion is not, in general, the exact equation of an ellipsoid. The sign and component choice determine whether the shape stretches along the z-axis (prolate), squashes along it (oblate), or tilts the stretch into the xy-plane.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ellipsoid_anisotropy.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Surfaces whose radius is set by \(r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0 + \sum_m f_m^{(2)} Y_2^m\). With only \(f^{(0)}\) (left), the radius is constant — a sphere. Turning on different type-2 coefficients deforms the sphere into ellipsoids. Red = stretched outward, blue = compressed inward relative to the base sphere." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ellipsoid_anisotropy.svg" alt="An isotropic sphere and quadrupolar surfaces elongated, flattened, or tilted along different axes." class="img-fluid rounded z-depth-1" zoomable=true caption="Surfaces whose radius is set by \(r(\hat{\mathbf{r}}) = f^{(0)} Y_0^0 + \sum_m f_m^{(2)} Y_2^m\). With only \(f^{(0)}\) (left), the radius is constant — a sphere. Turning on different type-2 coefficients produces ellipsoid-like quadrupolar deformations. Red = stretched outward, blue = compressed inward relative to the base sphere." %}
 
 The defining property of spherical harmonics is how they transform under rotations. When we rotate the coordinate system by $R \in SO(3)$, the spherical harmonics of degree $\ell$ mix among themselves according to the Wigner-D matrix $D^{(\ell)}(R)$.
 
@@ -182,7 +182,7 @@ $$\mathbf{f} = \mathbf{f}^{(0)} \oplus \mathbf{f}^{(1)} \oplus \mathbf{f}^{(2)} 
 
 where $L$ is the maximum degree used in the network. Each component $\mathbf{f}^{(\ell)}$ may have multiple "channels"—for instance, we might have 64 independent type-1 vectors at each node, giving a type-1 feature of shape $(3, 64)$. The total feature at a node is the concatenation of all these components, and under rotation, each component transforms independently according to its type.
 
-This multi-type structure is essential for expressivity. Type-0 features alone would give an invariant network that cannot predict vector quantities such as forces. Type-1 features alone would limit the model's ability to represent more complex angular dependencies. Including multiple types up to a maximum degree $L$ lets the model represent rich angular functions while maintaining exact equivariance.
+This multi-type structure is essential for expressivity. A readout using only invariant scalars cannot directly output a vector. It can still predict an invariant energy whose negative coordinate gradient gives equivariant forces. Type-1 features alone would limit the model's ability to represent more complex angular dependencies. Including multiple types up to a maximum degree $L$ lets the model represent rich angular functions while maintaining exact equivariance.
 
 ---
 
@@ -192,7 +192,7 @@ Neural network layers need to combine features, such as a node representation wi
 
 Think of the layer as operating on features organized by type: type-0 scalars, type-1 vectors, type-2 tensors, and so on. A standard MLP would destroy this structure, so the equivariant analogue of a mixing layer is a CG tensor product. It takes a multi-type feature, mixes contributions across types according to the CG coefficients, and produces a new multi-type feature. Panel (a) below shows the compact view; panel (b) reveals the cross-type connections performed inside one layer.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/cg_network.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="CG tensor products as neural network layers. (a) Features organized by type (0 through 3) pass through successive layers. (b) Inside each layer, CG tensor products mix features across types — for example, combining a type-1 and type-2 input to produce type-2 and type-3 outputs. This cross-type mixing is what gives equivariant networks their expressivity." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/cg_network.svg" alt="Feature channels of types zero through three mixing through equivariant linear layers and tensor products." class="img-fluid rounded z-depth-1" zoomable=true caption="CG tensor products as neural network layers. (a) Features organized by type (0 through 3) pass through successive layers. (b) Inside each layer, CG tensor products mix features across types — for example, combining a type-1 and type-2 input to produce type-2 and type-3 outputs. This cross-type mixing is what gives equivariant networks their expressivity." %}
 
 ### The Idea
 
@@ -203,7 +203,7 @@ The construction has three steps:
 2. A change-of-basis transformation can decompose this into a direct sum of irreps
 3. The CG coefficients define exactly this change of basis
 
-{% include figure.liquid loading="eager" path="assets/img/blog/cg_tensor_product.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The Clebsch-Gordan tensor product for two ℓ=1 vectors. Two 3D input vectors x⁽¹⁾ and y⁽¹⁾ are combined via the tensor product into a 3×3 object. The CG transform applies a change-of-basis matrix C·(·)·C⁻¹ to decompose this into a direct sum of irreps: z⁽⁰⁾ (1D scalar, green), z⁽¹⁾ (3D vector, blue), and z⁽²⁾ (5D quadrupole, red). Grid lines indicate the dimension of each component." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/cg_tensor_product.svg" alt="Two three-component vectors combine into nine components, then split into scalar, vector, and rank-two features." class="img-fluid rounded z-depth-1" zoomable=true caption="A CG tensor product of two type-1 vectors has nine components. Vectorizing their outer product and applying \(C\) gives \(z=C\,\mathrm{vec}(xy^\top)\), split into a scalar (1 component), vector (3), and symmetric traceless tensor (5). Conjugation \(C D C^{-1}\) instead changes the basis of the 9×9 representation matrix; it is not the operation applied to the feature vector." %}
 
 ### The Naive Tensor Product
 

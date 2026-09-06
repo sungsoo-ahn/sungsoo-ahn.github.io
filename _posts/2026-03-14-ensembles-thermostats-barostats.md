@@ -2,7 +2,7 @@
 layout: post
 title: "Ensembles, Thermostats, and Barostats"
 date: 2026-03-14
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "Statistical mechanics: from Newton's equations to ensembles, thermostats, barostats, Monte Carlo, and connections to generative modeling."
 post_type: tutorial
 selected: true
@@ -49,7 +49,7 @@ These are deterministic ODEs. Given initial conditions, the trajectory is fully 
 
 $$H(\mathbf{r}^N, \mathbf{v}^N) = \underbrace{\sum_{i=1}^N \frac{1}{2}m_i |\mathbf{v}_i|^2}_{\text{kinetic energy}} + \underbrace{U(\mathbf{r}^N)}_{\text{potential energy}}$$
 
-Newton's equations conserve $$H$$ exactly — energy flows between kinetic and potential forms but the total is constant. In practice, we integrate numerically using a symplectic integrator (typically velocity Verlet), which preserves this conservation up to bounded oscillations over arbitrarily long simulations. Energy conservation defines the simplest ensemble (NVE).
+Newton's equations conserve $$H$$ exactly — energy flows between kinetic and potential forms but the total is constant. In practice, we integrate numerically using a symplectic integrator (typically velocity Verlet), which can keep energy errors bounded and oscillatory over long runs when the timestep and force evaluation are suitable. This is not a guarantee for arbitrary timesteps or simulation lengths. Energy conservation defines the simplest ensemble (NVE).
 
 ### Macroscopic Quantities as Averages
 
@@ -73,7 +73,7 @@ The first term is the ideal gas contribution (momentum transfer to walls); the s
 
 $$S = -k_{B} \langle \ln p \rangle$$
 
-This is exactly the Shannon entropy from information theory, scaled by Boltzmann's constant $$k_{B}$$. A system with many accessible microstates (gas) has high entropy; one confined to a few states (crystal) has low entropy. The intuition is the same as in ML: entropy measures uncertainty about which microstate the system is in.
+This is the continuous analogue of Shannon entropy, scaled by Boltzmann's constant $$k_{B}$$, with a specified phase-space reference measure. A system with many accessible microstates (gas) has high entropy; one confined to a few states (crystal) has low entropy. The intuition is the same as in ML: entropy measures uncertainty about which microstate the system is in.
 
 **Free energy** answers a different question: of the system's total energy $$\langle H \rangle$$, how much is available to do useful work? The answer is the Helmholtz free energy:
 
@@ -81,13 +81,13 @@ $$F = \langle H \rangle - TS$$
 
 For the Boltzmann distribution, this equals $$F = -k_{B}T \ln Z$$, where $$Z = \int e^{-\beta H(\mathbf{r}^N, \mathbf{v}^N)} \, d\mathbf{r}^N d\mathbf{v}^N$$ is the partition function and $$\beta = 1/k_{B}T$$.
 
-The term $$TS$$ is energy you cannot use. Entropy $$S$$ measures uncertainty about which microstate the system occupies. To extract work, energy must be directed in a controlled way; if the system could be in many microstates, that energy is dispersed across random thermal motions. Higher entropy means more energy locked in uncontrollable motion. Temperature $$T$$ sets the conversion rate: each unit of entropy costs $$T$$ units of energy. Thus $$TS$$ is the energetic cost of thermal randomness, and $$F = \langle H \rangle - TS$$ is the energy "free" to do work.
+More precisely, the decrease in Helmholtz free energy bounds the work extractable in a reversible isothermal process at fixed volume. This is a statement about a change between states under specified constraints, not an absolute division of the internal energy into usable and unusable portions.
 
 At equilibrium, a system at constant $$T$$ and $$V$$ minimizes $$F$$, balancing two competing drives: lowering energy (favoring ordered, low-$$\langle H \rangle$$ states) and increasing entropy (favoring disordered, high-$$S$$ states).
 
 Both quantities are hard to compute. Entropy requires knowing the distribution $$p$$, not samples alone. Free energy requires the partition function $$Z$$, an integral over the entire phase space that is intractable for any nontrivial system.
 
-All of these quantities — easy and hard alike — are expectations over some probability distribution of microstates. The next question is: which distribution?
+The phase-space integrals here suppress constant factors at fixed $$N$$. Absolute classical entropies and free energies require a dimensionless reference measure, conventionally $$d\mathbf{r}^N d\mathbf{p}^N/(N!h^{3N})$$ for identical particles, with momenta $$\mathbf{p}_i=m_i\mathbf{v}_i$$. When $$N$$ varies, the counting factors cannot be dropped. The next question is which ensemble supplies these averages.
 
 ---
 
@@ -99,17 +99,21 @@ We simulate molecular systems to study microscopic behavior: how atoms move, wha
 
 For example, we might simulate 1,000 water molecules explicitly while assuming they sit at a fixed temperature of 300 K imposed from outside. Temperature is not tracked atom by atom; it is a condition we enforce, abstracting away the surrounding environment (the rest of the liquid, the container walls, the room) that would maintain it in reality.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ens_system_boundary.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The modeling choice behind every simulation. Left: the physical reality — a small region of atoms embedded in a vast environment. Right: we simulate the atoms explicitly and replace the environment with macroscopic boundary conditions (\(T\), \(P\), \(\mu\)). An ensemble is a specific choice of which conditions to impose." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ens_system_boundary.svg" alt="A molecular system is separated from its environment, whose effects become temperature, pressure, or chemical-potential boundaries." class="img-fluid rounded z-depth-1" zoomable=true caption="The modeling choice behind every simulation. Left: the physical reality — a small region of atoms embedded in a vast environment. Right: we simulate the atoms explicitly and replace the environment with macroscopic boundary conditions (\(T\), \(P\), \(\mu\)). An ensemble is a specific choice of which conditions to impose." %}
 
 This conditioning is valid because the environment is enormous compared to the system. When our 1,000 water molecules exchange energy with $$10^{23}$$ surrounding molecules, the environment's temperature barely changes — it acts as an effectively infinite reservoir. This separation of scales lets us replace a detailed atomistic environment with a single number ($$T = 300$$ K). The same logic applies to pressure (the atmosphere is much larger than our simulation box) and chemical potential (the gas reservoir is vast compared to a surface).
 
 But which macroscopic quantities can serve as boundary conditions? A system can exchange three things with its surroundings — energy, volume, and matter. For each, there is a quantity that equalizes at equilibrium, and that quantity is the natural boundary condition:
+
+<div class="table-responsive" markdown="1">
 
 | Exchange | What equalizes | Formal definition | Intuition |
 |----------|---------------|-------------------|-----------|
 | Energy | Temperature $$T$$ | $$(\partial E / \partial S)_{N,V}$$ | Energy cost per unit of entropy gained |
 | Volume | Pressure $$P$$ | $$-(\partial F / \partial V)_{T,N}$$ | Free energy cost of expansion |
 | Particles | Chemical potential $$\mu$$ | $$(\partial F / \partial N)_{T,V}$$ | Free energy cost of adding one particle |
+
+</div>
 
 An ensemble is a choice of which of these to fix. It specifies a probability distribution over microstates, defined by which macroscopic quantities are held fixed (boundary conditions) and which are allowed to fluctuate. Different choices answer different questions:
 
@@ -120,7 +124,7 @@ An ensemble is a choice of which of these to fix. It specifies a probability dis
 
 ### The Four Ensembles
 
-{% include figure.liquid loading="eager" path="assets/img/blog/ens_four_ensembles.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The four standard ensembles. (a) NVE: an isolated system with fixed energy — thick insulating walls. (b) NVT: the system exchanges heat \(Q\) with a thermal bath at temperature \(T\). (c) NPT: heat exchange plus a movable piston maintaining external pressure. (d) \(\mu\)VT: heat and particle exchange with a reservoir at chemical potential \(\mu\) — the boundary is permeable." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/ens_four_ensembles.svg" alt="Four simulation boxes contrast the fixed quantities and reservoir exchanges in NVE, NVT, NPT, and grand-canonical ensembles." class="img-fluid rounded z-depth-1" zoomable=true caption="The four standard ensembles. (a) NVE: an isolated system with fixed energy — thick insulating walls. (b) NVT: the system exchanges heat \(Q\) with a thermal bath at temperature \(T\). (c) NPT: heat exchange plus a movable piston maintaining external pressure. (d) \(\mu\)VT: heat and particle exchange with a reservoir at chemical potential \(\mu\) — the boundary is permeable." %}
 
 Each ensemble is defined by its probability distribution over microstates. The naming convention tells you which macroscopic quantities are fixed — the letters are the boundary conditions.
 
@@ -128,7 +132,7 @@ Each ensemble is defined by its probability distribution over microstates. The n
 
 $$p(\mathbf{r}^N, \mathbf{v}^N) \propto \delta\!\left(H(\mathbf{r}^N, \mathbf{v}^N) - E\right)$$
 
-This is the simplest ensemble: all states with the correct energy are equally likely. It describes a completely isolated system, with no energy entering or leaving. Plain molecular dynamics (Verlet integration) samples this distribution because Newton's equations conserve $$H$$. However, NVE rarely matches experimental conditions, since real systems are not perfectly insulated; energy flows between the system and its surroundings.
+This is the simplest ensemble: all states with the correct energy are equally likely. It describes a completely isolated system, with no energy entering or leaving. Hamiltonian dynamics preserves the microcanonical measure, but energy conservation alone does not ensure that one trajectory samples it. Time averages also require ergodicity and sufficient exploration, while numerical integration introduces further error. However, NVE rarely matches experimental conditions, since real systems are not perfectly insulated; energy flows between the system and its surroundings.
 
 **NVT (Canonical).** Fixed $$N$$, $$V$$, temperature $$T$$. Now the system can exchange energy with a large environment. But why is temperature — rather than, say, average energy — the right quantity to fix as a boundary condition?
 
@@ -155,11 +159,11 @@ This is the workhorse ensemble. Temperature is the natural control variable: it 
 
 The parameter $$\beta = 1/k_{B}T$$ controls how sharply the distribution concentrates on low-energy states. At low temperature (large $$\beta$$), the exponential $$e^{-\beta H(\mathbf{r}, \mathbf{v})}$$ decays steeply — only the lowest-energy states have significant probability. At high temperature (small $$\beta$$), many states become accessible. Operationally, $$\beta$$ encodes how much energy the environment is willing to supply through thermal fluctuations: a hot environment freely donates energy, a cold one confines the system near its energy minimum.
 
-*A common source of confusion is circularity.* In Part I, temperature was *defined* through the equipartition theorem as a property of the velocity distribution, computed from average kinetic energy. But in NVT, temperature is *fixed* as a boundary condition. How can $$T$$ be both measured from the system's behavior and imposed from outside?
+*A common source of confusion is circularity.* In the macroscopic-quantities section, temperature was *defined* through the equipartition theorem as a property of the velocity distribution, computed from average kinetic energy. But in NVT, temperature is *fixed* as a boundary condition. How can $$T$$ be both measured from the system's behavior and imposed from outside?
 
 The resolution is that $$T$$ has two roles. The $$T$$ in the Boltzmann distribution is the environment temperature, a property of the enormous reservoir surrounding the system, not of the system itself. We impose it as a boundary condition. The system then evolves, exchanging energy with that environment.
 
-The equipartition result $$\langle \text{kinetic energy} \rangle = \frac{3}{2}Nk_{B}T$$ is a *consequence*: if the system is in thermal equilibrium with an environment at temperature $$T$$, then its average kinetic energy will be $$\frac{3}{2}Nk_{B}T$$. The two uses are consistent but logically different. One is an input; the other is a measurable prediction. The thermostat (Part III) is the algorithm that enforces this coupling in a simulation.
+The equipartition result $$\langle \text{kinetic energy} \rangle = \frac{3}{2}Nk_{B}T$$ is a *consequence*: if the system is in thermal equilibrium with an environment at temperature $$T$$, then its average kinetic energy will be $$\frac{3}{2}Nk_{B}T$$. The two uses are consistent but logically different. One is an input; the other is a measurable prediction. The thermostat (the thermostat section) is the algorithm that enforces this coupling in a simulation.
 
 **NPT (Isothermal-Isobaric).** Fixed $$N$$, pressure $$P$$, temperature $$T$$. The name says exactly what it does: "isothermal" means constant temperature (Greek *iso* = equal, *thermos* = heat), and "isobaric" means constant pressure (*baros* = weight/pressure). Now the volume $$V$$ also fluctuates — the system can expand or compress against the environment.
 
@@ -173,7 +177,11 @@ This matches standard laboratory conditions — most experiments are done at atm
 
 **$$\mu$$VT (Grand Canonical).** Fixed chemical potential $$\mu$$, volume $$V$$, temperature $$T$$. Both energy and particle number $$N$$ fluctuate — the system can exchange particles with the environment. The distribution is:
 
-$$p(\mathbf{r}^N, \mathbf{v}^N, N) \propto e^{-\beta(H(\mathbf{r}^N, \mathbf{v}^N) - \mu N)}$$
+After integrating out momenta, the configurational density for identical, single-site particles is
+
+$$p(N,\mathbf{r}^N) \propto \frac{1}{N!\Lambda^{3N}}e^{-\beta(U_N(\mathbf{r}^N)-\mu N)}, \qquad \Lambda=\frac{h}{\sqrt{2\pi m k_B T}}.$$
+
+The factorial accounts for indistinguishability, and the thermal wavelength comes from the momentum integral. Both matter when comparing different particle numbers.
 
 When two systems can exchange particles, particles migrate until the free energy cost of adding one particle equalizes — that is, until both have the same $$\mu = (\partial F / \partial N)_{T,V}$$. Chemical potential is what equalizes at chemical equilibrium, so it is the natural boundary condition for particle exchange. (Note: $$T$$ uses internal energy $$E$$ and entropy $$S$$ in its derivative, while $$P$$ and $$\mu$$ use free energy $$F$$. This is because $$F = E - TS$$ already contains $$T$$, so using $$F$$ to define $$T$$ would be circular.)
 
@@ -181,16 +189,20 @@ As with temperature, $$\mu$$ here is a property of the *environment*, not of the
 
 When the environment's $$\mu$$ is high, it readily donates particles; when $$\mu$$ is low, extracting particles is costly. For an ideal gas, $$\mu = k_{B}T \ln(P/P_0)$$ where $$P_0$$ is a reference pressure — so fixing $$\mu$$ is equivalent to specifying the external gas pressure, a concrete experimentally controllable quantity.
 
-In the distribution, the $$-\mu N$$ term rewards having more particles — each additional particle lowers the exponent by $$\beta\mu$$. The equilibrium particle number balances this reward against the energy cost of accommodating an extra particle (the increase in $$H$$).
+Raising $$\mu$$ increases the relative weight of states with larger $$N$$. Equilibrium loading balances this change against interaction energies and the particle-counting factors; it is not determined by $$-\mu N$$ alone.
 
 The $$\mu$$VT ensemble is for open systems. NVE and NVT fix the number of particles, which is fine for a closed system such as a protein in a water box. But gas molecules adsorb onto and desorb from a catalyst surface; ions flow through a membrane channel; solvent molecules enter and leave a porous material. In these systems, $$N$$ is not directly controlled. It is an outcome determined by balance between the system and its environment. The $$\mu$$VT ensemble models this by fixing chemical potential, set by gas pressure or solution concentration, and letting $$N$$ fluctuate to its equilibrium value.[^gcmc]
+
+<div class="table-responsive" markdown="1">
 
 | Ensemble | Fixed | Fluctuates | Distribution | Typical use |
 |----------|-------|------------|--------------|-------------|
 | NVE | $$N, V, E$$ | — | Uniform on energy surface | Isolated systems, basic MD |
 | NVT | $$N, V, T$$ | $$E$$ | $$\propto e^{-\beta H(\mathbf{r}, \mathbf{v})}$$ | Most simulations |
 | NPT | $$N, P, T$$ | $$V, E$$ | $$\propto e^{-\beta(H(\mathbf{r}, \mathbf{v}) + PV)}$$ | Lab conditions |
-| $$\mu$$VT | $$\mu, V, T$$ | $$N, E$$ | $$\propto e^{-\beta(H(\mathbf{r}, \mathbf{v}) - \mu N)}$$ | Adsorption, open systems |
+| $$\mu$$VT | $$\mu, V, T$$ | $$N, E$$ | $$\propto e^{-\beta(U_N-\mu N)}/(N!\Lambda^{3N})$$ (positions only) | Adsorption, open systems |
+
+</div>
 
 ---
 
@@ -216,7 +228,7 @@ $$m_i \frac{d\mathbf{v}_i}{dt} = \mathbf{F}_i - \xi m_i \mathbf{v}_i$$
 
 $$\frac{d\xi}{dt} = \frac{1}{Q}\left(\sum_{i=1}^N m_i |\mathbf{v}_i|^2 - 3Nk_{B}T\right)$$
 
-where $$Q$$ is a fictitious "mass" controlling how quickly $$\xi$$ responds. The feedback mechanism is simple: when kinetic energy exceeds the target, $$\xi$$ increases and damps the velocities; when kinetic energy is too low, $$\xi$$ becomes negative and accelerates them. Nosé showed that this extended system samples the canonical distribution exactly (<span id="cite-nose1984"></span>[Nosé, 1984](#ref-nose1984)).[^nosehoover]
+where $$Q$$ is a fictitious "mass" controlling how quickly $$\xi$$ responds. The feedback mechanism is simple: when kinetic energy exceeds the target, $$\xi$$ increases and damps the velocities; when kinetic energy is too low, $$\xi$$ becomes negative and accelerates them. Nosé's extended-system construction has a canonical physical marginal; obtaining canonical time averages additionally requires ergodicity and controlled integration error (<span id="cite-nose1984"></span>[Nosé, 1984](#ref-nose1984)).[^nosehoover]
 
 **Langevin dynamics** takes a different approach — add friction and random noise:
 
@@ -226,7 +238,7 @@ where $$\gamma$$ is the friction coefficient, $$\boldsymbol{\eta}_i(t)$$ is whit
 
 This is an SDE. The friction term dissipates energy; the noise term injects it; the balance produces the Boltzmann distribution as the stationary distribution. If you have read my post on the [Fokker-Planck equation](/blog/2026/fokker-planck-equation/), this is the same structure: an SDE whose density dynamics are governed by a Fokker-Planck PDE, and the stationary solution is $$p(\mathbf{r}, \mathbf{v}) \propto e^{-\beta H(\mathbf{r}, \mathbf{v})}$$.
 
-The trade-off is that Langevin dynamics destroys dynamical information, because stochastic noise scrambles the true trajectory, but its implementation is simple. Nosé-Hoover is deterministic, with no random noise, but can get stuck in non-ergodic oscillations for small systems.
+Langevin friction and noise alter time correlations and rates relative to isolated Hamiltonian dynamics. They can also model a physical bath when calibrated for that purpose, so dynamical interpretation depends on the model and coupling strength. Nosé-Hoover is deterministic, with no random noise, but can get stuck in non-ergodic oscillations for small systems.
 
 ### Barostats (Controlling Pressure)
 
@@ -236,17 +248,17 @@ The NPT ensemble requires controlling pressure in addition to temperature.
 
 **Berendsen barostat** rescales the box dimensions toward the target pressure:
 
-$$\frac{dV}{dt} = \frac{V}{\tau_P}(P_\text{current} - P_\text{target})$$
+$$\frac{dV}{dt} = \frac{\kappa_T V}{\tau_P}(P_\text{current} - P_\text{target})$$
 
-where $$\tau_P$$ is a relaxation time. Like velocity rescaling for temperature, this is simple and effective for equilibration but produces the wrong distribution — the volume fluctuations are too small.
+where $$\tau_P$$ is a coupling time and $$\kappa_T$$ is an isothermal compressibility, with units of inverse pressure. Without $$\kappa_T$$ the equation is dimensionally inconsistent. Berendsen coupling suppresses volume fluctuations and does not sample the NPT ensemble; the GROMACS manual discusses this limitation and ensemble-correct alternatives (<span id="cite-gromacs2026"></span>[GROMACS, 2026](#ref-gromacs2026)).
 
-**Parrinello-Rahman** treats the box dimensions as dynamical variables with their own equations of motion, analogous to how Nosé-Hoover treats the friction $$\xi$$. The simulation cell vectors evolve according to:
+**Parrinello-Rahman** treats the box dimensions as dynamical variables with their own equations of motion, analogous to how Nosé-Hoover treats the friction $$\xi$$. A schematic stress-driven cell equation is:
 
 $$W\ddot{\mathbf{h}} = (P_\text{current} - P_\text{target})V\,\mathbf{h}^{-T}$$
 
-where $$\mathbf{h}$$ is the cell matrix (columns are box vectors), $$W$$ is a fictitious mass, and $$P_\text{current}$$ includes the virial contribution from interatomic forces. This produces the correct NPT distribution, including proper volume fluctuations (<span id="cite-parrinello1981"></span>[Parrinello & Rahman, 1981](#ref-parrinello1981)).[^parrinellorahman]
+where $$\mathbf{h}$$ is the cell matrix (columns are box vectors), $$W$$ is a fictitious mass, and $$P_\text{current}$$ includes the virial contribution from interatomic forces. With the appropriate thermostat, phase-space measure corrections, and integrator, this extended-cell approach is used to sample NPT fluctuations (<span id="cite-parrinello1981"></span>[Parrinello & Rahman, 1981](#ref-parrinello1981)).[^parrinellorahman]
 
-The pattern is the same as for thermostats, and it is a general principle in simulation design: crude methods (Berendsen, velocity rescaling) force the target value directly, giving fast equilibration but the wrong distribution. Extended-variable methods (Parrinello-Rahman, Nosé-Hoover) introduce auxiliary dynamical variables that couple to the system; they converge more slowly but produce the statistically correct ensemble.
+Controlling a mean value and sampling its distribution are different requirements. Extended-variable and stochastic couplings are designed around an invariant ensemble, but their mixing speed and numerical accuracy still need to be checked; there is no universal ordering of convergence rates.
 
 ### Monte Carlo — The Alternative
 
@@ -254,23 +266,23 @@ Everything above modifies Newton's equations to sample the target ensemble. Mont
 
 > **Metropolis-Hastings.** To sample from $$p(\mathbf{r}) \propto e^{-\beta U(\mathbf{r})}$$:
 >
-> 1. Propose a random move: $$\mathbf{r}' = \mathbf{r} + \delta\mathbf{r}$$
+> 1. Propose a symmetric random move: $$\mathbf{r}' = \mathbf{r} + \delta\mathbf{r}$$
 > 2. Compute $$\Delta U = U(\mathbf{r}') - U(\mathbf{r})$$
 > 3. Accept with probability $$\min\!\left(1, \; e^{-\beta \Delta U}\right)$$
 >
 > Moves that lower the energy are always accepted. Moves that raise it are accepted with probability $$e^{-\beta \Delta U}$$ — exponentially unlikely for large energy increases, but allowed for small fluctuations.
 {: .block-definition }
 
-MC is conceptually clean: define a target distribution and construct a Markov chain whose stationary distribution matches it. No fictional friction variables, fluctuation-dissipation relations, or symplectic integrators are needed. The acceptance criterion guarantees detailed balance, which guarantees convergence to the correct distribution.[^detailedbalance]
+MC is conceptually clean: define a target distribution and construct a Markov chain whose stationary distribution matches it. No fictional friction variables, fluctuation-dissipation relations, or symplectic integrators are needed. For the symmetric proposals above, the acceptance criterion gives detailed balance and hence invariance. Convergence additionally requires that the chain can explore the relevant state space and is not trapped in a periodic cycle.[^detailedbalance]
 
 **GCMC (Grand Canonical Monte Carlo)** extends this to the $$\mu$$VT ensemble by adding particle insertion and deletion moves:
 
 - **Insert:** Place a new particle at a random position. Accept with probability $$\min\!\left(1, \; \frac{V}{\Lambda^3(N+1)} e^{-\beta(\Delta U - \mu)}\right)$$, where $$\Lambda = h/\sqrt{2\pi m k_B T}$$ is the thermal de Broglie wavelength.
-- **Delete:** Remove a random particle. Accept with the inverse probability.
+- **Delete:** Remove a uniformly chosen particle. Accept with probability $$\min\!\left(1,\;\frac{\Lambda^3N}{V}e^{-\beta(\Delta U+\mu)}\right)$$, where $$\Delta U$$ is the energy after deletion minus the energy before it. These formulas assume equal probabilities of proposing insertion and deletion; an unequal choice requires the proposal-ratio correction.
 
 This is how adsorption isotherms are computed: how many gas molecules adsorb onto a surface at a given chemical potential, or equivalently gas pressure. GCMC is the standard method for the $$\mu$$VT ensemble because changing $$N$$ in dynamics-based approaches is difficult.[^gcmcapps]
 
-The trade-off is that MC gives no dynamical information. Its moves, such as random displacements and insertions, are fictitious; there is no physical time associated with an MC step. MC gives equilibrium properties (averages, distributions) but not rates, diffusion, or kinetics. If you need to know *how fast* something happens, you need MD, because MD integrates the real equations of motion and its trajectory corresponds to physical time. If you only need to know *what happens at equilibrium*, MC is often simpler.
+Ordinary equilibrium MC does not assign physical time to its displacement, insertion, or deletion moves. It estimates equilibrium distributions, not kinetic rates. Rates require a justified time-dependent model, such as MD or a separately calibrated kinetic Monte Carlo process.
 
 ---
 
@@ -293,6 +305,8 @@ Temperature schedules are annealing schedules. Free-energy estimation is log-nor
 
 ## References
 
+- <span id="ref-gromacs2026"></span>GROMACS. (2026). Molecular dynamics: pressure coupling. [Reference manual](https://manual.gromacs.org/current/reference-manual/algorithms/molecular-dynamics.html#pressure-coupling). <a href="#cite-gromacs2026" class="reversefootnote" role="doc-backlink">↩</a>
+
 - <span id="ref-frenkel2001"></span>Frenkel, D. & Smit, B. (2001). *Understanding Molecular Simulation: From Algorithms to Applications*. Academic Press. <a href="#cite-frenkel2001" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-tuckerman2010"></span>Tuckerman, M. E. (2010). *Statistical Mechanics: Theory and Molecular Simulation*. Oxford University Press. <a href="#cite-tuckerman2010" class="reversefootnote" role="doc-backlink">↩</a>
 - <span id="ref-nose1984"></span>Nosé, S. (1984). A unified formulation of the constant temperature molecular dynamics methods. [J. Chem. Phys. 81, 511](https://doi.org/10.1063/1.447334). <a href="#cite-nose1984" class="reversefootnote" role="doc-backlink">↩</a>
@@ -314,4 +328,4 @@ Temperature schedules are annealing schedules. Free-energy estimation is log-nor
 
 [^detailedbalance]: Detailed balance means that the probability of being in state $$A$$ and transitioning to $$B$$ equals the probability of being in $$B$$ and transitioning to $$A$$: $$p(A)\,T(A \to B) = p(B)\,T(B \to A)$$. The Metropolis criterion is designed to satisfy this for $$p \propto e^{-\beta U}$$.
 
-[^gcmcapps]: In practice, GCMC is the only practical method for the $$\mu$$VT ensemble. Inserting or deleting particles in MD would require discontinuous changes to the equations of motion, while MC handles it naturally through the accept/reject framework.
+[^gcmcapps]: GCMC handles changes in particle number directly through acceptance ratios. Hybrid and other open-system methods also exist; the practical choice depends on insertion efficiency and the observables needed.

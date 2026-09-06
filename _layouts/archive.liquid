@@ -20,7 +20,7 @@ layout: default
     {% if page.type == 'categories' %}
       {% include blog-category-nav.liquid %}
     {% endif %}
-    {% assign sorted_documents = page.documents | sort: 'date' | reverse %}
+    {% assign sorted_documents = page.documents | where_exp: "document", "document.draft != true" | sort: 'date' | reverse %}
     <ol class="bibliography">
       {% for document in sorted_documents %}
         {% assign read_time = document.content | number_of_words | divided_by: 150 | plus: 1 %}

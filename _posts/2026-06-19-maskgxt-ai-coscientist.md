@@ -2,7 +2,7 @@
 layout: post
 title: "Human–AI Co-Discovery of a State-of-the-Art Crystal Structure Prediction Algorithm"
 date: 2026-06-19
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "How HACO, a Human–AI Co-discovery system, produced MaskGXT, a competitive generative model for crystal structure prediction."
 post_type: research
 selected: true
@@ -15,19 +15,13 @@ related_posts: false
 published: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGIT, transferred into CSP.</strong> HACO moved masked generation from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_hero.png" alt="Conceptual illustration linking masked image patches with partially filled crystal lattice sites." class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>Conceptual illustration: MaskGIT transferred into CSP.</strong> HACO moved masked generation from vision to crystal structure prediction: fill in the sites of a crystal lattice through iterative unmasking." %}
 
 In our recent work, a human–AI co-scientist loop produced MaskGXT, a
-state-of-the-art algorithm for inorganic crystal structure prediction (CSP).[^csp]
+competitive algorithm for inorganic crystal structure prediction (CSP).[^csp]
 We call the loop HACO, short for Human–AI Co-discovery system.
 
-Among reported human–AI co-discovery results, MaskGXT is the first we know of
-to produce a **competitive generative deep-learning algorithm for a mature
-scientific ML benchmark.** HACO, our Human–AI Co-discovery system, searched
-across complete CSP methods with sparse human steering rather than tuning a
-fixed architecture.
-MaskGXT is the masked-generation branch that survived validation and turned
-MaskGIT-style parallel decoding into a crystal-generation algorithm.
+HACO searched across complete CSP methods with sparse human steering. MaskGXT emerged from its masked-generation branch, which adapted MaskGIT-style decoding to crystal representations and survived repeated validation. The evidence below concerns this search and its evaluated benchmarks, not a general claim that agents can independently solve scientific discovery.
 
 The [preprint is now on arXiv](https://arxiv.org/abs/2606.22866). We also
 release code for both the [HACO search loop](https://github.com/kiyoung98/HACO)
@@ -35,12 +29,40 @@ and [MaskGXT](https://github.com/kiyoung98/maskgxt).
 
 ## The result: benchmark evidence
 
-The benchmark comparison is below. MaskGXT wins the standard match-rate columns,
+In the paper's benchmark comparison below, MaskGXT leads the evaluated standard match-rate columns,
 and its largest advantage appears in polymorph-aware evaluation, where the model
 must recover multiple structures that can arise from the same chemical
 composition (<span id="cite-martirossyan2025"></span>[Martirossyan et al., 2025](#ref-martirossyan2025)).[^metre]
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_results_bars.svg" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>MaskGXT benchmark results.</strong> Bars summarize the main paper's filtered standard-CSP scores and held-out METRe scores; higher is better for MR and METRe, lower is better for RMSE and cRMSE. MaskGXT wins the match-rate and METRe columns, with its largest margin on the MP-20 polymorph split." %}
+<figure class="my-4">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_01.svg" alt="MP-20 crystal match rates across six models, with MaskGXT highest at 67.1 percent." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_02.svg" alt="MP-20 geometric RMSE across six models, with MaskGXT at 0.0325." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_03.svg" alt="MPTS-52 crystal match rates across six models, with MaskGXT highest at 33.3 percent." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_04.svg" alt="MPTS-52 geometric RMSE, where Crystalite is lower than MaskGXT." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_05.svg" alt="MP-20 METRe coverage, with MaskGXT highest at 74.8 percent." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_06.svg" alt="MP-20 coverage-adjusted RMSE, with MaskGXT lowest at 0.152." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_07.svg" alt="Polymorph-split METRe coverage, with MaskGXT at 79.1 percent versus 70.9 percent for Crystalite." class="img-fluid" zoomable=true %}
+    </div>
+    <div class="col-12 col-md-6">
+      {% include figure.liquid loading="lazy" path="assets/img/blog/maskgxt_results_08.svg" alt="Polymorph-split coverage-adjusted RMSE, with MaskGXT lowest at 0.132." class="img-fluid" zoomable=true %}
+    </div>
+  </div>
+  <figcaption class="caption"><strong>MaskGXT benchmark results.</strong> Panels reproduce the paper’s filtered standard-CSP and held-out METRe comparisons. Higher MR and METRe are better; lower RMSE and cRMSE are better. Purple marks MaskGXT. It leads the evaluated match-rate and METRe columns, but Crystalite has lower MPTS-52 RMSE. Values are rounded for display. <a href="/assets/img/blog/maskgxt_results_bars.svg">Combined chart.</a></figcaption>
+</figure>
 
 On the MP-20 polymorph split, MaskGXT raises METRe from 70.87% to 79.06%.
 
@@ -118,16 +140,15 @@ Explore the full HACO search tree below.
   </div>
 </div>
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_trajectory.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>The research trajectory toward MaskGXT.</strong> Validation METRe against the number of trials; the black step line is the running best. The three shaded bands are the search stages, with the per-candidate budget escalating from 2h to 12h training and then 30m of sampling tuning." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_trajectory.png" alt="Validation METRe rises along a roughly five-hundred-trial search, with agent changes and human interventions annotated." class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>The research trajectory toward MaskGXT.</strong> Validation METRe against the number of trials; the black step line is the running best. The three shaded bands are the search stages, with the per-candidate budget escalating from 2h to 12h training and then 30m of sampling tuning." %}
 
-The search did not end at one impressive chat response. It ran as an empirical
-process: propose a mechanism, write runnable code, train it, inspect the result,
+The search ran as an empirical process: propose a mechanism, write runnable code, train it, inspect the result,
 preserve what worked, and try again. Across roughly five hundred trials,
-research ideas became measurable bets rather than prose suggestions.
+candidate methods were compared through executable experiments.
 
 ## The resulting algorithm: MaskGXT
 
-{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/maskgxt_overview.png" alt="Crystal tokenization, masked-token training, and space-group-stratified decoding in MaskGXT." class="img-fluid rounded z-depth-1 mx-auto d-block" zoomable=true caption="<strong>How MaskGXT works.</strong> (a) Tokenizing a crystal: one space group token, six lattice tokens, and five tokens per atom site. (b) Training reconstructs randomly masked tokens. (c) Sampling branches over space groups to cover polymorphs, then greedily unmasks the rest." %}
 
 Explore crystal structures sampled by MaskGXT from the MP-20 polymorph split test set.
 

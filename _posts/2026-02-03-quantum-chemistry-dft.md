@@ -2,7 +2,7 @@
 layout: post
 title: "Quantum Chemistry and DFT"
 date: 2026-02-03
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "Quantum chemistry and density functional theory: from the Schrödinger equation to Kohn-Sham DFT and modern deep learning approaches."
 post_type: tutorial
 selected: true
@@ -27,12 +27,12 @@ related_posts: false
 
 Quantum chemistry asks a computational question: given a collection of atoms, with their types and positions, predict the system's properties. Total energy, atomic forces, electron density, and vibrational frequencies are all, in principle, determined by one equation: the Schrödinger equation.
 
-The difficulty is that the solution, the wavefunction, is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. Its domain grows exponentially with system size. The wavefunction cannot be observed directly; we only observe its consequences: energies, densities, and spectra. In ML terms, it is a latent variable.
+The difficulty is that the solution, the wavefunction, is a function from $$\mathbb{R}^{3N}$$ to $$\mathbb{C}$$, where $$N$$ is the number of electrons. The number of coordinates grows linearly with system size, but a direct grid representation requires exponentially many values. The wavefunction cannot be observed directly; we only observe its consequences: energies, densities, and spectra. In ML terms, it is a latent variable.
 
 Two families of methods tackle this problem, differing in what they approximate:
 
-- **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make the exponential-dimensional problem tractable.
-- **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — sidestepping the exponential dimensionality.
+- **Wavefunction theory** (Hartree-Fock, coupled cluster, etc.) approximates the wavefunction directly, using structured functional forms to make this high-dimensional problem tractable.
+- **Density functional theory** replaces the wavefunction with the electron density — a 3D function that provably determines all ground-state properties — avoiding an explicit many-electron wavefunction.
 
 Deep learning methods now target both families, parameterizing either the wavefunction or the density functional with neural networks. The rest of this post introduces these ideas from first principles.
 
@@ -40,7 +40,7 @@ Deep learning methods now target both families, parameterizing either the wavefu
 
 The computational target is a molecular system's energy and electron density from its atomic structure. The practical workhorse is Kohn-Sham DFT, which solves this through a fixed-point iteration called the self-consistent field (SCF) loop.
 
-The SCF loop follows a fixed sequence: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate exchange-correlation term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The sole approximation is the exchange-correlation functional $$E_{\text{xc}}[\rho]$$; everything else is computed exactly within the chosen basis.
+The SCF loop follows a fixed sequence: guess an electron density $$\rho$$, build a matrix $$\mathbf{F}(\rho)$$ encoding kinetic energy, nuclear attraction, electron-electron repulsion, and an approximate exchange-correlation term, solve a matrix eigenvalue problem to get new orbitals, compute a new density from those orbitals, and repeat until convergence. The exchange-correlation functional $$E_{\text{xc}}[\rho]$$ is the central unknown in the Kohn-Sham decomposition. A practical calculation also has errors from the physical model, finite basis, numerical integration, and incomplete SCF convergence.
 
 The route to the SCF loop is: define the problem with the Schrödinger equation, separate electrons from nuclei with the Born-Oppenheimer approximation, look at direct wavefunction approximation, and then use DFT as the density-based path that makes the SCF loop possible.
 
@@ -70,7 +70,7 @@ where we use atomic units ($$\hbar = m_e = e = 4\pi\epsilon_0 = 1$$).[^atomicuni
 
 ### The Wavefunction
 
-The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude, $$\lvert\Psi\rvert^2$$, gives the probability density for finding the particles at those positions. All physical observables can be computed as expectation values with respect to this probability density.
+The wavefunction $$\Psi(\mathbf{r}_1, \ldots, \mathbf{r}_N, \mathbf{R}_1, \ldots, \mathbf{R}_M)$$ assigns a complex number to every possible configuration of particle positions.[^spin] Its squared magnitude, $$\lvert\Psi\rvert^2$$, gives the probability density for finding the particles at those positions. Position-dependent observables can be averaged against this density. In general, an observable represented by an operator $$\hat{A}$$ has expectation $$\langle\Psi\mid\hat{A}\mid\Psi\rangle$$ for a normalized state; the phase of $$\Psi$$ can matter too.
 
 The computational challenge is the electronic part. On a grid with $$G$$ points per spatial dimension, representing the electronic wavefunction requires $$G^{3N}$$ numbers; for a single water molecule ($$N = 10$$), this is $$G^{30}$$. This exponential scaling is the curse of dimensionality in the quantum many-body problem, and it motivates every approximation that follows.
 
@@ -147,7 +147,7 @@ The Pauli exclusion principle, which says that no two electrons can occupy the s
 
 The first three terms are local: kinetic energy, nuclear attraction, and classical Coulomb repulsion from the electron density. The exchange operator $$\hat{K}$$ is non-local: its action on an orbital involves integrating products of different orbitals across all space, unlike the other terms, which depend only on the local point $$\mathbf{r}$$. Exchange arises from antisymmetry. Every term in the Fock operator is computable exactly from the orbitals; Hartree-Fock is limited not by an unknown term, but by the single-determinant restriction itself.
 
-Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved self-consistently: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This self-consistent field (SCF) procedure is a fixed-point iteration, analogous to the EM algorithm: the orbitals define the effective field, and the effective field determines the orbitals.
+Because the Fock operator depends on the orbitals (through the Coulomb and exchange terms), the equations must be solved self-consistently: guess the orbitals, build the Fock operator, solve for new orbitals, repeat until convergence. This self-consistent field (SCF) procedure is a fixed-point iteration: the orbitals define the effective field, and the effective field determines the orbitals.
 
 ### Electron Correlation
 
@@ -161,11 +161,11 @@ Because each electron sees only the average field of the others, instantaneous e
 
 ## Density Functional Theory
 
-**Density functional theory (DFT)** avoids the wavefunction's exponential dimensionality by working with the electron density, a function of only three spatial variables instead of $$3N$$.
+**Density functional theory (DFT)** avoids explicitly representing the many-electron wavefunction by working with the electron density, a function of only three spatial variables instead of $$3N$$.
 Kohn's Nobel lecture gives a compact historical account of why this change of
 variable matters (<span id="cite-kohn1999"></span>[Kohn, 1999](#ref-kohn1999)).
 
-> **Electron density.** The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ gives the probability of finding any electron at position $$\mathbf{r}$$:
+> **Electron density.** The electron density $$\rho: \mathbb{R}^3 \to \mathbb{R}_{\geq 0}$$ is an electron number density: its integral over a region gives the expected number of electrons in that region:
 >
 > $$\rho(\mathbf{r}) = N \int |\Psi(\mathbf{r}, \mathbf{r}_2, \ldots, \mathbf{r}_N)|^2 \, d\mathbf{r}_2 \cdots d\mathbf{r}_N$$
 >
@@ -178,7 +178,7 @@ The rest of this section develops DFT in five steps: (1) the Hohenberg-Kohn theo
 
 > **Hohenberg-Kohn theorems.** DFT rests on two theorems proved by Hohenberg and Kohn in 1964 (<span id="cite-hohenberg1964"></span>[Hohenberg & Kohn, 1964](#ref-hohenberg1964)):
 >
-> **First theorem.** The ground-state density uniquely determines the entire Hamiltonian — the density is a sufficient statistic for all ground-state properties.[^sufficient]
+> **First theorem.** For fixed electron number and interaction, the ground-state density determines the external potential up to an additive constant. In the nondegenerate case, this determines the ground-state wavefunction and its observables.[^sufficient]
 >
 > **Second theorem.** There exists a universal functional $$F[\rho]$$ such that the true ground-state density minimizes:
 >
@@ -197,7 +197,7 @@ They introduced a fictitious system of non-interacting electrons with orbitals $
 
 $$\rho(\mathbf{r}) = \sum_{i=1}^{N} \lvert\phi_i(\mathbf{r})\rvert^2$$
 
-Orbitals are useful because the density tells us *where* electrons are, but not *how fast they are moving*, and kinetic energy depends on the latter. An orbital $$\phi_i$$ encodes both: its magnitude gives position probability, and its curvature gives kinetic energy through $$\nabla^2$$.[^curvature] The density $$\rho = \sum \lvert\phi_i\rvert^2$$ discards curvature information, which is why no exact kinetic-energy functional of $$\rho$$ alone is known.
+Orbitals make the non-interacting kinetic energy directly computable through their spatial derivatives.[^curvature] An exact density functional $$T_s[\rho]$$ can be defined, but a generally usable explicit expression in terms of $$\rho$$ alone is not known. This is a difficulty in evaluating the functional, not a contradiction of the density's ground-state information content.
 
 From the orbitals, the non-interacting kinetic energy is exact:
 
@@ -237,6 +237,8 @@ The exchange-correlation functional $$E_{\text{xc}}[\rho]$$ must be approximated
 Perdew organized the zoo of approximations into a hierarchy known as Jacob's
 Ladder (<span id="cite-perdew2001"></span>[Perdew & Schmidt, 2001](#ref-perdew2001)), where each rung uses richer information about the density:
 
+<div class="table-responsive" markdown="1">
+
 | Rung | Input | Example |
 |------|-------|---------|
 | LDA | Local density value $$\rho(\mathbf{r})$$ | — |
@@ -245,7 +247,9 @@ Ladder (<span id="cite-perdew2001"></span>[Perdew & Schmidt, 2001](#ref-perdew20
 | Hybrid | + exact exchange computed from KS orbitals (as in HF) | B3LYP |
 | Double hybrid | + unoccupied KS orbitals | B2PLYP |
 
-Higher rungs are usually more accurate but more expensive. The functional choice is often the most consequential decision in a DFT calculation, analogous to choosing an inductive bias. No single functional works best for all systems, which is one motivation for learning functionals from data.
+</div>
+
+Higher rungs use richer information and generally cost more, but they do not guarantee greater accuracy for a given system. The functional choice is often the most consequential decision in a DFT calculation, analogous to choosing an inductive bias. No single functional works best for all systems, which is one motivation for learning functionals from data.
 
 ### From Differential Equations to Matrices: The Roothaan-Hall Equations
 
@@ -266,7 +270,7 @@ The density matrix $$\mathbf{P} \in \mathbb{R}^{K \times K}$$ is the finite-basi
 
 In finite-basis form, the SCF loop becomes: guess $$\mathbf{C}$$ → build $$\mathbf{P}$$ → construct $$\mathbf{F}(\mathbf{P})$$ → solve the matrix eigenvalue problem → obtain a new $$\mathbf{C}$$ → repeat until convergence.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/scf_loop.svg" alt="Self-consistent field loop from an initial electron density through an effective potential and orbitals to an updated density." class="img-fluid rounded z-depth-1" zoomable=true caption="The self-consistent field (SCF) loop in the Roothaan-Hall framework. Starting from an initial guess, the loop iterates: build the density matrix, construct the Fock matrix, solve the generalized eigenvalue problem, and check for convergence." %}
 
 ---
 
@@ -305,4 +309,4 @@ In our group, GPWNO (<span id="cite-kim2024"></span>[Kim & Ahn, 2024](#ref-kim20
 
 [^curvature]: The connection between curvature and kinetic energy comes from the de Broglie relation: a faster electron has a shorter wavelength, so its wavefunction oscillates more rapidly in space. More rapid oscillation means more curvature, and $$\nabla^2$$ measures exactly this. High curvature = short wavelength = high momentum = high kinetic energy.
 
-[^ksderivation]: Derivation outline: minimize $$E[\{\phi_i\}]$$ subject to orthonormality $$\int \phi_i^* \phi_j \, d\mathbf{r} = \delta_{ij}$$ by introducing Lagrange multipliers $$\varepsilon_{ij}$$ and setting $$\delta \mathcal{L} / \delta \phi_i^* = 0$$. The chain rule $$\delta E[\rho]/\delta \phi_i^* = (\delta E/\delta \rho) \cdot \phi_i$$ (since $$\rho = \sum_i \lvert\phi_i\rvert^2$$) turns each term of the energy into a contribution to $$v_{\text{eff}}$$: $$T_s$$ gives $$-\frac{1}{2}\nabla^2 \phi_i$$, $$J[\rho]$$ gives $$(\int \rho(\mathbf{r}')/\lvert\mathbf{r}-\mathbf{r}'\rvert \, d\mathbf{r}') \, \phi_i$$, $$E_{\text{xc}}$$ gives $$v_{\text{xc}} \phi_i$$, and the external potential gives $$v_{\text{ext}} \phi_i$$. Collecting terms and noting that the Lagrange multiplier matrix can be diagonalized by a unitary rotation of the orbitals yields the KS eigenvalue equation.
+[^ksderivation]: Derivation outline: minimize $$E[\{\phi_i\}]$$ subject to orthonormality $$\int \phi_i^* \phi_j \, d\mathbf{r} = \delta_{ij}$$ by introducing Lagrange multipliers $$\varepsilon_{ij}$$ and setting $$\delta \mathcal{L} / \delta \phi_i^* = 0$$. Differentiate $$T_s$$ directly with respect to the orbitals. For the density-dependent terms, use $$\delta E_{\mathrm{density}}/\delta \phi_i^* = (\delta E_{\mathrm{density}}/\delta \rho)\phi_i$$, since $$\rho = \sum_i \lvert\phi_i\rvert^2$$. The resulting contributions are: $$T_s$$ gives $$-\frac{1}{2}\nabla^2 \phi_i$$, $$J[\rho]$$ gives $$(\int \rho(\mathbf{r}')/\lvert\mathbf{r}-\mathbf{r}'\rvert \, d\mathbf{r}') \, \phi_i$$, $$E_{\text{xc}}$$ gives $$v_{\text{xc}} \phi_i$$, and the external potential gives $$v_{\text{ext}} \phi_i$$. Collecting terms and noting that the Lagrange multiplier matrix can be diagonalized by a unitary rotation of the orbitals yields the KS eigenvalue equation.

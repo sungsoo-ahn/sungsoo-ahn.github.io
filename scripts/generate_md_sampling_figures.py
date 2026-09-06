@@ -936,7 +936,7 @@ def generate_method_map(output_path: Path):
 
     nodes = {
         "md": (0.13, 0.62, "Unbiased MD", BLUE),
-        "bias": (0.42, 0.62, "CV bias", AMBER),
+        "bias": (0.42, 0.62, "Biased MD", AMBER),
         "estimate": (0.72, 0.62, "Corrected estimates", GREEN),
         "cv": (0.32, 0.28, "Learn the CV", TEAL),
         "path": (0.62, 0.28, "Learn path bias", RED),

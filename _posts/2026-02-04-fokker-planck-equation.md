@@ -2,7 +2,7 @@
 layout: post
 title: "The Fokker-Planck Equation"
 date: 2026-02-04
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "Three routes to the Fokker-Planck equation—physical intuition, heuristic discretization, and a rigorous derivation with Itô calculus."
 post_type: tutorial
 selected: true
@@ -57,7 +57,7 @@ $$\mathbf{x}_{t+\Delta t} = \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t
 
 with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
 
-> **Transition kernel.** The conditional distribution is Gaussian:
+> **Euler–Maruyama transition kernel.** The discretized step has a Gaussian conditional distribution; the exact SDE transition need not be Gaussian:
 >
 > $$p(\mathbf{x}_{t+\Delta t} \mid \mathbf{x}_t) = \mathcal{N}\!\left(\mathbf{x}_{t+\Delta t};\; \mathbf{x}_t + \mathbf{f}(\mathbf{x}_t, t)\,\Delta t,\; g^2(t)\,\Delta t\;\mathbf{I}\right)$$
 >
@@ -68,13 +68,13 @@ with $$\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$, so:
 
 The quantity $$\mathbf{f}\,p_t$$ is a probability flux: density times velocity. The negative divergence $$-\nabla \cdot (\mathbf{f}\,p_t)$$ measures net inflow. Where flux converges, density accumulates; where it diverges, density depletes. In one dimension, this becomes the finite-difference statement $$\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x$$: density in a slab changes by the net flux through its boundaries. With no noise ($$g = 0$$), the equation reduces to the continuity equation from fluid dynamics.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_drift_advection.svg" alt="Drift transports probability through a small interval; unequal incoming and outgoing flux changes its density." class="img-fluid rounded z-depth-1" zoomable=true caption="(a) Probability flux is density times velocity: \(J = f \cdot p\). Arrow thickness is proportional to local flux — thicker where density is high. (b) The divergence measures net flux imbalance across the boundaries of a slab: \(\partial_t p = -(J(x{+}\Delta x) - J(x))/\Delta x\)." %}
 
 ### Spreading by Diffusion
 
 At each instant, the SDE's noise kicks every particle by a symmetric random displacement $$g\,d\mathbf{w}$$. The aggregate effect is Gaussian blurring: peaks erode and valleys fill.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density by local averaging. Sharp peaks lose mass while nearby valleys gain mass, producing a smoother curve without changing the global interpretation." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_gaussian_smoothing.svg" alt="Gaussian convolution lowers sharp density peaks and fills nearby valleys." class="img-fluid rounded z-depth-1" zoomable=true caption="Diffusion smooths a two-bump density by local averaging. Sharp peaks lose mass while nearby valleys gain mass, while preserving total probability." %}
 
 **Why does blurring produce a second derivative?** In a small time step $$\Delta t$$, the noise moves each particle from $$y$$ to $$y + \epsilon$$, where $$\epsilon \sim \mathcal{N}(0,\, g^2\,\Delta t)$$. A particle arrives at $$x$$ only if it started at $$y$$ and received kick $$\epsilon = x - y$$. Summing over starting positions, weighted by the density $$p_t(y)$$ and the probability of the required kick:
 
@@ -90,9 +90,9 @@ Now take the expectation term by term:
 
 - **The quadratic term** $$\frac{\epsilon^2}{2}\,p_t''(x)$$ survives. Whether the particle goes left or right, $$\epsilon^2$$ is positive — the direction cancels but the magnitude does not. This term detects curvature: whether neighbors on both sides have higher density than $$x$$ ($$p_t'' > 0$$, valley) or lower ($$p_t'' < 0$$, peak).
 
-{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick \(+\epsilon\) raises the density by the same amount that \(-\epsilon\) lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than \(x\). The average of neighbors falls below \(p_t(x)\), so the quadratic (curvature) term \(\frac{\epsilon^2}{2}p_t'' < 0\) drives density down." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/fp_diffusion_schematic.svg" alt="Diffusive flux follows the negative density gradient; density falls at peaks and rises in valleys." class="img-fluid rounded z-depth-1" zoomable=true caption="Why only the second derivative survives. (a) On a slope, a kick \(+\epsilon\) raises the density by the same amount that \(-\epsilon\) lowers it — the linear (slope) contributions cancel. (b) At a peak, both neighbors have lower density than \(x\). The average of neighbors falls below \(p_t(x)\), so the quadratic (curvature) term \(\frac{\epsilon^2}{2}p_t'' < 0\) drives density down." %}
 
-After taking the expectation, only the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x)$$. Dividing by $$\Delta t$$ and taking the limit gives the diffusion PDE in one dimension:
+To first order in time, the curvature term remains: $$p_{t+\Delta t}(x) = p_t(x) + \frac{g^2\,\Delta t}{2}\,p_t''(x) + o(\Delta t)$$. Dividing by $$\Delta t$$ and taking the limit gives the diffusion PDE in one dimension:
 
 $$\displaystyle\frac{\partial p_t}{\partial t} = \frac{g^2}{2}\,\frac{\partial^2 p_t}{\partial x^2}$$
 
@@ -108,7 +108,7 @@ The derivation proceeds from the Gaussian transition kernel in three steps.
 
 ### Step 1: Chapman-Kolmogorov
 
-The marginal density at time $$t + \Delta t$$ is obtained by integrating the transition kernel against the current density:
+For the Euler–Maruyama approximation, the next marginal density is obtained by integrating its transition kernel against the current density. We use $$p_t$$ for the discretized marginals in this heuristic section and then pass to the continuous-time limit:
 
 > **Chapman-Kolmogorov equation.** The marginal density at time $$t + \Delta t$$ is
 >
@@ -178,7 +178,7 @@ $$\frac{\partial p_t(\mathbf{x})}{\partial t} = -\nabla_{\mathbf{x}} \cdot \bigl
 
 ## Rigorous Derivation via Itô Calculus
 
-The heuristic derivation discretized the SDE, Taylor-expanded, and took limits. It produced the right answer, but without controlling error terms or justifying the interchange of limits and integrals. This section derives the same equation rigorously using Itô calculus.
+The heuristic derivation discretized the SDE, Taylor-expanded, and took limits. It produced the right answer, but without controlling error terms or justifying the interchange of limits and integrals. This section gives a weak-form derivation using Itô calculus. Assume the SDE is well posed, its coefficients make the integrals below integrable, and use smooth, compactly supported test functions. A classical density equation requires additional regularity; the integrated weak identity does not.
 
 ### What Is Itô Calculus?
 
@@ -195,7 +195,7 @@ Ordinary calculus assumes smooth paths: differentiation and the chain rule requi
 
 The left-endpoint choice has two consequences that drive the derivation:
 
-1. **The Itô integral is a martingale.** Its expectation is zero: $$\mathbb{E}\!\left[\int_0^T H(t)\,d\mathbf{w}(t)\right] = 0$$. Each increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is independent of $$H(t_k)$$ and has zero mean. In the Fokker-Planck derivation below, this property makes the stochastic integral disappear after taking expectations.
+1. **A square-integrable Itô integral is a martingale.** For an adapted integrand with finite expected time-integrated squared norm, its expectation is zero: $$\mathbb{E}\!\left[\int_0^T H(t)\,d\mathbf{w}(t)\right] = 0$$. Each increment $$\mathbf{w}(t_{k+1}) - \mathbf{w}(t_k)$$ is independent of $$H(t_k)$$ and has zero mean. In the Fokker-Planck derivation below, this property makes the stochastic integral disappear after taking expectations.
 
 2. **Quadratic variation is non-trivial.** For smooth paths, $$(dx)^2$$ is negligible compared to $$dx$$. For Brownian motion, $$(d\mathbf{w})^2 = dt$$: increments are order $$\sqrt{dt}$$, so their squares accumulate at order $$dt$$. Second-order Taylor terms therefore survive and produce the Itô correction in the chain rule.
 

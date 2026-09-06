@@ -2,7 +2,7 @@
 layout: post
 title: "Adsorption, GCMC, and Classical DFT"
 date: 2026-05-21
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "Gas adsorption simulation: uptake, grand canonical Monte Carlo, classical density functional theory, and density-field learning."
 post_type: tutorial
 editorial_status: human-reviewed
@@ -31,9 +31,9 @@ That scalar is called uptake. It is the main number used in high-throughput scre
 
 If $$\rho(\mathbf{r})$$ is the local number density of adsorbate molecules at position $$\mathbf{r}$$, then the total loading is
 
-$$N = \int_{\mathcal{V}} \rho(\mathbf{r})\,d\mathbf{r}$$
+$$\langle N\rangle = \int_{\mathcal{V}} \rho(\mathbf{r})\,d\mathbf{r}$$
 
-where $$\mathcal{V}$$ is the unit-cell volume. The scalar uptake $$N$$ tells you how many molecules are present. The field $$\rho(\mathbf{r})$$ tells you where they sit, which binding sites are occupied, which regions are inaccessible, and how adsorption changes with pressure.
+where $$\mathcal{V}$$ is the unit-cell volume. The scalar uptake $$\langle N\rangle$$ is the mean number of adsorbed molecules. The field $$\rho(\mathbf{r})$$ tells you where they sit, which binding sites are occupied, which regions are inaccessible, and how adsorption changes with pressure.
 
 Two standard routes compute that density:
 
@@ -48,9 +48,9 @@ To keep the notation anchored, I use one running example: methane adsorption in 
 
 The adsorption problem is an open-system equilibrium problem. A porous material sits in contact with a gas reservoir, so the number of molecules inside the pore fluctuates. GCMC handles this by sampling particle configurations in the grand canonical ensemble. cDFT handles it by optimizing a density field that minimizes a grand-potential functional. Modern ML methods can use both views: broad cDFT labels teach a cheap density prior, while sparse GCMC labels correct toward particle-simulation fidelity.
 
-The post builds this picture in four steps. The Adsorption Problem section defines uptake, density, and the grand canonical boundary condition. The GCMC section explains the particle sampler. The Classical DFT section explains the density variational problem and fixed-point equation. The final sections explain why unnormalized density fields are a better ML target than scalar uptake alone.
+The post builds this picture in four steps. The Adsorption Problem section defines uptake, density, and the grand canonical boundary condition. The GCMC section explains the particle sampler. The Classical DFT section explains the density variational problem and fixed-point equation. The final sections explain when unnormalized density fields offer more useful supervision than scalar uptake alone.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views of adsorption equilibrium. GCMC samples particle configurations in the grand canonical ensemble, then averages those samples into uptake or a density field. cDFT solves directly for the equilibrium density by fixed-point iteration. Adapted from internal manuscript materials on multi-fidelity adsorbate density learning." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_particle_density.png" alt="Particle sampling and density-functional iteration provide two routes to adsorption uptake and spatial density." class="img-fluid rounded z-depth-1" zoomable=true caption="Particle and density views of adsorption equilibrium. GCMC samples particle configurations in the grand canonical ensemble, then averages those samples into uptake or a density field. cDFT solves directly for the equilibrium density by fixed-point iteration. Adapted from internal manuscript materials on multi-fidelity adsorbate density learning." %}
 
 ---
 
@@ -97,11 +97,7 @@ The target distribution is the grand canonical distribution:
 
 $$p(N,\mathbf{r}^N) \propto \frac{1}{N! \Lambda^{3N}}\exp[\beta \mu N - \beta U_N(\mathbf{r}^N)]$$
 
-where $$U_N$$ is the potential energy of the $$N$$-molecule configuration and $$\Lambda$$ is the thermal de Broglie wavelength. For most ML purposes, the relevant part is the energy-chemical-potential trade-off:
-
-$$p(N,\mathbf{r}^N) \propto \exp[-\beta(U_N(\mathbf{r}^N) - \mu N)]$$
-
-Increasing $$N$$ is rewarded by $$\mu N$$ but penalized if the inserted molecules raise the interaction energy too much. At higher methane pressure, the reward for adding molecules increases; at high loading, the overlap and crowding penalties also increase.
+where $$U_N$$ is the potential energy of the $$N$$-molecule configuration and $$\Lambda$$ is the thermal de Broglie wavelength. The energy-chemical-potential factor favors low interaction energy, and increasing $$\mu$$ increases the relative weight of larger particle counts. But $$1/(N!\Lambda^{3N})$$ also varies with $$N$$ and cannot be absorbed into a common normalizing constant. For example, with no interactions, integrating over positions gives a Poisson particle count with mean $$V e^{\beta\mu}/\Lambda^3$$, not a distribution determined by the exponential factor alone.
 
 ### The Moves
 
@@ -113,7 +109,7 @@ GCMC uses Metropolis-Hastings moves that leave the grand canonical distribution 
 
 The insertion/deletion moves are the defining feature. They let particle number fluctuate, which is exactly what adsorption needs. A trajectory of GCMC samples for methane in MOF-5 looks like a stack of snapshots, each with a different number of methane molecules in the pore.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_moves.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Core GCMC move types for the methane-in-MOF-5 running example. Translation and rotation explore configurations at fixed particle count, while insertion and deletion move between states with different \(N\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_moves.svg" alt="GCMC proposes translation, rotation, insertion, and deletion moves inside a porous framework." class="img-fluid rounded z-depth-1" zoomable=true caption="Core GCMC move types for the methane-in-MOF-5 running example. Translation and rotation explore configurations at fixed particle count, while insertion and deletion move between states with different \(N\)." %}
 
 The uptake is the ensemble average:
 
@@ -123,9 +119,9 @@ The density field is the ensemble average of particle locations:
 
 $$\rho(\mathbf{r}) = \left\langle \sum_{i=1}^{N} \delta(\mathbf{r} - \mathbf{r}_i)\right\rangle_{T,\mu}$$
 
-On a computer, the delta functions are binned onto a voxel grid or smoothed with a kernel. For the running example, each accepted methane configuration contributes methane centers to the grid. Averaging those grids turns particle samples into a density field.
+On a computer, the delta functions are binned onto a voxel grid or smoothed with a kernel. After equilibration, record configurations at regular MC intervals, including unchanged configurations after rejected moves. Averaging those grids estimates the density. Keeping only accepted moves would bias the estimate toward states the chain leaves more readily.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_snapshots_to_density.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Coarse-graining GCMC samples into a density field. Each accepted particle snapshot contributes methane positions to a grid; averaging snapshots estimates \(\rho(\mathbf{r})\), whose integral gives uptake." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_snapshots_to_density.svg" alt="Four particle configurations are coarse-grained into a spatial density whose integral gives mean uptake." class="img-fluid rounded z-depth-1" zoomable=true caption="Coarse-graining GCMC samples into a density field. Regularly recorded chain states, including repeats after rejected moves, contribute methane positions to a grid; averaging estimates \(\rho(\mathbf{r})\), whose integral gives uptake." %}
 
 ### Why GCMC Is Expensive
 
@@ -154,7 +150,7 @@ $$\Omega[\rho] = F_{\mathrm{id}}[\rho] + F_{\mathrm{exc}}[\rho] + \int \rho(\mat
 
 Each term has a direct interpretation.
 
-**The ideal term $$F_{\mathrm{id}}[\rho]$$ is known exactly.** It is the entropy of a non-interacting classical gas:
+**The ideal term $$F_{\mathrm{id}}[\rho]$$ is known exactly.** It is the Helmholtz free-energy functional of a non-interacting classical gas:
 
 $$F_{\mathrm{id}}[\rho] = k_{B}T \int \rho(\mathbf{r})\left(\log(\rho(\mathbf{r})\Lambda^3) - 1\right)\,d\mathbf{r}$$
 
@@ -190,7 +186,7 @@ $$\rho^{(n+1)}(\mathbf{r}) = \rho_{\mathrm{bulk}}\exp\left[-\beta V_{\mathrm{ext
 
 Starting from $$\rho^{(0)} = \rho_{\mathrm{Boltz}}$$, the solver repeatedly evaluates the many-body correction and updates the methane density until $$\rho^{(n+1)} \approx \rho^{(n)}$$.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_fixed_point.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="The cDFT fixed-point loop. The current density \(\rho^{(n)}\) defines the many-body correction, the update produces \(\rho^{(n+1)}\), and the loop stops when the density no longer changes appreciably." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/adsorption_gcmc_cdft_fixed_point.svg" alt="A density update loop evaluates the excess free-energy derivative and iterates until its convergence test passes." class="img-fluid rounded z-depth-1" zoomable=true caption="The cDFT fixed-point loop. The current density \(\rho^{(n)}\) defines the many-body correction, the update produces \(\rho^{(n+1)}\), and the convergence test checks both the density update and the stationarity residual." %}
 
 This is the density analogue of a self-consistent field loop. In quantum DFT, the electron density defines an effective Hamiltonian, whose orbitals define a new density. In classical DFT, the adsorbate density defines a fluid-fluid correction, which defines a new density.
 
@@ -220,7 +216,7 @@ GCMC and cDFT fail differently.
 
 GCMC has the right target distribution for the chosen force field, but it pays with Markov-chain sampling. It can be painfully slow when insertions are rarely accepted.
 
-cDFT is deterministic and often much faster, but it depends on the approximate functional. If $$F_{\mathrm{exc}}$$ is wrong for a regime, cDFT converges quickly to the wrong answer. If the fixed-point iteration is unstable, it may fail to converge at all.
+cDFT is deterministic and often much faster, but it depends on the approximate functional. If $$F_{\mathrm{exc}}$$ is wrong for a regime, cDFT converges quickly to the wrong answer. If the fixed-point iteration is unstable, it may fail to converge at all. Damped mixing can help, but a small update is not by itself evidence of the global minimum: check the stationarity residual and compare grand potentials when multiple solutions are possible.
 
 This makes the two methods complementary:
 

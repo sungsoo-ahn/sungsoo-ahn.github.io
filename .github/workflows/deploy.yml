@@ -53,6 +53,9 @@ jobs:
       - name: Validate blog posts
         run: python3 scripts/validate_blog.py
 
+      - name: Test incomplete-post visibility
+        run: python3 -m unittest discover -s tests -p 'test_incomplete_posts.py'
+
       - name: Validate hidden kUPS pages
         run: python3 scripts/validate_kups_pages.py
 

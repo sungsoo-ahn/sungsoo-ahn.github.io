@@ -1,8 +1,9 @@
-{% assign all_count = site.posts | size %}
-{% assign selected_count = site.posts | where: "selected", true | size %}
-{% assign research_count = site.posts | where: "post_type", "research" | size %}
-{% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
-{% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
+{% assign public_posts = site.posts | where_exp: "post", "post.draft != true" %}
+{% assign all_count = public_posts | size %}
+{% assign selected_count = public_posts | where: "selected", true | size %}
+{% assign research_count = public_posts | where: "post_type", "research" | size %}
+{% assign tutorial_count = public_posts | where: "post_type", "tutorial" | size %}
+{% assign technical_note_count = public_posts | where: "post_type", "technical-note" | size %}
 
 <div class="blog-index-filters">
   <nav class="blog-type-summary blog-category-summary" aria-label="Blog collections">
@@ -29,7 +30,7 @@
   <nav class="blog-type-summary blog-category-summary" aria-label="Blog topics">
     <span>Topics</span>
     {% for category in site.data.blog_categories %}
-      {% assign category_posts = site.categories[category.slug] %}
+      {% assign category_posts = site.categories[category.slug] | where_exp: "post", "post.draft != true" %}
       {% assign category_post_count = category_posts.size | default: 0 %}
       {% if category_post_count > 0 %}
         {% assign category_url = category.slug | prepend: '/blog/category/' | append: '/' %}
