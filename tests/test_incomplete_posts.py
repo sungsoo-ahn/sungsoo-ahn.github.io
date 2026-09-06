@@ -65,7 +65,7 @@ class IncompleteRenderingTests(unittest.TestCase):
         for directory in ("_layouts", "_includes", "_posts", "_scripts", "_data"):
             (cls.source / directory).mkdir(parents=True, exist_ok=True)
         for directory, names in {
-            "_layouts": ["post-type-archive.liquid", "archive.liquid", "post.liquid"],
+            "_layouts": ["page.liquid", "post-type-archive.liquid", "archive.liquid", "post.liquid"],
             "_includes": ["blog-category-nav.liquid", "latest_posts.liquid", "related_posts.liquid", "metadata.liquid"],
             "_scripts": ["search.liquid.js"],
             "_data": ["blog_categories.yml"],
@@ -75,6 +75,7 @@ class IncompleteRenderingTests(unittest.TestCase):
         (cls.source / "_layouts/default.html").write_text(
             '<html><head>{% include metadata.liquid %}</head><body>{{ content }}</body></html>', encoding="utf-8")
         cls.write_page("index.md", "permalink: /\nlatest_posts:\n  limit: 1\n", "{% include latest_posts.liquid %}")
+        shutil.copy2(ROOT / "_pages/blog.md", cls.source / "blog.md")
         for name in ("all", "selected", "tutorials", "incomplete"):
             shutil.copy2(ROOT / f"_pages/blog-{name}.md", cls.source / f"{name}.md")
         for slug, date in (("public-older", "2026-02-01"), ("public-newer", "2026-03-01"), ("unfinished-example", "2026-08-30")):
@@ -117,7 +118,7 @@ Jekyll::Site.new(config).process
         return (self.destination / path).read_text(encoding="utf-8")
 
     def test_public_discovery_excludes_incomplete(self):
-        for path in ("index.html", "blog/2026/public-older/index.html", "blog/all/index.html", "blog/selected/index.html",
+        for path in ("index.html", "blog/index.html", "blog/2026/public-older/index.html", "blog/all/index.html", "blog/selected/index.html",
                      "blog/type/tutorial/index.html", "blog/2026/index.html",
                      "blog/category/generative-modeling/index.html", "assets/js/search-data.js", "feed.xml", "sitemap.xml"):
             with self.subTest(path=path):
@@ -129,6 +130,7 @@ Jekyll::Site.new(config).process
     def test_counts_and_limits_apply_after_filtering(self):
         self.assertIn("All posts 2", self.rendered("blog/all/index.html"))
         self.assertIn("Tutorials 2", self.rendered("blog/all/index.html"))
+        self.assertIn("Tutorials 2", self.rendered("blog/index.html"))
         self.assertNotIn("public-older", self.rendered("index.html"))
         self.assertIn("public-newer", self.rendered("index.html"))
 
@@ -148,7 +150,7 @@ Jekyll::Site.new(config).process
         try:
             post.write_text(original.replace(DRAFT_META, "tags: [stochastic-control]\n"), encoding="utf-8")
             self.build(ready)
-            for path in ("blog/all/index.html", "assets/js/search-data.js", "feed.xml", "sitemap.xml"):
+            for path in ("blog/index.html", "blog/all/index.html", "assets/js/search-data.js", "feed.xml", "sitemap.xml"):
                 self.assertIn("unfinished-example", (ready / path).read_text(encoding="utf-8"))
             self.assertNotIn("unfinished-example", (ready / "blog/incomplete/index.html").read_text(encoding="utf-8"))
             self.assertNotIn('content="noindex, follow"', (ready / "blog/2026/unfinished-example/index.html").read_text(encoding="utf-8"))

@@ -9,10 +9,11 @@ pagination:
 ---
 
   <div class="publications blog-index">
-    {% assign postlist = site.posts | sort: "date" | reverse %}
-    {% assign research_count = site.posts | where: "post_type", "research" | size %}
-    {% assign tutorial_count = site.posts | where: "post_type", "tutorial" | size %}
-    {% assign technical_note_count = site.posts | where: "post_type", "technical-note" | size %}
+    {% assign public_posts = site.posts | where_exp: "post", "post.draft != true" %}
+    {% assign postlist = public_posts | sort: "date" | reverse %}
+    {% assign research_count = public_posts | where: "post_type", "research" | size %}
+    {% assign tutorial_count = public_posts | where: "post_type", "tutorial" | size %}
+    {% assign technical_note_count = public_posts | where: "post_type", "technical-note" | size %}
 
     <h1>SPML Lab Blog</h1>
     <p class="blog-index-note">
