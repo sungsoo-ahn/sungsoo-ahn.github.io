@@ -13,7 +13,7 @@ contact:
   website_text: "sungsoo-ahn.github.io"
 
 education:
-  - title: "Integrated M.S.–Ph.D. Program in Electrical Engineering"
+  - title: "Ph.D. in Electrical Engineering (Integrated M.S.–Ph.D. Program)"
     organization: "KAIST, Daejeon, South Korea, Advisor: Jinwoo Shin"
     date: "Mar. 2015 – Mar. 2021"
   - title: "B.S. in Electrical Engineering"
@@ -71,7 +71,7 @@ service:
     organization: "AI Co-Research & Education for Innovative Drug (AI-CRED) Institute, InnoCORE Program"
     date: "2025 – Present"
     id: "ai_cred_mentor"
-  - title: "Board of Directors"
+  - title: "Board Member"
     organization: "Korean Society of AI Frontier (KSAIF)"
     date: "2025 – Present"
   - title: "Area Chair"
@@ -90,7 +90,7 @@ service:
     organization: "AAAI Conference on Artificial Intelligence (AAAI)"
     date: "2024"
   - title: "Action Editor"
-    organization: "Transactions of Machine Learning Research (TMLR)"
+    organization: "Transactions on Machine Learning Research (TMLR)"
     date: "2024 – Present"
   - title: "Workflow Chair"
     organization: "International Conference on Machine Learning (ICML)"

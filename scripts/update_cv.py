@@ -47,7 +47,7 @@ PREPRINT_ABBR = "-"
 
 # Full venue names for journals
 JOURNAL_FULL = {
-    "TMLR": "Transactions of Machine Learning Research (TMLR)",
+    "TMLR": "Transactions on Machine Learning Research (TMLR)",
     "JSTAT": "Journal of Statistical Mechanics: Theory and Experiment",
     "IEEE TIT": "IEEE Transactions on Information Theory",
 }
@@ -216,7 +216,7 @@ def format_links(entry: dict) -> str:
         if url:
             links.append(rf"\href{{{tex_escape(url)}}}{{[{label}]}}")
 
-    return " " + " ".join(links) if links else ""
+    return " " + " ".join(rf"\mbox{{{link}}}" for link in links) if links else ""
 
 
 def format_annotation(entry: dict) -> str:
@@ -413,7 +413,7 @@ def render_contact(contact: dict) -> str:
     affiliation = tex_escape_plain(contact["affiliation"])
     website_url = str(contact["website_url"]).replace("%", r"\%").replace("#", r"\#")
     website_text = tex_escape_plain(contact["website_text"])
-    details = [rf"{{Email:}} \texttt{{{email}}}"]
+    details = [rf"{{Email:}} \href{{mailto:{email}}}{{\texttt{{{email}}}}}"]
     mobile = str(contact.get("mobile", "")).strip()
     if mobile:
         details.append(rf"{{Mobile:}} \texttt{{{tex_escape_plain(mobile)}}}")
@@ -421,7 +421,7 @@ def render_contact(contact: dict) -> str:
         (
             r"    {\Huge \bf Sungsoo Ahn} \vspace{.2in} \\",
             rf"    {affiliation}\\",
-            "    " + ", ".join(details) + r", \\",
+            "    " + ", ".join(details) + r" \\",
             rf"    {{Web:}} \href{{{website_url}}}{{\texttt{{{website_text}}}}}",
         )
     )

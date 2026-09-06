@@ -91,11 +91,10 @@
   - Cheng-Hao Liu
   - Junlang Liu
   - Zhihui Qi
-  - Jason Yang
   - Gyu Rie Lee
   - Sungsoo Ahn
-  - Sangwon Jung
   - Jamin Shin
+  - Sangwon Jung
   venue: arXiv
   year: 2026
   abbr: '-'
@@ -165,7 +164,6 @@
   year: 2026
   abbr: '-'
   arxiv: '2602.07408'
-  code: https://github.com/icecream126/LINCSQA-PBIOAGENT/tree/main
   cv_sort_order: 202602070659
 - id: woo2026riemannian
   type: conference
@@ -561,7 +559,7 @@
   - Jarrid Rector-Brooks
   - Sungsoo Ahn
   - Jinkyoo Park
-  - Nikolay Malkin
+  - Esmeralda S. Whitammer
   - Yoshua Bengio
   venue: ICLR
   year: 2025
@@ -1074,7 +1072,7 @@
   code: https://github.com/sungsoo-ahn/bucket-renormalization
   html: https://iopscience.iop.org/article/10.1088/1742-5468/ab3218
   cv_title_tex: Bucket Renormalization for Approximate Inference
-  cv_details: 2019(12), 124015
+  cv_details: 2019(12), 124022
 - id: ahn2019gauging
   type: journal
   title: Gauging Variational Inference
@@ -1087,7 +1085,7 @@
   abbr: JSTAT
   arxiv: '1703.01056'
   html: https://iopscience.iop.org/article/10.1088/1742-5468/ab3217
-  cv_details: 2019(12), 124022
+  cv_details: 2019(12), 124015
 - id: ahn2018bucketrenormalization
   type: conference
   title: Bucket-Renormalization for Approximate Inference
