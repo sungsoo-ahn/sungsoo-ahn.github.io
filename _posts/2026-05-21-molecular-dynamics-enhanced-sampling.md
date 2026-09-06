@@ -2,7 +2,7 @@
 layout: post
 title: "Molecular Dynamics, Enhanced Sampling, and Collective Variables"
 date: 2026-05-21
-last_updated: 2026-08-09
+last_updated: 2026-09-06
 description: "A practical bridge from molecular dynamics to enhanced sampling, metadynamics, collective variables, and recent ML approaches for rare molecular events."
 post_type: tutorial
 editorial_status: human-reviewed
@@ -59,7 +59,7 @@ $$d\mathbf{x}_t = \mathbf{v}_t dt$$
 
 $$m\,d\mathbf{v}_t = \mathbf{F}(\mathbf{x}_t)dt - \gamma m\mathbf{v}_t dt + \sqrt{2\gamma m k_{B}T}\,d\mathbf{W}_t$$
 
-The force term pulls the system downhill in potential energy. The friction term removes kinetic energy. The noise term injects thermal fluctuations. Together they preserve the Boltzmann distribution:
+The force term pulls the system downhill in potential energy. The friction term removes kinetic energy. The noise term injects thermal fluctuations. In continuous time, with the fluctuation-dissipation relation shown here, they preserve the Boltzmann configurational distribution. A finite-step integrator can introduce sampling error:
 
 $$p(\mathbf{x}) \propto e^{-\beta U(\mathbf{x})}, \qquad \beta = \frac{1}{k_{B}T}$$
 
@@ -81,7 +81,7 @@ $$k \propto e^{-\beta \Delta F^\ddagger}$$
 
 where $$\Delta F^\ddagger$$ is the free-energy barrier between basins. Increasing the barrier by only a few $$k_{B}T$$ can slow transitions by orders of magnitude.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/md_metastability_bias.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A rare-event problem in one coordinate. Unbiased MD gives physically meaningful dynamics but can stay trapped in one metastable state. Enhanced sampling adds a bias that makes barrier crossing easier, then uses reweighting or path-probability corrections to recover unbiased quantities." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/md_metastability_bias.svg" alt="A bias lowers the effective barrier between two metastable basins in a schematic free-energy landscape." class="img-fluid rounded z-depth-1" zoomable=true caption="A rare-event problem in one coordinate. Unbiased MD gives physically meaningful dynamics but can stay trapped in one metastable state. Enhanced sampling adds a bias that makes barrier crossing easier, then uses reweighting or path-probability corrections to recover unbiased quantities." %}
 
 This creates two different goals that are easy to confuse.
 
@@ -97,23 +97,23 @@ Enhanced sampling adds a bias to make hard regions easier to visit. The simplest
 
 $$U_{\text{bias}}(\mathbf{x}) = U(\mathbf{x}) + V(\mathbf{x})$$
 
-The biased simulation samples:
+For a fixed, time-independent bias and an equilibrated simulation, the target density is:
 
 $$p_{\text{bias}}(\mathbf{x}) \propto e^{-\beta (U(\mathbf{x}) + V(\mathbf{x}))}$$
 
 If $$V$$ penalizes already-visited basins or lowers barriers, the trajectory explores more broadly. But now the samples come from the wrong distribution.
 
-For equilibrium averages, the correction is importance weighting:
+For this fixed-bias equilibrium distribution, importance weighting gives:
 
 $$\langle A \rangle = \frac{\left\langle A(\mathbf{x}) e^{\beta V(\mathbf{x})} \right\rangle_{\text{bias}}}{\left\langle e^{\beta V(\mathbf{x})} \right\rangle_{\text{bias}}}$$
 
-This is the same logic as off-policy evaluation. You sample from one distribution because it is convenient, then correct back to the target distribution using a density ratio.
+This is a density-ratio correction. It requires overlap with the target, and its finite-sample ratio estimator is generally biased although consistent under suitable sampling conditions. A time-dependent bias, such as metadynamics during deposition, needs additional reweighting treatment; the fixed-bias formula cannot simply be applied to arbitrary driven snapshots.
 
 For path quantities, the correction involves ratios between path measures rather than configuration densities. That was the main point of the Jarzynski post. AIS, Jarzynski, Crooks, diffusion-model likelihoods, and transition-path objectives all ask the same question: how did changing the process change the probability of the whole trajectory?
 
 ## Collective Variables
 
-We cannot bias directly in $$3N$$ coordinates. A protein with 1,000 atoms already has 3,000 coordinate dimensions. Depositing a useful bias in that space is hopeless.
+A grid- or hill-based bias becomes impractical in all $$3N$$ coordinates: a protein with 1,000 atoms already has 3,000 coordinate dimensions. This motivates low-dimensional biasing, though learned forces and other methods can act directly in the full coordinate space.
 
 Enhanced sampling therefore uses a collective variable:
 
@@ -127,7 +127,7 @@ $$s(\mathbf{x}) = (\phi(\mathbf{x}), \psi(\mathbf{x}))$$
 
 A CV must organize the slow states, not only compress coordinates. Random atom coordinates can be low-dimensional but still fail to organize the slow states you care about.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) give a useful Ramachandran CV, while an arbitrary projection of hydrogen Cartesian coordinates shows what a poor CV can look like." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_alanine_dipeptide_cvs.gif" alt="Animated alanine-dipeptide geometry compared with its backbone dihedral coordinates and a random hydrogen-coordinate projection." class="img-fluid rounded z-depth-1" avoid_scaling=true caption="Alanine dipeptide as a molecular example of collective variables. The backbone dihedrals \(\phi=C_{i-1}-N-C_{\alpha}-C\) and \(\psi=N-C_{\alpha}-C-N_{i+1}\) give a useful Ramachandran CV, while an arbitrary projection of hydrogen Cartesian coordinates shows what a poor CV can look like." %}
 
 The free energy along the CV is:
 
@@ -139,11 +139,11 @@ $$p(s) = \int \delta(s - \xi(\mathbf{x}))\,p(\mathbf{x})\,d\mathbf{x}$$
 
 The additive constant $$C$$ is arbitrary. Only differences in $$F(s)$$ matter.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/md_double_well_umbrella.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="A two-dimensional double-well potential adapted from the TPS-DPS synthetic example. The collective variable \(s=\xi(x,y)=x\) projects configurations onto one coordinate. An umbrella restraint \(V_k=\frac{1}{2}\kappa(x-s_k)^2\) penalizes configurations away from the chosen window, so the biased potential \(U+V_k\) spends more time near \(s_k=0\)." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/md_double_well_umbrella.svg" alt="A two-dimensional double well is projected onto x and modified by a harmonic umbrella restraint." class="img-fluid rounded z-depth-1" zoomable=true caption="A two-dimensional double-well potential adapted from the TPS-DPS synthetic example. The collective variable \(s=\xi(x,y)=x\) projects configurations onto one coordinate. An umbrella restraint \(V_k=\frac{1}{2}\kappa(x-s_k)^2\) penalizes configurations away from the chosen window, so the biased potential \(U+V_k\) spends more time near \(s_k=0\)." %}
 
 A good CV should satisfy two conditions.
 
-First, it should distinguish the metastable states we care about. If folded and unfolded proteins map to the same $$s$$, biasing $$s$$ cannot help.
+First, it should distinguish the metastable states we care about. If folded and unfolded proteins map to the same $$s$$, a bias on that coordinate cannot directly distinguish those endpoints.
 
 Second, it should capture the slow mode of the transition. A coordinate can distinguish endpoints while missing the bottleneck between them. In that case, the simulation moves quickly along the CV but remains trapped in hidden orthogonal degrees of freedom. This is the classic failure mode: the projected free-energy profile looks flat, but the actual molecular system is still stuck.
 
@@ -157,15 +157,15 @@ $$V_k(\mathbf{x}) = \frac{1}{2}\kappa(\xi(\mathbf{x}) - s_k)^2$$
 
 Each window forces the simulation to explore a local region of the CV. The windows overlap. After collecting samples from all windows, methods such as WHAM or MBAR stitch the biased histograms together to estimate the unbiased free-energy profile.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_umbrella_sweep.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="A moving umbrella window on the same double-well toy problem. As the window center \(s_k\) changes, the harmonic restraint changes the biased potential \(U+V_k\) and shifts which CV region is easy to sample." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_umbrella_sweep.gif" alt="A harmonic umbrella window moves across a double-well potential, changing the region favored by the bias." class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="A moving umbrella window on the same double-well toy problem. As the window center \(s_k\) changes, the harmonic restraint changes the biased potential \(U+V_k\) and shifts which CV region is easy to sample." %}
 
 The ML analogy is stratified sampling. Instead of hoping the Markov chain visits rare CV regions on its own, we force coverage of each region and correct afterward.
 
 The same toy system makes the sampling effect visible. The next animations show illustrative overdamped dynamics, not a calibrated molecular timestep.
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_unbiased_dynamics.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Unbiased toy dynamics on the double-well potential. Over a short run, trajectories initialized in basin A mostly stay there instead of crossing to basin B." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_unbiased_dynamics.gif" alt="Toy trajectories initialized in one double-well basin remain there during a short unbiased run." class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Unbiased toy dynamics on the double-well potential. Over a short run, trajectories initialized in basin A mostly stay there instead of crossing to basin B." %}
 
-{% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
+{% include figure.liquid loading="lazy" path="assets/img/blog/md_biased_dynamics.gif" alt="A moving harmonic bias drives toy trajectories from one basin toward the other." class="img-fluid rounded z-depth-1" max-width="430px" avoid_scaling=true caption="Biased toy dynamics with a moving harmonic restraint along \(s=x\). The bias drives trajectories through the umbrella window toward basin B, making the transition easy to observe. The shown paths are biased trajectories, not unbiased physical transition paths." %}
 
 The weakness is that umbrella sampling requires planning. You need a CV, window centers, force constants, and enough overlap. If the transition coordinate is unknown or curved, the windows can miss the transition path.
 
@@ -179,9 +179,9 @@ $$V_t(s) = \sum_{t_i < t} w_i \exp\!\left(-\frac{\lVert s - s_{t_i}\rVert^2}{2\s
 
 The system is discouraged from returning to places it has already visited. Over time, the bias fills free-energy wells and pushes the simulation across barriers.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/md_cv_metadynamics.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Metadynamics builds a history-dependent bias by adding Gaussian hills along a collective variable. As the accumulated bias fills visited wells, the effective surface becomes easier to traverse." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/md_cv_metadynamics.svg" alt="A collective variable maps configurations to a free-energy profile where accumulated Gaussian hills add a bias." class="img-fluid rounded z-depth-1" zoomable=true caption="Metadynamics builds a history-dependent bias by adding Gaussian hills along a collective variable. As the accumulated bias fills visited wells, the effective surface becomes easier to traverse." %}
 
-In ordinary metadynamics, the accumulated bias approaches:
+With adequate exploration and suitable hill parameters, ordinary metadynamics builds a bias that approximately offsets the free-energy profile over the sampled region:
 
 $$V(s) \approx -F(s)$$
 
@@ -203,7 +203,7 @@ $$\left\langle e^{-\beta W} \right\rangle = e^{-\beta \Delta F}$$
 
 This is the practical side of the Jarzynski post. We deliberately drive the system out of equilibrium because waiting for spontaneous transitions is too expensive. The driven trajectories are biased, but the path-measure ratio contains the correction.
 
-The problem is variance. Jarzynski is exact, but the exponential average is dominated by rare low-work trajectories. Most fast pulls dissipate too much work. In ML terms, the estimator is unbiased but can be unusable.
+The problem is variance. Jarzynski is exact, but the exponential average is dominated by rare low-work trajectories. Most fast pulls dissipate too much work. The sample mean of the exponential work is unbiased under the identity's assumptions. Taking its negative logarithm to estimate free energy introduces finite-sample bias, and rare-event variance can make either estimate unreliable.
 
 Modern rare-event methods try to learn better proposals for this reason. We do not only want a force that reaches state B. We want a path distribution close to the true transition-path distribution, so the importance weights or path-measure corrections have manageable variance.
 
@@ -213,7 +213,7 @@ ML enters in two places. The first is to learn the CV: train a neural network co
 
 The second entry point is to learn the path bias directly. Instead of choosing a low-dimensional CV first, train forces or proposals that make transition paths more likely while keeping track of the path distribution being sampled. TPS-DPS, also from our group, follows this route with a diffusion path sampler (<span id="cite-seong2024"></span>[Seong et al., 2025](#ref-seong2024)). These projects illustrate the two design choices above: learn where to bias, or learn the path-level bias itself.
 
-{% include figure.liquid loading="eager" path="assets/img/blog/md_sampling_method_map.svg" class="img-fluid rounded z-depth-1" zoomable=true caption="Classical enhanced sampling asks where to apply a bias and how to undo it. ML can enter by learning the collective variable for CV-based methods or by learning a path-level bias directly. The path-measure view connects both directions to Jarzynski, AIS, diffusion models, and trajectory objectives." %}
+{% include figure.liquid loading="eager" path="assets/img/blog/md_sampling_method_map.svg" alt="Enhanced-sampling workflow connecting biased dynamics and corrected estimates with learned coordinates or path biases." class="img-fluid rounded z-depth-1" zoomable=true caption="Classical enhanced sampling asks where to apply a bias and how to undo it. ML can enter by learning the collective variable for CV-based methods or by learning a path-level bias directly. The path-measure view connects both directions to Jarzynski, AIS, diffusion models, and trajectory objectives." %}
 
 These routes are complementary, not mutually exclusive. Learning CVs keeps the classical machinery interpretable and reusable, but a low-dimensional CV can miss hidden barriers. Learning path biases removes that bottleneck, but the model must learn a whole trajectory distribution rather than a coordinate.
 
@@ -248,11 +248,7 @@ When reading or designing an MD-plus-ML method, I find the following questions m
 
 ## Closing
 
-Molecular dynamics gives us a physically grounded path distribution. Rare events make that distribution hard to sample. Enhanced sampling changes the distribution so useful events happen more often. Collective variables decide where the change is applied. Reweighting and path-measure identities decide what we can recover afterward.
-
-A diffusion model, an AIS chain, a metadynamics run, and a transition path sampler all change a sampling process. The question is the same in each case: what path distribution did we sample, and how does it relate to the one we wanted?
-
-The ML opportunity is larger than faster MD: change the sampling distribution while keeping the correction honest.
+Choose the observable before choosing a bias. For equilibrium averages, check overlap and reweighting stability. For rates or mechanisms, justify the path distribution and its time interpretation. A learned CV or force is useful when it improves those estimates at a measured computational cost, not merely when it produces a convincing transition movie.
 
 ## References
 

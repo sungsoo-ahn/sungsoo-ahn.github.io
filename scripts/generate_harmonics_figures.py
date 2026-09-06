@@ -295,215 +295,45 @@ def generate_circular_harmonics_simple(output_path):
 
 
 def generate_cg_tensor_product_figure(output_path):
-    """
-    Generate figure illustrating the Clebsch-Gordan tensor product.
-    """
-    fig, ax = plt.subplots(1, 1, figsize=(15, 3.8))
-    ax.set_xlim(0, 14.8)
-    ax.set_ylim(0.1, 3.8)
-    ax.set_aspect('equal')
-    ax.axis('off')
+    """Transform a nine-component feature, not a representation matrix."""
+    fig, ax = plt.subplots(figsize=(7.2, 4.8), layout="constrained")
+    ax.set(xlim=(0, 9), ylim=(0, 6))
+    ax.axis("off")
 
-    # --- Purple-led semantic palette ---
-    color_l0 = bfs.GREEN_LIGHT
-    color_l1 = bfs.BLUE_LIGHT
-    color_l2 = bfs.RED_LIGHT
-    color_tensor = bfs.PURPLE_SOFT
-    color_cg = bfs.PURPLE_LIGHT
+    def box(cx, cy, width, height, label, fill, edge, size=13):
+        ax.add_patch(plt.Rectangle((cx-width/2, cy-height/2), width, height,
+                                  facecolor=fill, edgecolor=edge, linewidth=1.5))
+        ax.text(cx, cy, label, ha="center", va="center", fontsize=size,
+                color=bfs.TEXT, linespacing=1.5)
 
-    edge_l0 = bfs.GREEN
-    edge_l1 = bfs.BLUE
-    edge_l2 = bfs.RED
-    edge_neutral = bfs.SPINE
-    arrow_color = bfs.MUTED
+    def arrow(start, end):
+        ax.annotate("", xy=end, xytext=start,
+                    arrowprops=dict(arrowstyle="-|>", color=bfs.MUTED, lw=1.6))
 
-    # Grid
-    grid_color = bfs.SPINE
-    grid_lw = 0.4
-
-    # Text colors (dark, readable versions of block colors)
-    text_color = bfs.TEXT
-    text_l0 = bfs.GREEN
-    text_l1 = bfs.BLUE
-    text_l2 = bfs.RED
-    text_cg = bfs.PURPLE_STRONG
-    text_tensor = bfs.MUTED
-    text_muted = bfs.MUTED
-
-    # Layout constants
-    cy = 1.95
-    arrow_len = 0.55
-    arrow_gap = 0.22
-    unit = 0.40
-    lw = 1.0
-
-    # --- Helpers ---
-    def draw_arrow(x1, x2):
-        ax.annotate('', xy=(x2, cy), xytext=(x1, cy),
-                    arrowprops=dict(arrowstyle='-|>', color=arrow_color,
-                                    lw=1.2, mutation_scale=10))
-
-    def draw_gridded_col(x, n, color, edge):
-        """Draw a 1-wide, n-tall column with grid lines."""
-        h = n * unit
-        r = plt.Rectangle((x, cy - h/2), unit, h, facecolor=color,
-                          edgecolor=edge, linewidth=lw)
-        ax.add_patch(r)
-        for i in range(1, n):
-            y = cy - h/2 + i*unit
-            ax.plot([x, x + unit], [y, y], color='white',
-                   linewidth=0.8, solid_capstyle='butt')
-        return x, h
-
-    def draw_gridded_square(x, n, color, edge):
-        """Draw an n x n square with grid lines."""
-        s = n * unit
-        r = plt.Rectangle((x, cy - s/2), s, s, facecolor=color,
-                          edgecolor=edge, linewidth=lw)
-        ax.add_patch(r)
-        for i in range(1, n):
-            y = cy - s/2 + i*unit
-            ax.plot([x, x + s], [y, y], color='white', linewidth=0.8,
-                   solid_capstyle='butt')
-            xv = x + i*unit
-            ax.plot([xv, xv], [cy - s/2, cy + s/2], color='white',
-                   linewidth=0.8, solid_capstyle='butt')
-        return x, s
-
-    # ========== SECTION 1: Input ==========
-    x1 = 1.0
-    draw_gridded_col(x1, 3, color_l1, edge_l1)
-    ax.text(x1 + unit/2, cy + 3*unit/2 + 0.08, r'$\ell\!=\!1$',
-            ha='center', va='bottom', fontsize=9, color=text_l1)
-
-    ax.text(x1 + unit + 0.25, cy, r'$\otimes$', ha='center', va='center',
-            fontsize=14, color=text_color)
-
-    x2 = x1 + unit + 0.5
-    draw_gridded_col(x2, 3, color_l1, edge_l1)
-    ax.text(x2 + unit/2, cy + 3*unit/2 + 0.08, r'$\ell\!=\!1$',
-            ha='center', va='bottom', fontsize=9, color=text_l1)
-
-    # Arrow 1
-    a1_s = x2 + unit + arrow_gap
-    a1_e = a1_s + arrow_len
-    draw_arrow(a1_s, a1_e)
-
-    # ========== SECTION 2: Tensor Product (3x3 grid) ==========
-    tp_x = a1_e + arrow_gap
-    draw_gridded_square(tp_x, 3, color_tensor, edge_neutral)
-    tp_s = 3 * unit
-
-    # Arrow 2
-    a2_s = tp_x + tp_s + arrow_gap
-    a2_e = a2_s + arrow_len
-    draw_arrow(a2_s, a2_e)
-
-    # ========== SECTION 3: CG Transform ==========
-    ms = 3 * unit
-    dot_gap = 0.28
-
-    cg_x = a2_e + arrow_gap
-
-    draw_gridded_square(cg_x, 3, color_cg, edge_neutral)
-
-    ax.text(cg_x + ms + dot_gap/2, cy, r'$\cdot$', ha='center', va='center',
-            fontsize=16, fontweight='bold', color=text_color)
-
-    m2_x = cg_x + ms + dot_gap
-    draw_gridded_square(m2_x, 3, color_tensor, edge_neutral)
-
-    ax.text(m2_x + ms + dot_gap/2, cy, r'$\cdot$', ha='center', va='center',
-            fontsize=16, fontweight='bold', color=text_color)
-
-    m3_x = m2_x + ms + dot_gap
-    draw_gridded_square(m3_x, 3, color_cg, edge_neutral)
-
-    # Arrow 3
-    a3_s = m3_x + ms + arrow_gap
-    a3_e = a3_s + arrow_len
-    draw_arrow(a3_s, a3_e)
-
-    # ========== SECTION 4: Direct Sum of Irreps ==========
-    irrep_gap = 0.40
-
-    ix0 = a3_e + arrow_gap
-    draw_gridded_col(ix0, 1, color_l0, edge_l0)
-    ax.text(ix0 + unit/2, cy + 1*unit/2 + 0.08, r'$\ell\!=\!0$',
-            ha='center', va='bottom', fontsize=9, color=text_l0)
-
-    ax.text(ix0 + unit + irrep_gap/2, cy, r'$\oplus$', ha='center', va='center',
-            fontsize=14, color=text_color)
-
-    ix1 = ix0 + unit + irrep_gap
-    draw_gridded_col(ix1, 3, color_l1, edge_l1)
-    ax.text(ix1 + unit/2, cy + 3*unit/2 + 0.08, r'$\ell\!=\!1$',
-            ha='center', va='bottom', fontsize=9, color=text_l1)
-
-    ax.text(ix1 + unit + irrep_gap/2, cy, r'$\oplus$', ha='center', va='center',
-            fontsize=14, color=text_color)
-
-    ix2 = ix1 + unit + irrep_gap
-    draw_gridded_col(ix2, 5, color_l2, edge_l2)
-    ax.text(ix2 + unit/2, cy + 5*unit/2 + 0.08, r'$\ell\!=\!2$',
-            ha='center', va='bottom', fontsize=9, color=text_l2)
-
-    # ========== Section headers ==========
-    h1_y = 3.52
-
-    ax.text((x1 + x2 + unit) / 2, h1_y, 'Input',
-            ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
-
-    ax.text(tp_x + tp_s/2, h1_y, 'Tensor Product',
-            ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
-
-    cob_center = (cg_x + m3_x + ms) / 2
-    ax.text(cob_center, h1_y, 'CG Transform',
-            ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
-
-    ds_center = (ix0 + ix2 + unit) / 2
-    ax.text(ds_center, h1_y, 'Direct Sum of Irreps',
-            ha='center', va='center', fontsize=11, fontweight='bold', color=text_color)
-
-    # ========== Equations below each element (color-matched) ==========
-    eq_y = 0.42
-
-    # --- Input ---
-    ax.text(x1 + unit/2, eq_y, r'$\mathbf{x}^{(1)}$',
-            ha='center', va='center', fontsize=11, color=text_l1)
-    ax.text(x1 + unit + 0.25, eq_y, r'$\otimes$',
-            ha='center', va='center', fontsize=11, color=text_color)
-    ax.text(x2 + unit/2, eq_y, r'$\mathbf{y}^{(1)}$',
-            ha='center', va='center', fontsize=11, color=text_l1)
-
-    # --- CG Transform ---
-    ax.text(cg_x + ms/2, eq_y, r'$C$',
-            ha='center', va='center', fontsize=12, color=text_cg, fontweight='bold')
-    ax.text(cg_x + ms + dot_gap/2, eq_y, r'$\cdot$',
-            ha='center', va='center', fontsize=13, color=text_color)
-    ax.text(m2_x + ms/2, eq_y, r'$(\cdot)$',
-            ha='center', va='center', fontsize=11, color=text_tensor)
-    ax.text(m2_x + ms + dot_gap/2, eq_y, r'$\cdot$',
-            ha='center', va='center', fontsize=13, color=text_color)
-    ax.text(m3_x + ms/2, eq_y, r'$C^{-1}$',
-            ha='center', va='center', fontsize=12, color=text_cg, fontweight='bold')
-
-    # --- Direct Sum ---
-    ax.text(ix0 + unit/2, eq_y, r'$\mathbf{z}^{(0)}$',
-            ha='center', va='center', fontsize=11, color=text_l0)
-    ax.text(ix0 + unit + irrep_gap/2, eq_y, r'$\oplus$',
-            ha='center', va='center', fontsize=10, color=text_color)
-    ax.text(ix1 + unit/2, eq_y, r'$\mathbf{z}^{(1)}$',
-            ha='center', va='center', fontsize=11, color=text_l1)
-    ax.text(ix1 + unit + irrep_gap/2, eq_y, r'$\oplus$',
-            ha='center', va='center', fontsize=10, color=text_color)
-    ax.text(ix2 + unit/2, eq_y, r'$\mathbf{z}^{(2)}$',
-            ha='center', va='center', fontsize=11, color=text_l2)
-
-    plt.savefig(output_path, dpi=200, bbox_inches='tight',
-                facecolor='white', pad_inches=0.15)
-    plt.close()
+    box(1.45, 5.2, 2.2, 0.9, "$x$: 3 components", bfs.BLUE_LIGHT, bfs.BLUE)
+    box(7.55, 5.2, 2.2, 0.9, "$y$: 3 components", bfs.BLUE_LIGHT, bfs.BLUE)
+    arrow((2.6, 5.2), (3.4, 5.2))
+    arrow((6.4, 5.2), (5.6, 5.2))
+    box(4.5, 5.2, 2.1, 0.9, r"$xy^\top$  (3 × 3)", bfs.PURPLE_LIGHT, bfs.PURPLE)
+    arrow((4.5, 4.7), (4.5, 4.05))
+    box(4.5, 3.45, 7.0, 1.1,
+        "$z=C\\,\\mathrm{vec}(xy^\\top)$\n9 × 9 basis matrix; 9-component feature",
+        bfs.PURPLE_SOFT, bfs.PURPLE_STRONG)
+    outputs = [
+        (1.5, "$\\ell=0$: scalar\n1 component", bfs.GREEN_LIGHT, bfs.GREEN),
+        (4.5, "$\\ell=1$: vector\n3 components", bfs.BLUE_LIGHT, bfs.BLUE),
+        (7.5, "$\\ell=2$: tensor\n5 components", bfs.RED_LIGHT, bfs.RED),
+    ]
+    for cx, label, fill, edge in outputs:
+        arrow((4.5, 2.85), (cx, 2.05))
+        box(cx, 1.45, 2.6, 1.1, label, fill, edge)
+    ax.text(4.5, 0.35, "The change of basis preserves dimension:  9 = 1 + 3 + 5",
+            ha="center", va="center", fontsize=12, color=bfs.MUTED)
+    for issue in bfs.audit_figure(fig):
+        print(f"CG layout: {issue}")
+    bfs.save_svg_png(fig, output_path, dpi=220, transparent=False)
     print(f"Saved CG tensor product figure to {output_path}")
+
 
 
 def generate_ellipsoid_anisotropy_figure(output_path):

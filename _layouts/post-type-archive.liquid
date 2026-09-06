@@ -9,11 +9,16 @@ layout: default
   </header>
 
   <article class="archive publications blog-index">
-    {% include blog-category-nav.liquid %}
-    {% if page.post_type %}
-      {% assign type_documents = site.posts | where: "post_type", page.post_type %}
+    {% if page.collection_status == 'incomplete' %}
+      {% assign type_documents = site.posts | where_exp: "post", "post.tags contains 'incomplete'" %}
+      <p class="blog-index-note">Work in progress. These posts are unlisted, but anyone with a direct link can read them.</p>
     {% else %}
-      {% assign type_documents = site.posts %}
+      {% include blog-category-nav.liquid %}
+      {% if page.post_type %}
+        {% assign type_documents = site.posts | where_exp: "post", "post.draft != true" | where: "post_type", page.post_type %}
+      {% else %}
+        {% assign type_documents = site.posts | where_exp: "post", "post.draft != true" %}
+      {% endif %}
     {% endif %}
     {% if page.sort_by == 'title' %}
       {% assign type_documents = type_documents | sort: 'title' %}
@@ -46,7 +51,7 @@ layout: default
             <div class="author">
               {% assign document_type = document.post_type | default: 'tutorial' | replace: '-', ' ' | capitalize %}
               {% if document.post_type == 'technical-note' %}{% assign document_type = 'Technical note' %}{% endif %}
-              {{ document_type }} · Published {{ document.date | date: '%b %d, %Y' }}
+              {{ document_type }} · {% if document.draft %}Incomplete · Started{% else %}Published{% endif %} {{ document.date | date: '%b %d, %Y' }}
               {% assign published_day = document.date | date: '%Y-%m-%d' %}
               {% assign updated_day = document.last_updated | date: '%Y-%m-%d' %}
               {% if document.last_updated and updated_day != published_day %} · Updated {{ document.last_updated | date: '%b %d, %Y' }}{% endif %}

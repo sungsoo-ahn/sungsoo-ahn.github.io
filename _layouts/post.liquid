@@ -36,6 +36,9 @@ layout: default
 <div class="post{% if is_blog_style_post %} blog-post{% endif %}">
   {% if is_blog_style_post %}
     <header class="post-header">
+      {% if page.tags contains 'incomplete' %}
+        <p class="blog-index-note"><strong>Incomplete draft.</strong> This post is still being developed and is not listed in the public blog. <a href="{{ '/blog/incomplete/' | relative_url }}">All incomplete posts</a></p>
+      {% endif %}
       <h1 class="post-title">{{ page.title }}</h1>
       {% if page.description %}
         <p class="blog-post-summary">{{ page.description }}</p>

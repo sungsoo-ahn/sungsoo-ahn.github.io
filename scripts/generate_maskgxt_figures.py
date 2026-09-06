@@ -91,7 +91,7 @@ def _draw_panel(ax, title: str, values: list[float], *, show_models: bool) -> No
             _format_value(value, title),
             ha="left",
             va="center",
-            fontsize=8.4,
+            fontsize=10.5,
             color=bfs.TEXT,
         )
 
@@ -100,56 +100,27 @@ def _draw_panel(ax, title: str, values: list[float], *, show_models: bool) -> No
     ax.set_axisbelow(True)
     bfs.clean_axes(ax, grid=False)
     ax.spines["left"].set_visible(False)
-    ax.tick_params(axis="x", labelsize=8.5)
+    ax.tick_params(axis="x", labelsize=10)
 
 
 def make_results_bars() -> None:
+    """Export one panel per responsive column, retaining the overview export."""
     bfs.use_blog_style()
-
-    fig, axes = plt.subplots(
-        2,
-        4,
-        figsize=(12.6, 7.0),
-        gridspec_kw={"left": 0.13, "right": 0.99, "top": 0.83, "bottom": 0.115, "wspace": 0.32, "hspace": 0.62},
-    )
-
-    for col, (title, values) in enumerate(TABLE1_FILTERED.items()):
-        _draw_panel(axes[0, col], title, values, show_models=(col == 0))
-
-    for col, (title, values) in enumerate(TABLE2_METRE.items()):
-        _draw_panel(axes[1, col], title, values, show_models=(col == 0))
-
-    fig.text(
-        0.13,
-        0.965,
-        "MaskGXT benchmark results",
-        ha="left",
-        va="top",
-        fontsize=16,
-        fontweight="bold",
-        color=bfs.TEXT,
-    )
-    legend = [
-        Patch(facecolor=THEME_PURPLE, edgecolor="none", label="MaskGXT"),
-        Patch(facecolor=BASELINE_GRAY, edgecolor="none", label="baselines"),
-    ]
-    fig.legend(
-        handles=legend,
-        loc="lower left",
-        bbox_to_anchor=(0.13, 0.02),
-        ncol=3,
-        frameon=False,
-        fontsize=9.4,
-        handlelength=1.5,
-        columnspacing=1.8,
-    )
-
+    entries = list(TABLE1_FILTERED.items()) + list(TABLE2_METRE.items())
+    fig, axes = plt.subplots(4, 2, figsize=(8.8, 12), layout="constrained")
+    for index, (title, values) in enumerate(entries):
+        _draw_panel(axes.flat[index], title, values, show_models=(index % 2 == 0))
     bfs.save_svg_png(fig, OUTPUT, transparent=False)
-    svg_path = OUTPUT
-    with open(svg_path, "r", encoding="utf-8") as f:
-        svg = f.read()
-    with open(svg_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(line.rstrip() for line in svg.splitlines()) + "\n")
+
+    # A single panel keeps its text size when the article stacks columns on mobile.
+    for index, (title, values) in enumerate(entries, start=1):
+        panel, ax = plt.subplots(figsize=(4.5, 3.15), layout="constrained")
+        _draw_panel(ax, title, values, show_models=True)
+        for issue in bfs.audit_figure(panel):
+            print(f"Benchmark panel {index}: {issue}")
+        bfs.save_svg_png(panel, f"assets/img/blog/maskgxt_results_{index:02d}.svg",
+                         transparent=False)
+
 
 
 if __name__ == "__main__":

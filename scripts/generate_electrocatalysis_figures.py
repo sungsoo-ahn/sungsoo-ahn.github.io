@@ -183,14 +183,14 @@ def _write_svg_or_preview(output_path, svg):
 # ──────────────────────────────────────────────
 def generate_energy_cycle_figure(output_path):
     """
-    Flowchart: Renewable → Electrolyzer → H2/CH4 → Fuel Cell → Grid
+    Flowchart: Renewable → Electrolyzer → H2 storage → Fuel Cell → Grid
     With a return arrow showing the cycle.
     """
     width, height = 900, 330
     boxes = [
         (54, 128, 138, 72, ["Renewable", "electricity"], BOX_GREEN, EDGE_GREEN),
         (258, 128, 138, 72, ["Electrolyzer"], BOX_WARM, EDGE_WARM),
-        (462, 128, 138, 72, ["H2 / CH4", "storage"], BOX_MAIN, EDGE_MAIN),
+        (462, 128, 138, 72, ["Hydrogen", "storage"], BOX_MAIN, EDGE_MAIN),
         (666, 128, 138, 72, ["Fuel cell"], BOX_WARM, EDGE_WARM),
     ]
     parts = [
@@ -220,12 +220,12 @@ def generate_energy_cycle_figure(output_path):
     )
     parts.append(_svg_text(848, arrow_y + 5, "Grid", size=17, fill=COLOR_GREEN, weight="700", anchor="start"))
     parts.append(
-        f'<path d="M 735 224 L 735 252 L 124 252 L 124 215" fill="none" '
+        f'<path d="M 735 224 L 735 252 L 327 252 L 327 215" fill="none" '
         f'stroke="{COLOR_GREEN}" stroke-width="2.4" stroke-linecap="round" '
         'stroke-linejoin="round" marker-end="url(#greenArrow)"/>'
     )
     parts.append(
-        _svg_text(430, 283, "water byproduct returns to electrolysis", size=15, fill=COLOR_GREEN, weight="600")
+        _svg_text(531, 283, "water byproduct returns to electrolysis", size=15, fill=COLOR_GREEN, weight="600")
     )
     parts.append("</svg>\n")
     _write_svg_or_preview(output_path, "\n".join(parts))
@@ -368,26 +368,22 @@ def generate_gibbs_energy_figure(output_path):
 
     # ORR dissociative pathway steps (approximate values in eV)
     # Reaction: O2 + 4H+ + 4e- → 2H2O
-    # Steps: ½O2 → *O, *O + H+e- → *OH, *OH + H+e- → H2O
-    steps = ['½O$_2$ + 2H$^+$\n+ 2e$^-$', '*O + H$^+$\n+ e$^-$',
-             '*OH', 'H$_2$O']
+    # Show the remaining proton/electron reservoir consistently at every state.
+    steps = ['½O$_2$ + 2H$^+$\n+ 2e$^-$', '*O + 2H$^+$\n+ 2e$^-$',
+             '*OH + H$^+$\n+ e$^-$', 'H$_2$O']
 
     # Approximate Gibbs free energies (eV) relative to reference
     # Pt(111) — near-optimal, moderate steps
     G_Pt = [0.0, -0.8, -1.6, -2.46]
 
-    # Ni(111) — binds too strongly, large final desorption barrier
+    # Ni(111) — stronger binding, slightly uphill final state-energy step
     G_Ni = [0.0, -1.6, -2.5, -2.46]
-
-    # Ideal (no overpotential) — equal steps of ~0.615 eV
-    G_ideal = [0.0, -0.615, -1.23, -2.46]
 
     x_positions = [0, 1, 2, 3]
     platform_width = 0.35
 
     # Plot energy platforms and connecting lines
     for G_vals, color, label, ls, lw in [
-        (G_ideal, bfs.NEUTRAL, 'Ideal (no overpotential)', '--', 1.5),
         (G_Pt, bfs.BLUE, 'Pt(111)', '-', 2.2),
         (G_Ni, COLOR_RED, 'Ni(111)', '-', 2.2),
     ]:
@@ -403,7 +399,7 @@ def generate_gibbs_energy_figure(output_path):
         # Legend entry (invisible line for legend)
         ax.plot([], [], color=color, linewidth=lw, linestyle=ls, label=label)
 
-    # Annotate rate-limiting step for Pt (largest drop)
+    # Annotate a state-energy difference for Pt, not an activation barrier
     # For Pt, the first step (½O2 → *O) has ΔG = -0.8 eV
     ax.annotate('', xy=(0.5, G_Pt[1]), xytext=(0.5, G_Pt[0]),
                 arrowprops=dict(arrowstyle='<->', color=bfs.BLUE, lw=1.5))
@@ -413,11 +409,9 @@ def generate_gibbs_energy_figure(output_path):
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
                       alpha=0.85, ec=bfs.BLUE, lw=0.5))
 
-    # Annotate rate-limiting step for Ni (*OH → H2O, desorption)
-    # Ni has a very large last step
-    ax.annotate('', xy=(2.5, G_Ni[2]), xytext=(2.5, G_Ni[3]),
-                arrowprops=dict(arrowstyle='<->', color=COLOR_RED, lw=1.5))
-    ax.text(2.28, (G_Ni[2] + G_Ni[3]) / 2 + 0.12, 'small',
+    # Annotate the final state-energy difference for Ni
+    # Ni has a small uphill final step in this illustration
+    ax.text(2.28, (G_Ni[2] + G_Ni[3]) / 2 + 0.16, 'small uphill step',
             ha='right', va='center', fontsize=8.5, color=COLOR_RED,
             fontstyle='italic',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
@@ -449,6 +443,7 @@ def generate_gibbs_energy_figure(output_path):
     ax.text(1.5, -3.4, 'Reaction coordinate', ha='center', va='top',
             fontsize=11, color=TEXT_COLOR)
 
+    ax.set_title("Schematic — illustrative values", fontsize=12, pad=12)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
@@ -538,9 +533,10 @@ def generate_volcano_plot_figure(output_path):
                 xlabel=r'$\Delta E_{\mathrm{O}}$ relative to Pt (eV)',
                 ylabel=r'log$_{10}$(activity)')
 
-    ax.legend(loc='lower left', fontsize=8.5, framealpha=0.9,
+    ax.legend(loc='upper left', fontsize=8.5, framealpha=0.9,
               edgecolor=bfs.SPINE)
 
+    ax.set_title("Schematic — illustrative values", fontsize=12, pad=12)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
@@ -586,7 +582,7 @@ def generate_scaling_relations_figure(output_path):
         ax.plot(x, y, 'o', color=EDGE_MAIN, markersize=9, zorder=5,
                 markeredgecolor='white', markeredgewidth=1.2)
         offsets = {
-            'Pt': (0.08, 0.12), 'Pd': (0.08, 0.12), 'Ir': (-0.12, -0.18),
+            'Pt': (0.08, 0.12), 'Pd': (0.08, 0.12), 'Ir': (0.04, -0.20),
             'Rh': (-0.12, 0.12), 'Ru': (0.08, 0.12), 'Ni': (0.08, -0.18),
             'Co': (-0.12, 0.12), 'Fe': (0.08, 0.12), 'Cu': (0.08, 0.12),
             'Ag': (0.08, -0.18), 'Au': (-0.12, 0.12),
@@ -601,7 +597,7 @@ def generate_scaling_relations_figure(output_path):
     ideal_ooh = ideal_oh + 2.46
     ax.plot(ideal_oh, ideal_ooh, '*', color=COLOR_GREEN, markersize=16,
             zorder=6, markeredgecolor='white', markeredgewidth=1.0)
-    ax.annotate('Ideal catalyst\n(breaks scaling)',
+    ax.annotate('Smaller OH–OOH gap\n(illustrative)',
                 xy=(ideal_oh, ideal_ooh),
                 xytext=(ideal_oh + 0.62, ideal_ooh - 0.62),
                 fontsize=10, fontweight='bold', color=COLOR_GREEN,
@@ -617,11 +613,11 @@ def generate_scaling_relations_figure(output_path):
                     color=COLOR_GREEN, alpha=0.1, zorder=1)
 
     # Arrow showing the offset
-    ax.annotate('', xy=(ideal_oh - 0.15, ideal_ooh),
-                xytext=(ideal_oh - 0.15, ideal_oh + 3.2),
+    ax.annotate('', xy=(ideal_oh + 0.25, ideal_ooh),
+                xytext=(ideal_oh + 0.25, ideal_oh + 3.2),
                 arrowprops=dict(arrowstyle='<->', color=COLOR_RED, lw=1.5))
-    ax.text(ideal_oh - 0.3, (ideal_ooh + ideal_oh + 3.2) / 2,
-            '0.74 eV\ngap', ha='right', va='center', fontsize=8.5,
+    ax.text(ideal_oh + 0.35, (ideal_ooh + ideal_oh + 3.2) / 2,
+            '0.74 eV\ngap', ha='left', va='center', fontsize=8.5,
             color=COLOR_RED, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', fc='white',
                       alpha=0.85, ec=COLOR_RED_LIGHT, lw=0.5))
@@ -633,6 +629,7 @@ def generate_scaling_relations_figure(output_path):
     ax.legend(loc='upper left', fontsize=8.6, framealpha=0.9,
               edgecolor=bfs.SPINE)
 
+    ax.set_title("Schematic — illustrative values", fontsize=12, pad=12)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()

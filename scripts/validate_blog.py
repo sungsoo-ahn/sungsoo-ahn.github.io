@@ -186,6 +186,12 @@ def validate_post(path: Path) -> list[Finding]:
         findings.append(Finding(path, "series_order requires series"))
 
     selected = frontmatter.get("selected") == "true"
+    if "incomplete" in parse_inline_list(frontmatter.get("tags", "")):
+        for key, expected in {"draft": "true", "sitemap": "false", "noindex": "true"}.items():
+            if frontmatter.get(key) != expected:
+                findings.append(Finding(path, f"incomplete posts require {key}: {expected}"))
+        if frontmatter.get("published") == "false":
+            findings.append(Finding(path, "incomplete posts must remain readable; omit published: false"))
     editorial_status = frontmatter.get("editorial_status")
     if editorial_status and editorial_status not in EDITORIAL_STATUSES:
         findings.append(Finding(path, f"unknown editorial_status: {editorial_status}"))

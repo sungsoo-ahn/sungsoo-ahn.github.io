@@ -1493,133 +1493,60 @@ def generate_protein_interactions_figure(output_path):
 # Figure 13: Self-Consistency Workflow
 # ──────────────────────────────────────────────
 def generate_self_consistency_figure(output_path):
-    """Horizontal two-row workflow: backbone -> ProteinMPNN -> sequence -> AlphaFold -> structure -> compare."""
-    fig, ax = plt.subplots(figsize=(8.8, 3.55))
-    ax.set_xlim(-0.5, 13.3)
-    ax.set_ylim(-0.5, 4.5)
-    ax.axis('off')
+    """Separate model agreement from experimental acceptance."""
+    fig, ax = plt.subplots(figsize=(6.8, 4.3), layout="constrained")
+    ax.set(xlim=(0, 9), ylim=(0, 5.6))
+    ax.axis("off")
+    ax.text(4.5, 5.15, "Computational self-consistency", ha="center",
+            fontsize=15, fontweight="bold", color=TEXT_COLOR)
+    top = [(1.5, "Target\nbackbone"), (4.5, "ProteinMPNN"), (7.5, "Designed\nsequence")]
+    bottom = [(7.5, "AlphaFold"), (4.5, "Predicted\nstructure"), (1.5, "Compare\n(scRMSD)")]
+    for cx, label in top:
+        _draw_box(ax, cx, 4, 2.3, .85, label, BOX_MAIN, EDGE_MAIN, fontsize=12)
+    for cx, label in bottom:
+        _draw_box(ax, cx, 2, 2.3, .85, label, BOX_GREEN, EDGE_GREEN, fontsize=12)
+    for x1, x2 in [(2.8, 3.2), (5.8, 6.2)]:
+        _draw_arrow(ax, x1, 4, x2, 4)
+        _draw_arrow(ax, x2, 2, x1, 2)
+    _draw_arrow(ax, 7.5, 3.4, 7.5, 2.6)
+    ax.text(4.5, .65, "Small scRMSD: prediction agrees with the design\nFolding and binding still need experimental tests",
+            ha="center", va="center", fontsize=12, color=TEXT_COLOR, linespacing=1.6)
+    for issue in bfs.audit_figure(fig):
+        print(f"Self-consistency layout: {issue}")
+    bfs.save_svg_png(fig, output_path, dpi=220, transparent=False)
 
-    ax.text(6, 4.2, 'Self-Consistency Protocol', ha='center', va='center',
-            fontsize=15, fontweight='bold', color=TEXT_COLOR)
-
-    bw, bh = 2.2, 0.75
-
-    # Top row (left to right): backbone -> ProteinMPNN -> sequence
-    top_y = 3.0
-    top_steps = [
-        (1.5, top_y, 'Target\nbackbone', BOX_MAIN, EDGE_MAIN),
-        (5.0, top_y, 'ProteinMPNN', BOX_WARM, EDGE_WARM),
-        (8.5, top_y, 'Designed\nsequence', BOX_ML, EDGE_ML),
-    ]
-
-    # Bottom row (right to left): AlphaFold -> predicted structure -> compare
-    bot_y = 1.0
-    bot_steps = [
-        (8.5, bot_y, 'AlphaFold', BOX_WARM, EDGE_WARM),
-        (5.0, bot_y, 'Predicted\nstructure', BOX_GREEN, EDGE_GREEN),
-        (1.5, bot_y, 'Compare\n(scRMSD)', BOX_MAIN, EDGE_MAIN),
-    ]
-
-    # Draw all boxes
-    for cx, cy, label, fc, ec in top_steps + bot_steps:
-        _draw_box(ax, cx, cy, bw, bh, label, fc, ec, fontsize=10.8)
-
-    # Top row arrows (left to right)
-    for i in range(len(top_steps) - 1):
-        x1 = top_steps[i][0] + bw / 2 + 0.15
-        x2 = top_steps[i + 1][0] - bw / 2 - 0.15
-        _draw_arrow(ax, x1, top_y, x2, top_y, color=ARROW_COLOR, lw=1.5, ms=12)
-
-    # Down arrow from sequence to AlphaFold
-    _draw_arrow(ax, 8.5, top_y - bh / 2 - 0.15, 8.5, bot_y + bh / 2 + 0.15,
-                color=ARROW_COLOR, lw=1.5, ms=12)
-
-    # Bottom row arrows (right to left)
-    for i in range(len(bot_steps) - 1):
-        x1 = bot_steps[i][0] - bw / 2 - 0.15
-        x2 = bot_steps[i + 1][0] + bw / 2 + 0.15
-        _draw_arrow(ax, x1, bot_y, x2, bot_y, color=ARROW_COLOR, lw=1.5, ms=12)
-
-    # Decision annotation
-    ax.text(11.65, 2.0, 'accept if\nscRMSD < 2 \u00c5',
-            ha='center', va='center', fontsize=11, fontweight='bold',
-            color=COLOR_GREEN,
-            bbox=dict(boxstyle='round,pad=0.4', fc=BOX_GREEN,
-                      ec=EDGE_GREEN, alpha=0.9, lw=1.2))
-
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved self-consistency figure to {output_path}")
 
 
 # ──────────────────────────────────────────────
 # Figure 14: Design Funnel
 # ──────────────────────────────────────────────
 def generate_design_funnel_figure(output_path):
-    """Funnel showing pipeline filtering from 10k backbones to 3-5 binders."""
-    fig, ax = plt.subplots(figsize=(6.7, 4.35))
-    ax.set_xlim(-0.6, 10.4)
-    ax.set_ylim(-0.3, 5.8)
-    ax.axis('off')
-
-    ax.text(4.45, 5.5, 'Protein Design Pipeline', ha='center', va='center',
-            fontsize=16, fontweight='bold', color=TEXT_COLOR)
-
+    """Illustrative counts, with equal-width stages instead of a false area scale."""
+    fig, ax = plt.subplots(figsize=(7.2, 5.4), layout="constrained")
+    ax.set(xlim=(0, 10), ylim=(0, 7.6))
+    ax.axis("off")
+    ax.text(5, 7.1, "Illustrative design campaign", ha="center", fontsize=16,
+            fontweight="bold", color=TEXT_COLOR)
+    ax.text(5, 6.65, "Hypothetical counts, not expected hit rates", ha="center",
+            fontsize=12, color=bfs.MUTED)
     stages = [
-        ('10,000 backbones', 'RFDiffusion', 10000, BOX_ML, EDGE_ML),
-        ('80,000 sequences', 'ProteinMPNN (8/backbone)', 80000, BOX_MAIN, EDGE_MAIN),
-        ('~800 pass filters', 'Computational filters (~1%)', 800, BOX_WARM, EDGE_WARM),
-        ('~20 ordered', 'Gene synthesis', 20, BOX_GREEN, EDGE_GREEN),
-        ('~10 express', 'Protein expression', 10, BOX_GREEN, EDGE_GREEN),
-        ('3-5 bind target', 'Experimental validation', 4, COLOR_GREEN, COLOR_GREEN),
+        ("10,000 backbones", "RFdiffusion", BOX_ML, EDGE_ML),
+        ("80,000 sequences", "8 sequences per backbone", BOX_MAIN, EDGE_MAIN),
+        ("800 pass filters", "Assumed 1% pass rate", BOX_WARM, EDGE_WARM),
+        ("20 selected", "Gene synthesis", BOX_GREEN, EDGE_GREEN),
+        ("10 express", "Soluble expression", BOX_GREEN, EDGE_GREEN),
+        ("3–5 bind", "Binding assays", BOX_GREEN, EDGE_GREEN),
     ]
+    for i, (count, method, fill, edge) in enumerate(stages):
+        y = 5.9 - i * 1.0
+        _draw_box(ax, 2.8, y, 4.7, .6, count, fill, edge, fontsize=13)
+        ax.text(5.65, y, method, ha="left", va="center", fontsize=12, color=TEXT_COLOR)
+        if i < len(stages)-1:
+            _draw_arrow(ax, 2.8, y-.45, 2.8, y-.55, lw=1.3, ms=10)
+    for issue in bfs.audit_figure(fig):
+        print(f"Design campaign layout: {issue}")
+    bfs.save_svg_png(fig, output_path, dpi=220, transparent=False)
 
-    n_stages = len(stages)
-    max_width = 7.0
-    min_width = 1.8
-    center_x = 4.45
-    total_height = 4.8
-    stage_height = total_height / n_stages
-
-    for i, (label, method, count, fc, ec) in enumerate(stages):
-        y_top = total_height - i * stage_height + 0.3
-        y_bot = y_top - stage_height * 0.82
-
-        # Width proportional to log of count
-        frac = np.log10(count + 1) / np.log10(80001)
-        w = min_width + (max_width - min_width) * frac
-
-        # Trapezoid
-        if i < n_stages - 1:
-            frac_next = np.log10(stages[i + 1][2] + 1) / np.log10(80001)
-            w_next = min_width + (max_width - min_width) * frac_next
-        else:
-            w_next = w * 0.7
-
-        verts = [
-            (center_x - w / 2, y_top),
-            (center_x + w / 2, y_top),
-            (center_x + w_next / 2, y_bot),
-            (center_x - w_next / 2, y_bot),
-        ]
-        poly = Polygon(verts, facecolor=fc, edgecolor=ec,
-                       linewidth=1.5, alpha=0.7, zorder=2)
-        ax.add_patch(poly)
-
-        y_mid = (y_top + y_bot) / 2
-        ax.text(center_x, y_mid, label, ha='center', va='center',
-                fontsize=12.3, fontweight='bold', color=TEXT_COLOR, zorder=4)
-
-        ax.text(center_x + max_width / 2 + 0.38, y_mid,
-                method, ha='left', va='center',
-                fontsize=11.0, color=ec if ec != COLOR_GREEN else bfs.GREEN,
-                fontstyle='italic')
-
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches='tight', facecolor='white')
-    plt.close()
-    print(f"Saved design funnel figure to {output_path}")
 
 
 # ──────────────────────────────────────────────

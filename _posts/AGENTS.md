@@ -25,6 +25,20 @@ For new posts or metadata changes, read the
 For math, HTML, tables, footnotes, or figure includes, read the
 [Jekyll rendering reference](../.agents/skills/site-validation/references/jekyll-rendering.md).
 
+## Incomplete posts
+
+For an unlisted work in progress, retain the post in `_posts/` and add the
+`incomplete` tag together with `draft: true`, `sitemap: false`, and
+`noindex: true`. The tag groups it at `/blog/incomplete/`; the draft flag
+excludes it from public listings, search, and the normal Atom feed. Direct URLs
+remain readable, so this is not access control. Do not use `published: false`,
+which would also remove the preview page from normal builds.
+
+When ready to publish, remove the `incomplete` tag and those three visibility
+overrides, update `last_updated`, and validate. Readiness does not change
+`editorial_status` or imply human review. Avoid `--drafts` for public builds:
+the feed plugin deliberately includes drafts in that mode.
+
 ## House references
 
 - [Fokker–Planck](2026-02-04-fokker-planck-equation.md): compact intuition and derivation.

@@ -259,10 +259,12 @@ def generate_gaussian_smoothing_figure(output_path):
 
     x = np.linspace(X_MIN, X_MAX, 800)
     p_before = _gauss(x, MU1, SIGMA1, AMP1) + _gauss(x, MU2, SIGMA2, AMP2)
+    p_before /= np.trapezoid(p_before, x)
     p_after = gaussian_filter1d(p_before, sigma=SMOOTH_SIGMA_PX)
+    p_after /= np.trapezoid(p_after, x)
     diff = p_after - p_before
 
-    fig, ax = plt.subplots(figsize=(5.4, 3.2))
+    fig, ax = plt.subplots(figsize=(5.4, 3.6), layout='constrained')
     _style_axis(ax, (X_MIN, X_MAX), (Y_MIN, Y_MAX),
                 xlabel=r'$x$', ylabel=r'$p_t(x)$')
 
@@ -273,19 +275,18 @@ def generate_gaussian_smoothing_figure(output_path):
                     where=(diff < 0), color=LOSS_COLOR, alpha=0.52, zorder=2)
 
     # Curves
-    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.6, zorder=8)
+    ax.plot(x, p_before, color=DENSITY_SLATE, linewidth=2.6, zorder=8, label='Original density')
     ax.plot(x, p_after, color=DENSITY_AFTER, linewidth=2.4,
-            linestyle='--', zorder=9)
-    bfs.curve_label(ax, 5.88, 0.27, r'$p_t(x)$', DENSITY_SLATE, size=10.4)
-    bfs.curve_label(ax, 6.16, 0.21, 'smoothed', DENSITY_AFTER, size=10.2)
+            linestyle='--', zorder=9, label='Gaussian-smoothed')
+    ax.legend(loc='upper right', frameon=False, fontsize=10)
 
-    ax.text(2.75, 0.58, 'sharp peak\nloses mass',
+    ax.text(2.2, 0.49, 'sharp peak\nloses mass',
             ha='center', va='center', fontsize=10.2,
             color=bfs.RED, fontweight='semibold',
             bbox=dict(boxstyle='round,pad=0.25', fc='white',
                       alpha=0.92, ec=bfs.RED_LIGHT, lw=0.8),
             zorder=30)
-    ax.text(4.05, 0.08, 'nearby valley\ngains mass',
+    ax.text(4.05, 0.05, 'nearby valley\ngains mass',
             ha='center', va='center', fontsize=10.2,
             color=bfs.GREEN, fontweight='semibold',
             bbox=dict(boxstyle='round,pad=0.25', fc='white',
@@ -293,8 +294,9 @@ def generate_gaussian_smoothing_figure(output_path):
             zorder=30)
 
     ax.set_yticks([0.0, 0.25, 0.5])
-    plt.tight_layout()
-    bfs.save_figure(fig, output_path, dpi=260)
+    for issue in bfs.audit_figure(fig):
+        print(f'Smoothing layout: {issue}')
+    bfs.save_svg_png(fig, output_path, dpi=260, transparent=False)
 
 
 # ──────────────────────────────────────────────

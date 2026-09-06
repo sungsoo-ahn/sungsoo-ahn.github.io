@@ -400,58 +400,39 @@ def generate_snapshots_to_density_figure(output_path):
 
 
 def generate_cdft_fixed_point_figure(output_path):
-    fig, ax = plt.subplots(figsize=(8.8, 4.25))
-    ax.set_xlim(0, 11.2)
-    ax.set_ylim(0, 5.0)
+    """Route both convergence branches without crossing a density box."""
+    fig, ax = plt.subplots(figsize=(7.2, 4.0), layout="constrained")
+    ax.set(xlim=(0, 10), ylim=(0, 5.6))
     _clean_axis(ax)
+    steps = [
+        ((.3, 3.65), "Current density\n" + r"$\rho^{(n)}$", BOX_MAIN, EDGE_MAIN),
+        ((3.6, 3.65), "Evaluate\nexcess correction", BOX_CORRECTION, EDGE_CORRECTION),
+        ((6.9, 3.65), "Boltzmann\nupdate + mixing", BOX_HIGHLIGHT, EDGE_HIGHLIGHT),
+        ((6.9, 1.1), "New density\n" + r"$\rho^{(n+1)}$", BOX_MAIN, EDGE_MAIN),
+        ((3.6, 1.1), "Converged?", BOX_OUTPUT, EDGE_OUTPUT),
+        ((.3, 1.1), "Return density", BOX_OUTPUT, EDGE_OUTPUT),
+    ]
+    for xy, label, fill, edge in steps:
+        _rounded_box(ax, xy, 2.75, .85, label, fill, edge, fontsize=12)
+    for start, end in [
+        ((3.1, 4.08), (3.5, 4.08)), ((6.4, 4.08), (6.8, 4.08)),
+        ((8.28, 3.5), (8.28, 2.1)), ((6.8, 1.53), (6.45, 1.53)),
+    ]:
+        _arrow(ax, start, end)
+    _arrow(ax, (3.45, 1.53), (3.1, 1.53), color=COLOR_ACCEPT)
+    ax.text(3.28, .72, "Yes", color=COLOR_ACCEPT, fontsize=12, ha="center")
+    # A clear return lane between the rows, with its final arrow outside all boxes.
+    ax.plot([4.98, 4.98, 1.67], [2.08, 2.75, 2.75], color=COLOR_REJECT, lw=1.7)
+    _arrow(ax, (1.67, 2.75), (1.67, 3.5), color=COLOR_REJECT)
+    ax.text(3.3, 2.95, "No: iterate", color=COLOR_REJECT, fontsize=12, ha="center")
+    ax.text(5, 5.05, "The cDFT fixed-point loop", ha="center",
+            fontsize=15, fontweight="bold", color=TEXT_COLOR)
+    ax.text(5, .25, "Check the residual; small updates alone can be misleading.",
+            ha="center", fontsize=11, color=TEXT_COLOR)
+    for issue in bfs.audit_figure(fig):
+        print(f"cDFT layout: {issue}")
+    bfs.save_svg_png(fig, output_path, dpi=220, transparent=False)
 
-    _rounded_box(ax, (0.65, 2.78), 2.05, 0.78, "current density\n" + r"$\rho^{(n)}$", BOX_MAIN, EDGE_MAIN, fontsize=10.3)
-    _rounded_box(
-        ax,
-        (3.55, 2.78),
-        2.25,
-        0.78,
-        "evaluate correction\n" + r"$\delta F_{exc}/\delta\rho$",
-        BOX_CORRECTION,
-        EDGE_CORRECTION,
-        fontsize=10.3,
-    )
-    _rounded_box(
-        ax,
-        (6.6, 2.78),
-        2.25,
-        0.78,
-        "Boltzmann update\nwith many-body term",
-        BOX_HIGHLIGHT,
-        EDGE_HIGHLIGHT,
-        fontsize=10.3,
-    )
-    _rounded_box(ax, (6.6, 1.15), 2.25, 0.78, "new density\n" + r"$\rho^{(n+1)}$", BOX_MAIN, EDGE_MAIN)
-    _rounded_box(ax, (3.55, 1.15), 2.25, 0.78, "converged?", BOX_OUTPUT, EDGE_OUTPUT)
-
-    _arrow(ax, (2.78, 3.17), (3.25, 3.17))
-    _arrow(ax, (5.85, 3.17), (6.18, 3.17))
-    _arrow(ax, (7.73, 2.70), (7.73, 2.03))
-    _arrow(ax, (6.08, 1.54), (5.85, 1.54))
-    _arrow(ax, (3.25, 1.54), (2.15, 2.60), color=COLOR_REJECT, rad=0.2)
-    ax.text(2.62, 2.10, "No", color=COLOR_REJECT, fontsize=11.5, fontweight="bold")
-
-    _arrow(ax, (5.80, 1.16), (9.0, 0.72), color=COLOR_ACCEPT)
-    _rounded_box(ax, (9.35, 0.38), 1.55, 0.68, r"$\rho_{eq}$", "white", EDGE_OUTPUT, fontsize=14)
-    ax.text(6.18, 1.34, "Yes", color=COLOR_ACCEPT, fontsize=11.5, fontweight="bold")
-
-    ax.text(
-        5.6,
-        4.45,
-        "same rhythm as quantum-DFT SCF, different object",
-        ha="center",
-        fontsize=12.5,
-        color=TEXT_COLOR,
-    )
-    fig.suptitle("The cDFT fixed-point loop", fontsize=15, fontweight="bold", color=TEXT_COLOR, y=1.02)
-    fig.savefig(output_path, dpi=200, bbox_inches="tight", facecolor="white", pad_inches=0.18)
-    plt.close(fig)
-    print(f"Saved cDFT fixed-point figure to {output_path}")
 
 
 if __name__ == "__main__":
