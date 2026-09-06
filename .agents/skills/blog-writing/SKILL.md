@@ -1,290 +1,56 @@
 ---
 name: blog-writing
-description: Write and edit blog posts with a direct, opinionated style — closer to a conference talk than a textbook. Use when drafting or revising blog posts.
+description: Write, revise, or humanize technical blog prose and mathematical explanations for this site. Use for articles and editorial reviews, not metadata-only edits or general coding tasks.
 ---
 
-# Blog Writing Style
+# Technical blog writing
 
-Rules for writing and editing blog posts. Blog prose is direct and opinionated — closer to a conference talk than a textbook.
+Write around the reader's question and the author's actual argument. Preserve
+the requested scope, source authority, and existing technical meaning.
 
-## Prose Task Mode
+## Voice and depth
 
-For blog-writing tasks, suppress the normal coding-agent response style. The
-post is the output, not a report about the work.
+Prefer direct claims, concrete mechanisms, consistent terminology, and natural
+paragraphs. Sentence length, punctuation, and active voice are editorial
+preferences; preserve a longer sentence, passive construction, or contrast when
+it makes the meaning clearer. Use STE-inspired clarity without claiming formal
+standard compliance.
 
-Do not:
+Explain non-obvious reasoning. Define unfamiliar terms and notation at the point
+of need, show consequential derivation steps, and distinguish evidence,
+assumptions, approximations, and proof. Depth follows the reader's needs rather
+than a word count, figure quota, or fixed section template.
 
-- report what you inspected, changed, or verified inside the post;
-- organize the prose around tasks completed;
-- convert the argument into documentation;
-- optimize for exhaustive coverage;
-- expose planning, validation, or implementation steps;
-- add headings only to make the material scannable;
-- conclude every section with a summary.
+Use the author's supplied samples before generic style advice. Keep uncertainty
+and judgment where the source supports them. Do not invent opinions, anecdotes,
+examples presented as observations, or facts to make the voice more personal.
 
-Write as the author speaking to the reader. Keep only the context, examples,
-equations, figures, and caveats that help the intended reader understand the
-argument. Do not use a word-count target as a definition of completeness. Stop
-when the post has answered its central question at the depth its reader needs.
+## Load the relevant detail
 
-The quality checklist below diagnoses the argument that belongs in the post. It
-is not a content checklist, and it must not cause new sections or background to
-be added solely for coverage. When the requested deliverable is prose, return
-the prose without appending a coding-agent completion report unless the user
-explicitly asks for one.
+- For a substantial rewrite or a request to humanize/remove slop, read
+  [editorial review](references/editorial-review.md).
+- For a mathematical tutorial or a substantial derivation revision, read the
+  [mathematical tutorial contract](references/mathematical-tutorial-contract.md).
+- For new posts or metadata changes, read
+  [post frontmatter](references/post-frontmatter.md).
+- For rendered math, HTML, tables, footnotes, or figure includes, read
+  [Jekyll rendering](../site-validation/references/jekyll-rendering.md).
+- For a deck-authoritative adaptation, use
+  [lecture-adaptation](../lecture-adaptation/SKILL.md). It owns coverage and order.
+- For creating or revising figures, use [blog-figures](../blog-figures/SKILL.md).
 
-## Prose Style
+A small wording correction does not need the full review workflow.
 
-- **Lead with the point, then justify** — "The BO approximation separates electrons from nuclei" before "because nuclei are 1836x heavier." Don't make readers wait through setup to learn the result.
-- **Cut throat-clearing openers** — delete filler like "The equation says:", "What does X look like?", "The fundamental challenge is clear:", "The methods described above form the backbone of...". Just state the content.
-- **Don't restate what was just shown** — if the math already demonstrated a property, don't add a sentence restating it in words.
-- **Drop dramatic qualifiers** — "fundamental physical flaw", "radically different approach", "enormous complexity" → just state the facts. Let the reader judge significance.
-- **Avoid self-aware scaffolding sentences** — delete sentences like "The boundary of this claim matters", "This distinction is important", or "This raises an interesting question". Replace them with the concrete claim, comparison, or evidence.
-- **Merge redundant statements** — if two consecutive sentences say the same thing in different words, combine into one.
-- **Break up stacked parentheticals** — a sentence with three em-dash clauses should be split into separate sentences.
+## Evidence and completion
 
-## Clarity
+Keep claims, equations, quotations, citations, and links traceable to the input
+or checked sources. Add cited works to References as they enter the text. Verify
+the content of cross-references, not just that their targets exist.
 
-- One idea per sentence, one topic per paragraph
-- Cut filler words: "very", "quite", "somewhat", "really", "basically"
-- Eliminate redundancy: "completely eliminate" → "eliminate", "first introduce" → "introduce"
-- Quantify claims: "improves significantly" → "improves by 5%"
-- Avoid passive voice when the actor matters: "The model was trained" → "We trained the model"
-- Fix undefined pronouns: "We applied it. It improved." → "We applied Algorithm 1. Accuracy improved by 5%."
-- Follow every equation with an explanation of its terms
+For a substantial revision, review argument and voice once, then compare the
+result with the source for lost or added claims. Fix remaining concrete defects;
+do not create an open-ended sequence of stylistic rewrites.
 
-## Structure and Readability
-
-- **No wall-of-text paragraphs.** If a paragraph exceeds ~8 lines or contains multiple distinct ideas, split it.
-- **Sentences under ~40 words.** Split chains of em-dashes or nested parentheticals into separate sentences.
-- **Don't bury key points.** Important results belong at the start of a paragraph or in a boxed definition, not mid-paragraph.
-- **Signpost transitions.** Before a derivation or definition, add a setup sentence explaining what's coming and why.
-- **Don't repeat yourself.** If a point (e.g., "the variance problem") appears in multiple places, state it fully once and back-reference elsewhere.
-- **Figures near their discussion.** Place figures immediately after the text that introduces them, not paragraphs later.
-- **Notation introductions need breathing room.** Don't introduce 3+ new symbols in one paragraph with no prose between equations.
-
-## Comparative Tutorial Revision
-
-For long technical tutorials, compare the draft against the site's named house
-references before revising it. Review the posts one at a time so that lessons
-from one comparison can improve the criteria used for the next.
-
-1. State the draft's central question and section-level argument in one short
-   outline. If the outline is only a list of topics, the post is still a survey.
-2. Compare the draft with the reference posts on argument, derivation depth,
-   examples, equation-to-prose rhythm, figures, evidence, and voice.
-3. Promote only topic-independent lessons into this skill. Keep post-specific
-   findings in an agent-facing audit log.
-4. Revise with the updated criteria, then repeat the comparison until no major
-   explanatory gap remains.
-
-### Lecture Adaptation
-
-When a lecture deck is the content authority, read
-`../lecture-adaptation/SKILL.md` completely and apply it together with this
-skill. Keep source-fidelity, slide-coverage, and extraction rules there.
-
-### Depth Without Padding
-
-- A 30--45 minute technical tutorial usually needs 4,500--6,500 substantive
-  words, adjusted for mathematical density. Treat this range as a diagnostic,
-  not a reason to add background or repeated summaries. Do not apply this range
-  to a source-faithful lecture adaptation when the deck determines the scope.
-- Preserve a coherent H2 storyline. Add H3 subsections when a derivation,
-  worked example, or case study needs room; do not add headings merely to make
-  a post longer.
-- Replace compressed surveys with explanatory sequences: motivate the object,
-  define it, derive the central relation, work through a concrete case, and
-  state the approximation or failure boundary.
-- A displayed equation is not depth by itself. Show the non-obvious steps and
-  use at least one limiting case, numerical calculation, or toy construction to
-  make the result operational.
-- Preserve the lecture's scientific order when requested, but make the links
-  between sections explicit so the post reads as one argument.
-- In an application-domain tutorial, use a running scientific scenario when
-  several stages act on the same object. Carrying one molecule, material, or
-  experiment through the chain makes assumptions and lost information visible;
-  unrelated examples can leave a long post feeling like an abstract survey.
-- Whenever a model score changes a scientific workflow, identify the decision,
-  the population being filtered, and the denominator behind the reported
-  success rate. A benchmark metric alone does not complete the argument.
-- When an optimizer selects candidates by a noisy learned score, quantify
-  selection-induced optimism. Carry one finite pool through oracle scoring,
-  maximization or ranking, and independent evaluation; report the query budget
-  and best-so-far curve rather than only the winner. Random-test accuracy does
-  not establish accuracy on the adaptively selected tail.
-- When a tutorial explains confidence or uncertainty scores, define the random
-  variable being predicted, the conditioning or alignment convention, the
-  spatial or statistical granularity, the calibration population, and the
-  decision the score supports. Construct a case where two legitimate confidence
-  summaries disagree. “High confidence” is incomplete without its scope.
-- When constraints are imposed by action masks, projection, repair, rejection,
-  canonicalization, or downstream filters, distinguish the raw model
-  distribution, the transformed or accepted distribution, and the physical
-  target distribution. Work a finite sample through the transformation and
-  report every denominator, collision, and unreachable mode. Postprocessing is
-  part of the generative method, not a metric-neutral cleanup step.
-- When a tutorial compares dataset splits or generalization claims, define the
-  independent unit, the equivalence relation that makes records dependent or
-  near-duplicate, and the deployment population before naming a split. Carry
-  one small family of related records through row-wise and group-, structure-,
-  or time-aware partitions, then state which estimand changes and where leakage
-  remains. A split label such as “random” or “scaffold” is not a generalization
-  argument by itself.
-- When comparing related architectures, carry one controlled input through the
-  alternatives and compute the intermediate outputs. Hold the task and data
-  fixed so the reader can see exactly which normalization, aggregation,
-  parameterization, or information loss caused the difference; separate toy
-  examples for each model often reproduce a catalog rather than an argument.
-- When a tutorial distinguishes failure modes with similar symptoms, organize
-  the explanation as a differential diagnosis. Give each mechanism an
-  observable diagnostic and a matched intervention, then include at least one
-  counterfactual where a remedy for one mechanism leaves another unchanged or
-  makes it worse. A remedy list without these contrasts encourages readers to
-  treat distinct causes as synonyms.
-- When comparing representations, separate information-theoretic completeness
-  from computational accessibility. State whether the encoded variables
-  determine the desired quantity in principle, then show how many interactions,
-  message-passing steps, or reconstruction operations are needed to expose it
-  to the predictor. “The information is present” does not mean it is locally or
-  efficiently available to the architecture being discussed.
-- When coordinates contain an arbitrary basis, gauge, or unit-cell choice,
-  name the full equivalence action and carry one nontrivial change of basis
-  through every dependent object. Transform coordinates, neighborhoods,
-  features, densities, and tensor outputs together, then verify the claimed
-  invariant or covariant quantity numerically. Periodic wrapping or rotation
-  invariance alone does not establish independence from the stored basis.
-- When claiming that a representation “captures” a concept, separate
-  decodability, accessibility to a capacity-controlled probe, use by a
-  fine-tuned predictor, and stability under a matched intervention. Compare
-  against nuisance baselines and construct close counterfactuals where family,
-  metadata, or global similarity stays fixed while the target mechanism changes.
-  A cluster plot or high probe score alone does not establish mechanism.
-- When a mature companion post already covers nearby material, give the new post
-  a different organizing question, derivation, or running example. Cross-link
-  prerequisite machinery instead of re-teaching it, and audit the pair for
-  duplicated exposition; a series should deepen by composition, not paraphrase.
-  Describe this relationship in reader-facing terms ("For the PDE derivation,
-  see...") rather than project-management language such as "division of labor"
-  or "this chapter owns...".
-- When a post connects an ML architecture to a downstream scientific workflow,
-  expose the interface contract between them. State exactly what mathematical
-  object the architecture supplies, what the downstream calculation assumes,
-  which guarantees cross the boundary, and which properties still depend on
-  data coverage, numerical choices, or physical approximations. Carry one case
-  across the boundary; do not let an architectural symmetry claim silently turn
-  into a claim of simulation, experimental, or decision validity.
-- When one learned model validates or filters another, audit the independence of
-  evidence. Name shared training data, architectures, representations, and
-  physical assumptions, then construct a correlated-error case where both
-  models agree but an orthogonal check fails. Internal self-consistency,
-  independent computational evidence, and experimental evidence support
-  different claims and should not be counted as interchangeable votes.
-- When a model predicts an intermediate object consumed by a solver, propagate
-  a controlled prediction perturbation through the downstream derivative,
-  diagonalization, fixed point, or estimator. Quantify conditioning and compare
-  the final observable or convergence behavior. Small entrywise or pointwise
-  error does not establish correctness after an ill-conditioned computation.
-- When model outputs are fed back through an iterative numerical process,
-  separate model or surface error, discretization error, transient or mixing
-  error, and estimator variance. Carry one solvable system through changes in
-  model parameters, step size, and trajectory length, and show which diagnostic
-  responds to each change. Static accuracy, bounded trajectories, converged
-  integration, and a correct observable are distinct claims.
-- When comparing stochastic processes or generative transports, name the level
-  at which two objects agree: sample paths, conditional transition kernels,
-  finite-dimensional joint laws, one-time marginals, or endpoints. Demonstrate
-  the claimed equality on one controlled process and give a witness for a level
-  that does not agree. Similar samples at each time do not imply the same
-  coupling, path measure, likelihood, or dynamics.
-- When measurements are destructive or unpaired, distinguish a change in
-  population marginals from trajectories of individual entities. Construct two
-  couplings with the same observed before/after marginals but different
-  transitions, then name the lineage, longitudinal, randomization, or modeling
-  assumptions needed to choose between them. Cross-sectional agreement does not
-  identify dynamics or individual counterfactual response.
-- When calling learning targets, objectives, or parameterizations equivalent,
-  state the exact equivalence: invertible target information, a shared
-  population minimizer, identical gradients up to a parameter-independent
-  constant, or identical weighted losses. Derive the conversion and transform
-  the time-dependent loss weight with it. Then identify what finite capacity,
-  sampling, conditioning, optimization, or numerical integration can still make
-  different; algebraic convertibility does not imply equal training behavior.
-- When a tutorial gives multiple derivations of one method, keep the output and
-  controlled example fixed across the routes. Maintain an assumption ledger,
-  prove the exact overlap, and mark the approximation, restriction, or added
-  input where the formulas diverge. Similar-looking final updates do not make
-  their premises, guarantees, transfer behavior, or failure modes equivalent.
-- When symmetry, conservation, or consistency is obtained through randomized
-  averaging, separate per-sample, coupled-sample, distributional, and
-  expectation-level guarantees. Work one finite estimator, compute its residual
-  and variance as sample count changes, and state whether transformed inputs
-  share randomness. An exact expectation does not make one independent Monte
-  Carlo evaluation exactly equivariant or conservative.
-- When a learned or hand-built representation is used as the state of a
-  dynamical model, audit Markov sufficiency rather than geometric compactness or
-  reconstruction alone. Merge a finite pair of microstates with different
-  outgoing transition laws, compute how the coarse transition depends on the
-  hidden mixture or entry history, and show which state refinement, lag change,
-  or memory variable repairs the claim. A visually coherent cluster need not be
-  a valid dynamical state.
-
-## Quality Checklist (apply before finalizing)
-
-### Substance
-
-- Every paragraph must contain a concrete claim, result, argument, or necessary explanation.
-- If the opening sentence can be deleted without losing information, delete or rewrite it.
-- Replace vague praise ("important", "powerful", "compelling", "robust") with the specific mechanism, result, or consequence.
-- Support novelty, causality, and superiority claims with evidence, numbers, comparisons, or citations.
-
-### Relevance and Precision
-
-- Every sentence should advance the paragraph's purpose.
-- Remove background the intended reader already knows.
-- Tie abstract nouns to specific objects, mechanisms, experiments, or numbers.
-- Check pronouns such as "this", "it", and "these results" for clear antecedents.
-
-### Formulaic Rhetoric
-
-Flag these patterns; do not ban them when they carry real technical contrast:
-
-- "It is important to note that ..."
-- "This highlights/underscores/demonstrates ..."
-- "Not only X, but also Y."
-- "X is not merely A; it is B."
-- "In today's rapidly evolving landscape ..."
-- "Taken together", "Overall", or "In summary"
-- A final sentence that merely restates the paragraph.
-- A short dramatic sentence that tells the reader what to feel: "This matters." "The implication is clear."
-
-### Structure and Rhythm
-
-- Avoid making every paragraph follow the same claim -> explanation -> summary template.
-- Watch for sections that are suspiciously equal in length or structure.
-- Vary sentence length and syntax when several consecutive sentences sound alike.
-- Use transitions only when the logical relation requires them.
-- End each paragraph where the argument ends, not with a manufactured conclusion.
-
-### Language
-
-- Prefer direct verbs over noun phrases: "evaluate" instead of "conduct an evaluation of".
-- Cut 10-20% of words when meaning survives.
-- Use passive voice only when the actor is unknown, irrelevant, or intentionally de-emphasized.
-- Remove redundant adjective pairs such as "novel and innovative" or "clear and evident".
-- Keep technical terms only when they are necessary and precise.
-
-### Voice
-
-- Ask whether the passage sounds like something the author would actually say or write.
-- Preserve legitimate uncertainty instead of converting everything into confident declarative prose.
-- Include the author's actual judgment, not only a polished synthesis of conventional observations.
-- Compare the passage against two or three known non-AI passages by the author when voice is uncertain.
-
-## Coherence Checklist (apply when reviewing)
-
-- Every forward reference ("Part 3 defines this") — verify the target actually contains what you claim
-- Every backward reference ("from Part 2") — verify the source
-- Every cited paper — verify it appears in the References section
-- Every figure file referenced — verify it exists in `assets/img/blog/`
-- Notation consistent throughout: same symbol = same meaning, same formatting convention
+Follow [_posts/AGENTS.md](../../../_posts/AGENTS.md) for publication metadata.
+If the user asks for pasted prose, return that prose. If editing repository
+files, provide a brief completion report with the paths and checks performed.

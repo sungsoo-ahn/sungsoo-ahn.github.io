@@ -1,160 +1,153 @@
 #!/usr/bin/env python3
-"""Validate canonical repository instructions and skill adapters."""
+"""Validate canonical Codex instructions, skill metadata, and local references."""
 
 from __future__ import annotations
 
 import re
 import sys
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
+
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL_SKILLS = ROOT / ".agents" / "skills"
-CLAUDE_SKILLS = ROOT / ".claude" / "skills"
-CANONICAL_GUIDES = (ROOT / "AGENTS.md", ROOT / "_posts" / "AGENTS.md")
-ADAPTER_GUIDES = {
-    ROOT / "CLAUDE.md": "AGENTS.md",
-    ROOT / "_posts" / "CLAUDE.md": "_posts/AGENTS.md",
-}
-REQUIRED_IGNORES = {
-    "/.claude/settings.local.json",
-    "/.env",
-    "/.env.*",
-}
+REQUIRED_IGNORES = {"/.claude/settings.local.json", "/.env", "/.env.*"}
 PATH_PREFIXES = (
-    ".agents/",
-    ".claude/",
-    ".github/",
-    "_data/",
-    "_pages/",
-    "_posts/",
-    "assets/",
-    "cv/",
-    "scripts/",
-    "tests/",
+    ".agents/", ".github/", "_data/", "_pages/", "_posts/",
+    "assets/", "cv/", "scripts/", "tests/", "docs/",
 )
+OPTIONAL_FIELDS = {"license", "compatibility", "metadata", "allowed-tools"}
 
 
-def parse_frontmatter(path: Path) -> tuple[dict[str, str], str]:
+def parse_frontmatter(path: Path) -> tuple[dict, str]:
     text = path.read_text(encoding="utf-8")
-    if not text.startswith("---\n"):
-        raise ValueError("missing YAML frontmatter")
+    match = re.match(r"\A---\s*\n(.*?)\n---[ \t]*(?:\n|\Z)", text, re.DOTALL)
+    if not match:
+        raise ValueError("missing or unterminated YAML frontmatter")
     try:
-        _, raw, body = text.split("---", 2)
-    except ValueError as exc:
-        raise ValueError("unterminated YAML frontmatter") from exc
+        metadata = yaml.safe_load(match.group(1))
+    except yaml.YAMLError as exc:
+        raise ValueError(f"invalid YAML frontmatter: {exc}") from exc
+    if not isinstance(metadata, dict):
+        raise ValueError("frontmatter must be a YAML mapping")
+    return metadata, text[match.end():]
 
-    metadata: dict[str, str] = {}
-    for line in raw.splitlines():
-        if not line.strip():
+
+def without_fences(text: str) -> str:
+    """Ignore executable examples, including tilde and longer backtick fences."""
+    result = []
+    fence_char, fence_length = "", 0
+    for line in text.splitlines():
+        match = re.match(r"^\s{0,3}(`{3,}|~{3,})(.*)$", line)
+        if match:
+            marker, rest = match.groups()
+            if not fence_char:
+                fence_char, fence_length = marker[0], len(marker)
+                continue
+            if marker[0] == fence_char and len(marker) >= fence_length and not rest.strip():
+                fence_char, fence_length = "", 0
+                continue
+        if not fence_char:
+            result.append(line)
+    return "\n".join(result)
+
+
+def validate_references(path: Path, root: Path) -> list[str]:
+    """Check Markdown links and concrete root-relative inline code paths."""
+    text = without_fences(path.read_text(encoding="utf-8"))
+    findings = []
+    destinations = re.findall(
+        r"!?\[[^\]\n]*\]\(\s*(<[^>\n]+>|[^\s)]+)(?:\s+[^)]*)?\)", text
+    )
+    destinations += re.findall(
+        r"^\s{0,3}\[[^\]\n]+\]:\s*(<[^>\n]+>|\S+)", text, re.MULTILINE
+    )
+    for destination in destinations:
+        destination = destination.removeprefix("<").removesuffix(">")
+        parsed = urlsplit(destination)
+        if parsed.scheme or parsed.netloc or not parsed.path:
             continue
-        if ":" not in line:
-            raise ValueError(f"invalid frontmatter line: {line}")
-        key, value = line.split(":", 1)
-        metadata[key.strip()] = value.strip()
-    return metadata, body
+        local = unquote(parsed.path)
+        candidate = root / local.lstrip("/") if local.startswith("/") else path.parent / local
+        if not candidate.exists():
+            findings.append(f"{path.relative_to(root)}: missing linked resource {destination}")
 
-
-def validate_literal_paths(path: Path) -> list[str]:
-    findings: list[str] = []
-    text = path.read_text(encoding="utf-8")
-    for value in re.findall(r"`([^`]+)`", text):
+    for value in re.findall(r"`([^`\n]+)`", text):
         if not value.startswith(PATH_PREFIXES):
             continue
-        if any(token in value for token in ("<", ">", "*", "YYYY")):
+        if any(token in value for token in ("<", ">", "*", "YYYY", "{", " ")) or "\n" in value:
             continue
         candidate = value.rstrip("/.,:;")
-        if not (ROOT / candidate).exists():
-            findings.append(f"{path.relative_to(ROOT)}: missing referenced path {candidate}")
+        if not (root / candidate).exists():
+            findings.append(f"{path.relative_to(root)}: missing referenced path {candidate}")
     return findings
 
 
-def validate() -> list[str]:
-    findings: list[str] = []
-
-    for guide in CANONICAL_GUIDES:
+def validate(root: Path = ROOT) -> list[str]:
+    root = Path(root)
+    findings = []
+    instruction_files = []
+    for guide in (root / "AGENTS.md", root / "_posts" / "AGENTS.md"):
         if not guide.is_file():
-            findings.append(f"missing canonical guide: {guide.relative_to(ROOT)}")
-            continue
-        findings.extend(validate_literal_paths(guide))
+            findings.append(f"missing canonical guide: {guide.relative_to(root)}")
+        else:
+            instruction_files.append(guide)
 
-    for adapter, target in ADAPTER_GUIDES.items():
-        if not adapter.is_file():
-            findings.append(f"missing adapter guide: {adapter.relative_to(ROOT)}")
-        elif target not in adapter.read_text(encoding="utf-8"):
-            findings.append(f"{adapter.relative_to(ROOT)}: must point to {target}")
+    skill_root = root / ".agents" / "skills"
+    skills = sorted(skill_root.glob("*/SKILL.md"))
+    if not skills:
+        findings.append(".agents/skills: no skills found")
+    if skill_root.is_dir():
+        for folder in sorted(skill_root.iterdir()):
+            if folder.is_dir() and any(folder.iterdir()) and not (folder / "SKILL.md").is_file():
+                findings.append(f"{folder.relative_to(root)}: missing SKILL.md")
 
-    canonical_names = {path.parent.name for path in CANONICAL_SKILLS.glob("*/SKILL.md")}
-    adapter_names = {path.parent.name for path in CLAUDE_SKILLS.glob("*/SKILL.md")}
-    if canonical_names != adapter_names:
-        findings.append(
-            "skill trees differ: "
-            f"canonical-only={sorted(canonical_names - adapter_names)}, "
-            f"adapter-only={sorted(adapter_names - canonical_names)}"
-        )
-
-    instruction_files = [*CANONICAL_GUIDES, *ADAPTER_GUIDES]
-    instruction_files.extend(ROOT.glob(".github/agents/*.agent.md"))
-
-    for name in sorted(canonical_names):
-        canonical = CANONICAL_SKILLS / name / "SKILL.md"
-        adapter = CLAUDE_SKILLS / name / "SKILL.md"
-        instruction_files.append(canonical)
-        if adapter.is_file():
-            instruction_files.append(adapter)
+    for skill in skills:
+        instruction_files.append(skill)
+        instruction_files.extend(sorted(skill.parent.glob("references/**/*.md")))
         try:
-            metadata, _ = parse_frontmatter(canonical)
+            metadata, body = parse_frontmatter(skill)
         except ValueError as exc:
-            findings.append(f"{canonical.relative_to(ROOT)}: {exc}")
+            findings.append(f"{skill.relative_to(root)}: {exc}")
             continue
-        if set(metadata) != {"name", "description"}:
-            findings.append(
-                f"{canonical.relative_to(ROOT)}: frontmatter must contain only name and description"
-            )
-        if metadata.get("name") != name:
-            findings.append(f"{canonical.relative_to(ROOT)}: name must match its directory")
-        if not metadata.get("description"):
-            findings.append(f"{canonical.relative_to(ROOT)}: description is required")
-        if len(canonical.read_text(encoding="utf-8").splitlines()) > 500:
-            findings.append(f"{canonical.relative_to(ROOT)}: exceeds the 500-line skill budget")
-
-        if not adapter.is_file():
-            continue
-        try:
-            adapter_metadata, adapter_body = parse_frontmatter(adapter)
-        except ValueError as exc:
-            findings.append(f"{adapter.relative_to(ROOT)}: {exc}")
-            continue
-        if adapter_metadata != metadata:
-            findings.append(f"{adapter.relative_to(ROOT)}: metadata differs from canonical skill")
-        expected_target = f"../../../.agents/skills/{name}/SKILL.md"
-        if expected_target not in adapter_body:
-            findings.append(f"{adapter.relative_to(ROOT)}: must point to {expected_target}")
+        prefix = str(skill.relative_to(root))
+        unknown = set(metadata) - {"name", "description"} - OPTIONAL_FIELDS
+        if unknown:
+            findings.append(f"{prefix}: unsupported frontmatter fields {sorted(map(str, unknown))}")
+        name = metadata.get("name")
+        if not isinstance(name, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name) or len(name) > 64:
+            findings.append(f"{prefix}: name must use lowercase letters, digits, and hyphens (max 64 characters)")
+        if name != skill.parent.name:
+            findings.append(f"{prefix}: name must match its directory")
+        description = metadata.get("description")
+        if not isinstance(description, str) or not description.strip() or len(description) > 1024:
+            findings.append(f"{prefix}: description must be a nonempty string (max 1024 characters)")
+        if "metadata" in metadata and not isinstance(metadata["metadata"], dict):
+            findings.append(f"{prefix}: metadata must be a mapping")
+        if len(body.splitlines()) > 500:
+            findings.append(f"{prefix}: exceeds the 500-line skill body budget")
 
     for path in instruction_files:
-        if not path.is_file():
-            continue
-        text = path.read_text(encoding="utf-8")
-        if "/Users/" in text:
-            findings.append(f"{path.relative_to(ROOT)}: contains a machine-specific home path")
+        findings.extend(validate_references(path, root))
+        if "/Users/" in path.read_text(encoding="utf-8"):
+            findings.append(f"{path.relative_to(root)}: contains a machine-specific home path")
+    sources = root / ".agents" / "third-party" / "sources.md"
+    if sources.is_file():
+        findings.extend(validate_references(sources, root))
 
-    ignore_lines = {
-        line.strip()
-        for line in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
-        if line.strip() and not line.lstrip().startswith("#")
-    }
-    missing_ignores = sorted(REQUIRED_IGNORES - ignore_lines)
-    if missing_ignores:
-        findings.append(f".gitignore: missing local-secret patterns {missing_ignores}")
-
-    local_settings = ROOT / ".claude" / "settings.local.json"
-    if local_settings.is_file():
-        settings_text = local_settings.read_text(encoding="utf-8")
-        if re.search(r"(?i)password|passwd|api[_-]?key|access[_-]?token", settings_text):
-            findings.append(".claude/settings.local.json: contains credential-like text")
-        if any(command in settings_text for command in ("rm -rf", "git push", "git rm")):
-            findings.append(".claude/settings.local.json: contains broad destructive permissions")
-
+    ignore_file = root / ".gitignore"
+    if not ignore_file.is_file():
+        findings.append("missing .gitignore")
+    else:
+        ignore_lines = {
+            line.strip() for line in ignore_file.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+        missing = sorted(REQUIRED_IGNORES - ignore_lines)
+        if missing:
+            findings.append(f".gitignore: missing local-secret patterns {missing}")
+    # Machine-local ignored settings are not repository instructions or audit input.
     return findings
 
 

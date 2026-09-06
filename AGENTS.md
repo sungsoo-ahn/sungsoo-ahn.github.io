@@ -1,118 +1,79 @@
-# AGENTS.md
+# Repository guide
 
-## Project Overview
+Academic homepage for Sungsoo Ahn, KAIST Graduate School of AI.
+Jekyll with al-folio; pushes to main deploy through GitHub Pages.
 
-Academic homepage for Sungsoo Ahn (KAIST Graduate School of AI), built with the [al-folio](https://github.com/alshedivat/al-folio) Jekyll theme.
+## Working agreements
 
-**Live site:** https://sungsoo-ahn.github.io
+- User instructions take precedence over local skill preferences. Use existing
+  authorization and resolve routine implementation choices from the repository.
+  Ask only when missing information materially changes the result; continue
+  independent work. If a local instruction blocks work, identify the file and
+  the exact requirement.
+- Preserve unrelated edits. Keep credentials and machine-local agent settings
+  out of tracked files.
+- Leave a running Jekyll server in place. An open/preview request reuses it;
+  restart only when the user explicitly requests a restart.
+- Edit canonical inputs, then regenerate affected outputs. Do not hand-edit
+  generated member content or CV SYNC blocks.
+- Run checks appropriate to the change. Repeat or broaden them when a change,
+  failure, or unresolved concern warrants it.
 
-## Common Commands
+## Environment and entry points
+
+Use Homebrew Ruby on this Mac; system Ruby cannot run the required Bundler 4.x.
 
 ```bash
-# Local development (requires Homebrew Ruby, not system Ruby)
 /opt/homebrew/opt/ruby/bin/bundle install
-/opt/homebrew/opt/ruby/bin/bundle exec jekyll serve  # Opens at http://localhost:4000
-
-# Blog validation
-python3 scripts/validate_blog.py
-
-# Agent instruction and skill validation
+uv sync
 python3 scripts/validate_agent_hygiene.py
-
-# Python package management (uses uv)
-uv sync                                # Install/update dependencies
-
-# Update structured content
-uv run python scripts/update_publications.py --check  # Validate publication YAML
-uv run python scripts/update_members.py               # From members.xlsx
-uv run python scripts/update_cv.py                    # Sync YAML -> LaTeX -> website PDF
-uv run python scripts/update_cv.py --check --no-compile  # Check CV drift
+python3 scripts/validate_blog.py
 ```
 
-**Note:** This project requires Bundler 4.x which is not compatible with macOS system Ruby. Use Homebrew Ruby (`/opt/homebrew/opt/ruby/bin/`) instead.
+The Python tools use the environment defined in `pyproject.toml`.
+See [site-validation](.agents/skills/site-validation/SKILL.md) for checks,
+builds, and the server-reuse preview procedure.
 
-**Important:** Do not kill and restart the Jekyll server on every file edit — this disconnects the user's browser. Leave the server running while editing. Only restart (kill + serve) when the user explicitly asks to open/preview the site.
-
-## Opening the Blog Preview
-
-When the user asks to show/open/preview the blog:
-
-1. Check whether Jekyll is already serving:
-   ```bash
-   lsof -iTCP:4000 -sTCP:LISTEN -n -P
-   ```
-2. If nothing is listening, start the server and leave it running:
-   ```bash
-   /opt/homebrew/opt/ruby/bin/bundle exec jekyll serve --host 127.0.0.1 --port 4000
-   ```
-3. Open the blog directly:
-   ```bash
-   open http://127.0.0.1:4000/blog/
-   ```
-
-If the server is already running, only run the `open` command. Do not restart the server unless the user explicitly asks.
-
-## Data Sources
-
-External Excel file synced from Dropbox:
-
-- `~/SPML Dropbox/SPML/administration/members.xlsx` → Lab members
-
-Override the workbook location with `SPML_MEMBERS_XLSX` when the Dropbox root
-differs. Do not hard-code another user's home directory in scripts or tracked
-metadata.
-
-## Key Files
-
-| File                       | Purpose                                     |
-| -------------------------- | ------------------------------------------- |
-| `_data/publications.yml`   | Canonical publications for website and CV   |
-| `_data/cv_content.yml`     | Public, non-sensitive CV sections            |
-| `cv/cv.tex`                | CV template with generated SYNC blocks      |
-| `assets/pdf/cv.pdf`        | Generated CV served by the homepage         |
-| `_pages/about.md`          | Homepage content                            |
-| `_pages/people.md`         | Lab members (auto-generated)                |
-| `_pages/publications.md`   | Publications page                           |
-| `_config.yml`              | Site configuration                          |
-| `_data/socials.yml`        | Social links                                |
-| `assets/img/prof_pic.jpg`  | Profile photo                               |
-| `_pages/teaching.md`       | Teaching page (links to course sites)       |
-| `_data/courses.yml`        | Course metadata (links to standalone sites) |
+| Canonical source | Consumer |
+| --- | --- |
+| `_data/publications.yml` | Website publications and generated CV bibliography |
+| `_data/cv_content.yml` | Public, non-sensitive sections in `cv/cv.tex` and website CV PDF |
+| Member workbook | `_pages/people.md`, generated by the member importer |
+| `_data/courses.yml` | Links to standalone course sites |
+| `_data/palette.yml` | Site and figure palette documented in `docs/palette.md` |
 
 Sensitive contact, funding, project, and computing-allocation data belong only
 in the private `sungsoo-ahn/cv-private` overlay. Do not copy them into this
 repository, its tests, fixtures, commit messages, or generated artifacts.
 
-## Skills
+The member workbook defaults to
+`~/SPML Dropbox/SPML/administration/members.xlsx`.
+Use `SPML_MEMBERS_XLSX` to override it; do not encode another user's home path.
+Lecture notes belong in their standalone course repositories.
 
-Writing style and rendering rules are managed as skills:
+## Task guidance
 
-- `/blog-writing` — direct, opinionated prose style for blog posts
-- `/lecture-adaptation` — source-faithful lecture-to-blog workflow
-- `/academic-writing` — top-down, rigorous style for papers and teaching notes
-- `/jekyll-writing` — MathJax/KaTeX rendering rules for this Jekyll site
-- `/generate-blog-figures` — matplotlib figure generation workflow
-- `/download-paper-figures` — incorporating figures from academic papers
-  Folder-specific guidelines (frontmatter, figures, audience) are in `_posts/AGENTS.md`.
-  Blog metadata, figure paths, footnote IDs, and asset drift are checked by `scripts/validate_blog.py`, which also runs in pre-commit and CI.
+Read a directory's `AGENTS.md` before changing its content. For posts, use
+[_posts/AGENTS.md](_posts/AGENTS.md). Choose only the skills relevant to the task:
 
-Lecture notes live in standalone course repos (e.g., `protein-ai-s26`), each with their own AGENTS.md and skills.
+- [blog-writing](.agents/skills/blog-writing/SKILL.md): prose, mathematical
+  explanations, citations, and humanizing edits.
+- [blog-figures](.agents/skills/blog-figures/SKILL.md): sourced or generated
+  figures, spacing, and paper-ready exports.
+- [lecture-adaptation](.agents/skills/lecture-adaptation/SKILL.md): articles
+  whose content authority is a lecture deck.
+- [site-maintenance](.agents/skills/site-maintenance/SKILL.md): structured
+  content, pages, and theme maintenance.
+- [site-validation](.agents/skills/site-validation/SKILL.md): checks and previews.
 
-### Instruction-file ownership
+## Instruction ownership
 
-- `AGENTS.md` files are the canonical repository and directory instructions.
-- `.agents/skills/*/SKILL.md` files are the canonical skill definitions.
-- `CLAUDE.md`, `_posts/CLAUDE.md`, and `.claude/skills/` are thin adapters to
-  those canonical files. Keep policy in one place; do not duplicate it in the
-  adapters.
-- `.agents/lecture-adaptation/*.json` are durable workflow manifests consumed by
-  validation scripts, not agent instructions. Preserve them as data until the
-  active lecture migration is complete.
-- Keep credentials and broad tool permission histories out of the repository.
-  Machine-local agent settings belong in ignored files.
+`AGENTS.md` files own repository/directory requirements; skills own reusable
+workflows. Keep each rule in one place and link to conditional detail.
+Preserve non-obvious constraints, but do not promote a one-off editorial
+correction into a universal rule.
 
-## Architecture
-
-- **Framework:** Jekyll with al-folio theme
-- **Hosting:** GitHub Pages (auto-deploy on push to main)
-- **Content updates:** YAML drives publications/CV; Python imports members from Excel
+Historical reviews belong in `docs/agent-audits/`; active task notes are data,
+not instructions. Preserve `.agents/lecture-adaptation/*.json`: validators
+consume these workflow manifests. Adapted upstream material and licenses are
+recorded in [the source register](.agents/third-party/sources.md).
