@@ -161,7 +161,7 @@ class UpdateCvTest(unittest.TestCase):
         icml_2026 = [
             e for e in conferences if update_cv.get_abbr(e) == "ICML" and e["year"] == 2026
         ]
-        self.assertEqual((len(conferences), len(journals), len(preprints)), (58, 6, 11))
+        self.assertEqual((len(conferences), len(journals), len(preprints)), (62, 6, 8))
         self.assertEqual(len(icml_2026), 6)
 
     def test_conferences_use_reverse_chronological_order(self):
@@ -218,7 +218,7 @@ class UpdateCvTest(unittest.TestCase):
         for entry in daggered_entries:
             self.assertGreaterEqual(sum("†" in author for author in entry["authors"]), 2, entry["title"])
 
-    def test_four_recent_preprints_are_present(self):
+    def test_recent_publications_are_present(self):
         output = generated_output()
         for title in (
             "Discovering Crystal Structure Prediction Algorithms with an AI Co-Scientist",
@@ -233,9 +233,7 @@ class UpdateCvTest(unittest.TestCase):
         )
         ordered_titles = (
             "Progressive Multi-Agent Reasoning",
-            "AtomMOF: All-Atom Flow Matching",
             "INDIBATOR: Diverse and Fact-Grounded Individuality",
-            "A Systematic Evaluation of Co-folding Model Representations",
         )
         positions = [output.index(title) for title in ordered_titles]
         self.assertEqual(positions, sorted(positions))

@@ -9,6 +9,76 @@
 # year, and abbr. Website fields: selected, presentation, presentation_venue,
 # html, arxiv, code/code_label, code2/code2_label, website, pdf, video, preview,
 # annotation, award, and abstract. CV-only rendering fields start with `cv_`.
+- id: kim2026atommof
+  type: conference
+  title: 'AtomMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction'
+  authors:
+  - Nayoung Kim
+  - Honghui Kim
+  - Sihyun Yu
+  - Minkyu Kim
+  - Seongsu Kim
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2026
+  abbr: NeurIPS
+  arxiv: '2602.07351'
+  code: https://github.com/nayoung10/AtomMOF
+  selected: true
+- id: jang2026boltz
+  type: conference
+  title: A Systematic Evaluation of Co-folding Model Representations for Small-Molecule Learning
+  authors:
+  - Hyosoon Jang
+  - Hyunjin Seo
+  - Honghui Kim
+  - Taewon Kim
+  - Yunhui Jang
+  - Seonghyun Park
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2026
+  abbr: NeurIPS
+  arxiv: '2602.13249'
+  code: https://github.com/hsjang0/boltz-as-FM
+- id: kim2026atomlevel
+  type: conference
+  title: Atom-level Protein Representation Learning Improves Protein Structure Prediction
+  authors:
+  - Taewon Kim
+  - Hyosoon Jang
+  - Hyunjin Seo
+  - Seonghwan Seo
+  - Hyeongwoo Kim
+  - Wonho Zhung
+  - Mingyeong Shin
+  - Woo Youn Kim
+  - Sungsoo Ahn
+  venue: NeurIPS
+  year: 2026
+  abbr: NeurIPS
+  arxiv: '2605.22133'
+  website: https://holymollyhao.github.io/TriProRep/
+  selected: true
+- id: oh2026sctrilemma
+  type: conference
+  title: 'scTrilemma: Balancing Identity, Invariance, and Reconstruction in Single-Cell Representation Learning'
+  authors:
+  - Yunhak Oh
+  - Yoonho Lee
+  - Junseok Lee
+  - Namkyeong Lee
+  - Sang-Yeon Hwang
+  - Yinhua Piao
+  - Hyomin Kim
+  - Seonghwan Kim
+  - Jaechang Lim
+  - Woo Youn Kim
+  - Sungsoo Ahn
+  - Chanyoung Park
+  venue: NeurIPS
+  year: 2026
+  abbr: NeurIPS
 - id: kim2026packora
   type: preprint
   title: 'Packora: Systematic Design for Generative Molecular Crystal Structure Prediction'
@@ -52,26 +122,6 @@
   arxiv: '2606.21284'
   selected: true
   cv_sort_order: 202606290000
-- id: kim2026atomlevel
-  type: preprint
-  title: Atom-level Protein Representation Learning Improves Protein Structure Prediction
-  authors:
-  - Taewon Kim
-  - Hyosoon Jang
-  - Hyunjin Seo
-  - Seonghwan Seo
-  - Hyeongwoo Kim
-  - Wonho Zhung
-  - Mingyeong Shin
-  - Wooyoun Kim
-  - Sungsoo Ahn
-  venue: arXiv
-  year: 2026
-  abbr: '-'
-  arxiv: '2605.22133'
-  website: https://holymollyhao.github.io/TriProRep/
-  selected: true
-  cv_sort_order: 202605300000
 - id: seo2026vibeproteinbench
   type: preprint
   title: 'VibeProteinBench: An Evaluation Benchmark for Language-interfaced Vibe Protein Design'
@@ -200,23 +250,6 @@
   arxiv: '2602.16897'
   code: https://github.com/seongsukim-ml/QHFlow2
   selected: true
-- id: kim2026atommof
-  type: preprint
-  title: 'AtomMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction'
-  authors:
-  - Nayoung Kim
-  - Honghui Kim
-  - Sihyun Yu
-  - Minkyu Kim
-  - Seongsu Kim
-  - Sungsoo Ahn
-  venue: arXiv
-  year: 2026
-  abbr: '-'
-  arxiv: '2602.07351'
-  code: https://github.com/nayoung10/AtomMOF
-  selected: true
-  cv_sort_order: 202602070423
 - id: kim2026catflow
   type: conference
   title: 'CatFlow: Co-generation of Slab-Adsorbate Systems via Flow Matching'
@@ -231,24 +264,6 @@
   arxiv: '2602.05372'
   code: https://github.com/minkyu1022/CatFlow
   selected: true
-- id: jang2026boltz
-  type: preprint
-  title: Boltz is a Strong Baseline for Atom-level Representation Learning
-  authors:
-  - Hyosoon Jang
-  - Hyunjin Seo
-  - Honghui Kim
-  - Seonghyun Park
-  - Taewon Kim
-  - Yunhui Jang
-  - Sungsoo Ahn
-  venue: arXiv
-  year: 2026
-  abbr: '-'
-  arxiv: '2602.13249'
-  code: https://github.com/hsjang0/boltz-as-FM
-  cv_title_tex: A Systematic Evaluation of Co-folding Model Representations for Small-Molecule Learning
-  cv_sort_order: 202602020811
 - id: kim2026latent
   type: conference
   title: Latent Veracity Inference for Identifying Errors in Stepwise Reasoning
