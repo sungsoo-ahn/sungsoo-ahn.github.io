@@ -1,10 +1,14 @@
 {
   "scripts": {
-    "capture:kups": "node scripts/capture_kups_snapshots.js"
+    "capture:kups": "node scripts/capture_kups_snapshots.js",
+    "test:research-map": "node --test tests/research-map-model.test.js tests/research-map-layout.test.mjs",
+    "layout:research-map": "node scripts/research_map_layout.mjs",
+    "check:research-map:browser": "node scripts/check_research_map_browser.js"
   },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.10.0",
-    "playwright": "^1.17.2",
+    "js-yaml": "4.3.2",
+    "playwright": "^1.63.0",
     "prettier": "^3.7.4"
   }
 }

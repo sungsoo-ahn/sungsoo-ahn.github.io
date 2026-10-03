@@ -34,6 +34,15 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install map validation dependencies
+        run: npm ci
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -58,6 +67,12 @@ jobs:
 
       - name: Validate hidden kUPS pages
         run: python3 scripts/validate_kups_pages.py
+
+      - name: Validate research map and analysis drift
+        run: |
+          python3 scripts/research_map.py
+          python3 -m unittest discover -s tests -p 'test_research_map.py'
+          npm run test:research-map
 
       - name: Build site
         run: |
