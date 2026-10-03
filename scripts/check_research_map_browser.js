@@ -113,8 +113,8 @@ const path = require("node:path");
     await page.evaluate(async () => {
       window.rmRaw = await (await fetch(document.querySelector("#research-map").dataset.source)).json();
     });
-    assert.equal(await root.locator(".rm-overview .rm-row").count(), 6);
-    assert.equal(await root.locator(".rm-overview .rm-work").count(), 96);
+    assert.equal(await root.locator(".rm-overview .rm-network").count(), 1);
+    assert.equal(await root.locator(".rm-overview .rm-work").count(), 74);
     assert.equal(
       await root
         .locator("input, select, .rm-toolbar, .rm-filter-panel, .rm-paper-list, .rm-details, .rm-about, .rm-caption, .rm-timeline-axis")
@@ -154,21 +154,28 @@ const path = require("node:path");
     const geometry = await page.evaluate(() => {
       const runtime = [...document.querySelectorAll(".rm-overview .rm-work")],
         fallback = [...document.querySelectorAll(".rm-static .rm-static-paper")];
-      const canonical = new Map(fallback.map((node) => [node.dataset.instance, Number(node.dataset.x)]));
+      const canonical = new Map(fallback.map((node) => [node.dataset.instance, [Number(node.dataset.x), Number(node.dataset.y)]]));
       return {
-        same: runtime.every((node) => canonical.get(node.dataset.instance) === Number(node.dataset.x)),
+        same: runtime.every((node) => canonical.get(node.dataset.instance).join() === [Number(node.dataset.x), Number(node.dataset.y)].join()),
         symbols: runtime.every((node) => {
           const fallback = document.querySelector(`.rm-static-paper[data-instance="${node.dataset.instance}"] .rm-station`);
           return fallback.outerHTML === node.querySelector(".rm-station").outerHTML && node.querySelector(".rm-hit").getAttribute("r") === "16";
         }),
         nicknames: runtime.filter((node) => node.dataset.primaryLabel === "true").length === 74,
         lines: [...document.querySelectorAll(".rm-overview .rm-connection-path")].every((node) => getComputedStyle(node).strokeWidth === "4px"),
-        shared: [...document.querySelectorAll(".rm-overview .rm-row")].some(
-          (row) => row.querySelector('.rm-route[data-theme="d_materials"]') && row.querySelector('.rm-route[data-theme="d_geoscience"]')
+        shared:
+          document.querySelectorAll('.rm-overview .rm-work[data-work="kim2026catflow"]').length === 1 &&
+          document.querySelector('.rm-overview .rm-work[data-work="kim2026catflow"]').dataset.themes.split(",").length === 2,
+        noJumps: [...document.querySelectorAll(".rm-overview .rm-connection")].every(
+          (node) => !node.querySelector(".rm-connection-path").getAttribute("d").includes("A") && node.querySelector(".rm-connection-casing")
         ),
+        height: document.querySelector(".rm-overview .rm-network").getAttribute("height") === "300",
       };
     });
-    assert.ok(geometry.same && geometry.symbols && geometry.nicknames && geometry.lines && geometry.shared, JSON.stringify(geometry));
+    assert.ok(
+      geometry.same && geometry.symbols && geometry.nicknames && geometry.lines && geometry.shared && geometry.noJumps && geometry.height,
+      JSON.stringify(geometry)
+    );
     await snapshot("desktop-overview");
     const seen = new Set();
     const maxOffset = await scroller.evaluate((node) => (node.scrollWidth - node.clientWidth) / 120);
@@ -196,19 +203,19 @@ const path = require("node:path");
           (label) => ({ text: label.textContent, rect: label.getBoundingClientRect() })
         );
         const hits = [];
-        for (const line of node.querySelectorAll(".rm-overview .rm-identity-path")) {
+        for (const line of node.querySelectorAll(".rm-overview .rm-connection:not([hidden]) .rm-connection-path")) {
           const length = line.getTotalLength(),
             matrix = line.getScreenCTM();
           for (let position = 0; position <= length; position += 2) {
             const point = line.getPointAtLength(position).matrixTransform(matrix);
             for (const { text, rect } of labels)
               if (point.x >= rect.left - 2 && point.x <= rect.right + 2 && point.y >= rect.top - 2 && point.y <= rect.bottom + 2)
-                hits.push([line.closest("g").dataset.work, text]);
+                hits.push([line.closest("g").dataset.connection, text]);
           }
         }
         return hits;
       });
-      assert.deepEqual(collisions, [], `grey links intersect labels at offset ${offset}`);
+      assert.deepEqual(collisions, [], `routed lines intersect labels at offset ${offset}`);
       assert.equal(await scroller.evaluate((node) => node.getBoundingClientRect().height), figureHeight);
       assert.equal(await root.locator(".rm-legend").innerHTML(), legendBefore);
     }
@@ -235,40 +242,59 @@ const path = require("node:path");
       }, id);
       await idle();
     };
+    await reveal("seong2025transition");
+    await page.mouse.move(1100, 50);
+    await snapshot("desktop-busy-interchanges");
     await reveal("kim2026catflow");
     const repeated = root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]:not([hidden])').first();
-    const identityBefore = await root.locator(".rm-overview .rm-identity-path").count();
-    assert.ok(identityBefore >= 1, "identity links are visible before hovering");
-    const identityStyle = await root
-      .locator(".rm-overview .rm-identity-path")
-      .first()
-      .evaluate((node) => ({
-        dash: getComputedStyle(node).strokeDasharray,
-        color: getComputedStyle(node).stroke,
-        identityZ: getComputedStyle(node.closest(".rm-identity")).zIndex,
-        stationZ: getComputedStyle(document.querySelector(".rm-overview .rm-row-track")).zIndex,
-      }));
-    assert.equal(identityStyle.dash, "none");
-    assert.equal(identityStyle.color, "rgb(133, 141, 148)");
-    assert.ok(Number(identityStyle.identityZ) < Number(identityStyle.stationZ));
+    assert.equal(await root.locator(".rm-overview .rm-identity-path").count(), 0);
+    assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]').count(), 1);
     await repeated.hover();
     await idle();
-    assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"][data-highlighted="true"]:not([hidden])').count(), 2);
-    assert.ok((await root.locator(".rm-overview .rm-identity-path").count()) >= 1);
-    assert.ok((await root.locator(".rm-overview .rm-identity-path").first().getAttribute("d")).includes("L"));
+    assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"][data-highlighted="true"]:not([hidden])').count(), 1);
     assert.ok((await root.locator(".rm-tooltip").innerText()).includes("Cat"));
     assert.match(await root.locator(".rm-tooltip-authors").innerText(), /Sungsoo Ahn/);
     await snapshot("desktop-authors");
-    assert.equal(await root.locator(".rm-overview .rm-identity-path").count(), identityBefore);
-    await snapshot("desktop-identity");
+    await snapshot("desktop-interchange");
     await page.keyboard.press("Escape");
-    const route = root.locator('.rm-overview .rm-route[data-theme="d_molecules"] .rm-connection:not([hidden])').first();
-    const routeBox = await route.boundingBox();
-    const scrollBox = await scroller.boundingBox();
-    await page.mouse.move(Math.max(scrollBox.x + 20, Math.min(scrollBox.x + scrollBox.width - 20, routeBox.x + routeBox.width / 2)), routeBox.y);
+    const hoverablePoint = (nodes) => {
+      for (const node of nodes) {
+        const path = node.querySelector(".rm-connection-path"),
+          length = path.getTotalLength(),
+          matrix = path.getScreenCTM();
+        const frame = node.closest(".rm-timeline-scroll").getBoundingClientRect();
+        for (let distance = 0; distance <= length; distance += 3) {
+          const point = path.getPointAtLength(distance).matrixTransform(matrix);
+          if (
+            point.x > frame.left + 20 &&
+            point.x < frame.right - 20 &&
+            document.elementFromPoint(point.x, point.y)?.closest(".rm-connection") === node
+          )
+            return { x: point.x, y: point.y };
+        }
+      }
+      return null;
+    };
+    const routePoint = await root
+      .locator('.rm-overview .rm-route[data-theme="d_molecules"] .rm-connection:not([hidden])')
+      .evaluateAll(hoverablePoint);
+    assert.ok(routePoint, "a routed line remains available for hover");
+    await page.mouse.move(routePoint.x, routePoint.y);
     await idle();
     assert.ok((await root.locator(".rm-tooltip").innerText()).includes("Molecules"));
     await page.keyboard.press("Escape");
+    await reveal("kim2024local");
+    const parallels = root.locator('.rm-overview .rm-connection[data-from="kim2024local"][data-to="jang2024learning"]');
+    assert.equal(await parallels.count(), 3);
+    for (const route of await parallels.all()) {
+      const point = await route.evaluateAll(hoverablePoint);
+      assert.ok(point, "each of three parallel domain tracks has an independent hover target");
+      await page.mouse.move(point.x, point.y);
+      await idle();
+      assert.equal(await route.getAttribute("data-highlighted"), "true");
+      assert.equal(await root.locator(".rm-tooltip-title").innerText(), await route.getAttribute("aria-label"));
+      await page.keyboard.press("Escape");
+    }
     await reveal("park2026learning");
     const paper = root.locator('.rm-overview .rm-work[data-work="park2026learning"]:not([hidden])').first();
     await paper.focus();
@@ -364,6 +390,11 @@ const path = require("node:path");
     await scroller.press("End");
     await idle();
     await page.keyboard.press("Escape");
+    await reveal("seong2025transition");
+    await page.mouse.move(380, 50);
+    await snapshot("mobile-busy-interchanges");
+    await scroller.press("End");
+    await idle();
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await page.evaluate(() => {
       document.documentElement.dataset.theme = "dark";
@@ -386,11 +417,15 @@ const path = require("node:path");
     await page.setViewportSize({ width: 1280, height: 1100 });
     await idle();
     await snapshot("desktop-dark");
+    await reveal("seong2025transition");
+    await page.mouse.move(1100, 50);
+    await snapshot("desktop-dark-busy-interchanges");
+
     assert.deepEqual(errors, []);
     const noJs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 1100 } });
     await noJs.goto(url, { waitUntil: "networkidle" });
-    assert.equal(await noJs.locator(".rm-static-paper").count(), 96);
-    assert.equal(await noJs.locator(".rm-static .rm-identity-path").count(), 22);
+    assert.equal(await noJs.locator(".rm-static-paper").count(), 74);
+    assert.equal(await noJs.locator(".rm-static .rm-identity-path").count(), 0);
     assert.equal(await noJs.locator(".rm-static").isVisible(), true);
     assert.equal(await noJs.locator(".rm-navigation").isVisible(), false);
     assert.ok(await noJs.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
@@ -401,7 +436,7 @@ const path = require("node:path");
     assert.equal(await failed.locator(".rm-static").isVisible(), true);
     assert.equal(await failed.locator(".rm-load-status").innerText(), "Interactive map unavailable.");
     console.log(
-      "Research-map browser checks passed: Research placement, compact spacing, contribution symbols, author hovers, fixed height and legends, chronology, navigation, all 74 focused layouts, identity links, concise connections, history, keyboard, mobile/tablet/dark, and static/error fallback."
+      "Research-map browser checks passed: Research placement, compact spacing, contribution symbols, author hovers, fixed height and legends, chronology, navigation, all 74 focused layouts, shared stations and clear crossing gaps, concise connections, history, keyboard, mobile/tablet/dark, and static/error fallback."
     );
   } finally {
     await browser.close();

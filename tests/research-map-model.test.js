@@ -78,75 +78,23 @@ test("equal conference dates use full titles then identifiers, independently of 
   );
 });
 
-test("packing combines disjoint spans and never combines overlapping or same-date spans", () => {
-  const corpus = fixture(
-    [
-      work("a", "2021-01", ["early"]),
-      work("b", "2022-01", ["early"]),
-      work("c", "2023-01", ["late"]),
-      work("d", "2024-01", ["late"]),
-      work("e", "2022-01", ["overlap"]),
-    ],
-    [theme("early"), theme("late"), theme("overlap")]
-  );
-  const packed = model.timelineLayout(corpus);
-  assert.equal(packed.lanes.length, 2);
-  const shared = packed.lanes.find((lane) => lane.rows.length === 2);
-  // Sparse compatible lanes are preferred: overlap (1 station) + late (2).
-  assert.deepEqual(
-    shared.rows.map((row) => row.theme.id),
-    ["overlap", "late"]
-  );
-  assert.equal(model.timelineRows(corpus)[0].connections.length, 1);
-  assert.ok(!model.timelineRows(corpus).some((row) => row.connections.some((edge) => edge.from === "e" && edge.to === "c")));
-});
-
-test("shared chronology slightly staggers repeated papers and reserves room within each physical lane", () => {
+test("a multi-domain paper is one interchange with stable coordinates during navigation", () => {
   const layout = model.timelineLayout(data);
-  for (const lane of layout.lanes) {
-    for (let i = 1; i < lane.stations.length; i++) assert.ok(lane.stations[i].x - lane.stations[i - 1].x >= 43.999);
-  }
-  assert.equal(Math.abs(layout.stationByInstance.get("d_a/c").x - layout.stationByInstance.get("d_b/c").x), 16);
+  assert.equal(layout.stations.length, data.works.length);
+  const shared = layout.stationByInstance.get("c");
+  assert.deepEqual(shared.themes.map((theme) => theme.id).sort(), ["d_a", "d_b"]);
+  assert.equal(layout.routes.filter((route) => route.to === "c").length, 1);
+  assert.equal(layout.routes.filter((route) => route.from === "c").length, 1);
   const sequence = [...data.works].sort(model.compareChronology);
   sequence.slice(1).forEach((paper, i) => assert.ok(layout.xById.get(paper.id) > layout.xById.get(sequence[i].id)));
-  const view = model.timelineViewport(layout, 0, 144);
-  assert.equal(view.lanes.length, layout.lanes.length, "empty lanes retain figure height");
-  assert.ok(model.timelineViewport(layout, Infinity, 128).lanes.some((lane) => !lane.visibleStations.length));
-  assert.equal(model.timelineViewport(layout, Infinity, 144).offset, view.maxOffset);
-});
-
-test("identity links connect successive visible copies with no chronological or influence arrow", () => {
-  const stations = [3, 1, 2].map((n) => ({ id: String(n), work: { id: "a" }, y: n * 80, x: n * 120 }));
-  stations.push({ id: "other", work: { id: "b" }, y: 10 });
-  const links = model.identityConnections(stations, "a");
-  assert.deepEqual(
-    links.map((edge) => [edge.from.id, edge.to.id]),
-    [
-      ["1", "2"],
-      ["2", "3"],
-    ]
-  );
-  assert.ok(links.every((edge) => edge.label === "Same paper" && !edge.directed));
-});
-
-test("default identity links include every repeated paper, without crossing paper identities", () => {
-  const stations = [
-    { id: "a1", work: { id: "a" }, y: 80 },
-    { id: "b1", work: { id: "b" }, y: 160 },
-    { id: "a2", work: { id: "a" }, y: 240 },
-    { id: "b2", work: { id: "b" }, y: 320 },
-    { id: "a3", work: { id: "a" }, y: 400 },
-  ];
-  const links = model.identityConnections(stations);
-  assert.deepEqual(
-    links.map((edge) => [edge.from.id, edge.to.id]),
-    [
-      ["a1", "a2"],
-      ["a2", "a3"],
-      ["b1", "b2"],
-    ]
-  );
-  assert.ok(links.every((edge) => edge.from.work.id === edge.to.work.id && edge.work === edge.from.work.id));
+  const original = layout.stations.map((station) => [station.id, station.x, station.y]);
+  for (const width of [128, 390, 900]) {
+    for (const offset of [0, 2, 1000]) model.timelineViewport(layout, offset, width);
+    assert.deepEqual(
+      layout.stations.map((station) => [station.id, station.x, station.y]),
+      original
+    );
+  }
 });
 
 test("concept focus excludes generic and broad memberships, preserves both statuses and only incident triplet edges", () => {
