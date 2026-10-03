@@ -10,62 +10,121 @@ const data = model.prepare({
   works: source.works.map((annotations) => ({ annotations, publications: annotations.publication_ids.map((id) => pubs.find((p) => p.id === id)) })),
 });
 const layout = model.timelineLayout(data);
-const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.map((station) => [station.id, station.x])]);
+const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.map((station) => [station.id, station.x, station.y])]);
 
-test("full corpus has 74 works, 96 appearances and eight domains packed into six stable lanes", () => {
+test("full corpus uses 74 shared stations and eight distinct chronological routes", () => {
   assert.equal(data.works.length, 74);
   assert.equal(layout.rows.length, 8);
-  assert.equal(layout.lanes.length, 6);
-  assert.equal(layout.stationByInstance.size, 96);
-  assert.equal(new Set([...layout.stationByInstance.values()].map((station) => station.work.id)).size, 74);
+  assert.equal(layout.height, 300);
+  assert.ok(layout.width < 4033, "shared stations and flexible paths reduce the previous track width");
+  assert.equal(layout.stationByInstance.size, 74);
+  assert.equal(new Set(layout.stations.map((station) => station.work.id)).size, 74);
   assert.equal(layout.rows.find((row) => row.theme.id === "d_deep").stations.length, 29);
-  assert.ok(
-    layout.lanes.some(
-      (lane) =>
-        lane.rows
-          .map((row) => row.theme.id)
-          .sort()
-          .join() === "d_geoscience,d_materials"
-    )
-  );
-  for (const removed of ["d_control", "d_graphs", "d_language", "d_general"]) assert.ok(!data.themeById.has(removed));
   assert.equal(layout.rows.find((row) => row.theme.id === "d_graphical").stations.length, 6);
+  for (const removed of ["d_control", "d_graphs", "d_language", "d_general"]) assert.ok(!data.themeById.has(removed));
   assert.ok(layout.xById.get("ahn2015minimum") < layout.xById.get("ahn2020guiding"));
+  const catflow = layout.stationByInstance.get("kim2026catflow");
+  assert.deepEqual(catflow.themes.map((theme) => theme.id).sort(), ["d_materials", "d_molecules"]);
 });
 
-test("layout ignores input order and legacy coordinates, preserves global chronology and variable readable gaps", () => {
+test("packing ignores source order and legacy coordinates, preserves chronology and clear labels", () => {
   const moved = { ...data, works: [...data.works].reverse().map((work) => ({ ...work, x: 1, y: 1, overview: false })) };
   assert.deepEqual(geometry(model.timelineLayout(moved)), geometry(layout));
-  for (const lane of layout.lanes) {
-    lane.stations.slice(1).forEach((station, i) => assert.ok(station.x - lane.stations[i].x >= 43.999));
-    const labeled = lane.stations.filter((station) => station.primaryLabel);
-    labeled.slice(1).forEach((station, i) => assert.ok(station.x - station.labelHalf >= labeled[i].x + labeled[i].labelHalf + 11.999));
-    lane.rows.forEach((row) => {
-      assert.equal(row.connections.length, row.stations.length - 1);
-      row.connections.forEach((edge, i) => assert.deepEqual([edge.from, edge.to], [row.stations[i].id, row.stations[i + 1].id]));
-    });
+  for (const [i, station] of layout.stations.entries()) {
+    const label = model.labelBounds(station);
+    assert.ok(label.top >= 8 && label.bottom <= layout.height - 8);
+    for (const prior of layout.stations.slice(0, i)) {
+      const other = model.labelBounds(prior);
+      assert.ok(
+        label.right <= other.left || other.right <= label.left || label.bottom <= other.top || other.bottom <= label.top,
+        `${station.id} overlaps ${prior.id}'s label`
+      );
+      assert.ok(Math.hypot(station.x - prior.x, station.y - prior.y) >= 32, "hit targets have separate centers");
+      assert.ok(!model.segmentHitsBox({ x: station.x - 11, y: station.y }, { x: station.x + 11, y: station.y }, other), "station avoids prior label");
+    }
+  }
+  for (const row of layout.rows) {
+    assert.equal(row.connections.length, row.stations.length - 1);
+    row.connections.forEach((edge, i) => assert.deepEqual([edge.from, edge.to], [row.stations[i].id, row.stations[i + 1].id]));
   }
 });
 
-test("identity links clear every paper label and unrelated station across the complete collection", () => {
-  const stations = [...layout.stationByInstance.values()];
-  for (const { from: a, to: b, work } of model.identityConnections(stations)) {
-    for (const station of stations) {
-      const top = Math.max(station.y - 54, a.y),
-        bottom = Math.min(station.y - 13, b.y);
-      const at = (y) => a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y);
-      if (station.primaryLabel && top <= bottom) {
-        const xs = [at(top), at(bottom)],
-          center = station.x + station.labelDx;
-        assert.ok(
-          Math.max(...xs) < center - station.labelHalf || Math.min(...xs) > center + station.labelHalf,
-          `${work} crosses ${station.id}'s label`
-        );
+test("targeted display hints keep the busy green route flat and preserve other station heights", () => {
+  const automatic = model.timelineLayout({ ...data, works: data.works.map(({ map_layout, ...work }) => work) });
+  for (const station of layout.stations) {
+    const hint = station.work.map_layout;
+    if (hint) {
+      assert.equal(station.y, hint.y);
+      assert.equal(station.labelSide, hint.label_side);
+      const bounds = model.labelBounds(station);
+      assert.ok(bounds.top >= 8 && bounds.bottom <= layout.height - 8);
+    } else assert.equal(station.y, automatic.stationByInstance.get(station.id).y, station.id);
+  }
+  const trunk = ["bu2024tackling", "jang2024pessimistic", "berto2025rlco", "woo2024iterated"].map((id) => layout.stationByInstance.get(id).y);
+  assert.ok(Math.max(...trunk) - Math.min(...trunk) < 8, "UCom2, PBP-GFN, RL4CO and iEFM follow a nearly flat green trunk");
+  assert.ok(layout.stationByInstance.get("seong2025transition").y > Math.max(...trunk) + 25, "TPS-DPS leaves room below the trunk");
+});
+
+test("routed lines avoid labels and unrelated stations while preserving left-to-right order", () => {
+  for (const route of layout.routes) {
+    for (const [point, id] of [
+      [route.points[0], route.from],
+      [route.points.at(-1), route.to],
+    ]) {
+      const { x, y } = model.stationPort(layout.stationByInstance.get(id), route.theme.id);
+      assert.deepEqual(point, { x, y });
+      assert.ok(Math.abs(y - layout.stationByInstance.get(id).y) <= 8, "line ends inside the shared station backplate");
+    }
+    for (const [i, point] of route.points.entries()) {
+      assert.ok(point.y >= 8 && point.y <= layout.height - 8);
+      if (!i) continue;
+      const previous = route.points[i - 1];
+      assert.ok(point.x >= previous.x, "base routes do not reverse chronology");
+      for (const station of layout.stations) {
+        assert.equal(model.segmentHitsBox(previous, point, model.labelBounds(station, 2)), false, `${route.id} crosses ${station.id}'s label`);
+        if (![route.from, route.to].includes(station.work.id))
+          assert.equal(model.segmentHitsBox(previous, point, model.nodeBounds(station, 2)), false, `${route.id} crosses ${station.id}'s symbol`);
       }
-      if (station.work.id !== work && station.y >= a.y && station.y <= b.y)
-        assert.ok(Math.abs(at(station.y) - station.x) >= 22, `${work} crosses ${station.id}'s symbol`);
     }
   }
+  assert.ok(
+    layout.routes.some((route) => route.points.some((point, i) => i && point.y !== route.points[i - 1].y)),
+    "domain routes can bend"
+  );
+});
+
+test("route simplification favors clean metro angles and avoids excessive bends", () => {
+  const bends = layout.routes.reduce((sum, route) => sum + route.points.length - 2, 0);
+  assert.ok(bends < 240, `${bends} bends should remain below the original 431-bend routing`);
+  let total = 0,
+    regular = 0;
+  for (const route of layout.routes)
+    for (let i = 1; i < route.points.length; i++) {
+      const dx = Math.abs(route.points[i].x - route.points[i - 1].x),
+        dy = Math.abs(route.points[i].y - route.points[i - 1].y),
+        length = Math.hypot(dx, dy);
+      total += length;
+      if (dx < 1e-5 || dy < 1e-5 || Math.abs(dx - dy) < 1e-5) regular += length;
+    }
+  assert.ok(regular / total > 0.95, "at least 95% of route length follows horizontal, vertical or 45-degree runs");
+});
+
+test("parallel domain tracks stay distinct without line jumps", () => {
+  assert.ok(
+    layout.routes.every((route) => !route.path.includes("A")),
+    "crossings do not introduce semicircular jumps"
+  );
+  for (const station of layout.stations) {
+    const ports = station.themes.map((theme) => model.stationPort(station, theme.id).y);
+    assert.equal(new Set(ports).size, ports.length, "domains have separate entry and exit positions at shared stations");
+  }
+  const pairs = new Map();
+  for (const route of layout.routes) {
+    const key = `${route.from}/${route.to}`;
+    if (!pairs.has(key)) pairs.set(key, []);
+    pairs.get(key).push(route.path);
+  }
+  for (const paths of pairs.values()) assert.equal(new Set(paths).size, paths.length, "parallel domain routes remain individually visible");
 });
 
 test("sorting uses earliest eligible arXiv or acceptance dates and excludes earlier uncoauthored versions", () => {
@@ -132,8 +191,6 @@ test("new application classifications have checked experimental locators and dis
     );
   }
   assert.equal(new Set(layout.rows.map((row) => row.theme.display_color)).size, 8);
-  const oldest = layout.lanes.find((lane) => lane.stations.some((station) => station.work.id === "ahn2015minimum"));
-  assert.equal(oldest.slot, Math.floor(layout.lanes.length / 2), "oldest line starts in the center");
   const sequence = [...data.works].sort(model.compareChronology);
   for (let i = 1; i < sequence.length; i++) assert.ok(layout.xById.get(sequence[i].id) > layout.xById.get(sequence[i - 1].id));
 });
@@ -169,9 +226,9 @@ test("one editable contribution per work preserves authored symmetry choices and
     assert.ok(model.contributionFor(work, data));
     assert.ok(work.map_contribution_reason.length > 10);
     assert.ok(work.authors.length && work.authors.some((author) => author.includes("Sungsoo Ahn")));
-    const copies = [...layout.stationByInstance.values()].filter((station) => station.work.id === work.id);
-    assert.equal(copies.filter((station) => station.primaryLabel).length, 1);
-    assert.ok(copies.find((station) => station.primaryLabel).y === Math.min(...copies.map((station) => station.y)));
+    const station = layout.stationByInstance.get(work.id);
+    assert.equal(station.work.id, work.id);
+    assert.equal(station.primaryLabel, true);
   }
   for (const id of ["kim2026machine", "kim2025highorder", "kim2024gaussian"]) {
     assert.deepEqual(

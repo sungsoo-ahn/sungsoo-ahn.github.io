@@ -4,7 +4,6 @@
 .research-map {
   --rm-accent: var(--global-theme-color, #7a53ec);
   --rm-muted: var(--global-text-color-light, #665a75);
-  --rm-identity-color: #858d94;
   --rm-border: var(--global-divider-color, #e4ddec);
   --rm-surface: var(--global-card-bg-color, #fff);
   clear: both;
@@ -72,12 +71,6 @@
     width: var(--rm-track-width);
     position: relative;
   }
-  .rm-row {
-    pointer-events: none;
-    display: flex;
-    height: 68px;
-    position: relative;
-  }
   .rm-legend {
     display: flex;
     flex-direction: column;
@@ -119,7 +112,7 @@
     height: 4px;
     border-radius: 2px;
   }
-  .rm-row-track {
+  .rm-network {
     position: relative;
     z-index: 1;
     pointer-events: none;
@@ -129,6 +122,13 @@
   }
   .rm-themed {
     color: var(--rm-color-light);
+  }
+  .rm-connection-casing {
+    fill: none;
+    stroke: var(--rm-surface);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .rm-connection-path {
     fill: none;
@@ -142,6 +142,10 @@
     stroke-width: 16;
     pointer-events: stroke;
   }
+  .rm-overview .rm-connection-hit {
+    // Keep neighboring domain tracks individually reachable.
+    stroke-width: 7;
+  }
   .rm-connection[data-highlighted="true"] .rm-connection-path {
     stroke-width: 5;
   }
@@ -152,6 +156,9 @@
   }
   .rm-hit {
     fill: transparent;
+  }
+  .rm-station-backplate {
+    fill: var(--rm-surface);
   }
   .rm-station {
     fill: currentColor;
@@ -190,27 +197,6 @@
   }
   .rm-static-paper:hover .rm-station {
     stroke: var(--global-text-color);
-  }
-  .rm-identity {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 0;
-    color: var(--rm-identity-color);
-  }
-  .rm-identity-path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.5;
-  }
-  .rm-identity-connection[data-highlighted="true"] .rm-identity-path {
-    stroke: var(--rm-muted);
-    stroke-width: 3;
-  }
-  .rm-identity-connection .rm-connection-hit {
-    pointer-events: stroke;
   }
   .rm-focus-graph {
     display: grid;
@@ -389,9 +375,6 @@
   .rm-load-status:empty {
     display: none;
   }
-}
-html[data-theme="dark"] .research-map {
-  --rm-identity-color: #96909f;
 }
 html[data-theme="dark"] .research-map .rm-themed {
   color: var(--rm-color-dark);

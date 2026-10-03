@@ -93,27 +93,26 @@ class ResearchMapTests(unittest.TestCase):
         overview = ET.fromstring(map_module.render_overview(self.data, self.publications))
         layout = map_module.timeline_layout(self.data, self.publications)
         stations = [node for node in overview.iter('a') if node.get('class') == 'rm-static-paper rm-themed']
-        self.assertEqual(len(stations), 96)
+        self.assertEqual(len(stations), 74)
         self.assertEqual({node.get('data-work') for node in stations}, {work['id'] for work in self.data['works']})
         self.assertTrue(all(float(node.get('data-x')) == layout['positions'][node.get('data-instance')] for node in stations))
-        rows = [node for node in overview.iter('div') if node.get('class') == 'rm-row']
-        self.assertEqual(len(rows), 6)
-        for row, lane in zip(rows, layout['lanes']):
-            self.assertEqual(row.get('data-lane'), lane['id'])
-            for theme_row in lane['rows']:
-                theme = theme_row['theme']['id']
-                route = next(node for node in row.iter('g') if node.get('data-theme') == theme)
-                members = theme_row['stations']
-                self.assertEqual([(node.get('data-from'), node.get('data-to')) for node in route.iter('path')],
-                                 [(a['id'], b['id']) for a, b in zip(members, members[1:])])
-            xs = [float(node.get('data-x')) for node in row.iter('a')]
-            self.assertTrue(all(b - a >= 43.999 for a, b in zip(xs, xs[1:])))
-        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label' and not node.get('hidden')]), 74)
+        self.assertTrue(all(float(node.get('data-y')) == next(station['y'] for station in layout['stations'] if station['id'] == node.get('data-instance')) for node in stations))
+        self.assertEqual(len([node for node in overview.iter('svg') if node.get('class') == 'rm-network']), 1)
+        self.assertEqual(layout['height'], 300)
+        for theme_row in layout['rows']:
+            theme = theme_row['theme']['id']
+            route = next(node for node in overview.iter('g') if node.get('data-theme') == theme)
+            members = theme_row['stations']
+            edges = [node for node in route.iter('g') if node.get('class') == 'rm-connection']
+            self.assertEqual([(node.get('data-from'), node.get('data-to')) for node in edges],
+                             [(a['id'], b['id']) for a, b in zip(members, members[1:])])
+        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label']), 74)
         self.assertTrue(all(node.get('r') == '9' for node in overview.iter('circle') if node.get('class') == 'rm-station'))
         self.assertTrue(all(node.get('r') == '16' for node in overview.iter('circle') if node.get('class') == 'rm-hit'))
         self.assertNotIn('rm-timeline-axis', map_module.render_overview(self.data, self.publications))
         self.assertNotIn('rm-row-heading', map_module.render_overview(self.data, self.publications))
-        self.assertEqual(len([node for node in overview.iter('path') if node.get('class') == 'rm-identity-path']), 22)
+        self.assertNotIn('rm-identity-path', map_module.render_overview(self.data, self.publications))
+        self.assertTrue(all('A' not in node.get('d', '') for node in overview.iter('path') if node.get('class') == 'rm-connection-path'))
         legend = ET.fromstring('<div>' + map_module.render_legend(self.data, self.publications) + '</div>')
         self.assertEqual(len([node for node in legend.iter('span') if node.get('data-theme')]), 8)
         self.assertEqual(len([node for node in legend.iter('span') if node.get('data-contribution')]), 8)
@@ -136,6 +135,19 @@ class ResearchMapTests(unittest.TestCase):
         self.assertTrue(any('map_contribution_reason required' in error for error in errors))
         errors = self.errors_for(lambda d: d['contribution_categories'][0].update(shape='octagon'))
         self.assertTrue(any('unsupported contribution shape' in error for error in errors))
+
+    def test_display_hints_reject_invalid_geometry_and_unknown_fields(self):
+        invalid = [None, {}, {'y': float('nan')}, {'y': float('inf')}, {'y': True},
+                   {'y': 7}, {'y': 293}, {'y': 164, 'label_side': 'left'},
+                   {'y': 164, 'label_side': []}, {'y': 164, 'label_gap': -1},
+                   {'y': 164, 'label_gap': 25}, {'y': 164, 'label_gap': True},
+                   {'y': 164, 'label_gap': float('nan')}, {'y': 164, 'x': 42}]
+        for hint in invalid:
+            with self.subTest(hint=hint):
+                errors = self.errors_for(lambda data: data['works'][0].update(map_layout=hint))
+                self.assertTrue(any('map_layout' in error for error in errors))
+        errors = self.errors_for(lambda data: data['works'][0].update(map_layout={'y': 164}))
+        self.assertEqual(errors, [])
 
     def test_legacy_geometry_and_overview_flags_are_optional(self):
         data = copy.deepcopy(self.data)

@@ -2500,6 +2500,10 @@ works:
   y: 248
   overview: false
 - id: berto2025rlco
+  map_layout:
+    y: 164
+    label_side: below
+    label_gap: 12
   map_contribution: benchmarks
   map_contribution_reason: A common framework supports controlled comparisons of combinatorial reinforcement-learning
     solvers.
@@ -3332,8 +3336,8 @@ works:
   y: 257
   overview: false
 - id: seo2025generative
-  map_contribution: generation
-  map_contribution_reason: A reaction-based generative process samples molecules within an available synthesis space.
+  map_contribution: search
+  map_contribution_reason: Searches reaction pathways for diverse high-reward molecules within an available synthesis space.
   publication_ids:
   - seo2025generative
   map_label: RxnFlow
@@ -3502,6 +3506,9 @@ works:
   y: 283
   overview: false
 - id: seong2025transition
+  map_layout:
+    y: 199
+    label_side: below
   map_contribution: generation
   map_contribution_reason: Samples molecular transition paths without requiring manually designed collective variables.
   publication_ids:
@@ -3676,8 +3683,8 @@ works:
   y: 136
   overview: false
 - id: kim2025adaptive
-  map_contribution: generation
-  map_contribution_reason: A learned teacher improves the coverage of a generative sampler.
+  map_contribution: search
+  map_contribution_reason: Targets poorly explored regions to improve sampler coverage and search efficiency.
   publication_ids:
   - kim2025adaptive
   map_label: Adaptive Teachers
@@ -3939,6 +3946,10 @@ works:
   y: 103
   overview: false
 - id: woo2024iterated
+  map_layout:
+    y: 164
+    label_side: above
+    label_gap: 16
   map_contribution: generation
   map_contribution_reason: Learns a continuous generator from an energy function when target samples are unavailable.
   publication_ids:
@@ -4092,8 +4103,8 @@ works:
   y: 383
   overview: false
 - id: jang2024pessimistic
-  map_contribution: generation
-  map_contribution_reason: Addresses under-exploitation of high-reward objects in GFlowNet training.
+  map_contribution: search
+  map_contribution_reason: Improves exploitation of high-reward objects through pessimistic backward-policy training.
   publication_ids:
   - jang2024pessimistic
   map_label: PBP-GFN
@@ -4500,6 +4511,10 @@ works:
   y: 464
   overview: false
 - id: bu2024tackling
+  map_layout:
+    y: 168
+    label_side: above
+    label_gap: 16
   map_contribution: search
   map_contribution_reason: Constructs differentiable objectives and rounding rules for constrained discrete optimization.
   publication_ids:
@@ -4646,6 +4661,9 @@ works:
   y: 311
   overview: false
 - id: kim2024holistic
+  map_layout:
+    y: 130
+    label_side: above
   map_contribution: representations
   map_contribution_reason: Fragment and geometry views support transferable molecular representations.
   publication_ids:
@@ -4797,8 +4815,8 @@ works:
   y: 422
   overview: false
 - id: jang2024learning
-  map_contribution: generation
-  map_contribution_reason: Local energy potentials improve generative training while preserving its target distribution.
+  map_contribution: search
+  map_contribution_reason: Provides local energy signals for reward-guided search while preserving the target sampling distribution.
   publication_ids:
   - jang2024learning
   map_label: LED-GFN
@@ -5047,8 +5065,8 @@ works:
   y: 455
   overview: false
 - id: kim2024local
-  map_contribution: generation
-  map_contribution_reason: Trajectory backtracking and reconstruction improve reward-proportional generative sampling.
+  map_contribution: search
+  map_contribution_reason: Refines promising objects through trajectory backtracking, reconstruction, and replay.
   publication_ids:
   - kim2024local
   map_label: LS-GFN

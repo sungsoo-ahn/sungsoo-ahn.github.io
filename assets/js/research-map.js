@@ -21,7 +21,7 @@
     earlier = navigation.querySelector(".rm-earlier"),
     later = navigation.querySelector(".rm-later"),
     back = root.querySelector(".rm-back");
-  let data, state, layout, viewport, graph, returnTo, tooltip, identity;
+  let data, state, layout, viewport, graph, returnTo, tooltip;
   let hoverAnchor, hoverPaper, hoverConnection, hideTimer, frame;
   const nickname = (work) => work.map_label || work.label;
   const venueYears = (work) => work.publications.map((p) => `${p.venue} ${p.year}`).join(" · ");
@@ -72,7 +72,7 @@
     hoverAnchor = anchor;
     anchor.setAttribute("aria-describedby", tooltip.id);
     tooltip.replaceChildren();
-    hoverPaper = kind === "paper" ? item.id : kind === "identity" ? item.work : null;
+    hoverPaper = kind === "paper" ? item.id : null;
     hoverConnection = kind === "connection" ? item : null;
     if (kind === "paper") {
       tooltip.append(
@@ -97,8 +97,6 @@
         chips.append(chip);
       }
       tooltip.append(chips);
-    } else if (kind === "identity") {
-      tooltip.append(element("strong", "Same paper"), element("div", data.workById.get(item.work).title, "rm-tooltip-meta"));
     } else if (item.reasons) {
       for (const reason of item.reasons) {
         const block = element("div", undefined, "rm-tooltip-reason");
@@ -144,9 +142,6 @@
         node.dataset.work === hoverPaper || Boolean(hoverConnection && [hoverConnection.from, hoverConnection.to].includes(node.dataset.work))
       );
     });
-    root.querySelectorAll(".rm-identity-connection").forEach((node) => {
-      node.dataset.highlighted = String(node.dataset.work === hoverPaper);
-    });
     root.querySelectorAll(".rm-connection").forEach((node) => {
       node.dataset.highlighted = String(
         node.dataset.connection === hoverConnection?.id || Boolean(hoverPaper && [node.dataset.from, node.dataset.to].includes(hoverPaper))
@@ -172,7 +167,11 @@
       "data-to": connection.to,
       "data-status": connection.status || "major",
     });
-    group.append(vector("path", { class: "rm-connection-path", d: path }), vector("path", { class: "rm-connection-hit", d: path }));
+    group.append(
+      vector("path", { class: "rm-connection-casing", d: path, "aria-hidden": "true" }),
+      vector("path", { class: "rm-connection-path", d: path }),
+      vector("path", { class: "rm-connection-hit", d: path })
+    );
     group.setAttribute("tabindex", "0");
     group.setAttribute("role", "img");
     group.setAttribute("aria-label", connection.label);
@@ -181,114 +180,76 @@
   }
   function buildOverview() {
     track.style.setProperty("--rm-track-width", `${layout.width}px`);
-    for (const lane of layout.lanes) {
-      const row = element("div", undefined, "rm-row");
-      row.dataset.lane = lane.id;
-      const svg = vector("svg", { width: layout.width, height: model.ROW_HEIGHT, class: "rm-row-track" });
-      for (const themeRow of lane.rows) {
-        const route = themed(vector("g", { class: "rm-route", "data-theme": themeRow.theme.id }), themeRow.theme);
-        for (const connection of themeRow.connections) {
-          const a = layout.stationByInstance.get(`${themeRow.theme.id}/${connection.from}`),
-            b = layout.stationByInstance.get(`${themeRow.theme.id}/${connection.to}`);
-          route.append(connectionNode(connection, `M${a.x},${model.STATION_Y}H${b.x}`));
-        }
-        svg.append(route);
-      }
-      for (const station of lane.stations) {
-        const { work, theme, x } = station;
-        const group = themed(
-          vector("g", {
-            class: "rm-work",
-            transform: `translate(${x},${model.STATION_Y})`,
-            "data-work": work.id,
-            "data-instance": station.id,
-            "data-theme": theme.id,
-            "data-contribution": work.map_contribution,
-            "data-primary-label": String(station.primaryLabel),
-            "data-x": x,
-            "aria-label": `${nickname(work)}, ${venueYears(work)}`,
-          }),
-          theme
-        );
-        group.append(vector("circle", { class: "rm-hit", r: 16 }), contributionMark(work));
-        const label = vector("text", { class: "rm-work-label", "text-anchor": "middle", transform: `translate(${station.labelDx},0)` }),
-          lines = station.labelLines;
-        lines.forEach((line, i) => {
-          const span = vector("tspan", { x: 0, y: -31 - (lines.length - 1 - i) * 13 });
-          span.textContent = line;
-          label.append(span);
-        });
-        const meta = vector("text", { class: "rm-work-meta", "text-anchor": "middle", y: -17, x: station.labelDx });
-        meta.textContent = firstVenue(work);
-        group.append(label, meta);
-        activate(group, () => focusPaper(work.id, station.id));
-        bindHover(group, work, "paper");
-        svg.append(group);
-        group.dataset.labelWidth = station.labelWidth + 6;
-        group.dataset.labelX = x + station.labelDx;
-      }
-      row.append(svg);
-      track.append(row);
+    const svg = vector("svg", { width: layout.width, height: layout.height, class: "rm-network" });
+    for (const themeRow of layout.rows) {
+      const route = themed(vector("g", { class: "rm-route", "data-theme": themeRow.theme.id }), themeRow.theme);
+      for (const connection of themeRow.connections) route.append(connectionNode(connection, connection.path));
+      svg.append(route);
     }
-    identity = vector("svg", { class: "rm-identity", width: layout.width });
-    track.append(identity);
-  }
-  function drawIdentity() {
-    if (!identity || state.paper) return;
-    identity.replaceChildren();
-    identity.setAttribute("height", (viewport?.lanes.length || 0) * model.ROW_HEIGHT);
-    if (!viewport) return;
-    const stations = viewport.lanes.flatMap((lane, i) =>
-      lane.visibleStations.map((station) => ({ ...station, y: i * model.ROW_HEIGHT + model.STATION_Y }))
-    );
-    for (const connection of model.identityConnections(stations)) {
-      const a = connection.from,
-        b = connection.to;
-      const d = `M${a.x},${a.y}L${b.x},${b.y}`;
-      const group = vector("g", {
-        class: "rm-identity-connection",
-        "data-work": connection.work,
-        "aria-label": `Same paper: ${nickname(data.workById.get(connection.work))}`,
-        role: "img",
-        tabindex: 0,
+    for (const station of layout.stations) {
+      const { work, theme, x, y } = station;
+      const group = themed(
+        vector("g", {
+          class: "rm-work",
+          transform: `translate(${x},${y})`,
+          "data-work": work.id,
+          "data-instance": station.id,
+          "data-theme": theme.id,
+          "data-themes": station.themes.map((item) => item.id).join(","),
+          "data-contribution": work.map_contribution,
+          "data-primary-label": "true",
+          "data-x": x,
+          "data-y": y,
+          "data-label-side": station.labelSide,
+          "aria-label": `${nickname(work)}, ${venueYears(work)}`,
+        }),
+        theme
+      );
+      group.append(
+        vector("circle", { class: "rm-hit", r: 16 }),
+        vector("circle", { class: "rm-station-backplate", r: 11, "aria-hidden": "true" }),
+        contributionMark(work)
+      );
+      const label = vector("text", { class: "rm-work-label", "text-anchor": "middle" });
+      station.labelLines.forEach((line, i) => {
+        const span = vector("tspan", { x: 0, y: station.labelBaselines[i] });
+        span.textContent = line;
+        label.append(span);
       });
-      group.append(vector("path", { class: "rm-identity-path", d }), vector("path", { class: "rm-connection-hit", d }));
-      bindHover(group, connection, "identity");
-      identity.append(group);
+      const meta = vector("text", { class: "rm-work-meta", "text-anchor": "middle", y: station.metaY });
+      meta.textContent = station.metaText;
+      group.append(label, meta);
+      group.dataset.labelWidth = station.labelWidth + 8;
+      group.dataset.labelX = x;
+      activate(group, () => focusPaper(work.id, station.id));
+      bindHover(group, work, "paper");
+      svg.append(group);
     }
-    updateHighlights();
+    track.append(svg);
   }
   function updateViewport() {
     if (!data || state.paper) return;
     const max = Math.max(0, layout.width - viewportWidth());
     state.offset = Math.max(0, max - scroller.scrollLeft) / model.SPACING;
     viewport = model.timelineViewport(layout, state.offset, viewportWidth());
-    const lanes = new Map(viewport.lanes.map((lane) => [lane.id, lane]));
-    track.querySelectorAll(".rm-row").forEach((row) => {
-      const lane = lanes.get(row.dataset.lane);
-      row.hidden = false;
-      const stations = new Set(lane?.visibleStations.map((station) => station.id) || []);
-      row.querySelectorAll(".rm-work").forEach((node) => {
-        const visible = stations.has(node.dataset.instance);
-        node.toggleAttribute("hidden", !visible);
-        const x = Number(node.dataset.labelX),
-          half = Number(node.dataset.labelWidth) / 2,
-          clipped = x - half < viewport.left + 4 || x + half > viewport.right - 4,
-          hideLabel = !visible || clipped || node.dataset.primaryLabel !== "true";
-        for (const selector of [".rm-work-label", ".rm-work-meta"]) node.querySelector(selector).toggleAttribute("hidden", hideLabel);
-      });
-      row.querySelectorAll(".rm-connection").forEach((node) => {
-        const theme = node.closest(".rm-route").dataset.theme;
-        const a = layout.stationByInstance.get(`${theme}/${node.dataset.from}`),
-          b = layout.stationByInstance.get(`${theme}/${node.dataset.to}`);
-        node.toggleAttribute("hidden", a.x > viewport.right || b.x < viewport.left);
-      });
+    const visibleStations = new Set(viewport.lanes[0].visibleStations.map((station) => station.id));
+    track.querySelectorAll(".rm-work").forEach((node) => {
+      const visible = visibleStations.has(node.dataset.instance);
+      node.toggleAttribute("hidden", !visible);
+      const x = Number(node.dataset.labelX),
+        half = Number(node.dataset.labelWidth) / 2;
+      const clipped = x - half < viewport.left + 4 || x + half > viewport.right - 4;
+      for (const selector of [".rm-work-label", ".rm-work-meta"]) node.querySelector(selector).toggleAttribute("hidden", !visible || clipped);
+    });
+    track.querySelectorAll(".rm-connection").forEach((node) => {
+      const a = layout.stationByInstance.get(node.dataset.from),
+        b = layout.stationByInstance.get(node.dataset.to);
+      node.toggleAttribute("hidden", a.x > viewport.right || b.x < viewport.left);
     });
     earlier.disabled = state.offset >= viewport.maxOffset - 0.01;
     later.disabled = state.offset <= 0.01;
     if (hoverAnchor?.closest("[hidden]")) hideTooltip();
     else positionTooltip();
-    drawIdentity();
     persist();
   }
   function setOffset(offset) {

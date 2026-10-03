@@ -19,18 +19,18 @@ if (jsonMode) {
       lanes: layout.lanes,
       rows: layout.rows,
       width: layout.width,
+      height: layout.height,
+      stations: layout.stations,
       positions: Object.fromEntries([...layout.stationByInstance].map(([id, station]) => [id, station.x])),
       x_by_id: Object.fromEntries(layout.xById),
-      row_height: model.ROW_HEIGHT,
-      station_y: model.STATION_Y,
       symbols: Object.fromEntries(data.contribution_categories.map((category) => [category.id, model.stationSymbol(category.shape)])),
       contribution_order: model.contributionLegend(data).map((category) => category.id),
     })
   );
   process.exit(0);
 }
-const gaps = layout.lanes.flatMap((lane) => lane.stations.slice(1).map((station, i) => station.x - lane.stations[i].x));
+const gaps = layout.stations.slice(1).map((station, i) => station.x - layout.stations[i].x);
 console.log(
-  `${layout.rows.length} domains in ${layout.lanes.length} rows; ${data.works.length} works, ${layout.stationByInstance.size} appearances; ${layout.width}px track, ${Math.min(...gaps).toFixed(1)}px minimum spacing.`
+  `${layout.rows.length} domains, ${layout.stations.length} shared stations; ${layout.width} × ${layout.height}px canvas, ${Math.min(...gaps).toFixed(1)}px minimum chronological spacing.`
 );
-for (const lane of layout.lanes) console.log(`${lane.rows.map((row) => row.theme.label).join(" + ")}: ${lane.stations.length} stations.`);
+console.log(`${layout.routes.length} sequential connections, ${layout.routes.reduce((sum, route) => sum + route.points.length - 2, 0)} bends.`);

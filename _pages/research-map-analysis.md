@@ -20,11 +20,11 @@ Reviewed 2026-10-03. The map covers **76 publications**, grouped into **74 resea
 - No direct real-robot sim-to-real result was established in the reviewed corpus. Simulation/proxy-to-reality is an interpretive evaluation-gap theme.
 - Specific connections describe documented shared mechanisms or explicitly interpretive parallels, not automatically citations or historical influence.
 
-The overview uses a shared left-to-right chronological sweep across every category. Papers are ordered by the earlier of their first arXiv version listing Sungsoo Ahn and their conference acceptance announcement. Journal publication months are a fallback when neither date is available. Repeated stations have a small horizontal stagger. Only the fixed topmost copy reserves nickname and venue text space. Quiet periods contribute to spacing, with extra room reserved where neighboring labels or identity links would collide. Spacing is variable and not a proportional calendar scale. Blossom-BP (2015) therefore appears before GEGL (2020), regardless of category. The figure keeps a fixed height and row positions throughout navigation. Categories appear only in a consistent legend below the figure, with distinct colors, sorted by the first publication of each category. Lines fan above and below the earliest General ML line as application areas enter the chronology. Categories with non-overlapping date spans can share a physical row; they keep independent colors and routes.
+The overview uses one shared station per work in a left-to-right chronological sweep. Papers are ordered by the earlier of their first arXiv version listing Sungsoo Ahn and their conference acceptance announcement. Journal publication months are a fallback when neither date is available. Labels and station symbols reserve clear space, and quiet periods contribute to variable spacing. This is not a proportional calendar scale. Blossom-BP (2015) therefore appears before GEGL (2020), regardless of category. Domain lines can bend through available space. A constrained force pass separates crowded stations and lines while preserving horizontal positions, clear labels, and routing corridors. Vertical movement is limited to 28 pixels. Routing favors horizontal runs and 45-degree transitions, and penalizes bends, detours, crossings, and close parallel tracks. Separate entry and exit positions keep domain tracks apart at shared stations. Background casings make clear gaps at unavoidable crossings, without line jumps. Busy interchanges receive extra horizontal room. Optional map_layout display hints refine crowded station and label positions after the force pass; local horizontal reflow preserves label clearance and chronology. The 300-pixel-high figure keeps the same geometry throughout navigation. Categories appear in a consistent legend below it, with distinct colors sorted by their first publication.
 
 Graph and language modeling are represented as methodologies rather than overview domains. Their application papers are assigned to molecules, proteins, materials, or cells; generic neural graph learning, reasoning, control, and optimization are grouped under General ML: deep learning. General ML: graphical models covers the classical BP, partition-function, gauge, and elimination work. Rechecking graph experiments added molecular evaluation memberships for EPIC (Section 4.1 and Table 2) and Wavelet diffusion (QM9, Sections 4.1/4.4), and biological evaluation memberships for EPIC, Non-backtracking GNN (Peptides-func/struct), and Node diffusion (PPI). Every assignment retains its source locator.
 
-The map opens at the newest end. Left/right controls pan up to 360 CSS pixels at one fixed scale, retaining overlapping windows on narrow screens so no paper falls between steps; horizontal scrolling and Home/End are supported. Nicknames and the first venue/year appear only on the fixed topmost copy of each paper when its label fits the viewport; lower duplicate stations keep their colors and interactions. Full titles, author lists, contributions, and all editions appear on hover. Visible grey, solid straight identity links continuously join repeated visible appearances of the same paper behind stations, with spacing reserved around visible primary labels; hover highlights the corresponding paper and names the link. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
+The map opens at the newest end. Left/right controls pan up to 360 CSS pixels at one fixed scale, retaining overlapping windows on narrow screens so no paper falls between steps; horizontal scrolling and Home/End are supported. Each paper has one nickname and first venue/year label above or below its station, shown when the label fits the viewport. Full titles, author lists, all domains, contributions, and editions appear on hover. Papers with multiple domain memberships act as interchanges where their colored routes meet. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
 
 Clicking a paper opens only conceptual connections: documented shared mechanisms, interpretive parallels, and incident segments from concept groups of two or three papers. Major category membership alone does not create a spoke. Each connected paper appears once; short connection names appear on its spoke (under the paper on narrow screens). Hover reveals each short explanation and interpretation status. The complete analysis retains the evidence sources. Earlier papers appear to the left and later papers to the right, or above and below on narrow screens. Interpretive-only spokes are dashed. No arrowheads imply influence. Clicking a peer recenters the graph; Back restores the overview position. Full analysis and keywords stay in these editing pages.
 
@@ -1189,7 +1189,7 @@ Designs diverse molecules through explicit synthetic reaction pathways.
 
 **Contribution.** GFlowNet training operates over building blocks and reaction templates, with subsampling of a large action space.
 
-**Map contribution.** Generative modeling: A reaction-based generative process samples molecules within an available synthesis space.
+**Map contribution.** Search & optimization: Searches reaction pathways for diverse high-reward molecules within an available synthesis space.
 
 **Evaluation.** Pocket-specific optimization, pocket-conditioned generation, and changes to objectives and building-block libraries.
 
@@ -1338,7 +1338,7 @@ Directs amortized samplers toward states their current training policy misses.
 
 **Contribution.** A learned Teacher targets high-loss regions of the Student to improve mode coverage and sample efficiency.
 
-**Map contribution.** Generative modeling: A learned teacher improves the coverage of a generative sampler.
+**Map contribution.** Search & optimization: Targets poorly explored regions to improve sampler coverage and search efficiency.
 
 **Evaluation.** Synthetic exploration, continuous diffusion sampling, and biochemical design with teacher and local-search ablations.
 
@@ -1527,7 +1527,7 @@ Addresses under-exploitation of high-reward objects in GFlowNet training.
 
 **Contribution.** A learned pessimistic backward policy reduces unobserved backward flow and aligns observed flow with terminal rewards.
 
-**Map contribution.** Generative modeling: Addresses under-exploitation of high-reward objects in GFlowNet training.
+**Map contribution.** Search & optimization: Improves exploitation of high-reward objects through pessimistic backward-policy training.
 
 **Evaluation.** Hyper-grid, bags, structured sets, molecules, and RNA design tasks.
 
@@ -1865,7 +1865,7 @@ Provides local training signals when intermediate object energies are costly or 
 
 **Contribution.** Learned, smoothly changing potential functions decompose terminal energy while preserving the target optimal policy.
 
-**Map contribution.** Generative modeling: Local energy potentials improve generative training while preserving its target distribution.
+**Map contribution.** Search & optimization: Provides local energy signals for reward-guided search while preserving the target sampling distribution.
 
 **Evaluation.** Bags, molecular graphs, RNA, sets, and maximum independent sets.
 
@@ -1978,7 +1978,7 @@ Combines global sampling with refinement of promising local neighborhoods.
 
 **Contribution.** Backward-policy backtracking and forward reconstruction produce improved trajectories for replay training.
 
-**Map contribution.** Generative modeling: Trajectory backtracking and reconstruction improve reward-proportional generative sampling.
+**Map contribution.** Search & optimization: Refines promising objects through trajectory backtracking, reconstruction, and replay.
 
 **Evaluation.** Molecule optimization and biological-sequence design, measuring reward-distribution accuracy and discovered modes.
 
