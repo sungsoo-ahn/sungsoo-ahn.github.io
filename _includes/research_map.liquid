@@ -1,0 +1,35 @@
+<section
+  id="research-map"
+  class="research-map"
+  aria-labelledby="research-map-title"
+  data-source="{{ '/assets/json/research-map.json' | relative_url }}"
+>
+  <div class="rm-heading">
+    <h2 id="research-map-title">Research</h2>
+    <div class="rm-navigation" hidden>
+      <button type="button" class="rm-earlier" aria-label="Earlier papers" title="Earlier papers">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m14 5-7 7 7 7"/>
+        </svg>
+      </button>
+      <button type="button" class="rm-later" aria-label="Later papers" title="Later papers">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m10 5 7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    <button type="button" class="rm-back" hidden>← Back</button>
+  </div>
+  <div class="rm-static">{% include research_map_overview.liquid %}</div>
+  <div class="rm-interactive" hidden>
+    <div class="rm-overview">
+      <div class="rm-timeline-scroll" tabindex="0" role="region" aria-label="Research papers by domain and contribution; earlier and later papers">
+        <div class="rm-timeline"></div>
+      </div>
+    </div>
+    <div class="rm-focus" hidden><div class="rm-focus-graph"></div></div>
+  </div>
+  <div class="rm-legend" aria-label="Research categories">{% include research_map_legend.liquid %}</div>
+  <p class="rm-status sr-only" role="status" aria-live="polite"></p>
+  <p class="rm-load-status" role="status"></p>
+</section>

@@ -1,4 +1,8 @@
 <!-- jQuery -->
+{% if page.research_map %}
+  <script defer src="{{ '/assets/js/research-map-model.js' | relative_url | bust_file_cache }}"></script>
+  <script defer src="{{ '/assets/js/research-map.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
 <script
   src="{{ site.third_party_libraries.jquery.url.js }}"
   integrity="{{ site.third_party_libraries.jquery.integrity.js }}"

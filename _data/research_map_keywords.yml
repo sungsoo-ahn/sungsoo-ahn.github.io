@@ -1,0 +1,1349 @@
+# Editable, deliberately overcomplete keyword pool. Paper assignments live in research_map.yml.
+# A theme field links a keyword to an existing facet; keywords alone do not draw edges.
+schema_version: 1
+keywords:
+- id: views_2d3d
+  label: 2D–3D views
+  aliases: []
+- id: accidental_correct_answers
+  label: accidental correct answers
+  aliases: []
+- id: action_subsampling
+  label: action subsampling
+  aliases: []
+- id: adaptive_grid
+  label: adaptive grid
+  aliases: []
+- id: adaptive_resolution
+  label: Adaptive resolution
+  aliases: []
+  theme: c_adaptive_resolution
+- id: adaptive_stages
+  label: adaptive stages
+  aliases: []
+- id: adaptive_trajectories
+  label: Adaptive trajectories
+  aliases: []
+  theme: c_adaptive_trajectories
+- id: admet
+  label: ADMET
+  aliases:
+  - absorption distribution metabolism excretion toxicity
+- id: adsorbate
+  label: adsorbate
+  aliases: []
+- id: adsorption_hostguest_modeling
+  label: Adsorption & host–guest modeling
+  aliases: []
+  theme: c_adsorption
+- id: affinity_proxy
+  label: affinity proxy
+  aliases: []
+- id: agent_profiles
+  label: agent profiles
+  aliases: []
+- id: agent_safety
+  label: agent safety
+  aliases: []
+- id: agg_wl
+  label: AGG-WL
+  aliases: []
+- id: alanine_dipeptide
+  label: alanine dipeptide
+  aliases: []
+- id: algorithm_discovery
+  label: Algorithm discovery
+  aliases: []
+  theme: c_algorithm_discovery
+- id: all_atom_modeling
+  label: All-atom modeling
+  aliases: []
+  theme: c_all_atom
+- id: amortized_inference_generation
+  label: Amortized inference / generation
+  aliases: []
+  theme: c_amortization
+- id: antibody
+  label: antibody
+  aliases: []
+- id: any_to_any_generation
+  label: any-to-any generation
+  aliases: []
+- id: apprentice
+  label: apprentice
+  aliases: []
+- id: arc_mof
+  label: ARC-MOF
+  aliases: []
+- id: attributed_grammar
+  label: attributed grammar
+  aliases: []
+- id: auxiliary_teachers
+  label: Auxiliary teachers
+  aliases: []
+  theme: c_auxiliary_teacher
+- id: available_reactants
+  label: available reactants
+  aliases: []
+- id: average_velocity
+  label: average velocity
+  aliases: []
+- id: backtracking
+  label: backtracking
+  aliases: []
+- id: backward_policy
+  label: backward policy
+  aliases: []
+- id: bandwidth
+  label: bandwidth
+  aliases: []
+- id: batch_effects
+  label: batch effects
+  aliases: []
+- id: benchmarking
+  label: Benchmarking
+  aliases: []
+  theme: c_benchmarking
+- id: benchmarks_evaluation
+  label: Benchmarks & evaluation
+  aliases: []
+  theme: m_benchmark
+- id: bias_attributes
+  label: bias attributes
+  aliases: []
+- id: bias_conflicting_samples
+  label: bias-conflicting samples
+  aliases: []
+- id: biased_committee
+  label: biased committee
+  aliases: []
+- id: biased_learner
+  label: biased learner
+  aliases: []
+- id: bioactivity
+  label: bioactivity
+  aliases: []
+- id: bioemu
+  label: BioEmu
+  aliases: []
+- id: blind_test
+  label: blind test
+  aliases: []
+- id: blossom_contraction
+  label: blossom contraction
+  aliases: []
+- id: blossom_expansion
+  label: blossom expansion
+  aliases: []
+- id: boltz2
+  label: Boltz2
+  aliases: []
+- id: bootstrapping
+  label: bootstrapping
+  aliases: []
+- id: bp_correction
+  label: BP correction
+  aliases: []
+- id: breadth_first_exploration
+  label: breadth-first exploration
+  aliases: []
+- id: building_block_library
+  label: building-block library
+  aliases: []
+- id: candidate_inventory
+  label: candidate inventory
+  aliases: []
+- id: carbon_capture
+  label: carbon capture
+  aliases: []
+- id: cardinality
+  label: cardinality
+  aliases: []
+- id: catalyst
+  label: catalyst
+  aliases: []
+- id: causal_influence_diagram
+  label: causal influence diagram
+  aliases: []
+- id: causal_reasoning_interventions
+  label: Causal reasoning & interventions
+  aliases: []
+  theme: c_causal_reasoning
+- id: cdft
+  label: cDFT
+  aliases:
+  - classical density functional theory
+- id: cdr_h3
+  label: CDR-H3
+  aliases: []
+- id: cell_line_transfer
+  label: cell-line transfer
+  aliases: []
+- id: cells_perturbations
+  label: Cells & perturbations
+  aliases: []
+  theme: d_cells
+- id: chemist_agents
+  label: chemist agents
+  aliases: []
+- id: cnn_to_mlp
+  label: CNN-to-MLP
+  aliases: []
+- id: collective_variables
+  label: collective variables
+  aliases: []
+- id: combinatorial_optimization
+  label: Combinatorial optimization
+  aliases: []
+  theme: c_combinatorial
+- id: compact_tree_operation
+  label: compact tree operation
+  aliases: []
+- id: competing_objectives
+  label: Competing objectives
+  aliases: []
+  theme: c_tradeoffs
+- id: composition_objective
+  label: composition objective
+  aliases: []
+- id: composition_ordering
+  label: composition ordering
+  aliases: []
+- id: compression
+  label: Compression
+  aliases: []
+  theme: c_compression
+- id: compression_compact_coding
+  label: Compression & compact coding
+  aliases: []
+  theme: m_compression
+- id: concept_bottleneck
+  label: concept bottleneck
+  aliases: []
+- id: conditional_generation
+  label: Conditional generation
+  aliases: []
+  theme: c_conditioning
+- id: conformation
+  label: conformation
+  aliases: []
+- id: conformer
+  label: conformer
+  aliases: []
+- id: constrained_sampling
+  label: constrained sampling
+  aliases: []
+- id: constraint_aware_design
+  label: Constraint-aware design
+  aliases: []
+  theme: c_constraints
+- id: context_conditioned_prior
+  label: context-conditioned prior
+  aliases: []
+- id: context_selection
+  label: Context selection
+  aliases: []
+  theme: c_context_selection
+- id: context_sensitive_cost
+  label: context-sensitive cost
+  aliases: []
+- id: continuous_sampling
+  label: continuous sampling
+  aliases: []
+- id: contrastive_learning
+  label: Contrastive learning
+  aliases: []
+  theme: c_contrastive
+- id: control_multi_agent_learning
+  label: Control & multi-agent learning
+  aliases: []
+  theme: d_deep
+- id: control_variates
+  label: control variates
+  aliases: []
+- id: corruption_schedule
+  label: corruption schedule
+  aliases: []
+- id: cosmic_microwave_background
+  label: cosmic microwave background
+  aliases: []
+- id: credit_assignment
+  label: Credit assignment
+  aliases:
+  - reward decomposition
+  theme: c_credit_assignment
+- id: crispr
+  label: CRISPR
+  aliases: []
+- id: cross_modal_learning
+  label: Cross-modal learning
+  aliases: []
+  theme: c_cross_modal
+- id: crossover
+  label: crossover
+  aliases: []
+- id: crystal_structure_prediction
+  label: crystal structure prediction
+  aliases: []
+- id: cub
+  label: CUB
+  aliases: []
+- id: curriculum_training_difficulty
+  label: Curriculum & training difficulty
+  aliases: []
+  theme: c_curriculum
+- id: cutting_plane
+  label: cutting plane
+  aliases: []
+- id: data_augmentation
+  label: Data augmentation
+  aliases: []
+  theme: m_augmentation
+- id: decision_utilities
+  label: decision utilities
+  aliases: []
+- id: deferred_decisions
+  label: deferred decisions
+  aliases: []
+- id: density_field_representations
+  label: Density / field representations
+  aliases: []
+  theme: c_density_fields
+- id: derandomization
+  label: Derandomization
+  aliases: []
+  theme: c_derandomization
+- id: description_guided_generation
+  label: description-guided generation
+  aliases: []
+- id: design_bench
+  label: Design-bench
+  aliases: []
+- id: differential_expression
+  label: differential expression
+  aliases: []
+- id: diffusion_learner
+  label: diffusion Learner
+  aliases: []
+- id: diffusion_models
+  label: Diffusion models
+  aliases: []
+  theme: m_diffusion
+- id: diffusion_transformer
+  label: Diffusion Transformer
+  aliases: []
+- id: discretecontinuous_states
+  label: Discrete–continuous states
+  aliases: []
+  theme: c_mixed_state
+- id: distributed_algorithm
+  label: distributed algorithm
+  aliases: []
+- id: distributional_value
+  label: distributional value
+  aliases: []
+- id: diversity_mode_coverage
+  label: Diversity & mode coverage
+  aliases: []
+  theme: c_diversity
+- id: docking
+  label: docking
+  aliases: []
+- id: double_well
+  label: double well
+  aliases: []
+- id: edge_list
+  label: edge list
+  aliases: []
+- id: electron_density
+  label: electron density
+  aliases: []
+- id: electronic_hamiltonian
+  label: electronic Hamiltonian
+  aliases: []
+- id: energy_and_forces
+  label: energy and forces
+  aliases: []
+- id: energy_based_sampling
+  label: Energy-based sampling
+  aliases: []
+  theme: m_energy
+- id: energy_reward_guidance
+  label: Energy / reward guidance
+  aliases: []
+  theme: c_energy_guidance
+- id: enhanced_sampling
+  label: enhanced sampling
+  aliases: []
+- id: environment_uncertainty
+  label: environment uncertainty
+  aliases: []
+- id: equivariant_bias
+  label: equivariant bias
+  aliases: []
+- id: equivariant_models
+  label: Equivariant models
+  aliases: []
+  theme: m_equivariant
+- id: exchange_correlation
+  label: exchange-correlation
+  aliases: []
+- id: expert_rationale
+  label: expert rationale
+  aliases: []
+- id: explorationexploitation
+  label: Exploration–exploitation
+  aliases:
+  - exploration-exploitation
+  - exploration exploitation
+  theme: c_exploration
+- id: expressivity
+  label: expressivity
+  aliases: []
+- id: facility_location
+  label: facility location
+  aliases: []
+- id: factorization_decomposition
+  label: Factorization & decomposition
+  aliases: []
+  theme: c_factorization
+- id: failure_weighting
+  label: failure weighting
+  aliases: []
+- id: fairness
+  label: fairness
+  aliases: []
+- id: few_step_generation
+  label: Few-step generation
+  aliases: []
+  theme: c_few_step
+- id: feynmankac_steering
+  label: Feynman–Kac steering
+  aliases: []
+- id: flexible_building_block
+  label: flexible building block
+  aliases: []
+- id: flow_map
+  label: flow map
+  aliases: []
+- id: flow_matching
+  label: Flow matching
+  aliases:
+  - continuous flow
+  theme: m_flow
+- id: forney_graph
+  label: Forney graph
+  aliases: []
+- id: forward_reaction_augmentation
+  label: forward reaction augmentation
+  aliases: []
+- id: forward_reconstruction
+  label: forward reconstruction
+  aliases: []
+- id: fragment_contrast
+  label: fragment contrast
+  aliases: []
+- id: free_energy
+  label: free energy
+  aliases: []
+- id: frequency_decomposition
+  label: frequency decomposition
+  aliases: []
+- id: full_atom_token
+  label: full-atom token
+  aliases: []
+- id: gap_encoding
+  label: gap encoding
+  aliases: []
+- id: gas_uptake
+  label: gas uptake
+  aliases: []
+- id: gauge_optimization
+  label: gauge optimization
+  aliases: []
+- id: gauge_transformation
+  label: gauge transformation
+  aliases: []
+- id: gaussian_mixture
+  label: Gaussian mixture
+  aliases: []
+- id: gaussian_orbital
+  label: Gaussian orbital
+  aliases: []
+- id: gcmc
+  label: GCMC
+  aliases:
+  - grand canonical Monte Carlo
+- id: geel
+  label: GEEL
+  aliases: []
+- id: gegl
+  label: GEGL
+  aliases: []
+- id: gene_regulation
+  label: gene regulation
+  aliases: []
+- id: general_learning_inference
+  label: General learning & inference
+  aliases: []
+- id: generator_matching
+  label: generator matching
+  aliases: []
+- id: genetic_algorithms
+  label: Genetic algorithms
+  aliases:
+  - genetic algorithm
+  - evolutionary search
+  theme: c_genetic_algorithm
+- id: genomic_segmentation
+  label: genomic segmentation
+  aliases: []
+- id: gflownets
+  label: GFlowNets
+  aliases:
+  - GFN
+  - generative flow network
+  theme: m_gfn
+- id: global_graph
+  label: global graph
+  aliases: []
+- id: glue
+  label: GLUE
+  aliases: []
+- id: goal_conditioned_policy
+  label: goal-conditioned policy
+  aliases: []
+- id: goal_conditioned_rl
+  label: goal-conditioned RL
+  aliases: []
+- id: graph_edit_path
+  label: graph edit path
+  aliases: []
+- id: graph_neural_networks
+  label: Graph neural networks
+  aliases:
+  - GNN
+  theme: m_graph
+- id: graph_planner
+  label: graph planner
+  aliases: []
+- id: graph_rewiring
+  label: graph rewiring
+  aliases: []
+- id: graph_structure_transformations
+  label: Graph structure & transformations
+  aliases: []
+  theme: c_graph_structure
+- id: graph_wavelet
+  label: graph wavelet
+  aliases: []
+- id: graphs_discrete_problems
+  label: Graphs & discrete problems
+  aliases: []
+- id: group_loss
+  label: group loss
+  aliases: []
+- id: haco
+  label: HACO
+  aliases: []
+- id: half_integrality
+  label: half-integrality
+  aliases: []
+- id: hard_core_model
+  label: hard-core model
+  aliases: []
+- id: hard_negatives
+  label: hard negatives
+  aliases: []
+- id: hardware_design
+  label: hardware design
+  aliases: []
+- id: heterogeneous_architecture
+  label: heterogeneous architecture
+  aliases: []
+- id: hierarchical_tokens
+  label: hierarchical tokens
+  aliases: []
+- id: high_loss_regions
+  label: high-loss regions
+  aliases: []
+- id: hner
+  label: HNeR
+  aliases: []
+- id: homodimer
+  label: homodimer
+  aliases: []
+- id: importance_sampling
+  label: Importance sampling
+  aliases: []
+  theme: c_importance_sampling
+- id: in_silico_validation
+  label: in silico validation
+  aliases: []
+- id: information_routing
+  label: Information routing
+  aliases: []
+  theme: c_information_routing
+- id: interatomic_potential
+  label: interatomic potential
+  aliases: []
+- id: intermediate_reasoning
+  label: intermediate reasoning
+  aliases: []
+- id: interpolation
+  label: interpolation
+  aliases: []
+- id: intervention_budget
+  label: intervention budget
+  aliases: []
+- id: invariance_spurious_factors
+  label: Invariance & spurious factors
+  aliases: []
+  theme: c_invariance
+- id: ising
+  label: Ising
+  aliases: []
+- id: jump_process
+  label: jump process
+  aliases: []
+- id: k2_tree
+  label: K²-tree
+  aliases: []
+- id: knowledge_distillation
+  label: Knowledge distillation
+  aliases: []
+  theme: c_distillation
+- id: knowledge_exchange
+  label: knowledge exchange
+  aliases: []
+- id: knowledge_graph
+  label: knowledge graph
+  aliases: []
+- id: label_corruption
+  label: label corruption
+  aliases: []
+- id: language_scientific_reasoning
+  label: Language & scientific reasoning
+  aliases: []
+- id: language_sequence_models
+  label: Language / sequence models
+  aliases: []
+  theme: m_language
+- id: latent_bottleneck
+  label: latent bottleneck
+  aliases: []
+- id: lattice
+  label: lattice
+  aliases: []
+- id: layerwise_sparsity
+  label: layerwise sparsity
+  aliases: []
+- id: lead_optimization
+  label: lead optimization
+  aliases: []
+- id: learned_augmentation
+  label: learned augmentation
+  aliases: []
+- id: learned_classical_hybrids
+  label: Learned / classical hybrids
+  aliases: []
+  theme: c_hybrid_solver
+- id: learning_difficulty
+  label: learning difficulty
+  aliases: []
+- id: lennard_jones
+  label: Lennard-Jones
+  aliases: []
+- id: lincsqa
+  label: LincsQA
+  aliases: []
+- id: linear_program
+  label: linear program
+  aliases: []
+- id: local_feedback
+  label: Local feedback
+  aliases: []
+  theme: c_local_feedback
+- id: local_search
+  label: Local search
+  aliases: []
+  theme: c_local_search
+- id: local_smoothness
+  label: local smoothness
+  aliases: []
+- id: locally_decomposable_objective
+  label: locally decomposable objective
+  aliases: []
+- id: log_variance_loss
+  label: log-variance loss
+  aliases: []
+- id: long_range_propagation
+  label: Long-range propagation
+  aliases: []
+  theme: c_long_range
+- id: loop_calculus
+  label: loop calculus
+  aliases: []
+- id: low_budget_optimization
+  label: low-budget optimization
+  aliases: []
+- id: low_confidence
+  label: low confidence
+  aliases: []
+- id: low_degree_atoms
+  label: low-degree atoms
+  aliases: []
+- id: low_rank_projection
+  label: low-rank projection
+  aliases: []
+- id: lower_bound
+  label: lower bound
+  aliases: []
+- id: lp_relaxation
+  label: LP relaxation
+  aliases: []
+- id: magnitude_pruning
+  label: magnitude pruning
+  aliases: []
+- id: manifold_geometry
+  label: Manifold geometry
+  aliases: []
+  theme: c_manifolds
+- id: masked_diffusion
+  label: masked diffusion
+  aliases: []
+- id: masked_generative_modeling
+  label: masked generative modeling
+  aliases: []
+- id: masked_language_model
+  label: masked language model
+  aliases: []
+- id: maskgxt
+  label: MaskGXT
+  aliases: []
+- id: matched_sample_budgets
+  label: matched sample budgets
+  aliases: []
+- id: materials_electronic_structure
+  label: Materials & electronic structure
+  aliases: []
+- id: maximum_coverage
+  label: maximum coverage
+  aliases: []
+- id: maximum_independent_set
+  label: maximum independent set
+  aliases: []
+- id: maximum_weight_matching
+  label: maximum-weight matching
+  aliases: []
+- id: mcmc
+  label: MCMC
+  aliases:
+  - Markov chain Monte Carlo
+  theme: c_mcmc
+- id: mcmc_searcher
+  label: MCMC Searcher
+  aliases: []
+- id: mean_field
+  label: mean field
+  aliases: []
+- id: mechanism_of_action
+  label: mechanism of action
+  aliases: []
+- id: message_passing
+  label: Message passing
+  aliases: []
+  theme: c_message_passing
+- id: metal_library
+  label: metal library
+  aliases: []
+- id: method_transfer
+  label: Method transfer
+  aliases: []
+  theme: c_transfer
+- id: mini_bucket
+  label: mini-bucket
+  aliases: []
+- id: minimax_pareto
+  label: minimax Pareto
+  aliases: []
+- id: mode_coverage
+  label: mode coverage
+  aliases: []
+- id: model_aggregation
+  label: model aggregation
+  aliases: []
+- id: model_distortion
+  label: model distortion
+  aliases: []
+- id: modular_frameworks
+  label: Modular frameworks
+  aliases: []
+  theme: c_modularity
+- id: mof
+  label: MOF
+  aliases:
+  - MOFs
+  - metal-organic framework
+- id: mol_instructions
+  label: Mol-Instructions
+  aliases: []
+- id: molecular_crystal
+  label: molecular crystal
+  aliases: []
+- id: molecular_fragmentation
+  label: molecular fragmentation
+  aliases: []
+- id: molecular_graph_reconstruction
+  label: molecular graph reconstruction
+  aliases: []
+- id: molecular_validity
+  label: molecular validity
+  aliases: []
+- id: molecules_drug_discovery
+  label: Molecules & drug discovery
+  aliases: []
+  theme: d_molecules
+- id: multi_agent_deliberation
+  label: Multi-agent deliberation
+  aliases: []
+  theme: c_deliberation
+- id: multi_fidelity_learning
+  label: Multi-fidelity learning
+  aliases: []
+  theme: c_multifidelity
+- id: multiceleba
+  label: MultiCelebA
+  aliases: []
+- id: mutation
+  label: mutation
+  aliases: []
+- id: mutation_resilience
+  label: mutation resilience
+  aliases: []
+- id: mutual_information
+  label: mutual information
+  aliases: []
+- id: natural_language_design
+  label: natural-language design
+  aliases: []
+- id: neural_fields_operators
+  label: Neural fields & operators
+  aliases: []
+  theme: m_fields
+- id: node_sensitivity
+  label: node sensitivity
+  aliases: []
+- id: nodeedge_coupling
+  label: node–edge coupling
+  aliases: []
+- id: non_backtracking
+  label: non-backtracking
+  aliases: []
+- id: non_bonded_interactions
+  label: non-bonded interactions
+  aliases: []
+- id: novelty_reward
+  label: novelty reward
+  aliases: []
+- id: oc20
+  label: OC20
+  aliases: []
+- id: odd_cycle_constraint
+  label: odd-cycle constraint
+  aliases: []
+- id: off_policy_flow_matching
+  label: off-policy flow matching
+  aliases: []
+- id: offline_design
+  label: offline design
+  aliases: []
+- id: offline_model_based_optimization
+  label: offline model-based optimization
+  aliases: []
+- id: oracle_budget
+  label: oracle budget
+  aliases: []
+- id: orbital_alignment
+  label: orbital alignment
+  aliases: []
+- id: orientation
+  label: orientation
+  aliases: []
+- id: oversquashing
+  label: oversquashing
+  aliases: []
+- id: partially_observed_labels
+  label: partially observed labels
+  aliases: []
+- id: partition_function
+  label: partition function
+  aliases: []
+- id: penalized_logp
+  label: penalized logP
+  aliases: []
+- id: perfect_matching
+  label: perfect matching
+  aliases: []
+- id: perturbation_response
+  label: perturbation response
+  aliases: []
+- id: perturbqa
+  label: PerturbQA
+  aliases: []
+- id: physical_observables
+  label: Physical observables
+  aliases: []
+  theme: c_physical_observables
+- id: physics_informed_priors
+  label: Physics-informed priors
+  aliases: []
+  theme: c_physics_priors
+- id: plane_wave
+  label: plane wave
+  aliases: []
+- id: planner_free_execution
+  label: planner-free execution
+  aliases: []
+- id: pmo_1k
+  label: PMO-1K
+  aliases: []
+- id: pocket_conditioning
+  label: pocket conditioning
+  aliases: []
+- id: policy_optimization
+  label: policy optimization
+  aliases: []
+- id: polymer
+  label: polymer
+  aliases: []
+- id: polymorph
+  label: polymorph
+  aliases: []
+- id: polymorph_coverage
+  label: polymorph coverage
+  aliases: []
+- id: potential_function
+  label: potential function
+  aliases: []
+- id: primacy_bias
+  label: primacy bias
+  aliases: []
+- id: primitive_cell
+  label: primitive cell
+  aliases: []
+- id: priority_queue
+  label: priority queue
+  aliases: []
+- id: probabilistic_inference
+  label: Probabilistic inference
+  aliases: []
+  theme: m_inference
+- id: probabilistic_objective
+  label: probabilistic objective
+  aliases: []
+- id: progressive_prediction
+  label: progressive prediction
+  aliases: []
+- id: promoter_dna
+  label: promoter DNA
+  aliases: []
+- id: property_prediction
+  label: property prediction
+  aliases: []
+- id: protein_backbone
+  label: protein backbone
+  aliases: []
+- id: protein_engineering
+  label: protein engineering
+  aliases: []
+- id: protein_recognition
+  label: protein recognition
+  aliases: []
+- id: proteinligand_co_folding
+  label: protein–ligand co-folding
+  aliases: []
+- id: proteins_genomics
+  label: Proteins & genomics
+  aliases: []
+  theme: d_bio
+- id: proxy_labeled_data
+  label: proxy-labeled data
+  aliases: []
+- id: proxy_overestimation
+  label: proxy overestimation
+  aliases: []
+- id: pseudo_label
+  label: pseudo-label
+  aliases: []
+- id: qh9
+  label: QH9
+  aliases: []
+- id: rank_weighting
+  label: rank weighting
+  aliases: []
+- id: ranking
+  label: ranking
+  aliases: []
+- id: rare_events_transition_paths
+  label: Rare events & transition paths
+  aliases: []
+  theme: c_rare_events
+- id: rdkit
+  label: RDKit
+  aliases: []
+- id: reactant_selection
+  label: reactant selection
+  aliases: []
+- id: reaction_template
+  label: reaction template
+  aliases: []
+- id: reasoning_chain
+  label: reasoning chain
+  aliases: []
+- id: reasoning_confidence
+  label: reasoning confidence
+  aliases: []
+- id: reinforcement_learning
+  label: Reinforcement learning
+  aliases:
+  - RL
+  theme: m_rl
+- id: relaxation
+  label: relaxation
+  aliases: []
+- id: replay_off_policy_reuse
+  label: Replay & off-policy reuse
+  aliases: []
+  theme: c_replay
+- id: representation_alignment
+  label: Representation alignment
+  aliases: []
+  theme: c_representation_alignment
+- id: representation_learning
+  label: Representation learning
+  aliases: []
+  theme: m_representation
+- id: repsp
+  label: RepSP
+  aliases: []
+- id: residual_edge
+  label: residual edge
+  aliases: []
+- id: residue_interaction
+  label: residue interaction
+  aliases: []
+- id: retrosynthesis
+  label: retrosynthesis
+  aliases: []
+- id: reward_based_optimization
+  label: reward-based optimization
+  aliases: []
+- id: reward_proportional_sampling
+  label: reward-proportional sampling
+  aliases: []
+- id: rigid_building_block
+  label: rigid building block
+  aliases: []
+- id: risk_sensitivity
+  label: risk sensitivity
+  aliases: []
+- id: rna_design
+  label: RNA design
+  aliases: []
+- id: robust_learning
+  label: Robust learning
+  aliases: []
+  theme: m_robust
+- id: rotation
+  label: rotation
+  aliases: []
+- id: rounding
+  label: rounding
+  aliases: []
+- id: routing
+  label: routing
+  aliases: []
+- id: sample_efficiency
+  label: Sample efficiency
+  aliases: []
+  theme: c_sample_efficiency
+- id: sample_reweighting
+  label: sample reweighting
+  aliases: []
+- id: scaling_studies
+  label: Scaling studies
+  aliases: []
+  theme: c_scaling
+- id: scf_initialization
+  label: SCF initialization
+  aliases:
+  - SCF
+  - self-consistent field
+- id: scientific_debate
+  label: scientific debate
+  aliases: []
+- id: score_based_generation
+  label: score-based generation
+  aliases: []
+- id: search_optimization
+  label: Search & optimization
+  aliases: []
+  theme: m_search
+- id: searchlearning_feedback
+  label: Search–learning feedback
+  aliases: []
+  theme: c_search_learning
+- id: self_correction
+  label: self-correction
+  aliases: []
+- id: self_normalized_importance_sampling
+  label: self-normalized importance sampling
+  aliases: []
+- id: self_supervised_pretraining
+  label: self-supervised pretraining
+  aliases: []
+- id: self_training
+  label: Self-training
+  aliases: []
+  theme: c_self_training
+- id: semantic_similarity
+  label: semantic similarity
+  aliases: []
+- id: separate_flow_times
+  label: separate flow times
+  aliases: []
+- id: set_autoregressive
+  label: set-autoregressive
+  aliases: []
+- id: side_effects
+  label: side effects
+  aliases: []
+- id: signalnoise_separation
+  label: Signal–noise separation
+  aliases: []
+  theme: c_signal_noise
+- id: simulation_proxy_to_reality_gap
+  label: Simulation / proxy-to-reality gap
+  aliases:
+  - sim2real
+  - simulation-to-real
+  - proxy-to-reality
+  theme: c_proxy_gap
+  note: Search alias for inspecting the validation gap; not a verified robotics sim-to-real claim.
+- id: single_cell_rna
+  label: single-cell RNA
+  aliases: []
+- id: skincon
+  label: SkinCon
+  aliases: []
+- id: slabadsorbate
+  label: slab–adsorbate
+  aliases: []
+- id: smiles
+  label: SMILES
+  aliases: []
+- id: smiles_parsing
+  label: SMILES parsing
+  aliases: []
+- id: so_2
+  label: SO(2)
+  aliases: []
+- id: solver_initialization
+  label: solver initialization
+  aliases: []
+- id: solver_library
+  label: solver library
+  aliases: []
+- id: spanning_tree
+  label: spanning tree
+  aliases: []
+- id: sparse_adjacency
+  label: sparse adjacency
+  aliases: []
+- id: spectral_signal
+  label: spectral signal
+  aliases: []
+- id: spherical_feature_grid
+  label: spherical feature grid
+  aliases: []
+- id: spurious_correlation
+  label: spurious correlation
+  aliases: []
+- id: step_correctness
+  label: step correctness
+  aliases: []
+- id: stochastic_block_model
+  label: stochastic block model
+  aliases: []
+- id: structural_diversity
+  label: structural diversity
+  aliases: []
+- id: structural_probing
+  label: structural probing
+  aliases: []
+- id: structural_sketch
+  label: structural sketch
+  aliases: []
+- id: structured_prediction
+  label: structured prediction
+  aliases: []
+- id: structured_tokenization
+  label: Structured tokenization
+  aliases: []
+  theme: c_tokenization
+- id: studentteacher
+  label: Student–Teacher
+  aliases: []
+- id: subgoal_skipping
+  label: subgoal skipping
+  aliases: []
+- id: subgraph_parsing
+  label: subgraph parsing
+  aliases: []
+- id: successful_route_imitation
+  label: successful route imitation
+  aliases: []
+- id: super_resolution
+  label: super-resolution
+  aliases: []
+- id: symmetric_trajectories
+  label: symmetric trajectories
+  aliases: []
+- id: symmetry
+  label: Symmetry
+  aliases: []
+  theme: c_symmetry
+- id: symmetry_token
+  label: symmetry token
+  aliases: []
+- id: synthesis_reactant_availability
+  label: Synthesis & reactant availability
+  aliases:
+  - synthesizability
+  theme: c_synthesizability
+- id: teammate_uncertainty
+  label: teammate uncertainty
+  aliases: []
+- id: tensor_network
+  label: tensor network
+  aliases: []
+- id: terminal_energy_decomposition
+  label: terminal energy decomposition
+  aliases: []
+- id: terminal_look_ahead
+  label: terminal look-ahead
+  aliases: []
+- id: terminal_rewards
+  label: terminal rewards
+  aliases: []
+- id: time_lagged_conditioning
+  label: time-lagged conditioning
+  aliases: []
+- id: time_scales_dynamics
+  label: Time scales & dynamics
+  aliases: []
+  theme: c_time_scales
+- id: token_repetition
+  label: token repetition
+  aliases: []
+- id: tool_grounded_reasoning
+  label: Tool-grounded reasoning
+  aliases: []
+  theme: c_tool_grounding
+- id: torsion
+  label: torsion
+  aliases: []
+- id: trajectory_collision
+  label: trajectory collision
+  aliases: []
+- id: trajectory_refinement
+  label: trajectory refinement
+  aliases: []
+- id: transition_path_sampling
+  label: transition path sampling
+  aliases: []
+- id: translation
+  label: translation
+  aliases: []
+- id: traveling_salesman_problem
+  label: traveling salesman problem
+  aliases: []
+- id: tree_aware_transformer
+  label: tree-aware Transformer
+  aliases: []
+- id: tree_relative_position
+  label: tree-relative position
+  aliases: []
+- id: two_stage_pair_update
+  label: two-stage pair update
+  aliases: []
+- id: unattained_subgoal
+  label: unattained subgoal
+  aliases: []
+- id: uncertainty_risk
+  label: Uncertainty & risk
+  aliases: []
+  theme: c_uncertainty
+- id: unnormalized_distributions
+  label: Unnormalized distributions
+  aliases: []
+  theme: c_unnormalized
+- id: unobserved_backward_flow
+  label: unobserved backward flow
+  aliases: []
+- id: unseen_reaction_template
+  label: unseen reaction template
+  aliases: []
+- id: upper_bound
+  label: upper bound
+  aliases: []
+- id: urbancars
+  label: UrbanCars
+  aliases: []
+- id: uspto
+  label: USPTO
+  aliases: []
+- id: valence
+  label: valence
+  aliases: []
+- id: variable_elimination
+  label: variable elimination
+  aliases: []
+- id: variable_length_tokens
+  label: variable-length tokens
+  aliases: []
+- id: variance_reduction
+  label: Variance reduction
+  aliases: []
+  theme: c_variance_reduction
+- id: variational_autoencoder
+  label: variational autoencoder
+  aliases:
+  - VAE
+- id: variational_bound
+  label: variational bound
+  aliases: []
+- id: veracity_search
+  label: Veracity Search
+  aliases: []
+- id: verification_diagnostics
+  label: Verification & diagnostics
+  aliases: []
+  theme: c_verification
+- id: voting
+  label: voting
+  aliases: []
+- id: weather
+  label: weather
+  aliases: []
+- id: weather_cosmology
+  label: Weather & cosmology
+  aliases: []
+  theme: d_geoscience
+- id: weight_rewinding
+  label: weight rewinding
+  aliases: []
+- id: weighted_mini_bucket
+  label: weighted mini-bucket
+  aliases: []

@@ -8,7 +8,8 @@ profile:
   image: prof_pic.jpg
   image_circular: false
 
-selected_papers: true
+selected_papers: false
+research_map: true
 show_members: true
 social: false
 

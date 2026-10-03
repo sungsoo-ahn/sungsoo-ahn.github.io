@@ -1,0 +1,191 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import yaml from "js-yaml";
+import model from "../assets/js/research-map-model.js";
+const source = yaml.load(fs.readFileSync(new URL("../_data/research_map.yml", import.meta.url), "utf8"));
+const pubs = yaml.load(fs.readFileSync(new URL("../_data/publications.yml", import.meta.url), "utf8"));
+const data = model.prepare({
+  ...source,
+  works: source.works.map((annotations) => ({ annotations, publications: annotations.publication_ids.map((id) => pubs.find((p) => p.id === id)) })),
+});
+const layout = model.timelineLayout(data);
+const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.map((station) => [station.id, station.x])]);
+
+test("full corpus has 74 works, 96 appearances and eight domains packed into six stable lanes", () => {
+  assert.equal(data.works.length, 74);
+  assert.equal(layout.rows.length, 8);
+  assert.equal(layout.lanes.length, 6);
+  assert.equal(layout.stationByInstance.size, 96);
+  assert.equal(new Set([...layout.stationByInstance.values()].map((station) => station.work.id)).size, 74);
+  assert.equal(layout.rows.find((row) => row.theme.id === "d_deep").stations.length, 29);
+  assert.ok(
+    layout.lanes.some(
+      (lane) =>
+        lane.rows
+          .map((row) => row.theme.id)
+          .sort()
+          .join() === "d_geoscience,d_materials"
+    )
+  );
+  for (const removed of ["d_control", "d_graphs", "d_language", "d_general"]) assert.ok(!data.themeById.has(removed));
+  assert.equal(layout.rows.find((row) => row.theme.id === "d_graphical").stations.length, 6);
+  assert.ok(layout.xById.get("ahn2015minimum") < layout.xById.get("ahn2020guiding"));
+});
+
+test("layout ignores input order and legacy coordinates, preserves global chronology and variable readable gaps", () => {
+  const moved = { ...data, works: [...data.works].reverse().map((work) => ({ ...work, x: 1, y: 1, overview: false })) };
+  assert.deepEqual(geometry(model.timelineLayout(moved)), geometry(layout));
+  for (const lane of layout.lanes) {
+    lane.stations.slice(1).forEach((station, i) => assert.ok(station.x - lane.stations[i].x >= 43.999));
+    const labeled = lane.stations.filter((station) => station.primaryLabel);
+    labeled.slice(1).forEach((station, i) => assert.ok(station.x - station.labelHalf >= labeled[i].x + labeled[i].labelHalf + 11.999));
+    lane.rows.forEach((row) => {
+      assert.equal(row.connections.length, row.stations.length - 1);
+      row.connections.forEach((edge, i) => assert.deepEqual([edge.from, edge.to], [row.stations[i].id, row.stations[i + 1].id]));
+    });
+  }
+});
+
+test("identity links clear every paper label and unrelated station across the complete collection", () => {
+  const stations = [...layout.stationByInstance.values()];
+  for (const { from: a, to: b, work } of model.identityConnections(stations)) {
+    for (const station of stations) {
+      const top = Math.max(station.y - 54, a.y),
+        bottom = Math.min(station.y - 13, b.y);
+      const at = (y) => a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y);
+      if (station.primaryLabel && top <= bottom) {
+        const xs = [at(top), at(bottom)],
+          center = station.x + station.labelDx;
+        assert.ok(
+          Math.max(...xs) < center - station.labelHalf || Math.min(...xs) > center + station.labelHalf,
+          `${work} crosses ${station.id}'s label`
+        );
+      }
+      if (station.work.id !== work && station.y >= a.y && station.y <= b.y)
+        assert.ok(Math.abs(at(station.y) - station.x) >= 22, `${work} crosses ${station.id}'s symbol`);
+    }
+  }
+});
+
+test("sorting uses earliest eligible arXiv or acceptance dates and excludes earlier uncoauthored versions", () => {
+  for (const work of data.works) {
+    const dates = work.chronology.events.map((event) => (event.date.length === 7 ? `${event.date}-01` : event.date));
+    assert.equal(model.chronologyKey(work)[0], dates.sort()[0], work.id);
+  }
+  for (const [id, date, version] of [
+    ["ahn2018maximum", "2018-01-01", "1306.1167v2"],
+    ["berto2025rlco", "2024-06-21", "2306.17100v4"],
+    ["kim2024decoupled", "2024-05-27", "2402.05982v2"],
+  ]) {
+    const chronology = data.workById.get(id).chronology;
+    assert.equal(chronology.date, date);
+    assert.equal(chronology.version, version);
+    assert.ok(chronology.excluded_arxiv_versions.length);
+  }
+  assert.equal(data.workById.get("ahn2019variational").chronology.date, "2019-03-02");
+  assert.equal(data.workById.get("kim2024improving").chronology.date, "2024-05-01");
+  assert.equal(data.workById.get("oh2026sctrilemma").chronology.date, "2026-09-24");
+});
+
+test("panning exposes every work including older publications, keeps figure height and creates no shortcuts", () => {
+  for (const width of [220, 640]) {
+    const seen = new Set(),
+      originalRoutes = layout.rows.flatMap((row) => row.connections.map((edge) => edge.id));
+    const max = model.timelineViewport(layout, 0, width).maxOffset;
+    for (let offset = 0; offset <= max + 1; offset++) {
+      const view = model.timelineViewport(layout, offset, width);
+      for (const lane of view.lanes) {
+        assert.equal(view.lanes.length, layout.lanes.length);
+        assert.deepEqual([...lane.visibleThemes].sort(), [...new Set(lane.visibleStations.map((station) => station.theme.id))].sort());
+        lane.visibleStations.forEach((station) => seen.add(station.work.id));
+      }
+    }
+    assert.equal(seen.size, 74);
+    assert.deepEqual(
+      layout.rows.flatMap((row) => row.connections.map((edge) => edge.id)),
+      originalRoutes
+    );
+  }
+  assert.ok(
+    model
+      .timelineViewport(layout, 1000, 640)
+      .lanes.flatMap((lane) => lane.visibleStations)
+      .some((station) => station.work.year < 2024)
+  );
+});
+
+test("new application classifications have checked experimental locators and distinct legend hues", () => {
+  for (const [id, domain, locator] of [
+    ["heo2024epic", "d_molecules", "BBBP"],
+    ["cho2023multiresolution", "d_molecules", "QM9"],
+    ["park2024nonbacktracking", "d_bio", "Peptides"],
+    ["jang2023diffusion", "d_bio", "PPI"],
+  ]) {
+    const member = data.workById.get(id).memberships.find((member) => member.theme === domain);
+    assert.ok(member && member.role === "evaluation" && member.locator.includes(locator), id);
+  }
+  for (const id of ["berto2025rlco", "bu2024tackling", "ahn2020learning", "jang2025selftraining", "kim2022what"]) {
+    assert.ok(
+      data.workById.get(id).memberships.some((member) => member.theme === "d_deep"),
+      id
+    );
+  }
+  assert.equal(new Set(layout.rows.map((row) => row.theme.display_color)).size, 8);
+  const oldest = layout.lanes.find((lane) => lane.stations.some((station) => station.work.id === "ahn2015minimum"));
+  assert.equal(oldest.slot, Math.floor(layout.lanes.length / 2), "oldest line starts in the center");
+  const sequence = [...data.works].sort(model.compareChronology);
+  for (let i = 1; i < sequence.length; i++) assert.ok(layout.xById.get(sequence[i].id) > layout.xById.get(sequence[i - 1].id));
+});
+
+test("every focused corpus graph coalesces incident peers and retains all named supported and interpretive reasons", () => {
+  for (const work of data.works) {
+    const graph = model.focusGraph(work.id, data);
+    assert.ok(graph.connections.length >= 1 && graph.connections.length <= 6, work.id);
+    assert.equal(new Set(graph.connections.map((edge) => edge.peer.id)).size, graph.connections.length);
+    assert.equal(
+      graph.connections.reduce((n, edge) => n + edge.reasons.length, 0),
+      model.detailConnections(work.id, data).length
+    );
+    for (const edge of graph.connections) {
+      assert.ok(model.compareChronology(data.workById.get(edge.from), data.workById.get(edge.to)) < 0);
+      assert.ok(edge.reasons.every((reason) => [reason.from, reason.to].includes(work.id) && reason.map_label));
+      assert.ok(edge.concepts.length >= 1 && edge.concepts.length <= 3);
+      assert.equal(
+        edge.concepts.reduce((n, concept) => n + concept.reasons.length, 0),
+        edge.reasons.length
+      );
+      assert.ok((model.compareChronology(edge.peer, work) < 0 ? graph.earlier : graph.later).includes(edge));
+    }
+  }
+  assert.equal(data.relationships.filter((r) => r.status === "documented").length, 57);
+  assert.equal(data.relationships.filter((r) => r.status === "interpretive").length, 35);
+});
+
+test("one editable contribution per work preserves authored symmetry choices and distinct domain targets", () => {
+  assert.equal(data.contribution_categories.length, 8);
+  assert.equal(new Set(data.contribution_categories.map((category) => category.shape)).size, 8);
+  for (const work of data.works) {
+    assert.ok(model.contributionFor(work, data));
+    assert.ok(work.map_contribution_reason.length > 10);
+    assert.ok(work.authors.length && work.authors.some((author) => author.includes("Sungsoo Ahn")));
+    const copies = [...layout.stationByInstance.values()].filter((station) => station.work.id === work.id);
+    assert.equal(copies.filter((station) => station.primaryLabel).length, 1);
+    assert.ok(copies.find((station) => station.primaryLabel).y === Math.min(...copies.map((station) => station.y)));
+  }
+  for (const id of ["kim2026machine", "kim2025highorder", "kim2024gaussian"]) {
+    assert.deepEqual(
+      data.workById
+        .get(id)
+        .memberships.filter((member) => member.theme.startsWith("d_"))
+        .map((member) => member.theme),
+      ["d_electronic"]
+    );
+  }
+  for (const id of ["kim2026machine", "kim2025highorder"]) assert.equal(model.contributionFor(data.workById.get(id), data).shape, "hexagon");
+  const view = model.timelineViewport(layout, 0, 900);
+  assert.ok(new Set(view.lanes.flatMap((lane) => lane.visibleStations.map((station) => station.work.id))).size >= 15);
+  const ordered = model.contributionLegend(data);
+  const firsts = ordered.map((category) => data.works.filter((work) => work.map_contribution === category.id).sort(model.compareChronology)[0]);
+  firsts.slice(1).forEach((work, i) => assert.ok(model.compareChronology(firsts[i], work) < 0));
+});

@@ -50,11 +50,12 @@ layout: default
       {{ page.members_content | markdownify }}
     {% endif %}
 
-    <!-- Selected publications -->
-    {% if page.selected_papers %}
+    <!-- Research -->
+    {% if page.research_map %}
+      {% include research_map.liquid %}
+    {% elsif page.selected_papers %}
       <h2>Selected Highlights</h2>
       {% include selected_papers.liquid %}
-      <p class="all-publications-link"><a href="{{ '/publications/' | relative_url }}">View all publications</a></p>
     {% endif %}
 
     <!-- Social -->
