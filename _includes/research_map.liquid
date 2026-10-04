@@ -18,8 +18,11 @@
         </svg>
       </button>
     </div>
-    <button type="button" class="rm-back" hidden>← Back</button>
   </div>
+  <p class="rm-introduction">
+    We develop structured and probabilistic machine learning to infer, predict, and design molecular and material systems. Our goal is to expand what
+    scientists can learn from experiments and simulations, and what they can investigate with that knowledge.
+  </p>
   <div class="rm-static">{% include research_map_overview.liquid %}</div>
   <div class="rm-interactive" hidden>
     <div class="rm-overview">
@@ -27,9 +30,11 @@
         <div class="rm-timeline"></div>
       </div>
     </div>
-    <div class="rm-focus" hidden><div class="rm-focus-graph"></div></div>
   </div>
   <div class="rm-legend" aria-label="Research categories">{% include research_map_legend.liquid %}</div>
+  <p class="rm-credit">
+    Figure inspired by <a href="https://necludov.github.io/" target="_blank" rel="external nofollow noopener">Kirill Neklyudov</a>.
+  </p>
   <p class="rm-status sr-only" role="status" aria-live="polite"></p>
   <p class="rm-load-status" role="status"></p>
 </section>

@@ -27,23 +27,41 @@ const data = fixture(
   ]
 );
 
-test("state contains only paper and offset, resolves editions and ignores old filters", () => {
-  assert.deepEqual(model.sanitizeState({ paper: "a_journal", offset: 3, lens: "method", tags: ["d_b"], interpretive: false }, data), {
-    paper: "a",
-    offset: 3,
-  });
-  for (const offset of [-2, Infinity, "invalid", undefined]) assert.equal(model.sanitizeState({ offset }, data).offset, 0);
-  assert.equal(model.sanitizeState({ paper: "missing" }, data).paper, null);
+test("navigation state keeps only offset and ignores obsolete paper selections", () => {
+  assert.deepEqual(model.sanitizeState({ paper: "a_journal", offset: 3, lens: "method", tags: ["d_a"] }), { offset: 3 });
+  for (const offset of [-2, Infinity, "invalid", undefined]) assert.equal(model.sanitizeState({ offset }).offset, 0);
 });
 
-test("URLs round-trip navigation and selection, clean old parameters and preserve unrelated values", () => {
-  const original =
-    "https://example.com/?utm_source=friend&rm_view=all&rm_lens=method&rm_tags=d_a&rm_expand=x&rm_search=foo&rm_interpretive=0&rm_zoom=2&rm_compact=1#research-map";
-  const url = model.writeUrl(original, { paper: "a", offset: 5.123456 });
-  assert.deepEqual([...url.searchParams.keys()], ["utm_source", "rm_paper", "rm_offset"]);
-  assert.deepEqual(model.readUrl(url, data), { paper: "a", offset: 5.123 });
+test("URLs round-trip panning, clean old paper and filter parameters, and preserve unrelated values", () => {
+  const original = "https://example.com/?utm_source=friend&rm_paper=a&rm_lens=method&rm_tags=d_a&rm_zoom=2#research-map";
+  const url = model.writeUrl(original, { offset: 5.123456 });
+  assert.deepEqual([...url.searchParams.keys()], ["utm_source", "rm_offset"]);
+  assert.deepEqual(model.readUrl(url), { offset: 5.123 });
   assert.equal(url.hash, "#research-map");
-  assert.equal(model.writeUrl(url, { paper: null, offset: 0 }).searchParams.size, 1);
+  assert.equal(model.writeUrl(url, { offset: 0 }).searchParams.size, 1);
+});
+
+test("paper links prefer bibliographic arXiv and use reviewed sources without OpenReview", () => {
+  assert.equal(
+    model.paperUrl({
+      publications: [{ id: "a", arxiv: "2606.22866", html: "https://publisher.example/paper" }],
+      sources: [{ url: "https://arxiv.org/html/2606.22866v1" }],
+    }),
+    "https://arxiv.org/abs/2606.22866"
+  );
+  for (const url of ["https://arxiv.org/html/1306.1167v2", "https://arxiv.org/pdf/1306.1167v2.pdf", "https://arxiv.org/abs/1306.1167v2"])
+    assert.equal(model.paperUrl({ publications: [{ id: "a" }], sources: [{ url }] }), "https://arxiv.org/abs/1306.1167v2");
+  assert.equal(
+    model.paperUrl({ publications: [{ id: "a", html: "https://publisher.example/paper" }], sources: [{ url: "https://github.com/author/project" }] }),
+    "https://publisher.example/paper"
+  );
+  assert.equal(
+    model.paperUrl({
+      publications: [{ id: "a", html: "https://openreview.net/forum?id=a" }],
+      sources: [{ url: "https://github.com/author/project" }],
+    }),
+    "https://github.com/author/project"
+  );
 });
 
 test("major routes contain only sequential papers in full conference chronology", () => {
@@ -95,26 +113,6 @@ test("a multi-domain paper is one interchange with stable coordinates during nav
       original
     );
   }
-});
-
-test("concept focus excludes generic and broad memberships, preserves both statuses and only incident triplet edges", () => {
-  const graph = model.focusGraph("a", data);
-  assert.deepEqual(
-    graph.connections.map((edge) => edge.peer.id),
-    ["c", "d"]
-  );
-  assert.ok(!graph.connections.some((edge) => edge.peer.id === "b"));
-  assert.deepEqual(
-    graph.connections.find((edge) => edge.peer.id === "c").reasons.map((r) => r.status),
-    ["interpretive", "local"]
-  );
-  assert.equal(graph.connections.find((edge) => edge.peer.id === "c").concepts.length, 1);
-  assert.equal(graph.connections.find((edge) => edge.peer.id === "c").concepts[0].reasons.length, 2);
-  assert.ok(graph.connections.every((edge) => edge.from === "a"));
-  assert.deepEqual(graph.earlier, []);
-  assert.equal(graph.later.length, 2);
-  assert.deepEqual(model.detailConnections("missing", data), []);
-  assert.deepEqual(model.focusGraph("b", data).connections, []);
 });
 
 test("route colors meet graphic contrast on both backgrounds", () => {

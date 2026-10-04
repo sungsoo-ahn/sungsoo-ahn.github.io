@@ -6,9 +6,6 @@ layout: null
   "reviewed_on": {{ site.data.research_map.reviewed_on | jsonify }},
   "taxonomy": {{ site.data.research_map.taxonomy | jsonify }},
   "contribution_categories": {{ site.data.research_map.contribution_categories | jsonify }},
-  "keyword_catalog": {{ site.data.research_map_keywords.keywords | jsonify }},
-  "relationships": {{ site.data.research_map.relationships | jsonify }},
-  "findings": {{ site.data.research_map.findings | jsonify }},
   "colors": {
     "purple": {{ site.data.palette.brand.purple | jsonify }},
     "purple_strong": {{ site.data.palette.brand.purple_strong | jsonify }},

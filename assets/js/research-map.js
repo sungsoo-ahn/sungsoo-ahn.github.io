@@ -16,12 +16,10 @@
   };
   const scroller = root.querySelector(".rm-overview .rm-timeline-scroll"),
     track = root.querySelector(".rm-overview .rm-timeline"),
-    focus = root.querySelector(".rm-focus-graph"),
     navigation = root.querySelector(".rm-navigation"),
     earlier = navigation.querySelector(".rm-earlier"),
-    later = navigation.querySelector(".rm-later"),
-    back = root.querySelector(".rm-back");
-  let data, state, layout, viewport, graph, returnTo, tooltip;
+    later = navigation.querySelector(".rm-later");
+  let data, state, layout, viewport, tooltip;
   let hoverAnchor, hoverPaper, hoverConnection, hideTimer, frame;
   const nickname = (work) => work.map_label || work.label;
   const venueYears = (work) => work.publications.map((p) => `${p.venue} ${p.year}`).join(" · ");
@@ -40,7 +38,7 @@
   };
   const viewportWidth = () => Math.max(1, scroller.clientWidth);
   const panStep = () => Math.min(3, Math.max(1, Math.floor((viewportWidth() - 64) / model.SPACING)));
-  const persist = (push = false) => history[push ? "pushState" : "replaceState"]({}, "", model.writeUrl(location.href, state));
+  const persist = () => history.replaceState({}, "", model.writeUrl(location.href, state));
 
   function hideTooltip() {
     clearTimeout(hideTimer);
@@ -77,6 +75,7 @@
     if (kind === "paper") {
       tooltip.append(
         element("div", item.title, "rm-tooltip-title"),
+        element("div", item.summary, "rm-tooltip-summary"),
         element("div", item.authors.join(", "), "rm-tooltip-authors"),
         element("div", venueYears(item), "rm-tooltip-meta")
       );
@@ -85,7 +84,14 @@
         const caption = element("div", undefined, "rm-tooltip-contribution"),
           symbol = vector("svg", { viewBox: "-12 -12 24 24", "aria-hidden": "true" });
         symbol.append(contributionMark(item, "rm-symbol"));
-        caption.append(symbol, element("span", contribution.label));
+        const primary = element("strong", contribution.label);
+        primary.dataset.contribution = contribution.id;
+        caption.append(symbol, primary);
+        for (const category of model.contributionsFor(item, data).slice(1)) {
+          const secondary = element("span", category.label, "rm-tooltip-secondary");
+          secondary.dataset.contribution = category.id;
+          caption.append(secondary);
+        }
         tooltip.append(caption);
       }
       const chips = element("div", undefined, "rm-tooltip-themes");
@@ -97,17 +103,6 @@
         chips.append(chip);
       }
       tooltip.append(chips);
-    } else if (item.reasons) {
-      for (const reason of item.reasons) {
-        const block = element("div", undefined, "rm-tooltip-reason");
-        block.append(
-          element("strong", reason.map_label || reason.label),
-          element("div", reason.status === "interpretive" ? "Conceptual parallel" : "Shared mechanism", "rm-tooltip-meta")
-        );
-        const explanation = reason.map_explanation || reason.explanation;
-        if (explanation) block.append(element("p", explanation));
-        tooltip.append(block);
-      }
     } else {
       tooltip.append(element("div", item.label, "rm-tooltip-title"));
       for (const id of [item.from, item.to]) {
@@ -148,17 +143,6 @@
       );
     });
   }
-  function activate(node, action) {
-    node.setAttribute("role", "button");
-    node.setAttribute("tabindex", "0");
-    node.addEventListener("click", action);
-    node.addEventListener("keydown", (event) => {
-      if (["Enter", " "].includes(event.key)) {
-        event.preventDefault();
-        action();
-      }
-    });
-  }
   function connectionNode(connection, path) {
     const group = vector("g", {
       class: "rm-connection",
@@ -189,8 +173,12 @@
     for (const station of layout.stations) {
       const { work, theme, x, y } = station;
       const group = themed(
-        vector("g", {
+        vector("a", {
           class: "rm-work",
+          href: model.paperUrl(work),
+          target: "_blank",
+          rel: "external nofollow noopener",
+          tabindex: "0",
           transform: `translate(${x},${y})`,
           "data-work": work.id,
           "data-instance": station.id,
@@ -221,14 +209,13 @@
       group.append(label, meta);
       group.dataset.labelWidth = station.labelWidth + 8;
       group.dataset.labelX = x;
-      activate(group, () => focusPaper(work.id, station.id));
       bindHover(group, work, "paper");
       svg.append(group);
     }
     track.append(svg);
   }
   function updateViewport() {
-    if (!data || state.paper) return;
+    if (!data) return;
     const max = Math.max(0, layout.width - viewportWidth());
     state.offset = Math.max(0, max - scroller.scrollLeft) / model.SPACING;
     viewport = model.timelineViewport(layout, state.offset, viewportWidth());
@@ -258,126 +245,6 @@
     scroller.scrollLeft = max - state.offset * model.SPACING;
     updateViewport();
   }
-  function focusPaper(paper, instance) {
-    if (!state.paper) returnTo = { offset: state.offset, instance, paper };
-    hideTooltip();
-    state.paper = paper;
-    persist(true);
-    renderView();
-    focus.querySelector(".rm-focus-center").focus({ preventScroll: true });
-    hideTooltip();
-  }
-  function paperCard(work, selected) {
-    const node = element(selected ? "div" : "button", undefined, `rm-work rm-focus-paper${selected ? " rm-focus-center" : ""}`);
-    node.dataset.work = work.id;
-    node.dataset.contribution = work.map_contribution;
-    node.setAttribute("aria-label", `${nickname(work)}, ${venueYears(work)}`);
-    const name = element("strong", nickname(work));
-    const domain = work.memberships.map((member) => data.themeById.get(member.theme)).find((theme) => theme.kind === "domain");
-    const symbol = themed(vector("svg", { class: "rm-paper-symbol", viewBox: "-12 -12 24 24", "aria-hidden": "true" }), domain);
-    symbol.append(contributionMark(work, "rm-symbol"));
-    name.prepend(symbol);
-    node.append(name, element("span", firstVenue(work), "rm-meta"));
-    if (selected) {
-      node.tabIndex = 0;
-      const source = work.sources.find((s) => s.url.includes("arxiv.org")) || work.sources[0];
-      const sourceLink = element("a", source.url.includes("arxiv.org") ? "arXiv ↗" : "Paper ↗");
-      sourceLink.href = source.url;
-      node.append(sourceLink);
-    } else {
-      node.type = "button";
-      node.addEventListener("click", () => focusPaper(work.id));
-    }
-    bindHover(node, work, "paper");
-    return node;
-  }
-  function conceptNames(connection, mobile) {
-    const names = element("div", undefined, mobile ? "rm-mobile-concepts" : "rm-spoke-names");
-    names.dataset.connection = connection.id;
-    for (const concept of connection.concepts) {
-      const button = element("button", concept.label, "rm-concept-name");
-      button.type = "button";
-      bindHover(button, { ...connection, reasons: concept.reasons }, "connection");
-      button.addEventListener("click", (event) => showTooltip(button, { ...connection, reasons: concept.reasons }, "connection", event));
-      names.append(button);
-    }
-    return names;
-  }
-  function buildFocus() {
-    graph = model.focusGraph(state.paper, data);
-    focus.replaceChildren();
-    const lines = vector("svg", { class: "rm-focus-lines", "aria-label": "Conceptual connections" });
-    focus.append(lines);
-    for (const [side, connections] of [
-      ["earlier", graph.earlier],
-      ["later", graph.later],
-    ]) {
-      const column = element("div", undefined, `rm-focus-column rm-focus-${side}`);
-      for (const connection of connections) {
-        const peer = element("div", undefined, "rm-focus-peer");
-        peer.dataset.peer = connection.peer.id;
-        peer.append(paperCard(connection.peer, false), conceptNames(connection, true));
-        column.append(peer);
-        focus.append(conceptNames(connection, false));
-      }
-      focus.append(column);
-    }
-    focus.append(paperCard(graph.selected, true));
-    requestAnimationFrame(drawFocus);
-  }
-  function drawFocus() {
-    if (!state?.paper) return;
-    const svg = focus.querySelector(".rm-focus-lines"),
-      box = focus.getBoundingClientRect(),
-      center = focus.querySelector(".rm-focus-center").getBoundingClientRect();
-    if (!box.width) return;
-    svg.replaceChildren();
-    svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
-    const mobile = matchMedia("(max-width: 900px)").matches;
-    for (const connection of graph.connections) {
-      const peer = focus.querySelector(`[data-peer="${connection.peer.id}"] .rm-focus-paper`).getBoundingClientRect();
-      const isEarlier = model.compareChronology(connection.peer, graph.selected) < 0;
-      let a, b, d;
-      if (mobile) {
-        a = { x: (isEarlier ? center.left : center.right) - box.left, y: center.top + center.height / 2 - box.top };
-        b = { x: (isEarlier ? peer.left : peer.right) - box.left, y: peer.top + peer.height / 2 - box.top };
-        const bend = isEarlier ? 10 : box.width - 10;
-        d = `M${a.x},${a.y}C${bend},${a.y} ${bend},${b.y} ${b.x},${b.y}`;
-      } else {
-        a = { x: (isEarlier ? center.left : center.right) - box.left, y: center.top + center.height / 2 - box.top };
-        b = { x: (isEarlier ? peer.right : peer.left) - box.left, y: peer.top + peer.height / 2 - box.top };
-        const middle = (a.x + b.x) / 2;
-        d = `M${a.x},${a.y}C${middle},${a.y} ${middle},${b.y} ${b.x},${b.y}`;
-        const names = focus.querySelector(`.rm-spoke-names[data-connection="${connection.id}"]`);
-        names.style.left = `${middle}px`;
-        names.style.top = `${(a.y + b.y) / 2}px`;
-      }
-      svg.append(connectionNode(connection, d));
-    }
-    updateHighlights();
-  }
-  function renderView() {
-    root.querySelector(".rm-overview").hidden = Boolean(state.paper);
-    root.querySelector(".rm-focus").hidden = !state.paper;
-    navigation.hidden = Boolean(state.paper);
-    back.hidden = !state.paper;
-    if (state.paper) {
-      buildFocus();
-      persist();
-    } else setOffset(state.offset);
-  }
-  back.addEventListener("click", () => {
-    hideTooltip();
-    state.paper = null;
-    if (returnTo) state.offset = returnTo.offset;
-    persist(true);
-    renderView();
-    const station =
-      returnTo?.instance &&
-      [...track.querySelectorAll(".rm-work")].find((node) => node.dataset.instance === returnTo.instance && !node.hasAttribute("hidden"));
-    (station || scroller).focus({ preventScroll: true });
-    returnTo = null;
-  });
   earlier.addEventListener("click", () => {
     hideTooltip();
     setOffset(state.offset + panStep());
@@ -400,8 +267,8 @@
   window.addEventListener("popstate", () => {
     if (!data) return;
     hideTooltip();
-    state = model.readUrl(location.href, data);
-    renderView();
+    state = model.readUrl(location.href);
+    setOffset(state.offset);
   });
   window.addEventListener("scroll", () => positionTooltip(), { passive: true });
   root.addEventListener("keydown", (event) => {
@@ -412,7 +279,7 @@
       const response = await fetch(root.dataset.source);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       data = model.prepare(await response.json());
-      state = model.readUrl(location.href, data);
+      state = model.readUrl(location.href);
       layout = model.timelineLayout(data);
       tooltip = element("div", undefined, "rm-tooltip");
       tooltip.id = "research-map-tooltip";
@@ -427,13 +294,10 @@
       root.querySelector(".rm-static").hidden = true;
       root.querySelector(".rm-interactive").hidden = false;
       root.querySelector(".rm-load-status").hidden = true;
-      renderView();
+      navigation.hidden = false;
+      setOffset(state.offset);
       let previousWidth = scroller.clientWidth;
       new ResizeObserver(() => {
-        if (state.paper) {
-          drawFocus();
-          return;
-        }
         if (scroller.clientWidth !== previousWidth) {
           previousWidth = scroller.clientWidth;
           setOffset(state.offset);

@@ -1,10 +1,10 @@
-/* Pure layout, conceptual connections and URL state, shared with the checks. */
+/* Pure map layout, paper metadata and navigation state, shared with the fallback. */
 (function (root) {
   "use strict";
   const SPACING = 120,
     PADDING = 72,
     MAP_HEIGHT = 300;
-  const legacyParameters = ["rm_view", "rm_lens", "rm_tags", "rm_expand", "rm_search", "rm_interpretive", "rm_zoom", "rm_compact"];
+  const legacyParameters = ["rm_paper", "rm_view", "rm_lens", "rm_tags", "rm_expand", "rm_search", "rm_interpretive", "rm_zoom", "rm_compact"];
   // Arial advances at 12px. Additive metrics and a safety margin keep the
   // linked fallback and browser positions identical without font-load timing.
   const FONT_WIDTHS = [
@@ -64,6 +64,19 @@
   function contributionFor(work, data) {
     return data.contributionById.get(work.map_contribution);
   }
+  function contributionsFor(work, data) {
+    return [work.map_contribution, ...(work.map_secondary_contributions || [])].map((id) => data.contributionById.get(id)).filter(Boolean);
+  }
+  function paperUrl(work) {
+    const edition = work.publications.find((publication) => publication.arxiv);
+    if (edition) return `https://arxiv.org/abs/${edition.arxiv}`;
+    const arxiv = work.sources?.find((source) => /^https:\/\/arxiv\.org\/(?:abs|html|pdf)\//.test(source.url));
+    if (arxiv) return arxiv.url.replace(/\/(?:html|pdf)\//, "/abs/").replace(/\.pdf$/, "");
+    const publisher = work.publications.find((publication) => publication.html && !publication.html.includes("openreview.net"));
+    return (
+      publisher?.html || work.sources?.find((source) => !source.url.includes("openreview.net"))?.url || `/publications/#${work.publications[0].id}`
+    );
+  }
   function contributionLegend(data) {
     return data.contribution_categories
       .map((category) => {
@@ -86,25 +99,18 @@
       works,
       workById: new Map(works.map((work) => [work.id, work])),
       themeById: new Map(raw.taxonomy.map((theme) => [theme.id, theme])),
-      aliases: new Map(works.flatMap((work) => work.publications.map((publication) => [publication.id, work.id]))),
     };
   }
-  function sanitizeState(input, data) {
+  function sanitizeState(input) {
     const offset = Number(input.offset);
-    return {
-      paper: data.aliases.get(input.paper) || (data.workById.has(input.paper) ? input.paper : null),
-      offset: Number.isFinite(offset) ? Math.max(0, offset) : 0,
-    };
+    return { offset: Number.isFinite(offset) ? Math.max(0, offset) : 0 };
   }
-  function readUrl(url, data) {
-    const params = new URL(url).searchParams;
-    return sanitizeState({ paper: params.get("rm_paper"), offset: params.get("rm_offset") }, data);
+  function readUrl(url) {
+    return sanitizeState({ offset: new URL(url).searchParams.get("rm_offset") });
   }
   function writeUrl(url, state) {
     const result = new URL(url);
     legacyParameters.forEach((parameter) => result.searchParams.delete(parameter));
-    if (state.paper) result.searchParams.set("rm_paper", state.paper);
-    else result.searchParams.delete("rm_paper");
     if (state.offset > 0) result.searchParams.set("rm_offset", String(Math.round(state.offset * 1000) / 1000));
     else result.searchParams.delete("rm_offset");
     return result;
@@ -128,12 +134,6 @@
   }
   function mapRole(theme) {
     return theme.map_role || (theme.kind === "concept" ? "detail" : "major");
-  }
-  function chronologicalConnection(connection, data) {
-    const a = data.workById.get(connection.from),
-      b = data.workById.get(connection.to);
-    const [from, to] = compareChronology(a, b) < 0 ? [a.id, b.id] : [b.id, a.id];
-    return { ...connection, from, to, sameDate: chronologyKey(a)[0] === chronologyKey(b)[0] };
   }
   function timelineRows(data) {
     return data.taxonomy
@@ -708,80 +708,6 @@
     });
     return { lanes, offset: clamped, maxOffset, left, right };
   }
-  function detailConnections(paper, data) {
-    if (!paper || !data.workById.has(paper)) return [];
-    const connections = data.relationships
-      .filter((relation) => [relation.from, relation.to].includes(paper))
-      .map((relation) => chronologicalConnection({ ...relation, themes: [], layer: "detail" }, data));
-    for (const theme of data.taxonomy.filter((theme) => theme.kind === "concept" && mapRole(theme) === "detail")) {
-      const members = data.works.filter((work) => work.memberships.some((member) => member.theme === theme.id)).sort(compareChronology);
-      if (members.length < 2 || members.length > 3 || !members.some((work) => work.id === paper)) continue;
-      const parallel = members.some((work) => work.memberships.some((member) => member.theme === theme.id && member.role === "parallel"));
-      for (let i = 1; i < members.length; i++) {
-        if (![members[i - 1].id, members[i].id].includes(paper)) continue;
-        connections.push(
-          chronologicalConnection(
-            {
-              id: `detail_${theme.id}_${members[i - 1].id}_${members[i].id}`,
-              from: members[i - 1].id,
-              to: members[i].id,
-              label: theme.label,
-              map_label: theme.map_label || theme.label,
-              themes: [theme.id],
-              status: parallel ? "interpretive" : "local",
-              layer: "detail",
-              group: members.map((work) => work.id),
-              explanation: theme.description,
-              map_explanation: theme.map_description || theme.description,
-            },
-            data
-          )
-        );
-      }
-    }
-    return connections;
-  }
-  function focusGraph(paper, data) {
-    const selected = data.workById.get(paper);
-    if (!selected) return { selected: null, connections: [], earlier: [], later: [] };
-    const peers = new Map();
-    for (const reason of detailConnections(paper, data)) {
-      const peer = data.workById.get(reason.from === paper ? reason.to : reason.from);
-      if (!peers.has(peer.id))
-        peers.set(peer.id, {
-          id: `focus_${paper}_${peer.id}`,
-          from: reason.from,
-          to: reason.to,
-          peer,
-          reasons: [],
-          layer: "detail",
-          sameDate: reason.sameDate,
-        });
-      peers.get(peer.id).reasons.push(reason);
-    }
-    const connections = [...peers.values()]
-      .sort((a, b) => compareChronology(a.peer, b.peer))
-      .map((connection) => {
-        const concepts = new Map();
-        connection.reasons.forEach((reason) => {
-          const name = reason.map_label || reason.label;
-          if (!concepts.has(name)) concepts.set(name, { label: name, reasons: [] });
-          concepts.get(name).reasons.push(reason);
-        });
-        return {
-          ...connection,
-          concepts: [...concepts.values()],
-          label: [...concepts.keys()].join(" · "),
-          status: connection.reasons.every((reason) => reason.status === "interpretive") ? "interpretive" : "documented",
-        };
-      });
-    return {
-      selected,
-      connections,
-      earlier: connections.filter((connection) => compareChronology(connection.peer, selected) < 0),
-      later: connections.filter((connection) => compareChronology(connection.peer, selected) > 0),
-    };
-  }
   function contrast(a, b) {
     const luminance = (hex) => {
       const values = hex
@@ -826,6 +752,8 @@
     stationSymbol,
     stationPort,
     contributionFor,
+    contributionsFor,
+    paperUrl,
     contributionLegend,
     prepare,
     sanitizeState,
@@ -834,12 +762,9 @@
     chronologyKey,
     compareChronology,
     mapRole,
-    chronologicalConnection,
     timelineRows,
     timelineLayout,
     timelineViewport,
-    detailConnections,
-    focusGraph,
     contrast,
     colorSwatches,
   };
