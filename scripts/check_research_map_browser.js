@@ -157,6 +157,8 @@ const path = require("node:path");
       assert.equal(await root.locator(".rm-legend").innerHTML(), legend);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `page overflow at ${width}px`);
       if (width < 992) {
+        const legendBox = await root.locator(".rm-legend").boundingBox();
+        assert.ok(Math.abs(legendBox.y + legendBox.height - 1100) < 1, `legend sticks to the bottom at ${width}px`);
         const collisions = await figure.evaluate((node) => {
           const svg = node.querySelector("svg").getBoundingClientRect();
           const labels = [...node.querySelectorAll(".rm-compact-label")].map((label) => ({
@@ -204,6 +206,8 @@ const path = require("node:path");
       assert.equal(await root.locator(".rm-tooltip-ideas, .rm-tooltip-contribution, .rm-tooltip-summary").count(), 0);
       const card = await root.locator(".rm-tooltip").boundingBox();
       assert.ok(card.x >= 0 && card.y >= 0 && card.x + card.width <= 390 && card.y + card.height <= 1100);
+      const legendBox = await root.locator(".rm-legend").boundingBox();
+      assert.ok(card.y + card.height <= legendBox.y, "paper hover keeps the sticky legend readable");
       const circle = await paper(work.id).locator(".rm-station").boundingBox();
       assert.equal(
         await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest(".rm-work")?.dataset.work, {
@@ -215,6 +219,29 @@ const path = require("node:path");
       );
       await page.keyboard.press("Escape");
     }
+    // Keyboard focus scrolls a paper clear of the bottom legend.
+    await reveal("seong2025transition");
+    await paper("seong2025transition").evaluate((node) => {
+      const mark = node.querySelector(".rm-hit").getBoundingClientRect();
+      scrollBy(0, mark.top - innerHeight + 20);
+    });
+    await paper("seong2025transition").focus();
+    await idle();
+    const focusedMark = await paper("seong2025transition").locator(".rm-hit").boundingBox();
+    const focusedLegend = await root.locator(".rm-legend").boundingBox();
+    assert.ok(focusedMark.y + focusedMark.height <= focusedLegend.y - 23, "focused paper is above the sticky legend");
+    await page.keyboard.press("Escape");
+    // The legend belongs to the map: it is off-screen before the section and
+    // resumes normal flow below the final paper instead of covering the footer.
+    await page.evaluate(() => scrollTo(0, 0));
+    await idle();
+    assert.ok((await root.locator(".rm-legend").boundingBox()).y > 1100);
+    await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+    await idle();
+    const endLegend = await root.locator(".rm-legend").boundingBox();
+    const endFrame = await root.locator(".rm-map-frame").boundingBox();
+    assert.ok(endLegend.y + endLegend.height < 1100);
+    assert.ok(Math.abs(endLegend.y + endLegend.height - endFrame.y - endFrame.height) < 1);
     await reveal("seong2026discovering");
     await hoverStation("seong2026discovering");
     await snapshot("vertical-mobile-paper-hover");
@@ -286,6 +313,9 @@ const path = require("node:path");
     assert.equal(await noJs.locator(".rm-paper-caption:visible").count(), 0);
     assert.equal(await noJs.locator(".rm-idea:not([hidden])").count(), 14);
     assert.ok(await noJs.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await noJs.locator('.rm-static-paper[data-work="seong2025transition"]').scrollIntoViewIfNeeded();
+    const staticLegend = await noJs.locator(".rm-legend").boundingBox();
+    assert.ok(Math.abs(staticLegend.y + staticLegend.height - 1100) < 1, "sticky legend works without JavaScript");
     await noJs.setViewportSize({ width: 1280, height: 1100 });
     assert.equal(await noJs.locator(".rm-vertical .rm-paper-caption:visible").count(), 74);
     assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 0);

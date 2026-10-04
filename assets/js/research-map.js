@@ -14,7 +14,8 @@
     Object.entries(attributes).forEach(([name, value]) => node.setAttribute(name, value));
     return node;
   };
-  const figure = root.querySelector(".rm-vertical");
+  const figure = root.querySelector(".rm-vertical"),
+    legend = root.querySelector(".rm-legend");
   let data, tooltip;
   let stations = [],
     connections = [],
@@ -37,16 +38,21 @@
     clearTimeout(hideTimer);
     hideTimer = setTimeout(hideTooltip, 180);
   }
+  function viewportBottom() {
+    const top = innerWidth < 992 ? legend.getBoundingClientRect().top : innerHeight;
+    return top > 0 && top < innerHeight ? top : innerHeight;
+  }
   function positionTooltip(event) {
     if (!hoverAnchor || tooltip.hidden) return;
-    const anchor = (hoverAnchor.querySelector(".rm-hit") || hoverAnchor).getBoundingClientRect();
-    if (anchor.bottom < 0 || anchor.top > innerHeight) {
+    const anchor = (hoverAnchor.querySelector(".rm-hit") || hoverAnchor).getBoundingClientRect(),
+      bottom = viewportBottom();
+    if (anchor.bottom < 0 || anchor.top > bottom) {
       hideTooltip();
       return;
     }
     const x = Number.isFinite(event?.clientX) ? event.clientX : anchor.left + anchor.width / 2;
-    const y = Math.max(24, Math.min(innerHeight - 24, Number.isFinite(event?.clientY) ? event.clientY : anchor.top + anchor.height / 2));
-    tooltip.style.maxHeight = "76vh";
+    const y = Math.max(24, Math.min(bottom - 24, Number.isFinite(event?.clientY) ? event.clientY : anchor.top + anchor.height / 2));
+    tooltip.style.maxHeight = `${bottom * 0.76}px`;
     let box = tooltip.getBoundingClientRect();
     const rightFits = x + 18 + box.width <= innerWidth - 12,
       leftFits = x - box.width - 18 >= 12;
@@ -56,15 +62,15 @@
       // A full abstract can be taller than either side of its station. Reserve
       // a clear vertical side and scroll the card rather than cover the link.
       const above = y - 30,
-        below = innerHeight - y - 30,
+        below = bottom - y - 30,
         useAbove = above > below;
-      tooltip.style.maxHeight = `${Math.min(innerHeight * 0.76, Math.max(above, below))}px`;
+      tooltip.style.maxHeight = `${Math.min(bottom * 0.76, Math.max(above, below))}px`;
       box = tooltip.getBoundingClientRect();
       left = x - box.width / 2;
       top = useAbove ? y - box.height - 18 : y + 18;
-    } else if (top + box.height > innerHeight - 12) top = y - box.height - 18;
+    } else if (top + box.height > bottom - 12) top = y - box.height - 18;
     tooltip.style.left = `${Math.max(12, Math.min(left, innerWidth - box.width - 12))}px`;
-    tooltip.style.top = `${Math.max(12, Math.min(top, innerHeight - box.height - 12))}px`;
+    tooltip.style.top = `${Math.max(12, Math.min(top, bottom - box.height - 12))}px`;
   }
   function showTooltip(anchor, item, kind, event) {
     clearTimeout(hideTimer);
@@ -112,9 +118,10 @@
     });
     node.addEventListener("focus", () => {
       const mark = (node.querySelector(".rm-hit") || node).getBoundingClientRect(),
-        top = document.body.classList.contains("fixed-top-nav") ? 73 : 16;
+        top = document.body.classList.contains("fixed-top-nav") ? 73 : 16,
+        bottom = viewportBottom();
       if (mark.top < top) window.scrollBy(0, mark.top - top);
-      else if (mark.bottom > innerHeight - 24) window.scrollBy(0, mark.bottom - innerHeight + 24);
+      else if (mark.bottom > bottom - 24) window.scrollBy(0, mark.bottom - bottom + 24);
       showTooltip(node, item, kind, pointer);
     });
     node.addEventListener("blur", scheduleHide);
