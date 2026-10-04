@@ -16,6 +16,29 @@ const path = require("node:path");
     ...(process.env.PLAYWRIGHT_CHROMIUM_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHROMIUM_CHANNEL } : {}),
   });
   const page = await browser.newPage({ viewport: { width: 1280, height: 1100 }, hasTouch: true });
+  const client = await page.context().newCDPSession(page);
+  await client.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "ResearchMapModel", {
+      configurable: true,
+      set(model) {
+        // Browser startup must reuse the generated layout, even on a slow CPU.
+        model.timelineLayout = () => {
+          throw new Error("Layout must be computed at build time");
+        };
+        const prepare = model.prepare;
+        model.prepare = (...args) => {
+          window.rmHydrationStart = performance.now();
+          return prepare(...args);
+        };
+        Object.defineProperty(window, "ResearchMapModel", { value: model, configurable: true });
+      },
+    });
+    new MutationObserver(() => {
+      if (document.querySelector('#research-map[data-ready="true"]') && !window.rmHydrationMs)
+        window.rmHydrationMs = performance.now() - window.rmHydrationStart;
+    }).observe(document, { subtree: true, attributes: true, attributeFilter: ["data-ready"] });
+  });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const root = page.locator("#research-map"),
@@ -29,7 +52,13 @@ const path = require("node:path");
     }
   };
   const load = async (target = url) => {
-    await page.goto(target, { waitUntil: "networkidle" });
+    const response = await page.goto(target, { waitUntil: "networkidle" });
+    await page.evaluate(
+      (markup) => {
+        window.rmCanonical = new DOMParser().parseFromString(markup, "text/html");
+      },
+      await response.text()
+    );
     await page.waitForSelector('#research-map[data-ready="true"]');
     await root.scrollIntoViewIfNeeded();
     await idle();
@@ -43,6 +72,24 @@ const path = require("node:path");
   };
   try {
     await load();
+    const performanceCheck = await page.evaluate(async () => {
+      const clicks = [];
+      for (let i = 0; i < 8; i++) {
+        const start = performance.now();
+        document.querySelector(i % 2 ? ".rm-later" : ".rm-earlier").click();
+        const handlerMs = performance.now() - start;
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        clicks.push({ handlerMs, paintMs: performance.now() - start });
+      }
+      return { hydrationMs: window.rmHydrationMs, clicks };
+    });
+    assert.ok(performanceCheck.hydrationMs < 250, JSON.stringify(performanceCheck));
+    assert.ok(
+      performanceCheck.clicks.every(({ handlerMs, paintMs }) => handlerMs < 50 && paintMs < 150),
+      JSON.stringify(performanceCheck)
+    );
+    console.log("Research-map performance at 4× CPU slowdown:", JSON.stringify(performanceCheck));
+    await client.send("Emulation.setCPUThrottlingRate", { rate: 1 });
     assert.equal(await root.locator("h2").innerText(), "Research");
     assert.equal(
       await root.locator(".rm-introduction").innerText(),
@@ -61,6 +108,7 @@ const path = require("node:path");
       window.rmRaw = await (await fetch(document.querySelector("#research-map").dataset.source)).json();
     });
     assert.equal(await root.locator(".rm-overview .rm-network").count(), 1);
+    assert.equal(await root.locator(".rm-network").count(), 1, "reuse the original SVG without a duplicate hidden figure");
     assert.equal(await root.locator(".rm-overview .rm-work").count(), 74);
     assert.equal(
       await root
@@ -102,12 +150,12 @@ const path = require("node:path");
     assert.equal(await scroller.evaluate((node) => node.scrollLeft), initialScroll);
     const geometry = await page.evaluate(() => {
       const runtime = [...document.querySelectorAll(".rm-overview .rm-work")],
-        fallback = [...document.querySelectorAll(".rm-static .rm-static-paper")];
+        fallback = [...window.rmCanonical.querySelectorAll(".rm-static-paper")];
       const canonical = new Map(fallback.map((node) => [node.dataset.instance, [Number(node.dataset.x), Number(node.dataset.y)]]));
       return {
         same: runtime.every((node) => canonical.get(node.dataset.instance).join() === [Number(node.dataset.x), Number(node.dataset.y)].join()),
         symbols: runtime.every((node) => {
-          const fallback = document.querySelector(`.rm-static-paper[data-instance="${node.dataset.instance}"] .rm-station`);
+          const fallback = window.rmCanonical.querySelector(`.rm-static-paper[data-instance="${node.dataset.instance}"] .rm-station`);
           return fallback.outerHTML === node.querySelector(".rm-station").outerHTML && node.querySelector(".rm-hit").getAttribute("r") === "16";
         }),
         nicknames: runtime.filter((node) => node.dataset.primaryLabel === "true").length === 74,
@@ -261,7 +309,10 @@ const path = require("node:path");
       assert.equal(await paper.getAttribute("href"), work.url);
       assert.equal(await paper.getAttribute("target"), "_blank");
       assert.match(await paper.getAttribute("rel"), /noopener/);
-      assert.equal(await root.locator(`.rm-static-paper[data-work="${work.id}"]`).getAttribute("href"), work.url);
+      assert.equal(
+        await page.evaluate((id) => window.rmCanonical.querySelector(`.rm-static-paper[data-work="${id}"]`).getAttribute("href"), work.id),
+        work.url
+      );
       await paper.locator(".rm-station").hover();
       assert.equal(await root.locator(".rm-tooltip-title").innerText(), work.title);
       assert.equal(await root.locator(".rm-tooltip-summary").innerText(), work.summary);
