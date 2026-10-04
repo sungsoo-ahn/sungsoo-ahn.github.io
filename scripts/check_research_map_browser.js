@@ -15,7 +15,7 @@ const path = require("node:path");
     headless: true,
     ...(process.env.PLAYWRIGHT_CHROMIUM_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHROMIUM_CHANNEL } : {}),
   });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 1100 } });
+  const page = await browser.newPage({ viewport: { width: 1280, height: 1100 }, hasTouch: true });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const root = page.locator("#research-map"),
@@ -24,7 +24,8 @@ const path = require("node:path");
   const snapshot = async (name) => {
     if (screenshots) {
       await root.scrollIntoViewIfNeeded();
-      await root.screenshot({ path: path.join(screenshots, `${name}.png`) });
+      const capture = name.includes("paper-summary") ? page : root;
+      await capture.screenshot({ path: path.join(screenshots, `${name}.png`) });
     }
   };
   const load = async (target = url) => {
@@ -40,70 +41,16 @@ const path = require("node:path");
     }, offset);
     await idle();
   };
-  const focusMetrics = () =>
-    page.evaluate(() => {
-      const model = ResearchMapModel,
-        data = model.prepare(window.rmRaw),
-        state = model.readUrl(location.href, data),
-        graph = model.focusGraph(state.paper, data);
-      const box = document.querySelector(".rm-focus-graph").getBoundingClientRect(),
-        center = document.querySelector(".rm-focus-center").getBoundingClientRect(),
-        mobile = matchMedia("(max-width:900px)").matches;
-      const labels = [...document.querySelectorAll(mobile ? ".rm-mobile-concepts" : ".rm-spoke-names")].map((node) => node.getBoundingClientRect());
-      const collisions = labels.some((a, i) =>
-        labels
-          .slice(i + 1)
-          .some((b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1)
-      );
-      const overflow = labels.some((rect) => rect.left < box.left - 1 || rect.right > box.right + 1);
-      return {
-        expected: graph.connections.map((edge) => edge.peer.id).sort(),
-        actual: [...document.querySelectorAll(".rm-focus-peer")].map((node) => node.dataset.peer).sort(),
-        expectedLabels: graph.connections.flatMap((edge) => edge.concepts.map((concept) => concept.label)).sort(),
-        actualLabels: [...document.querySelectorAll(mobile ? ".rm-mobile-concepts .rm-concept-name" : ".rm-spoke-names .rm-concept-name")]
-          .map((node) => node.textContent)
-          .sort(),
-        lines: document.querySelectorAll(".rm-focus-lines .rm-connection").length,
-        placement: [...document.querySelectorAll(".rm-focus-peer")].every((node) => {
-          const rect = node.getBoundingClientRect(),
-            peer = data.workById.get(node.dataset.peer);
-          return model.compareChronology(peer, graph.selected) < 0
-            ? mobile
-              ? rect.bottom < center.top
-              : rect.right < center.left
-            : mobile
-              ? rect.top > center.bottom
-              : rect.left > center.right;
-        }),
-        collisions,
-        overflow,
-      };
-    });
-  const checkFocus = async () => {
-    await idle();
-    const metrics = await focusMetrics();
-    assert.deepEqual(metrics.actual, metrics.expected);
-    assert.deepEqual(metrics.actualLabels, metrics.expectedLabels);
-    assert.equal(metrics.lines, metrics.expected.length);
-    assert.ok(metrics.placement && !metrics.collisions && !metrics.overflow, JSON.stringify(metrics));
-    assert.equal(await root.locator(".rm-overview").isVisible(), false);
-    assert.equal(await root.locator(".rm-navigation").isVisible(), false);
-    assert.equal(await root.locator(".rm-back").isVisible(), true);
-    assert.equal(await root.locator("marker").count(), 0);
-    await root.locator(".rm-focus-center").hover();
-    const expected = await page.evaluate(() => {
-      const data = ResearchMapModel.prepare(window.rmRaw),
-        state = ResearchMapModel.readUrl(location.href, data),
-        work = data.workById.get(state.paper);
-      return { authors: work.authors.join(", "), shape: ResearchMapModel.contributionFor(work, data).shape };
-    });
-    assert.equal(await root.locator(".rm-tooltip-authors").innerText(), expected.authors);
-    assert.equal(await root.locator(".rm-focus-center .rm-symbol").getAttribute("data-shape"), expected.shape);
-    await page.keyboard.press("Escape");
-  };
   try {
     await load();
     assert.equal(await root.locator("h2").innerText(), "Research");
+    assert.equal(
+      await root.locator(".rm-introduction").innerText(),
+      "We develop structured and probabilistic machine learning to infer, predict, and design molecular and material systems. Our goal is to expand what scientists can learn from experiments and simulations, and what they can investigate with that knowledge."
+    );
+    assert.equal(await root.locator(".rm-credit a").getAttribute("href"), "https://necludov.github.io/");
+    assert.equal(await root.locator(".rm-credit").evaluate((node) => getComputedStyle(node).fontSize), "11px");
+
     assert.equal(await page.getByRole("heading", { name: "Selected Highlights", exact: true }).count(), 0);
     assert.equal(await page.locator(".post article > .publications").count(), 0);
     assert.ok(
@@ -117,7 +64,9 @@ const path = require("node:path");
     assert.equal(await root.locator(".rm-overview .rm-work").count(), 74);
     assert.equal(
       await root
-        .locator("input, select, .rm-toolbar, .rm-filter-panel, .rm-paper-list, .rm-details, .rm-about, .rm-caption, .rm-timeline-axis")
+        .locator(
+          "input, select, .rm-toolbar, .rm-filter-panel, .rm-paper-list, .rm-details, .rm-about, .rm-caption, .rm-timeline-axis, .rm-focus, .rm-back"
+        )
         .count(),
       0
     );
@@ -236,9 +185,9 @@ const path = require("node:path");
     assert.equal(await scroller.evaluate((node) => node.scrollLeft), initialScroll);
     const reveal = async (id) => {
       await page.evaluate((id) => {
-        const layout = ResearchMapModel.timelineLayout(ResearchMapModel.prepare(window.rmRaw));
-        const node = document.querySelector(".rm-overview .rm-timeline-scroll");
-        node.scrollLeft = Math.max(0, Math.min(node.scrollWidth - node.clientWidth, layout.xById.get(id) - node.clientWidth / 2));
+        const node = document.querySelector(".rm-overview .rm-timeline-scroll"),
+          station = document.querySelector(`.rm-overview .rm-work[data-work="${id}"]`);
+        node.scrollLeft = Math.max(0, Math.min(node.scrollWidth - node.clientWidth, Number(station.dataset.x) - node.clientWidth / 2));
       }, id);
       await idle();
     };
@@ -249,7 +198,7 @@ const path = require("node:path");
     const repeated = root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]:not([hidden])').first();
     assert.equal(await root.locator(".rm-overview .rm-identity-path").count(), 0);
     assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]').count(), 1);
-    await repeated.hover();
+    await repeated.locator(".rm-station").hover();
     await idle();
     assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"][data-highlighted="true"]:not([hidden])').count(), 1);
     assert.ok((await root.locator(".rm-tooltip").innerText()).includes("Cat"));
@@ -295,79 +244,90 @@ const path = require("node:path");
       assert.equal(await root.locator(".rm-tooltip-title").innerText(), await route.getAttribute("aria-label"));
       await page.keyboard.press("Escape");
     }
-    await reveal("park2026learning");
-    const paper = root.locator('.rm-overview .rm-work[data-work="park2026learning"]:not([hidden])').first();
-    await paper.focus();
-    await idle();
-    const savedOffset = await scroller.evaluate((node) => node.scrollLeft),
-      instance = await paper.getAttribute("data-instance");
-    await paper.press("Enter");
-    await checkFocus();
-    await page.keyboard.press("Escape");
-    await snapshot("desktop-focus");
-    assert.match(await root.locator(".rm-focus-center a").getAttribute("href"), /^https:\/\/arxiv\.org\//);
-    const concept = root.locator(".rm-spoke-names .rm-concept-name").first();
-    await concept.hover();
-    await idle();
-    const displayExplanation = await page.evaluate(() => window.rmRaw.relationships.find((relation) => relation.id === "r058").map_explanation);
-    assert.equal(await root.locator(".rm-tooltip details, .rm-tooltip summary, .rm-tooltip a").count(), 0);
-    assert.equal(await root.locator(".rm-tooltip-reason p").first().innerText(), displayExplanation);
-    await snapshot("desktop-connection");
-    await page.keyboard.press("Escape");
-    const peerId = await root.locator(".rm-focus-peer .rm-focus-paper").first().getAttribute("data-work");
-    await root.locator(".rm-focus-peer .rm-focus-paper").first().click();
-    await checkFocus();
-    assert.equal(await root.locator(".rm-focus-center").getAttribute("data-work"), peerId);
-    await root.locator(".rm-back").click();
-    await idle();
-    assert.equal(await scroller.evaluate((node) => node.scrollLeft), savedOffset);
-    assert.equal(await page.evaluate(() => document.activeElement.dataset.instance), instance);
-    await page.keyboard.press("Escape");
-    // Exercise all 74 focused layouts for label overlap and complete reasons.
-    const workIds = await page.evaluate(() => window.rmRaw.works.map((work) => work.annotations.id));
-    for (const id of workIds) {
-      await page.evaluate((id) => {
-        const u = new URL(location.href);
-        u.searchParams.set("rm_paper", id);
-        history.replaceState({}, "", u);
-        dispatchEvent(new PopStateEvent("popstate"));
-      }, id);
-      await checkFocus();
-    }
-    await page.evaluate(() => {
-      const u = new URL(location.href);
-      u.searchParams.set("rm_paper", "park2026learning");
-      u.searchParams.set("rm_offset", "7");
-      u.searchParams.set("rm_lens", "method");
-      u.searchParams.set("rm_tags", "missing");
-      history.replaceState({}, "", u);
-      dispatchEvent(new PopStateEvent("popstate"));
+    const corpus = await page.evaluate(() => {
+      const data = ResearchMapModel.prepare(window.rmRaw);
+      return data.works.map((work) => ({
+        id: work.id,
+        title: work.title,
+        summary: work.summary,
+        authors: work.authors.join(", "),
+        url: ResearchMapModel.paperUrl(work),
+        contributions: ResearchMapModel.contributionsFor(work, data).map((category) => category.id),
+      }));
     });
-    await checkFocus();
-    await root.locator(".rm-back").click();
-    await idle();
+    for (const work of corpus) {
+      await reveal(work.id);
+      const paper = root.locator(`.rm-overview .rm-work[data-work="${work.id}"]`);
+      assert.equal(await paper.getAttribute("href"), work.url);
+      assert.equal(await paper.getAttribute("target"), "_blank");
+      assert.match(await paper.getAttribute("rel"), /noopener/);
+      assert.equal(await root.locator(`.rm-static-paper[data-work="${work.id}"]`).getAttribute("href"), work.url);
+      await paper.locator(".rm-station").hover();
+      assert.equal(await root.locator(".rm-tooltip-title").innerText(), work.title);
+      assert.equal(await root.locator(".rm-tooltip-summary").innerText(), work.summary);
+      assert.equal(await root.locator(".rm-tooltip-authors").innerText(), work.authors);
+      assert.deepEqual(
+        await root.locator(".rm-tooltip-contribution [data-contribution]").evaluateAll((nodes) => nodes.map((node) => node.dataset.contribution)),
+        work.contributions
+      );
+      await page.keyboard.press("Escape");
+    }
+    const mask = root.locator('.rm-overview .rm-work[data-work="seong2026discovering"]');
+    const checkMaskHover = async () => {
+      await reveal("seong2026discovering");
+      await mask.locator(".rm-station").hover();
+      assert.equal(await mask.locator(".rm-station").getAttribute("data-shape"), "star");
+      assert.deepEqual(
+        await root.locator(".rm-tooltip-contribution [data-contribution]").evaluateAll((nodes) => nodes.map((node) => node.textContent)),
+        ["Agents", "Generative modeling"]
+      );
+      const tooltip = await root.locator(".rm-tooltip").boundingBox();
+      assert.ok(tooltip.x >= 0 && tooltip.x + tooltip.width <= (await page.viewportSize()).width, "hover card fits the viewport");
+    };
+    await checkMaskHover();
+    await snapshot("desktop-paper-summary");
+    const checkPaperActivation = async (paper, activate) => {
+      const destination = await paper.getAttribute("href");
+      await page.context().route(destination, (route) => route.fulfill({ contentType: "text/html", body: "Paper link check" }));
+      const opened = page.waitForEvent("popup");
+      await activate();
+      const popup = await opened;
+      await popup.waitForLoadState("domcontentloaded");
+      assert.equal(popup.url(), destination);
+      assert.equal(await root.locator(".rm-overview").isVisible(), true);
+      await popup.close();
+      await page.context().unroute(destination);
+    };
+    await checkPaperActivation(mask, () => mask.locator(".rm-station").click());
+    await checkPaperActivation(mask, () => mask.locator(".rm-work-label").click());
+    await mask.focus();
+    assert.ok((await root.locator(".rm-tooltip-summary").innerText()).length > 0);
+    await checkPaperActivation(mask, () => mask.press("Enter"));
+    await reveal("yoon2024breadthfirst");
+    const beag = root.locator('.rm-overview .rm-work[data-work="yoon2024breadthfirst"]');
+    assert.match(await beag.getAttribute("href"), /proceedings\.mlr\.press/);
+    await checkPaperActivation(beag, () => beag.click());
+    await load(
+      `${url.split("?")[0].split("#")[0]}?rm_paper=seong2026discovering&rm_offset=7&rm_lens=method&rm_tags=missing&utm_source=check#research-map`
+    );
+    assert.equal(new URL(page.url()).searchParams.get("rm_paper"), null);
     assert.equal(new URL(page.url()).searchParams.get("rm_lens"), null);
     assert.equal(new URL(page.url()).searchParams.get("rm_tags"), null);
     assert.equal(new URL(page.url()).searchParams.get("rm_offset"), "7");
+    assert.equal(new URL(page.url()).searchParams.get("utm_source"), "check");
+    assert.equal(await root.locator(".rm-overview").isVisible(), true);
     await page.goBack();
-    await idle();
-    await checkFocus();
+    await page.waitForSelector('#research-map[data-ready="true"]');
     await page.setViewportSize({ width: 768, height: 1100 });
     await idle();
-    await checkFocus();
-    await snapshot("tablet-focus");
+    await checkMaskHover();
+    await snapshot("tablet-paper-summary");
     await page.setViewportSize({ width: 390, height: 1100 });
     await idle();
-    await checkFocus();
+    await checkMaskHover();
+    await snapshot("mobile-paper-summary");
+    await checkPaperActivation(mask, () => mask.locator(".rm-station").tap());
     await page.keyboard.press("Escape");
-    await snapshot("mobile-focus");
-    await root.locator(".rm-mobile-concepts .rm-concept-name").first().click();
-    await idle();
-    assert.equal(await root.locator(".rm-tooltip details, .rm-tooltip summary, .rm-tooltip a").count(), 0);
-    assert.equal(await root.locator(".rm-tooltip-reason p").first().innerText(), displayExplanation);
-    await snapshot("mobile-connection");
-    await root.locator(".rm-back").click();
-    await idle();
     await scroller.focus();
     await scroller.press("End");
     await idle();
@@ -401,6 +361,9 @@ const path = require("node:path");
     });
     await idle();
     await snapshot("mobile-dark");
+    await checkMaskHover();
+    await snapshot("mobile-dark-paper-summary");
+    await page.keyboard.press("Escape");
     const colors = await page.evaluate(() => {
       const toHex = (rgb) =>
         "#" +
@@ -425,6 +388,11 @@ const path = require("node:path");
     const noJs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 1100 } });
     await noJs.goto(url, { waitUntil: "networkidle" });
     assert.equal(await noJs.locator(".rm-static-paper").count(), 74);
+    assert.equal(
+      await noJs.locator('.rm-static-paper[data-work="seong2026discovering"]').getAttribute("href"),
+      corpus.find((work) => work.id === "seong2026discovering").url
+    );
+    assert.match(await noJs.locator('.rm-static-paper[data-work="seong2026discovering"] title').textContent(), /Generative modeling/);
     assert.equal(await noJs.locator(".rm-static .rm-identity-path").count(), 0);
     assert.equal(await noJs.locator(".rm-static").isVisible(), true);
     assert.equal(await noJs.locator(".rm-navigation").isVisible(), false);
@@ -436,7 +404,7 @@ const path = require("node:path");
     assert.equal(await failed.locator(".rm-static").isVisible(), true);
     assert.equal(await failed.locator(".rm-load-status").innerText(), "Interactive map unavailable.");
     console.log(
-      "Research-map browser checks passed: Research placement, compact spacing, contribution symbols, author hovers, fixed height and legends, chronology, navigation, all 74 focused layouts, shared stations and clear crossing gaps, concise connections, history, keyboard, mobile/tablet/dark, and static/error fallback."
+      "Research-map browser checks passed: Research placement, compact spacing, contribution symbols, author hovers, fixed height and legends, chronology, navigation, all 74 paper links and summaries, primary and secondary contributions, shared stations and clear crossing gaps, legacy URLs, keyboard and touch activation, mobile/tablet/dark, and static/error fallback."
     );
   } finally {
     await browser.close();

@@ -24,6 +24,7 @@ if (jsonMode) {
       positions: Object.fromEntries([...layout.stationByInstance].map(([id, station]) => [id, station.x])),
       x_by_id: Object.fromEntries(layout.xById),
       symbols: Object.fromEntries(data.contribution_categories.map((category) => [category.id, model.stationSymbol(category.shape)])),
+      paper_urls: Object.fromEntries(data.works.map((work) => [work.id, model.paperUrl(work)])),
       contribution_order: model.contributionLegend(data).map((category) => category.id),
     })
   );

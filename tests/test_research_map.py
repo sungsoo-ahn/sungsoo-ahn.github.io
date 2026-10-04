@@ -94,6 +94,16 @@ class ResearchMapTests(unittest.TestCase):
         layout = map_module.timeline_layout(self.data, self.publications)
         stations = [node for node in overview.iter('a') if node.get('class') == 'rm-static-paper rm-themed']
         self.assertEqual(len(stations), 74)
+        for station in stations:
+            work = next(work for work in self.data['works'] if work['id'] == station.get('data-work'))
+            self.assertEqual(station.get('href'), layout['paper_urls'][work['id']])
+            self.assertEqual(station.get('target'), '_blank')
+            self.assertIn(work['summary'], station.find('title').text)
+            self.assertIn('noopener', station.get('rel'))
+        mask = next(station for station in stations if station.get('data-work') == 'seong2026discovering')
+        self.assertIn('Agents', mask.find('title').text)
+        self.assertIn('Generative modeling', mask.find('title').text)
+
         self.assertEqual({node.get('data-work') for node in stations}, {work['id'] for work in self.data['works']})
         self.assertTrue(all(float(node.get('data-x')) == layout['positions'][node.get('data-instance')] for node in stations))
         self.assertTrue(all(float(node.get('data-y')) == next(station['y'] for station in layout['stations'] if station['id'] == node.get('data-instance')) for node in stations))
@@ -135,6 +145,16 @@ class ResearchMapTests(unittest.TestCase):
         self.assertTrue(any('map_contribution_reason required' in error for error in errors))
         errors = self.errors_for(lambda d: d['contribution_categories'][0].update(shape='octagon'))
         self.assertTrue(any('unsupported contribution shape' in error for error in errors))
+
+    def test_secondary_contributions_are_optional_known_unique_and_distinct(self):
+        for secondary in [None, "generation", ["unknown"], [[]], ["search", "search"]]:
+            with self.subTest(secondary=secondary):
+                errors = self.errors_for(lambda d: d['works'][0].update(map_secondary_contributions=secondary))
+                self.assertTrue(any('secondary' in error for error in errors))
+        errors = self.errors_for(lambda d: d['works'][0].update(map_secondary_contributions=[d['works'][0]['map_contribution']]))
+        self.assertTrue(any('exclude the main contribution' in error for error in errors))
+        errors = self.errors_for(lambda d: d['works'][0].update(map_secondary_contributions=[]))
+        self.assertEqual(errors, [])
 
     def test_display_hints_reject_invalid_geometry_and_unknown_fields(self):
         invalid = [None, {}, {'y': float('nan')}, {'y': float('inf')}, {'y': True},

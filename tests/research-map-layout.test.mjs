@@ -195,28 +195,25 @@ test("new application classifications have checked experimental locators and dis
   for (let i = 1; i < sequence.length; i++) assert.ok(layout.xById.get(sequence[i].id) > layout.xById.get(sequence[i - 1].id));
 });
 
-test("every focused corpus graph coalesces incident peers and retains all named supported and interpretive reasons", () => {
+test("every paper links directly to a recorded source and keeps secondary contributions off its station", () => {
+  const fallbacks = [];
   for (const work of data.works) {
-    const graph = model.focusGraph(work.id, data);
-    assert.ok(graph.connections.length >= 1 && graph.connections.length <= 6, work.id);
-    assert.equal(new Set(graph.connections.map((edge) => edge.peer.id)).size, graph.connections.length);
-    assert.equal(
-      graph.connections.reduce((n, edge) => n + edge.reasons.length, 0),
-      model.detailConnections(work.id, data).length
-    );
-    for (const edge of graph.connections) {
-      assert.ok(model.compareChronology(data.workById.get(edge.from), data.workById.get(edge.to)) < 0);
-      assert.ok(edge.reasons.every((reason) => [reason.from, reason.to].includes(work.id) && reason.map_label));
-      assert.ok(edge.concepts.length >= 1 && edge.concepts.length <= 3);
-      assert.equal(
-        edge.concepts.reduce((n, concept) => n + concept.reasons.length, 0),
-        edge.reasons.length
-      );
-      assert.ok((model.compareChronology(edge.peer, work) < 0 ? graph.earlier : graph.later).includes(edge));
-    }
+    const link = model.paperUrl(work);
+    assert.match(link, /^https:\/\//);
+    assert.ok(!link.includes("openreview.net"));
+    if (!link.startsWith("https://arxiv.org/abs/")) fallbacks.push(work.map_label);
+    const categories = model.contributionsFor(work, data);
+    assert.equal(categories[0].id, work.map_contribution);
+    assert.equal(new Set(categories.map((category) => category.id)).size, categories.length);
   }
-  assert.equal(data.relationships.filter((r) => r.status === "documented").length, 57);
-  assert.equal(data.relationships.filter((r) => r.status === "interpretive").length, 35);
+  assert.deepEqual(fallbacks.sort(), ["BEAG", "DND", "DRIMA", "HoliMol", "STGG", "Wave-GD"].sort());
+  const mask = data.workById.get("seong2026discovering");
+  assert.deepEqual(
+    model.contributionsFor(mask, data).map((category) => category.id),
+    ["agents", "generation"]
+  );
+  assert.equal(model.contributionFor(mask, data).shape, "star");
+  assert.equal(source.relationships.length, 92, "curated connections remain in canonical analysis data");
 });
 
 test("one editable contribution per work preserves authored symmetry choices and distinct domain targets", () => {

@@ -1,7 +1,7 @@
 # Canonical research-map annotations. Bibliographic metadata remains in publications.yml.
 # Edit memberships to change categories; edit map_label for nicknames and keywords for the editorial pool.
-# Rows and chronological positions are derived automatically from memberships and chronology.
-# Legacy x/y and overview values are retained for compatibility; the row view ignores them.
+# Domain routes and chronological positions are derived from memberships and chronology.
+# Legacy x/y and overview values are retained for compatibility; the map ignores them.
 # Relationships must cite both endpoints.
 schema_version: 1
 reviewed_on: '2026-10-03'
@@ -884,6 +884,7 @@ taxonomy:
 works:
 - id: kim2026atommof
   map_contribution: generation
+  map_secondary_contributions: [search]
   map_contribution_reason: Predicts MOF and adsorbate structures directly from the graphs of their building blocks.
   publication_ids:
   - kim2026atommof
@@ -977,6 +978,7 @@ works:
   overview: true
 - id: jang2026boltz
   map_contribution: representations
+  map_secondary_contributions: [benchmarks]
   map_contribution_reason: The study tests and transfers ligand representations from protein–ligand co-folding models.
   publication_ids:
   - jang2026boltz
@@ -1075,6 +1077,7 @@ works:
   overview: false
 - id: kim2026atomlevel
   map_contribution: representations
+  map_secondary_contributions: [benchmarks]
   map_contribution_reason: Aligned sequence and atomic token views support protein structure representations.
   publication_ids:
   - kim2026atomlevel
@@ -1168,6 +1171,7 @@ works:
   overview: true
 - id: oh2026sctrilemma
   map_contribution: representations
+  map_secondary_contributions: [generation]
   map_contribution_reason: The model routes biological and nuisance information through distinct parts of a representation.
   publication_ids:
   - oh2026sctrilemma
@@ -1254,6 +1258,7 @@ works:
   overview: true
 - id: kim2026packora
   map_contribution: generation
+  map_secondary_contributions: [benchmarks]
   map_contribution_reason: Generates molecular crystal structures while separating candidate generation from downstream
     ranking.
   publication_ids:
@@ -1349,12 +1354,13 @@ works:
   overview: false
 - id: seong2026discovering
   map_contribution: agents
+  map_secondary_contributions: [generation]
   map_contribution_reason: An AI co-scientist searches and refines crystal-prediction algorithms with expert guidance.
   publication_ids:
   - seong2026discovering
   map_label: MaskGXT / HACO
   label: MaskGXT / HACO
-  summary: Transfers a masked generative modeling idea from vision into crystal structure prediction.
+  summary: An AI co-scientist develops masked generative models for crystal structure prediction.
   contribution: HACO searches methodological families and refines MaskGXT with symmetry tokens, polymorph coverage,
     and coordinate refinement.
   limitation: The algorithm-discovery demonstration assumes cheap, aligned validation; results do not establish
@@ -1603,6 +1609,7 @@ works:
   overview: true
 - id: piao2026learning
   map_contribution: learning_inference
+  map_secondary_contributions: [representations]
   map_contribution_reason: Predicts perturbation-specific transcriptional responses without collapsing to an average
     cell response.
   publication_ids:
@@ -1686,6 +1693,7 @@ works:
   overview: false
 - id: jang2026indibator
   map_contribution: agents
+  map_secondary_contributions: [reasoning]
   map_contribution_reason: Agents propose, critique, and select molecules using individual scientific histories.
   publication_ids:
   - jang2026indibator
@@ -1831,6 +1839,7 @@ works:
   overview: false
 - id: kim2026progressive
   map_contribution: agents
+  map_secondary_contributions: [reasoning]
   map_contribution_reason: The agent sequences biological tasks and passes confident results to harder predictions.
   publication_ids:
   - kim2026progressive
@@ -1916,6 +1925,7 @@ works:
   overview: false
 - id: woo2026riemannian
   map_contribution: generation
+  map_secondary_contributions: [search]
   map_contribution_reason: Learns generative flow maps directly on manifolds for rapid biological design.
   publication_ids:
   - woo2026riemannian
@@ -1998,6 +2008,7 @@ works:
   overview: false
 - id: kim2026machine
   map_contribution: symmetry
+  map_secondary_contributions: [learning_inference, benchmarks]
   map_contribution_reason: The SO(2)-equivariant backbone and pair updates structure Hamiltonian prediction.
   publication_ids:
   - kim2026machine
@@ -2086,6 +2097,7 @@ works:
   overview: false
 - id: kim2026catflow
   map_contribution: generation
+  map_secondary_contributions: [representations]
   map_contribution_reason: A joint generative model uses primitive-cell variables for catalyst surfaces and adsorbates.
   publication_ids:
   - kim2026catflow
@@ -2173,6 +2185,7 @@ works:
   overview: false
 - id: kim2026latent
   map_contribution: reasoning
+  map_secondary_contributions: [search, learning_inference]
   map_contribution_reason: Latent correctness estimates identify errors in individual reasoning steps.
   publication_ids:
   - kim2026latent
@@ -2505,6 +2518,7 @@ works:
     label_side: below
     label_gap: 12
   map_contribution: benchmarks
+  map_secondary_contributions: [search]
   map_contribution_reason: A common framework supports controlled comparisons of combinatorial reinforcement-learning
     solvers.
   publication_ids:
@@ -2686,6 +2700,7 @@ works:
   overview: false
 - id: kim2025scalable
   map_contribution: generation
+  map_secondary_contributions: [search]
   map_contribution_reason: Improves neural sampling when energy calls are expensive and landscapes contain difficult-to-reach
     modes.
   publication_ids:
@@ -2881,6 +2896,7 @@ works:
   overview: false
 - id: kim2025highorder
   map_contribution: symmetry
+  map_secondary_contributions: [generation]
   map_contribution_reason: Equivariant vector fields preserve the transformation rules of electronic Hamiltonians.
   publication_ids:
   - kim2025highorder
@@ -2962,6 +2978,7 @@ works:
   overview: false
 - id: jang2025selftraining
   map_contribution: reasoning
+  map_secondary_contributions: [search]
   map_contribution_reason: Training uses confidence in reasoning paths instead of only final-answer correctness.
   publication_ids:
   - jang2025selftraining
@@ -3038,6 +3055,7 @@ works:
   overview: false
 - id: kim2025mtmol
   map_contribution: agents
+  map_secondary_contributions: [search, reasoning]
   map_contribution_reason: Specialist agents use chemistry tools to check and refine molecular proposals.
   publication_ids:
   - kim2025mtmol
@@ -3195,6 +3213,7 @@ works:
   overview: false
 - id: hahm2025enhancing
   map_contribution: reasoning
+  map_secondary_contributions: [agents]
   map_contribution_reason: Explicit causal diagrams structure actions, uncertainty, and utilities during agent reasoning.
   publication_ids:
   - hahm2025enhancing
@@ -3262,6 +3281,7 @@ works:
   overview: false
 - id: jang2025structural
   map_contribution: reasoning
+  map_secondary_contributions: [representations]
   map_contribution_reason: Intermediate structural sketches make molecular reasoning explicit.
   publication_ids:
   - jang2025structural
@@ -3337,6 +3357,7 @@ works:
   overview: false
 - id: seo2025generative
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Searches reaction pathways for diverse high-reward molecules within an available synthesis space.
   publication_ids:
   - seo2025generative
@@ -3425,6 +3446,7 @@ works:
   overview: false
 - id: kim2025mofflow
   map_contribution: generation
+  map_secondary_contributions: [representations]
   map_contribution_reason: Predicts MOF structures by assembling metal nodes and organic linkers as rigid building blocks.
   publication_ids:
   - kim2025mofflow
@@ -3510,6 +3532,7 @@ works:
     y: 199
     label_side: below
   map_contribution: generation
+  map_secondary_contributions: [symmetry]
   map_contribution_reason: Samples molecular transition paths without requiring manually designed collective variables.
   publication_ids:
   - seong2025transition
@@ -3607,6 +3630,7 @@ works:
   overview: false
 - id: kim2025rebind
   map_contribution: learning_inference
+  map_secondary_contributions: [representations]
   map_contribution_reason: Force-derived graph edges improve predictions of non-bonded interactions.
   publication_ids:
   - kim2025rebind
@@ -3684,6 +3708,7 @@ works:
   overview: false
 - id: kim2025adaptive
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Targets poorly explored regions to improve sampler coverage and search efficiency.
   publication_ids:
   - kim2025adaptive
@@ -3875,6 +3900,7 @@ works:
   overview: false
 - id: jang2024can
   map_contribution: generation
+  map_secondary_contributions: [search]
   map_contribution_reason: Aligns a language model with structural diversity across generated molecules.
   publication_ids:
   - jang2024can
@@ -4104,6 +4130,7 @@ works:
   overview: false
 - id: jang2024pessimistic
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Improves exploitation of high-reward objects through pessimistic backward-policy training.
   publication_ids:
   - jang2024pessimistic
@@ -4350,6 +4377,7 @@ works:
   overview: false
 - id: kim2024improving
   map_contribution: learning_inference
+  map_secondary_contributions: [benchmarks]
   map_contribution_reason: Handles multiple spurious correlations whose mitigation objectives can conflict.
   publication_ids:
   - kim2024improving
@@ -4424,6 +4452,7 @@ works:
   overview: false
 - id: kim2024enhancing
   map_contribution: symmetry
+  map_secondary_contributions: [search]
   map_contribution_reason: Equivalent solution trajectories provide additional training examples without new reward
     evaluations.
   publication_ids:
@@ -4816,6 +4845,7 @@ works:
   overview: false
 - id: jang2024learning
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Provides local energy signals for reward-guided search while preserving the target sampling distribution.
   publication_ids:
   - jang2024learning
@@ -4908,6 +4938,7 @@ works:
   overview: true
 - id: jang2024simple
   map_contribution: generation
+  map_secondary_contributions: [representations]
   map_contribution_reason: A compact edge grammar makes sparse graph generation scale with the edge count.
   publication_ids:
   - jang2024simple
@@ -4985,6 +5016,7 @@ works:
   overview: false
 - id: jang2024graph
   map_contribution: generation
+  map_secondary_contributions: [representations]
   map_contribution_reason: A hierarchical adjacency grammar supports compact graph generation.
   publication_ids:
   - jang2024graph
@@ -5066,6 +5098,7 @@ works:
   overview: false
 - id: kim2024local
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Refines promising objects through trajectory backtracking, reconstruction, and replay.
   publication_ids:
   - kim2024local
@@ -5163,6 +5196,7 @@ works:
   overview: false
 - id: cho2023multiresolution
   map_contribution: generation
+  map_secondary_contributions: [representations]
   map_contribution_reason: Preserves graph-frequency structure during joint node-and-edge generation.
   publication_ids:
   - cho2023multiresolution
@@ -5232,6 +5266,7 @@ works:
   overview: false
 - id: jang2023diffusion
   map_contribution: generation
+  map_secondary_contributions: [learning_inference]
   map_contribution_reason: Conditional diffusion models coupled node-label predictions.
   publication_ids:
   - jang2023diffusion
@@ -5317,6 +5352,7 @@ works:
   overview: false
 - id: kim2023bootstrapped
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Proxy-guided bootstrapping searches for improved designs from a fixed dataset.
   publication_ids:
   - kim2023bootstrapped
@@ -5485,6 +5521,7 @@ works:
   overview: false
 - id: kim2023imitating
   map_contribution: search
+  map_secondary_contributions: [learning_inference]
   map_contribution_reason: Policies learn reusable control behavior from subgoal-planner results.
   publication_ids:
   - kim2023imitating
@@ -5856,6 +5893,7 @@ works:
     author implementation; full-paper review remains pending.
 - id: yu2021roma
   map_contribution: search
+  map_secondary_contributions: [learning_inference]
   map_contribution_reason: Optimizes a learned objective while limiting exploitation of out-of-distribution model errors.
   publication_ids:
   - yu2021roma
@@ -5936,6 +5974,7 @@ works:
   overview: false
 - id: kim2021selfimproved
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Successful planner routes train reaction proposals for later synthesis searches.
   publication_ids:
   - kim2021selfimproved
@@ -6020,6 +6059,7 @@ works:
   overview: false
 - id: lee2021retcl
   map_contribution: representations
+  map_secondary_contributions: [search]
   map_contribution_reason: Contrastive graph embeddings rank available reactant combinations.
   publication_ids:
   - lee2021retcl
@@ -6238,6 +6278,7 @@ works:
   overview: false
 - id: ahn2020guiding
   map_contribution: search
+  map_secondary_contributions: [generation]
   map_contribution_reason: Uses domain-specific genetic search to improve a neural molecular generator.
   publication_ids:
   - ahn2020guiding
@@ -6497,6 +6538,7 @@ works:
   overview: false
 - id: ahn2018bucketrenormalization
   map_contribution: learning_inference
+  map_secondary_contributions: [representations]
   map_contribution_reason: Low-rank factor projections control the cost of partition-function inference.
   publication_ids:
   - ahn2018bucketrenormalization
@@ -6715,6 +6757,7 @@ works:
   overview: false
 - id: ahn2018maximum
   map_contribution: search
+  map_secondary_contributions: [learning_inference]
   map_contribution_reason: Graph transformations and cutting-plane steps solve constrained matching problems.
   publication_ids:
   - ahn2018maximum
@@ -6884,6 +6927,7 @@ works:
   overview: true
 - id: ahn2015minimum
   map_contribution: search
+  map_secondary_contributions: [learning_inference]
   map_contribution_reason: Blossom contraction and expansion turn belief propagation into a polynomial-time matching
     solver.
   publication_ids:

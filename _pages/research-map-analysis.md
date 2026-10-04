@@ -24,11 +24,11 @@ The overview uses one shared station per work in a left-to-right chronological s
 
 Graph and language modeling are represented as methodologies rather than overview domains. Their application papers are assigned to molecules, proteins, materials, or cells; generic neural graph learning, reasoning, control, and optimization are grouped under General ML: deep learning. General ML: graphical models covers the classical BP, partition-function, gauge, and elimination work. Rechecking graph experiments added molecular evaluation memberships for EPIC (Section 4.1 and Table 2) and Wavelet diffusion (QM9, Sections 4.1/4.4), and biological evaluation memberships for EPIC, Non-backtracking GNN (Peptides-func/struct), and Node diffusion (PPI). Every assignment retains its source locator.
 
-The map opens at the newest end. Left/right controls pan up to 360 CSS pixels at one fixed scale, retaining overlapping windows on narrow screens so no paper falls between steps; horizontal scrolling and Home/End are supported. Each paper has one nickname and first venue/year label above or below its station, shown when the label fits the viewport. Full titles, author lists, all domains, contributions, and editions appear on hover. Papers with multiple domain memberships act as interchanges where their colored routes meet. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
+The map opens at the newest end. Left/right controls pan up to 360 CSS pixels at one fixed scale, retaining overlapping windows on narrow screens so no paper falls between steps; horizontal scrolling and Home/End are supported. Each paper has one nickname and first venue/year label above or below its station, shown when the label fits the viewport. Full titles, one-sentence summaries, author lists, all domains, main and secondary contributions, and editions appear on hover. Papers with multiple domain memberships act as interchanges where their colored routes meet. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
 
-Clicking a paper opens only conceptual connections: documented shared mechanisms, interpretive parallels, and incident segments from concept groups of two or three papers. Major category membership alone does not create a spoke. Each connected paper appears once; short connection names appear on its spoke (under the paper on narrow screens). Hover reveals each short explanation and interpretation status. The complete analysis retains the evidence sources. Earlier papers appear to the left and later papers to the right, or above and below on narrow screens. Interpretive-only spokes are dashed. No arrowheads imply influence. Clicking a peer recenters the graph; Back restores the overview position. Full analysis and keywords stay in these editing pages.
+Paper stations link directly to arXiv in a new tab. Bibliographic arXiv links take precedence; annotated arXiv sources cover papers absent from the bibliography. Existing publisher, conference, or reviewed project sources provide destinations when no arXiv record is available. The homepage has no paper-wise conceptual view; curated connections and their evidence remain in this analysis and the editable annotations.
 
-Station colors indicate domains and SVG shapes indicate one main contribution. The contribution families are Symmetry, Generative modeling, Representations, Learning & inference, Search & optimization, Reasoning, Agents, and Benchmarks. Their stable legends follow first appearance. Contribution annotations identify the central novelty rather than every method used. QHFlow and QHFlow2 share a Symmetry mark and an Electronic structure domain, alongside GPWNO. Other method annotations remain available on hover.
+Station colors indicate domains and SVG shapes indicate one main contribution. The contribution families are Symmetry, Generative modeling, Representations, Learning & inference, Search & optimization, Reasoning, Agents, and Benchmarks. Their stable legends follow first appearance. Contribution annotations identify the central novelty rather than every method used. QHFlow and QHFlow2 share a Symmetry mark and an Electronic structure domain, alongside GPWNO. Secondary contribution labels remain in hover cards and never add station markers. MaskGXT / HACO uses an Agents marker and also lists Generative modeling. Other method annotations remain available on hover.
 
 Chronology selects the earlier of the first arXiv version listing Sungsoo Ahn and the official conference acceptance notification. Candidate dates and excluded pre-authorship versions are recorded below; journal months are a fallback when neither date is available. Venue/year labels remain bibliographic. Titles and identifiers break ties on the same date. Curated pairwise connections require evidence from both endpoints. The keyword pool is intentionally overcomplete and editable; keyword overlap never creates a scientific connection automatically.
 
@@ -102,6 +102,8 @@ Predicts MOF and adsorbate structures directly from the graphs of their building
 
 **Evidence boundary.** Structural and adsorption-energy evaluations use computational reference datasets; generated candidates are not experimentally validated MOFs.
 
+**Other contributions.** Search & optimization.
+
 **Chronology.** [2026-02-07: arxiv version](https://arxiv.org/abs/2602.07351v1).
 
 **Candidate dates.** [2026-02-07: arXiv 2602.07351v1](https://arxiv.org/abs/2602.07351v1); [2026-09-24: NeurIPS conference notification](https://neurips.cc/Conferences/2026/Dates).
@@ -140,6 +142,8 @@ Tests whether protein–ligand co-folding can supply useful representations for 
 **Evaluation.** ADMET prediction, molecular generation, structure-guided optimization, and representation-alignment experiments.
 
 **Evidence boundary.** Transfer is demonstrated for the evaluated model and tasks; representation-level guidance is a conceptual relative of local credit, not the LED-GFN objective.
+
+**Other contributions.** Benchmarks.
 
 **Chronology.** [2026-02-02: arxiv version](https://arxiv.org/abs/2602.13249v1).
 
@@ -181,6 +185,8 @@ Learns protein representations that support structure prediction rather than onl
 
 **Evidence boundary.** The full-atom view is locally tokenized and residue-aligned; this does not imply direct generation of every atom in a whole protein.
 
+**Other contributions.** Benchmarks.
+
 **Chronology.** [2026-05-21: arxiv version](https://arxiv.org/abs/2605.22133v1).
 
 **Candidate dates.** [2026-05-21: arXiv 2605.22133v1](https://arxiv.org/abs/2605.22133v1); [2026-09-24: NeurIPS conference notification](https://neurips.cc/Conferences/2026/Dates).
@@ -219,6 +225,8 @@ Balances biological identity, nuisance invariance, and expression fidelity in si
 
 **Evidence boundary.** The paper's source title now says Fidelity while the canonical publication title says Reconstruction; neither title is silently rewritten here.
 
+**Other contributions.** Generative modeling.
+
 **Chronology.** [2026-09-24: conference notification](https://neurips.cc/Conferences/2026/Dates).
 
 **Candidate dates.** [2026-09-24: NeurIPS conference notification](https://neurips.cc/Conferences/2026/Dates); [2026-09-30: arXiv 2609.38840v1](https://arxiv.org/abs/2609.38840v1).
@@ -256,6 +264,8 @@ Generates molecular crystal structures while separating candidate generation fro
 
 **Evidence boundary.** Experimental-form recovery measures agreement with known crystal forms; it is not evidence of prospective synthesis or a general robotics sim-to-real result.
 
+**Other contributions.** Benchmarks.
+
 **Chronology.** [2026-08-27: arxiv version](https://arxiv.org/abs/2608.26962v1).
 
 **Candidate dates.** [2026-08-27: arXiv 2608.26962v1](https://arxiv.org/abs/2608.26962v1).
@@ -285,7 +295,7 @@ Generates molecular crystal structures while separating candidate generation fro
 
 arXiv 2026 · Review: fulltext.
 
-Transfers a masked generative modeling idea from vision into crystal structure prediction.
+An AI co-scientist develops masked generative models for crystal structure prediction.
 
 **Contribution.** HACO searches methodological families and refines MaskGXT with symmetry tokens, polymorph coverage, and coordinate refinement.
 
@@ -294,6 +304,8 @@ Transfers a masked generative modeling idea from vision into crystal structure p
 **Evaluation.** MP-20 and MPTS-52 structure recovery plus polymorph-coverage and component ablations.
 
 **Evidence boundary.** The algorithm-discovery demonstration assumes cheap, aligned validation; results do not establish a generally autonomous scientific discovery system.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2026-06-22: arxiv version](https://arxiv.org/abs/2606.22866v1).
 
@@ -409,6 +421,8 @@ Predicts perturbation-specific transcriptional responses without collapsing to a
 
 **Evidence boundary.** Generalization is tested on held-out perturbations and cell lines; causal intervention claims require additional evidence.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2026-02-21: arxiv version](https://arxiv.org/abs/2602.18885v1).
 
 **Candidate dates.** [2026-02-21: arXiv 2602.18885v1](https://arxiv.org/abs/2602.18885v1); [2026-04-30: ICML conference notification](https://icml.cc/Conferences/2026/Dates).
@@ -445,6 +459,8 @@ Grounds molecular-discovery debates in individualized scientific and molecular h
 **Evaluation.** Protein-conditioned generation, bioactivity-guided generation, and goal-directed lead optimization.
 
 **Evidence boundary.** Profile diversity and benchmark performance do not establish that every agent's scientific claim is correct or every molecule works experimentally.
+
+**Other contributions.** Reasoning.
 
 **Chronology.** [2026-02-02: arxiv version](https://arxiv.org/abs/2602.01815v1).
 
@@ -522,6 +538,8 @@ Predicts gene-regulation directions under chemical and genetic perturbations wit
 
 **Evidence boundary.** The outputs are regulation directions and explanations, not a complete quantitative simulator of a perturbed cell.
 
+**Other contributions.** Reasoning.
+
 **Chronology.** [2026-02-07: arxiv version](https://arxiv.org/abs/2602.07408v1).
 
 **Candidate dates.** [2026-02-07: arXiv 2602.07408v1](https://arxiv.org/abs/2602.07408v1).
@@ -560,6 +578,8 @@ Learns generative flow maps directly on manifolds for rapid biological design.
 
 **Evidence boundary.** A few-step flow map and an equilibrium sampler solve different training problems; this work is evaluated on the reported biological design tasks.
 
+**Other contributions.** Search & optimization.
+
 **Chronology.** [2026-02-08: arxiv version](https://arxiv.org/abs/2602.07744v1).
 
 **Candidate dates.** [2026-02-08: arXiv 2602.07744v1](https://arxiv.org/abs/2602.07744v1); [2026-04-30: ICML conference notification](https://icml.cc/Conferences/2026/Dates).
@@ -596,6 +616,8 @@ Tests predicted electronic Hamiltonians by the energies and forces they actually
 **Evaluation.** MD17/rMD17 and QH9 Hamiltonian, energy, and force evaluations with capacity and data scaling.
 
 **Evidence boundary.** The QHFlow2 name alone is not evidence that the model uses the flow-matching objective of QHFlow; Hamiltonian prediction is treated separately here.
+
+**Other contributions.** Learning & inference; Benchmarks.
 
 **Chronology.** [2026-02-18: arxiv version](https://arxiv.org/abs/2602.16897v1).
 
@@ -634,6 +656,8 @@ Co-generates catalyst surfaces and adsorbate configurations as a coupled structu
 
 **Evidence boundary.** OC20 structure and adsorption-energy evaluations assess computational interfaces rather than measured catalyst performance.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2026-02-05: arxiv version](https://arxiv.org/abs/2602.05372v1).
 
 **Candidate dates.** [2026-02-05: arXiv 2602.05372v1](https://arxiv.org/abs/2602.05372v1); [2026-04-30: ICML conference notification](https://icml.cc/Conferences/2026/Dates).
@@ -670,6 +694,8 @@ Infers which individual steps in a reasoning chain are incorrect.
 **Evaluation.** Logical, mathematical, and commonsense reasoning, plus self-correction and self-improvement applications.
 
 **Evidence boundary.** Language-model likelihood is a proxy reward; accurate step identification on benchmarks is not a universal truth guarantee.
+
+**Other contributions.** Search & optimization; Learning & inference.
 
 **Chronology.** [2025-05-17: arxiv version](https://arxiv.org/abs/2505.11824v1).
 
@@ -820,6 +846,8 @@ Provides a common framework for comparing reinforcement-learning solvers for com
 
 **Evidence boundary.** Library coverage and benchmark findings depend on the reviewed version and controlled settings; current library popularity is not used as evidence.
 
+**Other contributions.** Search & optimization.
+
 **Chronology.** [2024-06-21: arxiv version](https://arxiv.org/abs/2306.17100v4). The map uses the first arXiv version listing Sungsoo Ahn as a coauthor. Earlier versions without him are excluded. [KDD 2025](https://kdd.org/kdd2025/research-track-call-for-papers/) has November 2024 and May 2025 notification rounds; both follow the June 2024 coauthored arXiv version. The paper-specific round is not verified.
 
 **Candidate dates.** [2024-06-21: arXiv 2306.17100v4](https://arxiv.org/abs/2306.17100v4).
@@ -895,6 +923,8 @@ Improves neural sampling when energy calls are expensive and landscapes contain 
 **Evaluation.** Standard energy benchmarks, higher-dimensional systems, and molecular conformer generation.
 
 **Evidence boundary.** Mixing and learned mode coverage remain task-dependent; improved finite-budget sampling is not a universal exact-sampling claim.
+
+**Other contributions.** Search & optimization.
 
 **Chronology.** [2025-05-26: arxiv version](https://arxiv.org/abs/2505.19552v1).
 
@@ -973,6 +1003,8 @@ Predicts structured electronic Hamiltonians to reduce expensive self-consistent-
 
 **Evidence boundary.** Hamiltonian reconstruction quality and downstream energy–force accuracy are different tests; the later QHFlow2 study investigates the latter.
 
+**Other contributions.** Generative modeling.
+
 **Chronology.** [2025-05-24: arxiv version](https://arxiv.org/abs/2505.18817v1).
 
 **Candidate dates.** [2025-05-24: arXiv 2505.18817v1](https://arxiv.org/abs/2505.18817v1); [2025-09-18: NeurIPS conference notification](https://neurips.cc/Conferences/2025/Dates).
@@ -1010,6 +1042,8 @@ Improves reasoning self-training by evaluating reasoning paths rather than only 
 
 **Evidence boundary.** Confidence remains a model-derived signal and can be miscalibrated; reasoning quality is evaluated on the reported tasks.
 
+**Other contributions.** Search & optimization.
+
 **Chronology.** [2025-05-23: arxiv version](https://arxiv.org/abs/2505.17454v1).
 
 **Candidate dates.** [2025-05-23: arXiv 2505.17454v1](https://arxiv.org/abs/2505.17454v1); [2025-08-20: EMNLP conference notification](https://2025.emnlp.org/calls/main_conference_papers/).
@@ -1046,6 +1080,8 @@ Optimizes molecules with specialized agents that use chemistry tools to inspect 
 **Evaluation.** PMO-1K molecular optimization with tool, agent, and budget comparisons.
 
 **Evidence boundary.** Tool consistency and low-budget proxy scores do not prove synthetic feasibility or experimental activity.
+
+**Other contributions.** Search & optimization; Reasoning.
 
 **Chronology.** [2025-05-27: arxiv version](https://arxiv.org/abs/2505.20820v1).
 
@@ -1121,6 +1157,8 @@ Uses causal influence diagrams to guide safer language-model agent decisions.
 
 **Evidence boundary.** Generated causal diagrams are reasoning aids rather than independently identified causal models.
 
+**Other contributions.** Agents.
+
 **Chronology.** [2025-05-15: conference notification](https://2025.aclweb.org/calls/main_conference_papers/).
 
 **Candidate dates.** [2025-05-15: ACL conference notification](https://2025.aclweb.org/calls/main_conference_papers/); [2025-07-01: arXiv 2507.00979v1](https://arxiv.org/abs/2507.00979v1).
@@ -1158,6 +1196,8 @@ Improves language-model molecular understanding through explicit structural sket
 
 **Evidence boundary.** Structure-grounded reasoning can reduce errors without making language models reliable chemical simulators.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2024-10-08: arxiv version](https://arxiv.org/abs/2410.05610v1).
 
 **Candidate dates.** [2024-10-08: arXiv 2410.05610v1](https://arxiv.org/abs/2410.05610v1); [2025-05-15: ACL conference notification](https://2025.aclweb.org/calls/main_conference_papers/).
@@ -1194,6 +1234,8 @@ Designs diverse molecules through explicit synthetic reaction pathways.
 **Evaluation.** Pocket-specific optimization, pocket-conditioned generation, and changes to objectives and building-block libraries.
 
 **Evidence boundary.** Template-based synthetic feasibility and docking scores do not guarantee an experimentally executable route or active drug.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2024-10-06: arxiv version](https://arxiv.org/abs/2410.04542v1).
 
@@ -1233,6 +1275,8 @@ Predicts MOF structures by assembling metal nodes and organic linkers as rigid b
 
 **Evidence boundary.** Rigid-block assumptions constrain local geometry; later flexible and all-atom models address this restriction.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2024-10-07: arxiv version](https://arxiv.org/abs/2410.17270v1).
 
 **Candidate dates.** [2024-10-07: arXiv 2410.17270v1](https://arxiv.org/abs/2410.17270v1); [2025-01-22: ICLR conference notification](https://iclr.cc/Conferences/2025/Dates).
@@ -1271,6 +1315,8 @@ Samples molecular transition paths without requiring manually designed collectiv
 
 **Evidence boundary.** Transition-path distributions differ from equilibrium coordinate distributions; this method does not simply replace every MD observable.
 
+**Other contributions.** Symmetry.
+
 **Chronology.** [2024-05-30: arxiv version](https://arxiv.org/abs/2405.19961v1).
 
 **Candidate dates.** [2024-05-30: arXiv 2405.19961v1](https://arxiv.org/abs/2405.19961v1); [2025-01-22: ICLR conference notification](https://iclr.cc/Conferences/2025/Dates).
@@ -1308,6 +1354,8 @@ Improves conformation prediction for atoms whose geometry depends strongly on no
 
 **Evidence boundary.** Force-based rewiring encodes a modeling prior; it is not a full first-principles treatment of all intermolecular forces.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2024-10-04: arxiv version](https://arxiv.org/abs/2410.14696v1).
 
 **Candidate dates.** [2024-10-04: arXiv 2410.14696v1](https://arxiv.org/abs/2410.14696v1); [2025-01-22: ICLR conference notification](https://iclr.cc/Conferences/2025/Dates).
@@ -1343,6 +1391,8 @@ Directs amortized samplers toward states their current training policy misses.
 **Evaluation.** Synthetic exploration, continuous diffusion sampling, and biochemical design with teacher and local-search ablations.
 
 **Evidence boundary.** High loss is a proxy for insufficient coverage; a teacher is not an external oracle or an exact posterior sampler.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2024-10-02: arxiv version](https://arxiv.org/abs/2410.01432v1).
 
@@ -1422,6 +1472,8 @@ Aligns a language model with structural diversity across generated molecules.
 **Evaluation.** Description-guided molecular generation against diverse sequence-decoding baselines.
 
 **Evidence boundary.** Structural diversity is one design objective and does not establish potency or broad experimental validity.
+
+**Other contributions.** Search & optimization.
 
 **Chronology.** [2024-10-04: arxiv version](https://arxiv.org/abs/2410.03138v1).
 
@@ -1532,6 +1584,8 @@ Addresses under-exploitation of high-reward objects in GFlowNet training.
 **Evaluation.** Hyper-grid, bags, structured sets, molecules, and RNA design tasks.
 
 **Evidence boundary.** Pessimistic refers to a particular backward-flow optimization; it is not a general conservative offline-RL guarantee.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2024-05-25: arxiv version](https://arxiv.org/abs/2405.16012v1).
 
@@ -1646,6 +1700,8 @@ Handles multiple spurious correlations whose mitigation objectives can conflict.
 
 **Evidence boundary.** Training assumes bias-attribute annotations, unlike the earlier failure-based and committee-based methods.
 
+**Other contributions.** Benchmarks.
+
 **Chronology.** [2024-05-01: conference notification](https://icml.cc/Conferences/2024/Dates).
 
 **Candidate dates.** [2024-05-01: ICML conference notification](https://icml.cc/Conferences/2024/Dates); [2024-09-05: arXiv 2409.03303v1](https://arxiv.org/abs/2409.03303v1).
@@ -1683,6 +1739,8 @@ Makes black-box combinatorial optimization more sample-efficient when reward cal
 **Evaluation.** Traveling salesman, hardware design, and molecular optimization tasks.
 
 **Evidence boundary.** The useful symmetry must preserve the solution and reward; arbitrary data transformations do not provide free evaluation.
+
+**Other contributions.** Search & optimization.
 
 **Chronology.** [2023-06-02: arxiv version](https://arxiv.org/abs/2306.01276v1).
 
@@ -1871,6 +1929,8 @@ Provides local training signals when intermediate object energies are costly or 
 
 **Evidence boundary.** The guarantee concerns the specified flow reparameterization; learned local potentials need not be physical energies.
 
+**Other contributions.** Generative modeling.
+
 **Chronology.** [2023-10-05: arxiv version](https://arxiv.org/abs/2310.03301v1).
 
 **Candidate dates.** [2023-10-05: arXiv 2310.03301v1](https://arxiv.org/abs/2310.03301v1); [2024-01-15: ICLR conference notification](https://iclr.cc/Conferences/2024/CallForPapers).
@@ -1908,6 +1968,8 @@ Makes sparse graph generation scale with edges rather than full adjacency matric
 **Evaluation.** Ten non-attributed and two molecular graph-generation tasks.
 
 **Evidence boundary.** Compactness depends on graph structure and ordering; the representation is not a universal constant-size graph description.
+
+**Other contributions.** Representations.
 
 **Chronology.** [2023-12-04: arxiv version](https://arxiv.org/abs/2312.02230v1).
 
@@ -1947,6 +2009,8 @@ Generates graphs through a compact hierarchical representation of their adjacenc
 
 **Evidence boundary.** A useful compression grammar differs from a learned molecular representation or a chemical reaction pathway.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2023-05-30: arxiv version](https://arxiv.org/abs/2305.19125v1).
 
 **Candidate dates.** [2023-05-30: arXiv 2305.19125v1](https://arxiv.org/abs/2305.19125v1); [2024-01-15: ICLR conference notification](https://iclr.cc/Conferences/2024/CallForPapers).
@@ -1983,6 +2047,8 @@ Combines global sampling with refinement of promising local neighborhoods.
 **Evaluation.** Molecule optimization and biological-sequence design, measuring reward-distribution accuracy and discovered modes.
 
 **Evidence boundary.** GFlowNets target reward-proportional sampling, whereas genetic expert learning principally pursues high rewards; their objectives are not interchangeable.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2023-10-04: arxiv version](https://arxiv.org/abs/2310.02710v1).
 
@@ -2023,6 +2089,8 @@ Preserves graph-frequency structure during joint node-and-edge generation.
 
 **Evidence boundary.** A spectral graph signal is not a physical particle-density field; the connection is representational.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2023-09-22: conference notification](https://neurips.cc/Conferences/2023/Dates).
 
 **Candidate dates.** [2023-09-22: NeurIPS conference notification](https://neurips.cc/Conferences/2023/Dates).
@@ -2060,6 +2128,8 @@ Predicts graph-node labels jointly rather than independently.
 
 **Evidence boundary.** The expressivity analysis is specific to the proposed structured prediction construction and AGG-WL comparison.
 
+**Other contributions.** Learning & inference.
+
 **Chronology.** [2023-02-21: arxiv version](https://arxiv.org/abs/2302.10506v1).
 
 **Candidate dates.** [2023-02-21: arXiv 2302.10506v1](https://arxiv.org/abs/2302.10506v1); [2023-09-22: NeurIPS conference notification](https://neurips.cc/Conferences/2023/Dates).
@@ -2096,6 +2166,8 @@ Designs biological sequences from a fixed offline dataset of scored examples.
 **Evaluation.** Six RNA, DNA, and protein design tasks with component ablations.
 
 **Evidence boundary.** Proxy-labeled bootstrapping can inherit proxy errors; offline optimization does not supply new ground-truth assays during search.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2023-06-05: arxiv version](https://arxiv.org/abs/2306.03111v1).
 
@@ -2169,6 +2241,8 @@ Transfers graph-planner knowledge into a goal-conditioned control policy.
 **Evaluation.** Control performance, planner-free execution, imitation alternatives, and subgoal-skipping ablations.
 
 **Evidence boundary.** Planner distillation is demonstrated in long-horizon control tasks rather than general real-world robotics transfer.
+
+**Other contributions.** Learning & inference.
 
 **Chronology.** [2023-01-21: conference notification](https://iclr.cc/Conferences/2023/Dates).
 
@@ -2360,6 +2434,8 @@ Optimizes a learned objective while limiting exploitation of out-of-distribution
 
 **Evidence boundary.** Local smoothness is a modeling assumption, and avoiding proxy overestimation does not guarantee every optimized design is valid.
 
+**Other contributions.** Learning & inference.
+
 **Chronology.** [2021-09-28: conference notification](https://neurips.cc/Conferences/2021/Dates).
 
 **Candidate dates.** [2021-09-28: NeurIPS conference notification](https://neurips.cc/Conferences/2021/Dates); [2021-10-27: arXiv 2110.14188v1](https://arxiv.org/abs/2110.14188v1).
@@ -2396,6 +2472,8 @@ Trains retrosynthetic reaction proposals to support complete executable search r
 **Evaluation.** Retrosynthetic planning success and reaction prediction, with self-improvement and augmentation studies.
 
 **Evidence boundary.** Routes use available building blocks and modeled reactions; computational success does not independently establish laboratory yield.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2021-05-08: conference notification](https://icml.cc/Conferences/2021/Dates).
 
@@ -2435,6 +2513,8 @@ Selects available reactants rather than generating unrestricted reactant descrip
 **Evaluation.** USPTO retrosynthesis, large candidate sets, and generalization to unseen reaction templates.
 
 **Evidence boundary.** Availability is defined by the chosen candidate library; commercial selection does not prove a reaction succeeds.
+
+**Other contributions.** Search & optimization.
 
 **Chronology.** [2021-04-30: conference notification](https://ijcai-21.org/cfp/index.html).
 
@@ -2545,6 +2625,8 @@ Uses domain-specific genetic search to improve a neural molecular generator.
 **Evaluation.** Penalized logP, similarity-constrained optimization, GuacaMol, and filtered molecule analyses.
 
 **Evidence boundary.** High scores on molecular proxies do not establish viable drugs; the paper also examines post-hoc chemical filtering.
+
+**Other contributions.** Generative modeling.
 
 **Chronology.** [2020-07-04: arxiv version](https://arxiv.org/abs/2007.04897v1).
 
@@ -2661,6 +2743,8 @@ Approximates graphical-model partition functions through sequential variable eli
 
 **Evidence boundary.** Approximation quality depends on decomposition and rank choices; convergence-free elimination does not mean exact general inference.
 
+**Other contributions.** Representations.
+
 **Chronology.** [2018-03-14: arxiv version](https://arxiv.org/abs/1803.05104v1).
 
 **Candidate dates.** [2018-03-14: arXiv 1803.05104v1](https://arxiv.org/abs/1803.05104v1); [2018-05-12: ICML conference notification](https://icml.cc/Conferences/2018/Dates).
@@ -2772,6 +2856,8 @@ Reformulates maximum-weight matching so belief propagation can exploit odd-cycle
 
 **Evidence boundary.** The guarantee requires the stated tightness and uniqueness conditions; the arXiv manuscript has an earlier title than the journal record.
 
+**Other contributions.** Learning & inference.
+
 **Chronology.** [2018-01-01: arxiv version](https://arxiv.org/abs/1306.1167v2). The map uses the first arXiv version listing Sungsoo Ahn as a coauthor. Earlier versions without him are excluded.
 
 **Candidate dates.** [2018-01-01: arXiv 1306.1167v2](https://arxiv.org/abs/1306.1167v2); [2018-03: IEEE TIT journal month](https://ieeexplore.ieee.org/document/8241842).
@@ -2851,6 +2937,8 @@ Solves minimum-weight perfect matching through successive belief-propagation pro
 
 **Evidence boundary.** The result is specific to matching; it does not establish polynomial algorithms for arbitrary graphical-model MAP problems.
 
+**Other contributions.** Learning & inference.
+
 **Chronology.** [2015-09-23: arxiv version](https://arxiv.org/abs/1509.06849v1). The [archived NIPS 2015 calendar](https://neurips.cc/Conferences/2015/Dates) omits the paper notification date. Its [CFP](https://neurips.cc/Conferences/2015/CallForPapers) gives a review-period end of 2015-09-04, not a separately verified acceptance announcement. The verified arXiv date is used pending confirmation; this does not change its order relative to adjacent works.
 
 **Candidate dates.** [2015-09-23: arXiv 1509.06849v1](https://arxiv.org/abs/1509.06849v1).
@@ -2881,7 +2969,7 @@ Solves minimum-weight perfect matching through successive belief-propagation pro
 
 Both adapt belief propagation to matching with graph transformations and LP structure. Blossom contraction/expansion and odd-cycle constraints yield different constructions and guarantees.
 
-**Map text.** Both papers change a graph so belief propagation can solve a matching problem. Blossom-BP contracts and expands blossoms. Odd-cycle BP adds odd-cycle constraints. The constructions and guarantees differ.
+**Short explanation.** Both papers change a graph so belief propagation can solve a matching problem. Blossom-BP contracts and expands blossoms. Odd-cycle BP adds odd-cycle constraints. The constructions and guarantees differ.
 
 Evidence: [Blossom belief propagation: Abstract; method formulation](https://arxiv.org/html/1509.06849v1); [Odd-cycle matching BP: Abstract; method formulation](https://arxiv.org/html/1306.1167v2).
 
@@ -2893,7 +2981,7 @@ Evidence: [Blossom belief propagation: Abstract; method formulation](https://arx
 
 Odd-cycle transformations improve BP convergence for matching, while loop-based MCMC corrects BP partition estimates. Both add structure around BP, but optimization and normalization are different targets.
 
-**Map text.** Odd-cycle BP changes a graph to improve convergence for matching. MCMC + BP samples loop corrections to estimate a partition function. The target quantities differ.
+**Short explanation.** Odd-cycle BP changes a graph to improve convergence for matching. MCMC + BP samples loop corrections to estimate a partition function. The target quantities differ.
 
 Evidence: [Odd-cycle matching BP: Abstract; method formulation](https://arxiv.org/html/1306.1167v2); [MCMC + belief propagation: Abstract; method formulation](https://arxiv.org/html/1605.09042v6).
 
@@ -2905,7 +2993,7 @@ Evidence: [Odd-cycle matching BP: Abstract; method formulation](https://arxiv.or
 
 Both optimize gauge transformations that preserve the partition function. Gauged variational inference changes variational approximations; gauged mini-bucket combines the transformation with bounded variable elimination.
 
-**Map text.** Both papers use gauge transformations that preserve the partition function. G-MF / G-BP changes the variational approximation. WMBE-G combines gauge transformations with bounded variable elimination.
+**Short explanation.** Both papers use gauge transformations that preserve the partition function. G-MF / G-BP changes the variational approximation. WMBE-G combines gauge transformations with bounded variable elimination.
 
 Evidence: [Gauged variational inference: Abstract; method formulation](https://arxiv.org/html/1703.01056v5); [Gauged mini-bucket elimination: Abstract; method formulation](https://arxiv.org/html/1801.01649v2).
 
@@ -2917,7 +3005,7 @@ Evidence: [Gauged variational inference: Abstract; method formulation](https://a
 
 Both control graphical-model inference complexity through bucket-based elimination. Weighted/gauged bounds and low-rank renormalization make different approximation choices.
 
-**Map text.** Both papers use bucket elimination to control inference cost. WMBE-G uses weighted bounds and gauge transformations. MBR / GBR uses low-rank factor approximations.
+**Short explanation.** Both papers use bucket elimination to control inference cost. WMBE-G uses weighted bounds and gauge transformations. MBR / GBR uses low-rank factor approximations.
 
 Evidence: [Gauged mini-bucket elimination: Abstract; method formulation](https://arxiv.org/html/1801.01649v2); [Bucket renormalization: Abstract; method formulation](https://arxiv.org/html/1803.05104v3).
 
@@ -2929,7 +3017,7 @@ Evidence: [Gauged mini-bucket elimination: Abstract; method formulation](https:/
 
 Both estimate unnormalized graphical-model partition functions relative to BP-related approximations. One samples loop corrections; the other optimizes a partition-preserving gauge.
 
-**Map text.** Both papers estimate partition functions with belief propagation as a reference. MCMC + BP samples loop corrections. G-MF / G-BP optimizes a gauge transformation that preserves the partition function.
+**Short explanation.** Both papers estimate partition functions with belief propagation as a reference. MCMC + BP samples loop corrections. G-MF / G-BP optimizes a gauge transformation that preserves the partition function.
 
 Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxiv.org/html/1605.09042v6); [Gauged variational inference: Abstract; method formulation](https://arxiv.org/html/1703.01056v5).
 
@@ -2941,7 +3029,7 @@ Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxi
 
 Loop MCMC estimates corrections to a partition function, while iterated flow matching learns a reusable continuous sampler from energies. The common unnormalized target does not make their estimators equivalent.
 
-**Map text.** Both papers work with unnormalized distributions. MCMC + BP estimates partition-function corrections. Iterated flow learns a reusable sampler from energies. Their estimators differ.
+**Short explanation.** Both papers work with unnormalized distributions. MCMC + BP estimates partition-function corrections. Iterated flow learns a reusable sampler from energies. Their estimators differ.
 
 Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxiv.org/html/1605.09042v6); [Iterated energy-based flow matching: Abstract; method formulation](https://arxiv.org/html/2408.16249v1).
 
@@ -2953,7 +3041,7 @@ Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxi
 
 BP-aware MCMC corrects a graphical-model approximation; SGDS uses MCMC exploration to train a diffusion sampler. Both pair complementary engines, but one estimates loop corrections and the other amortizes energy-space search.
 
-**Map text.** Both papers combine an approximation with MCMC search. MCMC + BP estimates loop corrections. SGDS uses MCMC search to train a diffusion sampler.
+**Short explanation.** Both papers combine an approximation with MCMC search. MCMC + BP estimates loop corrections. SGDS uses MCMC search to train a diffusion sampler.
 
 Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxiv.org/html/1605.09042v6); [Search-guided diffusion samplers: Abstract; method formulation](https://arxiv.org/html/2505.19552v4).
 
@@ -2965,7 +3053,7 @@ Evidence: [MCMC + belief propagation: Abstract; method formulation](https://arxi
 
 Low-rank factor projections retain information useful for inference, while variational distillation transfers neural representations. This is a compression analogy across factors and learned features, not a shared objective.
 
-**Map text.** Both papers reduce the size of an information representation. MBR / GBR approximates graphical-model factors. VID transfers neural features. This comparison does not imply a shared objective.
+**Short explanation.** Both papers reduce the size of an information representation. MBR / GBR approximates graphical-model factors. VID transfers neural features. This comparison does not imply a shared objective.
 
 Evidence: [Bucket renormalization: Abstract; method formulation](https://arxiv.org/html/1803.05104v3); [Variational information distillation: Abstract; method formulation](https://arxiv.org/html/1904.05835v1).
 
@@ -2977,7 +3065,7 @@ Evidence: [Bucket renormalization: Abstract; method formulation](https://arxiv.o
 
 Both transfer knowledge into a reusable model. VID uses a variational information objective across networks; planner-guided imitation distills subgoal-conditioned behavior into target-goal control.
 
-**Map text.** Both papers transfer information from a teacher into a reusable model. VID uses a variational information objective. PIG transfers behavior from a subgoal planner.
+**Short explanation.** Both papers transfer information from a teacher into a reusable model. VID uses a variational information objective. PIG transfers behavior from a subgoal planner.
 
 Evidence: [Variational information distillation: Abstract; method formulation](https://arxiv.org/html/1904.05835v1); [Planner-guided imitation: Abstract; method formulation](https://arxiv.org/html/2303.11166v1).
 
@@ -2989,7 +3077,7 @@ Evidence: [Variational information distillation: Abstract; method formulation](h
 
 Both study transfer between representations with different uses or architectures. VID estimates shared information; co-folding representation analysis probes and distills ligand embeddings for standalone molecular tasks.
 
-**Map text.** Both papers transfer information between representations. VID estimates information that two networks share. The co-folding study tests and distills ligand embeddings for molecular tasks.
+**Short explanation.** Both papers transfer information between representations. VID estimates information that two networks share. The co-folding study tests and distills ligand embeddings for molecular tasks.
 
 Evidence: [Variational information distillation: Abstract; method formulation](https://arxiv.org/html/1904.05835v1); [Co-folding representations: Abstract; method formulation](https://arxiv.org/html/2602.13249v2).
 
@@ -3001,7 +3089,7 @@ Evidence: [Variational information distillation: Abstract; method formulation](h
 
 Distillation preserves useful teacher information, while scTrilemma routes biological and nuisance information across a latent embedding, prior, and decoder. Retention and deliberate invariance impose different goals.
 
-**Map text.** Both papers control which information an embedding retains. VID transfers useful teacher information. scTrilemma separates biological and nuisance information across an embedding, a prior, and a decoder.
+**Short explanation.** Both papers control which information an embedding retains. VID transfers useful teacher information. scTrilemma separates biological and nuisance information across an embedding, a prior, and a decoder.
 
 Evidence: [Variational information distillation: Abstract; method formulation](https://arxiv.org/html/1904.05835v1); [scTrilemma: Abstract; method formulation](https://arxiv.org/html/2609.38840v2).
 
@@ -3013,7 +3101,7 @@ Evidence: [Variational information distillation: Abstract; method formulation](h
 
 Layer-adaptive pruning allocates weight sparsity, while DNAChunker allocates token length by genomic context. Both spend representational capacity unevenly, but parameters and sequence segmentation are different objects.
 
-**Map text.** Both papers assign different amounts of representation capacity to different parts of an input or model. LAMP assigns weight sparsity. DNAChunker assigns token lengths from genomic context.
+**Short explanation.** Both papers assign different amounts of representation capacity to different parts of an input or model. LAMP assigns weight sparsity. DNAChunker assigns token lengths from genomic context.
 
 Evidence: [Layer-adaptive pruning: Abstract; method formulation](https://arxiv.org/html/2010.07611v2); [DNAChunker: Abstract; method formulation](https://arxiv.org/html/2601.03019v4).
 
@@ -3025,7 +3113,7 @@ Evidence: [Layer-adaptive pruning: Abstract; method formulation](https://arxiv.o
 
 Both use deliberately bias-sensitive learners to identify bias-conflicting examples without bias labels. A single failure model and a diverse committee provide different selection and knowledge-exchange mechanisms.
 
-**Map text.** Both papers use models that learn biases to find examples that conflict with those biases. Learning from Failure uses one model. LWBC uses several models.
+**Short explanation.** Both papers use models that learn biases to find examples that conflict with those biases. Learning from Failure uses one model. LWBC uses several models.
 
 Evidence: [Learning from Failure: Abstract; method formulation](https://arxiv.org/html/2007.02561v2); [Learning with a biased committee: Abstract; method formulation](https://arxiv.org/html/2206.10843v5).
 
@@ -3037,7 +3125,7 @@ Evidence: [Learning from Failure: Abstract; method formulation](https://arxiv.or
 
 Both address learned reliance on unwanted correlations. The committee infers difficult cases without bias labels; multi-bias robust learning assumes attribute annotations and explicitly balances conflicting group objectives.
 
-**Map text.** Both papers reduce dependence on unwanted correlations. LWBC finds difficult examples without bias labels. Multi-bias learning uses attribute labels to balance conflicting group objectives.
+**Short explanation.** Both papers reduce dependence on unwanted correlations. LWBC finds difficult examples without bias labels. Multi-bias learning uses attribute labels to balance conflicting group objectives.
 
 Evidence: [Learning with a biased committee: Abstract; method formulation](https://arxiv.org/html/2206.10843v5); [Multi-bias robust learning: Abstract; method formulation](https://arxiv.org/html/2409.03303v1).
 
@@ -3049,7 +3137,7 @@ Evidence: [Learning with a biased committee: Abstract; method formulation](https
 
 Failure-based weighting highlights bias-conflicting examples; an adaptive GFlowNet teacher seeks high-loss, poorly covered states. Both redirect training through another model, with different losses and guarantees.
 
-**Map text.** Both papers use an auxiliary model to change which examples receive training. LfF weights examples that conflict with biases. The Adaptive Teachers method targets states with high student loss.
+**Short explanation.** Both papers use an auxiliary model to change which examples receive training. LfF weights examples that conflict with biases. The Adaptive Teachers method targets states with high student loss.
 
 Evidence: [Learning from Failure: Abstract; method formulation](https://arxiv.org/html/2007.02561v2); [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/html/2410.01432v3).
 
@@ -3061,7 +3149,7 @@ Evidence: [Learning from Failure: Abstract; method formulation](https://arxiv.or
 
 Multi-bias objectives can conflict across groups, while single-cell nuisance invariance can lose biological identity or expression fidelity. Both expose tradeoffs rather than treating more invariance as universally better.
 
-**Map text.** Both papers show that invariance can have a cost. Multi-bias learning has conflicting group objectives. scTrilemma shows conflicts between nuisance invariance, biological identity, and expression fidelity.
+**Short explanation.** Both papers show that invariance can have a cost. Multi-bias learning has conflicting group objectives. scTrilemma shows conflicts between nuisance invariance, biological identity, and expression fidelity.
 
 Evidence: [Multi-bias robust learning: Abstract; method formulation](https://arxiv.org/html/2409.03303v1); [scTrilemma: Abstract; method formulation](https://arxiv.org/html/2609.38840v2).
 
@@ -3073,7 +3161,7 @@ Evidence: [Multi-bias robust learning: Abstract; method formulation](https://arx
 
 DND seeks difficult text examples that preserve semantics; EPIC learns context-sensitive graph edit paths. Both learn meaningful augmentation rather than arbitrary perturbation, under different text and graph constraints.
 
-**Map text.** Both papers learn constrained data augmentations. DND changes text while it preserves meaning. EPIC learns edit paths that respect graph context. Their constraints differ.
+**Short explanation.** Both papers learn constrained data augmentations. DND changes text while it preserves meaning. EPIC learns edit paths that respect graph context. Their constraints differ.
 
 Evidence: [Difficult, not too different: README and indexed abstract; partial review](https://github.com/bbuing9/DND); [EPIC: Abstract; method formulation](https://arxiv.org/html/2306.01310v3).
 
@@ -3085,7 +3173,7 @@ Evidence: [Difficult, not too different: README and indexed abstract; partial re
 
 DND uses low confidence with semantic preservation; Adaptive Teachers use high student loss to improve sampling coverage. Difficulty guides training in both, but the meaning of difficulty and admissible changes differs.
 
-**Map text.** Both papers use difficult examples to guide training. DND selects text changes that reduce confidence but preserve meaning. The Adaptive Teachers method selects sampler states with high student loss.
+**Short explanation.** Both papers use difficult examples to guide training. DND selects text changes that reduce confidence but preserve meaning. The Adaptive Teachers method selects sampler states with high student loss.
 
 Evidence: [Difficult, not too different: README and indexed abstract; partial review](https://github.com/bbuing9/DND); [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/html/2410.01432v3).
 
@@ -3097,7 +3185,7 @@ Evidence: [Difficult, not too different: README and indexed abstract; partial re
 
 EPIC designs graph edit interpolation for augmentation, while MELD learns a masked-diffusion corruption schedule to avoid trajectory collisions. Both depend on intermediate graph states, not the same stochastic process.
 
-**Map text.** Both papers choose paths through intermediate graph states. EPIC uses edit interpolation for augmentation. MELD changes diffusion corruption paths to reduce trajectory collisions. The processes differ.
+**Short explanation.** Both papers choose paths through intermediate graph states. EPIC uses edit interpolation for augmentation. MELD changes diffusion corruption paths to reduce trajectory collisions. The processes differ.
 
 Evidence: [EPIC: Abstract; method formulation](https://arxiv.org/html/2306.01310v3); [MELD: Abstract; method formulation](https://arxiv.org/html/2505.16790v4).
 
@@ -3109,7 +3197,7 @@ Evidence: [EPIC: Abstract; method formulation](https://arxiv.org/html/2306.01310
 
 Non-backtracking updates suppress redundant message walks; ReBind adds force-motivated non-bonded edges. Their shared lesson is that connectivity and propagation rules matter, with distinct graph and molecular motivations.
 
-**Map text.** Both papers change how graph nodes exchange information. NBA-GNN suppresses repeated message walks. ReBind adds non-bonded edges from predicted forces. Their motivations and graph rules differ.
+**Short explanation.** Both papers change how graph nodes exchange information. NBA-GNN suppresses repeated message walks. ReBind adds non-bonded edges from predicted forces. Their motivations and graph rules differ.
 
 Evidence: [Non-backtracking GNNs: Abstract; method formulation](https://arxiv.org/html/2310.07430v2); [ReBind: Abstract; method formulation](https://arxiv.org/html/2410.14696v1).
 
@@ -3121,7 +3209,7 @@ Evidence: [Non-backtracking GNNs: Abstract; method formulation](https://arxiv.or
 
 Both strengthen graph-node reasoning. Non-backtracking changes information propagation; structured node diffusion predicts labels jointly under observed-label conditions.
 
-**Map text.** Both papers improve predictions on graph nodes. NBA-GNN changes message propagation. DPM-SNC predicts labels jointly with observed labels as conditions.
+**Short explanation.** Both papers improve predictions on graph nodes. NBA-GNN changes message propagation. DPM-SNC predicts labels jointly with observed labels as conditions.
 
 Evidence: [Non-backtracking GNNs: Abstract; method formulation](https://arxiv.org/html/2310.07430v2); [Structured node diffusion: Abstract; method formulation](https://arxiv.org/html/2302.10506v5).
 
@@ -3133,7 +3221,7 @@ Evidence: [Non-backtracking GNNs: Abstract; method formulation](https://arxiv.or
 
 AdaPert focuses on perturbation-responsive genes and sparse context; multi-bias learning resists spurious attributes. This is a signal-selection parallel across biological regression and classification robustness.
 
-**Map text.** Both papers select useful signals and reduce misleading regularities. AdaPert selects perturbation-responsive genes and sparse graph context. Multi-bias learning reduces reliance on spurious attributes.
+**Short explanation.** Both papers select useful signals and reduce misleading regularities. AdaPert selects perturbation-responsive genes and sparse graph context. Multi-bias learning reduces reliance on spurious attributes.
 
 Evidence: [AdaPert: Abstract; method formulation](https://arxiv.org/html/2602.18885v2); [Multi-bias robust learning: Abstract; method formulation](https://arxiv.org/html/2409.03303v1).
 
@@ -3145,7 +3233,7 @@ Evidence: [AdaPert: Abstract; method formulation](https://arxiv.org/html/2602.18
 
 Both predict consequences of chemical or genetic perturbations. AdaPert predicts transcriptional responses with graph context; PBio-Agent predicts regulation directions through staged language-model reasoning.
 
-**Map text.** Both papers predict the effects of biological perturbations. AdaPert predicts transcriptional responses with graph context. PBio-Agent predicts regulation directions through a sequence of language-model tasks.
+**Short explanation.** Both papers predict the effects of biological perturbations. AdaPert predicts transcriptional responses with graph context. PBio-Agent predicts regulation directions through a sequence of language-model tasks.
 
 Evidence: [AdaPert: Abstract; method formulation](https://arxiv.org/html/2602.18885v2); [PBio-Agent / LincsQA: Abstract; method formulation](https://arxiv.org/html/2602.07408v2).
 
@@ -3157,7 +3245,7 @@ Evidence: [AdaPert: Abstract; method formulation](https://arxiv.org/html/2602.18
 
 PBio-Agent structures biological mechanisms and progressive evidence; Causal Influence Prompting structures actions, uncertainties, and utilities. The shared contextual reasoning pattern does not establish identified causality.
 
-**Map text.** Both papers provide explicit context before a model makes a decision. PBio-Agent uses biological mechanisms and intermediate results. CIP uses actions, uncertainties, and utilities. This similarity does not establish causality.
+**Short explanation.** Both papers provide explicit context before a model makes a decision. PBio-Agent uses biological mechanisms and intermediate results. CIP uses actions, uncertainties, and utilities. This similarity does not establish causality.
 
 Evidence: [PBio-Agent / LincsQA: Abstract; method formulation](https://arxiv.org/html/2602.07408v2); [Causal Influence Prompting: Abstract; method formulation](https://arxiv.org/html/2507.00979v1).
 
@@ -3169,7 +3257,7 @@ Evidence: [PBio-Agent / LincsQA: Abstract; method formulation](https://arxiv.org
 
 Causal diagrams guide agent decisions, while concept-intervention analysis studies when editing bottlenecks helps or misleads. Both caution that an interpretable representation alone does not guarantee a valid causal intervention.
 
-**Map text.** Both papers examine interventions in interpretable models. CIP uses causal diagrams to guide decisions. The concept-intervention study tests when changes to a bottleneck help. An interpretable representation alone does not guarantee a valid causal intervention.
+**Short explanation.** Both papers examine interventions in interpretable models. CIP uses causal diagrams to guide decisions. The concept-intervention study tests when changes to a bottleneck help. An interpretable representation alone does not guarantee a valid causal intervention.
 
 Evidence: [Causal Influence Prompting: Abstract; method formulation](https://arxiv.org/html/2507.00979v1); [Concept intervention analysis: Abstract; method formulation](https://arxiv.org/html/2302.14260v3).
 
@@ -3181,7 +3269,7 @@ Evidence: [Causal Influence Prompting: Abstract; method formulation](https://arx
 
 Both apply reinforcement learning to combinatorial optimization. Deferred decisions target large independent sets; RL4CO exposes modular environments and controlled routing comparisons, so solver quality depends on problem and evaluation budget.
 
-**Map text.** Both papers apply reinforcement learning to combinatorial optimization. LwD solves independent-set problems. RL4CO provides modular routing environments and controlled comparisons. Problem choice and evaluation budget affect solver comparisons.
+**Short explanation.** Both papers apply reinforcement learning to combinatorial optimization. LwD solves independent-set problems. RL4CO provides modular routing environments and controlled comparisons. Problem choice and evaluation budget affect solver comparisons.
 
 Evidence: [Learning what to defer: Abstract; method formulation](https://arxiv.org/html/2006.09607v2); [RL4CO: Abstract; method formulation](https://arxiv.org/html/2306.17100v6).
 
@@ -3193,7 +3281,7 @@ Evidence: [Learning what to defer: Abstract; method formulation](https://arxiv.o
 
 Both solve structured combinatorial problems under constraints. Deferral learns the order and timing of vertex decisions; probabilistic objectives and derandomization construct feasible solutions through differentiable optimization and rounding.
 
-**Map text.** Both papers solve discrete problems with structural constraints. LwD learns when to select vertices. UCom2 uses probabilistic objectives and derandomization to construct feasible solutions.
+**Short explanation.** Both papers solve discrete problems with structural constraints. LwD learns when to select vertices. UCom2 uses probabilistic objectives and derandomization to construct feasible solutions.
 
 Evidence: [Learning what to defer: Abstract; method formulation](https://arxiv.org/html/2006.09607v2); [Unsupervised combinatorial optimization: Abstract; method formulation](https://arxiv.org/html/2405.08424v2).
 
@@ -3205,7 +3293,7 @@ Evidence: [Learning what to defer: Abstract; method formulation](https://arxiv.o
 
 Both connect a discrete combinatorial problem to tractable mathematical subroutines. Probabilistic rounding and matching LP/BP transformations have different scopes; no general optimality guarantee transfers between them.
 
-**Map text.** Both papers use mathematical subroutines to solve discrete problems. UCom2 uses probabilistic rounding. Blossom-BP uses matching relaxations and graph transformations. An optimality guarantee from one method does not apply to the other.
+**Short explanation.** Both papers use mathematical subroutines to solve discrete problems. UCom2 uses probabilistic rounding. Blossom-BP uses matching relaxations and graph transformations. An optimality guarantee from one method does not apply to the other.
 
 Evidence: [Unsupervised combinatorial optimization: Abstract; method formulation](https://arxiv.org/html/2405.08424v2); [Blossom belief propagation: Abstract; method formulation](https://arxiv.org/html/1509.06849v1).
 
@@ -3217,7 +3305,7 @@ Evidence: [Unsupervised combinatorial optimization: Abstract; method formulation
 
 Both study reinforcement-learning solvers with explicit attention to sample efficiency or controlled budgets. Symmetric replay adds equivalent trajectories without new reward calls; RL4CO supplies a modular comparison framework.
 
-**Map text.** Both papers control sample budgets for learned combinatorial solvers. SRT adds equivalent trajectories without new reward evaluations. RL4CO provides a framework for controlled solver comparisons.
+**Short explanation.** Both papers control sample budgets for learned combinatorial solvers. SRT adds equivalent trajectories without new reward evaluations. RL4CO provides a framework for controlled solver comparisons.
 
 Evidence: [Symmetric replay training: Abstract; method formulation](https://arxiv.org/html/2306.01276v4); [RL4CO: Abstract; method formulation](https://arxiv.org/html/2306.17100v6).
 
@@ -3229,7 +3317,7 @@ Evidence: [Symmetric replay training: Abstract; method formulation](https://arxi
 
 Both reuse successful molecular or combinatorial solutions for learning. Symmetric replay creates equivalent trajectories; genetic expert learning refines candidates by mutation/crossover and trains an apprentice from priority queues.
 
-**Map text.** Both papers reuse successful candidates to train a model. SRT creates equivalent trajectories. GEGL uses mutation, crossover, and priority queues to improve molecular candidates.
+**Short explanation.** Both papers reuse successful candidates to train a model. SRT creates equivalent trajectories. GEGL uses mutation, crossover, and priority queues to improve molecular candidates.
 
 Evidence: [Symmetric replay training: Abstract; method formulation](https://arxiv.org/html/2306.01276v4); [Genetic expert-guided learning: Abstract; method formulation](https://arxiv.org/html/2007.04897v3).
 
@@ -3241,7 +3329,7 @@ Evidence: [Symmetric replay training: Abstract; method formulation](https://arxi
 
 Genetic experts refine generated molecules; Local Search GFlowNets backtrack and reconstruct trajectories. Both connect exploration, refinement, and replay, but reward maximization and reward-proportional sampling are distinct objectives.
 
-**Map text.** Both papers combine exploration, local improvement, and replay. GEGL improves molecular candidates with genetic search. LS-GFN reconstructs trajectories. Reward maximization and reward-proportional sampling have different targets.
+**Short explanation.** Both papers combine exploration, local improvement, and replay. GEGL improves molecular candidates with genetic search. LS-GFN reconstructs trajectories. Reward maximization and reward-proportional sampling have different targets.
 
 Evidence: [Genetic expert-guided learning: Abstract; method formulation](https://arxiv.org/html/2007.04897v3); [Local Search GFlowNets: Abstract; method formulation](https://arxiv.org/html/2310.02710v2).
 
@@ -3253,7 +3341,7 @@ Evidence: [Genetic expert-guided learning: Abstract; method formulation](https:/
 
 A molecular genetic expert supplies high-reward training examples; a retrosynthesis planner supplies successful routes for reaction-model imitation. Both close a search–learning loop over different design spaces.
 
-**Map text.** Both papers use search results to train the next model. GEGL supplies high-reward molecules. Self-improved retro supplies successful reaction routes for imitation.
+**Short explanation.** Both papers use search results to train the next model. GEGL supplies high-reward molecules. Self-improved retro supplies successful reaction routes for imitation.
 
 Evidence: [Genetic expert-guided learning: Abstract; method formulation](https://arxiv.org/html/2007.04897v3); [Self-improved retrosynthesis: Abstract; method formulation](https://arxiv.org/html/2106.04880v1).
 
@@ -3265,7 +3353,7 @@ Evidence: [Genetic expert-guided learning: Abstract; method formulation](https:/
 
 Retrosynthesis imitates successful reaction routes; goal-conditioned control imitates subgoal-planner behavior. Both train reusable policies from planning, with chemical route feasibility and control execution as different constraints.
 
-**Map text.** Both papers train reusable policies from planner results. Self-improved retro imitates successful reaction routes. PIG transfers subgoal behavior for control. Their feasibility constraints differ.
+**Short explanation.** Both papers train reusable policies from planner results. Self-improved retro imitates successful reaction routes. PIG transfers subgoal behavior for control. Their feasibility constraints differ.
 
 Evidence: [Self-improved retrosynthesis: Abstract; method formulation](https://arxiv.org/html/2106.04880v1); [Planner-guided imitation: Abstract; method formulation](https://arxiv.org/html/2303.11166v1).
 
@@ -3277,7 +3365,7 @@ Evidence: [Self-improved retrosynthesis: Abstract; method formulation](https://a
 
 Both use explicit structure in goal space. Planner-guided imitation transfers subgoal behavior into a policy; breadth-first exploration records achieved and unattained grid goals to guide coverage.
 
-**Map text.** Both papers use subgoals to structure control. PIG transfers planner behavior into a policy. BEAG records reached and unreached grid goals to guide further exploration.
+**Short explanation.** Both papers use subgoals to structure control. PIG transfers planner behavior into a policy. BEAG records reached and unreached grid goals to guide further exploration.
 
 Evidence: [Planner-guided imitation: Abstract; method formulation](https://arxiv.org/html/2303.11166v1); [Adaptive-grid exploration: Abstract; method formulation](https://raw.githubusercontent.com/mlresearch/v235/main/assets/yoon24d/yoon24d.pdf).
 
@@ -3289,7 +3377,7 @@ Evidence: [Planner-guided imitation: Abstract; method formulation](https://arxiv
 
 Adaptive grids prioritize poorly explored goal regions; Adaptive Teachers prioritize high-loss sampler regions. The exploration analogy spans executed control goals and amortized generative distributions.
 
-**Map text.** Both papers direct exploration toward regions with poor coverage. BEAG targets goal regions. The Adaptive Teachers method targets sampler states with high loss. Their state spaces and objectives differ.
+**Short explanation.** Both papers direct exploration toward regions with poor coverage. BEAG targets goal regions. The Adaptive Teachers method targets sampler states with high loss. Their state spaces and objectives differ.
 
 Evidence: [Adaptive-grid exploration: Abstract; method formulation](https://raw.githubusercontent.com/mlresearch/v235/main/assets/yoon24d/yoon24d.pdf); [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/html/2410.01432v3).
 
@@ -3301,7 +3389,7 @@ Evidence: [Adaptive-grid exploration: Abstract; method formulation](https://raw.
 
 DRIMA separates teammate and environment uncertainty in cooperative RL; INDIBATOR uses individualized debating language agents. This is a coordination analogy, not a shared multi-agent algorithm.
 
-**Map text.** Both papers use multiple agents with distinct information. DRIMA separates uncertainty about teammates and the environment. INDIBATOR uses language agents with individual histories. The algorithms differ.
+**Short explanation.** Both papers use multiple agents with distinct information. DRIMA separates uncertainty about teammates and the environment. INDIBATOR uses language agents with individual histories. The algorithms differ.
 
 Evidence: [Disentangled risk-sensitive MARL: Abstract; method formulation](https://proceedings.mlr.press/v162/son22a/son22a.pdf); [INDIBATOR: Abstract; method formulation](https://arxiv.org/html/2602.01815v1).
 
@@ -3313,7 +3401,7 @@ Evidence: [Disentangled risk-sensitive MARL: Abstract; method formulation](https
 
 Both model synthesis routes rather than only scoring final molecules. RetCL selects from an available reactant inventory; self-improved planning trains reaction proposals using successful multi-step routes.
 
-**Map text.** Both papers model synthesis routes. RetCL selects reactants from an available inventory. Self-improved retro trains reaction proposals from successful multi-step routes.
+**Short explanation.** Both papers model synthesis routes. RetCL selects reactants from an available inventory. Self-improved retro trains reaction proposals from successful multi-step routes.
 
 Evidence: [RetCL: Abstract; method formulation](https://arxiv.org/html/2105.00795v2); [Self-improved retrosynthesis: Abstract; method formulation](https://arxiv.org/html/2106.04880v1).
 
@@ -3325,7 +3413,7 @@ Evidence: [RetCL: Abstract; method formulation](https://arxiv.org/html/2105.0079
 
 RetCL ranks reactant combinations from an inventory; RxnFlow constructs molecules with templates and building blocks. Both encode an available synthesis space, without proving laboratory success.
 
-**Map text.** Both papers restrict molecular design to an available synthesis space. RetCL ranks reactant combinations. RxnFlow uses reaction templates and building blocks. Neither method guarantees laboratory success.
+**Short explanation.** Both papers restrict molecular design to an available synthesis space. RetCL ranks reactant combinations. RxnFlow uses reaction templates and building blocks. Neither method guarantees laboratory success.
 
 Evidence: [RetCL: Abstract; method formulation](https://arxiv.org/html/2105.00795v2); [RxnFlow: Abstract; method formulation](https://arxiv.org/html/2410.04542v2).
 
@@ -3337,7 +3425,7 @@ Evidence: [RetCL: Abstract; method formulation](https://arxiv.org/html/2105.0079
 
 Both use GFlowNets to obtain diverse high-reward molecular objects. RxnFlow defines reaction-template actions; Local Search GFlowNets improve sampled trajectories through backtracking and reconstruction.
 
-**Map text.** Both papers use GFlowNets to sample diverse molecules in proportion to reward. RxnFlow uses reaction-template actions. LS-GFN improves trajectories through backtracking and reconstruction.
+**Short explanation.** Both papers use GFlowNets to sample diverse molecules in proportion to reward. RxnFlow uses reaction-template actions. LS-GFN improves trajectories through backtracking and reconstruction.
 
 Evidence: [RxnFlow: Abstract; method formulation](https://arxiv.org/html/2410.04542v2); [Local Search GFlowNets: Abstract; method formulation](https://arxiv.org/html/2310.02710v2).
 
@@ -3349,7 +3437,7 @@ Evidence: [RxnFlow: Abstract; method formulation](https://arxiv.org/html/2410.04
 
 RxnFlow restricts actions to reaction templates and building blocks; STGG constrains tree construction using molecular valence. Synthetic-route feasibility and graph valence are different levels of chemical admissibility.
 
-**Map text.** Both papers restrict the action space to enforce chemical constraints. RxnFlow uses reaction templates and building blocks. STGG uses molecular valence constraints. Route feasibility and graph valence are different constraints.
+**Short explanation.** Both papers restrict the action space to enforce chemical constraints. RxnFlow uses reaction templates and building blocks. STGG uses molecular valence constraints. Route feasibility and graph valence are different constraints.
 
 Evidence: [RxnFlow: Abstract; method formulation](https://arxiv.org/html/2410.04542v2); [Spanning-tree molecular generation: Conference abstract; partial review](https://iclr.cc/virtual/2022/spotlight/6002).
 
@@ -3361,7 +3449,7 @@ Evidence: [RxnFlow: Abstract; method formulation](https://arxiv.org/html/2410.04
 
 STGG exploits molecular spanning trees and residual edges; GEEL uses gap-encoded edge lists and bandwidth. Both exploit sparsity through structured sequential encodings.
 
-**Map text.** Both papers use sparse graph structure for sequential generation. STGG uses spanning trees and residual edges. The gap-encoding method uses gap encoding and graph bandwidth.
+**Short explanation.** Both papers use sparse graph structure for sequential generation. STGG uses spanning trees and residual edges. The gap-encoding method uses gap encoding and graph bandwidth.
 
 Evidence: [Spanning-tree molecular generation: Conference abstract; partial review](https://iclr.cc/virtual/2022/spotlight/6002); [Gap-encoded edge lists: Abstract; method formulation](https://arxiv.org/html/2312.02230v3).
 
@@ -3373,7 +3461,7 @@ Evidence: [Spanning-tree molecular generation: Conference abstract; partial revi
 
 STGG builds a spanning tree of a molecular graph; K²-tree generation recursively partitions adjacency structure. Both use tree-based generation, but these trees represent different objects.
 
-**Map text.** Both papers use trees for graph generation. STGG builds a molecular spanning tree. K²-tree generation divides adjacency structure recursively. The trees represent different objects.
+**Short explanation.** Both papers use trees for graph generation. STGG builds a molecular spanning tree. K²-tree generation divides adjacency structure recursively. The trees represent different objects.
 
 Evidence: [Spanning-tree molecular generation: Conference abstract; partial review](https://iclr.cc/virtual/2022/spotlight/6002); [K²-tree graph generation: Abstract; method formulation](https://arxiv.org/html/2305.19125v4).
 
@@ -3385,7 +3473,7 @@ Evidence: [Spanning-tree molecular generation: Conference abstract; partial revi
 
 Both replace dense adjacency-sequence representations with compact graph-specific tokens. Gap encoding follows an edge list; K²-trees exploit hierarchical empty submatrices.
 
-**Map text.** Both papers replace dense adjacency sequences with compact graph tokens. The gap-encoding method encodes an edge list. HGGT encodes a hierarchy of empty and occupied submatrices.
+**Short explanation.** Both papers replace dense adjacency sequences with compact graph tokens. The gap-encoding method encodes an edge list. HGGT encodes a hierarchy of empty and occupied submatrices.
 
 Evidence: [Gap-encoded edge lists: Abstract; method formulation](https://arxiv.org/html/2312.02230v3); [K²-tree graph generation: Abstract; method formulation](https://arxiv.org/html/2305.19125v4).
 
@@ -3397,7 +3485,7 @@ Evidence: [Gap-encoded edge lists: Abstract; method formulation](https://arxiv.o
 
 GEEL encodes sparse graph edges; DNAChunker learns context-dependent genomic segments. Both make tokenization part of the modeling choice, without sharing a graph or genomic grammar.
 
-**Map text.** Both papers choose tokens that match the input structure. The gap-encoding method encodes sparse graph edges. DNAChunker learns genomic segments from context. Their token grammars differ.
+**Short explanation.** Both papers choose tokens that match the input structure. The gap-encoding method encodes sparse graph edges. DNAChunker learns genomic segments from context. Their token grammars differ.
 
 Evidence: [Gap-encoded edge lists: Abstract; method formulation](https://arxiv.org/html/2312.02230v3); [DNAChunker: Abstract; method formulation](https://arxiv.org/html/2601.03019v4).
 
@@ -3409,7 +3497,7 @@ Evidence: [Gap-encoded edge lists: Abstract; method formulation](https://arxiv.o
 
 Wavelet diffusion couples node and edge frequency structure; structured node diffusion couples predicted labels with observed graph labels. Both exploit graph relations inside diffusion with different output types.
 
-**Map text.** Both papers use graph relations in diffusion models. Wave-GD couples node and edge frequency structure. DPM-SNC couples predicted labels with observed labels. Their outputs differ.
+**Short explanation.** Both papers use graph relations in diffusion models. Wave-GD couples node and edge frequency structure. DPM-SNC couples predicted labels with observed labels. Their outputs differ.
 
 Evidence: [Wavelet graph diffusion: Abstract; method formulation](https://proceedings.neurips.cc/paper_files/paper/2023/file/427f20d90386fd27804f1831d6a3d48f-Paper-Conference.pdf); [Structured node diffusion: Abstract; method formulation](https://arxiv.org/html/2302.10506v5).
 
@@ -3421,7 +3509,7 @@ Evidence: [Wavelet graph diffusion: Abstract; method formulation](https://procee
 
 Graph wavelets preserve multiple frequency resolutions; GPWNO separates Gaussian local structure and plane-wave global structure. This is a multi-scale representation parallel across graph signals and electronic density.
 
-**Map text.** Both papers represent spatial information at multiple scales. Wave-GD uses graph wavelets. GPWNO combines local Gaussian and global plane-wave functions. Their signals and physical meanings differ.
+**Short explanation.** Both papers represent spatial information at multiple scales. Wave-GD uses graph wavelets. GPWNO combines local Gaussian and global plane-wave functions. Their signals and physical meanings differ.
 
 Evidence: [Wavelet graph diffusion: Abstract; method formulation](https://proceedings.neurips.cc/paper_files/paper/2023/file/427f20d90386fd27804f1831d6a3d48f-Paper-Conference.pdf); [Gaussian plane-wave neural operator: Abstract; method formulation](https://arxiv.org/html/2402.04278v2).
 
@@ -3433,7 +3521,7 @@ Evidence: [Wavelet graph diffusion: Abstract; method formulation](https://procee
 
 HoliMol uses fragment and geometry views of molecules; co-folding representation analysis transfers ligand information from protein–ligand models. Both examine richer molecular embeddings, with different pretraining context.
 
-**Map text.** Both papers use complementary views for molecular representations. HoliMol uses fragment and geometry views. The co-folding study transfers ligand information from protein–ligand models. Their pretraining contexts differ.
+**Short explanation.** Both papers use complementary views for molecular representations. HoliMol uses fragment and geometry views. The co-folding study transfers ligand information from protein–ligand models. Their pretraining contexts differ.
 
 Evidence: [HoliMol: README and indexed abstract; partial review](https://github.com/Seojin-Kim/HoliMol); [Co-folding representations: Abstract; method formulation](https://arxiv.org/html/2602.13249v2).
 
@@ -3445,7 +3533,7 @@ Evidence: [HoliMol: README and indexed abstract; partial review](https://github.
 
 HoliMol links local fragments with whole molecules; GPWNO combines local Gaussian and global plane-wave fields. The decomposition parallel spans embeddings and a physical density operator.
 
-**Map text.** Both papers combine local and global information. HoliMol connects molecular fragments to whole molecules. GPWNO combines local Gaussian and global plane-wave fields. The represented quantities differ.
+**Short explanation.** Both papers combine local and global information. HoliMol connects molecular fragments to whole molecules. GPWNO combines local Gaussian and global plane-wave fields. The represented quantities differ.
 
 Evidence: [HoliMol: README and indexed abstract; partial review](https://github.com/Seojin-Kim/HoliMol); [Gaussian plane-wave neural operator: Abstract; method formulation](https://arxiv.org/html/2402.04278v2).
 
@@ -3457,7 +3545,7 @@ Evidence: [HoliMol: README and indexed abstract; partial review](https://github.
 
 LED-GFN learns local energy decompositions; pessimistic backward policies reduce unobserved backward flow. Both change training signals or parameterization while retaining reward-proportional terminal sampling.
 
-**Map text.** Both papers change GFlowNet training while they retain reward-proportional sampling. LED-GFN learns local energy decompositions. PBP-GFN reduces backward flow through unseen trajectories.
+**Short explanation.** Both papers change GFlowNet training while they retain reward-proportional sampling. LED-GFN learns local energy decompositions. PBP-GFN reduces backward flow through unseen trajectories.
 
 Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03301v1); [Pessimistic backward policy: Abstract; method formulation](https://arxiv.org/html/2405.16012v3).
 
@@ -3469,7 +3557,7 @@ Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03
 
 Both exploit GFlowNet backward policies. Pessimistic training changes the learned backward flow; local search explicitly backtracks sampled objects and reconstructs improved trajectories.
 
-**Map text.** Both papers use GFlowNet backward policies. PBP-GFN changes the learned backward flow. Local Search GFN backtracks from sampled objects and reconstructs trajectories.
+**Short explanation.** Both papers use GFlowNet backward policies. PBP-GFN changes the learned backward flow. Local Search GFN backtracks from sampled objects and reconstructs trajectories.
 
 Evidence: [Pessimistic backward policy: Abstract; method formulation](https://arxiv.org/html/2405.16012v3); [Local Search GFlowNets: Abstract; method formulation](https://arxiv.org/html/2310.02710v2).
 
@@ -3481,7 +3569,7 @@ Evidence: [Pessimistic backward policy: Abstract; method formulation](https://ar
 
 Local search supplies improved nearby trajectories; Adaptive Teachers direct the student toward high-loss regions. Both augment GFlowNet training to improve coverage, with distinct exploration criteria.
 
-**Map text.** Both papers add training trajectories to improve GFlowNet coverage. LS-GFN improves nearby trajectories. The Adaptive Teachers method selects states with high student loss. Their selection criteria differ.
+**Short explanation.** Both papers add training trajectories to improve GFlowNet coverage. LS-GFN improves nearby trajectories. The Adaptive Teachers method selects states with high student loss. Their selection criteria differ.
 
 Evidence: [Local Search GFlowNets: Abstract; method formulation](https://arxiv.org/html/2310.02710v2); [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/html/2410.01432v3).
 
@@ -3493,7 +3581,7 @@ Evidence: [Local Search GFlowNets: Abstract; method formulation](https://arxiv.o
 
 LED-GFN decomposes terminal energy into local potentials; co-folding embeddings provide representation-level signals for molecular RL. Both enrich feedback, but only the former proves the stated GFlowNet reparameterization.
 
-**Map text.** Both papers add feedback for molecular optimization. LED-GFN splits terminal energy into local potentials. The co-folding study uses embeddings as reinforcement-learning signals. Only LED-GFN proves the stated GFlowNet reparameterization.
+**Short explanation.** Both papers add feedback for molecular optimization. LED-GFN splits terminal energy into local potentials. The co-folding study uses embeddings as reinforcement-learning signals. Only LED-GFN proves the stated GFlowNet reparameterization.
 
 Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03301v1); [Co-folding representations: Abstract; method formulation](https://arxiv.org/html/2602.13249v2).
 
@@ -3505,7 +3593,7 @@ Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03
 
 LED-GFN supplies local signals along object construction; latent veracity inference identifies incorrect reasoning steps. Credit decomposition and latent correctness labeling are distinct mathematical tasks.
 
-**Map text.** Both papers locate feedback within a sequence. LED-GFN supplies local signals during object construction. VS / AVI estimates which reasoning steps are incorrect. Their mathematical tasks differ.
+**Short explanation.** Both papers locate feedback within a sequence. LED-GFN supplies local signals during object construction. VS / AVI estimates which reasoning steps are incorrect. Their mathematical tasks differ.
 
 Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03301v1); [Latent veracity inference: Abstract; method formulation](https://arxiv.org/html/2505.11824v3).
 
@@ -3517,7 +3605,7 @@ Evidence: [LED-GFN: Abstract; method formulation](https://arxiv.org/html/2310.03
 
 Both train amortized samplers without target samples using energy-derived weighted estimates. Iterated flow matching treats continuous flows; energy-based generator matching unifies flow, diffusion, and jump-process settings.
 
-**Map text.** Both papers train reusable samplers from energies without target samples. iEFM uses continuous flows. EGM also includes diffusion and jump processes.
+**Short explanation.** Both papers train reusable samplers from energies without target samples. iEFM uses continuous flows. EGM also includes diffusion and jump processes.
 
 Evidence: [Iterated energy-based flow matching: Abstract; method formulation](https://arxiv.org/html/2408.16249v1); [Energy-based generator matching: Abstract; method formulation](https://arxiv.org/html/2505.19646v3).
 
@@ -3529,7 +3617,7 @@ Evidence: [Iterated energy-based flow matching: Abstract; method formulation](ht
 
 Both learn generators for unnormalized energy distributions. Generator matching uses importance-weighted bootstrapping; SGDS separates an exploratory MCMC Searcher from an off-policy diffusion Learner.
 
-**Map text.** Both papers learn samplers for unnormalized energy distributions. EGM uses importance-weighted bootstrap estimates. SGDS separates MCMC exploration from diffusion training with off-policy samples.
+**Short explanation.** Both papers learn samplers for unnormalized energy distributions. EGM uses importance-weighted bootstrap estimates. SGDS separates MCMC exploration from diffusion training with off-policy samples.
 
 Evidence: [Energy-based generator matching: Abstract; method formulation](https://arxiv.org/html/2505.19646v3); [Search-guided diffusion samplers: Abstract; method formulation](https://arxiv.org/html/2505.19552v4).
 
@@ -3541,7 +3629,7 @@ Evidence: [Energy-based generator matching: Abstract; method formulation](https:
 
 Adaptive Teachers target poorly learned states; SGDS uses novelty-aware search and replay to expose missing modes. Both improve amortized coverage, with different training-partner objectives.
 
-**Map text.** Both papers improve sampler coverage with a training partner. The Adaptive Teachers method targets states with high student loss. SGDS uses novelty-aware search and replay. The partner objectives differ.
+**Short explanation.** Both papers improve sampler coverage with a training partner. The Adaptive Teachers method targets states with high student loss. SGDS uses novelty-aware search and replay. The partner objectives differ.
 
 Evidence: [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/html/2410.01432v3); [Search-guided diffusion samplers: Abstract; method formulation](https://arxiv.org/html/2505.19552v4).
 
@@ -3553,7 +3641,7 @@ Evidence: [Adaptive Teachers: Abstract; method formulation](https://arxiv.org/ht
 
 Both reuse exploratory samples to train diffusion-based samplers. SGDS targets equilibrium energy distributions; TPS-DPS targets entire transition paths, so their sampled objects and normalizations differ.
 
-**Map text.** Both papers reuse exploratory samples to train diffusion samplers. SGDS targets equilibrium energy distributions. TPS-DPS targets transition paths. Their sampled objects and normalization terms differ.
+**Short explanation.** Both papers reuse exploratory samples to train diffusion samplers. SGDS targets equilibrium energy distributions. TPS-DPS targets transition paths. Their sampled objects and normalization terms differ.
 
 Evidence: [Search-guided diffusion samplers: Abstract; method formulation](https://arxiv.org/html/2505.19552v4); [TPS-DPS: Abstract; method formulation](https://arxiv.org/html/2405.19961v5).
 
@@ -3565,7 +3653,7 @@ Evidence: [Search-guided diffusion samplers: Abstract; method formulation](https
 
 TPS-DPS learns transition-path sampling without handcrafted CVs; BioEmu-CV learns slow collective variables from a pretrained ensemble generator. Both address rare dynamical behavior through different representations.
 
-**Map text.** Both papers study rare dynamical behavior. TPS-DPS learns transition-path sampling without predefined collective variables. BioEmu-CV learns slow collective variables from a pretrained ensemble generator.
+**Short explanation.** Both papers study rare dynamical behavior. TPS-DPS learns transition-path sampling without predefined collective variables. BioEmu-CV learns slow collective variables from a pretrained ensemble generator.
 
 Evidence: [TPS-DPS: Abstract; method formulation](https://arxiv.org/html/2405.19961v5); [BioEmu-CV: Abstract; method formulation](https://arxiv.org/html/2507.07390v4).
 
@@ -3577,7 +3665,7 @@ Evidence: [TPS-DPS: Abstract; method formulation](https://arxiv.org/html/2405.19
 
 BioEmu-CV adapts an ensemble generator for slow variables; Riemannian MeanFlow learns fast manifold flow maps for design. Dynamics-aware representation and rapid generative design solve different objectives.
 
-**Map text.** Both papers reuse generative models for biological tasks. BioEmu-CV adapts an ensemble generator to identify slow variables. RMF learns fast flow maps for design on manifolds.
+**Short explanation.** Both papers reuse generative models for biological tasks. BioEmu-CV adapts an ensemble generator to identify slow variables. RMF learns fast flow maps for design on manifolds.
 
 Evidence: [BioEmu-CV: Abstract; method formulation](https://arxiv.org/html/2507.07390v4); [Riemannian MeanFlow: Abstract; method formulation](https://arxiv.org/html/2602.07744v3).
 
@@ -3589,7 +3677,7 @@ Evidence: [BioEmu-CV: Abstract; method formulation](https://arxiv.org/html/2507.
 
 Both respect manifold geometry during generative modeling. Riemannian MeanFlow learns average-velocity flow maps; MOFFlow models rotations, translations, and lattices for rigid MOF blocks.
 
-**Map text.** Both papers use manifold geometry in generation. RMF learns flow maps from average velocity. MOFFlow models rotations, translations, and lattices for rigid blocks.
+**Short explanation.** Both papers use manifold geometry in generation. RMF learns flow maps from average velocity. MOFFlow models rotations, translations, and lattices for rigid blocks.
 
 Evidence: [Riemannian MeanFlow: Abstract; method formulation](https://arxiv.org/html/2602.07744v3); [MOFFlow: Abstract; method formulation](https://arxiv.org/html/2410.17270v2).
 
@@ -3601,7 +3689,7 @@ Evidence: [Riemannian MeanFlow: Abstract; method formulation](https://arxiv.org/
 
 Both optimize biological and other designs using fixed data and predictive proxies. BootGen bootstraps generated sequences with proxy labels; RoMA adapts a smooth robust proxy near optimization candidates.
 
-**Map text.** Both papers use fixed data and learned proxies for design. BootGen trains on generated sequences with proxy labels. RoMA adapts a smooth, robust proxy near candidate designs.
+**Short explanation.** Both papers use fixed data and learned proxies for design. BootGen trains on generated sequences with proxy labels. RoMA adapts a smooth, robust proxy near candidate designs.
 
 Evidence: [BootGen: Abstract; method formulation](https://arxiv.org/html/2306.03111v2); [RoMA: Abstract; method formulation](https://arxiv.org/html/2110.14188v1).
 
@@ -3613,7 +3701,7 @@ Evidence: [BootGen: Abstract; method formulation](https://arxiv.org/html/2306.03
 
 RoMA limits exploitation of model errors, while diverse molecular LLMs optimize structural diversity rather than textual diversity. Both distinguish an optimized surrogate from the desired object-level property.
 
-**Map text.** Both papers distinguish an optimized proxy from the intended property. RoMA limits exploitation of model errors. The molecular language models target structural diversity, which differs from text diversity.
+**Short explanation.** Both papers distinguish an optimized proxy from the intended property. RoMA limits exploitation of model errors. The molecular language models target structural diversity, which differs from text diversity.
 
 Evidence: [RoMA: Abstract; method formulation](https://arxiv.org/html/2110.14188v1); [Structurally diverse molecular LLMs: Abstract; method formulation](https://arxiv.org/html/2410.03138v2).
 
@@ -3625,7 +3713,7 @@ Evidence: [RoMA: Abstract; method formulation](https://arxiv.org/html/2110.14188
 
 BootGen learns from proxy-scored generated sequences; CORE-PO learns from confident reasoning paths. Both can amplify a model-derived feedback signal, with different ranking and policy objectives.
 
-**Map text.** Both papers train on model-derived signals. BootGen uses generated sequences with proxy scores. CORE-PO uses confident reasoning paths. Each method can reinforce errors in its own feedback.
+**Short explanation.** Both papers train on model-derived signals. BootGen uses generated sequences with proxy scores. CORE-PO uses confident reasoning paths. Each method can reinforce errors in its own feedback.
 
 Evidence: [BootGen: Abstract; method formulation](https://arxiv.org/html/2306.03111v2); [CORE-PO: Abstract; method formulation](https://arxiv.org/html/2505.17454v1).
 
@@ -3637,7 +3725,7 @@ Evidence: [BootGen: Abstract; method formulation](https://arxiv.org/html/2306.03
 
 DNAChunker learns variable-length genomic units; TriProRep combines amino-acid, backbone, and full-atom protein tokens. Both connect representation quality to the choice of biological units.
 
-**Map text.** Both papers choose biological tokens to improve representations. DNAChunker learns genomic units with variable lengths. TriProRep combines amino-acid, backbone, and full-atom protein tokens.
+**Short explanation.** Both papers choose biological tokens to improve representations. DNAChunker learns genomic units with variable lengths. TriProRep combines amino-acid, backbone, and full-atom protein tokens.
 
 Evidence: [DNAChunker: Abstract; method formulation](https://arxiv.org/html/2601.03019v4); [TriProRep: Abstract; method formulation](https://arxiv.org/html/2605.22133v3).
 
@@ -3649,7 +3737,7 @@ Evidence: [DNAChunker: Abstract; method formulation](https://arxiv.org/html/2601
 
 TriProRep tests protein embeddings for structure prediction; co-folding analysis probes and distills ligand embeddings for standalone tasks. Both make structural representation utility an explicit empirical question.
 
-**Map text.** Both papers test what structural embeddings can support. TriProRep tests protein structure prediction. The co-folding study tests and distills ligand embeddings for independent molecular tasks.
+**Short explanation.** Both papers test what structural embeddings can support. TriProRep tests protein structure prediction. The co-folding study tests and distills ligand embeddings for independent molecular tasks.
 
 Evidence: [TriProRep: Abstract; method formulation](https://arxiv.org/html/2605.22133v3); [Co-folding representations: Abstract; method formulation](https://arxiv.org/html/2602.13249v2).
 
@@ -3661,7 +3749,7 @@ Evidence: [TriProRep: Abstract; method formulation](https://arxiv.org/html/2605.
 
 Antibody design separates sequence generation from structure prediction; TriProRep pretrains compatible protein token views for structural uses. Both study representation choices at the sequence–structure interface.
 
-**Map text.** Both papers study the relation between sequence and structure representations. ASSD separates sequence generation from structure prediction. TriProRep learns compatible protein token views for structural tasks.
+**Short explanation.** Both papers study the relation between sequence and structure representations. ASSD separates sequence generation from structure prediction. TriProRep learns compatible protein token views for structural tasks.
 
 Evidence: [Antibody sequence–structure decoupling: Abstract; method formulation](https://arxiv.org/html/2402.05982v3); [TriProRep: Abstract; method formulation](https://arxiv.org/html/2605.22133v3).
 
@@ -3673,7 +3761,7 @@ Evidence: [Antibody sequence–structure decoupling: Abstract; method formulatio
 
 Antibody decoupling addresses token repetition and computational affinity; VibeProteinBench diagnoses language-interfaced protein workflows with computational checks. Both leave experimental function as a separate validation step.
 
-**Map text.** Both papers leave experimental function as a separate validation step. ASSD addresses sequence repetition and computational affinity. VibeProteinBench tests protein workflows with computational checks.
+**Short explanation.** Both papers leave experimental function as a separate validation step. ASSD addresses sequence repetition and computational affinity. VibeProteinBench tests protein workflows with computational checks.
 
 Evidence: [Antibody sequence–structure decoupling: Abstract; method formulation](https://arxiv.org/html/2402.05982v3); [VibeProteinBench: Abstract; method formulation](https://arxiv.org/html/2605.10978v4).
 
@@ -3685,7 +3773,7 @@ Evidence: [Antibody sequence–structure decoupling: Abstract; method formulatio
 
 Both propose systematic evaluation beyond a single output metric. VibeProteinBench spans recognition, engineering, and generation; co-folding analysis spans probing, generation, and optimization for small molecules.
 
-**Map text.** Both papers evaluate representations across several tasks. VibeProteinBench tests protein recognition, design, and generation. The co-folding study tests molecular embeddings through probing, generation, and optimization.
+**Short explanation.** Both papers evaluate representations across several tasks. VibeProteinBench tests protein recognition, design, and generation. The co-folding study tests molecular embeddings through probing, generation, and optimization.
 
 Evidence: [VibeProteinBench: Abstract; method formulation](https://arxiv.org/html/2605.10978v4); [Co-folding representations: Abstract; method formulation](https://arxiv.org/html/2602.13249v2).
 
@@ -3697,7 +3785,7 @@ Evidence: [VibeProteinBench: Abstract; method formulation](https://arxiv.org/htm
 
 Protein workflow checks separate scientific failure stages; Packora separates crystal generation from relaxation and ranking. Both show why a final success score can confound distinct components.
 
-**Map text.** Both papers separate stages in a scientific evaluation pipeline. VibeProteinBench identifies failures in protein workflows. Packora separates crystal generation, relaxation, and ranking. A final score can hide failures in individual stages.
+**Short explanation.** Both papers separate stages in a scientific evaluation pipeline. VibeProteinBench identifies failures in protein workflows. Packora separates crystal generation, relaxation, and ranking. A final score can hide failures in individual stages.
 
 Evidence: [VibeProteinBench: Abstract; method formulation](https://arxiv.org/html/2605.10978v4); [Packora: Abstract; method formulation](https://arxiv.org/html/2608.26962v1).
 
@@ -3709,7 +3797,7 @@ Evidence: [VibeProteinBench: Abstract; method formulation](https://arxiv.org/htm
 
 Both address language models' difficulty with molecular graph structure. CleanMol teaches deterministic SMILES parsing; structural reasoning uses explicit structural sketches as intermediate supervision.
 
-**Map text.** Both papers teach language models to recover molecular structure from text. CleanMol teaches deterministic SMILES parsing. MSR uses explicit structural sketches as intermediate supervision.
+**Short explanation.** Both papers teach language models to recover molecular structure from text. CleanMol teaches deterministic SMILES parsing. MSR uses explicit structural sketches as intermediate supervision.
 
 Evidence: [CleanMol: Abstract; method formulation](https://arxiv.org/html/2505.16340v1); [Molecular Structural Reasoning: Abstract; method formulation](https://arxiv.org/html/2410.05610v2).
 
@@ -3721,7 +3809,7 @@ Evidence: [CleanMol: Abstract; method formulation](https://arxiv.org/html/2505.1
 
 SMILES parsing teaches graph connectivity; MaskGXT adds symmetry tokens and crystal refinement. Both strengthen structural modeling beyond generic text tokens, in different molecular and periodic geometries.
 
-**Map text.** Both papers add structural information to scientific tokens. CleanMol teaches SMILES connectivity. MaskGXT adds symmetry tokens and crystal refinement. Molecular graphs and periodic crystals require different constraints.
+**Short explanation.** Both papers add structural information to scientific tokens. CleanMol teaches SMILES connectivity. MaskGXT adds symmetry tokens and crystal refinement. Molecular graphs and periodic crystals require different constraints.
 
 Evidence: [CleanMol: Abstract; method formulation](https://arxiv.org/html/2505.16340v1); [MaskGXT / HACO: Abstract; method formulation](https://arxiv.org/html/2606.22866v1).
 
@@ -3733,7 +3821,7 @@ Evidence: [CleanMol: Abstract; method formulation](https://arxiv.org/html/2505.1
 
 Structural reasoning makes molecular structure explicit; MT-Mol combines stepwise proposals with RDKit-based verification and specialist agents. Both seek grounded feedback before accepting final candidates.
 
-**Map text.** Both papers make intermediate molecular reasoning explicit. MSR uses structural sketches. MT-Mol uses specialist agents and RDKit checks to test proposals before final selection.
+**Short explanation.** Both papers make intermediate molecular reasoning explicit. MSR uses structural sketches. MT-Mol uses specialist agents and RDKit checks to test proposals before final selection.
 
 Evidence: [Molecular Structural Reasoning: Abstract; method formulation](https://arxiv.org/html/2410.05610v2); [MT-Mol: Abstract; method formulation](https://arxiv.org/html/2505.20820v1).
 
@@ -3745,7 +3833,7 @@ Evidence: [Molecular Structural Reasoning: Abstract; method formulation](https:/
 
 Both organize proposal, critique, and selection among scientific language-model agents. MT-Mol emphasizes chemistry tools and roles; INDIBATOR adds individualized scientific and molecular histories.
 
-**Map text.** Both papers organize proposals, critiques, and selection among molecular language agents. MT-Mol uses chemistry tools and specialist roles. INDIBATOR adds individual scientific and molecular histories.
+**Short explanation.** Both papers organize proposals, critiques, and selection among molecular language agents. MT-Mol uses chemistry tools and specialist roles. INDIBATOR adds individual scientific and molecular histories.
 
 Evidence: [MT-Mol: Abstract; method formulation](https://arxiv.org/html/2505.20820v1); [INDIBATOR: Abstract; method formulation](https://arxiv.org/html/2602.01815v1).
 
@@ -3757,7 +3845,7 @@ Evidence: [MT-Mol: Abstract; method formulation](https://arxiv.org/html/2505.208
 
 INDIBATOR uses literature and molecular histories; PBio-Agent sequences mechanistic biological tasks and propagates confident predictions. Both use structured domain context, with molecule proposals and regulation directions as different outputs.
 
-**Map text.** Both papers give scientific agents structured domain context. INDIBATOR uses literature and molecular histories. PBio-Agent passes confident results between biological tasks. Molecule proposals and regulation directions are different outputs.
+**Short explanation.** Both papers give scientific agents structured domain context. INDIBATOR uses literature and molecular histories. PBio-Agent passes confident results between biological tasks. Molecule proposals and regulation directions are different outputs.
 
 Evidence: [INDIBATOR: Abstract; method formulation](https://arxiv.org/html/2602.01815v1); [PBio-Agent / LincsQA: Abstract; method formulation](https://arxiv.org/html/2602.07408v2).
 
@@ -3769,7 +3857,7 @@ Evidence: [INDIBATOR: Abstract; method formulation](https://arxiv.org/html/2602.
 
 Latent veracity inference estimates individual step correctness through search and amortization; CORE-PO prefers confident reasoning paths during self-training. Both inspect intermediate reasoning while relying on model-derived signals.
 
-**Map text.** Both papers examine reasoning steps instead of only final answers. VS / AVI estimates whether individual steps are correct. CORE-PO selects confident reasoning paths for self-training. Both depend on model-derived signals.
+**Short explanation.** Both papers examine reasoning steps instead of only final answers. VS / AVI estimates whether individual steps are correct. CORE-PO selects confident reasoning paths for self-training. Both depend on model-derived signals.
 
 Evidence: [Latent veracity inference: Abstract; method formulation](https://arxiv.org/html/2505.11824v3); [CORE-PO: Abstract; method formulation](https://arxiv.org/html/2505.17454v1).
 
@@ -3781,7 +3869,7 @@ Evidence: [Latent veracity inference: Abstract; method formulation](https://arxi
 
 Veracity Search supplies pseudo-labels for a step-correctness model; retrosynthesis search supplies successful routes for a reaction model. Both amortize search, but model-likelihood veracity and reaction-route feasibility are different evidence.
 
-**Map text.** Both papers use search results to train a reusable model. VS / AVI trains a model of step correctness. Self-improved retro trains a reaction model from successful routes. Their criteria for success differ.
+**Short explanation.** Both papers use search results to train a reusable model. VS / AVI trains a model of step correctness. Self-improved retro trains a reaction model from successful routes. Their criteria for success differ.
 
 Evidence: [Latent veracity inference: Abstract; method formulation](https://arxiv.org/html/2505.11824v3); [Self-improved retrosynthesis: Abstract; method formulation](https://arxiv.org/html/2106.04880v1).
 
@@ -3793,7 +3881,7 @@ Evidence: [Latent veracity inference: Abstract; method formulation](https://arxi
 
 MOFFlow models rigid-block placement; MOFFlow-2 adds novel block generation and flexible torsional variables. They retain reduced structural parameterizations with different expressivity and inputs.
 
-**Map text.** Both papers reduce the variables needed for MOF generation. MOFFlow places rigid blocks. MOFFlow-2 adds new blocks and torsion variables. Their inputs and structural flexibility differ.
+**Short explanation.** Both papers reduce the variables needed for MOF generation. MOFFlow places rigid blocks. MOFFlow-2 adds new blocks and torsion variables. Their inputs and structural flexibility differ.
 
 Evidence: [MOFFlow: Abstract; method formulation](https://arxiv.org/html/2410.17270v2); [MOFFlow-2: Abstract; method formulation](https://arxiv.org/html/2505.17914v4).
 
@@ -3805,7 +3893,7 @@ Evidence: [MOFFlow: Abstract; method formulation](https://arxiv.org/html/2410.17
 
 MOFFlow-2 introduces flexible blocks and torsions; AtomMOF predicts unconstrained atomic coordinates from building-block graphs and adsorbates. Flexibility at selected variables and all-atom flexibility are different resolutions.
 
-**Map text.** Both papers increase structural flexibility in MOF generation. MOFFlow-2 adds flexible blocks and torsions. AtomMOF predicts unconstrained atomic coordinates from block graphs and adsorbates. Their structural resolutions differ.
+**Short explanation.** Both papers increase structural flexibility in MOF generation. MOFFlow-2 adds flexible blocks and torsions. AtomMOF predicts unconstrained atomic coordinates from block graphs and adsorbates. Their structural resolutions differ.
 
 Evidence: [MOFFlow-2: Abstract; method formulation](https://arxiv.org/html/2505.17914v4); [AtomMOF: Abstract; method formulation](https://arxiv.org/html/2602.07351v1).
 
@@ -3817,7 +3905,7 @@ Evidence: [MOFFlow-2: Abstract; method formulation](https://arxiv.org/html/2505.
 
 AtomMOF generates MOF–adsorbate configurations; MADField predicts equilibrium adsorption density and integrated uptake. Both study adsorption, with individual structures and thermodynamic fields as different outputs.
 
-**Map text.** Both papers model adsorption. AtomMOF generates MOF–adsorbate structures. MADField predicts equilibrium gas density and integrated uptake. Individual structures and thermodynamic fields are different outputs.
+**Short explanation.** Both papers model adsorption. AtomMOF generates MOF–adsorbate structures. MADField predicts equilibrium gas density and integrated uptake. Individual structures and thermodynamic fields are different outputs.
 
 Evidence: [AtomMOF: Abstract; method formulation](https://arxiv.org/html/2602.07351v1); [MADField: Abstract; method formulation](https://arxiv.org/html/2606.21284v2).
 
@@ -3829,7 +3917,7 @@ Evidence: [AtomMOF: Abstract; method formulation](https://arxiv.org/html/2602.07
 
 MADField learns gas-density fields for adsorption; GPWNO learns electronic density from local/global bases. Both amortize field prediction but have different particles, energies, and supervision.
 
-**Map text.** Both papers predict physical density fields with reusable models. MADField predicts gas density for adsorption. GPWNO predicts electron density from local and global basis functions. Their particles, energies, and supervision differ.
+**Short explanation.** Both papers predict physical density fields with reusable models. MADField predicts gas density for adsorption. GPWNO predicts electron density from local and global basis functions. Their particles, energies, and supervision differ.
 
 Evidence: [MADField: Abstract; method formulation](https://arxiv.org/html/2606.21284v2); [Gaussian plane-wave neural operator: Abstract; method formulation](https://arxiv.org/html/2402.04278v2).
 
@@ -3841,7 +3929,7 @@ Evidence: [MADField: Abstract; method formulation](https://arxiv.org/html/2606.2
 
 GPWNO combines local orbitals with plane waves; HNeR combines spherical grids and coordinate features. Both balance scales in a field representation, across electron density and geophysical signals.
 
-**Map text.** Both papers combine scales in spatial representations. GPWNO combines local orbitals and plane waves. HNeR-S combines spherical grids and coordinate features. Their target signals differ.
+**Short explanation.** Both papers combine scales in spatial representations. GPWNO combines local orbitals and plane waves. HNeR-S combines spherical grids and coordinate features. Their target signals differ.
 
 Evidence: [Gaussian plane-wave neural operator: Abstract; method formulation](https://arxiv.org/html/2402.04278v2); [Spherical neural fields: Abstract; method formulation](https://arxiv.org/html/2402.05965v1).
 
@@ -3853,7 +3941,7 @@ Evidence: [Gaussian plane-wave neural operator: Abstract; method formulation](ht
 
 MADField can initialize cDFT; loop-based MCMC corrects BP estimates. Both combine computational components, with initialization and stochastic correction playing different roles.
 
-**Map text.** Both papers combine a fast approximation with another solver. MADField can initialize classical density functional theory. MCMC + BP corrects belief-propagation estimates. Initialization and stochastic correction serve different purposes.
+**Short explanation.** Both papers combine a fast approximation with another solver. MADField can initialize classical density functional theory. MCMC + BP corrects belief-propagation estimates. Initialization and stochastic correction serve different purposes.
 
 Evidence: [MADField: Abstract; method formulation](https://arxiv.org/html/2606.21284v2); [MCMC + belief propagation: Abstract; method formulation](https://arxiv.org/html/1605.09042v6).
 
@@ -3865,7 +3953,7 @@ Evidence: [MADField: Abstract; method formulation](https://arxiv.org/html/2606.2
 
 Both use flow-based models for coupled host–guest structures. CatFlow factorizes slab primitive cells and adsorbates; AtomMOF uses all-atom MOF coordinates and interatomic-potential steering.
 
-**Map text.** Both papers use flow models to generate a host and an adsorbate together. CatFlow uses primitive-cell slab variables. AtomMOF uses atomic MOF coordinates and interatomic-potential guidance.
+**Short explanation.** Both papers use flow models to generate a host and an adsorbate together. CatFlow uses primitive-cell slab variables. AtomMOF uses atomic MOF coordinates and interatomic-potential guidance.
 
 Evidence: [CatFlow: Abstract; method formulation](https://arxiv.org/html/2602.05372v2); [AtomMOF: Abstract; method formulation](https://arxiv.org/html/2602.07351v1).
 
@@ -3877,7 +3965,7 @@ Evidence: [CatFlow: Abstract; method formulation](https://arxiv.org/html/2602.05
 
 CatFlow factors a catalytic slab into primitive-cell variables; MOFFlow factors porous crystals into rigid building blocks. Both choose symmetry-compatible reduced variables with distinct geometry assumptions.
 
-**Map text.** Both papers reduce periodic structures to fewer variables. CatFlow uses primitive-cell variables for catalytic slabs. MOFFlow uses rigid building blocks for porous crystals. Their geometry assumptions differ.
+**Short explanation.** Both papers reduce periodic structures to fewer variables. CatFlow uses primitive-cell variables for catalytic slabs. MOFFlow uses rigid building blocks for porous crystals. Their geometry assumptions differ.
 
 Evidence: [CatFlow: Abstract; method formulation](https://arxiv.org/html/2602.05372v2); [MOFFlow: Abstract; method formulation](https://arxiv.org/html/2410.17270v2).
 
@@ -3889,7 +3977,7 @@ Evidence: [CatFlow: Abstract; method formulation](https://arxiv.org/html/2602.05
 
 Both use flow-based generation for crystals with optional structural information. Multimodal Crystal Flow gives atom types and geometry separate flow times; Packora targets flexible molecular crystals and controlled generation/ranking comparisons.
 
-**Map text.** Both papers use flow models to generate crystals from optional structural information. MCFlow gives atom types and geometry separate flow times. Packora targets flexible molecular crystals and controlled generation and ranking comparisons.
+**Short explanation.** Both papers use flow models to generate crystals from optional structural information. MCFlow gives atom types and geometry separate flow times. Packora targets flexible molecular crystals and controlled generation and ranking comparisons.
 
 Evidence: [Multimodal Crystal Flow: Abstract; method formulation](https://arxiv.org/html/2602.20210v3); [Packora: Abstract; method formulation](https://arxiv.org/html/2608.26962v1).
 
@@ -3901,7 +3989,7 @@ Evidence: [Multimodal Crystal Flow: Abstract; method formulation](https://arxiv.
 
 Multimodal Crystal Flow models atom types and geometry jointly; MOFFlow-2 combines discrete block descriptions with continuous flexible assembly. Both connect discrete chemical identity and periodic coordinates through different factorizations.
 
-**Map text.** Both papers connect discrete chemical identities with continuous geometry. MCFlow models atom types and coordinates. MOFFlow-2 combines discrete block descriptions with flexible assembly. Their factorizations differ.
+**Short explanation.** Both papers connect discrete chemical identities with continuous geometry. MCFlow models atom types and coordinates. MOFFlow-2 combines discrete block descriptions with flexible assembly. Their factorizations differ.
 
 Evidence: [Multimodal Crystal Flow: Abstract; method formulation](https://arxiv.org/html/2602.20210v3); [MOFFlow-2: Abstract; method formulation](https://arxiv.org/html/2505.17914v4).
 
@@ -3913,7 +4001,7 @@ Evidence: [Multimodal Crystal Flow: Abstract; method formulation](https://arxiv.
 
 MaskGXT uses symmetry tokens and coordinate refinement; Multimodal Crystal Flow uses composition-aware ordering and symmetry augmentation. Both respect crystal-specific structure while using different masked and flow objectives.
 
-**Map text.** Both papers use crystal structure in generation. MaskGXT uses symmetry tokens and coordinate refinement. MCFlow uses composition-aware ordering and symmetry augmentation. Their training objectives differ.
+**Short explanation.** Both papers use crystal structure in generation. MaskGXT uses symmetry tokens and coordinate refinement. MCFlow uses composition-aware ordering and symmetry augmentation. Their training objectives differ.
 
 Evidence: [MaskGXT / HACO: Abstract; method formulation](https://arxiv.org/html/2606.22866v1); [Multimodal Crystal Flow: Abstract; method formulation](https://arxiv.org/html/2602.20210v3).
 
@@ -3925,7 +4013,7 @@ Evidence: [MaskGXT / HACO: Abstract; method formulation](https://arxiv.org/html/
 
 HACO explores methodological families for crystal modeling; genetic expert search improves molecular candidates and trains an apprentice. The feedback-loop parallel spans algorithm discovery and candidate discovery.
 
-**Map text.** Both papers use specialized search to improve a generator. HACO searches for crystal-model algorithms. Genetic EL improves molecules and trains an apprentice model. Algorithm discovery and candidate discovery are different targets.
+**Short explanation.** Both papers use specialized search to improve a generator. HACO searches for crystal-model algorithms. Genetic EL improves molecules and trains an apprentice model. Algorithm discovery and candidate discovery are different targets.
 
 Evidence: [MaskGXT / HACO: Abstract; method formulation](https://arxiv.org/html/2606.22866v1); [Genetic expert-guided learning: Abstract; method formulation](https://arxiv.org/html/2007.04897v3).
 
@@ -3937,7 +4025,7 @@ Evidence: [MaskGXT / HACO: Abstract; method formulation](https://arxiv.org/html/
 
 Both avoid fixing all molecular or block internal geometry during flow generation. Packora targets molecular crystals and ranking protocols; AtomMOF targets MOF–adsorbate configurations and physical steering.
 
-**Map text.** Both papers allow internal geometry to change during flow generation. Packora generates molecular crystals and tests ranking protocols. AtomMOF generates MOF–adsorbate structures with physical guidance.
+**Short explanation.** Both papers allow internal geometry to change during flow generation. Packora generates molecular crystals and tests ranking protocols. AtomMOF generates MOF–adsorbate structures with physical guidance.
 
 Evidence: [Packora: Abstract; method formulation](https://arxiv.org/html/2608.26962v1); [AtomMOF: Abstract; method formulation](https://arxiv.org/html/2602.07351v1).
 
@@ -3949,7 +4037,7 @@ Evidence: [Packora: Abstract; method formulation](https://arxiv.org/html/2608.26
 
 QHFlow predicts Hamiltonians through equivariant flow matching and orbital alignment; QHFlow2 evaluates SO(2)-based Hamiltonian prediction through energies and forces. Their names do not imply the same flow objective.
 
-**Map text.** Both papers predict electronic Hamiltonians. QHFlow uses equivariant flow matching and orbital alignment. QHFlow2 tests SO(2)-based predictions through energies and forces. Their names do not imply the same flow objective.
+**Short explanation.** Both papers predict electronic Hamiltonians. QHFlow uses equivariant flow matching and orbital alignment. QHFlow2 tests SO(2)-based predictions through energies and forces. Their names do not imply the same flow objective.
 
 Evidence: [QHFlow: Abstract; method formulation](https://arxiv.org/html/2505.18817v2); [QHFlow2: Abstract; method formulation](https://arxiv.org/html/2602.16897v2).
 
@@ -3961,7 +4049,7 @@ Evidence: [QHFlow: Abstract; method formulation](https://arxiv.org/html/2505.188
 
 GPWNO predicts electron density; QHFlow predicts electronic Hamiltonians and initializes SCF. Both replace expensive electronic quantities with learned predictions, but density and Hamiltonian errors have different physical consequences.
 
-**Map text.** Both papers use learned predictions for electronic-structure computation. GPWNO predicts electron density. QHFlow predicts Hamiltonians and initializes self-consistent field calculations. Density errors and Hamiltonian errors have different physical effects.
+**Short explanation.** Both papers use learned predictions for electronic-structure computation. GPWNO predicts electron density. QHFlow predicts Hamiltonians and initializes self-consistent field calculations. Density errors and Hamiltonian errors have different physical effects.
 
 Evidence: [Gaussian plane-wave neural operator: Abstract; method formulation](https://arxiv.org/html/2402.04278v2); [QHFlow: Abstract; method formulation](https://arxiv.org/html/2505.18817v2).
 
@@ -3973,7 +4061,7 @@ Evidence: [Gaussian plane-wave neural operator: Abstract; method formulation](ht
 
 QHFlow2 tests energy and force accuracy beyond Hamiltonian error; Packora separates generation from ranking and relaxation. Both diagnose what an intermediate metric misses, in different scientific pipelines.
 
-**Map text.** Both papers test quantities beyond an intermediate model score. QHFlow2 tests energy and force accuracy. Packora separates generation, ranking, and relaxation. Their scientific pipelines differ.
+**Short explanation.** Both papers test quantities beyond an intermediate model score. QHFlow2 tests energy and force accuracy. Packora separates generation, ranking, and relaxation. Their scientific pipelines differ.
 
 Evidence: [QHFlow2: Abstract; method formulation](https://arxiv.org/html/2602.16897v2); [Packora: Abstract; method formulation](https://arxiv.org/html/2608.26962v1).
 
