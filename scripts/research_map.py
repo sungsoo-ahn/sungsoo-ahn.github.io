@@ -313,7 +313,7 @@ def page_header(title, permalink):
 
 
 def timeline_layout(data, publications):
-    """Use the canonical JS geometry for both the linked fallback and browser."""
+    """Compute canonical geometry at build time; the browser reuses the SVG."""
     result = subprocess.run(
         ['node', str(ROOT / 'scripts/research_map_layout.mjs'), '--json'],
         input=json.dumps({'data': data, 'publications': publications}),
@@ -382,7 +382,7 @@ def render_overview(data, publications):
         title = html.escape(work['title'] + ' · ' + work['summary'] + ' · ' + ', '.join(work['authors']) + ' · ' + ' · '.join(f'{edition["venue"]} {edition["year"]}' for edition in editions) + ' · ' + domains + ' · ' + families, quote=True)
         themes = ','.join(item['id'] for item in station['themes'])
         destination = html.escape(layout['paper_urls'][work['id']], quote=True)
-        result.append(f'<a href="{destination}" target="_blank" rel="external nofollow noopener" class="rm-static-paper rm-themed" style="{style(theme)}" data-work="{work["id"]}" data-contribution="{category["id"]}" data-primary-label="true" data-instance="{station["id"]}" data-themes="{themes}" data-x="{x}" data-y="{y}" data-label-side="{station["labelSide"]}" aria-label="{title}" transform="translate({x},{y})"><circle class="rm-hit" r="16"/><circle class="rm-station-backplate" r="11" aria-hidden="true"/>' + symbol_markup(layout, category, 'rm-station') + f'<title>{title}</title><text class="rm-work-label" text-anchor="middle">')
+        result.append(f'<a href="{destination}" target="_blank" rel="external nofollow noopener" class="rm-static-paper rm-themed" style="{style(theme)}" data-work="{work["id"]}" data-contribution="{category["id"]}" data-primary-label="true" data-instance="{station["id"]}" data-themes="{themes}" data-x="{x}" data-y="{y}" data-label-x="{x}" data-label-width="{station['labelWidth'] + 8}" data-label-side="{station["labelSide"]}" aria-label="{title}" transform="translate({x},{y})"><circle class="rm-hit" r="16"/><circle class="rm-station-backplate" r="11" aria-hidden="true"/>' + symbol_markup(layout, category, 'rm-station') + f'<title>{title}</title><text class="rm-work-label" text-anchor="middle">')
         for line, baseline in zip(station['labelLines'], station['labelBaselines']):
             result.append(f'<tspan x="0" y="{baseline}">{html.escape(line)}</tspan>')
         result.append(f'</text><text class="rm-work-meta" text-anchor="middle" y="{station["metaY"]}">{html.escape(station["metaText"])}</text></a>')

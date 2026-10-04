@@ -19,8 +19,11 @@
     navigation = root.querySelector(".rm-navigation"),
     earlier = navigation.querySelector(".rm-earlier"),
     later = navigation.querySelector(".rm-later");
-  let data, state, layout, viewport, tooltip;
+  let data, state, viewport, tooltip, mapWidth;
+  let stations = [],
+    connections = [];
   let hoverAnchor, hoverPaper, hoverConnection, hideTimer, frame;
+  let previousLeft, previousWidth;
   const nickname = (work) => work.map_label || work.label;
   const venueYears = (work) => work.publications.map((p) => `${p.venue} ${p.year}`).join(" · ");
   const firstVenue = model.firstVenue;
@@ -38,10 +41,14 @@
   };
   const viewportWidth = () => Math.max(1, scroller.clientWidth);
   const panStep = () => Math.min(3, Math.max(1, Math.floor((viewportWidth() - 64) / model.SPACING)));
-  const persist = () => history.replaceState({}, "", model.writeUrl(location.href, state));
+  const persist = () => {
+    const url = model.writeUrl(location.href, state).href;
+    if (url !== location.href) history.replaceState({}, "", url);
+  };
 
   function hideTooltip() {
     clearTimeout(hideTimer);
+    if (!hoverAnchor) return;
     hoverAnchor?.removeAttribute("aria-describedby");
     hoverAnchor = hoverPaper = hoverConnection = null;
     if (tooltip) tooltip.hidden = true;
@@ -132,106 +139,74 @@
     node.addEventListener("blur", scheduleHide);
   }
   function updateHighlights() {
-    root.querySelectorAll(".rm-work").forEach((node) => {
-      node.dataset.highlighted = String(
-        node.dataset.work === hoverPaper || Boolean(hoverConnection && [hoverConnection.from, hoverConnection.to].includes(node.dataset.work))
-      );
+    stations.forEach(({ node, work }) => {
+      const highlighted = String(work.id === hoverPaper || Boolean(hoverConnection && [hoverConnection.from, hoverConnection.to].includes(work.id)));
+      if (node.dataset.highlighted !== highlighted) node.dataset.highlighted = highlighted;
     });
-    root.querySelectorAll(".rm-connection").forEach((node) => {
-      node.dataset.highlighted = String(
-        node.dataset.connection === hoverConnection?.id || Boolean(hoverPaper && [node.dataset.from, node.dataset.to].includes(hoverPaper))
+    connections.forEach(({ node, connection }) => {
+      const highlighted = String(
+        connection.id === hoverConnection?.id || Boolean(hoverPaper && [connection.from, connection.to].includes(hoverPaper))
       );
+      if (node.dataset.highlighted !== highlighted) node.dataset.highlighted = highlighted;
     });
   }
-  function connectionNode(connection, path) {
-    const group = vector("g", {
-      class: "rm-connection",
-      "data-connection": connection.id,
-      "data-from": connection.from,
-      "data-to": connection.to,
-      "data-status": connection.status || "major",
+  function bindOverview() {
+    // Geometry is computed by the generator. Reuse its SVG rather than solving
+    // and rendering the same layout again on the browser's main thread.
+    mapWidth = Number(track.querySelector(".rm-network").getAttribute("width"));
+    stations = [...track.querySelectorAll(".rm-static-paper")].map((node) => {
+      const work = data.workById.get(node.dataset.work);
+      node.classList.replace("rm-static-paper", "rm-work");
+      node.setAttribute("tabindex", "0");
+      node.querySelector("title")?.remove();
+      bindHover(node, work, "paper");
+      return {
+        node,
+        work,
+        x: Number(node.dataset.x),
+        labelX: Number(node.dataset.labelX),
+        labelHalf: Number(node.dataset.labelWidth) / 2,
+        labels: [...node.querySelectorAll(".rm-work-label, .rm-work-meta")],
+      };
     });
-    group.append(
-      vector("path", { class: "rm-connection-casing", d: path, "aria-hidden": "true" }),
-      vector("path", { class: "rm-connection-path", d: path }),
-      vector("path", { class: "rm-connection-hit", d: path })
-    );
-    group.setAttribute("tabindex", "0");
-    group.setAttribute("role", "img");
-    group.setAttribute("aria-label", connection.label);
-    bindHover(group, connection, "connection");
-    return group;
-  }
-  function buildOverview() {
-    track.style.setProperty("--rm-track-width", `${layout.width}px`);
-    const svg = vector("svg", { width: layout.width, height: layout.height, class: "rm-network" });
-    for (const themeRow of layout.rows) {
-      const route = themed(vector("g", { class: "rm-route", "data-theme": themeRow.theme.id }), themeRow.theme);
-      for (const connection of themeRow.connections) route.append(connectionNode(connection, connection.path));
-      svg.append(route);
-    }
-    for (const station of layout.stations) {
-      const { work, theme, x, y } = station;
-      const group = themed(
-        vector("a", {
-          class: "rm-work",
-          href: model.paperUrl(work),
-          target: "_blank",
-          rel: "external nofollow noopener",
-          tabindex: "0",
-          transform: `translate(${x},${y})`,
-          "data-work": work.id,
-          "data-instance": station.id,
-          "data-theme": theme.id,
-          "data-themes": station.themes.map((item) => item.id).join(","),
-          "data-contribution": work.map_contribution,
-          "data-primary-label": "true",
-          "data-x": x,
-          "data-y": y,
-          "data-label-side": station.labelSide,
-          "aria-label": `${nickname(work)}, ${venueYears(work)}`,
-        }),
-        theme
-      );
-      group.append(
-        vector("circle", { class: "rm-hit", r: 16 }),
-        vector("circle", { class: "rm-station-backplate", r: 11, "aria-hidden": "true" }),
-        contributionMark(work)
-      );
-      const label = vector("text", { class: "rm-work-label", "text-anchor": "middle" });
-      station.labelLines.forEach((line, i) => {
-        const span = vector("tspan", { x: 0, y: station.labelBaselines[i] });
-        span.textContent = line;
-        label.append(span);
-      });
-      const meta = vector("text", { class: "rm-work-meta", "text-anchor": "middle", y: station.metaY });
-      meta.textContent = station.metaText;
-      group.append(label, meta);
-      group.dataset.labelWidth = station.labelWidth + 8;
-      group.dataset.labelX = x;
-      bindHover(group, work, "paper");
-      svg.append(group);
-    }
-    track.append(svg);
+    const stationById = new Map(stations.map((station) => [station.node.dataset.instance, station]));
+    connections = [...track.querySelectorAll(".rm-connection")].map((node) => {
+      const theme = data.themeById.get(node.closest(".rm-route").dataset.theme);
+      const connection = { id: node.dataset.connection, from: node.dataset.from, to: node.dataset.to, label: theme.label };
+      node.querySelector("title")?.remove();
+      node.append(vector("path", { class: "rm-connection-hit", d: node.querySelector(".rm-connection-path").getAttribute("d") }));
+      node.setAttribute("tabindex", "0");
+      node.setAttribute("role", "img");
+      node.setAttribute("aria-label", connection.label);
+      bindHover(node, connection, "connection");
+      return { node, connection, fromX: stationById.get(connection.from).x, toX: stationById.get(connection.to).x };
+    });
   }
   function updateViewport() {
-    if (!data) return;
-    const max = Math.max(0, layout.width - viewportWidth());
-    state.offset = Math.max(0, max - scroller.scrollLeft) / model.SPACING;
-    viewport = model.timelineViewport(layout, state.offset, viewportWidth());
-    const visibleStations = new Set(viewport.lanes[0].visibleStations.map((station) => station.id));
-    track.querySelectorAll(".rm-work").forEach((node) => {
-      const visible = visibleStations.has(node.dataset.instance);
-      node.toggleAttribute("hidden", !visible);
-      const x = Number(node.dataset.labelX),
-        half = Number(node.dataset.labelWidth) / 2;
-      const clipped = x - half < viewport.left + 4 || x + half > viewport.right - 4;
-      for (const selector of [".rm-work-label", ".rm-work-meta"]) node.querySelector(selector).toggleAttribute("hidden", !visible || clipped);
+    if (!mapWidth) return;
+    const width = viewportWidth(),
+      max = Math.max(0, mapWidth - width);
+    const left = Math.max(0, Math.min(max, scroller.scrollLeft));
+    state.offset = (max - left) / model.SPACING;
+    // A programmatic pan also emits a scroll event. Process a position once.
+    if (left === previousLeft && width === previousWidth) {
+      persist();
+      return;
+    }
+    previousLeft = left;
+    previousWidth = width;
+    viewport = { left, right: left + width, maxOffset: max / model.SPACING };
+    stations.forEach(({ node, x, labelX, labelHalf, labels }) => {
+      const visible = x >= viewport.left + 16 && x <= viewport.right - 16;
+      if (node.hasAttribute("hidden") === visible) node.toggleAttribute("hidden", !visible);
+      const labelsHidden = !visible || labelX - labelHalf < viewport.left + 4 || labelX + labelHalf > viewport.right - 4;
+      labels.forEach((label) => {
+        if (label.hasAttribute("hidden") !== labelsHidden) label.toggleAttribute("hidden", labelsHidden);
+      });
     });
-    track.querySelectorAll(".rm-connection").forEach((node) => {
-      const a = layout.stationByInstance.get(node.dataset.from),
-        b = layout.stationByInstance.get(node.dataset.to);
-      node.toggleAttribute("hidden", a.x > viewport.right || b.x < viewport.left);
+    connections.forEach(({ node, fromX, toX }) => {
+      const hidden = fromX > viewport.right || toX < viewport.left;
+      if (node.hasAttribute("hidden") !== hidden) node.toggleAttribute("hidden", hidden);
     });
     earlier.disabled = state.offset >= viewport.maxOffset - 0.01;
     later.disabled = state.offset <= 0.01;
@@ -240,7 +215,7 @@
     persist();
   }
   function setOffset(offset) {
-    const max = Math.max(0, layout.width - viewportWidth());
+    const max = Math.max(0, mapWidth - viewportWidth());
     state.offset = Math.max(0, Math.min(max / model.SPACING, offset));
     scroller.scrollLeft = max - state.offset * model.SPACING;
     updateViewport();
@@ -258,6 +233,7 @@
     frame = requestAnimationFrame(updateViewport);
   });
   scroller.addEventListener("keydown", (event) => {
+    if (!mapWidth) return;
     const offsets = { ArrowLeft: state.offset + panStep(), ArrowRight: state.offset - panStep(), Home: Infinity, End: 0 };
     if (!(event.key in offsets)) return;
     event.preventDefault();
@@ -280,7 +256,6 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       data = model.prepare(await response.json());
       state = model.readUrl(location.href);
-      layout = model.timelineLayout(data);
       tooltip = element("div", undefined, "rm-tooltip");
       tooltip.id = "research-map-tooltip";
       tooltip.setAttribute("role", "tooltip");
@@ -290,16 +265,15 @@
       tooltip.addEventListener("focusin", () => clearTimeout(hideTimer));
       tooltip.addEventListener("focusout", scheduleHide);
       root.append(tooltip);
-      buildOverview();
-      root.querySelector(".rm-static").hidden = true;
-      root.querySelector(".rm-interactive").hidden = false;
+      bindOverview();
+      root.querySelector(".rm-static").classList.replace("rm-static", "rm-interactive");
       root.querySelector(".rm-load-status").hidden = true;
       navigation.hidden = false;
       setOffset(state.offset);
-      let previousWidth = scroller.clientWidth;
+      let observedWidth = scroller.clientWidth;
       new ResizeObserver(() => {
-        if (scroller.clientWidth !== previousWidth) {
-          previousWidth = scroller.clientWidth;
+        if (scroller.clientWidth !== observedWidth) {
+          observedWidth = scroller.clientWidth;
           setOffset(state.offset);
         }
       }).observe(root);
