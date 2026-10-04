@@ -31,6 +31,15 @@ class ResearchMapTests(unittest.TestCase):
         errors = map_module.validate(self.data, self.publications + [publication], self.pool)
         self.assertTrue(any('newpaper: expected one station' in e for e in errors))
 
+    def test_paper_hover_requires_a_publication_abstract(self):
+        publications = copy.deepcopy(self.publications)
+        ids = self.data['works'][0]['publication_ids']
+        for pub in publications:
+            if pub['id'] in ids:
+                pub.pop('abstract', None)
+        errors = map_module.validate(self.data, publications, self.pool)
+        self.assertTrue(any('publication abstract is required' in error for error in errors))
+
     def test_duplicate_station_assignment_is_rejected(self):
         errors = self.errors_for(lambda d: d['works'][1]['publication_ids'].append(d['works'][0]['publication_ids'][0]))
         self.assertTrue(any('found 2' in e for e in errors))
@@ -38,6 +47,12 @@ class ResearchMapTests(unittest.TestCase):
     def test_connection_requires_both_endpoint_sources(self):
         errors = self.errors_for(lambda d: d['relationships'][0]['evidence'].pop())
         self.assertTrue(any('needs evidence from both endpoints' in e for e in errors))
+
+    def test_idea_window_and_selected_idea_names_are_validated(self):
+        for value in (0, -1, True, '5'):
+            self.assertTrue(any('idea_window_years' in e for e in self.errors_for(lambda d: d.update(idea_window_years=value))))
+        for value in ('', None, []):
+            self.assertTrue(any('map_idea' in e for e in self.errors_for(lambda d: d['relationships'][0].update(map_idea=value))))
 
     def test_invalid_evidence_index_is_rejected(self):
         errors = self.errors_for(lambda d: d['relationships'][0]['evidence'][0].update(source=10))
@@ -90,7 +105,8 @@ class ResearchMapTests(unittest.TestCase):
         self.assertTrue(any('source must match its version' in error for error in errors))
 
     def test_fallback_includes_all_papers_and_only_adjacent_segments(self):
-        overview = ET.fromstring(map_module.render_overview(self.data, self.publications))
+        figures = ET.fromstring(map_module.render_overview(self.data, self.publications))
+        overview = figures.find("div[@class='rm-vertical']")
         layout = map_module.timeline_layout(self.data, self.publications)
         stations = [node for node in overview.iter('a') if node.get('class') == 'rm-static-paper rm-themed']
         self.assertEqual(len(stations), 74)
@@ -98,29 +114,33 @@ class ResearchMapTests(unittest.TestCase):
             work = next(work for work in self.data['works'] if work['id'] == station.get('data-work'))
             self.assertEqual(station.get('href'), layout['paper_urls'][work['id']])
             self.assertEqual(station.get('target'), '_blank')
-            self.assertIn(work['summary'], station.find('title').text)
+            abstract = next(pub['abstract'] for pub in self.publications if pub['id'] in work['publication_ids'] and pub.get('abstract'))
+            self.assertIn(abstract, station.find('title').text)
+            self.assertEqual(station.get('aria-label'), next(pub['title'] for pub in self.publications if pub['id'] == work['publication_ids'][0]))
             self.assertIn('noopener', station.get('rel'))
-            geometry = next(item for item in layout['stations'] if item['id'] == station.get('data-instance'))
-            self.assertEqual(float(station.get('data-label-x')), geometry['x'])
-            self.assertEqual(float(station.get('data-label-width')), geometry['labelWidth'] + 8)
+            geometry = next(item for item in layout['vertical']['stations'] if item['id'] == station.get('data-instance'))
+            self.assertEqual(float(station.get('data-x')), geometry['x'])
+            self.assertEqual(float(station.get('data-y')), geometry['y'])
         mask = next(station for station in stations if station.get('data-work') == 'seong2026discovering')
-        self.assertIn('Agents', mask.find('title').text)
-        self.assertIn('Generative modeling', mask.find('title').text)
+        self.assertIn('Human-AI Co-discovery system', mask.find('title').text)
+        self.assertEqual(len([node for node in overview.iter('g') if node.get('class') == 'rm-idea' and not node.get('hidden')]), 14)
 
         self.assertEqual({node.get('data-work') for node in stations}, {work['id'] for work in self.data['works']})
-        self.assertTrue(all(float(node.get('data-x')) == layout['positions'][node.get('data-instance')] for node in stations))
-        self.assertTrue(all(float(node.get('data-y')) == next(station['y'] for station in layout['stations'] if station['id'] == node.get('data-instance')) for node in stations))
+        self.assertIsNone(figures.find("div[@class='rm-horizontal']"))
+        self.assertTrue(all(float(node.get('data-y')) == next(station['y'] for station in layout['vertical']['stations'] if station['id'] == node.get('data-instance')) for node in stations))
         self.assertEqual(len([node for node in overview.iter('svg') if node.get('class') == 'rm-network']), 1)
-        self.assertEqual(layout['height'], 300)
-        for theme_row in layout['rows']:
+        self.assertEqual(layout['vertical']['width'], 300)
+        for theme_row in layout['vertical']['rows']:
             theme = theme_row['theme']['id']
             route = next(node for node in overview.iter('g') if node.get('data-theme') == theme)
             members = theme_row['stations']
             edges = [node for node in route.iter('g') if node.get('class') == 'rm-connection']
             self.assertEqual([(node.get('data-from'), node.get('data-to')) for node in edges],
                              [(a['id'], b['id']) for a, b in zip(members, members[1:])])
-        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label']), 74)
-        self.assertTrue(all(node.get('r') == '9' for node in overview.iter('circle') if node.get('class') == 'rm-station'))
+        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label rm-compact-label']), 74)
+        markers = [node for node in overview.iter() if node.get('class') == 'rm-station']
+        self.assertEqual(len(markers), 74)
+        self.assertTrue(all(node.tag == 'circle' and node.get('r') == '9' for node in markers))
         self.assertTrue(all(node.get('r') == '16' for node in overview.iter('circle') if node.get('class') == 'rm-hit'))
         self.assertNotIn('rm-timeline-axis', map_module.render_overview(self.data, self.publications))
         self.assertNotIn('rm-row-heading', map_module.render_overview(self.data, self.publications))
@@ -128,9 +148,30 @@ class ResearchMapTests(unittest.TestCase):
         self.assertTrue(all('A' not in node.get('d', '') for node in overview.iter('path') if node.get('class') == 'rm-connection-path'))
         legend = ET.fromstring('<div>' + map_module.render_legend(self.data, self.publications) + '</div>')
         self.assertEqual(len([node for node in legend.iter('span') if node.get('data-theme')]), 8)
-        self.assertEqual(len([node for node in legend.iter('span') if node.get('data-contribution')]), 8)
+        self.assertEqual(len([node for node in legend.iter('span') if node.get('data-contribution')]), 0)
         genetic = next(work for work in self.data['works'] if work['id'] == 'ahn2020guiding')
         self.assertLess(layout['x_by_id']['ahn2015minimum'], layout['x_by_id'][genetic['id']])
+
+    def test_vertical_fallback_has_one_caption_and_station_per_work(self):
+        figures = ET.fromstring(map_module.render_overview(self.data, self.publications))
+        vertical = figures.find("div[@class='rm-vertical']")
+        stations = list(vertical.iter('a'))
+        icons = [node for node in stations if node.get('class') == 'rm-static-paper rm-themed']
+        captions = [node for node in vertical.iter('div') if node.get('class') == 'rm-paper-caption rm-themed']
+        self.assertEqual(len(icons), 74)
+        self.assertEqual(len(captions), 74)
+        self.assertEqual(len(list(vertical.iter('text'))), 148)
+        self.assertEqual(len([node for node in vertical.iter('g') if node.get('class') == 'rm-connection']), 88)
+        for caption in captions:
+            work = next(work for work in self.data['works'] if work['id'] == caption.get('data-work'))
+            summary = caption.find("div[@class='rm-caption-summary']")
+            self.assertEqual(' '.join(''.join(summary.itertext()).split()), work['summary'])
+            name = caption.find(".//a[@class='rm-caption-link']")
+            self.assertEqual(' '.join(''.join(name.itertext()).split()), work['map_label'])
+            icon = next(node for node in icons if node.get('data-work') == work['id'])
+            self.assertEqual(name.get('href'), icon.get('href'))
+            abstract = next(pub['abstract'] for pub in self.publications if pub['id'] in work['publication_ids'] and pub.get('abstract'))
+            self.assertIn(abstract, icon.find('title').text)
 
     def test_display_names_are_required_and_do_not_replace_scientific_names(self):
         errors = self.errors_for(lambda data: data['works'][0].pop('map_label'))

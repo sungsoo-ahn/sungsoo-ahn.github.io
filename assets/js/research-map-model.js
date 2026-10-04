@@ -37,30 +37,6 @@
     const edition = work.publications[0];
     return `${edition.venue || ""} ${edition.year || ""}`.trim();
   }
-  function stationSymbol(shape) {
-    const cross = "-3.5,-9 3.5,-9 3.5,-3.5 9,-3.5 9,3.5 3.5,3.5 3.5,9 -3.5,9 -3.5,3.5 -9,3.5 -9,-3.5 -3.5,-3.5";
-    const shapes = {
-      circle: ["circle", { r: 9 }],
-      hexagon: ["polygon", { points: "-9,0 -4.5,-8 4.5,-8 9,0 4.5,8 -4.5,8" }],
-      square: ["rect", { x: -8, y: -8, width: 16, height: 16 }],
-      cross: ["polygon", { points: cross }],
-      diagonal_cross: ["polygon", { points: cross, transform: "rotate(45)" }],
-      triangle: ["polygon", { points: "0,-9 9,7 -9,7" }],
-      diamond: ["polygon", { points: "0,-10 9,0 0,10 -9,0" }],
-      star: [
-        "polygon",
-        {
-          points: Array.from({ length: 10 }, (_, i) => {
-            const angle = ((-90 + i * 36) * Math.PI) / 180,
-              radius = i % 2 ? 5.8 : 10;
-            return `${(Math.cos(angle) * radius).toFixed(3)},${(Math.sin(angle) * radius).toFixed(3)}`;
-          }).join(" "),
-        },
-      ],
-    };
-    const [tag, attributes] = shapes[shape] || shapes.circle;
-    return { tag, attributes };
-  }
   function contributionFor(work, data) {
     return data.contributionById.get(work.map_contribution);
   }
@@ -77,22 +53,19 @@
       publisher?.html || work.sources?.find((source) => !source.url.includes("openreview.net"))?.url || `/publications/#${work.publications[0].id}`
     );
   }
-  function contributionLegend(data) {
-    return data.contribution_categories
-      .map((category) => {
-        const first = data.works.filter((work) => work.map_contribution === category.id).sort(compareChronology)[0];
-        return { category, first };
-      })
-      .filter((item) => item.first)
-      .sort((a, b) => compareChronology(a.first, b.first))
-      .map((item) => item.category);
-  }
   function prepare(raw) {
     const works = raw.works.map(({ annotations, publications }) => {
       const editions = [...publications].sort((a, b) => a.year - b.year || a.id.localeCompare(b.id));
-      return { ...annotations, publications: editions, title: editions[0].title, authors: editions[0].authors || [], year: editions[0].year };
+      return {
+        ...annotations,
+        publications: editions,
+        title: editions[0].title,
+        authors: editions[0].authors || [],
+        abstract: editions.find((edition) => typeof edition.abstract === "string" && edition.abstract.trim())?.abstract || "",
+        year: editions[0].year,
+      };
     });
-    return {
+    const prepared = {
       ...raw,
       contribution_categories: raw.contribution_categories || [],
       contributionById: new Map((raw.contribution_categories || []).map((category) => [category.id, category])),
@@ -100,6 +73,9 @@
       workById: new Map(works.map((work) => [work.id, work])),
       themeById: new Map(raw.taxonomy.map((theme) => [theme.id, theme])),
     };
+    prepared.ideas = ideaConnections(prepared);
+    prepared.ideaById = new Map(prepared.ideas.map((idea) => [idea.id, idea]));
+    return prepared;
   }
   function sanitizeState(input) {
     const offset = Number(input.offset);
@@ -134,6 +110,34 @@
   }
   function mapRole(theme) {
     return theme.map_role || (theme.kind === "concept" ? "detail" : "major");
+  }
+  function ideaConnections(data) {
+    return (data.relationships || []).flatMap((relation) => {
+      if (!relation.map_idea || !data.workById.has(relation.from) || !data.workById.has(relation.to)) return [];
+      const pair = [data.workById.get(relation.from), data.workById.get(relation.to)].sort(compareChronology);
+      const deadline = new Date(`${chronologyKey(pair[0])[0]}T00:00:00Z`);
+      deadline.setUTCFullYear(deadline.getUTCFullYear() + (data.idea_window_years || 5));
+      if (Date.parse(chronologyKey(pair[1])[0]) > deadline.getTime()) return [];
+      return [{ id: relation.id, from: pair[0].id, to: pair[1].id, label: relation.map_idea, explanation: relation.map_explanation }];
+    });
+  }
+  function ideaLayout(data, layout, vertical = false) {
+    const transpose = (point) => ({ x: point.y, y: layout.height - point.x });
+    const stations = vertical ? layout.stations.map((station) => ({ ...station, x: layout.height - station.y, y: station.x })) : layout.stations;
+    const byId = new Map(stations.map((station) => [station.work.id, station]));
+    const rails = vertical
+      ? layout.routes.map((route) => ({ ...route, points: route.points.map((point) => ({ x: layout.height - point.y, y: point.x })) }))
+      : layout.routes;
+    const routed = [];
+    return data.ideas.map((idea) => {
+      const a = byId.get(idea.from),
+        b = byId.get(idea.to);
+      const preferred = (a.y + b.y) / 2 < MAP_HEIGHT / 2 ? 12 : MAP_HEIGHT - 12;
+      let points = routePoints(a, b, stations, preferred, 0, [...rails, ...routed], null, true, !vertical);
+      routed.push({ ...idea, points });
+      if (vertical) points = points.map(transpose);
+      return { ...idea, points, path: routePath(points) };
+    });
   }
   function timelineRows(data) {
     return data.taxonomy
@@ -246,9 +250,12 @@
     const gap = station.themes.length === 2 ? 10 : 8;
     return { id: station.id, x: station.x, y: station.y + (index - (station.themes.length - 1) / 2) * gap };
   }
-  function routePoints(a, b, stations, preferred, offset = 0, priorRoutes = [], existing = null, octilinear = true) {
+  function routePoints(a, b, stations, preferred, offset = 0, priorRoutes = [], existing = null, octilinear = true, includeLabels = true) {
     const boxes = stations
-      .flatMap((station) => [labelBounds(station, 5), ...(station.id !== a.id && station.id !== b.id ? [nodeBounds(station, 5)] : [])])
+      .flatMap((station) => [
+        ...(includeLabels ? [labelBounds(station, 5)] : []),
+        ...(station.id !== a.id && station.id !== b.id ? [nodeBounds(station, 5)] : []),
+      ])
       .filter((box) => box.right > a.x && box.left < b.x);
     const clear = (p, q) => !boxes.some((box) => segmentHitsBox(p, q, box));
     const inside = (p) => boxes.some((box) => p.x > box.left && p.x < box.right && p.y > box.top && p.y < box.bottom);
@@ -357,7 +364,7 @@
       }
     }
     const winner = states[end][0];
-    if (!winner && octilinear) return routePoints(a, b, stations, preferred, offset, priorRoutes, existing, false);
+    if (!winner && octilinear) return routePoints(a, b, stations, preferred, offset, priorRoutes, existing, false, includeLabels);
     if (!winner) throw new Error(`No clear route from ${a.id} to ${b.id}`);
     const parts = [];
     for (let item = winner; item; item = item.previous) parts.unshift(item.path);
@@ -696,6 +703,115 @@
     return { rows, routes, stations, height: MAP_HEIGHT, width, xById, stationByInstance, lanes: [{ id: "network", rows, stations }] };
   }
 
+  function captionLines(text, size, width = 264) {
+    const lines = [""];
+    for (const word of String(text).split(/\s+/)) {
+      const next = `${lines.at(-1)} ${word}`.trim();
+      if (lines.at(-1) && textWidth(next, size) > width) lines.push(word);
+      else lines[lines.length - 1] = next;
+    }
+    return lines;
+  }
+
+  function verticalTimelineLayout(data, horizontal = timelineLayout(data)) {
+    // Preserve the cleaned domain placement across the map. Descriptions live
+    // in the margins, so they reserve time-axis space without obstructing rails.
+    const stations = [],
+      lastBySide = new Map();
+    let previousDate, previousY;
+    for (const [index, original] of [...horizontal.stations].reverse().entries()) {
+      const work = original.work,
+        side = index % 2 ? "right" : "left";
+      const domainWidth = Math.ceil(Math.max(...original.themes.map((theme) => textWidth(theme.map_label || theme.label, 10))));
+      const nameLines = captionLines(work.map_label || work.label, 14 * 1.08, 264 - domainWidth - 8);
+      const summaryLines = captionLines(work.summary, 13);
+      const headerHeight = Math.max(nameLines.length * 18, original.themes.length * 14 + 2);
+      const captionHeight = headerHeight + 32 + summaryLines.length * 18;
+      const date = Date.parse(chronologyKey(work)[0]);
+      const gap = previousDate === undefined ? 0 : 52 + Math.min(24, (((previousDate - date) / 86400000) * 24) / 365.2425);
+      const prior = lastBySide.get(side);
+      const y = Number(Math.max(PADDING, (previousY || 0) + gap, prior ? prior.y + prior.captionHeight + 16 : 0).toFixed(3));
+      const station = { ...original, x: original.y, y, side, nameLines, summaryLines, captionHeight, captionTop: y - 14 };
+      stations.push(station);
+      lastBySide.set(side, station);
+      previousDate = date;
+      previousY = y;
+    }
+    const height = Math.ceil(Math.max(...stations.map((station) => station.captionTop + station.captionHeight)) + PADDING);
+    // Route with the existing monotone router in its original coordinates,
+    // then transpose the geometry. Symbols and HTML captions remain upright.
+    const internal = stations.map((station) => ({ ...station, x: height - station.y, y: station.x }));
+    const byId = new Map(internal.map((station) => [station.id, station]));
+    const routes = horizontal.routes.map((route) => ({ ...route, points: null }));
+    const pairs = new Map();
+    routes.forEach((route) => {
+      const key = `${route.from}/${route.to}`;
+      if (!pairs.has(key)) pairs.set(key, []);
+      pairs.get(key).push(route);
+    });
+    const routed = [];
+    const ordered = [...routes].sort((a, b) => byId.get(b.to).x - byId.get(b.from).x - (byId.get(a.to).x - byId.get(a.from).x));
+    const route = (connection, neighbors, existing = null) => {
+      const peers = pairs.get(`${connection.from}/${connection.to}`);
+      return routePoints(
+        stationPort(byId.get(connection.from), connection.theme.id),
+        stationPort(byId.get(connection.to), connection.theme.id),
+        internal,
+        connection.preferred,
+        (peers.indexOf(connection) - (peers.length - 1) / 2) * 7,
+        neighbors,
+        existing,
+        true,
+        false
+      );
+    };
+    for (const connection of ordered) {
+      connection.points = route(connection, routed);
+      routed.push(connection);
+    }
+    for (const connection of [...routes].sort((a, b) => b.points.length - a.points.length))
+      connection.points = route(
+        connection,
+        routes.filter((other) => other !== connection),
+        connection.points
+      );
+    routes.forEach((connection) => {
+      connection.points = connection.points.map((point) => ({ x: point.y, y: height - point.x }));
+      connection.path = routePath(connection.points);
+    });
+    // Narrow screens use upright labels beside the same circles. Prefer the
+    // clearer side of each station without changing the accepted rail layout.
+    for (const station of stations) {
+      const candidates = ["left", "right"].map((side) => {
+        const dx = side === "left" ? -20 : 20;
+        const available = side === "left" ? station.x - 28 : MAP_HEIGHT - station.x - 28;
+        const lines = captionLines(station.work.map_label || station.work.label, 12, Math.min(132, available));
+        const width = Math.ceil(Math.max(textWidth(station.metaText, 10), ...lines.map((line) => textWidth(line))) + 4);
+        const baseline = -5 - (lines.length - 1) * 7;
+        const bounds = {
+          left: station.x + dx - (side === "left" ? width : 0),
+          right: station.x + dx + (side === "right" ? width : 0),
+          top: station.y + baseline - 12,
+          bottom: station.y + baseline + (lines.length - 1) * 14 + 16,
+        };
+        const crossings = routes.reduce(
+          (sum, route) => sum + route.points.slice(1).filter((point, i) => segmentHitsBox(route.points[i], point, bounds)).length,
+          0
+        );
+        const clipped = bounds.left < 4 || bounds.right > MAP_HEIGHT - 4;
+        return { side, dx, lines, baseline, bounds, score: crossings * 10 + (clipped ? 10000 : 0) + lines.length };
+      });
+      station.compactLabel = candidates.sort((a, b) => a.score - b.score)[0];
+    }
+    const stationByInstance = new Map(stations.map((station) => [station.id, station]));
+    const rows = horizontal.rows.map((row) => ({
+      ...row,
+      stations: row.stations.map((work) => stationByInstance.get(work.id)),
+      connections: routes.filter((connection) => connection.theme.id === row.theme.id),
+    }));
+    return { width: MAP_HEIGHT, height, stations, routes, rows, stationByInstance };
+  }
+
   function timelineViewport(layout, offset, viewportWidth) {
     const width = Math.max(1, viewportWidth),
       maxOffset = Math.max(0, layout.width - width) / SPACING;
@@ -749,21 +865,22 @@
     textWidth,
     nicknameLines,
     firstVenue,
-    stationSymbol,
     stationPort,
     contributionFor,
     contributionsFor,
     paperUrl,
-    contributionLegend,
     prepare,
     sanitizeState,
     readUrl,
     writeUrl,
     chronologyKey,
     compareChronology,
+    ideaConnections,
+    ideaLayout,
     mapRole,
     timelineRows,
     timelineLayout,
+    verticalTimelineLayout,
     timelineViewport,
     contrast,
     colorSwatches,

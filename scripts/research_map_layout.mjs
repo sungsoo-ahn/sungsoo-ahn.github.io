@@ -12,6 +12,7 @@ const data = model.prepare({
   works: source.works.map((annotations) => ({ annotations, publications: annotations.publication_ids.map((id) => pubs.find((p) => p.id === id)) })),
 });
 const layout = model.timelineLayout(data);
+const vertical = model.verticalTimelineLayout(data, layout);
 if (jsonMode) {
   fs.writeFileSync(
     1,
@@ -23,9 +24,15 @@ if (jsonMode) {
       stations: layout.stations,
       positions: Object.fromEntries([...layout.stationByInstance].map(([id, station]) => [id, station.x])),
       x_by_id: Object.fromEntries(layout.xById),
-      symbols: Object.fromEntries(data.contribution_categories.map((category) => [category.id, model.stationSymbol(category.shape)])),
       paper_urls: Object.fromEntries(data.works.map((work) => [work.id, model.paperUrl(work)])),
-      contribution_order: model.contributionLegend(data).map((category) => category.id),
+      ideas: model.ideaLayout(data, layout),
+      vertical: {
+        width: vertical.width,
+        height: vertical.height,
+        stations: vertical.stations,
+        rows: vertical.rows,
+        ideas: model.ideaLayout(data, vertical, true),
+      },
     })
   );
   process.exit(0);
@@ -35,3 +42,6 @@ console.log(
   `${layout.rows.length} domains, ${layout.stations.length} shared stations; ${layout.width} × ${layout.height}px canvas, ${Math.min(...gaps).toFixed(1)}px minimum chronological spacing.`
 );
 console.log(`${layout.routes.length} sequential connections, ${layout.routes.reduce((sum, route) => sum + route.points.length - 2, 0)} bends.`);
+console.log(
+  `Vertical desktop: ${vertical.width} × ${vertical.height}px, ${vertical.routes.reduce((sum, route) => sum + route.points.length - 2, 0)} bends.`
+);

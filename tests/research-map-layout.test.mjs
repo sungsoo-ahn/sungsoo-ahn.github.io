@@ -10,7 +10,100 @@ const data = model.prepare({
   works: source.works.map((annotations) => ({ annotations, publications: annotations.publication_ids.map((id) => pubs.find((p) => p.id === id)) })),
 });
 const layout = model.timelineLayout(data);
+const vertical = model.verticalTimelineLayout(data, layout);
 const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.map((station) => [station.id, station.x, station.y])]);
+
+test("vertical chronology places every paper once with clear alternating captions", () => {
+  assert.equal(vertical.width, 300);
+  assert.equal(vertical.stations.length, 74);
+  assert.ok(vertical.height < 5000, "margin captions keep the complete figure compact");
+  const previous = new Map();
+  for (const [index, station] of vertical.stations.entries()) {
+    const before = vertical.stations[index - 1];
+    if (before) {
+      assert.ok(model.compareChronology(before.work, station.work) > 0);
+      assert.ok(station.y - before.y >= 52);
+    }
+    assert.equal(station.nameLines.join(" "), station.work.map_label);
+    assert.equal(station.summaryLines.join(" "), station.work.summary);
+    assert.ok(station.captionTop >= 0);
+    assert.ok(station.captionTop + station.captionHeight < vertical.height);
+    const sameSide = previous.get(station.side);
+    if (sameSide) assert.ok(station.captionTop - sameSide.captionTop - sameSide.captionHeight >= 16 - 1e-6);
+    previous.set(station.side, station);
+    assert.equal(station.x, layout.stationByInstance.get(station.id).y);
+  }
+});
+
+test("vertical rails preserve sequential themes and avoid unrelated stations", () => {
+  assert.deepEqual(
+    vertical.routes.map((route) => [route.id, route.from, route.to]),
+    layout.routes.map((route) => [route.id, route.from, route.to])
+  );
+  assert.ok(vertical.routes.reduce((sum, route) => sum + route.points.length - 2, 0) < 153);
+  for (const route of vertical.routes) {
+    assert.ok(!route.path.includes("A"));
+    for (let i = 1; i < route.points.length; i++) {
+      const a = route.points[i - 1],
+        b = route.points[i];
+      assert.ok(b.y <= a.y, `${route.id} must progress toward newer publications`);
+      for (const station of vertical.stations) {
+        if ([route.from, route.to].includes(station.id)) continue;
+        assert.equal(model.segmentHitsBox(a, b, model.nodeBounds(station, 2)), false, `${route.id} intrudes into ${station.id}`);
+      }
+    }
+  }
+});
+
+test("compact vertical labels fit the canvas and keep clear of other paper markers", () => {
+  for (const station of vertical.stations) {
+    const label = station.compactLabel;
+    assert.equal(label.lines.join(" "), station.work.map_label);
+    assert.ok(label.bounds.left >= 4 && label.bounds.right <= vertical.width - 4, `${station.id} label is clipped`);
+    for (const other of vertical.stations) {
+      if (other === station) continue;
+      const node = model.nodeBounds(other, 2);
+      assert.ok(
+        label.bounds.right < node.left || label.bounds.left > node.right || label.bounds.bottom < node.top || label.bounds.top > node.bottom,
+        `${station.id} label covers ${other.id}`
+      );
+      const peer = other.compactLabel.bounds;
+      assert.ok(
+        label.bounds.right < peer.left || label.bounds.left > peer.right || label.bounds.bottom < peer.top || label.bounds.top > peer.bottom,
+        `${station.id} label overlaps ${other.id}`
+      );
+    }
+  }
+});
+
+test("selected idea routes keep station geometry and avoid unrelated papers and mobile labels", () => {
+  assert.equal(data.ideas.length, 14);
+  assert.equal(data.ideaById.get("r031").label, "Local search improvement operators");
+  for (const [figure, isVertical] of [
+    [layout, false],
+    [vertical, true],
+  ]) {
+    for (const idea of model.ideaLayout(data, figure, isVertical)) {
+      assert.equal(idea.points.length >= 2, true);
+      for (let i = 1; i < idea.points.length; i++) {
+        for (const station of figure.stations) {
+          if (![idea.from, idea.to].includes(station.work.id))
+            assert.equal(
+              model.segmentHitsBox(idea.points[i - 1], idea.points[i], model.nodeBounds(station, 2)),
+              false,
+              `${idea.id} touches ${station.id}`
+            );
+          if (!isVertical)
+            assert.equal(
+              model.segmentHitsBox(idea.points[i - 1], idea.points[i], model.labelBounds(station, 2)),
+              false,
+              `${idea.id} touches a label`
+            );
+        }
+      }
+    }
+  }
+});
 
 test("full corpus uses 74 shared stations and eight distinct chronological routes", () => {
   assert.equal(data.works.length, 74);
@@ -239,7 +332,4 @@ test("one editable contribution per work preserves authored symmetry choices and
   for (const id of ["kim2026machine", "kim2025highorder"]) assert.equal(model.contributionFor(data.workById.get(id), data).shape, "hexagon");
   const view = model.timelineViewport(layout, 0, 900);
   assert.ok(new Set(view.lanes.flatMap((lane) => lane.visibleStations.map((station) => station.work.id))).size >= 15);
-  const ordered = model.contributionLegend(data);
-  const firsts = ordered.map((category) => data.works.filter((work) => work.map_contribution === category.id).sort(model.compareChronology)[0]);
-  firsts.slice(1).forEach((work, i) => assert.ok(model.compareChronology(firsts[i], work) < 0));
 });

@@ -15,17 +15,19 @@ const path = require("node:path");
     headless: true,
     ...(process.env.PLAYWRIGHT_CHROMIUM_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHROMIUM_CHANNEL } : {}),
   });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 1100 }, hasTouch: true });
+  const page = await browser.newPage({ viewport: { width: 390, height: 1100 }, hasTouch: true });
   const client = await page.context().newCDPSession(page);
   await client.send("Emulation.setCPUThrottlingRate", { rate: 4 });
   await page.addInitScript(() => {
     Object.defineProperty(window, "ResearchMapModel", {
       configurable: true,
       set(model) {
-        // Browser startup must reuse the generated layout, even on a slow CPU.
-        model.timelineLayout = () => {
-          throw new Error("Layout must be computed at build time");
-        };
+        model.timelineLayout =
+          model.verticalTimelineLayout =
+          model.ideaLayout =
+            () => {
+              throw new Error("Layout must be computed at build time");
+            };
         const prepare = model.prepare;
         model.prepare = (...args) => {
           window.rmHydrationStart = performance.now();
@@ -42,13 +44,28 @@ const path = require("node:path");
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const root = page.locator("#research-map"),
-    scroller = root.locator(".rm-overview .rm-timeline-scroll");
+    figure = root.locator(".rm-vertical");
   const idle = () => page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const paper = (id) => figure.locator(`.rm-work[data-work="${id}"]`);
+  const reveal = async (id) => {
+    await page.mouse.move(0, 0);
+    await page.keyboard.press("Escape");
+    await paper(id).evaluate((node) => {
+      const circle = node.querySelector(".rm-hit").getBoundingClientRect();
+      scrollBy(0, circle.top + circle.height / 2 - innerHeight / 2);
+    });
+    await idle();
+  };
+  const hoverStation = async (id) => {
+    const box = await paper(id).locator(".rm-station").boundingBox();
+    assert.ok(box);
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await idle();
+  };
   const snapshot = async (name) => {
     if (screenshots) {
-      await root.scrollIntoViewIfNeeded();
-      const capture = name.includes("paper-summary") ? page : root;
-      await capture.screenshot({ path: path.join(screenshots, `${name}.png`) });
+      await idle();
+      await page.screenshot({ path: path.join(screenshots, `${name}.png`), animations: "disabled" });
     }
   };
   const load = async (target = url) => {
@@ -60,35 +77,24 @@ const path = require("node:path");
       await response.text()
     );
     await page.waitForSelector('#research-map[data-ready="true"]');
-    await root.scrollIntoViewIfNeeded();
     await idle();
   };
-  const scrollTo = async (offset) => {
-    await page.evaluate((offset) => {
-      const node = document.querySelector(".rm-overview .rm-timeline-scroll");
-      node.scrollLeft = Math.max(0, node.scrollWidth - node.clientWidth - offset * 120);
-    }, offset);
-    await idle();
+  const checkPaperActivation = async (id, activate) => {
+    const destination = await paper(id).getAttribute("href");
+    await page.context().route(destination, (route) => route.fulfill({ contentType: "text/html", body: "Paper link check" }));
+    const opened = page.waitForEvent("popup");
+    await activate();
+    const popup = await opened;
+    await popup.waitForLoadState("domcontentloaded");
+    assert.equal(popup.url(), destination);
+    await popup.close();
+    await page.context().unroute(destination);
   };
   try {
     await load();
-    const performanceCheck = await page.evaluate(async () => {
-      const clicks = [];
-      for (let i = 0; i < 8; i++) {
-        const start = performance.now();
-        document.querySelector(i % 2 ? ".rm-later" : ".rm-earlier").click();
-        const handlerMs = performance.now() - start;
-        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-        clicks.push({ handlerMs, paintMs: performance.now() - start });
-      }
-      return { hydrationMs: window.rmHydrationMs, clicks };
-    });
-    assert.ok(performanceCheck.hydrationMs < 250, JSON.stringify(performanceCheck));
-    assert.ok(
-      performanceCheck.clicks.every(({ handlerMs, paintMs }) => handlerMs < 50 && paintMs < 150),
-      JSON.stringify(performanceCheck)
-    );
-    console.log("Research-map performance at 4× CPU slowdown:", JSON.stringify(performanceCheck));
+    const hydrationMs = await page.evaluate(() => window.rmHydrationMs);
+    assert.ok(hydrationMs < 250, `setup took ${hydrationMs}ms`);
+    console.log(`Vertical map setup at 4× CPU slowdown: ${hydrationMs}ms`);
     await client.send("Emulation.setCPUThrottlingRate", { rate: 1 });
     assert.equal(await root.locator("h2").innerText(), "Research");
     assert.equal(
@@ -96,40 +102,13 @@ const path = require("node:path");
       "We develop structured and probabilistic machine learning to infer, predict, and design molecular and material systems. Our goal is to expand what scientists can learn from experiments and simulations, and what they can investigate with that knowledge."
     );
     assert.equal(await root.locator(".rm-credit a").getAttribute("href"), "https://necludov.github.io/");
-    assert.equal(await root.locator(".rm-credit").evaluate((node) => getComputedStyle(node).fontSize), "11px");
-
-    assert.equal(await page.getByRole("heading", { name: "Selected Highlights", exact: true }).count(), 0);
-    assert.equal(await page.locator(".post article > .publications").count(), 0);
-    assert.ok(
-      await root.evaluate((node) => node.previousElementSibling?.textContent.includes("Alumni")),
-      "Research replaces the old highlights after members"
-    );
-    await page.evaluate(async () => {
-      window.rmRaw = await (await fetch(document.querySelector("#research-map").dataset.source)).json();
-    });
-    assert.equal(await root.locator(".rm-overview .rm-network").count(), 1);
-    assert.equal(await root.locator(".rm-network").count(), 1, "reuse the original SVG without a duplicate hidden figure");
-    assert.equal(await root.locator(".rm-overview .rm-work").count(), 74);
-    assert.equal(
-      await root
-        .locator(
-          "input, select, .rm-toolbar, .rm-filter-panel, .rm-paper-list, .rm-details, .rm-about, .rm-caption, .rm-timeline-axis, .rm-focus, .rm-back"
-        )
-        .count(),
-      0
-    );
-    assert.equal(await root.locator("button:visible").count(), 2);
-    assert.equal(await root.locator(".rm-later").isDisabled(), true);
-    assert.equal(await root.locator(".rm-earlier").isDisabled(), false);
-    const legendBefore = await root.locator(".rm-legend").innerHTML();
-    const figureHeight = await scroller.evaluate((node) => node.getBoundingClientRect().height);
-    assert.equal(await root.locator(".rm-domain-legend .rm-legend-item").count(), 8);
-    assert.equal(await root.locator(".rm-contribution-legend .rm-legend-item").count(), 8);
+    assert.equal(await root.locator(".rm-network").count(), 1);
+    assert.equal(await root.locator(".rm-horizontal, .rm-navigation, button, input, select, .rm-row-heading, .rm-identity-path").count(), 0);
+    assert.equal(await figure.locator(".rm-work").count(), 74);
+    assert.equal(await figure.locator(".rm-connection").count(), 88);
+    assert.equal(await figure.locator(".rm-idea:not([hidden])").count(), 14);
+    assert.equal(await figure.locator(".rm-station:not(circle)").count(), 0);
     assert.equal(await page.getByRole("link", { name: "View all publications", exact: true }).count(), 0);
-    const newestCount = await root
-      .locator(".rm-overview .rm-work:not([hidden])")
-      .evaluateAll((nodes) => new Set(nodes.map((node) => node.dataset.work)).size);
-    assert.ok(newestCount >= 15, `newest window shows ${newestCount} papers`);
     assert.deepEqual(await root.locator(".rm-domain-legend .rm-legend-item").evaluateAll((nodes) => nodes.map((node) => node.dataset.theme)), [
       "d_graphical",
       "d_deep",
@@ -140,322 +119,186 @@ const path = require("node:path");
       "d_materials",
       "d_cells",
     ]);
-    assert.equal(await root.locator(".rm-row-heading, .rm-row-category").count(), 0);
-    const initialScroll = await scroller.evaluate((node) => node.scrollLeft);
-    await root.locator(".rm-earlier").click();
-    await idle();
-    assert.equal(await scroller.evaluate((node) => node.scrollLeft), initialScroll - 360);
-    await root.locator(".rm-later").click();
-    await idle();
-    assert.equal(await scroller.evaluate((node) => node.scrollLeft), initialScroll);
-    const geometry = await page.evaluate(() => {
-      const runtime = [...document.querySelectorAll(".rm-overview .rm-work")],
-        fallback = [...window.rmCanonical.querySelectorAll(".rm-static-paper")];
-      const canonical = new Map(fallback.map((node) => [node.dataset.instance, [Number(node.dataset.x), Number(node.dataset.y)]]));
-      return {
-        same: runtime.every((node) => canonical.get(node.dataset.instance).join() === [Number(node.dataset.x), Number(node.dataset.y)].join()),
-        symbols: runtime.every((node) => {
-          const fallback = window.rmCanonical.querySelector(`.rm-static-paper[data-instance="${node.dataset.instance}"] .rm-station`);
-          return fallback.outerHTML === node.querySelector(".rm-station").outerHTML && node.querySelector(".rm-hit").getAttribute("r") === "16";
-        }),
-        nicknames: runtime.filter((node) => node.dataset.primaryLabel === "true").length === 74,
-        lines: [...document.querySelectorAll(".rm-overview .rm-connection-path")].every((node) => getComputedStyle(node).strokeWidth === "4px"),
-        shared:
-          document.querySelectorAll('.rm-overview .rm-work[data-work="kim2026catflow"]').length === 1 &&
-          document.querySelector('.rm-overview .rm-work[data-work="kim2026catflow"]').dataset.themes.split(",").length === 2,
-        noJumps: [...document.querySelectorAll(".rm-overview .rm-connection")].every(
-          (node) => !node.querySelector(".rm-connection-path").getAttribute("d").includes("A") && node.querySelector(".rm-connection-casing")
-        ),
-        height: document.querySelector(".rm-overview .rm-network").getAttribute("height") === "300",
-      };
-    });
-    assert.ok(
-      geometry.same && geometry.symbols && geometry.nicknames && geometry.lines && geometry.shared && geometry.noJumps && geometry.height,
-      JSON.stringify(geometry)
-    );
-    await snapshot("desktop-overview");
-    const seen = new Set();
-    const maxOffset = await scroller.evaluate((node) => (node.scrollWidth - node.clientWidth) / 120);
-    for (let offset = 0; offset <= Math.ceil(maxOffset); offset++) {
-      await scrollTo(offset);
-      const visible = await root.locator(".rm-overview .rm-work:not([hidden])").evaluateAll((nodes) => nodes.map((node) => node.dataset.work));
-      visible.forEach((id) => seen.add(id));
-      const labelDefects = await root.evaluate((node) => {
-        const works = [...node.querySelectorAll(".rm-overview .rm-work:not([hidden])")];
-        const named = works.filter((work) => !work.querySelector(".rm-work-label").hasAttribute("hidden"));
-        const duplicate = new Set(named.map((work) => work.dataset.work)).size !== named.length;
-        const labels = named.flatMap((work) =>
-          [...work.querySelectorAll(".rm-work-label, .rm-work-meta")].map((label) => label.getBoundingClientRect())
-        );
-        const overlap = labels.some((a, i) =>
-          labels
-            .slice(i + 1)
-            .some((b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1)
-        );
-        return { duplicate, overlap };
-      });
-      assert.deepEqual(labelDefects, { duplicate: false, overlap: false }, `labels collide at offset ${offset}`);
-      const collisions = await root.evaluate((node) => {
-        const labels = [...node.querySelectorAll(".rm-overview .rm-work:not([hidden]) :is(.rm-work-label, .rm-work-meta):not([hidden])")].map(
-          (label) => ({ text: label.textContent, rect: label.getBoundingClientRect() })
-        );
-        const hits = [];
-        for (const line of node.querySelectorAll(".rm-overview .rm-connection:not([hidden]) .rm-connection-path")) {
-          const length = line.getTotalLength(),
-            matrix = line.getScreenCTM();
-          for (let position = 0; position <= length; position += 2) {
-            const point = line.getPointAtLength(position).matrixTransform(matrix);
-            for (const { text, rect } of labels)
-              if (point.x >= rect.left - 2 && point.x <= rect.right + 2 && point.y >= rect.top - 2 && point.y <= rect.bottom + 2)
-                hits.push([line.closest("g").dataset.connection, text]);
-          }
-        }
-        return hits;
-      });
-      assert.deepEqual(collisions, [], `routed lines intersect labels at offset ${offset}`);
-      assert.equal(await scroller.evaluate((node) => node.getBoundingClientRect().height), figureHeight);
-      assert.equal(await root.locator(".rm-legend").innerHTML(), legendBefore);
-    }
-    assert.equal(seen.size, 74);
-    await scroller.focus();
-    await scroller.press("Home");
-    await idle();
-    assert.equal(await scroller.evaluate((node) => node.scrollLeft), 0);
-    assert.equal(await root.locator(".rm-earlier").isDisabled(), true);
-    assert.ok(
-      await root
-        .locator(".rm-overview .rm-work:not([hidden]) .rm-work-meta")
-        .evaluateAll((nodes) => nodes.some((node) => /20(?:1\d|2[0-3])/.test(node.textContent)))
-    );
-    await snapshot("desktop-oldest");
-    await scroller.press("End");
-    await idle();
-    assert.equal(await scroller.evaluate((node) => node.scrollLeft), initialScroll);
-    const reveal = async (id) => {
-      await page.evaluate((id) => {
-        const node = document.querySelector(".rm-overview .rm-timeline-scroll"),
-          station = document.querySelector(`.rm-overview .rm-work[data-work="${id}"]`);
-        node.scrollLeft = Math.max(0, Math.min(node.scrollWidth - node.clientWidth, Number(station.dataset.x) - node.clientWidth / 2));
-      }, id);
-      await idle();
-    };
-    await reveal("seong2025transition");
-    await page.mouse.move(1100, 50);
-    await snapshot("desktop-busy-interchanges");
-    await reveal("kim2026catflow");
-    const repeated = root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]:not([hidden])').first();
-    assert.equal(await root.locator(".rm-overview .rm-identity-path").count(), 0);
-    assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"]').count(), 1);
-    await repeated.locator(".rm-station").hover();
-    await idle();
-    assert.equal(await root.locator('.rm-overview .rm-work[data-work="kim2026catflow"][data-highlighted="true"]:not([hidden])').count(), 1);
-    assert.ok((await root.locator(".rm-tooltip").innerText()).includes("Cat"));
-    assert.match(await root.locator(".rm-tooltip-authors").innerText(), /Sungsoo Ahn/);
-    await snapshot("desktop-authors");
-    await snapshot("desktop-interchange");
-    await page.keyboard.press("Escape");
-    const hoverablePoint = (nodes) => {
-      for (const node of nodes) {
-        const path = node.querySelector(".rm-connection-path"),
-          length = path.getTotalLength(),
-          matrix = path.getScreenCTM();
-        const frame = node.closest(".rm-timeline-scroll").getBoundingClientRect();
-        for (let distance = 0; distance <= length; distance += 3) {
-          const point = path.getPointAtLength(distance).matrixTransform(matrix);
-          if (
-            point.x > frame.left + 20 &&
-            point.x < frame.right - 20 &&
-            document.elementFromPoint(point.x, point.y)?.closest(".rm-connection") === node
-          )
-            return { x: point.x, y: point.y };
-        }
-      }
-      return null;
-    };
-    const routePoint = await root
-      .locator('.rm-overview .rm-route[data-theme="d_molecules"] .rm-connection:not([hidden])')
-      .evaluateAll(hoverablePoint);
-    assert.ok(routePoint, "a routed line remains available for hover");
-    await page.mouse.move(routePoint.x, routePoint.y);
-    await idle();
-    assert.ok((await root.locator(".rm-tooltip").innerText()).includes("Molecules"));
-    await page.keyboard.press("Escape");
-    await reveal("kim2024local");
-    const parallels = root.locator('.rm-overview .rm-connection[data-from="kim2024local"][data-to="jang2024learning"]');
-    assert.equal(await parallels.count(), 3);
-    for (const route of await parallels.all()) {
-      const point = await route.evaluateAll(hoverablePoint);
-      assert.ok(point, "each of three parallel domain tracks has an independent hover target");
-      await page.mouse.move(point.x, point.y);
-      await idle();
-      assert.equal(await route.getAttribute("data-highlighted"), "true");
-      assert.equal(await root.locator(".rm-tooltip-title").innerText(), await route.getAttribute("aria-label"));
-      await page.keyboard.press("Escape");
-    }
-    const corpus = await page.evaluate(() => {
-      const data = ResearchMapModel.prepare(window.rmRaw);
+    assert.equal(await root.locator('.rm-domain-legend [data-theme="d_deep"] span').innerText(), "General ML");
+    const corpus = await page.evaluate(async () => {
+      const raw = await (await fetch(document.querySelector("#research-map").dataset.source)).json();
+      const data = ResearchMapModel.prepare(raw);
       return data.works.map((work) => ({
         id: work.id,
         title: work.title,
-        summary: work.summary,
+        abstract: work.abstract,
+        venues: work.publications.map((edition) => `${edition.venue} ${edition.year}`).join(" · "),
         authors: work.authors.join(", "),
         url: ResearchMapModel.paperUrl(work),
-        contributions: ResearchMapModel.contributionsFor(work, data).map((category) => category.id),
       }));
     });
+    const geometry = await figure
+      .locator(".rm-work")
+      .evaluateAll((nodes) => nodes.map((node) => [node.dataset.work, node.dataset.x, node.dataset.y]));
+    const figureHeight = await figure.evaluate((node) => node.getBoundingClientRect().height);
+    const legend = await root.locator(".rm-legend").innerHTML();
+    assert.ok(
+      Number(geometry.find(([id]) => id === "ahn2015minimum")[2]) > Number(geometry.find(([id]) => id === "ahn2020guiding")[2]),
+      "Blossom-BP precedes GEGL in newest-first chronology"
+    );
+    for (const width of [320, 390, 768, 900, 991, 992, 1280]) {
+      await page.setViewportSize({ width, height: 1100 });
+      await reveal("seong2025transition");
+      assert.equal(await root.getAttribute("data-layout"), "vertical");
+      assert.equal(await figure.isVisible(), true);
+      assert.equal(await figure.locator(".rm-paper-caption:visible").count(), width >= 992 ? 74 : 0);
+      assert.equal(await figure.locator(".rm-compact-label:visible").count(), width < 992 ? 148 : 0);
+      assert.equal(await root.locator(".rm-legend").isVisible(), width < 992);
+      assert.equal(await figure.evaluate((node) => node.getBoundingClientRect().height), figureHeight);
+      assert.deepEqual(
+        await figure.locator(".rm-work").evaluateAll((nodes) => nodes.map((node) => [node.dataset.work, node.dataset.x, node.dataset.y])),
+        geometry
+      );
+      assert.equal(await root.locator(".rm-legend").innerHTML(), legend);
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `page overflow at ${width}px`);
+      if (width < 992) {
+        const collisions = await figure.evaluate((node) => {
+          const svg = node.querySelector("svg").getBoundingClientRect();
+          const labels = [...node.querySelectorAll(".rm-compact-label")].map((label) => ({
+            id: label.closest("a").dataset.work,
+            rect: label.getBoundingClientRect(),
+          }));
+          const circles = [...node.querySelectorAll(".rm-hit")].map((circle) => ({
+            id: circle.closest("a").dataset.work,
+            rect: circle.getBoundingClientRect(),
+          }));
+          const overlap = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+          return labels.flatMap(({ id, rect }, i) => {
+            const hits = [];
+            if (rect.left < svg.left || rect.right > svg.right) hits.push(`${id} is clipped`);
+            for (const circle of circles) if (id !== circle.id && overlap(rect, circle.rect)) hits.push(`${id} covers ${circle.id}`);
+            for (const other of labels.slice(i + 1)) if (id !== other.id && overlap(rect, other.rect)) hits.push(`${id} overlaps ${other.id}`);
+            return hits;
+          });
+        });
+        assert.deepEqual(collisions, [], `compact labels at ${width}px`);
+      }
+      await snapshot(`vertical-${width}-busy`);
+    }
+    // The breakpoint changes only text presentation, retaining the reading position.
+    await page.setViewportSize({ width: 991, height: 1100 });
+    await reveal("kim2024local");
+    const before = await paper("kim2024local").locator(".rm-hit").boundingBox();
+    await page.setViewportSize({ width: 992, height: 1100 });
+    await idle();
+    const after = await paper("kim2024local").locator(".rm-hit").boundingBox();
+    assert.ok(Math.abs(before.y - after.y) < 1);
+    assert.equal(await figure.locator(".rm-connection-hit").count(), 88, "resizing does not bind duplicate targets");
+    // Check all native paper links and complete hover cards in the compact view.
+    await page.setViewportSize({ width: 390, height: 1100 });
     for (const work of corpus) {
       await reveal(work.id);
-      const paper = root.locator(`.rm-overview .rm-work[data-work="${work.id}"]`);
-      assert.equal(await paper.getAttribute("href"), work.url);
-      assert.equal(await paper.getAttribute("target"), "_blank");
-      assert.match(await paper.getAttribute("rel"), /noopener/);
-      assert.equal(
-        await page.evaluate((id) => window.rmCanonical.querySelector(`.rm-static-paper[data-work="${id}"]`).getAttribute("href"), work.id),
-        work.url
-      );
-      await paper.locator(".rm-station").hover();
+      assert.equal(await paper(work.id).getAttribute("href"), work.url);
+      assert.equal(await paper(work.id).getAttribute("target"), "_blank");
+      assert.match(await paper(work.id).getAttribute("rel"), /noopener/);
+      await hoverStation(work.id);
       assert.equal(await root.locator(".rm-tooltip-title").innerText(), work.title);
-      assert.equal(await root.locator(".rm-tooltip-summary").innerText(), work.summary);
       assert.equal(await root.locator(".rm-tooltip-authors").innerText(), work.authors);
-      assert.deepEqual(
-        await root.locator(".rm-tooltip-contribution [data-contribution]").evaluateAll((nodes) => nodes.map((node) => node.dataset.contribution)),
-        work.contributions
+      assert.equal(await root.locator(".rm-tooltip-meta").innerText(), work.venues);
+      assert.equal(await root.locator(".rm-tooltip-abstract").innerText(), work.abstract);
+      assert.equal(await root.locator(".rm-tooltip-ideas, .rm-tooltip-contribution, .rm-tooltip-summary").count(), 0);
+      const card = await root.locator(".rm-tooltip").boundingBox();
+      assert.ok(card.x >= 0 && card.y >= 0 && card.x + card.width <= 390 && card.y + card.height <= 1100);
+      const circle = await paper(work.id).locator(".rm-station").boundingBox();
+      assert.equal(
+        await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest(".rm-work")?.dataset.work, {
+          x: circle.x + circle.width / 2,
+          y: circle.y + circle.height / 2,
+        }),
+        work.id,
+        "hover card keeps icon clickable"
       );
       await page.keyboard.press("Escape");
     }
-    const mask = root.locator('.rm-overview .rm-work[data-work="seong2026discovering"]');
-    const checkMaskHover = async () => {
-      await reveal("seong2026discovering");
-      await mask.locator(".rm-station").hover();
-      assert.equal(await mask.locator(".rm-station").getAttribute("data-shape"), "star");
-      assert.deepEqual(
-        await root.locator(".rm-tooltip-contribution [data-contribution]").evaluateAll((nodes) => nodes.map((node) => node.textContent)),
-        ["Agents", "Generative modeling"]
-      );
-      const tooltip = await root.locator(".rm-tooltip").boundingBox();
-      assert.ok(tooltip.x >= 0 && tooltip.x + tooltip.width <= (await page.viewportSize()).width, "hover card fits the viewport");
-    };
-    await checkMaskHover();
-    await snapshot("desktop-paper-summary");
-    const checkPaperActivation = async (paper, activate) => {
-      const destination = await paper.getAttribute("href");
-      await page.context().route(destination, (route) => route.fulfill({ contentType: "text/html", body: "Paper link check" }));
-      const opened = page.waitForEvent("popup");
-      await activate();
-      const popup = await opened;
-      await popup.waitForLoadState("domcontentloaded");
-      assert.equal(popup.url(), destination);
-      assert.equal(await root.locator(".rm-overview").isVisible(), true);
-      await popup.close();
-      await page.context().unroute(destination);
-    };
-    await checkPaperActivation(mask, () => mask.locator(".rm-station").click());
-    await checkPaperActivation(mask, () => mask.locator(".rm-work-label").click());
-    await mask.focus();
-    assert.ok((await root.locator(".rm-tooltip-summary").innerText()).length > 0);
-    await checkPaperActivation(mask, () => mask.press("Enter"));
-    await reveal("yoon2024breadthfirst");
-    const beag = root.locator('.rm-overview .rm-work[data-work="yoon2024breadthfirst"]');
-    assert.match(await beag.getAttribute("href"), /proceedings\.mlr\.press/);
-    await checkPaperActivation(beag, () => beag.click());
-    await load(
-      `${url.split("?")[0].split("#")[0]}?rm_paper=seong2026discovering&rm_offset=7&rm_lens=method&rm_tags=missing&utm_source=check#research-map`
+    await reveal("seong2026discovering");
+    await hoverStation("seong2026discovering");
+    await snapshot("vertical-mobile-paper-hover");
+    await checkPaperActivation("seong2026discovering", () => paper("seong2026discovering").locator(".rm-station").click());
+    await page.keyboard.press("Escape");
+    await checkPaperActivation("seong2026discovering", () => paper("seong2026discovering").locator(".rm-work-label").click());
+    await page.keyboard.press("Escape");
+    await checkPaperActivation("seong2026discovering", () => paper("seong2026discovering").locator(".rm-station").tap());
+    await paper("seong2026discovering").focus();
+    await checkPaperActivation("seong2026discovering", () => paper("seong2026discovering").press("Enter"));
+    // Desktop captions remain attached to circles and preserve domain colors.
+    await page.setViewportSize({ width: 1280, height: 1100 });
+    await reveal("kim2024local");
+    const caption = figure.locator('.rm-paper-caption[data-work="kim2024local"]');
+    await caption.locator(".rm-caption-summary").hover();
+    assert.equal(await figure.locator('.rm-paper-caption[data-work="ahn2020guiding"]').getAttribute("data-highlighted"), "true");
+    await snapshot("vertical-desktop-paper-hover");
+    await page.keyboard.press("Escape");
+    const leaderGaps = await figure.evaluate((node) =>
+      [...node.querySelectorAll(".rm-paper-caption")].map((caption) => {
+        const circle = node.querySelector(`.rm-work[data-work="${caption.dataset.work}"] .rm-hit`).getBoundingClientRect();
+        const leader = caption.querySelector(".rm-caption-leader").getBoundingClientRect();
+        const end = caption.dataset.side === "left" ? leader.right : leader.left;
+        return Math.abs(end - (circle.left + circle.width / 2)) + Math.abs(leader.top + leader.height / 2 - circle.top - circle.height / 2);
+      })
     );
-    assert.equal(new URL(page.url()).searchParams.get("rm_paper"), null);
-    assert.equal(new URL(page.url()).searchParams.get("rm_lens"), null);
-    assert.equal(new URL(page.url()).searchParams.get("rm_tags"), null);
-    assert.equal(new URL(page.url()).searchParams.get("rm_offset"), "7");
-    assert.equal(new URL(page.url()).searchParams.get("utm_source"), "check");
-    assert.equal(await root.locator(".rm-overview").isVisible(), true);
-    await page.goBack();
-    await page.waitForSelector('#research-map[data-ready="true"]');
-    await page.setViewportSize({ width: 768, height: 1100 });
-    await idle();
-    await checkMaskHover();
-    await snapshot("tablet-paper-summary");
-    await page.setViewportSize({ width: 390, height: 1100 });
-    await idle();
-    await checkMaskHover();
-    await snapshot("mobile-paper-summary");
-    await checkPaperActivation(mask, () => mask.locator(".rm-station").tap());
+    assert.ok(
+      leaderGaps.every((gap) => gap < 2),
+      "caption leaders terminate at their circles"
+    );
+    const domains = figure.locator('.rm-paper-caption[data-work="kim2026catflow"] .rm-caption-domain');
+    assert.equal(await domains.count(), 2);
+    const idea = figure.locator('.rm-idea[data-idea="r031"]');
+    const point = await idea.evaluate((node) => {
+      const path = node.querySelector(".rm-idea-hit"),
+        matrix = path.getScreenCTM();
+      for (let distance = 20; distance < path.getTotalLength() - 20; distance += 8) {
+        const point = path.getPointAtLength(distance).matrixTransform(matrix);
+        if (point.y > 75 && point.y < innerHeight - 20 && document.elementFromPoint(point.x, point.y)?.closest(".rm-idea") === node)
+          return { x: point.x, y: point.y };
+      }
+      return null;
+    });
+    assert.ok(point, "shared-idea line is reachable");
+    await page.mouse.move(point.x, point.y);
+    assert.equal(await root.locator(".rm-tooltip-title").innerText(), "Local search improvement operators");
+    assert.match(await root.locator(".rm-tooltip-idea-explanation").innerText(), /mutation and crossover.*backtracking/s);
+    assert.equal(await idea.locator(".rm-idea-path").evaluate((node) => getComputedStyle(node).stroke), "rgb(146, 146, 146)");
+    await snapshot("vertical-desktop-idea-hover");
     await page.keyboard.press("Escape");
-    await scroller.focus();
-    await scroller.press("End");
-    await idle();
-    await page.keyboard.press("Escape");
-    await snapshot("mobile-overview");
-    const mobileSeen = new Set();
-    const mobileHeight = await scroller.evaluate((node) => node.getBoundingClientRect().height);
-    for (let step = 0; step < 60; step++) {
-      (await root.locator(".rm-overview .rm-work:not([hidden])").evaluateAll((nodes) => nodes.map((node) => node.dataset.work))).forEach((id) =>
-        mobileSeen.add(id)
-      );
-      assert.equal(await scroller.evaluate((node) => node.getBoundingClientRect().height), mobileHeight);
-      assert.equal(await root.locator(".rm-legend").innerHTML(), legendBefore);
-      if (await root.locator(".rm-earlier").isDisabled()) break;
-      await root.locator(".rm-earlier").click();
-      await idle();
-    }
-    assert.equal(mobileSeen.size, 74, "every paper must be reachable using just the arrows on mobile");
-    await scroller.focus();
-    await scroller.press("End");
-    await idle();
-    await page.keyboard.press("Escape");
-    await reveal("seong2025transition");
-    await page.mouse.move(380, 50);
-    await snapshot("mobile-busy-interchanges");
-    await scroller.press("End");
-    await idle();
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await page.evaluate(() => {
       document.documentElement.dataset.theme = "dark";
     });
-    await idle();
-    await snapshot("mobile-dark");
-    await checkMaskHover();
-    await snapshot("mobile-dark-paper-summary");
-    await page.keyboard.press("Escape");
-    const colors = await page.evaluate(() => {
-      const toHex = (rgb) =>
-        "#" +
-        rgb
-          .match(/\d+/g)
-          .slice(0, 3)
-          .map((v) => Number(v).toString(16).padStart(2, "0"))
-          .join("");
-      return [...document.querySelectorAll(".rm-domain-legend .rm-legend-item")].map((node) =>
-        ResearchMapModel.contrast(toHex(getComputedStyle(node).color), "#21192b")
-      );
-    });
-    assert.ok(colors.every((value) => value >= 3.1));
-    await page.setViewportSize({ width: 1280, height: 1100 });
-    await idle();
-    await snapshot("desktop-dark");
     await reveal("seong2025transition");
-    await page.mouse.move(1100, 50);
-    await snapshot("desktop-dark-busy-interchanges");
-
+    await snapshot("vertical-desktop-dark");
+    await page.setViewportSize({ width: 390, height: 1100 });
+    await snapshot("vertical-mobile-dark");
+    await load(
+      `${url.split("?")[0].split("#")[0]}?rm_paper=seong2026discovering&rm_offset=7&rm_lens=method&rm_tags=missing&utm_source=check#research-map`
+    );
+    assert.equal(new URL(page.url()).search, "?utm_source=check");
+    assert.equal(await root.getAttribute("data-layout"), "vertical");
     assert.deepEqual(errors, []);
+    // Native fallback uses exactly the same vertical figure and responsive labels.
     const noJs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 1100 } });
     await noJs.goto(url, { waitUntil: "networkidle" });
-    assert.equal(await noJs.locator(".rm-static-paper").count(), 74);
-    assert.equal(
-      await noJs.locator('.rm-static-paper[data-work="seong2026discovering"]').getAttribute("href"),
-      corpus.find((work) => work.id === "seong2026discovering").url
-    );
-    assert.match(await noJs.locator('.rm-static-paper[data-work="seong2026discovering"] title').textContent(), /Generative modeling/);
-    assert.equal(await noJs.locator(".rm-static .rm-identity-path").count(), 0);
-    assert.equal(await noJs.locator(".rm-static").isVisible(), true);
-    assert.equal(await noJs.locator(".rm-navigation").isVisible(), false);
+    assert.equal(await noJs.locator(".rm-vertical .rm-static-paper").count(), 74);
+    assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 148);
+    assert.equal(await noJs.locator(".rm-paper-caption:visible").count(), 0);
+    assert.equal(await noJs.locator(".rm-idea:not([hidden])").count(), 14);
     assert.ok(await noJs.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-    if (screenshots) await noJs.locator("#research-map").screenshot({ path: path.join(screenshots, "mobile-no-js.png") });
-    const failed = await browser.newPage();
+    await noJs.setViewportSize({ width: 1280, height: 1100 });
+    assert.equal(await noJs.locator(".rm-vertical .rm-paper-caption:visible").count(), 74);
+    assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 0);
+    await noJs.close();
+    const failed = await browser.newPage({ viewport: { width: 390, height: 1100 } });
     await failed.route("**/assets/json/research-map.json", (route) => route.abort());
     await failed.goto(url, { waitUntil: "networkidle" });
     assert.equal(await failed.locator(".rm-static").isVisible(), true);
     assert.equal(await failed.locator(".rm-load-status").innerText(), "Interactive map unavailable.");
+    assert.equal(await failed.locator(".rm-compact-label:visible").count(), 148);
+    await failed.close();
     console.log(
-      "Research-map browser checks passed: Research placement, compact spacing, contribution symbols, author hovers, fixed height and legends, chronology, navigation, all 74 paper links and summaries, primary and secondary contributions, shared stations and clear crossing gaps, legacy URLs, keyboard and touch activation, mobile/tablet/dark, and static/error fallback."
+      "Research-map browser checks passed: vertical at every width, 992px label breakpoint, stable geometry, clear compact labels, all 74 paper links and abstract hovers, desktop leaders, persistent grey idea lines, keyboard/touch activation, light/dark, fast setup, and static/error fallback."
     );
   } finally {
     await browser.close();
