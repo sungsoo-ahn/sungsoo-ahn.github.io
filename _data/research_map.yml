@@ -5,6 +5,7 @@
 # Relationships must cite both endpoints.
 schema_version: 1
 reviewed_on: '2026-10-03'
+idea_window_years: 5
 contribution_categories:
 - id: generation
   label: Generative modeling
@@ -90,9 +91,9 @@ taxonomy:
 - id: d_deep
   kind: domain
   map_role: major
-  label: 'General ML: deep learning'
-  map_label: Deep learning
-  description: Domain-independent neural learning, sampling, graph representation, language-model reasoning, control, and robustness.
+  label: General ML
+  map_label: General ML
+  description: General methods for learning, inference, sampling, graph representation, language-model reasoning, control, and robustness.
   color: green
   display_color: '#278251'
   x: 510
@@ -7047,6 +7048,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r003
+  map_idea: Partition-preserving factor transformations
   from: ahn2017gauging
   to: ahn2018gauged
   map_label: Gauge transformations
@@ -7232,6 +7234,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r013
+  map_idea: Bias-sensitive auxiliary models
   from: nam2020learning
   to: kim2022learning
   map_label: Bias-aware teaching
@@ -7572,6 +7575,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r031
+  map_idea: Local search improvement operators
   from: ahn2020guiding
   to: kim2024local
   map_label: Explore then refine
@@ -7580,9 +7584,8 @@ relationships:
   explanation: Genetic experts refine generated molecules; Local Search GFlowNets backtrack and reconstruct trajectories.
     Both connect exploration, refinement, and replay, but reward maximization and reward-proportional sampling are
     distinct objectives.
-  map_explanation: Both papers combine exploration, local improvement, and replay. GEGL improves molecular candidates
-    with genetic search. LS-GFN reconstructs trajectories. Reward maximization and reward-proportional sampling have
-    different targets.
+  map_explanation: Both papers refine generated candidates with improvement operators and reuse the results for training.
+    GEGL uses molecular mutation and crossover. LS-GFN uses backward-policy backtracking and forward-policy reconstruction.
   evidence:
   - work: ahn2020guiding
     source: 0
@@ -7592,6 +7595,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r032
+  map_idea: Search results as training targets
   from: ahn2020guiding
   to: kim2021selfimproved
   map_label: Search supervision
@@ -7792,6 +7796,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r043
+  map_idea: Sparse graph sequence encodings
   from: jang2024simple
   to: jang2024graph
   map_label: Graph tokenization
@@ -7977,6 +7982,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r053
+  map_idea: Local signals for credit assignment
   from: jang2024learning
   to: kim2026latent
   map_label: Credit assignment
@@ -7995,6 +8001,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r054
+  map_idea: Sampler training without target samples
   from: woo2024iterated
   to: woo2025energybased
   map_label: Energy-based generation
@@ -8050,6 +8057,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r057
+  map_idea: Replay of exploratory samples
   from: kim2025scalable
   to: seong2025transition
   map_label: Off-policy sampling
@@ -8122,6 +8130,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r061
+  map_idea: Offline design with learned property proxies
   from: kim2023bootstrapped
   to: yu2021roma
   map_label: Proxy-based design
@@ -8287,6 +8296,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r070
+  map_idea: Explicit molecular structure from SMILES
   from: jang2025improving
   to: jang2025structural
   map_label: Structure from text
@@ -8341,6 +8351,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r073
+  map_idea: Propose, critique, and select with agents
   from: kim2025mtmol
   to: jang2026indibator
   map_label: Molecular deliberation
@@ -8417,6 +8428,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r077
+  map_idea: Reduced coordinates for crystal generation
   from: kim2025mofflow
   to: kim2025flexible
   map_label: Flexible MOF assembly
@@ -8545,6 +8557,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r084
+  map_idea: Periodic structure factorization
   from: kim2026catflow
   to: kim2025mofflow
   map_label: Periodic factorization
@@ -8639,6 +8652,7 @@ relationships:
     locator: Abstract; method formulation
   directed: false
 - id: r089
+  map_idea: Generate internal geometry instead of rigid blocks
   from: kim2026packora
   to: kim2026atommof
   map_label: All-atom generation

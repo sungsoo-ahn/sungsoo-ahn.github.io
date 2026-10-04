@@ -32,6 +32,52 @@ test("navigation state keeps only offset and ignores obsolete paper selections",
   for (const offset of [-2, Infinity, "invalid", undefined]) assert.equal(model.sanitizeState({ offset }).offset, 0);
 });
 
+test("shared ideas require editorial selection and an inclusive five-year publication window", () => {
+  const corpus = fixture(
+    [work("a", "2020-01-01", ["d_a"]), work("b", "2025-01-01", ["d_a"]), work("c", "2025-01-02", ["d_a"])],
+    [theme("d_a")],
+    [
+      { id: "within", from: "b", to: "a", map_idea: "Local improvement operators", map_explanation: "A specific shared mechanism." },
+      { id: "outside", from: "a", to: "c", map_idea: "A later connection" },
+      { id: "broad", from: "b", to: "c", map_label: "Same domain" },
+    ]
+  );
+  assert.deepEqual(
+    corpus.ideas.map((idea) => [idea.id, idea.from, idea.to]),
+    [["within", "a", "b"]]
+  );
+});
+
+test("all selected idea pairs remain available without creating domain or keyword links", () => {
+  const papers = [
+    work("a", "2020-01-01", ["d_a"]),
+    work("b", "2021-01-01", ["d_a"]),
+    work("c", "2022-01-01", ["d_a"]),
+    work("d", "2023-01-01", ["d_a"]),
+  ];
+  const corpus = fixture(
+    papers,
+    [theme("d_a")],
+    ["d", "c", "b"].map((id) => ({ id, from: "a", to: id, map_idea: `Specific ${id}` }))
+  );
+  assert.deepEqual(
+    corpus.ideas.map((idea) => idea.to),
+    ["d", "c", "b"]
+  );
+  assert.equal(fixture(papers, [theme("d_a")]).ideas.length, 0);
+});
+
+test("paper hovers use sourced publication abstracts independently of annotation summaries", () => {
+  const paper = work("a", "2024-01-01", ["d_a"]);
+  paper.annotations.summary = "Editorial summary";
+  paper.publications[0].abstract = "Original scientific abstract";
+  const prepared = fixture([paper], [theme("d_a")]);
+  assert.equal(prepared.workById.get("a").abstract, "Original scientific abstract");
+  paper.publications[0].abstract = "";
+  paper.publications.push({ id: "later", title: "a", year: 2025, abstract: "Later edition abstract" });
+  assert.equal(fixture([paper], [theme("d_a")]).workById.get("a").abstract, "Later edition abstract");
+});
+
 test("URLs round-trip panning, clean old paper and filter parameters, and preserve unrelated values", () => {
   const original = "https://example.com/?utm_source=friend&rm_paper=a&rm_lens=method&rm_tags=d_a&rm_zoom=2#research-map";
   const url = model.writeUrl(original, { offset: 5.123456 });

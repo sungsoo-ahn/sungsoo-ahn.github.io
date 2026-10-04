@@ -25,6 +25,21 @@
   arxiv: '2602.07351'
   code: https://github.com/nayoung10/AtomMOF
   selected: true
+  # Abstract source: https://arxiv.org/abs/2602.07351
+  abstract: >-
+    Deep generative models have shown promise for modeling metal-organic frameworks (MOFs), but
+    existing approaches (1) rely on coarse-grained representations that assume fixed bond lengths
+    and angles, and (2) neglect the MOF-adsorbate interactions, which are critical for downstream
+    applications. We introduce AtomMOF, a scalable flow-based model built on an all-atom Diffusion
+    Transformer that maps 2D molecular graphs of building blocks and adsorbates directly to
+    equilibrium 3D structures without imposing structural constraints. We further present scaling
+    laws for porous crystal generation, indicating predictable performance gains with increased
+    model capacity, and introduce Feynman-Kac steering guided by machine-learned interatomic
+    potentials to improve geometric validity and sampling stability. On the (MOF-only) BW dataset,
+    AtomMOF increases the match rate by 35.00% and reduces RMSD by 32.64%. On the ODAC25 dataset
+    (MOF-adsorbate), AtomMOF is substantially more sample-efficient than grand canonical Monte Carlo
+    in recovering adsorption configurations and can identify candidates with lower adsorption
+    energies than the reference dataset. Code is available at https://github.com/nayoung10/AtomMOF .
 - id: jang2026boltz
   type: conference
   title: A Systematic Evaluation of Co-folding Model Representations for Small-Molecule Learning
@@ -41,6 +56,24 @@
   abbr: NeurIPS
   arxiv: '2602.13249'
   code: https://github.com/hsjang0/boltz-as-FM
+  # Abstract source: https://arxiv.org/abs/2602.13249
+  abstract: >-
+    Small-molecule foundation models are typically pretrained on standalone molecular data, unlike
+    vision and language models that often benefit from cross-modal or relational supervision.
+    Protein-ligand co-folding provides a molecular analogue of such supervision by exposing models
+    to atom-level ligand-protein interactions, raising the question of whether co-folding models can
+    yield strong small-molecule representations. We study this question using Boltz2, a modern
+    co-folding model, by transferring its atom-level ligand representations to standalone
+    small-molecule tasks. Through systematic probing and distillation, we show that Boltz2
+    representations match or outperform existing models on the ADMET benchmark, accelerate molecular
+    generative modeling, and improve sample efficiency in structure-guided ligand optimization. We
+    further find that Boltz2 representations are complementary to those learned from conventional
+    standalone molecular supervision, including 3D conformers, bioassay labels, and quantum-chemical
+    properties. Finally, we extend representation alignment to reinforcement learning, showing that
+    dense representation-level supervision can complement scalar rewards in molecular discovery.
+    These results identify protein-ligand co-folding as a promising pretraining paradigm for
+    small-molecule representation learning and position Boltz2 as a strong, off-the-shelf molecular
+    foundation model.
 - id: kim2026atomlevel
   type: conference
   title: Atom-level Protein Representation Learning Improves Protein Structure Prediction
@@ -60,6 +93,21 @@
   arxiv: '2605.22133'
   website: https://holymollyhao.github.io/TriProRep/
   selected: true
+  # Abstract source: https://arxiv.org/abs/2605.22133
+  abstract: >-
+    Recent advances in generative modeling show that pretrained representations can improve
+    generation as conditioning features or alignment targets. Motivated by this, we study protein
+    representations for predicting structures beyond conventional function annotation. We propose
+    TriProRep, a structure-aware pretraining method that jointly models three aligned residue-level
+    views: amino-acid identity, backbone geometry, and local full-atom geometry, discretely encoded
+    via VQ-VAE tokenizers. By pretraining to recover original tokens from generator-corrupted views,
+    TriProRep learns to distinguish plausible but incorrect cross-view augmentations from the
+    original protein. We further introduce RepSP, a benchmark for evaluating protein representations
+    in structure-predictive settings. RepSP tests three uses of representations: homodimer
+    co-folding from apo-chain representations, residue-level prediction of homodimer-derived
+    interaction properties, and representation-aligned monomer structure prediction. Across these
+    tasks, TriProRep improves over sequence-only and prior structure-aware representation models,
+    while maintaining competitive performance on conventional benchmarks.
 - id: oh2026sctrilemma
   type: conference
   title: 'scTrilemma: Balancing Identity, Invariance, and Reconstruction in Single-Cell Representation Learning'
@@ -79,6 +127,23 @@
   venue: NeurIPS
   year: 2026
   abbr: NeurIPS
+  # Abstract source: https://arxiv.org/abs/2609.38840v2
+  abstract: >-
+    Single-cell RNA-seq representation learning is fundamentally label-free: cell identities,
+    states, and contexts are not fixed training targets, so what constitutes signal or nuisance is
+    analysis-dependent. A single representation must therefore preserve biological identity and
+    state, remain robust to nuisance context, and retain the gene-level variation needed for
+    expression analysis, three demands we call the representation trilemma. To tackle this problem,
+    we introduce scTrilemma, a latent-bottleneck VAE that routes expression-derived variation to the
+    embedding, the decoder, or the prior rather than forcing all of it through one embedding. It
+    gates gene tokens by expression, routes the cell representation through the decoder, and
+    conditions the prior on unlabeled pseudo-bulk context, under a single reconstruction objective
+    and without target annotations or auxiliary representation losses. In release-based zero-shot
+    evaluation on successive CZ CELLxGENE Census releases, scTrilemma leads all three demands at
+    once and preserves biological-state, differential-expression, and pathway structure across
+    multiple disease settings. Latent interventions further show that context can be removed at
+    almost no cost to the other demands, leaving identity against fidelity as the remaining tension.
+    Code is publicly available at https://github.com/yunhak0/scTrilemma .
 - id: kim2026packora
   type: preprint
   title: 'Packora: Systematic Design for Generative Molecular Crystal Structure Prediction'
@@ -91,6 +156,23 @@
   abbr: '-'
   arxiv: '2608.26962'
   cv_sort_order: 202608270000
+  # Abstract source: https://arxiv.org/abs/2608.26962
+  abstract: >-
+    Molecular crystal structure prediction (CSP) is important in pharmaceuticals, agrochemicals, and
+    organic electronics, where subtle differences in molecular conformation and packing can strongly
+    affect material properties. We present Packora, a flow-based generative model for molecular CSP
+    that jointly predicts atomic coordinates and the lattice from molecular graphs. Packora supports
+    multi-component and organometallic crystals and can condition on any subset of molecular
+    conformers, stereochemical labels, and space-group information within a single model. Inspired
+    by the CCDC CSP blind test, we evaluate generation and ranking separately, using generation to
+    isolate generator quality and ranking to measure end-to-end performance under a common
+    relaxation and ranking pipeline. We also systematically study architecture, training,
+    conditioning, inference, and scaling, identifying an effective design based on cacheable
+    pairwise reasoning, training objective and numerical solver choices, conditioning dropout, and
+    balanced scaling of pairwise and single representations. Packora outperforms the baselines on
+    both structure generation and ranking benchmarks, achieving the best matched-budget coverage
+    across all six generation benchmarks, as well as higher experimental-form recovery, lower
+    experimental-form ranks, and faster convergence in ranking.
 - id: seong2026discovering
   type: preprint
   title: Discovering Crystal Structure Prediction Algorithms with an AI Co-Scientist
@@ -108,6 +190,23 @@
   code2_label: HACO code
   selected: true
   cv_sort_order: 202606300000
+  # Abstract source: https://arxiv.org/abs/2606.22866
+  abstract: >-
+    We introduce Human-AI Co-discovery system (HACO) for scientific algorithm discovery through
+    cross-domain search and sparse human steering. Starting from the goal of generating crystal
+    structures from chemical compositions, HACO searched across generative modeling methodologies
+    from multiple fields and identified MaskGIT, a masked generative model from vision, as a
+    promising framework for crystal structure prediction (CSP). HACO instantiated this masked
+    formulation as a discrete token model of crystal structure; guided by sparse high-level human
+    objectives, it then added crystallographic symmetry tokens, space group stratified sampling for
+    polymorph coverage, and sub-bin coordinate refinement, yielding the Masked Generative Crystal
+    Transformer (MaskGXT). On the MP-20 polymorph split, MaskGXT reaches 79.06%
+    match-everyone-to-reference (METRe) accuracy, compared with 70.87% for the strongest evaluated
+    baseline. MaskGXT also attains the best match rate on standard MP-20 and MPTS-52 CSP benchmarks.
+    These results provide evidence that, in domains offering cheap, fast, and well-aligned
+    validation, transfer-guided interactive AI co-scientists can contribute to scientific algorithm
+    discovery by identifying transferable modeling principles and combining them with targeted human
+    domain guidance.
 - id: kim2026madfield
   type: preprint
   title: 'MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials'
@@ -122,6 +221,26 @@
   arxiv: '2606.21284'
   selected: true
   cv_sort_order: 202606290000
+  # Abstract source: https://arxiv.org/abs/2606.21284
+  abstract: >-
+    High-throughput computational screening of nanoporous materials for gas storage and separation
+    requires fast and accurate characterization of adsorption equilibrium. Particle-based grand
+    canonical Monte Carlo (GCMC) and density-based classical density functional theory (cDFT)
+    provide simulation-based estimates of gas uptake and adsorbate density fields, but their
+    speed-accuracy tradeoff remains insufficient for large-scale screening. In this work, we address
+    this gap with Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials
+    (MADField), which reframes adsorption prediction as equilibrium density-field estimation.
+    MADField learns from two complementary fidelities, combining broad and scalable cDFT density
+    supervision with higher-fidelity GCMC density labels, and recovers gas uptake by integrating the
+    predicted density field. MADField improves uptake accuracy over the strongest baselines by 6.0x
+    for cDFT and 15.4x for GCMC, and its predicted fields accelerate cDFT solvers with 2.0x fewer
+    iteration steps while recovering 42 percent of cases that fail under standard settings. Finally,
+    we evaluate MADField for conventional CH4 working capacity screening on the 270k-structure
+    ARC-MOF database. Within this space of extremely rare high-capacity targets, 167 in total, the
+    model achieves 56x higher average precision than the strongest baseline and accelerates
+    inference by five orders of magnitude compared to GCMC. By prioritizing the MADField rankings,
+    selecting the top 1.7 percent of candidates recovers 95 percent of all targets, while the top 6
+    percent ensures 100 percent recall.
 - id: seo2026vibeproteinbench
   type: preprint
   title: 'VibeProteinBench: An Evaluation Benchmark for Language-interfaced Vibe Protein Design'
@@ -151,6 +270,25 @@
   arxiv: '2605.10978'
   dataset: https://huggingface.co/datasets/vibepdbench/VibeProteinBench
   cv_sort_order: 202605200000
+  # Abstract source: https://arxiv.org/abs/2605.10978
+  abstract: >-
+    Protein design aims to compose amino-acid sequences that fold into stable three-dimensional
+    structures while satisfying targeted functional properties. The field is increasingly shifting
+    toward vibe protein design, where a single model is expected to generate novel sequences,
+    engineer existing proteins, and reason about protein characteristics through flexible
+    natural-language constraints. However, existing benchmarks typically evaluate isolated aspects
+    of protein design or assume predefined structured inputs, making them ill-suited to assess this
+    broad, open-ended setting. To address this gap, we present Vibe Protein Design Benchmark
+    (VibeProteinBench), a language-interfaced benchmark that evaluates whether a single model can
+    operate across three complementary stages of a computational protein-design workflow:
+    recognition, engineering, and generation. Each stage is grounded in expert-curated mechanistic
+    rationales and multi-faceted in silico validation, to computationally verify whether model
+    outputs are biologically plausible. Across diverse general-purpose and domain-specialized LLMs,
+    evaluated with and without tool access, no model performs strongly across all three stages at
+    once. Beyond measuring end-task success, VibeProteinBench exposes where current systems break:
+    we identify recurring failure patterns and characterize how tool-augmented agents select tool
+    arguments. Together, these findings show that vibe protein design remains a substantial open
+    challenge.
 - id: piao2026learning
   type: conference
   title: Learning Adaptive Perturbation-Conditioned Contexts for Robust Transcriptional Response Prediction
@@ -169,6 +307,18 @@
   year: 2026
   abbr: ICML
   arxiv: '2602.18885'
+  # Abstract source: https://arxiv.org/abs/2602.18885
+  abstract: >-
+    Predicting high-dimensional transcriptional responses to genetic perturbations is challenging
+    because signals are sparse and experimental noise is severe. Existing methods often suffer from
+    mean collapse, achieving high correlation by predicting the global average expression rather
+    than perturbation-specific responses, which yields false positives and poor interpretability.
+    Methods that add biological knowledge graphs typically treat them as dense, static priors shared
+    across perturbations, propagating noise. We propose AdaPert, which counters mean collapse by
+    extracting a sparse, perturbation-specific subgraph via differentiable node selection, then
+    suppressing spurious variation in non-responsive genes while emphasizing differentially
+    expressed ones. Across multiple benchmarks, AdaPert outperforms existing baselines, with the
+    largest gains on DEG-aware metrics.
 - id: jang2026indibator
   type: preprint
   title: 'INDIBATOR: Diverse and Fact-Grounded Individuality for Multi-Agent Debate in Molecular Discovery'
@@ -185,6 +335,21 @@
   website: https://yunhuijang.github.io/projects/INDIBATOR/
   selected: true
   cv_sort_order: 202602020847
+  # Abstract source: https://arxiv.org/abs/2602.01815
+  abstract: >-
+    Multi-agent systems have emerged as a powerful paradigm for automating scientific discovery. To
+    differentiate agent behavior in the multi-agent system, current frameworks typically assign
+    generic role-based personas such as ''reviewer'' or ''writer'' or rely on coarse grained
+    keyword-based personas. While functional, this approach oversimplifies how human scientists
+    operate, whose contributions are shaped by their unique research trajectories. In response, we
+    propose INDIBATOR, a framework for molecular discovery that grounds agents in individualized
+    scientist profiles constructed from two modalities: publication history for literature-derived
+    knowledge and molecular history for structural priors. These agents engage in multi-turn debate
+    through proposal, critique, and voting phases. Our evaluation demonstrates that these
+    fine-grained individuality-grounded agents consistently outperform systems relying on
+    coarse-grained personas, achieving competitive or state-of-the-art performance. These results
+    validate that capturing the ``scientific DNA'' of individual agents is essential for
+    high-quality discovery.
 - id: seong2026multimodal
   type: conference
   title: 'Multimodal Crystal Flow: Any-to-Any Modality Generation for Unified Crystal Modeling'
@@ -197,6 +362,20 @@
   year: 2026
   abbr: ICML
   arxiv: '2602.20210'
+  # Abstract source: https://arxiv.org/abs/2602.20210
+  abstract: >-
+    Crystal modeling spans a family of conditional and unconditional generation tasks, including
+    crystal structure prediction (CSP) and de novo generation (DNG). While recent deep generative
+    models have shown promising performance, they remain largely task-specific, lacking a unified
+    framework that shares crystal representations across tasks. To address this limitation, we
+    propose Multimodal Crystal Flow (MCFlow), a unified multimodal flow model that realizes multiple
+    crystal generation tasks as distinct inference trajectories via independent time variables for
+    atom types and crystal structures. To enable multimodal flow in a standard transformer model, we
+    introduce a composition- and symmetry-aware atom ordering with hierarchical permutation
+    augmentation, injecting compositional and crystallographic priors without explicit structural
+    templates. Experiments on the MP-20 and MPTS-52 benchmarks show that a single MCFlow model is
+    competitive with task-specific baselines across CSP, DNG, and structure-conditioned atom type
+    generation.
 - id: kim2026progressive
   type: preprint
   title: Progressive Multi-Agent Reasoning for Biological Perturbation Prediction
@@ -215,6 +394,23 @@
   abbr: '-'
   arxiv: '2602.07408'
   cv_sort_order: 202602070659
+  # Abstract source: https://arxiv.org/abs/2602.07408
+  abstract: >-
+    Predicting gene regulation responses to biological perturbations requires reasoning about
+    underlying biological causalities. While large language models (LLMs) show promise for such
+    tasks, they are often overwhelmed by the entangled nature of high-dimensional perturbation
+    results. Moreover, recent works have primarily focused on genetic perturbations in single-cell
+    experiments, leaving bulk-cell chemical perturbations, which is central to drug discovery,
+    largely unexplored. Motivated by this, we present LINCSQA, a novel benchmark for predicting
+    target gene regulation under complex chemical perturbations in bulk-cell environments. We
+    further propose PBio-Agent, a multi-agent framework that integrates difficulty-aware task
+    sequencing with iterative knowledge refinement. Our key insight is that genes affected by the
+    same perturbation share causal structure, allowing confidently predicted genes to contextualize
+    more challenging cases. The framework employs specialized agents enriched with biological
+    knowledge graphs, while a synthesis agent integrates outputs and specialized judges ensure
+    logical coherence. PBio-Agent outperforms existing baselines on both LINCSQA and PerturbQA,
+    enabling even smaller models to predict and explain complex biological processes without
+    additional training.
 - id: woo2026riemannian
   type: conference
   title: Riemannian MeanFlow
@@ -230,6 +426,21 @@
   arxiv: '2602.07744'
   code: https://github.com/dongyeop3813/Riemannian-MeanFlow
   selected: true
+  # Abstract source: https://arxiv.org/abs/2602.07744
+  abstract: >-
+    Diffusion and flow models have become the dominant paradigm for generative modeling on
+    Riemannian manifolds, with successful applications in protein backbone generation and DNA
+    sequence design. However, these methods require tens to hundreds of neural network evaluations
+    at inference time, which can become a computational bottleneck in large-scale scientific
+    sampling workflows. We introduce Riemannian MeanFlow (RMF), a framework for learning flow maps
+    directly on manifolds, enabling high-quality generations with as few as one forward pass. We
+    derive three equivalent characterizations of the manifold average velocity (Eulerian,
+    Lagrangian, and semigroup identities), and analyze parameterizations and stabilization
+    techniques to improve training on high-dimensional manifolds. In promoter DNA design and protein
+    backbone generation settings, RMF achieves comparable sample quality to prior methods while
+    requiring up to 10× fewer function evaluations. Finally, we show that few-step flow maps enable
+    efficient reward-guided design through reward look-ahead, where terminal states can be predicted
+    from intermediate steps at minimal additional cost.
 - id: kim2026machine
   type: conference
   title: Machine Learning Hamiltonians are Accurate Energy-Force Predictors
@@ -250,6 +461,22 @@
   arxiv: '2602.16897'
   code: https://github.com/seongsukim-ml/QHFlow2
   selected: true
+  # Abstract source: https://arxiv.org/abs/2602.16897
+  abstract: >-
+    Recently, machine learning Hamiltonian (MLH) models have gained traction as fast approximations
+    of electronic structures such as orbitals and electron densities, while also enabling direct
+    evaluation of energies and forces from their predictions. However, despite their physical
+    grounding, existing Hamiltonian models are evaluated mainly by reconstruction metrics, leaving
+    it unclear how well they perform as energy-force predictors. We address this gap with a
+    benchmark that computes energies and forces directly from predicted Hamiltonians. Within this
+    framework, we propose QHFlow2, a state-of-the-art Hamiltonian model with an SO(2)-equivariant
+    backbone and a two-stage edge update. QHFlow2 achieves 40% lower Hamiltonian error than the
+    previous best model with fewer parameters. Under direct evaluation on MD17/rMD17, it is the
+    first Hamiltonian model to reach NequIP-level force accuracy while achieving up to 20× lower
+    energy MAE. On QH9, QHFlow2 reduces energy error by up to 20× compared to MACE. Finally, we
+    demonstrate that QHFlow2 exhibits consistent scaling behavior with respect to model capacity and
+    data, and that improvements in Hamiltonian accuracy effectively translate into more accurate
+    energy and force computations.
 - id: kim2026catflow
   type: conference
   title: 'CatFlow: Co-generation of Slab-Adsorbate Systems via Flow Matching'
@@ -264,6 +491,20 @@
   arxiv: '2602.05372'
   code: https://github.com/minkyu1022/CatFlow
   selected: true
+  # Abstract source: https://arxiv.org/abs/2602.05372
+  abstract: >-
+    Discovering heterogeneous catalysts tailored for specific reaction intermediates remains a
+    fundamental bottleneck in materials science. While traditional trial-and-error methods and
+    recent generative models have shown promise, they struggle to capture the intrinsic coupling
+    between surface geometry and adsorbate interactions. To address this limitation, we propose
+    CatFlow, a flow matching-based framework for de novo design and structure prediction of
+    heterogeneous catalysts. Our model operates on a primitive cell-based factorized representation
+    of the slab-adsorbate complex, reducing the number of learnable variables by an average of 9.2x
+    while explicitly encoding the surface orientation of the slab-adsorbate interface. Experiments
+    on the Open Catalyst 2020 dataset demonstrate that CatFlow significantly improves the structural
+    fidelity of generated catalysts compared to autoregressive and sequential baselines. Further
+    experiments show that the generated structures accurately capture the adsorption energy
+    distributions of physically plausible interfaces and lie closer to thermodynamic local minima.
 - id: kim2026latent
   type: conference
   title: Latent Veracity Inference for Identifying Errors in Stepwise Reasoning
@@ -282,6 +523,22 @@
   html: https://openreview.net/forum?id=eux1cp8GqC
   arxiv: '2505.11824'
   code: https://github.com/alstn12088/veracity_inference
+  # Abstract source: https://arxiv.org/abs/2505.11824
+  abstract: >-
+    Chain-of-Thought (CoT) reasoning has advanced the capabilities and transparency of language
+    models (LMs); however, reasoning chains can contain inaccurate statements that reduce
+    performance and trustworthiness. To address this, we propose to augment each reasoning step in a
+    CoT with a latent veracity (or correctness) variable. To efficiently explore this expanded
+    space, we introduce Veracity Search (VS), a discrete search algorithm over veracity assignments.
+    It performs otherwise intractable inference in the posterior distribution over latent veracity
+    values by leveraging the LM's joint likelihood over veracity and the final answer as a proxy
+    reward. This efficient inference-time verification method facilitates supervised fine-tuning of
+    an Amortized Veracity Inference (AVI) machine by providing pseudo-labels for veracity. AVI
+    generalizes VS, enabling accurate zero-shot veracity inference in novel contexts. Empirical
+    results demonstrate that VS reliably identifies errors in logical (ProntoQA), mathematical
+    (GSM8K), and commonsense (CommonsenseQA) reasoning benchmarks, with AVI achieving comparable
+    zero-shot accuracy. Finally, we demonstrate the utility of latent veracity inference for
+    providing feedback during self-correction and self-improvement.
 - id: seo2026learning
   type: conference
   title: Learning Flexible Forward Trajectories for Masked Molecular Diffusion
@@ -297,6 +554,22 @@
   arxiv: '2505.16790'
   code: https://github.com/holymollyhao/MELD
   website: https://holymollyhao.github.io/MELD/
+  # Abstract source: https://arxiv.org/abs/2505.16790
+  abstract: >-
+    Masked diffusion models (MDMs) have achieved notable progress in modeling discrete data, while
+    their potential in molecular generation remains underexplored. In this work, we explore their
+    potential and introduce the surprising result that naively applying standards MDMs severely
+    degrades the performance. We identify the critical cause of this issue as a state-clashing
+    problem-where the forward diffusion of distinct molecules collapse into a common state,
+    resulting in a mixture of reconstruction targets that cannot be learned using typical reverse
+    diffusion process with unimodal predictions. To mitigate this, we propose Masked Element-wise
+    Learnable Diffusion (MELD) that orchestrates per-element corruption trajectories to avoid
+    collision between distinct molecular graphs. This is achieved through a parameterized noise
+    scheduling network that assigns distinct corruption rates to individual graph elements, i.e.,
+    atoms and bonds. Extensive experiments on diverse molecular benchmarks reveal that MELD markedly
+    enhances overall generation quality compared to element-agnostic noise scheduling, increasing
+    the chemical validity of vanilla MDMs on ZINC250K from 15% to 93%, Furthermore, it achieves
+    state-of-the-art property alignment in conditional generation tasks.
 - id: park2026learning
   type: conference
   title: Learning Collective Variables from BioEmu with Time-Lagged Generation
@@ -313,6 +586,23 @@
   arxiv: '2507.07390'
   code: https://github.com/seonghyun26/bioemu-cv
   selected: true
+  # Abstract source: https://arxiv.org/abs/2507.07390
+  abstract: >-
+    Molecular dynamics is crucial for understanding molecular systems but its applicability is often
+    limited by the vast timescales of rare events like protein folding. Enhanced sampling techniques
+    overcome this by accelerating the simulation along key reaction pathways, which are defined by
+    collective variables (CVs). However, identifying effective CVs that capture the slow,
+    macroscopic dynamics of a system remains a major bottleneck. This work proposes a novel
+    framework coined BioEmu-CV that learns these essential CVs automatically from BioEmu, a recently
+    proposed foundation model for generating protein equilibrium samples. In particular, we
+    re-purpose BioEmu to learn time-lagged generation conditioned on the learned CV, i.e., predict
+    the distribution of molecular states after a certain amount of time. This training process
+    promotes the CV to encode only the slow, long-term information while disregarding fast, random
+    fluctuations. We validate our learned CV on fast-folding proteins with two key applications: (1)
+    estimating free energy differences using on-the-fly probability enhanced sampling and (2)
+    sampling transition paths with steered molecular dynamics. Our empirical study also serves as a
+    new systematic and comprehensive benchmark for MLCVs on fast-folding proteins larger than
+    Alanine Dipeptide.
 - id: kim2026dnachunker
   type: conference
   title: 'DNACHUNKER: Learnable Tokenization for DNA Language Models'
@@ -330,6 +620,19 @@
   abbr: ICML
   arxiv: '2601.03019'
   website: https://holymollyhao.github.io/dnachunker/
+  # Abstract source: https://arxiv.org/abs/2601.03019
+  abstract: >-
+    DNA language models are increasingly used to represent genomic sequence, yet their effectiveness
+    depends critically on how raw nucleotides are converted into model inputs. Unlike natural
+    language, DNA offers no canonical boundaries, making fixed tokenizations a brittle design choice
+    under shifts, indels, and local repeats. We introduce DNAChunker, a masked DNA language model
+    that incorporates a learnable adaptive segmentation module to produce context-dependent,
+    variable-length units. Building on a dynamic segmentation procedure, DNAChunker learns to
+    allocate finer granularity to functionally enriched regions while compressing repetitive or
+    redundant sequence. We pretrain DNAChunker on the human reference genome and evaluate it across
+    five benchmarks, where it consistently improves over strong fixed-tokenization baselines.
+    Further analyses and ablations indicate that unlike fixed tokenizations, segmentation is learned
+    in a biologically-informed, mutation-resilient manner.
 - id: berto2025rlco
   type: conference
   title: 'RL4CO: an Extensive Reinforcement Learning for Combinatorial Optimization Benchmark'
@@ -373,6 +676,23 @@
   abbr: KDD
   arxiv: '2306.17100'
   code: https://github.com/ai4co/rl4co
+  # Abstract source: https://arxiv.org/abs/2306.17100
+  abstract: >-
+    Combinatorial optimization (CO) is fundamental to several real-world applications, from
+    logistics and scheduling to hardware design and resource allocation. Deep reinforcement learning
+    (RL) has recently shown significant benefits in solving CO problems, reducing reliance on domain
+    expertise and improving computational efficiency. However, the absence of a unified benchmarking
+    framework leads to inconsistent evaluations, limits reproducibility, and increases engineering
+    overhead, raising barriers to adoption for new researchers. To address these challenges, we
+    introduce RL4CO, a unified and extensive benchmark with in-depth library coverage of 27 CO
+    problem environments and 23 state-of-the-art baselines. Built on efficient software libraries
+    and best practices in implementation, RL4CO features modularized implementation and flexible
+    configurations of diverse environments, policy architectures, RL algorithms, and utilities with
+    extensive documentation. RL4CO helps researchers build on existing successes while exploring and
+    developing their own designs, facilitating the entire research process by decoupling science
+    from heavy engineering. We finally provide extensive benchmark studies to inspire new insights
+    and future work. RL4CO has already attracted numerous researchers in the community and is
+    open-sourced at https://github.com/ai4co/rl4co .
 - id: woo2025energybased
   type: conference
   title: 'Energy-based Generator Matching: A Neural Sampler for General State Space'
@@ -387,6 +707,16 @@
   abbr: NeurIPS
   arxiv: '2505.19646'
   code: https://github.com/dongyeop3813/EGM
+  # Abstract source: https://arxiv.org/abs/2505.19646
+  abstract: >-
+    We propose Energy-based generator matching (EGM), a modality-agnostic approach to train
+    generative models from energy functions in the absence of data. Extending the recently proposed
+    generator matching, EGM enables training of arbitrary continuous-time Markov processes, e.g.,
+    diffusion, flow, and jump, and can generate data from continuous, discrete, and a mixture of two
+    modalities. To this end, we propose estimating the generator matching loss using self-normalized
+    importance sampling with an additional bootstrapping trick to reduce variance in the importance
+    weight. We validate EGM on both discrete and multimodal tasks up to 100 and 20 dimensions,
+    respectively.
 - id: kim2025scalable
   type: conference
   title: On Scalable and Efficient Training of Diffusion Samplers
@@ -401,6 +731,23 @@
   abbr: NeurIPS
   arxiv: '2505.19552'
   code: https://github.com/minkyu1022/SGDS
+  # Abstract source: https://arxiv.org/abs/2505.19552
+  abstract: >-
+    We address the challenge of training diffusion models to sample from unnormalized energy
+    distributions in the absence of data, the so-called diffusion samplers. Although these
+    approaches have shown promise, they struggle to scale in more demanding scenarios where energy
+    evaluations are expensive and the sampling space is high-dimensional. To address this
+    limitation, we propose a scalable and sample-efficient framework that properly harmonizes the
+    powerful classical sampling method and the diffusion sampler. Specifically, we utilize Monte
+    Carlo Markov chain (MCMC) samplers with a novelty-based auxiliary energy as a Searcher to
+    collect off-policy samples, using an auxiliary energy function to compensate for exploring modes
+    the diffusion sampler rarely visits. These off-policy samples are then combined with on-policy
+    data to train the diffusion sampler, thereby expanding its coverage of the energy landscape.
+    Furthermore, we identify primacy bias, i.e., the preference of samplers for early experience
+    during training, as the main cause of mode collapse during training, and introduce a periodic
+    re-initialization trick to resolve this issue. Our method significantly improves sample
+    efficiency on standard benchmarks for diffusion samplers and also excels at higher-dimensional
+    problems and real-world molecular conformer generation.
 - id: kim2025flexible
   type: conference
   title: Flexible MOF Generation with Torsion-Aware Flow Matching
@@ -414,6 +761,21 @@
   arxiv: '2505.17914'
   code: https://github.com/nayoung10/MOFFlow-2
   selected: true
+  # Abstract source: https://arxiv.org/abs/2505.17914
+  abstract: >-
+    Designing metal-organic frameworks (MOFs) with novel chemistries is a longstanding challenge due
+    to their large combinatorial space and complex 3D arrangements of the building blocks. While
+    recent deep generative models have enabled scalable MOF generation, they assume (1) a fixed set
+    of building blocks and (2) known local 3D coordinates of building blocks. However, this limits
+    their ability to (1) design novel MOFs and (2) generate the structure using novel building
+    blocks. We propose a two-stage MOF generation framework that overcomes these limitations by
+    modeling both chemical and geometric degrees of freedom. First, we train an SMILES-based
+    autoregressive model to generate metal and organic building blocks, paired with a
+    cheminformatics toolkit for 3D structure initialization. Second, we introduce a flow matching
+    model that predicts translations, rotations, and torsional angles to assemble the blocks into
+    valid 3D frameworks. Our experiments demonstrate improved reconstruction accuracy, the
+    generation of valid, novel, and unique MOFs, and the ability to create novel building blocks.
+    Our code is available at https://github.com/nayoung10/MOFFlow-2 .
 - id: kim2025highorder
   type: conference
   title: High-order Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction
@@ -429,6 +791,24 @@
   arxiv: '2505.18817'
   code: https://github.com/seongsukim-ml/QHFlow
   selected: true
+  # Abstract source: https://arxiv.org/abs/2505.18817
+  abstract: >-
+    Density functional theory (DFT) is a fundamental method for simulating quantum chemical
+    properties, but it remains expensive due to the iterative self-consistent field (SCF) process
+    required to solve the Kohn-Sham equations. Recently, deep learning methods are gaining attention
+    as a way to bypass this step by directly predicting the Hamiltonian. However, they rely on
+    deterministic regression and do not consider the highly structured nature of Hamiltonians. In
+    this work, we propose QHFlow, a high-order equivariant flow matching framework that generates
+    Hamiltonian matrices conditioned on molecular geometry. Flow matching models continuous-time
+    trajectories between simple priors and complex targets, learning the structured distributions
+    over Hamiltonians instead of direct regression. To further incorporate symmetry, we use a neural
+    architecture that predicts SE(3)-equivariant vector fields, improving accuracy and
+    generalization across diverse geometries. To further enhance physical fidelity, we additionally
+    introduce a fine-tuning scheme to align predicted orbital energies with the target. QHFlow
+    achieves state-of-the-art performance, reducing Hamiltonian error by 71% on MD17 and 53% on QH9.
+    Moreover, we further show that QHFlow accelerates the DFT process without trading off the
+    solution quality when initializing SCF iterations with the predicted Hamiltonian, significantly
+    reducing the number of iterations and runtime.
 - id: jang2025selftraining
   type: conference
   title: Self-Training Large Language Models with Confident Reasoning
@@ -444,6 +824,21 @@
   arxiv: '2505.17454'
   code: https://github.com/hsjang0/CORE-PO
   cv_venue: Findings of EMNLP
+  # Abstract source: https://arxiv.org/abs/2505.17454
+  abstract: >-
+    Large language models (LLMs) have shown impressive performance by generating reasoning paths
+    before final answers, but learning such a reasoning path requires costly human supervision. To
+    address this issue, recent studies have explored self-training methods that improve reasoning
+    capabilities using pseudo-labels generated by the LLMs themselves. Among these, confidence-based
+    self-training fine-tunes LLMs to prefer reasoning paths with high-confidence answers, where
+    confidence is estimated via majority voting. However, such methods exclusively focus on the
+    quality of the final answer and may ignore the quality of the reasoning paths, as even an
+    incorrect reasoning path leads to a correct answer by chance. Instead, we advocate the use of
+    reasoning-level confidence to identify high-quality reasoning paths for self-training, supported
+    by our empirical observations. We then propose a new self-training method, CORE-PO, that
+    fine-tunes LLMs to prefer high-COnfidence REasoning paths through Policy Optimization. Our
+    experiments show that CORE-PO improves the accuracy of outputs on four in-distribution and two
+    out-of-distribution benchmarks, compared to existing self-training methods.
 - id: kim2025mtmol
   type: conference
   title: 'MT-Mol: Multi Agent System with Tool-based Reasoning for Molecular Optimization'
@@ -457,6 +852,22 @@
   arxiv: '2505.20820'
   code: https://github.com/icecream126/mt_mol
   cv_venue: Findings of EMNLP
+  # Abstract source: https://arxiv.org/abs/2505.20820
+  abstract: >-
+    Large language models (LLMs) have large potential for molecular optimization, as they can gather
+    external chemistry tools and enable collaborative interactions to iteratively refine molecular
+    candidates. However, this potential remains underexplored, particularly in the context of
+    structured reasoning, interpretability, and comprehensive tool-grounded molecular optimization.
+    To address this gap, we introduce MT-Mol, a multi-agent framework for molecular optimization
+    that leverages tool-guided reasoning and role-specialized LLM agents. Our system incorporates
+    comprehensive RDKit tools, categorized into five distinct domains: structural descriptors,
+    electronic and topological features, fragment-based functional groups, molecular
+    representations, and miscellaneous chemical properties. Each category is managed by an expert
+    analyst agent, responsible for extracting task-relevant tools and enabling interpretable,
+    chemically grounded feedback. MT-Mol produces molecules with tool-aligned and stepwise reasoning
+    through the interaction between the analyst agents, a molecule-generating scientist, a
+    reasoning-output verifier, and a reviewer agent. As a result, we show that our framework shows
+    the state-of-the-art performance of the PMO-1K benchmark on 17 out of 23 tasks.
 - id: jang2025improving
   type: conference
   title: Improving Chemical Understanding of LLMs via SMILES Parsing
@@ -470,6 +881,20 @@
   arxiv: '2505.16340'
   code: https://github.com/yunhuijang/CLEANMOL
   website: https://yunhuijang.github.io/projects/CLEANMOL/
+  # Abstract source: https://arxiv.org/abs/2505.16340
+  abstract: >-
+    Large language models (LLMs) are increasingly recognized as powerful tools for scientific
+    discovery, particularly in molecular science. A fundamental requirement for these models is the
+    ability to accurately understand molecular structures, commonly encoded in the SMILES
+    representation. However, current LLMs struggle to interpret SMILES, even failing to carry out
+    basic tasks such as counting molecular rings. To address this limitation, we introduce CLEANMOL,
+    a novel framework that formulates SMILES parsing into a suite of clean and deterministic tasks
+    explicitly designed to promote graph-level molecular comprehension. These tasks span from
+    subgraph matching to global graph matching, providing structured supervision aligned with
+    molecular structural properties. We construct a molecular pretraining dataset with adaptive
+    difficulty scoring and pre-train open-source LLMs on these tasks. Our results show that CLEANMOL
+    not only enhances structural comprehension but also achieves the best or competes with the
+    baseline on the Mol-Instructions benchmark.
 - id: hahm2025enhancing
   type: conference
   title: Enhancing LLM Agent Safety via Causal Influence Prompting
@@ -485,6 +910,19 @@
   arxiv: '2507.00979'
   code: https://github.com/HahmDY/causal_influence_prompting
   cv_venue: Findings of ACL
+  # Abstract source: https://arxiv.org/abs/2507.00979
+  abstract: >-
+    As autonomous agents powered by large language models (LLMs) continue to demonstrate potential
+    across various assistive tasks, ensuring their safe and reliable behavior is crucial for
+    preventing unintended consequences. In this work, we introduce CIP, a novel technique that
+    leverages causal influence diagrams (CIDs) to identify and mitigate risks arising from agent
+    decision-making. CIDs provide a structured representation of cause-and-effect relationships,
+    enabling agents to anticipate harmful outcomes and make safer decisions. Our approach consists
+    of three key steps: (1) initializing a CID based on task specifications to outline the
+    decision-making process, (2) guiding agent interactions with the environment using the CID, and
+    (3) iteratively refining the CID based on observed behaviors and outcomes. Experimental results
+    demonstrate that our method effectively enhances safety in both code execution and mobile device
+    control tasks.
 - id: jang2025structural
   type: conference
   title: Structural Reasoning Improves Molecular Understanding of LLM
@@ -498,6 +936,17 @@
   arxiv: '2410.05610'
   code: https://github.com/yunhuijang/MSR
   website: https://yunhuijang.github.io/projects/MSR/
+  # Abstract source: https://arxiv.org/abs/2410.05610
+  abstract: >-
+    Recently, large language models (LLMs) have shown significant progress, approaching human
+    perception levels. In this work, we demonstrate that despite these advances, LLMs still struggle
+    to reason using molecular structural information. This gap is critical because many molecular
+    properties, including functional groups, depend heavily on such structural details. To address
+    this limitation, we propose an approach that sketches molecular structures for reasoning.
+    Specifically, we introduce Molecular Structural Reasoning (MSR) framework to enhance the
+    understanding of LLMs by explicitly incorporating the key structural features. We present two
+    frameworks for scenarios where the target molecule is known or unknown. We verify that our MSR
+    improves molecular understanding through extensive experiments.
 - id: seo2025generative
   type: conference
   title: Generative Flows on Synthetic Pathway for Drug Design
@@ -515,6 +964,25 @@
   html: https://openreview.net/forum?id=pB1XSj2y4X
   arxiv: '2410.04542'
   code: https://github.com/SeonghwanSeo/RxnFlow
+  # Abstract source: https://arxiv.org/abs/2410.04542
+  abstract: >-
+    Generative models in drug discovery have recently gained attention as efficient alternatives to
+    brute-force virtual screening. However, most existing models do not account for
+    synthesizability, limiting their practical use in real-world scenarios. In this paper, we
+    propose RxnFlow, which sequentially assembles molecules using predefined molecular building
+    blocks and chemical reaction templates to constrain the synthetic chemical pathway. We then
+    train on this sequential generating process with the objective of generative flow networks
+    (GFlowNets) to generate both highly rewarded and diverse molecules. To mitigate the large action
+    space of synthetic pathways in GFlowNets, we implement a novel action space subsampling method.
+    This enables RxnFlow to learn generative flows over extensive action spaces comprising
+    combinations of 1.2 million building blocks and 71 reaction templates without significant
+    computational overhead. Additionally, RxnFlow can employ modified or expanded action spaces for
+    generation without retraining, allowing for the introduction of additional objectives or the
+    incorporation of newly discovered building blocks. We experimentally demonstrate that RxnFlow
+    outperforms existing reaction-based and fragment-based models in pocket-specific optimization
+    across various target pockets. Furthermore, RxnFlow achieves state-of-the-art performance on
+    CrossDocked2020 for pocket-conditional generation, with an average Vina score of -8.85 kcal/mol
+    and 34.8% synthesizability.
 - id: kim2025mofflow
   type: conference
   title: 'MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks'
@@ -531,6 +999,20 @@
   arxiv: '2410.17270'
   code: https://github.com/nayoung10/MOFFlow
   selected: true
+  # Abstract source: https://arxiv.org/abs/2410.17270
+  abstract: >-
+    Metal-organic frameworks (MOFs) are a class of crystalline materials with promising applications
+    in many areas such as carbon capture and drug delivery. In this work, we introduce MOFFlow, the
+    first deep generative model tailored for MOF structure prediction. Existing approaches,
+    including ab initio calculations and even deep generative models, struggle with the complexity
+    of MOF structures due to the large number of atoms in the unit cells. To address this
+    limitation, we propose a novel Riemannian flow matching framework that reduces the
+    dimensionality of the problem by treating the metal nodes and organic linkers as rigid bodies,
+    capitalizing on the inherent modularity of MOFs. By operating in the SE(3) space, MOFFlow
+    effectively captures the roto-translational dynamics of these rigid components in a scalable
+    way. Our experiment demonstrates that MOFFlow accurately predicts MOF structures containing
+    several hundred atoms, significantly outperforming conventional methods and state-of-the-art
+    machine learning baselines while being much faster.
 - id: seong2025transition
   type: conference
   title: Transition Path Sampling with Improved Off-Policy Training of Diffusion Path Samplers
@@ -547,6 +1029,24 @@
   arxiv: '2405.19961'
   code: https://github.com/kiyoung98/tps-dps
   website: https://kiyoung98.github.io/tps-dps/
+  # Abstract source: https://arxiv.org/abs/2405.19961
+  abstract: >-
+    Understanding transition pathways between two meta-stable states of a molecular system is
+    crucial to advance drug discovery and material design. However, unbiased molecular dynamics (MD)
+    simulations are computationally infeasible because of the high energy barriers that separate
+    these states. Although recent machine learning techniques are proposed to sample rare events,
+    they are often limited to simple systems and rely on collective variables (CVs) derived from
+    costly domain expertise. In this paper, we introduce a novel approach that trains diffusion path
+    samplers (DPS) to address the transition path sampling (TPS) problem without requiring CVs. We
+    reformulate the problem as an amortized sampling from the transition path distribution by
+    minimizing the log-variance divergence between the path distribution induced by DPS and the
+    transition path distribution. Based on the log-variance divergence, we propose learnable control
+    variates to reduce the variance of gradient estimators and the off-policy training objective
+    with replay buffers and simulated annealing techniques to improve sample efficiency and
+    diversity. We also propose a scale-based equivariant parameterization of the bias forces to
+    ensure scalability for large systems. We extensively evaluate our approach, termed TPS-DPS, on a
+    synthetic system, small peptide, and challenging fast-folding proteins, demonstrating that it
+    produces more realistic and diverse transition pathways than existing baselines.
 - id: kim2025rebind
   type: conference
   title: 'ReBind: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring'
@@ -562,6 +1062,20 @@
   arxiv: '2410.14696'
   code: https://github.com/holymollyhao/ReBIND
   cv_title_tex: 'REBIND: Enhancing Ground-state Molecular Conformation Prediction via Force-Based Graph Rewiring'
+  # Abstract source: https://arxiv.org/abs/2410.14696
+  abstract: >-
+    Predicting the ground-state 3D molecular conformations from 2D molecular graphs is critical in
+    computational chemistry due to its profound impact on molecular properties. Deep learning (DL)
+    approaches have recently emerged as promising alternatives to computationally-heavy classical
+    methods such as density functional theory (DFT). However, we discover that existing DL methods
+    inadequately model inter-atomic forces, particularly for non-bonded atomic pairs, due to their
+    naive usage of bonds and pairwise distances. Consequently, significant prediction errors occur
+    for atoms with low degree (i.e., low coordination numbers) whose conformations are primarily
+    influenced by non-bonded interactions. To address this, we propose REBIND, a novel framework
+    that rewires molecular graphs by adding edges based on the Lennard-Jones potential to capture
+    non-bonded interactions for low-degree atoms. Experimental results demonstrate that REBIND
+    significantly outperforms state-of-the-art methods across various molecular sizes, achieving up
+    to a 20% reduction in prediction error.
 - id: kim2025adaptive
   type: conference
   title: Adaptive Teachers for Amortized Samplers
@@ -582,6 +1096,22 @@
   arxiv: '2410.01432'
   code: https://github.com/alstn12088/adaptive-teacher
   html: https://openreview.net/forum?id=BdmVgLMvaf
+  # Abstract source: https://arxiv.org/abs/2410.01432
+  abstract: >-
+    Amortized inference is the task of training a parametric model, such as a neural network, to
+    approximate a distribution with a given unnormalized density where exact sampling is
+    intractable. When sampling is implemented as a sequential decision-making process, reinforcement
+    learning (RL) methods, such as generative flow networks, can be used to train the sampling
+    policy. Off-policy RL training facilitates the discovery of diverse, high-reward candidates, but
+    existing methods still face challenges in efficient exploration. We propose to use an adaptive
+    training distribution (the teacher) to guide the training of the primary amortized sampler (the
+    student). The teacher, an auxiliary behavior model, is trained to sample high-loss regions of
+    the student and can generalize across unexplored modes, thereby enhancing mode coverage by
+    providing an efficient training curriculum. We validate the effectiveness of this approach in a
+    synthetic environment designed to present an exploration challenge, two diffusion-based sampling
+    tasks, and four biochemical discovery tasks demonstrating its ability to improve sample
+    efficiency and mode coverage. Source code is available at
+    https://github.com/alstn12088/adaptive-teacher .
 - id: kim2024decoupled
   type: journal
   title: Decoupled Sequence and Structure Generation for Realistic Antibody Design
@@ -596,6 +1126,23 @@
   arxiv: '2402.05982'
   code: https://github.com/nayoung10/ASSD
   html: https://openreview.net/forum?id=CTkABQvnkm
+  # Abstract source: https://arxiv.org/abs/2402.05982
+  abstract: >-
+    Recently, deep learning has made rapid progress in antibody design, which plays a key role in
+    the advancement of therapeutics. A dominant paradigm is to train a model to jointly generate the
+    antibody sequence and the structure as a candidate. However, the joint generation requires the
+    model to generate both the discrete amino acid categories and the continuous 3D coordinates;
+    this limits the space of possible architectures and may lead to suboptimal performance. In
+    response, we propose an antibody sequence-structure decoupling (ASSD) framework, which separates
+    sequence generation and structure prediction. Although our approach is simple, our idea allows
+    the use of powerful neural architectures and demonstrates notable performance improvements. We
+    also find that the widely used non-autoregressive generators promote sequences with overly
+    repeating tokens. Such sequences are both out-of-distribution and prone to undesirable
+    developability properties that can trigger harmful immune responses in patients. To resolve
+    this, we introduce a composition-based objective that allows an efficient trade-off between high
+    performance and low token repetition. ASSD shows improved performance in various antibody design
+    experiments, while the composition-based objective successfully mitigates token repetition of
+    non-autoregressive models.
 - id: jang2024can
   type: preprint
   title: Can LLMs Generate Diverse Molecules? Towards Alignment with Structural Diversity
@@ -609,6 +1156,22 @@
   abbr: '-'
   arxiv: '2410.03138'
   cv_sort_order: 202410040000
+  # Abstract source: https://arxiv.org/abs/2410.03138
+  abstract: >-
+    Recent advancements in large language models (LLMs) have demonstrated impressive performance in
+    molecular generation, which offers potential to accelerate drug discovery. However, the current
+    LLMs overlook a critical requirement for drug discovery: proposing a diverse set of molecules.
+    This diversity is essential for improving the chances of finding a viable drug, as it provides
+    alternative molecules that may succeed where others fail in real-world validations.
+    Nevertheless, the LLMs often output structurally similar molecules. While decoding schemes like
+    diverse beam search may enhance textual diversity, this often does not align with molecular
+    structural diversity. In response, we propose a new method for fine-tuning molecular generative
+    LLMs to autoregressively generate a set of structurally diverse molecules, where each molecule
+    is generated by conditioning on the previously generated molecules. Our approach consists of two
+    stages: (1) supervised fine-tuning to adapt LLMs to autoregressively generate molecules in a
+    sequence and (2) reinforcement learning to maximize structural diversity within the generated
+    molecules. Our experiments show that the proposed approach enables LLMs to generate diverse
+    molecules better than existing approaches for diverse sequence generation.
 - id: woo2024iterated
   type: preprint
   title: Iterated Energy-based Flow Matching for Sampling from Boltzmann Densities
@@ -620,6 +1183,20 @@
   abbr: '-'
   arxiv: '2408.16249'
   cv_sort_order: 202408300000
+  # Abstract source: https://arxiv.org/abs/2408.16249
+  abstract: >-
+    In this work, we consider the problem of training a generator from evaluations of energy
+    functions or unnormalized densities. This is a fundamental problem in probabilistic inference,
+    which is crucial for scientific applications such as learning the 3D coordinate distribution of
+    a molecule. To solve this problem, we propose iterated energy-based flow matching (iEFM), the
+    first off-policy approach to train continuous normalizing flow (CNF) models from unnormalized
+    densities. We introduce the simulation-free energy-based flow matching objective, which trains
+    the model to predict the Monte Carlo estimation of the marginal vector field constructed from
+    known energy functions. Our framework is general and can be extended to variance-exploding (VE)
+    and optimal transport (OT) conditional probability paths. We evaluate iEFM on a two-dimensional
+    Gaussian mixture model (GMM) and an eight-dimensional four-particle double-well potential (DW-4)
+    energy function. Our results demonstrate that iEFM outperforms existing methods, showcasing its
+    potential for efficient and scalable probabilistic modeling in complex high-dimensional systems.
 - id: park2024nonbacktracking
   type: journal
   title: Non-backtracking Graph Neural Networks
@@ -636,6 +1213,20 @@
   arxiv: '2310.07430'
   code: https://github.com/seonghyun26/nba-gnn
   html: https://openreview.net/forum?id=64HdQKnyTc
+  # Abstract source: https://arxiv.org/abs/2310.07430
+  abstract: >-
+    The celebrated message-passing updates for graph neural networks allow representing large-scale
+    graphs with local and computationally tractable updates. However, the updates suffer from
+    backtracking, i.e., a message flowing through the same edge twice and revisiting the previously
+    visited node. Since the number of message flows increases exponentially with the number of
+    updates, the redundancy in local updates prevents the graph neural network from accurately
+    recognizing a particular message flow relevant for downstream tasks. In this work, we propose to
+    resolve such a redundancy issue via the non-backtracking graph neural network (NBA-GNN) that
+    updates a message without incorporating the message from the previously visited node. We
+    theoretically investigate how NBA-GNN alleviates the over-squashing of GNNs, and establish a
+    connection between NBA-GNN and the impressive performance of non-backtracking updates for
+    stochastic block model recovery. Furthermore, we empirically verify the effectiveness of our
+    NBA-GNN on the long-range graph benchmark and transductive node classification problems.
 - id: jang2024pessimistic
   type: conference
   title: Pessimistic Backward Policy for GFlowNets
@@ -651,6 +1242,18 @@
   arxiv: '2405.16012'
   code: https://github.com/hsjang0/Pessimistic-Backward-Policy-for-GFlowNets
   html: https://openreview.net/forum?id=L8Q21Qrjmd
+  # Abstract source: https://arxiv.org/abs/2405.16012
+  abstract: >-
+    This paper studies Generative Flow Networks (GFlowNets), which learn to sample objects
+    proportionally to a given reward function through the trajectory of state transitions. In this
+    work, we observe that GFlowNets tend to under-exploit the high-reward objects due to training on
+    insufficient number of trajectories, which may lead to a large gap between the estimated flow
+    and the (known) reward value. In response to this challenge, we propose a pessimistic backward
+    policy for GFlowNets (PBP-GFN), which maximizes the observed flow to align closely with the true
+    reward for the object. We extensively evaluate PBP-GFN across eight benchmarks, including
+    hyper-grid environment, bag generation, structured set generation, molecular generation, and
+    four RNA sequence generation tasks. In particular, PBP-GFN enhances the discovery of high-reward
+    objects, maintains the diversity of the objects, and consistently outperforms existing methods.
 - id: kim2024hybrid
   type: conference
   title: Hybrid Neural Representation for Spherical Data
@@ -666,6 +1269,19 @@
   code: https://github.com/icecream126/HNeR-S/tree/main
   html: https://proceedings.mlr.press/v235/kim24i.html
   cv_title_tex: Hybrid Neural Representations for Spherical Data
+  # Abstract source: https://arxiv.org/abs/2402.05965
+  abstract: >-
+    In this paper, we study hybrid neural representations for spherical data, a domain of increasing
+    relevance in scientific research. In particular, our work focuses on weather and climate data as
+    well as comic microwave background (CMB) data. Although previous studies have delved into
+    coordinate-based neural representations for spherical signals, they often fail to capture the
+    intricate details of highly nonlinear signals. To address this limitation, we introduce a novel
+    approach named Hybrid Neural Representations for Spherical data (HNeR-S). Our main idea is to
+    use spherical feature-grids to obtain positional features which are combined with a multilayer
+    perception to predict the target signal. We consider feature-grids with equirectangular and
+    hierarchical equal area isolatitude pixelization structures that align with weather data and CMB
+    data, respectively. We extensively verify the effectiveness of our HNeR-S for regression,
+    super-resolution, temporal interpolation, and compression tasks.
 - id: kim2024gaussian
   type: conference
   title: Gaussian Plane-Wave Neural Operator for Electron Density Estimation
@@ -678,6 +1294,16 @@
   arxiv: '2402.04278'
   code: https://github.com/seongsukim-ml/GPWNO
   html: https://proceedings.mlr.press/v235/kim24b.html
+  # Abstract source: https://arxiv.org/abs/2402.04278
+  abstract: >-
+    This work studies machine learning for electron density prediction, which is fundamental for
+    understanding chemical systems and density functional theory (DFT) simulations. To this end, we
+    introduce the Gaussian plane-wave neural operator (GPWNO), which operates in the
+    infinite-dimensional functional space using the plane-wave and Gaussian-type orbital bases,
+    widely recognized in the context of DFT. In particular, both high- and low-frequency components
+    of the density can be effectively represented due to the complementary nature of the two bases.
+    Extensive experiments on QM9, MD, and material project datasets demonstrate GPWNO's superior
+    performance over ten baselines.
 - id: kim2024improving
   type: conference
   title: Improving Robustness to Multiple Spurious Correlations by Multi-Objective Optimization
@@ -693,6 +1319,19 @@
   arxiv: '2409.03303'
   code: https://github.com/Nayeong-V-Kim/multiple_spurious_correlation_by_MOO
   html: https://proceedings.mlr.press/v235/kim24l.html
+  # Abstract source: https://arxiv.org/abs/2409.03303
+  abstract: >-
+    We study the problem of training an unbiased and accurate model given a dataset with multiple
+    biases. This problem is challenging since the multiple biases cause multiple undesirable
+    shortcuts during training, and even worse, mitigating one may exacerbate the other. We propose a
+    novel training method to tackle this challenge. Our method first groups training data so that
+    different groups induce different shortcuts, and then optimizes a linear combination of
+    group-wise losses while adjusting their weights dynamically to alleviate conflicts between the
+    groups in performance; this approach, rooted in the multi-objective optimization theory,
+    encourages to achieve the minimax Pareto solution. We also present a new benchmark with multiple
+    biases, dubbed MultiCelebA, for evaluating debiased training methods under realistic and
+    challenging scenarios. Our method achieved the best on three datasets with multiple biases, and
+    also showed superior performance on conventional single-bias datasets.
 - id: kim2024enhancing
   type: conference
   title: Enhancing Sample Efficiency in Black-box Combinatorial Optimization via Symmetric Replay Training
@@ -707,6 +1346,19 @@
   arxiv: '2306.01276'
   code: https://github.com/kaist-silab/symmetric_replay
   cv_title_tex: 'Symmetric Replay Training: Enhancing Sample Efficiency in Deep Reinforcement Learning for Combinatorial Optimization'
+  # Abstract source: https://arxiv.org/abs/2306.01276
+  abstract: >-
+    Deep reinforcement learning (DRL) has significantly advanced the field of combinatorial
+    optimization (CO). However, its practicality is hindered by the necessity for a large number of
+    reward evaluations, especially in scenarios involving computationally intensive function
+    assessments. To enhance the sample efficiency, we propose a simple but effective method, called
+    symmetric replay training (SRT), which can be easily integrated into various DRL methods. Our
+    method leverages high-reward samples to encourage exploration of the under-explored symmetric
+    regions without additional online interactions - free. Through replay training, the policy is
+    trained to maximize the likelihood of the symmetric trajectories of discovered high-rewarded
+    samples. Experimental results demonstrate the consistent improvement of our method in sample
+    efficiency across diverse DRL methods applied to real-world tasks, such as molecular
+    optimization and hardware design.
 - id: bu2024tackling
   type: conference
   title: Tackling Complex Conditions in Unsupervised Combinatorial Optimization
@@ -724,6 +1376,22 @@
   html: https://openreview.net/forum?id=kbQIWi4ZiL
   cv_title_tex: 'Tackling Prevalent Conditions in Unsupervised Combinatorial Optimization: Cardinality, Minimum, Covering,
     and More'
+  # Abstract source: https://arxiv.org/abs/2405.08424
+  abstract: >-
+    Combinatorial optimization (CO) is naturally discrete, making machine learning based on
+    differentiable optimization inapplicable. Karalias & Loukas (2020) adapted the probabilistic
+    method to incorporate CO into differentiable optimization. Their work ignited the research on
+    unsupervised learning for CO, composed of two main components: probabilistic objectives and
+    derandomization. However, each component confronts unique challenges. First, deriving objectives
+    under various conditions (e.g., cardinality constraints and minimum) is nontrivial. Second, the
+    derandomization process is underexplored, and the existing derandomization methods are either
+    random sampling or naive rounding. In this work, we aim to tackle prevalent (i.e., commonly
+    involved) conditions in unsupervised CO. First, we concretize the targets for objective
+    construction and derandomization with theoretical justification. Then, for various conditions
+    commonly involved in different CO problems, we derive nontrivial objectives and derandomization
+    to meet the targets. Finally, we apply the derivations to various CO problems. Via extensive
+    experiments on synthetic and real-world graphs, we validate the correctness of our derivations
+    and show our empirical superiority w.r.t. both optimization quality and speed.
 - id: yoon2024breadthfirst
   type: conference
   title: Breadth-First Exploration in Adaptive Grid-based Reinforcement Learning
@@ -739,6 +1407,20 @@
   website: https://youngsikyoon.github.io/BEAG/
   html: https://proceedings.mlr.press/v235/yoon24d.html
   cv_title_tex: Breadth-First Exploration on Adaptive Grid for Reinforcement Learning
+  # Abstract source: https://proceedings.mlr.press/v235/yoon24d.html
+  abstract: >-
+    Graph-based planners have gained significant attention for goal-conditioned reinforcement
+    learning (RL), where they construct a graph consisting of confident transitions between subgoals
+    as edges and run shortest path algorithms to exploit the confident edges. Meanwhile, identifying
+    and avoiding unattainable transitions are also crucial yet overlooked by the previous
+    graph-based planners, leading to wasting an excessive number of attempts at unattainable
+    subgoals. To address this oversight, we propose a graph construction method that efficiently
+    manages all the achieved and unattained subgoals on a grid graph adaptively discretizing the
+    goal space. This enables a breadth-first exploration strategy, grounded in the local adaptive
+    grid refinement, that prioritizes broad probing of subgoals on a coarse grid over meticulous one
+    on a dense grid. We conducted a theoretical analysis and demonstrated the effectiveness of our
+    approach through empirical evidence, showing that only BEAG succeeds in complex environments
+    under the proposed fixed-goal setting.
 - id: kim2024holistic
   type: journal
   title: Holistic Molecular Representation Learning via Multi-view Fragmentation
@@ -754,6 +1436,21 @@
   abbr: TMLR
   code: https://github.com/Seojin-Kim/HoliMol
   html: https://openreview.net/forum?id=ufDh55J1ML
+  # Abstract source: https://pure.kaist.ac.kr/en/publications/holistic-molecular-representation-learning-via-multi-view-fragmen/
+  abstract: >-
+    Learning chemically meaningful representations from unlabeled molecules plays a vital role in
+    AI-based drug design and discovery. In response to this, several self-supervised learning
+    methods have been developed, focusing either on global (e.g., graph-level) or local (e.g.,
+    motif-level) information of molecular graphs. However, it is still unclear which approach is
+    more effective for learning better molecular representations. In this paper, we propose a novel
+    holistic self-supervised molecular representation learning framework that effectively learns
+    both global and local molecular information. Our key idea is to utilize fragmentation, which
+    decomposes a molecule into a set of chemically meaningful fragments (e.g., functional groups),
+    to associate a global graph structure to a set of local substructures, thereby preserving
+    chemical properties and learn both information via contrastive learning between them.
+    Additionally, we also consider the 3D geometry of molecules as another view for contrastive
+    learning. We demonstrate that our framework outperforms prior molecular representation learning
+    methods across various molecular property prediction tasks.
 - id: heo2024epic
   type: conference
   title: 'EPIC: Graph Augmentation with Edit Path Interpolation via Learnable Cost'
@@ -767,6 +1464,21 @@
   abbr: IJCAI
   arxiv: '2306.01310'
   html: https://www.ijcai.org/proceedings/2024/0455
+  # Abstract source: https://arxiv.org/abs/2306.01310
+  abstract: >-
+    Data augmentation plays a critical role in improving model performance across various domains,
+    but it becomes challenging with graph data due to their complex and irregular structure. To
+    address this issue, we propose EPIC (Edit Path Interpolation via learnable Cost), a novel
+    interpolation-based method for augmenting graph datasets. To interpolate between two graphs
+    lying in an irregular domain, EPIC leverages the concept of graph edit distance, constructing an
+    edit path that represents the transformation process between two graphs via edit operations.
+    Moreover, our method introduces a context-sensitive cost model that accounts for the importance
+    of specific edit operations formulated through a learning framework. This allows for a more
+    nuanced transformation process, where the edit distance is not merely count-based but reflects
+    meaningful graph attributes. With randomly sampled graphs from the edit path, we enrich the
+    training set to enhance the generalization capability of classification models. Experimental
+    evaluations across several benchmark datasets demonstrate that our approach outperforms existing
+    augmentation techniques in many tasks.
 - id: jang2024learning
   type: conference
   title: Learning Energy Decompositions for Partial Inference in GFlowNets
@@ -782,6 +1494,23 @@
   code: https://github.com/hsjang0/LED-GFN
   html: https://openreview.net/forum?id=P15CHILQlg
   cv_annotation: oral presentation (86 of 7,304 submissions, 1.2%)
+  # Abstract source: https://arxiv.org/abs/2310.03301
+  abstract: >-
+    This paper studies generative flow networks (GFlowNets) to sample objects from the Boltzmann
+    energy distribution via a sequence of actions. In particular, we focus on improving GFlowNet
+    with partial inference: training flow functions with the evaluation of the intermediate states
+    or transitions. To this end, the recently developed forward-looking GFlowNet reparameterizes the
+    flow functions based on evaluating the energy of intermediate states. However, such an
+    evaluation of intermediate energies may (i) be too expensive or impossible to evaluate and (ii)
+    even provide misleading training signals under large energy fluctuations along the sequence of
+    actions. To resolve this issue, we propose learning energy decompositions for GFlowNets
+    (LED-GFN). Our main idea is to (i) decompose the energy of an object into learnable potential
+    functions defined on state transitions and (ii) reparameterize the flow functions using the
+    potential functions. In particular, to produce informative local credits, we propose to
+    regularize the potential to change smoothly over the sequence of actions. It is also noteworthy
+    that training GFlowNet with our learned potential can preserve the optimal policy. We
+    empirically verify the superiority of LED-GFN in five problems including the generation of
+    unstructured and maximum independent sets, molecular graphs, and RNA sequences.
 - id: jang2024simple
   type: conference
   title: A Simple and Scalable Representation for Graph Generation
@@ -796,6 +1525,22 @@
   code: https://github.com/yunhuijang/GEEL
   website: https://yunhuijang.github.io/projects/GEEL/
   html: https://openreview.net/forum?id=nO344avRib
+  # Abstract source: https://arxiv.org/abs/2312.02230
+  abstract: >-
+    Recently, there has been a surge of interest in employing neural networks for graph generation,
+    a fundamental statistical learning problem with critical applications like molecule design and
+    community analysis. However, most approaches encounter significant limitations when generating
+    large-scale graphs. This is due to their requirement to output the full adjacency matrices whose
+    size grows quadratically with the number of nodes. In response to this challenge, we introduce a
+    new, simple, and scalable graph representation named gap encoded edge list (GEEL) that has a
+    small representation size that aligns with the number of edges. In addition, GEEL significantly
+    reduces the vocabulary size by incorporating the gap encoding and bandwidth restriction schemes.
+    GEEL can be autoregressively generated with the incorporation of node positional encoding, and
+    we further extend GEEL to deal with attributed graphs by designing a new grammar. Our findings
+    reveal that the adoption of this compact representation not only enhances scalability but also
+    bolsters performance by simplifying the graph generation process. We conduct a comprehensive
+    evaluation across ten non-attributed and two molecular graph generation tasks, demonstrating the
+    effectiveness of GEEL.
 - id: jang2024graph
   type: conference
   title: Graph Generation with K^2 Trees
@@ -811,6 +1556,17 @@
   website: https://yunhuijang.github.io/projects/HGGT/
   html: https://openreview.net/forum?id=RIEW6M9YoV&noteId=u4TTrh9jWw
   cv_title_tex: Graph Generation with $K^2$-trees
+  # Abstract source: https://arxiv.org/abs/2305.19125
+  abstract: >-
+    Generating graphs from a target distribution is a significant challenge across many domains,
+    including drug discovery and social network analysis. In this work, we introduce a novel graph
+    generation method leveraging K²-tree representation, originally designed for lossless graph
+    compression. The K²-tree representation encompasses inherent hierarchy while enabling compact
+    graph generation. In addition, we make contributions by (1) presenting a sequential
+    K²-treerepresentation that incorporates pruning, flattening, and tokenization processes and (2)
+    introducing a Transformer-based architecture designed to generate the sequence by incorporating
+    a specialized tree positional encoding scheme. Finally, we extensively evaluate our algorithm on
+    four general and two molecular graph datasets to confirm its superiority for graph generation.
 - id: kim2024local
   type: conference
   title: Local Search GFlowNets
@@ -830,6 +1586,19 @@
   code: https://github.com/dbsxodud-11/ls_gfn
   html: https://openreview.net/forum?id=6cFcw1Rxww
   cv_annotation: spotlight presentation (366 of 7,304 submissions, 5.0%)
+  # Abstract source: https://arxiv.org/abs/2310.02710
+  abstract: >-
+    Generative Flow Networks (GFlowNets) are amortized sampling methods that learn a distribution
+    over discrete objects proportional to their rewards. GFlowNets exhibit a remarkable ability to
+    generate diverse samples, yet occasionally struggle to consistently produce samples with high
+    rewards due to over-exploration on wide sample space. This paper proposes to train GFlowNets
+    with local search, which focuses on exploiting high-rewarded sample space to resolve this issue.
+    Our main idea is to explore the local neighborhood via backtracking and reconstruction guided by
+    backward and forward policies, respectively. This allows biasing the samples toward high-reward
+    solutions, which is not possible for a typical GFlowNet solution generation scheme, which uses
+    the forward policy to generate the solution from scratch. Extensive experiments demonstrate a
+    remarkable performance improvement in several biochemical tasks. Source code is available:
+    https://github.com/dbsxodud-11/ls_gfn.
 - id: cho2023multiresolution
   type: conference
   title: Multi-resolution Spectral Coherence for Graph Generation with Score-based Diffusion
@@ -843,6 +1612,21 @@
   year: 2023
   abbr: NeurIPS
   html: https://proceedings.neurips.cc/paper_files/paper/2023/hash/427f20d90386fd27804f1831d6a3d48f-Abstract-Conference.html
+  # Abstract source: https://proceedings.neurips.cc/paper_files/paper/2023/hash/427f20d90386fd27804f1831d6a3d48f-Abstract-Conference.html
+  abstract: >-
+    Successful graph generation depends on the accurate estimation of the joint distribution of
+    graph components such as nodes and edges from training data. While recent deep neural networks
+    have demonstrated sampling of realistic graphs together with diffusion models, however, they
+    still suffer from oversmoothing problems which are inherited from conventional graph convolution
+    and thus high-frequency characteristics of nodes and edges become intractable. To overcome such
+    issues and generate graphs with high fidelity, this paper introduces a novel approach that
+    captures the dependency between nodes and edges at multiple resolutions in the spectral space.
+    By modeling the joint distribution of node and edge signals in a shared graph wavelet space,
+    together with a score-based diffusion model, we propose a Wavelet Graph Diffusion Model
+    (Wave-GD) which lets us sample synthetic graphs with real-like frequency characteristics of
+    nodes and edges. Experimental results on four representative benchmark datasets validate the
+    superiority of the Wave-GD over existing approaches, highlighting its potential for a wide range
+    of applications that involve graph data.
 - id: jang2023diffusion
   type: conference
   title: Diffusion Probabilistic Models for Structured Node Classification
@@ -857,6 +1641,22 @@
   arxiv: '2302.10506'
   code: https://github.com/hsjang0/DPM-SNC
   html: https://proceedings.neurips.cc/paper_files/paper/2023/hash/65d32185f73cbf4535449a792c63926f-Abstract-Conference.html
+  # Abstract source: https://arxiv.org/abs/2302.10506
+  abstract: >-
+    This paper studies structured node classification on graphs, where the predictions should
+    consider dependencies between the node labels. In particular, we focus on solving the problem
+    for partially labeled graphs where it is essential to incorporate the information in the known
+    label for predicting the unknown labels. To address this issue, we propose a novel framework
+    leveraging the diffusion probabilistic model for structured node classification (DPM-SNC). At
+    the heart of our framework is the extraordinary capability of DPM-SNC to (a) learn a joint
+    distribution over the labels with an expressive reverse diffusion process and (b) make
+    predictions conditioned on the known labels utilizing manifold-constrained sampling. Since the
+    DPMs lack training algorithms for partially labeled data, we design a novel training algorithm
+    to apply DPMs, maximizing a new variational lower bound. We also theoretically analyze how DPMs
+    benefit node classification by enhancing the expressive power of GNNs based on proposing AGG-WL,
+    which is strictly more powerful than the classic 1-WL test. We extensively verify the
+    superiority of our DPM-SNC in diverse scenarios, which include not only the transductive setting
+    on partially labeled graphs but also the inductive setting and unlabeled graphs.
 - id: kim2023bootstrapped
   type: conference
   title: Bootstrapped Training of Score-Conditioned Generator for Offline Design of Biological Sequences
@@ -871,6 +1671,20 @@
   arxiv: '2306.03111'
   code: https://github.com/kaist-silab/bootgen
   html: https://openreview.net/forum?id=fj0ZeRtUTU&noteId=pI7h4pCa0P
+  # Abstract source: https://arxiv.org/abs/2306.03111
+  abstract: >-
+    We study the problem of optimizing biological sequences, e.g., proteins, DNA, and RNA, to
+    maximize a black-box score function that is only evaluated in an offline dataset. We propose a
+    novel solution, bootstrapped training of score-conditioned generator (BootGen) algorithm. Our
+    algorithm repeats a two-stage process. In the first stage, our algorithm trains the biological
+    sequence generator with rank-based weights to enhance the accuracy of sequence generation based
+    on high scores. The subsequent stage involves bootstrapping, which augments the training dataset
+    with self-generated data labeled by a proxy score function. Our key idea is to align the
+    score-based generation with a proxy score function, which distills the knowledge of the proxy
+    score function to the generator. After training, we aggregate samples from multiple bootstrapped
+    generators and proxies to produce a diverse design. Extensive experiments show that our method
+    outperforms competitive baselines on biological sequential design tasks. We provide reproducible
+    source code: https://github.com/kaist-silab/bootgen.
 - id: shin2023closer
   type: conference
   title: A Closer Look at the Intervention Procedure of Concept Bottleneck Models
@@ -885,6 +1699,23 @@
   arxiv: '2302.14260'
   code: https://github.com/ssbin4/Closer-Intervention-CBM
   html: https://proceedings.mlr.press/v202/shin23a/shin23a.pdf
+  # Abstract source: https://arxiv.org/abs/2302.14260
+  abstract: >-
+    Concept bottleneck models (CBMs) are a class of interpretable neural network models that predict
+    the target response of a given input based on its high-level concepts. Unlike the standard
+    end-to-end models, CBMs enable domain experts to intervene on the predicted concepts and rectify
+    any mistakes at test time, so that more accurate task predictions can be made at the end. While
+    such intervenability provides a powerful avenue of control, many aspects of the intervention
+    procedure remain rather unexplored. In this work, we develop various ways of selecting
+    intervening concepts to improve the intervention effectiveness and conduct an array of in-depth
+    analyses as to how they evolve under different circumstances. Specifically, we find that an
+    informed intervention strategy can reduce the task error more than ten times compared to the
+    current baseline under the same amount of intervention counts in realistic settings, and yet,
+    this can vary quite significantly when taking into account different intervention granularity.
+    We verify our findings through comprehensive evaluations, not only on the standard real
+    datasets, but also on synthetic datasets that we generate based on a set of different causal
+    graphs. We further discover some major pitfalls of the current practices which, without a proper
+    addressing, raise concerns on reliability and fairness of the intervention procedure.
 - id: kim2023imitating
   type: conference
   title: Imitating Graph-Based Planning with Goal-Conditioned Policies
@@ -900,6 +1731,21 @@
   arxiv: '2303.11166'
   code: https://github.com/junsu-kim97/PIG
   html: https://openreview.net/forum?id=6lUEy1J5R7p
+  # Abstract source: https://arxiv.org/abs/2303.11166
+  abstract: >-
+    Recently, graph-based planning algorithms have gained much attention to solve goal-conditioned
+    reinforcement learning (RL) tasks: they provide a sequence of subgoals to reach the target-goal,
+    and the agents learn to execute subgoal-conditioned policies. However, the sample-efficiency of
+    such RL schemes still remains a challenge, particularly for long-horizon tasks. To address this
+    issue, we present a simple yet effective self-imitation scheme which distills a
+    subgoal-conditioned policy into the target-goal-conditioned policy. Our intuition here is that
+    to reach a target-goal, an agent should pass through a subgoal, so target-goal- and subgoal-
+    conditioned policies should be similar to each other. We also propose a novel scheme of
+    stochastically skipping executed subgoals in a planned path, which further improves performance.
+    Unlike prior methods that only utilize graph-based planning in an execution phase, our method
+    transfers knowledge from a planner along with a graph into policy learning. We empirically show
+    that our method can significantly boost the sample-efficiency of the existing goal-conditioned
+    RL methods under various long-horizon control tasks.
 - id: kim2022learning
   type: conference
   title: Learning Debiased Classifier with Biased Committee
@@ -915,6 +1761,22 @@
   arxiv: '2206.10843'
   code: https://github.com/nayeong-v-kim/LWBC
   html: https://openreview.net/forum?id=nOw2HiKmvk1
+  # Abstract source: https://arxiv.org/abs/2206.10843
+  abstract: >-
+    Neural networks are prone to be biased towards spurious correlations between classes and latent
+    attributes exhibited in a major portion of training data, which ruins their generalization
+    capability. We propose a new method for training debiased classifiers with no spurious attribute
+    label. The key idea is to employ a committee of classifiers as an auxiliary module that
+    identifies bias-conflicting data, i.e., data without spurious correlation, and assigns large
+    weights to them when training the main classifier. The committee is learned as a bootstrapped
+    ensemble so that a majority of its classifiers are biased as well as being diverse, and
+    intentionally fail to predict classes of bias-conflicting data accordingly. The consensus within
+    the committee on prediction difficulty thus provides a reliable cue for identifying and
+    weighting bias-conflicting data. Moreover, the committee is also trained with knowledge
+    transferred from the main classifier so that it gradually becomes debiased along with the main
+    classifier and emphasizes more difficult data as training progresses. On five real-world
+    datasets, our method outperforms prior arts using no spurious attribute label like ours and even
+    surpasses those relying on bias labels occasionally.
 - id: son2022disentangling
   type: conference
   title: Disentangling Sources of Risk for Distributional Multi-Agent Reinforcement Learning
@@ -929,6 +1791,20 @@
   year: 2022
   abbr: ICML
   html: https://proceedings.mlr.press/v162/son22a/son22a.pdf
+  # Abstract source: https://proceedings.mlr.press/v162/son22a.html
+  abstract: >-
+    In cooperative multi-agent reinforcement learning, the outcomes of agent-wise policies are
+    highly stochastic due to the two sources of risk: (a) random actions taken by teammates and (b)
+    random transition and rewards. Although the two sources have very distinct characteristics,
+    existing frameworks are insufficient to control the risk-sensitivity of agent-wise policies in a
+    disentangled manner. To this end, we propose Disentangled RIsk-sensitive Multi-Agent
+    reinforcement learning (DRIMA) to separately access the risk sources. For example, our framework
+    allows an agent to be optimistic with respect to teammates (who can prosocially adapt) but more
+    risk-neutral with respect to the environment (which does not adapt). Our experiments demonstrate
+    that DRIMA significantly outperforms prior state-of-the-art methods across various scenarios in
+    the StarCraft Multi-agent Challenge environment. Notably, DRIMA shows robust performance where
+    prior methods learn only a highly suboptimal policy, regardless of reward shaping, exploration
+    scheduling, and noisy (random or adversarial) agents.
 - id: kim2022what
   type: conference
   title: What Makes Better Augmentation Strategies? Augment Difficult but Not Too Different
@@ -942,6 +1818,28 @@
   abbr: ICLR
   code: https://github.com/bbuing9/DND
   html: https://openreview.net/forum?id=Ucx3DQbC9GH
+  # Abstract source: https://pure.kaist.ac.kr/en/publications/what-makes-better-augmentation-strategies-augment-difficult-but-n/
+  abstract: >-
+    The practice of data augmentation has been extensively used to boost the performance of deep
+    neural networks for various NLP tasks. It is more effective when only a limited number of
+    labeled samples is available, e.g., low-data or class-imbalanced regimes. Most current
+    augmentation techniques rely on parameter tuning or inherent randomness; hence, their
+    effectiveness largely varies on the tasks. To efficiently find the best augmentation strategy
+    for each task, learning data augmentation policy is a promising solution, but the question of
+    what makes a good augmentation in NLP tasks and how to design the reward function for learning a
+    good policy remains under-explored. To answer this, we hypothesize that good data augmentation
+    should construct more diverse and challenging samples for providing informative training
+    signals, while avoiding the risk of losing the semantics of original samples. Therefore, we
+    design a novel reward function for updating the augmentation policy to construct difficult but
+    not too different samples (DND). Particularly, we jointly optimize a data augmentation policy
+    while training the model, to construct the augmented samples with low confidence but a high
+    semantic similarity with original ones. In addition, we introduce a sample re-weighting scheme
+    to focus on difficult augmented samples after the original ones are learned confidently for more
+    effective learning from the augmented ones. Our learning-based augmentation outperforms the
+    recent state-of-the-art augmentation schemes on various text classification tasks and GLUE
+    benchmark by successfully discovering the effective augmentations for each task. Remarkably, our
+    method is more effective on the challenging low-data and class-imbalanced regimes, and the
+    learned augmentation policy is well-transferable to the different tasks and models.
 - id: ahn2022spanning
   type: conference
   title: Spanning Tree-based Graph Generation for Molecules
@@ -956,6 +1854,20 @@
   presentation: Spotlight
   html: https://openreview.net/forum?id=w60btE_8T2m
   cv_annotation: spotlight presentation (174 of 3,422 submissions, 5.1%)
+  # Abstract source: https://iclr.cc/virtual/2022/spotlight/6002
+  abstract: >-
+    In this paper, we explore the problem of generating molecules using deep neural networks, which
+    has recently gained much interest in chemistry. To this end, we propose a spanning tree-based
+    graph generation (STGG) framework based on formulating molecular graph generation as a
+    construction of a spanning tree and the residual edges. Such a formulation exploits the sparsity
+    of molecular graphs and allows using compact tree-constructive operations to define the
+    molecular graph connectivity. Based on the intermediate graph structure of the construction
+    process, our framework can constrain its generation to molecular graphs that satisfy the
+    chemical valence rules. We also newly design a Transformer architecture with tree-based relative
+    positional encodings for realizing the tree construction procedure. Experiments on QM9,
+    ZINC250k, and MOSES benchmarks verify the effectiveness of the proposed framework in metrics
+    such as validity, Frechet ChemNet distance, and fragment similarity. We also demonstrate the
+    usefulness of STGG in maximizing penalized LogP value of molecules.
 - id: yu2021roma
   type: conference
   title: 'RoMA: Robust Model Adaptation for Offline Model-based Optimization'
@@ -969,6 +1881,21 @@
   abbr: NeurIPS
   arxiv: '2110.14188'
   code: https://github.com/sihyun-yu/RoMA
+  # Abstract source: https://arxiv.org/abs/2110.14188
+  abstract: >-
+    We consider the problem of searching an input maximizing a black-box objective function given a
+    static dataset of input-output queries. A popular approach to solving this problem is
+    maintaining a proxy model, e.g., a deep neural network (DNN), that approximates the true
+    objective function. Here, the main challenge is how to avoid adversarially optimized inputs
+    during the search, i.e., the inputs where the DNN highly overestimates the true objective
+    function. To handle the issue, we propose a new framework, coined robust model adaptation
+    (RoMA), based on gradient-based optimization of inputs over the DNN. Specifically, it consists
+    of two steps: (a) a pre-training strategy to robustly train the proxy model and (b) a novel
+    adaptation procedure of the proxy model to have robust estimates for a specific set of candidate
+    solutions. At a high level, our scheme utilizes the local smoothness prior to overcome the
+    brittleness of the DNN. Experiments under various tasks show the effectiveness of RoMA compared
+    with previous methods, obtaining state-of-the-art results, e.g., RoMA outperforms all at 4 out
+    of 6 tasks and achieves runner-up results at the remaining tasks.
 - id: kim2021selfimproved
   type: conference
   title: Self-Improved Retrosynthetic Planning
@@ -983,6 +1910,22 @@
   arxiv: '2106.04880'
   code: https://github.com/junsu-kim97/self_improved_retro
   html: https://proceedings.mlr.press/v139/kim21b/kim21b.pdf
+  # Abstract source: https://arxiv.org/abs/2106.04880
+  abstract: >-
+    Retrosynthetic planning is a fundamental problem in chemistry for finding a pathway of reactions
+    to synthesize a target molecule. Recently, search algorithms have shown promising results for
+    solving this problem by using deep neural networks (DNNs) to expand their candidate solutions,
+    i.e., adding new reactions to reaction pathways. However, the existing works on this line are
+    suboptimal; the retrosynthetic planning problem requires the reaction pathways to be (a)
+    represented by real-world reactions and (b) executable using "building block" molecules, yet the
+    DNNs expand reaction pathways without fully incorporating such requirements. Motivated by this,
+    we propose an end-to-end framework for directly training the DNNs towards generating reaction
+    pathways with the desirable properties. Our main idea is based on a self-improving procedure
+    that trains the model to imitate successful trajectories found by itself. We also propose a
+    novel reaction augmentation scheme based on a forward reaction model. Our experiments
+    demonstrate that our scheme significantly improves the success rate of solving the
+    retrosynthetic problem from 86.84% to 96.32% while maintaining the performance of DNN for
+    predicting valid reactions.
 - id: lee2021retcl
   type: conference
   title: 'RetCL: A Selection-based Approach for Retrosynthesis via Contrastive Learning'
@@ -1000,6 +1943,23 @@
   arxiv: '2105.00795'
   code: https://github.com/hankook/RetCL
   html: https://www.ijcai.org/proceedings/2021/0368.pdf
+  # Abstract source: https://arxiv.org/abs/2105.00795
+  abstract: >-
+    Retrosynthesis, of which the goal is to find a set of reactants for synthesizing a target
+    product, is an emerging research area of deep learning. While the existing approaches have shown
+    promising results, they currently lack the ability to consider availability (e.g., stability or
+    purchasability) of the reactants or generalize to unseen reaction templates (i.e., chemical
+    reaction rules). In this paper, we propose a new approach that mitigates the issues by
+    reformulating retrosynthesis into a selection problem of reactants from a candidate set of
+    commercially available molecules. To this end, we design an efficient reactant selection
+    framework, named RetCL (retrosynthesis via contrastive learning), for enumerating all of the
+    candidate molecules based on selection scores computed by graph neural networks. For learning
+    the score functions, we also propose a novel contrastive training scheme with hard negative
+    mining. Extensive experiments demonstrate the benefits of the proposed selection-based approach.
+    For example, when all 671k reactants in the USPTO database are given as candidates, our RetCL
+    achieves top-1 exact match accuracy of 71.3% for the USPTO-50k benchmark, while a recent
+    transformer-based approach achieves 59.6%. We also demonstrate that RetCL generalizes well to
+    unseen templates in various settings in contrast to template-based approaches.
 - id: lee2021layeradaptive
   type: conference
   title: Layer-adaptive sparsity for the Magnitude-based Pruning
@@ -1015,6 +1975,21 @@
   arxiv: '2010.07611'
   code: https://github.com/jaeho-lee/layer-adaptive-sparsity
   html: https://openreview.net/forum?id=H6ATjJ0TKdf
+  # Abstract source: https://arxiv.org/abs/2010.07611
+  abstract: >-
+    Recent discoveries on neural network pruning reveal that, with a carefully chosen layerwise
+    sparsity, a simple magnitude-based pruning achieves state-of-the-art tradeoff between sparsity
+    and performance. However, without a clear consensus on "how to choose," the layerwise sparsities
+    are mostly selected algorithm-by-algorithm, often resorting to handcrafted heuristics or an
+    extensive hyperparameter search. To fill this gap, we propose a novel importance score for
+    global pruning, coined layer-adaptive magnitude-based pruning (LAMP) score; the score is a
+    rescaled version of weight magnitude that incorporates the model-level ℓ₂ distortion incurred by
+    pruning, and does not require any hyperparameter tuning or heavy computation. Under various
+    image classification setups, LAMP consistently outperforms popular existing schemes for
+    layerwise sparsity selection. Furthermore, we observe that LAMP continues to outperform
+    baselines even in weight-rewinding setups, while the connectivity-oriented layerwise sparsity
+    (the strongest baseline overall) performs worse than a simple global magnitude-based pruning in
+    this case. Code: https://github.com/jaeho-lee/layer-adaptive-sparsity
 - id: nam2020learning
   type: conference
   title: 'Learning from Failure: Training Debiased Classifier from Biased Classifier'
@@ -1030,6 +2005,23 @@
   arxiv: '2007.02561'
   code: https://github.com/alinlab/LfF
   html: https://proceedings.neurips.cc/paper/2020/file/eddc3427c5d77843c2253f1e799fe933-Paper.pdf
+  # Abstract source: https://arxiv.org/abs/2007.02561
+  abstract: >-
+    Neural networks often learn to make predictions that overly rely on spurious correlation
+    existing in the dataset, which causes the model to be biased. While previous work tackles this
+    issue by using explicit labeling on the spuriously correlated attributes or presuming a
+    particular bias type, we instead utilize a cheaper, yet generic form of human knowledge, which
+    can be widely applicable to various types of bias. We first observe that neural networks learn
+    to rely on the spurious correlation only when it is "easier" to learn than the desired
+    knowledge, and such reliance is most prominent during the early phase of training. Based on the
+    observations, we propose a failure-based debiasing scheme by training a pair of neural networks
+    simultaneously. Our main idea is twofold; (a) we intentionally train the first network to be
+    biased by repeatedly amplifying its "prejudice", and (b) we debias the training of the second
+    network by focusing on samples that go against the prejudice of the biased network in (a).
+    Extensive experiments demonstrate that our method significantly improves the training of the
+    network against various types of biases in both synthetic and real-world datasets. Surprisingly,
+    our framework even occasionally outperforms the debiasing methods requiring explicit supervision
+    of the spuriously correlated attributes.
 - id: ahn2020guiding
   type: conference
   title: Guiding Deep Molecular Optimization with Genetic Exploration
@@ -1044,6 +2036,19 @@
   arxiv: '2007.04897'
   code: https://github.com/sungsoo-ahn/genetic-expert-guided-learning
   html: https://proceedings.neurips.cc/paper/2020/file/8ba6c657b03fc7c8dd4dff8e45defcd2-Paper.pdf
+  # Abstract source: https://arxiv.org/abs/2007.04897
+  abstract: >-
+    De novo molecular design attempts to search over the chemical space for molecules with the
+    desired property. Recently, deep learning has gained considerable attention as a promising
+    approach to solve the problem. In this paper, we propose genetic expert-guided learning (GEGL),
+    a simple yet novel framework for training a deep neural network (DNN) to generate
+    highly-rewarding molecules. Our main idea is to design a "genetic expert improvement" procedure,
+    which generates high-quality targets for imitation learning of the DNN. Extensive experiments
+    show that GEGL significantly improves over state-of-the-art methods. For example, GEGL manages
+    to solve the penalized octanol-water partition coefficient optimization with a score of 31.40,
+    while the best-known score in the literature is 27.22. Besides, for the GuacaMol benchmark with
+    20 tasks, our method achieves the highest score for 19 tasks, in comparison with
+    state-of-the-art methods, and newly obtains the perfect score for three tasks.
 - id: ahn2020learning
   type: conference
   title: Learning What to Defer for Maximum Independent Sets
@@ -1057,6 +2062,20 @@
   arxiv: '2006.09607'
   code: https://github.com/sungsoo-ahn/learning_what_to_defer
   html: https://proceedings.mlr.press/v119/ahn20a/ahn20a.pdf
+  # Abstract source: https://arxiv.org/abs/2006.09607
+  abstract: >-
+    Designing efficient algorithms for combinatorial optimization appears ubiquitously in various
+    scientific fields. Recently, deep reinforcement learning (DRL) frameworks have gained
+    considerable attention as a new approach: they can automate the design of a solver while relying
+    less on sophisticated domain knowledge of the target problem. However, the existing DRL solvers
+    determine the solution using a number of stages proportional to the number of elements in the
+    solution, which severely limits their applicability to large-scale graphs. In this paper, we
+    seek to resolve this issue by proposing a novel DRL scheme, coined learning what to defer (LwD),
+    where the agent adaptively shrinks or stretch the number of stages by learning to distribute the
+    element-wise decisions of the solution at each stage. We apply the proposed framework to the
+    maximum independent set (MIS) problem, and demonstrate its significant improvement over the
+    current state-of-the-art DRL scheme. We also show that LwD can outperform the conventional MIS
+    solvers on large-scale graphs having millions of vertices, under a limited time budget.
 - id: ahn2019variational
   type: conference
   title: Variational Information Distillation for Knowledge Transfer
@@ -1072,6 +2091,21 @@
   arxiv: '1904.05835'
   code: https://github.com/amzn/xfer/tree/master/var_info_distil
   html: https://openaccess.thecvf.com/content_CVPR_2019/papers/Ahn_Variational_Information_Distillation_for_Knowledge_Transfer_CVPR_2019_paper.pdf
+  # Abstract source: https://arxiv.org/abs/1904.05835
+  abstract: >-
+    Transferring knowledge from a teacher neural network pretrained on the same or a similar task to
+    a student neural network can significantly improve the performance of the student neural
+    network. Existing knowledge transfer approaches match the activations or the corresponding
+    hand-crafted features of the teacher and the student networks. We propose an
+    information-theoretic framework for knowledge transfer which formulates knowledge transfer as
+    maximizing the mutual information between the teacher and the student networks. We compare our
+    method with existing knowledge transfer methods on both knowledge distillation and transfer
+    learning tasks and show that our method consistently outperforms existing methods. We further
+    demonstrate the strength of our method on knowledge transfer across heterogeneous network
+    architectures by transferring knowledge from a convolutional neural network (CNN) to a
+    multi-layer perceptron (MLP) on CIFAR-10. The resulting MLP significantly outperforms
+    the-state-of-the-art methods and it achieves similar performance to the CNN with a single
+    convolutional layer.
 - id: ahn2019bucketrenormalization
   type: journal
   title: Bucket-Renormalization for Approximate Inference
@@ -1116,6 +2150,18 @@
   code: https://github.com/sungsoo-ahn/bucket-renormalization
   html: https://proceedings.mlr.press/v80/ahn18a.html
   cv_title_tex: Bucket Renormalization for Approximate Inference
+  # Abstract source: https://arxiv.org/abs/1803.05104
+  abstract: >-
+    Probabilistic graphical models are a key tool in machine learning applications. Computing the
+    partition function, i.e., normalizing constant, is a fundamental task of statistical inference
+    but it is generally computationally intractable, leading to extensive study of approximation
+    methods. Iterative variational methods are a popular and successful family of approaches.
+    However, even state of the art variational methods can return poor results or fail to converge
+    on difficult instances. In this paper, we instead consider computing the partition function via
+    sequential summation over variables. We develop robust approximate algorithms by combining ideas
+    from mini-bucket elimination with tensor network and renormalization group methods from
+    statistical physics. The resulting "convergence-free" methods show good empirical performance on
+    both synthetic and real-world benchmark models, even for difficult instances.
 - id: ahn2018gauged
   type: conference
   title: Gauged Mini-Bucket Elimination for Approximate Inference
@@ -1130,6 +2176,18 @@
   arxiv: '1801.01649'
   code: https://github.com/sungsoo-ahn/gauged-mbe
   html: http://proceedings.mlr.press/v84/ahn18a.html
+  # Abstract source: https://arxiv.org/abs/1801.01649
+  abstract: >-
+    Computing the partition function Z of a discrete graphical model is a fundamental inference
+    challenge. Since this is computationally intractable, variational approximations are often used
+    in practice. Recently, so-called gauge transformations were used to improve variational lower
+    bounds on Z. In this paper, we propose a new gauge-variational approach, termed WMBE-G, which
+    combines gauge transformations with the weighted mini-bucket elimination (WMBE) method. WMBE-G
+    can provide both upper and lower bounds on Z, and is easier to optimize than the prior
+    gauge-variational algorithm. We show that WMBE-G strictly improves the earlier WMBE
+    approximation for symmetric models including Ising models with no magnetic field. Our
+    experimental results demonstrate the effectiveness of WMBE-G even for generic, nonsymmetric
+    models.
 - id: ahn2018maximum
   type: journal
   title: 'Maximum Weight Matching using Odd-sized Cycles: Max-Product Belief Propagation and Half-Integrality'
@@ -1144,6 +2202,25 @@
   abbr: IEEE TIT
   html: https://ieeexplore.ieee.org/document/8241842
   cv_details: 64(3), 1471--1480
+  # Abstract source: https://arxiv.org/abs/1306.1167v2
+  abstract: >-
+    We study the Maximum Weight Matching (MWM) problem for general graphs through the max-product
+    Belief Propagation (BP) and related Linear Programming (LP). The BP approach provides
+    distributed heuristics for finding the Maximum A Posteriori (MAP) assignment in a joint
+    probability distribution represented by a Graphical Model (GM) and respective LPs can be
+    considered as continuous relaxations of the discrete MAP problem. It was recently shown that a
+    BP algorithm converges to the correct MWM assignment under a simple GM formulation of MAP/MWM as
+    long as the corresponding LP relaxation is tight. First, under the motivation for forcing the
+    tightness condition, we consider a new GM formulation of MWM, say C-GM, using non-intersecting
+    odd-sized cycles in the graph: the new corresponding LP relaxation, say C-LP, becomes tight for
+    more MWM instances. However, the tightness of C-LP now does not guarantee such convergence and
+    correctness of the new BP on C-GM. To address the issue, we introduce a novel graph
+    transformation applied to C-GM, which results in another GM formulation of MWM, and prove that
+    the respective BP on it converges to the correct MAP/MWM assignment as long as C-LP is tight.
+    Finally, we also show that C-LP always has half-integral solutions, which leads to an efficient
+    BP-based MWM heuristic consisting of making sequential, `cutting plane', modifications to the
+    underlying GM. Our experiments show that this BP-based cutting plane heuristic performs as well
+    as that based on traditional LP solvers.
 - id: ahn2017gauging
   type: conference
   title: Gauging Variational Inference
@@ -1156,6 +2233,19 @@
   abbr: NeurIPS
   arxiv: '1703.01056'
   html: https://proceedings.neurips.cc/paper/2017/file/8d420fa35754d1f1c19969c88780314d-Paper.pdf
+  # Abstract source: https://arxiv.org/abs/1703.01056
+  abstract: >-
+    Computing partition function is the most important statistical inference task arising in
+    applications of Graphical Models (GM). Since it is computationally intractable, approximate
+    methods have been used to resolve the issue in practice, where mean-field (MF) and belief
+    propagation (BP) are arguably the most popular and successful approaches of a variational type.
+    In this paper, we propose two new variational schemes, coined Gauged-MF (G-MF) and Gauged-BP
+    (G-BP), improving MF and BP, respectively. Both provide lower bounds for the partition function
+    by utilizing the so-called gauge transformation which modifies factors of GM while keeping the
+    partition function invariant. Moreover, we prove that both G-MF and G-BP are exact for GMs with
+    a single loop of a special structure, even though the bare MF and BP perform badly in this case.
+    Our extensive experiments, on complete GMs of relatively small size and on large GM (up-to 300
+    variables) confirm that the newly proposed algorithms outperform and generalize MF and BP.
 - id: ahn2016synthesis
   type: conference
   title: Synthesis of MCMC and Belief Propagation
@@ -1170,6 +2260,27 @@
   arxiv: '1605.09042'
   html: https://papers.nips.cc/paper/6318-synthesis-of-mcmc-and-belief-propagation.pdf
   cv_annotation: oral presentation (46 of 2,500 submissions, 1.8%)
+  # Abstract source: https://arxiv.org/abs/1605.09042
+  abstract: >-
+    Markov Chain Monte Carlo (MCMC) and Belief Propagation (BP) are the most popular algorithms for
+    computational inference in Graphical Models (GM). In principle, MCMC is an exact probabilistic
+    method which, however, often suffers from exponentially slow mixing. In contrast, BP is a
+    deterministic method, which is typically fast, empirically very successful, however in general
+    lacking control of accuracy over loopy graphs. In this paper, we introduce MCMC algorithms
+    correcting the approximation error of BP, i.e., we provide a way to compensate for BP errors via
+    a consecutive BP-aware MCMC. Our framework is based on the Loop Calculus (LC) approach which
+    allows expressing the BP error as a sum of weighted generalized loops. Although the full series
+    is computationally intractable, it is known that a truncated series, summing up all 2-regular
+    loops, is computable in polynomial-time for planar pair-wise binary GMs and it also provides a
+    highly accurate approximation empirically. Motivated by this, we first propose a polynomial-time
+    approximation MCMC scheme for the truncated series of general (non-planar) pair-wise binary
+    models. Our main idea here is to use the Worm algorithm, known to provide fast mixing in other
+    (related) problems, and then design an appropriate rejection scheme to sample 2-regular loops.
+    Furthermore, we also design an efficient rejection-free MCMC scheme for approximating the full
+    series. The main novelty underlying our design is in utilizing the concept of cycle basis, which
+    provides an efficient decomposition of the generalized loops. In essence, the proposed MCMC
+    schemes run on transformed GM built upon the non-trivial BP solution, and our experiments show
+    that this synthesis of BP and MCMC outperforms both direct MCMC and bare BP schemes.
 - id: ahn2015minimum
   type: conference
   title: Minimum Weight Perfect Matching via Blossom Belief Propagation
@@ -1185,3 +2296,19 @@
   arxiv: '1509.06849'
   html: https://proceedings.neurips.cc/paper/2015/file/dc5689792e08eb2e219dce49e64c885b-Paper.pdf
   cv_annotation: spotlight presentation (82 of 1,838 submissions, 4.5%)
+  # Abstract source: https://arxiv.org/abs/1509.06849
+  abstract: >-
+    Max-product Belief Propagation (BP) is a popular message-passing algorithm for computing a
+    Maximum-A-Posteriori (MAP) assignment over a distribution represented by a Graphical Model (GM).
+    It has been shown that BP can solve a number of combinatorial optimization problems including
+    minimum weight matching, shortest path, network flow and vertex cover under the following common
+    assumption: the respective Linear Programming (LP) relaxation is tight, i.e., no integrality gap
+    is present. However, when LP shows an integrality gap, no model has been known which can be
+    solved systematically via sequential applications of BP. In this paper, we develop the first
+    such algorithm, coined Blossom-BP, for solving the minimum weight matching problem over
+    arbitrary graphs. Each step of the sequential algorithm requires applying BP over a modified
+    graph constructed by contractions and expansions of blossoms, i.e., odd sets of vertices. Our
+    scheme guarantees termination in O(n^2) of BP runs, where n is the number of vertices in the
+    original graph. In essence, the Blossom-BP offers a distributed version of the celebrated
+    Edmonds' Blossom algorithm by jumping at once over many sub-steps with a single BP. Moreover,
+    our result provides an interpretation of the Edmonds' algorithm as a sequence of LPs.

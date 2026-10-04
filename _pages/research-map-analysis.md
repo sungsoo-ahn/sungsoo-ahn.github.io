@@ -20,15 +20,15 @@ Reviewed 2026-10-03. The map covers **76 publications**, grouped into **74 resea
 - No direct real-robot sim-to-real result was established in the reviewed corpus. Simulation/proxy-to-reality is an interpretive evaluation-gap theme.
 - Specific connections describe documented shared mechanisms or explicitly interpretive parallels, not automatically citations or historical influence.
 
-The overview uses one shared station per work in a left-to-right chronological sweep. Papers are ordered by the earlier of their first arXiv version listing Sungsoo Ahn and their conference acceptance announcement. Journal publication months are a fallback when neither date is available. Labels and station symbols reserve clear space, and quiet periods contribute to variable spacing. This is not a proportional calendar scale. Blossom-BP (2015) therefore appears before GEGL (2020), regardless of category. Domain lines can bend through available space. A constrained force pass separates crowded stations and lines while preserving horizontal positions, clear labels, and routing corridors. Vertical movement is limited to 28 pixels. Routing favors horizontal runs and 45-degree transitions, and penalizes bends, detours, crossings, and close parallel tracks. Separate entry and exit positions keep domain tracks apart at shared stations. Background casings make clear gaps at unavoidable crossings, without line jumps. Busy interchanges receive extra horizontal room. Optional map_layout display hints refine crowded station and label positions after the force pass; local horizontal reflow preserves label clearance and chronology. The 300-pixel-high figure keeps the same geometry throughout navigation. Categories appear in a consistent legend below it, with distinct colors sorted by their first publication.
+The overview uses one shared station per work in a vertical figure, newest first, at every browser width. Papers are ordered by the earlier of their first arXiv version listing Sungsoo Ahn and their conference acceptance announcement. Journal publication months are a fallback when neither date is available. Spacing reserves room for labels and descriptions and is not a proportional calendar scale. The layout retains the cleaned cross-domain station placement and routes sequential connections with vertical runs and 45-degree transitions. Routing penalizes bends, detours, crossings, and close parallel tracks. Separate entry and exit positions keep domain tracks apart at shared stations. Background casings make clear gaps at unavoidable crossings, without line jumps. At widths of 992 pixels and above, lightly domain-colored boxes show descriptions and domain names beside each paper nickname. Thin grey leaders connect the boxes to their stations. Below 992 pixels, the boxes are hidden and each circle has a nearby nickname and conference/year. A stable domain legend appears below the narrow figure, sorted by first appearance.
 
-Graph and language modeling are represented as methodologies rather than overview domains. Their application papers are assigned to molecules, proteins, materials, or cells; generic neural graph learning, reasoning, control, and optimization are grouped under General ML: deep learning. General ML: graphical models covers the classical BP, partition-function, gauge, and elimination work. Rechecking graph experiments added molecular evaluation memberships for EPIC (Section 4.1 and Table 2) and Wavelet diffusion (QM9, Sections 4.1/4.4), and biological evaluation memberships for EPIC, Non-backtracking GNN (Peptides-func/struct), and Node diffusion (PPI). Every assignment retains its source locator.
+Graph and language modeling are represented as methodologies rather than overview domains. Their application papers are assigned to molecules, proteins, materials, or cells; generic neural graph learning, reasoning, control, and optimization are grouped under General ML. Graphical models covers the classical BP, partition-function, gauge, and elimination work. Rechecking graph experiments added molecular evaluation memberships for EPIC (Section 4.1 and Table 2) and Wavelet diffusion (QM9, Sections 4.1/4.4), and biological evaluation memberships for EPIC, Non-backtracking GNN (Peptides-func/struct), and Node diffusion (PPI). Every assignment retains its source locator.
 
-The map opens at the newest end. Left/right controls pan up to 360 CSS pixels at one fixed scale, retaining overlapping windows on narrow screens so no paper falls between steps; horizontal scrolling and Home/End are supported. Each paper has one nickname and first venue/year label above or below its station, shown when the label fits the viewport. Full titles, one-sentence summaries, author lists, all domains, main and secondary contributions, and editions appear on hover. Papers with multiple domain memberships act as interchanges where their colored routes meet. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
+The complete map uses ordinary page scrolling at every width. Resizing changes only the label treatment, retaining the same stations, connections, and figure height. Full titles, author lists, venues, and original abstracts appear on hover. Long abstracts scroll inside the card. Papers with multiple domain memberships act as interchanges where their colored routes meet. Major lines connect only adjacent publications within each complete theme sequence and never bridge an intermediate paper.
 
-Paper stations link directly to arXiv in a new tab. Bibliographic arXiv links take precedence; annotated arXiv sources cover papers absent from the bibliography. Existing publisher, conference, or reviewed project sources provide destinations when no arXiv record is available. The homepage has no paper-wise conceptual view; curated connections and their evidence remain in this analysis and the editable annotations.
+Paper stations link directly to arXiv in a new tab. Bibliographic arXiv links take precedence; annotated arXiv sources cover papers absent from the bibliography. Existing publisher, conference, or reviewed project sources provide destinations when no arXiv record is available. Selected shared ideas appear as thin, dashed grey lines behind the solid domain routes, including before hovering. Only relationships with a specific map_idea are eligible, and their publication dates must be within the configured five-year window. Hovering a paper highlights its incident connections while its card shows only the title, authors, venue, and abstract. Idea-line hovers explain the parallel and link to its two papers. Domain-line hovers compare the papers’ actual contributions. All curated connections and their evidence remain in this analysis and the editable annotations.
 
-Station colors indicate domains and SVG shapes indicate one main contribution. The contribution families are Symmetry, Generative modeling, Representations, Learning & inference, Search & optimization, Reasoning, Agents, and Benchmarks. Their stable legends follow first appearance. Contribution annotations identify the central novelty rather than every method used. QHFlow and QHFlow2 share a Symmetry mark and an Electronic structure domain, alongside GPWNO. Secondary contribution labels remain in hover cards and never add station markers. MaskGXT / HACO uses an Agents marker and also lists Generative modeling. Other method annotations remain available on hover.
+All paper stations use circles; their colors indicate domains. Desktop boxes show their domain names directly; the domain legend on narrow screens follows first appearance. The analysis retains contribution families: Symmetry, Generative modeling, Representations, Learning & inference, Search & optimization, Reasoning, Agents, and Benchmarks. Contribution annotations identify the central novelty rather than every method used. QHFlow and QHFlow2 share a Symmetry contribution and an Electronic structure domain, alongside GPWNO. MaskGXT / HACO lists Agents as its main contribution and Generative modeling as a secondary contribution. Other method annotations remain available in the analysis.
 
 Chronology selects the earlier of the first arXiv version listing Sungsoo Ahn and the official conference acceptance notification. Candidate dates and excluded pre-authorship versions are recorded below; journal months are a fallback when neither date is available. Venue/year labels remain bibliographic. Titles and identifiers break ties on the same date. Curated pairwise connections require evidence from both endpoints. The keyword pool is intentionally overcomplete and editable; keyword overlap never creates a scientific connection automatically.
 
@@ -584,7 +584,7 @@ Learns generative flow maps directly on manifolds for rapid biological design.
 
 **Candidate dates.** [2026-02-08: arXiv 2602.07744v1](https://arxiv.org/abs/2602.07744v1); [2026-04-30: ICML conference notification](https://icml.cc/Conferences/2026/Dates).
 
-**Domains.** Proteins & genomics (central); General ML: deep learning (central).
+**Domains.** Proteins & genomics (central); General ML (central).
 
 **Methodologies.** Flow matching (used); Equivariant models (used).
 
@@ -701,7 +701,7 @@ Infers which individual steps in a reasoning chain are incorrect.
 
 **Candidate dates.** [2025-05-17: arXiv 2505.11824v1](https://arxiv.org/abs/2505.11824v1); [2026-01-25: ICLR conference notification](https://iclr.cc/Conferences/2026/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Probabilistic inference (used); Language / sequence models (used); Search & optimization (used).
 
@@ -854,7 +854,7 @@ Provides a common framework for comparing reinforcement-learning solvers for com
 
 **Excluded versions.** [2306.17100v1 (2023-06-29)](https://arxiv.org/abs/2306.17100v1): Sungsoo Ahn is absent from this version’s author list.; [2306.17100v2 (2023-09-13)](https://arxiv.org/abs/2306.17100v2): Sungsoo Ahn is absent from this version’s author list.; [2306.17100v3 (2023-12-04)](https://arxiv.org/abs/2306.17100v3): Sungsoo Ahn is absent from this version’s author list.
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Reinforcement learning (used); Benchmarks & evaluation (used).
 
@@ -891,7 +891,7 @@ Trains neural samplers directly from energy functions on continuous, discrete, o
 
 **Candidate dates.** [2025-05-26: arXiv 2505.19646v1](https://arxiv.org/abs/2505.19646v1); [2025-09-18: NeurIPS conference notification](https://neurips.cc/Conferences/2025/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Energy-based sampling (used); Flow matching (used); Diffusion models (used).
 
@@ -930,7 +930,7 @@ Improves neural sampling when energy calls are expensive and landscapes contain 
 
 **Candidate dates.** [2025-05-26: arXiv 2505.19552v1](https://arxiv.org/abs/2505.19552v1); [2025-09-18: NeurIPS conference notification](https://neurips.cc/Conferences/2025/Dates).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (central).
+**Domains.** General ML (central); Molecules & drug discovery (central).
 
 **Methodologies.** Energy-based sampling (used); Diffusion models (used); Search & optimization (used).
 
@@ -1048,7 +1048,7 @@ Improves reasoning self-training by evaluating reasoning paths rather than only 
 
 **Candidate dates.** [2025-05-23: arXiv 2505.17454v1](https://arxiv.org/abs/2505.17454v1); [2025-08-20: EMNLP conference notification](https://2025.emnlp.org/calls/main_conference_papers/).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Language / sequence models (used); Reinforcement learning (used).
 
@@ -1163,7 +1163,7 @@ Uses causal influence diagrams to guide safer language-model agent decisions.
 
 **Candidate dates.** [2025-05-15: ACL conference notification](https://2025.aclweb.org/calls/main_conference_papers/); [2025-07-01: arXiv 2507.00979v1](https://arxiv.org/abs/2507.00979v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Language / sequence models (used).
 
@@ -1398,7 +1398,7 @@ Directs amortized samplers toward states their current training policy misses.
 
 **Candidate dates.** [2024-10-02: arXiv 2410.01432v1](https://arxiv.org/abs/2410.01432v1); [2025-01-22: ICLR conference notification](https://iclr.cc/Conferences/2025/Dates).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (central); Proteins & genomics (central).
+**Domains.** General ML (central); Molecules & drug discovery (central); Proteins & genomics (central).
 
 **Methodologies.** GFlowNets (used); Energy-based sampling (used).
 
@@ -1515,7 +1515,7 @@ Learns a continuous generator from an energy function when target samples are un
 
 **Candidate dates.** [2024-08-29: arXiv 2408.16249v1](https://arxiv.org/abs/2408.16249v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Energy-based sampling (used); Flow matching (used).
 
@@ -1552,7 +1552,7 @@ Reduces redundant message flows that revisit the immediately preceding graph nod
 
 **Candidate dates.** [2023-10-11: arXiv 2310.07430v1](https://arxiv.org/abs/2310.07430v1); [2024-09: TMLR journal month](https://jmlr.org/tmlr/papers/).
 
-**Domains.** General ML: deep learning (central); Proteins & genomics (evaluation).
+**Domains.** General ML (central); Proteins & genomics (evaluation).
 
 **Methodologies.** Graph neural networks (used).
 
@@ -1591,7 +1591,7 @@ Addresses under-exploitation of high-reward objects in GFlowNet training.
 
 **Candidate dates.** [2024-05-25: arXiv 2405.16012v1](https://arxiv.org/abs/2405.16012v1); [2024-09-26: NeurIPS conference notification](https://neurips.cc/Conferences/2024/Dates).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (central); Proteins & genomics (central).
+**Domains.** General ML (central); Molecules & drug discovery (central); Proteins & genomics (central).
 
 **Methodologies.** GFlowNets (used).
 
@@ -1706,7 +1706,7 @@ Handles multiple spurious correlations whose mitigation objectives can conflict.
 
 **Candidate dates.** [2024-05-01: ICML conference notification](https://icml.cc/Conferences/2024/Dates); [2024-09-05: arXiv 2409.03303v1](https://arxiv.org/abs/2409.03303v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Robust learning (used).
 
@@ -1783,7 +1783,7 @@ Constructs differentiable objectives and rounding rules for constrained discrete
 
 **Candidate dates.** [2024-05-01: ICML conference notification](https://icml.cc/Conferences/2024/Dates); [2024-05-14: arXiv 2405.08424v1](https://arxiv.org/abs/2405.08424v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Search & optimization (used); Probabilistic inference (used).
 
@@ -1820,7 +1820,7 @@ Explores long-horizon goal spaces while recording both achieved and unattained s
 
 **Candidate dates.** [2024-05-01: ICML conference notification](https://icml.cc/Conferences/2024/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Reinforcement learning (used); Search & optimization (used).
 
@@ -1896,7 +1896,7 @@ Interpolates between graphs through meaningful edit operations for data augmenta
 
 **Candidate dates.** [2023-06-02: arXiv 2306.01310v1](https://arxiv.org/abs/2306.01310v1); [2024-04-16: IJCAI conference notification](https://ijcai24.org/call-for-papers/).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (evaluation); Proteins & genomics (evaluation).
+**Domains.** General ML (central); Molecules & drug discovery (evaluation); Proteins & genomics (evaluation).
 
 **Methodologies.** Graph neural networks (used); Data augmentation (used).
 
@@ -1935,7 +1935,7 @@ Provides local training signals when intermediate object energies are costly or 
 
 **Candidate dates.** [2023-10-05: arXiv 2310.03301v1](https://arxiv.org/abs/2310.03301v1); [2024-01-15: ICLR conference notification](https://iclr.cc/Conferences/2024/CallForPapers).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (central); Proteins & genomics (central).
+**Domains.** General ML (central); Molecules & drug discovery (central); Proteins & genomics (central).
 
 **Methodologies.** GFlowNets (used); Probabilistic inference (used).
 
@@ -2054,7 +2054,7 @@ Combines global sampling with refinement of promising local neighborhoods.
 
 **Candidate dates.** [2023-10-04: arXiv 2310.02710v1](https://arxiv.org/abs/2310.02710v1); [2024-01-15: ICLR conference notification](https://iclr.cc/Conferences/2024/CallForPapers).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (central); Proteins & genomics (central).
+**Domains.** General ML (central); Molecules & drug discovery (central); Proteins & genomics (central).
 
 **Methodologies.** GFlowNets (used); Search & optimization (used).
 
@@ -2095,7 +2095,7 @@ Preserves graph-frequency structure during joint node-and-edge generation.
 
 **Candidate dates.** [2023-09-22: NeurIPS conference notification](https://neurips.cc/Conferences/2023/Dates).
 
-**Domains.** General ML: deep learning (central); Molecules & drug discovery (evaluation).
+**Domains.** General ML (central); Molecules & drug discovery (evaluation).
 
 **Methodologies.** Diffusion models (used); Graph neural networks (used).
 
@@ -2134,7 +2134,7 @@ Predicts graph-node labels jointly rather than independently.
 
 **Candidate dates.** [2023-02-21: arXiv 2302.10506v1](https://arxiv.org/abs/2302.10506v1); [2023-09-22: NeurIPS conference notification](https://neurips.cc/Conferences/2023/Dates).
 
-**Domains.** General ML: deep learning (central); Proteins & genomics (evaluation).
+**Domains.** General ML (central); Proteins & genomics (evaluation).
 
 **Methodologies.** Diffusion models (used); Graph neural networks (used); Probabilistic inference (used).
 
@@ -2210,7 +2210,7 @@ Examines how concept bottleneck interventions should be selected and applied.
 
 **Candidate dates.** [2023-02-28: arXiv 2302.14260v1](https://arxiv.org/abs/2302.14260v1); [2023-04-24: ICML conference notification](https://icml.cc/Conferences/2023/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Representation learning (used); Benchmarks & evaluation (used).
 
@@ -2248,7 +2248,7 @@ Transfers graph-planner knowledge into a goal-conditioned control policy.
 
 **Candidate dates.** [2023-01-21: ICLR conference notification](https://iclr.cc/Conferences/2023/Dates); [2023-03-20: arXiv 2303.11166v1](https://arxiv.org/abs/2303.11166v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Reinforcement learning (used); Search & optimization (used); Representation learning (used).
 
@@ -2286,7 +2286,7 @@ Finds bias-conflicting training examples without spurious-attribute labels.
 
 **Candidate dates.** [2022-06-22: arXiv 2206.10843v1](https://arxiv.org/abs/2206.10843v1); [2022-09-14: NeurIPS conference notification](https://neurips.cc/Conferences/2022/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Robust learning (used); Representation learning (used).
 
@@ -2323,7 +2323,7 @@ Separates uncertainty from teammates' actions and uncertainty from environmental
 
 **Candidate dates.** [2022-05-14: ICML conference notification](https://icml.cc/Conferences/2022/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Reinforcement learning (used); Robust learning (used).
 
@@ -2361,7 +2361,7 @@ No arXiv link is listed for this work. This draft uses the accessible abstract a
 
 **Candidate dates.** [2022-01-24: ICLR conference notification](https://iclr.cc/Conferences/2022/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Data augmentation (used); Reinforcement learning (used); Representation learning (used).
 
@@ -2440,7 +2440,7 @@ Optimizes a learned objective while limiting exploitation of out-of-distribution
 
 **Candidate dates.** [2021-09-28: NeurIPS conference notification](https://neurips.cc/Conferences/2021/Dates); [2021-10-27: arXiv 2110.14188v1](https://arxiv.org/abs/2110.14188v1).
 
-**Domains.** General ML: deep learning (central); Proteins & genomics (central).
+**Domains.** General ML (central); Proteins & genomics (central).
 
 **Methodologies.** Robust learning (used); Search & optimization (used).
 
@@ -2557,7 +2557,7 @@ Allocates sparsity across neural-network layers without extensive layerwise tuni
 
 **Candidate dates.** [2020-10-15: arXiv 2010.07611v1](https://arxiv.org/abs/2010.07611v1); [2021-01-14: ICLR conference notification](https://iclr.cc/Conferences/2021/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Compression & compact coding (used).
 
@@ -2593,7 +2593,7 @@ Debiases a classifier by emphasizing examples that an intentionally biased model
 
 **Candidate dates.** [2020-07-06: arXiv 2007.02561v1](https://arxiv.org/abs/2007.02561v1); [2020-09-26: NeurIPS conference notification](https://neurips.cc/Conferences/2020/Dates).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Robust learning (used).
 
@@ -2671,7 +2671,7 @@ Solves large maximum-independent-set problems with an adaptive number of decisio
 
 **Candidate dates.** [2020-06-01: ICML conference notification](https://icml.cc/Conferences/2020/Dates); [2020-06-17: arXiv 2006.09607v1](https://arxiv.org/abs/2006.09607v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Reinforcement learning (used); Graph neural networks (used); Search & optimization (used).
 
@@ -2708,7 +2708,7 @@ Transfers knowledge between neural networks by maximizing shared information.
 
 **Candidate dates.** [2019-03-02: CVPR conference notification](https://cvpr2019.thecvf.com/submission/timeline); [2019-04-11: arXiv 1904.05835v1](https://arxiv.org/abs/1904.05835v1).
 
-**Domains.** General ML: deep learning (central).
+**Domains.** General ML (central).
 
 **Methodologies.** Representation learning (used); Probabilistic inference (used); Compression & compact coding (used).
 
@@ -3329,7 +3329,7 @@ Evidence: [Symmetric replay training: Abstract; method formulation](https://arxi
 
 Genetic experts refine generated molecules; Local Search GFlowNets backtrack and reconstruct trajectories. Both connect exploration, refinement, and replay, but reward maximization and reward-proportional sampling are distinct objectives.
 
-**Short explanation.** Both papers combine exploration, local improvement, and replay. GEGL improves molecular candidates with genetic search. LS-GFN reconstructs trajectories. Reward maximization and reward-proportional sampling have different targets.
+**Short explanation.** Both papers refine generated candidates with improvement operators and reuse the results for training. GEGL uses molecular mutation and crossover. LS-GFN uses backward-policy backtracking and forward-policy reconstruction.
 
 Evidence: [Genetic expert-guided learning: Abstract; method formulation](https://arxiv.org/html/2007.04897v3); [Local Search GFlowNets: Abstract; method formulation](https://arxiv.org/html/2310.02710v2).
 
@@ -4075,7 +4075,7 @@ Evidence: [QHFlow2: Abstract; method formulation](https://arxiv.org/html/2602.16
 - **Electronic structure** (`d_electronic`; major): Electronic Hamiltonians, electron density, and their physical observables.
 - **Molecules & drug discovery** (`d_molecules`; major): Small-molecule representation, generation, optimization, and synthesis planning.
 - **General ML: graphical models** (`d_graphical`; major): Belief propagation, partition-function estimation, and factor transformations for classical probabilistic graphical models.
-- **General ML: deep learning** (`d_deep`; major): Domain-independent neural learning, sampling, graph representation, language-model reasoning, control, and robustness.
+- **General ML** (`d_deep`; major): General methods for learning, inference, sampling, graph representation, language-model reasoning, control, and robustness.
 - **Weather & cosmology** (`d_geoscience`; major): Weather and cosmic-microwave-background representation on the sphere.
 
 ### Methodologies

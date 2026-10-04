@@ -4,6 +4,19 @@ layout: null
 {
   "schema_version": {{ site.data.research_map.schema_version | jsonify }},
   "reviewed_on": {{ site.data.research_map.reviewed_on | jsonify }},
+  "idea_window_years": {{ site.data.research_map.idea_window_years | default: 5 | jsonify }},
+  "relationships": [
+    {% assign ideas = site.data.research_map.relationships | where_exp: 'relationship', 'relationship.map_idea' %}
+    {% for idea in ideas %}
+      {
+        "id": {{ idea.id | jsonify }},
+        "from": {{ idea.from | jsonify }},
+        "to": {{ idea.to | jsonify }},
+        "map_idea": {{ idea.map_idea | jsonify }},
+        "map_explanation": {{ idea.map_explanation | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
   "taxonomy": {{ site.data.research_map.taxonomy | jsonify }},
   "contribution_categories": {{ site.data.research_map.contribution_categories | jsonify }},
   "colors": {
