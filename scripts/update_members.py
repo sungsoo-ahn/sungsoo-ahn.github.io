@@ -12,14 +12,14 @@ EXCEL_PATH = Path(os.environ.get("SPML_MEMBERS_XLSX", DEFAULT_EXCEL_PATH)).expan
 OUTPUT_PATH = Path(__file__).parent.parent / "_pages/people.md"
 
 
-def format_member(row):
+def format_member(row, *, include_role=True):
     """Format a member entry with optional homepage link and postdoc indicator."""
     name = row["이름(영어)"]
     homepage = row.get("홈페이지")
     role = row["역할"]
 
     # Add postdoc indicator
-    if role == "포닥":
+    if include_role and role == "포닥":
         name = f"{name} (Postdoc)"
 
     if pd.notna(homepage) and homepage and homepage != "-":
@@ -53,7 +53,7 @@ def main():
         members.append(entry)
 
     # Format alumni
-    alumni_list = [row["이름(영어)"] for _, row in alumni.iterrows()]
+    alumni_list = [format_member(row, include_role=False) for _, row in alumni.iterrows()]
 
     # Build markdown content
     lines = [
@@ -62,7 +62,7 @@ def main():
         "permalink: /people/",
         "title: people",
         "description: Members of the SPML Lab",
-        "nav: true",
+        "nav: false",
         "nav_order: 3",
         "---",
         "",
