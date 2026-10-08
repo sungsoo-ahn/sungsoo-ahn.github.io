@@ -23,7 +23,7 @@ nav_order: 3
 - [Yinhua Piao (Postdoc)](https://qkrdmsghk.github.io/)
 - [Yoonho Kim](https://yoonhokim0527.github.io/)
 - [Honghui Kim (Postdoc)](https://honghuikim.github.io/)
-- [Seonghwan Kim (Postdoc)](https://seonghann.github.io/)
+- [Hyunsu Kim (Postdoc)](https://kim-hyunsu.github.io/)
 
 ---
 
@@ -32,3 +32,4 @@ nav_order: 3
 - Haeji Ko
 - Juwon Hwang
 - [Minsu Kim](https://minsuukim.github.io/)
+- [Seonghwan Kim](https://seonghann.github.io/)
