@@ -15,8 +15,8 @@ const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.ma
 
 test("vertical chronology places every paper once with clear alternating captions", () => {
   assert.equal(vertical.width, 300);
-  assert.equal(vertical.stations.length, 74);
-  assert.ok(vertical.height < 5000, "margin captions keep the complete figure compact");
+  assert.equal(vertical.stations.length, 78);
+  assert.ok(vertical.height / data.works.length < 68, "margin captions keep average paper spacing compact as the corpus grows");
   const previous = new Map();
   for (const [index, station] of vertical.stations.entries()) {
     const before = vertical.stations[index - 1];
@@ -105,15 +105,15 @@ test("selected idea routes keep station geometry and avoid unrelated papers and 
   }
 });
 
-test("full corpus uses 74 shared stations and eight distinct chronological routes", () => {
-  assert.equal(data.works.length, 74);
+test("full corpus uses 78 shared stations and eight distinct chronological routes", () => {
+  assert.equal(data.works.length, 78);
   assert.equal(layout.rows.length, 8);
   assert.equal(layout.height, 300);
   assert.ok(layout.width < 4033, "shared stations and flexible paths reduce the previous track width");
-  assert.equal(layout.stationByInstance.size, 74);
-  assert.equal(new Set(layout.stations.map((station) => station.work.id)).size, 74);
-  assert.equal(layout.rows.find((row) => row.theme.id === "d_deep").stations.length, 29);
-  assert.equal(layout.rows.find((row) => row.theme.id === "d_graphical").stations.length, 6);
+  assert.equal(layout.stationByInstance.size, 78);
+  assert.equal(new Set(layout.stations.map((station) => station.work.id)).size, 78);
+  assert.equal(layout.rows.find((row) => row.theme.id === "d_deep").stations.length, 30);
+  assert.equal(layout.rows.find((row) => row.theme.id === "d_graphical").stations.length, 7);
   for (const removed of ["d_control", "d_graphs", "d_language", "d_general"]) assert.ok(!data.themeById.has(removed));
   assert.ok(layout.xById.get("ahn2015minimum") < layout.xById.get("ahn2020guiding"));
   const catflow = layout.stationByInstance.get("kim2026catflow");
@@ -253,7 +253,7 @@ test("panning exposes every work including older publications, keeps figure heig
         lane.visibleStations.forEach((station) => seen.add(station.work.id));
       }
     }
-    assert.equal(seen.size, 74);
+    assert.equal(seen.size, 78);
     assert.deepEqual(
       layout.rows.flatMap((row) => row.connections.map((edge) => edge.id)),
       originalRoutes

@@ -104,8 +104,8 @@ const path = require("node:path");
     assert.equal(await root.locator(".rm-credit a").getAttribute("href"), "https://necludov.github.io/");
     assert.equal(await root.locator(".rm-network").count(), 1);
     assert.equal(await root.locator(".rm-horizontal, .rm-navigation, button, input, select, .rm-row-heading, .rm-identity-path").count(), 0);
-    assert.equal(await figure.locator(".rm-work").count(), 74);
-    assert.equal(await figure.locator(".rm-connection").count(), 88);
+    assert.equal(await figure.locator(".rm-work").count(), 78);
+    assert.equal(await figure.locator(".rm-connection").count(), 95);
     assert.equal(await figure.locator(".rm-idea:not([hidden])").count(), 14);
     assert.equal(await figure.locator(".rm-station:not(circle)").count(), 0);
     assert.equal(await page.getByRole("link", { name: "View all publications", exact: true }).count(), 0);
@@ -146,8 +146,8 @@ const path = require("node:path");
       await reveal("seong2025transition");
       assert.equal(await root.getAttribute("data-layout"), "vertical");
       assert.equal(await figure.isVisible(), true);
-      assert.equal(await figure.locator(".rm-paper-caption:visible").count(), width >= 992 ? 74 : 0);
-      assert.equal(await figure.locator(".rm-compact-label:visible").count(), width < 992 ? 148 : 0);
+      assert.equal(await figure.locator(".rm-paper-caption:visible").count(), width >= 992 ? 78 : 0);
+      assert.equal(await figure.locator(".rm-compact-label:visible").count(), width < 992 ? 156 : 0);
       assert.equal(await root.locator(".rm-legend").isVisible(), width < 992);
       assert.equal(await figure.evaluate((node) => node.getBoundingClientRect().height), figureHeight);
       assert.deepEqual(
@@ -190,7 +190,7 @@ const path = require("node:path");
     await idle();
     const after = await paper("kim2024local").locator(".rm-hit").boundingBox();
     assert.ok(Math.abs(before.y - after.y) < 1);
-    assert.equal(await figure.locator(".rm-connection-hit").count(), 88, "resizing does not bind duplicate targets");
+    assert.equal(await figure.locator(".rm-connection-hit").count(), 95, "resizing does not bind duplicate targets");
     // Check all native paper links and complete hover cards in the compact view.
     await page.setViewportSize({ width: 390, height: 1100 });
     for (const work of corpus) {
@@ -308,8 +308,8 @@ const path = require("node:path");
     // Native fallback uses exactly the same vertical figure and responsive labels.
     const noJs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 1100 } });
     await noJs.goto(url, { waitUntil: "networkidle" });
-    assert.equal(await noJs.locator(".rm-vertical .rm-static-paper").count(), 74);
-    assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 148);
+    assert.equal(await noJs.locator(".rm-vertical .rm-static-paper").count(), 78);
+    assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 156);
     assert.equal(await noJs.locator(".rm-paper-caption:visible").count(), 0);
     assert.equal(await noJs.locator(".rm-idea:not([hidden])").count(), 14);
     assert.ok(await noJs.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
@@ -317,7 +317,7 @@ const path = require("node:path");
     const staticLegend = await noJs.locator(".rm-legend").boundingBox();
     assert.ok(Math.abs(staticLegend.y + staticLegend.height - 1100) < 1, "sticky legend works without JavaScript");
     await noJs.setViewportSize({ width: 1280, height: 1100 });
-    assert.equal(await noJs.locator(".rm-vertical .rm-paper-caption:visible").count(), 74);
+    assert.equal(await noJs.locator(".rm-vertical .rm-paper-caption:visible").count(), 78);
     assert.equal(await noJs.locator(".rm-compact-label:visible").count(), 0);
     await noJs.close();
     const failed = await browser.newPage({ viewport: { width: 390, height: 1100 } });
@@ -325,10 +325,10 @@ const path = require("node:path");
     await failed.goto(url, { waitUntil: "networkidle" });
     assert.equal(await failed.locator(".rm-static").isVisible(), true);
     assert.equal(await failed.locator(".rm-load-status").innerText(), "Interactive map unavailable.");
-    assert.equal(await failed.locator(".rm-compact-label:visible").count(), 148);
+    assert.equal(await failed.locator(".rm-compact-label:visible").count(), 156);
     await failed.close();
     console.log(
-      "Research-map browser checks passed: vertical at every width, 992px label breakpoint, stable geometry, clear compact labels, all 74 paper links and abstract hovers, desktop leaders, persistent grey idea lines, keyboard/touch activation, light/dark, fast setup, and static/error fallback."
+      "Research-map browser checks passed: vertical at every width, 992px label breakpoint, stable geometry, clear compact labels, all 78 paper links and abstract hovers, desktop leaders, persistent grey idea lines, keyboard/touch activation, light/dark, fast setup, and static/error fallback."
     );
   } finally {
     await browser.close();

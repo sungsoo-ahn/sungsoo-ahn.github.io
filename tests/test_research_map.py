@@ -109,7 +109,7 @@ class ResearchMapTests(unittest.TestCase):
         overview = figures.find("div[@class='rm-vertical']")
         layout = map_module.timeline_layout(self.data, self.publications)
         stations = [node for node in overview.iter('a') if node.get('class') == 'rm-static-paper rm-themed']
-        self.assertEqual(len(stations), 74)
+        self.assertEqual(len(stations), 78)
         for station in stations:
             work = next(work for work in self.data['works'] if work['id'] == station.get('data-work'))
             self.assertEqual(station.get('href'), layout['paper_urls'][work['id']])
@@ -137,9 +137,9 @@ class ResearchMapTests(unittest.TestCase):
             edges = [node for node in route.iter('g') if node.get('class') == 'rm-connection']
             self.assertEqual([(node.get('data-from'), node.get('data-to')) for node in edges],
                              [(a['id'], b['id']) for a, b in zip(members, members[1:])])
-        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label rm-compact-label']), 74)
+        self.assertEqual(len([node for node in overview.iter('text') if node.get('class') == 'rm-work-label rm-compact-label']), 78)
         markers = [node for node in overview.iter() if node.get('class') == 'rm-station']
-        self.assertEqual(len(markers), 74)
+        self.assertEqual(len(markers), 78)
         self.assertTrue(all(node.tag == 'circle' and node.get('r') == '9' for node in markers))
         self.assertTrue(all(node.get('r') == '16' for node in overview.iter('circle') if node.get('class') == 'rm-hit'))
         self.assertNotIn('rm-timeline-axis', map_module.render_overview(self.data, self.publications))
@@ -158,10 +158,10 @@ class ResearchMapTests(unittest.TestCase):
         stations = list(vertical.iter('a'))
         icons = [node for node in stations if node.get('class') == 'rm-static-paper rm-themed']
         captions = [node for node in vertical.iter('div') if node.get('class') == 'rm-paper-caption rm-themed']
-        self.assertEqual(len(icons), 74)
-        self.assertEqual(len(captions), 74)
-        self.assertEqual(len(list(vertical.iter('text'))), 148)
-        self.assertEqual(len([node for node in vertical.iter('g') if node.get('class') == 'rm-connection']), 88)
+        self.assertEqual(len(icons), 78)
+        self.assertEqual(len(captions), 78)
+        self.assertEqual(len(list(vertical.iter('text'))), 156)
+        self.assertEqual(len([node for node in vertical.iter('g') if node.get('class') == 'rm-connection']), 95)
         for caption in captions:
             work = next(work for work in self.data['works'] if work['id'] == caption.get('data-work'))
             summary = caption.find("div[@class='rm-caption-summary']")
