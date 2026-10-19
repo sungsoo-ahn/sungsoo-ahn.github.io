@@ -32,7 +32,13 @@ Students are assessed individually based on:
 
 - The quality and consistency of their questions submitted before class.
 - Helpful answers to classmates' questions, which may earn additional participation points.
-- A final individual study note that explains and synthesizes selected course material.
+- A final individual study note, submitted as PDF slides, that makes an interesting topic in machine learning for molecular science easy to understand.
+
+## Final project
+
+Create a self-contained, visual study note grounded in the state of your topic as of October 2026, using papers or substantive startup developments from 2026. Aim for 15–25 slides, with at most four sentences per slide and plenty of explanatory figures. Ease of understanding is the main assessment criterion.
+
+See the [project requirements and suggested topics]({{ '/teaching/2026-fall-machine-learning-for-molecules/project/' | relative_url }}) for details. The deadline and submission channel will be announced separately.
 
 ## Teaching team
 
