@@ -25,6 +25,7 @@ You may explain a paper, study a startup, survey an open research question, or c
 - **Use at most four sentences per slide.** Keep headings, figure labels, and citations concise. Develop one main idea at a time, using additional slides when needed.
 - **Include plenty of explanatory figures.** Use diagrams, annotated plots, comparisons, and worked examples throughout the deck. Explain what readers should notice, label axes and unfamiliar symbols, and make text readable. Credit the sources of reused or adapted figures.
 - **Ground the study in October 2026.** Explain the state of your topic as of October 2026, anchored in papers or substantive startup developments from 2026. Papers include preprints; startup developments may include a technical release, study, or demonstrated milestone. An established startup qualifies; it does not need to have been founded in 2026. Identify and cite the dated work or development. Older sources may provide background.
+- **Focus on scientific questions and actual scientific impact.** State the scientific question and explain how the research changes what scientists can understand, test, or discover. Support the impact with concrete evidence, such as a new scientific insight, an experimentally validated discovery, or a capability that enables previously impractical experiments. Distinguish demonstrated impact from potential future benefits; if impact has yet to be demonstrated, explain what evidence is needed.
 - **Explain the evidence and its limits.** Distinguish demonstrated results, company claims, and open questions. Cite the sources of factual claims and include references readers can follow.
 
 This is an individual study-note project. Coding, original experiments, and a live presentation are not required. The deadline and submission channel will be announced separately.
@@ -36,7 +37,7 @@ Use the following sequence as a guide, adjusting the number of slides for each p
 1. **Motivating question:** What are we trying to understand, and why is it interesting?
 2. **Necessary background:** What concepts and terms does a classmate need before following the explanation?
 3. **Central idea and how it works:** What does the method or company do? Show the inputs, the main steps, and the outputs. For an open-question survey, explain what current approaches achieve and where they fall short.
-4. **Concrete example and evidence:** Walk through an example and explain the result. What does the evidence establish?
+4. **Concrete example and evidence:** Walk through an example and explain the result. What does the evidence establish, and how does it change scientific understanding or practice?
 5. **Limitations:** Where does the approach struggle, what remains untested, and what would convincing progress look like?
 6. **Takeaways and references:** What should a reader remember, and where can they learn more?
 
@@ -51,6 +52,7 @@ The study note will be assessed qualitatively on:
 - **Clarity:** The motivation is clear, unfamiliar terms are introduced, and each step follows naturally from the previous one.
 - **Correctness:** Scientific explanations are accurate, sources support the claims, and uncertainty is represented fairly.
 - **Completeness:** The deck supplies the background and reasoning needed to follow the chosen question, including the main evidence and limitations.
+- **Scientific impact:** The deck identifies a meaningful scientific question and critically explains the evidence for the research's impact, including what remains to be demonstrated.
 - **Effective figures:** Visuals carry part of the explanation, with readable labels and clear takeaways.
 - **Thoughtful synthesis:** The deck connects ideas and explains their significance in your own words.
 

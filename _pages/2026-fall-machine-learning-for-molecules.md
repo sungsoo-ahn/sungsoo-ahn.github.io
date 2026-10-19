@@ -36,7 +36,7 @@ Students are assessed individually based on:
 
 ## Final project
 
-Create a self-contained, visual study note grounded in the state of your topic as of October 2026, using papers or substantive startup developments from 2026. Aim for 15–25 slides, with at most four sentences per slide and plenty of explanatory figures. Ease of understanding is the main assessment criterion.
+Create a self-contained, visual study note grounded in the state of your topic as of October 2026, using papers or substantive startup developments from 2026. Center the study on a scientific question and explain the research's actual impact on what scientists can understand, test, or discover. Aim for 15–25 slides, with at most four sentences per slide and plenty of explanatory figures. Ease of understanding is the main assessment criterion.
 
 See the [project requirements and suggested topics]({{ '/teaching/2026-fall-machine-learning-for-molecules/project/' | relative_url }}) for details. The deadline and submission channel will be announced separately.
 
