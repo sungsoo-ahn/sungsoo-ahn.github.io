@@ -4,7 +4,7 @@
 # Legacy x/y and overview values are retained for compatibility; the map ignores them.
 # Relationships must cite both endpoints.
 schema_version: 1
-reviewed_on: '2026-10-03'
+reviewed_on: '2026-10-19'
 idea_window_years: 5
 contribution_categories:
 - id: generation
@@ -883,6 +883,272 @@ taxonomy:
   x: 120
   y: 675
 works:
+- id: woo2026pxrdbench
+  map_contribution: benchmarks
+  map_contribution_reason: Benchmarks crystal recovery from powder diffraction and introduces a diffraction-conditioned
+    generator.
+  publication_ids:
+  - woo2026pxrdbench
+  map_label: PXRD-Bench / Bragglite
+  label: PXRD-Bench / Bragglite
+  summary: Benchmarks crystal recovery from powder diffraction and introduces a diffraction-conditioned generator.
+  contribution: A unified benchmark tests experimental diffraction, unseen compositions and structural prototypes,
+    and two-phase recovery; Bragglite conditions a crystal diffusion Transformer on encoded diffraction peaks.
+  limitation: Element-set tasks still assume atom counts, mixtures contain two phases, and unseen prototypes and
+    experimental mixtures remain difficult.
+  evaluation: Simulated PXRD splits, experimental RRUFF and opXRD patterns, GALAXI mixtures, and controlled representation
+    and augmentation studies.
+  review_status: fulltext
+  sources:
+  - url: https://arxiv.org/html/2610.16480v1
+    label: arXiv 2610.16480v1
+    locator: Sections 3–5 and Appendix F
+    version: 2610.16480v1
+  memberships:
+  - theme: d_materials
+    role: central
+    source: 0
+    locator: 'Sections 3–5: crystal structure recovery'
+  - theme: m_benchmark
+    role: central
+    source: 0
+    locator: 'Section 3: benchmark design and generalization splits'
+  - theme: m_diffusion
+    role: used
+    source: 0
+    locator: 'Section 4 and Appendix C: Bragglite crystal diffusion Transformer'
+  - theme: c_benchmarking
+    role: central
+    source: 0
+    locator: 'Sections 3 and 5: controlled PXRD-to-structure evaluation'
+  - theme: c_conditioning
+    role: used
+    source: 0
+    locator: 'Section 4.1: peak encoding and in-context conditioning'
+  - theme: c_proxy_gap
+    role: central
+    source: 0
+    locator: 'Section 5.2: simulation-to-experiment transfer'
+  keywords:
+  - benchmarks_evaluation
+  - benchmarking
+  - crystal_structure_prediction
+  - materials_electronic_structure
+  - conditional_generation
+  - simulation_proxy_to_reality_gap
+  chronology:
+    date: '2026-10-12'
+    venue: arXiv
+    basis: arxiv_version
+    source: https://arxiv.org/abs/2610.16480v1
+    version: 2610.16480v1
+    author: Sungsoo Ahn
+    events:
+    - date: '2026-10-12'
+      venue: arXiv
+      basis: arxiv_version
+      source: https://arxiv.org/abs/2610.16480v1
+      version: 2610.16480v1
+      author: Sungsoo Ahn
+  map_secondary_contributions:
+  - generation
+- id: park2026code
+  map_contribution: representations
+  map_contribution_reason: Combines atomic coordinates and experimental electron density for protein-ligand representation
+    learning.
+  publication_ids:
+  - park2026code
+  map_label: CoDE
+  label: CoDE
+  summary: Combines atomic coordinates and experimental electron density for protein-ligand representation learning.
+  contribution: A channel-wise vision transformer reconstructs masked occupancy, density, and density-gradient channels
+    on a shared voxel grid, then transfers frozen representations to affinity regression and ligand generation.
+  limitation: Downstream tasks require a reference experimental density map; affinity experiments test complementary
+    information rather than establish a practical affinity predictor.
+  evaluation: Leakage-controlled LP-PDBBind affinity regression and pocket-conditioned ligand generation, with matched
+    coordinate-only controls and density-channel ablations.
+  review_status: fulltext
+  sources:
+  - url: https://arxiv.org/html/2610.14862v1
+    label: arXiv 2610.14862v1
+    locator: Sections 3–5
+    version: 2610.14862v1
+  memberships:
+  - theme: d_bio
+    role: central
+    source: 0
+    locator: 'Sections 3–4: protein binding-site representations'
+  - theme: d_molecules
+    role: central
+    source: 0
+    locator: 'Sections 4.1–4.2: binding affinity and ligand generation'
+  - theme: m_representation
+    role: central
+    source: 0
+    locator: 'Section 3: masked pre-training and frozen downstream transfer'
+  - theme: c_cross_modal
+    role: central
+    source: 0
+    locator: 'Section 3: joint coordinate and experimental-density channels'
+  - theme: c_uncertainty
+    role: used
+    source: 0
+    locator: 'Section 4.1: exploratory B-factor analysis'
+  keywords:
+  - representation_learning
+  - self_supervised_pretraining
+  - electron_density
+  - proteins_genomics
+  - molecules_drug_discovery
+  - cross_modal_learning
+  chronology:
+    date: '2026-10-10'
+    venue: arXiv
+    basis: arxiv_version
+    source: https://arxiv.org/abs/2610.14862v1
+    version: 2610.14862v1
+    author: Sungsoo Ahn
+    events:
+    - date: '2026-10-10'
+      venue: arXiv
+      basis: arxiv_version
+      source: https://arxiv.org/abs/2610.14862v1
+      version: 2610.14862v1
+      author: Sungsoo Ahn
+- id: jang2026soupfold
+  map_contribution: representations
+  map_contribution_reason: Combines pair representations from co-folding models to improve biomolecular structure
+    prediction.
+  publication_ids:
+  - jang2026soupfold
+  map_label: SoupFold
+  label: SoupFold
+  summary: Combines pair representations from co-folding models to improve biomolecular structure prediction.
+  contribution: Lightweight transfer networks map peer pair representations into an anchor model space; a weighted
+    average conditions the anchor diffusion module without retraining the co-folding models.
+  limitation: Inference requires representations from multiple co-folding models; results cover the evaluated models
+    and structural benchmarks.
+  evaluation: FoldBench protein-protein, antibody-antigen and protein-ligand tasks; MGBench, GPCR, CASP16 oligomers,
+    Runs N’ Poses, and ARK-AB, with sample-level ensemble and compute-budget comparisons.
+  review_status: fulltext
+  sources:
+  - url: https://arxiv.org/pdf/2609.15552v2
+    label: arXiv 2609.15552v2
+    locator: Sections 2–3
+    version: 2609.15552v2
+  memberships:
+  - theme: d_bio
+    role: central
+    source: 0
+    locator: 'Sections 2–3: biomolecular complexes and protein interfaces'
+  - theme: d_molecules
+    role: central
+    source: 0
+    locator: 'Section 3: protein-ligand and molecular-glue prediction'
+  - theme: m_representation
+    role: central
+    source: 0
+    locator: 'Section 2.3: representation transfer and ensembling'
+  - theme: m_diffusion
+    role: used
+    source: 0
+    locator: 'Sections 2.1 and 2.3: anchor diffusion module'
+  - theme: c_representation_alignment
+    role: central
+    source: 0
+    locator: 'Sections 2.2–2.3: common representation space'
+  - theme: c_information_routing
+    role: used
+    source: 0
+    locator: 'Section 2.3: incorporating peer representations into the anchor'
+  keywords:
+  - representation_learning
+  - representation_alignment
+  - proteinligand_co_folding
+  - proteins_genomics
+  - molecules_drug_discovery
+  - information_routing
+  chronology:
+    date: '2026-09-14'
+    venue: arXiv
+    basis: arxiv_version
+    source: https://arxiv.org/abs/2609.15552v1
+    version: 2609.15552v1
+    author: Sungsoo Ahn
+    events:
+    - date: '2026-09-14'
+      venue: arXiv
+      basis: arxiv_version
+      source: https://arxiv.org/abs/2609.15552v1
+      version: 2609.15552v1
+      author: Sungsoo Ahn
+- id: chertkov2025sampling
+  map_contribution: learning_inference
+  map_contribution_reason: Corrects sequential sampling with an exact path-space control law and physics-informed
+    priors.
+  publication_ids:
+  - chertkov2025sampling
+  map_label: Sampling Decisions
+  label: Sampling Decisions
+  summary: Corrects sequential sampling with an exact path-space control law and physics-informed priors.
+  contribution: A Doob h-transform gives the KL-optimal correction of a sequential prior; a consistent particle
+    approximation and a cancellation theorem identify prefix-dependent guidance as the useful information.
+  limitation: Population exactness does not imply tractability; particle budgets can grow rapidly with dimension,
+    and neural amortization remains future work.
+  evaluation: Exactly enumerable ferromagnetic Ising grids and a 10 × 10 grid with a long-run MCMC reference; effective
+    sample size, moments, and weight-collapse diagnostics.
+  review_status: fulltext
+  sources:
+  - url: https://arxiv.org/html/2503.14549v4
+    label: arXiv 2503.14549v4
+    locator: Sections III–VIII
+    version: 2503.14549v4
+  memberships:
+  - theme: d_graphical
+    role: central
+    source: 0
+    locator: 'Sections V–VII: binary graphical models and Ising sampling'
+  - theme: d_deep
+    role: central
+    source: 0
+    locator: 'Sections II–IV: general sequential generative sampling framework'
+  - theme: m_inference
+    role: central
+    source: 0
+    locator: 'Sections III–IV: exact path correction and finite-particle consistency'
+  - theme: c_importance_sampling
+    role: central
+    source: 0
+    locator: 'Section IV: finite path bank and importance weights'
+  - theme: c_physics_priors
+    role: central
+    source: 0
+    locator: 'Section VI: Local-Boltzmann guidance'
+  - theme: c_unnormalized
+    role: central
+    source: 0
+    locator: 'Sections II–III: prescribed Gibbs target'
+  keywords:
+  - probabilistic_inference
+  - general_learning_inference
+  - importance_sampling
+  - physics_informed_priors
+  - unnormalized_distributions
+  - ising
+  chronology:
+    date: '2025-03-17'
+    venue: arXiv
+    basis: arxiv_version
+    source: https://arxiv.org/abs/2503.14549v1
+    version: 2503.14549v1
+    author: Sungsoo Ahn
+    events:
+    - date: '2025-03-17'
+      venue: arXiv
+      basis: arxiv_version
+      source: https://arxiv.org/abs/2503.14549v1
+      version: 2503.14549v1
+      author: Sungsoo Ahn
 - id: kim2026atommof
   map_contribution: generation
   map_secondary_contributions: [search]
@@ -4130,6 +4396,10 @@ works:
   y: 383
   overview: false
 - id: jang2024pessimistic
+  map_layout:
+    y: 164
+    label_side: below
+    label_gap: 12
   map_contribution: search
   map_secondary_contributions: [generation]
   map_contribution_reason: Improves exploitation of high-reward objects through pessimistic backward-policy training.
