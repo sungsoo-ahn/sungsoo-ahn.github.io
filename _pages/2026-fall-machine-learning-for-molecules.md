@@ -18,7 +18,7 @@ This is a flipped, discussion-based course. Recorded lectures will be uploaded a
 
 Before class, students watch the assigned lecture and submit questions through a shared Google Sheet. Class time is devoted to addressing these questions, clarifying difficult concepts, and discussing the material rather than repeating the recorded lecture.
 
-**Q&A sheet:** <a href="https://docs.google.com/spreadsheets/d/1DZSqMOCoGtZdhiFGX8ltsY4i6BUaDoYBHIL0X1K3GFQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Open the shared question tracker</a>.
+**Q&A sheet:** <a href="https://docs.google.com/spreadsheets/d/1Ya-jFsx0z1SlzMyxBqt6IXXTcGd6nqSeWu2tfjp0ggU/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Open the shared question tracker</a>.
 
 Students may also answer questions submitted by their classmates. Helpful answers earn participation points; enter your name in the **Answered by** column to receive credit.
 
