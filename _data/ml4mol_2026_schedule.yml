@@ -246,17 +246,19 @@
         - label: "Noutahi et al., Virtual Cells (2025)"
           url: "https://arxiv.org/abs/2505.14613"
 - dates:
-    - date: "Dec. 7 (Mon)"
-      note: "TBA"
-    - date: "Dec. 9 (Wed)"
-      note: "TBA"
     - date: "Dec. 14 (Mon)"
       note: "Juno Nam, MIT"
       note_url: "https://junonam.com/"
+    - date: "Dec. 15 (Tue)"
+      note: "Sehui Han, LG AI Research (12:00–1:15 PM KST)"
     - date: "Dec. 16 (Wed)"
       note: "Minji Lee, Columbia University"
       note_url: "https://haewonc.github.io/"
+    - date: "Dec. 18 (Fri)"
+      note: "Joon-Yong An, Korea University (12:00–1:15 PM KST)"
+      note_url: "https://joonanlab.github.io/team/joonan.html"
   topic: Invited Talks
+  perspective: The Dec. 15 and 18 talks follow Korea University's class schedule.
   focus:
     - subtopic: Juno Nam, MIT
       url: "https://junonam.com/"
