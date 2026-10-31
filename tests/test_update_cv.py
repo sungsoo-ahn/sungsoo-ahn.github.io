@@ -259,7 +259,7 @@ class UpdateCvTest(unittest.TestCase):
         self.assertNotIn("{[OpenReview]}", rendered)
         self.assertNotIn("{[PMLR]}", rendered)
         self.assertNotIn("{[NeurIPS]}", rendered)
-        self.assertIn("{[arXiv]}", rendered)
+        self.assertNotIn("{[arXiv]}", rendered)
         self.assertIn("{[code]}", rendered)
         self.assertIn("{[project]}", rendered)
         self.assertIn("{[dataset]}", rendered)
@@ -267,8 +267,10 @@ class UpdateCvTest(unittest.TestCase):
         latent_veracity = next(
             line for line in rendered.splitlines() if "Latent Veracity Inference" in line
         )
-        for label in ("paper", "arXiv", "code"):
+        for label in ("paper", "code"):
             self.assertIn(f"{{[{label}]}}", latent_veracity)
+        self.assertEqual(latent_veracity.count("{[paper]}"), 1)
+        self.assertIn("https://arxiv.org/abs/", latent_veracity)
 
 
 if __name__ == "__main__":

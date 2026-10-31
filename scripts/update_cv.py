@@ -198,13 +198,10 @@ def format_links(entry: dict) -> str:
     """Format every available publication link with a consistent type label."""
     links: list[str] = []
 
-    official = str(entry.get("html", "")).strip()
-    if official:
-        links.append(rf"\href{{{tex_escape(official)}}}{{[paper]}}")
-
     arxiv = str(entry.get("arxiv", "")).strip()
-    if arxiv:
-        links.append(rf"\href{{https://arxiv.org/abs/{arxiv}}}{{[arXiv]}}")
+    paper = f"https://arxiv.org/abs/{arxiv}" if arxiv else str(entry.get("html", "")).strip()
+    if paper:
+        links.append(rf"\href{{{tex_escape(paper)}}}{{[paper]}}")
 
     for field in ("code", "code2"):
         url = str(entry.get(field, "")).strip()
