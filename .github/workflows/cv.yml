@@ -54,7 +54,8 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    # Ruby 3.3.5 is available on 24.04, but not the newer ubuntu-latest image.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
