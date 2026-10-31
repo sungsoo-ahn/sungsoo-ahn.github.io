@@ -2346,6 +2346,8 @@ article {
   li > b:first-child,
   li > p:first-child > strong:first-child,
   li > p:first-child > b:first-child,
+  p > strong:first-child,
+  p > b:first-child,
   summary > strong:first-child,
   summary > b:first-child,
   figcaption > strong:first-child,
