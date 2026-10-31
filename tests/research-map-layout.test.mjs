@@ -15,7 +15,7 @@ const geometry = (value) => value.lanes.map((lane) => [lane.id, lane.stations.ma
 
 test("vertical chronology places every paper once with clear alternating captions", () => {
   assert.equal(vertical.width, 300);
-  assert.equal(vertical.stations.length, 78);
+  assert.equal(vertical.stations.length, 79);
   assert.ok(vertical.height / data.works.length < 68, "margin captions keep average paper spacing compact as the corpus grows");
   const previous = new Map();
   for (const [index, station] of vertical.stations.entries()) {
@@ -105,13 +105,13 @@ test("selected idea routes keep station geometry and avoid unrelated papers and 
   }
 });
 
-test("full corpus uses 78 shared stations and eight distinct chronological routes", () => {
-  assert.equal(data.works.length, 78);
+test("full corpus uses 79 shared stations and eight distinct chronological routes", () => {
+  assert.equal(data.works.length, 79);
   assert.equal(layout.rows.length, 8);
   assert.equal(layout.height, 300);
   assert.ok(layout.width < 4033, "shared stations and flexible paths reduce the previous track width");
-  assert.equal(layout.stationByInstance.size, 78);
-  assert.equal(new Set(layout.stations.map((station) => station.work.id)).size, 78);
+  assert.equal(layout.stationByInstance.size, 79);
+  assert.equal(new Set(layout.stations.map((station) => station.work.id)).size, 79);
   assert.equal(layout.rows.find((row) => row.theme.id === "d_deep").stations.length, 30);
   assert.equal(layout.rows.find((row) => row.theme.id === "d_graphical").stations.length, 7);
   for (const removed of ["d_control", "d_graphs", "d_language", "d_general"]) assert.ok(!data.themeById.has(removed));
@@ -253,7 +253,7 @@ test("panning exposes every work including older publications, keeps figure heig
         lane.visibleStations.forEach((station) => seen.add(station.work.id));
       }
     }
-    assert.equal(seen.size, 78);
+    assert.equal(seen.size, 79);
     assert.deepEqual(
       layout.rows.flatMap((row) => row.connections.map((edge) => edge.id)),
       originalRoutes
@@ -299,7 +299,7 @@ test("every paper links directly to a recorded source and keeps secondary contri
     assert.equal(categories[0].id, work.map_contribution);
     assert.equal(new Set(categories.map((category) => category.id)).size, categories.length);
   }
-  assert.deepEqual(fallbacks.sort(), ["BEAG", "DND", "DRIMA", "HoliMol", "STGG", "Wave-GD"].sort());
+  assert.deepEqual(fallbacks.sort(), ["BEAG", "DND", "DRIMA", "HoliMol", "K-Fold", "STGG", "Wave-GD"].sort());
   const mask = data.workById.get("seong2026discovering");
   assert.deepEqual(
     model.contributionsFor(mask, data).map((category) => category.id),

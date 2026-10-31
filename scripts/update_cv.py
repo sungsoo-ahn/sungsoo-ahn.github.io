@@ -190,7 +190,8 @@ def format_venue_journal(entry: dict) -> str:
 
 def format_venue_preprint(entry: dict) -> str:
     """Format venue string for a preprint entry."""
-    return r"\textit{arXiv}"
+    venue = entry.get("cv_venue", entry.get("venue", "arXiv"))
+    return rf"\textit{{{tex_escape_plain(venue)}}}"
 
 
 def format_links(entry: dict) -> str:
@@ -257,7 +258,7 @@ def build_publications() -> tuple[str, tuple[int, int, int]]:
     preprints = [
         entry
         for entry in entries
-        if entry.get("type") == "preprint" and str(entry.get("arxiv", "")).strip()
+        if entry.get("type") == "preprint"
     ]
 
     conferences.sort(key=sort_key)

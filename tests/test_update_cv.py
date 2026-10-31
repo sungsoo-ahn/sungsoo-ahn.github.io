@@ -11,7 +11,7 @@ def generated_output() -> str:
     preprints = [
         e
         for e in entries
-        if e["type"] == "preprint" and str(e.get("arxiv", "")).strip()
+        if e["type"] == "preprint"
     ]
     conferences.sort(key=update_cv.sort_key)
     journals.sort(key=update_cv.sort_key)
@@ -156,13 +156,23 @@ class UpdateCvTest(unittest.TestCase):
         preprints = [
             e
             for e in entries
-            if e["type"] == "preprint" and str(e.get("arxiv", "")).strip()
+            if e["type"] == "preprint"
         ]
         icml_2026 = [
             e for e in conferences if update_cv.get_abbr(e) == "ICML" and e["year"] == 2026
         ]
-        self.assertEqual((len(conferences), len(journals), len(preprints)), (62, 6, 12))
+        self.assertEqual((len(conferences), len(journals), len(preprints)), (62, 6, 13))
         self.assertEqual(len(icml_2026), 6)
+
+    def test_biorxiv_preprint_is_included_with_its_venue_and_link(self):
+        rendered, _ = update_cv.build_publications()
+        preprints = rendered.split(r"\textsc{Preprints}", 1)[1]
+        entry = next(line for line in preprints.splitlines() if "Predicting conformational changes" in line)
+        self.assertIn(r"\textit{bioRxiv}", entry)
+        self.assertIn("https://www.biorxiv.org/content/10.64898/2026.10.26.760299v1", entry)
+        self.assertIn(r"\me{Sungsoo Ahn}", entry)
+        self.assertNotIn("arXiv", entry)
+        self.assertLess(preprints.index("Predicting conformational changes"), preprints.index("PXRD-Bench"))
 
     def test_conferences_use_reverse_chronological_order(self):
         entries = update_cv.load_publications()

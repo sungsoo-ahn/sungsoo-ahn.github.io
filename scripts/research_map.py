@@ -136,7 +136,7 @@ def validate(data, publications, pool):
                 valid_date = False
         require(valid_date, f'{key}: chronology needs a valid ISO date or month')
         basis = chronology.get('basis')
-        require(basis in {'conference_notification', 'arxiv_version', 'journal_month'}, f'{key}: invalid chronology basis')
+        require(basis in {'conference_notification', 'arxiv_version', 'biorxiv_version', 'journal_month'}, f'{key}: invalid chronology basis')
         require(not valid_date or len(date) == (7 if basis == 'journal_month' else 10), f'{key}: chronology precision must match its basis')
         source = chronology.get('source')
         require(isinstance(source, str) and source.startswith('https://') and 'openreview.net' not in source,
@@ -156,7 +156,7 @@ def validate(data, publications, pool):
                 verified_events.append(event)
             except (TypeError, ValueError):
                 errors.append(f'{key}: event needs a valid ISO date or month')
-            require(event_basis in {'conference_notification', 'arxiv_version', 'journal_month'},
+            require(event_basis in {'conference_notification', 'arxiv_version', 'biorxiv_version', 'journal_month'},
                     f'{key}: invalid event basis')
             require(isinstance(event_source, str) and event_source.startswith('https://') and 'openreview.net' not in event_source,
                     f'{key}: event needs an HTTPS source outside OpenReview')
@@ -166,6 +166,12 @@ def validate(data, publications, pool):
                         f'{key}: arXiv chronology must pin the eligible author version')
                 require(event.get('author') == 'Sungsoo Ahn', f'{key}: arXiv chronology must verify authorship')
                 require(event_source == f'https://arxiv.org/abs/{version}', f'{key}: arXiv event source must match its version')
+            if event_basis == 'biorxiv_version':
+                version = event.get('version')
+                require(isinstance(version, str) and bool(re.fullmatch(r'10\.\d{4,9}/\d{4}\.\d{2}\.\d{2}\.\d+v[1-9]\d*', version)),
+                        f'{key}: bioRxiv chronology must pin a version')
+                require(event.get('author') == 'Sungsoo Ahn', f'{key}: bioRxiv chronology must verify authorship')
+                require(event_source == f'https://www.biorxiv.org/content/{version}', f'{key}: bioRxiv event source must match its version')
         if verified_events:
             earliest = min(verified_events, key=lambda event: (event['date'] + '-01' if len(event['date']) == 7 else event['date'], event['basis']))
             require(all(chronology.get(field) == earliest.get(field) for field in ('date', 'venue', 'basis', 'source', 'version', 'author')),
