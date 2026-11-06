@@ -114,8 +114,6 @@
     - date: "Oct. 28 (Wed)"
     - date: "Nov. 2 (Mon)"
     - date: "Nov. 4 (Wed)"
-    - date: "Nov. 9 (Mon)"
-    - date: "Nov. 11 (Wed)"
   topic: Generative Models
   focus:
     - subtopic: Probabilistic modeling and continuous normalizing flows
@@ -171,6 +169,8 @@
           url: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/e8bd617e7dd0394ceadf37b4a7773179-Abstract-Conference.html"
 
 - dates:
+    - date: "Nov. 9 (Mon)"
+    - date: "Nov. 11 (Wed)"
     - date: "Nov. 16 (Mon)"
     - date: "Nov. 18 (Wed)"
     - date: "Nov. 23 (Mon)"
